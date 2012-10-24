@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>한양대학교회</title>
+<script language="javascript" type="text/javascript">
+// 팝업 자바스크립트
+function getCookie( name ){
+	var nameOfCookie = name + "=";
+	var x = 0;
+	while ( x <= document.cookie.length )
+	{
+		var y = (x+nameOfCookie.length);
+		if ( document.cookie.substring( x, y ) == nameOfCookie ) {
+			if ( (endOfCookie=document.cookie.indexOf( ";", y )) == -1 )
+			endOfCookie = document.cookie.length;
+			return unescape( document.cookie.substring( y, endOfCookie ) );
+		}
+		x = document.cookie.indexOf( " ", x ) + 1;
+		if ( x == 0 ) break;
+	}
+	return "";
+}
+var w = 0;
+</script>
+
+</head>
+<frameset rows="*, 0" cols="*" frameborder="NO" border="0" framespacing="0">
+	<frame src="http://hyuchurch.com/main/main.html" id="mainFrame" name="mainFrame" scrolling="YES" noresize />
+	<frame src="" id="bgmFrame" name="bgmFrame" value="nothing" scrolling="NO" noresize />	
+	<noframes>
+		<body>
+		</body>
+	</noframes>
+</frameset>
+</html>

@@ -1,0 +1,3593 @@
+4.36.06 (2012.10.12)
+    :   [º¸¾È] XSS Ãë¾àÁ¡ º¸¿Ï (unsecurity ±è°­¼·´Ô²²¼­ ÇÑ±¹ÀÎÅÍ³İÁøÈï¿øÀ» ÅëÇÏ¿© ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)
+
+        lib/common.lib.php 
+
+        // ÀÌ·± °æ¿ì¸¦ ¹æÁöÇÔ <IMG STYLE="xss:expr/*XSS*/ession(alert('XSS'))">
+        //$content = preg_replace("#\/\*.*\*\/#iU", "", $content);
+        // À§ÀÇ Á¤±Ô½ÄÀÌ ¾Æ·¡¿Í °°Àº ³»¿ëÀ» Åë°ú½ÃÅ°¹Ç·Î not greedy(ºñÅ½¿å¼ö·®ÀÚ?) ¿É¼ÇÀ» Á¦°ÅÇÔ. ignore case ¿É¼Çµµ ÇÊ¿ä ¾øÀ¸¹Ç·Î Á¦°Å
+        // <IMG STYLE="xss:ex//*XSS*/**/pression(alert('XSS'))"></IMG>
+        $content = preg_replace("#\/\*.*\*\/#", "", $content);
+
+4.36.05 (2012.09.24)
+    :   ¿ìÆí¹øÈ£ 2012.07.13.ÀÚ ¹İ¿µ 52,017°Ç
+
+        bbs/zip.db 
+
+4.36.04 (2012.08.22)
+    :   ÇÃ·¡½Ã ÇÃ·¹ÀÌ¾î ¾÷±×·¹ÀÌµå·Î ÀÎÇÑ ¿¡µğÅÍ ÆÄÀÏ¾÷·Îµå¿¡ ¹®Á¦°¡ »ı°Ü cheditor 5.04 ¿¡¼­ cheditor 5.09.2 ·Î ¾÷µ¥ÀÌÆ® ÇÕ´Ï´Ù.
+    :   4.36.03 ¿¡¼­ Ãß°¡µÈ CHARSET °ü·Ã ÆĞÄ¡¸¦ Á¦°ÅÇÕ´Ï´Ù. ÀÏºÎ ÆäÀÌÁöµé°úÀÇ È£È¯¼º¿¡¼­ ¹®Á¦°¡ ÀÖ¾ú½À´Ï´Ù.
+
+        cheidtor5/*
+
+        common.php ¿¡
+
+            header("Content-Type: text/html; charset={$g4['charset']}"); ¸¦ Á¦°ÅÇß½À´Ï´Ù.
+
+4.36.03 (2012.07.20)
+    :   [º¸¾È] ºñÈ¸¿ø ±Û¾²±â¿¡¼­ ´Ù¸¥ »ç¶÷ÀÇ ±Û¿¡ ¼öÁ¤ÇÒ¼ö ÀÖ´Â ¿À·ù°¡ ÀÖ¾î ¼öÁ¤ (ÀÌÁØÈ£´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)
+    :   °ø¹é ºñ±³ ÄÚµå ¿À·ù·Î ÀÎÇÑ ¼öÁ¤ (letsgolee´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)
+    :   CHARSET °íÁ¤ - »ó,ÇÏ´Ü ·¹ÀÌ¾Æ¿ôÀ» »ç¿ëÇÏÁö ¾Ê´Â °æ¿ì °æ°íÃ¢µîÀÌ ±úÁö´Â °æ¿ì¸¦ ¹æÁö (°ö½½ÃÖ¾¾´Ô²²¼­ Á¦¾ÈÇØ ÁÖ¼Ì½À´Ï´Ù.)
+
+        bbs/write.php
+
+            set_session('ss_bo_table', $_REQUEST['bo_table']);
+            set_session('ss_wr_id', $_REQUEST['wr_id']);
+
+        bbs/write_update.php
+
+            if (get_session('ss_bo_table') != $_POST['bo_table'] || get_session('ss_wr_id') != $_POST['wr_id']) {
+                alert('¿Ã¹Ù¸¥ ¹æ¹ıÀ¸·Î ¼öÁ¤ÇÏ¿© ÁÖ½Ê½Ã¿À.');
+            }
+        
+        lib/common.lib.php ÀÇ check_string() ÇÔ¼öÁß
+        
+            else if ($oc >= 0x20) { ¸¦
+            else if ($oc == 0x20) { ¿Í °°ÀÌ ¼öÁ¤Çß½À´Ï´Ù.
+
+        common.php ¿¡
+
+            header("Content-Type: text/html; charset={$g4['charset']}"); ¸¦ Ãß°¡Çß½À´Ï´Ù.
+
+4.36.02 (2012.06.27)
+    :   ÇÃ·¡½ÃÀÇ ¾×¼Ç½ºÅ©¸³Æ®¿Í ÀÚ¹Ù½ºÅ©¸³Æ®ÀÇ ¿¬µ¿À» Â÷´ÜÇÏ¿© ¾ÇÀÇÀûÀÎ »çÀÌÆ®·ÎÀÇ ÀÌµ¿À» ¸·´Â´Ù. (i2sec ±èÁØ±Ô´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)
+        value="always" ¸¦ value="never" ·Î, allowScriptaccess="always" ¸¦ allowScriptaccess="never" ·Î º¯È¯ÇÏ´Âµ¥ ¸ñÀûÀÌ ÀÖ´Ù.
+    :   4.36.01 ÀÇ ÄÚµå¿¡ ¿À·ù°¡ ÀÖ¾î ¼öÁ¤Çß½À´Ï´Ù.
+
+        lib/common.lib.php ÀÇ ¾Æ·¡ ÄÚµå¸¦ ¼öÁ¤ ¹× Ãß°¡ÇÏ½Ê½Ã¿À.
+
+            $content = preg_replace_callback("#<([^>]+)#", create_function('$m', 'return "<".str_replace("<", "&lt;", $m[1]);'), $content);
+            $content = preg_replace("/\<(\w|\s|\?)*(xml)/i", "", $content);
+
+            // ÇÃ·¡½ÃÀÇ ¾×¼Ç½ºÅ©¸³Æ®¿Í ÀÚ¹Ù½ºÅ©¸³Æ®ÀÇ ¿¬µ¿À» Â÷´ÜÇÏ¿© ¾ÇÀÇÀûÀÎ »çÀÌÆ®·ÎÀÇ ÀÌµ¿À» ¸·´Â´Ù.
+            // value="always" ¸¦ value="never" ·Î, allowScriptaccess="always" ¸¦ allowScriptaccess="never" ·Î º¯È¯ÇÏ´Âµ¥ ¸ñÀûÀÌ ÀÖ´Ù.
+            $content = preg_replace("/((?<=\<param|\<embed)[^>]+)(\s*=\s*[\'\"]?)always([\'\"]?)([^>]+(?=\>))/i", "$1$2never$3$4", $content);
+
+4.36.01 (2012.06.26)
+    :   XSS Ãë¾àÁ¡ ¼öÁ¤ º¸¿Ï (i2sec °­¿ì¼®´Ô²²¼­ ¿øÀÎ°ú ÇØ°áÃ¥À» ¸ğµÎ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)
+        ±âÁ¸ÄÚµå¿¡ ÇêÁ¡ÀÌ ÀÖ¾î ÄÚµå¸¦ ¼öÁ¤ º¸¿Ï ÇÏ¿´½À´Ï´Ù.
+            
+        lib/common.lib.php ÀÇ conv_content() ÇÔ¼ö¿¡ ¾Æ·¡¿Í °°ÀÌ ÇÑÁÙ Ãß°¡ ÇÏ¿´½À´Ï´Ù.
+
+            $content = preg_replace_callback("#<([^>]+)#", create_function('$m', 'return "<".htmlspecialchars($m[1], ENT_NOQUOTES);'), $content);
+
+4.36.00 (2012.06.21)
+    :   DB SESSION ÀÇ MySQL °úºÎÇÏ·Î ÀÎÇÏ¿© ±âÁ¸ÀÇ FILE SESSION À¸·Î µÇµ¹¸²
+
+
+        data/session µğ·ºÅä¸®¸¦ »ı¼ºÇÏ½Å ÈÄ 
+        chmod 777 data/session ¸í·ÉÀ¸·Î ¼¼¼Çµ¥ÀÌÅÍ ¾²±â°¡ °¡´ÉÇÏµµ·Ï ÆÛ¹Ì¼ÇÀ» º¯°æÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.
+
+
+        data/session µğ·ºÅä¸®¿¡ deny from all °ú °°Àº ³»¿ëÀ¸·Î .htaccess ÆÄÀÏÀ» »ı¼ºÇÏ½Ê½Ã¿À.
+
+
+        common.php ¸¦ ¾Æ·¡¿Í °°ÀÌ ¼öÁ¤ÇÏ½Ê½Ã¿À.
+
+            //-------------------------------------------
+            // SESSION ¼³Á¤
+            //-------------------------------------------
+            ini_set("session.use_trans_sid", 0);    // PHPSESSID¸¦ ÀÚµ¿À¸·Î ³Ñ±âÁö ¾ÊÀ½
+            ini_set("url_rewriter.tags",""); // ¸µÅ©¿¡ PHPSESSID°¡ µû¶ó´Ù´Ï´Â°ÍÀ» ¹«·ÂÈ­ÇÔ (ÇØ¶ã³è´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+
+            session_save_path("{$g4['path']}/data/session");
+
+            if (isset($SESSION_CACHE_LIMITER))
+                @session_cache_limiter($SESSION_CACHE_LIMITER);
+            else
+                @session_cache_limiter("no-cache, must-revalidate");
+
+            //==============================================================================
+            // °ø¿ë º¯¼ö
+            //==============================================================================
+            // ±âº»È¯°æ¼³Á¤
+            // ±âº»ÀûÀ¸·Î »ç¿ëÇÏ´Â ÇÊµå¸¸ ¾òÀº ÈÄ »óÈ²¿¡ µû¶ó ÇÊµå¸¦ Ãß°¡·Î ¾òÀ½
+            $config = sql_fetch(" select * from $g4[config_table] ");
+
+            ini_set("session.cache_expire", 180); // ¼¼¼Ç Ä³½¬ º¸°ü½Ã°£ (ºĞ)
+            ini_set("session.gc_maxlifetime", 10800); // session dataÀÇ garbage collection Á¸Àç ±â°£À» ÁöÁ¤ (ÃÊ)
+            ini_set("session.gc_probability", 1); // session.gc_probability´Â session.gc_divisor¿Í ¿¬°èÇÏ¿© gc(¾²·¹±â ¼ö°Å) ·çÆ¾ÀÇ ½ÃÀÛ È®·üÀ» °ü¸®ÇÕ´Ï´Ù. ±âº»°ªÀº 1ÀÔ´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº session.gc_divisor¸¦ Âü°íÇÏ½Ê½Ã¿À.
+            ini_set("session.gc_divisor", 100); // session.gc_divisor´Â session.gc_probability¿Í °áÇÕÇÏ¿© °¢ ¼¼¼Ç ÃÊ±âÈ­ ½Ã¿¡ gc(¾²·¹±â ¼ö°Å) ÇÁ·Î¼¼½º¸¦ ½ÃÀÛÇÒ È®·üÀ» Á¤ÀÇÇÕ´Ï´Ù. È®·üÀº gc_probability/gc_divisor¸¦ »ç¿ëÇÏ¿© °è»êÇÕ´Ï´Ù. Áï, 1/100Àº °¢ ¿äÃ»½Ã¿¡ GC ÇÁ·Î¼¼½º¸¦ ½ÃÀÛÇÒ È®·üÀÌ 1%ÀÔ´Ï´Ù. session.gc_divisorÀÇ ±âº»°ªÀº 100ÀÔ´Ï´Ù.
+
+            session_set_cookie_params(0, "/");
+            ini_set("session.cookie_domain", $g4['cookie_domain']);
+
+            @session_start();
+
+4.35.02 (2012.06.15)
+    :   4.35.01 ÀÇ ¼¼¼ÇÅ×ÀÌºí »ı¼ºÇÒ¶§ utf-8 »ç¿ë½Ã ¼¼¼ÇÅ×ÀÌºíÀ» utf8 ·Î »ı¼º (³»ÀÏÀ»À§ÇÏ¿© ´ÔÀÌ ¾Ë·ÁÁÖ½Ã°í ¸ğ¹ÙÀÏ´ÔÀÌ ÇØ°áÇØ ÁÖ¼Ì½À´Ï´Ù.)
+        
+        lib/dbsession.lib.php ¿¡ Ãß°¡ÇÏ¼¼¿ä.
+
+            if (strtolower($g4['charset']) == 'utf-8') {
+                $sql .= " DEFAULT CHARSET=utf8 ";
+            }
+
+4.35.01 (2012.06.13)
+    :   4.35.00 ¿¡¼­ cookie_domain ÀÇ ¼³Á¤µîÀÌ ´©¶ôµÇ¾î ¼­ºêµµ¸ŞÀÎ°£ÀÇ ¼¼¼Ç °øÀ¯°¡ µÇÁö ¾Ê´ø ¿À·ù¸¦ ¼öÁ¤ (cosy´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+    :   ¼¼¼Ç µ¥ÀÌÅÍÀÇ À¯Áö½Ã°£ÀÌ ±âº» 1440ÃÊ(24ºĞ)À¸·Î Âª¾Æ 10800ÃÊ(3½Ã°£) µ¿¾È À¯ÁöµÇµµ·Ï ¼öÁ¤
+    :   ¼¼¼Ç Å×ÀÌºí »ı¼º½Ã ³¯Â¥½Ã°£¿¡ ÀÎµ¦½º¸¦ Ãß°¡
+
+        common.php ¸¦ ¾Æ·¡¿Í °°ÀÌ ¼öÁ¤ÇÏ¼¼¿ä.
+
+            //-------------------------------------------
+            // SESSION ¼³Á¤
+            //-------------------------------------------
+            include_once("$g4[path]/lib/dbsession.lib.php");
+            $session = new g4_dbsession();
+            session_set_save_handler(array($session, 'open'), 
+                                     array($session, 'close'),
+                                     array($session, 'read'),
+                                     array($session, 'write'),
+                                     array($session, 'destroy'),
+                                     array($session, 'gc'));
+
+            session_set_cookie_params(0, "/");
+            ini_set("session.cookie_domain", $g4['cookie_domain']);
+            ini_set("session.cache_expire", 180); // ¼¼¼Ç Ä³½¬ º¸°ü½Ã°£ (ºĞ) 180ºĞ == 3½Ã°£
+            ini_set("session.gc_maxlifetime", 10800); // session dataÀÇ garbage collection Á¸Àç ±â°£À» ÁöÁ¤ (ÃÊ) 10800ÃÊ == 3½Ã°£
+            ini_set("session.use_trans_sid", 0);    // PHPSESSID¸¦ ÀÚµ¿À¸·Î ³Ñ±âÁö ¾ÊÀ½
+            ini_set("url_rewriter.tags",""); // ¸µÅ©¿¡ PHPSESSID°¡ µû¶ó´Ù´Ï´Â°ÍÀ» ¹«·ÂÈ­ÇÔ (ÇØ¶ã³è´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+
+            if (isset($SESSION_CACHE_LIMITER))
+                @session_cache_limiter($SESSION_CACHE_LIMITER);
+            else
+                @session_cache_limiter("no-cache, must-revalidate");
+
+            @session_start();
+            //-------------------------------------------
+
+        lib/dbsession.lib.php ¸¦ ¾Æ·¡¿Í °°ÀÌ ¼öÁ¤ÇÏ¼¼¿ä.
+
+            $sql = " CREATE TABLE `$g4[session_table]` (`ss_id` CHAR(32) NOT NULL, `ss_data` TEXT NOT NULL, `ss_datetime` DATETIME NOT NULL, PRIMARY KEY (`ss_id`), KEY `ss_datetime` (`ss_datetime`)) ENGINE = MYISAM ";
+     
+4.35.00 (2012.06.12)
+    :   SESSION Data °¡ ³ëÃâµÇÁö ¾Êµµ·Ï DB SESSION »ç¿ë (HSEngine ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)
+    :   $_SERVER['PHP_SELF'] º¯¼ö¸¦ »ç¿ëÇÑ XSS Ãë¾àÁ¡ ¼öÁ¤
+
+        lib/dbsession.lib.php ÆÄÀÏ Ãß°¡
+
+        config.php ÆÄÀÏ¿¡ Ãß°¡ÇÏ¼¼¿ä.
+
+            $g4['session_table']       = $g4['table_prefix'] . "session";       // ¼¼¼Ç Å×ÀÌºí
+
+        common.php ÆÄÀÏ¿¡¼­
+
+            SESSION °ü·Ã ÄÚµå¸¦ ¸ğµÎ »èÁ¦ÇÏ½Å ÈÄ ¾Æ·¡ ÄÚµå·Î ´ëÃ¼ÇÏ¼¼¿ä.
+
+            //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+            $_SERVER['PHP_SELF'] = htmlentities($_SERVER['PHP_SELF']);
+
+            //-------------------------------------------
+            // SESSION ¼³Á¤
+            //-------------------------------------------
+            include_once("$g4[path]/lib/dbsession.lib.php");
+            $session = new g4_dbsession();
+            session_set_save_handler(array($session, 'open'), 
+                                     array($session, 'close'),
+                                     array($session, 'read'),
+                                     array($session, 'write'),
+                                     array($session, 'destroy'),
+                                     array($session, 'gc'));
+
+            ini_set("session.use_trans_sid", 0);    // PHPSESSID¸¦ ÀÚµ¿À¸·Î ³Ñ±âÁö ¾ÊÀ½
+            ini_set("url_rewriter.tags",""); // ¸µÅ©¿¡ PHPSESSID°¡ µû¶ó´Ù´Ï´Â°ÍÀ» ¹«·ÂÈ­ÇÔ (ÇØ¶ã³è´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+
+            if (isset($SESSION_CACHE_LIMITER))
+                @session_cache_limiter($SESSION_CACHE_LIMITER);
+            else
+                @session_cache_limiter("no-cache, must-revalidate");
+
+            @session_start();
+            //-------------------------------------------
+            //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+4.34.30 (2012.05.29)
+    :   4.34.28 ÀÇ °Ë»ö ±¸¹® ¼öÁ¤ÈÄ °Ô½ÃÆÇ¿¡¼­ ºĞ·ù °Ë»öÀÌ µÇÁö ¾Ê´Â°ÍÀ» ¼öÁ¤
+
+        lib/common.lib.php ÀÇ get_sql_search() ÇÔ¼ö°¡ ¼öÁ¤ µÇ¾ú½À´Ï´Ù.
+
+4.34.29 (2012.05.27)
+    :   4.34.28 ÆĞÄ¡¿¡¼­ embed ÅÂ±×Áß allowscriptaccess ÄÚµå¸¦ script ·Î ÀÎ½ÄÇÏ¿© µ¿¿µ»ó ÀÛµ¿ÀÌ ¾ÈµÇ´Â°ÍÀ» ¼öÁ¤
+
+        lib/common.lib.php ÀÇ bad120422() ÇÔ¼ö°¡ ¼öÁ¤ µÇ¾ú½À´Ï´Ù.
+
+            function bad120422($matches)
+            {
+                $tag  = $matches[1];
+                $code = $matches[2];
+                if (preg_match("#\bscript\b#i", $code)) {
+                    return "$tag ÅÂ±×¿¡ ½ºÅ©¸³Æ®´Â »ç¿ë ºÒ°¡ÇÕ´Ï´Ù.";
+                } else if (preg_match("#\bbase64\b#i", $code)) {
+                    return "$tag ÅÂ±×¿¡ BASE64´Â »ç¿ë ºÒ°¡ÇÕ´Ï´Ù.";
+                }
+                return $matches[0];
+            }
+
+4.34.28 (2012.05.24)
+    :   °Ô½ÃÆÇ °Ë»ö½Ã °Ë»ö¾î¿¡ ÅÂ±×°¡ µé¾î°¡´Â °æ¿ì Äõ¸® ¿¡·¯°¡ ³ª´Â°ÍÀ» ¼öÁ¤ (°ö½½ÃÖ¾¾´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)
+        get_sql_search() ÇÔ¼ö ¼öÁ¤
+    :   [º¸¾ÈÆĞÄ¡] XSS Ãë¾àÁ¡ ¿À·ù ¼öÁ¤ (i2sec ÇÏµ¿¹Î´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)
+        conv_content(), bad120422() ÇÔ¼ö ¼öÁ¤
+
+        lib/common.lib.php
+
+4.34.27 (2012.05.22)
+    :   [º¸¾ÈÆĞÄ¡] SQL Injection °ø°İ Ãë¾àÁ¡À», ±èµ¿Çö(BlackFalcon)´Ô²²¼­ ÇÑ±¹ÀÎÅÍ³İÁøÈï¿øÀ» ÅëÇÏ¿© ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+
+        bbs/download.php ¿¡ ¾Æ·¡ ÄÚµå¸¦ ÇÑÁÙ Ãß°¡ÇØ ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.
+
+            $no = (int)$no;
+
+4.34.26 (2012.05.03)
+    :   4.34.23 ¿¡¼­ ÀÌ»ó ¾ø´Â OBJECT ÅÂ±×ÀÇ ¹İÈ¯ÀÌ Á¦´ë·Î µÇÁö ¾Ê´ø ¿À·ù ¼öÁ¤ (°ö½½ÃÖ¾¾´Ô²²¼­ °íÃÄ ÁÖ¼Ì½À´Ï´Ù.)
+
+        lib/common.lib.php ÀÇ
+
+            function bad120422($matches)
+            {
+                $code = $matches[1];
+                if (preg_match("#script#i", $code)) {
+                    return "OBJECT ÅÂ±×¿¡ ½ºÅ©¸³Æ®´Â »ç¿ë ºÒ°¡ÇÕ´Ï´Ù.";
+                } else if (preg_match("#base64#i", $code)) {
+                    return "OBJECT ÅÂ±×¿¡ BASE64´Â »ç¿ë ºÒ°¡ÇÕ´Ï´Ù.";
+                }
+                return $matches[0]; // ÀÌ ÄÚµå°¡ Ãß°¡ µÇ¾ú½À´Ï´Ù.
+            }
+
+4.34.25 (2012.04.30)
+    :   [º¸¾È°­È­] ¼³Ä¡½Ã data µğ·ºÅä¸®¿¡ .htaccess ÆÄÀÏÀ» »ı¼ºÇÏ¿© data µğ·ºÅä¸® ¹× ÇÏÀ§ µğ·ºÅä¸®¿¡¼­´Â 
+        .htaccess .htpasswd .php .phtml .html .htm .inc .cgi .pl ÆÄÀÏÀ» ½ÇÇà ÇÒ ¼ö ¾ø½À´Ï´Ù.
+
+        ±âÁ¸¿¡ ¿î¿µÁßÀÎ »çÀÌÆ®¿¡¼­´Â data µğ·ºÅä¸®¿¡ .htaccess ÆÄÀÏÀ» ¾Æ·¡¿Í °°Àº ³»¿ëÀ¸·Î ÀÛ¼ºÇÏ½Ê½Ã¿À.
+
+        <FilesMatch "\.(htaccess|htpasswd|[Pp][Hh][Pp]|[Pp]?[Hh][Tt][Mm][Ll]?|[Ii][Nn][Cc]|[Cc][Gg][Ii]|[Pp][Ll])">
+        Order allow,deny 
+        Deny from all
+        </FilesMatch>
+
+4.34.24 (2012.04.23)
+    :   4.34.23ÀÇ conv_content() ÇÔ¼ö³»¿¡ ÇÔ¼ö°¡ ¼±¾ğµÇ¾î ±×´©º¸µå¿Ü ÇÁ·Î±×·¥¿¡¼­ ¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù.
+        bad120422() ÇÔ¼ö¸¦ conv_content() ¹Ù±ùÀ¸·Î ÀÌµ¿½ÃÄÑ ÇØ°áÇÏ¿´½À´Ï´Ù. (Áö´Ï¾Æºü´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)
+
+        lib/common.lib.php
+
+4.34.23 (2012.04.22)
+    :   [XSS] OBJECT ÅÂ±×¿¡¼­ javascript¸¦ ½ÇÇàÇÒ¼ö ÀÖ´Â ¹ö±×¸¦ ¼öÁ¤ (i2Sec 8±â ÇÏµ¿¹Î´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)
+    :   [XSS] ±Û¾²±â½Ã ÀÌ¸§¿¡ HTML ÅÂ±×°¡ ÀÔ·ÂµÇÁö ¸øÇÏµµ·Ï ¼öÁ¤ (i2Sec 8±â °­¿ìÃ¢´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)
+    :   login, logout½Ã ¿ÜºÎ·Î ¸®´ÙÀÌ·ºÆ® ÇÒ ¿ì·Á°¡ ÀÖ¾î url¿¡ µµ¸ŞÀÎÀ» ÁöÁ¤ÇÏÁö ¸øÇÏµµ·Ï ¼öÁ¤ (i2Sec 8±â Á¶¹Î±â´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)
+    :   cheditor4ÀÇ »èÁ¦ ÄÚµå¿¡ ¹®Á¦°¡ ÀÖ¾î ÀÌ¹ø ¹öÀüºÎÅÍ´Â cheditor4´Â Á¦¿ÜÇÏ°í ¹èÆ÷ÇÕ´Ï´Ù. (i2Sec 8±â Á¶¹Î±â´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)
+    :   ÀÌ¿Ü¿¡µµ i2Sec 8±â ¿©·¯ºĞµé²²¼­ SQL Injection µîÀÇ ¿À·ù¸¦ ¾Ë·Á ÁÖ¼ÌÀ¸³ª ±×´©º¸µå4°¡ ¼Ò½ºÄÚµå¸¦ ¿ÀÇÂÇÏ°í ÀÖÀ¸¹Ç·Î
+        ÇØ´ç ¿À·ù´Â SQL InjectionÀ¸·Î º¸±â ¾î·Æ½À´Ï´Ù. µµ¿òÁÖ½Å i2Sec 8±â ¿©·¯ºĞµé²² °¨»çÀÇ ¸»¾¸À» ÀüÇÕ´Ï´Ù.
+
+        lib/common.lib.php ÀÇ
+
+            function bad120422($matches)
+            {
+                $code = $matches[1];
+                if (preg_match("#script#i", $code)) {
+                    return "OBJECT ÅÂ±×¿¡ ½ºÅ©¸³Æ®´Â »ç¿ë ºÒ°¡ÇÕ´Ï´Ù.";
+                } else if (preg_match("#base64#i", $code)) {
+                    return "OBJECT ÅÂ±×¿¡ BASE64´Â »ç¿ë ºÒ°¡ÇÕ´Ï´Ù.";
+                }
+            }
+
+            // object ÅÂ±×¿¡¼­ javascript ÄÚµå ¸·±â
+            $content = preg_replace_callback("#<object([^>]+)>#i", "bad120422", $content);
+
+        bbs/write_update.php ÀÇ
+
+            $wr_name = strip_tags(mysql_escape_string($_POST['wr_name']));
+
+        bbs/login.php
+        bbs/logout.php ÀÇ
+
+            $p = parse_url($url);
+            if ($p['scheme'] || $p['host']) {
+                alert("url¿¡ µµ¸ŞÀÎÀ» ÁöÁ¤ÇÒ ¼ö ¾ø½À´Ï´Ù.");
+            }
+
+4.34.22 (2012.03.30)
+    :   2012³â 3¿ù 30ÀÏ ºÎÅÍ ½ÃÇàµÇ´Â °³ÀÎÁ¤º¸º¸È£¹ıÀ¸·Î ÀÎÇØ È¸¿ø°¡ÀÔ½Ã ÁÖ¹Îµî·Ï¹øÈ£¸¦ ÀÔ·Â ¹ŞÁö ¸øÇÏµµ·Ï ¼öÁ¤
+
+        adm/config_form.php
+        bbs/register_form.php
+        skin/member/basic/register.skin.php
+
+4.34.21 (2012.03.09)
+    :   [º¸¾ÈÆĞÄ¡] ÆÄÀÏ¸íÀ» ÀÌ¿ëÇÑ XSS Ãë¾àÁ¡ ¼öÁ¤ (wh1ant´Ô²²¼­ µµ¿ò ÁÖ¼Ì½À´Ï´Ù.)
+    :   UTF-8 »ç¿ë½Ã ¸µÅ©¿¡¼­ ÇÑ±ÛÀÌ ±úÁö´ø ¿À·ù ¼öÁ¤ (forever´Ô, NaviGator´Ô²²¼­ µµ¿ò ÁÖ¼Ì½À´Ï´Ù.)
+
+
+        skin/board/basic/view.skin.php À» ¾Æ·¡¿Í °°ÀÌ ¼öÁ¤ÇÏ¼¼¿ä.
+
+            echo "<a href=\"javascript:file_download('{$view[file][$i][href]}', '".urlencode($view[file][$i][source])."');\" title='{$view[file][$i][content]}'>";
+            ...
+            <? if ($board[bo_download_point] < 0) { ?>if (confirm("'"+decodeURIComponent(file)+"' ÆÄÀÏÀ» ´Ù¿î·Îµå ÇÏ½Ã¸é Æ÷ÀÎÆ®°¡ Â÷°¨(<?=number_format($board[bo_download_point])?>Á¡)µË´Ï´Ù.\n\nÆ÷ÀÎÆ®´Â °Ô½Ã¹°´ç ÇÑ¹ø¸¸ Â÷°¨µÇ¸ç ´ÙÀ½¿¡ ´Ù½Ã ´Ù¿î·Îµå ÇÏ¼Åµµ Áßº¹ÇÏ¿© Â÷°¨ÇÏÁö ¾Ê½À´Ï´Ù.\n\n±×·¡µµ ´Ù¿î·Îµå ÇÏ½Ã°Ú½À´Ï±î?"))<?}?>
+
+
+        lib/common.lib.php ÀÇ function url_auto_link($str) ¿¡¼­
+
+            $str = preg_replace("/([^(HREF=\"?'?)|(SRC=\"?'?)]|\(|^)((http|https|ftp|telnet|news|mms):\/\/[a-zA-Z0-9\.-]+\.[\xA1-\xFEa-zA-Z0-9\.:&#=_\?\/~\+%@;\-\|\,\(\)]+)/i", "\\1<A HREF=\"\\2\" TARGET='$config[cf_link_target]'>\\2</A>", $str);
+            ¸¦ 
+
+            global $g4;
+            ...
+            if (strtoupper($g4['charset']) == 'UTF-8') {
+                $str = preg_replace("/([^(HREF=\"?'?)|(SRC=\"?'?)]|\(|^)((http|https|ftp|telnet|news|mms):\/\/[a-zA-Z0-9\.-]+\.[°¡-ÆR\xA1-\xFEa-zA-Z0-9\.:&#=_\?\/~\+%@;\-\|\,\(\)]+)/i", "\\1<A HREF=\"\\2\" TARGET='$config[cf_link_target]'>\\2</A>", $str);
+            } else {
+                $str = preg_replace("/([^(HREF=\"?'?)|(SRC=\"?'?)]|\(|^)((http|https|ftp|telnet|news|mms):\/\/[a-zA-Z0-9\.-]+\.[\xA1-\xFEa-zA-Z0-9\.:&#=_\?\/~\+%@;\-\|\,\(\)]+)/i", "\\1<A HREF=\"\\2\" TARGET='$config[cf_link_target]'>\\2</A>", $str);
+            }
+            ·Î ¼öÁ¤ÇÏ¼¼¿ä.
+
+
+4.34.20 (2012.03.02)
+    :   UTF-8 »ç¿ë½Ã cut_str ÇÔ¼ö°¡ Á¦´ë·Î ÀÛµ¿µÇÁö ¾Ê´ø ºÎºĞÀ» ¼öÁ¤ (°ö½½ÃÖ¾¾´Ô²²¼­ µµ¿ò ÁÖ¼Ì½À´Ï´Ù.)
+        °ÅÄ£¸¶·ç´ÔÀÇ ÆÁÀÌ Àû¿ë µÇ¾ú½À´Ï´Ù.
+        http://www.sir.co.kr/bbs/board.php?bo_table=g4_tiptech&wr_id=1328#c_1355
+    :   ¿ìÆí¹øÈ£ 2012.01.26.ÀÚ ¹İ¿µ 51,898°Ç (FM2fmedia´Ô²²¼­ µµ¿ò ÁÖ¼Ì½À´Ï´Ù.)
+
+        lib/common.lib.php ÀÇ cut_str() ÇÔ¼ö ¼öÁ¤
+        bbs/zip.db 
+
+4.34.19 (2012.01.17)
+    :   Æ¯Á¤ ¼­¹ö¿¡ µû¶ó Ä¸Ã­ÀÌ¹ÌÁöÀÇ °á°ú¸¦ ÀÎ½ÄÇÏÁö ¸øÇÏ´Â ¿À·ù¸¦ ¼öÁ¤
+        (ÇØ¿Ü ¼­¹ö¿¡¼­ euc-kr À» »ç¿ëÇÏ´Â °æ¿ì¿¡ ¿À·ù°¡ º¸°íµÈ¹Ù ÀÖ½À´Ï´Ù.)
+
+        bbs/kcaptcha_result.php ¿¡ ¾Æ·¡ ÄÚµå°¡ ÇÑÁÙ Ãß°¡ µÇ¾ú½À´Ï´Ù.
+
+            header("Content-Type: text/html; charset=$g4[charset]");
+
+4.34.18 (2012.01.03)
+    :   PHP ¹öÀü¿¡ µû¸¥ basic È¸¿ø ½ºÅ² »ç¿ë½Ã euc-kr ¹öÀü¿¡¼­ ajax °¡ Á¦´ë·Î ÀÛµ¿µÇµµ·Ï ¼öÁ¤ (konahn´Ô)
+
+        skin/member/basic/_common.php ¸¦ ¾Æ·¡¿Í °°ÀÌ ¼öÁ¤ÇÏ½Ê½Ã¿À.
+
+        $g4_path = "../../.."; // common.php ÀÇ »ó´ë °æ·Î
+        include_once("$g4_path/common.php");
+        header("Content-Type: text/html; charset=$g4[charset]"); // Ãß°¡µÈ ÄÚµå
+
+
+4.34.17 (11.12.09)
+    :   [º¸¾ÈÆĞÄ¡] °Ô½Ã¹° °Ë»ö½Ã $sfl º¯¼ö¸¦ ÀÌ¿ëÇÏ¿© ÆĞ½º¿öµå À¯Ãß°¡ °¡´ÉÇÑ ºÎºĞÀ» ¼öÁ¤ (i2Sec-±è¼¼¿¬[kaist]´Ô)
+
+        bbs/search.php ÀÇ
+
+            switch ($field[$k]) 
+            {
+                case "mb_id" :
+                case "mb_name" :
+                    $str .= "$field[$k] = '$s[$i]'";
+                    break;
+                default :
+                    if (preg_match("/[a-zA-Z]/", $search_str))
+                        $str .= "INSTR(LOWER($field[$k]), LOWER('$search_str'))";
+                    else
+                        $str .= "INSTR($field[$k], '$search_str')";
+                    break;
+            }
+
+            À§ ÄÚµå¸¦ 
+
+            switch ($field[$k]) 
+            {
+                case "mb_id" :
+                case "wr_name" :
+                    $str .= "$field[$k] = '$s[$i]'";
+                    break;
+                case "wr_subject" :
+                case "wr_content" :
+                    if (preg_match("/[a-zA-Z]/", $search_str))
+                        $str .= "INSTR(LOWER($field[$k]), LOWER('$search_str'))";
+                    else
+                        $str .= "INSTR($field[$k], '$search_str')";
+                    break;
+                default :
+                    $str .= "1=0"; // Ç×»ó °ÅÁş
+                    break;
+            }
+
+            À§¿Í °°ÀÌ ¼öÁ¤ÇÏ¿© ÁÖ½Ê½Ã¿À.
+
+
+        lib/common.lib.php ÀÇ
+
+            switch ($field[$k]) {
+                case "mb_id" :
+                case "wr_name" :
+                    $str .= " $field[$k] = '$s[$i]' ";
+                    break;
+                case "wr_hit" :
+                case "wr_good" :
+                case "wr_nogood" :
+                    $str .= " $field[$k] >= '$s[$i]' ";
+                    break;
+                // ¹øÈ£´Â ÇØ´ç °Ë»ö¾î¿¡ -1 À» °öÇÔ
+                case "wr_num" :
+                    $str .= "$field[$k] = ".((-1)*$s[$i]);
+                    break;
+                // LIKE º¸´Ù INSTR ¼Óµµ°¡ ºü¸§
+                default :
+                    if (preg_match("/[a-zA-Z]/", $search_str))
+                        $str .= "INSTR(LOWER($field[$k]), LOWER('$search_str'))";
+                    else
+                        $str .= "INSTR($field[$k], '$search_str')";
+                    break;
+            }
+
+            À§ ÄÚµå¸¦
+
+            switch ($field[$k]) {
+                case "mb_id" :
+                case "wr_name" :
+                    $str .= " $field[$k] = '$s[$i]' ";
+                    break;
+                case "wr_hit" :
+                case "wr_good" :
+                case "wr_nogood" :
+                    $str .= " $field[$k] >= '$s[$i]' ";
+                    break;
+                // ¹øÈ£´Â ÇØ´ç °Ë»ö¾î¿¡ -1 À» °öÇÔ
+                case "wr_num" :
+                    $str .= "$field[$k] = ".((-1)*$s[$i]);
+                    break;
+                case "wr_ip" :
+                case "wr_password" :
+                    $str .= "1=0"; // Ç×»ó °ÅÁş
+                    break;
+                // LIKE º¸´Ù INSTR ¼Óµµ°¡ ºü¸§
+                default :
+                    if (preg_match("/[a-zA-Z]/", $search_str))
+                        $str .= "INSTR(LOWER($field[$k]), LOWER('$search_str'))";
+                    else
+                        $str .= "INSTR($field[$k], '$search_str')";
+                    break;
+            }
+
+            À§¿Í °°ÀÌ ¼öÁ¤ÇÏ¿© ÁÖ½Ê½Ã¿À.
+
+4.34.16 (11.11.15)
+    :   [º¸¾ÈÆĞÄ¡] XSS Ãë¾àÁ¡ ±Ç°í¿¡ ´ëÇÑ ¼öÁ¤ (i2Sec-±èÅÂÇü´Ô)
+
+        lib/common.lib.php ÀÇ function conv_content() ¿¡¼­
+    
+        $content = preg_replace("#\/\*.*\*\/#iU", "", $content); 
+
+        ÀÌ ÄÚµåÀÇ À§Ä¡¸¦ ¹Ù²ã ÇØ°áÇÔ
+
+4.34.15 (11.10.24)
+    :   [º¸¾ÈÆĞÄ¡] SQL Injection °ø°İÀÌ °¡´ÉÇÑ Ãë¾àÁ¡ ÄÚµå Á¶Ä¡ ¿äÃ»À¸·Î ÀÎÇÑ ¼öÁ¤ (packet storm -> ÇÑ±¹ÀÎÅÍ³İÁøÈï¿ø)
+
+        bbs/tb.php ÀÇ ¾Æ·¡ ÄÚµå°¡ ¼öÁ¤ µÇ¾ú½À´Ï´Ù.
+
+            // ¿µ¹®ÀÚ ¼ıÀÚ _ °ú ÀÏÄ¡ÇÏÁö ¾Ê´Â ¹®ÀÚ´Â »èÁ¦ÇÑ´Ù. (ÃÖ´ë 20ÀÚ)
+            $bo_table = preg_replace("/\W/", "", substr($arr[1],0,20));
+            // Á¤¼öÇüÀ¸·Î º¯È¯
+            $wr_id = (int)$arr[2];
+            // ¿µ¼Ò¹®ÀÚ ¼ıÀÚ ¿Í ÀÏÄ¡ÇÏÁö ¾Ê´Â ¹®ÀÚ´Â »èÁ¦ÇÑ´Ù. (ÃÖ´ë 32ÀÚ)
+            $to_token = preg_replace("/[^a-z0-9]/", "", substr($arr[3],0,32));
+
+        Ãß½Å) Æ®·¢¹éÀº °ÅÀÇ »ç¿ëÇÏÁö ¾Ê´Â ±â´ÉÀ¸·Î Â÷±â ¹öÀü¿¡¼­´Â ±â´É ÀÚÃ¼°¡ »ç¶óÁú¼ö ÀÖ½À´Ï´Ù.
+
+4.34.14 (11.10.04)
+    :   [º¸¾ÈÆĞÄ¡] È¸¿ø°¡ÀÔ½Ã È¨ÆäÀÌÁö ÇÊµå¸¦ ÅëÇÑ SQL Injection °ø°İ ¿¹¹æ
+    :   [º¸¾ÈÆĞÄ¡] ±Û¼öÁ¤, ´äº¯½Ã ¸µÅ© ÇÊµå¸¦ ÅëÇÑ XSS °ø°İ ¿¹¹æ
+        (ÆÈÆÈÀÌ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)
+
+        bbs/register_form_update.php ¿¡ Ãß°¡ µÇ¾ú½À´Ï´Ù.
+
+            $mb_homepage = trim(strip_tags(mysql_escape_string($_POST[mb_homepage])));
+
+        bbs/write_update.php ¿¡ Ãß°¡ µÇ¾ú½À´Ï´Ù.
+            
+            $wr_link1 = mysql_real_escape_string($_POST['wr_link1']);
+            $wr_link2 = mysql_real_escape_string($_POST['wr_link2']);
+
+        bbs/write.php ¿¡ Ãß°¡ µÇ¾ú½À´Ï´Ù.
+
+            else if ($w == "u") {
+                ...
+                for ($i=1; $i<=$g4[link_count]; $i++) {
+                    $write["wr_link".$i] = get_text($write["wr_link".$i]);
+                    $link[$i] = $write["wr_link".$i];
+                }
+                ...
+            } else if ($w == "r") {
+                ...
+                for ($i=1; $i<=$g4[link_count]; $i++) {
+                    $write["wr_link".$i] = get_text($write["wr_link".$i]);
+                }
+
+4.34.13 (11.10.01)
+    :   [º¸¾ÈÆĞÄ¡] È¸¿ø°¡ÀÔ ¹× ¼öÁ¤½Ã È¸¿øÅ×ÀÌºí ÇÊµå¿¡ ¿Ã¹Ù¸£Áö ¾ÊÀº °ªÀÌ Æ÷ÇÔµÉ ¼ö ÀÖ´Â ¿À·ù°¡ ¹ß°ß µÇ¾ú½À´Ï´Ù.
+        (ÆÈÆÈÀÌ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)
+
+        bbs/register_form.php
+
+            $member[mb_email]       = get_text($member[mb_email]);
+            ... »ı·« ...
+            $member[mb_10]          = get_text($member[mb_10]);
+
+        adm/member_form.php
+
+            $mb[mb_email]       = get_text($mb[mb_email]);
+            ... »ı·« ...
+            $mb[mb_10]          = get_text($mb[mb_10]);
+
+        lib/common.lib.php
+
+            function get_sideview($mb_id, $name="", $email="", $homepage="") ÇÔ¼ö¿¡ ¾Æ·¡ ÄÚµå°¡ Ãß°¡ µÇ¾ú½À´Ï´Ù.
+
+            $name     = get_text($name);
+            $email    = get_text($email);
+            $homepage = get_text($homepage);
+
+4.34.12 (11.09.22)
+    :   ±Û ¶Ç´Â ÄÚ¸àÆ®¸¦ ¾´ ÈÄ ¸ŞÀÏ ¹ß¼ÛÀ» ÇÏ´Â °æ¿ì¿¡ ÀüÃ¼ È¸¿ø¿¡°Ô ¸ŞÀÏÀÌ ¹ß¼ÛµÇÁö ¾Ê´ø ¿À·ù¸¦ ¼öÁ¤
+        (°³¹ÌÀÎ°£´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)
+
+        bbs/write_update.php
+        bbs/write_comment_update.php
+
+            µÎ°³ÀÇ ÆÄÀÏ ¸ğµÎ ¾Æ·¡ ÄÚµå¸¸ Ãß°¡ µÇ¾ú½À´Ï´Ù.
+
+            $unique_email = array_values($unique_email);
+        
+4.34.11 (11.09.20)
+    :   ¿ìÆí¹øÈ£ 2011.08.30.ÀÚ ¹İ¿µ (°ö½½ÃÖ¾¾´Ô²²¼­ µµ¿ò ÁÖ¼Ì½À´Ï´Ù.)
+
+        bbs/zip.db
+
+4.34.10 (11.08.10)
+    :   [º¸¾ÈÆĞÄ¡] $_SERVER ¹è¿­º¯¼ö °ªÀÇ º¯Á¶¸¦ ÀÌ¿ëÇÑ SQL Injection °ø°İÀ» ¸·´Â ÄÚµåÀÔ´Ï´Ù.
+        (SK Infosec Àå°æÄ¨´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)
+
+        bbs/visit_insert.inc.php ÀÇ
+
+            $sql = " insert $g4[visit_table] ( vi_id, vi_ip, vi_date, vi_time, vi_referer, vi_agent ) values ( '$vi_id', '$_SERVER[REMOTE_ADDR]', '$g4[time_ymd]', '$g4[time_his]', '$_SERVER[HTTP_REFERER]', '$_SERVER[HTTP_USER_AGENT]' ) ";
+
+            ¸¦ ¾Æ·¡ ÄÚµå·Î ´ëÃ¼ÇÕ´Ï´Ù.
+
+            $remote_addr = mysql_real_escape_string($_SERVER['REMOTE_ADDR']);
+            $referer     = mysql_real_escape_string($_SERVER['HTTP_REFERER']);
+            $user_agent  = mysql_real_escape_string($_SERVER['HTTP_USER_AGENT']);
+            $sql = " insert $g4[visit_table] ( vi_id, vi_ip, vi_date, vi_time, vi_referer, vi_agent ) values ( '$vi_id', '$remote_addr', '$g4[time_ymd]', '$g4[time_his]', '$referer', '$user_agent' ) ";
+
+
+4.34.09 (11.07.26)
+    :   ¿ìÆí¹øÈ£ ÆÄÀÏ ¾÷µ¥ÀÌÆ® 2011.07.21 Á¶Á¤³»¿ª
+        http://zipfinder.co.kr/zipcode/modi_list.htm
+    :   admin.menu300.php.bak ÆÄÀÏÀº ¸Ş´º·Î ºÒ·¯ µéÀÌÁö ¾Ê±â
+        ( pogusm ´Ô²²¼­ µµ¿ò ÁÖ¼Ì½À´Ï´Ù. )
+
+        bbs/zip.db
+
+        adm/admin.lib.php
+
+            if (!preg_match("/^admin.menu([0-9]{3}).*\.php$/", $entry, $m)) 
+
+4.34.08 (11.07.22)
+    :   Á¢¼ÓÀÚÇöÈ²¿¡¼­ ÇÑ±Û ±úÁö´Â ¿À·ù ¼öÁ¤
+    :   °ü¸®ÀÚ > °Ô½ÃÆÇ°ü¸® > ÀÎ±â°Ë»ö¾î °ü¸®, ÀÎ±â°Ë»ö¾î ¼øÀ§ Ãß°¡
+
+        lib/common.lib.php : is_utf8() ÇÔ¼ö Ãß°¡
+        visit_list.php
+
+        adm/admin.menu300.php
+        adm/popular_list.php
+        adm/popular_rank.php
+
+4.34.07 (11.07.01)
+    :   [º¸¾ÈÆĞÄ¡] ÆÄÀÏ¾÷·ÎµåÀÇ ¿À·ù¸¦ ÀÌ¿ëÇÑ XSS °ø°İ Ãë¾àÁ¡À» ¼öÁ¤ ( wh1ant´Ô²²¼­ µµ¿ò ÁÖ¼Ì½À´Ï´Ù. )
+        php.ini ÀÇ magic_quotes_gpc = Off ·Î »ç¿ëÇÏ´Â °æ¿ì¿¡¸¸ ¿À·ù°¡ ¹ß»ıÇÕ´Ï´Ù.
+    :   [º¸¾ÈÆĞÄ¡] CHEDITOR5 ¿¡¼­ Çã°¡¹ŞÁö ¾ÊÀº ÆÄÀÏ »èÁ¦ ¹ö±×°¡ ¹ß°ß µÇ¾ú½À´Ï´Ù. ( letsgolee´Ô²²¼­ µµ¿ò ÁÖ¼Ì½À´Ï´Ù. )
+    :   ¿ìÆí¹øÈ£ ÆÄÀÏ ¾÷µ¥ÀÌÆ® (À×Å©´Ô²²¼­ µµ¿ò ÁÖ¼Ì½À´Ï´Ù.)
+        ¸® ´ÙÀ½¿¡ °ø¶õÀÌ ¾ø¾î "°è°î¸®" °°Àº ÁÖ¼Ò°¡ Ç¥½ÃµÇÁö ¾Ê´ø ¹ö±×¸¦ ¼öÁ¤
+
+        bbs/write_update.php ¿¡ ¾Æ·¡ ÄÚµå¸¦ Ãß°¡ÇÏ¼¼¿ä.
+
+        if (!get_magic_quotes_gpc()) {
+            $upload[$i]['source'] = addslashes($upload[$i]['source']);
+        }
+
+
+        ¾Æ·¡ 3°³ ÆÄÀÏÀ» ±³Ã¼ÇØ ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.
+        
+        cheditor5/imageUpload/upload.php
+        cheditor5/imageUpload/delete.php
+        bbs/zip.db
+
+4.34.06 (11.06.21)
+    :   [Ãß°¡º¸¾ÈÆĞÄ¡] CHSOFT ´ëÇ¥ ³ªÃ¢È£´Ô²²¼­ µµ¿ò ÁÖ¼Ì½À´Ï´Ù. ( CHEDITOR Á¦ÀÛÀÚ )
+        4.34.05 ¿¡¼­ º¸¿ÏµÈ ÆĞÄ¡ÀÔ´Ï´Ù.
+        ÇÃ·¡½Ã¿¡¼­ ÀÌ¹ÌÁö ÆÄÀÏÀÌ ¾Æ´Ñ °æ¿ì¿¡´Â ¾÷·Îµå ÇÏÁö ¾Ê½À´Ï´Ù.
+
+        ¾Æ·¡ 3°³ ÆÄÀÏÀ» ±³Ã¼ÇØ ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.
+
+        cheditor5/imageUpload/upload.php
+        cheditor5/popup/js/image.js
+        cheditor5/popup/flash/CHXImage.swf
+
+4.34.05 (11.06.18)
+    :   [º¸¾ÈÆĞÄ¡] CHSOFT ´ëÇ¥ ³ªÃ¢È£´Ô²²¼­ µµ¿ò ÁÖ¼Ì½À´Ï´Ù. ( CHEDITOR Á¦ÀÛÀÚ )
+        GIF Exploit ÀÌ¶ó°í ºÒ¸®¿ì´Â ÀÌ °ø°İÀº ÀÌ¹ÌÁö ÆÄÀÏ¿¡ PHP ÄÚµå¸¦ ½É¾î ¼­¹ö¿¡ ¾÷·Îµå ÇÕ´Ï´Ù.
+        CHEDITOR5 ¹öÀü¿¡¸¸ ÇØ´çµË´Ï´Ù.
+
+        Âü°í) ½É°¢ÇÑ »ç¾ÈÀÌ¹Ç·Î µÇµµ·Ï »¡¸® ÆĞÄ¡ÇØ ÁÖ½Ã´Â °ÍÀÌ ÁÁ½À´Ï´Ù.
+
+      
+        ¾Æ·¡ 2°³ ÆÄÀÏÀ» ±³Ã¼ÇØ ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.
+
+        cheditor5/imageUpload/upload.php
+        cheditor5/popup/js/image.js
+
+
+        Ãß°¡»çÇ×) 
+        data Æú´õ¿¡¼­ php ³ª html ÆÄÀÏÀ» ½ÇÇàÇÏÁö ¸øÇÏ°Ô ÇÏ·Á¸é ¾Æ·¡ÀÇ ÆÄÀÏÀ» data Æú´õ¿¡ ¸¸µé¾î ³õÀ¸½Ã±â ¹Ù¶ø´Ï´Ù.
+        data Æú´õ¿¡ ÇÏ³ª¸¸ ¸¸µé¾î ³õÀ¸½Ã¸é µË´Ï´Ù.
+
+        ÆÄÀÏ¸í : .htaccess (ÆÄÀÏ¸í ¾Õ¿¡ Á¡ÀÌ ºÙ½À´Ï´Ù. ¼û±è ±â´ÉÀ» ÇÕ´Ï´Ù.)
+
+        ³»¿ë : 
+
+        <FilesMatch "\.([Pp][Hh][Pp]|[Hh][Tt][Mm][Ll]?|[Ii][Nn][Cc]|[Cc][Gg][Ii]|[Pp][Ll])"> 
+            Order allow,deny 
+            Deny from all
+        </FilesMatch>
+
+4.34.04 (11.05.27)
+    :   ±Ûº¹»ç, ÀÌµ¿½Ã ÄÚ¸àÆ® »èÁ¦, Ãß°¡°¡ ÀÖ¾ú´Ù¸é ÄÚ¸àÆ®°¡ Á¦´ë·Î º¹»ç, ÀÌµ¿µÇÁö ¾Ê´Â ¹ö±×¸¦ ¼öÁ¤ÇÏ¿´½À´Ï´Ù.
+        ( Áø¼­±â´Ô²²¼­ ÀÌ¹Ì 2009³â¿¡ ¾Ë·ÁÁÖ½Å ¹ö±×ÀÎµ¥ ÆĞÄ¡°¡ ´Ê¾ú½À´Ï´Ù. http://sir.co.kr/bbs/board.php?bo_table=g4_tiptech&wr_id=18926 )
+
+        bbs/move_update.php ¿¡¼­
+
+        $sql2 = " select * from $write_table where wr_num = '$wr_num' order by wr_parent, wr_comment desc, wr_id ";
+
+        ¸¦
+
+        $sql2 = " select * from $write_table where wr_num = '$wr_num' order by wr_parent, wr_is_comment, wr_comment desc, wr_id ";
+
+        ÀÌ·¸°Ô ¼öÁ¤ÇÏ½Ã¸é µË´Ï´Ù.
+
+4.34.03 (11.05.17)
+    :   [º¸¾ÈÆĞÄ¡] SQL Injection Ãë¾àÁ¡¿¡ ´ëºñÇÑ ÄÚµå ¼öÁ¤
+        (ÇÑ±¹ÀÎÅÍ³İÁøÈï¿øÀ» ÅëÇÏ¿© °úÃµ°íµîÇĞ±³ ±ÇÇõ´Ô²²¼­ Ãë¾àÁ¡°ú ÇØ°á¹æ¾ÈÀ» ÀÚ¼¼ÇÏ°Ô ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+    :   [º¸¾ÈÆĞÄ¡] ÀÌ¹ÌÁö ÅÂ±×ÀÇ src ¼Ó¼º¿¡ download.php ¸µÅ©°¡ ÀÖ´Â °æ¿ì °Ô½Ã¹°À» È®ÀÎÇÏ´Â °Í¸¸À¸·Îµµ ÆÄÀÏÀÇ ´Ù¿î·Îµå°¡ °¡´ÉÇÑ Ãë¾àÁ¡ ¼öÁ¤
+        (±¹Á¦Á¤º¸º¸¾È¼¾ÅÍ[i2Sec]ÀÇ ÃÖÁ¾ÈÆ´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+
+        lib/common.lib.php ÀÇ get_sql_search() ÇÔ¼ö¿¡ Ãß°¡
+
+            $field[$k] = preg_match("/^[\w\,\|]+$/", $field[$k]) ? $field[$k] : "wr_subject";
+
+        lib/common.lib.php ÀÇ conv_content() ÇÔ¼ö Ãß°¡
+            
+            $content = preg_replace("/<(img[^>]+download\.php[^>]+bo_table[^>]+)/i", "*** CSRF °¨Áö : &lt;$1", $content);
+
+4.34.02 (11.05.13)
+    :   [º¸¾ÈÆĞÄ¡] ÀÌ¹ÌÁö ÅÂ±×ÀÇ src ¼Ó¼º¿¡ »èÁ¦µîÀÇ ¸µÅ©°¡ ÀÖ´Â °æ¿ì °Ô½Ã¹°À» È®ÀÎÇÏ´Â °Í¸¸À¸·Îµµ µ¥ÀÌÅÍÀÇ À§º¯Á¶°¡ °¡´ÉÇÏ¹Ç·Î ÀÌ°ÍÀ» ¸·À½
+        (±¹Á¦Á¤º¸º¸¾È¼¾ÅÍ[i2Sec]ÀÇ ÃÖÁ¾ÈÆ´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+    :   Ä¸Ã­ ÄÚµå º¯°æ (ºñÈ¸¿øÀÌ ÄÚ¸àÆ® ´ñ±ÛÀ» ´Ù¸¥ °æ¿ì Ä¸Ã­ÀÌ¹ÌÁö¸¦ º¯°æÇÒ ¼ö ÀÖµµ·Ï ¼öÁ¤)
+        (letsgolee ´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+
+        [º¸¾ÈÆĞÄ¡]
+
+        lib/common.lib.php ÀÇ conv_content() ÇÔ¼ö¿¡ ¾Æ·¡ ÄÚµå¸¦ Ãß°¡ÇÕ´Ï´Ù.
+
+            $content = preg_replace("/<(img[^>]+delete\.php[^>]+bo_table[^>]+)/i", "*** CSRF °¨Áö : &lt;$1", $content);
+            $content = preg_replace("/<(img[^>]+delete_comment\.php[^>]+bo_table[^>]+)/i", "*** CSRF °¨Áö : &lt;$1", $content);
+            $content = preg_replace("/<(img[^>]+logout\.php[^>]+)/i", "*** CSRF °¨Áö : &lt;$1", $content);
+
+        bbs/delete.php ¿Í bbs/delete_comment.php ¿¡ ¾Æ·¡ ÄÚµå¸¦ Ãß°¡ÇÕ´Ï´Ù.
+
+        if ($is_admin)
+        {
+            if (!($token && get_session("ss_delete_token") == $token)) 
+                alert("ÅäÅ« ¿¡·¯·Î »èÁ¦ ºÒ°¡ÇÕ´Ï´Ù.");
+        }
+            
+        bbs/view.php ¿¡ ¾Æ·¡ ÄÚµå¸¦ Ãß°¡ÇÕ´Ï´Ù.
+
+            if ($is_admin) 
+            {
+                set_session("ss_delete_token", $token = uniqid(time()));
+                $delete_href = "javascript:del('./delete.php?bo_table=$bo_table&wr_id=$wr_id&token=$token&page=$page".urldecode($qstr)."');";
+            }
+
+        bbs/view_comment.php ¿¡ Ãß°¡ ¶Ç´Â ¼öÁ¤ÇÕ´Ï´Ù.
+
+            Ãß°¡ 
+            
+            // ÄÚ¸àÆ®¸¦ »õÃ¢À¸·Î ¿©´Â °æ¿ì ¼¼¼Ç°ªÀÌ ¾øÀ¸¹Ç·Î »ı¼ºÇÑ´Ù.
+            if ($is_admin && !$token) 
+            {
+                set_session("ss_delete_token", $token = uniqid(time()));
+            }
+
+            ...
+
+            ¼öÁ¤
+
+            $list[$i][del_link]  = "./delete_comment.php?bo_table=$bo_table&comment_id=$row[wr_id]&token=$token&cwin=$cwin&page=$page".$qstr;
+
+        [Ä¸Ã­ÄÚµåº¯°æ]
+
+        js/jquery.kcaptcha.js ÀüÃ¼
+
+        skin/board/basic/view_comment.skin.php ¸¦ ¾Æ·¡¿Í °°ÀÌ º¯°æÇÕ´Ï´Ù.
+
+            jQuery.fn.extend({...}); ¸¦ »èÁ¦ÇÏ½Ã°í
+
+            //jQuery(this).kcaptcha_load(); ÀÌ ÄÚµå¸¦ ¾Æ·¡ ÄÚµå·Î ¼öÁ¤ÇÕ´Ï´Ù.
+            if (comment_id && work == 'c')
+                $.kcaptcha_run();
+
+4.34.01 (11.05.11)
+    :   ºñÈ¸¿øÀÇ ´äº¯ ÄÚ¸àÆ® ¾²±â¿¡¼­ Ä¸Ã­°¡ ¶ßÁö ¾Ê´Â ¿À·ù¸¦ ¼öÁ¤ (ÈŞ¿Â´ÔÀÌ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+        4.33.00 ¿¡ ÀÖ´ø ÄÚµå¸¦ Àû¿ëÇÏ¿´½À´Ï´Ù.
+        ´ÜÁ¡) Ä¸Ã­ÀÌ¹ÌÁö¸¦ Å¬¸¯ÇÏ¿© »õ·Î¿î ÀÌ¹ÌÁö·Î º¯°æÇÒ¼ö ¾øÀ½
+
+        skin/board/basic/view_comment.skin.php ¸¦ ¾Æ·¡¿Í °°ÀÌ ¼öÁ¤ÇÕ´Ï´Ù.
+
+        jQuery.fn.extend({
+            kcaptcha_load: function() {
+                $.ajax({
+                    type: 'POST',
+                    url: g4_path+'/'+g4_bbs+'/kcaptcha_session.php',
+                    cache: false,
+                    async: false,
+                    success: function(text) {
+                        $('#kcaptcha_image')
+                            .attr('src', g4_path+'/'+g4_bbs+'/kcaptcha_image.php?t=' + (new Date).getTime())
+                            .css('cursor', '')
+                            .attr('title', '');
+                        md5_norobot_key = text;
+                    }
+                });
+            }
+        });
+
+        function comment_box(comment_id, work)
+        {
+            ...
+            if (typeof(wrestInitialized) != 'undefined')
+                wrestInitialized();
+
+            jQuery(this).kcaptcha_load();
+
+4.34.00 (11.04.29)
+    :   cheditor v5.04 Å¾Àç (±×´©º¸µå¿¡¼­ »ç¿ëÇÒ ¼ö ÀÖ°Ô Çã¶ôÇØÁÖ½Å CHSOFT ³ªÃ¢È£ ´ëÇ¥´Ô²² °¨»çµå¸³´Ï´Ù. www.chcode.com)
+        ÃÖ½Å ¹öÀü(v5.06)Àº ¾à°£ÀÇ ¹®Á¦°¡ ÀÖ¾î ¹öÀüÀÌ ¾à°£ ³·Àº°ÍÀ¸·Î Å¾ÀçÇÕ´Ï´Ù.
+        ÀÌ¹ÌÁö ¾÷·Îµå½Ã ÇÃ·¡½Ã¸¦ »ç¿ëÇÏ´Âµ¥ .htaccess ¿¡ ÆĞ½º¿öµå¸¦ °É¾ú´Ù´øÁö ÇÏ´Â °æ¿ì¿¡´Â ÀÌ¹ÌÁö ¾÷·Îµå°¡ ¾ÈµË´Ï´Ù.
+        ÇÃ·¡½Ãµ¿¿µ»óÀº <object><embed> ÄÚµå·Ñ ³ÖÀ¸¼Å¾ß ÇÕ´Ï´Ù. À¯Æ©ºêÀÇ °æ¿ì > ¼Ò½ºÄÚµå > ÀÌÀü ¼Ò½ºÄÚµå »ç¿ëÀ¸·Î ³ª¿Â ÄÚµå
+    :   [º¸¾ÈÆĞÄ¡] 4.33.10 ÀÇ ÄÚµå¸¦ º¸¿Ï ÇÏ¿´½À´Ï´Ù. (letsgolee ´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+
+        =======================================================
+        cheditor5 Àû¿ë ¹æ¹ı (Âü! ½±ÁÒ! À×!)
+        =======================================================
+        
+        cheditor5 Æú´õ ÀüÃ¼ ¾÷·Îµå 
+        
+        lib/cheditor4.lib.php ±³Ã¼ 
+        
+        config.php ¿¡ $g4['is_cheditor5']   = true; Ãß°¡
+        
+        skin/board/?????/write.skin.php ÀÇ
+
+            <?
+            if ($is_dhtml_editor) echo cheditor3('wr_content');
+            ?>
+
+            if (document.getElementById('tx_wr_content')) {
+                if (!ed_wr_content.outputBodyText()) { 
+                    alert('³»¿ëÀ» ÀÔ·ÂÇÏ½Ê½Ã¿À.'); 
+                    ed_wr_content.returnFalse();
+                    return false;
+                }
+            }
+
+            ¸¦
+
+            if (document.getElementById('tx_wr_content')) {
+                if (!ed_wr_content.outputBodyText()) { 
+                    alert('³»¿ëÀ» ÀÔ·ÂÇÏ½Ê½Ã¿À.'); 
+                    ed_wr_content.returnFalse();
+                    return false;
+                }
+            }
+
+            <?
+            if ($is_dhtml_editor) echo cheditor3('wr_content');
+            ?>
+
+            ÀÌ·¸°Ô ¼ø¼­¸¸ ¹Ù²ã ÁÖ¼¼¿ä.
+            
+        =======================================================
+
+        bbs/register_form.php
+
+            /*
+            if (!($member[mb_password] == sql_password($_POST[mb_password]) && $_POST[mb_password]))
+                alert("ÆĞ½º¿öµå°¡ Æ²¸³´Ï´Ù.");
+
+            // ¼öÁ¤ ÈÄ ´Ù½Ã ÀÌ ÆûÀ¸·Î µ¹¾Æ¿À±â À§ÇØ ÀÓ½Ã·Î ÀúÀåÇØ ³õÀ½
+            set_session("ss_tmp_password", $_POST[mb_password]);
+            */
+
+            if ($_POST['mb_password']) {
+                // ¼öÁ¤µÈ Á¤º¸¸¦ ¾÷µ¥ÀÌÆ®ÈÄ µÇµ¹¾Æ ¿Â°ÍÀÌ¶ó¸é ÆĞ½º¿öµå°¡ ¾ÏÈ£È­ µÈÃ¤·Î ³Ñ¾î¿Â°ÍÀÓ
+                if ($_POST['is_update'])
+                    $tmp_password = $_POST['mb_password'];
+                else
+                    $tmp_password = sql_password($_POST['mb_password']);
+
+                if ($member['mb_password'] != $tmp_password)
+                    alert("ÆĞ½º¿öµå°¡ Æ²¸³´Ï´Ù.");
+            }
+
+        bbs/register_form_update.php
+
+            /* »èÁ¦
+            // ÆĞ½º¿öµå¸¦ ¾ÏÈ£È­ÇÏ¿© ³Ñ±è
+            if ($mb_password)
+                $tmp_password = sql_password($mb_password);
+            else
+                $tmp_password = get_session("ss_tmp_password");
+            */
+
+            $row  = sql_fetch(" select mb_password from $g4[member_table] where mb_id = '$member[mb_id]' ");
+            $tmp_password = $row['mb_password'];
+
+            ...
+
+            <input type='hidden' name='is_update' value='1'> Ãß°¡
+
+4.33.11 (11.04.28)
+    :   [º¸¾ÈÆĞÄ¡] 4.33.10 ÀÇ º¸¾ÈÆĞÄ¡¿¡ ¹®Á¦°¡ ÀÖ¾î ´Ù½Ã ÆĞÄ¡ÇÕ´Ï´Ù.
+        (ÇÑ±¹ÀÎÅÍ³İÁøÈï¿øÀ» ÅëÇÏ¿© Null@Root ¼Ò¼ÓÀÇ Hacker@n ´Ô²²¼­ ´Ù½Ã ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+
+        * ¹èÆ÷µÈ ¼Ò½ºÆÄÀÏÀ» ¿­¾î »ç¿ëÁßÀÎ ÄÚµå¿Í ºñ±³ÇÏ¿© ÆĞÄ¡ÇØ ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.
+
+        bbs/register_form.php
+
+            /*
+            if (!($member[mb_password] == sql_password($_POST[mb_password]) && $_POST[mb_password]))
+                alert("ÆĞ½º¿öµå°¡ Æ²¸³´Ï´Ù.");
+
+            // ¼öÁ¤ ÈÄ ´Ù½Ã ÀÌ ÆûÀ¸·Î µ¹¾Æ¿À±â À§ÇØ ÀÓ½Ã·Î ÀúÀåÇØ ³õÀ½
+            set_session("ss_tmp_password", $_POST[mb_password]);
+            */
+
+            if ($_POST['mb_password']) {
+                // ¼öÁ¤µÈ Á¤º¸¸¦ ¾÷µ¥ÀÌÆ®ÈÄ µÇµ¹¾Æ ¿Â°ÍÀÌ¶ó¸é ÆĞ½º¿öµå°¡ ¾ÏÈ£È­ µÈÃ¤·Î ³Ñ¾î¿Â°ÍÀÓ
+                if ($_POST['is_update'])
+                    $tmp_password = $_POST['mb_password'];
+                else
+                    $tmp_password = sql_password($_POST['mb_password']);
+
+                if ($member['mb_password'] != $tmp_password)
+                    alert("ÆĞ½º¿öµå°¡ Æ²¸³´Ï´Ù.");
+            }
+
+        bbs/register_form_update.php
+
+            // ÆĞ½º¿öµå¸¦ ¾ÏÈ£È­ÇÏ¿© ³Ñ±è
+            if ($mb_password)
+                $tmp_password = sql_password($mb_password);
+            else
+                $tmp_password = get_session("ss_tmp_password");
+
+            ...
+
+            <input type='hidden' name='is_update' value='1'> Ãß°¡
+
+4.33.10 (11.04.27)
+    :   [º¸¾ÈÆĞÄ¡] È¸¿øÁ¤º¸¼öÁ¤½Ã ¼¼¼Ç¿¡ ±â·ÏµÈ ÆĞ½º¿öµå¸¦ ¾Ë¾Æ³¾ ¼ö ÀÖ´Â Ãë¾àÁ¡ÀÌ ¹ß°ßµÇ¾ú½À´Ï´Ù.
+        (ÇÑ±¹ÀÎÅÍ³İÁøÈï¿øÀ» ÅëÇÏ¿© Null@Root ¼Ò¼ÓÀÇ Hacker@n ´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+    :   °Ô½ÃÆÇº¹»ç½Ã º¹»çµÇ´Â °Ô½ÃÆÇ Å×ÀÌºíÀÇ CHARSET ÀÌ Á¦´ë·Î »ı¼ºµÇÁö ¾Ê´Â ¿À·ù¸¦ ¼öÁ¤ÇÏ¿´½À´Ï´Ù. 
+        ( ¹Ğ·ÎÁî´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù. )
+
+        bbs/register_form.php
+
+            // ÆĞ½º¿öµå¸¦ ¾Ë¾Æº¼ ¼ö ¾øµµ·Ï È¸¿ø°¡ÀÔÀÏ½Ã¸¦ ³Ö¾î¼­ ¾ÏÈ£È­ ÇÔ
+            set_session("ss_tmp_password", base64_encode($member[mb_datetime].$_POST[mb_password]));
+
+        bbs/register_form_update.php
+
+            // º¹È£È­¸¦ ÇÑ ÈÄ È¸¿ø°¡ÀÔÀÏ½Ã¸¦ ¾ø¾ÖÁÖ¸é ¿ø·¡ ÆĞ½º¿öµå°¡ ³ª¿È
+            $tmp_password = preg_replace("/^".$member[mb_datetime]."/", "", base64_decode(get_session("ss_tmp_password")));
+
+        lib/common.lib.php
+
+        function get_table_define($table, $crlf="\n")
+        {
+            global $g4;
+
+            ...
+            
+            if (strtolower($g4['charset']) == "utf-8")
+                $schema_create .= $crlf . ') DEFAULT CHARSET=utf8';
+            else
+                $schema_create .= $crlf . ')';
+
+4.33.09 (11.04.15)
+    :   ¾Æ·¡ µÎ°³ÀÇ Ãë¾àÁ¡Àº ÇÑ±¹ÀÎÅÍ³İÁøÈï¿ø(KISA)À» ÅëÇÏ¿© 
+        ¼±¸°ÀÎÅÍ³İ°íµîÇĞ±³ 1ÇĞ³â¿¡ ÀçÇĞÁßÀÎ °­ÀÎ¿í´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+
+        XSS Ãë¾àÁ¡
+        embed, object ÅÂ±×¸¦ ¸·Áö ¾Ê´Â °æ¿ìÀÇ ¿ìÈ¸ÀûÀÎ °ø°İ¿¡ ´ëÇÑ Ãë¾àÁ¡
+
+
+        lib/common.lib.php ÀÇ µÎ°³ ÇÔ¼ö°¡ ¼öÁ¤ µÇ¾ú½À´Ï´Ù.
+
+
+        function conv_content($content, $html)
+            
+            ...
+
+            //$content = preg_replace("/(ex)(pression)/i", "&#101&#120;$2", $content);
+            ...
+            // ÀÌ·± °æ¿ì¸¦ ¹æÁöÇÔ <IMG STYLE="xss:expr/*XSS*/ession(alert('XSS'))">
+            $content = preg_replace("#\/\*.*\*\/#iU", "", $content);
+
+            $pattern = "";
+            $pattern .= "(e|&#(x65|101);?)";
+            $pattern .= "(x|&#(x78|120);?)";
+            $pattern .= "(p|&#(x70|112);?)";
+            $pattern .= "(r|&#(x72|114);?)";
+            $pattern .= "(e|&#(x65|101);?)";
+            $pattern .= "(s|&#(x73|115);?)";
+            $pattern .= "(s|&#(x73|115);?)";
+            $pattern .= "(i|&#(x6a|105);?)";
+            $pattern .= "(o|&#(x6f|111);?)";
+            $pattern .= "(n|&#(x6e|110);?)";
+            $content = preg_replace("/".$pattern."/i", "__EXPRESSION__", $content);
+
+
+        ...
+
+
+        function bad_tag_convert($code)
+            
+            ...
+
+            if ($is_admin && $member[mb_id] != $view[mb_id]) {
+                //$code = preg_replace_callback("#(\<(embed|object)[^\>]*)\>(\<\/(embed|object)\>)?#i",
+                // embed ¶Ç´Â object ÅÂ±×¸¦ ¸·Áö ¾Ê´Â °æ¿ì ÇÊÅÍ¸µÀÌ µÇµµ·Ï ¼öÁ¤
+                $code = preg_replace_callback("#(\<(embed|object)[^\>]*)\>?(\<\/(embed|object)\>)?#i",
+                            create_function('$matches', 'return "<div class=\"embedx\">º¸¾È¹®Á¦·Î ÀÎÇÏ¿© °ü¸®ÀÚ ¾ÆÀÌµğ·Î´Â embed ¶Ç´Â object ÅÂ±×¸¦ º¼ ¼ö ¾ø½À´Ï´Ù. È®ÀÎÇÏ½Ã·Á¸é °ü¸®±ÇÇÑÀÌ ¾ø´Â ´Ù¸¥ ¾ÆÀÌµğ·Î Á¢¼ÓÇÏ¼¼¿ä.</div>";'),
+                            $code);
+            }
+
+            //return preg_replace("/\<([\/]?)(script|iframe)([^\>]*)\>/i", "&lt;$1$2$3&gt;", $code);
+            // script ³ª iframe ÅÂ±×¸¦ ¸·Áö ¾Ê´Â °æ¿ì ÇÊÅÍ¸µÀÌ µÇµµ·Ï ¼öÁ¤
+            return preg_replace("/\<([\/]?)(script|iframe)([^\>]*)\>?/i", "&lt;$1$2$3&gt;", $code);
+
+
+4.33.08 (11.04.01)
+    :   ¾Æ·¡ µÎ°³ÀÇ Ãë¾àÁ¡Àº ÇÑ±¹ÀÎÅÍ³İÁøÈï¿ø(KISA)À» ÅëÇÏ¿© 
+        ¼±¸°ÀÎÅÍ³İ°íµîÇĞ±³ 1ÇĞ³â¿¡ ÀçÇĞÁßÀÎ °­ÀÎ¿í´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   [º¸¾ÈÆĞÄ¡] XSS(Cross Site Scripting) Ãë¾àÁ¡ º¸¿Ï
+        ÀÌ Ãë¾àÁ¡Àº XMLÀÇ namespace¸¦ ÀÌ¿ëÇÏ¿© °ø°İÇÏ´Â ¹æ½ÄÀÔ´Ï´Ù. 
+        °Ô½ÃÆÇ¿¡¼­ DHTML ¿¡µğÅÍ¸¦ »ç¿ëÇÏÁö ¾Ê´Â °æ¿ì¿¡¸¸ Ãë¾àÇÑ °ÍÀ¸·Î È®ÀÎ µÇ¾ú½À´Ï´Ù.
+    :   [º¸¾ÈÆĞÄ¡] RFI(Remote File Inclusion) ¿ø°İÆÄÀÏÀ¯ÀÔ Ãë¾àÁ¡ º¸¿Ï
+        ÀÌ Ãë¾àÁ¡Àº °ü¸®ÀÚ ±ÇÇÑÀ» ÃëµæÇÑ ÈÄ¿¡ °Ô½ÃÆÇ °ü¸®ÀÇ »ó´Ü, ÇÏ´ÜÆÄÀÏ°æ·Î¿¡ 
+        Data URI scheme (http://en.wikipedia.org/wiki/Data_URI_scheme) ¸¦ ÀÌ¿ëÇÏ¿© 
+        ¼­¹ö¿¡ remote ÆÄÀÏÀ» »ı¼ºÇÏ°í ÇØ´ç remote ÆÄÀÏÀ» ÀÌ¿ëÇÏ¿© ÇØ´ç ¼­¹ö¸¦ °ø°İÇÏ´Â 
+        ¹æ½ÄÀÔ´Ï´Ù.
+        PHP 5.x ÀÌ»ó ±×¸®°í allow_url_fopen ÀÌ On ÀÎ °æ¿ì¿¡¸¸ ¹ß»ıÇÕ´Ï´Ù.
+        
+        lib/common.lib.php
+
+            $content = preg_replace("/\<(\w|\s|\?)*(xml)/i", "", $content);
+
+        adm/board_form.php 
+
+            <tr class='ht'>
+                <td colspan='2'>
+                    °ü¸®ÀÚ ÆĞ½º¿öµå
+                </td>
+                <td>
+                    <input class='ed' type='password' name='admin_password' itemname="°ü¸®ÀÚ ÆĞ½º¿öµå" required>
+                    <?=help("°ü¸®ÀÚ ±ÇÇÑÀ» »©¾Ñ±æ °Í¿¡ ´ëºñÇÏ¿© ·Î±×ÀÎÇÑ °ü¸®ÀÚÀÇ ÆĞ½º¿öµå¸¦ ÇÑ¹ø ´õ ¹¯´Â°Í ÀÔ´Ï´Ù.");?>
+                </td>
+            </tr>
+
+        adm/board_form_update.php 
+
+            if ($member[mb_password] != sql_password($_POST['admin_password'])) {
+                alert("ÆĞ½º¿öµå°¡ ´Ù¸¨´Ï´Ù.");
+            }
+
+4.33.07 (11.03.22)
+    :   Æ®·¢¹é Å×ÀÌºí ´©¶ôµÇ¾î ÀÖ´ø°Í Ãß°¡ (À¥½ºÅ¸ÀÏ ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)
+        (°ÅÀÇ »ç¿ëÇÏÁö ¾Ê´Â ±â´ÉÀÌ¹Ç·Î ÆĞÄ¡ÇÏÁö ¾ÊÀ¸¼Åµµ ¹«¹æÇÕ´Ï´Ù.)
+    :   Æ®·¢¹é ¸Ş¼¼Áö Ãâ·Â½Ã ÇÑ±Û ±úÁö´ø°Í ¼öÁ¤
+
+        bbs/write_update.php
+
+        if ($msg) {
+            echo "<meta http-equiv='content-type' content='text/html; charset={$g4['charset']}'>\n";
+            echo "<script type='text/javascript'>alert('$msg $wr_trackback');</script>";
+        }
+
+4.33.06 (11.02.22)
+    :   [º¸¾ÈÆĞÄ¡] ½ºÆÔ±Û µî·ÏÀ¸·Î ÀÎÇÑ ÀÚµ¿µî·Ï¹æÁö Ä¸Ã­ÀÌ¹ÌÁö °ü·Ã ÄÚµå º¸¿Ï
+
+        ±âÁ¸¿¡ PHPSESSID¸¦ »ç¿ëÇÏ¿´À¸³ª »ç¿ëÀÚ°¡ PHPSESSID °ªÀ» ½±°Ô È®ÀÎÇÒ¼ö 
+        ÀÖÀ¸¹Ç·Î ÀÌ°ÍÀ» À¯ÃßÇÏ¿© ÀÚµ¿µî·Ï¹æÁö ÄÚµå¸¦ ¾Ë¾Æ³¾ ¼ö ÀÖ´Â ¹ö±×°¡ 
+        ÀÖ¾ú½À´Ï´Ù. (jacobswell ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)
+        »ç¿ëÀÚ°¡ È®ÀÎÇÒ¼ö ¾øµµ·Ï ÄÚµå¸¦ ¼öÁ¤ÇÏ¿´À¸¸ç ÀÔ·Â°ªÀÌ 5È¸ÀÌ»ó Æ²¸®¸é
+        ´Ù½Ã ÀÔ·ÂÀ» ÇÏµµ·Ï ÇÏ¿´½À´Ï´Ù.
+
+        Âü°í) ½ºÆÔÀ¸·Î ÀÎÇÏ¿© ÇÇÇØ¸¦ ÀÔ°í °è½Ã´Ù¸é È¸¿øÁ¦·Î ±Û¾²±â ÇØÁÖ½Ç°ÍÀ» 
+              ±ÇÇØ µå¸³´Ï´Ù. ºñÈ¸¿ø ±Û¾²±âÀÇ °æ¿ì ÇÁ·Î±×·¥ º¸´Ù´Â »ç¶÷ÀÌ ±ÛÀ»
+              ¿Ã¸®´Â °ÍÀ¸·Î È®ÀÎ µÇ¾ú½À´Ï´Ù.
+
+        js/jquery.kcaptcha.js
+        bbs/kcaptcha_session.php
+        bbs/kcaptcha_result.php
+
+        4.33.05 ÀÇ ÀÌ°Í(¡é¡é¡é)Àº Àû¿ëÇÏ¼Å¾ß ÇÕ´Ï´Ù.
+
+        -------------------------------------------------------------------------
+            ±âÅ¸) ±âÁ¸ ½ºÅ²¿¡ ´ëÇÑ ÆĞÄ¡¹æ¹ı
+        -------------------------------------------------------------------------
+            
+            if (typeof(f.wr_key) != 'undefined') {
+                if (hex_md5(f.wr_key.value) != md5_norobot_key) {
+                    alert('ÀÚµ¿µî·Ï¹æÁö¿ë ±ÛÀÚ°¡ Á¦´ë·Î ÀÔ·ÂµÇÁö ¾Ê¾Ò½À´Ï´Ù.');
+                    f.wr_key.select();
+                    f.wr_key.focus();
+                    return false;
+                }
+            }
+
+            À§¿Í °°Àº ÄÚµå¸¦
+
+            if (!check_kcaptcha(f.wr_key)) {
+                return false;
+            }
+
+            ÀÌ·¸°Ô ¹Ù²Ù½Ã¸é µË´Ï´Ù.
+
+        -------------------------------------------------------------------------
+
+
+4.33.05 (11.02.20)
+    :   [º¸¾ÈÆĞÄ¡] ½ºÆÔ±Û µî·ÏÀ¸·Î ÀÎÇÑ ÀÚµ¿µî·Ï¹æÁö Ä¸Ã­ÀÌ¹ÌÁö °ü·Ã ÄÚµå º¯°æ
+        
+        ¿äÁîÀ½ÀÇ ±×´©º¸µå ½ºÆÔµî·Ï±â´Â Ä¸Ã­ÀÌ¹ÌÁö »ı¼º½Ã ³ª¿À´Â md5 °ªÀ» À¯ÃßÇÏ¿© 
+        ¿ø·¡ µ¥ÀÌÅÍ(¼ıÀÚ)°ªÀ» ¾Ë¾Æ³»´Â ¹æ¹ıÀ» »ç¿ëÇÕ´Ï´Ù.
+        ½±°Ô ¸»¾¸µå¸®ÀÚ¸é ´ÙÀ½°ú °°½À´Ï´Ù. 
+        md5 DB¸¦ ¾Æ·¡¿Í °°ÀÌ ±¸ÃàÇØ ³õ½À´Ï´Ù.
+
+        ¿ŞÂÊÀº md5 ÇØ½ÃÅ°ÀÌ¸ç ¿À¸¥ÂÊÀº ¿ø·¡ µ¥ÀÌÅÍ ÀÔ´Ï´Ù.
+        c4ca4238a0b923820dcc509a6f75849b = 1
+        c81e728d9d4c2f636f067f89cc14862c = 2
+        eccbc87e4b5ce2fe28308fd9f2a7baf3 = 3
+        ...
+        52c69e3a57331081823331c4e69d3f2e = 999999
+        
+        °¡·É js/jquery.kcaptcha.js ÀÇ md5_norobot_key °ªÀÌ 52c69e3a57331081823331c4e69d3f2e ¶ó¸é 
+        md5 DB¿¡¼­ 52c69e3a57331081823331c4e69d3f2e °ªÀ» Ã£¾Æ³»¾î ¿ø µ¥ÀÌÅÍ 999999 °ªÀ» ¾Ë¾Æ³½´Ù´Â °ÍÀÌÁÒ.
+        (ÀÌ°ÍÀº º¹È£È­°¡ ¾Æ´Õ´Ï´Ù. Æí¹ıÀÌÁÒ. ¾îÂ·µç ¶Õ·È±â ¶§¹®¿¡ ÆĞÄ¡´Â ÇØ¾ß°ÚÁÒ?)
+        ±×·¡¼­ ÀÌ¹ø ÆĞÄ¡´Â ¿ø·¡ µ¥ÀÌÅÍ¿¡ Ãß°¡·Î PHPSESSID °ªÀ» ³Ö¾î¼­ md5 DB ¿¡¼­ °ªÀ» Ã£¾Æ³¾ ¼ö ¾øµµ·Ï 
+        ¸¸µé¾ú½À´Ï´Ù.
+
+
+        js/jquery.kcaptcha.js
+        bbs/kcaptcha_session.php
+        skin/board/basic/write.skin.php
+        skin/board/basic/view_comment.skin.php
+        skin/member/basic/formmail.skin.php
+        skin/member/basic/memo_form.skin.php
+        skin/member/basic/password_lost.skin.php
+        skin/member/basic/register_form.skin.php
+
+
+        -------------------------------------------------------------------------
+            ±âÅ¸) ±âÁ¸ ½ºÅ²¿¡ ´ëÇÑ ÆĞÄ¡¹æ¹ı
+        -------------------------------------------------------------------------
+            
+            if (typeof(f.wr_key) != 'undefined') {
+                if (hex_md5(f.wr_key.value) != md5_norobot_key) {
+                    alert('ÀÚµ¿µî·Ï¹æÁö¿ë ±ÛÀÚ°¡ Á¦´ë·Î ÀÔ·ÂµÇÁö ¾Ê¾Ò½À´Ï´Ù.');
+                    f.wr_key.select();
+                    f.wr_key.focus();
+                    return false;
+                }
+            }
+
+            À§¿Í °°Àº ÄÚµå¸¦
+
+            if (!check_kcaptcha(f.wr_key)) {
+                return false;
+            }
+
+            ÀÌ·¸°Ô ¹Ù²Ù½Ã¸é µË´Ï´Ù.
+
+        -------------------------------------------------------------------------
+
+
+4.33.04 (11.02.12)
+    :   4.33.03 ¿¡¼­ common.php ¿¡ º¸¾ÈÆĞÄ¡ÇÑ ÄÚµå´Â ¿À·ù°¡ ¸¹¾Æ 4.33.02 ·Î µÇµ¹¸³´Ï´Ù.
+    :   4.33.03 ÀÇ adm/member_form.php ¿¡ ÆĞÄ¡ÇÑ ÄÚµå¿¡ ¿À·ù°¡ ÀÖ¾ú½À´Ï´Ù.
+
+        common.php
+
+            if (isset($sca))  {
+                $sca = mysql_real_escape_string($sca);
+                $qstr .= '&sca=' . urlencode($sca);
+            }
+
+            if (isset($sfl))  {
+                $sfl = mysql_real_escape_string($sfl);
+                $qstr .= '&sfl=' . urlencode($sfl); // search field (°Ë»ö ÇÊµå)
+            }
+
+            if (isset($stx))  { // search text (°Ë»ö¾î)
+                $stx = mysql_real_escape_string($stx);
+                $qstr .= '&stx=' . urlencode($stx);
+            }
+
+            if (isset($sst))  {
+                $sst = mysql_real_escape_string($sst);
+                $qstr .= '&sst=' . urlencode($sst); // search sort (°Ë»ö Á¤·Ä ÇÊµå)
+            }
+
+
+        adm/member_form.php
+
+            <?=get_member_level_select("mb_level", 1, $member[mb_level], $mb[mb_level])?>
+
+
+4.33.03 (11.02.10)
+    :   È¸¿ø±ÇÇÑ ÄÚµå ¼öÁ¤ (ÄÚÅ¸±º´Ô)
+    :   ±ÛÀĞ±â Æ÷ÀÎÆ®°¡ ¼³Á¤µÇ¾î ÀÖÀ»¶§ ±ÛÀĞ±â ·¹º§ÀÌ 1·Î ¼³Á¤µÇ¾î ÀÖÀ¸¸é Æ÷ÀÎÆ® Â÷°¨ÀÌ Á¦´ë·Î µÇÁö ¾Ê´ø ¿À·ù ¼öÁ¤ (forever´Ô, Áø¼­±â´Ô)
+    :   [º¸¾ÈÆĞÄ¡] SQL INJECTION °ø°İ¿¡ ´ëºñÇÑ ÄÚµå ¼öÁ¤ (°³¹ÌÀÎ°£´Ô)
+
+        adm/member_form.php
+
+            <?=get_member_level_select("mb_level", 1, $member[mb_level], $member[mb_level])?>
+
+        bbs/board.php
+
+            if (!get_session($ss_name))
+            {
+                sql_query(" update $write_table set wr_hit = wr_hit + 1 where wr_id = '$wr_id' ");
+
+                // ÀÚ½ÅÀÇ ±ÛÀÌ¸é Åë°ú
+                if ($write[mb_id] && $write[mb_id] == $member[mb_id]) {
+                    ;
+                } else if ($is_guest && $board[bo_read_level] == 1 && $write[wr_ip] == $_SERVER['REMOTE_ADDR']) {
+                    // ºñÈ¸¿øÀÌ¸é¼­ ÀĞ±â·¹º§ÀÌ 1ÀÌ°í µî·ÏµÈ ¾ÆÀÌÇÇ°¡ °°´Ù¸é ÀÚ½ÅÀÇ ±ÛÀÌ¹Ç·Î Åë°ú
+                    ;
+                } else {
+                    /*
+                    // È¸¿øÀÌ»ó ±ÛÀĞ±â°¡ °¡´ÉÇÏ´Ù¸é
+                    if ($board[bo_read_level] > 1) {
+                        if ($member[mb_point] + $board[bo_read_point] < 0)
+                            alert("º¸À¯ÇÏ½Å Æ÷ÀÎÆ®(".number_format($member[mb_point]).")°¡ ¾ø°Å³ª ¸ğÀÚ¶ó¼­ ±ÛÀĞ±â(".number_format($board[bo_read_point]).")°¡ ºÒ°¡ÇÕ´Ï´Ù.\\n\\nÆ÷ÀÎÆ®¸¦ ¸ğÀ¸½Å ÈÄ ´Ù½Ã ±ÛÀĞ±â ÇØ ÁÖ½Ê½Ã¿À.");
+
+                        insert_point($member[mb_id], $board[bo_read_point], "$board[bo_subject] $wr_id ±ÛÀĞ±â", $bo_table, $wr_id, 'ÀĞ±â');
+                    }
+                    */
+                    // ±ÛÀĞ±â Æ÷ÀÎÆ®°¡ ¼³Á¤µÇ¾î ÀÖ´Ù¸é
+                    if ($board[bo_read_point] && $member[mb_point] + $board[bo_read_point] < 0)
+                        alert("º¸À¯ÇÏ½Å Æ÷ÀÎÆ®(".number_format($member[mb_point]).")°¡ ¾ø°Å³ª ¸ğÀÚ¶ó¼­ ±ÛÀĞ±â(".number_format($board[bo_read_point]).")°¡ ºÒ°¡ÇÕ´Ï´Ù.\\n\\nÆ÷ÀÎÆ®¸¦ ¸ğÀ¸½Å ÈÄ ´Ù½Ã ±ÛÀĞ±â ÇØ ÁÖ½Ê½Ã¿À.");
+
+                    insert_point($member[mb_id], $board[bo_read_point], "$board[bo_subject] $wr_id ±ÛÀĞ±â", $bo_table, $wr_id, 'ÀĞ±â');
+                }
+
+                set_session($ss_name, TRUE);
+            }
+
+
+        common.php
+        
+            if (isset($sca))  {
+                $sca = preg_replace("/([\'\"\`\<\>\(\)\;\/~@?=%&!]+)/", "", $sca);
+                $qstr .= '&sca=' . urlencode($sca);
+            }
+
+            if (isset($sfl))  {
+                $sfl = preg_replace("/([\'\"\`\<\>\(\)\;\/~@?=%&!]+)/", "", $sfl);
+                $qstr .= '&sfl=' . urlencode($sfl); // search field (°Ë»ö ÇÊµå)
+            }
+
+            if (isset($stx))  { // search text (°Ë»ö¾î)
+                $stx = preg_replace("/([\'\"\`\<\>\(\)\;\/~@?=%&!]+)/", "", $stx);
+                $qstr .= '&stx=' . urlencode($stx);
+            }
+
+            if (isset($sst))  {
+                $sst = preg_replace("/([\'\"\`\<\>\(\)\;\/~@?=%&!]+)/", "", $sst);
+                $qstr .= '&sst=' . urlencode($sst); // search sort (°Ë»ö Á¤·Ä ÇÊµå)
+            }
+
+
+4.33.02 (11.01.24)
+    :   [º¸¾ÈÆĞÄ¡] LFI(Local File Include )
+        LFI Ãë¾àÁ¡ÀÌ ¹ß°ßµÇ¾î ¼öÁ¤ÇÑ ÄÚµåÀÔ´Ï´Ù. (SKÀÎÆ÷¼½ Àå°æÄ¨´Ô)
+
+        common.php
+            if ($_GET['g4_path'] || $_POST['g4_path'] || $_COOKIE['g4_path']) { ... }
+            À§ ÄÚµå¸¸ ¼öÁ¤ µÇ¾ú½À´Ï´Ù.
+
+4.33.01 (11.01.10)
+    :   [º¸¾ÈÆĞÄ¡] XSS / CSRF
+        4.33.00 ¿¡ object ÅÂ±×·Îµµ ÇÃ·¡½Ã¸¦ ½ÇÇàÇÒ ¼ö ¾øµµ·Ï ¼öÁ¤ÇÑ ÄÚµåÀÔ´Ï´Ù. (¾Æ°¥°¶·¯¸®´Ô)
+
+        lib/common.lib.php 
+            ÀÇ bad_tag_convert() ÇÔ¼ö ÄÚµå¸¸ ¼öÁ¤
+
+4.33.00 (11.01.06)
+    :   [º¸¾ÈÆĞÄ¡] XSS / CSRF
+        FLASH ÆÄÀÏÀÇ ACTION SCRIPT·Î °ü¸®ÀÚÀÇ ¼¼¼Ç°ªÀ» ¾Ë¾Æ³»°í °øÀ¯ÇÏ¿© °á±¹¿¡´Â °ü¸®ÀÚ±ÇÇÑÀ» ¸ğµÎ °®°Ô µÇ´Â 
+        Ä¡¸íÀûÀÎ ¿À·ù°¡ ¹ß°ß µÇ¾ú½À´Ï´Ù. (°£´ÜÇÏ°Ô ¸»ÇØ¼­ ÇÃ·¡½Ã¸¦ º¸´Â°Í¸¸À¸·Î ¼¼¼Ç°ªÀÌ ³ëÃâµË´Ï´Ù.)
+        ÀÌ°ÍÀº ÇØÄ¿°¡ °ü¸®±ÇÇÑÀ» °øÀ¯ÇÏ´Â °ÍÀ¸·Î °ü¸®ÀÚÀÇ ÆĞ½º¿öµå°¡ ³ëÃâµÈ°ÍÀº ¾Æ´Õ´Ï´Ù.
+        ÆĞÄ¡ÀÇ ÁÖµÈ ³»¿ëÀº °Ô½ÃÆÇÀÇ ´Ù¸¥ È¸¿øÀÌ ¿Ã¸° embed ÅÂ±×´Â °ü¸®ÀÚ¿¡°Ô º¸¿©ÁöÁö ¾Ê°Ô ÇÏ´Â °ÍÀÔ´Ï´Ù.
+        ¶ÇÇÑ, ¼¼¼ÇÅ°°¡ °ø°³µÇ´õ¶óµµ °ü¸®ÀÚ ÆäÀÌÁö¿¡¼­ Á÷Á¢ ·Î±×ÀÎÇÑ °ü¸®ÀÚÀÎÁö¸¦ ÀÌÁßÀ¸·Î Ã¼Å©ÇÕ´Ï´Ù.
+        ±âº»È¯°æ¼³Á¤, °ü¸®±ÇÇÑ¼³Á¤, È¸¿ø°ü¸®, Æ÷ÀÎÆ®°ü¸®¿¡´Â °ü¸®ÀÚ ÆĞ½º¿öµå¸¦ ´Ù½Ã ¹°¾î¼­ °ü¸®±ÇÇÑÀ» ¿ÏÀüÈ÷ ³Ñ°ÜÁÖÁö ¾Êµµ·Ï ÇÏ¿´½À´Ï´Ù.
+        ÀÌ°Í°ú °ü·ÃµÈ ÀÚ¼¼ÇÑ ³»¿ëÀº º¸¾È´º½ºÀÇ ³»¿ëÀ» Âü°íÇÏ½Ê½Ã¿À.
+        http://www.boannews.com/media/view.asp?idx=24280&kind=1
+        (i2Sec ±³À°ÆÀ °­¼ºÈ£´Ô²²¼­ ¾Ë·ÁÁÖ½Å ³»¿ëÀÔ´Ï´Ù.)
+
+        ¾Æ·¡ ÆĞÄ¡¸¦ ¸ğµÎ Àû¿ëÇÏ±â Èûµç »çÀÌÆ®´Â Áß¿ä¶ó°í µÇ¾î ÀÖ´Â ÆÄÀÏ¸¸ ¼öÁ¤ÇØ ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.
+
+        === Áß¿ä ===
+        lib/common.lib.php 
+            ÀÇ bad_tag_convert(), view_file_link() ÇÔ¼ö ÄÚµå ¼öÁ¤
+        skin/board/basic/view_comment.skin.php 
+            ÀÇ $str = preg_replace("/\[\<a\s.*href\=\"(http|https|ftp)\:\/\/([^[:space:]]+)\.(swf)\".*\<\/a\>\]/i", "<script>doc_write(flash_movie('$1://$2.$3'));</script>", $str);
+            À§ ÄÚµå Á¦°Å ¶Ç´Â ÁÖ¼®Ã³¸®
+        bbs/login_check.php
+            ¿¡ ss_mb_key ¼¼¼ÇÅ° Ãß°¡
+        adm/admin.lib.php
+            ¿¡¼­ ss_mb_key ºñ±³
+        === /Áß¿ä ===
+
+        adm/config_form.php
+        adm/config_form_update.php
+        adm/auth_list.php
+        adm/auth_update.php
+        adm/member_form.php
+        adm/member_form_update.php
+        adm/point_list.php
+        adm/point_update.php
+
+4.32.15 (10.12.28)
+    :   [º¸¾ÈÆĞÄ¡] $write_table º¯¼ö°ª ÃÊ±âÈ­  (¸ù±¸½º´Ô)
+
+        common.php
+
+4.32.14 (10.12.07)
+    :   ±Û¾²±â, ÄÚ¸àÆ®¾²±â ¸ŞÀÏ ¹ß¼Û ÄÚµå ¼öÁ¤
+    :   ÄÚ¸àÆ®¾²±â Æ÷ÀÎÆ®¼³Á¤½Ã È¸¿øÀÇ Æ÷ÀÎÆ®°¡ À½¼öÀÎ °æ¿ì ÄÚ¸àÆ®¸¦ ¾²Áö ¸øÇÏ´ø ¹ö±×¸¦ ¼öÁ¤ (°ö½½ÃÖ¾¾´Ô)
+    :   ¿ìÆí¹øÈ£ ÆÄÀÏ º¯°æ (2010³â 11¿ù 19ÀÏÀÚ) - ¹èÃßºô´õÀÇ ¿ìÆí¹øÈ£ ÆÄÀÏÀ» Àû¿ë (°ö½½ÃÖ¾¾´Ô)
+
+        bbs/write_update.php
+        bbs/write_comment_update.php
+        bbs/zip.db
+
+4.32.13 (10.11.02)
+    :   [º¸¾ÈÆĞÄ¡] ºñ¹Ğ±ÛÀ» ¹«Á¶°Ç »ç¿ëÀ¸·Î ¼³Á¤ÇÑ °æ¿ì °ü¸®ÀÚ ÀÌ¿Ü¿¡´Â ºñ¹Ğ±ÛÀ» ÇØÁ¦ÇÏÁö ¸øÇÏµµ·Ï ¼öÁ¤ (³­ÆøÅº´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)
+    :   [º¸¾ÈÆĞÄ¡] ´Ù¸¥»ç¶÷ÀÇ ±ÛÀ» ¼öÁ¤ÇÒ ¼ö ÀÖ´Â ¹ö±× ¼öÁ¤ (³­ÆøÅº´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)
+    :   È¸¿øÁ¤º¸¼öÁ¤½Ã Á¤º¸°ø°³ ¼³Á¤ ¹®±¸ º¯°æ (°ö½½ÃÖ¾¾´Ô²²¼­ ¿äÃ»ÇØ ÁÖ¼Ì½À´Ï´Ù.)
+
+        bbs/write_update.php
+        skin/member/basic/register_form.skin.php
+
+4.32.12 (10.10.21)
+    :   [º¸¾ÈÆĞÄ¡] Æ¯Á¤ È¸¿ø¿¡°Ô µ¿ÀÏÇÑ ³»¿ëÀÇ ½ºÆÔ ÂÊÁö°¡ ¿Â´Ù¸é ÆĞÄ¡ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.
+    :   ÂÊÁöÀÇ Àü¼Û¹æ½ÄÀ» POST ·Î¸¸ Àü¼ÛÇÏµµ·Ï ¼öÁ¤
+    :   ÂÊÁöÀü¼Û½Ã ÀÚµ¿µî·Ï¹æÁö ÄÚµå¸¦ Àû¿ëÇÏ¿© CSRF¸¦ ¹æÁöÇÏ¿´½À´Ï´Ù.
+
+        bbs/memo_form_update.php
+        skin/member/basic/memo_form.skin.php
+
+4.32.11 (10.09.11)
+    :   [º¸¾ÈÆĞÄ¡] ¹İµå½Ã ÆĞÄ¡ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.
+        ÀÚµ¿·Î±×ÀÎ ±â´É¿¡ ½É°¢ÇÑ ¹ö±×°¡ Á¸ÀçÇÕ´Ï´Ù. 
+
+        common.php ÀÇ ÄÚµå¸¦ ¾Æ·¡¿Í °°ÀÌ ¼öÁ¤ÇØ ÁÖ½Ê½Ã¿À.
+
+        if ($tmp_mb_id = get_cookie("ck_mb_id"))
+        {
+            $tmp_mb_id = substr(preg_replace("/[^a-zA-Z0-9_]*/", "", $tmp_mb_id), 0, 20);
+            // ÃÖ°í°ü¸®ÀÚ´Â ÀÚµ¿·Î±×ÀÎ ±İÁö
+            if ($tmp_mb_id != $config['cf_admin'])
+            {
+                $sql = " select mb_password, mb_intercept_date, mb_leave_date, mb_email_certify from {$g4['member_table']} where mb_id = '{$tmp_mb_id}' ";
+
+        common.php
+
+4.32.10 (10.09.07)
+    :   ¾ÆÀÌµğ/ÆĞ½º¿öµå Ã£±â ÄÚµå º¸¿Ï (º¸¾È¼­¹ö Àû¿ë µî)
+        ±âÁ¸¿¡ »ç¿ëÇÏ´ø password_forget À» ´õ ÀÌ»ó »ç¿ëÇÏÁö ¾ÊÀ¸¸ç password_lost ·Î ´ëÃ¼ÇÕ´Ï´Ù.
+        È¸¿ø°¡ÀÔ½Ã ÆĞ½º¿öµå ºĞ½Ç½Ã Áú¹®, ´äº¯À» ´õ ÀÌ»ó ÀÔ·Â ¹ŞÁö ¾Ê½À´Ï´Ù.
+    
+        bbs/password_lost.php
+        bbs/password_lost2.php
+        bbs/password_lost_certify.php
+        skin/member/basic/password_lost.skin.php
+        skin/member/basic/register_form.skin.php
+        skin/member/basic/login.skin.php            : win_password_forget() -> win_password_lost() ·Î ´ëÃ¼
+        skin/outlogin/basic/outlogin.skin.1.php     : win_password_forget() -> win_password_lost() ·Î ´ëÃ¼
+        js/common.js                                : function win_password_lost() Ãß°¡
+
+        // À§ÀÇ ÆĞÄ¡¸¦ Àû¿ëÇÏ½Å ÈÄ ¾Æ·¡ 3°³ÀÇ ÆÄÀÏÀº ¹İµå½Ã »èÁ¦ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.
+        bbs/password_forget.php
+        bbs/password_forget2.php
+        bbs/password_forget3.php
+
+4.32.09 (10.09.07)
+    :   °Ô½ÃÆÇ¿¡¼­ \ ¸¦ °Ë»öÇÒ ¼ö ÀÖµµ·Ï ¼öÁ¤ (¾Ö³ª¾ç´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+    
+        lib/common.lib.php                          : $search_text = trim(stripslashes($search_text)); ·Î º¯°æ
+        skin/board/basic/list.skin.php              : value='<?=stripslashes($stx)?>' ·Î º¯°æ
+
+4.32.08 (10.08.25)
+    :   url_auto_link() ÇÔ¼ö ÄÚµå º¸¿Ï
+    
+        lib/common.lib.php 
+
+4.32.07 (10.08.23)
+    :   [º¸¾È] XSS(Cross Site Scripting) °ø°İ¿¡ ÀÇÇÑ µ¥ÀÌÅÍ °ËÁõ ¹× Â÷´Ü ±â´ÉÀ» º¸¿ÏÇÏ¿´½À´Ï´Ù. (sjsjin ´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+    :   È¸¿øÀÇ Æ÷ÀÎÆ®°¡ 0 ¹Ì¸¸ÀÏ °æ¿ì °Ô½ÃÆÇÀÇ ±Û¾²±â Æ÷ÀÎÆ®°¡ ¼³Á¤µÈ °æ¿ì¿¡ ³ª¿À´ø ¿À·ù¸¦ ¼öÁ¤ (°ö½½ÃÖ¾¾´Ô²²¼­ ´Ù½Ã ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)    
+    :   È¸¿ø°¡ÀÔÀÇ ¾à°ü¼±ÅÃ½Ã checkbox ¿¡¼­ radio ¼±ÅÃÀ¸·Î º¯°æÇÏ¿´½À´Ï´Ù. (ÇÑ±¹ÀÎÅÍ³İÁøÈï¿ø ±Ç°í)
+    :   È¸¿ø°¡ÀÔÀÇ »ıÀÏ ³¯Â¥¼±ÅÃ½Ã ´Ş·ÂÀ» jquery datepicker·Î »ç¿ëÇÏµµ·Ï ¼öÁ¤
+
+        common.php
+        bbs/write.php
+        skin/member/basic/register.skin.php
+        skin/member/basic/register_form.skin.php
+
+4.32.06 (10.08.09)
+    :   [º¸¾È] XSS(Cross Site Scripting) °ø°İ¿¡ ÀÇÇÑ µ¥ÀÌÅÍ °ËÁõ ¹× Â÷´Ü (sjsjin ´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+    :   ±Û¾²±â, ÄÚ¸àÆ®¾²±â½Ã ¿å ´Ü¾î ÇÊÅÍ¸µ ¹ö±× ¼öÁ¤ (À¯Ã¢È­´Ô, ºÒ´ç´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+
+        common.php
+        skin/board/basic/ajax.filter.php
+
+4.32.05 (10.07.26)
+    :   ¿ìÆí¹øÈ£ 2010³â 7¿ù 22ÀÏÀÚ ¹İ¿µ (51,031°Ç)
+    :   ±Û¾²±â, ÄÚ¸àÆ®¾²±â½Ã ¿å ´Ü¾î ÇÊÅÍ¸µÀÌ ¿ÜºÎ¿¡¼­ º¸ÀÌÁö ¾Êµµ·Ï AJAX Ã³¸®ÇÔ
+    :   °Ô½ÃÆÇ°ü¸®¿¡¼­ °Ô½ÃÆÇº¹»ç½Ã ¼­ºêµğ·ºÅä¸®µµ º¹»ç°¡ °¡´ÉÇÏµµ·Ï ¼öÁ¤ (±è¼±¿ë´Ô²²¼­ ÄÚµå¸¦ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)
+    :   ¹ŞÀºÂÊÁö¸¦ Å¸ÀÎÀÌ ÀĞÀº »óÅÂ·Î º¯°æÇÒ ¼ö ÀÖ´Â ¿À·ù ¼öÁ¤ (À¯¾Æ¿ø´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+    
+        adm/board_copy_update.php
+        bbs/memo_view.php
+        bbs/view_comment.php
+        bbs/write.php
+        bbs/zip.db
+        skin/board/basic/ajax.filter.php
+        skin/board/basic/view_comment.skin.php
+        skin/board/basic/write.skin.php
+        
+4.32.04 (10.07.02)
+    :   °Ô½ÃÆÇ ÀÌÀü, ´ÙÀ½ °Ë»ö½Ã 1ÆäÀÌÁö·Î ÀÌµ¿ÇÏµµ·Ï ¼öÁ¤ (intel´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+    :   ÆÄÀÏ¸í¿¡ Æ¯¼ö¹®ÀÚ°¡ µé¾î°£ °æ¿ì ´Ù¿î·Îµå µÇÁö ¾Ê´ø ¿À·ù ¼öÁ¤ (°ö½½ÃÖ¾¾´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+    :   °Ô½ÃÆÇ¿¡¼­ µÎ´Ü¾î ÀÌ»ó °Ë»ö ÈÄ °Ë»öµÈ °Ô½Ã¹°¿¡ ÄÚ¸àÆ®¸¦ ³²±â¸é ³ª¿À´ø ¿À·ù ¼öÁ¤ (°ö½½ÃÖ¾¾´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+    :   $g4[https_url] À» ÁöÁ¤ÇÑ °æ¿ì µµ¸ŞÀÎ ÀÌ¿ÜÀÇ Ãß°¡ °æ·Î¸¦ »ç¿ëÇÏ¸é ·Î±×ÀÎ½Ã ³ª´ø ¿À·ù¸¦ ¼öÁ¤
+
+        bbs/view.php
+        bbs/list.php
+        lib/common.lib.php
+        skin/member/basic/login.skin.php
+        skin/outlogin/basic/outlogin.skin.1.php
+
+4.32.03 (10.04.30)
+    :   ÄÚ¸àÆ® ´äº¯½Ã Ä¸Ã­ÀÌ¹ÌÁö, ÀÔ·Â¹Ú½º Ã¼Å©°¡ Á¦´ë·Î Ç¥½ÃµÇÁö ¾Ê´ø ¿À·ù ¼öÁ¤
+    :   È¸¿øÀÇ Æ÷ÀÎÆ®°¡ 0 ¹Ì¸¸ÀÏ °æ¿ì °Ô½ÃÆÇÀÇ ±Û¾²±â Æ÷ÀÎÆ®°¡ ¼³Á¤µÈ °æ¿ì¿¡ ³ª¿À´ø ¿À·ù¸¦ ¼öÁ¤
+        (°ö½½ÃÖ¾¾´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)
+    :   È¸¿ø¸ŞÀÏ¹ß¼Û¿¡¼­ °Ô½ÃÆÇ±×·ì¼±ÅÃ½Ã ÇØ´ç °Ô½ÃÆÇ±×·ì¿¡ ¼ÓÇÑ È¸¿øÀÌ ÇÑ¸íµµ ¾ø´Â °æ¿ì ³ª¿À´ø SQL ¿À·ù ¼öÁ¤ (À¥½ºÅ¸ÀÏ´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+
+        adm/mail_select_list.php
+        bbs/write.php
+        skin/board/basic/view_comment.skin.php
+
+4.32.02 (10.03.16)
+    :   ·Î±×ÀÎ ÁßÀÎ °ü¸®ÀÚ ·¹º§ ¼öÁ¤½Ã ¹ö±× ¼öÁ¤
+    :   È¸¿ø°¡ÀÔ½Ã º°¸í¿¡¼­ ÇÑ±ÛÀ» Á¦´ë·Î ÀÎ½ÄÇÏÁö ¸øÇÏ´Â ¹ö±× ¼öÁ¤
+
+        adm/member_form_update.php
+        skin/member/basic/ajax_mb_nick_check.php
+        skin/member/basic/ajax_register_form.jquery.js
+
+4.32.01 (10.03.12)
+    :   ´Ù¾çÇÑ ÇÃ·¯±×ÀÎÀ» »ç¿ëÇÒ ¼ö ÀÖµµ·Ï prototype.js ¿¡¼­ jquery.js ·Î ´ëÃ¼ÇÕ´Ï´Ù.
+        ±âÁ¸ ÄÚµå¸¦ À¯ÁöÇÏ±â À§ÇÏ¿© js/prototype.js ´Â »èÁ¦ÇÏÁö ¾Ê½À´Ï´Ù.
+    :   2010³â 2¿ù 25ÀÏÀÚ ¿ìÆí¹øÈ£·Î º¯°æ (°ö½½ÃÖ¾¾´Ô²²¼­ ¿Ã·ÁÁÖ½Å ÀÚ·áÀÔ´Ï´Ù.)
+    :   °Ô½ÃÆÇ°ü¸®¿¡ cheditor ±â´É Ãß°¡
+
+        head.sub.php
+        adm/board_form.php
+        adm/config_form.php
+        bbs/zip.db
+        js/jquery-1.4.2.min.js
+        js/jquery.kcaptcha.js
+        skin/board/basic/view_comment.skin.php
+        skin/board/basic/write.skin.php
+        skin/member/basic/ajax_register_form.jquery.js
+        skin/member/basic/formmail.skin.php
+        skin/member/basic/password_forget2.skin.php
+        skin/member/basic/register_form.skin.php                
+
+4.31.15 (10.02.08)
+    :   È¸¿ø»èÁ¦½Ã ÁÖ¹Îµî·Ï¹øÈ£µµ °ø¶õÀ¸·Î ¼öÁ¤
+        function member_delete($mb_id) { ... mb_jumin = '', ...
+    :   Á¢¼ÓÀÚÇöÈ² OS¿¡ Windows7 Ãß°¡ (Justin´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+    :   POSIX Regex ÇÔ¼ö Á¦°Å ( ereg_replace, ereg, eregi_replace, eregi, split, spliti, sql_regcase )
+        ÀÌ ±â´ÉÀº PHP 5.3.0 ºÎÅÍ ¹èÁ¦µÇ°í PHP 6.0.0 ºÎÅÍ Á¦°ÅµË´Ï´Ù. ÀÌ ±â´É¿¡ ÀÇÁ¸ÇÏÁö ¾Ê±â¸¦ ±ÇÇÕ´Ï´Ù.
+    :   ±âº»½Ã°£´ë¸¦ ¼³Á¤ PHP 5.1 ºÎÅÍ °¡´É date_default_timezone_set()
+    :   2009³â Á¦4Â÷ ¿ìÆí¹øÈ£ º¯°æ³»¿ª (2009.12.16.ÀÚ : 50,742°Ç) http://www.zipfinder.co.kr
+    :   password_check.php ÀÇ $qstr ¿¡ $sop Ãß°¡ 
+    :   js/common.js ÀÇ del() ÇÔ¼ö¿¡ charset º°·Î Ã³¸®µÇµµ·Ï ¼öÁ¤
+
+        adm/admin.lib.php
+        adm/board_copy_update.php
+        adm/board_form_update.php
+        adm/boardgroup_form_update.php
+        adm/mail_select_update.php
+        bbs/download.php
+        bbs/list.php
+        bbs/password_check.php
+        bbs/zip.db
+        cheditor4/imageupload-class.php
+        config.php
+        js/common.js
+        lib/common.lib.php
+        lib/mailer.lib.php
+        lib/visit.lib.php
+
+4.31.14 (09.10.15)
+    :   °ü¸®ÀÚ °Ô½ÃÆÇ µî·Ï½Ã »ó,ÇÏ´Ü ÀÌ¹ÌÁö, »ó, ÇÏ´Ü ÆÄÀÏ °æ·Î¸¦ ÅëÇÑ º¸¾È Ãë¾àÁ¡ ¼öÁ¤ (·Îºó¾Æºü ´Ô 091015)
+
+        adm/board_form_update.php        
+
+4.31.13 (09.10.14)
+    :   utf-8 ¹öÀü¿¡¼­ °Ô½ÃÆÇºĞ·ù ¼±ÅÃ½Ã Á¦´ë·Î °Ë»öµÇÁö ¾Ê´Â ¿À·ù ¼öÁ¤
+        skin/board/basic/list.skin.php ÀÇ
+        <select name=sca onchange="location='<?=$category_location?>'+this.value;"> ¸¦
+        <select name=sca onchange="location='<?=$category_location?>'+<?=strtolower($g4[charset])=='utf-8' ? "encodeURIComponent(this.value)" : "this.value"?>;"> ¿Í °°ÀÌ ¼öÁ¤ÇÏ½Ê½Ã¿À.
+    :   ÇÑ±Û·Î °Ë»öÈÄ °Ë»öµÈ ±ÛÀ» »èÁ¦ÇÏ°í ´Ù½Ã ¸ñ·ÏÀ¸·Î µ¹¾Æ¿Ã¶§ ÇÑ±ÛÀÌ ±úÁö´Â ¿À·ù¸¦ ¼öÁ¤ (Áø³ä´Ô 090930)
+        bbs/view.php ÀÇ
+        $delete_href = "javascript:del('./delete.php?bo_table=$bo_table&wr_id=$wr_id&page=$page".$qstr."');"; ¸¦
+        $delete_href = "javascript:del('./delete.php?bo_table=$bo_table&wr_id=$wr_id&page=$page".urldecode($qstr)."');"; ·Î ¼öÁ¤ÇÏ½Ê½Ã¿À.
+    :   2009³â Á¦3Â÷ ¿ìÆí¹øÈ£ º¯°æ³»¿ª (2009.09.29.ÀÚ : 50,554°Ç) http://www.zipfinder.co.kr
+
+        skin/board/basic/list.skin.php
+        bbs/view.php
+        bbs/zip.db
+
+4.31.12 (09.09.25)
+    :   Á¢¼ÓÀÚÇöÈ² Á¢¼Ó°æ·Î¿¡ <!-- ÁÖ¼® ÄÚµå°¡ Æ÷ÇÔµÇ¸é È­¸éÀÌ Á¦´ë·Î Ç¥½ÃµÇÁö ¾Ê´Â ¿À·ù ¼öÁ¤ (neue´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+        $title = str_replace(array("<", ">"), array("&lt;", "&gt;"), urldecode($row[vi_referer]));
+    :   Á¢¼ÓÀÚÇöÈ²¿¡ IE 8, CHROME, WINDOWS NT 6 ÀÌ Á¦´ë·Î Ç¥½ÃµÇµµ·Ï ¼öÁ¤
+    :   Ã·ºÎÆÄÀÏ Ã·ºÎ½Ã Ã·ºÎÆÄÀÏ¸í¿¡ °ø¹éÀÌ Æ÷ÇÔµÇ¾î ÀÖÀ¸¸é ÀÏºÎ PC¿¡¼­ º¸ÀÌÁö ¾Ê°Å³ª ´Ù¿î·Îµå µÇÁö ¾Ê´Â Çö»óÀÌ ÀÖ½À´Ï´Ù. (±æ»ó¿©ÀÇ ´Ô 090925)
+        (bbs/write_update.php) $upload[$i][file] = abs(ip2long($_SERVER[REMOTE_ADDR])).'_'.substr($shuffle,0,8).'_'.str_replace('%', '', urlencode(str_replace(' ', '_', $filename))); 
+    :   ÆÄÀÏ´Ù¿î·Îµå½Ã ½ÇÁ¦ ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾ÊÀ» °æ¿ì Æ÷ÀÎÆ®¸¸ Â÷°¨µÇ´Â ¿À·ù ¼öÁ¤ (¾ÆºüºÒ´ç´Ô 090914)
+
+        adm/visit_list.php
+        lib/visit.lib.php
+        bbs/write_update.php
+        bbs/download.php
+
+4.31.11 (09.07.14)
+    :   ÆÄÀÏÀ» º¯Á¶ÈÄ ¾÷·ÎµåµÈ ÆÄÀÏÀ» ÀÌ¿ëÇÑ º¸¾ÈÃë¾àÁ¡À» º¸¿Ï (¹İµå½Ã ÆĞÄ¡ÇØ ÁÖ½Ê½Ã¿À.)
+
+        lib/common.lib.php : view_file_link() ÇÔ¼ö
+        bbs/write_update.php : ÆÄÀÏ ¾÷·Îµå ºÎºĞ
+        bbs/register_form_update.php : È¸¿ø¾ÆÀÌÄÜ ¾÷·Îµå ºÎºĞ
+
+4.31.10 (09.07.13)
+    :   write.php ¿¡¼­ Á¸ÀçÇÏ´Â °Ô½ÃÆÇ($bo_table)ÀÎÁö °Ë»çÇÏ´Â ÄÚµå Ãß°¡ (nasca´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+    :   HTML ¾²±â ±ÇÇÑÀÌ ÀÖ´Â °æ¿ì¿¡¸¸ DHTML »ç¿ë °¡´ÉÇÏµµ·Ï ¼öÁ¤ (TopSchooL´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+
+        bbs/write.php
+
+4.31.09 (09.07.10)
+    :   ±Û¾²±â, ÄÚ¸àÆ® ¾²±â½Ã¿¡ ³»¿ëÀ» &# ¹®ÀÚ·Î ´Ù¼ö µî·ÏÇÏ´Â °æ¿ì È­¸é¿¡ ³»¿ëÀÌ º¸ÀÌÁö ¾ÊÀ¸¸é¼­ ºê¶ó¿ìÀú°¡ ´À·ÁÁö´Â Çö»óÀ» ¼öÁ¤
+    :   2009.06.23 ¿ìÆí¹øÈ£ ÆÄÀÏ·Î º¯°æ (50,353°Ç) http://www.zipfinder.co.kr/
+
+        bbs/zip.db
+        bbs/write_update.php
+        bbs/write_comment_update.php
+
+4.31.08 (09.06.23)
+    :   ¼¼¼Ç °¡ºñ½Ã Äİ·º¼Ç ±âº»°ªÀ¸·Î ÄÚµå ¼öÁ¤
+        ini_set("session.gc_probability", 1); // session.gc_probability´Â session.gc_divisor¿Í ¿¬°èÇÏ¿© gc(¾²·¹±â ¼ö°Å) ·çÆ¾ÀÇ ½ÃÀÛ È®·üÀ» °ü¸®ÇÕ´Ï´Ù. ±âº»°ªÀº 1ÀÔ´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº session.gc_divisor¸¦ Âü°íÇÏ½Ê½Ã¿À.
+        ini_set("session.gc_divisor", 100); // session.gc_divisor´Â session.gc_probability¿Í °áÇÕÇÏ¿© °¢ ¼¼¼Ç ÃÊ±âÈ­ ½Ã¿¡ gc(¾²·¹±â ¼ö°Å) ÇÁ·Î¼¼½º¸¦ ½ÃÀÛÇÒ È®·üÀ» Á¤ÀÇÇÕ´Ï´Ù. È®·üÀº gc_probability/gc_divisor¸¦ »ç¿ëÇÏ¿© °è»êÇÕ´Ï´Ù. Áï, 1/100Àº °¢ ¿äÃ»½Ã¿¡ GC ÇÁ·Î¼¼½º¸¦ ½ÃÀÛÇÒ È®·üÀÌ 1%ÀÔ´Ï´Ù. session.gc_divisorÀÇ ±âº»°ªÀº 100ÀÔ´Ï´Ù.
+    :   ÇÑÆäÀÌÁö¿¡¼­ ¿©·¯°³ÀÇ CHEDITOR »ç¿ë½Ã ÇÏ´Ü ÅÇÀÌ Á¦´ë·Î Ç¥½ÃµÇµµ·Ï ¼öÁ¤
+
+        common.php
+        cheditor4/cheditor.js
+
+4.31.07 (09.06.16)
+    :   È¸¿ø°¡ÀÔ½Ã ÁÖ¹Î¹øÈ£ »ç¿ëÇÏ´Â °æ¿ì µ¿ÀÏ ÁÖ¹Î¹øÈ£·Î È¸¿ø°¡ÀÔÀÌ °¡´ÉÇÑ ¿À·ù ¼öÁ¤ (letsgolee ´Ô)
+    :   °Ô½Ã¹° ¸®½ºÆ®ÀÇ Á¤·Ä ´ë»ó ÇÊµå°¡ ¾Æ´Ò¶§ ¿À·ù³ª´Â ºÎºĞ ¼öÁ¤ (nasca ´Ô)
+    :   ÆĞ½º¿öµå ºĞ½Ç½Ã ´äº¯ ºñ±³½Ã != ¸¦ !== ·Î ¼öÁ¤ ( 1 != 1. ÀÇ °æ¿ì¿¡µµ °°Àº ´äº¯À¸·Î ÀÎ½ÄÇÔ)
+    :   Á¤ÇØÁø ½Ã°£¿¡ 100% °¡ºñÁö Äİ·º¼Ç
+
+        bbs/list.php
+        bbs/register_form_update.php
+        bbs/password_forget3.php
+        common.php
+
+4.31.06 (09.02.03)
+    :   SQL Injection Ãë¾àÁ¡ º¸¿Ï
+    :   °Ô½ÃÆÇ ¾÷·Îµå ÆÄÀÏ¸íÀ» À¯ÃßÇØ º¼ ¼ö ÀÖ´Â ÄÚµå¸¦ º¸¿Ï
+
+        /bbs/point.php
+            $sql_common = " from $g4[point_table] where mb_id = '".mysql_escape_string($member[mb_id])."' ";
+
+        /bbs/poll_result.php
+            if (!file_exists("$poll_skin_path/poll_result.skin.php")) die("skin error");
+
+        /bbs/register_form_update.php
+            $mb_id = trim(strip_tags(mysql_escape_string($_POST[mb_id])));
+            $mb_password = trim(mysql_escape_string($_POST[mb_password]));
+            $mb_name = trim(strip_tags(mysql_escape_string($_POST[mb_name])));
+            $mb_nick = trim(strip_tags(mysql_escape_string($_POST[mb_nick])));
+            $mb_email = trim(strip_tags(mysql_escape_string($_POST[mb_email])));
+
+        /bbs/write_update.php
+            $chars_array = array_merge(range(0,9), range('a','z'), range('A','Z'));
+            ...
+            shuffle($chars_array);
+            $shuffle = implode("", $chars_array);
+            $upload[$i][file] = abs(ip2long($_SERVER[REMOTE_ADDR])).'_'.substr($shuffle,0,8).'_'.str_replace('%', '', urlencode($filename)); 
+
+
+        // ¼öÁ¤µÈ ÆÄÀÏ
+        /bbs/point.php
+        /bbs/poll_result.php
+        /bbs/register_form_update.php
+        /bbs/write_update.php
+
+4.31.05 (09.01.30)
+    :   XSS Ãë¾àÁ¡ ¼öÁ¤
+
+        if ($wr_id) {
+            $wr_id = (int)$wr_id;
+        }
+
+        if ($bo_table) {
+            $bo_table = preg_match("/^[a-zA-Z0-9_]+$/", $bo_table) ? $bo_table : "";
+        }
+
+        common.php
+
+4.31.04 (09.01.17)
+    :   PHPÀÇ ¼³Á¤Áß register_globals=on ·Î »ç¿ëÇÏ´Â °æ¿ì¿¡ $g4_path º¯¼ö¸¦ ÀÌ¿ëÇÑ ±×´©º¸µå Ãë¾àÁ¡À» ¼öÁ¤ ÇÏ¿´½À´Ï´Ù.
+        register_globals=off ·Î »ç¿ëÇÏ´Â °æ¿ì¿¡´Â ¹®Á¦µÇÁö ¾Ê½À´Ï´Ù.
+        GENESYS ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+
+        // common.php ÀÇ 94¶óÀÎºÎÅÍ ¾Æ·¡ ÄÚµå¸¸ Ãß°¡ÇØ ÁÖ½Ã¸é µË´Ï´Ù. common.php ¸¦ Âü°íÇÏ½Ê½Ã¿À.
+        if ($_GET['g4_path'] || $_POST['g4_path']) {
+            unset($_GET['g4_path']);
+            unset($_POST['g4_path']);
+            unset($g4_path);
+        }
+    
+        common.php
+
+4.31.03 (08.12.29)
+    :   ÀæÀº ÅäÅ« ¿¡·¯·Î ÀÎÇÏ¿© ÅäÅ«À» »ç¿ëÇÏÁö ¾Êµµ·Ï ¼öÁ¤ (check_token ÇÔ¼ö)
+    :   CAPTCHA ÀÌ¹ÌÁö Á¦´ë·Î Ãâ·ÂµÇÁö ¾Ê´Â ¿À·ù ¼öÁ¤ (character-set ¹®Á¦)
+
+        lib/common.lib.php
+        bbs/kcaptcha_session.php
+
+4.31.02 (08.11.03)
+    :   HTML ¾²±â¿¡¼­ onÀ¸·Î ½ÃÀÛµÇ´Â ÀÌº¥Æ®(¿¹:onclick) »ç¿ë½Ã ¿¡·¯³ª´Â ºÎºĞÀ» ¼öÁ¤ : conv_content()
+
+        lib/common.lib.php            
+
+4.31.01 (08.10.29)
+    :   extract($_GET); À¸·Î ÀÎÇÑ ¿À·ù ¼öÁ¤
+        letsgolee ´Ô²²¼­ µµ¿ò ÁÖ¼Ì½À´Ï´Ù.
+    :   token Àû¿ëÀÌ µÇÁö ¾ÊÀº ÆäÀÌÁö token Àû¿ë
+    
+        adm/member_form.php
+        adm/member_form_update.php
+        common.php
+        lib/common.lib.php            
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+4.31.00 (08.10.28)
+    :   CSRF º¸¾È °­È­¸¦ À§ÇÑ ÄÚµå ¼öÁ¤
+        °ü¸®ÀÚ > ±âº»È¯°æ¼³Á¤ ÆäÀÌÁö¿¡ cpatcha Àû¿ë
+        ÃßÃµ) °ü¸®ÀÚ ±âº» Æú´õ¸íÀÎ adm Æú´õ¸¦ ´Ù¸¥ ÀÌ¸§ º¯°æÇÏ½Å ÈÄ 
+              config.php ÀÇ $g4['admin'] = "adm"; °ªÀ» º¯°æÇÏ½Ã¸é CSRF ¿¡¼­ Á» ´õ ¾ÈÀüÇÒ ¼ö ÀÖ½À´Ï´Ù.
+    :   ´ëºÎºĞÀÇ °ü¸®ÀÚ ÆäÀÌÁö¿¡ CSRF º¸¾È °­È­¸¦ À§ÇÑ ÅäÅ« Àû¿ë
+    :   cheditor4 ÄÚµå ¼öÁ¤
+    :   È¸¿øÁ¤º¸ ¼öÁ¤½Ã¿¡µµ captcha Àû¿ë
+    :   "°³ÀÎÁ¤º¸º¸È£Á¤Ã¥" ¹®±¸¸¦ "°³ÀÎÁ¤º¸Ãë±Ş¹æÄ§"À¸·Î ¼öÁ¤
+
+        adm/* (´ëºÎºĞÀÇ ÄÚµå°¡ º¯°æ µÇ¾ú½À´Ï´Ù.)
+        bbs/password_forget2.php
+        bbs/register_form_update.php
+        lib/cheditor4.lib.php
+        lib/common.lib.php
+        skin/board/basic/*
+        skin/member/basic/register_form.skin.php
+        skin/member/basic/register.skin.php
+        skin/board/basic/write.skin.php
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+4.30.00 (08.10.01)
+    :   DHTML »ç¿ë½Ã geditor¸¦ cheditor4.2 ¹öÀüÀ¸·Î º¯°æ
+
+        config.php ÆÄÀÏ¿¡ ¾Æ·¡ÀÇ ÄÚµå¸¦ Ãß°¡ÇÏ½Ê½Ã¿À.
+        $g4['cheditor4']      = "cheditor4";
+        $g4['cheditor4_path'] = $g4['path'] . "/" . $g4['cheditor4'];
+
+        lib/cheditor4.lib.php ÆÄÀÏÀ» Ãß°¡ÇÏ½Ê½Ã¿À.
+        cheditor4/* ¸¦ Ãß°¡ÇÏ½Ê½Ã¿À.
+
+    :   ±¸±Û Å©·Ò¿¡¼­ Á¤»ó ÀÛµ¿µÇµµ·Ï ¸¹Àº ºÎºĞÀÇ ÄÚµå ¼öÁ¤
+    :   SQL Injection, PHP Injection °ø°İÀ¸·Î ÀÎÇÑ ÄÚµå º¸¿Ï (ÇÑ±¹Á¤º¸º¸È£ÁøÈï¿ø¿¡¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+    :   XSS (Cross Site Scripting) Ãë¾àÁ¡ º¸¿Ï (ÇÑ±¹Á¤º¸º¸È£ÁøÈï¿ø¿¡¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+    :   GET, POST ·Î g4_path ³Ñ±æ¶§ ¹ß»ıÇÏ´Â ¿À·ù ¼öÁ¤ (±¤Á¸´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+    :   ÇÁ·Î±×·¥¿¡ ÀÇÇÑ È¸¿ø°¡ÀÔ, ±Û¾²±â, ¾ÆÀÌµğ/ÆĞ½º¿öµå Ã£±â capcha ÄÚµå º¸¿Ï (¸í¶ûÆóÀÎ´Ô²²¼­ µµ¿òÁÖ¼Ì½À´Ï´Ù.)
+    :   ÇÁ·Î±×·¥¿¡ ÀÇÇÑ ¸ŞÀÏ¹ß¼ÛÀ» ¸·´Â capcha ÄÚµå Ãß°¡
+    :   ºñ¹Ğ¹øÈ£(ÆĞ½º¿öµå) ÀÔ·Â½Ã CapsLock ÀÌ ´­·¯Á® ÀÖ´ÂÁö °Ë»çÇÏ´Â ÄÚµå Ãß°¡
+
+    *   ÀÌ¹ø ¹öÀüÀº »ó´ç¼öÀÇ ÄÚµå°¡ º¯°æÀÌ µÇ¾ú½À´Ï´Ù.
+        ÀÌÀü ¹öÀüÀ» »ç¿ëÇÏ½Ã´Â ºĞÀº ¾Æ·¡ÀÇ ÆÄÀÏÀÌ º¯°æµÇ¾úÀ¸´Ï ÆÄÀÏ ºñ±³ ÇÁ·Î±×·¥(AcroDiff ÇÁ·Î±×·¥ ÃßÃµ)µîÀ» ÀÌ¿ëÇÏ¿© ¹Ù²ï ÄÚµå¸¸ ¼öÁ¤ÇØ ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.
+
+    *   cheditor´Â CHSOFT Corp(http://chcode.com)ÀÇ Àç»êÀÌ¹Ç·Î ±×´©º¸µåÀÇ ¶óÀÌ¼¾½º¿Í´Â º°°³ÀÔ´Ï´Ù.
+        cheditor¸¦ ºô´õµî¿¡ Æ÷ÇÔÇÏ¿© ¹èÆ÷, ÆÇ¸ÅÇÏ½Ã´Â °æ¿ì¿¡´Â ¹İµå½Ã cheditor¸¦ º°µµ·Î ±¸ÀÔÇÏ¼Å¾ß ÇÕ´Ï´Ù.
+
+    *   4.30.00 ¿¡¼­ ¹Ù²ï ÆÄÀÏ ÀüÃ¼ ¸ñ·Ï
+
+        adm/auth_list.php
+        adm/board_copy.php
+        adm/board_form.php
+        adm/boardgroup_form.php
+        adm/config_form.php
+        adm/index.php
+        adm/mail_select_list.php
+        adm/member_form.php
+        adm/point_list.php
+        adm/poll_form.php
+        bbs/delete_all.php
+        bbs/delete_comment.php
+        bbs/formmail_send.php
+        bbs/fonts/*
+        bbs/kcaptcha_config.php
+        bbs/kcaptcha_image.php
+        bbs/kcaptcha.php
+        bbs/kcaptcha_session.php
+        bbs/member_nick_check.php
+        bbs/move.php
+        bbs/move_update.php
+        bbs/password_forget3.php
+        bbs/register_form_update.php
+        bbs/search.php
+        bbs/view.php
+        bbs/write_comment_update.php
+        bbs/write_update.php
+        cheditor4/_common.php
+        cheditor4/imageupload-class.php
+        cheditor4/insert_image.php
+        common.php
+        config.php
+        head.php
+        head.sub.php
+        img/capslock.gif 
+        index.php
+        js/capslock.js 
+        lib/cheditor4.lib.php
+        lib/common.lib.php
+        skin/board/basic/list.skin.php
+        skin/board/basic/view_comment.skin.php
+        skin/board/basic/view.skin.php
+        skin/board/basic/write.skin.php
+        skin/latest/basic/latest.skin.php
+        skin/member/basic/formmail.skin.php
+        skin/member/basic/login.skin.php
+        skin/member/basic/member_confirm.skin.php
+        skin/member/basic/memo_form.skin.php
+        skin/member/basic/password_forget2.skin.php
+        skin/member/basic/password_forget3.skin.php
+        skin/member/basic/password_forget.skin.php
+        skin/member/basic/password.skin.php
+        skin/member/basic/register_form.skin.php
+        skin/member/basic/register.skin.php
+        skin/new/basic/new.skin.php
+        skin/outlogin/basic/outlogin.skin.1.php
+        skin/poll/basic/poll_result.skin.php
+        skin/search/basic/search.skin.php
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+4.22.06 (08.09.07)
+    :   geditor¿¡¼­ ÀÌ¹ÌÁö ¾÷·Îµå½Ã ÀÌ¹ÌÁö È®ÀåÀÚ¸¸ ¾÷·Îµå °¡´ÉÇÏµµ·Ï ¼öÁ¤
+
+        geditor/upload.php
+
+4.22.05 (08.09.01)
+    :   2008.08.28 ¿ìÆí¹øÈ£ ÆÄÀÏ·Î ±³Ã¼ (49,893°Ç)
+
+        bbs/zip.db
+
+4.22.04 (08.06.11)
+    :   [ÇÊ¼öÆĞÄ¡] ¿ú Ãë¾àÁ¡ ¼öÁ¤ ¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú¡Ú
+
+        common.php ¸¦ ¾Æ·¡¿Í °°ÀÌ ¹İµå½Ã ¹İµå½Ã ¹İµå½Ã ¼öÁ¤ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.
+        // ½ºÅ²°æ·Î
+        $board_skin_path = ''; // <!-- ÀÌ ÄÚµå ÇÑÁÙÀÌ ¹İµå½Ã µé¾î°¡¾ß ÇÕ´Ï´Ù. 
+        if (isset($board['bo_skin']))
+            $board_skin_path = "{$g4['path']}/skin/board/{$board['bo_skin']}"; // °Ô½ÃÆÇ ½ºÅ² °æ·Î
+
+4.22.03 (08.03.31)
+    :   ¾ÆÀÌµğ/ÆĞ½º¿öµå Ã£±â ÆäÀÌÁö ·Îº¿¿¡ ÀÇÇÑ Á¢±Ù Â÷´Ü (GD LIB »ç¿ëÀÚ¸¸ °¡´É)
+
+        skin/member/basic/password_forget2.skin.php
+        bbs/password_forget2.php
+        bbs/password_forget3.php
+
+4.22.02 (08.03.28)
+    :   UTF-8 »ç¿ë½Ã Æû¸ŞÀÏ Ã¢¿¡¼­ ÀÌ¸§ÀÌ ±úÁö´ø ¿À·ù ¼öÁ¤
+    :   ¿ìÆí¹øÈ£ ÆÄÀÏÀ» zzzz´ÔÀÌ ¿Ã¸®½Å ÆÄÀÏ·Î ±³Ã¼
+    :   ÀÚµ¿µî·Ï¹æÁö ÀÌ¹ÌÁö¿¡ Ä³½Ã¸¦ ¹æÁöÇÏ±â À§ÇÑ ÄÚµå Ãß°¡
+
+        js/common.js
+        bbs/zip.db
+        skin/board/basic/write.skin.php
+        skin/member/basic/register_form.skin.php
+
+4.22.01 (08.02.29)
+    :   ¸Ş¸ğ¸® ºÎÁ·½Ã ¿ìÆí¹øÈ£¸¦ Á¦´ë·Î ºÒ·¯¿ÀÁö ¸øÇÏ´ø ¿À·ù ¼öÁ¤
+
+        bbs/zip.php
+
+4.22.00 (08.02.18) [ÀÚµ¿µî·Ï¹æÁö ÇÊ¼ö ÆĞÄ¡]
+    :   »ó´ë°æ·Î ÁöÁ¤½Ã ÀÚµ¿À¸·Î Àı´ë°æ·Î·Î ¹Ù²î´ø ¿À·ù ¼öÁ¤
+        
+        cheditor/cheditor.js
+
+    :   Áö¿¡µğÅÍ »ç¿ë½Ã º»¹® required ¿É¼Ç ¹«½ÃµÇ´Â ¿À·ù¸¦ ¼öÁ¤
+        
+        js/wrest.js
+
+    :   ÀÚµ¿µî·Ï¹æÁö ÄÚµå Ãß°¡ (gd lib ¸¦ Áö¿øÇÏ´Â ¼­¹ö¿¡¼­¸¸ Á¤»ó Àû¿ëµË´Ï´Ù.)
+        
+        bbs/norobot.inc.php
+        bbs/norobot_image.php
+        skin/member/basic/register_form.skin.php
+        skin/board/basic/write.skin.php
+        skin/board/basic/view_comment.skin.php
+
+4.21.04 (07.12.04) [º¸¾È°ü·Ã ÇÊ¼ö ÆĞÄ¡]
+    :   ¿ÜºÎ¿¡¼­ È¸¿øÁ¤º¸¸¦ ¼öÁ¤ÇÒ ¼ö ÀÖ´Â ¿À·ù¸¦ ¼öÁ¤
+        È¸¿øÁ¤º¸ ÀÔ·ÂÆû¿¡¼­ f.submit() Àü¿¡ ÀÌ ÄÚµå°¡ ¹İµå½Ã Ãß°¡ µÇ¾î¾ß ÇÕ´Ï´Ù.
+        set_cookie("<?=md5($token)?>", "<?=base64_encode($token)?>", 1, "<?=$g4['cookie_domain']?>");
+        morssola ´Ô²²¼­ µµ¿ò ÁÖ¼Ì½À´Ï´Ù.
+    :   ±âº» °Ô½ÃÆÇ ½ºÅ² º¯°æ (GEditor Æ÷ÇÔ)
+        config.php ¿¡ µÎ ÁÙ Ãß°¡ µÇ¾ú½À´Ï´Ù.
+        $g4['geditor']        = "geditor";
+        $g4['geditor_path']   = $g4['path'] . "/" . $g4['geditor'];
+
+
+        skin/member/basic/register_form.skin.php
+        bbs/register_form_update.php
+        geditor/*
+        skin/board/basic/*
+        config.php
+
+4.21.03 (07.11.30) [º¸¾È°ü·Ã ÇÊ¼ö ÆĞÄ¡]
+    :   ¿ÜºÎ¿¡¼­ È¸¿øÁ¤º¸¸¦ ¼öÁ¤ÇÒ ¼ö ÀÖ´Â ¿À·ù¸¦ ¼öÁ¤
+    :   Æû¸ŞÀÏ¿¡µµ ÅäÅ« Àû¿ë
+    :   ±âÁ¸ È¸¿ø°¡ÀÔ½ºÅ²(register_form.skin.php)¿¡ 
+        <input type=hidden name=token value="<?=$token?>"> ÀÌ ÄÚµå¸¦ Ãß°¡ÇØ ÁÖ½Ê½Ã¿À. 
+    :   ±âÁ¸ Æû¸ŞÀÏ½ºÅ²(formmail.skin.php)¿¡ 
+        <input type=hidden name=token value="<?=$token?>"> ÀÌ ÄÚµå¸¦ Ãß°¡ÇØ ÁÖ½Ê½Ã¿À. 
+        
+        bbs/register_form.php
+        bbs/register_form_update.php
+        skin/member/basic/register_form.skin.php
+        bbs/formmail.php
+        bbs/formmail_send.php
+        skin/member/basic/formmail.skin.php
+
+4.21.02 (07.08.22)
+    :   referer_check() ÁÖ¼® Ã³¸® »ç¿ëÇÏÁö ¾ÊÀ½
+        °°Àº URL ¿¡¼­ ¿Â °ªÀÎÁö Ã¼Å©ÇÏÁö ¾ÊÀ½
+    :   º¸¾È ·Î±×ÀÎ ÄÚµå ¼öÁ¤
+    :   °Ô½ÃÆÇ°ü¸®ÀÇ »ó,ÇÏ´Ü ÀÌ¹ÌÁö ÄÚµå ¼öÁ¤
+        ±è¼±¿ë´Ô(sucjin)²²¼­ ÄÚµå¸¦ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.
+    :   Æ®·¢¹é ÇÎ ¹Ş´Â ÆäÀÌÁö ÄÚµå ¼öÁ¤
+    :   ±İÁö´Ü¾î¿¡ °ø¹éÀÌ ÀÖ´Â °æ¿ì trim Ã³¸® word_filter_check()
+    :   ¸µÅ© Å¬¸¯½Ã ¸µÅ©µÉ ´ë»óÀÌ ¾øÀ¸¸é ÆÄÀÌ¾îÆø½º¿¡¼­ °è¼Ó ·ÎµùµÇ´ø ¿À·ù¸¦ ¼öÁ¤
+    :   ±Û¾²±â ·¹º§¿¡ °ü°è¾øÀÌ ÀÚ½ÅÀÇ ±ÛÀº ¼öÁ¤ÀÌ °¡´ÉÇÏµµ·Ï ÄÚµå ¼öÁ¤
+        ±è¼±¿ë´Ô(sucjin)²²¼­ ÄÚµå¸¦ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.
+
+        bbs/link.php
+        bbs/norobot_check.inc.php
+        bbs/tb.php
+        bbs/write.php
+        bbs/write_update.php
+        lib/common.lib.php
+        skin/member/basic/login.skin.php
+        skin/outlogin/basic/outlogin.skin.1.php
+        adm/board_form.php
+        adm/board_form_update.php
+        js/filter.js
+
+4.21.01 (07.06.05)
+    :   ºñ¹Ğ±Û ¹ö±× ÆĞÄ¡
+        ³ª½ºÄ«´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+
+        bbs/view_comment.php
+        skin/board/basic/view_comment.skin.php
+
+4.21.00 (07.05.30)
+    :   º¸¾È¼­¹ö¿Í °ü·ÃÇÏ¿© ·Î±×ÀÎ, È¸¿ø°¡ÀÔ ÁÖ¼Ò¸¦ https ·Î º¯°æÇÏ´Â ÄÚµå Ãß°¡
+    :   ¿ÜºÎ·Î±×ÀÎ ºñÈ¸¿ø½Ã Äõ¸® È½¼ö¸¦ ÁÙÀÓ
+    :   È¸¿ø°¡ÀÔ½Ã Áßº¹È®ÀÎÀ» ajax ·Î ´ëÃ¼
+    :   ÄÚ¸àÆ®¿¡ ºñ¹Ğ±Û °¡´ÉÇÏµµ·Ï ¼öÁ¤
+    :   °Ô½Ã¹° º¹»ç/ÀÌµ¿½Ã °Ô½ÃÆÇÀÌ Ãâ·ÂµÇ´Â ¼ø¼­¸¦ ±×·ì, °Ë»ö¼ø¼­·Î ¼öÁ¤
+    :   °øÁö»çÇ×ÀÌ ¾ø´Ù¸é °Ç³Ê¶Ü
+    :   [¸¶ÀÌ³Ê±×·¹ÀÌµå] 1:1 °Ô½ÃÆÇ ±â´É »èÁ¦
+
+        config.php ¿¡ ¾Æ·¡¿Í °°ÀÌ ÇÑ ÁÙ Ãß°¡ÇØ ÁÖ½Ê½Ã¿À.
+        $g4['https_url'] = "";
+
+        bbs/list.php
+        bbs/move.php
+        bbs/view_comment.php
+        bbs/write_comment_update.php
+        bbs/write_update.php
+        bbs/register_form_update.php
+        lib/outlogin.lib.php
+        skin/board/basic/view_comment.skin.php
+        skin/member/basic/_common.php
+        skin/member/basic/ajax_mb_email_check.php
+        skin/member/basic/ajax_mb_id_check.php
+        skin/member/basic/ajax_mb_nick_check.php
+        skin/member/basic/ajax_register_form.js
+        skin/member/basic/register_form.skin.php
+        skin/outlogin/basic/outlogin.skin.1.php
+
+4.20.03 (07.05.04)
+    :   ÃÖ½Å±Û ¼Óµµ¸¦ ºü¸£°Ô ÇÏ±â À§ÇØ SELECT Äõ¸®¸¦ ¼öÁ¤
+    :   lib/one.lib.php ÀÇ upload_file() ÇÔ¼ö¸íÀ» upload_file2() ·Î ¼öÁ¤
+
+        lib/latest.lib.php
+        lib/one.lib.php
+        bbs/oneanswer.php
+        bbs/onequestion.php
+
+4.20.02 (07.04.26)
+    :   1:1 °Ô½ÃÆÇ ±â´É ¼öÁ¤
+        sql_one.sql ¿¡ ´©¶ôµÈ ¿©ºĞÇÊµå on_1 ~ on_10 ÇÊµå Ãß°¡
+        ÆÄÀÌ¾îÆø½º¿¡¼­´Â dhtml editor »ç¿ë½Ã ´äº¯¿¡¼­ ¿À·ù ¹ß»ıÇÕ´Ï´Ù.
+
+        adm/sql_one.sql
+        bbs/oneanswer.php
+        bbs/onequestion.php
+
+4.20.01 (07.04.23 16:25)
+    :   1:1 °Ô½ÃÆÇ ±â´É ¼öÁ¤
+
+        bbs/one.php
+        bbs/oneanswer.php
+        skin/oneboard/one/oneanswermail.skin.php
+        skin/oneboard/one/oneview.skin.php
+    
+4.20.00 (07.04.23)
+    :   Á¢±Ù°¡´É IP, Á¢±ÙÂ÷´Ü IP ÄÚµå ¼öÁ¤
+        sjsjin´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   ¼¼¼Çµ¥ÀÌÅÍ »èÁ¦ ±â´É Ãß°¡
+        ÀÚµ¿À¸·Î »èÁ¦µÇÁö ¾Ê´Â ¼¼¼Çµ¥ÀÌÅÍ¸¦ »èÁ¦ 
+    :   È¸¿øÅ×ÀÌºí¿¡ mb_no AUTO_INCREMENT PRIMARY KEY ·Î ´ëÃ¼
+    :   1:1 °Ô½ÃÆÇ ±â´É Ãß°¡
+
+        config.php ¿¡
+        $g4['one_prefix']          = $g4['table_prefix'] . "one_";   // 1:1 °Ô½ÃÆÇ Å×ÀÌºí¸í Á¢µÎ»ç
+        $g4['oneboard_table']      = $g4['table_prefix'] . "oneboard";      // 1:1°Ô½ÃÆÇ ¼³Á¤ Å×ÀÌºí
+        ¿Í °°ÀÌ µÎÁÙ Ãß°¡ÇØ ÁÖ½Ê½Ã¿À.
+
+        Å×ÀÌºíÀÌ º¯°æ µÇ¾úÀ¸´Ï adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¿© ÁÖ½Ê½Ã¿À.
+
+        common.php
+        config.php
+        adm/admin.menu100.php
+        adm/admin.menu300.php
+        adm/config_form.php
+        adm/oneboard*.php
+        adm/sql_one.sql
+        adm/session_delete.php
+        adm/upgrade.php
+        bbs/one*.php
+        lib/one.lib.php
+        skin/oneboard/one/*
+
+4.11.00 (06.12.29)
+    :   °Ô½ÃÆÇ °Ë»ö¿¡¼­ °ø¶õÀÌ µÎ°³ ¿¬¼ÓµÉ °æ¿ì ¿À·ù ¹ß»ıÇÏ´Â Çö»óÀ» ¼öÁ¤
+        lib/common.lib.php ÀÇ get_sql_search(), search_font() ÇÔ¼ö ¼öÁ¤
+        bob´Ô²²¼­ µµ¿ò ÁÖ¼Ì½À´Ï´Ù.
+    :   È¸¿ø »çÀÌµå ·¹ÀÌ¾î ¸Ş´º¿¡ "È¸¿ø°Ô½Ã¹°" °Ë»ö Ãß°¡
+    :   download.tail.skin.php °¡ ½ÇÇàµÇÁö ¾Ê¾Æ bbs/download.php ¿¡¼­ ÄÚµå À§Ä¡ º¯°æ
+    :   ÂÊÁö¹ß¼Û½Ã Æ÷ÀÎÆ® Â÷°¨ ±â´É Ãß°¡
+    :   ½ºÆÔÆ®·¢¹éÀ» ¸·±â À§ÇØ ±â´É ¼öÁ¤
+        config.php ¿¡ $g4['token_time'] = 3; Ãß°¡
+    :   head.sub.php ¿¡ ¾Æ·¡¿Í °°ÀÌ ÇÑÁÙ Ãß°¡ÇÏ½Ê½Ã¿À.
+        <script type="text/javascript" src="<?=$g4['path']?>/js/ajax.js"></script> 
+
+        Å×ÀÌºíÀÌ Ãß°¡ µÇ¾úÀ¸´Ï adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¿© ÁÖ½Ê½Ã¿À.
+
+        config.php
+        head.sub.php
+        adm/config_form.php
+        adm/config_form_update.php
+        adm/upgrade.php
+        bbs/download.php
+        bbs/memo_form_update.php
+        bbs/tb.php
+        bbs/tb_token.php
+        bbs/view.php
+        lib/common.lib.php
+        js/ajax.js
+        js/sideview.js
+        skin/board/basic/view.skin.php
+
+4.10.00 (06.11.27)
+    :   cheditor ¿¡¼­ ÀÔ·ÂÀÌ ¾øÀÌ ¿£ÅÍ¸¸ Ä¡´Â °æ¿ì <DIV>&nbsp;</DIV> ³ª¿À´Â Çö»óÀ» ¼öÁ¤
+    :   °Ô½ÃÆÇ°ü¸®¿¡¼­ ºñ¹Ğ±Û »ç¿ë¿¡ '¹«Á¶°Ç' ºñ¹Ğ±Û ¿É¼Ç Ãß°¡
+    :   RSS º¸±â »ç¿ë ÇÊµå Ãß°¡ 
+        ºñÈ¸¿ø ±ÛÀĞ±â°¡ °¡´ÉÇÏ°í RSS º¸±â »ç¿ë¿¡ Ã¼Å©°¡ µÇ¾î¾ß¸¸ RSS(XML) º¸±â °¡´É
+    :   °Ô½ÃÆÇ°ü¸®¿¡¼­ DHTML ¿¡µğÅÍ »ç¿ë ¼±ÅÃ ¿É¼Ç Ãß°¡
+        basic, cheditor ½ºÅ²À» ÅëÇÕÇÔ
+        ÇÊµå°¡ Ãß°¡µÇ¾úÀ¸´Ï adm/board_list.php ¸¦ ¹İµå½Ã ÇÑ¹øÀº ½ÇÇàÇÏ¿© ÁÖ½Ê½Ã¿À.
+    :   È¸¿ø»èÁ¦½Ã È¸¿øÀÇ Á¤º¸¸¸ »èÁ¦ÇÏ°í È¸¿ø¾ÆÀÌµğ´Â ¿µ±¸ º¸°üÇÔ
+    :   bbs/view.php , bbs/view_comment.php ¿¡ ½ºÅ² »ó, ÇÏ´Ü ÆÄÀÏÀ» include ÇÒ ¼ö ÀÖµµ·Ï ¼öÁ¤
+    :   È¸¿øÁ¤º¸ ¼öÁ¤½Ã »ı³â¿ùÀÏ ÀÔ·ÂÀ» ¸Å¹ø ¿ä±¸ÇÏ´Â ¿¡·¯ ¼öÁ¤
+    :   È¸¿ø°ü¸® ¸®½ºÆ®¿¡¼­ Â÷´Ü, Å»Åğ ¸µÅ© Ãß°¡
+    :   ÆÄÀÏ ¼³¸í¿¡ ' ÀÖÀ¸¸é °Ô½Ã¹° º¹»ç, ÀÌµ¿½Ã ¿¡·¯³ª´Â Çö»óÀ» ¼öÁ¤
+    :   set_cookie() ÀÚ¹Ù½ºÅ©¸³Æ® ÇÔ¼ö¿¡ cookie domain ¿À·ù ¼öÁ¤
+    :   È¸¿ø°¡ÀÔ½Ã °³ÀÎÁ¤º¸º¸È£Á¤Ã¥ µ¿ÀÇ Ãß°¡
+        ÇÊµå Ãß°¡·Î ÀÎÇØ adm/config_form.php ¸¦ ¹İµå½Ã ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¿© ÁÖ½Ê½Ã¿À.
+    :   Á¢±Ù°¡´É IP ±â´É ¼öÁ¤
+    :   UTF-8 º¸¿Ï : common.lib.php : check_string(), cut_hangul_last()
+        0sama´Ô²²¼­ µµ¿ò ÁÖ¼Ì½À´Ï´Ù.
+        ±Í¶§±â´Ô²²¼­ µµ¿ò ÁÖ¼Ì½À´Ï´Ù.
+    :   °Ô½ÃÆÇ½ºÅ²¿¡ ±ÛÀÚÅ©±âº¯°æ ±â´É Ãß°¡
+        js/board.js ÇÊ¼ö Ãß°¡
+        head.sub.php ¿¡ ¾Æ·¡ ÄÚµå ÇÊ¼ö Ãß°¡
+            var g4_cookie_domain = "<?=$g4['cookie_domain']?>"; 
+    :   Á¢¼ÓÀÚÀÇ ·¹º§ÀÌ ¼³Á¤µÈ ÀĞ±â±ÇÇÑº¸´Ù ÀÛ´Ù¸é °æ°íÃ¢ÀÌ °è¼Ó¶ß´Â ¿À·ù¸¦ ¼öÁ¤
+        ³ª½ºÄ«´Ô²²¼­ µµ¿ò ÁÖ¼Ì½À´Ï´Ù.
+
+        adm/admin.lib.php
+        adm/board_copy_update.php
+        adm/board_form.php
+        adm/board_form_update.php
+        adm/board_list.php
+        adm/config_form.php
+        adm/config_form_update.php
+        adm/member_delete.php
+        adm/member_list.php
+        bbs/board.php
+        bbs/list.php
+        bbs/move_update.php
+        bbs/register_form.php
+        bbs/rss.php
+        bbs/view.php
+        bbs/view_comment.php
+        bbs/write.php
+        cheditor/cheditor.js
+        common.php
+        head.sub.php
+        js/board.js
+        js/common.js
+        skin/board/basic/*
+        skin/member/basic/register.skin.php
+        skin/member/basic/register_form.skin.php
+
+4.09.02 (06.10.10)
+    :   Ã·ºÎÆÄÀÏ¼³¸í¿¡¼­ ' ¶Ç´Â " ÀÔ·ÂµÇ¸é ¿À·ù³ª´Â ºÎºĞ ¼öÁ¤
+    :   ÄÚ¸àÆ® ¼öÁ¤ÀÇ °æ¿ì¿¡´Â µ¿ÀÏÇÑ ³»¿ëÀ» µî·ÏÇÒ ¼ö ¾ø´Â ¿À·ù ¼öÁ¤
+    :   °Ô½ÃÆÇ ºĞ·ù¿¡ & ³ª = »ç¿ëÀÌ ºÒ°¡ÇÑ°ÍÀ» 2¹ÙÀÌÆ® ¹®ÀÚ·Î Ã³¸®
+    :   »ó¼ö Á¤ÀÇ (lib/constant.php)
+    :   °ü¸®ÀÚ > °Ô½ÃÆÇ º¹»ç½Ã¿¡ Æ®·¢¹é¾²±â ±ÇÇÑÀÌ º¹»çµÇÁö ¾Ê´ø ¿À·ù ¼öÁ¤
+    :   °Ô½ÃÆÇ ±Û¾²±â¿¡ bo_table ¾øÀÌ Á÷Á¢ Á¢±ÙÇÏ´Â °æ¿ì ¸ŞÀÎÀ¸·Î ÀÌµ¿ÇÏµµ·Ï ¼öÁ¤
+    :   ÇÑ±Û(2bytes)¿¡¼­ ¸¶Áö¸· ±ÛÀÚ°¡ 1byte·Î ³¡³ª´Â °æ¿ì
+        Ãâ·Â½Ã ±úÁö´Â Çö»óÀÌ ¹ß»ıÇÏ¹Ç·Î 
+        ¸¶Áö¸· ¿ÏÀüÇÏÁö ¾ÊÀº ±ÛÀÚ(1byte)¸¦ ÇÏ³ª ¾ø¾Ú (cut_hangul_last)
+    :   »õÃ¢À¸·Î ÄÚ¸àÆ®·Î ¶ç¿î °æ¿ì »èÁ¦ÇÏ¸é head.php, tail.php °¡ Àû¿ëµÇ¾î Ãâ·ÂµÇ´ø ¿À·ù ¼öÁ¤
+    :   ÂÊÁö º¸°üÀÏ¼ö¸¦ ¾Ë¸²
+    :   ÀÌ¸ŞÀÏ Á¤±ÔÇ¥Çö½Ä ¼öÁ¤ ( lib/common.lib.php -> url_auto_link() )
+    :   °Ô½ÃÆÇ ºĞ·ù¸¦ select Çü½ÄÀ¸·Î °¡Á®¿À´Â ÇÔ¼ö ¼öÁ¤ ( get_category_option() )
+    :   Å¸ÀÎÀÇ ÄÚ¸àÆ®¸¦ ¼öÁ¤ÇÒ ¼ö ÀÖ´Â ¿À·ù ¼öÁ¤
+    :   ´äº¯ ¸ŞÀÏ¹Ş±â (¿ø°Ô½ÃÀÚ¿¡°Ô º¸³»´Â ¸ŞÀÏ) ¿À·ù ¼öÁ¤
+    :   »ç¿ëÇÏÁö ¾Ê´Â $cfg ¹è¿­ º¯¼ö »èÁ¦
+
+        adm/board_copy_update.php
+        adm/board_form_update.php
+        bbs/delete_comment.php
+        bbs/formmail_send.php
+        bbs/tb.php
+        bbs/view_comment.php
+        bbs/write.php
+        bbs/write_comment_update.php
+        lib/common.lib.php
+        lib/constant.php
+        skin/member/basic/memo.skin.php
+
+4.09.01 (06.08.28)
+    :   ¿ìÆí¹øÈ£ÆÄÀÏ 2006³â 7¿ù 1ÀÏÀÚ·Î º¯°æ
+    :   ÀÚ¹Ù½ºÅ©¸³Æ®·Î È¸¿øÁ¤º¸¼öÁ¤½Ã Á¤º¸º¯°æÀÌ °¡´ÉÇÑ ¹ö±× ¼öÁ¤
+
+        common.php
+        bbs/zip.db
+        bbs/register_form_update.php
+        bbs/delete.php
+
+4.09.00 (06.07.01)
+    :   Á¤º¸°ø°³ ÇÏÁö ¾ÊÀº È¸¿ø¿¡°Ô ÂÊÁö¸¦ ¹ß¼ÛÇÒ ¼ö ÀÖ´Â ¿À·ù ¼öÁ¤
+        Çæ·©ÀÌ´Ô²²¼­ ¾Ë¾Æ³»¼Ì½À´Ï´Ù.
+    :   È¸¿øÁ¤º¸¼öÁ¤½Ã º°¸í, E-mailÀ» Áßº¹ µî·ÏÇÒ ¼ö ÀÖ´Â ¿À·ù ¼öÁ¤
+        °¡À»´Ô²²¼­ ¾Ë¾Æ³»¼Ì½À´Ï´Ù.
+    :   È¸¿øÀÌ ºñ¹Ğ±ÛÀ» ¿Ã¸®°í °ü¸®ÀÚ°¡ ´äº¯±ÛÀ» ¿Ã·ÈÀ» °æ¿ì È¸¿øÀÌ °ü¸®ÀÚ°¡ ¿Ã¸° ´äº¯±ÛÀ» ¹Ù·Î º¼ ¼ö ¾ø´ø ¿À·ù¸¦ ¼öÁ¤
+    :   °ü¸®ÀÚÈ­¸é¿¡¼­ ÃÖ±ÙÆ÷ÀÎÆ® ¸®½ºÆ®¿¡ Ã¹ÁÙÀÇ È¸¿øº°¸íÀÌ ³ª¿ÀÁö ¾Ê´ø ¿À·ù ¼öÁ¤
+    :   °Ô½ÃÆÇ º¹»ç½Ã Äõ¸®¹® ¿À·ù ¼öÁ¤
+        01010101010101010101´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.
+    :   °Ô½ÃÆÇ¿¡ ÃÖ±Ù(¸¶Áö¸· ÄÚ¸àÆ® ¾´ ½Ã°£) ±â´É Ãß°¡
+    :   °Ô½ÃÆÇ ½ºÅ²ÀÇ ±¸Á¶ º¯°æ (basic ½ºÅ² Âü°íÇÏ¼¼¿ä)
+    :   °Ô½ÃÆÇ Å×ÀÌºí¿¡ °Ô½ÃÆÇ ¸®½ºÆ® Á¤·Ä ÇÊµå Ãß°¡
+    :   °Ô½ÃÆÇ Å×ÀÌºí¿¡ ¿©ºĞÇÊµå Á¦¸ñ ÇÊµå Ãß°¡
+    :   °Ô½ÃÆÇ ±×·ì Å×ÀÌºí¿¡ ¿©ºĞÇÊµå Á¦¸ñ ÇÊµå Ãß°¡
+    :   ±âº»È¯°æ¼³Á¤ Å×ÀÌºí¿¡ ¿©ºĞÇÊµå Á¦¸ñ ÇÊµå Ãß°¡
+    :   ÂÊÁöº¸³»°í »èÁ¦ÇßÀ» °æ¿ì ÂÊÁö¸Ş¼¼Áö¸¦ º¸³»Áö ¾Êµµ·Ï ¼öÁ¤
+        À¯¾Æ¿ø´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.
+
+        ÇÊµå°¡ Ãß°¡, º¯°æ µÇ¾úÀ¸´Ï ¹İµå½Ã adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¿© ÁÖ½Ê½Ã¿À.
+
+        adm/board_copy_update.php
+        adm/board_form.php
+        adm/board_form_update.php
+        adm/boardgroup_form.php
+        adm/boardgroup_form_update.php
+        adm/config_form.php
+        adm/config_form_update.php
+        adm/index.php
+        adm/point_list.php
+        adm/upgrade.php
+        bbs/board.php
+        bbs/delete_all.php
+        bbs/delete_comment.php
+        bbs/download.php
+        bbs/good.php
+        bbs/list.php
+        bbs/member_id_check.php
+        bbs/member_nick_check.php
+        bbs/memo_delete.php
+        bbs/memo_form_update.php
+        bbs/move_update.php
+        bbs/register_form_update.php
+        bbs/write.php
+        bbs/write_comment_update.php
+        bbs/write_update.php
+        lib/common.lib.php
+        skin/member/basic/register_form.skin.php
+        skin/board/basic/*
+        skin/board/cheditor/*
+
+4.08.00 (06.05.13) [ÇÊ¼öÆĞÄ¡]
+    :   ÆÄÀÌ¾îÆø½º(ºÒ¿©¿ì)¿¡¼­ °Ô½ÃÆÇ ÆÄÀÏÀÌ Á¦´ë·Î ´Ù¿î·Îµå µÇÁö ¾Ê´ø ¿À·ù ¼öÁ¤
+        zzzz´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.
+    :   È¸¿ø°¡ÀÔ½Ã È¸¿ø¾ÆÀÌµğ, º°¸í, ÀÌ¸ŞÀÏ °Ë»ç¿¡¼­ °Ë»çÇÒ º¯¼ö°ªÀ» trim() ÇÔ¼ö·Î ÁÂ¿ì°ø¹éÀ» ¾ø¾Ú
+    :   È¸¿ø°¡ÀÔ½Ã º°¸í¿¡ Æ¯¼ö¹®ÀÚ ÀÔ·Â½Ã µ¿ÀÏÇÑ º°¸íÀ» ¸¸µé ¼ö ÀÖ´Â ¿À·ù ¼öÁ¤
+        À¯¾Æ¿ø´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.
+    :   °Ô½ÃÆÇ¸®½ºÆ® ¼öÁ¤½Ã °Ô½ÃÆÇ°ü¸®ÀÚ°¡ »ç¶óÁö´ø ¿À·ù ¼öÁ¤
+    :   Á¤º¸°ø°³ ¼öÁ¤ÈÄ ¼³Á¤ÀÏ µ¿¾È º¯°æÇÒ ¼ö ¾øµµ·Ï ¼öÁ¤
+    :   ÃßÃµ, ºñÃßÃµÀ» Å×ÀÌºí·Î °ü¸®ÇÏ¿© Áßº¹ ÃßÃµÇÏÁö ¸øÇÏµµ·Ï ¼öÁ¤
+        config.php ¿¡ ¾Æ·¡¿Í °°ÀÌ ÇÑÁÙ Ãß°¡ÇÏ½Ê½Ã¿À.
+        $g4['board_good_table']    = $g4['table_prefix'] . "board_good";
+    :   UTF-8 °ü·Ã ¼öÁ¤
+
+        ÇÊµå°¡ Ãß°¡, º¯°æ µÇ¾úÀ¸´Ï adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¿© ÁÖ½Ê½Ã¿À.
+
+        config.php
+        adm/board_list_update.php
+        adm/config_form.php
+        adm/config_form_update.php
+        adm/upgrade.php
+        cheditor/insert_image.php
+        bbs/download.php
+        bbs/member_id_check.php
+        bbs/member_nick_check.php
+        bbs/member_email_check.php
+        bbs/register_form_update.php
+        bbs/search.php
+        bbs/good.php
+        js/wrest.js
+        lib/mailer.lib.php
+        skin/member/basic/register.skin.php
+        skin/member/basic/register_form.skin.php
+        skin/board/basic/list.skin.php
+
+4.07.00 (06.04.28)
+    :   cheditor¿¡¼­ ¼öÁ¤½Ã ±ÛÁ¦´ë·Î º¸ÀÌÁö ¾Ê´ø ¿À·ù ¼öÁ¤
+    :   cheditor¿¡¼­ ±ÛÀÚÀÇ Å©±â¸¦ Å©°ÔÇÒ °æ¿ì °ãÄ¡´ø ¿À·ù ¼öÁ¤
+    :   board_new_table ¿¡ È¸¿ø¾ÆÀÌµğ ÇÊµå¸¦ Ãß°¡ÇÏ¿© ÀÚ½ÅÀÌ ¾´ ¸ğµç ±ÛÀ» È®ÀÎÇÒ ¼ö ÀÖ´Â ±â´ÉÀ» Ãß°¡ÇÔ
+
+        ÇÊµå°¡ Ãß°¡, º¯°æ µÇ¾úÀ¸´Ï adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¿© ÁÖ½Ê½Ã¿À.
+
+        cheditor/cheditor.js
+        adm/upgrade.php
+        bbs/new.php
+        bbs/scrap_popin_update.php
+        bbs/write_comment_update.php
+        bbs/write_update.php
+        skin/new/basic/new.skin.php
+
+4.06.19 (06.04.14)
+    :   ie ÆĞÄ¡¿¡ µû¸¥ ÄÚµå ¼öÁ¤
+    :   ÇöÀçÁ¢¼ÓÀÚ select ±¸¹®¿¡ mb_point ÇÊµå Ãß°¡
+    :   °ü¸®ÀÚ > °Ô½ÃÆÇ ¼³Á¤¿¡¼­ °Ô½ÃÆÇ ±×·ì¿¡ ºĞ·ù »ç¿ë Ã¼Å©½Ã ¹İ¿µµÇÁö ¾Ê´ø ¿À·ù ¼öÁ¤
+    :   bbs/move_update.phpÀÇ °æ°íÃ¢ Ãâ·ÂÀü¿¡ Ä³¸¯ÅÍ¼Â ÄÚµå Ãß°¡
+        zzzz´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   ¸ŞÀÏ¹ß¼Û¿¡¼­ ¼ö½Å°ÅºÎ µÇÁö ¾Ê´ø ¿À·ù ¼öÁ¤
+        À¯ÀÚ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   ÂÊÁö ¹ß¼Û½Ã È¸¿ø¾ÆÀÌµğ ´ë½Å º°¸íÀ¸·Î ¹ß¼Û ¸Ş¼¼Áö Ãâ·ÂÇÏµµ·Ï ¼öÁ¤
+    :   ÂÊÁöº¸±â¿¡¼­ ÀÌÀü, ´ÙÀ½ ÂÊÁö¸¦ º¼ ¼ö ÀÖµµ·Ï ¼öÁ¤
+    :   g4_charset.toUpperCase -> g4_charset.toUpperCase() ¼öÁ¤
+        ¾Ë¸¯´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   | ¹®ÀÚ·Î °Ë»ö½Ã ¿À·ù ¼öÁ¤
+        ½ÅÀÌz, À¯¾Æ¿ø´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   ÀÔ·ÂÇÊµå°Ë»ç ½ºÅ©¸³Æ®(wrest.js)¿¡ ÀüÈ­¹øÈ£(telnumber) ¼Ó¼º Ãß°¡
+        sisjin´Ô²²¼­ ¸¸µé¾î ÁÖ¼Ì½À´Ï´Ù.
+    :   °ü¸®ÀÚÈ­¸é help() ½ºÅ©¸³Æ® ÄÚµå ¼öÁ¤
+        NOGOON´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+
+        js/common.js
+        js/wrest.js
+        lib/common.lib.php  :   view_file_link() ÇÔ¼ö
+        lib/common.lib.php  :   search_font() ÇÔ¼ö
+        bbs/current_connect.php
+        bbs/move_update.php
+        bbs/memo.php
+        bbs/memo_form_update.php
+        bbs/memo_view.php
+        skin/member/basic/memo_view.skin.php
+        skin/member/basic/register_form.skin.php
+        adm/admin.head.php
+        adm/board_form_update.php
+        adm/mail_select_list.php
+        adm/mail_select_update.php
+
+4.06.18 (06.03.07)
+    :   latest() ÇÔ¼ö ¼öÁ¤ 
+        $skin_dir ÀÎ¼ö°¡ ³Ñ¾î¿ÀÁö ¾Ê´Â °æ¿ì ¿À·ù³ª´Â ºÎºĞ ¼öÁ¤
+    :   ÆäÀÌÂ¡ ÇÔ¼ö ¼öÁ¤ (Ã¥°¥ÇÇ º¯¼ö Ãß°¡)
+    :   wrest.js ÀÇ trim ºÎºĞ ÄÚµå ¼öÁ¤
+        hammer´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   UTF-8 Àû¿ëÀ» À§ÇØ cheditorÀÇ html È®ÀåÀÚ¸¦ php·Î ¼öÁ¤ÇÏ°í charset ¼³Á¤ °¡´ÉÇÏµµ·Ï ¼öÁ¤
+    :   notice error ÁÙÀÓ
+        hammer´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+
+        lib/latest.lib.php
+        lib/common.lib.php
+        js/wrest.js
+        cheditor/* (Æú´õ ÀüºÎ)
+        adm/admin.head.php
+
+4.06.17 (06.02.17)
+    :   ¸ŞÀÏ·¯ ÇÔ¼ö ¼öÁ¤
+    :   ±×·ìÁ¢±ÙÈ¸¿øÅ×ÀÌºíÀÇ gm_id ÇÊµå¿¡ auto_increment Ãß°¡
+    :   calendar/2006.txt Ãß°¡
+        ÁøÁ¤ÇÑ½Â¸®´Ô²²¼­ Á¦ÀÛÇØ ÁÖ¼Ì½À´Ï´Ù.
+    :   get_sql_search() ÇÔ¼ö ¼öÁ¤ - ÄÚ¸àÆ®¸¦ Á¦¿ÜÇÑ ¿ø±Û¿¡¼­¸¸ °Ë»öÀÌ °¡´ÉÇÏµµ·Ï ¼öÁ¤
+    :   UTF-8 ¿¡¼­ ÇÑ±Û º°¸í ¿À·ù ¼öÁ¤
+        ½ÉÇÃ·Î±×´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+        
+        ÇÊµå°¡ Ãß°¡, º¯°æ µÇ¾úÀ¸´Ï adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¿© ÁÖ½Ê½Ã¿À.
+
+        adm/upgrade.php
+        adm/boardgroupmember_update.php
+        bbs/formmail_send.php
+        bbs/calendar/2006.txt
+        lib/common.lib.php
+        lib/mailer.lib.php
+        js/sideview.js
+        skin/member/basic/register_form.skin.php
+
+4.06.16 (06.01.31)
+    :   °Ë»öµÈ °Ô½ÃÆÇ ¸®½ºÆ®¿¡ ¼ıÀÚ°¡ Á¦´ë·Î Ç¥½ÃµÇÁö ¾Ê´ø ½ºÅ² ¼öÁ¤
+        ³ª½ºÄ«´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   È­¸é Ç¥½ÃÇÒ ¶§ °¡²û¾¿ ¸ØÃß´Â Çö»óÀ» ºÎºĞ ÇØ°á
+        ÇöÀç Á¢¼ÓÀÚÀÇ Ã³¸® ÄÚµå¸¦ head.sub.php ¿¡¼­ tail.sub.php ·Î ¿Å±è
+    :   È¸¿øÁ¤º¸¼öÁ¤½Ã °æ°íÃ¢¿¡ charset ¼³Á¤
+        ¼¼¾ÆÅä´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   °Ô½ÃÆÇ°ü¸®ÀÚ°¡ Á¸ÀçÇÒ °æ¿ì ÃÖ°í°ü¸®ÀÚ¿¡°Ô ¸ŞÀÏÀÌ µÎ¹ø¾¿ ¹ß¼ÛµÇ´Â ¹®Á¦ ÇØ°á
+    :   get_brow() ÇÔ¼ö¿¡ MSIE 7.0 Ãß°¡
+    :   »ç¿ë±İÁöÅÂ±×¿¡ ´ë¼Ò¹®ÀÚ ±¸ºĞÇÏÁö ¾Êµµ·Ï ¼öÁ¤
+        ´Şºû¿Âµµ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   ¿ìÆí¹øÈ£ ÆÄÀÏ º¯°æ
+        ³×ÀÙÅ¬·Î¹ö´Ô²²¼­ Á¦ÀÛÇØ ÁÖ¼Ì½À´Ï´Ù.
+        
+        head.sub.php
+        tail.sub.php
+        bbs/register_form_update.php
+        bbs/write_update.php
+        bbs/zip.db
+        lib/common.lib.php
+        lib/visit.lib.php
+        skin/search/basic/search.skin.php
+
+4.06.15 (06.01.13)
+    :   Æû¸ŞÀÏ¿¡¼­ ½ºÆÔ ¹ß¼ÛÀÌ Èûµéµµ·Ï ¼öÁ¤
+        ÇÑ¹ø¿¡ ÇÑ»ç¶÷¿¡°Ô¸¸ ¸ŞÀÏÀ» ¹ß¼ÛÇÒ ¼ö ÀÖµµ·Ï ÇÔ
+    :   ÄÚ¸àÆ® ¼öÁ¤½Ã ÅØ½ºÆ®¹Ú½º¸¦ ±Û ³ôÀÌ¿¡ ¸ÂÃßµµ·Ï ÇÔ
+        ±ÕÀÌ´ÔÀÇ ÆÁÀ» Àû¿ëÇÏ¿´½À´Ï´Ù.
+    :   È¸¿ø¸ŞÀÏ ¹ß¼Û½Ã Å»Åğ, Â÷´ÜµÈ È¸¿øÀº ¸ŞÀÏ ¹ß¼Û¿¡¼­ Á¦¿Ü
+        ´ëÀå±º´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   bbs/delete_all.php ÀÇ »ç¿ëÀÚ ½ÇÇà ÄÚµå À§Ä¡ º¯°æ
+    :   ¼¼¼Ç ¼³Á¤°ª º¯°æ
+    :   input ÅÂ±×¿¡ name ´©¶ôµÈ°Í ¼öÁ¤
+        ³ª¶ó¿À¸§´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   bbs/good.php ¿¡ charset º¯°æ½Ã °æ°í¸Ş¼¼Áö Á¤»ó Ãâ·ÂµÇµµ·Ï ¼öÁ¤
+    :   utf-8 ¿¡¼­ ÇÑ±ÛÆÄÀÏ¸í ´Ù¿î·Îµå½Ã ÆÄÀÏ¸í ±úÁö´Â ¿À·ù ¼öÁ¤
+
+        common.php
+        adm/board_form.php
+        adm/mail_select_list.php
+        bbs/delete_all.php
+        bbs/download.php
+        bbs/formmail_send.php
+        bbs/good.php
+        skin/board/basic/view_comment.skin.php
+
+4.06.14 (05.12.31)
+    :   delete.skin.php ÀÇ ½ÇÇà ¼ø¼­¸¦ ¼öÁ¤ (ÇÁ·Î±×·¥ ÇÏ´Ü¿¡¼­ Áß¾ÓºÎºĞÀ¸·Î À§Ä¡¸¸ ÀÌµ¿ÇÔ)
+        Çæ·©ÀÌ, ÇÃ·Ï, ´Şºû¿Âµµ´Ô²²¼­ Á¦¾ÈÇÏ¼Ì½À´Ï´Ù.
+    :   cut_str() ÇÔ¼ö¿¡¼­ À¯´ÏÄÚµå ¹®ÀÚ Á¦´ë·Î ÀÚ¸£µµ·Ï ¼öÁ¤
+        http://g4uni.winnwe.net/bbs/board.php?bo_table=g4uni_faq&wr_id=7 ÀÇ Mr.Learn´ÔÀÇ ±ÛÀ» Âü°íÇÏ¿´½À´Ï´Ù.
+    :   charset º¯°æÀ¸·Î ÀÎÇÑ ÄÚµå ¼öÁ¤ (±â´É°ú ÀüÇô »ó°ü ¾øÀ½)
+
+        common.php
+        js/common.js
+        bbs/delete.php
+        bbs/rss.php
+        lib/common.lib.php
+        install/index.php
+        install/install_config.php
+        install/install_db.php
+
+4.06.13 (05.12.25)
+    :   [ÇÊ¼öÆĞÄ¡] ºñ¹Ğ±ÛÀ» Å¸ÀÎÀÌ ¿­¶÷ÇÒ ¼ö ÀÖ´Â ¿À·ù ¼öÁ¤
+        Çæ·©ÀÌ, ÇÃ·Ï´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+
+        bbs/write.php
+
+4.06.12 (05.12.15)
+    :   °æ·Î°¡ ¸íÈ®ÇÏÁö ¾Ê¾Æ Á¦´ë·Î include µÇÁö ¾Ê´ø ¿À·ù ¼öÁ¤ (ÀÏºÎ ¼­¹ö¿¡¼­ ¹ß»ı)
+    :   alert(), alert_close() ÇÔ¼ö¿¡ charset ¸ŞÅ¸ÅÂ±× Ãß°¡
+    :   latest() ÇÔ¼ö¿¡ $options ÀÎÀÚ Ãß°¡ (½ºÅ©·Ñ ½ºÅ²¶§¹®¿¡ Ãß°¡)
+    :   ½ºÅ©·ÑµÇ´Â ÃÖ½Å±Û Ãß°¡
+
+        adm/admin.lib.php
+        lib/common.lib.php
+        lib/latest.lib.php
+        skin/latest/scroll/latest.lib.php
+
+4.06.11 (05.12.6)
+    :   wr_html À» wr_option À¸·Î ¼öÁ¤
+        ±èµµ±ø´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   ·Î±×ÀÎÅ×ÀÌºí¿¡¼­ ÀÎµ¦½º »èÁ¦
+    :   ¿ÜºÎ¿¡¼­ ±ÛÀ» µî·ÏÇÒ ¼ö ÀÖ´Â ¹ö±×°¡ Á¸ÀçÇÏ¹Ç·Î ºñ¹Ğ±ÛÀº »ç¿ëÀÏ °æ¿ì¿¡¸¸ °¡´ÉÇØ¾ß ÇÔ
+        ¿ÜºÎ¿¡¼­ ±ÛÀ» µî·ÏÇÒ ¼ö ÀÖ´Â ¹ö±×°¡ Á¸ÀçÇÏ¹Ç·Î °øÁö´Â °ü¸®ÀÚ¸¸ µî·ÏÀÌ °¡´ÉÇØ¾ß ÇÔ
+        ²¿¸¶ÈÄ´Ï´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+
+        ÇÊµå°¡ Ãß°¡, º¯°æ µÇ¾úÀ¸´Ï adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¿© ÁÖ½Ê½Ã¿À.
+
+        lib/common.lib.php
+        bbs/write.php
+        bbs/write_update.php
+        adm/upgrade.php
+
+4.06.10 (05.11.30)
+    :   head.sub.php ÀÇ ÇöÀçÁ¢¼ÓÀÚ ÄÚµå ¼öÁ¤ (Ã¼°¨ ¼Óµµ¸¦ ¾à°£ ³ôÀÓ)
+    :   °Ô½ÃÆÇÀÌ ¾ø¾îÁø °æ¿ì ½ºÅ©·¦ ¸®½ºÆ® ¿À·ù ¼öÁ¤
+        ³ª½ºÄ«´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   °Ë»ö¿¡¼­ ±×·ìÀ¸·Î °Ë»ö½Ã ÆäÀÌÁö ¸µÅ©ÇßÀ»¶§ ±×·ìÀÌ Ç®¸®´Â ¿À·ù ¼öÁ¤
+        Daeng`2´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   È¸¿øÅ×ÀÌºíÀÇ È¸¿ø°¡ÀÔÀÏ½Ã¿¡ ÀÎµ¦½º Ãß°¡
+
+        ÇÊµå°¡ Ãß°¡, º¯°æ µÇ¾úÀ¸´Ï adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¿© ÁÖ½Ê½Ã¿À.
+
+        head.sub.php
+        bbs/scrap.php
+        bbs/search.php
+        adm/upgrade.php
+
+4.06.09 (05.11.21)
+    :   ´Ù¿î·Îµå ÆäÀÌÁö ½ºÅ² Àû¿ë
+    :   ºñÈ¸¿ø ±Û¾²±â ÈÄ ·Î±×ÀÎÇÏ¿© °°Àº ±ÛÀ» ¼öÁ¤ÇÒ¶§ ÀÌ¸§ÀÌ »ç¶óÁöÁö ¾Êµµ·Ï ¼öÁ¤
+        Àü»óÈñ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   Á¢±Ù±ÇÇÑÀÌ ¾ø´Â »ç¿ëÀÚ ¸Ş½ÃÁö¸¦ Ãâ·ÂÇÑ ÈÄ ¸ŞÀÎÆäÀÌÁö·Î ÀÌµ¿ÇÏµµ·Ï ¼öÁ¤
+        ³ª½ºÄ«´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   ¿ø±Û, ÄÚ¸àÆ® ¼öÁ¤½Ã °ü¸®ÀÚ°¡ ¼öÁ¤ÇÏ¸é °ü¸®ÀÚÀÇ IP·Î ±ÛÀÌ ¼öÁ¤µÇ´Â ¹®Á¦ ÇØ°á
+        Çæ·©ÀÌ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   RSS ¸®´õ ½ºÅ²¿¡¼­ ³¯Â¥°¡ Á¦´ë·Î Ç¥½ÃµÇÁö ¾Ê´ø ¿À·ù ¼öÁ¤
+        ÇØ¶ã³è´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+
+        bbs/board.php
+        bbs/download.php
+        bbs/rss.php
+        bbs/write_update.php
+        bbs/write_comment_update.php
+        skin/board/basic/download.skin.php
+
+4.06.08 (05.11.14)
+    :   È¸¿øÁ¤º¸¼öÁ¤¿¡¼­ SMS ¼ö½Å¿©ºÎ ¼öÁ¤µÇÁö ¾Ê´ø ¿À·ù ¼öÁ¤
+        ±èµµ±ø´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   °Ô½ÃÆÇº¹»ç½Ã »ó,ÇÏ´Ü ³»¿ë¿¡ '(µû¿ÈÇ¥) µé¾î°¡´Â °æ¿ìÀÇ ¿À·ù ¼öÁ¤
+        JEDI´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   [º¸¾È] °Ô½ÃÆÇ ±Û¾²±â¿¡¼­ Á¸ÀçÇÏ´Â wr_id °ªÀ» ³Ñ±â´Â °æ¿ì ÇØ´ç ±Û ³»¿ëÀ» º¼ ¼ö ÀÖ´Â ¿À·ù ¼öÁ¤
+        sjsjin´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+
+        bbs/register_form_update.php
+        bbs/write.php
+        adm/board_copy_update.php
+
+4.06.07 (05.11.11)
+    :   admin.lib.php ¿¡ order_select() ÇÔ¼ö Ãß°¡
+    :   ºĞ·ù¸¦ ¼±ÅÃÇÏ°í ÄÚ¸àÆ® ÀÛ¼º ÈÄ ÇØ´ç ºĞ·ù°¡ Ç®¸®´Â Çö»óÀ» ¼öÁ¤
+        livefree ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   ·¹ÀÌ¾î¿Í ¼¿·ºÆ® ¹Ú½º°¡ °ãÄ¡´Â °æ¿ì¿¡ ¼¿·ºÆ® ¹Ú½º°¡ ¾ø¾îÁöÁö ¾Ê´ø ¿À·ù ¼öÁ¤ (IE Àü¿ë ¿À·ù)
+
+        adm/admin.lib.php
+        bbs/write_comment_update.php
+        js/sideview.js
+
+4.06.06 (05.11.01)
+    :   ±ÛÀĞ±â½Ã Æ÷ÀÎÆ® Â÷°¨ ºÎºĞ ¼öÁ¤
+    :   view.php ÀÇ $scrap_href º¯¼ö¿¡ ¿Ã¹Ù¸£Áö ¾ÊÀº ¸µÅ© ¼öÁ¤
+        pardner´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   ÇÊ¿ä¾ø´Â bbs/visit.inc.php »èÁ¦
+        pardner´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   ºñÈ¸¿øÀÇ ±Û¾²±â,¼öÁ¤½Ã ÀÌ¸§ÀÌ ´©¶ôµÇ´Â °æ¿ì°¡ ÀÖÀ½. ¾à°£ÀÇ ÄÚµå ¼öÁ¤
+    :   admin.head.php ¼öÁ¤
+    :   ÆäÀÌÁö ÀÌµ¿ ¹æ¹ı º¯°æ goto_url() ÇÔ¼ö
+        ´Şºû¿Âµµ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   ¿ìÆí¹øÈ£ 2005³â 10¿ù 18ÀÏÀÚ Ãß°¡ (postman.pe.kr dbf È°¿ë)
+
+        adm/admin.head.php
+        bbs/board.php
+        bbs/view.php
+        bbs/write_update.php
+        bbs/zip.db
+        lib/common.lib.php
+
+4.06.05 (05.10.20)
+    :   ¸Ş´º¹øÈ£°¡ ¹Ù²î´Â °æ¿ì¿¡ ÇöÀç ¾ø´Â ÀúÀåµÈ ¸Ş´º´Â »èÁ¦ÇÔ (°ü¸®±ÇÇÑ¼³Á¤)
+    :   lib/common.lib.php ÀÇ url_auto_link() ÇÔ¼ö¿¡¼­ &nbsp; ·Î ÀÎÇØ
+        ¸µÅ©¸¦ Á¦´ë·Î ÀÎ½ÄÇÏÁö ¸øÇÏ´ø ¿À·ù¸¦ ¼öÁ¤
+    :   ¿ìÆí¹øÈ£ °Ë»ö¿¡¼­ ¹øÁö¸¦ Á¦´ë·Î ³Ñ±âÁö ¸øÇÏ´Â ¿À·ù ¼öÁ¤
+        ¿À±¤È£´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+
+        adm/auth_list.php
+        lib/common.lib.php
+        bbs/zip.php
+        skin/member/basic/zip.skin.php
+
+4.06.04 (05.10.17)
+    :   ÇöÀç ¼±ÅÃÇÑ ³¯Â¥°¡ bbs/calendar/*.txt ¿¡ ÀÖ´Ù¸é »ö»ó Ç¥½ÃÇÏÁö ¸øÇÏ´ø ¿À·ù ¼öÁ¤
+    :   [ÇÊ¼ö] cheditor º¸¾È °ü·Ã ÆĞÄ¡
+        ¹èºÎ¸¥²Ü²ÜÀÌ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+
+        skin/member/basic/calendar.skin.php
+        cheditor/insert_image.php
+
+4.06.03 (05.10.12)
+    :   ÇÑ±ÛÆÄÀÏÀº urlencode($filename) Ã³¸®¸¦ ÇÒ°æ¿ì '%'¸¦ ºÙ¿©ÁÖ°Ô µÇ´Âµ¥ '%'Ç¥½Ã´Â ¹Ìµğ¾îÇÃ·¹ÀÌ¾î°¡ ÀÎ½ÄÀ» ¸øÇÏ±â ¶§¹®¿¡ Àç»ıÀÌ ¾ÈµË´Ï´Ù. 
+        ±×·¡¼­ º¯°æÇÑ ÆÄÀÏ¸í¿¡¼­ '%'ºÎºĞÀ» »©ÁÖ¸é ÇØ°áµË´Ï´Ù. 
+        ´Şºû¿Âµµ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   ±Û»èÁ¦½Ã ¿ø±Û°ú ÄÚ¸àÆ®¼ö°¡ Á¤»óÀûÀ¸·Î ¾÷µ¥ÀÌÆ® µÇÁö ¾Ê´ø ¿À·ù¸¦ ¼öÁ¤
+        ³ª¶ó¿À¸§´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+
+        bbs/write_update.php
+        bbs/delete.php
+        bbs/delete_all.php
+
+4.06.02 (05.10.06)
+    :   °ü¸®ÀÚ ÆäÀÌÁö¿¡ Á÷Á¢ Á¢±Ù½Ã $_GET[] º¯¼ö°ª ³Ñ±âÁö ¸øÇÏ´ø ¿À·ù ¼öÁ¤
+    :   °ü¸®ÀÚ »ó´Ü ¸Ş´º ÀĞ´Â ÄÚµå ¼öÁ¤
+    :   ÆĞ½º¿öµå Ã¢¿¡¼­ ·Î±×ÀÎ ÇÏ´Â °æ¿ì °ü¸®ÀÚ ¶Ç´Â ÀÚ½ÅÀÇ ±ÛÀÌ¸é ¹Ù·Î ±Ûº¸±â·Î °¡µµ·Ï ¼öÁ¤
+    :   È¸¿ø°ü¸®¿¡¼­ Æ÷ÀÎÆ®ºÎºĞ Å¬¸¯½Ã ¿À·ù ¼öÁ¤
+        
+        adm/admin.lib.php
+        adm/member_form.php
+        bbs/password.php
+
+4.06.01 (05.09.29)
+    :   ±×·ì°ü¸®ÀÚÀÇ Á¢±Ù ±ÇÇÑ ¼öÁ¤
+    :   [º¸¾È] °Ô½ÃÆÇ ¸ñ·Ïº¸±â ±ÇÇÑÀÌ ¾øÀ» °æ¿ì¿¡µµ ÀÓÀÇÀÇ ±Û(wr_id) °ªÀ» ³Ñ±â¸é ¸ñ·Ï º¸±â°¡ °¡´ÉÇÑ ¿À·ù ¼öÁ¤ (bbs/board.php)
+        °í³ÃÀÌ´Ô, zzzz´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   ºÎ°ü¸®ÀÚÀÇ °æ¿ì ÀÚ½Åº¸´Ù È¸¿ø°ü¸®¿¡¼­ ÀÚ½Åº¸´Ù ±ÇÇÑÀ» ³ô°Ô ¼öÁ¤ ÇÒ ¼ö ¾øµµ·Ï ¼öÁ¤
+        ¶óÀÌ³Ê½º´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   ca_id -> ca_name (bbs/write.php)
+        º¸¶÷Âù´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   ¸ŞÀÏ ¹ß¼Û¿¡¼­ °Ô½ÃÆÇ±×·ì È¸¿øÀ» ¼±ÅÃÇÒ ¼ö ÀÖµµ·Ï ¼öÁ¤
+    :   ¾÷·Îµå ÇÏ´Â ÆÄÀÏ, ±Û³»¿ëÀÇ Å©±â°¡ ¼­¹ö¿¡¼­ ¼³Á¤ÇÑ °ªÀ» ³Ñ¾úÀ» °æ¿ì ¿À·ù¸Ş¼¼Áö Ãâ·Â
+        php.ini ÀÇ post_max_size, upload_max_filesize ¿Í °ü·ÃÀÌ ÀÖ½À´Ï´Ù.
+        
+        adm/admin.menu300.php
+        adm/index.php
+        adm/member_list.php
+        adm/boardgroupmember_form.php
+        adm/mail_select_form.php
+        adm/mail_select_list.php
+        adm/mail_preview.php
+        bbs/board.php
+        bbs/write_update.php
+
+4.06.00 (05.09.21)
+    :   ºĞ·ù°¡ ¼öÁ¤µÇ´Â °æ¿ì ÇØ´çµÇ´Â ÄÚ¸àÆ®ÀÇ ºĞ·ù¸íµµ ¸ğµÎ ¼öÁ¤ÇÔ
+    :   ¼öÁ¤½Ã ºĞ·ù¸íÀ» ³Ñ±è
+    :   Ã·ºÎÆÄÀÏ Ãß°¡, »èÁ¦½Ã °¹¼ö¸¦ Á¦´ë·Î °Ë»çÇÏÁö ¸øÇÏ´ø ¿À·ù ¼öÁ¤
+        zzzz´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   °ü¸®ÀÚ ÆäÀÌÁö ´ëÆø ¼öÁ¤
+    :   ºÎ°ü¸®ÀÚ°¡ ÀÚ½Åº¸´Ù ³ôÀº ±ÇÇÑÀÇ È¸¿øÀ» »ı¼ºÇÏÁö ¸øÇÏµµ·Ï ¼öÁ¤
+    :   °ü¸®ÀÚ Æ÷ÀÎÆ®°ü¸®¿¡¼­ °Ô½ÃÆÇ°ü·Ã Æ÷ÀÎÆ® ³»¿ªÀº ÇØ´ç °Ô½ÃÆÇ º¸±â°¡ °¡´ÉÇÏµµ·Ï ¼öÁ¤
+    :   °Ô½ÃÆÇ º¸±â¿¡¼­ ÄÚ¸àÆ® ¾ÆÀÌµğ·Î ³Ñ¾î¿Ã °æ¿ì ¿ø±ÛÀÌ º¸ÀÌµµ·Ï ¼öÁ¤
+    :   Æ÷ÀÎÆ® °ü¸® ¸®½ºÆ® ¼Óµµ °³¼±
+    :   a.mb_id -> mb_id ·Î ¼öÁ¤ (js/sideview.js)
+    :   °Ô½Ã¹°´ç ¿©·¯°³ÀÇ ÆÄÀÏÀÌ ÀÖ¾îµµ Æ÷ÀÎÆ®¸¦ ÇÑ¹ø¸¸ Â÷°¨ÇÏµµ·Ï ¼öÁ¤
+    :   ´Ù¿î·Îµå½Ã Â÷°¨ Æ÷ÀÎÆ®°¡ ÀÖ´Ù¸é »ç¿ëÀÚ¿¡°Ô È®ÀÎÇÔ
+
+        adm/*
+        bbs/board.php
+        bbs/download.php
+        bbs/write_update.php
+        skin/board/basic/write.skin.php
+        skin/board/bisic/view.skin.php
+        js/sideview.js
+        lib/common.lib.php
+
+4.05.01 (05.09.06)
+    :   ºÒ¿©¿ì¿¡¼­ Á¦´ë·Î ÀÎ½ÄÇÏÁö ¸øÇÏ´Â ÄÚµå¸¦ ¼öÁ¤
+    :   °Ë»öÁ¦¸ñ¿¡ HTML ÅÂ±×°¡ µé¾î°£ °æ¿ìÀÇ ¿À·ù¸¦ ¼öÁ¤
+    :   °Ô½ÃÆÇ º¹»ç½Ã¿¡ data/file µğ·ºÅä¸®¿¡ index.php »ı¼º
+        yesmoa´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   ¾ÆÀÌµğ/ÆĞ½º¿öµå Ã£±â¿¡¼­ ÁÖ¹Îµî·Ï¹øÈ£·Î ÀÚ·á¸¦ Ã£Áö ¸øÇÏ´ø ¿À·ù¸¦ ¼öÁ¤
+        ³ÊºÎ¸®´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   °Ô½ÃÆÇ Á¦¸ñ, °Ô½ÃÆÇ±×·ì Á¦¸ñ¿¡ ' Ç¥½Ã °¡´ÉÇÏµµ·Ï ¼öÁ¤
+        ¼Õ¸íÃ¶´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+
+        lib/common.lib.php : alert() ÇÔ¼ö
+        bbs/search.php
+        bbs/password_forget2.php
+        adm/board_list.php
+        adm/board_form.php
+        adm/boardgroup_list.php
+        adm/boardgroup_form.php
+
+4.05.00 (05.09.01)
+    :   °Ë»ö»ç¿ë °Ô½ÃÆÇ¸¸ ÃÖ±Ù°Ô½Ã¹°¿¡ Ãâ·Â
+    :   °Ô½ÃÆÇ ¼³Á¤¿¡¼­ ÇÊµåº°·Î ±×·ìÀû¿ëÀÌ °¡´ÉÇÏµµ·Ï ¼öÁ¤
+    :   °Ô½ÃÆÇ ¼³Á¤¿¡ ¸ŞÀÏ¹ß¼Û »ç¿ë ÇÊµå Ãß°¡
+    :   °Ë»ö¾î ¾øÀÌ °Ë»öÆäÀÌÁö·Î ÀÌµ¿ÇÒ ¼ö ÀÖ°Ô ¼öÁ¤ 
+    :   ºñÈ¸¿ø¿¡°Ô Æû¸ŞÀÏ º¸³¾ °æ¿ì ÀÌ¸§´ë½Å ¸ŞÀÏ ÁÖ¼Ò¸¦ Ç¥½ÃÇÏµµ·Ï ¼öÁ¤
+        ÇÏ³ªYun´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+
+        ÇÊµå°¡ Ãß°¡, º¯°æ µÇ¾úÀ¸´Ï adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¿© ÁÖ½Ê½Ã¿À.
+    
+        adm/upgrade.php
+        adm/board_form.php
+        adm/board_form_update.php
+        bbs/new.php
+        bbs/write.php
+        bbs/write_update.php
+        bbs/write_comment_update.php
+        bbs/tb.php
+        bbs/search.php
+        bbs/formmail.php
+        skin/search/basic/search.skin.php
+
+4.04.00 (05.08.17)
+    :   ¸ŞÀÏ¹ß¼Û ¼³Á¤ ÇÊµå Ãß°¡
+    :   ¼öÁ¤½Ã °øÁö»çÇ× ¼öÁ¤µÇÁö ¾Ê´ø ¿À·ù ¼öÁ¤
+    :   °Ô½Ã±Û ÀÛ¼º½Ã ÀÌ¸§ÀÌ ´©¶ôµÇ´Â °æ¿ì¸¦ ¼öÁ¤
+    :   ÃÖ±Ù°Ô½Ã¹°¿¡ ¿ø±Û, ÄÚ¸àÆ®±Û ºĞ¸®ÇÏ¿© º¼ ¼ö ÀÖµµ·Ï ¼öÁ¤
+
+        ÇÊµå°¡ Ãß°¡, º¯°æ µÇ¾úÀ¸´Ï adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¿© ÁÖ½Ê½Ã¿À.
+
+        adm/upgrade.php
+        adm/config_form.php
+        adm/config_form_update.php
+        adm/mail_test.php
+        adm/sendmail_test.php
+        adm/mail_form.php
+        adm/mail_select_form.php
+        bbs/register_form_update.php
+        bbs/formmail.php
+        bbs/formmail_send.php
+        bbs/poll_etc_update.php
+        bbs/write_update.php
+        bbs/write_comment_update.php
+        bbs/tb.php
+        bbs/write.php
+        bbs/new.php
+        skin/board/basic/write.skin.php
+        skin/new/basic/new.skin.php
+        lib/mailer.lib.php
+
+4.03.03 (05.08.11)
+    :   ÀÌ¸ŞÀÏÀÎÁõ »ç¿ë½Ã ÀÚµ¿·Î±×ÀÎ Á¦´ë·Î µÇÁö ¾Ê´ø ¿À·ù ¼öÁ¤
+        g6man´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   member(·Î±×ÀÎ)½ºÅ²¿¡ login_check.skin.php Ãß°¡
+    :   °°Àº ±×·ì µ¿ÀÏ ¿É¼Ç Ã¼Å© ¼öÁ¤
+        ´ó2´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   ´Ş·Â ½ºÅ² Ãß°¡
+    :   °øÁö»çÇ× º¯¼ö°¡ ³Ñ¾î¿À´Â °æ¿ì¿¡¸¸ °øÁö»çÇ× ¹İ¿µ
+    :   °Ô½ÃÆÇ Á¦¸ñ¿¡ ' Æ÷ÇÔµÇ¸é ¿À·ù ¹ß»ı
+        ³ª¶ó¿À¸§´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+
+        common.php
+        adm/board_form.php
+        bbs/calendar.php
+        bbs/calendar/2005.txt
+        bbs/write_update.php
+        bbs/login_check.php
+        skin/member/basic/register_form.skin.php
+        skin/member/basic/login_check.skin.php
+        skin/member/basic/calendar.skin.php
+        skin/member/basic/img/calendar.gif
+        js/common.js
+        head.sub.php
+
+4.03.02 (05.08.04)
+    :   °ü¸®ÀÚÈ­¸é µğÀÚÀÎ º¯°æ
+        adm/menu/m100900_etc.php ¸¦ »èÁ¦ÇÏ¼¼¿ä.
+    :   Æ÷ÀÎÆ®Á¤¸® Ãß°¡
+        
+        adm/img/*
+        adm/admin.head.php
+        adm/admin.lib.php
+        adm/admin.tail.php
+        adm/index.php
+        adm/point_clear.php
+        adm/menu/m200210_point_clear.php
+
+4.03.01 (05.08.01)
+    :   ¿ìÆí¹øÈ£¸¦ ÆÄÀÏDB·Î º¯°æ
+        ¿ìÆí¹øÈ£ º¯°æ½Ã ÆÄÀÏ¸¸ ±³Ã¼ÇÏ¸é µÊ
+    :   °Ô½ÃÆÇ°ü¸®¿¡¼­ ±×·ì°ü¸®ÀÚ°¡ ±×·ì Å¬¸¯½Ã ¿À·ù³ª´ø ºÎºĞÀ» ¼öÁ¤
+    :   Á¢±Ù ±ÇÇÑ Ã¼Å©½Ã È¸¿øÀº ±Û¸ñ·ÏÀÌ º¸ÀÌµµ·Ï ¼öÁ¤
+    :   °ü¸®ÀÚ ÇÁ·Î±×·¥, ¸Ş´º ´ëÆø ¼öÁ¤
+    :   common.js ÀÇ menu() ÇÔ¼ö º¯°æ
+    :   °øÁö±Û »èÁ¦½Ã »èÁ¦ ¹İ¿µµÇÁö ¾Ê´ø ¿À·ù ¼öÁ¤
+    :   ÅõÇ¥ ¼öÁ¤
+
+        adm/*
+        adm/menu/*
+        js/common.js
+        bbs/board.php
+        bbs/delete.php
+        bbs/delete_all.php
+        bbs/poll_update.php
+        bbs/zip.php
+        bbs/zip.db
+
+4.03.00 (05.07.23)
+    :   ÃßÈÄ È®ÀåÀ» À§ÇÏ¿© SMS ¼ö½Å¿©ºÎ ÇÊµå¸¦ È¸¿øÅ×ÀÌºí¿¡ Ãß°¡
+    :   ±×·ì, °Ô½ÃÆÇ°ü¸®ÀÚ°¡ ÀÖ¾îµµ ÃÖ°í°ü¸®ÀÚ¿¡°Ô ¸ŞÀÏÀ» ¹ß¼Û
+    :   °Ô½Ã¹° º¹»ç, ÀÌµ¿½Ã ±×·ì°ü¸®ÀÚ°¡ °ü¸®ÇÏ´Â °Ô½ÃÆÇÀÌ ¸ğµÎ Ãâ·ÂµÇÁö ¾Ê´ø ¿À·ù ¼öÁ¤
+    :   ÅõÇ¥ ¼öÁ¤
+    :   °Ô½ÃÆÇÅ×ÀÌºí¿¡ wr_is_comment ÇÊµå¸¦ Ãß°¡ÇÏ¿© ¿ø±Û°ú ÄÚ¸àÆ®¸¦ ±¸ºĞÇÏ¿© Äõ¸® ½ÇÇà½Ã ¼Óµµ¸¦ ¿ùµîÈ÷ Çâ»ó ½ÃÅ´
+    :   °Ô½ÃÆÇ°ü¸®ÀÚ, ±×·ì°ü¸®ÀÚ ¼±ÅÃÇÏ´Â°Í¿¡¼­ ÀÔ·ÂÇÏ´Â°ÍÀ¸·Î ¼öÁ¤
+    :   °ü¸®ÀÚ > È¸¿ø°ü¸® ¼öÁ¤¿¡ ¼öµ¿ÀÎÁõ Ãß°¡
+    :   È¸¿ø°¡ÀÔ½Ã È¸¿ø°á°úÆäÀÌÁö·Î ÀÌµ¿ÇÏÁö ¾Ê´ø ¿À·ù ¼öÁ¤
+
+        ÇÊµå°¡ Ãß°¡ µÇ¾úÀ¸´Ï adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¿© ÁÖ½Ê½Ã¿À.
+
+        adm/sql_write.sql
+        adm/board_form.php
+        adm/board_form_update.php
+        adm/board_list.php
+        adm/boardgroup_form.php
+        adm/boardgroup_form_update.php
+        adm/boardgroup_list.php
+        adm/index.php
+        adm/member_form.php
+        adm/member_form_update.php
+        adm/repair.php
+        adm/upgrade.php
+        bbs/board.php
+        bbs/delete.php
+        bbs/delete_all.php
+        bbs/delete_comment.php
+        bbs/list.php
+        bbs/move.php
+        bbs/move_update.php
+        bbs/poll_update.php
+        bbs/register_form_update.php
+        bbs/rss.php
+        bbs/search.php
+        bbs/scrap_popin.php
+        bbs/scrap_popin_update.php
+        bbs/tb.php
+        bbs/view.php
+        bbs/view_comment.php
+        bbs/write.php
+        bbs/write_comment_update.php
+        bbs/write_update.php
+        lib/latest.lib.php
+        skin/search/basic/search.skin.php
+        skin/member/basic/register_form.skin.php
+
+4.02.01 (05.07.18)
+    :   °ü¸®ÀÚ°¡ È¸¿ø¾ÆÀÌµğ Á÷Á¢ »ı¼º½Ã ¸ŞÀÏÀÎÁõÀÏ½Ã ÀÔ·Â
+    :   °Ô½ÃÆÇ±×·ì°ü¸®ÀÚ°¡ °ü¸®ÀÚÆäÀÌÁö¿¡¼­ °Ô½ÃÆÇ »ı¼º, ¼öÁ¤À» ÇÒ ¼ö ¾ø¾ú´ø ¿À·ù ¼öÁ¤
+    :   µ¿ÀÏÈ¸¿ø¿¡°Ô Æ÷ÀÎÆ® °è¼Ó ºÎ¿©ÇÏ´Â °æ¿ì ÇÑ°Ç¸¸ ºÎ¿©µÇ´ø ¿À·ù ¼öÁ¤
+    :   view_file_link() ÇÔ¼ö ¼öÁ¤
+    :   ºê¶ó¿ìÀú¿¡¼­ °´Ã¼ÀÇ ¿ŞÂÊ, »ó´Ü ÁÂÇ¥ ÇÔ¼ö ¼öÁ¤
+        get_left_pos(), get_top_pos()
+    :   °Ë»ö ÄÚµå ¼öÁ¤
+
+        adm/board_form.php
+        adm/board_form_update.php
+        adm/board_list.php
+        adm/board_list_delete.php
+        adm/board_delete.php
+        adm/member_form_update.php
+        common.lib.php
+        adm/point_update.php
+        bbs/search.php
+        js/common.js
+
+4.02.00 (05.07.13)
+    :   È¸¿øÀÌ ÅõÇ¥ÇÒ °æ¿ì Æ÷ÀÎÆ® Á¦´ë·Î ºÎ¿©µÇÁö ¾Ê´ø ¿À·ù ¼öÁ¤
+    :   ÆÄÀÏÅ×ÀÌºí¿¡ ÀÌ¹ÌÁö ¼ÓÁ¤ ÇÊµå Ãß°¡
+        getimagesize() ÇÔ¼öº¸´Ù ¼Óµµ°¡ ºü¸§
+        g6man ´Ô²²¼­ Á¦¾ÈÇÏ¼Ì½À´Ï´Ù.
+    :   help(), menu() ÀÚ¹Ù½ºÅ©¸³Æ® ÇÔ¼ö ¼öÁ¤
+    :   °Ë»ö½Ã ¹ö±× ¼öÁ¤ (lib/common.lib.php)
+        ¼öÁ¤Àü : $pattern .= $bar . str_replace("/", "\/", quotemeta($s[$m]));
+        ¼öÁ¤ÈÄ : $pattern .= $bar . str_replace("/", "\/", quotemeta($s[$m])) . "(?![^<]*>)";
+        yesmoa ´Ô²²¼­ ¾Ë·ÁÁÖ½Ã°í g6man ´Ô²²¼­ ÇØ°áÇØ ÁÖ¼Ì½À´Ï´Ù. ^^
+    :   ¼³Ä¡½Ã data µğ·ºÅä¸® ¹Ø¿¡ index.php »ı¼º
+        root ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   cheditor ºÎºĞ ¼öÁ¤
+    :   °Ô½ÃÆÇ»ı¼º¿¡¼­ °Ô½ÃÆÇ±×·ì¾øÀ» °æ¿ì °Ô½ÃÆÇ±×·ì »ı¼ºÇÏ¶ó´Â ¸Ş¼¼Áö Ãâ·Â
+    :   °Ô½ÃÆÇ»ı¼º½Ã °Ô½ÃÆÇ µğ·ºÅä¸® ¹Ø¿¡ index.php »ı¼º
+    :   bbs/good.php ¿¡¼­ SQL Injection ¿¡ ´ëºñÇÑ ÄÚµå ¼öÁ¤
+        root ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   È¸¿ø·Î±×ÀÎ°Ë»ç¿¡¼­ ¸ŞÀÏÀÎÁõÄÚµå À§Ä¡ º¯°æ
+    :   Æ®·¢¹é ºÎºĞ ¼öÁ¤
+        ¼öÁ¤Àü : $msg = send_trackback($wr_trackback, $trackback_url, $wr_subject, $board[bo_subject], $wr_content);
+        ¼öÁ¤ÈÄ : $msg = send_trackback($wr_trackback, $trackback_url, $wr_subject, $board[bo_subject], $_POST[wr_content]);
+    :   È¯°æ¼³Á¤ÀÇ E-mail ÀÎÁõ»ç¿ë À§Ä¡ ¼öÁ¤
+
+        ÇÊµå°¡ Ãß°¡ µÇ¾úÀ¸´Ï adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¿© ÁÖ½Ê½Ã¿À.
+
+        adm/upgrade.php
+        adm/admin.head.php
+        adm/board_copy_update.php
+        adm/board_form.php
+        adm/board_form_update.php 
+        adm/config_form.php
+        bbs/good.php
+        bbs/login_check.php
+        bbs/move_update.php
+        bbs/poll_update.php
+        bbs/write_update.php
+        cheditor/cheditor.js
+        install/install_db.php
+        js/common.js
+        lib/common.lib.php
+
+4.01.00 (05.07.11)
+    :   ¹æ¹®ÀÚ¼ö ÀüÃ¼±¸ÇÏ´Â ÄÚµå ¿À·ù ¼öÁ¤
+        todayis ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   ÅõÇ¥°á°úÆäÀÌÁö ½ºÅ² Àû¿ë
+    :   bbs/link.php ¿¡¼­ SQL Injection ¿¡ ´ëºñÇÑ ÄÚµå ¼öÁ¤
+        root ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   °Ë»ö ÄÚµå ¼öÁ¤
+    :   °ü¸®ÀÚÀÏ °æ¿ì¿¡¸¸ ÀÚ¹Ù½ºÅ©¸³Æ® º¯¼ö¿¡ °ü¸®ÀÚ µğ·ºÅä¸® Á¤º¸ »ı¼º
+    :   E-mail º»ÀÎÀÎÁõ ±â´ÉÃß°¡·Î ÀÎÇÑ ÄÚµå »ó´çºÎºĞ ¼öÁ¤
+        bbs/mail_stop.php ¸¦ bbs/email_stop.php ·Î ÀÌ¸§ º¯°æÇÕ´Ï´Ù.
+        
+        ¡Ø ±âÁ¸ »ç¿ëÀÚ°¡ ¾÷±×·¹ÀÌµå ÇÒ °æ¿ì¿¡´Â º°µµ·Î email_certify.php, email_certify2.php ¸¦ ´Ù¿î·Îµå ÇÏ¼Å¾ß ÇÕ´Ï´Ù.
+
+        ÇÊµå°¡ Ãß°¡ µÇ¾úÀ¸´Ï adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¿© ÁÖ½Ê½Ã¿À.
+
+        adm/_common.php
+        adm/config_form.php
+        adm/config_form_update.php
+        adm/mail_preview.php
+        adm/mail_select_update.php
+        adm/mail_test.php
+        adm/member_form.php
+        adm/member_list.php
+        adm/upgrade.php
+        bbs/link.php
+        bbs/email_certify.php
+        bbs/email_stop.php
+        bbs/login_check.php
+        bbs/register_form.php
+        bbs/register_form_update.php
+        bbs/register_form_update_mail1.php
+        bbs/register_form_update_mail2.php
+        bbs/register_form_update_mail3.php
+        bbs/poll_result.php
+        bbs/poll_update.php
+        bbs/search.php
+        bbs/visit_insert.inc.php
+        lib/common.lib.php
+        lib/poll.lib.php
+        skin/member/basic/register_form.skin.php
+        skin/member/basic/register_result.skin.php
+        skin/poll_result.skin.php
+        head.sub.php
+
+4.00.20 (05.07.06)
+    :   lib/common.lib.php ¿¡ get_yoil() ÇÔ¼öµî Ãß°¡
+    :   bbs/download.php ¿¡¼­ Áßº¹µÈ ÄÚµå »èÁ¦
+        prosper ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+
+    :   ÇÑ±¹¼ÒÇÁÆ®¿ş¾îÁøÈï¿ø °ø°³SWÁö¿ø¼¾ÅÍ¿¡¼­ º¸³»¿Â ¹®¼­¸¦ Åä´ë·Î PHP, SQL Injection ¿¡ ´ëÃ³ÇÏ±â À§ÇØ ÄÚµå ¼öÁ¤
+        ÇÑ±¹¼ÒÇÁÆ®¿ş¾îÁøÈï¿ø ½Å¹Î¼®´Ô, Á¤ÇöÃ¶¿¬±¸¿ø´Ô, ¼­°­´ëÇĞ±³ ±è¿ìÇö´Ô, 
+        ¢ßA3 Security consulting ±¸º»±Ù´Ô, ±èµ¿¿ì´Ô, ÇÑ³²´ëÇĞ±³ ÄÄÇ»ÅÍ°øÇĞ°ú ÃÖ¹Î¼º´Ô,
+        ÇÔÁö¸¸´Ô, INetCop Security À¯µ¿ÈÆ´Ô ²² °¨»çµå¸³´Ï´Ù.
+
+        common.php
+        adm/board_form.php
+        bbs/download.php
+        bbs/link.php
+        bbs/formmail.php
+        bbs/formmail_send.php
+        bbs/write_update.php
+        lib/popular.lib.php
+        lib/common.lib.php
+
+4.00.19 (05.07.05)
+    :   Áßº¹À¸·Î ÅõÇ¥°¡ °¡´ÉÇÏ´ø ¿À·ù¸¦ ¼öÁ¤
+        Gatzz ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   delete_point() ÇÔ¼ö¿¡¼­ Æ÷ÀÎÆ® ÇÕÀ» ¹İ¿µ
+        jjuni ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   È¸¿ø°¡ÀÔ½Ã º»ÀÎÀ» ÃßÃµÇÒ ¼ö ÀÖ´Â ¿À·ù ¼öÁ¤
+        ¾Æ²Ê ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+
+        bbs/poll_update.php
+        bbs/register_form_update.php
+        lib/common.lib.php
+        skin/member/basic/register_form.skin.php
+
+4.00.18 (05.07.04)
+    :   ¼³Ä¡½Ã data/cheditor µğ·ºÅä¸® »ı¼º
+    :   º°¸í ¼öÁ¤ÀÏ¿¡¼­ °è»êÀÌ Æ²¸° ¿À·ù¸¦ ¼öÁ¤
+    :   Á¦¸ñ¿¡ " µé¾î°¡´Â °æ¿ì ¼öÁ¤ ¾ÈµÇ´ø ¿À·ù¸¦ ¼öÁ¤
+        yesmoa, º¸¶÷Âù ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   °Ô½ÃÆÇ º¹»ç½Ã °Ô½ÃÆÇ Á¦¸ñ ÀÔ·Â °¡´ÉÇÏ°Ô ¼öÁ¤
+    :   Æ÷ÀÎÆ® ºÎ¿©¿Í °ü·ÃµÈ ¸ğµç ÆÄÀÏ ¼öÁ¤
+        (±Û[ÄÚ¸àÆ®]»èÁ¦½Ã ¿ø±Û[ÄÚ¸àÆ®]Æ÷ÀÎÆ® ºÎ¿© ·¹ÄÚµå »èÁ¦)
+        (´Ù¿î·Îµå½Ã ÇÑ¹ø¸¸ Æ÷ÀÎÆ® ºÎ¿©)
+    :   µğ·ºÅä¸®¿¡ m000 ÀÌ¸§ÀÌ Á¸ÀçÇÏ¸é °ü¸®ÀÚ ¸Ş´º¸¦ ºÒ·¯¿ÀÁö ¸øÇÏ´ø ¿À·ù¸¦ ¼öÁ¤
+    :   ÇÊµå°¡ Ãß°¡ µÇ¾úÀ¸´Ï adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¿© ÁÖ½Ê½Ã¿À.
+
+        adm/board_copy.php
+        adm/board_copy_update.php
+        adm/point_update.php
+        adm/menu/*
+        bbs/board.php
+        bbs/delete.php
+        bbs/delete_all.php
+        bbs/delete_comment.php
+        bbs/download.php
+        bbs/poll_update.php
+        bbs/register_form_update.php
+        bbs/scrap_popin_update.php
+        bbs/write.php
+        bbs/write_comment_update.php
+        bbs/write_update.php
+        common.php
+        lib/common.lib.php
+        skin/member/basic/register_form.skin.php
+        install/install_db.php
+        cheditor/insert_image.php
+        cheditor/imageupload-class.php
+
+4.00.17 (05.06.29)
+    :   ¹öÀüÈ®ÀÎ ÆäÀÌÁö Ãß°¡
+        Á¶º´¿Ï(korone)´Ô , ³²±Ô¾Æºü(eagletalon)´Ô²²¼­ ¸¸µé¾î ÁÖ¼Ì½À´Ï´Ù.
+    :   °Ô½ÃÆÇ¼³Á¤¿¡¼­ ¿¬°ü¼º¾ø´Â ±×·ìµ¿ÀÏÀû¿ë ºĞ¸®
+    :   cheditor ¿¬µ¿ ºÎºĞ »ó´çºÎºĞ ¼öÁ¤
+    :   common.lib.php ÀÇ goto_url() ¼öÁ¤
+    :   ÂÊÁö, ½ºÅ©·¦, ¿ìÆí¹øÈ£, ¾ÆÀÌµğ/ÆĞ½º¿öµå Ã£±â, È¸¿øÁ¤º¸Á¶È¸ ÆäÀÌÁö 
+        ¸ğµÎ ½ºÅ²À¸·Î ´ëÃ¼ (skin/member/basic/*)
+    :   ÅõÇ¥ÇÑ È¸¿øÀ» ÀúÀåÇÏ¿© µÎ¹øÀÌ»ó ÅõÇ¥¸¦ ÇÏÁö ¸øÇÏµµ·Ï ¼öÁ¤
+    :   ÇÊµå°¡ Ãß°¡ µÇ¾úÀ¸´Ï adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¿© ÁÖ½Ê½Ã¿À.
+        
+        adm/version.php
+        adm/menu/m100960_version.php
+        adm/board_form.php
+        adm/board_form_update.php
+        adm/poll_form.php
+        adm/upgrade.php
+        bbs/formmail.php
+        bbs/memo.php
+        bbs/memo_form.php
+        bbs/memo_view.php
+        bbs/password_forget.php
+        bbs/password_forget2.php
+        bbs/password_forget3.php
+        bbs/poll_update.php
+        bbs/profile.php
+        bbs/scrap.php
+        bbs/scrap_popin.php
+        bbs/write_update.php
+        bbs/zip.php
+        lib/common.lib.php
+        lib/cheditor.lib.php
+        cheditor/cheditor.js
+        cheditor/cheditorSimple.js
+        skin/board/cheditor/*
+        skin/member/basic/*
+
+4.00.16 (05.06.28)
+    :   »ç¿ëÀÚÀÇ ·¹º§º¸´Ù ÀĞ±â ·¹º§ÀÌ ´õ Å« °æ¿ì ³»¿ëÀ» º¸¿©ÁÖÁö ¾Ê°í °Ë»öµÇ°Ô ÇÔ
+        ¾Æ²Ê´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   DHTML Editor (cheditor : http://chsoft.co.kr) ±âº» Å¾Àç
+    :   ºÒ¿©¿ì¿¡¼­ ±Ûµî·Ï½Ã ±ÛÀĞ±â·Î ³Ñ¾î°¡Áö ¾Ê´ø ¿À·ù ¼öÁ¤
+    :   config.php ¿¡ ¾Æ·¡¿Í °°ÀÌ µÎÁÙ Ãß°¡ÇÏ¼¼¿ä
+        $g4[editor]         = "cheditor";
+        $g4[editor_path]    = $g4[path] . "/" . $g4[editor];
+
+        bbs/search.php
+        bbs/write_update.php
+        cheditor/*
+        lib/cheditor.lib.php
+
+4.00.15 (05.06.21)
+    :   ÄÚ¸àÆ® ¼öÁ¤½Ã ¿¬¼Ó °Ô½Ã¹° µî·Ï ¸Ş½ÃÁö·Î ÀÎÇÑ ¿À·ù ¼öÁ¤
+    :   È¸¿ø¸ŞÀÏ ¹ß¼Û½Ã »ıÀÏºÎºĞÀÇ ÄÚµå ¿À·ù ¼öÁ¤
+    :   Æ÷ÀÎÆ® °ü¸® ¸ñ·Ï¿¡ ³»¿ë °Ë»ö Ãß°¡
+    :   ¸ŞÀÏ·Î º¸³»´Â ÄÚ¸àÆ®ÀÇ ¹Ù·Î°¡±â ¸µÅ© ¼öÁ¤
+    :   ÄÚ¸àÆ® ÀÔ·Â, ¼öÁ¤ ÈÄ ÄÚ¸àÆ®·Î ÀÌµ¿
+    :   admin.tail.php ÇÏ´Ü¿¡ ÀÖ´ø ÀÚ¹Ù½ºÅ©¸³Æ®¸¦ admin.js ·Î ºĞ¸®
+    :   [º¸¾È°ü·Ã] ´Ù¸¥ È¸¿øÀÇ ÂÊÁö¸¦ ÀĞÀ» ¼ö ÀÖ´Â ¿À·ù ¼öÁ¤
+        
+        bbs/write_comment_update.php
+        adm/mail_select_list.php
+        adm/point_list.php
+        adm/admin.tail.php
+        adm/admin.js
+        bbs/memo_form.php
+
+4.00.14 (05.06.20)
+    :   ÂÊÁö ´äÀåÇÏ±â¿¡¼­ ÀÌÀü±Û º¸¿©ÁÖ±â
+    :   °Ô½ÃÆÇº¹»ç½Ã ±Û¾´ÀÌ »çÀÌµåºä ÇÊµå º¹»çµÇÁö ¾Ê´ø°ÍÀ» ¼öÁ¤
+    :   °ü¸®ÀÚÆäÀÌÁö¿¡¼­ »ç¿ëÇÒ help() ÇÔ¼ö ¹× ½ºÅ¸ÀÏ ½ÃÆ® Ãß°¡
+    :   js/common.js ÀÇ check_byte() ÇÔ¼ö¿¡¼­ cnt °ª return
+
+        bbs/memo_form.php
+        adm/board_copy_update.php
+        adm/_common.php
+        adm/admin.head.php
+        js/common.js
+
+4.00.13 (05.06.18)
+    :   °øÁö»çÇ× Á¦´ë·Î Ã¼Å©µÇÁö ¾Ê´ø ¿À·ù¸¦ ¼öÁ¤
+    :   ½Ç¸í »ç¿ëÀÏ¶§ ÄÚ¸àÆ®¿¡ º°¸íÀ¸·Î ÀÔ·ÂµÇ´ø ¿À·ù¸¦ ¼öÁ¤
+    :   È¸¿øÀÇ ±ÇÇÑÀÌ °Ô½ÃÆÇÀÇ ±ÇÇÑº¸´Ù ³·À¸¸é ±×·ì ÃÖ½Å±Û¿¡¼­ ÇØ´ç °Ô½ÃÆÇ Ãâ·Â ¾ÈÇÔ
+    :   ±×¿Ü ´Ù¼ö
+
+        bbs/write.php
+        bbs/write_update.php
+        bbs/write_comment_update.php
+        bbs/group.php
+        adm/admin.head.php
+        adm/board_form.php
+        adm/boardgroupmember_form.php
+        adm/member_form.php
+
+4.00.12 (05.06.17)
+    :   ±Ûº¹»ç, ÀÌµ¿½Ã °Ô½ÃÆÇ ¼±ÅÃÃ¢¿¡¼­ Á¦¸ñÀ» Å¬¸¯ÇØµµ Ã¼Å©µÇµµ·Ï ¼öÁ¤
+    :   °Ô½ÃÆÇ ½ºÅ² ÄÚµå ÃÖÀûÈ­
+    :   [ie ¹ö±×] 
+        °Ô½ÃÆÇÀÇ ±Û³»¿ëÀÌ ¸¹À»½Ã <form> ¹Ù·Î ¾Æ·¡ÀÇ <input hidden °ª ÇÏ³ª°¡ 
+        »ç¶óÁö´Â Çö»óÀÌ ¹ß»ıÇÏ´Â °æ¿ì°¡ ÀÖ½À´Ï´Ù. (±×·¸Áö ¾ÊÀº °æ¿ì°¡ ´õ ¸¹³×¿ä)
+        ÀÌ°ÍÀ» ÇØ°áÇÏ´Â ¹æ¹ıÀº <form> ÅÂ±× ¹Ù·Î ¾Æ·¡¿¡ 
+        <input hidden=null> À» ÇÑÁÙ Ãß°¡½ÃÄÑ ÁÖ¸é µË´Ï´Ù.
+    :   RSS ¸µÅ© Ãß°¡
+
+        bbs/move.php
+        bbs/list.php
+        skin/board/basic/*
+
+4.00.11 (05.06.15)
+    :   ±Û´äº¯¿¡¼­ ÆÄÀÏ ¾÷·Îµå½Ã ¿ø±ÛÀÇ ÆÄÀÏÀÌ »èÁ¦µÇ´Â ¿À·ù¸¦ ¼öÁ¤
+    :   common.lib.phpÀÇ get_sideview() ÇÔ¼ö ÄÚµå ¾à°£ ¼öÁ¤
+    :   common.lib.phpÀÇ get_file() ÇÔ¼ö¿¡ ÆÄÀÏ path Ãß°¡
+    :   Æû¸ŞÀÏ¿¡¼­ ÆÄÀÏÃ·ºÎ½Ã È®ÀÎÅ¬¸¯ÇÏ¸é ¸ŞÀÏ ¹ß¼ÛµÇÁö ¾Ê´ø ¿À·ù ¼öÁ¤
+    :   Å×ÀÌºí º¹±¸ ¹× ÃÖÀûÈ­ ÇÁ·Î±×·¥ Ãß°¡
+    :   ±×¿Ü ´Ù¼ö
+
+        adm/auth_update.php
+        adm/board_form_update.php
+        adm/boardgroup_form_update.php
+        adm/boardgroupmember_update.php
+        adm/config_form_update.php
+        adm/mail_update.php
+        adm/member_form_update.php
+        adm/point_update.php
+        adm/poll_form_update.php
+        adm/repair.php
+        adm/upgrade.php        
+        adm/menu/m100991_repair.php
+        bbs/formmail.php
+        bbs/write_update.php
+        lib/common.lib.php
+
+4.00.10 (05.06.14)
+    :   ¼­¸í Ãâ·Â µÇµµ·Ï ¼öÁ¤
+    :   Ã¹·Î±×ÀÎ ºÎºĞ ÄÚµå ¼öÁ¤
+    :   ±ÛÀĞ±â Æ÷ÀÎÆ® ºÎ¿©¹æ¹ı ¼öÁ¤
+    :   ÄÚ¸àÆ®¿¡ ´äº¯ÇÏ´Â µ¿¾È ¿ø ÄÚ¸àÆ® »èÁ¦µÇ´Â °æ¿ìÀÇ ¿À·ù ¼öÁ¤
+
+        bbs/board.php
+        bbs/view.php
+        bbs/write_comment_update.php
+        skin/board/basic/view.skin.php
+        common.php
+
+4.00.09 (05.06.13)
+    :   ±ÛÀÔ·Â½Ã °øÁö»çÇ×¿¡ ³ª¿ÀÁö ¾Ê´ø ¿À·ù¸¦ ¼öÁ¤
+    :   ²ø¾²±â, ÄÚ¸àÆ®¾²±â, ±ÛÀĞ±â¿¡¼­ °ü¸®ÀÚµµ Æ÷ÀÎÆ® °¡°¨
+    :   »çÀÌµåºä »ç¿ëÇÏÁö ¾ÊÀ» °æ¿ì ÄÚ¸àÆ® ÀÌ¸§¿¡ »çÀÌµåºä Ãâ·ÂµÇ´Â ¿À·ù ¼öÁ¤
+    :   ÀÎµ¦½º ÇÊµå°¡ ¾Æ´Ï¸é Á¤·Ä¿¡ »ç¿ëÇÏÁö ¾ÊÀ½ ÄÚµå Á¦°Å
+
+        bbs/write_update.php
+        bbs/write_comment_update.php
+        bbs/board.php
+        bbs/view_comment.php
+        bbs/list.php
+
+4.00.08 (05.06.10)
+    :   °Ë»ö ¼öÁ¤
+    :   ÃÖ±Ù°Ô½Ã¹° ¼öÁ¤
+    :   °Ô½ÃÆÇ°ü¸® ¸®½ºÆ® ÆäÀÌÁö ¼öÁ¤ (Á¦¸ñÀ» ³Ğ°Ô ... °ü¸®ÀÚ ¼±ÅÃºÎºĞ »èÁ¦)
+    :   ÄÚ¸àÆ® ÀÔ·Â Ã¼Å© ·çÆ¾ Ãß°¡
+    :   È¸¿ø°¡ÀÔ, ±Û¾²±â, ÄÚ¸àÆ®¾²±â½Ã¿¡ ÀÌ¸§¿¡ ÅÂ±× Àû¿ëÇÒ ¼ö ¾øµµ·Ï ¼öÁ¤
+
+        adm/board_list.php
+        bbs/search.php
+        bbs/new.php
+        bbs/register_form_update.php
+        bbs/write_update.php
+        bbs/write_comment_update.php
+        skin/new/basic/new.skin.php
+        skin/board/basic/view_comment.skin.php
+
+4.00.07 (05.06.09)
+    :   °ü¸®ÀÚ´Â ±ÛÀĞ±â, ±Û¾²±â, ÄÚ¸àÆ®¾²±â, ´Ù¿î·Îµå½Ã Æ÷ÀÎÆ® °¡°¨ÇÏÁö ¾ÊÀ½
+        nasca´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   È¸¿ø¸ŞÀÏ¹ß¼Û¿¡¼­ Àß¸øµÈ º¯¼ö¸í ¹Ù·Î ÀâÀ½
+        smile4u´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   °Ô½ÃÆÇ½ºÅ²ÀÇ Àß¸øµÈ ÁÖ¼® ¹Ù·Î ÀâÀ½
+        ±î¸¸µµµÏ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   °Ô½ÃÆÇ½ºÅ²ÀÇ Å×ÀÌºíÆø(500->100%) ¼öÁ¤
+        wanie´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+
+        adm/mail_select_update.php
+        adm/mail_test.php
+        bbs/board.php
+        bbs/write_comment_update.php
+        bbs/write.php
+        bbs/write_update.php
+        skin/board/basic/view.skin.php
+        skin/board/basic/list.skin.php
+
+4.00.06 (05.06.07)
+    :   È¯°æ¼³Á¤Å×ÀÌºí¿¡ ¿©ºĞÇÊµå 10°³ Ãß°¡
+    :   ÇÊµå°¡ Ãß°¡ µÇ¾úÀ¸´Ï adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¿© ÁÖ½Ê½Ã¿À.
+
+        adm/config_form.php
+        adm/config_form_update.php
+        adm/upgrade.php
+
+4.00.05 (05.06.06)
+    :   bbs/member_confirm.php ¸¦ ½ºÅ²È­
+    :   login ½ºÅ²°ú register ½ºÅ²À» ¹­¾î member ½ºÅ²À¸·Î ¼öÁ¤
+    :   login ½ºÅ²°ú register ½ºÅ²Àº »èÁ¦
+    :   Ãâ·ÂµÇ´Â Á¦¸ñ¿¡ get_text() ÇÔ¼ö Àû¿ë (½ºÅ©¸³Æ® ½ÇÇà ¹«·ÂÈ­)
+    :   ±×¿Ü ´Ù¼ö
+    :   ÇÊµå°¡ Ãß°¡ µÇ¾úÀ¸´Ï adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¿© ÁÖ½Ê½Ã¿À.
+
+        adm/config_form.php
+        adm/config_form_update.php
+        adm/upgrade.php
+        bbs/register_form.php
+        bbs/member_confirm.php
+        bbs/register_result.php
+        bbs/register_form_update.php
+        bbs/register.php
+        bbs/good.php
+        bbs/scrap.php
+        bbs/scrap_popin.php
+        bbs/login.php
+        skin/member/*
+        
+
+4.00.04 (05.06.03)
+    :   ´Ù¸¥ µğ·ºÅä¸®¿Í ±¸Á¶¸¦ ¸ÂÃß±â À§ÇÏ¿© ÆÄÀÏ Ãß°¡
+        _common.php , _head.php , _tail.php
+
+        _common.php
+        _head.php
+        _tail.php
+        index.php
+
+
+4.00.03 (05.06.01)
+    :   [º¸¾È°ü·Ã] PHPSESSID °¡ Æ²¸®¸é ·Î±×¾Æ¿ôÇÑ´Ù.
+    :   data ¹× ÀÚµ¿»ı¼ºµÇ´Â µğ·ºÅä¸®¿¡ ³»¿ë¾ø´Â index.php »ı¼º
+        (¼­¹öÀÇ ¼³Á¤¿¡ µû¶ó ÇØ´ç µğ·ºÅä¸®ÀÇ ÆÄÀÏÀÌ º¸ÀÌ´Â°ÍÀ» »çÀü¿¡ Â÷´Ü)
+    :   $g4[url] °æ·Î ºÎºĞ ¼öÁ¤
+
+        common.php
+        install/install_db.php
+
+4.00.02 (05.05.31)
+    :   °Ë»ö¿¡¼­ Á¦´ë·Î Ãâ·ÂµÇÁö ¾Ê´ø ¿À·ù ¼öÁ¤
+
+        skin/search/basic/search.skin.php
+
+4.00.01 (05.05.30)
+    :   °ü¸®ÀÚ > °Ô½ÃÆÇ°ü¸® > °Ô½ÃÆÇº¹»ç½Ã¿¡ Äõ¸® ¿À·ù ¹ß»ı
+
+        adm/board_copy_update.php
+
+4.00.00 (05.05.30)
+    :   ¾ÈÁ¤¹öÀü ¹èÆ÷
+
+05.05.30
+    :   ·Î±×ÀÎ ÆäÀÌÁö¸¦ ½ºÅ²À¸·Î »ç¿ëÇÒ ¼ö ÀÖ°Ô ¼öÁ¤
+    :   ±×¿Ü ´Ù¼ö
+    :   ÇÊµå°¡ Ãß°¡ µÇ¾úÀ¸´Ï adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¿© ÁÖ½Ê½Ã¿À.
+
+        adm/board_copy_update.php
+        adm/config_form.php
+        adm/config_form_update.php
+        adm/member_form_update.php
+        adm/upgrade.php
+        bbs/login.php
+        bbs/password.php
+        bbs/register_form_update.php
+        skin/login/*
+
+05.05.28
+    :   ÇöÀçÁ¢¼ÓÀÚ ½ºÅ²À¸·Î ¼öÁ¤
+    :   ±×¿Ü ´Ù¼ö
+    :   ÇÊµå°¡ Ãß°¡ µÇ¾úÀ¸´Ï adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¿© ÁÖ½Ê½Ã¿À.
+
+        adm/upgrade.php
+        adm/config_form_update.php
+        adm/config_form.php
+        bbs/current_connect.php
+        bbs/view_comment.php
+        skin/new/*
+        skin/connect/*
+        lib/connect.lib.php
+
+05.05.27
+    :   ±Û»èÁ¦½Ã ÃÖ±Ù°Ô½Ã¹°¿¡¼­ ÄÚ¸àÆ® »èÁ¦µÇÁö ¾Ê´ø ¿À·ù¸¦ ¼öÁ¤
+        root´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+
+        bbs/delete.php
+        bbs/delete_all.php
+
+05.05.26
+    :   ÆÄÀÏ Å×ÀÌºí¿¡ ÆÄÀÏ ³»¿ëÀ» ÇÊµå Ãß°¡
+        °ü¸®ÀÚ > °Ô½ÃÆÇ¼³Á¤¿¡¼­ ÆÄÀÏ ¼³¸í »ç¿ë¿¡ Ã¼Å©ÇÏ½Ê½Ã¿À.
+    :   ÀÚ±â¼Ò°³ ÆäÀÌÁö¿¡ ÀÚ½Åº¸´Ù ³ôÀº ±ÇÇÑÀÇ »ç¿ëÀÚ´Â °¡ÀÔÀÏ°ú ÃÖÁ¾Á¢¼ÓÀÏÀ» ¾Ë ¼ö ¾ø°Ô ÇÔ
+        È²Á¦.com´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   ÇÁ·¹ÀÓ »ç¿ë½Ã Áßº¹ È¸¿ø¾ÆÀÌµğ, ÀÌ¸ŞÀÏ °è¼Ó ¹¯´Â ¿À·ù ¼öÁ¤
+        root´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù. top.document -> parent.document
+    :   gallery Çü½Ä ½ºÅ² Ãß°¡
+        ÀÌ ½ºÅ²Àº ±âÁ¸ÀÇ ´ä»ç±â ½ºÅ²À» ±¸ÇöÇÑ°ÍÀ¸·Î ¾ÆÁ÷ ½æ³×ÀÏ ±â´ÉÀº ³ÖÁö ¸øÇÏ¿´½À´Ï´Ù.
+        °ü¸®ÀÚ > °Ô½ÃÆÇ¼³Á¤¿¡ ¾Æ·¡ÀÇ °ªÀ» ¹İµå½Ã ÀÔ·ÂÇØ ÁÖ¼¼¿ä.
+        ¿©ºĞÇÊµå 1Àº ÇÑÇà¿¡ Ãâ·ÂÇÏ´Â ÀÌ¹ÌÁö ¼ö ÁöÁ¤
+        ¿©ºĞÇÊµå 2´Â ÀÌ¹ÌÁöÀÇ ÆøÀ» ÇÈ¼¿·Î ÁöÁ¤
+
+    adm/board_form_update.php
+    adm/board_form.php
+    adm/upgrade.php
+    bbs/write.php
+    bbs/member_email_check.php
+    bbs/member_nick_check.php
+    bbs/write_update.php
+    bbs/view.php
+    bbs/profile.php
+    lib/common.lib.php
+    skin/board/basic/view.skin.php
+    skin/board/basic/write.skin.php
+    skin/board/gallery/*
+
+05.05.25
+    :   °Ë»öÀ» ½ºÅ²À¸·Î ¼öÁ¤
+    :   Á¢¼ÓÀÚ·Î±× »èÁ¦ÀÏ, ÀÎ±â°Ë»ö¾î »èÁ¦ÀÏ ¼³Á¤ Ãß°¡
+    :   ÇÊµå°¡ Ãß°¡ µÇ¾úÀ¸´Ï adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¿© ÁÖ½Ê½Ã¿À.
+
+    config.php
+    adm/config_form.php
+    adm/config_form_update.php
+    adm/index.php
+    adm/upgrade.php
+    bbs/search.php
+    skin/search/*
+
+05.05.24
+    :   °Ô½ÃÆÇ°ü¸® > °Ô½ÃÆÇº¹»ç ÇÒ¶§ ÆÄÀÏ º¹»ç ¾ÈµÇ´ø ¿À·ù¸¦ ¼öÁ¤
+    :   ÃÖ±Ù°Ô½Ã¹° ½ºÅ²À¸·Î ¼öÁ¤
+    :   ±×¿Ü ´Ù¼ö
+    :   ÇÊµå°¡ Ãß°¡ µÇ¾úÀ¸´Ï adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¿© ÁÖ½Ê½Ã¿À.
+
+    install/install_db.php
+    adm/board_copy_update.php
+    adm/config_form.php
+    adm/config_form_update.php
+    adm/index.php
+    adm/upgrade.php
+    bbs/board.php
+    bbs/current_connect.php
+    bbs/delete_comment.php
+    bbs/download.php
+    bbs/new.php
+    bbs/search.php
+    bbs/tb.php
+    bbs/view_comment.php
+    bbs/write.php
+    bbs/write_comment_update.php
+    bbs/write_update.php
+    lib/common.lib.php
+    skin/new/*
+
+05.05.23
+    :   ¾à°ü(provision -> stipulation) ÇÊµå¸í º¯°æ
+    :   ÃÖ±Ù°Ô½Ã¹° ÄÚ¸àÆ®¿¡ ÀÛ¼ºÀÚ, ½Ã°£ Ãâ·Â ¿À·ù ¼öÁ¤
+        root´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   OPTIMIZER TABLE Ãß°¡
+    :   ±×´©3 ÅõÇ¥º¯È­½Ã ¿À·ù ¼öÁ¤
+
+    adm/auth_update.php
+    adm/board_form_update.php
+    adm/boardgroup_form_update.php
+    adm/boardgroupmember_update.php
+    adm/config_form.php
+    adm/config_form_update.php
+    adm/mail_update.php
+    adm/member_form_update.php
+    adm/point_update.php
+    adm/poll_form_update.php
+    adm/upgrade.php
+    bbs/new.php
+    skin/register/basic/register.skin.php
+    convert/g3_vote.php
+
+05.05.22
+    :   RSS ¼öÁ¤
+    :   ´äº¯ÀÖ´Â ÄÚ¸àÆ®´Â ¼öÁ¤, »èÁ¦ ºÒ°¡
+    :   ±ÛÀÚ¼ö ÀÔ·Â Á¦ÇÑÀ» °Ô½ÃÆÇ ¼³Á¤¿¡¼­ ÁöÁ¤ÇÒ ¼ö ÀÖ°Ô ¼öÁ¤
+        ÇÊµå°¡ Ãß°¡ µÇ¾úÀ¸¹Ç·Î adm/upgrade.php ¹İµå½Ã ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¼¼¿ä.
+    :   ÇöÀçÁ¢¼ÓÀÚ ¸µÅ©´Â ÃÖ°í°ü¸®ÀÚ¿¡°Ô¸¸ Çã¿ë
+    :   °Ë»ö¿¡¼­ °Ô½ÃÆÇ ¸µÅ©¿¡¼­ °Ë»ö Äõ¸®¹® »èÁ¦
+    :   ÄÚ¸àÆ® »èÁ¦½Ã »õ±Ûµµ »èÁ¦
+        torry´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+    :   Æ÷ÀÎÆ® ºÎºĞ ÄÚµù »õ·ÎÇÔ
+    :   ¼³Ä¡½Ã ÃÖ°í°ü¸®ÀÚ È¸¿øÁ¤º¸¸¦ °ø°³·Î ¼³Á¤
+        hepburnstyle´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+
+    bbs/download.php
+    bbs/board.php
+    bbs/write_comment_update.php
+    bbs/write.php
+    bbs/write_update.php
+    bbs/search.php
+    bbs/delete_comment.php
+    bbs/current_connect.php
+    bbs/view_comment.php
+    bbs/list.php
+    bbs/rss.php
+    adm/index.php
+    adm/board_form_update.php
+    adm/board_form.php
+    adm/upgrade.php
+    install/install_db.php
+
+05.05.21
+    :   ºñ¹Ğ±ÛÀº °Ë»ö¿¡¼­ Á¦¿Ü
+        zzzz´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+        bbs/search.php
+
+    :   °Ô½ÃÆÇ °Ë»ö¾îµµ ÀÎ±â°Ë»ö¾î¿¡ Æ÷ÇÔ
+        root´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+        lib/common.lib.php
+
+05.05.20
+    :   ÀÎ±â°Ë»ö¾î ±â´É Ãß°¡
+        adm/upgrade.php ½ÇÇà
+        bbs/search.php
+        lib/popular.lib.php
+        skin/popular/*
+        common.php
+        config.php
+
+    :   °ü¸®ÀÚ ¸Ş´º °³Æí
+        adm/*
+
+    :   ÅõÇ¥ Âü¿©½Ã Æ÷ÀÎÆ® ºÎ¿©
+        adm/poll_form.php
+        adm/poll_form_update.php
+        bbs/poll_update.php
+
+    :   ÃÖ½Å±Û¿¡ ÄÚ¸àÆ® Æ÷ÇÔ
+        bbs/new.php
+        bbs/write_comment_update.php
+        bbs/write_update.php
+        bbs/tb.php
+        bbs/scrap_popin_update.php
+
+    :   ±ÛÀÌµ¿½Ã ÃÖ½ÅÄÚ¸àÆ®µµ ÀÌµ¿
+        bbs/move_update.php
+
+    :   RSS Ãß°¡
+        bbs/rss.php
+
+05.05.17
+    :   °Ô½Ã¹° º¹»ç, ÀÌµ¿½Ã ÄÚ¸àÆ® ´äº¯ Á¤»ó º¹»ç, ÀÌµ¿ µÇµµ·Ï ¼öÁ¤
+        bbs/move_update.php
+
+    :   ÄÚ¸àÆ® ¼öÁ¤, »èÁ¦ ¿À·ù ¼öÁ¤
+        bbs/write_comment_update.php
+        bbs/delete_commnet.php
+
+05.05.16
+    :   admin µğ·ºÅä¸®¸¦ adm À¸·Î º¯°æ
+        tomcat ¼³Ä¡½Ã Ãæµ¹ ¹Ì¿¬¿¡ ¹æÁö
+        config.php
+
+    :   ÄÚ¸àÆ®¿¡ ´äº¯ ±â´É Ãß°¡
+        ÇÊµå°¡ Ãß°¡ µÇ¾úÀ¸¹Ç·Î adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¼Å¾ß ÇÕ´Ï´Ù.
+        *
+
+    :   config.php ¿¡ $g4[url] À» Á÷Á¢ ÀÔ·ÂÇÒ ¼ö ÀÖµµ·Ï ¼öÁ¤
+        windows ¼­¹ö¿¡¼­´Â Á¦´ë·Î °æ·Î¸¦ ¾Ë ¼ö ¾ø¾î ¼öµ¿À¸·Î ÀÔ·ÂÇÒ ¼ö ÀÖµµ·Ï ÇÏ¿´½À´Ï´Ù.
+        config.php
+
+05.05.15
+    :   °Ô½Ã¹° ÀÌµ¿½Ã Á¦´ë·Î °è»êµÇÁö ¾Ê´ø °Ô½Ã¹° ¼ö¸¦ ¼öÁ¤
+        ±×¿Ü ´Ù¼ö
+        adm/board_delete.inc.php
+        adm/config_form.php
+        adm/board_form.php
+        bbs/move_update.php
+        bbs/write.php
+
+05.05.14
+    :   À©µµ¿ì ¼­¹ö¿¡¼­ °ü¸®ÀÚ¸Ş´º Á¤»ó Ãâ·ÂµÇµµ·Ï ¼öÁ¤
+        adm/menu/*
+
+    :   ¼³Á¤ÀÏÀÌ Áö³­ »õ±Û »èÁ¦, ¼³Á¤ÀÏÀÌ Áö³­ ÂÊÁö »èÁ¦, Å»ÅğÈ¸¿ø ÀÚµ¿ »èÁ¦ ·çÆ¾À»
+        adm/index.php ·Î ¿Å°å½À´Ï´Ù.
+
+    :   º¹»ç, ÀÌµ¿½Ã ·Î±× ³²±è ±â´É Ãß°¡
+        ÇÊµå°¡ Ãß°¡ µÇ¾úÀ¸¹Ç·Î adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¼Å¾ß ÇÕ´Ï´Ù.
+        adm/config_form.php
+        adm/config_form_update.php
+        bbs/move_update.php
+
+    :   ÀÌµ¿½Ã ÃÖ½Å±Û¿¡¼­ »ç¶óÁö´Â °Ô½Ã¹° ¿À·ù ¼öÁ¤
+        torry´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+        bbs/new.php
+        bbs/move_update.php
+
+    :   »çÀÌµåºä¿¡¼­ È¨ÆäÀÌÁö Å¬¸¯½Ã Á¦´ë·Î ÀÌµ¿ÇÏÁö ¾Ê´ø ¿À·ù ¼öÁ¤
+        ¸»Åº°³¹Ì(sehonet)´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+        lib/common.lib.php
+
+    :   ÄÚ¸àÆ® »õÃ¢ »ç¿ë Ã¼Å©ÇÏÁö ¾Ê¾ÒÀ» ¶§ ÃÖ½Å±Û¿¡¼­ ÄÚ¸àÆ® Å¬¸¯½Ã ¿À·ù ¼öÁ¤
+        bbking´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+        skin/latest/basic/latest.skin.php
+
+    :   È¸¿ø¸ŞÀÏ¿¡¼­ ¹Ì¸®º¸±â ±â´É Ãß°¡
+        NARU(kingljm)´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+        adm/mail_list.php
+        adm/mail_preview.php
+
+    :   °ü¸®ÀÚ°¡ Á÷Á¢ µî·ÏÇÑ È¸¿ø ·Î±×ÀÎ µÇÁö ¾Ê´ø ¿À·ù ¼öÁ¤
+        ÆĞ½º¿öµå ÀÔ·ÂÀÌ µÇÁö ¾Ê°í ÀÖ¾úÀ½
+        Á¤Áø»ó(chung96)´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+        adm/member_form_update.php
+
+    :   °Ô½ÃÆÇ ±×·ì ÀÔ·Â½Ã ¿©ºĞ ÇÊµå ÀÔ·ÂµÇÁö ¾Ê´ø ¿À·ù ¼öÁ¤
+        NARU(kingljm)´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+        boardgroup_form_update.php
+
+05.05.13
+    : ±ÛÀÚ¼ö ÃÖ¼Ò/Á¦ÇÑÇÏ´Â ÄÚµå Ãß°¡
+      skin/board/basic/write.skin.php
+      skin/board/basic/view_comment.skin.php
+
+    : È¸¿ø°¡ÀÔÀ» ½ºÅ² ¹æ½ÄÀ¸·Î ¼öÁ¤
+      ÇÊµå°¡ Ãß°¡ µÇ¾úÀ¸¹Ç·Î adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¼Å¾ß ÇÕ´Ï´Ù.
+      adm/config_*
+      skin/register/*
+      bbs/member_*_check.php
+      bbs/register_*
+
+    : °øÁö¿¡´Â ´äº¯ÇÒ ¼ö ¾ø´Â ¸Ş¼¼Áö Ãâ·Â ¿À·ù ¼öÁ¤
+      bbs/write_update.php
+
+    : °Ë»ö ¼öÁ¤
+      head.php
+
+05.05.12
+    : °ü¸®ÀÚ°¡ Á÷Á¢ È¸¿ø µî·Ï °¡´ÉÇÏµµ·Ï ¼öÁ¤
+      adm/member_list.php
+      adm/member_form.php
+      adm/member_form_update.php
+
+    : µ¿ÀÏ³»¿ë ¿¬¼Óµî·Ï ºÒ°¡
+      bbs/write_update.php
+      bbs/write_comment_update.php
+
+    : ±Û ÀÌµ¿½Ã ½ºÅ©·¦µµ ÀÌµ¿ÇÏµµ·Ï ¼öÁ¤
+      bbs/move_update.php
+
+    : ±Û¾´ÀÌ »çÀÌµåºä »ç¿ë ±â´É Ãß°¡
+      ÇÊµå°¡ Ãß°¡ µÇ¾úÀ¸¹Ç·Î adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»ó ½ÇÇàÇÏ¼Å¾ß ÇÕ´Ï´Ù.
+      adm/board_form.php
+      adm/board_form_update.php
+
+05.05.11
+    : °Ô½ÃÆÇ°ü¸® > ¼öÁ¤¿¡¼­ ¿À·ù³ª´Â ºÎºĞµé ¼öÁ¤
+      adm/board_form.php
+      adm/board_form_update.php
+
+    : ºÒ¿©¿ì¿¡¼­ alphanumeric °ú alphanumeric_ À» Á¦´ë·Î ÀÎ½ÄÇÏÁö ¸øÇÏ´ø ¿À·ù¸¦ ¼öÁ¤
+      alphanumeric_ À» alphanumericunderline À¸·Î ¼öÁ¤
+      js/wrest.js
+
+    : bbs , admin path ÀüÃ¼ ¼öÁ¤
+      *
+
+05.05.10
+    : °°Àº ¼­¹ö¿¡ Á¸ÀçÇÏ´Â Å¸°èÁ¤¿¡¼­ DB Á¤º¸¸¦ °¨Ãâ ¼ö ÀÖ´Â ¹æ¹ıÀÌ ¸¶·ÃµÇÁö ¾Ê¾Æ
+      ¿ø·¡ÀÇ ¼³Ä¡ ÆÄÀÏ·Î µ¹·Á ³õ¾Ò½À´Ï´Ù.
+      install/*
+      common.php
+      config.php
+
+    : php ÀÎÁ§¼Ç ( ÀÓÀÇ·Î º¯¼öÁ¶ÀÛÀ¸·Î ÀÎÇÑ ¸®¸ğÆ®°ø°İ) Ãë¾àÁ¡¿¡ ´ëºñÇÑ ÄÚµå¸¦ Ãß°¡
+      prosper ´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+      common.php
+
+    : È¸¿ø¸ŞÀÏ¹ß¼Û Ãß°¡
+      È¸¿ø¸ŞÀÏ Å×ÀÌºí Ãß°¡·Î ÀÎÇÑ ÇÁ·Î±×·¥ ½ÇÇà
+      http://µµ¸ŞÀÎ/ÁöÆ÷/adm/upgrade.php ¸¦ ÇÑ¹ø ÀÌ»óÀº ÃÖ°í°ü¸®ÀÚ ±ÇÇÑÀ¸·Î ½ÇÇàÇØ ÁÖ½Ê½Ã¿À.
+
+      adm/*
+      common.php
+      config.php
+
+05.05.09
+    : dbconfig.php ¸¦ ¿ÏÀüÈ÷ ¾ø¾Ö°í common.php ¿¡ mysql Á¤º¸¸¦ ³Ö´Â ¹æ½ÄÀ¸·Î ¼öÁ¤ÇÏ¿´½À´Ï´Ù.
+      ¾î¶² ÄÚµå·Î ÇÏ´ø dbconfig.php °¡ µû·Î ºĞ¸®µÇ¾î ÀÖÀ¸¸é °°Àº ¼­¹ö¿¡ Á¸ÀçÇÏ´Â Å¸ °èÁ¤µé·Î
+      ºÎÅÍ ÀÚÀ¯·Î¿ï ¼ö ¾ø½À´Ï´Ù.
+      Å¸ÀÎ¿¡°Ô mysql Á¤º¸¸¦ ¾Ë·ÁÁÖÁö ¾Ê´Â ÇÑ ¿Ïº®(?)ÇÏ°Ô DB¸¦ ¾ÈÀüÇÏ°Ô º¸È£ ÇÒ ¼ö ÀÖ½À´Ï´Ù.
+      common.php
+      config.php
+      install/*
+
+    : ¿©ºĞ ÇÊµå ÄÚµå ¿À·ù ¼öÁ¤
+      ±è¼±¿ë(sucjin)´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+      adm/board_form.php
+      adm/boardgroup_form.php
+      adm/member_form.php
+
+    : È¸¿øÁ¤º¸¼öÁ¤½Ã °ü¸®ÀÚ ¾ÆÀÌµğ Á¢±Ù ºÒ°¡ ÇØÁ¦
+      bbs/register_form.hp
+
+    : ¼³Ä¡½Ã ÆÛ¹Ì¼Ç È®ÀÎ ÄÚµå ¼öÁ¤
+      install/index.php
+
+    : sql_zip.sql À» admin µğ·ºÅä¸®·Î ÀÌµ¿
+
+05.05.06
+    : ÄÚ¸àÆ® ÀÔ·Â½Ã ¿©ºĞ ÇÊµå ÀÔ·ÂµÇµµ·Ï ¼öÁ¤
+      bbs/write_comment_update.php
+
+    : Á¢±Ù±ÇÇÑ(ºÎ°ü¸®ÀÚ) ¼³Á¤ ±â´É Ãß°¡
+      °¡º¯ÀûÀ¸·Î Ãß°¡µÇ´Â ÇÁ·Î±×·¥µµ Àû¿ë °¡´É
+      r : ÀĞ±â , w : ÀÔ·Â, ¼öÁ¤ , d : »èÁ¦
+      config.php
+      adm/*
+
+05.05.04
+    : Á¦¸ñ ±æÀÌ ÀÚ¸£±â ¼öÁ¤
+      ±è¼±¿ë(sucjin)´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+      bbs/list.php 
+    : ÄÚ¸àÆ®º¸±â »ç¿ëÇÏÁö ¾ÊÀ» °æ¿ì ¿À·ù ¼öÁ¤
+      lib/common.lib.php
+      skin/board/*/list.skin.php
+    : °ü¸®ÀÚ ¸Ş´º ¼öÁ¤
+      adm/*
+
+05.05.03
+    : °Ô½ÃÆÇ±×·ì¼³Á¤¿¡¼­ ¿É¼Ç ÀÔ·Â °¡´ÉÇÏ°Ô ¼öÁ¤
+      adm/boardgroup_form.php
+      adm/boardgroup_form_update.php
+
+    : °ü¸®ÀÚ¸Ş´º¿¡ DHTML ¸Ş´º »èÁ¦
+      adm/*
+
+05.05.02
+    : °Ô½ÃÆÇ¼³Á¤ > ¼öÁ¤¿¡¼­ bo_image_size ÇÊµå Á¸ÀçÇÏÁö ¾ÊÀ½ ¿À·ù ¼öÁ¤
+      adm/board_form_update.php
+    
+    : ÃÖ½Å±ÛÀÇ ±ÛÀÚ¼ö Ç¥½Ã ¿À·ù ¼öÁ¤ 
+      get_list() ÇÔ¼ö¿¡¼­ $len => $subject_len À¸·Î ¼öÁ¤
+      ±è¼±¿ë(sucjin)´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+      lib/common.lib.php 
+    
+    : get_view() ÇÔ¼ö ¼öÁ¤
+      lib/common.lib.php 
+    
+    : url_auto_list() ÇÔ¼ö ¼öÁ¤
+      lib/common.lib.php 
+    
+    : ´ä»ç±â °Ô½ÃÆÇ º¯È¯±â Ãß°¡
+      convert/g3_dabsagi.php
+
+05.04.30
+    : È¸¿ø°¡ÀÔ½Ã º°¸í¿¡¼­ 0ÀÏ ÀÌ³» º¯°æ ¾ÈµÊ ºÎºĞ ¼öÁ¤
+      bbs/register_form.php
+
+05.04.29
+    : ºÒ¿©¿ì¿¡¼­ ÂÊÁöº¸³»±â Å¬¸¯½Ã ÀÚ¹Ù½ºÅ©¸³Æ® ÄÜ¼ÖÃ¢ÀÌ ¶ß´Â°ÍÀ» ¼öÁ¤
+      js/sideview.js
+
+    : ÀüÃ¼°Ë»ö ÀÚ¹Ù½ºÅ©¸³Æ® ¿À·ù ¼öÁ¤
+      bbs/search.php
+
+    : È¸¿øÀÚ½ÅÀÇ ÄÚ¸àÆ®´Â »èÁ¦ÇÒ ¼ö ¾ø´Â ¿À·ù ¼öÁ¤
+      bbs/delete_comment.php
+
+    : °Ô½ÃÆÇ¼³Á¤ > ¼öÁ¤¿¡¼­ ½ºÅ²µğ·ºÅä¸® º¯°æµÇÁö ¾Ê´ø ¿À·ù¸¦ ¼öÁ¤
+      adm/board_form.php
+
+    : ÇöÀçÁ¢¼ÓÀÚ ¿À·ù ¼öÁ¤
+      head.sub.php
+
+    : Á¸ÀçÇÏÁö ¾Ê´Â °Ô½ÃÆÇÀÏ °æ¿ì ¿À·ù Ãâ·Â
+      bbs/board.php
+
+    : FireFox ¿¡¼­ °¡º¯ÆÄÀÏ ¾÷·Îµå µÇÁö ¾Ê´ø ¿À·ù¸¦ ¼öÁ¤
+      ±è¼±¿ë(sucjin)´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+      <!-- ±è¼±¿ë 2005.4 - FF(ºÒ¿©¿ì) ¿¡¼­´Â innerHTML »ç¿ë½Ã ÆûÀÌ <table> ¾Æ·¡¿¡ ÀÖÀ¸¸é ÀÎ½ÄÇÏÁö ¸øÇÕ´Ï´Ù. --> 
+      °Ô½ÃÆÇ½ºÅ²ÀÇ write.skin.php
+
+    : °Ô½ÃÆÇ¼³Á¤ > ¼öÁ¤½Ã °øÁö»çÇ× ¾ø¾îÁö´ø ¿À·ù¸¦ ¼öÁ¤
+      adm/board_form_update.php
+
+    : ÅõÇ¥¸®½ºÆ®¿¡¼­ ¸µÅ© ¼öÁ¤
+      ¹Ú±Ô¼®(nosty)´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+      adm/poll_list.php
+
+    : °Ô½ÃÆÇ¼³Á¤ > ¼öÁ¤½Ã °¡·ÎÀÌ¹ÌÁö¼ö ÇÊµå ¿À·ù ¼öÁ¤
+      °­³²È£(namo)´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+      adm/board_form_update.php
+
+    : °Ô½ÃÆÇ¼³Á¤¿¡¼­ HTML ¾²±â ±ÇÇÑ ¼öÁ¤
+      ¹Ù¸®¹Ì(koxel)´Ô²²¼­ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.
+      adm/board_form.php
+
+    : °Ô½ÃÆÇ¼³Á¤¿¡¼­ ½ºÅ² µğ·ºÅä¸® ¹İµå½Ã ¼³Á¤ÇÏµµ·Ï ¼öÁ¤
+      adm/board_form.php
+
+    : allow_url_fopen = Off ÀÏ °æ¿ì Æ®·¢¹é ¿À·ù³ª´ø ºÎºĞÀ» ¼öÁ¤ (¼ÒÄÏ »ç¿ë)
+      lib/trackback.lib.php
+
+05.04.28
+    : Æ÷ÀÎÆ® º¯È¯½Ã ¿À·ù ¼öÁ¤
+      convert/g3_member.php
+
+05.04.28
+    : Á¤½Ä¹öÀü ¹èÆ÷ (¾ÈÁ¤¹öÀü ¾Æ´Ô)
+
+05.04.28
+    : ºÒ¿©¿ì¿¡¼­ È¸¿øÁ¤º¸¼öÁ¤ ÈÄ Á¤ÁöÇÏ´ø°ÍÀ» ¼öÁ¤
+    : ±×´©º¸µå3 °Ô½ÃÆÇÀÚ·á º¯È¯ ÇÁ·Î±×·¥ Ãß°¡
+      convert/g3_board.php
+    : MySQL °ü¸®Åø phpMyAdmin 2.6.2 Å¾Àç
+
+05.04.27
+    : ¼³Ä¡½Ã implode() ÀÎ¼ö °¹¼ö ¿À·ù ¼öÁ¤
+    : ±×´©º¸µå3 È¸¿øÀÚ·á º¯È¯ ÇÁ·Î±×·¥ Ãß°¡
+      convert/g3_member.php
+
+05.04.26
+    : ÄÚ¸àÆ® ¸î°Ç ÀÌ»ó µî·Ï½Ã ¿ø±Û ¼öÁ¤, »èÁ¦ ºÒ°¡ ±â´É Ãß°¡
+    : °Ô½ÃÆÇ »ı¼º ±â´É Ãß°¡
+    : °Ô½ÃÆÇ¿¡ »ó, ÇÏ´Ü ÀÌ¹ÌÁö ¾÷·Îµå ±â´É Ãß°¡
+    : º°¸í º¯°æ ÈÄ ¼³Á¤ÀÏ µ¿¾È º°¸í º¯°æÇÏÁö ¸øÇÏ´Â ±â´É Ãß°¡
+    : »õ±Û ¸®½ºÆ®¿¡ ºĞ·ù°Ë»ö ±â´É Ãß°¡
+    : ÀüÃ¼°Ë»ö¿¡ ºĞ·ù°Ë»ö ±â´É Ãß°¡
+
+05.04.25
+    : bbs/zip2.php »èÁ¦ (»õÃ¢¿¡¼­ »ó¼¼ÁÖ¼Ò¸¦ ÀÔ·Â¹ŞÁö ¾ÊÀ½)
+
+05.04.24
+    : Ä«Æä24 ¿¡¼­ ¼³Ä¡ µÇÁö ¾Ê´ø ¹®Á¦¿Í ¼³Ä¡½Ã Unknown table 'g4_board' ¿À·ù ¼öÁ¤
+
+05.04.22    
+    : ±×·ìÁ¢±Ù »ç¿ë¿¡ µû¸¥ ±Û¸ñ·Ï º¸±â Â÷´Ü ±â´É Ãß°¡
+    : ±×·ìÁ¢±Ù »ç¿ë¿¡ µû¸¥ °Ë»ö Â÷´Ü ±â´É Ãß°¡
+    : ÃÖ°í°ü¸®ÀÚ´Â Æ÷ÀÎÆ® Ãß°¡ ³»¿ª ³²±âÁö ¾ÊÀ½
+
+05.04.21    
+    : °Ô½ÃÆÇ Å×ÀÌºíÀÇ wr_option ¿¡¼­ set(html, htmlbr) À» set(html1, html2) ·Î º¯°æ
+    : °ü¸®ÀÚ > È¸¿øÁ¤º¸ ¼öÁ¤½Ã ¿À·ù ¼öÁ¤
+    : È¸¿ø°¡ÀÔ½Ã ÃßÃµÀÎ ¾ÆÀÌµğ ÀÔ·Â ºÎºĞ ¼öÁ¤
+    : common.lib.php ÀÇ insert_point() ÇÔ¼ö¿¡¼­ È¸¿ø¾ÆÀÌµğ¸¦ Ã£¾Æ ¾øÀ¸¸é return ÇÔ
+    : ÀüÃ¼ °Ë»ö ¼öÁ¤
+    : °Ô½ÃÆÇ °Ë»ö¿¡¼­ °Ë»ö¾î¿¡ »ö»ó Ãâ·Â
+    : common.lib.php ÀÇ search_font() ÇÔ¼ö¿¡¼­ °Ë»ö¾î°¡ ¾ø´Â °æ¿ì return ÇÔ
+
+05.04.21    ¿ÀÇÂ º£Å¸ 2 ¹èÆ÷
+
+05.03.29    º£Å¸ 1 ¹èÆ÷
+
+±×´©º¸µå4 ÀÌ·Â ¡è
+
+
+================================================================================
+±×´©º¸µå4 ÁÖ¿ä±â´É
+--------------------------------------------------------------------------------
+    1. °¡º¯ ÆÄÀÏ ¾÷·Îµå Áö¿ø
+    2. °ü¸®ÀÚ ÆäÀÌÁö¿¡ °¡º¯ÀûÀ¸·Î ¸Ş´º Ãß°¡ °¡´É
+    3. °ü¸®ÀÚ ¸Ş´ºº° Á¢±Ù ±â´É
+    4. Æ®·¢¹é ±â´É
+    5. ÃÖ±Ù°Ô½Ã¹° Áö¿øÀ¸·Î °Ô½ÃÆÇÀÌ ¸¹¾Æµµ »õ±ÛÀ» È®ÀÎÇÒ ¼ö ÀÖÀ½
+    6. ·Îº¿¿¡ ÀÇÇÑ ±Û¾²±â Â÷´Ü ±â´É
+    7. RSS
+    8. °Ô½ÃÆÇº°·Î Æ÷ÀÎÆ® Á¡¼ö¸¦ ´Ù¸£°Ô ºÎ¿©ÇÒ ¼ö ÀÖÀ½
+    9. È¸¿ø°¡ÀÔ½Ã ÀÌ¸ŞÀÏ º»ÀÎÀÎÁõ °¡´É
+   10. ±×¿Ü ´Ù¼ö
+--------------------------------------------------------------------------------
+¾Ë·ÁÁø ¹ö±×
+--------------------------------------------------------------------------------
+    1. ÄÚ¸àÆ®°¡ °Ë»ö¿¡ Æ÷ÇÔµÈ °æ¿ì ¸ñ·Ï¿¡¼­ Á¤·Ä(Á¶È¸¼ø µîµî)ÀÌ Á¦´ë·Î µÇÁö ¾Ê½À´Ï´Ù.
+================================================================================

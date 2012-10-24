@@ -1,0 +1,34 @@
+ErrorDocument 403 /error_page.php
+ErrorDocument 404 /error_page.php
+
+# to protect dbconfig.php
+<Files dbconfig.php>
+order allow,deny
+deny from all
+</Files>
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# 에그당님의 경로줄이기 수정사항 - http://sir.co.kr/bbs/board.php?bo_table=cm_free&wr_id=357156
+RewriteCond %{REQUEST_URI}    !^/adm/?$ 
+RewriteCond %{REQUEST_URI}    !^/login/?$ 
+
+# 곱슬최씨님의 경로줄이기 - http://sir.co.kr/bbs/board.php?bo_table=g4_tiptech&wr_id=20648
+RewriteRule ^([a-zA-Z0-9_]+)$                   ./bbs_shorten.php?bo_table=$1
+RewriteRule ^([a-zA-Z0-9_]+)/([0-9]+)$          ./bbs_shorten.php?bo_table=$1&wr_id=$2
+RewriteRule ^([a-zA-Z0-9_]+)/([0-9]+)/([0-9]+)$ ./bbs_shorten.php?bo_table=$1&wr_id=$2&c=$3
+
+RewriteCond %{REQUEST_FILENAME} .*jpg$|.*jpeg$|.*gif$|.*png$|.*swf$|.*bmp$|.*js$|.*css$ [NC]
+#RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !opencode\.co.kr [NC]
+RewriteCond %{HTTP_REFERER} !google\. [NC]
+RewriteCond %{HTTP_REFERER} !naver\. [NC]
+RewriteCond %{HTTP_REFERER} !daum\. [NC]
+RewriteCond %{HTTP_REFERER} !yahoo\. [NC]
+RewriteCond %{HTTP_REFERER} !nate\. [NC]
+RewriteCond %{HTTP_REFERER} !msn\. [NC]
+RewriteCond %{HTTP_REFERER} !bing\. [NC]
+RewriteCond %{HTTP_REFERER} !adobe\. [NC]
+RewriteRule (.*) error_page.php
+</IfModule>
