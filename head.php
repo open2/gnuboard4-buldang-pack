@@ -38,13 +38,13 @@ include_once("$g4[layout_path]/layout.lib.php");
                 <a href="<?=$g4['path']?>/"><img src="<?=$g4[path]?>/images/logo_opencode.gif" align=absmiddle alt=""></a>
                 </td>
                 <td align=right>
-                <div style="width:200px;float:right" id="naver_popular">
                 <?
                 include_once("$g4[path]/lib/naver.lib.php");
-                //echo db_cache("main_top_naver_cache", 300, "naver_popular('naver_popular', 4)");
                 ?>
-                loading...
+                <div style="width:200px;float:right" id="naver_popular">
+                네이버 인기검색어 loading...
                 </div>
+                <a href="https://github.com/open2/gnuboard4-buldang-pack/commits/master/" target=new><img src="<?=$g4[path]?>/images/github_logo.jpg" align=absmiddle alt=""></a>
                 <a href="http://dmshopkorea.com/" target=new><img src="<?=$g4[path]?>/images/dmshop.gif" align=absmiddle alt=""></a>
                 <a href="http://onedayro.phps.kr" target=new><img src="<?=$g4[path]?>/images/onedayro.png" align=absmiddle alt=""></a>
                 <a href="http://huddak.net" target=new><img src="<?=$g4[path]?>/images/hu.gif" align=absmiddle alt=""></a>
@@ -111,9 +111,6 @@ echo outlogin("transparent");
         default         : // $mnb가 지정 범위를 벗어나면 내맘대로 출력한다.
                           print_snb($snb_arr['talk'], mnb_name($mnb_arr, 'talk'));
                           ?>
-                          <center>
-<script src="http://widgetprovider.daum.net/view?url=http://widgetcfs1.daum.net/xml/7/widget/2009/09/02/11/30/4a9dd8d219a81.xml&up_interest=%EC%82%BC%EC%84%B1%EC%A0%84%EC%9E%90%2CPOSCO%2CLG%EB%94%94%EC%8A%A4%ED%94%8C%EB%A0%88%EC%9D%B4&up_alpha=100&up_colorset=white&&width=166&height=138&widgetId=475&scrap=1" type="text/javascript"></script>                          
-                          </center>
                           <?
                           print_snb($snb_arr['test'], '테스트'); break;
                           break;
