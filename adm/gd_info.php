@@ -35,7 +35,7 @@ function print_status($supported)
 <br />No FreeType support.  Cannot use TTF fonts, but you can use GD fonts
 <?php endif; ?></li> 
 <li><strong>JPEG Support:</strong>
-<?php print_status($gd_support && $gd_info['JPG Support']); ?></li>
+<?php print_status($gd_support && $gd_info['JPEG Support']); ?></li>
 <li><strong>PNG Support:</strong>
 <?php print_status($gd_support && $gd_info['PNG Support']); ?></li>
 <li><strong>GIF Read Support:</strong>
