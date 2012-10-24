@@ -544,7 +544,8 @@ if (isset($bo_table)) {
     }
 }
 
-if (isset($gr_id)) {
+// adm/board_list.php에서 gr_id를 배열로 쓰기 때문에, is_array를 체크해야 합니다. =..=...
+if (isset($gr_id) && !is_array(gr_id)) {
     $gr_id = preg_match("/^[a-zA-Z0-9_]+$/", $gr_id) ? $gr_id : "";
     $group = sql_fetch(" select * from {$g4['group_table']} where gr_id = '$gr_id' ");
 }
@@ -602,7 +603,6 @@ if (isset($board['bo_skin']))
 
 // 방문자수의 접속을 남김
 include_once("{$g4['bbs_path']}/visit_insert.inc.php");
-
 
 // common.php 파일을 수정할 필요가 없도록 확장합니다.
 $tmp = dir("$g4[path]/extend");
