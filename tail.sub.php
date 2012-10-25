@@ -1,3 +1,8 @@
+<?
+// 이 파일은 새로운 파일 생성시 반드시 포함되어야 함
+if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
+?>
+
 <script type="text/javascript" src="<?=$g4['path']?>/js/wrest.js"></script>
 
 <!-- 새창 대신 사용하는 iframe -->
