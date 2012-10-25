@@ -1,6 +1,9 @@
 <?php
 include("_common.php");
 
+if (function_exists("date_default_timezone_set"))
+    date_default_timezone_set("Asia/Seoul");
+
    /*
 	* @file  zmSpamFree.php
 	* @author Áö¾Ø¹Ì(ZnMee) <znmee@naver.com>
