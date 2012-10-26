@@ -53,16 +53,26 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
                     <td width="270">포인트 : <? if ($mb[mb_point]) { ?><?=number_format($mb[mb_point])?> 점<? } ?></td>
                 </tr>
                 <tr> 
+                    <td height="1" colspan="2" bgcolor="#FFFFFF"></td>
+                </tr>
+                <? if ($mb[mb_good]) { ?>
+                <tr> 
                     <td width="30" height="25" align="center"><img src="<?=$member_skin_path?>/img/arrow_01.gif" width="7" height="5"></td>
-                    <td width="270">
-                    추천 : <? $good = $mb[mb_good] - $mb[mb_nogood]; if ($good < 0) $good = 0; echo number_format($good)?> 회
-                    <?if (($is_member && $member[mb_id] == $mb[mb_id]) || $is_admin) { ?>
-                    (추천 : <?=number_format($mb[mb_good])?> 회, 비추천 : <?=number_format($mb[mb_nogood])?> 회)<? } ?>
-                    </td>
+                    <td width="270">추  천 : <a href="<?=$g4[bbs_path]?>/my_good_ed.php?head_on=1" target=new><?=number_format($mb[mb_good])?></a> 회</td>
                 </tr>
                 <tr> 
                     <td height="1" colspan="2" bgcolor="#FFFFFF"></td>
                 </tr>
+                <? } ?>
+                <? if ($mb[mb_nogood]) { ?>
+                <tr> 
+                    <td width="30" height="25" align="center"><img src="<?=$member_skin_path?>/img/arrow_01.gif" width="7" height="5"></td>
+                    <td width="270">비추천 : <a href="<?=$g4[bbs_path]?>/my_good_ed.php?w=nogood&head_on=1" target=new><?=number_format($mb[mb_nogood])?></a> 회</td>
+                </tr>
+                <tr> 
+                    <td height="1" colspan="2" bgcolor="#FFFFFF"></td>
+                </tr>
+                <? } ?>
 
                 <? if ($mb_homepage) { ?>
                 <tr> 
@@ -77,14 +87,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
                 <? if ($mb[mb_datetime]) { ?>
                 <tr> 
                     <td width="30" height="25" align="center"><img src="<?=$member_skin_path?>/img/arrow_01.gif" width="7" height="5"></td>
-                    <td width="270">회원가입일 : <?=($member[mb_level] >= $mb[mb_level]) ?  substr($mb[mb_datetime],0,10) ." (".$mb_reg_after." 일)" : "알 수 없음"; ?></td>
-                </tr>
-                <? } ?>
-
-                <? if ($mb[mb_realcheck]) { ?>
-                <tr> 
-                    <td width="30" height="25" align="center"><img src="<?=$member_skin_path?>/img/arrow_01.gif" width="7" height="5"></td>
-                    <td width="270">본인인증 : <?=substr($mb[mb_realcheck],0,10)?></td>
+                    <td width="270">회원가입일 : <?=($member[mb_level] >= $mb[mb_level]) ?  substr($mb[mb_datetime],0,10) ." (".number_format($mb_reg_after)." 일)" : "알 수 없음"; ?></td>
                 </tr>
                 <? } ?>
 
