@@ -8,26 +8,31 @@ include_once("$g4[path]/head.sub.php");
 // 쪽지, 기타 신고에는 해당 사항이 없습니다.
 
 // 회원인지 검사하여 회원이 아닌 경우에는 로그인 페이지로 이동한다.
-if (!$member[mb_id]) 
+if (!$member['mb_id']) 
     alert_close("회원만 신고해제 할 수 있습니다.");
 
 // CSRF를 막기 위해서
-$unsg_reason = strip_tags($_POST[unsg_reason]);
+$unsg_reason = strip_tags($_POST['unsg_reason']);
 
 // 게시글 정보를 가져온다
 $write_table = $g4['write_prefix'].$bo_table;
 $sql = " select mb_id from $write_table where wr_id = '$wr_id' ";
 $write_tmp = sql_fetch($sql);
 
-// 본인이 신고한 글인지, 본인의 글인지 확인
-$sql = " select sg_datetime from $g4[singo_table] 
+// 본인이 신고한 글인지 확인
+$sql = " select count(*) as cnt from $g4[singo_table] 
           where bo_table = '$bo_table' and wr_id = '$wr_id' and wr_parent = '$wr_parent' and sg_mb_id = '$member[mb_id]' ";
 $row = sql_fetch($sql);
-if ($row[sg_datetime] || $write_tmp[mb_id] == '$member[mb_id]') 
-    alert_close("자신의 글은 신고해제 할 수 없습니다.");
+// 본인의 글은 절대로 못 풀어줌
+if ($row['cnt'] > 0) {
+    if ($write_tmp['mb_id'] == $member['mb_id'])
+        alert_close("자신의 글은 신고해제 할 수 없습니다.");
+} else {
+    alert_close("다른 회원이 신고한 글은 신고해제 할 수 없습니다.");
+}
 
 // 비회원의 글을 신고할 경우 $write[mb_id]에 값이 없는 문제를 해결하기 위해서...ㅠ..ㅠ...
-if (!$write[mb_id])
+if (!$write['mb_id'])
     alert_close("비회원의 글은 신고해제 할 수 없습니다.");
 
 // 신고해제 정보 등록
@@ -47,13 +52,13 @@ $sql = " update $write_table set wr_singo = wr_singo - 1 where wr_id = '$wr_id' 
 sql_query($sql, false);
 
 // 신고해제한 사람의 포인트를 차감
-if ($config[cf_singo_point_send])
-    insert_point($mb_id, -$config[cf_singo_point_send], "신고해제 포인트", '@member', $mb_id, '신고해제');
+if ($config['cf_singo_point_send'])
+    insert_point($mb_id, -$config['cf_singo_point_send'], "신고해제 포인트", '@member', $mb_id, '신고해제');
 
 // 신고당사자, 게시판관리자/그룹관리자/사이트 관리자에게 쪽지를 발송 (불당의 쪽지2)
 $memo_list = array();
 
-$memo_list[] = $write[mb_id];// 신고된 게시글의 글쓴이
+$memo_list[] = $write['mb_id'];// 신고된 게시글의 글쓴이
 $memo_list[] = $config['cf_admin']; // 사이트 관리자
 if ($group['gr_admin'] && !in_array($group['gr_admin'], $memo_list)) // 그룹관리자
     $memo_list[] = $group['gr_admin'];
@@ -88,8 +93,8 @@ foreach($memo_list as $memo_recv_mb_id) {
     sql_query($sql);
 }
 ?>
-<SCRIPT LANGUAGE="JavaScript">
+<script type="text/javascript">
 alert("게시물을 신고해제 하였습니다.\n\n담당자 확인 후 해당 게시물에 대해서 관련조치를 하겠습니다.\n\n감사합니다.");
 opener.document.location.href = "<?="board.php?bo_table=$bo_table&wr_id=$wr_id"?>";
 window.close();
-</SCRIPT>
+</script>
