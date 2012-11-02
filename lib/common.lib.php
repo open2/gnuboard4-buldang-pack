@@ -614,7 +614,8 @@ function conv_content($content, $html)
         $pattern .= "(i|&#(x6a|105);?)";
         $pattern .= "(o|&#(x6f|111);?)";
         $pattern .= "(n|&#(x6e|110);?)";
-        $content = preg_replace("/".$pattern."/i", "__EXPRESSION__", $content);
+        //$content = preg_replace("/".$pattern."/i", "__EXPRESSION__", $content);
+        $content = preg_replace("/<[^>]*".$pattern."/i", "__EXPRESSION__", $content); 
     }
     else // text ÀÌ¸י
     {
