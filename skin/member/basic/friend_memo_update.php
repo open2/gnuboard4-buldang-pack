@@ -8,5 +8,4 @@ $sql = " update $g4[friend_table] set fr_memo = '$fr_edit' where fr_no = '$fr_no
 sql_fetch($sql);
 
 goto_url("$g4[bbs_path]/memo.php?kind=$kind&fr_type=$fr_type");
-//goto_url("./friend_list.php?fr_type=$fr_type");
 ?>

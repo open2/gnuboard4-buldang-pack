@@ -2,20 +2,16 @@
 include_once("./_common.php");
 include_once("$g4[path]/memo.config.php");
 
-if (!$member[mb_id])
-    alert("회원만 이용하실 수 있습니다.");
-
 // 사용자 설정을 저장하기
-$mb_realmemo             = $_POST[mb_realmemo];
-$mb_realmemo_sound       = $_POST[mb_realmemo_sound];
-$mb_memo_no_reply        = $_POST[mb_memo_no_reply];
-$mb_memo_no_reply_text   = addslashes($_POST[mb_memo_no_reply_text]);
-
-$mb_memo_no_reply_org    = $_POST[mb_memo_no_reply_org];
+$mb_realmemo             = $_POST['mb_realmemo'];
+$mb_realmemo_sound       = $_POST['mb_realmemo_sound'];
+$mb_memo_no_reply        = $_POST['mb_memo_no_reply'];
+$mb_memo_no_reply_text   = addslashes($_POST['mb_memo_no_reply_text']);
+$mb_memo_no_reply_org    = $_POST['mb_memo_no_reply_org'];
 if ($mb_memo_no_reply_org != $mb_memo_no_reply)
-    $mb_memo_no_reply_datetime = $g4[time_ymdhis];
+    $mb_memo_no_reply_datetime = $g4['time_ymdhis'];
 else
-    $mb_memo_no_reply_datetime = $member[mb_memo_no_reply_datetime];
+    $mb_memo_no_reply_datetime = $member['mb_memo_no_reply_datetime'];
 
 $sql = " update $g4[member_table] 
             set mb_realmemo = '$mb_realmemo',
@@ -38,26 +34,26 @@ if (!$res) {
 }
 
 // config_table
-$cf_memo_send_point   = (int) $_POST[cf_memo_send_point];
-$cf_memo_del          = (int) $_POST[cf_memo_del];
+$cf_memo_send_point   = (int) $_POST['cf_memo_send_point'];
+$cf_memo_del          = (int) $_POST['cf_memo_del'];
 
 // memo_config_table
-$cf_memo_page_rows    = (int) $_POST[cf_memo_page_rows];
-$cf_memo_del_unread   = (int) $_POST[cf_memo_del_unread];
-$cf_memo_del_trash    = (int) $_POST[cf_memo_del_trash];
-$cf_memo_user_dhtml   = $_POST[cf_memo_user_dhtml];
-$cf_memo_use_file     = $_POST[cf_memo_use_file];
-$cf_friend_management = $_POST[cf_friend_management];
-$cf_memo_no_reply     = $_POST[cf_memo_no_reply];
-$cf_memo_notice_board = $_POST[cf_memo_notice_board];
-$cf_memo_notice_memo  = $_POST[cf_memo_notice_memo];
-$cf_memo_before_after = $_POST[cf_memo_before_after];
-$cf_memo_print        = $_POST[cf_memo_print];
-$cf_memo_b4_resize    = $_POST[cf_memo_b4_resize];
-$cf_memo_realtime     = $_POST[cf_memo_realtime];
-$cf_memo_mb_name      = $_POST[cf_memo_mb_name];
-$cf_memo_file_size    = (int) $_POST[cf_memo_file_size];
-$cf_max_memo_file_size    = (int) $_POST[cf_max_memo_file_size];
+$cf_memo_page_rows    = (int) $_POST['cf_memo_page_rows'];
+$cf_memo_del_unread   = (int) $_POST['cf_memo_del_unread'];
+$cf_memo_del_trash    = (int) $_POST['cf_memo_del_trash'];
+$cf_memo_user_dhtml   = $_POST['cf_memo_user_dhtml'];
+$cf_memo_use_file     = $_POST['cf_memo_use_file'];
+$cf_friend_management = $_POST['cf_friend_management'];
+$cf_memo_no_reply     = $_POST['cf_memo_no_reply'];
+$cf_memo_notice_board = $_POST['cf_memo_notice_board'];
+$cf_memo_notice_memo  = $_POST['cf_memo_notice_memo'];
+$cf_memo_before_after = $_POST['cf_memo_before_after'];
+$cf_memo_print        = $_POST['cf_memo_print'];
+$cf_memo_b4_resize    = $_POST['cf_memo_b4_resize'];
+$cf_memo_realtime     = $_POST['cf_memo_realtime'];
+$cf_memo_mb_name      = $_POST['cf_memo_mb_name'];
+$cf_memo_file_size    = (int) $_POST['cf_memo_file_size'];
+$cf_max_memo_file_size    = (int) $_POST['cf_max_memo_file_size'];
 
 // 관리자 설정을 저장하기
 if ($is_admin) {

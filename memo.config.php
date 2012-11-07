@@ -1,24 +1,22 @@
 <?
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
 
+if (! $is_member)
+    alert("회원만 접속할 수 있는 페이지 입니다");
+
 // 쪽지 테이블
 $g4['memo_config_table']          = $g4['table_prefix'] . "memo_config";          // 메모 설정테이블
 
 $g4['memo_recv_table']            = $g4['table_prefix'] . "memo_recv";            // 메모 테이블 (수신)
 $g4['memo_send_table']            = $g4['table_prefix'] . "memo_send";            // 메모 테이블 (발신)
 $g4['memo_save_table']            = $g4['table_prefix'] . "memo_save";            // 메모 테이블 (저장)
-$g4['memo_temp_table']            = $g4['table_prefix'] . "memo_temp";            // 메모 테이블 (임시저장)
 $g4['memo_spam_table']            = $g4['table_prefix'] . "memo_spam";            // 메모 테이블 (스팸)
 $g4['memo_notice_table']          = $g4['table_prefix'] . "memo_notice";          // 메모 테이블 (공지)
 $g4['memo_trash_table']           = $g4['table_prefix'] . "memo_trash";           // 메모 테이블 (휴지통)
-$g4['memo_club_table']            = $g4['table_prefix'] . "memo_club";            // 메모 테이블 (클럽)
 
 $g4['memo_group_table']           = $g4['table_prefix'] . "memo_group";           // 메모 테이블 (그룹)
 $g4['memo_group_member_table']    = $g4['table_prefix'] . "memo_group_member";    // 메모 테이블 (그룹멤버)
 $g4['friend_table']               = $g4['table_prefix'] . "friend";               // 친구 테이블 
-
-// 메모를 지정된 시간이 지나야 보낼 수 있게 설정
-$g4['memo_delay_sec'] = 60;
 
 // data_path가 설정되지 않은경우 설정, $g4[data_path]는 불당팩에서 쓰는 data 경로 입니다.
 if (!$g4['data_path']) {
@@ -38,22 +36,20 @@ if (function_exists('sql_fetch')) {
     if ($memo_config) {
 
         // array_merge가 이상하게 동작하는 웹서버가 있어서, 설정값을 한개씩 넣게 수정함
-        // $config = array_merge($config, $memo_config);
-        $config['cf_memo_page_rows']        = $memo_config['cf_memo_page_rows'];
-        $config['cf_memo_del_unread']       = $memo_config['cf_memo_del_unread'];
-        $config['cf_memo_del_trash']        = $memo_config['cf_memo_del_trash'];
-        $config['cf_memo_delete_datetime']  = $memo_config['cf_memo_delete_datetime'];
-        $config['cf_memo_user_dhtml']       = $memo_config['cf_memo_user_dhtml'];
-        $config['cf_memo_use_file']         = $memo_config['cf_memo_use_file'];
-        $config['cf_memo_file_size']        = $memo_config['cf_memo_file_size'];
-        $config['cf_max_memo_file_size']    = $memo_config['cf_max_memo_file_size'];    // 업로드 파일 용량
-        $config['cf_friend_management']     = $memo_config['cf_friend_management'];
-        $config['cf_memo_no_reply']         = $memo_config['cf_memo_no_reply'];
-        $config['cf_memo_notice_board']     = $memo_config['cf_memo_notice_board'];
-        $config['cf_memo_notice_memo']      = $memo_config['cf_memo_notice_memo'];
-        $config['cf_memo_before_after']     = $memo_config['cf_memo_before_after'];
-        $config['cf_memo_print']            = $memo_config['cf_memo_print'];
-        $config['cf_memo_b4_resize']        = $memo_config['cf_memo_b4_resize'];
+        $config['cf_memo_page_rows']        = $memo_config['cf_memo_page_rows'];        // 쪽지의 페이지별 출력갯수
+        $config['cf_memo_del_unread']       = $memo_config['cf_memo_del_unread'];       // OO일이 지난 안읽은 쪽지 삭제
+        $config['cf_memo_del_trash']        = $memo_config['cf_memo_del_trash'];        // OO일이 지난 휴지통 쪽지 삭제
+        $config['cf_memo_delete_datetime']  = $memo_config['cf_memo_delete_datetime'];  //
+        $config['cf_memo_user_dhtml']       = $memo_config['cf_memo_user_dhtml'];       // dhtml 편집기 사용여부
+        $config['cf_memo_use_file']         = $memo_config['cf_memo_use_file'];         // 첨부파일 사용여부
+        $config['cf_memo_file_size']        = $memo_config['cf_memo_file_size'];        // 첨부파일 허용 사이즈
+        $config['cf_max_memo_file_size']    = $memo_config['cf_max_memo_file_size'];    // 최대 첨부 파일 용량
+        $config['cf_friend_management']     = $memo_config['cf_friend_management'];     // 친구관리기능 사용여부
+        $config['cf_memo_no_reply']         = $memo_config['cf_memo_no_reply'];         // 부재중 설정 변경일자
+        $config['cf_memo_notice_memo']      = $memo_config['cf_memo_notice_memo'];      // 공지메모
+        $config['cf_memo_before_after']     = $memo_config['cf_memo_before_after'];     // 이전/이후 쪽지 보기
+        $config['cf_memo_print']            = $memo_config['cf_memo_print'];            // 쪽지 출력 기능 사용 여부
+        $config['cf_memo_b4_resize']        = $memo_config['cf_memo_b4_resize'];        // 불당썸 사용여부
         $config['cf_memo_realtime']         = $memo_config['cf_memo_realtime'];         // 실시간 메모
         $config['cf_memo_mb_name']          = $memo_config['cf_memo_mb_name'];          // 실명 사용
 
@@ -61,14 +57,13 @@ if (function_exists('sql_fetch')) {
 }
 
 // 쪽지 첨부파일 경로
-if ($is_member)
-    $memo_file_path = $g4['path'] . "/data/memo2/" . $member['mb_id']; 
+$memo_file_path = $g4['data_path'] . "/memo2/" . $member['mb_id']; 
 
 // 쪽지 스킨 경로 지정
 $memo_skin_path = "$g4[path]/skin/member/$config[cf_member_skin]";
 
-// 쪽지2 프로그램의 location을 정의, $_SERVER[PHP_SELF]를 안쓰기 위해서
-$memo_url = $g4['bbs_path'] . "/memo.php";
+// 쪽지 프로그램의 location을 정의, $_SERVER[PHP_SELF]를 안쓰기 위해서
+$memo_url = $g4[bbs_path] . "/memo.php";
 
 // 사용자의 환경설정은 실시간쪽지, 부재중 응답이 가능할 때만
 if ($config['cf_memo_realtime'] || $config['cf_memo_no_reply'])
@@ -90,7 +85,7 @@ if (isset($me_id)) {
     $me_id = (int) $me_id;
 }
 
-if ($kind) {
+if (isset($kind)) {
     $kind = preg_match("/^[a-zA-Z0-9_]+$/", $kind) ? $kind : "";
 }
 
@@ -103,4 +98,7 @@ if ($kind) {
 // mb_memo_no_reply_text      : 부재중 쪽지의 답 메시지
 // mb_memo_no_reply_datetime  : 부재중 쪽지 수신 날짜
 // mb_memo_unread             : 안읽은 메시지 갯수
+
+// 메모를 지정된 시간이 지나야 보낼 수 있게 설정 (스팸쪽지를 막기 위해서...)
+$g4['memo_delay_sec'] = 10;
 ?>

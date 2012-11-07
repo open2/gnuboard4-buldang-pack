@@ -2,8 +2,6 @@
 include_once("./_common.php");
 include_once("$g4[path]/memo.config.php");
 
-if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
-
 if (!$kind or !$me_id)
     alert("다운로드에 필요한 정보가 없습니다.");
 
@@ -17,16 +15,16 @@ switch ($kind) {
 }
 $result = sql_fetch($sql);
 
-if ($member[mb_id] != $result[memo_owner])
+if ($member['mb_id'] != $result['memo_owner'])
     alert("다른 사람의 메모에서 첨부파일을 다운로드 할 수 없습니다");
 
-$file_server = $result[me_file_server];
-$file_local = $result[me_file_local];
+$file_server = $result['me_file_server'];
+$file_local = $result['me_file_local'];
 
 $filepath="$g4[path]/data/memo2/$file_server";
 
 //$original="$file_local"; -- UTF-8 파일명, NaviGator님
-if (preg_match("/^utf/i", $g4[charset])) 
+if (preg_match("/^utf/i", $g4['charset'])) 
     $original = urlencode($file_local); 
 else 
     $original = $file_local; 

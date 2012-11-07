@@ -2,19 +2,18 @@
 include_once("./_common.php");
 include_once("$g4[path]/memo.config.php");
 
-if ($_SESSION["sm_datetime"] >= ($g4[server_time] - $config[memo_delay_sec]) && !$is_admin) 
+if ($_SESSION["sm_datetime"] >= ($g4['server_time'] - $config['memo_delay_sec']) && !$is_admin) 
     alert("너무 빠른 시간내에 쪽지를 연속해서 발신할 수 없습니다.");
-set_session("sm_datetime", $g4[server_time]);
-
+set_session("sm_datetime", $g4['server_time']);
 
 $me_send_mb_id = strip_tags($_POST['me_send_mb_id']);
 $me_recv_mb_id = strip_tags($_POST['me_recv_mb_id']);
 
-if (!$member[mb_id])
+if (!$member['mb_id'])
     alert("회원만 이용하실 수 있습니다.");
 
 $me_send_mb_id = trim($me_send_mb_id);
-if ($me_send_mb_id == $member[mb_id]) {} else
+if ($me_send_mb_id == $member['mb_id']) {} else
     alert("memo_update - 바르지 못한 사용입니다.");
 
 if ($me_subject == '')
@@ -38,11 +37,11 @@ $mb_array = array();
 for ($i=0; $i<count($tmp_list); $i++) {
     $row = get_member($tmp_list[$i]);
     // 친구관리가 적용되었을 때
-    if ($row[mb_id]) { // 회원정보가 있는 경우 내가 블랙리스트에 포함되었는지 확인
+    if ($row['mb_id']) { // 회원정보가 있는 경우 내가 블랙리스트에 포함되었는지 확인
         $sql2 = " select count(*) as cnt from $g4[friend_table] where fr_id = '$me_send_mb_id' and mb_id = '$row[mb_id]' and fr_type = 'black_id' ";
         $result2 = sql_fetch($sql2);
     }
-    if (!$row[mb_id] || $row[mb_leave_date] || $row[mb_intercept_date] || $result2[cnt]>0) {
+    if (!$row['mb_id'] || $row['mb_leave_date'] || $row['mb_intercept_date'] || $result2['cnt']>0) {
         $msg .= "$comma1$tmp_list[$i]";
         $comma1 = ",";
     } else {
@@ -55,9 +54,9 @@ for ($i=0; $i<count($tmp_list); $i++) {
 
 if (!$is_admin) {
     if (count($mb_list)) {
-        $point = (int)$config[cf_memo_send_point] * count($mb_list);
+        $point = (int)$config['cf_memo_send_point'] * count($mb_list);
         if ($point) {
-            if ($member[mb_point] - $point < 0) {
+            if ($member['mb_point'] - $point < 0) {
                 alert("보유하신 포인트(".number_format($member[mb_point])."점)가 모자라서 쪽지를 보낼 수 없습니다.");
             } 
         }
@@ -76,8 +75,8 @@ $file_name3 = '';
 
 // 쪽지2에서 업로드 가능한 최대 파일 용량
 //$memo2_upload_size = intval(substr($config[cf_memo_file_size],0,-1)) * 1024 * 1024;
-if ($config[cf_memo_file_size])
-    $memo2_upload_size = $config[cf_memo_file_size] * 1024 * 1024;
+if ($config['cf_memo_file_size'])
+    $memo2_upload_size = $config['cf_memo_file_size'] * 1024 * 1024;
 else {
     $max_upload_size = intval(substr(ini_get("upload_max_filesize"), 0, -1));
     $memo2_upload_size = $max_upload_size * 1024 * 1024;

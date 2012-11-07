@@ -1,35 +1,36 @@
 <?
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
 
-// 쪽지 - 기본적인 사항 정의
-$table_width           = 680;                   // 100%로 설정을 하면 윈도가 떠오를 때 크기 지정을 깜박하시는 분이 있어요.
-$left_menu_width       = 164;                   // 왼쪽 메뉴의 폭
-$content_width         = 495;                   // 쪽지 내용창의 폭
-$content_inner_width   = 494;                   // 쪽지 내용창 안쪽의 최대 폭
-$max_img_width          = $content_width - 50;  // 이미지의 폭
+// 쪽지 - 기본적인 창의 크기를 정의
+$config['memo_width'] = 717; // 실제 창크기 730보다 13px 작게해야 내용이 넘칠때 수평 scroll bar가 안생긴다
+$config['memo_height'] = 600;
+
+// 쪽지 테이블의 기본을 정의
+$table_width           = $config['memo_width'];   // 10(죄측여백)+$left_menu_width(좌측메뉴)+ 10(쪽지목록과 메뉴사이 여백) + 내용 + 10(우측여백)
+$left_menu_width       = 164;                                   // 왼쪽 메뉴의 폭
+$content_width         = $table_width - $left_menu_width - 30 - 10;  // 쪽지 내용창의 폭, -10은 테두리 때문에 생기는 넓이... 정확한 숫자는 체크가 필요한 사항
+$content_inner_width   = $content_width - 1;                    // 쪽지 내용창 안쪽의 최대 폭
+$max_img_width         = $content_width - 50;                   // 이미지의 폭
 
 // resize를 위한 넓이를 지정
 $board['resize_img_width'] = $max_img_width;
 ?>
 
-<link rel="stylesheet" href="<?=$memo_skin_path?>/memo2.css" type="text/css">
+<link rel="stylesheet" href="<?=$memo_skin_path?>/memo2.css?v22" type="text/css">
 
 <!-- sideview를 위해서 -->
 <script type='text/javascript' src='<?=$g4[path]?>/js/sideview.js'></script>
 
 <!-- 상단부 여백 설정하기 -->
-<table border="0" cellspacing="0" cellpadding="0"><tr><td height="10"></td></tr></table>
-</table>
-
-
+<table width=<?=$table_width?> border="0" cellspacing="0" cellpadding="0"><tr><td height="10"></td></tr></table>
 
 <!-- 메뉴영역 -->
 <table width=<?=$table_width?> border="0" cellspacing="0" cellpadding="0"> 
-
 <tr valign=top>
     <td width=10></td> <!-- 좌측의 여백 설정하기 -->
+
     <td width=<?=$left_menu_width?>> <!-- 좌측 메뉴 -->
-        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <table width=<?=$left_menu_width?> border="0" cellspacing="0" cellpadding="0">
           <tr>
             <td width="7" height="7" background="<?=$memo_skin_path?>/img/memo_box_tl.gif"></td>
             <td height="7" background="<?=$memo_skin_path?>/img/memo_line_top.gif"></td>
@@ -69,13 +70,6 @@ $board['resize_img_width'] = $max_img_width;
                 <td align="center"><img src="<?=$memo_skin_path?>/img/memo_icon04.gif" width="3" height="3" /></td>
                 <td height="25"><strong><a href='<?=$memo_url?>?kind=notice'>공지쪽지함</a>
                 </tr>
-<!--
-              <tr><td height="1" colspan="2" bgcolor="e1e1e1"></td></tr>
-              <tr>
-                <td align="center"><img src="<?=$memo_skin_path?>/img/memo_icon02.gif" width="3" height="3" /></td>
-                <td height="25"><strong><a href='<?=$memo_url?>?kind=temp'>작성중인쪽지함</a></strong></td>
-              </tr>
--->
               <tr>
                 <td height="1" colspan="2" bgcolor="e1e1e1"></td>
               </tr>
@@ -83,16 +77,6 @@ $board['resize_img_width'] = $max_img_width;
                 <td align="center"><img src="<?=$memo_skin_path?>/img/co_btn_delete.gif" width="3" height="3" /></td>
                 <td height="25"><strong><a href='<?=$memo_url?>?kind=trash'>삭제한쪽지함</a></strong></td>
               </tr>
-<!--
-              <tr><td height="1" colspan="2" bgcolor="e1e1e1"></td></tr>
-              <tr>
-                <td align="center"><img src="<?=$memo_skin_path?>/img/memo_icon04.gif" width="3" height="3" /></td>
-                <td height="25"><a href='<?=$memo_url?>?kind=cafe'>카페쪽지함</a></td>
-              </tr>
-              <tr>
-                <td height="1" colspan="2" bgcolor="e1e1e1"></td>
-              </tr>
--->
               <tr><td height="1" colspan="2" bgcolor="e1e1e1"></td></tr>
               <tr>
                 <td align="center"><img src="<?=$memo_skin_path?>/img/memo_icon04.gif" width="3" height="3" /></td>
@@ -111,17 +95,17 @@ $board['resize_img_width'] = $max_img_width;
 
         <? if ($config['cf_memo_notice_memo']) { ?>
         <br>
-        <table width="100%" border="0" cellpadding="10" cellspacing="0" style='border-width:1; border-color:#DDDDDD; border-style:solid;'>
+        <table width=<?=$left_menu_width?> border="0" cellpadding="10" cellspacing="0" style='border-width:1; border-color:#DDDDDD; border-style:solid;'>
         <tr><td width=100%>
         <?=nl2br($config['cf_memo_notice_memo'])?>
         </td></tr></table>
         <? } ?>
 
         <!-- 좌측 메뉴 사이의 여백 -->
-        <table width="100%"><tr><td height="5" colspan="3"></td></tr></table>
+        <table width=<?=$left_menu_width?>><tr><td height="5" colspan="3"></td></tr></table>
         
         <!-- 좌측 두번째 메뉴 -->
-        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <table width=<?=$left_menu_width?> border="0" cellspacing="0" cellpadding="0">
           <tr>
             <td width="7" height="7" background="<?=$memo_skin_path?>/img/memo_box3_tl.gif"></td>
             <td height="7" background="<?=$memo_skin_path?>/img/memo_line3_top.gif"></td>
@@ -131,7 +115,7 @@ $board['resize_img_width'] = $max_img_width;
           <tr>
             <td width="7" background="<?=$memo_skin_path?>/img/memo_line3_left.gif">&nbsp;</td>
             <td><table width="100%" border="0" cellpadding="0" cellspacing="0">
-                <? if ($config[cf_friend_management]) { ?>
+                <? if ($config['cf_friend_management']) { ?>
                 <tr>
                   <td width="25" align="center"><img src="<?=$memo_skin_path?>/img/memo_icon05.gif" width="19" height="19" /></td>
                   <td width="125" height="25"><strong><a href='<?=$memo_url?>?kind=online'>친구관리</a></strong></td>
@@ -162,7 +146,7 @@ $board['resize_img_width'] = $max_img_width;
                   </td>
                 </tr>
                 <tr><td height="1" colspan="2" bgcolor="e1e1e1"></td></tr>
-                <? if ($config[cf_memo_user_config] || $is_admin == "super") { ?>
+                <? if ($config['cf_memo_user_config'] || $is_admin == "super") { ?>
                 <tr>
                   <td align="center"><img src="<?=$memo_skin_path?>/img/btn_c_ok.gif" width="12" height="11" /></td>
                   <td height="25"><strong>
@@ -185,6 +169,6 @@ $board['resize_img_width'] = $max_img_width;
 
     </td>
     
-    <td width=15></td> <!-- 쪽지목록과 내용사이의 여백설정하기 -->
+    <td width=10></td> <!-- 쪽지목록과 내용사이의 여백설정하기 -->
 
-    <td> <!-- 우측 내용부분 -->
+    <td width=<?=$content_width?>> <!-- 우측 내용부분 -->

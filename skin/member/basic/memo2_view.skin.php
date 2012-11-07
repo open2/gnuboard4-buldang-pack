@@ -36,135 +36,111 @@ win.print();
 </script> 
 
 <table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
-<tr align=left>
-  <td width="14">&nbsp;</td>
-  <td width="20"><img src="<?=$memo_skin_path?>/img/memo_icon01.gif" width="13" height="12" /></td>
-  <td><span class="style5"><?=$memo_title?> - 쪽지보기</span></td>
+<tr>
+  <td align=left>&nbsp;<img src="<?=$memo_skin_path?>/img/memo_icon01.gif" width="13" height="12" align=absmiddle />
+  &nbsp;<b><?=$memo_title?> - 쪽지보기</b></td>
   <td align=right>
   <? if ($config[cf_memo_print]) { ?><a href="#" onclick="javascript:print_contents('memo_contents')">프린트</a>&nbsp;&nbsp;&nbsp;<? } ?>
   <? if ($view[after_href]) { ?><a href='<?=$view[after_href]?>'>다음</a>&nbsp;&nbsp;&nbsp;<? } ?>
   <? if ($view[before_href]) { ?><a href='<?=$view[before_href]?>'>이전</a>&nbsp;&nbsp;&nbsp;<? } ?>
-  <a href='<?=$memo_url?>?kind=<?=$kind?>&sfl=<?=$sfl?>&stx=<?=$stx?>&unread=<?=$unread?>&page=<?=$page?>'>목록</a></td>
+  <a href='<?=$memo_url?>?kind=<?=$kind?>&sfl=<?=$sfl?>&stx=<?=$stx?>&unread=<?=$unread?>&page=<?=$page?>'>목록</a>
+  &nbsp;
+  </td>
 </tr>
 </table>
 
 <form name="fboardlist" id="fboardlist" method="post" style="margin:0px;">
 <input type='hidden' name='kind'  value='<?=$kind?>'>
 <input type='hidden' name='me_id'  value='<?=$me_id?>'>      
-<table width="99%" border="0" cellspacing="0" cellpadding="0" id="memo_contents">
-<tr>
-  <td width="5" height="5" background="<?=$memo_skin_path?>/img/memo_box2_tl.gif"></td>
-  <td background="<?=$memo_skin_path?>/img/memo_line2_top.gif"></td>
-  <td width="5" background="<?=$memo_skin_path?>/img/memo_box2_tr.gif"></td>
-</tr>
+<table class="tbl_type" width="99%" border="0" cellspacing="0" cellpadding="0" id="memo_contents">
+    <colgroup> 
+      <col width="80">
+      <col width="">
+      <col width="180">
+    </colgroup> 
+    <thead>
+    <tr>
+        <th>제&nbsp;&nbsp;목</th>
+        <th align=left colspan=2>&nbsp;<?=$view['me_subject']?></th>
+    </tr>
+    </thead>
+    <tr>
+        <td>보낸사람 </td>
+        <td align=left colspan=2>&nbsp;<?=$view['me_send_mb_id_nick']?> (<?=$view['me_send_datetime']?>)</td>
+    </tr>
+    <? if ($kind == 'notice') { ?>
+        <? if ($is_admin=='super' || $member['mb_id']==$view['me_send_mb_id']) { ?>
+        <tr>
+            <td>수신레벨</td>
+            <td align=left colspan=2>&nbsp;<?=$view['me_recv_mb_id']?></td>
+        </tr>
+        <tr>
+            <td>안읽은사람</td>
+            <td align=left colspan=2>
+            <?
+            $sql = " select count(*) as cnt from $g4[memo_recv_table] where me_send_datetime = '$view[me_send_datetime]' and me_send_mb_id = '$member[mb_id]' and me_read_datetime = '0000-00-00 00:00:00' ";
+            $result = sql_fetch($sql);
+            $memo_notice_unread = $result['cnt'];
+            ?>
+            &nbsp;<?=number_format($memo_notice_unread)?>명
+            </td>
+        </tr>
+        <? } ?>
+    <?} else {?>
+        <tr>
+            <td>받는사람</td>
+            <td align=left colspan=2>&nbsp;<?=$view['me_recv_mb_id_nick']?> (<?=$view['me_read_datetime']?>)</td>
+        </tr>
+    <? } ?>
 
-<tr>
-  <td width="5" background="<?=$memo_skin_path?>/img/memo_line2_left.gif">&nbsp;</td>
-  <td align="center">
-    <table width="99%" height="30" border="0" cellpadding="0" cellspacing="0">
-      <tr>
-        <td width="70" height="26"><span class="style5" style="padding-left:5px;">제&nbsp;&nbsp;목 </span></td>
-        <td align=left><span class="style11" style="padding-left:5px;"><?=$view[me_subject]?></span></td>
-      </tr>
-      <tr>
-        <td width="70" height="26"><span class="style5" style="padding-left:5px;">보낸사람 </span></td>
-        <td align=left><span class="style11" style="padding-left:5px;"><?=$view[me_send_mb_id_nick]?> (<?=$view[me_send_datetime]?>)</span></td>
-      </tr>
-      <? if ($kind == 'notice') { ?>
-      <? if ($is_admin=='super' || $member[mb_id]==$view[me_send_mb_id]) { ?>
-      <tr>
-        <td width="70" height="26"><span class="style5" style="padding-left:5px;">수신레벨 </span></td>
-        <td align=left><span class="style11" style="padding-left:5px;"><?=$view[me_recv_mb_id]?></span></td>
-      </tr>
-      <tr>
-        <td width="70" height="26"><span class="style5" style="padding-left:5px;">안읽은사람 </span></td>
-        <td align=left><span class="style11" style="padding-left:5px;">
-        <?
-        $sql = " select count(*) as cnt from $g4[memo_recv_table] where me_send_datetime = '$view[me_send_datetime]' and me_send_mb_id = '$member[mb_id]' and me_read_datetime = '0000-00-00 00:00:00' ";
-        $result = sql_fetch($sql);
-        $memo_notice_unread = $result[cnt];
-        ?>
-        &nbsp;<?=number_format($memo_notice_unread)?>명
-        </span>
-        </td>
-      </tr>
-      <? } ?>
-      <? } else { ?>
-      <tr>
-        <td width="70" height="26"><span class="style5" style="padding-left:5px;">받는사람 </span></td>
-        <td align=left><span class="style11" style="padding-left:5px;"><?=$view[me_recv_mb_id_nick]?> (<?=$view[me_read_datetime]?>)</span></td>
-      </tr>
-      <? } ?>
-      <? if ($view[me_file_local] && !$view[imagesize]) { ?>
-      <tr>
-        <td width="70" height="26"><span class="style5" style="padding-left:5px;">첨부파일 </span></td>
-        <td align=left><span class="style11" style="padding-left:5px;">
+    <? if ($view[me_file_local] && !$view[imagesize]) { ?>
+    <tr>
+        <td>첨부파일 </td>
+        <td align=left colspan=2>
             <a href="javascript:file_download()" title="<?=$view[me_file_local]?>"><?=$view[me_file_local]?></a>
-            </span>
         </td>
-      </tr>
-      <? } ?>
-    </table>
+    </tr>
+    <? } ?>
 
-    <table width="99%" height="30" border="0" cellpadding="0" cellspacing="0" id="memo_view">
-      <tr><td height="1" colspan="2" bgcolor="d9d9d9"></td></tr>
-      <tr>
-        <td height="20" colspan="2"></td>
-      </tr>
-      <!-- 첨부파일의 이미지를 출력 -->
-      <? if ($view[me_file_local] && $view[valid_image]) { ?>
-      <tr>
-        <td height="20" align="center" style="padding-bottom:10px; width:<?=$content_inner_width?>px">
-          <?
-          if ($config['cf_memo_b4_resize']) {
-              echo resize_content(" <img src='$g4[path]/data/memo2/$view[me_file_server]' style='cursor:pointer;' > ", $max_img_width);
-              }
-          else
-              echo " <img src='$g4[path]/data/memo2/$view[me_file_server]' name='target_resize_image[]' onclick='image_window(this)' style='cursor:pointer;' > ";
-          ?>
+    <!-- 첨부파일의 이미지를 출력 -->
+    <? if ($view[me_file_local] && $view[valid_image]) { ?>
+    <tr>
+        <td height="20" align="center" style="padding-bottom:10px; width:<?=$content_inner_width?>px" colspan=3>
+        <?
+        if ($config['cf_memo_b4_resize']) {
+            echo resize_content(" <img src='$g4[path]/data/memo2/$view[me_file_server]' style='cursor:pointer;' > ", $max_img_width);
+            }
+        else
+            echo " <img src='$g4[path]/data/memo2/$view[me_file_server]' name='target_resize_image[]' onclick='image_window(this)' style='cursor:pointer;' > ";
+        ?>
         </td>
-      </tr>
-      <? } ?>
-      <tr>
-        <td style="text-align:left;padding-left:10px; width:<?=$content_inner_width?>px; word-break:break-all;">
+    </tr>
+    <? } ?>
+
+    <tr>
+        <td style="text-align:left; padding-left:15px; padding-top:30px; padding-bottom:30px; word-break:break-all;" colspan=3>
         <?
         if ($config['cf_memo_b4_resize'])
-            echo resize_content($view[memo], $max_img_width);
+            echo resize_content($view['memo'], $max_img_width);
         else
-            echo $view[memo];
+            echo $view['memo'];
+
+        // 서명이 있으면 서명을 출력
+        if ($mb_send['mb_signature'])
+            echo "<div style='border-bottom:1px solid #E7E7E7; padding:25px 0;text-align:center;'>$mb_send[mb_signature]</div>";
         ?>
         </td>
-      </tr>
-      <tr>
-        <td height="20" colspan="2"></td>
-      </tr>
-      <tr><td height="1" bgcolor="#E7E7E7"></td></tr>
-      <?
-      if ($mb_send[mb_signature]) {
-      ?>
-      <tr>
-        <td align='center' style='border-bottom:1px solid #E7E7E7; padding:5px 0;'>
-        <?=$mb_send[mb_signature]?>
-        </td>
-      </tr>
-      <? } ?>
-      <tr>
-        <td height="10" colspan="2"></td>
-      </tr>
-    </table>
+    </tr>
 
-    <table width="99%" height="30" border="0" cellpadding="0" cellspacing="0">
-      <tr>
-        <td colspan="2" align="center">
-        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td width="250" align="right" style="padding-right:10px;">
+    <tfoot>
+    <tr>
+        <td colspan=2>
             <? if ($kind=="recv" or ($kind=="save" and $class=="view")) { ?>
               <a href='<?=$memo_url?>?kind=write&me_recv_mb_id=<?=$view[me_send_mb_id]?>&me_id=<?=$me_id?>&me_box=<?=$kind?>'><img src="<?=$memo_skin_path?>/img/reply.gif" /></a>&nbsp;
             <? } ?>
             <a href='<?=$memo_url?>?kind=<?=$kind?>&sfl=<?=$sfl?>&stx=<?=$stx?>&unread=<?=$unread?>&page=<?=$page?>'><img src="<?=$memo_skin_path?>/img/list.gif" /></a>
-            </td>
-            <td align="right">
+        </td>
+        <td>
             <? if ($kind=="spam" && $view[spam_href]) { ?>
             <a href='<?=$view[spam_href]?>'><img src="<?=$memo_skin_path?>/img/spam_cancel.gif" ></a>&nbsp;
             <? } ?>
@@ -197,24 +173,19 @@ win.print();
             <img src="<?=$memo_skin_path?>/img/icon_undelete.gif" /></a>
             <? } ?>
             &nbsp;
-            </td>
-          </tr>
-        </table>
         </td>
-      </tr>
-    </table>
-  </td>
-    
-  <td width="5" background="<?=$memo_skin_path?>/img/memo_line2_right.gif">&nbsp;</td>
-</tr>
-
-<tr>
-  <td height="5" background="<?=$memo_skin_path?>/img/memo_box2_dl.gif"></td>
-  <td background="<?=$memo_skin_path?>/img/memo_line2_down.gif"></td>
-  <td width="5" background="<?=$memo_skin_path?>/img/memo_box2_dr.gif"></td>
-</tr>
+    </tr>
+    </tfoot>
 </table>
 </form>
+
+<?
+// 구글 광고를 include
+$ad_file = $memo_skin_path . "/memo2_adsense.php";
+if (file_exists($ad_file)) {
+    include_once($ad_file);
+}
+?>
 
 <script type="text/javascript">
 function file_download() {
@@ -249,7 +220,7 @@ function withdraw_notice_memo()
 </script>
 
 <script type="text/javascript"  src="<?="$g4[path]/js/board.js"?>"></script>
-<script language="JavaScript">
+<script type="text/javascript">
 window.onload=function() {
     resizeBoardImage(<?=(int)$max_img_width?>);
     drawFont();

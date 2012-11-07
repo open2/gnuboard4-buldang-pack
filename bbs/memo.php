@@ -4,13 +4,9 @@ include_once("./_common.php");
 $g4['title'] = "쪽지5";
 
 include_once("$g4[path]/head.sub.php");
-
 include_once("$g4[path]/memo.config.php");
 
-// 쪽지 4 core 버젼
-$g4[memo_version] = "5.0.3";
-
-if (!$member[mb_id]) 
+if (!$member['mb_id']) 
     alert_close("회원만 이용하실 수 있습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.");
 
 // 자동응답으로 설정되어 있는 경우에는 쪽지를 사용할 수 없습니다.
@@ -24,7 +20,7 @@ if ($g4['mb_memo_call_datetime'] == "0000-00-00 00:00:00" || $member['mb_memo_un
     $sql = " select count(*) as cnt from $g4[memo_recv_table] 
               where me_recv_mb_id = '$member[mb_id]' and me_read_datetime = '0000-00-00 00:00:00' ";
     $row = sql_fetch($sql);
-    $total_count_recv_unread = $row[cnt];
+    $total_count_recv_unread = $row['cnt'];
     
     // 그리고 안읽은 쪽지 갯수를 g4_member db에 업데이트
     $sql = " update $g4[member_table] 
@@ -32,13 +28,9 @@ if ($g4['mb_memo_call_datetime'] == "0000-00-00 00:00:00" || $member['mb_memo_un
               where mb_id = '$member[mb_id]' ";
     sql_query($sql);
 } else {
-    $total_count_recv_unread = $member[mb_memo_unread];
+    $total_count_recv_unread = $member['mb_memo_unread'];
 }
 
-// 변수 초기화 
-$kind = strip_tags($kind);
-$me_id = (int) $me_id;
-    
 // 쪽지 title 설정하기
 switch ($kind) 
 { 
@@ -69,17 +61,8 @@ switch ($kind)
     case 'save' : // 저장함 (수신/발신 모두 쪽지 저장이 가능)
                   $memo_title = "보관한쪽지함";
                   break;
-    case 'temp' : // 임시저장함 (작성중인 쪽지를 임시로 저장)
-                  $memo_title = "작성중인쪽지함";
-                  break;
     case 'trash': // 휴지통 
                   $memo_title = "삭제한쪽지함";
-                  break;
-    case 'club' : // 클럽함 - 내가 가입한 클럽의 쪽지들은 이곳으로
-                  $memo_title = "카페쪽지함";
-                  break;
-    case 'ads'  : // 홍보함
-                  $memo_title = "홍보쪽지함";
                   break;
     case 'notice' : // 공지쪽지함
                   $memo_title = "공지쪽지함";
@@ -96,29 +79,76 @@ switch ($kind)
                   break;
 }
 
-// 글쓰기 할때, 친구관리 기능을 사용하려면
+// 글쓰기 할때
 if ($kind == "write") {
-    if ($config[cf_friend_management] == true) {
-        $my_friend = array();
-        $sql = "select a.fr_id, b.mb_nick
-                          from $g4[friend_table] a left join $g4[member_table] b on a.fr_id = b.mb_id 
-                          where a.mb_id = '$member[mb_id]'";
+
+    // 친구관리 기능을 사용하려면
+    if ($config['cf_friend_management'] == true) {
+
+        // join을 하지 않고, loop를 돌린다. 그게 가장 빠르다.
+        $sql = " select fr_id from $g4[friend_table] where mb_id = '$member[mb_id]' ";
         $qry = sql_query($sql);
+
+        $my_friend = array();
+        $i = 0;
+
         while ($row = sql_fetch_array($qry))
         {
-            $my_friend[] = $row;
-        }
+            $mb = get_member($row['fr_id'], "mb_nick");
+            $my_friend[$i]['mb_nick'] = $mb['mb_nick'];
+            $my_friend[$i]['fr_id'] = $row['fr_id'];
+            $i++;
+       }
     }
+
+    // 스패머를 위한 장치를 합니다
+    $delay = $_SESSION['sm_datetime2'] - $g4['server_time'] + $g4['memo_delay_sec'];
+    if ($delay > 0 && !$is_admin) 
+        alert("너무 빠른 시간내에 쪽지를 연속해서 보낼 수 없습니다.");
+    set_session("sm_datetime2", $g4['server_time']);
+
+    // 하나의 아이디로 세션을 다르게 하는 넘들을 위해서 쿠키도 같이 씁니다.
+    if (get_cookie("cm_datetime2") >= ($g4['server_time'] - $g4['memo_delay_sec']) && !$is_admin) 
+        alert("너무 빠른 시간내에 쪽지를 연속해서 보낼 수 없습니다.");
+    @set_cookie("cm_datetime2", "$g4[server_time]", 86400) ;
 }
 
 // kind에 따라서 action~!!!
 switch ($kind) {
 
+    case 'memo_config'      : // 설정 관리
+
+        // 쪽지 삭제일이 1보다 작으면 재조정
+        if ($config[cf_memo_del] < 1)
+           $config[cf_memo_del] = 180;
+
+        // 안읽은 쪽지 삭제일이 1보다 작거나 쪽지삭제일보다 작으면 재조정
+        if ($config[cf_memo_del_unread] < 1 or $config[cf_memo_del_unread] < $config[cf_memo_del])
+            $config[cf_memo_del_unread] = $config[cf_memo_del];
+
+        if (!$config[cf_memo_page_rows])    $config[cf_memo_page_rows] = 12;
+        if (!$config[cf_memo_del_unread])   $config[cf_memo_del_unread] = $config[cf_memo_del];
+        if (!$config[cf_memo_del_trash])    $config[cf_memo_del_trash] = $config[cf_memo_del];
+        if (!$config[cf_memo_no_reply])     $config[cf_memo_no_reply] = 0;
+
+        // 최대 업로드 파일 사이즈 (m로 지정되었을 때)
+        if (!$config[cf_memo_file_size]) {
+            $max_upload_size = intval(substr(ini_get("upload_max_filesize"), 0, -1));
+            if ($max_upload_size > 4)
+                $config[cf_memo_file_size] = "4";
+            else
+                $config[cf_memo_file_size] = intval(substr(ini_get("upload_max_filesize"), 0, -1));
+        }
+
+        if (!$config[cf_max_memo_file_size]) {
+            $config[cf_max_memo_file_size] = 0;
+        }
+        break;
+
     case 'friend'           : // 친구관리
     case 'online'           : // 현재접속자
     case 'memo_group'       : // 메모그룹
     case 'memo_group_admin' : // 메모그룹 관리
-    case 'memo_config'      : // 설정 관리
         break;
         
     case 'memo_address_book' : // 주소록 관리
@@ -158,22 +188,25 @@ switch ($kind) {
         }
         
         foreach ($addr as $row) {
-            $list[$row[mb_id]][$row[type]] = $row[cnt];
-            $list[$row[mb_id]]['mb_id'] = $row[mb_id];
-            if ($config[cf_memo_mb_name]) $row[mb_nick] = $row[mb_name];
-            $list[$row[mb_id]]['mb_nick'] = $row[mb_nick];
+            $list[$row['mb_id']][$row['type']] = $row['cnt'];
+            $list[$row['mb_id']]['mb_id'] = $row['mb_id'];
+            if ($config['cf_memo_mb_name']) $row['mb_nick'] = $row['mb_name'];
+            $list[$row['mb_id']]['mb_nick'] = $row['mb_nick'];
         
-            if ($row[mb_nick])
-                if ($config[cf_memo_mb_name])
-                    $mb_nick = $row[mb_name];
+            if ($row['mb_nick'])
+                if ($config['cf_memo_mb_name'])
+                    $mb_nick = $row['mb_name'];
                 else
-                    $mb_nick = $row[mb_nick];
+                    $mb_nick = $row['mb_nick'];
             else
                 $mb_nick = "<font color=silver>정보없음</font>";
-            $name = get_sideview($row[mb_id], $row[mb_nick], $row[mb_email], $row[mb_homepage]);
+            $name = get_sideview($row['mb_id'], $row['mb_nick'], $row['mb_email'], $row['mb_homepage']);
 
-            $list[$row[mb_id]]['name'] = $name;
+            $list[$row['mb_id']]['name'] = $name;
         }
+
+        // 주소록 전체 갯수
+        $tot_cnt = count($list);
 
         break;
         
@@ -286,10 +319,7 @@ break;
     case 'recv'   : // 수신함
     case 'send'   : // 발신함
     case 'save'   : // 저장함 (수신/발신 모두 쪽지 저장이 가능)
-    case 'temp'   : // 임시저장 저장함 (작성중인 쪽지를 임시로 저장)
     case 'trash'  : // 휴지통
-    case 'club'   : // 클럽함 - 내가 가입한 클럽의 쪽지들은 이곳으로
-    case 'ads'    : // 홍보함
     case 'notice' : // 공지쪽지함
     case 'spam'   : // 스팸함 (수신한 것만 스팸함으로)
 
@@ -317,30 +347,11 @@ break;
                 $sql_after = " select min(me_id) as after_id from $g4[memo_save_table] where memo_owner = '$member[mb_id]' and me_id > '$me_id' "; 
             }
             break;
-        case 'temp' : 
-            $sql = " select $memo_select, me_from_kind from $g4[memo_temp_table] where memo_owner = '$member[mb_id]' and me_id = '$me_id' "; 
-            if ($config[cf_memo_before_after]) {
-                $sql_before = "";
-                $sql_after = "";
-            }
-            break;
         case 'trash' : 
             $sql = " select $memo_select, me_from_kind from $g4[memo_trash_table] where me_id = '$me_id' "; 
             if ($config[cf_memo_before_after]) {
                 $sql_before = " select max(me_id) as before_id from $g4[memo_notice_table] where me_id < '$me_id' "; 
                 $sql_after = " select min(me_id) as after_id from $g4[memo_notice_table] where me_id > '$me_id' "; 
-            }
-            break;
-        /*
-        case 'club' : // 클럽은 읽기 조건의 추가제한이 필요함 (내가 참여한 클럽?)
-            $sql = " select * from $g4[memo_cafe_table] where me_id = '$me_id' "; 
-            break; 
-        */
-        case 'ads'  : 
-            $sql = " select * from $g4[memo_ads_table] where me_id = '$me_id' "; 
-            if ($config[cf_memo_before_after]) {
-                $sql_before = " select max(me_id) as before_id from $g4[memo_ads_table] where me_id < '$me_id' "; 
-                $sql_after = " select min(me_id) as after_id from $g4[memo_ads_table] where me_id > '$me_id' "; 
             }
             break;
         case 'notice' : 
@@ -544,26 +555,11 @@ break;
                                   from $g4[memo_save_table]
                                   where memo_owner = '$member[mb_id]' $sql_search  ";
                       break;
-        case 'temp' : // 임시저장함 (작성중인 쪽지를 임시로 저장)
-                      $sql = " select count(*) as cnt 
-                                  from $g4[memo_temp_table]
-                                  where memo_owner = '$member[mb_id]' $sql_search ";
-                      break;
         case 'trash': // 휴지통
                       $sql = " select count(*) as cnt 
                                   from $g4[memo_trash_table]
                                   where memo_owner = '$member[mb_id]' $sql_search ";
                       break;
-        /*
-        case 'club' : // 클럽함 - 내가 가입한 클럽의 쪽지만 가져옴
-                      $sql = " select count(*) as cnt 
-                                  from $g4[memo_cafe_table] ";
-                      break;
-        */
-        case 'ads'  : // 홍보함
-                      $sql = " select count(*) as cnt 
-                                  from $g4[memo_ads_table] ";
-                      break; 
         case 'notice' : // 전체쪽지함
                       $sql = " select count(*) as cnt 
                                   from $g4[memo_notice_table] 
@@ -588,7 +584,7 @@ break;
     
         // 선택한 메일박스의 전체 메일 갯수
         $row = sql_fetch($sql);
-        $total_count = $row[cnt];
+        $total_count = $row['cnt'];
     
         // 안읽은 메일일 경우에는 전체 메일 갯수를 업데이트 - 굳이 안해도 될거 같지만, 있는 정보니까 써보는거야.
         if ($kind == "recv" && $unread == "only") {
@@ -596,10 +592,10 @@ break;
         }
     
         // 페이징
-        if (!$config[cf_memo_page_rows] || $config[cf_memo_page_rows] < 0)
+        if (!$config['cf_memo_page_rows'] || $config['cf_memo_page_rows'] < 0)
             $one_rows = 20;
         else
-            $one_rows = $config[cf_memo_page_rows];
+            $one_rows = $config['cf_memo_page_rows'];
         $total_page  = ceil($total_count / $one_rows);  // 전체 페이지 계산 
         if ($page == "") { $page = 1; } // 페이지가 없으면 첫 페이지 (1 페이지) 
         $from_record = ($page - 1) * $one_rows; // 시작 열을 구함 
@@ -628,32 +624,11 @@ break;
                                  $order_by 
                                  limit $from_record, $one_rows";
                       break;
-        case 'temp' : // 임시저장함 (작성중인 쪽지를 임시로 저장)
-                      $sql = " select $select_sql, memo_type
-                                 from $g4[memo_temp_table]
-                                 where memo_owner = '$member[mb_id]' $sql_search
-                                 $order_by 
-                                 limit $from_record, $one_rows";
-                      break;
         case 'trash': // 휴지통
                       $sql = " select $select_sql, memo_type
                                  from $g4[memo_trash_table]
                                  where memo_owner = '$member[mb_id]' $sql_search 
                                  $order_by 
-                                 limit $from_record, $one_rows";
-                      break;
-        /*
-        case 'club' : // 클럽함 - 내가 가입한 클럽의 쪽지만 가져옴
-                      $sql = " select a.*, b.mb_id, a.memo_type, b.mb_nick, b.mb_email, b.mb_homepage 
-                                 from $g4[memo_save_table] a 
-                                      left join $g4[member_table] b on (a.me_save_mb_id = b.mb_id) ";
-                      break;
-        */
-        case 'ads'  : // 홍보함
-                      $sql = " select $select_sql
-                                 from $g4[memo_ads_table]
-                                 where 1 $sql_search 
-                                 order by me_id desc 
                                  limit $from_record, $one_rows";
                       break;
         case 'notice' : // 전체쪽지함
@@ -697,24 +672,24 @@ break;
         
             switch ($kind) { // 쪽지 목록에 보이는 아이디를 지정
                 case 'send' : // 발신함
-                              $kind_mb_id = get_member($row[me_recv_mb_id], "mb_id, mb_name, mb_nick, mb_email, mb_homepage");
+                              $kind_mb_id = get_member($row['me_recv_mb_id'], "mb_id, mb_name, mb_nick, mb_email, mb_homepage");
                               $list_title = "받는사람";
                               break;
                 default : 
-                              $kind_mb_id = get_member($row[me_send_mb_id], "mb_id, mb_name, mb_nick, mb_email, mb_homepage");
+                              $kind_mb_id = get_member($row['me_send_mb_id'], "mb_id, mb_name, mb_nick, mb_email, mb_homepage");
                               $list_title = "보낸사람";
             }
         
-             if ($config[cf_memo_mb_name]) $kind_mb_id[mb_nick] = $kind_mb_id[mb_name];
-             $row[mb_nick] = $kind_mb_id[mb_nick];
-             $row[mb_id] = $kind_mb_id[mb_id];
-             $row[mb_email] = $kind_mb_id[mb_email];
-             $row[mb_homepage] = $kind_mb_id[mb_homepage];
+             if ($config['cf_memo_mb_name']) $kind_mb_id['mb_nick'] = $kind_mb_id['mb_name'];
+             $row['mb_nick'] = $kind_mb_id['mb_nick'];
+             $row['mb_id'] = $kind_mb_id['mb_id'];
+             $row['mb_email'] = $kind_mb_id['mb_email'];
+             $row['mb_homepage'] = $kind_mb_id['mb_homepage'];
             
-            $name = get_sideview($row[mb_id], $row[mb_nick], $row[mb_email], $row[mb_homepage]);
+            $name = get_sideview($row['mb_id'], $row['mb_nick'], $row['mb_email'], $row['mb_homepage']);
         
             // 당일인 경우 시간으로 표시함 (읽은시간)
-            if (substr($row[me_read_datetime],0,1) == '0') {
+            if (substr($row['me_read_datetime'],0,1) == '0') {
                 // 발신함의 안읽은 글의 경우 수신않음(수신후 로그인 기록 있는지 여부)를 위해 회원 정보 더 가져와야함
                 if ($kind == "send") {
                     $mb = get_member($row[me_recv_mb_id], "mb_today_login");
@@ -746,7 +721,7 @@ break;
             if (strlen($row[me_subject]) ==0) // 투명글의 경우에 제목없음으로 표시
                 $list[$i][subject] = "제목이 없습니다";
             else
-                $list[$i][subject] = $row[me_subject];
+                $list[$i][subject] = strip_tags($row[me_subject]);
             
             // 휴지통의 경우에는 게시글의 출처를 표시
             if ($kind == "trash")
@@ -754,33 +729,17 @@ break;
     
             $list[$i][read_datetime] = $read_datetime;
             $list[$i][send_datetime] = $send_datetime;
+
             $list[$i][view_href] = "./memo.php?me_id=$row[me_id]&kind=$kind&class=view";
-    
             // 휴지통의 경우에는 게시글의 출처를 표시
             if ($kind == "trash")
                 $list[$i][view_href] = $list[$i][view_href] . "&me_from_kind=$row[me_from_kind]";
+
             $list[$i][me_file] = $row[me_file_local];
         } // end of for loop
     
     } // end of if ($class)
 } // end of switch($kind)
-
-// 쪽지쓰기인 경우 스패머를 위한 장치를 합니다
-if ($kind == "write") {
-
-    $delay = $_SESSION["sm_datetime2"] - $g4[server_time] + $g4[memo_delay_sec];
-    if ($delay > 0 && !$is_admin) 
-        alert("너무 빠른 시간내에 쪽지를 연속해서 보낼 수 없습니다.");
-
-    set_session("sm_datetime2", $g4[server_time]);
-
-    // 하나의 아이디로 세션을 다르게 하는 넘들을 위해서 쿠키도 같이 씁니다.
-    if (get_cookie("cm_datetime2") >= ($g4[server_time] - $g4[memo_delay_sec]) && !$is_admin) 
-        alert("너무 빠른 시간내에 쪽지를 연속해서 보낼 수 없습니다.");
-
-    @set_cookie("cm_datetime2", "$g4[server_time]", 86400) ;
-
-}
 
 // 쪽지5 스킨을 읽어들입니다.
 include_once("$memo_skin_path/memo2.skin.php");

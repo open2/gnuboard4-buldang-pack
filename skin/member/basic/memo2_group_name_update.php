@@ -2,9 +2,6 @@
 include_once("./_common.php");
 include_once("$g4[path]/memo.config.php");
 
-if (!$member[mb_id]) 
-  alert("회원만 사용할 수 있습니다");
-
 if (!$gr_id)
   alert("그룹 아이디가 지정되지 않았습니다.");
 

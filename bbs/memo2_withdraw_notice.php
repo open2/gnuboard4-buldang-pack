@@ -2,9 +2,6 @@
 include_once("./_common.php");
 include_once("$g4[path]/memo.config.php");
 
-if (!$member[mb_id])
-    alert("회원만 이용하실 수 있습니다.");
-
 $mb_id = $member['mb_id'];
 $me_id = $me_id;
 
