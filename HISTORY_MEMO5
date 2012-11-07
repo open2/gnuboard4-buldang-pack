@@ -1,3 +1,33 @@
+2.0.1 - 2012년 11월 8일
+
+memo.config.php
+
+bbs/download_memo_file.php
+bbs/memo2_config_update.php
+bbs/memo2_form_cancel.php
+bbs/memo2_form_delete.php
+bbs/memo2_form_update.php
+bbs/memo2_withdraw_notice.php
+
+skin/member/basic/memo2.head.skin.php
+skin/member/basic/memo2_view.skin.php
+
+- 쪽지보기 위, 아래 폭을 넓게 (10px -> 30px) 하단부 버튼 겹침현상 수정
+skin/member/basic/memo2_view.skin.php
+
+- 프로그램 정리
+bbs/download_memo_file.php
+bbs/memo2_config_update.php
+bbs/memo2_form_cancel.php
+bbs/memo2_form_delete.php
+bbs/memo2_form_update.php
+bbs/memo2_withdraw_notice.php
+skin/member/basic/memo2.head.skin.php
+
+- 쪽지발신 간격 조정 (60초에서 10초)
+memo.config.php
+
+
 2.0.0 - 2012년 11월 7일
 
 쪽지5를 오랜만에 조금(?) 업데이트 했습니다.
