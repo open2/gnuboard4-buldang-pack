@@ -63,7 +63,7 @@ $colspan = 8;
 var list_delete_php = "point_list_delete.php";
 </script>
 
-<script language="JavaScript">
+<script type="text/javascript">
 function point_clear()
 {
     if (confirm("포인트 정리를 하시면 최근 30일 이전의 30건이 넘는 포인트에 대해서 포인트 내역을 삭제하므로\n\n포인트 내역을 필요로 할때 찾지 못할 수도 있습니다.\n\n\n그래도 진행하시겠습니까?"))
@@ -172,7 +172,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         $po_skin = $poll['po_skin']; 
         ?>
     
-        <script language="JavaScript">
+        <script type="text/javascript">
         function poll_result(po_id)
         {
             win_poll("<?=$g4[bbs_path]?>/poll_result.php?po_id=<?=$row[po_rel_id]?>&skin_dir=<?=$po_skin?>");
@@ -182,6 +182,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         <?
         $link1 = "<a href='javascript:;' onclick=\"poll_result('<?=$row[po_rel_id]?>');\" >";
         $link2 = "</a>";
+    } else if ($row['po_rel_action'] == "쪽지5") {
+        $link1 = $link2 = "";
     }
 
     $list = $i%2;
