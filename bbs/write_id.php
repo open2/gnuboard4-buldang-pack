@@ -16,10 +16,10 @@ $sname = preg_replace('/\%/', '', strip_tags($sname));
 if ($sname) {
 
     // 회원검색은 중요한 사안이므로 stamp를 남겨둡니다.
-    $tmp_point = ($member[mb_point] > 0) ? $member[mb_point] : 0;
-    if ($tmp_point + $config[cf_memo_send_point] < 0 && !$is_admin)
-        alert("보유하신 포인트(".number_format($member[mb_point]).")가 없거나 모자라서 회원검색(".number_format($config[cf_memo_send_point]).")가 불가합니다.\\n\\n포인트를 적립하신 후 다시 해 주십시오.");
-    insert_point($member[mb_id], $config[cf_memo_send_point], "쪽지5 친구찾기 - $sname", '친구찾기', $g4[time_ymdhis], '쪽지5');
+    $tmp_point = ($member['mb_point'] > 0) ? $member['mb_point'] : 0;
+    if ($tmp_point + $g4['memo_friend_point'] < 0 && !$is_admin)
+        alert("보유하신 포인트(".number_format($member['mb_point']).")가 없거나 모자라서 회원검색(".number_format($g4['memo_friend_point']).")가 불가합니다.\\n\\n포인트를 적립하신 후 다시 해 주십시오.");
+    insert_point($member['mb_id'], $g4['memo_friend_point'], "쪽지5 친구찾기 - $sname", '친구찾기', $g4['time_ymdhis'], '쪽지5');
   
     switch ($sfl) {
       case "mb_nick" : $search_sql = " mb_nick like '%$sname%' "; 
@@ -83,7 +83,7 @@ include_once("$g4[path]/head.sub.php");
   <td height=30 colspan=2 valign=bottom bgcolor="eeeeee"><table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
     <tr>
       <td width="25"><img src="<?=$g4[bbs_img_path]?>/memo_icon07.gif" width="19" height="19" /></td>
-      <td><span style="color: #333333;font-weight: bold;">친구찾기</span>&nbsp;&nbsp;&nbsp;(<?=number_format($config[cf_memo_send_point])?> 포인트를 차감합니다)</td>
+      <td><span style="color: #333333;font-weight: bold;">친구찾기</span>&nbsp;&nbsp;&nbsp;(<?=number_format($g4[memo_friend_point])?> 포인트를 사용합니다)</td>
     </tr>
   </table></td>
 </tr>
