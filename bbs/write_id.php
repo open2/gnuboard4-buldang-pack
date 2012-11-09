@@ -1,12 +1,25 @@
 <?
 include_once("./_common.php");
+include_once("$g4[path]/memo.config.php");
 
 if (!$is_member) 
     alert_close("회원만 접속가능한 화면 입니다");
 
+// 연속검색 방지
+$delay = $_SESSION['ss_friend'] - $g4['server_time'] + $g4['memo_delay_friend'];
+if ($delay > 0 && !$is_admin)
+    alert("너무 빠른 시간내에 친구찾기를 연속해서 할 수 없습니다.");
+set_session("ss_friend", $g4['server_time']);
+
 $sname = preg_replace('/\%/', '', strip_tags($sname));
 
 if ($sname) {
+
+    // 회원검색은 중요한 사안이므로 stamp를 남겨둡니다.
+    $tmp_point = ($member[mb_point] > 0) ? $member[mb_point] : 0;
+    if ($tmp_point + $config[cf_memo_send_point] < 0 && !$is_admin)
+        alert("보유하신 포인트(".number_format($member[mb_point]).")가 없거나 모자라서 회원검색(".number_format($config[cf_memo_send_point]).")가 불가합니다.\\n\\n포인트를 적립하신 후 다시 해 주십시오.");
+    insert_point($member[mb_id], $config[cf_memo_send_point], "쪽지5 친구찾기 - $sname", '친구찾기', $g4[time_ymdhis], '쪽지5');
   
     switch ($sfl) {
       case "mb_nick" : $search_sql = " mb_nick like '%$sname%' "; 
@@ -15,14 +28,19 @@ if ($sname) {
                        $order_sql = " order by mb_name"; break;
       case "mb_id"   : $search_sql = " mb_id like '%$sname%' "; 
                        $order_sql = " order by mb_id"; break;
-      case "mb_all"  : $search_sql = " mb_nick like '%$sname%' or mb_id like '%$sname%' or mb_name like '%$sname%' "; 
+      case "mb_all"  : 
+      default        :
+                       $search_sql = " mb_nick like '%$sname%' or mb_id like '%$sname%' or mb_name like '%$sname%' "; 
                        $order_sql = " order by mb_id"; break;
-      default        : $search_sql = " 1 "; 
     }
-    
+
     $sql = " select count(*) as cnt from $g4[member_table] where ( mb_leave_date = '' and mb_nick != '[삭제됨]' ) and ( $search_sql ) ";
     $result = sql_fetch($sql);
-    $total_count = $result[cnt];
+    $total_count = $result['cnt'];
+
+    // guess work을 막기 위해서 최대 결과값 갯수를 - 회원수 많은 사이트에서는 보안 때문에 필수
+    if ($total_count > $g4['memo_max_friend'] && $is_admin !== "super")
+        $total_count = $g4['memo_max_friend'];
 
     $one_rows = 10; // 한페이지의 라인수
     $total_page  = ceil($total_count / $one_rows);  // 전체 페이지 계산 
@@ -36,9 +54,9 @@ if ($sname) {
     if ($search_count > 0) {
         for ($i=0; $row=mysql_fetch_array($result); $i++) {
             $list[$i]->id = "$row[mb_id]";
-            $list[$i]->name = $row[mb_name];
-            $list[$i]->nick = $row[mb_nick];
-            $list[$i]->mb_open = $row[mb_open];
+            $list[$i]->name = $row['mb_name'];
+            $list[$i]->nick = $row['mb_nick'];
+            $list[$i]->mb_open = $row['mb_open'];
         }
     } else {
         alert("찾으시는 회원정보가 없습니다.");
@@ -46,28 +64,26 @@ if ($sname) {
     mysql_free_result($result);
 }
 
+// 관리자는 최소 1글자부터 검색 가능하게
+if ($is_admin == "super")
+    $minlength=1;
+else
+    $minlength=3;
+
 $g4[title] = "사용자ID 검색";
 include_once("$g4[path]/head.sub.php");
 ?>
 
-<style type="text/css">
-<!--
-.style5 {color: #333333;
-	font-weight: bold;
-}
--->
-</style>
-
 <table width=100% border=0 cellspacing=0 cellpadding=0>
 <form name=frmid method=get autocomplete=off>
 <input type=hidden name=frm_name value='<?=$frm_name?>'>
-<input type=hidden name=ss_id	 value='<?=$ss_id?>'>
+<input type=hidden name=ss_id value='<?=$ss_id?>'>
 <tr>
   <td width=14 bgcolor="eeeeee"></td>
   <td height=30 colspan=2 valign=bottom bgcolor="eeeeee"><table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
     <tr>
       <td width="25"><img src="<?=$g4[bbs_img_path]?>/memo_icon07.gif" width="19" height="19" /></td>
-      <td><span class="style5">친구찾기</span></td>
+      <td><span style="color: #333333;font-weight: bold;">친구찾기</span>&nbsp;&nbsp;&nbsp;(<?=number_format($config[cf_memo_send_point])?> 포인트를 차감합니다)</td>
     </tr>
   </table></td>
 </tr>
@@ -79,7 +95,7 @@ include_once("$g4[path]/head.sub.php");
   </tr>
 <tr>
     <td></td>
-    <td height=20 colspan=2 valign=bottom>회원정보를 입력하세요 (3자 이상)</td>
+    <td height=20 colspan=2 valign=bottom>회원정보를 입력하세요 <? if ($is_admin !== "super") { ?>(3자 이상)<? } ?></td>
 </tr>
 
 <tr>
@@ -95,7 +111,7 @@ include_once("$g4[path]/head.sub.php");
       <option value='mb_name'>이름</option>
       <option value='mb_id'>아이디</option>
     </select>
-    <input type=text name=sname value='<?=$sname?>' required minlength=3 itemname='회원이름' size=14> <input type=image src='<?=$g4[bbs_img_path]?>/search.gif' border=0 align=absmiddle></td>
+    <input type=text name=sname value='<?=$sname?>' required <?=$min_length?> itemname='회원이름' size=14> <input type=image src='<?=$g4[bbs_img_path]?>/search.gif' border=0 align=absmiddle></td>
 </tr>
 <tr>
   <td height=10 colspan=3></td>
@@ -144,7 +160,7 @@ include_once("$g4[path]/head.sub.php");
             <td>
             <a href=javascript:setid('{$list[$i]->name}','{$list[$i]->id}')>{$list[$i]->nick}</a>
             </td>";
-            if ($list[$i]->mb_open == 1) 
+            if ($list[$i]->mb_open == 1 || $is_admin == "super") 
                 $msg = "<a href=\"javascript:;\" onclick=\"win_profile('" . $list[$i]->id . "')\">정보보기</a>";
             else 
                 $msg = "비공개";

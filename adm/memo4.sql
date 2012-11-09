@@ -139,29 +139,6 @@ CREATE TABLE `$g4[friend_table]` (
   KEY `fr_relation` (`fr_type`)
 );
 
-# 쪽지4- 신규 테이블 (임시저장)
-DROP TABLE IF EXISTS `$g4[memo_temp_table]`;
-CREATE TABLE `$g4[memo_temp_table]` (
-  `me_id` int(11) NOT NULL AUTO_INCREMENT,
-  `me_recv_mb_id` varchar(255) NOT NULL DEFAULT '',
-  `me_send_mb_id` varchar(255) NOT NULL DEFAULT '',
-  `me_send_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `me_read_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `me_memo` mediumtext NOT NULL,
-  `me_file_local` varchar(255) NOT NULL,
-  `me_file_server` varchar(255) NOT NULL,
-  `me_subject` varchar(255) NOT NULL,
-  `memo_type` varchar(255) NOT NULL,
-  `memo_owner` varchar(255) NOT NULL,
-  `me_option` set('html1','html2','secret','mail') NOT NULL,
-  `me_from_kind` varchar(255) NOT NULL,
-  PRIMARY KEY (`me_id`,`me_from_kind`),
-  KEY `me_recv_mb_id_idx` (`me_recv_mb_id`),
-  KEY `me_send_mb_id_idx` (`me_send_mb_id`),
-  KEY `memo_owner` (`memo_owner`),
-  KEY `me_file_local` (`me_file_local`)
-);
-
 # 쪽지4 - 신규테이블 (휴지통)
 DROP TABLE IF EXISTS `$g4[memo_trash_table]`;
 CREATE TABLE `$g4[memo_trash_table]` (

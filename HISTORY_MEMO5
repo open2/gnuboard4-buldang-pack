@@ -1,3 +1,21 @@
+2.0.2 - 2012년 11월 9일
+
+* 친구찾기를 사용할 경우 쪽지보내기 만큼의 포인트를 차감 합니다.
+이것은 보안 모니터링의 목적으로 넣은 것 입니다.
+
+memo.config.php
+bbs/write_id.php
+
+- 회원찾기 (관리자는 모든 제약을 없앰 등등)
+memo.config.php
+bbs/write_id.php
+
+- 안쓰는 파일삭제
+skin/member/basic/css/* (6개 파일)
+skin/member/basic/img/memo_box4* (4개)
+skin/member/basic/img/memo_line2* (4개)
+
+
 2.0.1 - 2012년 11월 8일
 
 memo.config.php

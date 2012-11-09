@@ -101,4 +101,10 @@ if (isset($kind)) {
 
 // 메모를 지정된 시간이 지나야 보낼 수 있게 설정 (스팸쪽지를 막기 위해서...)
 $g4['memo_delay_sec'] = 10;
+
+// 친구찾기 guess-work을 막기 위해서
+$g4['memo_max_friend'] = 100;
+
+// 친구관리를 빈번하게 수행하는 것을 막기 위해서
+$g4['memo_delay_friend'] = 2;
 ?>
