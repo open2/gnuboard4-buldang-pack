@@ -135,7 +135,7 @@ function resize($string)
             $img[src] = $url[path];
             $thumb_path = "1";
         } else {
-            $thumb_path = "";
+            return $return;
         }
     } else {
         $thumb_path="1";
