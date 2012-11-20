@@ -80,7 +80,7 @@ if ($config[cf_singo_point_recv])
 // 신고된 건수가 몇회이상이면 차단할지를 설정
 // 회원의 권한을 1로 설정하고 차단일자를 저장하여 접근을 차단함
 //------------------------------------------------------------------------------------
-if (!isset($config[cf_singo_intercept_count])) $config[cf_singo_intercept_count] = 100;
+if (!isset($config[cf_singo_intercept_count]) || $config[cf_singo_intercept_count] == 0) $config[cf_singo_intercept_count] = 1000;
 $sql = " select count(*) as cnt from $g4[singo_table] where mb_id = '$write[mb_id]' ";
 $row = sql_fetch($sql);
 if ($row[cnt] >= $config[cf_singo_intercept_count]) {
