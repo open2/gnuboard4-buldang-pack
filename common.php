@@ -545,7 +545,7 @@ if (isset($bo_table)) {
 }
 
 // adm/board_list.php에서 gr_id를 배열로 쓰기 때문에, is_array를 체크해야 합니다. =..=...
-if (isset($gr_id) && !is_array(gr_id)) {
+if (isset($gr_id) && !is_array($gr_id)) {
     $gr_id = preg_match("/^[a-zA-Z0-9_]+$/", $gr_id) ? $gr_id : "";
     $group = sql_fetch(" select * from {$g4['group_table']} where gr_id = '$gr_id' ");
 }
