@@ -26,7 +26,7 @@ $sql_order = " order by $sst $sod ";
 $sql = " select count(*) as cnt
          $sql_common
          $sql_search
-         $sql_order ";
+         ";
 $row = sql_fetch($sql);
 $total_count = $row['cnt'];
 
@@ -35,7 +35,7 @@ $sql = " select count(*) as cnt
          $sql_common
          $sql_search
             and mb_leave_date <> ''
-         $sql_order ";
+         ";
 $row = sql_fetch($sql);
 $leave_count = $row['cnt'];
 
@@ -44,7 +44,7 @@ $sql = " select count(*) as cnt
          $sql_common
          $sql_search
             and mb_intercept_date <> ''
-         $sql_order ";
+         ";
 $row = sql_fetch($sql);
 $intercept_count = $row['cnt'];
 
