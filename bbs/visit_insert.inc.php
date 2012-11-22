@@ -1,6 +1,56 @@
 <?
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
 
+// 그누SEO - 어디서 왔는지 분석해서 테이블에 넣습니다.
+function convertUrlQuery($query) { 
+    $queryParts = explode('&', $query); 
+    
+    $params = array(); 
+    foreach ($queryParts as $param) { 
+        $item = explode('=', $param); 
+        $params[$item[0]] = $item[1]; 
+    } 
+    
+    return $params; 
+}
+if ($referer) {
+    $u = parse_url($referer);
+    $q = convertUrlQuery($u['query']);
+    $host = $u['host'];
+
+    $sql = " insert $g4[seo_server_table] (server_name, server_date, count) values ('$host', '$g4[time_ymd]', 1) ON DUPLICATE KEY update count = count+1 ";
+    sql_query($sql);
+
+    $query = "";
+    // 네이버
+    if (stristr($host, ".naver.") && $q['query']) {
+        $query = urldecode($q['query']);
+        $query = iconv($q['ie'], $g4['charset'] , $query);
+    // 구글
+    } else if (stristr($host, ".google.") && $q['q']) {
+        $query = urldecode($q['q']);
+        $query = iconv("UTF-8", $g4['charset'] , $query);
+    // 다음
+    } else if (stristr($host, ".daum.") && $q['q']) {
+        $query = urldecode($q['q']);
+        $query = iconv("UTF-8", $g4['charset'] , $query);
+    // sir.co.kr
+    } else if (stristr($host, "sir.co.kr") && $q['stx']) {
+        $query = urldecode($q['stx']);
+        $query = iconv("UTF-8", $g4['charset'] , $query);
+    // 내 서버...그거는 그냥 인기검색어를 디비~
+    } else if ($g4['cookie_domain'] && stristr($host, $g4['cookie_domain']) && $q['stx']) {
+        ;
+    }
+
+    if ($query) {
+        $sql = " insert $g4[seo_tag_table] (tag_name, tag_date, count, bo_table, wr_id) 
+                 values ('$query', '$g4[time_ymd]', 1, '$bo_table', '$wr_id') ON DUPLICATE KEY update count = count+1 ";
+                  echo $sql;
+        sql_query($sql);
+    }
+}
+
 // 컴퓨터의 아이피와 쿠키에 저장된 아이피가 다르다면 테이블에 반영함
 if (get_cookie('ck_visit_ip') != $_SERVER['REMOTE_ADDR']) {
     set_cookie('ck_visit_ip', $_SERVER['REMOTE_ADDR'], 86400); // 하루동안 저장
