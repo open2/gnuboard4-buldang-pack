@@ -71,7 +71,7 @@ if ($g4['keyword_seo']) {
 
     // 게시글에 붙어 있는 탑키워드 5개를 넣어주고 
     if ($bo_table && $wr_id) {
-        $sql = " select tag_name, count from g4_seo_tag where bo_table = '$bo_table' and wr_id = '$wr_id' order by count desc limit 0, 5";
+        $sql = " select tag_name, count from $g4[seo_tag_table] where bo_table = '$bo_table' and wr_id = '$wr_id' order by count desc limit 0, 5";
         $result_s = sql_query($sql);
         for ($i=0; $row = sql_fetch_array($result_s); $i++) {
             $tmp = explode(" ", $row['tag_name']);
@@ -83,7 +83,7 @@ if ($g4['keyword_seo']) {
     }
 
     // 사이트에 붙어 있는 키워드 5개를 넣어줍니다
-    $sql = " select tag_name, count from g4_seo_tag where bo_table = '' and tag_name <> '' order by count desc limit 0, 5";
+    $sql = " select tag_name, count from $g4[seo_tag_table] where bo_table = '' and tag_name <> '' order by count desc limit 0, 5";
     $result_s = sql_query($sql);
     for ($i=0; $row = sql_fetch_array($result_s); $i++) {
         if (trim($row['tag_name'])) {
