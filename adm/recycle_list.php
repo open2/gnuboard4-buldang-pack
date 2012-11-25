@@ -134,7 +134,6 @@ function recycle_delete(ok)
     <td>게시글id</td>
     <td>게시글제목</td>
     <td><?=subject_sort_link('rc_datetime', '', 'desc')?>삭제일</a></td>
-    <td><?=subject_sort_link(' rc_delete', '', 'desc')?>비우기</a></td>
   	<td>복구</td>
 </tr>
 <tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
@@ -148,6 +147,9 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     $tmp_write_table = $g4['write_prefix'] . $row[rc_bo_table];
     $sql2 = " select wr_subject, wr_content from $tmp_write_table where wr_id = '$row[rc_wr_id]' ";
     $write = sql_fetch($sql2);
+    $wr_subject = conv_subject($write[wr_subject],80);
+    if ($row[rc_delete])
+        $wr_subject = "<strike>" . $wr_subject . "</stricke>";
 
     // 코멘트인지 여부
     $c_flag="";
@@ -183,9 +185,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         <td title='$row[mb_id]'><nobr style='display:block; overflow:hidden; width:90;'>&nbsp;$mb_nick$mb_remover</nobr></td>
         <td><nobr style='display:block; overflow:hidden; width:90px;'>$bo_table1</nobr></td>
         <td><nobr style='display:block; overflow:hidden; width:90px;'>$wr_id</nobr></td>
-        <td>" . conv_subject($write[wr_subject],80) . "</td>
+        <td>$wr_subject</td>
         <td>" . get_datetime($row[rc_datetime]) . "</td>
-        <td><input type=checkbox name=rc_delete[$i] ".($row[rc_delete]?'checked':'')." value='$row[rc_no]'></td>
         <td>$s_recover</td>
     </tr>";
 }

@@ -14,13 +14,7 @@ for ($i=0; $i<count($chk); $i++)
     // 실제 번호를 넘김
     $k = $_POST['chk'][$i];
     $rc_no = $_POST['rc_no'][$k];
-    $rc_delete = $_POST['rc_delete'][$k];
-    
-    if ($rc_delete)
-        $sql = " update $g4[recycle_table] set rc_delete='1' where rc_no = '$rc_no' ";
-    else
-        $sql = " update $g4[recycle_table] set rc_delete='0' where rc_no = '$rc_no' ";
-
+    $sql = " update $g4[recycle_table] set rc_delete='1' where rc_no = '$rc_no' ";
     sql_query($sql);
 }
 
