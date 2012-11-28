@@ -2,7 +2,7 @@ a.cheditor-tag-path-elem {
     text-decoration:none;
     color:#0033cc;
     font-size: 8pt;
-    font-family: µ¸¿ò;
+    font-family: dotum,tahoma,helvetica;
     cursor:pointer;
 }
 a.cheditor-tag-path-elem:hover {
@@ -64,6 +64,12 @@ a.cheditor-tag-path-elem:hover {
     font-size: 9pt;
     color: #000;
 }
+.cheditor-modify-block div .user-input-caption {
+    width: 257px;
+    margin: 3px 10px 0px 5px;
+    font-size: 9pt;
+    color: #000;
+}
 .cheditor-modify-block div .wrap-checked {
     vertical-align: middle;
     padding: 0px;
@@ -104,12 +110,12 @@ a.cheditor-tag-path-elem:hover {
     padding:2px;
     background-color:#eee;
     font-size:9pt;
-    font-family: gulim;
+    font-family: gulim,tahoma,helvetica;
     text-align:center;
 }
 .cheditor-status-bar {
     font-size:8pt;
-    font-family:µ¸¿ò;
+    font-family: dotum,tahoma,helvetica;
     color:#333;
 }
 .cheditor-tag-path {
@@ -175,7 +181,7 @@ a.cheditor-tag-path-elem:hover {
     background: #6b90c0 url(../icons/title_bar_bg.gif) repeat-x 0 0;
 }
 .cheditor-popup-titlebar {
-    padding: 6px 0px 0px 5px !important;
+    padding: 4px 0px 0px 0px !important;
     line-height: 1em;
 }
 .cheditor-resizebar {
@@ -187,7 +193,7 @@ a.cheditor-tag-path-elem:hover {
     background: #eee url(../icons/splitter.gif) no-repeat center top;
 }
 .cheditor_mode_icon { width: 24px; height: 16px; cursor: pointer; vertical-align:top }
-.cheditor-popup-title { font-size: 9pt; font-family:gulim; font-weight:bold; color:#003366; }
+.cheditor-popup-title { font-size: 9pt; font-family:gulim,tahoma,helvetica; font-weight:bold; color:#003366; }
 .cheditor-popup-cframe {
     background-color: #ebe9ed;
 }
@@ -202,7 +208,7 @@ a.cheditor-tag-path-elem:hover {
     line-height: 1.1;
     margin: 1px;
     font-size: 9pt;
-    font-family: gulim;
+    font-family: gulim,tahoma,helvetica;
     color: #000;
     position: relative;
 }
@@ -245,8 +251,7 @@ a.cheditor-tag-path-elem:hover {
     border: #e0e0e0 1px solid;
 }
 
-.cheditor-pulldown-frame {
-	
+.cheditor-pulldown-frame {	
     position:absolute;
     visibility:hidden;
     z-index: -1;
@@ -347,7 +352,7 @@ a.cheditor-tag-path-elem:hover {
     height: 22px;
     margin-left: 5px;
     color: #555;
-    font-family: gulim;
+    font-family: gulim,tahoma,helvetica;
     font-size: 9pt;
     overflow: hidden;
     margin-right: 13px;

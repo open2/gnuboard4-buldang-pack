@@ -163,25 +163,25 @@ function AC_AddExtension(src, ext)
 
 function AC_Generateobj(objAttrs, params, embedAttrs) 
 { 
-    var str = '';
     if (isIE && isWin && !isOpera)
     {
-  		str += '<object ';
+  		var str = '<object ';
   		for (var i in objAttrs)
   			str += i + '="' + objAttrs[i] + '" ';
   		str += '>';
   		for (var i in params)
   			str += '<param name="' + i + '" value="' + params[i] + '" /> ';
   		str += '</object>';
-    } else {
-  		str += '<embed ';
-  		for (var i in embedAttrs)
-  			str += i + '="' + embedAttrs[i] + '" ';
-  		str += '> </embed>';
-    }
-
 		document.getElementById("oFlash").innerHTML = str;
-    //document.write(str);
+    }
+	else {
+		var oFlash = document.getElementById("oFlash");
+		var embed = document.createElement('embed');
+  		for (var i in embedAttrs) {
+			embed.setAttribute(i, embedAttrs[i]);
+		}
+		oFlash.appendChild(embed);
+    }
 }
 
 function CHXImageRUN(){

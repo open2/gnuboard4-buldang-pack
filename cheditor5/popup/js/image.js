@@ -2,7 +2,7 @@
 //                       CHEditor 5
 // ----------------------------------------------------------------
 // Homepage: http://www.chcode.com
-// Copyright (c) 1997-2011 CHSOFT
+// Copyright (c) 1997-2012 CHSOFT
 // ================================================================
 var operaBrowser = false;
 if (navigator.userAgent.indexOf('Opera') >= 0)
@@ -59,6 +59,7 @@ var button = [ { alt : "", img : 'imageUpload/submit.gif', cmd : doSubmit, hspac
                { alt : "", img : 'imageUpload/cancel.gif', cmd : closeWindow, hspace : 2 } ];
 
 var allowedMaxImgSize = 0;
+var browser = null;
 
 function init(dialog) {
 	oEditor = this;
@@ -81,6 +82,7 @@ function init(dialog) {
 	showUploadWindow();
 	initEvent();
 	createInsertionMaker();
+	browser = oEditor.getBrowser();
 }
 
 function createInsertionMaker() {
@@ -153,11 +155,8 @@ function showContents() {
 
 function openFiles() {
 // ----------------------------------------------------------------------------------
-	if (navigator.appName.indexOf("Microsoft") != -1) {
-        window[AppID].AddFiles();
-	}
-    else
-        document[AppID].AddFiles();
+	var elem = browser.msie ? document.getElementById(AppID) : document[AppID];
+	elem.AddFiles();
 }
 
 function setImageCount() {
@@ -186,7 +185,6 @@ function showDelete(event) {
 	self.className = 'imageBox_theImage_over';
 	button.style.left = (L + 126) + 'px';
 	button.style.top = (T - 7) + 'px';
-	var theEv = event ? event : window.event;
 	button.style.display = 'block';
 	button.onmouseover = function() {
 		self.className = 'imageBox_theImage_over';
@@ -237,8 +235,6 @@ function resetSelectedImageSize() {
 function startUpload(count) {
 // ----------------------------------------------------------------------------------
 	var el = document.getElementById('imageListWrapper').getElementsByTagName('DIV');
-	var uploadImg = 0;
-
 	for (var i=0; i < el.length; i++) {
 		var imgBox = el[i];
 		if (imgBox.className != 'imageBox_theImage')
@@ -247,7 +243,7 @@ function startUpload(count) {
 		if (count == 0) break;
 
 		if (imgBox.firstChild == null || typeof(imgBox.firstChild.src) == 'undefined') {
-			imgBox.style.backgroundImage = "url('"+UploadImagePath+"/wait.gif')";
+			imgBox.style.backgroundImage = "url('"+UploadImagePath+"/loader.gif')";
 			count--;
 		}
 	}
@@ -260,6 +256,7 @@ function fileFilterError(file) {
 
 function uploadComplete(fileData) {
 // ----------------------------------------------------------------------------------
+	fileData = fileData.replace(/^\s+/g, '').replace(/\s+$/g, '');
 	if (/^-ERR/.test(fileData)) {
 		alert(fileData);
 		popupClose();
@@ -274,8 +271,6 @@ function uploadComplete(fileData) {
 		return;
 
 	var el = document.getElementById('imageListWrapper').getElementsByTagName('DIV');
-	var uploadImg = 0;
-
 	for (var i=0; i < el.length; i++) {
 		var imgBox = el[i];
 		if (imgBox.className != 'imageBox_theImage')
@@ -289,12 +284,12 @@ function uploadComplete(fileData) {
 
 		if (imgBox.firstChild == null || typeof(imgBox.firstChild.src) == 'undefined') {
 			var tmpImg = new Image();
+			tmpImg.onload = function() { imgComplete(this, imgBox.id, tmpData); };
 			tmpImg.src = tmpData.fileUrl;
-
 			imgBox.appendChild(tmpImg);
+
 			if (MSIE) tmpImg.style.display = "none";
 			else tmpImg.style.visibility = 'hidden';
-			imgComplete(tmpImg, imgBox.id, tmpData);
 			break;
 		}
 	}
@@ -302,8 +297,8 @@ function uploadComplete(fileData) {
 
 function imgComplete(img, boxId, dataObj) {
 	if (img.complete != true) {
-		var R = function() { imgComplete(img, boxId, dataObj);img=null;};
-		setTimeout(R, 100);
+		var R = function() { imgComplete(img, boxId, dataObj); };
+		setTimeout(R, 250);
 	}
 	else {
 		img.border = 0;
@@ -349,9 +344,10 @@ function imgComplete(img, boxId, dataObj) {
 			img.style.marginTop = Math.round(M/2) + 'px';
 		}
 
-		document.getElementById(boxId).style.backgroundImage = "url('"+UploadImagePath+"/background_image.gif')";
-		document.getElementById(boxId).onmouseover = showDelete;
-		document.getElementById(boxId).onmouseout = function() {
+		var elem = document.getElementById(boxId);
+		elem.style.backgroundImage = "url('"+oEditor.config.iconPath+"dot.gif')";
+		elem.onmouseover = showDelete;
+		elem.onmouseout = function() {
 				this.className = 'imageBox_theImage';
 				resetSelectedImageSize();
 		};
@@ -359,6 +355,7 @@ function imgComplete(img, boxId, dataObj) {
 		if (MSIE) img.style.display = "block";
 		else img.style.visibility = 'visible';
 		setImageCount();
+		img = img.onload = img.onabort = img.onerror = null;
 	}
 }
 
@@ -389,7 +386,6 @@ function showUploadWindow() {
 // ----------------------------------------------------------------------------------
   	var uploadWindow  = document.getElementById("uploadWindow");
   	var uploadWindowWidth  = 700;
-  	var winHeight = 0;
   	var winWidth  = 0;
   
   	if (typeof(window.innerWidth) != 'undefined') {
@@ -457,7 +453,7 @@ function closeWindow() {
 
 function removeImage() {
 // ----------------------------------------------------------------------------------
-	var images = [];
+	var images = new Array();
 
 	for (var i=0; i < uploadMaxNumber; i++) {
 		var theImage = document.getElementById('img_'+i);
@@ -648,9 +644,11 @@ function dragDropEnd() {
 		activeImage = false;
 		destinationObject = false;
 		getDivCoordinates();
+
+		return false;
 	}
 
-	return false;
+	return true;
 }
 	
 function dragDropMove(e) {
@@ -750,8 +748,6 @@ function initGallery() {
 		}
 	}
 	
-	var insObj = document.getElementById('insertionMarker');
-	var images = insObj.getElementsByTagName('IMG');
 	document.body.onselectstart = cancelEvent;
 	document.body.ondragstart = cancelEvent;
 	document.body.onmouseup = dragDropEnd;

@@ -6,7 +6,7 @@
 // Author: Na Chang Ho
 // Homepage: http://www.chcode.com
 // EMail: support@chcode.com
-// Copyright (c) 1997-2011 CHSOFT
+// Copyright (c) 1997-2012 CHSOFT
 // ================================================================
 -->
 <Template>
@@ -39,7 +39,7 @@
                 <div class="cheditor-popup-window" onselectstart="return false">
                     <div class="cheditor-popup-drag-handle">
                         <div class="cheditor-popup-titlebar">
-                            <label class="cheditor-popup-title"></label>
+                            <span>&#160;</span><label class="cheditor-popup-title"></label>
                         </div>
                     </div>
                     <div class="cheditor-popup-cframe"></div>
