@@ -113,19 +113,11 @@ $ss_id = 'gr_id'; // 직접 아이디를 지정하니까 오류가 생겨서 어쩔 수 없이... ㅠ..
     </thead>
     <tr>
         <td>
-        <form name="fr_register" action="javascript:fr_register_submit(document.fr_register);" method="post" enctype="multipart/form-data" autocomplete="off" >
+        <form name="gr_register" action="javascript:gr_register_submit(document.gr_register);" method="post" enctype="multipart/form-data" autocomplete="off" >
         <input type="hidden" class="ed" name="mb_id" value="<?=$member[mb_id]?>" />
-        <input type="hidden" class="ed" name="fr_type" value="<?=$fr_type?>" />
-        아이디 : 
-        <input name='<?=$ss_id?>' type="text" class="ed" size="10" required="required" itemname='친구아이디' />
-        &nbsp;<a href="javascript:popup_id('fr_register','<?=$ss_id?>',300,500);"><img src='<?=$memo_skin_path?>/img/friend_search.gif' border="0" align="absmiddle" /></a>
-        메모 : 
-        &nbsp;<input name="fr_memo" type="text" class="ed" itemname='메모' size="24" />
-        <? if ($fr_type == 'black_id') { ?>
-        &nbsp;<input type="submit" class="btn1" value='블랙리스트' />
-        <? } else { ?>
-        &nbsp;<input type="submit" class="btn1" value='친구등록' />
-        <? } ?>
+        메모그룹 : 
+        &nbsp;<input name="gr_name" type="text" class="ed" itemname='메모그룹' size="45" />
+        &nbsp;<input type="submit" class="btn1" value=' 메모그룹등록' />
         </form>
         </td>
     </tr>

@@ -11,6 +11,10 @@ if ($me_id) { // 건별 삭제
     $tmp_array = $_POST['chk_me_id'];
 }
 
+if ($g4['memo_delete']) {
+    $memo_delete = " and memo_owner='$member[mb_id]' ";
+}
+
 for ($i=count($tmp_array)-1; $i>=0; $i--) // 높은거에서 낮은거로. 왜? sir 원본이 그렇게 되어 있으니까 ㅠ..ㅠ
 {
   switch ($kind) {
@@ -19,12 +23,27 @@ for ($i=count($tmp_array)-1; $i>=0; $i--) // 높은거에서 낮은거로. 왜? sir 원본이
                 if ($result['me_recv_mb_id'] == $member['mb_id']) {} else alert("바르지 못한 사용입니다");
 
                 // trash에 쪽지를 넣어두기
-                $sql = "insert into $g4[memo_trash_table] select *, 'recv' from $g4[memo_recv_table] where me_id = '$tmp_array[$i]' and memo_owner='$member[mb_id]' and me_recv_mb_id='$member[mb_id]'  ";
-                sql_query($sql);
+                $me = sql_fetch("select * from $g4[memo_send_table] where me_id = '$tmp_array[$i]' and me_recv_mb_id='$member[mb_id]' $memo_delete ");
+                $sql = " insert into $g4[memo_trash_table]
+                            set 
+                                me_id = '$me[mb_id]',
+                                me_recv_mb_id = '$me[me_recv_mb_id]',
+                                me_send_mb_id = '$me[me_send_mb_id]',
+                                me_send_datetime = '$me[me_send_datetime]',
+                                me_read_datetime = '$me[me_read_datetime]',
+                                me_memo = '$me[me_memo]',
+                                me_file_local = '$me[me_file_local]',
+                                me_file_server = '$me[me_file_server]',
+                                me_subject = '$me[me_subject]',
+                                memo_type = '$me[memo_type]',
+                                memo_owner = '$member[mb_id]',
+                                me_option = '$me[me_option]',
+                                me_from_kind = 'recv' 
+                          where me_id = '$tmp_array[$i]' and me_recv_mb_id='$member[mb_id]' $memo_delete ";
+                sql_query($sql, FALSE);
 
-                $sql = " delete from $g4[memo_recv_table] where me_id = '$tmp_array[$i]' and memo_owner='$member[mb_id]' and me_recv_mb_id='$member[mb_id]' ";
+                $sql = " delete from $g4[memo_recv_table] where me_id = '$tmp_array[$i]' and me_recv_mb_id='$member[mb_id]' $memo_delete ";
                 sql_query($sql);
-                
                 break;
   case 'send' : 
                 memo4_cancel($tmp_array[$i]);
@@ -34,10 +53,26 @@ for ($i=count($tmp_array)-1; $i>=0; $i--) // 높은거에서 낮은거로. 왜? sir 원본이
                 if ($result['memo_owner'] == $member['mb_id']) {} else alert("바르지 못한 사용입니다");
 
                 // trash에 쪽지를 넣어두기
-                $sql = "insert into $g4[memo_trash_table] select *, '$result[memo_type]' from $g4[memo_save_table] where me_id = '$tmp_array[$i]' and memo_type = '$result[memo_type]' and memo_owner='$mb_id' ";
-                sql_query($sql);
-                
-                $sql = " delete from $g4[memo_save_table] where me_id = '$tmp_array[$i]' and memo_type = '$result[memo_type]' and memo_owner='$mb_id' ";
+                $me = sql_fetch("select * from $g4[memo_save_table] where me_id = '$tmp_array[$i]' and memo_type = '$result[memo_type]' $memo_delete ");
+                $sql = " insert into $g4[memo_trash_table]
+                            set 
+                                me_id = '$me[mb_id]',
+                                me_recv_mb_id = '$me[me_recv_mb_id]',
+                                me_send_mb_id = '$me[me_send_mb_id]',
+                                me_send_datetime = '$me[me_send_datetime]',
+                                me_read_datetime = '$me[me_read_datetime]',
+                                me_memo = '$me[me_memo]',
+                                me_file_local = '$me[me_file_local]',
+                                me_file_server = '$me[me_file_server]',
+                                me_subject = '$me[me_subject]',
+                                memo_type = '$me[memo_type]',
+                                memo_owner = '$member[mb_id]',
+                                me_option = '$me[me_option]',
+                                me_from_kind = 'recv' 
+                          where me_id = '$tmp_array[$i]' and me_recv_mb_id='$member[mb_id]' $memo_delete ";
+                sql_query($sql, FALSE);
+
+                $sql = " delete from $g4[memo_save_table] where me_id = '$tmp_array[$i]' and memo_type = '$result[memo_type]' $memo_delete  ";
                 sql_query($sql);
                 break;
   case 'spam' : $sql = " select * from $g4[memo_spam_table] where me_id = '$tmp_array[$i]' ";
@@ -52,7 +87,7 @@ for ($i=count($tmp_array)-1; $i>=0; $i--) // 높은거에서 낮은거로. 왜? sir 원본이
                     alert("바르지 못한 사용입니다");
                 sql_query($sql);
                 break;
-  case 'trash' : $sql = " select * from $g4[memo_trash_table] where me_id = '$tmp_array[$i]' ";
+  case 'trash' :$sql = " select * from $g4[memo_trash_table] where me_id = '$tmp_array[$i]' ";
                 $result = sql_fetch($sql);
                 
                 // 휴지통의 경우에는 바로 삭제

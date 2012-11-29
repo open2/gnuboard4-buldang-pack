@@ -1,9 +1,6 @@
 <?
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
 
-if (! $is_member)
-    alert("회원만 접속할 수 있는 페이지 입니다");
-
 // 쪽지 테이블
 $g4['memo_config_table']          = $g4['table_prefix'] . "memo_config";          // 메모 설정테이블
 
@@ -100,7 +97,7 @@ if (isset($kind)) {
 // mb_memo_unread             : 안읽은 메시지 갯수
 
 // 메모를 지정된 시간이 지나야 보낼 수 있게 설정 (스팸쪽지를 막기 위해서...)
-$g4['memo_delay_sec'] = 10;
+$g4['memo_delay_sec'] = 1;
 
 // 친구찾기 guess-work을 막기 위해서
 $g4['memo_max_friend'] = 100;
@@ -108,6 +105,9 @@ $g4['memo_max_friend'] = 100;
 // 친구관리를 빈번하게 수행하는 것을 막기 위해서
 $g4['memo_delay_friend'] = 2;
 
-// 춘구관리 검색을 할 때 차감하는 포인트
+// 친구관리 검색을 할 때 차감하는 포인트
 $g4['memo_friend_point'] = -1;
+
+// delete anyway - 다른 쪽지 때문에 삭제가 안될 때는 false 또는 0으로 바꾸면 됩니다.
+$g4['memo_delete'] = 1;
 ?>

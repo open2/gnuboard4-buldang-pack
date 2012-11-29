@@ -2,7 +2,7 @@
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
 
 // 쪽지 - 기본적인 창의 크기를 정의
-$config['memo_width'] = 717; // 실제 창크기 730보다 13px 작게해야 내용이 넘칠때 수평 scroll bar가 안생긴다
+$config['memo_width'] = 713; // 실제 창크기 730보다 17px 작게해야 내용이 넘칠때 수평 scroll bar가 안생긴다
 $config['memo_height'] = 600;
 
 // 쪽지 테이블의 기본을 정의
