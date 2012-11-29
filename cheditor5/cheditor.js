@@ -295,7 +295,7 @@ function setConfig () {
             useMap          : true,
             useTextBlock    : true,
             useFullScreen   : true,
-            usePageBreak    : true,
+            usePageBreak    : false,
             allowedScript   : false,
             allowedMaxImgSize : 0
     };
