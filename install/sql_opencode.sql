@@ -547,28 +547,6 @@ INSERT INTO `$g4[memo_config_table]`
 (`cf_memo_page_rows`, `cf_memo_del_unread`, `cf_memo_del_trash`, `cf_memo_delete_datetime`, `cf_memo_user_dhtml`, `cf_memo_use_file`, `cf_friend_management`, `cf_memo_notice_board`, `cf_memo_before_after`) VALUES 
 (20, 180, 7, '0000-00-00 00:00:00', 1, 0, 0, '', 0);
 
-# 쪽지4- 신규 테이블 (임시저장)
-DROP TABLE IF EXISTS `$g4[memo_temp_table]`;
-CREATE TABLE `$g4[memo_temp_table]` (
-  `me_id` int(11) NOT NULL auto_increment,
-  `me_recv_mb_id` varchar(255) NOT NULL default '',
-  `me_send_mb_id` varchar(255) NOT NULL default '',
-  `me_send_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
-  `me_read_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
-  `me_memo` mediumtext NOT NULL,
-  `me_file_local` varchar(255) NOT NULL,
-  `me_file_server` varchar(255) NOT NULL,
-  `me_subject` varchar(255) NOT NULL,
-  `memo_type` varchar(255) NOT NULL,
-  `memo_owner` varchar(255) NOT NULL,
-  PRIMARY KEY  (`me_id`),
-  KEY `me_recv_mb_id_idx` (`me_recv_mb_id`),
-  KEY `me_send_mb_id_idx` (`me_send_mb_id`),
-  KEY `datetime` (`me_send_datetime`),
-  KEY `memo_owner` (`memo_owner`),
-  KEY `me_file_local` (`me_file_local`)
-);
-
 # 쪽지4 - 신규테이블 (휴지통)
 DROP TABLE IF EXISTS `$g4[memo_trash_table]`;
 CREATE TABLE `$g4[memo_trash_table]` (
@@ -595,7 +573,6 @@ CREATE TABLE `$g4[memo_trash_table]` (
 ALTER TABLE `$g4[memo_recv_table]` ADD `me_option` SET( 'html1', 'html2', 'secret', 'mail' ) NOT NULL ;
 ALTER TABLE `$g4[memo_send_table]` ADD `me_option` SET( 'html1', 'html2', 'secret', 'mail' ) NOT NULL ;
 ALTER TABLE `$g4[memo_save_table]` ADD `me_option` SET( 'html1', 'html2', 'secret', 'mail' ) NOT NULL ;
-ALTER TABLE `$g4[memo_temp_table]` ADD `me_option` SET( 'html1', 'html2', 'secret', 'mail' ) NOT NULL ;
 ALTER TABLE `$g4[memo_notice_table]` ADD `me_option` SET( 'html1', 'html2', 'secret', 'mail' ) NOT NULL ;
 ALTER TABLE `$g4[memo_spam_table]` ADD `me_option` SET( 'html1', 'html2', 'secret', 'mail' ) NOT NULL ;
 ALTER TABLE `$g4[memo_trash_table]` ADD `me_option` SET( 'html1', 'html2', 'secret', 'mail' ) NOT NULL ;
@@ -701,10 +678,7 @@ ALTER TABLE `$g4[poll_table]` ADD `po_summary` TEXT NOT NULL ;
 ALTER TABLE `$g4[memo_config_table]` ADD `cf_memo_del_file` TINYINT( 4 ) NOT NULL ;
 
 # 1.0.24 - 쪽지4 temp, trash 테이블 key 추가
-ALTER TABLE `$g4[memo_temp_table]` ADD `me_from_kind` VARCHAR( 255 ) NOT NULL ;
 ALTER TABLE `$g4[memo_trash_table]` ADD `me_from_kind` VARCHAR( 255 ) NOT NULL ;
-
-ALTER TABLE `$g4[memo_temp_table]` DROP PRIMARY KEY , ADD PRIMARY KEY ( `me_id` , `me_from_kind` ) ;
 ALTER TABLE `$g4[memo_trash_table]` DROP PRIMARY KEY , ADD PRIMARY KEY ( `me_id` , `me_from_kind` ) ;
 
 # 1.0.26 - 쪽지4 설정추가 (실시간메모)
