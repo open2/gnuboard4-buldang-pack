@@ -478,6 +478,7 @@ include_once("$g4[path]/tail.sub.php");
 if (file_exists("$board_skin_path/write.tail.skin.php"))
     @include_once ("$board_skin_path/write.tail.skin.php");
 ?>
+<? if ($g4['write_escape']) { ?>
 <script type="text/javascript"> 
   var btn_submit_pressed = true; 
   $(window).bind('beforeunload', function(){ 
@@ -487,3 +488,4 @@ if (file_exists("$board_skin_path/write.tail.skin.php"))
   $('a[onclick]').click(function(){ btn_submit_pressed=false; });
   $('#btn_submit').click(function(){ btn_submit_pressed=false; }); 
 </script> 
+<? } ?>
