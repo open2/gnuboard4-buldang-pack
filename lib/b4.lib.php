@@ -626,7 +626,7 @@ function memo4_cancel($me_id) {
                     memo_owner = '$member[mb_id]',
                     me_option = '$me[me_option]',
                     me_from_kind = 'send' 
-              where me_id = '$me_id' and me_send_mb_id='$member[mb_id]' $memo_delete 
+              where me_id = '$me_id' and me_send_mb_id='$member[mb_id]' $memo_delete ";
     sql_query($sql, FALSE);
 
     // 발신함을 삭제 합니다.
