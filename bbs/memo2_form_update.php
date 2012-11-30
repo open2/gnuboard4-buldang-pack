@@ -45,7 +45,10 @@ for ($i=0; $i<count($tmp_list); $i++) {
         $msg .= "$comma1$tmp_list[$i]";
         $comma1 = ",";
     } else {
-        $me_recv_mb_id_list .= "$comma2$row[mb_nick]";
+        if ($config['cf_memo_mb_name'])
+            $me_recv_mb_id_list .= "$comma2$row[mb_name]";
+        else
+            $me_recv_mb_id_list .= "$comma2$row[mb_nick]";
         $mb_list[] = $tmp_list[$i];
         $mb_array[] = $row;
         $comma2 = ",";
