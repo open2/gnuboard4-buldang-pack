@@ -134,7 +134,7 @@ win.print();
 
     <tfoot>
     <tr>
-        <td colspan=2>
+        <td>
             <? if ($kind=="recv" or ($kind=="save" and $class=="view")) { ?>
               <a href='<?=$memo_url?>?kind=write&me_recv_mb_id=<?=$view[me_send_mb_id]?>&me_id=<?=$me_id?>&me_box=<?=$kind?>'><img src="<?=$memo_skin_path?>/img/reply.gif" /></a>&nbsp;
             <? } ?>
