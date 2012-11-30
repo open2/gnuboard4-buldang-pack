@@ -86,6 +86,7 @@ sql_query(" delete from $g4[singo_table] where bo_table = '$bo_table' and wr_id 
 
 // 추천정보를 삭제 - 코멘트에 추천을 넣는 경우가 있어서.
 $sql = " delete from $g4[board_good_table] where bo_table = '$bo_table' and wr_id = '$comment_id' ";
+sql_query($sql);
 
 // 사용자 코드 실행
 @include_once("$board_skin_path/delete_comment.skin.php");

@@ -133,6 +133,7 @@ for ($i=count($tmp_array)-1; $i>=0; $i--)
 
             // 베스트글 삭제
             sql_query(" delete from $g4[good_list_table] where bo_table = '$bo_table' and wr_id = '$row[wr_id]' ");
+            sql_query($sql);
 
             $count_write++;
         } 
@@ -151,6 +152,7 @@ for ($i=count($tmp_array)-1; $i>=0; $i--)
 
         // 추천정보를 삭제
         $sql = " delete from $g4[board_good_table] where bo_table = '$bo_table' and wr_id = '$row[wr_id]' ";
+        sql_query($sql);
     }
 
     // 게시글 삭제
