@@ -591,7 +591,8 @@ function conv_content($content, $html)
         $content = preg_replace("/(lo)(wsrc)/i", "&#108;&#111;$2", $content);
         $content = preg_replace("/(sc)(ript)/i", "&#115;&#99;$2", $content);
         $content = preg_replace_callback("#<([^>]+)#", create_function('$m', 'return "<".str_replace("<", "&lt;", $m[1]);'), $content);
-        $content = preg_replace("/\<(\w|\s|\?)*(xml)/i", "", $content);
+        //$content = preg_replace("/\<(\w|\s|\?)*(xml)/i", "", $content);
+        $content = preg_replace("/\<(\w|\s|\?)*(xml)/i", "_$1$2_", $content);
 
         // 플래시의 액션스크립트와 자바스크립트의 연동을 차단하여 악의적인 사이트로의 이동을 막는다.
         // value="always" 를 value="never" 로, allowScriptaccess="always" 를 allowScriptaccess="never" 로 변환하는데 목적이 있다.
