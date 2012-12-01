@@ -17,7 +17,11 @@ if (trim($member['mb_memo_call'])) {
         else
             $memo_sql .= " or mb_id = '$memo_call[$i]' ";
     }
-    $sql = " select mb_nick from $g4[member_table] where $memo_sql group by mb_nick ";
+    // 이름으로 사용되는 시스템의 경우
+    if ($config['cf_memo_mb_name'])
+        $sql = " select mb_name as mb_nick from $g4[member_table] where $memo_sql group by mb_nick ";
+    else
+        $sql = " select mb_nick from $g4[member_table] where $memo_sql group by mb_nick ";
     $result_m = sql_query($sql);
 
     $mb_memo_nick = "";
