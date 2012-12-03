@@ -9,7 +9,7 @@ if (!$is_member)
 {
     $href = "./login.php?$qstr&url=".urlencode("./board.php?bo_table=$bo_table&wr_id=$wr_id");
 
-    echo "<script language='JavaScript'>alert('회원만 가능합니다.'); top.location.href = '$href';</script>";
+    echo "<script type='text/javascript'>alert('회원만 가능합니다.'); top.location.href = '$href';</script>";
     exit;
 }
 
@@ -48,7 +48,7 @@ if ($good == "good" || $good == "nogood")
         else 
             $status = "비추천";
         
-        echo "<script language='JavaScript'>alert('이미 \'$status\' 하신 글 입니다.');</script>";
+        echo "<script type='text/javascript'>alert('이미 \'$status\' 하신 글 입니다.');</script>";
     }
     else
     {
@@ -105,10 +105,10 @@ if ($good == "good" || $good == "nogood")
         else 
             $status = "비추천";
 
-        echo "<script language='JavaScript'> alert('이 글을 \'$status\' 하셨습니다.');</script>";
+        echo "<script type='text/javascript'> alert('이 글을 \'$status\' 하셨습니다.');</script>";
     }
 }
 
 @include_once("$board_skin_path/good.tail.skin.php");
 ?>
-<script language="JavaScript"> window.close(); </script>
+<script type="text/javascript"> window.close(); </script>
