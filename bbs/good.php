@@ -26,7 +26,7 @@ if (!$row[cnt])
 
 if ($good == "good" || $good == "nogood") 
 {
-    if($write[mb_id] == $member[mb_id])
+    if($is_admin == "" && $write[mb_id] == $member[mb_id])
         alert_close("자신의 글에는 추천 또는 비추천 하실 수 없습니다.");
 
     if (!$board[bo_use_good] && $good == "good")
