@@ -369,6 +369,9 @@ if (isset($sca))  {
 
 if (isset($sfl))  {
     $sfl = mysql_real_escape_string($sfl);
+    // 크롬에서만 실행되는 XSS 취약점 보완
+    // 코드 $sfl 변수값에서 < > ' " % = ( ) 공백 문자를 없앤다.
+    $sfl = preg_replace("/[\<\>\'\"\%\=\(\)\s]/", "", $sfl);
     //$sfl = preg_replace("/[^\w\,\|]+/", "", $sfl);
     $qstr .= '&sfl=' . urlencode($sfl); // search field (검색 필드)
 }
