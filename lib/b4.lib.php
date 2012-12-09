@@ -865,6 +865,10 @@ function db_cache($c_name, $seconds=300, $c_code) {
         $c_text = call_user_func_array($func_name, $func_args);
         }
 
+        // 값이 없으면 그냥 return
+        if (trim($c_text) == "")
+            return;
+
         // db에 넣기전에 slashes들을 앞에 싹 붙여 주시고
         $c_text1 = addslashes($c_text);
         
