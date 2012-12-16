@@ -613,7 +613,7 @@ function memo4_cancel($me_id) {
     //$sql = "insert into $g4[memo_trash_table] select *, 'send' from $g4[memo_send_table] where me_id = '$me_id' and me_send_mb_id='$member[mb_id]' $memo_delete ";
     $me = sql_fetch("select * from $g4[memo_send_table] where me_id = '$me_id' and me_send_mb_id='$member[mb_id]' $memo_delete ");
     $sql = " insert into $g4[memo_trash_table]
-                set me_id = '$me[mb_id]',
+                set me_id = '$me[me_id]',
                     me_recv_mb_id = '$me[me_recv_mb_id]',
                     me_send_mb_id = '$me[me_send_mb_id]',
                     me_send_datetime = '$me[me_send_datetime]',
@@ -625,8 +625,7 @@ function memo4_cancel($me_id) {
                     memo_type = '$me[memo_type]',
                     memo_owner = '$member[mb_id]',
                     me_option = '$me[me_option]',
-                    me_from_kind = 'send' 
-              where me_id = '$me_id' and me_send_mb_id='$member[mb_id]' $memo_delete ";
+                    me_from_kind = 'send' ";
     sql_query($sql, FALSE);
 
     // 발신함을 삭제 합니다.
