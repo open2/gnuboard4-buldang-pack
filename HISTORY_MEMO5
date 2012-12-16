@@ -1,3 +1,51 @@
+2.0.4 - 2012년 12월 16일
+
+그누 기본쪽지의 발신이 있는 경우 삭제오류가 있습니다. 
+그런 경우에도 쪽지가 지워지게 하기 위해서, 설정을 하나 더 추가했습니다.
+memo.config.php에서 아래 필드를 0으로 하면 됩니다.
+ 
+테스트 부탁드립니다.
+===
+ 
+$g4['memo_delete'] = 0;
+ 
+memo.config.php
+ 
+bbs/memo2_form_delete.php
+bbs/memo2_form_update.php
+ 
+ib/b4.lib.php
+ 
+skin/member/basic/memo2_group_admin.skin.php
+skin/member/basic/memo2.head.skin.php
+skin/member/basic/memo2_online.skin.php
+skin/member/basic/memo2.view.skin.php
+ 
+ 
+- 쪽지 삭제 오류 수정
+bbs/memo2_form_delete.php
+ 
+- 현재접속자 페이징 오류 수정
+skin/member/basic/memo2_online.skin.php
+ 
+- 실명을 쓸 때, 메시지가 실명으로 나오게
+bbs/memo2_form_update.php
+ 
+- 수평 스크롤바 생기는거
+skin/member/basic/memo2.head.skin.php
+ 
+- 목록 버튼 위치변경
+skin/member/basic/memo2.view.skin.php
+ 
+- 삭제기능 보완
+memo.config.php
+lib/b4.lib.php
+ 
+- 그룹관리 오류 수정
+skin/member/basic/memo2_group_admin.skin.php
+https://github.com/open2/memo5-v2/commit/20fd3596f04d0de76ea99b9022b4d9a0487d485d
+
+
 2.0.3 - 2012년 11월 9일
 
 친구찾기를 악용하지 못하게 하는 방법을 여러모로 고민했고 (리포팅은 없었지만)

@@ -51,7 +51,7 @@ switch ($fr_type) {
   default         : $total_count = $mb_count['cnt'];
 }
 
-$one_rows = $config['cf_memo_page_rows'];       // 한페이지의 라인수
+$one_rows = $config['cf_memo_page_rows'] - 4;   // 한페이지의 라인수 (밑부분 때문에 -4)
 $total_page = ceil($total_count / $one_rows);   // 전체 페이지 계산 
 if ($page == 0)   // 페이지가 없으면 첫 페이지 (1 페이지) 
     $page = 1; 
@@ -238,7 +238,7 @@ $ss_id = 'fr_id'; // 직접 아이디를 지정하니까 오류가 생겨서 어쩔 수 없이... ㅠ..
     <tr>
         <td colspan=6 style="padding:2px 0 2px;" height=30px>
         <?
-        $page = get_paging($config['cf_write_pages'], $page, $total_page, "?&kind=$kind&sfl=$sfl&stx=$stx&unread=$unread&page="); 
+        $page = get_paging($config['cf_write_pages'], $page, $total_page, "?kind=$kind&fr_type=online&sfl=$sfl&stx=$stx&unread=$unread&page="); 
         echo "$page";
         ?>
         </td>

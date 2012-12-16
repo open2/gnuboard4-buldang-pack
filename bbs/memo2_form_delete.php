@@ -26,7 +26,7 @@ for ($i=count($tmp_array)-1; $i>=0; $i--) // 높은거에서 낮은거로. 왜? sir 원본이
                 $me = sql_fetch("select * from $g4[memo_send_table] where me_id = '$tmp_array[$i]' and me_recv_mb_id='$member[mb_id]' $memo_delete ");
                 $sql = " insert into $g4[memo_trash_table]
                             set 
-                                me_id = '$me[mb_id]',
+                                me_id = '$me[me_id]',
                                 me_recv_mb_id = '$me[me_recv_mb_id]',
                                 me_send_mb_id = '$me[me_send_mb_id]',
                                 me_send_datetime = '$me[me_send_datetime]',
@@ -38,8 +38,7 @@ for ($i=count($tmp_array)-1; $i>=0; $i--) // 높은거에서 낮은거로. 왜? sir 원본이
                                 memo_type = '$me[memo_type]',
                                 memo_owner = '$member[mb_id]',
                                 me_option = '$me[me_option]',
-                                me_from_kind = 'recv' 
-                          where me_id = '$tmp_array[$i]' and me_recv_mb_id='$member[mb_id]' $memo_delete ";
+                                me_from_kind = 'recv' ";
                 sql_query($sql, FALSE);
 
                 $sql = " delete from $g4[memo_recv_table] where me_id = '$tmp_array[$i]' and me_recv_mb_id='$member[mb_id]' $memo_delete ";
@@ -56,7 +55,7 @@ for ($i=count($tmp_array)-1; $i>=0; $i--) // 높은거에서 낮은거로. 왜? sir 원본이
                 $me = sql_fetch("select * from $g4[memo_save_table] where me_id = '$tmp_array[$i]' and memo_type = '$result[memo_type]' $memo_delete ");
                 $sql = " insert into $g4[memo_trash_table]
                             set 
-                                me_id = '$me[mb_id]',
+                                me_id = '$me[me_id]',
                                 me_recv_mb_id = '$me[me_recv_mb_id]',
                                 me_send_mb_id = '$me[me_send_mb_id]',
                                 me_send_datetime = '$me[me_send_datetime]',
@@ -68,8 +67,7 @@ for ($i=count($tmp_array)-1; $i>=0; $i--) // 높은거에서 낮은거로. 왜? sir 원본이
                                 memo_type = '$me[memo_type]',
                                 memo_owner = '$member[mb_id]',
                                 me_option = '$me[me_option]',
-                                me_from_kind = 'recv' 
-                          where me_id = '$tmp_array[$i]' and me_recv_mb_id='$member[mb_id]' $memo_delete ";
+                                me_from_kind = 'save' ";
                 sql_query($sql, FALSE);
 
                 $sql = " delete from $g4[memo_save_table] where me_id = '$tmp_array[$i]' and memo_type = '$result[memo_type]' $memo_delete  ";
