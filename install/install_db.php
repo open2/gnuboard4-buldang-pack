@@ -373,8 +373,7 @@ flush(); usleep(50000);
 
 // 1.00.09 - data/log 삽입
 // 디렉토리 생성
-$dir_arr = array ("../extend",
-                  "../$g4[data]",
+$dir_arr = array ("../$g4[data]",
                   "../$g4[data]/file",
                   "../$g4[data]/log",
                   "../$g4[data]/log/zmSpamFree",
