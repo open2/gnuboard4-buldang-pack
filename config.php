@@ -9,7 +9,7 @@ if (function_exists("date_default_timezone_set"))
     date_default_timezone_set("Asia/Seoul");
 
 // 불당팩 버젼
-$g4['b4_version']     = "1.0.x";
+$g4['b4_version']     = "1.1.x";
 
 // 디렉토리
 $g4['bbs']            = "bbs";
