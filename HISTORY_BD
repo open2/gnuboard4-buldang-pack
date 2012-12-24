@@ -1,3 +1,236 @@
+1.1.09 (2012.12.21)
+
+1.1.08버젼 이후에 opencode를 테스트 하면서 나오는 버그와 사소한 수정 사항들을 업글하는 것 입니다.
+수정중인 현재 상태의 파일은 github에서 소스를 copy 해서 쓰시면 됩니다.
+https://github.com/open2/gnuboard4-buldang-pack/commits/
+ 
+쪽지는 기능개선을 통해서 2.0.4로 업글 되었습니다. 트래픽과 속도 모두 크게 개선 되었습니다.
+쪽지만 업글하시려면 쪽지5 - 2.0.4를 업글 하면 됩니다.
+ 
+common.php
+config.2.php
+head.php
+head.sub.php
+memo.config.php 
+tail.sub.php
+ 
+adm/gd_info.php
+adm/index.php
+adm/memo4.sql
+adm/point_list.php
+adm/recycle_list.php
+adm/recycle_list_delete.php
+ 
+bbs/download_memo_file.php
+bbs/delete.php
+bbs/delete_all.php
+bbs/delete_comment.php
+bbs/memo.php 
+bbs/memo2_config_update.php 
+bbs/memo2_form_cancel.php 
+bbs/memo2_form_delete.php 
+bbs/memo2_form_update.php 
+bbs/memo2_withdraw_notice.php 
+bbs/profile.php
+bbs/singo_popin.php
+bbs/singo_popin_update.php
+bbs/unsingo_popin_update.php
+bbs/visit_insert.inc.php
+bbs/write.php
+bbs/write_id.php
+bbs/zip.db
+ 
+cheditor5/* (기존 디렉토리 이름바꾸고 전체 upload)
+ 
+lib/b4.lib.php
+lib/common.lib.php
+ 
+skin/member/basic/profile.skin.php
+skin/member/basic/friend_memo_update.php 
+skin/member/basic/friend_update.php 
+skin/member/basic/memo2.css 
+skin/member/basic/memo2.head.skin.php 
+skin/member/basic/memo2.skin.php 
+skin/member/basic/memo2.tail.skin.php 
+skin/member/basic/memo2_adsense.php 
+skin/member/basic/memo2_config.skin.php 
+skin/member/basic/memo2_group_admin.skin.php 
+skin/member/basic/memo2_group_delete.php 
+skin/member/basic/memo2_group_member.skin.php 
+skin/member/basic/memo2_group_member_delete.php 
+skin/member/basic/memo2_group_member_update.php 
+skin/member/basic/memo2_group_name_update.php 
+
+skin/member/basic/memo2_online.skin.php
+skin/member/basic/memo2_group_update.php 
+skin/member/basic/memo2_list.skin.php 
+skin/member/basic/memo2_memo_address_book.skin.php 
+skin/member/basic/memo2_online.skin.php 
+skin/member/basic/memo2_view.skin.php 
+skin/member/basic/memo2_write.skin.php 
+ 
+zmSpamFree/zmSpamFree.php
+ 
+ 
+- 설치시 extend 디렉토리 안만들게
+extend/
+extend/index.php
+install/install_db.php
+ 
+- 쪽지 5 - 2.0.4 업데이트
+bbs/memo2_form_update.php
+skin/member/basic/memo2_online.skin.php
+ 
+- 그누보드 4.36.11
+lib/common.lib php
+    :  글읽기에서 실행되는 XSS 취약점 보완 
+        UN Security팀에서 한국인터넷진흥원을 통하여 알려 주셨습니다. 
+
+        lib/common.lib.php 에 아래와 같이 추가합니다. 
+        
+        // <IMG STYLE="xss:e\xpression(alert('XSS'))"></IMG> 와 같은 코드에 취약점이 있어 수정함. 121213 
+        $content = preg_replace("/(?<=style)(\s*=\s*[\"\']?xss\:)/i", '="__XSS__', $content);
+ 
+- 화면에 나올게 없으면 캐쉬하지 않습니다 (naver api의 반응지연으로...)
+lib/b4.lib.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/1eaef36e76e51e98a438ecf3a0c5f5ee4a5e0644
+ 
+- 그누보드 4.36.10 (보안패치)
+common.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/804b76c5cf482e01db09e73f926418e86167c1ed
+ 
+- 그누보드 4.36.09 (보안패치)
+lib/common.lib.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/22a77b2eafbdcb51e88aa7b5daaa1335fb40b901
+ 
+- 프로그램 오류 수정
+bbs/delete.php
+bbs/delete_all.php
+bbs/delete_comment.php
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_pack_req&wr_id=1427
+ 
+- 쪽지 5 - 2.0.4
+memo.config.php
+adm/memo4.sql
+bbs/memo2_form_delete.php
+lib/b4.lib.php
+skin/member/basic/memo2.head.skin.php
+skin/member/basic/memo2.view.skin.php
+skin/member/basic/memo2_group_admin.skin.php
+ 
+- 쓰기 안하고 나올 때 경고하는 것을 옵션으로 변경
+config.2.php
+bbs/write.php
+ 
+- cheditor 5.09.3 버젼업
+cheditor5/* (기존 디렉토리 이름바꾸고 전체 upload)
+ 
+- 휴지통삭제 오류
+adm/recycle_list.php
+adm/recycle_list_delete.php
+ 
+- SEO 오류 수정
+head.sub.php
+bbs/visit_insert.inc.php 
+https://github.com/open2/gnuboard4-buldang-pack/commit/66a1bfc8b53b501d26ab8e62a89a141957652cfe 
+https://github.com/open2/gnuboard4-buldang-pack/commit/1a8228aaf5a91f27a7d279a41717d5b0fb7cca94 
+ 
+- 관리자 불필요코드 삭제
+adm/index.php
+http://www.opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=895]
+ 
+- gr_id 오류 수정
+common.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/8c193da4289d28ebcaebdd94fc2fb02a74489ff8
+ 
+- 신고프로그램 오류수정
+bbs/singo_popin_update.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/a7e4a836d7f38a0f26173a4b3adfbd6e182fbe62
+ 
+- resize 관련 수정한거 없어진거 복원... 수정한게 어디로?
+lib/b4.lib.php 
+ 
+- 불필요 코드 삭제 (이게 왜 들어 갔지?)
+skin/board/cheditor/employ.inc.php (삭제)
+ 
+- 쪽지5 - 친구관리 연동해서 수정
+adm/point_list.php
+ 
+- 쪽지5 - 2.0.2, 2.0.3
+memo.config.php 
+bbs/write_id.php
+ 
+- 쪽지5 - 2.0.1
+memo.config.php 
+bbs/download_memo_file.php
+bbs/memo.php 
+bbs/memo2_config_update.php 
+bbs/memo2_form_cancel.php 
+bbs/memo2_form_delete.php 
+bbs/memo2_form_update.php 
+bbs/memo2_withdraw_notice.php 
+skin/member/basic/friend_memo_update.php 
+skin/member/basic/friend_update.php 
+skin/member/basic/memo2.css 
+skin/member/basic/memo2.head.skin.php 
+skin/member/basic/memo2.skin.php 
+skin/member/basic/memo2.tail.skin.php 
+skin/member/basic/memo2_adsense.php 
+skin/member/basic/memo2_config.skin.php 
+skin/member/basic/memo2_group_admin.skin.php 
+skin/member/basic/memo2_group_delete.php 
+skin/member/basic/memo2_group_member.skin.php 
+skin/member/basic/memo2_group_member_delete.php 
+skin/member/basic/memo2_group_member_update.php 
+skin/member/basic/memo2_group_name_update.php 
+skin/member/basic/memo2_group_update.php 
+skin/member/basic/memo2_list.skin.php 
+skin/member/basic/memo2_memo_address_book.skin.php 
+skin/member/basic/memo2_online.skin.php 
+skin/member/basic/memo2_view.skin.php 
+skin/member/basic/memo2_write.skin.php 
+http://opencode.co.kr/bbs/board.php?bo_table=memo4&wr_id=530
+ 
+- 그누보드 4.36.08
+lib/common.lib.php
+http://sir.co.kr/bbs/board.php?bo_table=g4_pds&wr_id=8052 
+    : 태그에 포함되지 않은 __EXPRESSION__ 속성이 변환되는 것을 방지
+* bbs/memo.php는 패치 안합니다. 그거는 이미 몇년전에 반영된 사항 입니다.
+ 
+- 신고횟수제한 안되는 오류, 신고해제 오류 수정
+bbs/singo_popin.php 
+bbs/unsingo_popin_update.php
+http://www.opencode.co.kr/bbs/board.php?bo_table=gnu4_pack_qna&wr_id=4555
+ 
+- 회원 정보보기에서 추천, 비추천 정보를 볼 수 있게 하기
+bbs/profile.php
+skin/member/basic/profile.skin.php
+ 
+- 회원정보 보기에서 가입일수에 콤마가 나오게 수정 (천일이 넘는 경우...)
+skin/member/basic/profile.skin.php
+ 
+- tail.sub.php를 단독으로 못 부르게 코드수정
+tail.sub.php
+ 
+- zmSpamFree에 날짜 정의 추가
+zmSpamFree/zmSpamFree.php
+ 
+- 그누보드 4.36.05 (우편번호만 변경된거라...지금 반영)
+bbs/zip.db
+    : 우편번호 2012.07.13.자 반영 52,017건
+ 
+- 다음위젯제거(다음이 위젯포기하는 듯...) github 로고와 링크추가
+head.php
+images/github_logo.jpg
+ 
+- 관리자 그룹 설정시 나오는 경고문
+common.php
+http://www.opencode.co.kr/bbs/board.php?bo_table=gnu4_pack_qna&wr_id=4541
+ 
+- 관리자 gd정보에서 jpeg 오류난거 수정 (jpeg이 되는데, 안된다고 거짓말을 했슴. 팁 개발자의 typo오류...ㅠ.ㅠ...)
+adm/gd_info.php
+
+
 1.1.08 (2012.09.25)
 
 bbs/view_comment.php 버젼에 상관없이 교체 요청 드립니다.
