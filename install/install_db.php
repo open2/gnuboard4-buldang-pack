@@ -315,7 +315,6 @@ $sql = " insert into $g4[member_table]
                 mb_name = '$admin_name',
                 mb_nick = '$admin_name',
                 mb_email = '$admin_email',
-                mb_jumin = PASSWORD('1111111111118'),
                 mb_level = '10',
                 mb_mailling = '1',
                 mb_open = '1',

@@ -216,7 +216,6 @@ $sql = " update $g4[config_table]
                 cf_memo_del             = '$cf_memo_del',
                 cf_visit_del            = '$cf_visit_del',
                 cf_popular_del          = '$cf_popular_del',
-                cf_use_jumin            = '$cf_use_jumin',
                 cf_member_icon_size     = '$cf_member_icon_size',
                 cf_member_icon_width    = '$cf_member_icon_width',
                 cf_member_icon_height   = '$cf_member_icon_height',

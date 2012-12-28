@@ -47,7 +47,7 @@ function member_delete($mb_id)
     // 회원자료는 정보만 없앤 후 아이디는 보관하여 다른 사람이 사용하지 못하도록 함 : 061025
     if ($mb[mb_level] >= 1) {
         $sql = " update $g4[member_table] 
-                    set mb_jumin = '',
+                    set 
                         mb_password = '',
                         mb_level = '1',
                         mb_email = '',
@@ -63,7 +63,6 @@ function member_delete($mb_id)
                         mb_signature = '',
                         mb_memo = '".date("Ymd",$g4['server_time'])." 삭제함\n\n$mb[mb_memo]',
                         mb_leave_date = '".date("Ymd",$g4['server_time'])."',
-                        mb_jumin='',
                         mb_profile='',
                         mb_memo_call='',
                         mb_memo_no_reply_text='',

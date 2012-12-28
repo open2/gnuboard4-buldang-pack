@@ -28,7 +28,6 @@ var member_skin_path = "<?=$member_skin_path?>";
 <form name=fregisterform id=fregisterform method=post onsubmit="return fregisterform_submit(this);" enctype="multipart/form-data" autocomplete="off">
 <input type=hidden name=w                id=w                   value="<?=$w?>">
 <input type=hidden name=url              id=url                 value="<?=$urlencode?>">
-<input type=hidden name=mb_jumin         id=mb_jumin            value="<?=$jumin?>">
 <input type=hidden name=mb_id_enabled    id="mb_id_enabled"     value="" >
 <input type=hidden name=mb_nick_enabled  id="mb_nick_enabled"   value="" >
 <input type=hidden name=mb_email_enabled id="mb_email_enabled"  value="" >
