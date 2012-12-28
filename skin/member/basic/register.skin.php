@@ -97,8 +97,8 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
            </td>
         </tr>
         <tr>
-            <td height=20 valign=top>&nbsp; <input type=checkbox value=1 name=agree4 id=agree4>&nbsp;<label for=agree4>동의합니다.</label>
-                ※ "동의" 하시는 경우 체크해 주세요.
+            <td height=20 valign=middle>&nbsp; <input type=checkbox value=1 name=agree4 id=agree4>&nbsp;<label for=agree4>동의합니다.</label>
+                ※ "동의" 하시는 경우에만 체크해 주세요.
             </td>
         </tr>
     </table>
