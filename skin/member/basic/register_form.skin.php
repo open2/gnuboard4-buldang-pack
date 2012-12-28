@@ -91,7 +91,7 @@ var member_skin_path = "<?=$member_skin_path?>";
             #passwordDescription {padding-left: 5px; display:block; } 
         </style>
 
-        <script language="javascript">
+        <script type="text/javascript">
         <!--
         function passwordStrength(password) { //이미지로 대체해서 글자는 나오지 않습니다.
                     var desc = new Array();
