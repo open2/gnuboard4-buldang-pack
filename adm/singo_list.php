@@ -140,6 +140,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     $wr_datetime = "";
     $singo_href = "";
 
+    $title = "";
+
     if ($row['sg_notes']) {
         $wr_subject = $row['sg_notes'];
     } else if ($row['bo_table'] == "@memo") {
@@ -183,6 +185,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
             $wr_subject = "[코] ".$parent_row[wr_subject];
             $wr_ip = $parent_row[wr_ip];
             $wr_datetime = $parent_row[wr_datetime];
+            
+            $title = strip_tags($write_row[wr_content]);
         } else {
             // wr_singo == 0, 신고해제가 되어 무효가 된 신고라는거. 신고해제는 원글에만 해당.
             if ($write_row[wr_singo] == 0)
@@ -208,7 +212,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         $singo_href = "<a href='$g4[bbs_path]/board.php?bo_table=$row[bo_table]&wr_id=$row[wr_id]' target='_blank'>";
 
         // 게시판 제목
-        $bo_subject = "<a href='./singo_list.php?sfl=bo_table&stx=$row[bo_table]'>" . cut_str($bo[bo_subject],30) . "</a>";
+        $bo_subject = "<a href='./singo_list.php?sfl=bo_table&stx=$row[bo_table]' title='$title'>" . cut_str($bo[bo_subject],30) . "</a>";
     } 
 
     // 닉을 누르면, 해당 닉의 모든게 검색되게 수정해 주시고
