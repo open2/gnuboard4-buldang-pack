@@ -68,7 +68,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 {
     // 게시판은 없어지고, 최신글만 남은 경우?
     if (trim($row[bo_table]) == "") {
-        $sql = " delete $g4[board_new] where bn_id = '$row[bn_id]' ";
+        $sql = " delete from $g4[board_new_table] where bn_id = '$row[bn_id]' ";
         sql_query($sql);
         continue;
     }
