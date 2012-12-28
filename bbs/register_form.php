@@ -47,40 +47,6 @@ if ($w == "") {
     if (!$_POST[agree2])
         alert("개인정보취급방침의 내용에 동의하셔야 회원가입 하실 수 있습니다.", "./register.php");
 
-    // 주민등록번호를 사용한다면 중복검사를 합니다.
-    /*
-    if ($config[cf_use_jumin]) {
-        $jumin = sql_password($mb_jumin);
-        $row = sql_fetch(" select mb_name from $g4[member_table] where mb_jumin = '$jumin' ");
-        if ($row[mb_name]) {
-            if ($row[mb_name] == $mb_name)
-                alert("이미 가입되어 있습니다.");
-            else
-                alert("다른 이름으로 같은 주민등록번호가 이미 가입되어 있습니다.\\n\\n관리자에게 문의해 주십시오.");
-        }
-
-        // 주민등록번호의 7번째 한자리 숫자
-        $y = substr($mb_jumin, 6, 1);
-
-        // 성별은 F, M 으로 나눈다.
-        // 주민등록번호의 7번째 자리가 홀수이면 남자(Male), 짝수이면 여자(Female)
-        $sex = $y % 2 == 0 ? "F" : "M";
-
-        // 생일은 8자리로 만든다 (나중에 검색을 편하게 하기 위함)
-        // 주민등록번호 앞자리를 그냥 생일로 사용함 ㅠㅠ
-        // 주민등록번호 7번째 자리를 따져서...
-        $birth = substr($mb_jumin, 0, 6);
-        if ($y == 9 || $y == 0) // 1800년대생 (계시려나?)
-            $birth = "18" . $birth;
-        else if ($y == 1 || $y == 2) // 1900년대생
-            $birth = "19" . $birth;
-        else if ($y == 3 || $y == 4) // 2000년대생
-            $birth = "20" . $birth;
-        else // 오류
-            $birth = "xx" . $birth;
-    }
-    */
-
     // 불당팩 - 회원그룹이 있는 경우 회원그룹의 유효성 검사
     if ($ug_id) {
         $ug = sql_fetch(" select * from $g4[user_group_table] where ug_id = '$ug_id' ");

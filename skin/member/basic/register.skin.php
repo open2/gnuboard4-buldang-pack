@@ -12,27 +12,6 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     </tr>
     </table>
 
-    <? if ($config[cf_use_jumin]) { // 주민등록번호를 사용한다면 ?>
-    <!-- <table width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tr>
-            <td height=25></td>
-        </tr>
-        <tr>
-            <td bgcolor="#cccccc">
-                <table cellspacing=1 cellpadding=0 width=100% border=0>
-                <tr bgcolor="#ffffff"> 
-                    <td width="140" height=30>&nbsp;&nbsp;&nbsp;<b>이름</b></td>
-                    <td width="">&nbsp;&nbsp;&nbsp;<input name=mb_name itemname="이름" required minlength="2" nospace hangul class=ed></td>
-                </tr>
-                <tr bgcolor="#ffffff"> 
-                    <td height=30>&nbsp;&nbsp;&nbsp;<b>주민등록번호</b></td>
-                    <td>&nbsp;&nbsp;&nbsp;<input name=mb_jumin itemname="주민등록번호" required jumin minlength="13" maxlength=13 class=ed><font style="font-family:돋움; font-size:9pt; color:#66a2c8">&nbsp;&nbsp;※ 숫자 13자리 중간에 - 없이 입력하세요.</font></td>
-                </tr>
-                </table></td>
-        </tr>
-    </table> -->
-    <? } ?>
-
     <? if ($g4['member_suggest_join']) { // 추천+가입인증으로만 가입가능하게 ?>
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>

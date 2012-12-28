@@ -97,17 +97,6 @@ if ($w == '' || $w == 'u')
         $row = sql_fetch($sql);
         if ($row[cnt])
             alert("\'$mb_email\' 은(는) 이미 다른분이 사용중인 E-mail이므로 사용이 불가합니다.");
-
-        // 주민번호 확인 체크시 가입하고 바로 뒤로가기 하면 동일 주민번호로 다시 가입되는 버그 때문에 (letsgolee 님 09.06.16)
-        if ($config[cf_use_jumin]) {
-            $row = sql_fetch(" select mb_name from $g4[member_table] where mb_jumin = '$mb_jumin' ");
-            if ($row[mb_name]) {
-                if ($row[mb_name] == $mb_name)
-                    alert("이미 가입되어 있습니다.");
-                else
-                    alert("다른 이름으로 같은 주민등록번호가 이미 가입되어 있습니다.\\n\\n관리자에게 문의해 주십시오.");
-            }
-        }
     }
     else
     {
