@@ -309,9 +309,14 @@ include_once ("./admin.head.php");
         <?=help("분류와 분류 사이는 | 로 구분하세요. (예: 질문|답변) 첫자로 #은 입력하지 마세요. (예: #질문|#답변 [X])", -120)?>
         <br>
         <?
-        if ($w == "u") {
-            $sql = " SELECT distinct ca_name FROM $tmp_write_table ";
-            $result = sql_query($sql);
+        if ($w == "u" && $board[bo_use_category]) {
+            $sql = " select ca_name from $tmp_write_table ";
+            $sql_tmp = " create TEMPORARY table list_tmp as $sql ";
+            $sql_ord = " select distinct ca_name from list_tmp ";
+            @mysql_query($sql_tmp) or die("<p>$sql_tmp<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : $_SERVER[PHP_SELF]");
+            $result = @mysql_query($sql_ord) or die("<p>$sql_ord<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : $_SERVER[PHP_SELF]");
+            //$sql = " SELECT distinct ca_name FROM $tmp_write_table ";
+            //$result = sql_query($sql);
             $ca_list = "";
             $ca_list_num = mysql_num_rows($result);
             while ($row=sql_fetch_array($result)) {
