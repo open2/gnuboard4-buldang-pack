@@ -16,7 +16,7 @@ if ($mail) {
     check_token();
 
     $from_name  = "메일검사";
-    $from_email = "mail@mail";
+    $from_email = "$member[mb_email]";
 
     $email = explode(",", $mail);
     for ($i=0; $i<count($email); $i++)
