@@ -307,30 +307,24 @@ include_once ("./admin.head.php");
     <td><input type=text class=ed name=bo_category_list style='width:80%;' value='<?=get_text($board[bo_category_list])?>'>
         <input type=checkbox name=bo_use_category value='1' <?=$board[bo_use_category]?'checked':'';?>><b>사용</b>
         <?=help("분류와 분류 사이는 | 로 구분하세요. (예: 질문|답변) 첫자로 #은 입력하지 마세요. (예: #질문|#답변 [X])", -120)?>
-        <br>
-        <?
-        if ($w == "u" && $board[bo_use_category]) {
-            $sql = " select ca_name from $tmp_write_table ";
-            $sql_tmp = " create TEMPORARY table list_tmp as $sql ";
-            $sql_ord = " select distinct ca_name from list_tmp ";
-            @mysql_query($sql_tmp) or die("<p>$sql_tmp<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : $_SERVER[PHP_SELF]");
-            $result = @mysql_query($sql_ord) or die("<p>$sql_ord<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : $_SERVER[PHP_SELF]");
-            //$sql = " SELECT distinct ca_name FROM $tmp_write_table ";
-            //$result = sql_query($sql);
-            $ca_list = "";
-            $ca_list_num = mysql_num_rows($result);
-            while ($row=sql_fetch_array($result)) {
-                $ca_list .= $row[ca_name] . "|";
-            }
-            if ($ca_list == "|")
-                echo "ca_name에 값이 없습니다";
-            else {
-                echo "ca_name 목록에 {$ca_list_num}건이 있습니다. 건수가 많은 경우 직접 DB에서 select 하시기 바랍니다.<br>";
-                echo "$sql<br>";
-                echo cut_str($ca_list,128);
-            }
+        <br><a href='javascript:;' onclick='board_form_category();'>카테고리힌트생성</a> <span id="bo_category_hint"></span>
+        <script type="text/javascript">
+        function board_form_category() {
+            $.ajax({
+                type: 'POST',
+                url: 'board_form_category.php',
+                data: {
+                    'bo_table': '<?=$bo_table?>'
+                },
+                cache: false,
+                async: false,
+                success: function(result) {
+                    var msg = $('#bo_category_hint');
+                    msg.html( result );
+                }
+            });
         }
-        ?>
+        </script>
     </td>
 </tr>
 
