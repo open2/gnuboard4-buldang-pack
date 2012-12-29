@@ -7,6 +7,10 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 if (!$member[mb_id])
     alert("회원만 이용하실 수 있습니다.");
 
+// $me_from_kind가 없는 경우가 있다...
+if ($me_from_kind == "")
+    alert("해당 쪽지는 삭제취소를 할 수 없습니다", "./memo.php?kind=trash");
+
 // 해당 게시글이 존재하는지 여부를 확인
 $sql = " select * from $g4[memo_trash_table] where me_id = '$me_id' and me_from_kind = '$me_from_kind' ";
 $result = sql_fetch($sql);
