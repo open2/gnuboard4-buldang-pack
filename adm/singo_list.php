@@ -177,7 +177,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         // 게시글 신고
         $write_table = $g4['write_prefix'].$row[bo_table];
         $bo = get_board($row[bo_table], "bo_subject");
-        $sql = " select wr_subject, wr_ip, wr_is_comment, wr_parent, wr_datetime, wr_singo from $write_table where wr_id = '$row[wr_id]' ";
+        $sql = " select wr_subject, wr_content, wr_ip, wr_is_comment, wr_parent, wr_datetime, wr_singo from $write_table where wr_id = '$row[wr_id]' ";
         $write_row = sql_fetch($sql);
         if ($write_row[wr_is_comment]) {
             $sql = " select wr_subject, wr_ip, wr_datetime from $write_table where wr_id = '$write_row[wr_parent]' ";
