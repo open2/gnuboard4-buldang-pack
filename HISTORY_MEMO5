@@ -1,3 +1,21 @@
+2.0.5 - 2012년 12월 30일
+
+현재 사용자들에게는 큰 상관없는 패치 입니다. 정밀한 수정은 아니고... 대충...
+ 
+bbs/memo.php
+bbs/memo2_form_recover.php
+ 
+skin/member/basic/memo2.list.skin.php
+ 
+ 
+- 테이블 /td 누락
+skin/member/basic/memo2.list.skin.php
+ 
+- 삭제된 쪽지함에 부적절 데이터가 있는 경우
+bbs/memo.php
+bbs/memo2_form_recover.php
+
+
 2.0.4 - 2012년 12월 16일
 
 그누 기본쪽지의 발신이 있는 경우 삭제오류가 있습니다. 

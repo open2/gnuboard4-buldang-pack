@@ -141,7 +141,7 @@
         $msg .= "<li>보관안된 쪽지는 " . $config['cf_memo_del'] . "일 후 삭제되므로 중요한 쪽지는 보관하시기 바랍니다.";
     }
     if ($msg !== "")
-        echo "<tr><td colspan=6 align=left><ul>$msg</ul><td></tr>";
+        echo "<tr><td colspan=6 align=left><ul>$msg</ul></td></tr>";
     ?>
     </tfoot>
 </table>

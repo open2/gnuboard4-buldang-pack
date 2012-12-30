@@ -474,7 +474,7 @@ break;
         $view[del_href] = "./memo2_form_delete.php?me_id=$me_id&kind=$kind";
         $view[cancel_href] = "./memo2_form_cancel.php?me_id=$me_id&kind=$kind";
         
-        if ($kind == "trash")
+        if ($kind == "trash" && $view[me_from_kind] !== "")
             $view[recover_href] = "./memo2_form_recover.php?me_id=$me_id&me_from_kind=$view[me_from_kind]";
             
         if ($before_id) 
@@ -724,8 +724,12 @@ break;
                 $list[$i][subject] = strip_tags($row[me_subject]);
             
             // 휴지통의 경우에는 게시글의 출처를 표시
-            if ($kind == "trash")
-                $list[$i][subject] = "[" . $row[me_from_kind] . "] " . $list[$i][subject];
+            if ($kind == "trash") {
+                if ($row[me_from_kind])
+                    $list[$i][subject] = "[" . $row[me_from_kind] . "] " . $list[$i][subject];
+                else
+                    $list[$i][subject] = $list[$i][subject];
+            }
     
             $list[$i][read_datetime] = $read_datetime;
             $list[$i][send_datetime] = $send_datetime;
