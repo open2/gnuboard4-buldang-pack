@@ -325,10 +325,10 @@ include_once ("./admin.head.php");
     <td><input type=text class=ed name='cf_search_color' size='10' required itemname='검색 글자 색상' value='<?=$config[cf_search_color]?>'></td>
 </tr>
 <tr class='ht'>
-    <td>새로운 글쓰기</td>
-    <td><input type=text class=ed name='cf_delay_sec' size='10' required itemname='새로운 글쓰기' value='<?=$config[cf_delay_sec]?>'> 초 지난후 가능</td>
     <td>페이지 표시 수</td>
     <td><input type=text class=ed name='cf_write_pages' size='10' required itemname='페이지 표시 수' value='<?=$config[cf_write_pages]?>'> 페이지씩 표시</td>
+    <td></td>
+    <td></td>
 </tr>
 <tr class='ht'>
     <td>이미지 업로드 확장자</td>
@@ -349,6 +349,26 @@ include_once ("./admin.head.php");
     <td>단어 필터링
         <?=help("입력된 단어가 포함된 내용은 게시할 수 없습니다.\n\n단어와 단어 사이는 ,로 구분합니다.")?></td>
     <td colspan=3><textarea class=ed name='cf_filter' rows='7' style='width:99%;word-break:break-all;'><?=$config[cf_filter]?> </textarea></td>
+</tr>
+<tr><td colspan=4 class=line2></td></tr>
+<tr><td colspan=4 class=ht></td></tr>
+
+
+<tr class='ht'>
+    <td colspan=4 align=left><?=subtitle("글쓰기제한 설정")?></td>
+</tr>
+<tr><td colspan=4 class=line1></td></tr>
+<tr class='ht'>
+    <td>새로운 글쓰기</td>
+    <td><input type=text class=ed name='cf_delay_sec' size='10' required itemname='새로운 글쓰기' value='<?=$config[cf_delay_sec]?>'> 초 지난후 가능</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr class='ht'>
+    <td>글쓰기제한 해제 레벨</td>
+    <td><? echo get_member_level_select('cf_delay_sec', 1, 9, $config[cf_delay_sec]) ?> 레벨부터 제한 없슴</td>
+    <td>글쓰기제한 해제 포인트</td>
+    <td><input type=text class=ed name='cf_delay_point' size='10' required itemname='새로운 글쓰기 해제 포인트' value='<?=$config[cf_delay_point]?>'> 포인트부터 제한 없슴</td></td>
 </tr>
 <tr><td colspan=4 class=line2></td></tr>
 <tr><td colspan=4 class=ht></td></tr>
