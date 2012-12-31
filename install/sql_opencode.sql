@@ -15,10 +15,6 @@ ALTER TABLE `$g4[member_table]` ADD `mb_auth_count` TINYINT( 4 ) NOT NULL defaul
 ALTER TABLE `$g4[group_table]` ADD `gr_use_search` tinyint(4) NOT NULL default '0';
 ALTER TABLE `$g4[group_table]` ADD `gr_order_search` int(11) NOT NULL default '0';
 
-# 성별/생년월일을 사용할 것인지 여부 설정
-ALTER TABLE `$g4[config_table]` ADD `cf_use_sex` tinyint(4) NOT NULL default '0';
-ALTER TABLE `$g4[config_table]` ADD `cf_use_birthdate` tinyint(4) NOT NULL default '0';
-
 # 최신글 게시판 확장
 ALTER TABLE `$g4[board_new_table]` ADD `wr_option` set('html1','html2','secret','mail') NOT NULL,
   ADD `parent_mb_id` varchar(20) NOT NULL,
@@ -302,10 +298,6 @@ CREATE TABLE `$g4[singo_table]` (
 
 ALTER TABLE `$g4[board_table]` ADD `bo_singo` TINYINT NOT NULL;
 
-ALTER TABLE `$g4[config_table]` ADD `cf_singo_intercept_count` INT( 11 ) NOT NULL ,
-                        ADD `cf_singo_point` INT( 11 ) NOT NULL ,
-                        ADD `cf_singo_today_count` INT( 11 ) NOT NULL ;
-
 # 내가 방문한 게시판
 DROP TABLE IF EXISTS `$g4[my_board_table]`;
 CREATE TABLE `$g4[my_board_table]` (
@@ -523,10 +515,6 @@ CREATE TABLE `$g4[board_file_download_table]` (
 
 # pre37 - 쪽지 4, g4_memo라는 view를 만들기 (MySQL 5.x부터 view가 있답니다 ㅠ..ㅠ...)
 # CREATE VIEW $g4[memo_table] AS SELECT * FROM $g4[memo_table]_recv ;
-
-# pre37 - 신고한 사람/신고된 사람의 포인트 차감
-ALTER TABLE `$g4[config_table]` ADD `cf_singo_point_send` INT( 11 ) NOT NULL AFTER `cf_singo_point` ,
-ADD `cf_singo_point_recv` INT( 11 ) NOT NULL AFTER `cf_singo_point_send` ;
 
 # 쪽지4 - 신규 테이블 (설정 - 4.0.23에서 변경됨)
 DROP TABLE IF EXISTS `$g4[memo_config_table]`;
