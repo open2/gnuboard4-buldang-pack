@@ -213,13 +213,13 @@ if ($stx)
 ?>
 </form>
 
-<script language="JavaScript">
+<script type="text/javascript">
 function board_copy(bo_table) {
     window.open("./board_copy.php?bo_table="+bo_table, "BoardCopy", "left=10,top=10,width=500,height=350");
 }
 </script>
 
-<script>
+<script type="text/javascript">
 // POST 방식으로 삭제
 function post_delete(action_url, val)
 {
