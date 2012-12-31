@@ -653,6 +653,13 @@ if ($gr_id && $bo_table)
 if ($g4['use_geo_ip'])
     $geoip = ipaddress_to_country_code($_SERVER['REMOTE_ADDR']);
 
+// 글쓰기제한
+$is_delay = false;
+if ($member['mb_level'] > 1) {
+    if ($member['mb_level'] >= $config['cf_delay_level'] || $member['mb_point'] >= $config['cf_delay_point'] || $is_admin)
+        $is_delay = true;
+}
+
 // 불당팩 - 추가적인 개별 변수설정을 위해
 include_once("$g4[path]/config.2.php");  // 설정 파일
 ?>

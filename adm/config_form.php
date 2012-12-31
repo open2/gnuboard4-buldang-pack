@@ -366,7 +366,7 @@ include_once ("./admin.head.php");
 </tr>
 <tr class='ht'>
     <td>글쓰기제한 해제 레벨</td>
-    <td><? echo get_member_level_select('cf_delay_sec', 1, 9, $config[cf_delay_sec]) ?> 레벨부터 제한 없슴</td>
+    <td><? echo get_member_level_select('cf_delay_level', 2, 9, $config[cf_delay_level]) ?> 레벨부터 제한 없슴</td>
     <td>글쓰기제한 해제 포인트</td>
     <td><input type=text class=ed name='cf_delay_point' size='10' required itemname='새로운 글쓰기 해제 포인트' value='<?=$config[cf_delay_point]?>'> 포인트부터 제한 없슴</td></td>
 </tr>

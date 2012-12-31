@@ -183,7 +183,7 @@ else if ($w == "r")
 
 if ($w == "" || $w == "r") 
 {
-    if ($_SESSION["ss_datetime"] >= ($g4[server_time] - $config[cf_delay_sec]) && !$is_admin) 
+    if ($_SESSION["ss_datetime"] >= ($g4[server_time] - $config[cf_delay_sec]) && !$is_delay) 
         alert("너무 빠른 시간내에 게시물을 연속해서 올릴 수 없습니다.", $goto_url);
 
     set_session("ss_datetime", $g4[server_time]);

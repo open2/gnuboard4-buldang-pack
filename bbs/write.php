@@ -48,13 +48,13 @@ if ($w == "" && $board[bo_realcheck] && !$is_admin) {
 if ($w == "" || $w == "r") 
 {
     $delay = $_SESSION["ss_datetime2"] - $g4[server_time] + $config[cf_delay_sec];
-    if ($delay > 0 && !$is_admin) 
+    if ($delay > 0 && !$is_delay) 
         alert("너무 빠른 시간내에 게시물을 연속해서 올릴 수 없습니다.");
 
     set_session("ss_datetime2", $g4[server_time]);
     
     // 하나의 아이디로 세션을 다르게 하는 넘들을 위해서 쿠키도 같이 씁니다.
-    if (get_cookie("ck_datetime2") >= ($g4[server_time] - $config[cf_delay_sec]) && !$is_admin) 
+    if (get_cookie("ck_datetime2") >= ($g4[server_time] - $config[cf_delay_sec]) && !$is_delay) 
         alert("너무 빠른 시간내에 게시물을 연속해서 올릴 수 없습니다.");
 
     set_cookie("ck_datetime2", "$g4[server_time]", 86400) ;
