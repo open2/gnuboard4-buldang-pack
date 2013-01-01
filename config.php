@@ -235,6 +235,10 @@ $g4['keyword_seo'] = 1;
 // true이면, SQL 오류를 출력, fasle로 바꾸면 모든 SQL 오류가 출력 안됨
 $g4['debug'] = true;
 
+// 별명으로만 가입을 허용하기
+$g4['nick_reg_only'] = 1;
+
+
 // 유니크로 - 유니크로 게시판을 쓰는 경우에만 아래의 주석을 풀어주세요.
 //$g4['unicro_item_table']    = $g4['table_prefix'] . "unicro_item"; // 유니크로 아이템 테이블 
 //$g4['unicro_url']           = "unicro" . $g4['cookie_domain'];

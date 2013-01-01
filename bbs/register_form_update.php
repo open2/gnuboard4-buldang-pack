@@ -40,11 +40,17 @@ if ($config[cf_use_norobot]) {
 
 $mb_id = trim(strip_tags(mysql_real_escape_string($_POST[mb_id])));
 $mb_password = trim(mysql_real_escape_string($_POST[mb_password]));
-$mb_name = trim(strip_tags(mysql_real_escape_string($_POST[mb_name])));
 $mb_nick = trim(strip_tags(mysql_real_escape_string($_POST[mb_nick])));
 $mb_email = trim(strip_tags(mysql_real_escape_string($_POST[mb_email])));
 $mb_homepage = trim(strip_tags(mysql_real_escape_string($_POST[mb_homepage])));
 $ug_id = trim(strip_tags(mysql_real_escape_string($_POST[ug_id])));
+
+// 닉네임으로 가입하는 경우, $mb_name = $mb_knick
+if ($g4['nick_reg_only'] !== 1) {
+    $mb_name = trim(strip_tags(mysql_real_escape_string($_POST[mb_name])));
+} else {
+    $mb_name = $mb_nick;
+}
 
 if ($w == '' || $w == 'u') 
 {
@@ -61,8 +67,10 @@ if ($w == '' || $w == 'u')
         alert("\'$mb_nick\' 은(는) 예약어로 사용하실 수 없는 별명입니다.");
 
     // 이름은 한글만 가능
-    if (!check_string($mb_name, _G4_HANGUL_  + _G4_ALPHABETIC_ )) 
-        alert('이름은 공백없이 한글 또는 영문만 입력 가능합니다.');
+    if ($g4['nick_reg_only'] !== 1) {
+        if (!check_string($mb_name, _G4_HANGUL_  + _G4_ALPHABETIC_ )) 
+            alert('이름은 공백없이 한글 또는 영문만 입력 가능합니다.');
+    }
 
     // 별명은 한글, 영문, 숫자만 가능
     if (!check_string($mb_nick, _G4_HANGUL_ + _G4_ALPHABETIC_ + _G4_NUMERIC_))

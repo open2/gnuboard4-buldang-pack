@@ -43,8 +43,10 @@ var member_skin_path = "<?=$member_skin_path?>";
 <tr>
     <td bgcolor="#CCCCCC">
         <TABLE cellSpacing=1 cellPadding=0 width=100%>
+        <col width=160>
+        <col>
         <TR bgcolor="#FFFFFF">
-            <TD width="160" class=m_title>아이디</TD>
+            <TD class=m_title>아이디</TD>
             <TD class=m_padding>
                 <input class=m_text maxlength=20 size=20 id='mb_id' name="mb_id" required style="ime-mode:disabled" value="<?=$member[mb_id]?>" <? if ($w=='u') { echo "readonly style='background-color:#dddddd;'"; } ?>
                     <? if ($w=='') { echo "onblur='reg_mb_id_check()'"; } ?>>
@@ -147,8 +149,11 @@ var member_skin_path = "<?=$member_skin_path?>";
 <tr>
     <td bgcolor="#CCCCCC">
         <TABLE cellSpacing=1 cellPadding=0 width=100%>
+        <col width=160>
+        <col>
+        <? if ($g4['nick_reg_only'] !== 1) { ?>
         <TR bgcolor="#FFFFFF">
-            <TD width="160" class=m_title>이름</TD>
+            <TD class=m_title>이름</TD>
             <TD class=m_padding>
                 <input name=mb_name id=mb_name required itemname="이름" value="<?=$member[mb_name]?>" <?=$member[mb_name]?"readonly class=m_text2":"class=m_text";?>
                 <? if ($w=='') { echo "onblur='reg_mb_name_check()'"; } ?>>
@@ -161,6 +166,7 @@ var member_skin_path = "<?=$member_skin_path?>";
                 <? } ?>
             </TD>
         </TR>
+        <? } ?>
 
         <? if ($member[mb_nick_date] <= date("Y-m-d", $g4[server_time] - ($config[cf_nick_modify] * 86400))) { // 별명수정일이 지났다면 수정가능 ?>
         <input type=hidden name=mb_nick_default value='<?=$member[mb_nick]?>'>
@@ -529,6 +535,7 @@ function fregisterform_submit(f)
         }
     }
 
+    <? if ($g4['nick_reg_only'] !== 1) { ?>
     // 이름 검사
     if (f.w.value == "") {
 
@@ -540,6 +547,7 @@ function fregisterform_submit(f)
             return false;
         }
     }
+    <? } ?>
 
     // 별명 검사
     if ((f.w.value == "") ||
