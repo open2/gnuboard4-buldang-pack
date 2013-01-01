@@ -38,7 +38,7 @@ if ($g4[layout_skin] !== "naver")
               echo " <a href=\"{$list[$i][comment_href]}\" onfocus=\"this.blur()\"><span style='font-family:µ¸¿ò; font-size:8pt; color:#9A9A9A;'>{$list[$i][comment_cnt]}</span></a> ";
 
           if ($list[$i][icon_reply])
-              echo $list[$i][icon_reply] . " ";
+              echo "<span style='float:left'>" . $list[$i][icon_reply] . "</span>";
 
           echo "<a href='{$list[$i][href]}' onfocus='this.blur()' title='{$list_title}' {$target_link}>";
           if ($list[$i][is_notice])
