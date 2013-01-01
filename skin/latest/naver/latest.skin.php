@@ -27,7 +27,7 @@ if ($g4[layout_skin] !== "naver")
           echo "<li><span class='bu'></span> ";
 
           if ($list[$i][icon_secret])
-              echo "<img src='$latest_skin_path/img/icon_secret.gif' alt='secret' align=absmiddle> ";
+              echo "<span style='float:left'>" . "<img src='$latest_skin_path/img/icon_secret.gif' alt='secret' align=absmiddle> " . "</span>";
 
           if ($list[$i][bo_name])
               $list_title = $list[$i][bo_name] . " : " . $list[$i][subject] . " (". $list[$i][datetime] . ")" ;
@@ -48,7 +48,7 @@ if ($g4[layout_skin] !== "naver")
           echo "</a>";
 
           if ($list[$i][icon_new])
-              echo " " . $list[$i][icon_new];
+              echo " " . "<span style='float:left'>" . $list[$i][icon_new] . "</span>";
 
           echo "</li>";
       }
