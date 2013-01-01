@@ -218,7 +218,7 @@ if ($board[bo_image_max_size] && $view[wr_imagesize] > 0 && $view[wr_imagesize] 
 
 
 // 불당팩 - 게시글주소
-$posting_url = "$g4[url]/board.php?bo_table=$bo_table&wr_id=$wr_id";
+$posting_url = "$g4[url]/$g4[bbs]/board.php?bo_table=$bo_table&wr_id=$wr_id";
 
 $is_signature = false;
 $signature = "";
