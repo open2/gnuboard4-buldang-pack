@@ -62,7 +62,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
             <td align="center" valign="top"><textarea style="width: 98%" rows=5 readonly class=ed><?=get_text($config[cf_stipulation])?></textarea></td>
         </tr>
         <tr> 
-            <td height=20 valign=top>&nbsp; <input type=checkbox value=1 name=agree id=agree>&nbsp;<label for=agree>동의합니다.</label>
+            <td align="left" style="padding-left:190px;" height=20 valign=top><input type=checkbox value=1 name=agree id=agree>&nbsp;<label for=agree>동의합니다.</label>
             <input type=checkbox value=1 name=agree_no0 id=agree_no0 onClick="this.checked=false;history.go(-1);">&nbsp;<label for=agree_no0>동의하지 않습니다.</label>
             </td>
         </tr>
@@ -84,7 +84,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
             </td>
         </tr>
         <tr>
-            <td colspan=3 height=20 valign=top>&nbsp; <input type=checkbox value=1 name=agree2 id=agree2>&nbsp;<label for=agree2>동의합니다.</label>
+            <td colspan=3 align="left" style="padding-left:190px;" height=20 valign=top><input type=checkbox value=1 name=agree2 id=agree2>&nbsp;<label for=agree2>동의합니다.</label>
                <input type=checkbox value=1 name=agree_no2 id=agree_no2 onClick="this.checked=false;history.go(-1);">&nbsp;<label for=agree_no2>동의하지 않습니다.</label>
             </td>
         </tr>
@@ -97,8 +97,8 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
            </td>
         </tr>
         <tr>
-            <td height=20 valign=middle>&nbsp; <input type=checkbox value=1 name=agree4 id=agree4>&nbsp;<label for=agree4>동의합니다.</label>
-                ※ "동의" 하시는 경우에만 체크해 주세요.
+            <td height=20 align="left" style="padding-left:190px;" valign=middle><input type=checkbox value=1 name=agree4 id=agree4>&nbsp;<label for=agree4>동의합니다.</label>
+                ※ "동의" 하시면 체크해 주세요.
             </td>
         </tr>
     </table>
