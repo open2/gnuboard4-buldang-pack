@@ -1,3 +1,135 @@
+1.1.10 (2013.01.02)
+
+별명으로만 가입하는 기능을 추가 했습니다.
+사이트 운영시 기본으로 별명 가입만 쓰시면 됩니다.
+실명 사이트의 경우 별명난에 실명을 쓰라고 label만 수정하시면 됩니다.
+기존 데이터의 변경은 update g4_member set mb_name = mb_nick 이렇게 맞추면 되구요.
+굳이 이름... 수집하지 않는게 좋습니다.
+ 
+네이버 연관검색어 함수 추가했고, 다음 소셜픽도 넣었습니다.
+ 
+DB 변경이 있습니다. 
+g4_config 테이블의 변경이므로 다음처럼 하셔야 합니다.
+ 
+1. DB를 업글 (adm/upgrade_bd.php를 실행 또는 아래의 SQL을 실행)
+2. common.php를 업글
+3. 관리자의 환경설정에서 글쓰기제한 설정을 변경 (레벨 3 또는 회원가입시 포인트의 2배 정도면 적당)
+ 
+ALTER TABLE `g4_config` ADD `cf_delay_level` TINYINT( 4 ) NOT NULL ,
+ADD `cf_delay_point` INT( 11 ) NOT NULL 
+ 
+그외에 자잘한 오류들 수정했습니다.
+ 
+ 
+config.php
+common.php
+ 
+adm/admin.lib.php
+adm/board_form.php
+adm/board_form_category.php
+adm/board_list.php
+adm/config_form.php
+adm/config_form_update.php
+adm/singo_list.php
+adm/upgrade_bd.php
+ 
+bbs/memo.php
+bbs/memo2_form_recover.php
+bbs/new.php
+bbs/register_form.php
+bbs/register_form_update.php
+bbs/write.php
+bbs/write_update.php
+bbs/write_comment_update.php
+ 
+nstall/install_db.php
+install/sql_gnuboard4.sql
+install/sql_opencode.sql
+ 
+lib/daum.lib.php
+lib/naver.lib.php
+ 
+skin/latest/naver/latest.skin.php
+ 
+skin/member/basic/memo2.list.skin.php
+skin/member/basic/register.skin.php
+skin/member/basic/register_form.skin.php
+ 
+ 
+- 네이버 최신글 span을 넣어서 Re 이미지 뒤에 줄바꿈 되는 오류 수정
+skin/latest/naver/latest.skin.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/761736b00dbfcb9080e15876b3510f590edf471e
+ 
+- 이름/별명으로만 가입하기 
+config.php
+bbs/register_form_update.php
+skin/member/basic/register_form.skin.php
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=902
+ 
+- 연속글쓰기 제한 개선
+common.php
+adm/config_form.php
+adm/config_form_update.php
+adm/upgrade_bd.php
+bbs/write.php
+bbs/write_update.php
+bbs/write_comment_update.php
+install/install_db.php
+install/sql_gnuboard4.sql
+install/sql_opencode.sql
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=906
+ 
+ 
+- 사소한 수정
+adm/board_list.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/ac3133698bbf40501959b134a8206ac3523ad6b1
+ 
+- 네이버 인기검색어 등
+lib/naver.lib.php
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=905
+ 
+- 다음 소셜픽
+lib/daum.lib.php
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=904
+ 
+- 쪽지 5 - 2.0.5
+bbs/memo.php
+bbs/memo2_form_recover.php
+skin/member/basic/memo2.list.skin.php
+http://opencode.co.kr/bbs/board.php?bo_table=memo4&wr_id=563
+ 
+- 신고목록에서 코멘트의 경우 내용을 볼 수 있게
+adm/singo_list.php
+http://www.opencode.co.kr/bbs/board.php?bo_table=gnu4_pack_qna&wr_id=4640&mnb=&snb=
+ 
+- sendmail test 프로그램 발신자 수정
+adm/sendmail_test.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/971472eed62ec663c034f061ca95e4c446538eac
+ 
+- 회원가입화면 style 수정
+skin/member/basic/register.skin.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/7f3263225662f22d88b01005d3f78f1e917671bf
+ 
+- 게시판 관리 페이지 여는게 너무 늦음
+adm/board_form.php
+adm/board_form_category.php
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=903
+http://www.opencode.co.kr/bbs/board.php?bo_table=gnu4_pack_qna&wr_id=4634
+ 
+- 주민번호 관련 코드 삭제
+adm/admin.lib.php
+adm/config_form_update.php
+bbs/register_form.php
+bbs/register_form_update.php
+install/install_db.php
+skin/member/basic/register.skin.php
+skin/member/basic/register_form.skin.php
+ 
+- 최신글 오류
+bbs/new.php
+http://www.opencode.co.kr/bbs/board.php?bo_table=gnu4_pack_req&wr_id=1443
+
+
 1.1.09 (2012.12.21)
 
 1.1.08버젼 이후에 opencode를 테스트 하면서 나오는 버그와 사소한 수정 사항들을 업글하는 것 입니다.
