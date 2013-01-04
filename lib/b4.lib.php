@@ -540,7 +540,19 @@ function memo4_send($me_recv_mb_id, $me_send_mb_id, $me_memo, $me_subject, $me_o
         $sql = " insert into $g4[memo_send_table]
                         ( me_id,  me_recv_mb_id, me_send_mb_id, me_send_datetime, me_memo, me_subject, memo_type, memo_owner, me_file_local, me_file_server, me_option )
                  values ( $me_id,  '$me_recv_mb_id', '$me_send_mb_id', '$g4[time_ymdhis]', '$me_memo', '$me_subject', 'send', '$me_send_mb_id', '', '', '$me_option' ) ";
-        sql_query($sql);
+        $result = @sql_query($sql);
+
+        // 중복 오류가나오면? - index를 +10 시켜준다. 그정도면 충분.
+        if ( !$result ) {
+            $sql = " update $g4[memo_recv_table] set me_id = me_id + 10 where me_id = '$me_id' ";
+            sql_query($sql);
+
+            // 쪽지 INSERT (발신함 - me_id는 발신함의 me_id와 동일하게 유지)
+            $sql = " insert into $g4[memo_send_table]
+                            ( me_id,  me_recv_mb_id, me_send_mb_id, me_send_datetime, me_memo, me_subject, memo_type, memo_owner, me_file_local, me_file_server, me_option )
+                     values ( $me_id,  '$me_recv_mb_id', '$me_send_mb_id', '$g4[time_ymdhis]', '$me_memo', '$me_subject', 'send', '$me_send_mb_id', '', '', '$me_option' ) ";
+            $result = @sql_query($sql);
+        }
 
         // 첨부파일 정보 업데이트
         $sql = " update $g4[memo_recv_table]
