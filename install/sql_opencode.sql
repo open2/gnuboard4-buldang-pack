@@ -331,10 +331,6 @@ CREATE TABLE `$g4[user_group_table]` (
 ALTER TABLE `$g4[member_table]` ADD `ug_id` VARCHAR( 10 ) NOT NULL ;
 
 # 핸드폰 인증
-ALTER TABLE `$g4[config_table]` ADD `cf_hp_certify` TINYINT( 4 ) NOT NULL ,
-ADD `cf_hp_certify_message` VARCHAR( 255 ) NOT NULL ,
-ADD `cf_hp_certify_return` VARCHAR( 20 ) NOT NULL ;
-
 ALTER TABLE `$g4[member_table]` ADD `mb_hp_certify_datetime` DATETIME NOT NULL ;
 
 # 스크랩
