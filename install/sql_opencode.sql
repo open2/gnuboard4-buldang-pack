@@ -339,10 +339,6 @@ ADD `ms_memo` TEXT NOT NULL ,
 ADD `wr_mb_id` VARCHAR( 255 ) NOT NULL ,
 ADD `wr_subject` VARCHAR( 255 ) NOT NULL ;
 
-# sms4
-ALTER TABLE `$g4[config_table]` ADD `cf_sms4_member` TINYINT NOT NULL ,
-ADD `cf_sms4_level` TINYINT NOT NULL ;
-
 # 투표하기 
 ALTER TABLE `$g4[poll_table]` ADD `po_skin` VARCHAR( 255 ) NOT NULL ;
 ALTER TABLE `$g4[poll_table]` ADD `po_end_date` DATE NOT NULL ; 
@@ -378,9 +374,6 @@ ALTER TABLE `$g4[visit_table]` CHANGE `vi_id` `vi_id` INT( 11 ) NOT NULL AUTO_IN
 
 # 관리자님 신고기능 
 ALTER TABLE `$g4[board_table]` ADD `bo_singo_action` TINYINT( 4 ) NOT NULL AFTER `bo_singo` ;
-
-# pre31 - 오래된 글에 코멘트 달때 포인트 안주기
-ALTER TABLE `$g4[config_table]` ADD `cf_no_comment_point_days` INT( 11 ) NOT NULL ;
 
 # pre32 - 인기글 출력 관리
 ALTER TABLE `$g4[board_table]` ADD `bo_popular` TINYINT( 4 ) NOT NULL ;
@@ -425,7 +418,6 @@ ALTER TABLE `$g4[popular_table]` ADD INDEX `pp_word_idx` ( `pp_word` ) ;
 ALTER TABLE `$g4[board_table]` ADD `bo_move_bo_table` VARCHAR( 20 ) NOT NULL ;
 
 # pre36 - 00일후 개인정보(비밀번호) 변경하게 하기
-ALTER TABLE `$g4[config_table]` ADD `cf_password_change_dates` INT( 11 ) NOT NULL ;
 ALTER TABLE `$g4[member_table]` ADD `mb_password_change_datetime` DATETIME NOT NULL ;
 
 # pre36 - 지속적으로 비번이 틀리는 ip를 블럭하기
@@ -437,10 +429,6 @@ CREATE TABLE `$g4[login_fail_log_table]` (
 `log_datetime` DATETIME NOT NULL ,
 `log_url` VARCHAR( 255 ) NOT NULL 
 );
-
-ALTER TABLE `$g4[config_table]` 
-ADD `cf_retry_time_interval` INT( 11 ) NOT NULL ,
-ADD `cf_retry_count` INT( 11 ) NOT NULL ;
 
 # pre36 - gr_id를 10자리에서 20자리로 늘리기
 ALTER TABLE `$g4[board_table]` CHANGE `gr_id` `gr_id` VARCHAR( 20 ) ;
@@ -458,10 +446,6 @@ CREATE TABLE `$g4[config_reg_table]` (
 `cf_privacy_3` TEXT NOT NULL ,
 `cf_privacy_4` TEXT NOT NULL 
 );
-
-ALTER TABLE `$g4[config_table]`
-  DROP `cf_stipulation`,
-  DROP `cf_privacy`;
 
 ## pre36 - 포인트 백업 테이블
 
@@ -578,9 +562,6 @@ ALTER TABLE `$g4[member_table]` ADD `mb_memo_no_reply_text` text NOT NULL AFTER 
 # pre37 - 게시판별 프린트 허용 레벨지정
 ALTER TABLE `$g4[board_table]` ADD `bo_print_level` TINYINT( 4 ) NOT NULL ;
 
-# pre37 - 중복로그인 방직
-ALTER TABLE `$g4[config_table]` ADD `cf_double_login` TINYINT( 4 ) NOT NULL ;
-
 # pre37 - 신고 게시판쓰기 제한
 ALTER TABLE `$g4[board_table]` ADD `bo_singo_nowrite` VARCHAR( 255 ) NOT NULL ;
 
@@ -601,11 +582,6 @@ ADD `bo_hot_list_basis` VARCHAR( 5 ) NOT NULL DEFAULT 'hit';
 
 # 1.0.6 - 쪽지4 출력설정
 ALTER TABLE `$g4[memo_config_table]` ADD `cf_memo_print` TINYINT( 4 ) NOT NULL ;
-
-# 1.0.8 - meta 정보
-ALTER TABLE `$g4[config_table]` ADD `cf_meta_author` VARCHAR( 255 ) NOT NULL ,
-ADD `cf_meta_keywords` VARCHAR( 255 ) NOT NULL ,
-ADD `cf_meta_description` VARCHAR( 255 ) NOT NULL ;
 
 # 1.0.8 - g4_login index 추가
 ALTER TABLE `$g4[login_table]` ADD INDEX `lo_datetime` ( `lo_datetime` ) ;
@@ -711,9 +687,6 @@ ALTER TABLE `$g4[member_table]` ADD `mb_memo_no_reply_datetime` DATETIME NOT NUL
 # 1.0.45 - 딴지걸기
 ALTER TABLE `$g4[hidden_comment_table]` ADD `co_mb_id` VARCHAR( 255 ) NOT NULL ;
 
-# 1.0.45 - 가입환영 쪽지
-ALTER TABLE `$g4[config_table]` ADD `cf_memo_mb_member` TINYINT( 4 ) NOT NULL ;
-
 # 1.0.45 - n일후 글쓰기 제한
 ALTER TABLE `$g4[board_table]` ADD `bo_comment_nowrite` TINYINT( 4 ) NOT NULL ;
 
@@ -723,14 +696,8 @@ ALTER TABLE `$g4[login_table]` ADD INDEX `mb_id` ( `mb_id` ) ;
 # 1.0.45 - 갤러리 게시판 설정 / 튜닝
 ALTER TABLE `$g4[board_table]` ADD `bo_gallery` TINYINT( 4 ) NOT NULL ;
 
-# 1.0.45 - 추천인 필수입력
-ALTER TABLE `$g4[config_table]` ADD `cf_req_recommend` TINYINT( 4 ) NOT NULL AFTER `cf_use_recommend` ;
-
 # 1.0.55 - 게시판 테이블의 최종 업데이트날짜 (게시글/코멘트가 등록된 날짜)
 ALTER TABLE `$g4[board_table]` ADD `bo_modify_datetime` DATETIME NOT NULL ;
-
-# 1.0.55 - db업데이트가 쉽게 config 테이블에 db 버젼정보를 추가 (코드 업글정보는 아니구요)
-ALTER TABLE `$g4[config_table]` ADD `cf_db_version` INT( 11 ) NOT NULL ;
 
 # 1.0.56 - db 튜닝
 ALTER TABLE `$g4[board_table]` ADD INDEX `gr_id` ( `gr_id` ) ;
@@ -745,8 +712,6 @@ ALTER TABLE `$g4[group_table]` ADD INDEX `gr_use_access` ( `gr_use_access` );
 #ALTER TABLE `$g4[member_table]` ADD INDEX `mb_open` ( `mb_open` ) ;
 
 # 1.0.64 - 휴지통기능
-ALTER TABLE `$g4[config_table]` ADD `cf_use_recycle` TINYINT( 4 ) NOT NULL , ADD `cf_recycle_table` VARCHAR( 255 ) NOT NULL ;
-ALTER TABLE `$g4[config_table]` ADD `cf_recycle_days` INT( 11 ) NOT NULL ;
 ALTER TABLE `$g4[board_table]` ADD `bo_use_recycle` TINYINT( 4 ) NOT NULL ;
 
 DROP TABLE IF EXISTS `$g4[recycle_table]`;
