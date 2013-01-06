@@ -46,7 +46,6 @@ if ($referer) {
     if ($query) {
         $sql = " insert $g4[seo_tag_table] (tag_name, tag_date, count, bo_table, wr_id) 
                  values ('$query', '$g4[time_ymd]', 1, '$bo_table', '$wr_id') ON DUPLICATE KEY update count = count+1 ";
-                  echo $sql;
         sql_query($sql);
     }
 }
