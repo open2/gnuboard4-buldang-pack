@@ -31,9 +31,9 @@ function naver_related($stx, $skin_dir="basic", $rows=10, $subject_len=16, $opti
     for ($i=0; $i<$rows;$i++) {
         $k = $i + 1;
         $item = $xml->item->$i; 
-
-        $list[$i]['subject'] = cut_str(iconv("UTF-8", $g4[charset], $item), $subject_len);
-        $list[$i]['href'] = "http://search.naver.com/search.naver?where=nexearch&query=" . urlencode($item) . "&sm=top_lve";
+        $item_i = iconv("UTF-8", $g4[charset], $item);
+        $list[$i]['subject'] = cut_str($item_i, $subject_len);
+        $list[$i]['href'] = "http://search.naver.com/search.naver?where=nexearch&query=" . urlencode($item_i) . "&sm=top_lve";
         //echo "<a href='" . $list[$i][href] . "' target=_blank'>" . $list[$i]['subject'] . "</a>";
     }
 
@@ -48,7 +48,7 @@ function naver_related($stx, $skin_dir="basic", $rows=10, $subject_len=16, $opti
 }
 
 // 네이버 인기검색어
-function naver_popular($skin_dir="basic", $rows=10, $options="") {
+function naver_popular($skin_dir="basic", $rows=10, $title="네이버 인기검색어", $options="") {
     global $g4;
 
     if ($skin_dir)
