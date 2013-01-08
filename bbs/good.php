@@ -20,8 +20,8 @@ $ss_name = "ss_view_{$bo_table}_{$wr_id}";
 if (!get_session($ss_name))
     alert_close("해당 게시물에서만 추천 또는 비추천 하실 수 있습니다.");
 
-$row = sql_fetch(" select count(*) as cnt from {$g4[write_prefix]}{$bo_table} ", FALSE);
-if (!$row[cnt])
+$row = sql_fetch(" select count(*) as cnt from $g4[board_table] where bo_table = '$bo_table' ", FALSE);
+if (!$row['cnt'])
     alert_close("존재하는 게시판이 아닙니다.");
 
 if ($good == "good" || $good == "nogood") 
