@@ -105,10 +105,11 @@ if ($good == "good" || $good == "nogood")
         else 
             $status = "비추천";
 
+        // 불당팩 - 추천이 성공적일 때 확장 프로그램 수행
+        @include_once("$board_skin_path/good.tail.skin.php");
+
         echo "<script type='text/javascript'> alert('이 글을 \'$status\' 하셨습니다.');</script>";
     }
 }
-
-@include_once("$board_skin_path/good.tail.skin.php");
 ?>
 <script type="text/javascript"> window.close(); </script>
