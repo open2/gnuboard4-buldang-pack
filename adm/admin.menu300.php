@@ -3,7 +3,9 @@ $menu["menu300"] = array (
     array("300000", "게시판관리", ""),
     array("300100", "게시판관리", "$g4[admin_path]/board_list.php"),
     array("300200", "게시판그룹관리", "$g4[admin_path]/boardgroup_list.php"),
-    array("300110", "게시판스킨목록", "$g4[admin_path]/board_skin.php"),
+    array("300210", "게시판스킨목록", "$g4[admin_path]/board_skin.php"),
+    array("-"),
+
     array("-"),
     array("300110", "최근글정렬", "$g4[admin_path]/board_new_sort.php"),
     array("300120", "최근글다시만들기", "$g4[admin_path]/board_new_rebuild.php"),
