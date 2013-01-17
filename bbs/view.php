@@ -151,7 +151,7 @@ else if (strstr($view[wr_option], "html2"))
     $html = 2;
 
 // 비밀글 - 남이 쓴 비밀글에 내 코멘트가 있을 때  
-if ($is_unlock_secret && strstr($view[wr_option], "secret") && $view['mb_id'] != $member['mb_id']) {
+if ($is_unlock_secret && strstr($view[wr_option], "secret") && $view['mb_id'] !== $member['mb_id']) {
     // 내용이 보이지 않게
     $view[rich_content] = $view[content] = $view[content1] = "<font color=red><b>타인이 작성한 비밀글 입니다.</b></font>";
     // 첨부파일이 보이지 않게

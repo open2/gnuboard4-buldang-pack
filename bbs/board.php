@@ -86,9 +86,12 @@ if ($wr_id)
         // 비밀글이라면
         if (strstr($write[wr_option], "secret")) 
         {
+            // 기본으로는 비밀글은 볼 수 없다.
+            $is_unlock_secret = 0;
+            $is_owner = false;
+
             // 회원이 비밀글을 올리고 관리자가 답변글을 올렸을 경우
             // 회원이 관리자가 올린 답변글을 바로 볼 수 없던 오류를 수정
-            $is_owner = false;
             if ($write[wr_reply] && $member[mb_id])
             {
                 $sql = " select mb_id from $write_table 
@@ -96,11 +99,11 @@ if ($wr_id)
                             and wr_reply = ''
                             and wr_is_comment = '0' ";
                 $row = sql_fetch($sql);
-                if ($row[mb_id] == $member[mb_id]) 
+                if ($row['mb_id'] == $member['mb_id']) 
                     $is_owner = true;
             }
             
-            // 답글을 달았을 경우에 원글을 잠그는 것은 답글을 단 회원의 주권을 박탈하는 것임
+            // 댓글을 달았을 경우에 원글을 잠그는 것은 댓글을 단 회원의 주권을 박탈하는 것임
             // 비회원의 경우까지 확대하는 것은 패스워드 입력으로 인한 보안 사고의 risk가 커지므로 회원의 경우에 대해서만 고려
             if ($member['mb_id']) {
                 $sql = " select count(*) as cnt from $write_table 
@@ -114,8 +117,6 @@ if ($wr_id)
                 }
             }
 
-            $ss_name = "ss_secret_{$bo_table}_$write[wr_num]";
-            
             if (!$is_owner)
             {
                 //$ss_name = "ss_secret_{$bo_table}_{$wr_id}";
@@ -126,6 +127,8 @@ if ($wr_id)
                     goto_url("./password.php?w=s&bo_table=$bo_table&wr_id=$wr_id{$qstr}");
             }
 
+            // $write[wr_num] -> $wr_id... 답글의 권한이 댓글만 달면 모두 다 오는 오류 수정
+            $ss_name = "ss_secret_{$bo_table}_{$wr_id}";
             set_session($ss_name, TRUE);
         }
     }
