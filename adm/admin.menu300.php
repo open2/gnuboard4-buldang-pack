@@ -6,7 +6,7 @@ $menu["menu300"] = array (
     array("300210", "게시판스킨목록", "$g4[admin_path]/board_skin.php"),
     array("-"),
     array("300900", "배너목록", "$g4[admin_path]/banner_list..php"),
-    array("300900", "배너그룹", "$g4[admin_path]/banner_group_list.php.php"),
+    array("300910", "배너그룹", "$g4[admin_path]/banner_group_list.php.php"),
     array("-"),
     array("300110", "최근글정렬", "$g4[admin_path]/board_new_sort.php"),
     array("300120", "최근글다시만들기", "$g4[admin_path]/board_new_rebuild.php"),
