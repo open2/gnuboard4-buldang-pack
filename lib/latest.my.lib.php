@@ -66,9 +66,9 @@ function latest_my($skin_dir="", $skin_title="내가 올린 글", $time=30, $rows=10,
     }
 
     if ($options == "comment")
-        $skin_title_link = "$g4[bbs_path]/new.php?gr_id=&mb_id=$member[mb_id]";
+        $skin_title_link = "$g4[bbs_path]/new.php?gr_id=&view_type=c&mb_id=$member[mb_id]";
     else
-        $skin_title_link = "$g4[path]/modules/my_comment.php";
+        $skin_title_link = "$g4[bbs_path]/new.php?gr_id=&view_type=&mb_id=$member[mb_id]";
     
     ob_start();
     include "$latest_skin_path/latest.skin.php";

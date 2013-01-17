@@ -39,6 +39,7 @@ function whatson($skin_dir="", $rows=10, $subject_len=25, $page=1, $options="", 
     // 결과값을 $list에 넣습니다. 스킨 코드가 심플하게 되게
     for ($i=0; $row = sql_fetch_array($result); $i++) {
         $list[$i] = $row;
+        
         if ($check == 1)
             $list[$i][subject] = $row[wr_subject];
         else

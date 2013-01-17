@@ -31,6 +31,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 </tr>
 </thead>
 <?
+if (is_array($list)) {
 $i=0;
 foreach ($list as $val) { 
     $i++;
@@ -51,5 +52,6 @@ foreach ($list as $val) {
         <? if ($val['save_send']) { ?><a href="<?=$memo_url?>?kind=save&sfl=me_recv_mb_id&stx=<?=$val[mb_id]?>"><?echo $val['save_send'];?></a><? } else echo '-'; ?>
     </td>
     </tr>
+<? } ?>
 <? } ?>
 </table>

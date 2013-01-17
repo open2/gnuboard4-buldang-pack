@@ -807,7 +807,7 @@ if ($config[cf_db_version] < 1108) {
 
 if ($config[cf_db_version] < 1108) {
 
-    sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_delay_level` TINYINT( 4 ) NOT NULL , ADD `cf_delay_point` INT( 11 ) NOT NULL ");
+    sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_delay_level` TINYINT( 4 ) NOT NULL , ADD `cf_delay_point` INT( 11 ) NOT NULL ", FALSE);
 
 }
 

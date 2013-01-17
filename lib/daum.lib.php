@@ -39,7 +39,7 @@ function daum_social($skin_dir="basic", $rows=10, $subject_len=16, $category="e"
     $title = "다음 소셜픽";
 
     ob_start();
-    include "$popular_skin_path/latestbest.skin.php";
+    include "$popular_skin_path/popular.skin.php";
     $content = ob_get_contents();
     ob_end_clean();
 

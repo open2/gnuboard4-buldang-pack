@@ -604,6 +604,9 @@ function conv_content($content, $html)
         $content = preg_replace("/<(img[^>]+logout\.php[^>]+)/i", "*** CSRF 감지 : &lt;$1", $content);
         $content = preg_replace("/<(img[^>]+download\.php[^>]+bo_table[^>]+)/i", "*** CSRF 감지 : &lt;$1", $content);
 
+        $content = preg_replace_callback("#style\s*=\s*[\"\']?[^\"\']+[\"\']?#i",
+                    create_function('$matches', 'return str_replace("\\\\", "", stripslashes($matches[0]));'), $content);
+
         $pattern = "";
         $pattern .= "(e|&#(x65|101);?)";
         $pattern .= "(x|&#(x78|120);?)";
