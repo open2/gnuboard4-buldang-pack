@@ -6,17 +6,14 @@ auth_check($auth[$sub_menu], "r");
 
 $token = get_token();
 
-$sql_common = " from $g4[group_table] ";
+$sql_common = " from $g4[banner_group_table] ";
 
 $sql_search = " where (1) ";
-if ($is_admin != "super")
-    $sql_search .= " and (gr_admin = '$member[mb_id]') ";
 
 if ($stx) {
     $sql_search .= " and ( ";
     switch ($sfl) {
-        case "gr_id" :
-        case "gr_admin" :
+        case "bn_type" :
             $sql_search .= " ($sfl = '$stx') ";
             break;
         default : 
@@ -29,7 +26,7 @@ if ($stx) {
 if ($sst)
     $sql_order = " order by $sst $sod ";
 else
-    $sql_order = " order by gr_id asc ";
+    $sql_order = " order by bg_id asc ";
 
 $sql = " select count(*) as cnt
          $sql_common 
@@ -52,14 +49,14 @@ $result = sql_query($sql);
 
 $listall = "<a href='$_SERVER[PHP_SELF]'>처음</a>";
 
-$g4[title] = "게시판그룹설정";
+$g4[title] = "배너그룹관리";
 include_once("./admin.head.php");
 
 $colspan = 10;
 ?>
 
-<script language="JavaScript">
-var list_update_php = "./boardgroup_list_update.php";
+<script type="text/javascript">
+var list_update_php = "./banner_group_list_update.php";
 </script>
 
 <table width=100% cellpadding=3 cellspacing=1>
@@ -68,9 +65,9 @@ var list_update_php = "./boardgroup_list_update.php";
     <td width=50% align=left><?=$listall?> (그룹수 : <?=number_format($total_count)?>개)</td>
     <td width=50% align=right>
         <select name=sfl>
-            <option value="gr_subject">제목</option>
-            <option value="gr_id">ID</option>
-            <option value="gr_admin">그룹관리자</option>
+            <option value="bg_id">ID</option>
+            <option value="bg_name">이름</option>
+            <option value="bg_desc">설명</option>
         </select>
         <input type=text name=stx class=ed required itemname='검색어' value='<?=$stx?>'>
         <input type=image src='<?=$g4[admin_path]?>/img/btn_search.gif' align=absmiddle></td>
@@ -88,45 +85,27 @@ var list_update_php = "./boardgroup_list_update.php";
 <table width=100% cellpadding=0 cellspacing=1 border=0>
 <colgroup width=30>
 <colgroup width=120>
+<colgroup width=120>
 <colgroup width=''>
-<colgroup width=''>
 <colgroup width=80>
-<colgroup width=80>
-<colgroup width=80>
-<colgroup width=35>
-<colgroup width=35>
+<colgroup width=40>
 <colgroup width=60>
+<colgroup width=40>
 <tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
 <tr class='bgcol1 bold col1 ht center'>
     <td><input type=checkbox name=chkall value="1" onclick="check_all(this.form)"></td>
-    <td><?=subject_sort_link("gr_id")?>그룹아이디</a></td>
-    <td><?=subject_sort_link("gr_subject")?>제목</a></td>
-    <td><?=subject_sort_link("gr_admin")?>그룹관리자</a></td>
-    <td>게시판</td>
-    <td>접근사용</td>
-    <td>접근회원수</td>
-    <td>검색<br />사용</td>
-    <td>검색<br />순서</td>    
-    <td><? if ($is_admin == "super") { echo "<a href='./boardgroup_form.php'><img src='$g4[admin_path]/img/icon_insert.gif' border=0 title='생성'></a>"; } ?></td>
+    <td><?=subject_sort_link("bg_id")?>그룹아이디</a></td>
+    <td><?=subject_sort_link("bg_name")?>이름</a></td>
+    <td>설명</td>
+    <td>Width*Height</td>
+    <td>사용</td>
+    <td>배너타입</td>
+    <td><? if ($is_admin == "super") { echo "<a href='./banner_group_form.php'><img src='$g4[admin_path]/img/icon_insert.gif' border=0 title='생성'></a>"; } ?></td>
 </tr>
 <tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) 
 {
-    // 접근회원수
-    $sql1 = " select count(*) as cnt from $g4[group_member_table] where gr_id = '$row[gr_id]' ";
-    $row1 = sql_fetch($sql1);
-
-    // 게시판수
-    $sql2 = " select count(*) as cnt from $g4[board_table] where gr_id = '$row[gr_id]' ";
-    $row2 = sql_fetch($sql2);
-
-    $s_upd = "<a href='./boardgroup_form.php?$qstr&w=u&gr_id=$row[gr_id]'><img src='img/icon_modify.gif' border=0 title='수정'></a>";
-    $s_del = "";
-    if ($is_admin == "super") {
-        //$s_del = "<a href=\"javascript:del('./boardgroup_delete.php?$qstr&gr_id=$row[gr_id]');\"><img src='img/icon_delete.gif' border=0 title='삭제'></a>";
-        $s_del = "<a href=\"javascript:post_delete('boardgroup_delete.php', '$row[gr_id]');\"><img src='img/icon_delete.gif' border=0 title='삭제'></a>";
-    }
 
     $list = $i%2;
     echo "<input type=hidden name=gr_id[$i] value='$row[gr_id]'>";
@@ -169,7 +148,7 @@ if ($stx)
 ?>
 </form>
 
-<script>
+<script type="text/javascript">
 // POST 방식으로 삭제
 function post_delete(action_url, val)
 {
