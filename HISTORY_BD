@@ -55,7 +55,32 @@ skin/member/basic/memo2.list.skin.php
 skin/member/basic/register.skin.php
 skin/member/basic/register_form.skin.php
  
+
+=== 수정1 ===
  
+- 추천기능 튜닝
+bbs/good.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/84b6a9274133f169eae19694c3372794529a6d4e
+ 
+- 네이버 인기검색어 수정
+lib/naver.lib.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/3297acd37d5310c346169b059c761375949196b5
+ 
+- 오류수정 (debug용 echo삭제)
+bbs/visit_insert.inc.php 
+https://github.com/open2/gnuboard4-buldang-pack/commit/3258f11bf8bf67a38374ae02f60acdbfefbbd078
+ 
+- 설치파일오류
+install/sql_opencode.sql
+https://github.com/open2/gnuboard4-buldang-pack/commit/bb9cd091d263a5220bfaf214da40d5c1177d672a
+https://github.com/open2/gnuboard4-buldang-pack/commit/453e06bb9b7bbd931b85bae1b5fec11625ac5b74
+ 
+- 쪽지5 오류 나는 것 테스트용
+lib/b4.lib.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/5cdd799b1258d274505140b85b1b42d46a33c5ee
+ 
+===
+
 - 네이버 최신글 span을 넣어서 Re 이미지 뒤에 줄바꿈 되는 오류 수정
 skin/latest/naver/latest.skin.php
 https://github.com/open2/gnuboard4-buldang-pack/commit/761736b00dbfcb9080e15876b3510f590edf471e
