@@ -45,11 +45,12 @@ $stx = trim($stx);
 if ($sca || $stx) 
 {
     // 검색권한 - 권한설정이 없으면, 조회권한과 동일하게
-    if ($board['bo_search_level'] == 0 )
-        $board['bo_search_level'] = $board[bo_read_level];
-    if ($board['bo_search_level'] > $member['mb_level'])
-        alert("검색을 사용할 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.", "./login.php?$qstr&url=".urlencode("$_SERVER[PHP_SELF]?bo_table=$bo_table&sfl=$sfl&stx=$stx&sop=$sop"));
-
+    if ($stx !== "") {
+        if ($board['bo_search_level'] == 0 )
+            $board['bo_search_level'] = $board['bo_read_level'];
+        if ( && $board['bo_search_level'] > $member['mb_level'])
+            alert("검색을 사용할 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.", "./login.php?$qstr&url=".urlencode("$_SERVER[PHP_SELF]?bo_table=$bo_table&sfl=$sfl&stx=$stx&sop=$sop"));
+    }
     $sql_search = get_sql_search($sca, $sfl, $stx, $sop, $bo_table);
 
     // 가장 작은 번호를 얻어서 변수에 저장 (하단의 페이징에서 사용)
