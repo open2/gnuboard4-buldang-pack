@@ -88,18 +88,19 @@ var list_update_php = "./banner_group_list_update.php";
 <colgroup width=120>
 <colgroup width=''>
 <colgroup width=80>
-<colgroup width=40>
 <colgroup width=60>
 <colgroup width=40>
+<colgroup width=40>
+
 <tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
 <tr class='bgcol1 bold col1 ht center'>
     <td><input type=checkbox name=chkall value="1" onclick="check_all(this.form)"></td>
     <td><?=subject_sort_link("bg_id")?>그룹아이디</a></td>
     <td><?=subject_sort_link("bg_name")?>이름</a></td>
     <td>설명</td>
-    <td>Width*Height</td>
     <td>사용</td>
     <td>배너타입</td>
+    <td>Width*Height</td>
     <td><? if ($is_admin == "super") { echo "<a href='./banner_group_form.php'><img src='$g4[admin_path]/img/icon_insert.gif' border=0 title='생성'></a>"; } ?></td>
 </tr>
 <tr><td colspan='<?=$colspan?>' class='line2'></td></tr>

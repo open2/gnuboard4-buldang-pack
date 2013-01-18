@@ -11,15 +11,14 @@ if ($is_admin != "super" && $w == "") alert("최고관리자만 접근 가능합니다.");
 $html_title = "배너그룹";
 if ($w == "") 
 {
-    $gr_id_attr = "required";
-    $gr[gr_use_access] = 0;
-    $gr[gr_use_search] = '1';
+    $bg_id_attr = "required";
+    $gr[bg_use] = 1;
     $html_title .= " 생성";
 } 
 else if ($w == "u") 
 {
-    $gr_id_attr = "readonly style='background-color:#dddddd'";
-    $gr = sql_fetch(" select * from $g4[group_table] where gr_id = '$gr_id' ");
+    $bg_id_attr = "readonly style='background-color:#dddddd'";
+    $bg = sql_fetch(" select * from $g4[banner_group_table] where bg_id = '$bg_id' ");
     $html_title .= " 수정";
 } 
 else
@@ -53,42 +52,45 @@ include_once("./admin.head.php");
 <tr class='ht'>
     <td>그룹제목</td>
     <td colspan=3>
-        <input type='text' class=ed name=gr_subject size=40 required itemname='그룹 제목' value='<?=get_text($group[gr_subject])?>'>
+        <input type='text' class=ed name=bg_subject size=40 required itemname='그룹 제목' value='<?=get_text($group[bg_subject])?>'>
         <? 
         if ($w == 'u')
-            echo "<input type=button class='btn1' value='게시판생성' onclick=\"location.href='./board_form.php?gr_id=$gr_id';\">";
+            echo "<input type=button class='btn1' value='게시판생성' onclick=\"location.href='./banner_form.php?bg_id=$bg_id';\">";
         ?>
     </td>
 </tr>
 <tr class='ht'>
-    <td>전체 검색 사용</td>
+    <td>그룹메모</td>
     <td colspan=3>
-        <input type=checkbox name=gr_use_search value='1' <?=$gr[gr_use_search]?'checked':'';?>>사용
+        <textarea class=ed name=bg_desc rows=5 style='width:80%;'><?=$bg[bg_desc] ?></textarea></td>
+    </td
+</tr>
+<tr class='ht'>
+    <td>배너그룹 사용</td>
+    <td colspan=3>
+        <input type=checkbox name=bg_use value='1' <?=$gr[bg_use]?'checked':'';?>>사용
     </td>
 </tr>
-
 <tr class='ht'>
-    <td>전체 검색 순서</td>
+    <td>배너사용방식</td>
     <td colspan=3>
-        <input type=text class=ed name=gr_order_search size=5 value='<?=$gr[gr_order_search]?>'> 숫자가 낮은 그룹 부터 검색
+        <input type=text class=ed name=bg_type size=5 value='<?=$gr[bg_type]?>'> (1. 2. 3.)
     </td>
 </tr>
-
-<? for ($i=1; $i<=10; $i=$i+2) { $k=$i+1; ?>
 <tr class='ht'>
-    <td><input type=text class=ed name='gr_<?=$i?>_subj' value='<?=get_text($group["gr_{$i}_subj"])?>' title='여분필드 <?=$i?> 제목' style='text-align:right;font-weight:bold;' size=15></td>
-    <td><input type='text' class=ed style='width:99%;' name=gr_<?=$i?> value='<?=$gr["gr_$i"]?>' title='여분필드 <?=$i?> 설정값'></td>
-    <td><input type=text class=ed name='gr_<?=$k?>_subj' value='<?=get_text($group["gr_{$k}_subj"])?>' title='여분필드 <?=$k?> 제목' style='text-align:right;font-weight:bold;' size=15></td>
-    <td><input type='text' class=ed style='width:99%;' name=gr_<?=$k?> value='<?=$gr["gr_$k"]?>' title='여분필드 <?=$k?> 설정값'></td>
+    <td>배너 크기(px)</td>
+    <td colspan=3>
+        넓이 <input type='text' class=ed name=bg_width size=8 required itemname='배너넓이' value='<?=$group[bg_width]?>'> px <BR>
+        높이 <input type='text' class=ed name=bg_height size=8 required itemname='배너높이' value='<?=$group[bg_height]?>'> px
+    </td>
 </tr>
-<? } ?>
 
 <tr><td colspan=4 class='line2'></td></tr>
 </table>
 
 <p align=center>
     <input type=submit class=btn1 accesskey='s' value='  확  인  '>&nbsp;
-    <input type=button class=btn1 value='  목  록  ' onclick="document.location.href='./boardgroup_list.php?<?=$qstr?>';">
+    <input type=button class=btn1 value='  목  록  ' onclick="document.location.href='./banner_group_list.php?<?=$qstr?>';">
 </form>
 
 <script language='JavaScript'>
