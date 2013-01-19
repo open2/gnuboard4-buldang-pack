@@ -25,8 +25,20 @@ if (empty($_SESSION[$ss_name]))
                         bc_agent = '$useragent',
                         bc_datetime = '$g4[time_ymdhis]'
             ";
-    sql_query($sql);
+    $result = sql_query($sql);
 
+    // 정상으로 INSERT 되었다면 배너클릭 합계에 반영
+    if ($result) {
+      
+        // UPDATE를 먼저하고 오류가 발생시 insert를 실행 (엑스엠엘님)
+        $sql = " update $g4[banner_click_sum_table] set bc_count = bc_count + 1 where bc_date = '$g4[time_ymd]' ";
+        $result = sql_query($sql);
+
+        if ( mysql_affected_rows() == 0 ) {
+            $sql = " insert $g4[banner_click_sum_table] ( bc_count, bc_date) values ( 1, '$g4[time_ymd]' ) ";
+            $result = sql_query($sql);
+        }
+    }
     set_session($ss_name, true);
 }
 

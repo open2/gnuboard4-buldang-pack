@@ -7,7 +7,7 @@ $menu["menu300"] = array (
     array("-"),
     array("300900", "배너관리", "$g4[admin_path]/banner_list.php"),
     array("300910", "배너그룹관리", "$g4[admin_path]/banner_group_list.php"),
-    array("300920", "배너클릭관리", "$g4[admin_path]/banner_click_list.php"),
+    array("300920", "배너클릭현황", "$g4[admin_path]/banner_click_list.php"),
     array("-"),
     array("300110", "최근글정렬", "$g4[admin_path]/board_new_sort.php"),
     array("300120", "최근글다시만들기", "$g4[admin_path]/board_new_rebuild.php"),

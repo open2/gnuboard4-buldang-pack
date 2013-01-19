@@ -118,6 +118,7 @@ $g4['member_suggest_table'] = $g4['table_prefix'] . "member_suggest";     // 회�
 $g4['banner_group_table']   = $g4['table_prefix'] . "banner_group";       // 배너그룹 테이블
 $g4['banner_table']         = $g4['table_prefix'] . "banner";             // 배너 테이블
 $g4['banner_click_table']   = $g4['table_prefix'] . "banner_click";       // 배너클릭 테이블
+$g4['banner_click_sum_table']   = $g4['table_prefix'] . "banner_click_sum";       // 배너클릭 통계 테이블
 
 // 곱슬최씨 (배추팁)
 $mw['table_prefix'] = $g4['table_prefix']."mw_";
