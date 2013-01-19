@@ -12,7 +12,7 @@ $html_title = "배너그룹";
 if ($w == "") 
 {
     $bg_id_attr = "required";
-    $gr[bg_use] = 1;
+    $bg[bg_use] = 1;
     $html_title .= " 생성";
 } 
 else if ($w == "u") 
@@ -28,7 +28,7 @@ $g4[title] = $html_title;
 include_once("./admin.head.php");
 ?>
 
-<form name=fboardgroup method=post onsubmit="return fboardgroup_check(this);" autocomplete="off">
+<form name=fbannergroup method=post onsubmit="return fbannergroup_check(this);" autocomplete="off">
 <input type=hidden name=w     value='<?=$w?>'>
 <input type=hidden name=sfl   value='<?=$sfl?>'>
 <input type=hidden name=stx   value='<?=$stx?>'>
@@ -47,44 +47,56 @@ include_once("./admin.head.php");
 <tr><td colspan=4 class='line1'></td></tr>
 <tr class='ht'>
     <td>그룹 ID</td>
-    <td colspan=3><input type='text' class=ed name=bg_id size=21 maxlength=20 <?=$bg_id_attr?> alphanumericunderline itemname='그룹 아이디' value='<?=$group[gr_id]?>'> 영문자, 숫자, _ 만 가능 (공백없이)</td>
+    <td colspan=3><input type='text' class=ed name=bg_id size=21 maxlength=20 <?=$bg_id_attr?> alphanumericunderline itemname='그룹 아이디' value='<?=$bg[bg_id]?>'> 영문자, 숫자, _ 만 가능 (공백없이)</td>
 </tr>
 <tr class='ht'>
     <td>그룹제목</td>
     <td colspan=3>
-        <input type='text' class=ed name=bg_subject size=40 required itemname='그룹 제목' value='<?=get_text($group[bg_subject])?>'>
+        <input type='text' class=ed name=bg_subject size=40 required itemname='그룹 제목' value='<?=get_text($bg[bg_subject])?>'>
         <? 
         if ($w == 'u')
-            echo "<input type=button class='btn1' value='게시판생성' onclick=\"location.href='./banner_form.php?bg_id=$bg_id';\">";
+            echo "<input type=button class='btn1' value='배너 생성' onclick=\"location.href='./banner_form.php?bg_id=$bg_id';\">";
         ?>
     </td>
 </tr>
 <tr class='ht'>
+    <td>그룹 관리자</td>
+    <td colspan=3>
+        <?
+        if ($is_admin == "super")
+            echo "<input type='text' class=ed name='bg_admin' value='$bg[bg_admin]' maxlength=20>";
+        else
+            echo "<input type=hidden name='bg_admin' value='$bg[bg_admin]' size=40>$bg[bg_admin]";
+        ?></td>
+</tr>
+<tr class='ht'>
     <td>그룹메모</td>
     <td colspan=3>
-        <textarea class=ed name=bg_desc rows=5 style='width:80%;'><?=$bg[bg_desc] ?></textarea></td>
+        <textarea class=ed name=bg_desc rows=5 style='width:80%;'><?=get_text($bg[bg_desc]) ?></textarea></td>
     </td
 </tr>
 <tr class='ht'>
     <td>배너그룹 사용</td>
     <td colspan=3>
-        <input type=checkbox name=bg_use value='1' <?=$gr[bg_use]?'checked':'';?>>사용
-    </td>
-</tr>
-<tr class='ht'>
-    <td>배너사용방식</td>
-    <td colspan=3>
-        <input type=text class=ed name=bg_type size=5 value='<?=$gr[bg_type]?>'> (1. 2. 3.)
+        <input type=checkbox name=bg_use value='1' <?=$bg[bg_use]?'checked':'';?>>사용
     </td>
 </tr>
 <tr class='ht'>
     <td>배너 크기(px)</td>
     <td colspan=3>
-        넓이 <input type='text' class=ed name=bg_width size=8 required itemname='배너넓이' value='<?=$group[bg_width]?>'> px <BR>
-        높이 <input type='text' class=ed name=bg_height size=8 required itemname='배너높이' value='<?=$group[bg_height]?>'> px
+        <input type='text' class=ed name=bg_width size=8 numeric itemname='배너넓이' value='<?=$bg[bg_width]?>'> 넓이, px <BR>
+        <input type='text' class=ed name=bg_height size=8 numeric itemname='배너높이' value='<?=$bg[bg_height]?>'> 높이, px
     </td>
 </tr>
 
+<? for ($i=1; $i<=3; $i++) { ?>
+<tr class='ht'>
+    <td><input type=text class=ed name='bg_<?=$i?>_subj' value='<?=get_text($bg["bg_{$i}_subj"])?>' title='여분필드 <?=$i?> 제목' style='text-align:right;font-weight:bold;' size=15></td>
+    <td><input type='text' class=ed style='width:99%;' name=bg_<?=$i?> value='<?=get_text($bg["bg_$i"])?>' title='여분필드 <?=$i?> 설정값'></td>
+    <td></td>
+    <td></td>
+</tr>
+<? } ?>
 <tr><td colspan=4 class='line2'></td></tr>
 </table>
 
@@ -93,15 +105,15 @@ include_once("./admin.head.php");
     <input type=button class=btn1 value='  목  록  ' onclick="document.location.href='./banner_group_list.php?<?=$qstr?>';">
 </form>
 
-<script language='JavaScript'>
-if (document.fboardgroup.w.value == '')
-    document.fboardgroup.gr_id.focus();
+<script type="text/javascript">
+if (document.fbannergroup.w.value == '')
+    document.fbannergroup.bg_id.focus();
 else
-    document.fboardgroup.gr_subject.focus();
+    document.fbannergroup.bg_subject.focus();
 
-function fboardgroup_check(f)
+function fbannergroup_check(f)
 {
-    f.action = "./boardgroup_form_update.php";
+    f.action = "./banner_group_form_update.php";
     return true;
 }
 </script>

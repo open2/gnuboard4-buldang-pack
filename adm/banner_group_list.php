@@ -13,9 +13,6 @@ $sql_search = " where (1) ";
 if ($stx) {
     $sql_search .= " and ( ";
     switch ($sfl) {
-        case "bn_type" :
-            $sql_search .= " ($sfl = '$stx') ";
-            break;
         default : 
             $sql_search .= " ($sfl like '%$stx%') ";
             break;
@@ -75,7 +72,7 @@ var list_update_php = "./banner_group_list_update.php";
 </form>
 </table>
 
-<form name=fboardgrouplist method=post>
+<form name=fbannergrouplist method=post>
 <input type=hidden name=sst  value='<?=$sst?>'>
 <input type=hidden name=sod  value='<?=$sod?>'>
 <input type=hidden name=sfl  value='<?=$sfl?>'>
@@ -88,18 +85,16 @@ var list_update_php = "./banner_group_list_update.php";
 <colgroup width=120>
 <colgroup width=''>
 <colgroup width=80>
+<colgroup width=100>
 <colgroup width=60>
-<colgroup width=40>
-<colgroup width=40>
 
 <tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
 <tr class='bgcol1 bold col1 ht center'>
     <td><input type=checkbox name=chkall value="1" onclick="check_all(this.form)"></td>
     <td><?=subject_sort_link("bg_id")?>그룹아이디</a></td>
-    <td><?=subject_sort_link("bg_name")?>이름</a></td>
-    <td>설명</td>
+    <td><?=subject_sort_link("bg_subject")?>제목</a></td>
+    <td>그룹관리자</td>
     <td>사용</td>
-    <td>배너타입</td>
     <td>Width*Height</td>
     <td><? if ($is_admin == "super") { echo "<a href='./banner_group_form.php'><img src='$g4[admin_path]/img/icon_insert.gif' border=0 title='생성'></a>"; } ?></td>
 </tr>
@@ -107,25 +102,31 @@ var list_update_php = "./banner_group_list_update.php";
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) 
 {
+    $s_upd = "<a href='./banner_group_form.php?$qstr&w=u&bg_id=$row[bg_id]'><img src='img/icon_modify.gif' border=0 title='수정'></a>";
+    $s_del = "";
+    if ($is_admin == "super") {
+        $s_del = "<a href=\"javascript:post_delete('banner_group_delete.php', '$row[bg_id]');\"><img src='img/icon_delete.gif' border=0 title='삭제'></a>";
+    }
+
+    // 배너 갯수를 세어준다
+    $tmp = sql_fetch(" select count(*) as cnt from $g4[banner_table] where bg_id = '$row[bg_id]' ");
+    $bn_count = $tmp['cnt'];
 
     $list = $i%2;
-    echo "<input type=hidden name=gr_id[$i] value='$row[gr_id]'>";
+    echo "<input type=hidden name=bg_id[$i] value='$row[bg_id]'>";
     echo "<tr class='list$list' onmouseover=\"this.className='mouseover';\" onmouseout=\"this.className='list$list';\" height=27 align=center>";
     echo "<td><input type=checkbox name=chk[] value='$i'></td>";
-    echo "<td><a href='$g4[bbs_path]/group.php?gr_id=$row[gr_id]'><b>$row[gr_id]</b></a></td>";
-    echo "<td><input type=text class=ed name=gr_subject[$i] value='".get_text($row[gr_subject])."' size=30></td>";
+    echo "<td><a href='$g4[admin_path]/banner_list.php?sfl=a.bg_id&stx=$row[bg_id]'><b>$row[bg_id]</b></a> ($bn_count)</td>";
+    echo "<td><input type=text class=ed name=bg_subject[$i] value='".get_text($row[bg_subject])."' size=30></td>";
 
     if ($is_admin == "super")
-        //echo "<td>".get_member_id_select("gr_admin[$i]", 9, $row[gr_admin])."</td>";
-        echo "<td><input type=text class=ed name=gr_admin[$i] value='$row[gr_admin]' maxlength=20></td>";
+        //echo "<td>".get_member_id_select("bg_admin[$i]", 9, $row[bg_admin])."</td>";
+        echo "<td><input type=text class=ed name=bg_admin[$i] value='$row[bg_admin]' maxlength=20></td>";
     else
-        echo "<input type=hidden name='gr_admin[$i]' value='$row[gr_admin]'><td>$row[gr_admin]</td>";
+        echo "<input type=hidden name='bg_admin[$i]' value='$row[bg_admin]'><td>$row[bg_admin]</td>";
 
-    echo "<td><a href='./board_list.php?sfl=a.gr_id&stx=$row[gr_id]'>$row2[cnt]</a></td>";
-    echo "<td><input type=checkbox name=gr_use_access[$i] ".($row[gr_use_access]?'checked':'')." value='1'></td>";
-    echo "<td><a href='./boardgroupmember_list.php?gr_id=$row[gr_id]'>$row1[cnt]</a></td>";
-    echo "<td title='검색사용'><input type=checkbox name=gr_use_search[$i] ".($row[gr_use_search]?'checked':'')." value='1'></td>";
-    echo "<td title='검색순서'><input type=text class=ed name=gr_order_search[$i] value='$row[gr_order_search]' size=2></td>";
+    echo "<td><input type=checkbox name=bg_use[$i] ".($row[bg_use]?'checked':'')." value='1'></td>";
+    echo "<td><input type=text class=ed name=bg_width[$i] value='$row[bg_width]' size=4><input type=text class=ed name=bg_height[$i] value='$row[bg_height]' size=4></td>";
     echo "<td>$s_upd $s_del</td>";
     echo "</tr>\n";
 } 
@@ -156,7 +157,7 @@ function post_delete(action_url, val)
 	var f = document.fpost;
 
 	if(confirm("한번 삭제한 자료는 복구할 방법이 없습니다.\n\n정말 삭제하시겠습니까?")) {
-        f.gr_id.value = val;
+        f.bg_id.value = val;
 		f.action      = action_url;
 		f.submit();
 	}
@@ -170,7 +171,7 @@ function post_delete(action_url, val)
 <input type='hidden' name='stx'   value='<?=$stx?>'>
 <input type='hidden' name='page'  value='<?=$page?>'>
 <input type='hidden' name='token' value='<?=$token?>'>
-<input type='hidden' name='gr_id'>
+<input type='hidden' name='bg_id'>
 </form>
 
 <?

@@ -120,7 +120,7 @@ $member_skin_path = "$g4[path]/skin/member/$config[cf_member_skin]";
 include_once("$member_skin_path/calendar.skin.php");
 ?>
 
-<script language="JavaScript">
+<script type="text/javascript">
 //
 // year : 4자리
 // month : 1~2자리
