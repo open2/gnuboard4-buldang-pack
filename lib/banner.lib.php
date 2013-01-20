@@ -43,6 +43,10 @@ function get_banner($bg_id, $skin="basic", $bn_id="", $rows=0, $opt="")
     }
     $result = sql_query($sql);
 
+    // 배너그룹 정보도 가져 옵니다.
+    $sql = " select * from $g4[banner_group_table] where bg_id = '$bg_id' ";
+    $bg = sql_fetch($sql);
+
     $list = array();
     for ($i=0; $row = sql_fetch_array($result); $i++) {
         $list[$i][bg_id] = $bg_id;
@@ -51,6 +55,9 @@ function get_banner($bg_id, $skin="basic", $bn_id="", $rows=0, $opt="")
         $list[$i][bn_url] = $row[bn_url];
         $list[$i][bn_subject] = $row[bn_subject];
         $list[$i][bn_image] = $row[bn_image];
+        $list[$i][bn_text] = $row[bn_text];
+        $list[$i][bg_width] = $row[bg_width];
+        $list[$i][bg_height] = $row[bg_height];
     }
 
     $banner_skin_path = "$g4[path]/skin/banner/$skin";

@@ -48,6 +48,7 @@ $bn_use                 = $_POST[bn_use];
 $bn_order               = $_POST[bn_order];
 $bn_start_datetime      = $_POST[bn_start_datetime];
 $bn_end_datetime        = $_POST[bn_end_datetime];
+$bn_text                = $_POST[bn_text];
 // 날짜가 비어 있으면 오늘을 넣어준다
 if ($bn_start_datetime == "0000-00-00 00:00:00" || $bn_end_datetime == "0000-00-00 00:00:00")
     $bn_start_datetime = $bn_end_datetime = $g4['time_ymdhis'];
@@ -69,6 +70,7 @@ $sql_common = " bg_id               = '$bg_id',
                 bn_end_datetime     = '$bn_end_datetime',
                 bn_use              = '$bn_use',
                 bn_order            = '$bn_order',
+                bn_text             = '$bn_text',
                 bn_1_subj           = '$bn_1_subj',
                 bn_2_subj           = '$bn_2_subj',
                 bn_3_subj           = '$bn_3_subj',

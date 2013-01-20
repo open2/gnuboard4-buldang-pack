@@ -1,6 +1,7 @@
 <?
 $sub_menu = "300900";
 include_once("./_common.php");
+include_once ("$g4[path]/lib/cheditor4.lib.php");
 
 auth_check($auth[$sub_menu], "w");
 
@@ -15,14 +16,7 @@ $html_title = "배너";
 if ($w == "") {
     $html_title .= " 생성";
 
-    $bo_table_attr = "required alphanumericunderline";
-
-    $board[bo_count_delete] = '1';
-    $board[bo_count_modify] = '1';
-    $board[bo_read_point] = $config[cf_read_point];
-    $board[bo_write_point] = $config[cf_write_point];
-    $board[bo_comment_point] = $config[cf_comment_point];
-    $board[bo_download_point] = $config[cf_download_point];
+    $bn['bg_id'] = $bg_id;
 
 } else if ($w == "u") {
     $html_title .= " 수정";
@@ -98,7 +92,7 @@ include_once ("$g4[path]/lib/banner.lib.php");
 <tr class='ht'>
     <td></td>
     <td>배너 이미지</td>
-    <td>
+    <td style='padding-top:7px; padding-bottom:7px;'>
         <b>배너 이미즈는 높이 : <?=$bg[bg_width]?>px, 넓이 : <?=$bg[bg_height]?>px 크기로 넣어주세요.</b><br>
         <input type=file name=bn_image class=ed size=60>
         <?
@@ -111,6 +105,16 @@ include_once ("$g4[path]/lib/banner.lib.php");
             echo "<br><a href='$bn_image' target=_blank><img src='" . resize_dica($bn_image, 500) . "'></a>";
         }
         ?>
+    </td>
+</tr>
+</tr>
+<tr class='ht'>
+    <td></td>
+    <td>배너 TEXT</td>
+    <td style='padding-top:7px; padding-bottom:7px;'>
+        <script type="text/javascript" src="<?=$g4[cheditor4_path]?>/cheditor.js"></script>
+        <?=cheditor1('bn_text', '100%', '200');?>
+        <?=cheditor2('bn_text', $bn[bn_text]);?>
     </td>
 </tr>
 
@@ -187,6 +191,8 @@ function fbannerform_submit(f) {
             return false;
         }
     }
+
+    <?=cheditor3('bn_text')."\n";?>
 
     f.action = "./banner_form_update.php";
     return true;
