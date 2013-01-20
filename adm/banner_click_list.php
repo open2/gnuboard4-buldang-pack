@@ -30,6 +30,20 @@ $colspan = 6;
 $sql_common = " from $g4[banner_click_table] ";
 $sql_search = " where bc_datetime between '$fr_date 00:00:00' and '$to_date 23:59:59' ";
 
+if ($stx) {
+    $sql_search .= " and ( ";
+    switch ($sfl) {
+        case "bg_id" :
+        case "bn_id" :
+            $sql_search .= " ($sfl like '$stx') ";
+            break;
+        default : 
+            $sql_search .= " ($sfl like '%$stx%') ";
+            break;
+    }
+    $sql_search .= " ) ";
+}
+
 if (!$sst) {
     $sst = "bc_id";
     $sod = "desc";
@@ -73,8 +87,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 
     echo "
     <tr class='list$list col1 ht center'>
-        <td>$row[bg_id]</td>
-        <td>$row[bn_id]</td>
+        <td><a href='$_SERVER[PHP_SELF]?=fr_date=$fr_date&to_date=$to_date&stx=$row[bg_id]&sfl=bg_id'>$row[bg_id]</a></td>
+        <td><a href='$_SERVER[PHP_SELF]?=fr_date=$fr_date&to_date=$to_date&stx=$row[bn_id]&sfl=bn_id'>$row[bn_id]</a></td>
         <td>$bn_subject</td>
         <td>$brow</td>
         <td>" . get_datetime($row[bc_datetime]) . "</td>

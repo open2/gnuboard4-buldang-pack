@@ -105,7 +105,7 @@ var list_delete_php = 'banner_list_delete.php';
 <tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
 <tr class='bgcol1 bold col1 ht2 center'>
     <td rowspan=2><input type=checkbox name=chkall value="1" onclick="check_all(this.form)"></td>
-    <td rowspan=2><?=subject_sort_link("bn_id")?>배너ID</a></td>
+    <td ><?=subject_sort_link("bn_id")?>배너ID</a></td>
     <td ><?=subject_sort_link("a.bg_id")?>그룹</a></td>
     <td ><?=subject_sort_link("bn_subject")?>제목</a></td>
     <td >시작일</td>
@@ -114,6 +114,7 @@ var list_delete_php = 'banner_list_delete.php';
   	<td rowspan=2><a href="./banner_form.php"><img src='<?=$g4[admin_path]?>/img/icon_insert.gif' border=0 title='생성'></a></td>
 </tr>
 <tr class='bgcol1 bold col1 ht2 center'>
+    <td>클릭수</td>
     <td>Target(새창)</td>
     <td>URL</td>
     <td>종료일</td>
@@ -127,11 +128,14 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         $s_del = "<a href=\"javascript:post_delete('banner_delete.php', '$row[bn_id]');\"><img src='img/icon_delete.gif' border=0 title='삭제'></a>";
     }
 
+    $sql = " select count(*) as cnt from $g4[banner_click_table] where bg_id='$row[bg_id]' and bn_id='$row[bn_id]' ";
+    $tmp = sql_fetch($sql);
+
     $list = $i % 2;
     echo "<input type=hidden name=bn_id[$i] value='$row[bn_id]'>";
     echo "<tr class='list$list col1 ht center'>";
     echo "<td rowspan=2 height=25><input type=checkbox name=chk[] value='$i'></td>";
-    echo "<td rowspan=2><a href='$g4[data_path]/banner/$row[bg_id]/$row[bn_image]' target=_blank><b>$row[bn_id]</b></a></td>";
+    echo "<td ><a href='$g4[data_path]/banner/$row[bg_id]/$row[bn_image]' target=_blank><b>$row[bn_id]</b></a></td>";
     echo "<td ><a href='$g4[admin_path]/banner_list.php?sfl=a.bg_id&stx=$row[bg_id]'><b>$row[bg_id]</b></a></td>";
     echo "<td align=left height=25><input type=text class=ed name=bn_subject[$i] value='".get_text($row[bn_subject])."' style='width:99%'></td>";
     echo "<td ><input type=text class=ed name=bn_start_datetime[$i] value='$row[bn_start_datetime]' style='width:120px;'></td>";
@@ -141,6 +145,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     echo "</tr>";
 
     echo "<tr class='list$list col1 ht center'>";
+    echo "<td>" . number_format($tmp[cnt]) . "</td>";
     echo "<td ><input type=checkbox name=bn_target[$i] ".($row[bn_target]?'checked':'')." value='1'></td>";
     echo "<td align=left><input type=text class=ed name=bn_url[$i] value='".get_text($row[bn_url])."' style='width:99%'></td>";
     echo "<td ><input type=text class=ed name=bn_end_datetime[$i] value='$row[bn_end_datetime]' style='width:120px;'></td>";
