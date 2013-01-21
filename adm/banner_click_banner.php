@@ -8,6 +8,11 @@ $g4[title] = "배너별 배너클릭현황";
 include_once("./admin.head.php");
 include_once("./banner.sub.php");
 
+if ($bn_id)
+    $bn_sql = " bn_id = '$bn_id' ";
+else
+    $bn_sql = "";
+
 $colspan = 5;
 ?>
 
@@ -30,7 +35,7 @@ $colspan = 5;
 $max = 0;
 $sum_count = 0;
 $sql = " select * from $g4[banner_click_table]
-          where bc_datetime between '$fr_date 00:00:00' and '$to_date 23:59:59' ";
+          where bc_datetime between '$fr_date 00:00:00' and '$to_date 23:59:59' $bn_sql ";
 $result = sql_query($sql);
 while ($row=sql_fetch_array($result)) {
     $s = $row[bn_id];
@@ -68,7 +73,7 @@ if (count($arr)) {
         echo "
         <tr class='list$list ht center'>
             <td>$no</td>
-            <td>$key</td>
+            <td><a href='./banner_click_list.php?sfl=bn_id&stx=$key'>$key</a></td>
             <td>$count</td>
             <td>$s_rate</td>
             <td align=left>$graph</td>

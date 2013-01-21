@@ -68,7 +68,7 @@ if (count($arr)) {
         echo "
         <tr class='list$list ht center'>
             <td>$no</td>
-            <td>$key</td>
+            <td><a href='./banner_click_list.php?bg_id=$key'>$key</a></td>
             <td>$count</td>
             <td>$s_rate</td>
             <td align=left>$graph</td>
