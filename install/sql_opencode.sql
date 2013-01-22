@@ -3,12 +3,6 @@
 ## ######################################################
 
 # 그누보드 튜닝
-ALTER TABLE `$g4[board_table]` ADD `min_wr_num` INT( 11 ) NOT NULL;
-
-# 출처관리(CCL)
-ALTER TABLE `$g4[board_table]` ADD `bo_ccl` tinyint(4) NOT NULL default '0';
-
-# 그누보드 튜닝
 ALTER TABLE `$g4[member_table]` ADD `mb_auth_count` TINYINT( 4 ) NOT NULL default '0';
 
 # 그룹정렬, 검색허용
@@ -237,18 +231,6 @@ CREATE TABLE `$mw[board_visit_log_table]` (
   PRIMARY KEY  (`log`)
 );
 
-# 출처 정보 적용하기
-ALTER TABLE `$g4[board_table]` ADD `bo_source` TINYINT( 4 ) NOT NULL ;
-
-# 관리자의 공지사항에 댓글 달지 못하게 하기
-ALTER TABLE `$g4[board_table]` ADD `bo_notice_comment_allow` VARCHAR( 255 ) NOT NULL ;
-
-# 코멘트 공지사항
-ALTER TABLE `$g4[board_table]` ADD `bo_comment_notice` TEXT NOT NULL ;
-
-# 관련글
-ALTER TABLE `$g4[board_table]` ADD `bo_related` TINYINT( 4 ) NOT NULL ;
-
 # 회원 닉네임 히스토리 관리
 DROP TABLE IF EXISTS `$g4[mb_nick_table]`;
 CREATE TABLE `$g4[mb_nick_table]` (
@@ -275,9 +257,6 @@ ADD UNIQUE `index1` ( `pp_date` , `pp_word` , `pp_ip` , `bo_table` , `mb_id` ) ;
 # 쪽지2 - 실시간 메모
 ALTER TABLE `$g4[member_table]` ADD `mb_realmemo` TINYINT( 4 ) NOT NULL ,
 ADD `mb_realmemo_sound` TINYINT( 4 ) NOT NULL ;
-
-# 코멘트 읽기 권한
-ALTER TABLE `$g4[board_table]` ADD `bo_comment_read_level` TINYINT( 4 ) NOT NULL AFTER `bo_comment_level` ;
 
 # 게시판 신고
 DROP TABLE IF EXISTS `$g4[singo_table]`;
@@ -1085,3 +1064,68 @@ ALTER TABLE `$g4[board_table]` ADD `bo_nogood_point` INT( 11 ) NOT NULL ;
 # 1.1.07 - wr_mb_id 필드 추가 - 추천된 글의 글쓴이
 ALTER TABLE `$g4[board_good_table]` ADD `wr_mb_id` VARCHAR( 255 ) NOT NULL;
 ALTER TABLE `$g4[board_good_table]` ADD INDEX `wr_mb_id` ( `wr_mb_id` );
+
+# 1.1.11 - 배너관리
+CREATE TABLE IF NOT EXISTS `$g4[banner_group_table]` (
+  `bg_id` varchar(20) NOT NULL,
+  `bg_subject` varchar(255) NOT NULL,
+  `bg_admin` varchar(255) NOT NULL,
+  `bg_desc` varchar(255) NOT NULL,
+  `bg_use` tinyint(4) NOT NULL,
+  `bg_width` int(11) NOT NULL,
+  `bg_height` int(11) NOT NULL,
+  `bg_1_subj` varchar(255) NOT NULL,
+  `bg_2_subj` varchar(255) NOT NULL,
+  `bg_3_subj` varchar(255) NOT NULL,
+  `bg_1` varchar(255) NOT NULL,
+  `bg_2` varchar(255) NOT NULL,
+  `bg_3` varchar(255) NOT NULL,
+  PRIMARY KEY (`bg_id`)
+);
+ 
+CREATE TABLE IF NOT EXISTS `$g4[banner_table]` (
+  `bn_id` varchar(20) NOT NULL,
+  `bn_subject` varchar(255) NOT NULL,
+  `bg_id` varchar(20) NOT NULL,
+  `bn_url` varchar(255) NOT NULL,
+  `bn_target` tinyint(4) NOT NULL,
+  `bn_use` tinyint(4) NOT NULL,
+  `bn_order` tinyint(4) NOT NULL,
+  `bn_start_datetime` datetime NOT NULL,
+  `bn_end_datetime` datetime NOT NULL,
+  `bn_image` varchar(255) NOT NULL,
+  `bn_filename` varchar(255) NOT NULL,
+  `bn_text` text NOT NULL,
+  `bn_datetime` datetime NOT NULL,
+  `bn_click` int(11) NOT NULL,
+  `bn_1_subj` varchar(255) NOT NULL,
+  `bn_2_subj` varchar(255) NOT NULL,
+  `bn_3_subj` varchar(255) NOT NULL,
+  `bn_1` varchar(255) NOT NULL,
+  `bn_2` varchar(255) NOT NULL,
+  `bn_3` varchar(255) NOT NULL,
+  PRIMARY KEY (`bn_id`),
+  KEY `bg_id` (`bg_id`),
+  KEY `bn_use` (`bn_use`),
+  KEY `bn_order` (`bn_order`),
+  KEY `bn_start_datetime` (`bn_start_datetime`),
+  KEY `bn_end_datetime` (`bn_end_datetime`)
+);
+ 
+CREATE TABLE IF NOT EXISTS `$g4[banner_click_table]` (
+  `bc_id` int(11) NOT NULL AUTO_INCREMENT,
+  `bn_id` varchar(20) NOT NULL,
+  `bg_id` varchar(20) NOT NULL,
+  `bc_agent` varchar(255) NOT NULL,
+  `bc_datetime` datetime NOT NULL,
+  PRIMARY KEY (`bc_id`),
+  KEY `bn_id` (`bn_id`),
+  KEY `bg_id` (`bg_id`)
+);
+ 
+CREATE TABLE IF NOT EXISTS `$g4[banner_click_sum_table]` (
+  `bc_date` date NOT NULL,
+  `bc_count` int(11) NOT NULL,
+  PRIMARY KEY (`bc_date`),
+  KEY `bc_count` (`bc_count`)
+);

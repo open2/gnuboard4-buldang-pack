@@ -811,8 +811,87 @@ if ($config[cf_db_version] < 1108) {
 
 }
 
+if ($config[cf_db_version] < 1111) {
+
+    $sql = "
+            CREATE TABLE IF NOT EXISTS `$g4[banner_group_table]` (
+              `bg_id` varchar(20) NOT NULL,
+              `bg_subject` varchar(255) NOT NULL,
+              `bg_admin` varchar(255) NOT NULL,
+              `bg_desc` varchar(255) NOT NULL,
+              `bg_use` tinyint(4) NOT NULL,
+              `bg_width` int(11) NOT NULL,
+              `bg_height` int(11) NOT NULL,
+              `bg_1_subj` varchar(255) NOT NULL,
+              `bg_2_subj` varchar(255) NOT NULL,
+              `bg_3_subj` varchar(255) NOT NULL,
+              `bg_1` varchar(255) NOT NULL,
+              `bg_2` varchar(255) NOT NULL,
+              `bg_3` varchar(255) NOT NULL,
+              PRIMARY KEY (`bg_id`)
+            );
+            ";
+    sql_query($sql, FALSE);
+
+    $sql = "
+            CREATE TABLE IF NOT EXISTS `$g4[banner_table]` (
+              `bn_id` varchar(20) NOT NULL,
+              `bn_subject` varchar(255) NOT NULL,
+              `bg_id` varchar(20) NOT NULL,
+              `bn_url` varchar(255) NOT NULL,
+              `bn_target` tinyint(4) NOT NULL,
+              `bn_use` tinyint(4) NOT NULL,
+              `bn_order` tinyint(4) NOT NULL,
+              `bn_start_datetime` datetime NOT NULL,
+              `bn_end_datetime` datetime NOT NULL,
+              `bn_image` varchar(255) NOT NULL,
+              `bn_filename` varchar(255) NOT NULL,
+              `bn_text` text NOT NULL,
+              `bn_datetime` datetime NOT NULL,
+              `bn_click` int(11) NOT NULL,
+              `bn_1_subj` varchar(255) NOT NULL,
+              `bn_2_subj` varchar(255) NOT NULL,
+              `bn_3_subj` varchar(255) NOT NULL,
+              `bn_1` varchar(255) NOT NULL,
+              `bn_2` varchar(255) NOT NULL,
+              `bn_3` varchar(255) NOT NULL,
+              PRIMARY KEY (`bn_id`),
+              KEY `bg_id` (`bg_id`),
+              KEY `bn_use` (`bn_use`),
+              KEY `bn_order` (`bn_order`),
+              KEY `bn_start_datetime` (`bn_start_datetime`),
+              KEY `bn_end_datetime` (`bn_end_datetime`)
+            );
+            ";
+    sql_query($sql, FALSE);
+             
+    $sql = "
+            CREATE TABLE IF NOT EXISTS `$g4[banner_click_table]` (
+              `bc_id` int(11) NOT NULL AUTO_INCREMENT,
+              `bn_id` varchar(20) NOT NULL,
+              `bg_id` varchar(20) NOT NULL,
+              `bc_agent` varchar(255) NOT NULL,
+              `bc_datetime` datetime NOT NULL,
+              PRIMARY KEY (`bc_id`),
+              KEY `bn_id` (`bn_id`),
+              KEY `bg_id` (`bg_id`)
+            );
+            ";
+    sql_query($sql, FALSE);
+             
+    $sql = "
+            CREATE TABLE IF NOT EXISTS `$g4[banner_click_sum_table]` (
+              `bc_date` date NOT NULL,
+              `bc_count` int(11) NOT NULL,
+              PRIMARY KEY (`bc_date`),
+              KEY `bc_count` (`bc_count`)
+            );
+            ";
+    sql_query($sql, FALSE);
+}
+            
 // db 버젼을 업데이트 - major version + mid version - patch version
-$max_version = "1110";
+$max_version = "1111";
 sql_query(" update $g4[config_table] set cf_db_version = '$max_version' ");
 
 echo "불당팩 $max_version - UPGRADE 완료.";
