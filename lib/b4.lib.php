@@ -1834,4 +1834,52 @@ function remove_nr($str) {
 
     return preg_replace($reg_e, $reg_p, $str);
 }
+
+// 개인정보지킴이 - http://opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=913
+function save_me($content) {
+
+    // 주민번호
+    $content1 = preg_replace_callback("/^\d{2}[0-1]\d[0-3]\d-?[1-6]\d{6}$/i", 'save_jumin', $content);
+
+    // 전화번호
+    $content2 = preg_replace_callback("/^(070|02|031|032|033|041|042|043|051|052|053|054|055|061|062|063|064)-\d{3,4}-\d{4}$/i", 'save_phone', $content1);
+
+    // 핸드폰번호
+    $content3 = preg_replace_callback("/^(010|011|016|017|018|019)-\d{3,4}-\d{4}$/i", 'save_mobile', $content2);
+
+    // 이메일
+    $content4 = preg_replace_callback("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i", 'save_email', $content3);
+
+    return $content4;
+}
+
+
+function save_jumin($string)
+{ 
+    global $g4, $board;
+
+
+    return $string; 
+}
+
+function save_email($string)
+{ 
+    global $g4, $board;
+     
+    return $string; 
+}
+
+function save_phone($string)
+{ 
+    global $g4, $board;
+
+    return $string; 
+}
+
+function save_mobile($string)
+{ 
+    global $g4, $board;
+     
+    return $string; 
+}
 ?>
