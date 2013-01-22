@@ -1,3 +1,95 @@
+1.1.11 (2013.01.22)
+
+1.1.11 - 배너관리가 정식으로 추가 되었습니다.
+ 
+===
+config.php
+ 
+adm/admin.menu300.php
+adm/banner_* (다수의 파일)
+adm/board_skin.php
+adm/tempsave_list.php
+adm/tempsave_list_delete.php
+adm/upgrade_bd.php
+adm/img/caldndar.gif
+bbs/board.php 
+bbs/good.php 
+bbs/list.php
+bbs/mb_leave_update.php
+bbs/member_leave.php
+ 
+lib/banner.lib.php
+lib/common.lib.php 
+lib/daum.lib.php
+lib/latest.my.lib.php
+ 
+skin/banner/* (다수의 파일)
+skin/member/basic/memo2_memo_address_book.skin.php
+skin/popular/daum_social/popular.skin.php
+skin/new/basic/new.skin.php
+skin/new/basic/img/btn_list.gif
+ 
+ 
+- 배너관리 1.0.0
+config.php
+adm/admin.menu300.php
+adm/banner_* (다수의 파일)
+adm/board_skin.php
+adm/tempsave_list.php
+adm/tempsave_list_delete.php
+adm/img/caldndar.gif
+lib/banner.lib.php
+skin/banner/* (다수의 파일)
+ 
+- 검색권한 오류 수정 
+bbs/list.php
+ 
+- 비밀글 기능오류 수정
+bbs/board.php
+ 
+- 다음소셜픽 인기글 (예제)
+skin/popular/daum_social/popular.skin.php
+ 
+- 다음소셜픽 프로그램 오류 수정
+lib/daum.lib.php
+ 
+- 최신글 스킨 오류 수정
+skin/new/basic/new.skin.php
+skin/new/basic/img/btn_list.gif
+ 
+- 업그레이드 프로그램 오류 수정
+adm/upgrade_bd.php
+ 
+- 최신글 프로그램 오류 수정
+lib/latest.my.lib.php
+ 
+- bbs/good.php 수정
+bbs/good.php
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=910
+ 
+- 그누보드 4.36.12 (session_unregister는 2개 파일만 빼고 이미 다 수정되었슴...)
+bbs/mb_leave_update.php
+bbs/member_leave.php
+lib/common.lib.php
+http://sir.co.kr/bbs/board.php?bo_table=g4_pds&wr_id=8250
+http://kr1.php.net/manual/en/function.session-unregister.php
+    :  XSS 취약점 해결, 패치된 내역 수정 보완 
+        UN Security팀에서 한국인터넷진흥원을 통하여 알려 주셨습니다. 
+
+        lib/common.lib.php 의 아래 코드가 추가 되었습니다. 
+
+            $content = preg_replace_callback("#style\s*=\s*[\"\']?[^\"\']+[\"\']?#i", 
+                        create_function('$matches', 'return str_replace("\\\\", "", stripslashes($matches[0]));'), $content); 
+
+    :  session_unregister 는 PHP 5.3 이상 에서 더이상 사용되지 않고 PHP 5.4 에서 사라지는 함수입니다. 
+        unset($_SESSION['const']) 로 대체합니다. 
+        김선용 님께서 알려 주셨습니다. 
+ 
+- 쪽지 5 - 2.0.6
+skin/member/basic/memo2_memo_address_book.skin.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/2701f118dc25dbf981bee656c427ec3bece4ce55
+
+
 1.1.10 (2013.01.02)
 
 별명으로만 가입하는 기능을 추가 했습니다.
