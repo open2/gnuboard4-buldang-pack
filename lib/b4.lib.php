@@ -1839,47 +1839,79 @@ function remove_nr($str) {
 function save_me($content) {
 
     // 주민번호
-    $content1 = preg_replace_callback("/^\d{2}[0-1]\d[0-3]\d-?[1-6]\d{6}$/i", 'save_jumin', $content);
-
-    // 전화번호
-    $content2 = preg_replace_callback("/^(070|02|031|032|033|041|042|043|051|052|053|054|055|061|062|063|064)-\d{3,4}-\d{4}$/i", 'save_phone', $content1);
+    $content1 = preg_replace_callback("/\d{2}[0-1]\d[0-3]\d[-\s]?[1-6]\d{6}/", 'save_jumin', $content);
 
     // 핸드폰번호
-    $content3 = preg_replace_callback("/^(010|011|016|017|018|019)-\d{3,4}-\d{4}$/i", 'save_mobile', $content2);
+    $content2 = preg_replace_callback("/(010|011|016|017|018|019)[-\s]\d{3,4}[-\s]\d{4}/", 'save_mobile', $content1);
+
+    // 전화번호
+    $content3 = preg_replace_callback("/(070|02|031|032|033|041|042|043|051|052|053|054|055|061|062|063|064)[-\s]\d{3,4}[-\s]\d{4}/", 'save_phone', $content2);
 
     // 이메일
-    $content4 = preg_replace_callback("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i", 'save_email', $content3);
+    $content4 = preg_replace_callback("/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/", 'save_email', $content3);
 
     return $content4;
 }
 
+// 이메일을 mask
+function save_email($string)
+{
+    // @를 기준으로 문자열을 자른 후
+    $str = explode("@", $string[0]);
+print_r($str);
 
+    // 앞부분은 모두 mask
+    $mask1 = strlen($str[0]);
+    $str1 = substr_replace($str[0], str_repeat("*", $mask1), 0, $mask1);
+
+    // 뒷부분은 첫번째를 모두 mask
+    $tmp = explode(".", $str[1]);
+    $mask2 = strlen($tmp[0]);
+    $tmp[0] = substr_replace($tmp[0], str_repeat("*", $mask2), 0, $mask2);
+    $str2 = implode(".", $tmp);
+
+    $return = $str1 . "@" . $str2;
+
+    return $return; 
+}
+
+// 주민번호를 mask, 주민번호를 몇개의 key만 살리고 모두 mix + str_shuffle
 function save_jumin($string)
 { 
-    global $g4, $board;
+    // "-" 또는 SPACE로 explode
+    $str = preg_split("/-|\s/", $string[0]);
+    
+    // 3자리를 *로 바꾸고 str_shuffle. *로 바꾸는 시작 위치는 추정을 막기 위해서 랜덤
+    if (count($str) == 2) {
+        $str1 = str_shuffle(substr_replace($str[0], "***", rand(0,2), 3));
+        $str2 = str_shuffle(substr_replace($str[1], "***", rand(0,3), 3));
+        $return = $str1 . "-" . $str2;
+    } else {
+        // 공백이 없이 숫자가 붙어 있는 경우
+        $str1 = str_shuffle(substr_replace($str[0], "******", rand(0,2), 6));
+        $return = $str1;
+    }
 
-
-    return $string; 
+    return $return;
 }
 
-function save_email($string)
-{ 
-    global $g4, $board;
-     
-    return $string; 
-}
-
-function save_phone($string)
-{ 
-    global $g4, $board;
-
-    return $string; 
-}
-
+// 핸드폰 번호를 mask, 01* - *** - ****, 폰의 자릿수만 그대로 나온다.
 function save_mobile($string)
 { 
-    global $g4, $board;
-     
-    return $string; 
+    // "-" 또는 SPACE로 explode
+    $str = preg_split("/-|\s/", $string[0]);
+    $return = substr_replace($str[0], "*", 2) . "-" . str_repeat("*", strlen($str[1])) . "-" . str_repeat("*", strlen($str[2]));
+
+    return $return;
+}
+
+// 전화번호를 mask, 국번 추정을 못하게 국번은 무조건 3개로 mask
+function save_phone($string)
+{ 
+    // "-" 또는 SPACE로 explode
+    $str = preg_split("/-|\s/", $string[0]);
+    $return = substr_replace($str[0], "**", 1, 2) . "-" . str_repeat("*", strlen($str[1])) . "-" . str_repeat("*", strlen($str[2]));
+
+    return $return;
 }
 ?>
