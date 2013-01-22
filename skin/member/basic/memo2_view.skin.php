@@ -148,8 +148,8 @@ win.print();
             <a href="javascript:all_cancel_spam();"><img src="<?=$memo_skin_path?>/img/spam_cancel_all.gif" ></a>&nbsp;
             <? } ?>
             <? if ($kind=="recv" && $view[spam_href]) { ?>
-            <a href='<?=$view[spam_href]?>'>
-            <img src="<?=$memo_skin_path?>/img/bt03.gif" /></a>&nbsp;
+            &nbsp;&nbsp;&nbsp;<a href='<?=$view[spam_href]?>'>
+            <img src="<?=$memo_skin_path?>/img/bt03.gif" /></a>&nbsp;&nbsp;&nbsp;&nbsp;
             <? } ?>
             <? if ($kind=="send" and $view[me_read_datetime] == "읽지 않음") { ?>
             <a href='<?=$view[cancel_href]?>'>
