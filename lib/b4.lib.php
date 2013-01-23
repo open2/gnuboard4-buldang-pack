@@ -1839,7 +1839,7 @@ function remove_nr($str) {
 function save_me($content) {
 
     // 주민번호
-    $content1 = preg_replace_callback("/\d{2}[0-1]\d[0-3]\d[-\s]?[1-6]\d{6}/", 'save_jumin', $content);
+    $content1 = preg_replace_callback("/\d{2}[0-1]\d[0-3]\d[-\s]?[1-8]\d{6}/", 'save_jumin', $content);
 
     // 핸드폰번호
     $content2 = preg_replace_callback("/(010|011|016|017|018|019)[-\s]\d{3,4}[-\s]\d{4}/", 'save_mobile', $content1);
