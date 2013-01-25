@@ -1858,7 +1858,6 @@ function save_email($string)
 {
     // @를 기준으로 문자열을 자른 후
     $str = explode("@", $string[0]);
-print_r($str);
 
     // 앞부분은 모두 mask
     $mask1 = strlen($str[0]);
