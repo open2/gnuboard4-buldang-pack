@@ -107,7 +107,8 @@ if ($g4['keyword_seo']) {
 ?>
 <? if ($config['cf_meta_keywords']) { ?><meta name="keywords" content="<?=$config['cf_meta_keywords']?>"><? } ?>
 <? if ($write['wr_content']) {
-    $g4_description = nl2br($write[wr_content]); // 줄바꿈을 <br>로
+    $g4_description = save_me($write[wr_content]);                // 개인정보보호
+    $g4_description = nl2br($g4_description);                     // 줄바꿈을 <br>로
     $g4_description = preg_replace('/\<br(\s*)?\/?\>/i', " ", $g4_description); // <br>을 여백으로
     $g4_description = strip_tags($g4_description);  // 모든 tag를 지워 버리고
     $g4_description = preg_replace("/<(.*?)\>/"," ", $g4_description);
