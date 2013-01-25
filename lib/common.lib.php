@@ -312,12 +312,17 @@ function get_list($write_row, $board, $skin_path, $subject_len=40, $gallery_view
     global $qstr, $page;
     global $sideview;
     global $mstr;
+    global $member;
 
     //$t = get_microtime();
 
     // 배열전체를 복사
     $list = $write_row;
     unset($write_row);
+
+    // 개인정보보호
+    if ($member['mb_id'] == "")
+        $list['wr_content'] = save_me($list['wr_content']);
 
     $list['is_notice'] = preg_match("/[^0-9]{0,1}{$list['wr_id']}[\r]{0,1}/",$board['bo_notice']);
 
