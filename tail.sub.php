@@ -1,6 +1,9 @@
 <?
 // 이 파일은 새로운 파일 생성시 반드시 포함되어야 함
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
+
+// session lock을 막기 위해서 쓴 다음에 항상 닫아준다
+session_write_close();
 ?>
 
 <script type="text/javascript" src="<?=$g4['path']?>/js/wrest.js"></script>

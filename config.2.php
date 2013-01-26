@@ -18,11 +18,19 @@ if ($sfl == "wr_good" || $sfl == "wr_nogood" || $sfl == "wr_nogood_down" || $sfl
     $mstr .= '&stx=' . urlencode($stx);
 }
 
+if (isset($head_on))  { // 불당팩에서 가끔 쓰는 변수
+    $head_on = (int) $head_on;
+    $mstr .= '&head_on=' . urlencode($head_on);
+}
+
 // 메뉴 문자열을 합쳐 줍니다.
 $qstr .= $mstr;
 
 // 네이버 API
 $g4['naver_api'] = "";
+
+// 채널 - 다수대의 web server를 쓸 때, 어떤 서버인지 확인을 위해 채널에 ip 마지막 자리를 넣어주면 편하다.
+$g4['channel'] = "";
 
 // bbs/write.php에서 그냥 나갈때 경고할지 안할지 결정, 쓰기할 때 경고가 필요하지 않은 경우는 write.head.skin.php에서 false로 하면 됨
 $g4['write_escape'] = true;
