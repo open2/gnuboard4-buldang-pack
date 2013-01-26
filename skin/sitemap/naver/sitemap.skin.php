@@ -1,11 +1,8 @@
 <?
-// naver layout이 아니면, style을 include
-if ($g4[layout_skin] !== "naver")
-    echo "<link rel='stylesheet' href='<?=$g4[path]?>/style.latest.css' type='text/css'>";
-
 // 보더형 태이블 4
 // http://html.nhndesign.com/uio_factory/ui_pattern/table/4
 ?>
+<link rel='stylesheet' href='<?=$sitemap_skin_path?>/style.latest.css' type='text/css'>
 
 <table class="tbl_type" border="1" cellspacing="0" summary="사이트맵-sitemap" width="100%" style="margin-top:5px;border-right: 1px solid #dddee2;">
 <colgroup>
