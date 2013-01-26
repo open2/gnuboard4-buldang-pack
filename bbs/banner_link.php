@@ -45,5 +45,5 @@ if (empty($_SESSION[$ss_name]))
 if ($bn['target'])
     goto_url(set_http($bn['bn_url']));
 else
-    goto_url(set_http($bn['bn_url']));
+    goto_url($bn['bn_url']);
 ?>
