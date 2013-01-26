@@ -97,7 +97,7 @@ function thumbnail($file_name, $width=0, $height=0, $is_create=false, $is_crop=2
     $dir = dirname(file_path($file_name));
     $file = basename($file_name);
 
-    $thumb_dir = $dir . "/thumb";
+    $thumb_dir = $dir . "/_thumb";
 
     // 썸네일을 저장할 디렉토리
     $thumb_path = $thumb_dir . "/" . $width . "x" . $height . "_" . $quality;
