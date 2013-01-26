@@ -1,10 +1,10 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
+if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
 ?>
 
 <style>
-.n_title1 { font-family:ë‹ì›€; font-size:9pt; color:#FFFFFF; }
-.n_title2 { font-family:ë‹ì›€; font-size:9pt; color:#5E5E5E; }
+.n_title1 { font-family:µ¸¿ò; font-size:9pt; color:#FFFFFF; }
+.n_title2 { font-family:µ¸¿ò; font-size:9pt; color:#5E5E5E; }
 </style>
 
 </style>
@@ -22,11 +22,11 @@ function all_checked(sw) {  //ssh
 
 function select_new_batch(sw){////ssh06-04-12
     var f = document.fboardlist;
-    str = "ì‚­ì œ";
+    str = "»èÁ¦";
     f.sw.value = sw;
     //f.target = "hiddenframe";
 
-    if (!confirm("ì„ íƒí•œ ê²Œì‹œë¬¼ì„ ì •ë§ "+str+" í•˜ì‹œê² ìŠµë‹ˆê¹Œ?\n\ní•œë²ˆ "+str+"í•œ ìë£ŒëŠ” ë³µêµ¬í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤"))
+    if (!confirm("¼±ÅÃÇÑ °Ô½Ã¹°À» Á¤¸» "+str+" ÇÏ½Ã°Ú½À´Ï±î?\n\nÇÑ¹ø "+str+"ÇÑ ÀÚ·á´Â º¹±¸ÇÒ ¼ö ¾ø½À´Ï´Ù"))
         return;
 
     f.action = "<?=$g4[admin_path]?>/ssh_delete_spam.php";
@@ -35,24 +35,24 @@ function select_new_batch(sw){////ssh06-04-12
 </script>
 <? } ?>
 
-<!-- ë¶„ë¥˜ ì‹œì‘ -->
+<!-- ºĞ·ù ½ÃÀÛ -->
 <form name=fnew method=get style="margin:0px;">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 <tr>
     <td height=30>
         <?=$group_select?>
         <select id=view_type name=view_type onchange="select_change()">
-            <option value=''>ì›ê¸€ë§Œ
-            <option value='c'>ì½”ë©˜íŠ¸ë§Œ
-            <option value='a'>ì „ì²´ê²Œì‹œë¬¼
+            <option value=''>¿ø±Û¸¸
+            <option value='c'>ÄÚ¸àÆ®¸¸
+            <option value='a'>ÀüÃ¼°Ô½Ã¹°
         </select>
-        &nbsp;<b>íšŒì›ì•„ì´ë”” : </b>
+        &nbsp;<b>È¸¿ø¾ÆÀÌµğ : </b>
         <input type=text class=ed id='mb_id' name='mb_id' value='<?=$mb_id?>'>
-        <input type=submit value='ê²€ìƒ‰'>
+        <input type=submit value='°Ë»ö'>
 
         <?  if ($is_admin) { ?>
-            <INPUT onclick="if (this.checked) all_checked(true); else all_checked(false);" type=checkbox>ì „ì²´ì„ íƒ&nbsp;&nbsp;
-            <a href="javascript:select_new_batch('d');">ì„ íƒì‚­ì œ</a>&nbsp;&nbsp;
+            <INPUT onclick="if (this.checked) all_checked(true); else all_checked(false);" type=checkbox>ÀüÃ¼¼±ÅÃ&nbsp;&nbsp;
+            <a href="javascript:select_new_batch('d');">¼±ÅÃ»èÁ¦</a>&nbsp;&nbsp;
         <? } ?>
 
         <script type="text/javascript">
@@ -70,7 +70,7 @@ function select_new_batch(sw){////ssh06-04-12
 </tr>
 </table>
 </form>
-<!-- ë¶„ë¥˜ ë -->
+<!-- ºĞ·ù ³¡ -->
 
 <form name="fboardlist" method="post" style="margin:0px;">
 <input type="hidden" name="sw"   value="">	
@@ -78,7 +78,7 @@ function select_new_batch(sw){////ssh06-04-12
 <input type="hidden" name="view"   value="<?=$view_type?>">	
 <input type="hidden" name="mb_id"   value="<?=$mb_id?>">	
 
-<!-- ì œëª© ì‹œì‘ -->
+<!-- Á¦¸ñ ½ÃÀÛ -->
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 <tr>
     <td height=2 bgcolor="#0A7299"></td>
@@ -88,11 +88,11 @@ function select_new_batch(sw){////ssh06-04-12
     <td bgcolor="#A4B510"></td>
 </tr>
 <tr height=28 align=center> 
-    <td width="100" align="center">ê·¸ë£¹</td>
-    <td width="100" align="center">ê²Œì‹œíŒ</td>
-    <td width="">ì œëª©</td>
-    <td width="110" align="center">ì´ë¦„</td>
-    <td width="40" align="center">ì¼ì‹œ</td>
+    <td width="100" align="center">±×·ì</td>
+    <td width="100" align="center">°Ô½ÃÆÇ</td>
+    <td width="">Á¦¸ñ</td>
+    <td width="110" align="center">ÀÌ¸§</td>
+    <td width="40" align="center">ÀÏ½Ã</td>
 </tr>
 <tr><td colspan=5 height=3 style="background:url(<?=$new_skin_path?>/img/title_bg.gif) repeat-x;"></td></tr>
 
@@ -131,7 +131,7 @@ HEREDOC2;
 ?>
 
 <? if ($i == 0) { ?>
-<tr><td colspan="5" height=50 align=center>ê²Œì‹œë¬¼ì´ ì—†ìŠµë‹ˆë‹¤.</td></tr>
+<tr><td colspan="5" height=50 align=center>°Ô½Ã¹°ÀÌ ¾ø½À´Ï´Ù.</td></tr>
 <? } ?>
 <tr>
     <td colspan="5" height="30" align="center"><?=$write_pages?></td>
