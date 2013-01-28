@@ -61,7 +61,7 @@ var char_max = parseInt(<?=$comment_max?>); // 최대
 for ($i=0; $i<count($list); $i++) {
     $comment_id = $list[$i][wr_id];
 ?>
-<a name="c_<?=$comment_id?>"></a>
+<a name="c_<?=$comment_id?>" id="c_<?=$comment_id?>"></a>
 <table width=100% cellpadding=0 cellspacing=0 border=0 id=view_<?=$wr_id?> >
 <tr>
     <td><? for ($k=0; $k<strlen($list[$i][wr_comment_reply]); $k++) echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; ?></td>
@@ -107,7 +107,7 @@ for ($i=0; $i<count($list); $i++) {
                     $str = $list[$i][content];
                 }
                 if (strstr($list[$i][wr_option], "secret"))
-                    $str = "<span class='small'>$str</span>";
+                    $str = "$str";
 
                 if (strstr($list[$i][wr_option], "html")) {
                 $str = preg_replace("/\[\<a\s*href\=\"(http|https|ftp)\:\/\/([^[:space:]]+)\.(gif|png|jpg|jpeg|bmp)\"\s*[^\>]*\>[^\s]*\<\/a\>\]/i", "<img src='$1://$2.$3' id='target_resize_image[]' onclick='image_window(this);'>", $str);
@@ -409,7 +409,7 @@ comment_box('', 'c'); // 코멘트 입력폼이 보이도록 처리하기위해서 추가 (root님)
 <? if($cwin==1) { ?></td><tr></table><p align=center><a href="javascript:window.close();"><img src="<?=$board_skin_path?>/img/btn_close.gif" border="0"></a><br><br><?}?>
 
 <!-- post 방식으로 javascript submit을 수행 -->
-<script language="JavaScript">
+<script type="text/javascript">
 function post_submit(action_url, bo_table, wr_id, comment_id, flag, msg)
 {
 	var f = document.fpost;

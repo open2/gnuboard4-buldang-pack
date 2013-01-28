@@ -3,7 +3,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
 if ($is_admin || !$view[is_notice] || !in_array( $write['mb_id'],explode(",", trim($board['bo_notice_comment_allow']) ) ) )
     $check_comment_allow = 1;
-    
+
 // cwin=1이면 view.skin.php를 읽지 않으므로, 스킨에서 사용하는 lib 읽어들이기
 if ($cwin == 1)
     include_once("$g4[path]/lib/view.skin.lib.php");
@@ -107,7 +107,7 @@ for ($i=0; $i<count($list); $i++) {
                     $str = $list[$i][content];
                 }
                 if (strstr($list[$i][wr_option], "secret"))
-                    $str = "<span class='small'>$str</span>";
+                    $str = "$str";
 
                 if (strstr($list[$i][wr_option], "html")) {
                 $str = preg_replace("/\[\<a\s*href\=\"(http|https|ftp)\:\/\/([^[:space:]]+)\.(gif|png|jpg|jpeg|bmp)\"\s*[^\>]*\>[^\s]*\<\/a\>\]/i", "<img src='$1://$2.$3' id='target_resize_image[]' onclick='image_window(this);'>", $str);
@@ -409,7 +409,7 @@ comment_box('', 'c'); // 코멘트 입력폼이 보이도록 처리하기위해서 추가 (root님)
 <? if($cwin==1) { ?></td><tr></table><p align=center><a href="javascript:window.close();"><img src="<?=$board_skin_path?>/img/btn_close.gif" border="0"></a><br><br><?}?>
 
 <!-- post 방식으로 javascript submit을 수행 -->
-<script language="JavaScript">
+<script type="text/javascript">
 function post_submit(action_url, bo_table, wr_id, comment_id, flag, msg)
 {
 	var f = document.fpost;
