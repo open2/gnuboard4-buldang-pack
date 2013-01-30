@@ -1,3 +1,57 @@
+1.1.12 (@013.01.29)
+
+1.11.12는 개인정보 지킴이가 적용되었습니다.
+게시판이 비회원 조회가 가능한 상태에서 개인정보(이메일, 주민번호, 전화번호, 핸드폰)가 유출되는 것을 막을수 있습니다.
+스킨의 적용이 필요없게 수정하였으며, 다음의 경우에는 보호받지 못함을 알려주세요.
+ 
+O1O-1111-1111 (숫자 0 대신 알파벳 O를 사용)
+010-일일일일-1111 (숫자 1 대신 한글을 사용)
+010 - 1111 - 2222 ( 번호 사이에 공백을 넣는 경우)
+ 
+주민번호 유출등으로 경고 받은 곳은 바로 적용하실 수 있게 우선 올립니다.
+ 
+===
+ 
+config.2.php
+head.sub.php
+tail.sub.php
+ 
+bbs/banner_link.php
+ 
+lib/b4.lib.php
+lib/common.lib.php
+ 
+skin/member/basic/memo2_view.skin.php
+skin/sitemap/naver/sitemap.skin.php
+ 
+ 
+- 코멘트 비밀글 폰트 크기 small 삭제 (민원이 많았어요...)
+skin/board/*/view_comment.skin.php
+ 
+- sitemap 스킨 오류 수정
+skin/sitemap/naver/sitemap.skin.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/b284e1b0fd031c5adeda5e8efc93c1c23dd054ca
+ 
+- 불당썸 2.0.28
+lib/thumb.lib.php
+ 
+- 배너관리 링크 target 오류
+bbs/banner_link.php 
+https://github.com/open2/gnuboard4-buldang-pack/commit/9d802f075efd55fd53b5fa6333ed782f0a8a6e73
+ 
+- 기타수정
+config.2.php
+tail.sub.php
+ 
+- 불당 개인정보 지킴이
+head.sub.php
+lib/b4.lib.php
+lib/common.lib.php
+ 
+- 쪽지 스팸 버튼 간격조절
+skin/member/basic/memo2_view.skin.php
+
+
 1.1.11 (2013.01.22)
 
 1.1.11 - 배너관리가 정식으로 추가 되었습니다.
