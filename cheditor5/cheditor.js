@@ -2041,10 +2041,10 @@ doInsertImage : function (images) {
     for (var i=0; i < images.length; i++) {
         var attr = images[i];
         var img = new Image();
-        img.setAttribute('src', attr.src);
         img.setAttribute('width', attr.width);
         img.setAttribute('height', attr.height);
         img.setAttribute('alt', attr.alt ? attr.alt : attr.info.origName);
+        img.setAttribute('src', attr.src);
         img.style.border = 'none';
 
         this.resizeImage(img);
