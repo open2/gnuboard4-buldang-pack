@@ -26,6 +26,9 @@ $menu["menu300"] = array (
     array("300400", "게시글 통계", "$g4[admin_path]/stat_write.php"),
     array("300500", "다운로드내역", "$g4[admin_path]/download_list.php"),
     array("-"),
+    array("300700", "렌탈관리", "$g4[admin_path]/rantal/category_list.php"),
+    array("300710", "렌탈신청관리", "$g4[admin_path]/rantal/online_list.php"),
+    array("-"),
     array("300600", "유니크로 로그", "$g4[admin_path]/unicro_log.php")
 );
 ?>
