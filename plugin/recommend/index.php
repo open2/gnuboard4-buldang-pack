@@ -172,9 +172,11 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     // 미가입인 경우는 취소 또는 재확인의 기회를 준다
     if ($row[join_mb_id] || $row[join_datetime] !== '0000-00-00 00:00:00')
         $list[$i][join_mb_id] = $row[join_mb_id];
-    else
-        $list[$i][join_mb_id] = "<a href='./join_suggest_re.php?w=d&join_no=$row[join_no]'>추천취소</a>&nbsp;&nbsp;
-                                 <a href='./join_suggest_re.php?w=r&join_no=$row[join_no]'>추천일갱신</a>";
+    else {
+        // 미가입이면 취소의 버튼을 넣어준다.
+        $list[$i][join_cancel] = "<a href='./join_suggest_re.php?w=d&join_no=$row[join_no]'>추천취소</a>&nbsp;&nbsp;
+                                  <a href='./join_suggest_re.php?w=r&join_no=$row[join_no]'>추천일갱신</a>";
+    }
 }
 ?>
 
@@ -212,9 +214,13 @@ foreach ($list as $row) {
   <td><?=$row[join_datetime]?></td>
   <td>
   <?
-  $mb = get_member($row[join_mb_id], "mb_id, mb_nick, mb_email, mb_homepage");
-  $mb_nick = get_sideview($mb[mb_id], $mb[mb_nick], $mb[mb_email], $mb[mb_homepage]);
-  echo $mb_nick;
+  if ($row[join_mb_id]) {
+      $mb = get_member($row[join_mb_id], "mb_id, mb_nick, mb_email, mb_homepage");
+      $mb_nick = get_sideview($mb[mb_id], $mb[mb_nick], $mb[mb_email], $mb[mb_homepage]);
+      echo $mb_nick;
+  } else {
+      echo $row[join_cancel];
+  }
   ?>
   </td>
 </tr>
