@@ -139,7 +139,7 @@ win.print();
               <a href='<?=$memo_url?>?kind=write&me_recv_mb_id=<?=$view[me_send_mb_id]?>&me_id=<?=$me_id?>&me_box=<?=$kind?>'><img src="<?=$memo_skin_path?>/img/reply.gif" /></a>&nbsp;
             <? } ?>
         </td>
-        <td>
+        <td colspan=2>
             <a href='<?=$memo_url?>?kind=<?=$kind?>&sfl=<?=$sfl?>&stx=<?=$stx?>&unread=<?=$unread?>&page=<?=$page?>'><img src="<?=$memo_skin_path?>/img/list.gif" /></a>&nbsp;&nbsp;&nbsp;&nbsp;
             <? if ($kind=="spam" && $view[spam_href]) { ?>
             <a href='<?=$view[spam_href]?>'><img src="<?=$memo_skin_path?>/img/spam_cancel.gif" ></a>&nbsp;
