@@ -71,7 +71,7 @@ header("Pragma: no-cache"); // HTTP/1.0
 <?
 if ($g4['keyword_seo']) {
     // 그누 SEO 키워드 - 사이트에 유입되는 탑 검색어를 키워드로 분리
-    $tag = "";
+    $seo_tag = "";
 
     // 게시글에 붙어 있는 탑키워드 5개를 넣어주고 
     if ($bo_table && $wr_id) {
@@ -80,8 +80,8 @@ if ($g4['keyword_seo']) {
         for ($i=0; $row = sql_fetch_array($result_s); $i++) {
             $tmp = explode(" ", $row['tag_name']);
             foreach ($tmp as $tstr) {
-                if (trim($tstr) && !stristr($tag, trim($tstr)))
-                    $tag .= $tstr . " ";
+                if (trim($tstr) && !stristr($seo_tag, trim($tstr)))
+                    $seo_tag .= $tstr . " ";
             }
         }
     }
@@ -93,16 +93,16 @@ if ($g4['keyword_seo']) {
         if (trim($row['tag_name'])) {
             $tmp = explode(" ", trim($row['tag_name']));
             foreach ($tmp as $tstr) {
-                if (!stristr($tag, trim($tstr)))
-                    $tag .= $tstr . " ";
+                if (!stristr($seo_tag, trim($tstr)))
+                    $seo_tag .= $tstr . " ";
             }
         }
     }
 
-    $tag = preg_replace('/\s+/', ' ', $tag);  // 여러개의 빈칸은 1개의 공백으로
-    $tag = trim($tag);
-    if ($tag !== "")
-        $config['cf_meta_keywords'] = "$bo_table " . $tag;
+    $seo_tag = preg_replace('/\s+/', ' ', $seo_tag);  // 여러개의 빈칸은 1개의 공백으로
+    $seo_tag = trim($seo_tag);
+    if ($seo_tag !== "")
+        $config['cf_meta_keywords'] = "$bo_table " . $seo_tag;
 }
 ?>
 <? if ($config['cf_meta_keywords']) { ?><meta name="keywords" content="<?=$config['cf_meta_keywords']?>"><? } ?>
