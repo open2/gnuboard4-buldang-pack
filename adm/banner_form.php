@@ -93,7 +93,7 @@ include_once ("$g4[path]/lib/banner.lib.php");
     <td></td>
     <td>배너 이미지</td>
     <td style='padding-top:7px; padding-bottom:7px;'>
-        <b>배너 이미즈는 높이 : <?=$bg[bg_width]?>px, 넓이 : <?=$bg[bg_height]?>px 크기로 넣어주세요.</b><br>
+        <b>배너 이미지는 높이 : <?=$bg[bg_width]?>px, 넓이 : <?=$bg[bg_height]?>px 크기로 넣어주세요.</b><br>
         <input type=file name=bn_image class=ed size=60>
         <?
         if ($bn[bn_image]) {
