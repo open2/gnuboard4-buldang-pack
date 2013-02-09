@@ -1913,4 +1913,14 @@ function save_phone($string)
 
     return $return;
 }
+
+// 정해진 자릿수의 알파뉴메익 순서를 생성
+// http://stackoverflow.com/questions/12000979/alphanumeric-increment-a-string-in-php-to-a-certain-length
+function getNextAlphaNumeric($code, $digit=4) {
+    $base_ten = base_convert($code,36,10);
+    $result = base_convert($base_ten+1,10,36);
+    $result = str_pad($result, $digit, '0', STR_PAD_LEFT);
+    $result = strtoupper($result);
+    return $result;
+}
 ?>
