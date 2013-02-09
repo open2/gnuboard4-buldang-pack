@@ -5,6 +5,8 @@ $menu["menu300"] = array (
     array("300200", "게시판그룹관리", "$g4[admin_path]/boardgroup_list.php"),
     array("300210", "게시판스킨목록", "$g4[admin_path]/board_skin.php"),
     array("-"),
+    array("300250", "카테고리관리", "$g4[admin_path]/category_list.php"),
+    array("-"),
     array("300900", "배너관리", "$g4[admin_path]/banner_list.php"),
     array("300910", "배너그룹관리", "$g4[admin_path]/banner_group_list.php"),
     array("300920", "배너클릭현황", "$g4[admin_path]/banner_click_list.php"),
