@@ -57,7 +57,7 @@ if (count($arr)) {
         $list = ($k++%2);
         echo "
         <tr class='list$list ht center'>
-            <td><a href='./backker_click_list.php?fr_date=$key&to_date=$key' class=tt>$key</a></td>
+            <td><a href='./banner_click_list.php?fr_date=$key&to_date=$key' class=tt>$key</a></td>
             <td>".number_format($value)."</td>
             <td>$s_rate</td>
             <td align=left>$graph</td>
