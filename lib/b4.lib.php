@@ -1923,4 +1923,13 @@ function getNextAlphaNumeric($code, $digit=4) {
     $result = strtoupper($result);
     return $result;
 }
+
+// 바이트를 보기 좋은 형식으로 출력
+// http://stackoverflow.com/questions/2510434/php-format-bytes-to-kilobytes-megabytes-gigabytes
+function formatBytes($size, $precision = 2)
+{
+    $base = log($size) / log(1024);
+    $suffixes = array('', 'k', 'M', 'G', 'T');  
+    return round(pow(1024, $base - floor($base)), $precision) . $suffixes[floor($base)];
+}
 ?>
