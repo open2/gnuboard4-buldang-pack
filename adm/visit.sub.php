@@ -6,7 +6,7 @@ include_once("$g4[path]/lib/visit.lib.php");
 if (empty($fr_date)) $fr_date = $g4[time_ymd];
 if (empty($to_date)) $to_date = $g4[time_ymd];
 
-$qstr = "fr_date=$fr_date&to_date=$to_date";
+$qstr = "fr_date=$fr_date&to_date=$to_date&domain=$domain&ip=$ip";
 
 $member_skin_path = "$g4[path]/skin/member/$config[cf_member_skin]";
 ?>
