@@ -103,6 +103,14 @@ if ($w == "") {
 
 } else if ($w == "u") {
 
+    // 업데이트를 하는데, 그룹이 달라지면??? 이미지 경로가 달라진다...ㅠㅠ...
+    $result = sql_fetch(" select * from $g4[banner_table] where bn_id = '$bn_id' ");
+    if ($bg_id !== $result['bg_id']) {
+        $from_image = "$g4[data_path]/banner/$result[bg_id]/$result[bn_image]";
+        $to_image = "$banner_path/$result[bn_image]";
+        rename("$from_image", "$to_image");
+    }
+
     $sql = " update $g4[banner_table]
                 set 
                     bn_datetime = '$g4[time_ymdhis]',
