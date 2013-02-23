@@ -63,9 +63,9 @@ if (empty($_POST))
 // 리퍼러 체크
 //referer_check();
 
-$w = $_POST["w"];
-$wr_link1 = mysql_real_escape_string($_POST['wr_link1']);
-$wr_link2 = mysql_real_escape_string($_POST['wr_link2']);
+$w = $_POST['w'];
+$wr_link1 = mysql_real_escape_string(strip_tags($_POST['wr_link1']));
+$wr_link2 = mysql_real_escape_string(strip_tags($_POST['wr_link2']));
 
 $notice_array = explode("\n", trim($board[bo_notice]));
 
