@@ -586,7 +586,6 @@ function conv_content($content, $html)
         $content = preg_replace_callback("/<([^>]+)>/s", 'bad130128', $content); 
 
         $content = preg_replace($source, $target, $content);
-        $content = bad_tag_convert($content);
 
         // XSS (Cross Site Script) 막기
         // 완벽한 XSS 방지는 없다.
@@ -637,6 +636,7 @@ function conv_content($content, $html)
         $content = preg_replace("/<[^>]*".$pattern."/i", "__EXPRESSION__", $content); 
         // <IMG STYLE="xss:e\xpression(alert('XSS'))"></IMG> 와 같은 코드에 취약점이 있어 수정함. 121213
         $content = preg_replace("/(?<=style)(\s*=\s*[\"\']?xss\:)/i", '="__XSS__', $content); 
+        $content = bad_tag_convert($content);
     }
     else // text 이면
     {
