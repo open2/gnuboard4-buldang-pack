@@ -182,7 +182,8 @@ if ($auto_login) {
     }
     // 불당팩 - 쿠키를 암호화 하여 저장
     //set_cookie('ck_mb_id', $mb[mb_id], 86400 * 31);
-    set_cookie('ck_mb_id', encrypt($mb[mb_id],$g4[encrypt_key]), 86400 * 31);
+    $mb_key = encrypt($mb[mb_id],$g4[encrypt_key]);
+    set_cookie('ck_mb_id', $mb_key, 86400 * 31);
     set_cookie('ck_auto', $key, 86400 * 31);
     // 자동로그인 end ---------------------------
 } else {
