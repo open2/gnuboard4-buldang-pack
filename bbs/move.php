@@ -32,9 +32,9 @@ $sql = " select *
           where a.gr_id = b.gr_id
             and bo_table <> '$bo_table' ";
 if ($is_admin == 'group')
-    $sql .= "  and a.bo_write_level >= '$member[mb_level]' and b.gr_use_search ";
+    $sql .= "  and '$member[mb_level]' >= a.bo_write_level and b.gr_use_search ";
 else if ($is_admin == 'board')
-    $sql .= " and a.bo_write_level >= '$member[mb_level]' and a.gr_id = '$board[gr_id]' a.bo_use_search = 1 ";
+    $sql .= " and '$member[mb_level]' >= a.bo_write_level and a.gr_id = '$board[gr_id]' a.bo_use_search = 1 ";
 $sql .= " order by a.gr_id, a.bo_order_search, a.bo_table ";
 $result = sql_query($sql);
 for ($i=0; $row=sql_fetch_array($result); $i++)
