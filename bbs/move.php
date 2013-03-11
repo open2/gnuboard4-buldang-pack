@@ -26,18 +26,18 @@ else {
     }
 }
 
-$sql = " select * 
-           from $g4[board_table] a, 
+$sql = " select *
+           from $g4[board_table] a,
                 $g4[group_table] b
           where a.gr_id = b.gr_id
             and bo_table <> '$bo_table' ";
-if ($is_admin == 'group') 
-    $sql .= " and b.gr_admin = '$member[mb_id]' ";
-else if ($is_admin == 'board') 
-    $sql .= " and a.bo_admin = '$member[mb_id]' ";
+if ($is_admin == 'group')
+    $sql .= "  and a.bo_write_level >= '$member[mb_level]' and b.gr_use_search ";
+else if ($is_admin == 'board')
+    $sql .= " and a.bo_write_level >= '$member[mb_level]' and a.gr_id = '$board[gr_id]' a.bo_use_search = 1 ";
 $sql .= " order by a.gr_id, a.bo_order_search, a.bo_table ";
 $result = sql_query($sql);
-for ($i=0; $row=sql_fetch_array($result); $i++) 
+for ($i=0; $row=sql_fetch_array($result); $i++)
 {
     $list[$i] = $row;
 }
