@@ -34,8 +34,8 @@ if ($is_nogood) $colspan++;
         Total <?=number_format($total_count)?>
     </td>
     <td align="right" style="font:normal 11px tahoma; color:#BABABA;" width=50>
-        <? if ($rss_href) { ?><a href='<?=$rss_href?>'><img src='<?=$board_skin_path?>/img/btn_rss.gif' border=0 align=absmiddle></a><?}?>
-        <? if ($admin_href) { ?><a href="<?=$admin_href?>"><img src="<?=$board_skin_path?>/img/btn_admin.gif" title="관리자" width="63" height="22" border="0" align="absmiddle"></a><?}?>
+        <? if ($rss_href) { ?><a href='<?=$rss_href?>'><img src='<?=$board_skin_path?>/img/btn_rss.gif' border=0 align=absmiddle alt='rss'></a><?}?>
+        <? if ($admin_href) { ?><a href="<?=$admin_href?>"><img src="<?=$board_skin_path?>/img/btn_admin.gif" title="관리자" width="63" height="22" border="0" align="absmiddle" alt='admin'></a><?}?>
     </td>
 </tr>
 <tr><td height=5></td></tr>
@@ -88,7 +88,7 @@ if ($is_nogood) $colspan++;
     <td>
         <? 
         if ($list[$i][is_notice]) // 공지사항 
-            echo "<img src=\"$board_skin_path/img/icon_notice.gif\">";
+            echo "<img src=\"$board_skin_path/img/icon_notice.gif\" alt='notice'>";
         else if ($wr_id == $list[$i][wr_id]) // 현재위치
             echo "<span style='font:bold 11px tahoma; color:#E15916;'>{$list[$i][num]}</span>";
         else
@@ -147,7 +147,7 @@ if ($is_nogood) $colspan++;
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr> 
     <td width="100%" align="center" height=30 valign=bottom>
-        <? if ($prev_part_href) { echo "<a href='$prev_part_href'><img src='$board_skin_path/img/btn_search_prev.gif' border=0 align=absmiddle title='이전검색'></a>"; } ?>
+        <? if ($prev_part_href) { echo "<a href='$prev_part_href'><img src='$board_skin_path/img/btn_search_prev.gif' border=0 align=absmiddle title='이전검색' alt='prev search'></a>"; } ?>
         <?
         // 기본으로 넘어오는 페이지를 아래와 같이 변환하여 이미지로도 출력할 수 있습니다.
         //echo $write_pages;
@@ -171,14 +171,14 @@ if ($is_nogood) $colspan++;
 <table width=100% cellpadding=0 cellspacing=0>
 <tr> 
     <td width="50%" height="40">
-        <? if ($list_href) { ?><a href="<?=$list_href?>"><img src="<?=$board_skin_path?>/img/btn_list.gif" border="0"></a><? } ?>
-        <? if ($write_href) { ?><a href="<?=$write_href?>"><img src="<?=$board_skin_path?>/img/btn_write.gif" border="0"></a><? } ?>
+        <? if ($list_href) { ?><a href="<?=$list_href?>"><img src="<?=$board_skin_path?>/img/btn_list.gif" border="0" alt='list'></a><? } ?>
+        <? if ($write_href) { ?><a href="<?=$write_href?>"><img src="<?=$board_skin_path?>/img/btn_write.gif" border="0" alt='write'></a><? } ?>
         <? if ($is_checkbox) { ?>
-            <a href="javascript:select_delete();"><img src="<?=$board_skin_path?>/img/btn_select_delete.gif" border="0"></a>
-            <a href="javascript:select_copy('copy');"><img src="<?=$board_skin_path?>/img/btn_select_copy.gif" border="0"></a>
-            <a href="javascript:select_copy('move');"><img src="<?=$board_skin_path?>/img/btn_select_move.gif" border="0"></a>
+            <a href="javascript:select_delete();"><img src="<?=$board_skin_path?>/img/btn_select_delete.gif" border="0" alt='delete'></a>
+            <a href="javascript:select_copy('copy');"><img src="<?=$board_skin_path?>/img/btn_select_copy.gif" border="0" alt='copy'></a>
+            <a href="javascript:select_copy('move');"><img src="<?=$board_skin_path?>/img/btn_select_move.gif" border="0" alt='move'></a>
             <? if ($is_category) { ?>
-            <a href="javascript:select_category();"><img src="<?=$board_skin_path?>/img/btn_select_category.gif" border="0"></a>
+            <a href="javascript:select_category();"><img src="<?=$board_skin_path?>/img/btn_select_category.gif" border="0" alt='select'></a>
             <select name=sca2><?=$category_option?></select>
             <? } ?>
         <? } ?>
