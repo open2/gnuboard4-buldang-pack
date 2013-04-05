@@ -94,7 +94,7 @@ HEREDOC;
 ?>
 <html>
 <head>
-<meta http-equiv="content-type" content="text/html; charset=<?=$g4[charset]?>">
+<meta http-equiv="content-type" content="text/html; charset=<?=$g4['charset']?>">
 <title>그누보드4 설치 (1/3) - 라이센스(License)</title>
 <style type="text/css">
 <!--
