@@ -481,7 +481,7 @@ if ($chk_bo_day_nowrite) $s .= " , bo_day_nowrite = '$bo_day_nowrite' ";
 if ($chk_bo_comment_nowrite) $s .= " , bo_comment_nowrite = '$bo_comment_nowrite' ";
 if ($chk_bo_gallery) $s .= " , bo_gallery = '$bo_gallery' ";
 if ($chk_bo_use_dhtml_comment) $s .= " , bo_use_dhtml_comment = '$bo_use_dhtml_comment' ";
-if ($bo_comment_read_level) $s .= " , bo_comment_read_level = '$bo_comment_read_level' ";
+if ($chk_comment_read_level) $s .= " , bo_comment_read_level = '$bo_comment_read_level' ";
 if ($chk_use_search) $s .= " , bo_use_search = '$bo_use_search' ";
 if ($chk_bo_use_recycle) $s .= " , bo_use_recycle = '$bo_use_recycle' ";
 if ($chk_bo_image_info) $s .= " , bo_image_info = '$bo_image_info' ";
