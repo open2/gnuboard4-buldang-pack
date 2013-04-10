@@ -223,7 +223,7 @@ include_once ("./admin.head.php");
     <td><?=get_member_level_select('bo_comment_level', 1, 10, $board[bo_comment_level]) ?></td>
 </tr>
 <tr class='ht'>
-    <td><input type=checkbox name=chk_comment_read_level value=0></td>
+    <td><input type=checkbox name=chk_comment_read_level value=1></td>
     <td>코멘트읽기 권한</td>
     <td><?=get_member_level_select('bo_comment_read_level', 0, 10, $board[bo_comment_read_level]) ?> (값을 0으로 설정하면 글읽기 권한과 동일한 권한으로 적용됩니다)</td>
 </tr>
