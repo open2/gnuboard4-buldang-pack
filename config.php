@@ -164,8 +164,13 @@ $g4['member_suggest_join_days']  = 7;
 // 자동 레벨업을 사용할 것인가를 설정
 $g4['use_auto_levelup'] = 0;
 
-// $use_db_session = false 로 설정하면 db 세션을 사용하지 않습니다.
-$use_db_session = true;
+// 사용할 session 형태를 지정 합니다. db. memcache. file - 3종 입니다
+// memcache를 사용하기 위해서는 PECL:memcache를 설치해야지 합니다.
+$g4['session_type'] = "db";
+
+// memcache 사용할때의 설정
+$g4['mhost'] = "localhost";
+$g4['mport'] = "11211";
 
 // cdn 경로를 설정 합니다. (예: http://cdnid.imagetong.com)
 $g4['cdn_path']          = "";

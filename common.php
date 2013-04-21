@@ -306,22 +306,26 @@ $_SERVER['PHP_SELF'] = htmlentities($_SERVER['PHP_SELF']);
 @ini_set("session.use_trans_sid", 0);    // PHPSESSID를 자동으로 넘기지 않음
 @ini_set("url_rewriter.tags",""); // 링크에 PHPSESSID가 따라다니는것을 무력화함 (해뜰녘님께서 알려주셨습니다.)
 
-// $use_db_session = false 로 설정하면 db 세션을 사용하지 않습니다.
-if ($use_db_session) 
-{
-    include_once("$g4[path]/lib/dbsession.lib.php");
-    $session = new g4_dbsession();
-    session_set_save_handler(array($session, 'open'), 
-                             array($session, 'close'),
-                             array($session, 'read'),
-                             array($session, 'write'),
-                             array($session, 'destroy'),
-                             array($session, 'gc'));
-}
-else 
-{
-    // 그누보드 기본 세션관리
-    session_save_path("{$g4['data_path']}/session");
+// 사용할 session 형태를 지정 합니다. db. memcache. file - 3종 입니다
+switch ($g4['session_type']) {
+    case "db"       :
+        include_once("$g4[path]/lib/dbsession.lib.php");
+        $session = new g4_dbsession();
+        session_set_save_handler(array($session, 'open'), 
+                                 array($session, 'close'),
+                                 array($session, 'read'),
+                                 array($session, 'write'),
+                                 array($session, 'destroy'),
+                                 array($session, 'gc'));
+        break;
+    case "memcache" :
+        $session_save_path = "tcp://$g4[mhost]:$g4[mport]?persistent=1&weight=2&timeout=2&retry_interval=10,  ,tcp://$$g4[mhost]:$g4[mport] ";
+        ini_set('session.save_handler', 'memcache');
+        ini_set('session.save_path', $session_save_path);
+        break;
+    default :
+        // 그누보드 기본 세션관리
+        session_save_path("{$g4['data_path']}/session");
 }
 
 if (isset($SESSION_CACHE_LIMITER))
