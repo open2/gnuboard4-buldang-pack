@@ -18,6 +18,7 @@ $menu["menu100"] = array (
     array("100700", "복구/최적화", "$g4[admin_path]/repair.php"),
     array("100710", "DB 최적화", "$g4[admin_path]/optimize.php"),
     array("100800", "세션 삭제", "$g4[admin_path]/session_delete.php"),
+    array("100810", "memcache관리", "$g4[admin_path]/memcache.php", "new"),
     array("-"),
     array("100900", "불당팩 버전정보", "$g4[admin_path]/version_bd.php"),
     array("100910", "불당팩 업그레이드", "$g4[admin_path]/upgrade_bd.php"),
