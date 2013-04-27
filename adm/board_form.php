@@ -98,6 +98,7 @@ include_once ("./admin.head.php");
 <script type="text/javascript" src="<?=$g4[cheditor4_path]?>/cheditor.js"></script>
 <?=cheditor1('bo_content_head', '100%', '200');?>
 <?=cheditor1('bo_content_tail', '100%', '200');?>
+<?=cheditor1('bo_insert_content', '100%', '250');?>
 
 <form name=fboardform method=post onsubmit="return fboardform_submit(this)" enctype="multipart/form-data">
 <input type=hidden name="w"     value="<?=$w?>">
@@ -354,7 +355,7 @@ include_once ("./admin.head.php");
         <option value='2'>무조건
         </select>
         &nbsp;<?=help("'체크박스'는 글작성시 비밀글 체크가 가능합니다.\n\n'무조건'은 작성되는 모든글을 비밀글로 작성합니다. (관리자는 체크박스로 출력합니다.)\n\n스킨에 따라 적용되지 않을 수 있습니다.")?>
-        <script language='javascript'>document.getElementById('bo_use_secret').value='<?=$board[bo_use_secret]?>';</script>
+        <script type='text/javascript'>document.getElementById('bo_use_secret').value='<?=$board[bo_use_secret]?>';</script>
     </td>
 </tr>
 <tr class='ht'>
@@ -433,7 +434,7 @@ include_once ("./admin.head.php");
             echo "<option value='$arr[$i]'>$arr[$i]</option>\n";
         }
         ?></select>
-        <script language="JavaScript">document.fboardform.bo_skin.value="<?=$board[bo_skin]?>";</script>
+        <script type="text/javascript">document.fboardform.bo_skin.value="<?=$board[bo_skin]?>";</script>
     </td>
 </tr>
 <tr class='ht'>
@@ -480,7 +481,7 @@ include_once ("./admin.head.php");
         <option value='1'>나중에 쓴 답변 아래로 달기 (기본)
         <option value='0'>나중에 쓴 답변 위로 달기
         </select>
-        <script language='javascript'> document.fboardform.bo_reply_order.value = '<?=$board[bo_reply_order]?>'; </script>
+        <script type='text/javascript'> document.fboardform.bo_reply_order.value = '<?=$board[bo_reply_order]?>'; </script>
     </td>
 </tr>
 
@@ -519,7 +520,7 @@ include_once ("./admin.head.php");
         <option value='ca_name desc, wr_num, wr_reply'>ca_name : 분류명 오름차순
         <option value='rand()'>rand() : 랜덤으로 표시
         </select>
-        <script language='javascript'> document.fboardform.bo_sort_field.value = '<?=$board[bo_sort_field]?>'; </script>
+        <script type='text/javascript'> document.fboardform.bo_sort_field.value = '<?=$board[bo_sort_field]?>'; </script>
         <?=help("리스트에서 기본으로 정렬에 사용할 필드를 선택합니다.\n\n'기본'으로 사용하지 않으시는 경우 속도가 느려질 수 있습니다.", -50)?>
     </td>
 </tr>
@@ -596,7 +597,7 @@ if (!preg_match("/([m|M])$/", $upload_max_filesize)) {
 <tr class='ht'>
     <td><input type=checkbox name=chk_insert_content value=1></td>
     <td>글쓰기 기본 내용</td>
-    <td><textarea class=ed name=bo_insert_content rows=5 style='width:80%;'><?=$board[bo_insert_content] ?></textarea></td>
+    <td style='padding-top:7px; padding-bottom:7px;'><?=cheditor2('bo_insert_content', $board[bo_insert_content]);?></td>
 </tr>
 
 <tr><td colspan=3 class='line2'></td></tr>
@@ -929,7 +930,7 @@ function fboardform_submit(f) {
 
     <?=cheditor3('bo_content_head')."\n";?>
     <?=cheditor3('bo_content_tail')."\n";?>
-
+    <?=cheditor3('bo_insert_content')."\n";?>
     
     // 공지사항 정렬을 위해서
     <?
