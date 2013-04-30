@@ -77,7 +77,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     $list[$i][gl_datetime] = $row[gl_datetime];
 }
 
-$write_pages = get_paging($config[cf_write_pages], $page, $total_page, "./good_list.php?gr_id=$gr_id&bo_table=$bo_table&qstr=$qstr&page=");
+$write_pages = get_paging($config[cf_write_pages], $page, $total_page, "./good_list.php?gr_id=$gr_id&bo_table=$bo_table&bo_table_search=$bo_table_search&qstr=$qstr&page=");
 
 if (!$wr_id)
     include_once($g4[good_list_head]);
