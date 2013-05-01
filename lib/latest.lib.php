@@ -12,7 +12,8 @@ function latest($skin_dir="", $bo_table, $rows=10, $subject_len=40, $gallery_vie
         $latest_skin_path = "$g4[path]/skin/latest/basic";
 
     // $options를 explode
-    $opt = explode(",", $options);
+    if (!is_array($options))
+        $opt = explode(",", $options);
 
     $list = array();
 
@@ -45,7 +46,7 @@ function latest($skin_dir="", $bo_table, $rows=10, $subject_len=40, $gallery_vie
     $sql = " select $sql_select from $tmp_write_table where wr_is_comment = 0 $sql_notice order by wr_num limit 0, $rows ";
 
     // 게시판목록보기 권한이 회원 레벨 이상인 경우에는, 아무것도 노출되지 않게 코딩을 바꿔줍니다.
-    if (in_array("list_level", $opt) && $board[bo_list_level] > $member[mb_level])
+    if (is_array($opt) && in_array("list_level", $opt) && $board[bo_list_level] > $member[mb_level])
         $result = "";
     else
         $result = sql_query($sql);
@@ -141,6 +142,8 @@ function latest_notice($skin_dir="", $rows=10, $subject_len=40, $gallery_view=0,
 }
 
 // 최근 인기글추출
+// $bo_hot_list : 1(실시간) 2(주간) 3(월간) 4(일간)
+// $bo_hot_list_basis : 인기글 산출기준
 function latest_popular($skin_dir="", $bo_table, $rows=10, $subject_len=40, $options="", $bo_hot_list=1, $bo_hot_list_basis="hit")
 {
     global $g4;
@@ -167,6 +170,16 @@ function latest_popular($skin_dir="", $bo_table, $rows=10, $subject_len=40, $opt
         $sql_between = " wr_datetime between '$hot_start' and '$g4[time_ymdhis]' ";
     }
 
+    // 공지사항제외
+    $arr_notice = preg_split("/\n/i", trim($board[bo_notice]));
+
+    $not_sql = " ";
+    for ($k=0; $k<count($arr_notice); $k++) {
+        if (trim($arr_notice[$k]) !== "") {
+            $not_sql .= " and wr_id <> '$arr_notice[$k]' "; 
+        }
+    }
+
     $tmp_write_table = $g4['write_prefix'] . $bo_table; // 게시판 테이블 전체이름
     //$sql = " select * from $tmp_write_table where wr_is_comment = 0 order by wr_id desc limit 0, $rows ";
     // 위의 코드 보다 속도가 빠름
@@ -176,6 +189,7 @@ function latest_popular($skin_dir="", $bo_table, $rows=10, $subject_len=40, $opt
                FROM $tmp_write_table 
               WHERE wr_is_comment = 0 
                 and $sql_between
+                    $not_sql
            order by wr_{$bo_hot_list_basis} desc 
               limit 0, $rows ";
     $result = sql_query($sql);
