@@ -45,7 +45,8 @@ for ($i=0; $i<count($list); $i++)
 <tr height=28 align=center> 
     <td align="center"><a href='./good_list.php?bo_table_search=<?=$list[$i][bo_table]?>'><?=$bo_subject?></a></td>
     <td width="" align=left>
-    <a href='<?=$list[$i][href]?>'><?=$list[$i][comment]?><?=$wr_subject?></a>
+    <a href='<?=$list[$i][href]?>'><?=$wr_subject?></a>
+    <? if ($list[$i][wr_comment]) echo "<span style='font-family:Tahoma;font-size:10px;color:#EE5A00;'>(" . $list[$i][wr_comment] . ")</span>"?>
     </td>
     <td align="center"><?=$list[$i][name]?></td>
     <td align="center"><?=$list[$i][wr_datetime2]?></td>
