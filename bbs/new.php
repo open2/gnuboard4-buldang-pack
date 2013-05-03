@@ -84,7 +84,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         $comment = "";
         $comment_link = "";
         $comment_id = "";
-        $row2 = sql_fetch(" select wr_id, wr_subject, mb_id, wr_name, wr_email, wr_homepage, wr_datetime from $tmp_write_table where wr_id = '$row[wr_id]' ");
+        $row2 = sql_fetch(" select wr_id, wr_subject, mb_id, wr_name, wr_email, wr_homepage, wr_datetime, wr_comment from $tmp_write_table where wr_id = '$row[wr_id]' ");
         $list[$i] = $row2;
 
         $name = get_sideview($row2[mb_id], cut_str($row2[wr_name], $config[cf_cut_name]), $row2[wr_email], $row2[wr_homepage]);

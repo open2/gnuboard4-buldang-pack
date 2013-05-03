@@ -117,8 +117,13 @@ HEREDOC;
           echo "<input type=checkbox name=chk_wr_id[] value='{$list[$i][wr_id]}|{$list[$i][bo_table]}'>";
     }
 
+    // ÄÚ¸àÆ® °¹¼ö¸¦ Ãâ·Â
+    $comment_cnt = "";
+    if (!$list[$i][comment] && $list[$i][wr_comment] > 0)
+        $comment_cnt = " <span style='font-family:Tahoma;font-size:10px;color:#EE5A00;'>({$list[$i][wr_comment]})</span>";
+
     echo <<<HEREDOC2
-    &nbsp;<a href='{$list[$i][href]}'>{$list[$i][comment]}{$wr_subject}</a>
+    &nbsp;<a href='{$list[$i][href]}'>{$list[$i][comment]}{$wr_subject}</a> {$comment_cnt}
     </td>
     <td align="center">{$list[$i][name]}</td>
     <td align="center">{$list[$i][datetime2]}</td>
