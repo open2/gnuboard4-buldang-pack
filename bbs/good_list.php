@@ -20,6 +20,12 @@ if ($gr_i)
 // 베스트글 조건을 지정
 $search_sql .= " and ( a.hit >= b.bo_list_good or (a.good - a.nogood) >= b.bo_list_good or a.comment >= b.bo_list_comment ) ";
 
+// gl_flag = 1인 필드는 기본적으로 베스트글에서 제외
+if ($gl_flag > 0)
+    $search_sql .= " and a.gl_flag = 1 ";
+else
+    $search_sql .= " and a.gl_flag = 0 ";
+
 $sql_common = " from $g4[good_list_table] a left join $g4[board_table] b on (a.bo_table = b.bo_table)
                where $search_sql ";
 
@@ -77,7 +83,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     $list[$i][gl_datetime] = $row[gl_datetime];
 }
 
-$write_pages = get_paging($config[cf_write_pages], $page, $total_page, "./good_list.php?gr_id=$gr_id&bo_table=$bo_table&bo_table_search=$bo_table_search&qstr=$qstr&page=");
+$write_pages = get_paging($config[cf_write_pages], $page, $total_page, "./good_list.php?gr_id=$gr_id&bo_table=$bo_table&qstr=$qstr&page=");
 
 if (!$wr_id)
     include_once($g4[good_list_head]);
