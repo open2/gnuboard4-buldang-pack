@@ -4,6 +4,36 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
 <script type="text/javascript" src="<?=$g4[path]?>/js/sideview.js"></script>
 
+<? if ($is_admin) { ?>
+<script type="text/javascript">
+function all_checked(sw) {  //ssh
+    var f = document.fboardlist;
+
+    for (var i=0; i<f.length; i++) {
+        if (f.elements[i].name == "chk_gl_id[]")
+            f.elements[i].checked = sw;
+    }
+}
+
+function select_new_batch(sw){////ssh06-04-12
+    var f = document.fboardlist;
+    if (sw == 'r')
+        str = "베스트글에 복구";
+    else
+        str = "베스트글에서 제외";
+
+    f.sw.value = sw;
+    //f.target = "hiddenframe";
+
+    if (!confirm("선택한 게시물을 정말 "+str+" 하시겠습니까?"))
+        return;
+
+    f.action = "<?=$g4[admin_path]?>/ssh_delete_good_list.php";
+    f.submit();
+}
+</script>
+<? } ?>
+
 <style>
 .n_title1 { font-family:돋움; font-size:9pt; color:#FFFFFF; }
 .n_title2 { font-family:돋움; font-size:9pt; color:#5E5E5E; }
@@ -26,7 +56,20 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 </tr>
 <tr height=28 align=center> 
     <td width="100" align="center">게시판</td>
-    <td width="">제목</td>
+    <td width="">제목
+    <?
+    if ($is_admin) {
+        if ($gl_flag == 1) {
+    ?>
+        <INPUT onclick="if (this.checked) all_checked(true); else all_checked(false);" type=checkbox>전체선택&nbsp;&nbsp;
+        <a href="javascript:select_new_batch('r');">베스트글복구</a>&nbsp;&nbsp;
+        <a href="./good_list.php?gl_id=<?=$gl_id?>&bo_table=<?=$bo_table?>&gl_flag=0">전체글목록</a>&nbsp;&nbsp;
+    <? } else { ?>
+        <INPUT onclick="if (this.checked) all_checked(true); else all_checked(false);" type=checkbox>전체선택&nbsp;&nbsp;
+        <a href="javascript:select_new_batch('d');">베스트글제외</a>&nbsp;&nbsp;
+        <a href="./good_list.php?gl_id=<?=$gl_id?>&bo_table=<?=$bo_table?>&gl_flag=1">제외된글목록</a>&nbsp;&nbsp;
+    <? } } ?>
+    </td>
     <td width="110" align="center">이름</td>
     <? if ($wr_id) { ?>
     <td width="40" align="center">일시</td>
@@ -45,6 +88,11 @@ for ($i=0; $i<count($list); $i++)
 <tr height=28 align=center> 
     <td align="center"><a href='./good_list.php?bo_table_search=<?=$list[$i][bo_table]?>'><?=$bo_subject?></a></td>
     <td width="" align=left>
+    <?
+    if ($is_admin) {
+          echo "<input type=checkbox name=chk_gl_id[] value='{$list[$i][gl_id]}'>&nbsp;";
+    }
+    ?>
     <a href='<?=$list[$i][href]?>'><?=$wr_subject?></a>
     <? if ($list[$i][wr_comment]) echo "<span style='font-family:Tahoma;font-size:10px;color:#EE5A00;'>(" . $list[$i][wr_comment] . ")</span>"?>
     </td>
