@@ -889,9 +889,15 @@ if ($config[cf_db_version] < 1111) {
             ";
     sql_query($sql, FALSE);
 }
+
+if ($config[cf_db_version] < 1113) {
+
+    sql_query(" ALTER TABLE  `$g4[good_list_table]` ADD  `gl_flag` TINYINT( 4 ) NOT NULL AFTER  `gl_id` ", FALSE);
+
+}
             
 // db 버젼을 업데이트 - major version + mid version - patch version
-$max_version = "1111";
+$max_version = "1113";
 sql_query(" update $g4[config_table] set cf_db_version = '$max_version' ");
 
 echo "불당팩 $max_version - UPGRADE 완료.";

@@ -941,6 +941,7 @@ ALTER TABLE `$g4[board_table]` ADD `bo_list_comment` INT( 11 ) NOT NULL  ;
 
 CREATE TABLE IF NOT EXISTS `g4_good_list` (
   `gl_id` int(11) NOT NULL AUTO_INCREMENT,
+  `gl_flag` tinyint(4) NOT NULL,
   `gr_id` varchar(255) NOT NULL,
   `bo_table` varchar(255) NOT NULL,
   `wr_id` int(11) NOT NULL,
