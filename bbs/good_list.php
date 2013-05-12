@@ -20,6 +20,11 @@ if ($gr_i)
 // 베스트글 조건을 지정
 $search_sql .= " and ( a.hit >= b.bo_list_good or (a.good - a.nogood) >= b.bo_list_good or a.comment >= b.bo_list_comment ) ";
 
+//초기화
+$gl_flag=0;
+if ($is_admin && $_GET['gl_flag']==1)
+    $gl_flag=1;
+
 // gl_flag = 1인 필드는 기본적으로 베스트글에서 제외
 if ($gl_flag > 0)
     $search_sql .= " and a.gl_flag = 1 ";
