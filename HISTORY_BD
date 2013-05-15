@@ -1,3 +1,210 @@
+1.1.13 (2013.05.15)
+
+===
+테스트2에 베스트글 관리기능(초허접 버젼...)이 들어갔습니다.
+베스트글의 노출제어 필드가 추가 되었으므로, DB 업글이 필요합니다.
+ 
+ALTER TABLE  `g4_good_list` ADD  `gl_flag` TINYINT( 4 ) NOT NULL AFTER  `gl_id` 
+ 
+===
+1.1.13 - 몇개만 손댄다는게 너무 많이 손을...ㅠㅠ...
+ 
+memcache를 추가했습니다. 세션관리에서만 씁니다.
+캐쉬관리 등에서까지 쓰려면 머리 아픕니다.
+db 세션 기능만 빠져도 아주 이쁘게 사이트가 돌아갑니다.
+http://opencode.co.kr/bbs/board.php?bo_table=linux_tips&wr_id=356
+ 
+===
+ 
+common.php
+config.php
+config.2.php
+head.sub.php
+ 
+adm/admin.menu100.php 
+adm/admin.menu300.php
+adm/banner_date.php
+adm/banner_form.php
+adm/banner_form_update.php
+adm/board_form.php
+adm/board_form_update.php
+adm/category_*.php
+adm/memcache.php
+adm/ssh_delete_good_list.php
+adm/img/icon_catlevel.gif
+
+
+bbs/good_list.php
+bbs/login_check.php
+bbs/move.php 
+bbs/new.php
+bbs/write_update.php
+ 
+install/index.php
+ 
+lib/b4.lib.php
+lib/common.lib.php
+lib/latest.lib.php
+lib/me2do.lib.php
+ 
+plugin/recommend/index.php
+ 
+skin/banner/basic/banner.skin.php
+skin/banner/text/banner.skin.php
+ 
+skin/board/cheditor/list.skin.php
+skin/board/cheditor/view.skin.php
+
+
+skin/good_list/basic/good_list.skin.php
+ 
+skin/member/basic/memo2_view.skin.php
+
+
+skin/new/basic/new.skin.php
+ 
+ 
+[ 테스트 2]
+ 
+- 베스트글 관리자
+adm/ssh_delete_good_list.php
+bbs/good_list.php
+skin/good/good_list.skin.php
+ 
+- 최근게시글에 코멘트 갯수출력
+bbs/new.php
+skin/new/basic/new.skin.php
+ 
+- 베스트글에서 코멘트 안나오는 오류...
+skin/good_list/basic/good_list.skin.php
+
+
+[테스트 1]
+
+
+-  인기글에서 공지사항 제외
+lib/latest.lib.php
+ 
+- 베스트글 게시판 페이징 오류 수정
+bbs/good_list.php
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_pack_req&wr_id=1483&mnb=&snb=
+ 
+- 게시판 기본내용 웹편집기 적용 + 그누원본 오류수정
+adm/board_form.php 
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_qna&wr_id=1174
+https://github.com/open2/gnuboard4-buldang-pack/commit/c89e10ddbf1295ace62226182766e8856762fccf
+ 
+- memcache 관리자추가
+adm/admin.menu300.php
+adm/memcache.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/47729a6227461e57fbfa43a62042d006a828beea
+ 
+- 세션관리에 memcache 추가
+config.php
+common.php
+ 
+- 코멘트 읽기레벨 관리 프로그램 오류
+adm/board_form.php
+adm/board_form_update.php
+ 
+- 설치시 라이센스 폰트 깨어짐 오류
+install/index.php
+ 
+- 웹접근성 대체 텍스트 
+skin/board/cheditor/list.skin.php
+skin/board/cheditor/view.skin.php
+skin/banner/basic/banner.skin.php
+ 
+- 기본언어 지정
+head.sub.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/52307d87a36bd637fa4a4636c96ecbc53e92a7c1
+ 
+- move 범위 확대
+bbs/move.php
+ 
+- 그누보드 4.36.20
+* admin.head.php의 style에 px 붙이는 것은 아득한 옛날에 반영된 것임.
+* 불당팩의 js는 다음의 수정된 sideview js를 기반으로 수정한 것이라 반영하지 않음 (코드가 많이 다름)
+http://sir.co.kr/bbs/board.php?bo_table=g4_pds&wr_id=8565
+
+
+- 일부서버 자동로그인 안되는 오류 수정
+bbs/login_check.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/df13dea0a0857469f07c44b4b78fc09ee579926a
+ 
+- 게시판, 그룹관리자 이동가능한 범위 확대
+bbs/move.php
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=930
+ 
+- 그누보드 4.36.19
+lib/common.lib.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/a622a1762261719a826c20f7ccaf0d4b04b763c3
+
+
+- 네이버단축주소 생성 lib
+config.2.php
+lib/me2do.lib.php
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=928
+ 
+- 그누보드 4.31.17 (보안패치)
+bbs/write_update.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/fba819fb2a40e36c72db070815b6d2485d46dde7
+
+
+- 그누보드 4.31.18 (보안패치)
+lib/common.lib.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/160555b3922df68999fde7e3b1a15532e6336f3b
+
+
+- 배너관리에서 그룹변경시 이미지가 안보이는 오류 
+adm/banner_form_update.php 
+ 
+- 그누보드 4.26.16 (해당사항없슴. 불당팩은 이미 방어 완료. urlencode를 해서 %를 없앰)
+http://sir.co.kr/bbs/board.php?bo_table=g4_pds&wr_id=8425
+ 
+- 바이트를 보기좋은 형식으로 출력
+lib/b4.lib.php
+
+
+
+- 다중카테고리 관리자
+config.php
+adm/admin.menu300.php
+adm/category_*.php
+adm/img/icon_catlevel.gif
+ 
+- 알파뉴메릭 시이퀀스 발생함수
+lib/b4.lib.php
+ 
+- typo 오류
+adm/banner_date.php
+adm/banner_form.php
+ 
+- 배너관리 - 배너가 없을 때 액박 나오는 오류 수정
+skin/banner/basic/banner.skin.php
+skin/banner/text/banner.skin.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/5327bc5caf03f4226ed5b53e40e1a7f49e21dae0
+ 
+- $tag를 $seo_tag로 변경
+head.sub.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/f28cf0901dbda0a21e19beae387f947eb9734910
+ 
+- 쪽지5 보기 style 오류
+skin/member/basic/memo2_view.skin.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/3f48a1fe08687edb761a34dc9a2b6b1a74128314
+ 
+- 추천 플러그인 오류
+plugin/recommend/index.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/498995199c133aa36eb5f451580c3013e2e6dbab
+ 
+- 그누보드 4.36.15 (해당사항 없슴. 이미 오래전에 패치함)
+http://sir.co.kr/bbs/board.php?bo_table=g4_pds&wr_id=8396
+ 
+- 그누보드 4.36.13, 그누보드 4.34.14 (XSS 패치)
+common.lib.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/a741c550eb2805a04a3c0696cc87f7a0fddb4af6
+
+
 1.1.12 (@013.01.29)
 
 1.11.12는 개인정보 지킴이가 적용되었습니다.
