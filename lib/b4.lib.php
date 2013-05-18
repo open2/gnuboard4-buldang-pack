@@ -1839,16 +1839,16 @@ function remove_nr($str) {
 function save_me($content) {
 
     // 주민번호
-    $content1 = preg_replace_callback("/\d{2}[0-1]\d[0-3]\d[-\s]?[1-8]\d{6}/", 'save_jumin', $content);
+    $content1 = preg_replace_callback("/(?<![\d+_%])\d{2}[0-1]\d[0-3]\d[-\s]?[1-8]\d{6}/", 'save_jumin', $content);
 
     // 핸드폰번호
-    $content2 = preg_replace_callback("/(010|011|016|017|018|019)[-\s]\d{3,4}[-\s]\d{4}/", 'save_mobile', $content1);
+    $content2 = preg_replace_callback("/(?<![\d+_%])(010|011|016|017|018|019)[-\s]\d{3,4}[-\s]\d{4}/", 'save_mobile', $content1);
 
     // 전화번호
-    $content3 = preg_replace_callback("/(070|02|031|032|033|041|042|043|051|052|053|054|055|061|062|063|064)[-\s]\d{3,4}[-\s]\d{4}/", 'save_phone', $content2);
+    $content3 = preg_replace_callback("/(?<![\d+_%])(070|02|031|032|033|041|042|043|051|052|053|054|055|061|062|063|064)[-\s]\d{3,4}[-\s]\d{4}/", 'save_phone', $content2);
 
     // 이메일
-    $content4 = preg_replace_callback("/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/", 'save_email', $content3);
+    $content4 = preg_replace_callback("/(?<![\d+_%])[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/", 'save_email', $content3);
 
     return $content4;
 }
@@ -1914,7 +1914,7 @@ function save_phone($string)
     return $return;
 }
 
-// 정해진 자릿수의 알파뉴메익 순서를 생성
+// 정해진 자릿수의 알파뉴메릭 순서를 생성
 // http://stackoverflow.com/questions/12000979/alphanumeric-increment-a-string-in-php-to-a-certain-length
 function getNextAlphaNumeric($code, $digit=4) {
     $base_ten = base_convert($code,36,10);
