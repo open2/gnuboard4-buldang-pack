@@ -319,7 +319,7 @@ switch ($g4['session_type']) {
                                  array($session, 'gc'));
         break;
     case "memcache" :
-        $session_save_path = "tcp://$g4[mhost]:$g4[mport]?persistent=1&weight=2&timeout=2&retry_interval=10,  ,tcp://$$g4[mhost]:$g4[mport] ";
+        $session_save_path = "tcp://$g4[mhost]:$g4[mport]?persistent=1&weight=2&timeout=2&retry_interval=10";
         ini_set('session.save_handler', 'memcache');
         ini_set('session.save_path', $session_save_path);
         break;
@@ -340,8 +340,14 @@ else
 // 기본적으로 사용하는 필드만 얻은 후 상황에 따라 필드를 추가로 얻음
 $config = sql_fetch(" select * from $g4[config_table] ");
 
-@ini_set("session.cache_expire", 180); // 세션 캐쉬 보관시간 (분)
-@ini_set("session.gc_maxlifetime", 10800); // session data의 garbage collection 존재 기간을 지정 (초)
+// memcache와 db는 세션관리가 정확하게 이루어지기 때문에, 시간을 길게 잡아줘야 합니다
+if ($g4['session_type'] == "memcache" || $g4['session_type'] == "db") {
+    @ini_set("session.cache_expire", 7200); // 세션 캐쉬 보관시간 (분)
+    @ini_set("session.gc_maxlifetime", 504000); // session data의 garbage collection 존재 기간을 지정 (초)
+} else {
+    @ini_set("session.cache_expire", 180); // 세션 캐쉬 보관시간 (분)
+    @ini_set("session.gc_maxlifetime", 10800); // session data의 garbage collection 존재 기간을 지정 (초)
+}
 @ini_set("session.gc_probability", 1); // session.gc_probability는 session.gc_divisor와 연계하여 gc(쓰레기 수거) 루틴의 시작 확률을 관리합니다. 기본값은 1입니다. 자세한 내용은 session.gc_divisor를 참고하십시오.
 @ini_set("session.gc_divisor", 100); // session.gc_divisor는 session.gc_probability와 결합하여 각 세션 초기화 시에 gc(쓰레기 수거) 프로세스를 시작할 확률을 정의합니다. 확률은 gc_probability/gc_divisor를 사용하여 계산합니다. 즉, 1/100은 각 요청시에 GC 프로세스를 시작할 확률이 1%입니다. session.gc_divisor의 기본값은 100입니다.
 
