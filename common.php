@@ -319,9 +319,12 @@ switch ($g4['session_type']) {
                                  array($session, 'gc'));
         break;
     case "memcache" :
-        $session_save_path = "tcp://$g4[mhost]:$g4[mport]?persistent=1&weight=2&timeout=2&retry_interval=10";
         ini_set('session.save_handler', 'memcache');
-        ini_set('session.save_path', $session_save_path);
+        ini_set('session.save_path', $g4['mpath']);
+        break;
+    case "redis" :
+        ini_set('session.save_handler', 'redis');
+        ini_set('session.save_path', $g4['rpath']);
         break;
     default :
         // 그누보드 기본 세션관리
@@ -340,8 +343,8 @@ else
 // 기본적으로 사용하는 필드만 얻은 후 상황에 따라 필드를 추가로 얻음
 $config = sql_fetch(" select * from $g4[config_table] ");
 
-// memcache와 db는 세션관리가 정확하게 이루어지기 때문에, 시간을 길게 잡아줘야 합니다
-if ($g4['session_type'] == "memcache" || $g4['session_type'] == "db") {
+// memcache와 redis는 세션관리가 정확하게 이루어지기 때문에, 시간을 길게 잡아줘야 합니다
+if ($g4['session_type'] == "memcache" || $g4['session_type'] == "redis") {
     @ini_set("session.cache_expire", 7200); // 세션 캐쉬 보관시간 (분)
     @ini_set("session.gc_maxlifetime", 504000); // session data의 garbage collection 존재 기간을 지정 (초)
 } else {
