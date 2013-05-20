@@ -1932,4 +1932,62 @@ function formatBytes($size, $precision = 2)
     $suffixes = array('', 'k', 'M', 'G', 'T');  
     return round(pow(1024, $base - floor($base)), $precision) . $suffixes[floor($base)];
 }
+
+
+function redis_cache($c_name, $seconds=300, $c_code) {
+
+    global $g4;
+  
+    $redis = new Redis();
+    $redis->connect($g4["rhost"], $g4["rport"]);
+    $redis->select(0);
+    if ($redis->ttl($c_name) > 0)
+        return $redis->get($c_name);
+    else {
+
+        // $c_code () 안에 내용만 살림 
+        $pattern = "/[()]/";
+        $tmp_c_code = preg_split($pattern, $c_code);
+        
+        // 수행할 함수의 이름
+        $func_name = $tmp_c_code[0];
+
+        // 수행할 함수의 인자
+        $tmp_array = explode(",", $tmp_c_code[1]);
+        
+        if ($func_name == "include_once" || $func_name == "include") {
+
+            ob_start();
+            include($tmp_array[0]);
+            $c_text = ob_get_contents();
+            ob_end_clean();
+
+        } else {
+        
+        // 수행할 함수의 인자를 담아둘 변수
+        $func_args = array();
+
+        for($i=0;$i < count($tmp_array); $i++) {
+            // 기본 trim은 여백 등을 없앤다. $charlist = " \t\n\r\0\x0B"
+            $tmp_args = trim($tmp_array[$i]);
+            // 추가 trim으로 인자를 넘길 때 쓰는 '를 없앤다
+            $tmp_args = trim($tmp_args, "'");
+            // 추가 trim으로 인자를 넘길 때 쓰는 "를 없앤다
+            $func_args[$i] = trim($tmp_args, '"');
+        }
+        // 새로운 캐쉬값을 만들고
+        $c_text = call_user_func_array($func_name, $func_args);
+        }
+
+        // 값이 없으면 그냥 return
+        if (trim($c_text) == "")
+            return;
+
+        // redis의 cache 값을 업데이트
+        $redis->setex($c_name, $seconds, $c_text);
+
+        // 새로운 캐쉬값을 return (slashes가 없는거를 return 해야합니다)
+        return $c_text;
+    }
+}
 ?>
