@@ -166,8 +166,8 @@ include_once ("./admin.head.php");
 <tr class='ht'>
     <td>중복로그인</td>
     <td>
-    <input type='checkbox' name='cf_double_login' value='1' <?=$config[cf_double_login]?'checked':'';?>> 허용하지 않음
-        <?=help("중복된 로그인을 허용할 것인지 여부를 설정합니다.")?>
+    <input type=text class=ed name='cf_double_login' value='<?=$config[cf_double_login]?>' size=5>개의 중복 로그인을 허용
+        <?=help("중복된 로그인을 몇개까지 허용할 것인지 여부를 설정합니다.")?>
     </td>
     <td></td>
     <td>

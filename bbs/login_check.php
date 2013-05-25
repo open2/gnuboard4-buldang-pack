@@ -91,8 +91,7 @@ if ($config[cf_use_email_certify] && !preg_match("/[1-9]/", $mb[mb_email_certify
 if ($config['cf_double_login'] && $mb_id) {
 
     // db session을 사용하는 경우
-    // $use_db_session은 common.php에서 정의
-    if ($use_db_session) {
+    if ($g4['session_type'] == "db") {
         $sql = "select * from $g4[session_table] where mb_id = '$mb[mb_id]' and ss_ip != '$remote_addr' and ss_datetime > '$login_time' ";
         $sql.= "order by ss_datetime desc limit 1";
         
@@ -103,17 +102,21 @@ if ($config['cf_double_login'] && $mb_id) {
             //$sql = " SELECT * from $g4[session_table] where mb_id = '$mb[mb_id]' and ss_datetime > '$login_time'  ";
             $result = sql_query($sql);
         
-            if (mysql_num_rows($result) > 0) {
+            if (mysql_num_rows($result) > $config['cf_double_login']) {
                 alert("다른 ip에서 이미 로그인되어 있습니다. 관리자에게 문의하시기 바랍니다.");
             }
     }
     // 파일세션을 사용하는 경우
-    else {
+    else if ($g4['session_type'] = "file") {
         $result = sql_fetch(" select count(*) as cnt from $g4[login_table] where mb_id='$mb[mb_id]' and lo_ip <> '$_SERVER[REMOTE_ADDR]' ");
         
-        if ($result['cnt'] > 0) {
+        if ($result['cnt'] > $config['cf_double_login']) {
             alert("다른 ip에서 이미 로그인되어 있습니다. 관리자에게 문의하시기 바랍니다.");
         }
+    }
+    // redis 세션을 이용하는 경우
+    else if ($g4['session_type'] == "redis") {
+
     }
 }
 
