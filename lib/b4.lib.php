@@ -1996,4 +1996,44 @@ function redis_cache($c_name, $seconds=300, $c_code) {
         return $c_text;
     }
 }
+
+function redis_login() {
+
+    global $g4;
+
+    // redis일때만 redis login 관리를 쓴다.
+    $redis_login = new Redis();
+    $redis_login->connect($g4["rhost"], $g4["rport"]);
+    $redis_login->select($g4["rdb"]);
+
+    // g4_login 테이블의 내용을 모두 삭제
+    $sql = " delete from $g4[login_table] ";
+    sql_query($sql);
+
+    // 모든 key를 가져와서 g4_login DB에 넣어줍니다.
+    $allKeys = $redis_login->keys($rkey = $g4["rdomain"] . "_login_*");   // all keys will match this.
+    foreach ($allKeys as $rkey) {
+
+        $rdat = explode ( "|", $redis_login->get($rkey) );
+        if ($redis_login->ttl($rkey) > 0) {
+        	$tmp_sql = " insert into $g4[login_table] 
+        	                set
+    	                        lo_ip = '$rdat[0]',
+    	                        mb_id = '$rdat[1]',
+        	                    lo_datetime = '$rdat[2]',
+        	                    lo_location = '$rdat[3]',
+    	                        lo_url = '$rdat[4]',
+    	                        lo_referer = '$rdat[5]',
+    	                        lo_agent = '$rdat[6]'
+                              ";
+        	sql_query($tmp_sql, FALSE);
+        } else  {
+            // expire된 key는 삭제
+            $redis_login->delete($rkey);
+        }
+    }
+
+    // redis instance connection을 닫아줍니다.
+    $redis_login->close();
+}
 ?>

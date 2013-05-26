@@ -4,6 +4,10 @@ include_once("./_common.php");
 $g4[title] = "현재접속자";
 include_once("./_head.php");
 
+// redis일 때, 정보를 만들어줍니다.
+if ($g4['session_type'] = "redis")
+    redis_login();
+
 $list = array();
 
 $sql = " select a.mb_id, b.mb_nick, b.mb_name, b.mb_email, b.mb_homepage, b.mb_open, b.mb_point, a.lo_ip, a.lo_location, a.lo_url, a.lo_agent, a.lo_referer
