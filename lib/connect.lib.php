@@ -17,7 +17,7 @@ function connect($skin_dir="")
         $total_cnt = 0;
         $mb_cnt = 0;
         $admin_cnt = 0;
-        $allKeys = $redis_login->keys($rkey = $g4["rdomain"] . "_login_*");   // all keys will match this.
+        $allKeys = $redis_login->keys($g4["rdomain"] . "_login_*");   // all keys will match this.
         foreach ($allKeys as $rkey) {
 
             $rdat = explode ( "|", $redis_login->get($rkey) );

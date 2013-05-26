@@ -16,7 +16,7 @@ session_write_close();
 </body>
 </html>
 <?
-if ($g4['session_type'] = "redis") {
+if ($g4['session_type'] == "redis") {
     // redis일때만 redis login 관리를 쓴다.
     $redis_login = new Redis();
     $redis_login->connect($g4["rhost"], $g4["rport"]);

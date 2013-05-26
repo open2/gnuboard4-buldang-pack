@@ -2011,7 +2011,7 @@ function redis_login() {
     sql_query($sql);
 
     // 모든 key를 가져와서 g4_login DB에 넣어줍니다.
-    $allKeys = $redis_login->keys($rkey = $g4["rdomain"] . "_login_*");   // all keys will match this.
+    $allKeys = $redis_login->keys($g4["rdomain"] . "_login_*");   // all keys will match this.
     foreach ($allKeys as $rkey) {
 
         $rdat = explode ( "|", $redis_login->get($rkey) );
@@ -2035,5 +2035,25 @@ function redis_login() {
 
     // redis instance connection을 닫아줍니다.
     $redis_login->close();
+}
+
+// redis key의 갯수를 세어준다
+function redis_key_count($keys) {
+
+    global $g4;
+
+    // redis일때만 redis login 관리를 쓴다.
+    $redis_con = new Redis();
+    $redis_con->connect($g4["rhost"], $g4["rport"]);
+    $redis_con->select($g4["rdb"]);
+
+  	//현재 접속자수 - redis
+    $allKeys = $redis_con->keys($g4["rdomain"] . $keys);   // all keys will match this.
+    $total_cnt = count($allKeys);
+
+    // redis instance connection을 닫아줍니다.
+    $redis_con->close();
+
+    return $total_cnt;
 }
 ?>
