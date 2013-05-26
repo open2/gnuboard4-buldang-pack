@@ -183,6 +183,10 @@ $g4['rpath']    = "tcp://$g4[rhost]:$g4[rport]?weight=1";
 $g4['rdb']      = "0";            // redis DB space
 $g4['rdomain']  = "opencode";     // redis domain. 다른 redis instance와 충돌하지 않게 unique하게 잡아줍니다
 
+// redis 기본키 구성
+// g4_login   : $g4[rdomain] . "_login_" . $remote_addr
+// 
+
 // cdn 경로를 설정 합니다. (예: http://cdnid.imagetong.com)
 $g4['cdn_path']          = "";
 
