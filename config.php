@@ -177,9 +177,11 @@ $g4['mport'] = "11211";
 $g4['mpath'] = "tcp://$g4[mhost]:$g4[mport]?persistent=1&weight=2&timeout=2&retry_interval=10";
 
 // redis 사용할때의 설정
-$g4['rhost'] = "localhost";
-$g4['rport'] = "6379";
-$g4['rpath'] = "tcp://$g4[rhost]:$g4[rport]?weight=1";
+$g4['rhost']    = "localhost";
+$g4['rport']    = "6379";
+$g4['rpath']    = "tcp://$g4[rhost]:$g4[rport]?weight=1";
+$g4['rdb']      = "0";            // redis DB space
+$g4['rdomain']  = "opencode";     // redis domain. 다른 redis instance와 충돌하지 않게 unique하게 잡아줍니다
 
 // cdn 경로를 설정 합니다. (예: http://cdnid.imagetong.com)
 $g4['cdn_path']          = "";

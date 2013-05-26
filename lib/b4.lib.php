@@ -1937,10 +1937,13 @@ function formatBytes($size, $precision = 2)
 function redis_cache($c_name, $seconds=300, $c_code) {
 
     global $g4;
-  
+
+    // redis instance의 충돌을 방지
+    $c_name = $g4["rdomain"] . $c_name;
+
     $redis = new Redis();
     $redis->connect($g4["rhost"], $g4["rport"]);
-    $redis->select(0);
+    $redis->select($g4["rdb"]);
     if ($redis->ttl($c_name) > 0)
         return $redis->get($c_name);
     else {
@@ -1985,6 +1988,9 @@ function redis_cache($c_name, $seconds=300, $c_code) {
 
         // redis의 cache 값을 업데이트
         $redis->setex($c_name, $seconds, $c_text);
+
+        // redis를 close
+        $redis->close();
 
         // 새로운 캐쉬값을 return (slashes가 없는거를 return 해야합니다)
         return $c_text;
