@@ -40,7 +40,7 @@ if ($board[bo_hhp]) {
 // 불당팩 : 실명인증된 회원만 글쓰게 하기
 if ($w == "" && $board[bo_realcheck] && !$is_admin) { 
     if ($member[mb_realcheck] == "0000-00-00 00:00:00") { 
-        alert("이 게시판은 본인인증을 받은 회원만 글쓰기가 가능합니다.", "$g4[path]/cb/index.php"); 
+        alert("이 게시판은 본인인증을 받은 회원만 글쓰기가 가능합니다.", "$g4[path]/plugin/kcb/index.php"); 
     } 
 }
 
