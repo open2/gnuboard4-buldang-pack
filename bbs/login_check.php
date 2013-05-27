@@ -117,6 +117,28 @@ if ($config['cf_double_login'] && $mb_id) {
     // redis 세션을 이용하는 경우
     else if ($g4['session_type'] == "redis") {
 
+        $redis_con = new Redis();
+        $redis_con->connect($g4["rhost"], $g4["rport"]);
+        $redis_con->select($g4["rdb"]);
+
+        // ip가 같은 key들을 모두 골라 냅니다.
+        $con_key = $g4["rdomain"] . "_login_" . "$remote_addr";
+        $allKeys = $redis_con->keys($con_key);
+
+        $con_cnt = 0;
+        foreach ($allKeys as $rkey) {
+            $rdat = explode ( "|", $redis_con->get($rkey) );
+            if ($redis_con->ttl($rkey) > 0) {
+                if ($mb['mb_id'] == $rdat['1']) {
+                    $con_cnt++;
+                }
+            }
+        }
+        $redis_con->close();
+
+        if ($con_cnt > $config['cf_double_login']) {
+            alert("다른 ip에서 이미 로그인되어 있습니다. 관리자에게 문의하시기 바랍니다.");
+        }
     }
 }
 
