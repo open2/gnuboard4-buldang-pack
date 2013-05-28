@@ -24,8 +24,8 @@ if ($g4['session_type'] == "redis") {
 
         if ($redis_login->ttl($rkey) > 0) {
           $list[$i]['lo_ip'] = $rdat[0];
-          $list[$i]['mb_id'] = $rdat[1];
-          if ($list[$i]['mb_id']) {
+          $list[$i]['mb_id'] = trim($rdat[1]);
+          if ($list[$i]['mb_id'] !== "") {
               $mb = get_member($list[$i]['mb_id']);
               $list[$i]['mb_nick'] = $mb['mb_nick'];
               $list[$i]['mb_name'] = $mb['mb_name'];
