@@ -147,6 +147,9 @@ include_once ("$g4[path]/lib/banner.lib.php");
     <td>종료일</td>
     <td><input type=text class=ed name='bn_end_datetime' id='bn_end_datetime' size=24 maxlength=19 required value='<?=$bn[bn_end_datetime]?>'>
     <a href="javascript:win_calendar('bn_end_datetime', document.getElementById('bn_end_datetime').value, '-');"><img src='<?=$g4[admin_path]?>/img/calendar.gif' border=0 align=absmiddle title='달력 - 날짜를 선택하세요'></a>
+    +30<input type=button name=end_date_chk1 value="<? echo date("Y-m-d", $g4[server_time]+(60*60*24*30)); ?>" onclick="this.form.bn_end_datetime.value=this.value+' 23:59:59'" title='오늘+30일'>
+    +90<input type=button name=end_date_chk2 value="<? echo date("Y-m-d", $g4[server_time]+(60*60*24*90)); ?>" onclick="this.form.bn_end_datetime.value=this.value+' 23:59:59'" title='오늘+90일'>
+    +180<input type=button name=end_date_chk3 value="<? echo date("Y-m-d", $g4[server_time]+(60*60*24*180)); ?>" onclick="this.form.bn_end_datetime.value=this.value+' 23:59:59'" title='오늘+180일'>
     </td>
 </tr>
 <tr class='ht'>
