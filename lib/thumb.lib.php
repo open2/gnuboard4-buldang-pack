@@ -160,7 +160,10 @@ function thumbnail($file_name, $width=0, $height=0, $is_create=false, $is_crop=2
         }
     }
 
-    $thumb_file = $thumb_path . "/" . $file;
+    // 파일명에 혹시 있을지 모르는 %를 날려버린다.
+    $thumbfile = str_replace('%', '', $file);
+
+    $thumb_file = $thumb_path . "/" . $thumbfile;
 
     // 썸파일이 있으면서 소스파일보다 생성 날짜가 최근일 때
     if (@file_exists($thumb_file)) {
