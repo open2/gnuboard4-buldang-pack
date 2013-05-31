@@ -3,7 +3,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
 // redis 세션관리를 사용하는 경우 
 if ($g4['session_type'] == "redis")
-    redis_login();
+    redis_login("mb_id");
 
 $sql_from = " $g4[friend_table] ";
 $mb_sql_common = " from $sql_from where mb_id = '$member[mb_id]' and fr_type = '' ";

@@ -1997,7 +1997,7 @@ function redis_cache($c_name, $seconds=300, $c_code) {
     }
 }
 
-function redis_login() {
+function redis_login($opt="") {
 
     global $g4;
 
@@ -2016,8 +2016,13 @@ function redis_login() {
 
         $rdat = explode ( "|", $redis_login->get($rkey) );
         if ($redis_login->ttl($rkey) > 0) {
-        	$tmp_sql = " insert into $g4[login_table] 
-        	                set
+
+            // $opt == "mb_id" : 회원정보만 기록
+            if ($opt == "mb_id" && $rdat['1'] == "")
+                continue;
+
+           	$tmp_sql = " insert into $g4[login_table] 
+           	                set
     	                        lo_ip = '$rdat[0]',
     	                        mb_id = '$rdat[1]',
         	                    lo_datetime = '$rdat[2]',
@@ -2026,7 +2031,7 @@ function redis_login() {
     	                        lo_referer = '$rdat[5]',
     	                        lo_agent = '$rdat[6]'
                               ";
-        	sql_query($tmp_sql, FALSE);
+            	sql_query($tmp_sql, FALSE);
         } else  {
             // expire된 key는 삭제
             $redis_login->delete($rkey);
