@@ -11,7 +11,7 @@ function connect($skin_dir="")
         // redis일때만 redis login 관리를 쓴다.
         $redis_login = new Redis();
         $redis_login->connect($g4["rhost"], $g4["rport"]);
-        $redis_login->select($g4["rdb"]);
+        $redis_login->select($g4["rdb1"]);
 
         // 모든 key를 가져와서 갯수를 세어 줍니다.
         $total_cnt = 0;

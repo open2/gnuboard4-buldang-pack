@@ -440,6 +440,24 @@ if ($w == "")
     }
 }
 
+// 불당팩 - redis sideview, 개인정보가 변경되면 sideview를 지워줍니다
+if ($w == "u") {
+
+    // redis instance를 생성
+    $redis_sideview = new Redis();
+    $redis_sideview->connect($g4["rhost"], $g4["rport"]);
+    $redis_sideview->select($g4["rdb2"]);
+
+    // redis key를 정의.
+    $rkey = $g4["rdomain"] . "_sideview_" . $mb_id;
+
+    // key를 삭제
+    $redis_sideview->delete($rkey);
+
+    // redis instance connection을 닫아줍니다.
+    $redis_sideview->close();
+}
+
 // 사용자 코드 실행
 @include_once ("$g4[path]/skin/member/$config[cf_member_skin]/register_update.skin.php");
 

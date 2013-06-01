@@ -20,7 +20,7 @@ if ($g4['session_type'] == "redis") {
     // redis일때만 redis login 관리를 쓴다.
     $redis_login = new Redis();
     $redis_login->connect($g4["rhost"], $g4["rport"]);
-    $redis_login->select($g4["rdb"]);
+    $redis_login->select($g4["rdb1"]);
 
     // redis key를 정의 (where에 있는 것을 묶어서 key를 만들어 줍니다)
     $rkey = $g4["rdomain"] . "_login_" . "$remote_addr";

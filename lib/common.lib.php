@@ -1098,6 +1098,34 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
 {
     global $config, $g4, $member;
 
+    // redis 세션관리
+    if ($g4['session_type'] == "redis" && $mb_id) {
+        
+        // key 값이 있는지를 체크
+        $redis_sideview = new Redis();
+        $redis_sideview->connect($g4["rhost"], $g4["rport"]);
+        $redis_sideview->select($g4["rdb2"]);
+
+        // redis key를 정의. 비회원은 key를 정의할 필요 엄따는...
+        $rkey = $g4["rdomain"] . "_sideview_" . $mb_id;
+
+        // key가 있으면 값을 가져와야죠?
+        if ($redis_sideview->exists($rkey)) {
+
+            $tmp_name = $redis_sideview->get($rkey);
+            // key에 값이 있으면 return 하고, 없으면 key를 지워버린다.
+            if ($tmp_name)
+                return $redis_sideview->get($rkey);
+            else
+                $redis_sideview->delete($rkey);
+
+        } else {
+            // key가 없거나 key에 값이 없으면 그냥 지나 갑니다.
+            ;
+        }
+
+    }
+
     if ($config[cf_email_use])
         $email = base64_encode($email);
     else
@@ -1155,6 +1183,7 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
                 if ($config['cf_use_member_icon'] == 2) // 회원아이콘+이름
                     $tmp_name = $tmp_name . " <span class='member'>$name</span>";
             }
+
         }
         $title_mb_id = "[$mb_id]";
     } else {
@@ -1168,12 +1197,19 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
 
     //로그인 회원만 사이드뷰가 보이고, 나머지의 경우 닉네임이나 이름만 보이도록
     if ($member['mb_id']) {
-      return "<a href=\"javascript:;\" onClick=\"showSideView(this, '$mb_id', '$name', '$email', '$homepage');\" title=\"{$title_mb_id}{$title_name}\">$tmp_name</a>";
-    } else {
-      return "$tmp_name";
+      $tmp_name = "<a href=\"javascript:;\" onClick=\"showSideView(this, '$mb_id', '$name', '$email', '$homepage');\" title=\"{$title_mb_id}{$title_name}\">$tmp_name</a>";
     }
-    
-    //return "<a href=\"javascript:;\" onClick=\"showSideView(this, '$mb_id', '$name', '$email', '$homepage');\" title=\"{$title_mb_id}{$title_name}\">$tmp_name</a>";
+
+    if ($g4['session_type'] == "redis" && $mb_id) {
+
+        // sideview를 업데이트
+        $redis_sideview->set($rkey, $tmp_name);
+
+        // redis instance connection을 닫아줍니다.
+        $redis_sideview->close();
+    }
+
+    return $tmp_name;
 }
 
 

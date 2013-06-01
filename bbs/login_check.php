@@ -119,7 +119,7 @@ if ($config['cf_double_login'] && $mb_id) {
 
         $redis_con = new Redis();
         $redis_con->connect($g4["rhost"], $g4["rport"]);
-        $redis_con->select($g4["rdb"]);
+        $redis_con->select($g4["rdb1"]);
 
         // ip가 같은 key들을 모두 골라 냅니다.
         $con_key = $g4["rdomain"] . "_login_" . "$remote_addr";

@@ -2004,7 +2004,7 @@ function redis_login($opt="") {
     // redis일때만 redis login 관리를 쓴다.
     $redis_login = new Redis();
     $redis_login->connect($g4["rhost"], $g4["rport"]);
-    $redis_login->select($g4["rdb"]);
+    $redis_login->select($g4["rdb1"]);
 
     // g4_login 테이블의 내용을 모두 삭제
     $sql = " delete from $g4[login_table] ";

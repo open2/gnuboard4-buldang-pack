@@ -13,7 +13,7 @@ if ($g4['session_type'] == "redis") {
     // redis일때만 redis login 관리를 쓴다.
     $redis_login = new Redis();
     $redis_login->connect($g4["rhost"], $g4["rport"]);
-    $redis_login->select($g4["rdb"]);
+    $redis_login->select($g4["rdb1"]);
 
     // 모든 key를 가져와서 g4_login DB에 넣어줍니다.
     $allKeys = $redis_login->keys($g4["rdomain"] . "_login_*");   // all keys will match this.
