@@ -1099,7 +1099,7 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
     global $config, $g4, $member;
 
     // redis 세션관리
-    if ($g4['session_type'] == "redis" && $mb_id) {
+    if ($g4['session_type'] == "redis" && $member['mb_id']) {
         
         // key 값이 있는지를 체크
         $redis_sideview = new Redis();
@@ -1200,7 +1200,7 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
       $tmp_name = "<a href=\"javascript:;\" onClick=\"showSideView(this, '$mb_id', '$name', '$email', '$homepage');\" title=\"{$title_mb_id}{$title_name}\">$tmp_name</a>";
     }
 
-    if ($g4['session_type'] == "redis" && $mb_id) {
+    if ($g4['session_type'] == "redis" && $member['mb_id']) {
 
         // sideview를 업데이트
         $redis_sideview->set($rkey, $tmp_name);
