@@ -2043,16 +2043,16 @@ function redis_login($opt="") {
 }
 
 // redis key의 갯수를 세어준다
-function redis_key_count($keys) {
+function redis_key_count($keys, $rdb) {
 
     global $g4;
 
-    // redis일때만 redis login 관리를 쓴다.
+    // redis에 접속
     $redis_con = new Redis();
     $redis_con->connect($g4["rhost"], $g4["rport"]);
-    $redis_con->select($g4["rdb"]);
+    $redis_con->select($rdb);
 
-  	//현재 접속자수 - redis
+    // key 갯수를 세어 줍니다. 숫자가 많으면... 엉뚱하게 튈수도???
     $allKeys = $redis_con->keys($g4["rdomain"] . $keys);   // all keys will match this.
     $total_cnt = count($allKeys);
 
