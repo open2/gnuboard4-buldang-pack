@@ -187,7 +187,7 @@ $g4['rdomain']  = "opencode";     // redis domain. 다른 redis instance와 충돌하�
 
 // redis 기본키 구성 - 참조자료
 // g4_login     : $g4[rdomain] . "_login_" . $remote_addr
-// g4_sideview  : $g4[rdomain] . "_sideview_" . $member[mb_id]
+// g4_sideview  : $g4[rdomain] . "_sideview_" . $member[mb_id] . "_" . $board[bo_table]
 
 // cdn 경로를 설정 합니다. (예: http://cdnid.imagetong.com)
 $g4['cdn_path']          = "";

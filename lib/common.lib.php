@@ -1096,18 +1096,19 @@ function delete_point($mb_id, $rel_table, $rel_id, $rel_action)
 // 회원 레이어
 function get_sideview($mb_id, $name="", $email="", $homepage="")
 {
-    global $config, $g4, $member;
+    global $config, $g4, $member, $board;
 
-    // redis 세션관리
-    if ($g4['session_type'] == "redis" && $member['mb_id']) {
-        
+    // redis 세션관리.
+    // 게시판 정보가 있을 때만 생성하고 이외에는 생성 안합니다. sideview가 섞이는 것을 막기 위해서
+    if ($g4['session_type'] == "redis" && $member['mb_id'] && $board['bo_table']) {
+
         // key 값이 있는지를 체크
         $redis_sideview = new Redis();
         $redis_sideview->connect($g4["rhost"], $g4["rport"]);
         $redis_sideview->select($g4["rdb2"]);
 
         // redis key를 정의. 비회원은 key를 정의할 필요 엄따는...
-        $rkey = $g4["rdomain"] . "_sideview_" . $mb_id;
+        $rkey = $g4["rdomain"] . "_sideview_" . $mb_id . "_" . $board['bo_table'];
 
         // key가 있으면 값을 가져와야죠?
         if ($redis_sideview->exists($rkey)) {
@@ -1148,21 +1149,6 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
             $mb_dir = substr($mb_id,0,2);
             $icon_file = "$g4[data_path]/member/$mb_dir/$mb_id.gif";
 
-            //if (file_exists($icon_file) && is_file($icon_file)) {
-            /*
-            if (file_exists($icon_file)) {
-                //$size = getimagesize($icon_file);
-                //$width = $size[0];
-                //$height = $size[1];
-                $width = $config['cf_member_icon_width'];
-                $height = $config['cf_member_icon_height'];
-                $tmp_name = "<img src='$icon_file' width='$width' height='$height' align='absmiddle' border='0'>";
-
-                if ($config['cf_use_member_icon'] == 2) // 회원아이콘+이름
-                    $tmp_name = $tmp_name . " <span class='member'>$name</span>";
-            }
-            */
-            
             // 불당팩 - 아이콘 size가 설정값(예:22*22) 보다 작을 때는 확대않하고 그대로 표시
             $size = @getimagesize($icon_file);
             if ($size) {
@@ -1183,7 +1169,6 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
                 if ($config['cf_use_member_icon'] == 2) // 회원아이콘+이름
                     $tmp_name = $tmp_name . " <span class='member'>$name</span>";
             }
-
         }
         $title_mb_id = "[$mb_id]";
     } else {
@@ -1200,8 +1185,7 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
       $tmp_name = "<a href=\"javascript:;\" onClick=\"showSideView(this, '$mb_id', '$name', '$email', '$homepage');\" title=\"{$title_mb_id}{$title_name}\">$tmp_name</a>";
     }
 
-    if ($g4['session_type'] == "redis" && $member['mb_id']) {
-
+    if ($g4['session_type'] == "redis" && $member['mb_id'] && $board['bo_table']) {
         // sideview를 업데이트
         $redis_sideview->set($rkey, $tmp_name);
 
