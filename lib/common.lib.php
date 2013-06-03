@@ -1100,7 +1100,7 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
 
     // redis 세션관리.
     // 게시판 정보가 있을 때만 생성하고 이외에는 생성 안합니다. sideview가 섞이는 것을 막기 위해서
-    if ($g4['session_type'] == "redis" && $member['mb_id'] && $board['bo_table']) {
+    if ($g4['session_type'] == "redis" && $member['mb_id'] !== "" && $board['bo_table'] !== "") {
 
         // key 값이 있는지를 체크
         $redis_sideview = new Redis();
@@ -1185,7 +1185,8 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
       $tmp_name = "<a href=\"javascript:;\" onClick=\"showSideView(this, '$mb_id', '$name', '$email', '$homepage');\" title=\"{$title_mb_id}{$title_name}\">$tmp_name</a>";
     }
 
-    if ($g4['session_type'] == "redis" && $member['mb_id'] && $board['bo_table']) {
+    if ($g4['session_type'] == "redis" && $member['mb_id'] !== "" && $board['bo_table'] !== "") {
+
         // sideview를 업데이트
         $redis_sideview->set($rkey, $tmp_name);
 
