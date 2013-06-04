@@ -411,9 +411,6 @@ function get_list($write_row, $board, $skin_path, $subject_len=40, $gallery_view
             }
             $list['wr_homepage'] = $mb['mb_homepage'];
             
-            // redis에서 엉키는 것을 막기 위해서
-            $g4['get_list'] = 1;
-
             $list['name'] = get_sideview($list['mb_id'], $tmp_name, $list['wr_email'], $list['wr_homepage']);
             $sideview[$tmp_mb_id] = $list['name']; // 한번 불러온 사용자 정보를 임시저장
         }
@@ -1104,7 +1101,7 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
 
     // redis 세션관리.
     // 게시판 정보가 있을 때만 생성하고 이외에는 생성 안합니다. sideview가 섞이는 것을 막기 위해서
-    if ($g4['session_type'] == "redis" && $board['bo_table'] !== "" && $g4['get_list'] == 1) {
+    if ($g4['session_type'] == "redis" && $g4['redis_sideview'] == 1) {
 
         // key 값이 있는지를 체크
         $redis_sideview = new Redis();
@@ -1112,7 +1109,7 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
         $redis_sideview->select($g4["rdb2"]);
 
         // redis key를 정의. 비회원은 key를 정의할 필요 엄따는...
-        $rkey = $g4["rdomain"] . "_sideview2_" . $mb_id . "_" . $board['bo_table'];
+        $rkey = $g4["rdomain"] . "_sideview_" . $mb_id . "_" . $board['bo_table'];
 
         // key가 있으면 값을 가져와야죠?
         if ($redis_sideview->exists($rkey)) {
@@ -1189,7 +1186,7 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
       $tmp_name = "<a href=\"javascript:;\" onClick=\"showSideView(this, '$mb_id', '$name', '$email', '$homepage');\" title=\"{$title_mb_id}{$title_name}\">$tmp_name</a>";
     }
 
-    if ($g4['session_type'] == "redis" && $board['bo_table'] !== "" && $g4['get_list'] == 1) {
+    if ($g4['session_type'] == "redis" && $g4['redis_sideview'] == 1) {
 
         // sideview를 업데이트
         $redis_sideview->set($rkey, $tmp_name);

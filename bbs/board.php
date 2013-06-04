@@ -249,6 +249,9 @@ if (!($board[bo_use_comment] && $cwin))
 
 echo "<script type=\"text/javascript\" src=\"$g4[path]/js/sideview.js\"></script>\n";
 
+// redis sideview를 위해 변수를 설정
+$g4['redis_sideview'] = 1;
+
 if (!($board[bo_use_comment] && $cwin)) {
     // 게시물 아이디가 있다면 게시물 보기를 INCLUDE
     if ($wr_id) 
