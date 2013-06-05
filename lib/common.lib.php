@@ -1101,6 +1101,7 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
 
     // redis 세션관리.
     // 게시판 정보가 있을 때만 생성하고 이외에는 생성 안합니다. sideview가 섞이는 것을 막기 위해서
+    /*
     if ($g4['session_type'] == "redis" && $g4['redis_sideview'] == 1 && $member && $member['mb_id'] !== "") {
 
         // key 값이 있는지를 체크
@@ -1125,8 +1126,8 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
             // key가 없거나 key에 값이 없으면 그냥 지나 갑니다.
             ;
         }
-
     }
+    */
 
     if ($config[cf_email_use])
         $email = base64_encode($email);
@@ -1186,6 +1187,7 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
       $tmp_name = "<a href=\"javascript:;\" onClick=\"showSideView(this, '$mb_id', '$name', '$email', '$homepage');\" title=\"{$title_mb_id}{$title_name}\">$tmp_name</a>";
     }
 
+    /*
     if ($g4['session_type'] == "redis" && $g4['redis_sideview'] == 1 && $member && $member['mb_id'] !== "") {
 
         // sideview를 업데이트
@@ -1194,6 +1196,7 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
         // redis instance connection을 닫아줍니다.
         $redis_sideview->close();
     }
+    */
 
     return $tmp_name;
 }
