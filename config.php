@@ -179,11 +179,14 @@ $g4['mpath'] = "tcp://$g4[mhost]:$g4[mport]?persistent=1&weight=2&timeout=2&retr
 // redis 사용할때의 설정
 $g4['rhost']    = "localhost";
 $g4['rport']    = "6379";
-$g4['rpath']    = "tcp://$g4[rhost]:$g4[rport]?weight=1";
+$g4['rauth']    = "";             // redis-server password. default는 값이 없다. redis.conf에서 정의
+$g4['rdomain']  = "opencode";     // redis domain. 다른 redis instance와 충돌하지 않게 unique하게 잡아줍니다
 $g4['rdb']      = "0";            // redis DB space (0) - 세션관리에 사용
 $g4['rdb1']     = "1";            // redis DB space (1) - login 관리에 사용. 다른 것들과 안헷갈리게
 $g4['rdb2']     = "2";            // redis DB space (2) - sideview에 사용. 검색성능 개선을 위해서
-$g4['rdomain']  = "opencode";     // redis domain. 다른 redis instance와 충돌하지 않게 unique하게 잡아줍니다
+
+// redis 세션 path
+$g4['rpath']    = "tcp://$g4[rhost]:$g4[rport]?weight=1&auth=$g4[redis_auth]&database=$g4[rdb]";    
 
 // redis 기본키 구성 - 참조자료
 // g4_login     : $g4[rdomain] . "_login_" . $remote_addr
