@@ -237,13 +237,8 @@ if ($is_admin || ($config[cf_sms4_member] && $member[mb_level] >= $config[cf_sms
 // 실시간쪽지를 사용하려면 아래의 코멘트를 풀어줍니다
 //include_once("$g4[bbs_path]/realtime_memo.php");
 ?>
-
-<body topmargin="0" leftmargin="0" <?=isset($g4['body_script']) ? $g4['body_script'] : "";?>>
+<body>
 <a name="g4_head"></a>
-
-
 <? if (!$cb_id and !stristr($_SERVER[REQUEST_URI],'club_')) { ?>
-
 <!-- 디자인 코드 code --->
-
 <? } ?>
