@@ -32,6 +32,22 @@ $g4['naver_api'] = "";
 // 네이버 단축주소 API - https://dev.naver.com/openapi/register
 $g4['me2do_key'] = "";
 
+// bit.ly 단축을 위한 api 설정
+$g4['bitly_id']   = "";
+$g4['bitly_key']  = "";
+$g4['use_bitly']  = 0;   // bit.ly api를 쓰기 원치 않을때는, 0으로 설정을 변경하면 됩니다.
+
+// phpmyadmin의 경로를 지정
+$g4['phpmyadmin_dir'] = $g4['admin_path'] . "/phpMyAdmin/";
+
+// 광고를 위해서 변수를 생성한다. 애드센스(1), 애드플러스(2), 리얼클릭(3) - 3종이라 3가지로 기본 생성.
+$g4['ad_type'] = rand(1, 3);
+
+// 유니크로 - 유니크로 게시판을 쓰는 경우에만 아래의 주석을 풀어주세요.
+//$g4['unicro_item_table']    = $g4['table_prefix'] . "unicro_item"; // 유니크로 아이템 테이블 
+//$g4['unicro_url']           = "unicro" . $g4['cookie_domain'];
+//$g4['unicro_path']          = $g4['path'] . "/" . "unicro";
+
 // 채널 - 다수대의 web server를 쓸 때, 어떤 서버인지 확인을 위해 채널에 ip 마지막 자리를 넣어주면 편하다.
 $g4['channel'] = "";
 
