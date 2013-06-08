@@ -1,11 +1,17 @@
-<?
+<?php
 // 이 파일은 새로운 파일 생성시 반드시 포함되어야 함
-if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
+if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 $begin_time = get_microtime();
 
-if (!$g4['title'])
+if (!isset($g4['title'])) {
     $g4['title'] = $config['cf_title'];
+    $g4_head_title = $g4['title'];
+}
+else {
+    $g4_head_title = $g4['title']; // 상태바에 표시될 제목
+    $g4_head_title .= " | ".$config['cf_title'];
+}
 
 // 쪽지를 받았나?
 if (trim($member['mb_memo_call'])) {
@@ -35,11 +41,11 @@ if (trim($member['mb_memo_call'])) {
 
 // 현재 접속자
 // 게시판 제목에 ' 포함되면 오류 발생
-$lo_location = addslashes($g4['title']);
-if (!$lo_location)
-    $lo_location = $_SERVER['REQUEST_URI'];
-$lo_url = $_SERVER['REQUEST_URI'];
-if (strstr($lo_url, "/$g4[admin]/") || $is_admin == "super") $lo_url = "";
+$g4['lo_location'] = addslashes($g4['title']);
+if (!$g4['lo_location'])
+    $g4['lo_location'] = $_SERVER['REQUEST_URI'];
+$g4['lo_url'] = $_SERVER['REQUEST_URI'];
+if (strstr($g4['lo_url'], '/'.$g4[adm_path].'/') || $is_admin == 'super') $g4['lo_url'] = '';
 
 // sms4 적용을 위한 설정
 if ($is_admin || ($config[cf_sms4_member] && $member[mb_level] >= $config[cf_sms4_level])) {
@@ -47,15 +53,6 @@ if ($is_admin || ($config[cf_sms4_member] && $member[mb_level] >= $config[cf_sms
 } else
     $g4_sms4 = "";
 
-// 자바스크립트에서 go(-1) 함수를 쓰면 폼값이 사라질때 해당 폼의 상단에 사용하면
-// 캐쉬의 내용을 가져옴. 완전한지는 검증되지 않음
-header("Content-Type: text/html; charset=$g4[charset]");
-$gmnow = gmdate("D, d M Y H:i:s") . " GMT";
-header("Expires: 0"); // rfc2616 - Section 14.21
-header("Last-Modified: " . $gmnow);
-header("Cache-Control: no-store, no-cache, must-revalidate"); // HTTP/1.1
-header("Cache-Control: pre-check=0, post-check=0, max-age=0"); // HTTP/1.1
-header("Pragma: no-cache"); // HTTP/1.0
 /*
 // 만료된 페이지로 사용하시는 경우
 header("Cache-Control: no-cache"); // HTTP/1.1
@@ -63,7 +60,7 @@ header("Expires: 0"); // rfc2616 - Section 14.21
 header("Pragma: no-cache"); // HTTP/1.0
 */
 ?>
-<!DOCTYPE HTML>
+<!doctype html>
 <html lang="ko">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=<?=$g4['charset']?>">
@@ -147,8 +144,6 @@ if(stristr($_SERVER[PHP_SELF], "/bbs/board.php") == true && $bo_table) {
         echo "<link rel=\"canonical\" href=\"$_SERVER[PHP_SELF]?bo_table=$bo_table\" />";
 }
 ?>
-</head>
-
 <script type="text/javascript">
 // 자바스크립트에서 사용하는 전역변수 선언
 var g4_path      = "<?=$g4['path']?>";
@@ -227,18 +222,26 @@ document.onkeydown = function(e) {
 }
 //-->
 </script> 
-
-<?
+<?php
 //sms4 적용여부를 설정 (관리자 또는 회원간 sms보내기가 허용될 때)
 if ($is_admin || ($config[cf_sms4_member] && $member[mb_level] >= $config[cf_sms4_level])) {
     include_once("$g4[path]/lib/sms.lib.php");
 }
-
-// 실시간쪽지를 사용하려면 아래의 코멘트를 풀어줍니다
-//include_once("$g4[bbs_path]/realtime_memo.php");
 ?>
+</head>
 <body>
+<?php
+if ($is_member) { // 회원이라면 로그인 중이라는 메세지를 출력해준다.
+    $sr_admin_msg = '';
+    if ($is_admin == 'super') $sr_admin_msg = "최고관리자 ";
+    else if ($is_admin == 'group') $sr_admin_msg = "그룹관리자 ";
+    else if ($is_admin == 'board') $sr_admin_msg = "게시판관리자 ";
+
+    echo '<div id="hd_login_msg">'.$sr_admin_msg.$member['mb_nick'].'님 로그인 중 ';
+    echo '<a href="'.G4_BBS_URL.'/logout.php">로그아웃</a></div>';
+}
+?>
 <a name="g4_head"></a>
-<? if (!$cb_id and !stristr($_SERVER[REQUEST_URI],'club_')) { ?>
+<?php if (!$cb_id and !stristr($_SERVER[REQUEST_URI],'club_')) { ?>
 <!-- 디자인 코드 code --->
 <? } ?>

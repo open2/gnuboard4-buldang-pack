@@ -1,8 +1,8 @@
-<?
+<?php
 /*******************************************************************************
 ** 공통 변수, 상수, 코드
 *******************************************************************************/
-error_reporting(E_ALL ^ E_NOTICE);
+error_reporting( E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_ERROR | E_WARNING | E_PARSE | E_USER_ERROR | E_USER_WARNING | E_RECOVERABLE_ERROR );
 
 // 보안설정이나 프레임이 달라도 쿠키가 통하도록 설정
 header('P3P: CP="ALL CURa ADMa DEVa TAIa OUR BUS IND PHY ONL UNI PUR FIN COM NAV INT DEM CNT STA POL HEA PRE LOC OTC"');
@@ -271,32 +271,12 @@ $g4['url'] = preg_replace("/\/$/", "", $g4['url']);
 //==============================================================================
 $dirname = dirname(__FILE__).'/';
 $dbconfig_file = "dbconfig.php";
-/* - 설치된 이후에는 dbcofig.php 파일체크를 할 필요 없죠???
-if (file_exists("$g4[path]/$dbconfig_file"))
-{
-    if (is_dir("$g4[path]/install")) die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script type='text/javascript'> alert('install 디렉토리를 삭제하여야 정상 실행됩니다.'); </script>");
-*/
-    @include_once("$g4[path]/$dbconfig_file");
-    $connect_db = sql_connect($mysql_host, $mysql_user, $mysql_password);
-    $select_db = sql_select_db($mysql_db, $connect_db);
-    if (!$select_db)
-        die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script type='text/javascript'> alert('DB 접속 오류'); </script>");
-/*
-}
-else
-{
-    echo "<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'>";
-    echo <<<HEREDOC
-    <script type="text/javascript">
-    alert("DB 설정 파일이 존재하지 않습니다.\\n\\n프로그램 설치 후 실행하시기 바랍니다.");
-    location.href = "./install/";
-    </script>
-HEREDOC;
-    exit;
-}
-unset($my); // DB 설정값을 클리어 해줍니다.
-*/
-//print_r2($GLOBALS);
+
+@include_once("$g4[path]/$dbconfig_file");
+$connect_db = sql_connect($mysql_host, $mysql_user, $mysql_password);
+$select_db = sql_select_db($mysql_db, $connect_db);
+if (!$select_db)
+    die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script type='text/javascript'> alert('DB 접속 오류'); </script>");
 
 $_SERVER['PHP_SELF'] = htmlentities($_SERVER['PHP_SELF']);
 
@@ -548,6 +528,7 @@ if (!($member['mb_id']))
 else
     $member['mb_dir'] = substr($member['mb_id'],0,2);
 
+$write = array();
 $write_table = "";
 if (isset($bo_table)) {
     $bo_table = preg_match("/^[a-zA-Z0-9_]+$/", $bo_table) ? $bo_table : "";
@@ -568,14 +549,19 @@ if (isset($gr_id) && !is_array($gr_id)) {
 
 // 회원, 비회원 구분
 $is_member = $is_guest = false;
-if ($member['mb_id'])
+$is_admin = '';
+if ($member['mb_id']) {
     $is_member = true;
-else
+    $is_admin = is_admin($member['mb_id']);
+    $member['mb_dir'] = substr($member['mb_id'],0,2);
+} else {
     $is_guest = true;
+    $member['mb_id'] = '';
+    $member['mb_level'] = 1; // 비회원의 경우 회원레벨을 가장 낮게 설정
+}
 
 
-$is_admin = is_admin($member['mb_id']);
-if ($is_admin != "super") {
+if ($is_admin != 'super') {
     // 접근가능 IP
     $cf_possible_ip = trim($config['cf_possible_ip']);
     if ($cf_possible_ip) {
