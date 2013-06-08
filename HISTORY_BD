@@ -1,3 +1,143 @@
+1.1.14 (2013.06.08)
+
+1.1.14의 가장 큰 변경사항은 빠른 성능을 위해 redis 기능을  추가 한 것 입니다.
+ 
+https://github.com/nicolasff/phpredis/#set
+ 
+1.1.13에서 추가된 memcache는 기본적인 session 관리에 편하고 부족함이 없지만 
+다량의 데이터를 캐슁하거나 NoSQL로 사용하는 경우에는 그렇게 편하지 않습니다.
+ 
+1.1.14는 redis를 이용해서 db_cache보다 더 빠르고 강력한 redis_cache 함수를 추가했고
+현재접속자 기능도 redis를 이용해서 memory에서 모든 것이 처리 되도록 했습니다.
+db 부하가 큰 사이트는 세션과 캐쉬를 redis로 변경 하면 상당한 수준의 성능개선이 가능합니다.
+ 
+redis 설치
+http://opencode.co.kr/bbs/board.php?bo_table=linux_tips&wr_id=370&mnb=tips&snb=tips_linux_tips&mnb=tips&snb=tips_linux_tips
+vanish cache는 불당팩 사용자중에 동시접속 2만을 넘어서는 사이트가 있는 시점에 지원할 예정 입니다.
+vanish cache는 화면을 분할해서 컨텐츠를 캐쉬하는 방법 입니다.
+ 
+* 불당팩은 개발 편의상 redis를 기본 NoSQL로 합니다.
+
+
+redis sideview는 포기. 
+코드는 common.lib.php 코멘트로 남겨둡니다.
+실명 게시판이 있는 경우 캐쉬가 엉키는 경우가 너무 많아 사용이 어렵습니다.
+닉으로만 쓰는 경우에는 코멘트를 풀어서 쓰기 바랍니다.
+
+===
+
+config.php
+common.php
+head.sub.php
+ 
+adm/banner_form.php
+adm/config_form.php
+adm/upgrade.php
+ 
+bbs/current_connect.php
+bbs/login_check.php
+bbs/register_form_update.php
+bbs/write.php
+ 
+lib/b4.lib.php
+lib/connect.lib.php
+lib/thumb.lib.php
+ 
+plugin/kcb
+ 
+tail.sub.php
+ 
+ 
+- head.sub.php 정리 (g4s 참조)
+head.sub.php
+
+- 안쓰는 테이블정보 삭제 (g4_token)
+config.php
+adm/upgrade.php
+ 
+=== 테스트 8 ===
+ 
+- redis 패스워드 적용 (외부의 침입을 막기 위해서... redis.conf에서 패스워드 지정이 가능)
+config.php
+ 
+- KCB 본인확인
+plugin/kcb
+ 
+=== 테스트 7 ===
+ 
+- redis sideview 오류 수정
+bbs/board.php (원상복구)
+lib/common.lib.php (코멘트 처리)
+ 
+=== 테스트 6 ===
+ 
+- redis sideview 오류 수정
+bbs/board.php
+lib/common.lib.php
+
+=== 테스트 4, 테스트 5 ===
+ 
+- redis sideview 오류 수정
+lib/common.lib.php
+ 
+=== 테스트 3 ===
+ 
+- redis key 갯수 세는 오류 수정
+lib/b4.lib.php
+ 
+- redis sideview 오류 수정
+lib/common.lib.php
+ 
+ 
+=== 테스트 2 ===
+ 
+- redis sideview
+config.php
+bbs/register_form_update.php
+lib/common.lib.php
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=974
+ 
+- 현재 접속자를 redis db 1로 변경 (검색 성능 개선을 위해)
+config.php
+bbs/current_connect.php
+bbs/login_check.php
+lib/b4.lib.php
+lib/connect.lib.php
+tail.sub.php
+- 불당썸 2.0.29
+lib/thumb.lib.php
+http://opencode.co.kr/bbs/board.php?bo_table=thumb&wr_id=191
+ 
+=== 테스트 1 ===
+- 배너관리 (마감일자 지정기능추가, 30일/90일/180일/..)
+adm/banner_form.php 
+ 
+- redis 현재접속자  (이거 무지 난감한건데... 속도를 위해 거거거...)
+config.php
+bbs/current_connect.php
+bbs/login_check.php (중복로그인 체크)
+lib/b4.lib.php
+lib/connect.lib.php
+tail.sub.php
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=972
+ 
+- kcb 본인인증 (okname 파일은 kcb에서 받으시기 바랍니다)
+bbs/write.php
+plugin/kcb
+ 
+- 중복로그인 갯수기능
+adm/config_form.php
+bbs/login_check.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/02b181fb726542e1b60941184e6ff5553336d010
+ 
+- redis 캐쉬 기능추가 (db_cache의 후속버젼. redis_cache 함수)
+lib/b4.lib.php
+ 
+- redis 세션관리 기능추가
+config.php
+common.php
+
+
 1.1.13 (2013.05.15)
 
 ===
