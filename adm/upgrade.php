@@ -61,18 +61,6 @@ sql_query(" ALTER TABLE `$g4[member_table]` DROP PRIMARY KEY ", false);
 sql_query(" ALTER TABLE `$g4[member_table]` ADD `mb_no` INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST ", false);
 sql_query(" ALTER TABLE `$g4[member_table]` ADD UNIQUE `mb_id` ( `mb_id` ) ", false);
 
-
-// 4.11.00
-// 트랙백 토큰
-sql_query("CREATE TABLE `$g4[token_table]` (
-  `to_token` varchar(32) NOT NULL default '',
-  `to_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
-  `to_ip` varchar(255) NOT NULL default '',
-  PRIMARY KEY  (`to_token`),
-  KEY `to_datetime` (`to_datetime`),
-  KEY `to_ip` (`to_ip`)
-) TYPE=MyISAM", FALSE);
-
 // 4.09.00
 // 기본환경설정 테이블 필드 추가
 sql_query(" ALTER TABLE `{$g4['config_table']}` ADD `cf_1_subj` VARCHAR( 255 ) NOT NULL AFTER `cf_open_modify` ", FALSE);
