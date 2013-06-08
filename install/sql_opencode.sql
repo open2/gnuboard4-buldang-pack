@@ -1130,3 +1130,64 @@ CREATE TABLE IF NOT EXISTS `$g4[banner_click_sum_table]` (
   PRIMARY KEY (`bc_date`),
   KEY `bc_count` (`bc_count`)
 );
+
+# g4s 테이블 수정
+ALTER TABLE `$g4[board_table]` 
+    add `bo_device` enum('both','pc','mobile') NOT NULL DEFAULT 'both',
+    add `bo_mobile_subject_len` int(11) NOT NULL DEFAULT '0',
+    add `bo_mobile_page_rows` int(11) NOT NULL DEFAULT '0',
+    add `bo_mobile_skin` varchar(255) NOT NULL DEFAULT '',
+    add `bo_mobile_content_head` text NOT NULL,
+    add `bo_mobile_content_tail` text NOT NULL,
+    add `bo_gallery_width` int(11) NOT NULL DEFAULT '0',
+    add `bo_gallery_height` int(11) NOT NULL DEFAULT '0',
+    add `bo_mobile_gallery_cols` int(11) NOT NULL DEFAULT '0',
+    add `bo_mobile_gallery_width` int(11) NOT NULL DEFAULT '0',
+    add `bo_mobile_gallery_height` int(11) NOT NULL DEFAULT '0',
+    add `bo_show_menu` tinyint(4) NOT NULL DEFAULT '0',
+    add `bo_use_cert` enum('','cert','adult') NOT NULL DEFAULT '',
+    add `bo_use_sns` tinyint(4) NOT NULL DEFAULT '0';
+
+ALTER TABLE `$g4[board_table]` CHANGE `bo_order_search` `bo_order` INT( 11 ) NOT NULL DEFAULT '0' ;
+
+ALTER TABLE `$g4[config_table]`
+    add `cf_include_index` varchar(255) NOT NULL DEFAULT '',
+    add `cf_include_head` varchar(255) NOT NULL DEFAULT '',
+    add `cf_include_tail` varchar(255) NOT NULL DEFAULT '',
+    add `cf_add_script` text NOT NULL,
+    add `cf_mobile_pages` int(11) NOT NULL DEFAULT '0',
+    add `cf_mobile_new_skin` varchar(255) NOT NULL DEFAULT '',
+    add `cf_mobile_search_skin` varchar(255) NOT NULL DEFAULT '',
+    add `cf_mobile_connect_skin` varchar(255) NOT NULL DEFAULT '',
+    add `cf_mobile_member_skin` varchar(255) NOT NULL DEFAULT '',
+    add `cf_gcaptcha_mp3` varchar(255) NOT NULL DEFAULT '',
+    add `cf_googl_shorturl_apikey` varchar(255) NOT NULL DEFAULT '',
+    add `cf_kcpcert_site_cd` varchar(255) NOT NULL DEFAULT '',
+    add `cf_kcpcert_use` enum('','test','service') NOT NULL DEFAULT '',
+    add `cf_facebook_appid` varchar(255) NOT NULL,
+    add `cf_facebook_secret` varchar(255) NOT NULL,
+    add `cf_twitter_key` varchar(255) NOT NULL,
+    add `cf_twitter_secret` varchar(255) NOT NULL,
+    add `cf_me2day_key` varchar(255) NOT NULL;
+
+ALTER TABLE `$g4[group_table]`
+    add `gr_device` ENUM('both','pc','mobile') NOT NULL DEFAULT 'both',
+    add `gr_show_menu` tinyint(4) NOT NULL default '0',
+    add `gr_order` int(11) NOT NULL default '0';
+
+ALTER TABLE `$g4[member_table]` add `mb_hp_certify` tinyint(4) NOT NULL default '0';
+ALTER TABLE `$g4[member_table]` add `mb_adult` tinyint(4) NOT NULL default '0';
+
+CREATE TABLE IF NOT EXISTS `$g4[uniqid_table]` (
+  `uq_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`uq_id`)
+);
+
+CREATE TABLE IF NOT EXISTS `$g4[syndi_log_table]` (
+  `content_id` int(11) NOT NULL, 
+  `bbs_id` varchar(50) NOT NULL, 
+  `title` text NOT NULL,
+  `link_alternative` varchar(250) NOT NULL, 
+  `delete_date` varchar(14) NOT NULL, 
+  PRIMARY KEY  (`content_id`,`bbs_id`)
+);
