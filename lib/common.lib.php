@@ -1,4 +1,4 @@
-<?
+<?php
 if (!defined('_GNUBOARD_')) exit;
 
 if (!isset($sideview))
@@ -24,7 +24,6 @@ function get_paging($write_pages, $cur_page, $total_page, $url, $add="")
     $str = "";
     if ($cur_page > 1) {
         $str .= "<a href='" . $url . "1{$add}'>처음</a>";
-        //$str .= "[<a href='" . $url . ($cur_page-1) . "'>이전</a>]";
     }
 
     $start_page = ( ( (int)( ($cur_page - 1 ) / $write_pages ) ) * $write_pages ) + 1;
@@ -102,7 +101,6 @@ function goto_url($url)
     } else {
         echo "<script type='text/javascript'> location.replace('$url'); </script>; ";
     }
-
     exit;
 }
 
@@ -113,27 +111,18 @@ function set_session($session_name, $value)
     if (PHP_VERSION < '5.3.0')
         session_register($session_name);
     // PHP 버전별 차이를 없애기 위한 방법
-    $$session_name = $_SESSION["$session_name"] = $value;
+    $$session_name = $_SESSION[$session_name] = $value;
 }
 
 
 // 세션변수값 얻음
 function get_session($session_name)
 {
-    return $_SESSION[$session_name];
+    return isset($_SESSION[$session_name]) ? $_SESSION[$session_name] : '';
 }
 
 
 // 쿠키변수 생성
-/*
-function set_cookie($cookie_name, $value, $expire)
-{
-    global $g4;
-
-    setcookie(md5($cookie_name), base64_encode($value), $g4[server_time] + $expire, '/', $g4[cookie_domain]);
-}
-*/
-
 function set_cookie($cookie_name, $value, $expire)
 {
     global $g4; 
@@ -146,21 +135,26 @@ function set_cookie($cookie_name, $value, $expire)
          setcookie(md5($cookie_name), base64_encode($value), $g4[server_time] + $expire, '/', $g4[cookie_domain], $https_cookie);
 }
 
+
 // 쿠키변수값 얻음
 function get_cookie($cookie_name)
 {
-    return base64_decode($_COOKIE[md5($cookie_name)]);
+    $cookie = md5($cookie_name);
+    if (array_key_exists($cookie, $_COOKIE))
+        return base64_decode($_COOKIE[md5($cookie_name)]);
+    else
+        return "";
 }
 
 
 // 경고메세지를 경고창으로
-function alert($msg='', $url='')
+function alert($msg='', $url='', $error=true, $post=false)
 {
-	global $g4;
+    global $g4, $config, $member;
+    global $is_admin;
 
     if (!$msg) $msg = '올바른 방법으로 이용해 주십시오.';
 
-	//header("Content-Type: text/html; charset=$g4[charset]");
 	echo "<meta http-equiv=\"content-type\" content=\"text/html; charset=$g4[charset]\">";
 	echo "<script type='text/javascript'>alert('$msg');";
     if (!$url)
@@ -175,11 +169,11 @@ function alert($msg='', $url='')
 
 
 // 경고메세지 출력후 창을 닫음
-function alert_close($msg)
+function alert_close($msg, $error=true)
 {
-	global $g4;
+    global $g4;
 
-	echo "<meta http-equiv=\"content-type\" content=\"text/html; charset=$g4[charset]\">";
+  	echo "<meta http-equiv=\"content-type\" content=\"text/html; charset=$g4[charset]\">";
     echo "<script type='text/javascript'> alert('$msg'); window.close(); </script>";
     exit;
 }
@@ -198,7 +192,6 @@ function url_auto_link($str)
     $str = preg_replace("/&quot;/", "\"", $str);
     $str = preg_replace("/&nbsp;/", "\t_nbsp_\t", $str);
     $str = preg_replace("/([^(http:\/\/)]|\(|^)(www\.[^[:space:]]+)/i", "\\1<A HREF=\"http://\\2\" TARGET='$config[cf_link_target]'>\\2</A>", $str);
-    //$str = preg_replace("/([^(HREF=\"?'?)|(SRC=\"?'?)]|\(|^)((http|https|ftp|telnet|news|mms):\/\/[a-zA-Z0-9\.-]+\.[\xA1-\xFEa-zA-Z0-9\.:&#=_\?\/~\+%@;\-\|\,]+)/i", "\\1<A HREF=\"\\2\" TARGET='$config[cf_link_target]'>\\2</A>", $str);
     // 100825 : () 추가
     // 120315 : CHARSET 에 따라 링크시 글자 잘림 현상이 있어 수정
     if (strtoupper($g4['charset']) == 'UTF-8') {
@@ -256,30 +249,37 @@ function get_file($bo_table, $wr_id)
     $result = sql_query($sql);
     while ($row = sql_fetch_array($result))
     {
-        $no = $row[bf_no];
-        $file[$no][href] = "./download.php?bo_table=$bo_table&wr_id=$wr_id&no=$no" . $qstr;
-        $file[$no][download] = $row[bf_download];
+        $no = $row['bf_no'];
+        $file[$no]['href'] = "./download.php?bo_table=$bo_table&wr_id=$wr_id&no=$no" . $qstr;
+        $file[$no]['download'] = $row['bf_download'];
         // 4.00.11 - 파일 path 추가
-        $file[$no][path] = "$g4[data_path]/file/$bo_table";
-        //$file[$no][size] = get_filesize("{$file[$no][path]}/$row[bf_file]");
+        $file[$no]['path'] = "$g4[data_path]/file/$bo_table";
         $file[$no][size] = get_filesize($row[bf_filesize]);
-        //$file[$no][datetime] = date("Y-m-d H:i:s", @filemtime("$g4[data_path]/file/$bo_table/$row[bf_file]"));
         $file[$no][datetime] = $row[bf_datetime];
         $file[$no][source] = addslashes($row[bf_source]);
         $file[$no][bf_content] = $row[bf_content];
         $file[$no][content] = get_text($row[bf_content]);
-        //$file[$no][view] = view_file_link($row[bf_file], $file[$no][content]);
         $file[$no][view] = view_file_link($row[bf_file], $row[bf_width], $row[bf_height], $file[$no][content]);
         $file[$no][file] = $row[bf_file];
-        // prosper 님 제안
-        //$file[$no][imgsize] = @getimagesize("{$file[$no][path]}/$row[bf_file]");
-        $file[$no][image_width] = $row[bf_width] ? $row[bf_width] : 640;
-        $file[$no][image_height] = $row[bf_height] ? $row[bf_height] : 480;
-        $file[$no][image_type] = $row[bf_type];
-        $file["count"]++;
+        $file[$no]['image_width'] = $row['bf_width'] ? $row['bf_width'] : 640;
+        $file[$no]['image_height'] = $row['bf_height'] ? $row['bf_height'] : 480;
+        $file[$no]['image_type'] = $row['bf_type'];
+        $file['count']++;
     }
 
     return $file;
+}
+
+
+// 게시글 리스트에 쓰일 1개의 파일 정보를 얻는다.
+function get_list_file($bo_table, $wr_id)
+{
+    global $g4;
+
+    $sql = " select * from {$g4['board_file_table']} where bo_table = '$bo_table' and wr_id = '$wr_id' order by bf_no ";
+    $row = sql_fetch($sql);
+
+    return $row;
 }
 
 
@@ -289,8 +289,8 @@ function get_dirsize($dir)
     $size = 0;
     $d = dir($dir);
     while ($entry = $d->read()) {
-        if ($entry != "." && $entry != "..") {
-            $size += filesize("$dir/$entry");
+        if ($entry != '.' && $entry != '..') {
+            $size += filesize($dir.'/'.$entry);
         }
     }
     $d->close();
@@ -332,17 +332,17 @@ function get_list($write_row, $board, $skin_path, $subject_len=40, $gallery_view
     }
 
     if ($subject_len)
-        $list['subject'] = conv_subject($list['wr_subject'], $subject_len, "…");
+        $list['subject'] = conv_subject($list['wr_subject'], $subject_len, '…');
     else
-        $list['subject'] = conv_subject($list['wr_subject'], $board['bo_subject_len'], "…");
+        $list['subject'] = conv_subject($list['wr_subject'], $board['bo_subject_len'], '…');
 
     // 목록에서 내용 미리보기 사용한 게시판만 내용을 변환함 (속도 향상) : kkal3(커피)님께서 알려주셨습니다.
     if ($board['bo_use_list_content'])
 	{
 		$html = 0;
-		if (strstr($list['wr_option'], "html1"))
+		if (strstr($list['wr_option'], 'html1'))
 			$html = 1;
-		else if (strstr($list['wr_option'], "html2"))
+		else if (strstr($list['wr_option'], 'html2'))
 			$html = 2;
 
         $list['content'] = conv_content($list['wr_content'], $html);
@@ -498,19 +498,19 @@ function search_font($stx, $str)
     global $config;
 
     // 문자앞에 \ 를 붙입니다.
-    $src = array("/", "|");
-    $dst = array("\/", "\|");
+    $src = array('/', '|');
+    $dst = array('\/', '\|');
 
     if (!trim($stx)) return $str;
 
     // 검색어 전체를 공란으로 나눈다
-    $s = explode(" ", $stx);
+    $s = explode(' ', $stx);
 
     // "/(검색1|검색2)/i" 와 같은 패턴을 만듬
-    $pattern = "";
-    $bar = "";
+    $pattern = '';
+    $bar = '';
     for ($m=0; $m<count($s); $m++) {
-        if (trim($s[$m]) == "") continue;
+        if (trim($s[$m]) == '') continue;
         // 태그는 포함하지 않아야 하는데 잘 안되는군. ㅡㅡa
         //$pattern .= $bar . '([^<])(' . quotemeta($s[$m]) . ')';
         //$pattern .= $bar . quotemeta($s[$m]);
@@ -529,7 +529,7 @@ function search_font($stx, $str)
 
 
 // 제목을 변환
-function conv_subject($subject, $len, $suffix="")
+function conv_subject($subject, $len, $suffix='')
 {
     return cut_str(get_text($subject), $len, $suffix);
 }
@@ -537,14 +537,14 @@ function conv_subject($subject, $len, $suffix="")
 // OBJECT 태그의 XSS 막기
 function bad120422($matches)
 {
-    $tag  = $matches[1];
-    $code = $matches[2];
+    $tag  = $matches['1'];
+    $code = $matches['2'];
     if (preg_match("#\bscript\b#i", $code)) {
         return "$tag 태그에 스크립트는 사용 불가합니다.";
     } else if (preg_match("#\bbase64\b#i", $code)) {
         return "$tag 태그에 BASE64는 사용 불가합니다.";
     }
-    return $matches[0];
+    return $matches['0'];
 }
 
 // tag 내의 주석문 무효화 하기
@@ -584,13 +584,13 @@ function conv_content($content, $html)
             $content .= "</table>";
         }
 
-        $content = preg_replace_callback("/<([^>]+)>/s", 'bad130128', $content); 
+        $content = preg_replace_callback("/<([^>]+)>/s", 'bad130128', $content);
 
         $content = preg_replace($source, $target, $content);
 
         // XSS (Cross Site Script) 막기
         // 완벽한 XSS 방지는 없다.
-        
+
         // 이런 경우를 방지함 <IMG STYLE="xss:expr/*XSS*/ession(alert('XSS'))">
         //$content = preg_replace("#\/\*.*\*\/#iU", "", $content);
         // 위의 정규식이 아래와 같은 내용을 통과시키므로 not greedy(비탐욕수량자?) 옵션을 제거함. ignore case 옵션도 필요 없으므로 제거
@@ -634,9 +634,9 @@ function conv_content($content, $html)
         $pattern .= "(o|&#(x6f|111);?)";
         $pattern .= "(n|&#(x6e|110);?)";
         //$content = preg_replace("/".$pattern."/i", "__EXPRESSION__", $content);
-        $content = preg_replace("/<[^>]*".$pattern."/i", "__EXPRESSION__", $content); 
+        $content = preg_replace("/<[^>]*".$pattern."/i", "__EXPRESSION__", $content);
         // <IMG STYLE="xss:e\xpression(alert('XSS'))"></IMG> 와 같은 코드에 취약점이 있어 수정함. 121213
-        $content = preg_replace("/(?<=style)(\s*=\s*[\"\']?xss\:)/i", '="__XSS__', $content); 
+        $content = preg_replace("/(?<=style)(\s*=\s*[\"\']?xss\:)/i", '="__XSS__', $content);
         $content = bad_tag_convert($content);
     }
     else // text 이면
@@ -695,7 +695,9 @@ function get_sql_search($search_ca_name, $search_field, $search_text, $search_op
     $tmp = array();
     $tmp = explode(",", trim($search_field));
     $field = explode("||", $tmp[0]);
-    $not_comment = $tmp[1];
+    $not_comment = "";
+    if (!empty($tmp[1]))
+        $not_comment = $tmp[1];
 
     $str .= "(";
     for ($i=0; $i<count($s); $i++) {
@@ -834,7 +836,7 @@ function get_next_num($table)
     $sql = " select min(wr_num) as min_wr_num from $table ";
     $row = sql_fetch($sql);
     // 가장 작은 번호에 1을 빼서 넘겨줌
-    return (int)($row[min_wr_num] - 1);
+    return (int)($row['min_wr_num'] - 1);
 }
 
 
@@ -848,12 +850,12 @@ function get_group($gr_id, $fields='*')
 
 
 // 회원 정보를 얻는다.
-function get_member($mb_id, $fields='*') 
-{ 
-    global $g4; 
+function get_member($mb_id, $fields='*')
+{
+    global $g4;
 
-    $mb_id = trim($mb_id); 
-    if (!$mb_id) return; 
+    $mb_id = trim($mb_id);
+    if (!$mb_id) return;
 
     $sql = "select $fields from $g4[member_table] where mb_id = '$mb_id'";
     $row = sql_fetch($sql, FALSE);
@@ -910,24 +912,24 @@ function subject_sort_link($col, $query_string='', $flag='asc')
 
 
 // 관리자 정보를 얻음
-function get_admin($admin='super')
+function get_admin($admin='super', $fields='*')
 {
     global $config, $group, $board;
     global $g4;
 
     $is = false;
     if ($admin == 'board') {
-        $mb = sql_fetch("select * from $g4[member_table] where mb_id in ('$board[bo_admin]') limit 1 ");
+        $mb = sql_fetch("select $fields from $g4[member_table] where mb_id in ('$board[bo_admin]') limit 1 ");
         $is = true;
     }
 
-    if (($is && !$mb[mb_id]) || $admin == 'group') {
-        $mb = sql_fetch("select * from $g4[member_table] where mb_id in ('$group[gr_admin]') limit 1 ");
+    if (($is && !$mb['mb_id']) || $admin == 'group') {
+        $mb = sql_fetch("select $fields from $g4[member_table] where mb_id in ('$group[gr_admin]') limit 1 ");
         $is = true;
     }
 
-    if (($is && !$mb[mb_id]) || $admin == 'super') {
-        $mb = sql_fetch("select * from $g4[member_table] where mb_id in ('$config[cf_admin]') limit 1 ");
+    if (($is && !$mb['mb_id']) || $admin == 'super') {
+        $mb = sql_fetch("select $fields from $g4[member_table] where mb_id in ('$config[cf_admin]') limit 1 ");
     }
 
     return $mb;
@@ -942,8 +944,8 @@ function is_admin($mb_id)
     if (!$mb_id) return;
 
     if ($config['cf_admin'] == $mb_id) return 'super';
-    if ($group['gr_admin'] == $mb_id) return 'group';
-    if ($board['bo_admin'] == $mb_id) return 'board';
+    if (isset($group['gr_admin']) && ($group['gr_admin'] == $mb_id)) return 'group';
+    if (isset($board['bo_admin']) && ($board['bo_admin'] == $mb_id)) return 'board';
     return '';
 }
 
@@ -994,16 +996,26 @@ function get_group_select($name, $selected='', $event='')
 }
 
 
+function option_selected($value, $selected, $text='')
+{
+    if (!$text) $text = $value;
+    if ($value == $selected)
+        return "<option value=\"$value\" selected=\"selected\">$text</option>\n";
+    else
+        return "<option value=\"$value\">$text</option>\n";
+}
+
+
 // '예', '아니오'를 SELECT 형식으로 얻음
 function get_yn_select($name, $selected='1', $event='')
 {
-    $str = "<select name='$name' $event>";
+    $str = "<select name=\"$name\" $event>\n";
     if ($selected) {
-        $str .= "<option value='1' selected>예</option>";
-        $str .= "<option value='0'>아니오</option>";
+        $str .= "<option value=\"1\" selected>예</option>\n";
+        $str .= "<option value=\"0\">아니오</option>\n";
     } else {
-        $str .= "<option value='1'>예</option>";
-        $str .= "<option value='0' selected>아니오</option>";
+        $str .= "<option value=\"1\">예</option>\n";
+        $str .= "<option value=\"0\" selected>아니오</option>\n";
     }
     $str .= "</select>";
     return $str;
@@ -1203,7 +1215,7 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
 
 
 // 파일을 보이게 하는 링크 (이미지, 플래쉬, 동영상)
-function view_file_link($file, $width, $height, $content="")
+function view_file_link($file, $width, $height, $content='')
 {
     global $config, $board;
     global $g4;
@@ -1289,7 +1301,7 @@ function view_link($view, $number, $attribute)
 {
     global $config;
 
-    if ($view[link][$number][link])
+    if ($view['link'][$number]['link'])
     {
         if (!preg_match("/target/i", $attribute))
             $attribute .= " target='$config[cf_link_target]'";
@@ -1513,7 +1525,7 @@ function sql_old_password($value)
     // mysql 4.0x 이하 버전에서는 password() 함수의 결과가 16bytes
     // mysql 4.1x 이상 버전에서는 password() 함수의 결과가 41bytes
     $row = sql_fetch(" select old_password('$value') as pass ");
-    return $row[pass];
+    return $row['pass'];
 }
 
 // PHPMyAdmin 참고
@@ -1614,23 +1626,23 @@ function referer_check($url="")
 // 한글 요일
 function get_yoil($date, $full=0)
 {
-    $arr_yoil = array ("일", "월", "화", "수", "목", "금", "토");
+    $arr_yoil = array ('일', '월', '화', '수', '목', '금', '토');
 
     $yoil = date("w", strtotime($date));
     $str = $arr_yoil[$yoil];
     if ($full) {
-        $str .= "요일";
+        $str .= '요일';
     }
     return $str;
 }
 
 
 // 날짜를 select 박스 형식으로 얻는다
-function date_select($date, $name="")
+function date_select($date, $name='')
 {
     global $g4;
 
-    $s = "";
+    $s = '';
     if (substr($date, 0, 4) == "0000") {
         $date = $g4[time_ymdhis];
     }
@@ -1638,9 +1650,9 @@ function date_select($date, $name="")
 
     // 년
     $s .= "<select name='{$name}_y'>";
-    for ($i=$m[0]-3; $i<=$m[0]+3; $i++) {
+    for ($i=$m['0']-3; $i<=$m['0']+3; $i++) {
         $s .= "<option value='$i'";
-        if ($i == $m[0]) {
+        if ($i == $m['0']) {
             $s .= " selected";
         }
         $s .= ">$i";
@@ -1651,7 +1663,7 @@ function date_select($date, $name="")
     $s .= "<select name='{$name}_m'>";
     for ($i=1; $i<=12; $i++) {
         $s .= "<option value='$i'";
-        if ($i == $m[2]) {
+        if ($i == $m['2']) {
             $s .= " selected";
         }
         $s .= ">$i";
@@ -1662,7 +1674,7 @@ function date_select($date, $name="")
     $s .= "<select name='{$name}_d'>";
     for ($i=1; $i<=31; $i++) {
         $s .= "<option value='$i'";
-        if ($i == $m[3]) {
+        if ($i == $m['3']) {
             $s .= " selected";
         }
         $s .= ">$i";
@@ -1684,7 +1696,7 @@ function time_select($time, $name="")
     $s .= "<select name='{$name}_h'>";
     for ($i=0; $i<=23; $i++) {
         $s .= "<option value='$i'";
-        if ($i == $m[0]) {
+        if ($i == $m['0']) {
             $s .= " selected";
         }
         $s .= ">$i";
@@ -1695,7 +1707,7 @@ function time_select($time, $name="")
     $s .= "<select name='{$name}_i'>";
     for ($i=0; $i<=59; $i++) {
         $s .= "<option value='$i'";
-        if ($i == $m[2]) {
+        if ($i == $m['2']) {
             $s .= " selected";
         }
         $s .= ">$i";
@@ -1706,7 +1718,7 @@ function time_select($time, $name="")
     $s .= "<select name='{$name}_s'>";
     for ($i=0; $i<=59; $i++) {
         $s .= "<option value='$i'";
-        if ($i == $m[3]) {
+        if ($i == $m['3']) {
             $s .= " selected";
         }
         $s .= ">$i";
@@ -1721,8 +1733,8 @@ function time_select($time, $name="")
 function check_demo()
 {
     global $g4;
-    if (file_exists("$g4[path]/DEMO"))
-        alert("데모 화면에서는 하실(보실) 수 없는 작업입니다.");
+    if (file_exists($g4['path'].'/DEMO'))
+        alert('데모 화면에서는 하실(보실) 수 없는 작업입니다.');
 }
 
 
@@ -1820,8 +1832,8 @@ function explain($sql)
         $q = "explain $sql";
         echo $q;
         $row = sql_fetch($q);
-        if (!$row[key]) $row[key] = "NULL";
-        echo " <font color=blue>(type=$row[type] , key=$row[key])</font>";
+        if (!$row['key']) $row['key'] = "NULL";
+        echo " <font color=blue>(type={$row['type']} , key={$row['key']})</font>";
     }
 }
 
@@ -1831,7 +1843,7 @@ function bad_tag_convert($code)
     global $view;
     global $member, $is_admin;
 
-    if ($is_admin && $member[mb_id] != $view[mb_id]) {
+    if ($is_admin && $member['mb_id'] != $view['mb_id']) {
         //$code = preg_replace_callback("#(\<(embed|object)[^\>]*)\>(\<\/(embed|object)\>)?#i",
         // embed 또는 object 태그를 막지 않는 경우 필터링이 되도록 수정
         $code = preg_replace_callback("#(\<(embed|object)[^\>]*)\>?(\<\/(embed|object)\>)?#i",
@@ -1839,9 +1851,14 @@ function bad_tag_convert($code)
                     $code);
     }
 
-    //return preg_replace("/\<([\/]?)(script|iframe)([^\>]*)\>/i", "&lt;$1$2$3&gt;", $code);
-    // script 나 iframe 태그를 막지 않는 경우 필터링이 되도록 수정
     return preg_replace("/\<([\/]?)(script|iframe|form)([^\>]*)\>?/i", "&lt;$1$2$3&gt;", $code);
+}
+
+
+// 토큰 생성
+function _token()
+{
+    return md5(uniqid(rand(), true));
 }
 
 
@@ -1849,7 +1866,7 @@ function bad_tag_convert($code)
 function get_token()
 {
     $token = md5(uniqid(rand(), true));
-    set_session("ss_token", $token);
+    set_session('ss_token', $token);
 
     return $token;
 }
@@ -1865,27 +1882,60 @@ function check_token()
 
 // 문자열에 utf8 문자가 들어 있는지 검사하는 함수
 // 코드 : http://in2.php.net/manual/en/function.mb-check-encoding.php#95289
-function is_utf8($str) 
-{ 
-    $len = strlen($str); 
+function is_utf8($str)
+{
+    $len = strlen($str);
     for($i = 0; $i < $len; $i++) {
-        $c = ord($str[$i]); 
-        if ($c > 128) { 
-            if (($c > 247)) return false; 
-            elseif ($c > 239) $bytes = 4; 
-            elseif ($c > 223) $bytes = 3; 
-            elseif ($c > 191) $bytes = 2; 
-            else return false; 
-            if (($i + $bytes) > $len) return false; 
-            while ($bytes > 1) { 
-                $i++; 
-                $b = ord($str[$i]); 
-                if ($b < 128 || $b > 191) return false; 
-                $bytes--; 
-            } 
-        } 
-    } 
-    return true; 
+        $c = ord($str[$i]);
+        if ($c > 128) {
+            if (($c > 247)) return false;
+            elseif ($c > 239) $bytes = 4;
+            elseif ($c > 223) $bytes = 3;
+            elseif ($c > 191) $bytes = 2;
+            else return false;
+            if (($i + $bytes) > $len) return false;
+            while ($bytes > 1) {
+                $i++;
+                $b = ord($str[$i]);
+                if ($b < 128 || $b > 191) return false;
+                $bytes--;
+            }
+        }
+    }
+    return true;
+}
+
+
+// goo.gl 짧은주소 만들기
+function googl_short_url($longUrl) 
+{
+    global $config;
+
+    // Get API key from : http://code.google.com/apis/console/
+    // URL Shortener API ON
+    $apiKey = $config['cf_googl_shorturl_apikey'];
+
+    $postData = array('longUrl' => $longUrl, 'key' => $apiKey);
+    $jsonData = json_encode($postData);
+
+    $curlObj = curl_init();
+
+    curl_setopt($curlObj, CURLOPT_URL, 'https://www.googleapis.com/urlshortener/v1/url');
+    curl_setopt($curlObj, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curlObj, CURLOPT_SSL_VERIFYPEER, 0);
+    curl_setopt($curlObj, CURLOPT_HEADER, 0);
+    curl_setopt($curlObj, CURLOPT_HTTPHEADER, array('Content-type:application/json'));
+    curl_setopt($curlObj, CURLOPT_POST, 1);
+    curl_setopt($curlObj, CURLOPT_POSTFIELDS, $jsonData);
+
+    $response = curl_exec($curlObj);
+
+    //change the response json string to object
+    $json = json_decode($response);
+
+    curl_close($curlObj);
+
+    return $json->id;
 }
 
 // 불당팩 라이브러리를 읽습니다
