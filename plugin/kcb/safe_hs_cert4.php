@@ -59,12 +59,24 @@ $returnMsg			  = $_POST["return_msg"];			      //리턴메시지
 	</div>
 </div>
 
-<table>
-<tr><td width=120px>이름</td><td width=200px><?=$name?></td></tr>
-<tr><td width=120px>휴대폰번호</td><td width=200px><?=$telNo?></td></tr>
-<tr><td width=120px>결과코드</td><td width=200px><?=$resultCd?></td></tr>
-<tr><td width=120px>결과메세지</td><td width=200px><?=$resultMsg?></td></tr>
-</table>
+<form>
+<fieldset>
+<label>이름 : </label>
+<?=$name?>
+</fieldset>
+<fieldset>
+<label>휴대폰번호 : </label>
+<?=$telNo?>
+</fieldset>
+<fieldset>
+<label>결과코드 : </label>
+<?=$resultCd?>
+</fieldset>
+<fieldset>
+<label>결과메세지 : </label>
+<?=$resultMsg?>
+</fieldset>
+</form>
 
 <? } ?>
 
