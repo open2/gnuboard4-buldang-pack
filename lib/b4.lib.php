@@ -850,7 +850,7 @@ function db_cache($c_name, $seconds=300, $c_code) {
         $func_name = $tmp_c_code[0];
 
         // 수행할 함수의 인자
-        $tmp_array = explode(",", $tmp_c_code[1]);
+        $tmp_array = str_getcsv($tmp_c_code[1]); //수정
         
         if ($func_name == "include_once" || $func_name == "include") {
 
@@ -895,6 +895,23 @@ function db_cache($c_name, $seconds=300, $c_code) {
         return $result['c_text'];
 
     }
+}
+
+// http://www.php.net/manual/en/function.str-getcsv.php
+if (!function_exists('str_getcsv')) { 
+  
+function str_getcsv($input, $delimiter=',', $enclosure='"', $escape=null, $eol=null) { 
+  $temp=fopen("php://memory", "rw"); 
+  fwrite($temp, $input); 
+  fseek($temp, 0); 
+  $r = array(); 
+  while (($data = fgetcsv($temp, 4096, $delimiter, $enclosure)) !== false) { 
+    $r[] = $data; 
+  } 
+  fclose($temp); 
+  return $r; 
+} 
+  
 }
 
 
