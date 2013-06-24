@@ -21,7 +21,9 @@ function get_microtime()
 // 현재페이지, 총페이지수, 한페이지에 보여줄 행, URL
 function get_paging($write_pages, $cur_page, $total_page, $url, $add="")
 {
-    $str = "";
+    $url = preg_replace('#&amp;page=[0-9]*(&amp;page=)$#', '$1', $url);
+
+    $str = '';
     if ($cur_page > 1) {
         $str .= "<a href='" . $url . "1{$add}'>처음</a>";
     }
@@ -53,6 +55,21 @@ function get_paging($write_pages, $cur_page, $total_page, $url, $add="")
     return $str;
 }
 
+// 페이징 코드의 <div><span> 태그 다음에 코드를 삽입
+function page_insertbefore($paging_html, $insert_html)
+{
+    if ($paging_html) {
+        return preg_replace("/^(<div[^>]+><span[^>]+>)/", '$1'.$insert_html, $paging_html);
+    }
+}
+
+// 페이징 코드의 </span></div> 태그 이전에 코드를 삽입
+function page_insertafter($paging_html, $insert_html)
+{
+    if ($paging_html) {
+        return preg_replace("/(<\/span><\/div>)$/", $insert_html.'$1', $paging_html);
+    }
+}
 
 // 변수 또는 배열의 이름과 값을 얻어냄. print_r() 함수의 변형
 function print_r2($var)
@@ -71,6 +88,8 @@ function print_r2($var)
 function goto_url($url)
 {
     global $g4;
+    $url = str_replace("&amp;", "&", $url);
+    //echo "<script> location.replace('$url'); </script>";
 
     // 불당 수정 - 특별한 iframe이 있는 경우, 상위 iframe에서 location.replace
     // 이미 코딩이 되어 있는 것을 고치기는 힘들어서, $g4 변수를 이용합니다.
@@ -243,7 +262,7 @@ function get_file($bo_table, $wr_id)
 {
     global $g4, $qstr;
 
-    $file["count"] = 0;
+    $file['count'] = 0;
     $sql_select = " bf_no, bf_download, bf_filesize, bf_file, bf_datetime, bf_width, bf_height, bf_type, bf_source, bf_content ";
     $sql = " select $sql_select from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' order by bf_no ";
     $result = sql_query($sql);
@@ -1517,7 +1536,7 @@ function sql_password($value)
     //sql_query("set old_passwords=0");
 
     $row = sql_fetch(" select password('$value') as pass ");
-    return $row[pass];
+    return $row['pass'];
 }
 
 function sql_old_password($value)
@@ -1608,7 +1627,7 @@ function get_table_define($table, $crlf="\n")
 
 
 // 리퍼러 체크
-function referer_check($url="")
+function referer_check($url='')
 {
     /*
     // 제대로 체크를 하지 못하여 주석 처리함
@@ -1903,6 +1922,432 @@ function is_utf8($str)
         }
     }
     return true;
+}
+
+// === g4s에 추가된 함수들...
+
+// UTF-8 문자열 자르기
+// 출처 : https://www.google.co.kr/search?q=utf8_strcut&aq=f&oq=utf8_strcut&aqs=chrome.0.57j0l3.826j0&sourceid=chrome&ie=UTF-8
+function utf8_strcut( $str, $size, $suffix='...' )
+{
+        $substr = substr( $str, 0, $size * 2 );
+        $multi_size = preg_match_all( '/[\x80-\xff]/', $substr, $multi_chars );
+
+        if ( $multi_size > 0 )
+            $size = $size + intval( $multi_size / 3 ) - 1;
+
+        if ( strlen( $str ) > $size ) {
+            $str = substr( $str, 0, $size );
+            $str = preg_replace( '/(([\x80-\xff]{3})*?)([\x80-\xff]{0,2})$/', '$1', $str );
+            $str .= $suffix;
+        }
+
+        return $str;
+}
+
+
+/*
+-----------------------------------------------------------
+    Charset 을 변환하는 함수
+-----------------------------------------------------------
+iconv 함수가 있으면 iconv 로 변환하고
+없으면 mb_convert_encoding 함수를 사용한다.
+둘다 없으면 사용할 수 없다.
+*/
+function convert_charset($from_charset, $to_charset, $str)
+{
+
+    if( function_exists('iconv') )
+        return iconv($from_charset, $to_charset, $str);
+    elseif( function_exists('mb_convert_encoding') )
+        return mb_convert_encoding($str, $to_charset, $from_charset);
+    else
+        die("Not found 'iconv' or 'mbstring' library in server.");
+}
+
+
+// mysql_real_escape_string 의 alias 기능을 한다.
+function escape_trim($field)
+{
+    if ($field) {
+        return mysql_real_escape_string(@trim($field));
+    }
+}
+
+
+// $_POST 형식에서 checkbox 엘리먼트의 checked 속성에서 checked 가 되어 넘어 왔는지를 검사
+function is_checked($field)
+{
+    return !empty($_POST[$field]);
+}
+
+
+function abs_ip2long($ip='')
+{
+    $ip = $ip ? $ip : $_SERVER['REMOTE_ADDR'];
+    return abs(ip2long($ip));
+}
+
+
+function get_selected($field, $value)
+{
+    return ($field==$value) ? ' selected="selected"' : '';
+}
+
+
+function is_mobile()
+{
+    return preg_match('/'.G4_MOBILE_AGENT.'/i', $_SERVER['HTTP_USER_AGENT']);
+}
+
+
+/*******************************************************************************
+    유일한 키를 얻는다.
+
+    결과 :
+
+        년월일시분초00 ~ 년월일시분초99
+        년(4) 월(2) 일(2) 시(2) 분(2) 초(2) 100분의1초(2)
+        총 16자리이며 년도는 2자리로 끊어서 사용해도 됩니다.
+        예) 2008062611570199 또는 08062611570199 (2100년까지만 유일키)
+
+    사용하는 곳 :
+    1. 게시판 글쓰기시 미리 유일키를 얻어 파일 업로드 필드에 넣는다.
+    2. 주문번호 생성시에 사용한다.
+    3. 기타 유일키가 필요한 곳에서 사용한다.
+*******************************************************************************/
+// 기존의 get_unique_id() 함수를 사용하지 않고 get_uniqid() 를 사용한다.
+function get_uniqid()
+{
+    global $g4;
+
+    sql_query(" LOCK TABLE {$g4['uniqid_table']} WRITE ");
+    while (1) {
+        // 년월일시분초에 100분의 1초 두자리를 추가함 (1/100 초 앞에 자리가 모자르면 0으로 채움)
+        $key = date('ymdHis', time()) . str_pad((int)(microtime()*100), 2, "0", STR_PAD_LEFT);
+
+        $result = sql_query(" insert into {$g4['uniqid_table']} values ('$key') ", false);
+        if ($result) break; // 쿼리가 정상이면 빠진다.
+
+        // insert 하지 못했으면 일정시간 쉰다음 다시 유일키를 만든다.
+        usleep(10000); // 100분의 1초를 쉰다
+    }
+    sql_query(" UNLOCK TABLES ");
+
+    return $key;
+}
+
+
+// CHARSET 변경 : euc-kr -> utf-8
+function iconv_utf8($str)
+{
+    return iconv('euc-kr', 'utf-8', $str);
+}
+
+
+// CHARSET 변경 : utf-8 -> euc-kr
+function iconv_euckr($str)
+{
+    return iconv('utf-8', 'euc-kr', $str);
+}
+
+
+// PC 또는 모바일 사용인지를 검사
+function check_device($device)
+{
+    global $is_admin;
+
+    if ($is_admin) return;
+
+    if ($device=='pc' && G4_IS_MOBILE) {
+        alert('PC 전용 게시판입니다.', G4_URL);
+    } else if ($device=='mobile' && !G4_IS_MOBILE) {
+        alert('모바일 전용 게시판입니다.', G4_URL);
+    }
+}
+
+
+// 게시판 최신글 캐시 파일 삭제
+function delete_cache_latest($bo_table)
+{
+    $files = glob(G4_DATA_PATH.'/cache/latest-'.$bo_table.'-*');
+    if (is_array($files)) {
+        foreach ($files as $filename)
+            unlink($filename);
+    }
+}
+
+// 게시판 첨부파일 썸네일 삭제
+function delete_board_thumbnail($bo_table, $file)
+{
+    if(!$bo_table || !$file)
+        return;
+
+    $fn = preg_replace("/\.[^\.]+$/i", "", basename($file));
+    $files = glob(G4_DATA_PATH.'/file/'.$bo_table.'/thumb-'.$fn.'*');
+    if (is_array($files)) {
+        foreach ($files as $filename)
+            unlink($filename);
+    }
+}
+
+// 에디터 이미지 얻기
+function get_editor_image($contents)
+{
+    if(!$contents)
+        return false;
+
+    // $contents 중 img 태그 추출
+    $pattern = "/<img[^>]*src=[\'\"]?([^>\'\"]+[^>\'\"]+)[\'\"]?[^>]*>/";
+    preg_match_all($pattern, $contents, $matchs);
+
+    return $matchs;
+}
+
+// 에디터 썸네일 삭제
+function delete_editor_thumbnail($contents)
+{
+    if(!$contents)
+        return;
+
+    // $contents 중 img 태그 추출
+    $matchs = get_editor_image($contents);
+
+    if(!$matchs)
+        return;
+
+    for($i=0; $i<count($matchs[1]); $i++) {
+        // 이미지 path 구함
+        $imgurl = parse_url($matchs[1][$i]);
+        $srcfile = $_SERVER['DOCUMENT_ROOT'].$imgurl['path'];
+
+        $filename = preg_replace("/\.[^\.]+$/i", "", basename($srcfile));
+        $filepath = dirname($srcfile);
+        $files = glob($filepath.'/thumb-'.$filename.'*');
+        if (is_array($files)) {
+            foreach($files as $filename)
+                unlink($filename);
+        }
+    }
+}
+
+// 스킨 style sheet 파일 얻기
+function get_skin_stylesheet($skin_path, $dir='')
+{
+    if(!$skin_path)
+        return "";
+
+    $str = "";
+    $files = array();
+
+    if($dir)
+        $skin_path .= '/'.$dir;
+
+    $skin_url = G4_URL.str_replace("\\", "/", str_replace(G4_PATH, "", $skin_path));
+
+    if(is_dir($skin_path)) {
+        if($dh = opendir($skin_path)) {
+            while(($file = readdir($dh)) !== false) {
+                if($file == "." || $file == "..")
+                    continue;
+
+                if(is_dir($skin_path.'/'.$file))
+                    continue;
+
+                if(preg_match("/\.(css)$/i", $file))
+                    $files[] = $file;
+            }
+            closedir($dh);
+        }
+    }
+
+    if(!empty($files)) {
+        sort($files);
+
+        foreach($files as $file) {
+            $str .= '<link rel="stylesheet" href="'.$skin_url.'/'.$file.'?='.date("md").'">'."\n";
+        }
+    }
+
+    return $str;
+
+    /*
+    // glob 를 이용한 코드
+    if (!$skin_path) return '';
+    $skin_path .= $dir ? '/'.$dir : '';
+
+    $str = '';
+    $skin_url = G4_URL.str_replace('\\', '/', str_replace(G4_PATH, '', $skin_path));
+
+    foreach (glob($skin_path.'/*.css') as $filepath) {
+        $file = str_replace($skin_path, '', $filepath);
+        $str .= '<link rel="stylesheet" href="'.$skin_url.'/'.$file.'?='.date('md').'">'."\n";
+    }
+    return $str;
+    */
+}
+
+// 스킨 javascript 파일 얻기
+function get_skin_javascript($skin_path, $dir='')
+{
+    if(!$skin_path)
+        return "";
+
+    $str = "";
+    $files = array();
+
+    if($dir)
+        $skin_path .= '/'.$dir;
+
+    $skin_url = G4_URL.str_replace("\\", "/", str_replace(G4_PATH, "", $skin_path));
+
+    if(is_dir($skin_path)) {
+        if($dh = opendir($skin_path)) {
+            while(($file = readdir($dh)) !== false) {
+                if($file == "." || $file == "..")
+                    continue;
+
+                if(is_dir($skin_path.'/'.$file))
+                    continue;
+
+                if(preg_match("/\.(js)$/i", $file))
+                    $files[] = $file;
+            }
+            closedir($dh);
+        }
+    }
+
+    if(!empty($files)) {
+        sort($files);
+
+        foreach($files as $file) {
+            $str .= '<script src="'.$skin_url.'/'.$file.'"></script>'."\n";
+        }
+    }
+
+    return $str;
+}
+
+// file_put_contents 는 PHP5 전용 함수이므로 PHP4 하위버전에서 사용하기 위함
+// http://www.phpied.com/file_get_contents-for-php4/
+if (!function_exists('file_put_contents')) {
+    function file_put_contents($filename, $data) {
+        $f = @fopen($filename, 'w');
+        if (!$f) {
+            return false;
+        } else {
+            $bytes = fwrite($f, $data);
+            fclose($f);
+            return $bytes;
+        }
+    }
+}
+
+
+// HTML 마지막 처리
+function html_end()
+{
+    global $config, $g4, $member;
+
+    // 현재접속자 처리
+    $tmp_sql = " select count(*) as cnt from {$g4['login_table']} where lo_ip = '{$_SERVER['REMOTE_ADDR']}' ";
+    $tmp_row = sql_fetch($tmp_sql);
+
+    if ($tmp_row['cnt']) {
+        $tmp_sql = " update {$g4['login_table']} set mb_id = '{$member['mb_id']}', lo_datetime = '".G4_TIME_YMDHIS."', lo_location = '{$g4['lo_location']}', lo_url = '{$g4['lo_url']}' where lo_ip = '{$_SERVER['REMOTE_ADDR']}' ";
+        sql_query($tmp_sql, FALSE);
+    } else {
+        $tmp_sql = " insert into {$g4['login_table']} ( lo_ip, mb_id, lo_datetime, lo_location, lo_url ) values ( '{$_SERVER['REMOTE_ADDR']}', '{$member['mb_id']}', '".G4_TIME_YMDHIS."', '{$g4['lo_location']}',  '{$g4['lo_url']}' ) ";
+        sql_query($tmp_sql, FALSE);
+
+        // 시간이 지난 접속은 삭제한다
+        sql_query(" delete from {$g4['login_table']} where lo_datetime < '".date("Y-m-d H:i:s", G4_SERVER_TIME - (60 * $config['cf_login_minutes']))."' ");
+
+        // 부담(overhead)이 있다면 테이블 최적화
+        //$row = sql_fetch(" SHOW TABLE STATUS FROM `$mysql_db` LIKE '$g4['login_table']' ");
+        //if ($row['Data_free'] > 0) sql_query(" OPTIMIZE TABLE $g4['login_table'] ");
+    }
+
+    // 버퍼의 내용에서 body 태그 중간의 외부 css 파일을 CAPTURE 하여 head 태그로 이동시켜준다.
+    $buffer = ob_get_contents();
+    ob_end_clean();
+    preg_match('#<body>(.*)</body>#is', $buffer, $bodys);
+    preg_match_all('/(\r|\n)?<link[^>]+>/i', $bodys[0], $links);
+    $stylesheet = '';
+    $links[0] = array_unique($links[0]);
+    foreach ($links[0] as $key=>$link) {
+        //$link = PHP_EOL.$links[0][$i];
+        $stylesheet .= $link;
+        $buffer = preg_replace('#'.$link.'#', '', $buffer);
+    }
+    /*
+    </title>
+    <link rel="stylesheet" href="default.css">
+    밑으로 스킨의 스타일시트가 위치하도록 하게 한다.
+    */
+    return preg_replace('#(</title>[^<]*<link[^>]+>)#', "$1$stylesheet", $buffer);
+}
+
+
+// 휴대폰번호의 숫자만 취한 후 중간에 하이픈(-)을 넣는다.
+function hyphen_hp_number($hp)
+{
+    $hp = preg_replace("/[^0-9]/", "", $hp);
+    return preg_replace("/([0-9]{3})([0-9]{3,4})([0-9]{4})$/", "\\1-\\2-\\3", $hp);
+}
+
+
+// 로그인 후 이동할 URL
+function login_url($url='')
+{
+    if (!$url) $url = G4_URL;
+    /*
+    $p = parse_url($url);
+    echo urlencode($_SERVER['REQUEST_URI']);
+    return $url.urldecode(preg_replace("/^".urlencode($p['path'])."/", "", urlencode($_SERVER['REQUEST_URI'])));
+    */
+    return $url;
+}
+
+
+// $dir 을 포함하여 https 또는 http 주소를 반환한다.
+function https_url($dir, $https=true)
+{
+    if ($https) {
+        if (G4_HTTPS_DOMAIN) {
+            $url = G4_HTTPS_DOMAIN.'/'.$dir;
+        } else {
+            $url = G4_URL.'/'.$dir;
+        }
+    } else {
+        if (G4_DOMAIN) {
+            $url = G4_DOMAIN.'/'.$dir;
+        } else {
+            $url = G4_URL.'/'.$dir;
+        }
+    }
+
+    return $url;
+}
+
+
+// 게시판의 공지사항을 , 로 구분하여 업데이트 한다.
+function board_notice($bo_notice, $wr_id, $insert=false)
+{
+    $notice_array = explode(",", trim($bo_notice));
+    $notice_array = array_merge(array($wr_id), $notice_array);
+    $notice_array = array_unique($notice_array);
+    foreach ($notice_array as $key=>$value) {
+        if (!trim($value))
+            unset($notice_array[$key]);
+    }
+    if (!$insert) {
+        foreach ($notice_array as $key=>$value) {
+            if ((int)$value == (int)$wr_id)
+                unset($notice_array[$key]);
+        }
+    }
+    return implode(",", $notice_array);
 }
 
 

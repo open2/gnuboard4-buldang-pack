@@ -52,13 +52,6 @@ if ($is_admin || ($config[cf_sms4_member] && $member[mb_level] >= $config[cf_sms
     $g4_sms4 = "1";
 } else
     $g4_sms4 = "";
-
-/*
-// 만료된 페이지로 사용하시는 경우
-header("Cache-Control: no-cache"); // HTTP/1.1
-header("Expires: 0"); // rfc2616 - Section 14.21
-header("Pragma: no-cache"); // HTTP/1.0
-*/
 ?>
 <!doctype html>
 <html lang="ko">

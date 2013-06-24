@@ -209,57 +209,84 @@ if ($_REQUEST['PHPSESSID'] && $_REQUEST['PHPSESSID'] != session_id())
     goto_url("{$g4['bbs_path']}/logout.php");
 
 // QUERY_STRING
-$qstr = "";
-/*
-if (isset($bo_table))   $qstr .= 'bo_table=' . urlencode($bo_table);
-if (isset($wr_id))      $qstr .= '&wr_id=' . urlencode($wr_id);
-*/
-if (isset($sca))  {
-    $sca = mysql_real_escape_string($sca);
-    $qstr .= '&sca=' . urlencode($sca);
+$qstr = '';
+
+if (isset($_REQUEST['sca']))  {
+    $sca = escape_trim($_REQUEST['sca']);
+    if ($sca)
+        $qstr .= '&amp;sca=' . urlencode($sca);
+} else {
+    $sca = '';
 }
 
-if (isset($sfl))  {
-    $sfl = mysql_real_escape_string($sfl);
-    // 크롬에서만 실행되는 XSS 취약점 보완
-    // 코드 $sfl 변수값에서 < > ' " % = ( ) 공백 문자를 없앤다.
+if (isset($_REQUEST['sfl']))  {
+    $sfl = escape_trim($_REQUEST['sfl']);
     $sfl = preg_replace("/[\<\>\'\"\%\=\(\)\s]/", "", $sfl);
-    //$sfl = preg_replace("/[^\w\,\|]+/", "", $sfl);
-    $qstr .= '&sfl=' . urlencode($sfl); // search field (검색 필드)
+    if ($sfl)
+        $qstr .= '&amp;sfl=' . urlencode($sfl); // search field (검색 필드)
+} else {
+    $sfl = '';
 }
 
-if (isset($stx))  { // search text (검색어)
-    $stx = mysql_real_escape_string($stx);
-    $qstr .= '&stx=' . urlencode($stx);
+
+if (isset($_REQUEST['stx']))  { // search text (검색어)
+    $stx = escape_trim($_REQUEST['stx']);
+    if ($stx)
+        $qstr .= '&amp;stx=' . urlencode($stx);
+} else {
+    $stx = '';
 }
 
-if (isset($sst))  {
-    $sst = mysql_real_escape_string($sst);
-    $qstr .= '&sst=' . urlencode($sst); // search sort (검색 정렬 필드)
+if (isset($_REQUEST['sst']))  {
+    $sst = escape_trim($_REQUEST['sst']);
+    if ($sst)
+        $qstr .= '&amp;sst=' . urlencode($sst); // search sort (검색 정렬 필드)
+} else {
+    $sst = '';
 }
 
-if (isset($sod))  { // search order (검색 오름, 내림차순)
-    $sod = preg_match("/^(asc|desc)$/i", $sod) ? $sod : "";
-    $qstr .= '&sod=' . urlencode($sod);
+if (isset($_REQUEST['sod']))  { // search order (검색 오름, 내림차순)
+    $sod = preg_match("/^(asc|desc)$/i", $sod) ? $sod : '';
+    if ($sod)
+        $qstr .= '&amp;sod=' . urlencode($sod);
+} else {
+    $sod = '';
 }
 
-if (isset($sop))  { // search operator (검색 or, and 오퍼레이터)
-    $sop = preg_match("/^(or|and)$/i", $sop) ? $sop : "";
-    $qstr .= '&sop=' . urlencode($sop);
+if (isset($_REQUEST['sop']))  { // search operator (검색 or, and 오퍼레이터)
+    $sop = preg_match("/^(or|and)$/i", $sop) ? $sop : '';
+    if ($sop)
+        $qstr .= '&amp;sop=' . urlencode($sop);
+} else {
+    $sop = '';
 }
 
-if (isset($spt))  { // search part (검색 파트[구간])
+if (isset($_REQUEST['spt']))  { // search part (검색 파트[구간])
     $spt = (int)$spt;
-    $qstr .= '&spt=' . urlencode($spt);
+    if ($spt)
+        $qstr .= '&amp;spt=' . urlencode($spt);
+} else {
+    $spt = '';
 }
 
-if (isset($page)) { // 리스트 페이지
-    $page = (int)$page;
-    $qstr .= '&page=' . urlencode($page);
+if (isset($_REQUEST['page'])) { // 리스트 페이지
+    $page = (int)$_REQUEST['page'];
+    if ($page) 
+        $qstr .= '&amp;page=' . urlencode($page);
+} else {
+    $page = '';
 }
 
-if ($wr_id) {
-    $wr_id = (int)$wr_id;
+if (isset($_REQUEST['w'])) {
+    $w = substr($w, 0, 2);
+} else {
+    $w = '';
+}
+
+if (isset($_REQUEST['wr_id'])) {
+    $wr_id = (int)$_REQUEST['wr_id'];
+} else {
+    $wr_id = 0;
 }
 
 // URL ENCODING
@@ -271,6 +298,7 @@ else {
     //$urlencode = $_SERVER['REQUEST_URI'];
     $urlencode = urlencode($_SERVER[REQUEST_URI]);
 }
+
 if (isset($total_page)) { // 리스트 페이지
     $total_page = (int)$total_page;
 }
@@ -532,4 +560,10 @@ header('Last-Modified: ' . $gmnow);
 header('Cache-Control: no-store, no-cache, must-revalidate'); // HTTP/1.1
 header('Cache-Control: pre-check=0, post-check=0, max-age=0'); // HTTP/1.1
 header('Pragma: no-cache'); // HTTP/1.0
+/*
+// 만료된 페이지로 사용하시는 경우
+header("Cache-Control: no-cache"); // HTTP/1.1
+header("Expires: 0"); // rfc2616 - Section 14.21
+header("Pragma: no-cache"); // HTTP/1.0
+*/
 ?>
