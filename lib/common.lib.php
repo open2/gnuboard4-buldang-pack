@@ -1421,7 +1421,7 @@ function sql_connect($host, $user, $pass)
 
     $link = @mysql_connect($host, $user, $pass);
     if (!$link) {
-        include_once("$g4[path]/on_pm.html");
+        include_once("$g4[path]/on_pm.php");
         die;
     }
 
