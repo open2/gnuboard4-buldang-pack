@@ -48,7 +48,7 @@ if ($w == "" && $board[bo_realcheck] && !$is_admin) {
 if ($w == "" || $w == "r") 
 {
     $delay = $_SESSION["ss_datetime2"] - $g4[server_time] + $config[cf_delay_sec];
-    if ($delay > 0 && !$is_delay) 
+    if ($delay > 0 && !$is_delay)
         alert("너무 빠른 시간내에 게시물을 연속해서 올릴 수 없습니다.");
 
     set_session("ss_datetime2", $g4[server_time]);
@@ -62,7 +62,7 @@ if ($w == "" || $w == "r")
 
 if ($w == "") 
 {
-    if ($wr_id)
+    if (isset($wr_id))
         alert("글쓰기에는 \$wr_id 값을 사용하지 않습니다.", "$g4[bbs_path]/board.php?bo_table=$bo_table");
 
     if ($member[mb_level] < $board[bo_write_level]) {
