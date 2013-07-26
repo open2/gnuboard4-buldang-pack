@@ -141,8 +141,6 @@ $g4['link_count'] = 2;
 // 문자셋을 정의 (euc-kr/utf-8)
 $g4['charset'] = "euc-kr";
 
-$g4['token_time'] = 3; // 토큰 유효시간
-
 // config.php 가 있는곳의 웹경로. 뒤에 / 를 붙이지 마세요.
 // 예) http://g4.sir.co.kr
 $g4['url'] = "";
