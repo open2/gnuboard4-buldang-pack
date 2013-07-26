@@ -5,10 +5,8 @@ define("_GNUBOARD_", TRUE);
 // php 5.1.x 이상이면서 서버와 다른 시간대 설정이 필요할 때 쓰세요.
 // 지원하는 timezone 목록은 http://kr2.php.net/manual/en/timezones.php
 // 5.4.x 부터는 아래 정의가 없으면 PHP Notice가 팡팡 뜹니다.
-if (PHP_VERSION >= '5.1.0') {
-    //if (function_exists("date_default_timezone_set")) date_default_timezone_set("Asia/Seoul");
+if (function_exists("date_default_timezone_set"))
     date_default_timezone_set("Asia/Seoul");
-}
 
 // 불당팩 버젼
 $g4['b4_version']     = "1.1.x";
@@ -75,9 +73,6 @@ $g4['popular_table']       = $g4['table_prefix'] . "popular";       // 인기검색�
 $g4['scrap_table']         = $g4['table_prefix'] . "scrap";         // 게시글 스크랩 테이블
 $g4['visit_table']         = $g4['table_prefix'] . "visit";         // 방문자 테이블
 $g4['visit_sum_table']     = $g4['table_prefix'] . "visit_sum";     // 방문자 합계 테이블
-
-$g4['uniqid_table']        = $g4['table_prefix'] . "uniqid";        // 
-$g4['syndi_log']           = $g4['table_prefix'] . "syndi_log";     // 네이버 신디케이션 로그
 
 //
 // 기타
@@ -146,16 +141,15 @@ $g4['link_count'] = 2;
 // 문자셋을 정의 (euc-kr/utf-8)
 $g4['charset'] = "euc-kr";
 
-// config.php 가 있는곳의 웹경로. 뒤에 / 를 붙이지 마세요.
-// 입력예) $g4['url'] = "http://www.sir.co.kr";
-$g4['url'] = "";
+$g4['token_time'] = 3; // 토큰 유효시간
 
-//보안서버 도메인
-//회원가입, 글쓰기에 사용되는 https 로 시작되는 주소를 말합니다. 
-//포트가 있다면 도메인 뒤에 :443 과 같이 입력하세요.
-//보안서버주소가 없다면 공란으로 두시면 되며 보안서버주소 뒤에 / 는 붙이지 않습니다.
-//입력예) https://www.domain.com:443/gnuboard4s
+// config.php 가 있는곳의 웹경로. 뒤에 / 를 붙이지 마세요.
+// 예) http://g4.sir.co.kr
+$g4['url'] = "";
 $g4['https_url'] = "";
+// 입력예
+//$g4['url'] = "http://www.sir.co.kr";
+//$g4['https_url'] = "https://www.sir.co.kr";
 
 // 암호화를 위한 KEY
 $g4['encrypt_key'] = "opencode";
@@ -203,12 +197,20 @@ $g4['cdn_path']          = "";
 // 팀장닷컴과 같이 create temporary table이 안먹히는 경우에는 설정값을 1로 하세요.
 $g4['old_stype_search'] = 0;
 
+// bit.ly 단축을 위한 api 설정
+$g4['bitly_id']   = "";
+$g4['bitly_key']  = "";
+$g4['use_bitly']  = 0;   // bit.ly api를 쓰기 원치 않을때는, 0으로 설정을 변경하면 됩니다.
+
 // gblog로 게시글 보내기를 위한 설정
 $g4['use_gblog']   = 0;   // gblog로 글보내기를 원치 않을때는, 0으로 설정을 변경하면 됩니다.
 
 // 제목에서 특수문자 모두 없애기
 $g4['remove_special_chars'] = 1;    // 1은 없애는거, 0은 안 없애는거
 $g4['special_chars_change'] = "☆★◇◆□■△▲▽▼○◎※◁◀▷▶♤♠♧♣◈▣♡♥#";  // 없애고 싶은 문자는 요기에 추가/삭제
+
+// phpmyadmin의 경로를 지정
+$g4['phpmyadmin_dir'] = $g4['admin_path'] . "/phpMyAdmin/";
 
 // use geo_ip
 $g4['use_geo_ip'] = false;
@@ -230,6 +232,9 @@ $g4['cheditor_uploadsize'] = 0;
 
 // cheditor 이미지 url - 명확하게 URL을 지정해 주는 것이 때로는 더 편하다
 $g4['cheditor_image_url'] = $g4['data_path'] . "/" . $g4['cheditor4'];
+
+// 광고를 위해서 변수를 생성한다. 애드센스(1), 애드플러스(2), 리얼클릭(1) - 3종이라 3가지로 기본 생성.
+$g4['ad_type'] = rand(1, 3);
 
 // 베스트글 설정은 여기에서
 $g4['good_list_rows'] = 30;
@@ -261,4 +266,10 @@ $g4['debug'] = true;
 
 // 별명으로만 가입을 허용하기
 $g4['nick_reg_only'] = 1;
+
+
+// 유니크로 - 유니크로 게시판을 쓰는 경우에만 아래의 주석을 풀어주세요.
+//$g4['unicro_item_table']    = $g4['table_prefix'] . "unicro_item"; // 유니크로 아이템 테이블 
+//$g4['unicro_url']           = "unicro" . $g4['cookie_domain'];
+//$g4['unicro_path']          = $g4['path'] . "/" . "unicro";
 ?>
