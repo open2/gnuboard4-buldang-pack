@@ -603,14 +603,22 @@ function conv_content($content, $html)
         $content = preg_replace("/(on)([a-z]+)([^a-z]*)(\=)/i", "&#111;&#110;$2$3$4", $content);
         $content = preg_replace("/(dy)(nsrc)/i", "&#100;&#121;$2", $content);
         $content = preg_replace("/(lo)(wsrc)/i", "&#108;&#111;$2", $content);
-        $content = preg_replace("/(sc)(ript)/i", "&#115;&#99;$2", $content);
+        //$content = preg_replace("/(sc)(ript)/i", "&#115;&#99;$2", $content);
         $content = preg_replace_callback("#<([^>]+)#", create_function('$m', 'return "<".str_replace("<", "&lt;", $m[1]);'), $content);
         //$content = preg_replace("/\<(\w|\s|\?)*(xml)/i", "", $content);
         $content = preg_replace("/\<(\w|\s|\?)*(xml)/i", "_$1$2_", $content);
 
         // 플래시의 액션스크립트와 자바스크립트의 연동을 차단하여 악의적인 사이트로의 이동을 막는다.
         // value="always" 를 value="never" 로, allowScriptaccess="always" 를 allowScriptaccess="never" 로 변환하는데 목적이 있다.
-        $content = preg_replace("/((?<=\<param|\<embed)[^>]+)(\s*=\s*[\'\"]?)always([\'\"]?)([^>]+(?=\>))/i", "$1$2never$3$4", $content);
+        //$content = preg_replace("/((?<=\<param|\<embed)[^>]+)(\s*=\s*[\'\"]?)always([\'\"]?)([^>]+(?=\>))/i", "$1$2never$3$4", $content);
+        // allowscript 속성의 param 태그를 삭제한다.
+        $content = preg_replace("#(<param.*?allowscript[^>]+>)(<\/param>)?#i", "", $content);
+        // embed 태그의 allowscript 속성을 삭제한다.
+        $content = preg_replace("#(<embed.*?)(allowscriptaccess[^\s\>]+)#i", "$1", $content);
+        // object 태그에 allowscript 의 값을 never 로 하여 태그를 추가한다.
+        $content = preg_replace("#(<object[^>]+>)#i", "$1<param name=\"allowscriptaccess\" value=\"never\">", $content);
+        // embed 태그에 allowscrpt 값을 never 로 하여 속성을 추가한다.
+        $content = preg_replace("#(<embed[^>]+)#i", "$1 allowscriptaccess=\"never\"", $content);
 
         // 이미지 태그의 src 속성에 삭제등의 링크가 있는 경우 게시물을 확인하는 것만으로도 데이터의 위변조가 가능하므로 이것을 막음
         $content = preg_replace("/<(img[^>]+delete\.php[^>]+bo_table[^>]+)/i", "*** CSRF 감지 : &lt;$1", $content);
