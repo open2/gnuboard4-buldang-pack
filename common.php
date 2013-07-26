@@ -1,8 +1,8 @@
-<?php
+<?
 /*******************************************************************************
 ** 공통 변수, 상수, 코드
 *******************************************************************************/
-error_reporting( E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_ERROR | E_WARNING | E_PARSE | E_USER_ERROR | E_USER_WARNING | E_RECOVERABLE_ERROR );
+error_reporting(E_ALL ^ E_NOTICE);
 
 // 보안설정이나 프레임이 달라도 쿠키가 통하도록 설정
 header('P3P: CP="ALL CURa ADMa DEVa TAIa OUR BUS IND PHY ONL UNI PUR FIN COM NAV INT DEM CNT STA POL HEA PRE LOC OTC"');
@@ -10,29 +10,86 @@ header('P3P: CP="ALL CURa ADMa DEVa TAIa OUR BUS IND PHY ONL UNI PUR FIN COM NAV
 if (!isset($set_time_limit)) $set_time_limit = 0;
 @set_time_limit($set_time_limit);
 
+// 짧은 환경변수를 지원하지 않는다면
+if (isset($HTTP_POST_VARS) && !isset($_POST)) {
+	$_POST   = &$HTTP_POST_VARS;
+	$_GET    = &$HTTP_GET_VARS;
+	$_SERVER = &$HTTP_SERVER_VARS;
+	$_COOKIE = &$HTTP_COOKIE_VARS;
+	$_ENV    = &$HTTP_ENV_VARS;
+	$_FILES  = &$HTTP_POST_FILES;
 
-//==============================================================================
-// php.ini 의 magic_quotes_gpc 값이 Off 인 경우 addslashes() 적용
-// SQL Injection 등으로 부터 보호
-// http://kr.php.net/manual/en/function.get-magic-quotes-gpc.php#97783
-//------------------------------------------------------------------------------
-if (!get_magic_quotes_gpc()) {
-    $escape_function = 'addslashes($value)';
-    $addslashes_deep = create_function('&$value, $fn', '
-        if (is_string($value)) {
-            $value = ' . $escape_function . ';
-        } else if (is_array($value)) {
-            foreach ($value as &$v) $fn($v, $fn);
-        }
-    ');
-    
-    // Escape data
-    $addslashes_deep($_POST, $addslashes_deep);
-    $addslashes_deep($_GET, $addslashes_deep);
-    $addslashes_deep($_COOKIE, $addslashes_deep);
-    $addslashes_deep($_REQUEST, $addslashes_deep);
+  if (!isset($_SESSION))
+		$_SESSION = &$HTTP_SESSION_VARS;
 }
-//==============================================================================
+
+//
+// phpBB2 참고
+// php.ini 의 magic_quotes_gpc 값이 FALSE 인 경우 addslashes() 적용
+// SQL Injection 등으로 부터 보호
+//
+if( !get_magic_quotes_gpc() )
+{
+	if( is_array($_GET) )
+	{
+		while( list($k, $v) = each($_GET) )
+		{
+			if( is_array($_GET[$k]) )
+			{
+				while( list($k2, $v2) = each($_GET[$k]) )
+				{
+					$_GET[$k][$k2] = addslashes($v2);
+				}
+				@reset($_GET[$k]);
+			}
+			else
+			{
+				$_GET[$k] = addslashes($v);
+			}
+		}
+		@reset($_GET);
+	}
+
+	if( is_array($_POST) )
+	{
+		while( list($k, $v) = each($_POST) )
+		{
+			if( is_array($_POST[$k]) )
+			{
+				while( list($k2, $v2) = each($_POST[$k]) )
+				{
+					$_POST[$k][$k2] = addslashes($v2);
+				}
+				@reset($_POST[$k]);
+			}
+			else
+			{
+				$_POST[$k] = addslashes($v);
+			}
+		}
+		@reset($_POST);
+	}
+
+	if( is_array($_COOKIE) )
+	{
+		while( list($k, $v) = each($_COOKIE) )
+		{
+			if( is_array($_COOKIE[$k]) )
+			{
+				while( list($k2, $v2) = each($_COOKIE[$k]) )
+				{
+					$_COOKIE[$k][$k2] = addslashes($v2);
+				}
+				@reset($_COOKIE[$k]);
+			}
+			else
+			{
+				$_COOKIE[$k] = addslashes($v);
+			}
+		}
+		@reset($_COOKIE);
+	}
+}
 
 if ($_GET['g4_path'] || $_POST['g4_path'] || $_COOKIE['g4_path']) {
     unset($_GET['g4_path']);
@@ -64,6 +121,90 @@ $g4['g4_mobile_device'] = false;
 $useragent=$_SERVER['HTTP_USER_AGENT'];
 if(preg_match('/android.+mobile|avantgo|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge|maemo|midp|mmp|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i',$useragent)||preg_match('/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|e\-|e\/|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(di|rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|xda(\-|2|g)|yas\-|your|zeto|zte\-/i',substr($useragent,0,4)))
     $g4['g4_mobile_device'] = true;
+
+//==========================================================================================================================
+// XSS(Cross Site Scripting) 공격에 의한 데이터 검증 및 차단
+//--------------------------------------------------------------------------------------------------------------------------
+function xss_clean($data) 
+{ 
+    // If its empty there is no point cleaning it :\ 
+    if(empty($data)) 
+        return $data; 
+         
+    // Recursive loop for arrays 
+    if(is_array($data)) 
+    { 
+        foreach($data as $key => $value) 
+        { 
+            $data[$key] = xss_clean($value); 
+        } 
+         
+        return $data; 
+    } 
+     
+    // http://svn.bitflux.ch/repos/public/popoon/trunk/classes/externalinput.php 
+    // +----------------------------------------------------------------------+ 
+    // | Copyright (c) 2001-2006 Bitflux GmbH                                 | 
+    // +----------------------------------------------------------------------+ 
+    // | Licensed under the Apache License, Version 2.0 (the "License");      | 
+    // | you may not use this file except in compliance with the License.     | 
+    // | You may obtain a copy of the License at                              | 
+    // | http://www.apache.org/licenses/LICENSE-2.0                           | 
+    // | Unless required by applicable law or agreed to in writing, software  | 
+    // | distributed under the License is distributed on an "AS IS" BASIS,    | 
+    // | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or      | 
+    // | implied. See the License for the specific language governing         | 
+    // | permissions and limitations under the License.                       | 
+    // +----------------------------------------------------------------------+ 
+    // | Author: Christian Stocker <chregu@bitflux.ch>                        | 
+    // +----------------------------------------------------------------------+ 
+     
+    // Fix &entity\n; 
+    $data = str_replace(array('&amp;','&lt;','&gt;'), array('&amp;amp;','&amp;lt;','&amp;gt;'), $data); 
+    $data = preg_replace('/(&#*\w+)[\x00-\x20]+;/', '$1;', $data); 
+    $data = preg_replace('/(&#x*[0-9A-F]+);*/i', '$1;', $data); 
+
+    if (function_exists("html_entity_decode"))
+    {
+        $data = html_entity_decode($data); 
+    }
+    else
+    {
+        $trans_tbl = get_html_translation_table(HTML_ENTITIES);
+        $trans_tbl = array_flip($trans_tbl);
+        $data = strtr($data, $trans_tbl);
+    }
+
+    // Remove any attribute starting with "on" or xmlns 
+    $data = preg_replace('#(<[^>]+?[\x00-\x20"\'])(?:on|xmlns)[^>]*+>#i', '$1>', $data); 
+
+    // Remove javascript: and vbscript: protocols 
+    $data = preg_replace('#([a-z]*)[\x00-\x20]*=[\x00-\x20]*([`\'"]*)[\x00-\x20]*j[\x00-\x20]*a[\x00-\x20]*v[\x00-\x20]*a[\x00-\x20]*s[\x00-\x20]*c[\x00-\x20]*r[\x00-\x20]*i[\x00-\x20]*p[\x00-\x20]*t[\x00-\x20]*:#i', '$1=$2nojavascript...', $data); 
+    $data = preg_replace('#([a-z]*)[\x00-\x20]*=([\'"]*)[\x00-\x20]*v[\x00-\x20]*b[\x00-\x20]*s[\x00-\x20]*c[\x00-\x20]*r[\x00-\x20]*i[\x00-\x20]*p[\x00-\x20]*t[\x00-\x20]*:#i', '$1=$2novbscript...', $data); 
+    $data = preg_replace('#([a-z]*)[\x00-\x20]*=([\'"]*)[\x00-\x20]*-moz-binding[\x00-\x20]*:#', '$1=$2nomozbinding...', $data); 
+
+    // Only works in IE: <span style="width: expression(alert('Ping!'));"></span> 
+    $data = preg_replace('#(<[^>]+?)style[\x00-\x20]*=[\x00-\x20]*[`\'"]*.*?expression[\x00-\x20]*\([^>]*+>#i', '$1>', $data); 
+    $data = preg_replace('#(<[^>]+?)style[\x00-\x20]*=[\x00-\x20]*[`\'"]*.*?behaviour[\x00-\x20]*\([^>]*+>#i', '$1>', $data); 
+    $data = preg_replace('#(<[^>]+?)style[\x00-\x20]*=[\x00-\x20]*[`\'"]*.*?s[\x00-\x20]*c[\x00-\x20]*r[\x00-\x20]*i[\x00-\x20]*p[\x00-\x20]*t[\x00-\x20]*:*[^>]*+>#i', '$1>', $data); 
+
+    // Remove namespaced elements (we do not need them) 
+    $data = preg_replace('#</*\w+:\w[^>]*+>#i', '', $data); 
+
+    do 
+    { 
+        // Remove really unwanted tags 
+        $old_data = $data; 
+        $data = preg_replace('#</*(?:applet|b(?:ase|gsound|link)|embed|frame(?:set)?|i(?:frame|layer)|l(?:ayer|ink)|meta|object|s(?:cript|tyle)|title|xml)[^>]*+>#i', '', $data); 
+    } 
+    while ($old_data !== $data); 
+     
+    return $data; 
+} 
+
+$_GET = xss_clean($_GET);
+//==========================================================================================================================
+
 
 //==========================================================================================================================
 // extract($_GET); 명령으로 인해 page.php?_POST[var1]=data1&_POST[var2]=data2 와 같은 코드가 _POST 변수로 사용되는 것을 막음
@@ -130,12 +271,32 @@ $g4['url'] = preg_replace("/\/$/", "", $g4['url']);
 //==============================================================================
 $dirname = dirname(__FILE__).'/';
 $dbconfig_file = "dbconfig.php";
-
-@include_once("$g4[path]/$dbconfig_file");
-$connect_db = sql_connect($mysql_host, $mysql_user, $mysql_password);
-$select_db = sql_select_db($mysql_db, $connect_db);
-if (!$select_db)
-    die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script type='text/javascript'> alert('DB 접속 오류'); </script>");
+/* - 설치된 이후에는 dbcofig.php 파일체크를 할 필요 없죠???
+if (file_exists("$g4[path]/$dbconfig_file"))
+{
+    if (is_dir("$g4[path]/install")) die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script type='text/javascript'> alert('install 디렉토리를 삭제하여야 정상 실행됩니다.'); </script>");
+*/
+    @include_once("$g4[path]/$dbconfig_file");
+    $connect_db = sql_connect($mysql_host, $mysql_user, $mysql_password);
+    $select_db = sql_select_db($mysql_db, $connect_db);
+    if (!$select_db)
+        die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script type='text/javascript'> alert('DB 접속 오류'); </script>");
+/*
+}
+else
+{
+    echo "<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'>";
+    echo <<<HEREDOC
+    <script type="text/javascript">
+    alert("DB 설정 파일이 존재하지 않습니다.\\n\\n프로그램 설치 후 실행하시기 바랍니다.");
+    location.href = "./install/";
+    </script>
+HEREDOC;
+    exit;
+}
+unset($my); // DB 설정값을 클리어 해줍니다.
+*/
+//print_r2($GLOBALS);
 
 $_SERVER['PHP_SELF'] = htmlentities($_SERVER['PHP_SELF']);
 
@@ -209,84 +370,57 @@ if ($_REQUEST['PHPSESSID'] && $_REQUEST['PHPSESSID'] != session_id())
     goto_url("{$g4['bbs_path']}/logout.php");
 
 // QUERY_STRING
-$qstr = '';
-
-if (isset($_REQUEST['sca']))  {
-    $sca = escape_trim($_REQUEST['sca']);
-    if ($sca)
-        $qstr .= '&amp;sca=' . urlencode($sca);
-} else {
-    $sca = '';
+$qstr = "";
+/*
+if (isset($bo_table))   $qstr .= 'bo_table=' . urlencode($bo_table);
+if (isset($wr_id))      $qstr .= '&wr_id=' . urlencode($wr_id);
+*/
+if (isset($sca))  {
+    $sca = mysql_real_escape_string($sca);
+    $qstr .= '&sca=' . urlencode($sca);
 }
 
-if (isset($_REQUEST['sfl']))  {
-    $sfl = escape_trim($_REQUEST['sfl']);
+if (isset($sfl))  {
+    $sfl = mysql_real_escape_string($sfl);
+    // 크롬에서만 실행되는 XSS 취약점 보완
+    // 코드 $sfl 변수값에서 < > ' " % = ( ) 공백 문자를 없앤다.
     $sfl = preg_replace("/[\<\>\'\"\%\=\(\)\s]/", "", $sfl);
-    if ($sfl)
-        $qstr .= '&amp;sfl=' . urlencode($sfl); // search field (검색 필드)
-} else {
-    $sfl = '';
+    //$sfl = preg_replace("/[^\w\,\|]+/", "", $sfl);
+    $qstr .= '&sfl=' . urlencode($sfl); // search field (검색 필드)
 }
 
-
-if (isset($_REQUEST['stx']))  { // search text (검색어)
-    $stx = escape_trim($_REQUEST['stx']);
-    if ($stx)
-        $qstr .= '&amp;stx=' . urlencode($stx);
-} else {
-    $stx = '';
+if (isset($stx))  { // search text (검색어)
+    $stx = mysql_real_escape_string($stx);
+    $qstr .= '&stx=' . urlencode($stx);
 }
 
-if (isset($_REQUEST['sst']))  {
-    $sst = escape_trim($_REQUEST['sst']);
-    if ($sst)
-        $qstr .= '&amp;sst=' . urlencode($sst); // search sort (검색 정렬 필드)
-} else {
-    $sst = '';
+if (isset($sst))  {
+    $sst = mysql_real_escape_string($sst);
+    $qstr .= '&sst=' . urlencode($sst); // search sort (검색 정렬 필드)
 }
 
-if (isset($_REQUEST['sod']))  { // search order (검색 오름, 내림차순)
-    $sod = preg_match("/^(asc|desc)$/i", $sod) ? $sod : '';
-    if ($sod)
-        $qstr .= '&amp;sod=' . urlencode($sod);
-} else {
-    $sod = '';
+if (isset($sod))  { // search order (검색 오름, 내림차순)
+    $sod = preg_match("/^(asc|desc)$/i", $sod) ? $sod : "";
+    $qstr .= '&sod=' . urlencode($sod);
 }
 
-if (isset($_REQUEST['sop']))  { // search operator (검색 or, and 오퍼레이터)
-    $sop = preg_match("/^(or|and)$/i", $sop) ? $sop : '';
-    if ($sop)
-        $qstr .= '&amp;sop=' . urlencode($sop);
-} else {
-    $sop = '';
+if (isset($sop))  { // search operator (검색 or, and 오퍼레이터)
+    $sop = preg_match("/^(or|and)$/i", $sop) ? $sop : "";
+    $qstr .= '&sop=' . urlencode($sop);
 }
 
-if (isset($_REQUEST['spt']))  { // search part (검색 파트[구간])
+if (isset($spt))  { // search part (검색 파트[구간])
     $spt = (int)$spt;
-    if ($spt)
-        $qstr .= '&amp;spt=' . urlencode($spt);
-} else {
-    $spt = '';
+    $qstr .= '&spt=' . urlencode($spt);
 }
 
-if (isset($_REQUEST['page'])) { // 리스트 페이지
-    $page = (int)$_REQUEST['page'];
-    if ($page) 
-        $qstr .= '&amp;page=' . urlencode($page);
-} else {
-    $page = '';
+if (isset($page)) { // 리스트 페이지
+    $page = (int)$page;
+    $qstr .= '&page=' . urlencode($page);
 }
 
-if (isset($_REQUEST['w'])) {
-    $w = substr($w, 0, 2);
-} else {
-    $w = '';
-}
-
-if (isset($_REQUEST['wr_id'])) {
-    $wr_id = (int)$_REQUEST['wr_id'];
-} else {
-    $wr_id = 0;
+if ($wr_id) {
+    $wr_id = (int)$wr_id;
 }
 
 // URL ENCODING
@@ -298,7 +432,6 @@ else {
     //$urlencode = $_SERVER['REQUEST_URI'];
     $urlencode = urlencode($_SERVER[REQUEST_URI]);
 }
-
 if (isset($total_page)) { // 리스트 페이지
     $total_page = (int)$total_page;
 }
@@ -415,7 +548,6 @@ if (!($member['mb_id']))
 else
     $member['mb_dir'] = substr($member['mb_id'],0,2);
 
-$write = array();
 $write_table = "";
 if (isset($bo_table)) {
     $bo_table = preg_match("/^[a-zA-Z0-9_]+$/", $bo_table) ? $bo_table : "";
@@ -423,7 +555,7 @@ if (isset($bo_table)) {
     if ($board['bo_table']) {
         $gr_id = $board['gr_id'];
         $write_table = $g4['write_prefix'] . $bo_table; // 게시판 테이블 전체이름
-        if (isset($wr_id) && $wr_id)
+        if ($wr_id)
             $write = sql_fetch(" select * from $write_table where wr_id = '$wr_id' ");
     }
 }
@@ -434,22 +566,16 @@ if (isset($gr_id) && !is_array($gr_id)) {
     $group = sql_fetch(" select * from {$g4['group_table']} where gr_id = '$gr_id' ");
 }
 
-
 // 회원, 비회원 구분
 $is_member = $is_guest = false;
-$is_admin = '';
-if ($member['mb_id']) {
+if ($member['mb_id'])
     $is_member = true;
-    $is_admin = is_admin($member['mb_id']);
-    $member['mb_dir'] = substr($member['mb_id'],0,2);
-} else {
+else
     $is_guest = true;
-    $member['mb_id'] = '';
-    $member['mb_level'] = 1; // 비회원의 경우 회원레벨을 가장 낮게 설정
-}
 
 
-if ($is_admin != 'super') {
+$is_admin = is_admin($member['mb_id']);
+if ($is_admin != "super") {
     // 접근가능 IP
     $cf_possible_ip = trim($config['cf_possible_ip']);
     if ($cf_possible_ip) {
@@ -490,7 +616,6 @@ if ($is_admin != 'super') {
 $board_skin_path = '';
 if (isset($board['bo_skin']))
     $board_skin_path = "{$g4['path']}/skin/board/{$board['bo_skin']}"; // 게시판 스킨 경로
-
 
 // 방문자수의 접속을 남김
 include_once("{$g4['bbs_path']}/visit_insert.inc.php");
@@ -550,20 +675,4 @@ if ($member['mb_level'] > 1) {
 
 // 불당팩 - 추가적인 개별 변수설정을 위해
 include_once("$g4[path]/config.2.php");  // 설정 파일
-
-// 자바스크립트에서 go(-1) 함수를 쓰면 폼값이 사라질때 해당 폼의 상단에 사용하면
-// 캐쉬의 내용을 가져옴. 완전한지는 검증되지 않음
-header('Content-Type: text/html; charset=$g4[charset]');
-$gmnow = gmdate('D, d M Y H:i:s') . ' GMT';
-header('Expires: 0'); // rfc2616 - Section 14.21
-header('Last-Modified: ' . $gmnow);
-header('Cache-Control: no-store, no-cache, must-revalidate'); // HTTP/1.1
-header('Cache-Control: pre-check=0, post-check=0, max-age=0'); // HTTP/1.1
-header('Pragma: no-cache'); // HTTP/1.0
-/*
-// 만료된 페이지로 사용하시는 경우
-header("Cache-Control: no-cache"); // HTTP/1.1
-header("Expires: 0"); // rfc2616 - Section 14.21
-header("Pragma: no-cache"); // HTTP/1.0
-*/
 ?>
