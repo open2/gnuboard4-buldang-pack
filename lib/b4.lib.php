@@ -129,7 +129,6 @@ function resize($string)
     // 이미지 파일의 경로를 설정 (외부? 내부? 내부인경우 절대경로? 상대경로?)
     if (preg_match("/^(http|https|ftp|telnet|news|mms)\:\/\//i", $img['src'])) {
         // 내 서버에 있는 이미지?
-        $img_src = @getimagesize($img['src']);
         if (preg_match("/" . $_SERVER[HTTP_HOST] . "/", $img[src], $matches)) {
             $url = parse_url($img[src]);
             $img[src] = $url[path];
