@@ -19,6 +19,7 @@ $menu["menu200"] = array (
     array("200700", "인기검색어관리", "$g4[admin_path]/popular_list.php"),
     array("-"),
     array("200800", "접속자현황", "$g4[admin_path]/visit_list.php"),
+    array("200805", "접속자검색", "$g4[admin_path]/visit_search.php"), 
     array("200810", "게시판별접속자", "$g4[admin_path]/mw.adm/board_visit_list.php"),
     array("200850", "SEO-유입키워드", "$g4[admin_path]/seo_keyword_list.php"),
     array("-"),
