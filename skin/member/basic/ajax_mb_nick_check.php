@@ -28,7 +28,8 @@ if (strtolower($g4[charset]) == 'euc-kr')
     $reg_mb_nick = convert_charset('UTF-8','CP949',$reg_mb_nick);
 
 // 별명은 한글, 영문, 숫자만 가능
-if (!check_string($reg_mb_nick, _G4_HANGUL_ + _G4_ALPHABETIC_ + _G4_NUMERIC_)) {
+//if (!check_string($reg_mb_nick, _G4_HANGUL_ + _G4_ALPHABETIC_ + _G4_NUMERIC_)) {
+if (preg_match('/[^0-9a-zA-Z\x{1100}-\x{11FF}\x{3130}-\x{318F}\x{AC00}-\x{D7AF}]+/u', $reg_mb_nick)) {
     echo "110"; // 별명은 공백없이 한글, 영문, 숫자만 입력 가능합니다.
 } else if (strlen($reg_mb_nick) < 4) {
     echo "120"; // 4글자 이상 입력
