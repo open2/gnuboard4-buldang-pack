@@ -612,9 +612,11 @@ function conv_content($content, $html)
         // value="always" 를 value="never" 로, allowScriptaccess="always" 를 allowScriptaccess="never" 로 변환하는데 목적이 있다.
         //$content = preg_replace("/((?<=\<param|\<embed)[^>]+)(\s*=\s*[\'\"]?)always([\'\"]?)([^>]+(?=\>))/i", "$1$2never$3$4", $content);
         // allowscript 속성의 param 태그를 삭제한다.
-        $content = preg_replace("#(<param.*?allowscript[^>]+>)(<\/param>)?#i", "", $content);
+        //$content = preg_replace("#(<param.*?allowscript[^>]+>)(<\/param>)?#i", "", $content);
+        $content = preg_replace("#<param[^>]+AllowScriptAccess[^>]+>(<\/param>)?#i", "", $content);
         // embed 태그의 allowscript 속성을 삭제한다.
-        $content = preg_replace("#(<embed.*?)(allowscriptaccess[^\s\>]+)#i", "$1", $content);
+        //$content = preg_replace("#(<embed.*?)(allowscriptaccess[^\s\>]+)#i", "$1", $content);
+        $content = preg_replace("#(<embed[^>]+)(allowscriptaccess[^\s\>]+)#i", "$1", $content);
         // object 태그에 allowscript 의 값을 never 로 하여 태그를 추가한다.
         $content = preg_replace("#(<object[^>]+>)#i", "$1<param name=\"allowscriptaccess\" value=\"never\">", $content);
         // embed 태그에 allowscrpt 값을 never 로 하여 속성을 추가한다.
