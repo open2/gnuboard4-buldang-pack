@@ -349,7 +349,7 @@ if ($w == "" || $w == "r")
     {
         $mb_id = "";
         // 비회원의 경우 이름이 누락되는 경우가 있음
-        $wr_name = strip_tags(mysql_escape_string($_POST['wr_name']));
+        $wr_name = strip_tags(mysql_real_escape_string($_POST['wr_name']));
         if (!trim($wr_name))
             alert("이름은 필히 입력하셔야 합니다.", $goto_url);
         $wr_password = sql_password($wr_password);
@@ -358,7 +358,7 @@ if ($w == "" || $w == "r")
     if ($w == "r") 
     {
         // 답변의 원글이 비밀글이라면 패스워드는 원글과 동일하게 넣는다.
-        if ($secret) 
+        if ($secret)
             $wr_password = $wr[wr_password];
 
         //불당팩 - 답글인 경우 원글의 mb_id를 입력
