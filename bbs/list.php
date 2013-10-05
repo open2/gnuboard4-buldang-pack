@@ -143,7 +143,7 @@ if ($sst)
 
 if ($sca || $stx) 
 {
-    // 검색어 필터링 (금칙 검색에는 검색할 수 없게)
+    // 검색어 필터링 (금칙 검색어는 검색할 수 없게)
     $search_filter = 0;
     if (!$is_admin) {
         $result3 = sql_fetch(" select count(*) as cnt from $g4[filter_table] where pp_word like '%$stx%'");
