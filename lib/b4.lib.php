@@ -2079,4 +2079,38 @@ function redis_key_count($keys, $rdb) {
 
     return $total_cnt;
 }
+
+// 쪽지 수신여부를 체크해 줍니다
+function check_memo_call() {
+
+    global $g4, $config, $member;
+
+    $memo_call = explode(' ' ,trim($member['mb_memo_call']));
+
+    // 중복 배열을 제거
+    $memo_call = array_unique($memo_call);
+
+    $memo_sql = "";
+    for ($i=0; $i < count($memo_call); $i++) {
+        if ($i == 0)
+            $memo_sql .= " mb_id = '$memo_call[$i]' ";
+        else
+            $memo_sql .= " or mb_id = '$memo_call[$i]' ";
+    }
+
+    // 이름으로 사용되는 시스템의 경우
+    if ($config['cf_memo_mb_name'])
+        $sql = " select mb_name as mb_nick from $g4[member_table] where $memo_sql ";
+    else
+        $sql = " select mb_nick from $g4[member_table] where $memo_sql ";
+    $result_m = sql_query($sql);
+
+    $mb_memo_nick = "";
+    while ($row = sql_fetch_array($result_m))
+        $mb_memo_nick .= $row['mb_nick'] . "/";
+
+    sql_query(" update {$g4[member_table]} set mb_memo_call = '' where mb_id = '$member[mb_id]' ");
+
+    return $mb_memo_nick;
+}
 ?>

@@ -9,28 +9,9 @@ if (!$g4['title'])
 
 // 쪽지를 받았나?
 if (trim($member['mb_memo_call'])) {
-    $memo_call = explode(' ' ,trim($member[mb_memo_call]));
-    $memo_sql = "";
-    for ($i=0; $i < count($memo_call); $i++) {
-        if ($i == 0)
-            $memo_sql .= " mb_id = '$memo_call[$i]' ";
-        else
-            $memo_sql .= " or mb_id = '$memo_call[$i]' ";
-    }
-    // 이름으로 사용되는 시스템의 경우
-    if ($config['cf_memo_mb_name'])
-        $sql = " select mb_name as mb_nick from $g4[member_table] where $memo_sql group by mb_nick ";
-    else
-        $sql = " select mb_nick from $g4[member_table] where $memo_sql group by mb_nick ";
-    $result_m = sql_query($sql);
-
-    $mb_memo_nick = "";
-    while ($row = sql_fetch_array($result_m))
-        $mb_memo_nick .= $row['mb_nick'] . "/";
-
-    sql_query(" update {$g4[member_table]} set mb_memo_call = '' where mb_id = '$member[mb_id]' ");
-
-    alert($mb_memo_nick."님으로부터 쪽지가 전달되었습니다.", $_SERVER[REQUEST_URI]);
+    $mb_memo_nick = check_memo_call();
+    if ($mb_memo_nick !== "")
+        alert($mb_memo_nick."님으로부터 쪽지가 전달되었습니다.", $_SERVER[REQUEST_URI]);
 }
 
 // 현재 접속자
