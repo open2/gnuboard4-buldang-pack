@@ -849,8 +849,8 @@ function db_cache($c_name, $seconds=300, $c_code) {
         $func_name = $tmp_c_code[0];
 
         // 수행할 함수의 인자
-        $tmp_array = str_getcsv($tmp_c_code[1]); //수정
-        
+        $tmp_array = str_getcsv($tmp_c_code[1]);
+
         if ($func_name == "include_once" || $func_name == "include") {
 
             ob_start();
@@ -860,19 +860,20 @@ function db_cache($c_name, $seconds=300, $c_code) {
 
         } else {
         
-        // 수행할 함수의 인자를 담아둘 변수
-        $func_args = array();
+            // 수행할 함수의 인자를 담아둘 변수
+            $func_args = array();
 
-        for($i=0;$i < count($tmp_array); $i++) {
-            // 기본 trim은 여백 등을 없앤다. $charlist = " \t\n\r\0\x0B"
-            $tmp_args = trim($tmp_array[$i]);
-            // 추가 trim으로 인자를 넘길 때 쓰는 '를 없앤다
-            $tmp_args = trim($tmp_args, "'");
-            // 추가 trim으로 인자를 넘길 때 쓰는 "를 없앤다
-            $func_args[$i] = trim($tmp_args, '"');
-        }
-        // 새로운 캐쉬값을 만들고
-        $c_text = call_user_func_array($func_name, $func_args);
+            for($i=0;$i < count($tmp_array); $i++) {
+                // 기본 trim은 여백 등을 없앤다. $charlist = " \t\n\r\0\x0B"
+                $tmp_args = trim($tmp_array[$i]);
+                // 추가 trim으로 인자를 넘길 때 쓰는 '를 없앤다
+                $tmp_args = trim($tmp_args, "'");
+                // 추가 trim으로 인자를 넘길 때 쓰는 "를 없앤다
+                $func_args[$i] = trim($tmp_args, '"');
+            }
+
+            // 새로운 캐쉬값을 만들고
+            $c_text = call_user_func_array($func_name, $func_args);
         }
 
         // 값이 없으면 그냥 return
@@ -1972,7 +1973,7 @@ function redis_cache($c_name, $seconds=300, $c_code) {
         $func_name = $tmp_c_code[0];
 
         // 수행할 함수의 인자
-        $tmp_array = explode(",", $tmp_c_code[1]);
+        $tmp_array = str_getcsv($tmp_c_code[1]);
         
         if ($func_name == "include_once" || $func_name == "include") {
 
@@ -1983,19 +1984,20 @@ function redis_cache($c_name, $seconds=300, $c_code) {
 
         } else {
         
-        // 수행할 함수의 인자를 담아둘 변수
-        $func_args = array();
+            // 수행할 함수의 인자를 담아둘 변수
+            $func_args = array();
 
-        for($i=0;$i < count($tmp_array); $i++) {
-            // 기본 trim은 여백 등을 없앤다. $charlist = " \t\n\r\0\x0B"
-            $tmp_args = trim($tmp_array[$i]);
-            // 추가 trim으로 인자를 넘길 때 쓰는 '를 없앤다
-            $tmp_args = trim($tmp_args, "'");
-            // 추가 trim으로 인자를 넘길 때 쓰는 "를 없앤다
-            $func_args[$i] = trim($tmp_args, '"');
-        }
-        // 새로운 캐쉬값을 만들고
-        $c_text = call_user_func_array($func_name, $func_args);
+            for($i=0;$i < count($tmp_array); $i++) {
+                // 기본 trim은 여백 등을 없앤다. $charlist = " \t\n\r\0\x0B"
+                $tmp_args = trim($tmp_array[$i]);
+                // 추가 trim으로 인자를 넘길 때 쓰는 '를 없앤다
+                $tmp_args = trim($tmp_args, "'");
+                // 추가 trim으로 인자를 넘길 때 쓰는 "를 없앤다
+                $func_args[$i] = trim($tmp_args, '"');
+            }
+
+            // 새로운 캐쉬값을 만들고
+            $c_text = call_user_func_array($func_name, $func_args);
         }
 
         // 값이 없으면 그냥 return
