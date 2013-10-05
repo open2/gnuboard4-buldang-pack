@@ -2113,4 +2113,72 @@ function check_memo_call() {
 
     return $mb_memo_nick;
 }
+
+// head.sub.php에서 분리된 SEO를 위한 키워서 생성 함수
+function seo_keyword() {
+
+    global $g4, $config, $bo_table, $wr_id, $write;
+
+    // 그누 SEO 키워드 - 사이트에 유입되는 탑 검색어를 키워드로 분리
+    $seo_tag = "";
+
+    // 게시글에 붙어 있는 탑키워드 5개를 넣어주고 
+    if ($bo_table && $wr_id) {
+        $sql = " select tag_name, count from $g4[seo_tag_table] where bo_table = '$bo_table' and wr_id = '$wr_id' order by count desc limit 0, 5";
+        $result_s = sql_query($sql);
+        for ($i=0; $row = sql_fetch_array($result_s); $i++) {
+            $tmp = explode(" ", $row['tag_name']);
+            foreach ($tmp as $tstr) {
+                if (trim($tstr) && !stristr($seo_tag, trim($tstr)))
+                    $seo_tag .= $tstr . " ";
+            }
+        }
+    }
+
+    // 사이트에 붙어 있는 키워드 5개를 넣어줍니다
+    $sql = " select tag_name, count from $g4[seo_tag_table] where bo_table = '' and tag_name <> '' order by count desc limit 0, 5";
+    $result_s = sql_query($sql);
+    for ($i=0; $row = sql_fetch_array($result_s); $i++) {
+        if (trim($row['tag_name'])) {
+            $tmp = explode(" ", trim($row['tag_name']));
+            foreach ($tmp as $tstr) {
+                if (!stristr($seo_tag, trim($tstr)))
+                    $seo_tag .= $tstr . " ";
+            }
+        }
+    }
+
+    $seo_tag = preg_replace('/\s+/', ' ', $seo_tag);  // 여러개의 빈칸은 1개의 공백으로
+    $seo_tag = trim($seo_tag);
+    if ($seo_tag !== "")
+        $config['cf_meta_keywords'] = "$bo_table " . $seo_tag;
+
+   if ($write['wr_content']) {
+      $g4_description = save_me($write[wr_content]);                // 개인정보보호
+      $g4_description = nl2br($g4_description);                     // 줄바꿈을 <br>로
+      $g4_description = preg_replace('/\<br(\s*)?\/?\>/i', " ", $g4_description); // <br>을 여백으로
+      $g4_description = strip_tags($g4_description);  // 모든 tag를 지워 버리고
+      $g4_description = preg_replace("/<(.*?)\>/"," ", $g4_description);
+      $g4_description = preg_replace("/&nbsp;/"," ",$g4_description);   // &nbsp;는 공백으로
+      $g4_description = str_replace("&amp;", "&", $g4_description); // &amp;는 &로
+      $g4_description = str_replace("&lt;", "<", $g4_description);  // &lt;는 <로
+      $g4_description = str_replace("&gt;", "<", $g4_description);  // &gt;는 >로
+      $g4_description = str_replace("\"", " ", $g4_description);    // "는 공백으로
+      $g4_description = str_replace("\'", " ", $g4_description);    // "는 공백으로
+      $g4_description = str_replace("\`", " ", $g4_description);    // `는 공백으로
+      $g4_description = str_replace(",", " ", $g4_description);     // ,는 공백으로
+      $g4_description = str_replace(".", " ", $g4_description);     // .는 공백으로
+      $g4_description = str_replace("=", " ", $g4_description);     // =는 공백으로
+      $g4_description = str_replace("!", " ", $g4_description);
+      $g4_description = str_replace("ㅜ", " ", $g4_description);
+      $g4_description = str_replace("ㅠ", " ", $g4_description);
+      $g4_description = str_replace("ㅎ", " ", $g4_description);
+      $g4_description = str_replace("ㅋ", " ", $g4_description);
+      $g4_description = str_replace("//##", " ", $g4_description); 
+      $g4_description = preg_replace('/\s+/', ' ', $g4_description);  // 여러개의 빈칸은 1개의 공백으로
+      $g4_description = cut_str($g4_description, 250, '');  // 250글자만
+
+      $config['cf_meta_description'] = $g4_description;
+  }
+}
 ?>

@@ -28,8 +28,6 @@ if ($is_admin || ($config[cf_sms4_member] && $member[mb_level] >= $config[cf_sms
 } else
     $g4_sms4 = "";
 
-// 자바스크립트에서 go(-1) 함수를 쓰면 폼값이 사라질때 해당 폼의 상단에 사용하면
-// 캐쉬의 내용을 가져옴. 완전한지는 검증되지 않음
 header("Content-Type: text/html; charset=$g4[charset]");
 $gmnow = gmdate("D, d M Y H:i:s") . " GMT";
 header("Expires: 0"); // rfc2616 - Section 14.21
@@ -37,12 +35,6 @@ header("Last-Modified: " . $gmnow);
 header("Cache-Control: no-store, no-cache, must-revalidate"); // HTTP/1.1
 header("Cache-Control: pre-check=0, post-check=0, max-age=0"); // HTTP/1.1
 header("Pragma: no-cache"); // HTTP/1.0
-/*
-// 만료된 페이지로 사용하시는 경우
-header("Cache-Control: no-cache"); // HTTP/1.1
-header("Expires: 0"); // rfc2616 - Section 14.21
-header("Pragma: no-cache"); // HTTP/1.0
-*/
 ?>
 <!DOCTYPE HTML>
 <html lang="ko">
@@ -50,73 +42,15 @@ header("Pragma: no-cache"); // HTTP/1.0
 <meta http-equiv="content-type" content="text/html; charset=<?=$g4['charset']?>">
 <? if ($config['cf_meta_author']) { ?><meta name="author" content="<?=$config['cf_meta_author']?>"><? } ?>
 <?
-if ($g4['keyword_seo']) {
-    // 그누 SEO 키워드 - 사이트에 유입되는 탑 검색어를 키워드로 분리
-    $seo_tag = "";
-
-    // 게시글에 붙어 있는 탑키워드 5개를 넣어주고 
-    if ($bo_table && $wr_id) {
-        $sql = " select tag_name, count from $g4[seo_tag_table] where bo_table = '$bo_table' and wr_id = '$wr_id' order by count desc limit 0, 5";
-        $result_s = sql_query($sql);
-        for ($i=0; $row = sql_fetch_array($result_s); $i++) {
-            $tmp = explode(" ", $row['tag_name']);
-            foreach ($tmp as $tstr) {
-                if (trim($tstr) && !stristr($seo_tag, trim($tstr)))
-                    $seo_tag .= $tstr . " ";
-            }
-        }
-    }
-
-    // 사이트에 붙어 있는 키워드 5개를 넣어줍니다
-    $sql = " select tag_name, count from $g4[seo_tag_table] where bo_table = '' and tag_name <> '' order by count desc limit 0, 5";
-    $result_s = sql_query($sql);
-    for ($i=0; $row = sql_fetch_array($result_s); $i++) {
-        if (trim($row['tag_name'])) {
-            $tmp = explode(" ", trim($row['tag_name']));
-            foreach ($tmp as $tstr) {
-                if (!stristr($seo_tag, trim($tstr)))
-                    $seo_tag .= $tstr . " ";
-            }
-        }
-    }
-
-    $seo_tag = preg_replace('/\s+/', ' ', $seo_tag);  // 여러개의 빈칸은 1개의 공백으로
-    $seo_tag = trim($seo_tag);
-    if ($seo_tag !== "")
-        $config['cf_meta_keywords'] = "$bo_table " . $seo_tag;
-}
+// 비회원일때만 SEO를 생성합니다. 회원들은 이미 들어와 있는거라, 굳이 할 이유가 없겠죠?
+if ($member['mb_id'] == "" && $g4['keyword_seo'])
+    seo_keyword();
 ?>
 <? if ($config['cf_meta_keywords']) { ?><meta name="keywords" content="<?=$config['cf_meta_keywords']?>"><? } ?>
-<? if ($write['wr_content']) {
-    $g4_description = save_me($write[wr_content]);                // 개인정보보호
-    $g4_description = nl2br($g4_description);                     // 줄바꿈을 <br>로
-    $g4_description = preg_replace('/\<br(\s*)?\/?\>/i', " ", $g4_description); // <br>을 여백으로
-    $g4_description = strip_tags($g4_description);  // 모든 tag를 지워 버리고
-    $g4_description = preg_replace("/<(.*?)\>/"," ", $g4_description);
-    $g4_description = preg_replace("/&nbsp;/"," ",$g4_description);   // &nbsp;는 공백으로
-    $g4_description = str_replace("&amp;", "&", $g4_description); // &amp;는 &로
-    $g4_description = str_replace("&lt;", "<", $g4_description);  // &lt;는 <로
-    $g4_description = str_replace("&gt;", "<", $g4_description);  // &gt;는 >로
-    $g4_description = str_replace("\"", " ", $g4_description);    // "는 공백으로
-    $g4_description = str_replace("\'", " ", $g4_description);    // "는 공백으로
-    $g4_description = str_replace("\`", " ", $g4_description);    // `는 공백으로
-    $g4_description = str_replace(",", " ", $g4_description);     // ,는 공백으로
-    $g4_description = str_replace(".", " ", $g4_description);     // .는 공백으로
-    $g4_description = str_replace("=", " ", $g4_description);     // =는 공백으로
-    $g4_description = str_replace("!", " ", $g4_description);
-    $g4_description = str_replace("ㅜ", " ", $g4_description);
-    $g4_description = str_replace("ㅠ", " ", $g4_description);
-    $g4_description = str_replace("ㅎ", " ", $g4_description);
-    $g4_description = str_replace("ㅋ", " ", $g4_description);
-    $g4_description = str_replace("//##", " ", $g4_description); 
-    $g4_description = preg_replace('/\s+/', ' ', $g4_description);  // 여러개의 빈칸은 1개의 공백으로
-    $g4_description = cut_str($g4_description, 250, '');  // 250글자만
-    $config['cf_meta_description'] = $g4_description;
-}
-?>
 <? if ($config['cf_meta_description']) { ?><meta name="description" content="<?=$config['cf_meta_description']?>"><? } ?>
-<meta http-equiv="Imagetoolbar" content="no">
 <? if ($g4['ie_ua']) { ?><meta http-equiv="X-UA-Compatible" content="IE=<?=$g4[ie_ua]?>" /><? } ?>
+<meta http-equiv="Imagetoolbar" content="no">
+
 <title><?=$g4['title']?></title>
 
 <link rel="stylesheet" href="<?=$g4['path']?>/style.css" type="text/css">
