@@ -148,9 +148,6 @@ document.onkeydown = function(e) {
 if ($is_admin || ($config[cf_sms4_member] && $member[mb_level] >= $config[cf_sms4_level])) {
     include_once("$g4[path]/lib/sms.lib.php");
 }
-
-// 실시간쪽지를 사용하려면 아래의 코멘트를 풀어줍니다
-//include_once("$g4[bbs_path]/realtime_memo.php");
 ?>
 <body>
 <a name="g4_head"></a>
