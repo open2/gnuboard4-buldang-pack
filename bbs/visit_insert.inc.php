@@ -43,6 +43,11 @@ if ($referer) {
         ;
     }
 
+    // 검색어 필터링 (금칙 검색어는 SEO에 넣지 않습니다)
+    $result3 = sql_fetch(" select count(*) as cnt from $g4[filter_table] where pp_word = '$query' ");
+    if ($result3['cnt'] > 0)
+        unset($query);
+
     if ($query) {
         $sql = " insert $g4[seo_tag_table] (tag_name, tag_date, count, bo_table, wr_id) 
                  values ('$query', '$g4[time_ymd]', 1, '$bo_table', '$wr_id') ON DUPLICATE KEY update count = count+1 ";
