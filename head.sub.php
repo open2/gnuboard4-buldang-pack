@@ -40,6 +40,10 @@ if ($member['mb_id'] == "" && $g4['keyword_seo'])
 <title><?=$g4['title']?></title>
 
 <link rel="stylesheet" href="<?=$g4['path']?>/js/bootstrap/css/bootstrap.css" type="text/css" media="screen" title="no title" charset="<?=$g4[charset]?>">
+<link rel="stylesheet" href="<?=$g4['path']?>/js/font-awesome/css/font-awesome.min.css" type="text/css" media="screen" title="no title" charset="<?=$g4[charset]?>">
+<!--[if lt IE 7]>
+    <script src="<?=$g4['path']?>/js/font-awesome/css/font-awesome-ie7.min.js"></script>
+<![endif]-->
 <!--
 <link rel="stylesheet" href="<?=$g4['path']?>/style.css" type="text/css">
 -->
@@ -78,6 +82,7 @@ var g4_is_ie     = navigator.userAgent.toLowerCase().indexOf("msie") != -1;
 <? } ?>
 
 <script type="text/javascript" src="<?=$g4['path']?>/js/jquery.js"></script>
+<script type="text/javascript" src="<?=$g4['path']?>/js/bootstrap/js/bootstrap.min.js"></script>
 <!--[if lt IE 9]>
     <script src="<?=$g4['path']?>/js/html5shiv.js"></script>
 <![endif]-->
