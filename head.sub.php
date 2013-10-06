@@ -14,14 +14,6 @@ if (trim($member['mb_memo_call'])) {
         alert($mb_memo_nick."님으로부터 쪽지가 전달되었습니다.", $_SERVER[REQUEST_URI]);
 }
 
-// 현재 접속자
-// 게시판 제목에 ' 포함되면 오류 발생
-$lo_location = addslashes($g4['title']);
-if (!$lo_location)
-    $lo_location = $_SERVER['REQUEST_URI'];
-$lo_url = $_SERVER['REQUEST_URI'];
-if (strstr($lo_url, "/$g4[admin]/") || $is_admin == "super") $lo_url = "";
-
 // sms4 적용을 위한 설정
 if ($is_admin || ($config[cf_sms4_member] && $member[mb_level] >= $config[cf_sms4_level])) {
     $g4_sms4 = "1";

@@ -673,6 +673,15 @@ if ($member['mb_level'] > 1) {
         $is_delay = true;
 }
 
+// 현재 접속자
+// 게시판 제목에 ' 포함되면 오류 발생
+// head.sub.php에서 이동
+$lo_location = addslashes($g4['title']);
+if (!$lo_location)
+    $lo_location = $_SERVER['REQUEST_URI'];
+$lo_url = $_SERVER['REQUEST_URI'];
+if (strstr($lo_url, "/$g4[admin]/") || $is_admin == "super") $lo_url = "";
+
 // 불당팩 - 추가적인 개별 변수설정을 위해
 include_once("$g4[path]/config.2.php");  // 설정 파일
 ?>
