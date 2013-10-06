@@ -195,11 +195,6 @@ $g4['cdn_path']          = "";
 // 팀장닷컴과 같이 create temporary table이 안먹히는 경우에는 설정값을 1로 하세요.
 $g4['old_stype_search'] = 0;
 
-// bit.ly 단축을 위한 api 설정
-$g4['bitly_id']   = "";
-$g4['bitly_key']  = "";
-$g4['use_bitly']  = 0;   // bit.ly api를 쓰기 원치 않을때는, 0으로 설정을 변경하면 됩니다.
-
 // gblog로 게시글 보내기를 위한 설정
 $g4['use_gblog']   = 0;   // gblog로 글보내기를 원치 않을때는, 0으로 설정을 변경하면 됩니다.
 
