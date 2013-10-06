@@ -187,28 +187,6 @@ for ($i=0; $i<count($f); $i++) {
 }
 // 테이블 생성 (불당팩) -----------------------------
 
-// 테이블 생성 (sms4) ----------------------------
-$file = implode("", file("../adm/sms_admin/sms4.sql"));
-eval("\$file = \"$file\";");
-
-$f = explode(";", $file);
-for ($i=0; $i<count($f); $i++) {
-    if (trim($f[$i]) == "") continue;
-    mysql_query($f[$i]) or die(mysql_error());
-}
-// 테이블 생성 (sms4) -----------------------------
-
-//-------------------------------------------------------------------------------------------------
-// sms4 config 테이블 설정
-$read_point = -1;
-$write_point = 5;
-$comment_point = 1;
-$download_point = -20;
-
-$sql = " insert into $g4[sms4_book_group_table] set bg_name='미분류'";
-mysql_query($sql) or die(mysql_error() . "<p>" . $sql);
-//-------------------------------------------------------------------------------------------------
-
 echo "<script>document.frminstall2.job1.value='전체 테이블 생성중';</script>";
 flush(); usleep(50000); 
 

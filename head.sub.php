@@ -14,12 +14,6 @@ if (trim($member['mb_memo_call'])) {
         alert($mb_memo_nick."님으로부터 쪽지가 전달되었습니다.", $_SERVER[REQUEST_URI]);
 }
 
-// sms4 적용을 위한 설정
-if ($is_admin || ($config[cf_sms4_member] && $member[mb_level] >= $config[cf_sms4_level])) {
-    $g4_sms4 = "1";
-} else
-    $g4_sms4 = "";
-
 header("Content-Type: text/html; charset=$g4[charset]");
 $gmnow = gmdate("D, d M Y H:i:s") . " GMT";
 header("Expires: 0"); // rfc2616 - Section 14.21
@@ -130,17 +124,11 @@ document.onkeydown = function(e) {
   } 
   if (evtK == 505) { 
     return false; 
-  } 
+  }
 }
 //-->
 </script> 
 
-<?
-//sms4 적용여부를 설정 (관리자 또는 회원간 sms보내기가 허용될 때)
-if ($is_admin || ($config[cf_sms4_member] && $member[mb_level] >= $config[cf_sms4_level])) {
-    include_once("$g4[path]/lib/sms.lib.php");
-}
-?>
 <body>
 <a name="g4_head"></a>
 <? if (!$cb_id and !stristr($_SERVER[REQUEST_URI],'club_')) { ?>

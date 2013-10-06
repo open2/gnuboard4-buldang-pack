@@ -303,8 +303,8 @@ if ($config[cf_db_version] < 1076) {
 
     // 누락된 업글 script 보완. 이게 왜 빠졌을까요? ㅠ..ㅠ...
     sql_query(" ALTER TABLE `$g4[member_table]` ADD `mb_hp_certify_datetime` DATETIME NOT NULL ", FALSE);
-    sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_sms4_member` TINYINT( 4 ) NOT NULL ", FALSE);
-    sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_sms4_level` TINYINT( 4 ) NOT NULL ", FALSE);
+    //sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_sms4_member` TINYINT( 4 ) NOT NULL ", FALSE);
+    //sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_sms4_level` TINYINT( 4 ) NOT NULL ", FALSE);
 
     $sql = " CREATE TABLE IF NOT EXISTS `$g4[board_file_download_table]` (
               `dn_id` int(11) NOT NULL AUTO_INCREMENT,
