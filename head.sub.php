@@ -64,7 +64,7 @@ var g4_charset   = "<?=$g4['charset']?>";
 var g4_cookie_domain = "<?=$g4['cookie_domain']?>";
 var g4_is_gecko  = navigator.userAgent.toLowerCase().indexOf("gecko") != -1;
 var g4_is_ie     = navigator.userAgent.toLowerCase().indexOf("msie") != -1;
-<? if ($is_admin) { echo "var g4_admin = '{$g4['admin']}';"; } ?>
+<? if ($is_admin) { echo "var g4_admin = \"{$g4['admin']}\";"; } ?>
 </script>
 
 <script type="text/javascript" src="<?=$g4['path']?>/js/common.js"></script>
