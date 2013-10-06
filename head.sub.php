@@ -68,14 +68,14 @@ var g4_is_ie     = navigator.userAgent.toLowerCase().indexOf("msie") != -1;
 </script>
 <script type="text/javascript" src="<?=$g4['path']?>/js/common.js"></script>
 <script type="text/javascript" src="<?=$g4['path']?>/js/b4.common.js"></script>
-<script type="text/javascript" src="<?=$g4['path']?>/js/jquery.js"></script>
-
 <? if ($is_test || $is_admin || ($member['mb_id'] && $write['mb_id'] && $member['mb_id'] == $write['mb_id'])) {} else { ?>
 <script type="text/javascript" src="<?=$g4['path']?>/js/desktop.js"></script>
 <? } ?>
 
+<script type="text/javascript" src="<?=$g4['path']?>/js/jquery.js"></script>
+<!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+<![endif]-->
+
 <body>
 <a name="g4_head"></a>
-<? if (!$cb_id and !stristr($_SERVER[REQUEST_URI],'club_')) { ?>
-<!-- 디자인 코드 code --->
-<? } ?>
