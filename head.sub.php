@@ -66,6 +66,7 @@ var g4_is_gecko  = navigator.userAgent.toLowerCase().indexOf("gecko") != -1;
 var g4_is_ie     = navigator.userAgent.toLowerCase().indexOf("msie") != -1;
 <? if ($is_admin) { echo "var g4_admin = '{$g4['admin']}';"; } ?>
 </script>
+
 <script type="text/javascript" src="<?=$g4['path']?>/js/common.js"></script>
 <script type="text/javascript" src="<?=$g4['path']?>/js/b4.common.js"></script>
 <? if ($is_test || $is_admin || ($member['mb_id'] && $write['mb_id'] && $member['mb_id'] == $write['mb_id'])) {} else { ?>
@@ -74,7 +75,7 @@ var g4_is_ie     = navigator.userAgent.toLowerCase().indexOf("msie") != -1;
 
 <script type="text/javascript" src="<?=$g4['path']?>/js/jquery.js"></script>
 <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
+    <script src="<?=$g4['path']?>/js/html5shiv.js"></script>
 <![endif]-->
 
 <body>
