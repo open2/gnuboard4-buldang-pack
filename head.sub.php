@@ -39,7 +39,11 @@ if ($member['mb_id'] == "" && $g4['keyword_seo'])
 
 <title><?=$g4['title']?></title>
 
+<link rel="stylesheet" href="<?=$g4['path']?>/js/bootstrap/css/bootstrap.css" type="text/css" media="screen" title="no title" charset="<?=$g4[charset]?>">
+<!--
 <link rel="stylesheet" href="<?=$g4['path']?>/style.css" type="text/css">
+-->
+
 <? // canonical link by ¸»·¯83, http://sir.co.kr/bbs/board.php?bo_table=g4_tiptech&wr_id=20826
 if(stristr($_SERVER[PHP_SELF], "/bbs/board.php") == true && $bo_table) {
     if ($wr_id)
