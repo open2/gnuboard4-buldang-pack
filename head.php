@@ -5,120 +5,169 @@ include_once("$g4[path]/head.sub.php");
 
 // 사용자 화면 상단과 좌측을 담당하는 페이지입니다.
 // 상단, 좌측 화면을 꾸미려면 이 파일을 수정합니다.
-
-// layout 정의 및 읽기
-$g4[layout_path] = $g4[path] . "/layout";                             // layout을 정의 합니다.
-$g4[layout_skin] = "naver";                                           // layout skin을 정의 합니다
-$g4[layout_skin_path] = $g4[layout_path] . "/" . $g4[layout_skin];    // layout skin path를 정의 합니다.
-
-// top, side 메뉴의 class를 지정
-$top_menu = "menu mc_gray";
-$side_menu = "menu_v";
-
-// 필요한 레이아웃 파일등을 읽어 들입니다.
-include_once("$g4[layout_skin_path]/layout.php");
-include_once("$g4[layout_path]/layout.lib.php");
 ?>
 
-<!-- 웹페이지 전체의 div -->
-<div id="wrap">
+<div class="container">
+    <div class="row col-xs-10">
+<h4>**** 부트스트랩 3.0 변경중 / 의견 부탁드립니다. 모바일 분리없이 기본 코드로 대응합니다 ... ****</h4>
+    </div>
+</div>
 
-<div id="header">
+<header class="header-wrapper"><!-- 상단 header 시작 -->
+<div class="container">
+<div class="row">
+    <div class="col-sm-2">
+    </div>
+    <div class="col-sm-5">
+        <?
+        include_once("$g4[path]/lib/banner.lib.php");
+        echo get_banner("top_text", "text", "TEXT1");
+        ?>
+    </div>
+    <div class="col-sm-5">
+        <?
+        echo get_banner("top_github", "basic", "github");
+        echo get_banner("top", "basic", "", 1);
+        ?>
+    </div>
+</div>
 
-    <!-- 전체 navi 영역 -->
-    <div class="gnb">
+<div class="navbar navbar-default" role="navigation">
+<div class="container">
+<div class="row">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header col-sm-2">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex2-collapse">
+            <i class="glyphicon glyphicon-search"></i>
+        </button>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <i class="glyphicon glyphicon-list"></i>
+        </button>
+        <a class="navbar-brand" href="<?=$g4['path']?>/">
+        <img src="<?=$g4[path]?>/images/logo_opencode.gif" align=absmiddle alt="brand logo">
+        </a>
     </div>
 
-    <!-- 상단부 log 같은거 넣어주는 곳 -->
-    <div class="sta">
-        <!-- 이런 정렬은 table이 div 보다 훨~ 편합니다 -->
-        <table width=100%>
-            <tr>
-                <td align=left>
-                <a href="<?=$g4['path']?>/"><img src="<?=$g4[path]?>/images/logo_opencode.gif" align=absmiddle alt=""></a>
-                </td>
-                <td align=right>
-                <?
-                include_once("$g4[path]/lib/naver.lib.php");
-                ?>
-                <div style="width:200px;float:right" id="naver_popular">
-                네이버 인기검색어 loading...
-                </div>
-                <a href="https://github.com/open2/gnuboard4-buldang-pack/commits/master/" target=new><img src="<?=$g4[path]?>/images/github_logo.jpg" align=absmiddle alt=""></a>
-                <a href="http://dmshopkorea.com/" target=new><img src="<?=$g4[path]?>/images/dmshop.gif" align=absmiddle alt=""></a>
-                <a href="http://onedayro.phps.kr" target=new><img src="<?=$g4[path]?>/images/onedayro.png" align=absmiddle alt=""></a>
-                <a href="http://huddak.net" target=new><img src="<?=$g4[path]?>/images/hu.gif" align=absmiddle alt=""></a>
-                </td>
-            </tr>
-        </table>
-    </div>
-
-    <div id="menu" class="<?=$top_menu?>">
-        <div class="inset">
-        <!-- 주메뉴 -->
-        <div class="major">
-            <?=print_mnb($mnb_arr)?>
-        </div>
-        <!-- 우측으로 쏠려 있는 메뉴 -->
-        <div class="aside">
-            <ul>
-            <li>
-            <!-- 검색창 -->
-            <form name="fsearchbox" method="get" onsubmit="return fsearchbox_submit(this);" style="margin:0px;" class="srch" style="border:0">
-            <input type="hidden" name="sfl" value="wr_subject||wr_content">
-            <input type="hidden" name="sop" value="and">
-            <span><input accesskey="s" class="keyword" title=검색어 name="stx" type="text" maxlength="20" value="<?=$stx;?>" > <input alt=검색 src="<?=$g4[layout_skin_path]?>/img/btn_srch.gif" type="image" alt=""></span>
-            </form>
-            </li>
+    <div class="collapse navbar-collapse navbar-ex1-collapse col-sm-7">
+    <ul class="nav navbar-nav">
+        <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=qna">자유게시판</a></li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">토크 <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=g4_100">그누보드100일완성</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=g4_books">그누보드참고서</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=sitetips">사이트개발운영</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=biz">비즈니스참고자료</a></li>
+                <li class="divider"></li>
+                <li><a href="<?=$g4[bbs_path]?>/good_list.php">베스트글</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/new.php">최근게시글</a></li>
+                <li class="divider"></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=test">테스트</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=test2">테스트2</a></li>
             </ul>
-        </div>
-        <span class="gradient"></span>
-    </div>
-    <span class="shadow"></span>
-    </div><!-- 상단 메뉴 div - menu 끝 -->
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">개발팁 <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=linux_tips">Linux</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=virtual">가상화</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=apache_tips">Apache</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=mysql_tips">MySQL</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=mariadb_tips">Maria DB</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=nosql">NoSQL</a></li>
+                <li class="divider"></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=css">CSS/부트스트랩</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=php_tips">PHP</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=jquery_tips">jQuery</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=javascript_tips">Java Script</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=ajax">AJAX</a></li>
+                <li class="divider"></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=html_tips">HTML</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=html5_tips">HTML5</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=other_tips">기타 팁들</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=cheditor">cheditor(상용)</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">그누4 <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_turning">그누보드4 튜닝</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_turning2">그누보드4 튜닝(비공개)</a></li>
+                <li class="divider"></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=memo4">쪽지5</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=thumb">불당썸/Resize</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=layout">불당빌더(100%수동빌더)</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=g4_recycle">휴지통/Recycle</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_unicro">유니크로장터/게시판</a></li>
+                <li class="divider"></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_skin">그누보드스킨</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_tips">그누보드팁</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_qna">그누보드 묻고 답하기</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">App <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=and_talk">안드로이드 게시판</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=and_tip">안드로이드 팁</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=and_pds">안드로이드 자료실</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=webapp">웹앱</a></li>
+            </ul>
+        </li>
 
-</div><!-- 상단 div - header 끝 -->
+        <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">불당팩 <b class="caret"></b></a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack">불당팩다운로드</a></li>
+                <li class="divider"></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_book">불당팩 매뉴얼</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_skin">불당팩 스킨</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_req">불당팩 버그 및 개선</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_qna">불당팩 묻고답하기</a></li>
+                <li class="divider"></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gblog">gblog 불당버젼</a></li>
+                <li><a href="<?=$g4[path]?>/blog/" target=new>gblog 테스트</a></li>
+                <li class="divider"></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=club2">클럽2</a></li>
+                <li><a href="$g4[path]?>/club/">클럽2 테스트</a></li>
+            </ul>
+        </li>
+        <li><a href="<?=$g4[plugin_path]?>/attendance/attendance.php">출석체크</a></li>
+    </ul>
+    </div>
+
+    <div class="col-sm-3 pull-right">
+    <form class="navbar-form collapse navbar-collapse navbar-ex2-collapse" role="search" method="get" onsubmit="return fsearchbox_submit(this);" >
+    <div class="input-group">
+        <input type="hidden" name="sfl" value="wr_subject||wr_content">
+        <input type="hidden" name="sop" value="and">
+        <input type="text" class="form-control" placeholder="검색어는 2단어까지" name="stx" id="stx" maxlength="20" value="<?=$stx;?>">
+        <div class="input-group-btn">
+            <button type="submit" class="btn">검색 <i class="glyphicon glyphicon-search"></i></button>
+        </div>
+    </div>
+    </form>
+    </div>
+
+</div>
+
+</div>
+</div>
+</div>
+</header><!-- 상단 header 끝 -->
+
 
 <!-- 중간의 메인부 시작 -->
-<div id="container">
+<section class="container">
+<div class="row">
 
-<!-- 왼쪽 side div 시작 -->
-<div class="snb">
-
+<!-- 왼쪽 side 시작 -->
+<div class="col-sm-2">
 <?
 // 아웃로그인
 include_once("$g4[path]/lib/outlogin.lib.php");
 echo outlogin("transparent");
 ?>
-
-<!--좌측 메뉴 -->
-<table><tr><td height="1px"></td></tr></table>
-<div id="menu_v" class="<?=$side_menu?>">
-    <?
-    switch ($mnb) {
-        case "myon"     : print_snb($snb_arr['myon'], 'MyOn'); print_snb($snb_arr['myboard'], '나의 게시판'); print_snb($snb_arr['myvisit'], '내가 방문한 게시판');break;
-        case "tips"     :
-        case "gnu4_b4"  :
-        case "gblog"    :
-        case "club2"    :
-        case "android"  : // 통상적인 경우에는 아래처럼만 해주면 된다.
-        case "mart"     : print_snb($snb_arr[$mnb], mnb_name($mnb_arr, $mnb)); break;
-                          // 2번째 메뉴인 yc4_old나 test는 $mnb가 아니므로, 제목을 그냥 지정해준다. 이런식으로 몇개라도 메뉴를 내려 보낼 수 있다.
-        case "yc4"      : print_snb($snb_arr[$mnb], mnb_name($mnb_arr, $mnb)); print_snb($snb_arr['yc4_old'], "영카트4(옛날자료)"); break;
-        case "gnu4"     :
-        case "talk"     : print_snb($snb_arr[$mnb], mnb_name($mnb_arr, $mnb)); print_snb($snb_arr['test'], '테스트');break;
-        case "info"     : print_snb($snb_arr[$mnb], 'Info'); break;
-        default         : // $mnb가 지정 범위를 벗어나면 내맘대로 출력한다.
-                          print_snb($snb_arr['talk'], mnb_name($mnb_arr, 'talk'));
-                          ?>
-                          <?
-                          print_snb($snb_arr['test'], '테스트'); break;
-                          break;
-    }
-    ?>
-</div>
-
-<!--//ui object -->
 
 <!-- 로그인박스와의 여백 -->
     <table><tr><td height="1px"></td></tr></table>
@@ -157,11 +206,10 @@ echo outlogin("transparent");
     <a href="http://peoplenjob.com" target=new><img src="<?=$g4[path]?>/img/banner/peoplenjob.gif" alt=""></a>
     </center>
 
-</div>
-<!-- 왼쪽 side 메뉴 끝 -->
+</div><!-- 왼쪽 side 끝 -->
 
-<!-- 메인 content 메뉴 시작 -->
-<div id="content">
+<div class="col-sm-10"><!-- 메인 content 시작 -->
+<div class="container">
 
 <script type="text/javascript">
 function fsearchbox_submit(f)
@@ -190,13 +238,4 @@ function fsearchbox_submit(f)
     f.action = "<?=$g4['bbs_path']?>/search.php";
     return true;
 }
-</script>
-
-<?
-// 줄바꿈 문자를 없앤다
-$reg_e = array('/\n/','/\r/','/\"/'); 
-$reg_p = array(' ',' ','\'');
-?>
-<script type="text/javascript">
-$("#naver_popular").html( " <? echo preg_replace($reg_e, $reg_p, trim( db_cache("main_top_naver_cache", 300, "naver_popular('naver_popular', 4)")))?> " );
 </script>

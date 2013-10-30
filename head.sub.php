@@ -25,6 +25,7 @@ header("Pragma: no-cache"); // HTTP/1.0
 <!DOCTYPE HTML>
 <html lang="ko">
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="content-type" content="text/html; charset=<?=$g4['charset']?>">
 <? if ($config['cf_meta_author']) { ?><meta name="author" content="<?=$config['cf_meta_author']?>"><? } ?>
 <?
@@ -54,8 +55,12 @@ if(stristr($_SERVER[PHP_SELF], "/bbs/board.php") == true && $bo_table) {
         echo "<link rel=\"canonical\" href=\"$_SERVER[PHP_SELF]?bo_table=$bo_table\" />";
 }
 ?>
-</head>
-
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="<?=$g4['path']?>/js/bootstrap/js/bootstrap.min.js"></script>
+<!--[if lt IE 9]>
+    <script src="<?=$g4['path']?>/js/html5shiv/html5shiv.js"></script>
+    <script src="<?=$g4['path']?>/js/respond/respond.min.js"></script>
+<![endif]-->
 <script type="text/javascript">
 // 자바스크립트에서 사용하는 전역변수 선언
 var g4_path      = "<?=$g4['path']?>";
@@ -72,18 +77,13 @@ var g4_is_gecko  = navigator.userAgent.toLowerCase().indexOf("gecko") != -1;
 var g4_is_ie     = navigator.userAgent.toLowerCase().indexOf("msie") != -1;
 <? if ($is_admin) { echo "var g4_admin = \"{$g4['admin']}\";"; } ?>
 </script>
-
 <script type="text/javascript" src="<?=$g4['path']?>/js/common.js"></script>
 <script type="text/javascript" src="<?=$g4['path']?>/js/b4.common.js"></script>
 <? if ($is_test || $is_admin || ($member['mb_id'] && $write['mb_id'] && $member['mb_id'] == $write['mb_id'])) {} else { ?>
 <script type="text/javascript" src="<?=$g4['path']?>/js/desktop.js"></script>
 <? } ?>
-
-<script type="text/javascript" src="<?=$g4['path']?>/js/jquery.js"></script>
-<script type="text/javascript" src="<?=$g4['path']?>/js/bootstrap/js/bootstrap.min.js"></script>
-<!--[if lt IE 9]>
-    <script src="<?=$g4['path']?>/js/html5shiv.js"></script>
-<![endif]-->
+</head>
 
 <body>
+<a class="sr-only" href="#content">Skip navigation</a>
 <a name="g4_head"></a>
