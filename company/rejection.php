@@ -1,18 +1,5 @@
-<?
-include_once("./_common.php");
-
-$g4['title'] = "이메일주소무단수집거부";
-include_once("./_head.php");
-?>
-
-<div class="section" style="margin-bottom:20px">
-    <h2 class="hx"><?=$g4['title']?></h2>
-      	<div class="tx">
-      	    <?=nl2br(implode("", file("./rejection.html")));?>
-        </div>
-  	<a class="section_more" href="#">
-</div>
-
-<?
-include_once("./_tail.php");
-?>
+마이도메인(이하 "회사")의 회원에게 무차별적으로 보내지는 타사의 메일을 차단하기 위해,
+본 웹사이트에 게시된 이메일 주소가
+전자우편 수집 프로그램이나 그 밖의 기술적 장치를 이용하여
+무단으로 수집되는 것을 거부하며,
+이를 위반시 정보통신망법에 의해 형사처벌됨을 유념하시기 바랍니다.
