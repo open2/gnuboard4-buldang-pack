@@ -8,7 +8,6 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     	<li> 어제 <span><?=number_format($visit[2])?></li>
     	<li> 최대 <span><?=number_format($visit[3])?></li>
     	<li> 전체 <span><?=number_format($visit[4])?></li>
-      </li>
       </ul>
   </div>
 </div>
