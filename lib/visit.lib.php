@@ -4,7 +4,7 @@ if (!defined('_GNUBOARD_')) exit;
 // 방문자수 출력
 function visit($skin_dir="basic")
 {
-    global $config, $g4;
+    global $config, $g4, $is_admin;
 
     // visit 배열변수에 
     // $visit[1] = 오늘
@@ -28,7 +28,6 @@ function visit($skin_dir="basic")
 }
 
 // get_browser() 함수는 이미 있음
-// http://kr.php.net/manual/en/function.get-browser.php
 function get_brow($agent)
 {
     $agent = strtolower($agent);
@@ -40,7 +39,6 @@ function get_brow($agent)
     else if(preg_match("/msie 6.0[0-9]*/", $agent))     { $s = "MSIE 6.0"; }
     else if(preg_match("/msie 7.0[0-9]*/", $agent))     { $s = "MSIE 7.0"; }
     else if(preg_match("/msie 8.0[0-9]*/", $agent))     { $s = "MSIE 8.0"; }
-    else if(preg_match("/msie 9.0[0-9]*/", $agent))     { $s = "MSIE 9.0"; }
     else if(preg_match("/msie 4.[0-9]*/", $agent))      { $s = "MSIE 4.x"; }
     else if(preg_match("/firefox/", $agent))            { $s = "FireFox"; }
     else if(preg_match("/chrome/", $agent))             { $s = "Chrome"; }
