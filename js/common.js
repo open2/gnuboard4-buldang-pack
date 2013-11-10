@@ -342,7 +342,7 @@ if (typeof(COMMON_JS) == 'undefined') { // 한번만 실행
         else
             domain = "domain";
         var memo_name = "WinMemo_" + mb_id + "_" + domain;
-        win_open(url, memo_name, "left=50,top=50,width=730,height=600,scrollbars=1");
+        win_open(url, memo_name, "left=50,top=50,width=730,height=600,scrollbars=1,resizable=yes");
     }
 
     // 포인트 창
