@@ -2,39 +2,35 @@
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
 ?>
 
-<link rel="stylesheet" href="<?=$poll_skin_path?>/style.css" type="text/css">
-
-<div class="section_ol">
-<form name="fpoll" method="post" action="<?=$g4[bbs_path]?>/poll_update.php" onsubmit="return fpoll_submit(this);" target="winPoll">
+<form role="form" name="fpoll" method="post" action="<?=$g4[bbs_path]?>/poll_update.php" onsubmit="return fpoll_submit(this);" target="winPoll">
 <input type="hidden" name="po_id" value="<?=$po_id?>">
 <input type="hidden" name="skin_dir" value="<?=$skin_dir?>">
 
-<!--
-<h2><a style="text-decoration:none" href='#' title='<?=$po[po_summary]?>'><?=$po[po_subject]?></a></h2>
--->
-<h2 title='<?=$po[po_summary]?>'><?=$po[po_subject]?></h2>
-<ol style='text-align:left;margin-left:30px;'>
+<div class="panel panel-default">
+    <div class="panel-heading"><?=$po[po_subject]?></div>
+    <div class="panel-body">
+    <ul class="list-unstyled">
     <? 
     for ($i=1; $i<=9 && $po["po_poll{$i}"]; $i++) {
         echo "<li>";
-        echo "<span>";
         echo "<input type='radio' name='gb_poll' value='$i' id='gb_poll_$i'>";
-        echo "<label for='gb_poll_$i'>" . $po['po_poll'.$i] . "</label>";
-        echo "</span>";
+        echo " <label for='gb_poll_$i'>" . $po['po_poll'.$i] . "</label>";
         echo "</li>";
     }
     ?>
-    <li style='text-align:center;'>
+    </ul>
+    </div>
+    <div class="panel-footer">
+        <div class="btn-group">
+        <a class="btn btn-info btn-sm" href="javascript:;" onclick="poll_result('<?=$po_id?>');">결과보기</a>
         <? if ($po_use) { ?>
-        <input type="image" src="<?=$poll_skin_path?>/img/poll_button.gif" width="70" height="25" border="0">
+        <button type="submit" class="btn btn-success btn-sm">투표</button>
         <? } ?>
-        <a href="javascript:;" onclick="poll_result('<?=$po_id?>');"><img src="<?=$poll_skin_path?>/img/poll_view.gif" width="70" height="25" border="0"></a>
-        <? if ($is_admin == "super") { ?><a href="<?=$g4[admin_path]?>/poll_form.php?w=u&po_id=<?=$po_id?>"><img src="<?=$poll_skin_path?>/img/admin.gif" width="33" height="15" border=0 align=absmiddle></a><? } ?>
-    </li>
-</ol>
-
-</form>
+        <? if ($is_admin == "super") { ?><a href="<?=$g4[admin_path]?>/poll_form.php?w=u&po_id=<?=$po_id?>"><i class="fa fa-cog"></i></a><? } ?>
+        </div>
+    </div>
 </div>
+</form>
 
 <script type="text/javascript">
 function fpoll_submit(f)
