@@ -39,6 +39,9 @@ if ($config[cf_use_norobot]) {
 }
 
 $mb_id = trim(strip_tags(mysql_real_escape_string($_POST[mb_id])));
+if (preg_match("/[^0-9a-z_]+/i", $mb_id)) {
+    alert("회원아이디는 영문자, 숫자, _ 만 사용할수 있습니다.");
+}
 $mb_password = trim(mysql_real_escape_string($_POST[mb_password]));
 $mb_nick = trim(strip_tags(mysql_real_escape_string($_POST[mb_nick])));
 $mb_email = trim(strip_tags(mysql_real_escape_string($_POST[mb_email])));

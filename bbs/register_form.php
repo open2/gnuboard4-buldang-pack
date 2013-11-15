@@ -80,7 +80,8 @@ else if ($w == "u")
     set_session("ss_tmp_password", $_POST[mb_password]);
     */
 
-    if ($_POST['mb_password']) {
+    //if ($_POST['mb_password']) 
+    {
         // 수정된 정보를 업데이트후 되돌아 온것이라면 패스워드가 암호화 된채로 넘어온것임
         if ($_POST['is_update'])
             $tmp_password = $_POST['mb_password'];
