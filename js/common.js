@@ -306,7 +306,7 @@ if (typeof(COMMON_JS) == 'undefined') { // 한번만 실행
 
         win.document.write ("<style>.dragme{position:relative;}</style> \n"); 
         win.document.write ("</head> \n\n"); 
-        win.document.write ("<body oncontextmenu='return false' leftmargin=0 topmargin=0 bgcolor=#dddddd style='cursor:arrow;'> \n"); 
+        win.document.write ("<body oncontextmenu='return false' leftmargin=0 topmargin=0 bgcolor=#dddddd style='cursor:arrow;overflow:hidden;'> \n"); 
         win.document.write ("<table width=100% height=100% cellpadding=0 cellspacing=0><tr><td align=center valign=middle><img id='_img' src='"+img.src+"' width='"+w+"' height='"+h+"' border=0 class='dragme' "+click+"></td></tr></table>");
 
         win.document.write (j2_url); 
