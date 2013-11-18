@@ -7,7 +7,7 @@ include_once("$g4[path]/head.sub.php");
 // 상단, 좌측 화면을 꾸미려면 이 파일을 수정합니다.
 ?>
 
-<div class="container">
+<div class="container visible-sm visible-md visible-lg">
     <div class="row col-xs-10">
 <h4>**** 부트스트랩 3.0 변경중 / 의견 부탁드립니다. 모바일 분리없이 기본 코드로 대응합니다 ... ****</h4>
     </div>
@@ -15,7 +15,7 @@ include_once("$g4[path]/head.sub.php");
 
 <header class="header-wrapper"><!-- 상단 header 시작 -->
 <div class="container">
-<div class="row">
+<div class="row visible-sm visible-md visible-lg">
     <div class="col-sm-2">
     </div>
     <div class="col-sm-5">
@@ -159,14 +159,13 @@ include_once("$g4[path]/head.sub.php");
 
 <!-- 중간의 메인부 시작 -->
 <section class="container">
-<div class="row">
 
 <!-- 왼쪽 side 시작 -->
-<div class="col-sm-2">
+<div class="col-sm-2 visible-sm visible-md visible-lg">
 <?
 // 아웃로그인
 include_once("$g4[path]/lib/outlogin.lib.php");
-echo outlogin("transparent");
+echo outlogin("basic");
 ?>
 
 <!-- 로그인박스와의 여백 -->
@@ -176,21 +175,15 @@ echo outlogin("transparent");
     include_once("$g4[path]/lib/poll.lib.php");
     echo poll();
     ?>
-    
-    <table><tr><td height="1px"></td></tr></table>
     <?
     // 방문자
     include_once("$g4[path]/lib/visit.lib.php");
     echo visit();
     ?>
-
-    <table><tr><td height="1px"></td></tr></table>
     <?
     include_once("$g4[path]/lib/popular.lib.php");
     echo board_popular("board","", 14, 5);
     ?>
-
-    <table><tr><td height="1px"></td></tr></table>
     <? // 현재접속자
     include_once("$g4[path]/lib/connect.lib.php");
     echo connect();
@@ -209,7 +202,6 @@ echo outlogin("transparent");
 </div><!-- 왼쪽 side 끝 -->
 
 <div class="col-sm-10"><!-- 메인 content 시작 -->
-<div class="container">
 
 <script type="text/javascript">
 function fsearchbox_submit(f)
