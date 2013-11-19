@@ -1130,3 +1130,10 @@ CREATE TABLE IF NOT EXISTS `$g4[banner_click_sum_table]` (
   PRIMARY KEY (`bc_date`),
   KEY `bc_count` (`bc_count`)
 );
+
+CREATE TABLE IF NOT EXISTS `$g4[admin_log_table]` (
+  `log_no` int(11) NOT NULL AUTO_INCREMENT,
+  `log_datetime` datetime NOT NULL,
+  `log` text NOT NULL,
+  PRIMARY KEY (`log_no`)
+)

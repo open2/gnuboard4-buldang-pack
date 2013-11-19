@@ -890,7 +890,20 @@ if ($config[cf_db_version] < 1111) {
     sql_query($sql, FALSE);
 }
 
-if ($config[cf_db_version] < 1113) {
+if ($config[cf_db_version] < 2000) {
+
+    $sql = "
+            CREATE TABLE IF NOT EXISTS `g4_admin_log` (
+              `log_no` int(11) NOT NULL AUTO_INCREMENT,
+              `log_datetime` datetime NOT NULL,
+              `log` text NOT NULL,
+              PRIMARY KEY (`log_no`)
+            );
+            ";
+    sql_query($sql, FALSE);
+}
+
+if ($config[cf_db_version] < 2000) {
 
     sql_query(" ALTER TABLE  `$g4[good_list_table]` ADD  `gl_flag` TINYINT( 4 ) NOT NULL AFTER  `gl_id` ", FALSE);
 
