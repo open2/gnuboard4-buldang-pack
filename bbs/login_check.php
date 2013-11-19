@@ -148,27 +148,6 @@ if (file_exists("$member_skin_path/login_check.skin.php"))
 
 // --- 불당팩 회원 레벨업/레벨다운
 
-// db를 뒤져서 관리자인가? 아닌가를 체크.
-function is_admin_check($mb_id)
-{
-    global $g4, $config;
-
-    if (!$mb_id) return;
-
-    // super 관리자인지 확인 - super는 1명뿐.
-    if ($config['cf_admin'] == $mb_id) return 'super';
-
-    // 그룹 관리자인지 확인
-    $mb = sql_fetch("select gr_id from $g4[group_table] where gr_admin = '$mb_id' limit 1 ");
-    if ($mb) return 'group';
-    
-    // 게시판 관리자인지 확인
-    $mb = sql_fetch("select bo_table from $g4[board_table] where bo_admin = '$mb_id' limit 1 ");
-    if ($mb) return 'board';
-    
-    return '';
-}
-
 // 회원의 레벨업/레벨다운
 if ($g4['use_auto_levelup'] && !is_admin_check($mb_id))
 {
@@ -252,6 +231,15 @@ if ($mb['mb_password_change_datetime'] != '0000-00-00 00:00:00' && !$is_admin) {
     $change_alert = $g4[server_time] - strtotime($mb['mb_password_change_datetime']);
     if ($config['cf_password_change_dates'] > 0 && $change_alert > 0)
         $link = "$g4[bbs_path]/password_chage_request.php";
+}
+
+// 불당팩 - 관리자 로그인 내역을 db log에 남깁니다
+if (is_admin_check($mb_id)) {
+    $log = "관리자로그인 : $mb_id - $remote_addr - $_SERVER[HTTP_USER_AGENT]";
+    $sql = " insert into $g4[admin_log_table] 
+                set log_datetime = '$g4[time_ymdhis]',
+                    log = '" . mysql_real_escape_string($log) . "' ";
+    sql_query($sql);
 }
 
 goto_url($link);

@@ -2181,4 +2181,25 @@ function seo_keyword() {
       $config['cf_meta_description'] = $g4_description;
   }
 }
+
+// db를 뒤져서 관리자인가? 아닌가를 체크.
+function is_admin_check($mb_id)
+{
+    global $g4, $config;
+
+    if (!$mb_id) return;
+
+    // super 관리자인지 확인 - super는 1명뿐.
+    if ($config['cf_admin'] == $mb_id) return 'super';
+
+    // 그룹 관리자인지 확인
+    $mb = sql_fetch("select gr_id from $g4[group_table] where gr_admin = '$mb_id' limit 1 ");
+    if ($mb) return 'group';
+    
+    // 게시판 관리자인지 확인
+    $mb = sql_fetch("select bo_table from $g4[board_table] where bo_admin = '$mb_id' limit 1 ");
+    if ($mb) return 'board';
+    
+    return '';
+}
 ?>
