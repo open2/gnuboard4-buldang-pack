@@ -31,6 +31,16 @@ for ($i=0; $i<count($chk); $i++)
     if ($is_admin != "super")
         $sql .= " and gr_admin    = '{$_POST[gr_admin][$k]}' ";
     sql_query($sql);
+
+    // 불당팩 - 권한변경 작업내역을 db log에 남깁니다
+    if ($_POST[gr_admin][$k] !== $gr_old['gr_admin']) {
+        $sql =  " update $g4[group_table] set gr_admin='{$_POST[gr_admin][$k]}' where gr_id='{$_POST[gr_id][$k]}'";
+
+        $sql = " insert into $g4[admin_log_table] 
+                    set log_datetime = '$g4[time_ymdhis]',
+                        log = '" . mysql_real_escape_string($sql) . "' ";
+        sql_query($sql);
+    }
 }
 
 goto_url("./boardgroup_list.php?$qstr");

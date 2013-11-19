@@ -556,5 +556,17 @@ for($i=0; $i < $notice_count; $i++) {
 $sql = " update $g4[board_table] set bo_notice = '$bo_notice' where bo_table = '$bo_table' ";
 sql_query("$sql");
 
+// 불당팩 - 권한변경 작업내역을 db log에 남깁니다
+if ($bo_admin !== $board['bo_admin']) {
+    $sql =  " update $g4[board_table] set bo_admin='$bo_admin' where bo_table='$bo_table'";
+    if ($chk_admin)
+        $sql .= " update $g4[board_table] set bo_admin='$bo_admin' where gr_id='$gr_id'";
+
+    $sql = " insert into $g4[admin_log_table] 
+                set log_datetime = '$g4[time_ymdhis]',
+                    log = '" . mysql_real_escape_string($sql) . "' ";
+    sql_query($sql);
+}
+
 goto_url("./board_form.php?w=u&bo_table=$bo_table&$qstr");
 ?>

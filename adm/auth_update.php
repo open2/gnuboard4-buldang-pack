@@ -33,7 +33,7 @@ if (!$result) {
     sql_query($sql);
 }
 
-// 관리자 작업내역을 db log에 남깁니다
+// 불당팩 - 관리자 권한변경 작업내역을 db log에 남깁니다
 $sql = " insert into $g4[admin_log_table] 
             set log_datetime = '$g4[time_ymdhis]',
                 log = '" . mysql_real_escape_string($sql) . "' ";
