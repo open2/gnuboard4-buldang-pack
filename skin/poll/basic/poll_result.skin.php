@@ -27,7 +27,11 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <tr>
     <th><?=$list[$i][num]?>. <?=$list[$i][content]?></th>
     <td><div class="bar" style="width: 40%;"></div>
-    <!--<span style="width:<?=$list[$i][rate]?>%;" class="g_action">-->
+        <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="<?=$list[$i][rate]?>" aria-valuemin="0" aria-valuemax="100" style="width: <?=$list[$i][rate]?>%;">
+            <span class="sr-only"><?=$list[$i][rate]?>%</span>
+        </div>
+        </div>
     </td>
     <th><?=$list[$i][cnt]?>표 (<?=number_format($list[$i][rate], 1)?>%)</th>
     </tr>
@@ -42,7 +46,6 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         <form role="form" class="form-inline" name="fpollresult" method="post" onsubmit="return fpollresult_submit(this);" autocomplete="off">
         <input type=hidden name=po_id value="<?=$po_id?>">
         <input type=hidden name=w value="">
-        <input type='text' name='pc_idea' class="form-control" required itemname='의견' maxlength="100" size=85>&nbsp;
         <? if (!$member[mb_id] && $config[cf_use_norobot]) { ?>
         <table width=100%>
             <tr> 
@@ -61,7 +64,12 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
             </tr>
         </table>
         <? } ?>
-        <button type="submit" class="btn btn-success btn-sm">쓰기</button>
+        <div class="input-group">
+            <input type="text" class="form-control" name='pc_idea' required itemname='의견' maxlength="100" size=85>
+            <span class="input-group-btn">
+            <button type="submit" class="btn btn-success">쓰기</button>
+            </span>
+        </div>
         </form>
     </div>
 </div>

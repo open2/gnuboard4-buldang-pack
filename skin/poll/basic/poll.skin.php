@@ -22,7 +22,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     </div>
     <div class="panel-footer">
         <div class="btn-group">
-        <a class="btn btn-info btn-sm" href="javascript:;" onclick="poll_result('<?=$po_id?>');">결과보기</a>
+        <a class="btn btn-info btn-sm" href="javascript:;" onclick="poll_result('<?=$po_id?>');">결과</a>
         <? if ($po_use) { ?>
         <button type="submit" class="btn btn-success btn-sm">투표</button>
         <? } ?>
