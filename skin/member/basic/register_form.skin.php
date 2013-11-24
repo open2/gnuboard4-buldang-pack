@@ -1,31 +1,14 @@
 <?
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
 ?>
-
-<style type="text/css">
-<!--
-.m_title    { BACKGROUND-COLOR: #F7F7F7; PADDING-LEFT: 15px; PADDING-top: 5px; PADDING-BOTTOM: 5px; }
-.m_padding  { PADDING-LEFT: 15px; PADDING-BOTTOM: 5px; PADDING-TOP: 5px; }
-.m_padding2 { PADDING-LEFT: 0px; PADDING-top: 5px; PADDING-BOTTOM: 0px; }
-.m_padding3 { PADDING-LEFT: 0px; PADDING-top: 5px; PADDING-BOTTOM: 5px; }
-.m_text     { BORDER: #D3D3D3 1px solid; HEIGHT: 18px; BACKGROUND-COLOR: #ffffff; }
-.m_text2    { BORDER: #D3D3D3 1px solid; HEIGHT: 18px; BACKGROUND-COLOR: #dddddd; }
-.m_textarea { BORDER: #D3D3D3 1px solid; BACKGROUND-COLOR: #ffffff; WIDTH: 100%; WORD-BREAK: break-all; }
-.w_message  { font-family:돋움; font-size:9pt; color:#4B4B4B; }
-.w_norobot  { font-family:돋움; font-size:9pt; color:#BB4681; }
-.w_hand     { cursor:pointer; }
--->
-</style>
-
-<script>
+<script type="text/javascript">
 var member_skin_path = "<?=$member_skin_path?>";
 </script>
-
 <script type="text/javascript" src="<?=$member_skin_path?>/jquery.ajax_register_form.js"></script>
 <script type="text/javascript" src="<?=$g4[path]?>/js/md5.js"></script>
 <script type="text/javascript" src="<?=$g4[path]?>/js/sideview.js"></script>
 
-<form name=fregisterform id=fregisterform method=post onsubmit="return fregisterform_submit(this);" enctype="multipart/form-data" autocomplete="off">
+<form class="form-horizontal" role="form" name=fregisterform id=fregisterform method=post onsubmit="return fregisterform_submit(this);" enctype="multipart/form-data" autocomplete="off">
 <input type=hidden name=w                id=w                   value="<?=$w?>">
 <input type=hidden name=url              id=url                 value="<?=$urlencode?>">
 <input type=hidden name=mb_id_enabled    id="mb_id_enabled"     value="" >
@@ -35,235 +18,151 @@ var member_skin_path = "<?=$member_skin_path?>";
 <input type=hidden name=ug_id            id="ug_id"             value="<?=$ug_id?>" >
 <input type=hidden name=join_code        id="join_code"         value="<?=$join_code?>" >
 
-<table width=600 cellspacing=0 align=center>
-<tr>
-    <td><img src="<?=$member_skin_path?>/img/join_form_title.gif" width="624" height="72">
+<div class="panel panel-default">
+    <div class="panel-heading"><h4><strong>회원정보</strong></h4>
+    </div>
+    <div class="panel-body">
 
-<table width="100%" cellspacing="0" cellpadding="0">
-<tr>
-    <td bgcolor="#CCCCCC">
-        <TABLE cellSpacing=1 cellPadding=0 width=100%>
-        <col width=160>
-        <col>
-        <TR bgcolor="#FFFFFF">
-            <TD class=m_title>아이디</TD>
-            <TD class=m_padding>
-                <input class=m_text maxlength=20 size=20 id='mb_id' name="mb_id" required style="ime-mode:disabled" value="<?=$member[mb_id]?>" <? if ($w=='u') { echo "readonly style='background-color:#dddddd;'"; } ?>
-                    <? if ($w=='') { echo "onblur='reg_mb_id_check()'"; } ?>>
+        <div class="form-group">
+            <label for="mb_id" class="col-sm-2 control-label">아이디</label>
+            <div class="col-sm-6">
+                <input class="form-control" placeholder="User id" maxlength=20 size=20 id='mb_id' name="mb_id" required style="ime-mode:disabled" value="<?=$member[mb_id]?>" 
+                <? if ($w=='u') { echo "disabled"; } ?>
+                <? if ($w=='') { echo "onblur='reg_mb_id_check()'"; } ?>>
                 <? if ($w=='') { ?>
-                <span id='msg_mb_id'></span>
-                <table height=25 cellspacing=0 cellpadding=0 border=0>
-                <tr><td><font color="#66a2c8">※ 영문자, 숫자, _ 만 입력 가능. 최소 4자이상 입력하세요.</font></td></tr>
-                </table>
+                    <p class="help-block">영문자, 숫자, _ 만 입력 가능. 3자이상 입력하세요.</p>
+      	    				<p class="help-block"><span id="msg_mb_id"></span></p>
                 <? } ?>
-            </TD>
-        </TR>
-        
-        <style type="text/css">
-            /* 패스워드 미터 http://www.codeassembly.com/How-to-make-a-password-strength-meter-for-your-register-form */ 
-            #barplus {position: relative; width: 300px;  display:block;} 
-            #barplus #passwordStrength {position: absolute; top: 1px; left: 125px;} 
-            #passwordStrength {position: relative; font-size: 1px; height:18px;} 
-            .strength0,
-            .strength1,
-            .strength2,
-            .strength3,
-            .strength4,
-            .strength5 {font-size:1px;position:absolute;top:0px;left:-120px;width:178px;height:16px;}
-            .strength0 {background-image:url('<?=$member_skin_path?>/img/m1.gif');} /*매우부족*/ 
-            .strength1 {background-image:url('<?=$member_skin_path?>/img/m2.gif');} /*조금부족*/ 
-            .strength2 {background-image:url('<?=$member_skin_path?>/img/m3.gif');} /*보통수준*/
-            .strength3 {background-image:url('<?=$member_skin_path?>/img/m4.gif');} /*양호수준*/
-            .strength4 {background-image:url('<?=$member_skin_path?>/img/m5.gif');} /*좋습니다*/
-            .strength5 {background-image:url('<?=$member_skin_path?>/img/m6.gif');} /*매우좋음*/
-            .strength0t,
-            .strength1t,
-            .strength2t,
-            .strength3t,
-            .strength4t,
-            .strength5t {font-weight:bold;letter-spacing:-2px;font-size:8pt;display:none;}
+            </div>
+        </div>
+    
+        <div class="form-group">
+            <label for="mb_password" class="col-sm-2 control-label">패스워드</label>
+            <div class="col-sm-6">
+                <INPUT class="form-control" type="password" name="mb_password" id="mb_password" style="ime-mode:disabled" size=20 maxlength=20 <?=($w=="")?"required":"";?> itemname="패스워드" onblur="passwordStrength(this.value)" placeholder="Password">
+            </div>
+        </div>
+    
+        <div class="form-group">
+            <label for="mb_password_re" class="col-sm-2 control-label">패스워드확인</label>
+            <div class="col-sm-6">
+                <INPUT class="form-control" type="password" name="mb_password_re" style="ime-mode:disabled" size=20 maxlength=20 <?=($w=="")?"required":"";?> itemname="패스워드 확인" placeholder="Password를 한번 더 입력">
+            </div>
+        </div>
 
-            .strength0t,
-            .strength1t {color:#ff0066;}
-            .strength2t,
-            .strength3t {color:#77a80f;}
-            .strength4t,
-            .strength5t {color:#4ab3d6;}
-
-            #passwordDescription {padding-left: 5px; display:block; } 
-        </style>
-
-        <script type="text/javascript">
-        <!--
-        function passwordStrength(password) { //이미지로 대체해서 글자는 나오지 않습니다.
-                    var desc = new Array();
-                    desc[0] = "<label class=\"strength0t\">매우부족</label>"; // 매우부족
-                    desc[1] = "<label class=\"strength1t\">조금부족</label>"; // 조금부족
-                    desc[2] = "<label class=\"strength2t\">보통수준</label>"; // 보통수준
-                    desc[3] = "<label class=\"strength3t\">양호수준</label>"; // 양호수준
-                    desc[4] = "<label class=\"strength4t\">좋습니다</label>"; // 좋습니다
-                    desc[5] = "<label class=\"strength5t\">매우좋음</label>"; // 매우좋음
-                    var score = 0;
-                    
-                    //if password length == 0, do nothing
-                    if (password.length == 0) return;
-                    //if password bigger than 6 give 1 point
-                    if (password.length > 6) score++;
-                    //if password has both lower and uppercase characters give 1 point 
-                    if ( ( password.match(/[a-z]/) ) && ( password.match(/[A-Z]/) ) ) score++;
-                    //if password has at least one number give 1 point 
-                    if (password.match(/\d+/)) score++; 
-                    //if password has at least one special caracther give 1 point 
-                    if ( password.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/) ) score++;
-                    //if password bigger than 12 give another 1 point 
-                    if (password.length > 12) score++; 
-                    
-                    //document.getElementById("passwordDescription").innerHTML = desc[score]; 
-                    document.getElementById("passwordStrength").className = "strength" + score;
-                }
-        -->
-        </script>
-
-        <TR bgcolor="#FFFFFF">
-           <TD class=m_title>패스워드</TD>
-           <TD class=m_padding>
-           <div id="barplus"><INPUT class=m_text type=password name="mb_password" id="mb_password" style="ime-mode:disabled" size=20 maxlength=20 <?=($w=="")?"required":"";?> itemname="패스워드" onblur="passwordStrength(this.value)" ><div id="passwordStrength">&nbsp;</div></div>    
-           </TD>
-        </TR>
-        <TR bgcolor="#FFFFFF">
-            <TD class=m_title>패스워드 확인</TD>
-            <TD class=m_padding><INPUT class=m_text type=password name="mb_password_re" style="ime-mode:disabled" size=20 maxlength=20 <?=($w=="")?"required":"";?> itemname="패스워드 확인"></TD>
-        </TR>
-        </TABLE>
-    </td>
-</tr>
-</table>
-
-<table width="100%" cellspacing="0" cellpadding="0">
-<tr>
-    <td height="1" bgcolor="#ffffff"></td>
-</tr>
-</table>
-
-<table width="100%" cellspacing="0" cellpadding="0">
-<tr>
-    <td bgcolor="#CCCCCC">
-        <TABLE cellSpacing=1 cellPadding=0 width=100%>
-        <col width=160>
-        <col>
         <? if ($g4['nick_reg_only'] !== 1) { ?>
-        <TR bgcolor="#FFFFFF">
-            <TD class=m_title>이름</TD>
-            <TD class=m_padding>
-                <input name=mb_name id=mb_name required itemname="이름" value="<?=$member[mb_name]?>" <?=$member[mb_name]?"readonly class=m_text2":"class=m_text";?>
+        <div class="form-group">
+            <label for="mb_password_re" class="col-sm-2 control-label">이름</label>
+            <div class="col-sm-6">
+                <INPUT class="form-control" type="text" name=mb_name id=mb_name size=20 maxlength=20 required itemname="이름" value="<?=$member[mb_name]?>" placeholder="Name"
+                <? if ($w=='u') { echo "disabled"; } ?>
                 <? if ($w=='') { echo "onblur='reg_mb_name_check()'"; } ?>>
-
                 <? if ($w=='') { ?>
-                <span id='msg_mb_name'></span>
-                <table height=25 cellspacing=0 cellpadding=0 border=0>
-                <tr><td><font color="#66a2c8">※ 공백없이 한글 또는 영문만 입력 가능합니다.</font></td></tr>
-                </table>
+                    <p class="help-block">공백없이 한글 또는 영문만 입력 가능합니다.</p>
+      	    				<p class="help-block"><span id="msg_mb_name"></span></p>
                 <? } ?>
-            </TD>
-        </TR>
+            </div>
+        </div>
         <? } ?>
 
         <? if ($member[mb_nick_date] <= date("Y-m-d", $g4[server_time] - ($config[cf_nick_modify] * 86400))) { // 별명수정일이 지났다면 수정가능 ?>
         <input type=hidden name=mb_nick_default value='<?=$member[mb_nick]?>'>
-        <TR bgcolor="#FFFFFF">
-            <TD class=m_title>별명</TD>
-            <TD class='m_padding lh'>
-                <input class=m_text type=text id='mb_nick' name='mb_nick' required hangulalphanumeric maxlength=20 value='<?=$member[mb_nick]?>'
-                    onblur="reg_mb_nick_check();">
-                <span id='msg_mb_nick'></span>
-                <br>공백없이 한글,영문,숫자만 입력 가능 (한글2자, 영문4자 이상)
-                <br>별명을 바꾸시면 앞으로 <?=(int)$config[cf_nick_modify]?>일 이내에는 변경 할 수 없습니다.
-            </TD>
-        </TR>
+        <div class="form-group">
+            <label for="mb_nick" class="col-sm-2 control-label">닉네임</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" id='mb_nick' name='mb_nick' required hangulalphanumeric maxlength=20 value='<?=$member[mb_nick]?>' placeholder="Nick name" onblur="reg_mb_nick_check();">
+                    <p class="help-block">공백없이 한글,영문,숫자만 입력 가능 (한글2자, 영문4자 이상)<br>
+                    별명을 바꾸시면 앞으로 <?=(int)$config[cf_nick_modify]?>일 이내에는 변경 할 수 없습니다.</p>
+      	    				<p class="help-block"><span id="msg_mb_nick"></span></p>
+            </div>
+        </div>
         <? } else { ?>
         <input type=hidden name="mb_nick_default" value='<?=$member[mb_nick]?>'>
-        <TR bgcolor="#FFFFFF">
-            <TD class=m_title>별명</TD>
-            <?
-            $d_times = (int)(($config[cf_nick_modify] * 86400 - ( $g4[server_time] - strtotime($member[mb_nick_date]))) / 86400) + 1;
-            ?>
-            <TD class='m_padding lh'><input name="mb_nick" value="<?=$member[mb_nick]?>" readonly> ※ <?=$d_times?>일 후 변경이 가능 합니다.
-            </TD>
-        </TR>
+        <div class="form-group">
+            <label for="mb_nick" class="col-sm-2 control-label">닉네임</label>
+            <div class="col-sm-6">
+                <?
+                $d_times = (int)(($config[cf_nick_modify] * 86400 - ( $g4[server_time] - strtotime($member[mb_nick_date]))) / 86400) + 1;
+                ?>
+                <input class="form-control" disabled type="text" id='mb_nick' name='mb_nick' value='<?=$member[mb_nick]?>'>
+                    <p class="help-block">※ <?=$d_times?>일 후 변경이 가능 합니다.</p>
+            </div>
+        </div>
         <? } ?>
 
         <input type=hidden name='old_email' value='<?=$member[mb_email]?>'>
-        <TR bgcolor="#FFFFFF">
-            <TD class=m_title>E-mail</TD>
-            <TD class='m_padding lh'>
-                <input class=m_text type=text id='mb_email' name='mb_email' required style="ime-mode:disabled" size=38 maxlength=100 value='<?=$member[mb_email]?>'
+        <div class="form-group">
+            <label for="mb_email" class="col-sm-2 control-label">E-mail</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" id='mb_email' name='mb_email' required style="ime-mode:disabled" size=38 maxlength=100 value='<?=$member[mb_email]?>' placeholder="E-mail"
                     onblur="reg_mb_email_check()">
-                <span id='msg_mb_email'></span> 
-                <? if ($member[mb_email_certify]) echo "<br>" . cut_str($member[mb_email_certify],10,"") . "에 인증되었습니다." ?>
-                <? if ($config[cf_use_email_certify]) { ?>
-                    <? if ($w=='') { echo "<br>e-mail 로 발송된 내용을 확인한 후 인증하셔야 회원가입이 완료됩니다."; } ?>
-                    <? if ($w=='u') { echo "<br>e-mail 주소를 변경하시면 다시 인증하셔야 합니다."; } ?>
+                <? if ($w=='') { ?>
+                    <p class="help-block">아이디, 비밀번호 분실 시 본인확인용으로 사용되므로<br>유효한 이메일 계정으로 입력하시기 바랍니다.</p>
+      	    				<p class="help-block"><span id="msg_mb_email"></span></p>
+      	    		<?}?>
+                <? if ($member[mb_email_certify]) {?>
+                    <p class="help-block"><?=cut_str($member[mb_email_certify],10,"")?> 에 인증되었습니다.</p>
                 <? } ?>
-                <? if ($w=='u')
-                    if ($g4['email_certify_point'] || $config['cf_use_email_certify'])
-                        echo "<br><a href='$g4[bbs_path]/email_re_certify.php' target=new>이메일인증하러 가기</a>를 누르시면 인증창이 열립니다.";
-                ?>
-                <br>아이디, 비밀번호 분실 시 본인확인용으로 사용되므로
-                <br>유효한 이메일 계정으로 입력하시기 바랍니다.
-            </TD>
-        </TR>
+                <? if ($config[cf_use_email_certify]) { ?>
+                    <? if ($w=='') { ?><p class="help-block">e-mail 로 발송된 내용을 확인한 후 인증하셔야 회원가입이 완료됩니다.</p><?}?>
+                    <? if ($w=='u'){ ?><p class="help-block">e-mail 주소를 변경하시면 다시 인증하셔야 합니다.</p><?}?>
+                <? } ?>
+                <? if ($w=='u') {
+                    if ($g4['email_certify_point'] || $config['cf_use_email_certify']) ?>
+                        <p class="help-block"><a href='<?=$g4[bbs_path]?>/email_re_certify.php' target=new>이메일인증하러 가기</a>를 누르시면 인증창이 열립니다.</p>
+                <?}?>
+            </div>
+        </div>
 
         <? if ($w=="") { ?>
             <? if ($config[cf_use_birthdate]) { ?>
-            <TR bgcolor="#FFFFFF">
-                <TD class=m_title>생년월일</TD>
-                <TD class=m_padding><input class=m_text type=text id=mb_birth name='mb_birth' size=8 maxlength=8 minlength=8 required numeric itemname='생년월일' value='<?=$member[mb_birth]?>' readonly title='옆의 달력 아이콘을 클릭하여 날짜를 입력하세요.'>
-                    <a href="javascript:win_calendar('mb_birth', document.getElementById('mb_birth').value, '');"><img src='<?=$member_skin_path?>/img/calendar.gif' border=0 align=absmiddle title='달력 - 날짜를 선택하세요'></a></TD>
-            </TR>
+            <div class="form-group">
+                <label for="mb_birth" class="col-sm-2 control-label">생년월일</label>
+                <div class="col-sm-6">
+                    <div class="input-group">
+                    <span class="input-group-btn">
+                    <a class="btn btn-default" href="javascript:win_calendar('mb_birth', document.getElementById('mb_birth').value, '');"><i class="fa fa-calendar"></i></a>
+                    </span>
+                    <INPUT class="form-control" type="text" id="mb_birth" name='mb_birth' size=8 maxlength=8 minlength=8 required numeric itemname='생년월일' value='<?=$member[mb_birth]?>' readonly title='옆의 달력 아이콘을 클릭하여 날짜를 입력하세요.'>
+                    </div>
+                </div>
+            </div>
             <? } ?>
         <? } ?>
 
         <? if ($member[mb_sex]) { ?>
-            <input type=hidden name=mb_sex value='<?=$member[mb_sex]?>'>
-            <TR bgcolor="#FFFFFF">
-                <TD class=m_title>성별</TD>
-                <TD class=m_padding>
+        <input type=hidden name=mb_sex value='<?=$member[mb_sex]?>'>
+        <div class="form-group">
+            <label for="mb_sex" class="col-sm-2 control-label">성별</label>
+            <div class="col-sm-6">
+                <p class="help-block">
                     <? 
                     switch ($member[mb_sex]) {
                       case 'F' : echo "여자"; break;
                       case 'M' : echo "남자"; break;
                     }
                     ?>
-                </td>
-            </TR>
+                </p>
+            </div>
+        </div>
         <? } else { ?>
             <? if ($config[cf_use_sex]) { ?>
-            <TR bgcolor="#FFFFFF">
-                <TD class=m_title>성별</TD>
-                <TD class=m_padding>
-                    <select id=mb_sex name=mb_sex required itemname='성별'>
-                    <option value=''>선택하세요
-                    <option value='F'>여자
-                    <option value='M'>남자
-                    </select>
-                    <script language="JavaScript">//document.getElementById('mb_sex').value='<?=$member[mb_sex]?>';</script>
-                    </td>
-            </TR>
+            <div class="form-group">
+                <label for="mb_sex" class="col-sm-2 control-label">성별</label>
+                <div class="col-sm-6">
+                    <div class="radio-inline">
+                        <label>
+                        <input type="radio" name="mb_sex" id="mb_sex1" value="F" checked>여성
+                        </label>
+                    </div>
+                    <div class="radio-inline">
+                        <label>
+                        <input type="radio" name="mb_sex" id="mb_sex2" value="M">남성
+                        </label>
+                    </div>
+                </div>
+            </div>
             <? } ?>
-        <? } ?>
-
-        <? if ($config[cf_use_homepage]) { ?>
-        <TR bgcolor="#FFFFFF">
-            <TD class=m_title>홈페이지</TD>
-            <TD class=m_padding><input class=m_text type=text name='mb_homepage' size=38 maxlength=255 <?=$config[cf_req_homepage]?'required':'';?> itemname='홈페이지' value='<?=$member[mb_homepage]?>'></TD>
-        </TR>
-        <? } ?>
-
-        <? if ($config[cf_use_tel]) { ?>
-        <TR bgcolor="#FFFFFF">
-            <TD class=m_title>전화번호</TD>
-            <TD class=m_padding><input class=m_text type=text name='mb_tel' size=21 maxlength=20 <?=$config[cf_req_tel]?'required':'';?> itemname='전화번호' value='<?=$member[mb_tel]?>'></TD>
-        </TR>
         <? } ?>
 
         <? if ($config[cf_use_hp]) { ?>
@@ -303,6 +202,24 @@ var member_skin_path = "<?=$member_skin_path?>";
         </TR>
         <? } ?>
 
+        <? if ($config[cf_use_tel]) { ?>
+        <div class="form-group">
+            <label for="mb_tel" class="col-sm-2 control-label">전화번호</label>
+            <div class="col-sm-6">
+                <INPUT class="form-control" type="text" name="mb_tel" size=21 maxlength=20 <?=$config[cf_req_tel]?'required':'';?> itemname='전화번호' value='<?=$member[mb_tel]?>' placeholder="Telephone no.">
+            </div>
+        </div>
+        <? } ?>
+
+        <? if ($config[cf_use_homepage]) { ?>
+        <div class="form-group">
+            <label for="mb_homepage" class="col-sm-2 control-label">홈페이지</label>
+            <div class="col-sm-6">
+                <INPUT class="form-control" type="text" name="mb_homepage" id="mb_homepage" size=38 maxlength=255 <?=$config[cf_req_homepage]?'required':'';?> itemname='홈페이지' value='<?=$member[mb_homepage]?>' placeholder="Homepage URL">
+            </div>
+        </div>
+        <? } ?>
+
         <? if ($config[cf_use_addr]) { ?>
         <TR bgcolor="#FFFFFF">
             <TD class=m_title>주소</TD>
@@ -325,21 +242,64 @@ var member_skin_path = "<?=$member_skin_path?>";
         </TR>
         <? } ?>
 
-        </TABLE>
-    </td>
-</tr>
-</table>
+        <div class="form-group">
+            <label for="mb_mailling" class="col-sm-2 control-label">메일링서비스</label>
+            <div class="col-sm-6">
+            <div class="checkbox">
+						<label>
+                <input type="checkbox" name="mb_mailling" id="mb_mailling" value='1' <?=($w=='' || $member[mb_mailling])?'checked':'';?>>
+                정보 메일을 받겠습니다.
+						</label>
+						</div>
+            </div>
+        </div>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-<tr>
-    <td height="1" bgcolor="#ffffff"></td>
-</tr>
-</table>
+        <? if ($config[cf_use_hp]) { ?>
+        <div class="form-group">
+            <label for="mb_sms" class="col-sm-2 control-label">SMS 수신여부</label>
+            <div class="col-sm-6">
+            <div class="checkbox">
+						<label>
+                <input type="checkbox" name="mb_sms" value='1' <?=($w=='' || $member[mb_sms])?'checked':'';?>>
+                핸드폰 문자메세지를 받겠습니다.
+						</label>
+						</div>
+            </div>
+        </div>
+        <? } ?>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-<tr>
-    <td bgcolor="#CCCCCC">
-        <TABLE cellSpacing=1 cellPadding=0 width=100%>
+        <? if ($member[mb_open_date] <= date("Y-m-d", $g4[server_time] - ($config[cf_open_modify] * 86400)) || !$member['mb_open']) { // 정보공개 수정일이 지났다면 수정가능 ?>
+        <input type=hidden name=mb_open_default value='<?=$member[mb_open]?>'>
+        <div class="form-group">
+            <label for="mb_open" class="col-sm-2 control-label">정보공개</label>
+            <div class="col-sm-6">
+            <div class="checkbox">
+						<label>
+                <input type="checkbox" name="mb_open" id="mb_open" value='1' <?=($w=='' || $member[mb_open])?'checked':'';?>>
+                다른 회원들이 나의 정보를 볼 수 있도록 합니다.
+						</label>
+						</div>
+                <? if ($config[cf_open_modify]) { ?>
+                <p class="help-block">정보공개를 바꾸시면 앞으로 <?=(int)$config[cf_open_modify]?>일 이내에는 변경이 안됩니다.</p>
+                <? } ?>
+            </div>
+        </div>        
+        <? } else { ?>
+        <input type=hidden name="mb_open" value="<?=$member[mb_open]?>">
+        <div class="form-group">
+            <?
+            $d_times = (int)(($config[cf_open_modify] * 86400 - ( $g4[server_time] - strtotime($member[mb_open_date]))) / 86400) + 1;
+            if ($member[mb_open]) $msg="정보공개"; else $msg = "정보비공개";
+            ?>
+            <label for="mb_open" class="col-sm-2 control-label">정보공개</label>
+            <div class="col-sm-6">
+                <p class="help-block">
+                현재 <?=$msg?> 상태이며, <?=$member[mb_open_date]?>일 정보를 수정했습니다.<br>
+                정보공개는 수정후 <?=(int)$config[cf_open_modify]?>일 이내, <?=date("Y년 m월 j일", strtotime("$member[mb_open_date] 00:00:00") + ($config[cf_open_modify] * 86400))?> 까지는 변경이 안됩니다.<br> 
+                </p>
+            </div>
+        </div>         
+        <? } ?>
 
         <? if ($config[cf_use_signature]) { ?>
         <TR bgcolor="#FFFFFF">
@@ -371,52 +331,6 @@ var member_skin_path = "<?=$member_skin_path?>";
         </TR>
         <? } ?>
 
-        <TR bgcolor="#FFFFFF">
-            <TD width="160" class=m_title>메일링서비스</TD>
-            <TD class=m_padding><input type=checkbox name=mb_mailling value='1' <?=($w=='' || $member[mb_mailling])?'checked':'';?>>정보 메일을 받겠습니다.</TD>
-        </TR>
-        <? if ($config[cf_use_hp]) { ?>
-        <TR bgcolor="#FFFFFF">
-            <TD width="160" class=m_title>SMS 수신여부</TD>
-            <TD class=m_padding><input type=checkbox name=mb_sms value='1' <?=($w=='' || $member[mb_sms])?'checked':'';?>>핸드폰 문자메세지를 받겠습니다.</TD>
-        </TR>
-        <? } ?>
-
-        <? if ($config[cf_memo_realtime]) { ?>
-        <TR bgcolor="#FFFFFF">
-            <TD width="160" class=m_title>실시간쪽지</TD>
-            <TD class=m_padding>
-            <input type=checkbox name=mb_realmemo value='1' <?=($w=='' || $member[mb_realmemo])?'checked':'';?>>실시간쪽지 사용
-            <input type=checkbox name=mb_realmemo_sound value='1' <?=($w=='' || $member[mb_realmemo_sound])?'checked':'';?>>음성알림사용(실시간쪽지 사용시에만 동작함)
-            </TD>
-        </TR>
-        <? } ?>
-        
-        <? if ($member[mb_open_date] <= date("Y-m-d", $g4[server_time] - ($config[cf_open_modify] * 86400)) || !$member['mb_open']) { // 정보공개 수정일이 지났다면 수정가능 ?>
-        <input type=hidden name=mb_open_default value='<?=$member[mb_open]?>'>
-        <TR bgcolor="#FFFFFF">
-            <TD width="160" class=m_title>정보공개</TD>
-            <TD class=m_padding><input type=checkbox name=mb_open value='1' <?=($w=='' || $member[mb_open])?'checked':'';?>>다른분들이 나의 정보를 볼 수 있도록 합니다.
-                <? if ($config[cf_open_modify]) { ?>
-                <br>&nbsp;&nbsp;&nbsp;&nbsp; 정보공개를 바꾸시면 앞으로 <?=(int)$config[cf_open_modify]?>일 이내에는 변경이 안됩니다.</td>
-                <? } ?>
-        </TR>
-        <? } else { ?>
-        <input type=hidden name="mb_open" value="<?=$member[mb_open]?>">
-        <TR bgcolor="#FFFFFF">
-            <TD width="160" class=m_title>정보공개</TD>
-            <?
-            $d_times = (int)(($config[cf_open_modify] * 86400 - ( $g4[server_time] - strtotime($member[mb_open_date]))) / 86400) + 1;
-            if ($member[mb_open]) $msg="정보공개"; else $msg = "정보비공개";
-            ?>
-            <TD class='m_padding lh'>
-                현재 <?=$msg?> 상태이며, <?=$member[mb_open_date]?>일 정보를 수정했습니다.<br>
-                정보공개는 수정후 <?=(int)$config[cf_open_modify]?>일 이내, <?=date("Y년 m월 j일", strtotime("$member[mb_open_date] 00:00:00") + ($config[cf_open_modify] * 86400))?> 까지는 변경이 안됩니다.<br> 
-                이렇게 하는 이유는 잦은 정보공개 수정으로 인하여 쪽지를 보낸 후 받지 않는 경우를 막기 위해서 입니다. 
-            </td>
-        </TR>
-        <? } ?>
-
         <? if ($w == "" && $config[cf_use_recommend]) { ?>
         <TR bgcolor="#FFFFFF">
             <TD width="160" class=m_title>추천인아이디</TD>
@@ -441,55 +355,43 @@ var member_skin_path = "<?=$member_skin_path?>";
         </TR>
         <? } ?>
 
-        <? if ($w == "u") { ?>
-        <TR bgcolor="#FFFFFF">
-            <TD width="160" class=m_title>가입일</TD>
-            <TD class=m_padding><?=$member[mb_datetime]?></TD>
-        </TR>
-        <? } ?>
-
-        </TABLE>
-    </td>
-</tr>
-</table>
-
-<? if ($config[cf_use_norobot]) { ?>
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-<tr>
-    <td height="1" bgcolor="#ffffff"></td>
-</tr>
-</table>
-
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-<tr>
-    <td bgcolor="#CCCCCC">
-        <TABLE cellSpacing=1 cellPadding=0 width=100%>
-        <TR bgcolor="#FFFFFF">
-            <td width="160" height="28" class=m_title>
+        <? if ($config[cf_use_norobot]) { ?>
+        <div class="form-group">
+            <label for="wr_key" class="col-sm-2 control-label">
                 <script type="text/javascript" src="<?="$g4[path]/zmSpamFree/zmspamfree.js"?>"></script>
                 <img id="zsfImg">
-            </td>
-            <td class=m_padding>
-                <input class='ed' type=input size=10 name=wr_key id=wr_key itemname="자동등록방지" required >&nbsp;&nbsp;왼쪽의 글자를 입력하세요.
-            </td>
-        </tr>
-        </table>
-    </td>
-</tr>
-</table>
-<? } ?>
+            </label>
+            <div class="col-sm-6">
+                <input class="form-control" type="input" size=10 name=wr_key id=wr_key itemname="자동등록방지" required placeholder="Captcha">
+                <p class="help-block">왼쪽의 글자를 입력하세요.</p>
+            </div>
+        </div>        
+        <? } ?>
 
-<p align=center> 
-    <INPUT type=image width="66" height="20" src="<?=$member_skin_path?>/img/join_ok_btn.gif" border=0 accesskey='s'> 
+        <? if ($w == "u") { ?>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">가입일</label>
+            <div class="col-sm-6">
+                <p class="help-block"><?=$member[mb_datetime]?></p>
+            </div>
+        </div>
+        <? } ?>
+
+    </div>
+    <div class="panel-footer">
+    <button class="btn btn-success">가입합니다</button>
+    &nbsp;&nbsp;&nbsp;
     <? if ($is_member) { ?> 
-    <a href="javascript:member_leave();"><img src="<?=$member_skin_path?>/img/leave_btn.gif" border=0 align=right></a> 
+    <a href="javascript:member_leave();" class="btn btn-default pull-right">회원탈퇴</a>
     <? } ?> 
-</td></tr> 
-</table> 
+    </div>
 
+    </div>
+</div>
 </form> 
 
 <script type="text/javascript">
+// 회원가입시 -> mb_id에 focus, 수정시 -> mb_password에 focus
 $(document).ready(function(){
     if ($('#w').val() == '')
         $('#mb_id').focus();
