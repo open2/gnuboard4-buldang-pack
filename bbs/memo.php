@@ -730,7 +730,7 @@ break;
                 else
                     $list[$i][subject] = $list[$i][subject];
             }
-    
+
             $list[$i][read_datetime] = $read_datetime;
             $list[$i][send_datetime] = $send_datetime;
 

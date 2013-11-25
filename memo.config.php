@@ -56,8 +56,11 @@ if (function_exists('sql_fetch')) {
 // 쪽지 첨부파일 경로
 $memo_file_path = $g4['data_path'] . "/memo2/" . $member['mb_id']; 
 
+// memo skin
+$g4['memo_skin'] = "basic";
+
 // 쪽지 스킨 경로 지정
-$memo_skin_path = "$g4[path]/skin/member/$config[cf_member_skin]";
+$g4['memo_skin_path'] = "$g4[path]/skin/memo/" . $g4['memo_skin'];
 
 // 쪽지 프로그램의 location을 정의, $_SERVER[PHP_SELF]를 안쓰기 위해서
 $memo_url = $g4[bbs_path] . "/memo.php";
