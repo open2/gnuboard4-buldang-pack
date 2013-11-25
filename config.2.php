@@ -32,6 +32,9 @@ $g4['naver_api'] = "";
 // 네이버 단축주소 API - https://dev.naver.com/openapi/register
 $g4['me2do_key'] = "";
 
+// 우체국 우편번호 API
+$g4['epost_key'] = "f91427a9fc7337ff91385268803210";
+
 // 채널 - 다수대의 web server를 쓸 때, 어떤 서버인지 확인을 위해 채널에 ip 마지막 자리를 넣어주면 편하다.
 $g4['channel'] = "";
 
