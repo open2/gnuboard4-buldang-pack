@@ -154,6 +154,7 @@ $bo_list_view           = $_POST[bo_list_view];
 $bo_list_comment        = $_POST[bo_list_comment];
 $bo_list_good           = $_POST[bo_list_good];
 $bo_list_nogood         = $_POST[bo_list_nogood];
+$bo_list_scrap          = $_POST[bo_list_scrap];
 
 $bo_1_subj              = $_POST[bo_1_subj];
 $bo_2_subj              = $_POST[bo_2_subj];
@@ -270,6 +271,7 @@ $sql_common = " gr_id               = '$gr_id',
                 bo_list_comment     = '$bo_list_comment',
                 bo_list_good        = '$bo_list_good',
                 bo_list_nogood      = '$bo_list_nogood',
+                bo_list_scrap       = '$bo_list_scrap',
                 bo_read_point_lock  = '$bo_read_point_lock',
                 bo_notice_joongbok  = '$bo_notice_joongbok',
                 bo_1_subj           = '$bo_1_subj',
@@ -493,6 +495,7 @@ if ($chk_list_view) $s .= " , bo_list_view = '$bo_list_view' ";
 if ($chk_list_comment) $s .= " , bo_list_comment = '$bo_list_comment' ";
 if ($chk_list_good) $s .= " , bo_list_good = '$bo_list_good' ";
 if ($chk_list_nogood) $s .= " , bo_list_nogood = '$bo_list_nogood' ";
+if ($chk_list_scrap) $s .= " , bo_list_scrap = '$bo_list_scrap' ";
 if ($chk_read_point_lock) $s .= " , bo_read_point_lock = '$bo_read_point_lock' ";
 if ($chk_notice_joongbok) $s .= " , bo_notice_joongbok = '$bo_notice_joongbok' ";
 

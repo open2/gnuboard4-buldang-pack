@@ -639,6 +639,11 @@ if (!preg_match("/([m|M])$/", $upload_max_filesize)) {
     <td>베스트글(비추천수)</td>
     <td><input type=text class=ed name=bo_list_nogood size=5 value='<?=$board[bo_list_nogood]?>'> 베스트글 게시판에 등록</td>
 </tr>
+<tr class='ht'>
+    <td><input type=checkbox name=chk_list_scrap value=1></td>
+    <td>베스트글(스크랩수)</td>
+    <td><input type=text class=ed name=bo_list_scrap size=5 value='<?=$board[bo_list_scrap]?>'> 베스트글 게시판에 등록</td>
+</tr>
 
 <tr><td colspan=3 class='line2'></td></tr>
 <tr class='ht'>
