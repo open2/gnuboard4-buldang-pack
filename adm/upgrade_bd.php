@@ -901,6 +901,9 @@ if ($config[cf_db_version] < 2000) {
             );
             ";
     sql_query($sql, FALSE);
+
+    // 베스트글에 scrap 갯수를 추가
+    sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_list_scrap` INT( 11 ) NOT NULL AFTER `bo_list_view` ", FALSE);
 }
 
 if ($config[cf_db_version] < 2000) {

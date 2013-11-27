@@ -1136,4 +1136,6 @@ CREATE TABLE IF NOT EXISTS `$g4[admin_log_table]` (
   `log_datetime` datetime NOT NULL,
   `log` text NOT NULL,
   PRIMARY KEY (`log_no`)
-)
+);
+
+ALTER TABLE `$g4[board_table]` ADD `bo_list_scrap` INT( 11 ) NOT NULL AFTER `bo_list_view`;
