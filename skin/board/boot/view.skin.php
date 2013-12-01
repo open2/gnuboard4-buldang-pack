@@ -102,7 +102,7 @@ ob_end_flush();
             $gb4_path="../blog";
             include_once("$gb4_path/common.php");
         ?>
-        <script language=javascript>
+        type="text/javascript"
         // gblog에서 쓰는 java script 변수들을 설정
         var gb4_blog        = "<?=$gb4['bbs_path']?>";
         </script>
