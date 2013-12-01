@@ -323,7 +323,7 @@ if ($sca || $stx)
 }
 
 $write_href = "";
-if ($member[mb_level] >= $board[bo_write_level]) 
+//if ($member[mb_level] >= $board[bo_write_level]) 
     $write_href = "./write.php?bo_table=$bo_table" . $mstr;
 
 $nobr_begin = $nobr_end = "";
