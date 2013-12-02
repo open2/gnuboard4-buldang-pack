@@ -1,58 +1,34 @@
 <?
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
 ?>
-
-<table width="600" height="50" border="0" cellpadding="0" cellspacing="0">
-    <tr>
-        <td height="50" align="center" valign="middle" bgcolor="#EBEBEB"><table width="590" height="40" border="0" cellspacing="0" cellpadding="0">
-            <tr> 
-                <td width="25" align="center" bgcolor="#FFFFFF" ><img src="<?=$member_skin_path?>/img/icon_01.gif" width="5" height="5"></td>
-                <td width="175" align="left" bgcolor="#FFFFFF" ><font color="#666666"><b><?=$g4[title]?></b></font></td>
-                <td width="390" align="right" bgcolor="#FFFFFF" ></td>
-            </tr>
-            </table></td>
-    </tr>
-</table>
-
-<form name="fpasswordlost" method="post" onsubmit="return fpasswordlost_submit(this);" autocomplete="off">
-<table width="540" border="0" cellspacing="0" cellpadding="0" align="center">
-<tr> 
-    <td height="30"></td>
-</tr>
-<tr> 
-    <td height="170" align="center" valign="middle" background="<?=$member_skin_path?>/img/gray_bg_img.gif" bgcolor="#FFFFFF">
-        <table width="400" border="0" cellspacing="0" cellpadding="0">
-        <tr> 
-            <td width="130" height="14"><b>이메일주소</b></td>
-            <td width="" height="14">
-                <input type="text" name="mb_email" class="ed" required email itemname="이메일주소" size="45" />
-                <br />회원가입시 등록하신 이메일주소 입력
-            </td>
-        </tr>
-        <tr> 
-            <td height="20" colspan="2"></td>
-        </tr>
-        <tr> 
-            <td><img id="zsfImg" style="cursor:pointer" ></td>
-            <td>
-                <script type="text/javascript" src=<?="$g4[path]/zmSpamFree/zmspamfree.js"?>></script>
-                
-                <input class='ed' type=input size=10 name=wr_key id=wr_key itemname="자동등록방지" required >&nbsp;&nbsp;
-                <br />왼쪽의 글자/숫자를 입력하세요.
-            </td>
-        </tr>
-        </table>
-    </td>
-</tr>
-<tr> 
-    <td height="10"></td>
-</tr>
-<tr> 
-    <td height="40" align="center" valign="bottom"><input type="image" src="<?=$member_skin_path?>/img/btn_next_01.gif">&nbsp;&nbsp;<a href="javascript:window.close();"><img src="<?=$member_skin_path?>/img/btn_close.gif" width="48" height="20" border="0"></a></td>
-</tr>
-</table>
+<form name="fpasswordlost" class="form-horizontal" method="post" onsubmit="return fpasswordlost_submit(this);" autocomplete="off">
+<div class="panel panel-default">
+  <div class="panel-heading"><div class="col-sm-offset-2"><strong>회원 아이디/패스워드 찾기</strong></div></div>
+  <div class="panel-body">
+			<div class="form-group">
+				<label for="mb_id" class="col-sm-2 control-label">이메일주소</label>
+				<div class="col-sm-2">
+					<input type="text" name="mb_email" id="mb_email" class="form-control" maxLength=80 minlength="5" itemname="이메일주소" placeholder="e-mail address">
+          회원가입시 등록하신 이메일주소 입력
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="mb_password" class="col-sm-2 control-label"><img id="zsfImg" style="cursor:pointer" ></label>
+				<div class="col-sm-2">
+  				<input class="form-control" type="input" size=10 name=wr_key id=wr_key itemname="자동등록방지" required placeholder="captcha">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<input type="submit" accesskey="s" class="btn btn-success" value="다음">
+					<a href="javascript:window.close();" class="btn btn-default">닫기</a>
+				</div>
+			</div>
+  </div>
+</div>
 </form>
 
+<script type="text/javascript" src=<?="$g4[path]/zmSpamFree/zmspamfree.js"?>></script>
 
 <script type="text/javascript">
 function fpasswordlost_submit(f)
@@ -76,14 +52,4 @@ function fpasswordlost_submit(f)
 
 self.focus();
 document.fpasswordlost.mb_email.focus();
-
-$(function() {
-    var sw = screen.width;
-    var sh = screen.height;
-    var cw = document.body.clientWidth;
-    var ch = document.body.clientHeight;
-    var top  = sh / 2 - ch / 2 - 100;
-    var left = sw / 2 - cw / 2;
-    moveTo(left, top);
-});
 </script>
