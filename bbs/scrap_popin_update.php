@@ -33,7 +33,7 @@ sql_query($sql);
 
 // 불당팩 - 스크랩수에 따라서 베스트글 등록
 if ($board['bo_list_scrap'] > 0) {
-    $sql = " select count(*) as cnt from $g4[scrap_table] where bo_table='$bo_table' and wr_id='$wr_id' and mb_id = '$member[mb_id]' ";
+    $sql = " select count(*) as cnt from $g4[scrap_table] where bo_table='$bo_table' and wr_id='$wr_id' ";
     $scrap_good = sql_fetch($sql);
     if ($scrap_good['cnt'] >= $board['bo_list_scrap']) {
         // UPDATE를 먼저하고 오류가 발생시 insert를 실행
