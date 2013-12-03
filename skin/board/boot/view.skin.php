@@ -16,23 +16,21 @@ ob_start();
     <div class="btn-group">
         <? if ($search_href) { echo "<a href=\"$search_href\" class=\"btn btn-default btn-sm\">검색</a> "; } ?>
         <? echo "<a href=\"$list_href\" class=\"btn btn-default btn-sm\">목록</a> "; ?>
-
         <? if ($write_href) { echo "<a href=\"$write_href\" class=\"btn btn-default btn-sm\">쓰기</a> "; } ?>
         <? if ($reply_href) { echo "<a href=\"$reply_href\" class=\"btn btn-default btn-sm\">답변</a> "; } ?>
-
         <? if ($update_href) { echo "<a href=\"$update_href\" class=\"btn btn-default btn-sm\">수정</a> "; } ?>
         <? if ($delete_href) { echo "<a href=\"$delete_href\" class=\"btn btn-default btn-sm\">삭제</a> "; } ?>
-
+    </div>
+    <div class="btn-group">
         <? if ($good_href) { echo "<a href=\"$good_href\" target='hiddenframe' class=\"btn btn-default btn-sm\">추천</a> "; } ?>
         <? if ($nogood_href) { echo "<a href=\"$nogood_href\" target='hiddenframe' class=\"btn btn-default btn-sm\">비추천</a> "; } ?>
-
         <? if ($scrap_href) { echo "<a href=\"javascript:;\" onclick=\"win_scrap('$scrap_href');\" class=\"btn btn-default btn-sm\">스크랩</a> "; } ?>
-
-        <? if ($copy_href) { echo "<a href=\"$copy_href\" class=\"btn btn-default btn-sm\">복사</a> "; } ?>
-        <? if ($move_href) { echo "<a href=\"$move_href\" class=\"btn btn-default btn-sm\">이동</a> "; } ?>
-
         <? if ($nosecret_href) { echo "<a href=\"$nosecret_href\" class=\"btn btn-default btn-sm\">비밀글해제</a> "; } ?>
         <? if ($secret_href) { echo "<a href=\"$secret_href\" class=\"btn btn-default btn-sm\">비밀글</a> "; } ?>
+    </div>
+    <div class="btn-group">
+        <? if ($copy_href) { echo "<a href=\"$copy_href\" class=\"btn btn-default btn-sm\">복사</a> "; } ?>
+        <? if ($move_href) { echo "<a href=\"$move_href\" class=\"btn btn-default btn-sm\">이동</a> "; } ?>
         <? if ($now_href) { echo "<a href=\"$now_href\" class=\"btn btn-default btn-sm\">갱신</a> "; } ?>
     </div>
 

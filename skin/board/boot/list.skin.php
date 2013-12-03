@@ -142,18 +142,20 @@ if ($is_nogood) $colspan++;
 <input type=hidden name=bo_table value="<?=$bo_table?>">
 <input type=hidden name=sca      value="<?=$sca?>">
 <div class="btn-group">
-    <? if ($list_href) { ?><a href="<?=$list_href?>" class="btn btn-primary"><i class='fa fa-list'></i> 목록</a><? } ?>
-    <? if ($write_href) { ?><a href="<?=$write_href?>" class="btn btn-primary"><i class='fa fa-edit'></i> 쓰기</a><? } ?>
-    <? if ($is_checkbox) { ?>
-        <a href="javascript:select_delete();" class="btn btn-default"><i class='fa fa-trash-o'></i> 선택삭제</a>
-        <a href="javascript:select_copy('copy');" class="btn btn-default"><i class='fa fa-copy'></i> 선택복사</a>
-        <a href="javascript:select_copy('move');" class="btn btn-default"><i class='fa fa-inbox'></i> 선택이동</a>
-        <? if ($is_category) { ?>
-        <a href="javascript:select_category();"  class="btn btn-default">카테고리변경</a>
-        <select name=sca2><?=$category_option?></select>
-        <? } ?>
+    <? if ($list_href) { ?><a href="<?=$list_href?>" class="btn btn-default"><i class='fa fa-list'></i> 목록</a><? } ?>
+    <? if ($write_href) { ?><a href="<?=$write_href?>" class="btn btn-default"><i class='fa fa-edit'></i> 쓰기</a><? } ?>
+</div>
+<? if ($is_checkbox) { ?>
+<div class="btn-group">
+    <a href="javascript:select_delete();" class="btn btn-default">선택삭제</a>
+    <a href="javascript:select_copy('copy');" class="btn btn-default">선택복사</a>
+    <a href="javascript:select_copy('move');" class="btn btn-default">선택이동</a>
+    <? if ($is_category) { ?>
+    <a href="javascript:select_category();"  class="btn btn-default">카테고리변경</a>
+    <select name=sca2><?=$category_option?></select>
     <? } ?>
 </div>
+<? } ?>
 
 <div class="pull-right">
     <div class="form-group">

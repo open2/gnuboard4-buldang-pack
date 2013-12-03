@@ -9,7 +9,7 @@ if ($cwin == 1)
     include_once("$g4[path]/lib/view.skin.lib.php");
 ?>
 
-<script language="JavaScript">
+<script type="text/javascript">
 // 글자수 제한
 var char_min = parseInt(<?=$comment_min?>); // 최소
 var char_max = parseInt(<?=$comment_max?>); // 최대
