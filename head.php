@@ -202,7 +202,7 @@ echo outlogin("basic");
 
 </div><!-- 왼쪽 side 끝 -->
 
-<div class="col-sm-10 visible-sm visible-md visible-lg" id="main"><!-- 메인 content 시작 -->
+<div class="col-sm-10" id="main"><!-- 메인 content 시작 -->
 
 <script type="text/javascript">
 function fsearchbox_submit(f)
