@@ -22,11 +22,13 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         </tr>
       </table></td>
 </tr>
+<? if ($config[cf_use_point]) { ?>
 <tr> 
     <td width="25"></td>
     <td width="160" height="25" align="center" bgcolor="#F9F9F9"><a href="javascript:win_point();"><font color="#737373">포인트 : <?=$point?>점</font></a></td>
     <td width="25"></td>
 </tr>
+<? } ?>
 <tr> 
     <td colspan="3">
         <table width="210" border="0" cellspacing="0" cellpadding="0">
@@ -41,7 +43,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
                 </tr>
                 <tr> 
                     <td></td>
-                    <td align="center"><a href="javascript:win_memo();"><FONT color="#ff8871;"><B>쪽지 (<?=$memo_not_read?>)</B></FONT></a></td>
+                    <td align="center"><a href="javascript:win_memo('', '<?=$member[mb_id]?>', '<?=$_SERVER[SERVER_NAME]?>');" onfocus="this.blur()"><FONT color="#ff8871;"><B>쪽지 (<?=$memo_not_read?>)</B></FONT></a></td>
                     <td><a href="javascript:win_scrap();"><img src="<?=$outlogin_skin_path?>/img/scrap_button.gif" width="78" height="20" border="0"></a></td>
                     <td></td>
                 </tr>
@@ -54,7 +56,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 </tr>
 </table>
 
-<script type="text/javascript">
+<script language="JavaScript">
 // 탈퇴의 경우 아래 코드를 연동하시면 됩니다.
 function member_leave() 
 {
