@@ -137,7 +137,7 @@ include_once("$g4[path]/head.sub.php");
     </div>
 
     <div class="col-sm-3 pull-right">
-    <form class="navbar-form collapse navbar-collapse navbar-ex2-collapse" role="search" method="get" onsubmit="return fsearchbox_submit(this);" >
+    <form class="navbar-form collapse navbar-collapse navbar-sm3-collapse" role="search" method="get" onsubmit="return fsearchbox_submit(this);" >
     <div class="input-group">
         <input type="hidden" name="sfl" value="wr_subject||wr_content">
         <input type="hidden" name="sop" value="and">
