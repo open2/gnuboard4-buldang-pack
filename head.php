@@ -158,7 +158,8 @@ include_once("$g4[path]/head.sub.php");
 
 
 <!-- 중간의 메인부 시작 -->
-<section class="container">
+<div role="main" class="container">
+<div class="row">
 
 <!-- 왼쪽 side 시작 -->
 <div class="col-sm-2 visible-sm visible-md visible-lg">
@@ -201,7 +202,7 @@ echo outlogin("basic");
 
 </div><!-- 왼쪽 side 끝 -->
 
-<div class="col-sm-10"><!-- 메인 content 시작 -->
+<div class="col-sm-10 visible-sm visible-md visible-lg" id="main"><!-- 메인 content 시작 -->
 
 <script type="text/javascript">
 function fsearchbox_submit(f)

@@ -7,12 +7,13 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
 </div><!-- 메인 content 끝 -->
 
-</section><!-- 중간의 메인부 끝 -->
+</div>
+</div><!-- 중간의 메인부 끝 -->
 
 <!-- 페이지 하단부 footer -->
-<footer class="footer-wrapper col-sm-offset-2 visible-sm visible-md visible-lg" role="contentinfo">
+<footer class="footer-wrapper col-sm-offset-2" role="contentinfo" style="margin-top:20px;">
 <div class="container">
-    <div>
+    <div class="row">
         <ul class="list-inline">
         <li><a href="<?=$g4[path]?>/">홈으로</a></li>
         <li><a href="<?=$g4[path]?>/company/company.php?id=privacy"><strong>개인정보취급방침</strong></a></li>
