@@ -5,11 +5,14 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <!-- 로그인 후 외부로그인 시작 -->
 <div class="panel panel-default">
     <div class="panel-heading">
-        <strong><?=$nick?></strong>님
-        <? if ($config[cf_use_point]) { ?>
-        &nbsp;<a href="javascript:win_point();"><font color="#737373"><?=$point?>점</font></a>
-        <? } ?>
+        <strong><?=$nick?></strong>
         <? if ($is_admin == "super" || $is_auth) { ?>&nbsp;<a href="<?=$g4['admin_path']?>/"><i class="fa fa-cog"></i></a><? } ?>
+        <div class="pull-right">
+        Lv.<?=$member[mb_level] ?>
+        <? if ($config[cf_use_point]) { ?>
+        &nbsp;<a href="javascript:win_point();"><font color="#737373"><?=$point?></font></a>
+        <? } ?>
+        </div>
     </div>
     <div class="btn-group btn-group-justified">
         <a class="btn btn-default btn-sm" style="border-color: #ffffff;" href="javascript:win_memo('', '<?=$member[mb_id]?>', '<?=$_SERVER[SERVER_NAME]?>');" onfocus="this.blur()" ?>Memo</a>
