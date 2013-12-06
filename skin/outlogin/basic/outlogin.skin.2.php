@@ -11,16 +11,14 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         <? } ?>
         <? if ($is_admin == "super" || $is_auth) { ?>&nbsp;<a href="<?=$g4['admin_path']?>/"><i class="fa fa-cog"></i></a><? } ?>
     </div>
-    <div class="panel-body">
-
-        <div class="btn-group btn-group-justified">
+    <div class="btn-group btn-group-justified">
+        <a class="btn btn-default btn-sm" style="border-color: #ffffff;" href="javascript:win_memo('', '<?=$member[mb_id]?>', '<?=$_SERVER[SERVER_NAME]?>');" onfocus="this.blur()" ?>Memo</a>
+        <a class="btn btn-default btn-sm" style="border-color: #ffffff;" href="<?=$g4['bbs_path']?>/myon.php" >MyOn</a>
+        <a class="btn btn-default btn-sm" style="border-color: #ffffff;" href="javascript:win_scrap();" >Scrap</a>
+    </div>
+    <div class="btn-group btn-group-justified">
         <a class="btn btn-default btn-sm" href="<?=$g4['bbs_path']?>/logout.php" >Logout</a>
-        <a class="btn btn-default btn-sm" href="<?=$g4['bbs_path']?>/member_confirm.php?url=register_form.php" >Info</a>
-        </div>
-        <div class="btn-group btn-group-justified">
-        <a class="btn btn-default btn-sm" href="javascript:win_memo('', '<?=$member[mb_id]?>', '<?=$_SERVER[SERVER_NAME]?>');" onfocus="this.blur()" ?>Memo</a>
-        <a class="btn btn-default btn-sm" href="javascript:win_scrap();" >Scrap</a>
-        </div>
+        <a class="btn btn-default btn-sm" href="<?=$g4['bbs_path']?>/member_confirm.php?url=register_form.php" >Modify</a>
     </div>
 </div>
 
