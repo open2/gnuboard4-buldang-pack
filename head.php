@@ -3,13 +3,17 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
 include_once("$g4[path]/head.sub.php");
 
+// 배너관리 lib
+include_once("$g4[path]/lib/banner.lib.php");
+
 // 사용자 화면 상단과 좌측을 담당하는 페이지입니다.
 // 상단, 좌측 화면을 꾸미려면 이 파일을 수정합니다.
 ?>
 
-<div class="container visible-sm visible-md visible-lg">
-    <div class="row col-xs-10">
-<h4>**** 부트스트랩 3.0 변경중 / 의견 부탁드립니다. 모바일 분리없이 기본 코드로 대응합니다 ... ****</h4>
+<div class="container">
+    <div class="alert alert-success">
+    **** 부트스트랩 3.0 변경중 / 의견 부탁드립니다. 모바일 분리없이 기본 코드로 대응합니다 ... ****
+    <a class="close" data-dismiss="alert" href="#" aria-hidden="true"><i class="fa fa-times"></i></a>
     </div>
 </div>
 
@@ -19,10 +23,6 @@ include_once("$g4[path]/head.sub.php");
     <div class="col-sm-2">
     </div>
     <div class="col-sm-5">
-        <?
-        include_once("$g4[path]/lib/banner.lib.php");
-        echo get_banner("top_text", "text", "TEXT1");
-        ?>
     </div>
     <div class="col-sm-5">
         <?
