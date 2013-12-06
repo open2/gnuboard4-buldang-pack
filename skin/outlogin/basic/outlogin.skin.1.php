@@ -26,31 +26,32 @@ else {
 ?>
 
 <!-- 로그인 전 외부로그인 시작 -->
-<form name="fhead" method="post" onsubmit="return fhead_submit(this);" autocomplete="off" role="form" class="form-horizontal">
-<input type="hidden" name="url" value="<?=$outlogin_url?>">
-
-<div class="input-group">
-    <input type="text" class="form-control input-sm" name="mb_id" maxlength="20" itemname="아이디" placeholder="login id">
-    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-</div>
-<div class="input-group">
-    <input type="text" class="form-control input-sm" name="mb_password" id="outlogin_mb_password" maxlength="20" itemname="패스워드" placeholder="password">
-    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-</div>
-<div class="input-group">
-    <span class="input-group-addon">
-        <input type="checkbox" name="auto_login" title="자동로그인" value="1" onclick="if (this.checked) { if (confirm('자동로그인을 사용하시면 다음부터 회원아이디와 패스워드를 입력하실 필요가 없습니다.\n\n\공공장소에서는 개인정보가 유출될 수 있으니 사용을 자제하여 주십시오.\n\n자동로그인을 사용하시겠습니까?')) { this.checked = true; } else { this.checked = false; } }">
-        &nbsp;<span class="glyphicon glyphicon-pushpin" title="자동로그인"></span>
-    </span>
-    <button type="submit" class="btn btn-success btn-sm" style="width:100%">Login</button>
-</div>
-<div class="input-group">
-    <div class="btn-group btn-group-justified">
-        <a class="btn btn-default btn-sm" title="회원가입" href="<?=$g4[bbs_path]?>/register.php">회원가입</a>
-        <a class="btn btn-default btn-sm" title="회원 id, password 찾기" href="javascript:win_password_lost();">아이디찾기</a>
-    </div>
-</div>
-</form>
+  <form name="fhead" method="post" onsubmit="return fhead_submit(this);" autocomplete="off" role="form" class="form-inline">
+  <div id="outlogin_box" name="outlogin_box">
+  <input type="hidden" name="url" value="<?=$outlogin_url?>">
+  <input type="text" class="form-control input-sm" name="mb_id" maxlength="20" itemname="아이디" placeholder="login id">
+  <div class="input-group">
+      <input type="password" class="form-control input-sm" name="mb_password" id="outlogin_mb_password" maxlength="20" itemname="패스워드" placeholder="password">
+      <span class="input-group-addon">
+          <div class="checkbox">
+          <label>
+          <input type="checkbox" name="auto_login" title="자동로그인" value="1" onclick="if (this.checked) { if (confirm('자동로그인을 사용하시면 다음부터 회원아이디와 패스워드를 입력하실 필요가 없습니다.\n\n\공공장소에서는 개인정보가 유출될 수 있으니 사용을 자제하여 주십시오.\n\n자동로그인을 사용하시겠습니까?')) { this.checked = true; } else { this.checked = false; } }">
+          Auto
+          </label>
+          </div>
+      </span>
+  </div>
+  <div class="input-group">
+      <button type="submit" class="btn btn-success btn-sm btn-group-justified" >Login</button>
+  </div>
+  <div class="input-group">
+      <div class="btn-group btn-group-justified">
+          <a class="btn btn-default btn-sm" title="회원가입" href="<?=$g4[bbs_path]?>/register.php">회원가입</a>
+          <a class="btn btn-default btn-sm" title="회원 id, password 찾기" href="javascript:win_password_lost();">아이디찾기</a>
+      </div>
+  </div>
+  </div>
+  </form>
 
 <script type="text/javascript">
 function fhead_submit(f)
