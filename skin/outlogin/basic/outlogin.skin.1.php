@@ -33,7 +33,7 @@ else {
 <div class="input-group">
     <input type="password" class="form-control" name="mb_password" id="outlogin_mb_password" maxlength="20" itemname="패스워드" placeholder="password">
     <span class="input-group-addon">
-        <div class="checkbox">
+        <div class="checkbox custom">
         <label>
         <input type="checkbox" name="auto_login" title="자동로그인" value="1" onclick="if (this.checked) { if (confirm('자동로그인을 사용하시면 다음부터 회원아이디와 패스워드를 입력하실 필요가 없습니다.\n\n\공공장소에서는 개인정보가 유출될 수 있으니 사용을 자제하여 주십시오.\n\n자동로그인을 사용하시겠습니까?')) { this.checked = true; } else { this.checked = false; } }">
         Auto
