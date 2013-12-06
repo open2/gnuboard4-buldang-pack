@@ -41,9 +41,7 @@ else {
           </div>
       </span>
   </div>
-  <div class="input-group">
-      <button type="submit" class="btn btn-default btn-group-justified" >Login</button>
-  </div>
+  <button type="submit" class="btn btn-default btn-group-justified" >Login</button>
   <div class="input-group">
       <div class="btn-group btn-group-justified">
           <a class="btn btn-default" title="회원가입" href="<?=$g4[bbs_path]?>/register.php">회원가입</a>
