@@ -2202,4 +2202,22 @@ function is_admin_check($mb_id)
     
     return '';
 }
+
+// wr_content의 내용을 역으로 풀어줍니다 - 팝업관리자에서 이미지맵 처리에 꼭 필요합니다.
+function conv_content_rev($content, $writeContents_id, $wr_option)
+{
+    $content = preg_replace("/\&lt\;/", "<", $content);
+    $content = preg_replace("/\&gt\;/", ">", $content);
+    $content = preg_replace("/area/", "area onmouseover=\"over('{$writeContents_id}', 'pointer');\" onmouseout=\"out('{$writeContents_id}');\" ", $content);
+
+		if (!strstr($wr_option, "html1")) {
+		    $html = 0;
+        $content = conv_content($content, $html);
+    }
+
+    // map과 area 태그를 남기고 모든 태그를 없앤다 - http://kr.php.net/manual/kr/function.strip-tags.php
+    $content = strip_tags($content, "<map>,<area>"); 
+
+    return $content;
+}
 ?>

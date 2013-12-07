@@ -213,14 +213,6 @@ if ($view[file][0][view]) {
         $popup_offset_x = 12;
 }
 
-// wr_content의 내용을 역으로 풀어줍니다 - 이미지맵에 꼭 필요합니다.
-function conv_content_rev($content)
-{
-    $content = preg_replace("/\&lt\;/", "<", $content);
-    $content = preg_replace("/\&gt\;/", ">", $content);
-
-    return $content;
-}
 // 팝업관리 - 파일 출력
 ?>
         
