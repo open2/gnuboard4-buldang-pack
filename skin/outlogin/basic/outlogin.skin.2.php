@@ -6,11 +6,10 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <div class="panel panel-default">
     <div class="panel-heading">
         <strong><?=$nick?></strong>
-        <? if ($is_admin == "super" || $is_auth) { ?>&nbsp;<a href="<?=$g4['admin_path']?>/"><i class="fa fa-cog"></i></a><? } ?>
         <div class="pull-right">
-        Lv.<?=$member[mb_level] ?>
+        <small>Lv.<?=$member[mb_level]?></small>
         <? if ($config[cf_use_point]) { ?>
-        &nbsp;<a href="javascript:win_point();"><font color="#737373"><?=$point?></font></a>
+        &nbsp;<a href="javascript:win_point();"><font color="#737373"><small><?=$point?></small></font></a>
         <? } ?>
         </div>
     </div>
@@ -22,6 +21,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <div class="btn-group btn-group-justified">
         <a class="btn btn-default btn-sm" href="<?=$g4['bbs_path']?>/logout.php" >Logout</a>
         <a class="btn btn-default btn-sm" href="<?=$g4['bbs_path']?>/member_confirm.php?url=register_form.php" >Modify</a>
+        <? if ($is_admin == "super" || $is_auth) { ?><a class="btn btn-primary btn-sm" href="<?=$g4['admin_path']?>/"><i class="fa fa-cog"></i></a><? } ?>
     </div>
 </div>
 
