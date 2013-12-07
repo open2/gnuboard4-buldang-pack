@@ -16,7 +16,10 @@ for ($i=0; $i<count($list); $i++) {
 ?>
 
     <div class="container" id="divpop_<?=$popup_id?>">
-    <div class="alert alert-success" id="<?=$writeContents_id?>">
+    <div class="alert alert-success inline" id="<?=$writeContents_id?>">
+        <!-- a link가 위에 있어야 상단부에 x가 나옵니다 -->
+        <a id="checkbox_<?=$popup_id?>" class="close" data-dismiss="alert" href="#" aria-hidden="true" onclick="hideMe_x('<?=$popup_id?>', 7);"><i class="fa fa-times"></i></a>
+        <p>
         <?
         $wr_content = $list[$i]['wr_content'];
     		if (!strstr($list[$i]['wr_option'], "html1")) {
@@ -25,7 +28,7 @@ for ($i=0; $i<count($list); $i++) {
         }
         echo $wr_content;
         ?>
-    <a id="checkbox_<?=$popup_id?>" class="close" data-dismiss="alert" href="#" aria-hidden="true" onclick="hideMe_x('<?=$popup_id?>', 7);"><i class="fa fa-times"></i></a>
+        </p>
     </div>
     </div>
 <? } // end of for loop ?>
