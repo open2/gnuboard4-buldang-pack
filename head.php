@@ -10,35 +10,11 @@ include_once("$g4[path]/lib/banner.lib.php");
 // 상단, 좌측 화면을 꾸미려면 이 파일을 수정합니다.
 ?>
 
-<script>
-runOnLoad();
-    function runOnLoad(){
-        if($.cookie('alert-box') == null) {
-            $.cookie('alert-box', 'open', { expires: 7 });
-        } else if($.cookie('alert-box') == 'close') {
-            $(".close").hide();
-        }
-
-        // php psuedo code here (if you are using the server option)
-        <?php
-          //  if(check database for hide option == true){
-          //      echo '$(".close").hide()';
-          //  }
-        ?>
-    }
-    function hideMe(){
-        $.cookie('alert-box', 'close', {expires:7 });
-        $(".close").hide();
-    }
-</script>
-
-
-<div class="container">
-    <div class="alert alert-success">
-    **** 부트스트랩 3.0 변경중 / 의견 부탁드립니다. 모바일 분리없이 기본 코드로 대응합니다 ... ****
-    <a class="close" data-dismiss="alert" href="#" aria-hidden="true"><i class="fa fa-times"></i></a>
-    </div>
-</div>
+<?
+// 상단부에 alert 팝업을 출력 합니다.
+include_once("$g4[path]/lib/popup.lib.php");
+echo popup("alert", "popup_alert")
+?>
 
 <header class="header-wrapper"><!-- 상단 header 시작 -->
 <div class="container">
