@@ -39,14 +39,15 @@ var member_skin_path = "<?=$member_skin_path?>";
         <div class="form-group">
             <label for="mb_password" class="col-sm-2 control-label">패스워드</label>
             <div class="col-sm-6">
-                <INPUT class="form-control" type="password" name="mb_password" id="mb_password" style="ime-mode:disabled" size=20 maxlength=20 <?=($w=="")?"required":"";?> itemname="패스워드" onblur="passwordStrength(this.value)" placeholder="Password">
+                <INPUT class="form-control" type="password" name="mb_password" id="mb_password" style="ime-mode:disabled" size=20 minlength=8 maxlength=20 <?=($w=="")?"required":"";?> itemname="패스워드" onblur="passwordStrength(this.value)" placeholder="Password">
             </div>
         </div>
-    
+
         <div class="form-group">
             <label for="mb_password_re" class="col-sm-2 control-label">패스워드확인</label>
             <div class="col-sm-6">
-                <INPUT class="form-control" type="password" name="mb_password_re" style="ime-mode:disabled" size=20 maxlength=20 <?=($w=="")?"required":"";?> itemname="패스워드 확인" placeholder="Password를 한번 더 입력">
+                <INPUT class="form-control" type="password" name="mb_password_re" style="ime-mode:disabled" size=20 minlength=8 maxlength=20 <?=($w=="")?"required":"";?> itemname="패스워드 확인" placeholder="Password를 한번 더 입력">
+                <p class="help-block">비밀번호는 8자 이상이어야 합니다.</p>
             </div>
         </div>
 
@@ -416,9 +417,17 @@ function fregisterform_submit(f)
     }
 
     if (f.w.value == '') {
-        if ($.trim(f.mb_password.value).length < 3) {
-            alert('패스워드를 3글자 이상 입력하십시오.');
+        if ($.trim(f.mb_password.value).length < 8) {
+            alert('패스워드를 8글자 이상 입력하십시오.');
             f.mb_password.focus();
+            return false;
+        }
+    }
+
+    if ($.trim(f.mb_password.value).length > 0) {
+        if ($.trim(f.mb_password_re.value).length < 8) {
+            alert('패스워드를 8글자 이상 입력하십시오.');
+            f.mb_password_re.focus();
             return false;
         }
     }
@@ -427,14 +436,6 @@ function fregisterform_submit(f)
         alert('패스워드가 같지 않습니다.');
         f.mb_password_re.focus();
         return false;
-    }
-
-    if ($.trim(f.mb_password.value).length > 0) {
-        if ($.trim(f.mb_password_re.value).length < 3) {
-            alert('패스워드를 3글자 이상 입력하십시오.');
-            f.mb_password_re.focus();
-            return false;
-        }
     }
 
     <? if ($g4['nick_reg_only'] !== 1) { ?>
