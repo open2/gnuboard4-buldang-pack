@@ -241,7 +241,7 @@ if ($mb['mb_password_change_datetime'] == '0000-00-00 00:00:00') {
 
 $change_alert = $g4[server_time] - strtotime($mb['mb_password_change_datetime']);
 if ($config['cf_password_change_dates'] > 0 && $change_alert > 0) {
-        $link = "$g4[bbs_path]/password_change_request.php";
+        $link = "$g4[bbs_path]/password_change_request.php?url=$url";
 }
 
 // 불당팩 - 관리자 로그인 내역을 db log에 남깁니다
