@@ -5,11 +5,11 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <!-- 로그인 후 외부로그인 시작 -->
 <div class="panel panel-default">
     <div class="panel-heading">
-        <strong><?=$nick?></strong>
+        <strong><a href="#" onClick="javascript:win_profile('<?=$member[mb_id]?>');"><?=$nick?></a></strong>
         <div class="pull-right">
-        <small>Lv.<?=$member[mb_level]?></small>
+        <span class="badge pull-right"><small><?=$member[mb_level]?></small></span>
         <? if ($config[cf_use_point]) { ?>
-        &nbsp;<a href="javascript:win_point();"><font color="#737373"><small><?=$point?></small></font></a>
+        &nbsp;<a href="javascript:win_point();"><font color="#737373"><small><?=$point?></small></font></a>&nbsp;
         <? } ?>
         </div>
     </div>
