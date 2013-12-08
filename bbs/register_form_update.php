@@ -218,6 +218,7 @@ if ($w == "")
                     mb_profile = '$mb_profile',
                     mb_today_login = '$g4[time_ymdhis]',
                     mb_datetime = '$g4[time_ymdhis]',
+                    mb_password_change_datetime = '$g4[time_ymdhis]',
                     mb_ip = '$remote_addr',
                     mb_level = '$config[cf_register_level]',
                     mb_recommend = '$mb_recommend',
@@ -418,7 +419,7 @@ else if ($w == "u")
 }
 
 // 개인정보 변경주기 - 불당팩
-if ($config['cf_password_change_dates'] > 0) {
+if ($mb_password) {
     $next_change = $g4[server_time] + ($config['cf_password_change_dates'] * 24 * 60 * 60);
     $next_date = date('Y-m-d h:i:s', $next_change);
 
