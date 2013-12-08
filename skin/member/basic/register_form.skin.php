@@ -47,7 +47,8 @@ var member_skin_path = "<?=$member_skin_path?>";
             <label for="mb_password_re" class="col-sm-2 control-label">패스워드확인</label>
             <div class="col-sm-6">
                 <INPUT class="form-control" type="password" name="mb_password_re" style="ime-mode:disabled" size=20 minlength=8 maxlength=20 <?=($w=="")?"required":"";?> itemname="패스워드 확인" placeholder="Password를 한번 더 입력">
-                <p class="help-block">비밀번호는 8자 이상이어야 합니다.</p>
+                <p class="help-block">비밀번호는 8자 이상으로 쉽게 추정할 수 없어야 합니다.<br>
+                비밀번호는 숫자,영문자를 섞어서 만들어야 안전합니다.</p>
             </div>
         </div>
 
