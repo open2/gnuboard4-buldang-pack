@@ -203,7 +203,6 @@ if ($auto_mb_id) {
     set_cookie('ck_auto_mb_id', '', 0);
 }
 
-
 if ($url) 
 {
     $link = urldecode($url);
@@ -227,9 +226,21 @@ else
     $link = $g4[path];
 
 // 개인정보 변경주기
-if ($mb['mb_password_change_datetime'] != '0000-00-00 00:00:00' && !$is_admin) {
-    $change_alert = $g4[server_time] - strtotime($mb['mb_password_change_datetime']);
-    if ($config['cf_password_change_dates'] > 0 && $change_alert > 0)
+if ($mb['mb_password_change_datetime'] == '0000-00-00 00:00:00') {
+    // 초기화 (개인정보변경주기)
+
+    $next_change = strtotime("$mb[mb_open_date] 00:00:00") + ($config['cf_password_change_dates'] * 24 * 60 * 60);
+    $next_date = date('Y-m-d h:i:s', $next_change);
+
+    $sql = " update $g4[member_table] set mb_password_change_datetime = '$next_date' where mb_id = '$mb_id'";
+    sql_query($sql);
+    
+    // 설정값 저장
+    $mb['mb_password_change_datetime'] = $next_date;
+}
+
+$change_alert = $g4[server_time] - strtotime($mb['mb_password_change_datetime']);
+if ($config['cf_password_change_dates'] > 0 && $change_alert > 0) {
         $link = "$g4[bbs_path]/password_chage_request.php";
 }
 
