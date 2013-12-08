@@ -418,7 +418,7 @@ else if ($w == "u")
     }
 }
 
-// 개인정보 변경주기 - 불당팩
+// 개인정보 변경주기 (패스워드가 변경되면 reset) - 불당팩
 if ($mb_password) {
     $next_change = $g4[server_time] + ($config['cf_password_change_dates'] * 24 * 60 * 60);
     $next_date = date('Y-m-d h:i:s', $next_change);
