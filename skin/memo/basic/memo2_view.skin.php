@@ -1,50 +1,17 @@
 <?
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
 ?>
-
-<script type="text/javascript">
-function print_contents(print_id) 
-{ 
-var contents = "";
-contents += "<html><head><meta http-equiv='content-type' content='text/html; charset=<?=$g4[charset]?>'>";
-contents += "<title><?=$g4[title]?></title>";
-contents += "<link rel='stylesheet' href='<?=$g4[path]?>/style.css' type='text/css'>";
-contents += "</head>";
-contents += "<body>";
-contents += "<link rel='stylesheet' href='<?=$memo_skin_path?>/memo2.css' type='text/css'>";
-contents += "<div>";
-contents += document.getElementById(print_id).innerHTML; 
-contents += "</div>";
-contents += "</body>";
-contents += "</html>";
-var width_dim = document.getElementById(print_id).clientWidth + 20;
-var width = width_dim + 'px';
-var height_dim = 600;
-var height = height_dim + 'px'; 
-var left = (screen.availWidth - width_dim) / 2; 
-var top = (screen.availHeight - height_dim) / 2; 
-var options = 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top + ',status=no,resizable=no,scrollbars=yes'; 
-var win = window.open('', '', options); 
-win.document.write(contents); 
-if (document.all) { 
-win.document.execCommand('Print'); 
-} 
-else { 
-win.print(); 
-}
-}
-</script> 
-
 <div class="container">
-<ul>
-  <li><a href="#"><?=$memo_title?></a></li>
-  <li><a href="#" class="active">쪽지보기</a></li>
-</ul>
+<span>
+<strong><a href='<?=$memo_url?>?kind=<?=$kind?>'><?=$memo_title?></a></strong>
+</span>
+<div class="btn-group pull-right">
+  <? if ($view[after_href]) { ?><a class="btn btn-default" href='<?=$view[after_href]?>'>Prev</a><? } ?>
+  <? if ($view[before_href]) { ?><a class="btn btn-default" href='<?=$view[before_href]?>'>Next</a><? } ?>
+  <a class="btn btn-default" href='<?=$memo_url?>?kind=<?=$kind?>&sfl=<?=$sfl?>&stx=<?=$stx?>&unread=<?=$unread?>&page=<?=$page?>'>List</a>
+</div>
 <div class="btn-group pull-right">
   <? if ($config[cf_memo_print]) { ?><a class="btn btn-default" href="#" onclick="javascript:print_contents('memo_contents')">프린트</a>&nbsp;&nbsp;&nbsp;<? } ?>
-  <? if ($view[after_href]) { ?><a class="btn btn-default" href='<?=$view[after_href]?>'>다음</a>&nbsp;&nbsp;&nbsp;<? } ?>
-  <? if ($view[before_href]) { ?><a class="btn btn-default" href='<?=$view[before_href]?>'>이전</a>&nbsp;&nbsp;&nbsp;<? } ?>
-  <a class="btn btn-default" href='<?=$memo_url?>?kind=<?=$kind?>&sfl=<?=$sfl?>&stx=<?=$stx?>&unread=<?=$unread?>&page=<?=$page?>'>목록</a>
 </div>
 </div>
 
