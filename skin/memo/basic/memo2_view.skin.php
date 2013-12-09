@@ -12,7 +12,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 </div>
 </div>
 
-<div class="container">
+<div class="container" id="wr_content">
 <form name="fboardlist" id="fboardlist" method="post" style="margin:0px;">
 <input type='hidden' name='kind'  value='<?=$kind?>'>
 <input type='hidden' name='me_id'  value='<?=$me_id?>'>
@@ -179,7 +179,7 @@ function withdraw_notice_memo()
 <script type="text/javascript"  src="<?="$g4[path]/js/board.js"?>"></script>
 <script type="text/javascript">
 window.onload=function() {
-    resizeBoardImage($(window).width()-50);
+    resizeBoardImage($(wr_content).width()-10);
     drawFont();
 }
 </script>
