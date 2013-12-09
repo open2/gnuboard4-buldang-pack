@@ -179,7 +179,7 @@ function withdraw_notice_memo()
 <script type="text/javascript"  src="<?="$g4[path]/js/board.js"?>"></script>
 <script type="text/javascript">
 window.onload=function() {
-    resizeBoardImage(<?=(int)$max_img_width?>);
+    resizeBoardImage($(window).width()-50);
     drawFont();
 }
 </script>
