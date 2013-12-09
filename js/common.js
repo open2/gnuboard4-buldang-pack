@@ -104,7 +104,7 @@ if (typeof(COMMON_JS) == 'undefined') { // 한번만 실행
     // 폼메일 창
     function popup_formmail(url)
     {
-        opt = 'scrollbars=yes,width=417,height=385,top=10,left=20';
+        opt = 'scrollbars=yes,width=417,height=385,top=10,left=20,resizable=yes';
         popup_window(url, "wformmail", opt);
     }
 
@@ -328,7 +328,7 @@ if (typeof(COMMON_JS) == 'undefined') { // 한번만 실행
     function win_zip(frm_name, frm_zip1, frm_zip2, frm_addr1, frm_addr2)
     {
         url = g4_path + "/" + g4_bbs + "/zip.php?frm_name="+frm_name+"&frm_zip1="+frm_zip1+"&frm_zip2="+frm_zip2+"&frm_addr1="+frm_addr1+"&frm_addr2="+frm_addr2;
-        win_open(url, "winZip", "left=50,top=50,width=616,height=460,scrollbars=1");
+        win_open(url, "winZip", "left=50,top=50,width=616,height=460,scrollbars=1,resizable=yes");
     }
 
     // 쪽지 창
@@ -336,19 +336,19 @@ if (typeof(COMMON_JS) == 'undefined') { // 한번만 실행
     {
         if (!url)
             url = g4_path + "/" + g4_bbs + "/memo.php";
-        //win_open(url, "winMemo", "left=50,top=50,width=616,height=650,scrollbars=1");
+
         if (domain) 
             domain = domain.replace(/(\.|\-)/g,"_");
         else
             domain = "domain";
         var memo_name = "WinMemo_" + mb_id + "_" + domain;
-        win_open(url, memo_name, "left=50,top=50,width=730,height=730,scrollbars=1");
+        win_open(url, memo_name, "left=50,top=50,width=730,height=730,scrollbars=1,resizable=yes");
     }
 
     // 포인트 창
     function win_point(url)
     {
-        win_open(g4_path + "/" + g4_bbs + "/point.php", "winPoint", "left=20, top=20, width=616, height=635, scrollbars=1");
+        win_open(g4_path + "/" + g4_bbs + "/point.php", "winPoint", "left=20, top=20, width=616, height=635, scrollbars=1,resizable=yes");
     }
 
     // 스크랩 창
@@ -356,38 +356,38 @@ if (typeof(COMMON_JS) == 'undefined') { // 한번만 실행
     {
         if (!url)
             url = g4_path + "/" + g4_bbs + "/scrap.php";
-        win_open(url, "scrap", "left=20, top=20, width=820, height=500, scrollbars=1");
+        win_open(url, "scrap", "left=20, top=20, width=820, height=500, scrollbars=1,resizable=yes");
     }
 
     // 신고 창
     function win_singo(url)
     {
-        win_open(url, "singo", "left=20, top=20, width=608, height=350, scrollbars=0");
+        win_open(url, "singo", "left=20, top=20, width=608, height=350, scrollbars=0,resizable=yes");
     }
 
     // 새로운 패스워드 분실 창 : 100902
     function win_password_lost()
     {
-        win_open(g4_path + "/" + g4_bbs + "/password_lost.php", 'winPasswordLost', 'left=50, top=50, width=617, height=330, scrollbars=1');
+        win_open(g4_path + "/" + g4_bbs + "/password_lost.php", 'winPasswordLost', 'left=50, top=50, width=617, height=330, scrollbars=1,resizable=yes');
     }
 
     // 패스워드 분실 창
     function win_password_forget()
     {
-        win_open(g4_path + "/" + g4_bbs + "/password_forget.php", 'winPasswordForget', 'left=50, top=50, width=616, height=500, scrollbars=1');
+        win_open(g4_path + "/" + g4_bbs + "/password_forget.php", 'winPasswordForget', 'left=50, top=50, width=616, height=500, scrollbars=1,resizable=yes');
     }
 
     // 코멘트 창
     function win_comment(url)
     {
-        win_open(url, "winComment", "left=50, top=50, width=800, height=600, scrollbars=1");
+        win_open(url, "winComment", "left=50, top=50, width=800, height=600, scrollbars=1,resizable=yes");
     }
 
     // 폼메일 창
     function win_formmail(mb_id, name, email)
     {
 		if (g4_charset.toLowerCase() == 'euc-kr')
-	        win_open(g4_path+"/" + g4_bbs + "/formmail.php?mb_id="+mb_id+"&name="+name+"&email="+email, "winFormmail", "left=50, top=50, width=600, height=500, scrollbars=0");
+	        win_open(g4_path+"/" + g4_bbs + "/formmail.php?mb_id="+mb_id+"&name="+name+"&email="+email, "winFormmail", "left=50, top=50, width=600, height=500, scrollbars=0,resizable=yes");
 		else
 	        win_open(g4_path+"/" + g4_bbs + "/formmail.php?mb_id="+mb_id+"&name="+encodeURIComponent(name)+"&email="+email, "winFormmail", "left=50, top=50, width=600, height=480, scrollbars=0");
     }
@@ -411,7 +411,7 @@ if (typeof(COMMON_JS) == 'undefined') { // 한번만 실행
     // 자기소개 창
     function win_profile(mb_id)
     {
-        win_open(g4_path+"/" + g4_bbs + "/profile.php?mb_id="+mb_id, 'winProfile', 'left=50,top=50,width=620,height=510,scrollbars=1');
+        win_open(g4_path+"/" + g4_bbs + "/profile.php?mb_id="+mb_id, 'winProfile', 'left=50,top=50,width=620,height=510,scrollbars=1,resizable=yes');
     }
 
     var last_id = null;
