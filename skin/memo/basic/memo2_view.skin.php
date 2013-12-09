@@ -63,7 +63,7 @@ win.print();
     <td align=left>&nbsp;<?=$view['me_subject']?></td>
 </tr>
 <tr>
-    <td align=center>발신 </td>
+    <td align=center>발&nbsp;&nbsp;신 </td>
     <td>&nbsp;<?=$view['me_send_mb_id_nick']?> (<?=$view['me_send_datetime']?>)
     </td>
 </tr>
@@ -87,7 +87,7 @@ win.print();
     <? } ?>
 <?} else {?>
     <tr>
-        <td align=center>수신</td>
+        <td align=center>수&nbsp;&nbsp;신</td>
         <td align=left>&nbsp;<?=$view['me_recv_mb_id_nick']?> (<?=$view['me_read_datetime']?>)
         </td>
     </tr>
