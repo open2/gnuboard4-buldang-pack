@@ -10,9 +10,6 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
   <? if ($view[before_href]) { ?><a class="btn btn-default" href='<?=$view[before_href]?>'>Next</a><? } ?>
   <a class="btn btn-default" href='<?=$memo_url?>?kind=<?=$kind?>&sfl=<?=$sfl?>&stx=<?=$stx?>&unread=<?=$unread?>&page=<?=$page?>'>List</a>
 </div>
-<div class="btn-group pull-right">
-  <? if ($config[cf_memo_print]) { ?><a class="btn btn-default" href="#" onclick="javascript:print_contents('memo_contents')">프린트</a>&nbsp;&nbsp;&nbsp;<? } ?>
-</div>
 </div>
 
 <div class="container">
@@ -71,19 +68,20 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <!-- 첨부파일의 이미지를 출력 -->
 <? if ($view[me_file_local] && $view[valid_image]) { ?>
 <tr>
-    <td height="20" align="center" style="padding-bottom:10px; width:<?=$content_inner_width?>px" colspan=2>
+    <td height="20" align="left" style="border:none;padding-bottom:10px; width:<?=$content_inner_width?>px" colspan=2>
     <?
     if ($config['cf_memo_b4_resize']) {
         echo resize_content(" <img src='$g4[path]/data/memo2/$view[me_file_server]' style='cursor:pointer;' > ", $max_img_width);
     } else {
-        echo " <img src='$g4[path]/data/memo2/$view[me_file_server]' name='target_resize_image[]' onclick='image_window(this)' style='cursor:pointer;' > ";
-    } ?>
+        echo " <img src='$g4[path]/data/memo2/$view[me_file_server]' onclick='image_window(this)' style='cursor:pointer;' > ";
+    }
+    ?>
     </td>
 </tr>
 <? } ?>
 
 <tr>
-    <td style="border:1px; text-align:left; padding-left:15px; padding-top:30px; padding-bottom:30px; word-break:break-all;" colspan=2>
+    <td style="border:none;text-align:left; padding-left:15px; padding-top:30px; padding-bottom:30px; word-break:break-all;" colspan=2>
     <?
     if ($config['cf_memo_b4_resize'])
         echo resize_content($view['memo'], $max_img_width);
@@ -92,7 +90,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
     // 서명이 있으면 서명을 출력
     if ($mb_send['mb_signature'])
-        echo "<div style='border-bottom:1px solid #E7E7E7; padding:25px 0;text-align:center;'>$mb_send[mb_signature]</div>";
+        echo "<div style='; padding:25px 0;text-align:center;'>$mb_send[mb_signature]</div>";
     ?>
     </td>
 </tr>
@@ -135,8 +133,8 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <? } ?>
 </div>
 
-</div>
 </form>
+</div>
 
 <?
 // 구글 광고를 include
