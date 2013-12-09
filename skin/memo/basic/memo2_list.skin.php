@@ -116,10 +116,10 @@
         <td colspan=5>
         <div class="btn-group">
             <? if ($i > 0 and $kind !='notice') { ?>
-            <a href="javascript:select_delete();" class="btn btn-default">삭제</a>
+            <a href="javascript:select_delete();" class="btn btn-default">Delete</a>
             <? } ?>
             <? if ($i > 0 and $kind == "trash") { ?>
-            <a href="javascript:all_delete_trash();" class="btn btn-default">완전삭제</a>
+            <a href="javascript:all_delete_trash();" class="btn btn-default">Empty Trash</a>
             <? } ?>
         </div>
         <div class="pull-right">
@@ -137,32 +137,28 @@
 </div>
 </form>
 
-<div class="container">
-<div class="panel panel-default">
-<div class="panel-heading">
-    <?
-    // 하단부에 내보내는 기본 정보사항
-    $msg = "";
-    if ($kind == "write") { // 쓰기 일때만 메시지를 출력 합니다.
-        $msg .= "<li>여러명에게 쪽지 발송시 컴마(,)로 구분 합니다.";
-        if ($config['cf_memo_use_file'] && $config['cf_memo_file_size']) {
-            $msg .= "<li>첨부가능한 파일의 최대 용량은 " .$config['cf_memo_file_size'] . "M(메가) 입니다.";
-        }
-        if ($config['cf_memo_send_point']) 
-            $msg .= "<li>쪽지 보낼때 회원당 ".number_format($config['cf_memo_send_point'])."점의 포인트를 차감합니다.";
+<?
+// 하단부에 내보내는 기본 정보사항
+$msg = "";
+if ($kind == "write") { // 쓰기 일때만 메시지를 출력 합니다.
+    $msg .= "<li>여러명에게 쪽지 발송시 컴마(,)로 구분 합니다.";
+    if ($config['cf_memo_use_file'] && $config['cf_memo_file_size']) {
+        $msg .= "<li>첨부가능한 파일의 최대 용량은 " .$config['cf_memo_file_size'] . "M(메가) 입니다.";
     }
-    if ($kind == "send") { // 보낸쪽지함 일때만 메시지를 출력 합니다.
-        $msg .= "<li>읽지 않은 쪽지를 삭제하면, 발신이 취소(수신자 쪽지함에서 삭제) 됩니다.";
-    }
-    if ($kind == "send" || $kind == "recv") { // 보낸쪽지함 일때만 메시지를 출력 합니다.
-        $msg .= "<li>보관안된 쪽지는 " . $config['cf_memo_del'] . "일 후 삭제되므로 중요한 쪽지는 보관하시기 바랍니다.";
-    }
-    if ($msg !== "")
-        echo "<ul>$msg</ul>";
-    ?>
-</div>
-</div>
-</div>
+    if ($config['cf_memo_send_point']) 
+        $msg .= "<li>쪽지 보낼때 회원당 ".number_format($config['cf_memo_send_point'])."점의 포인트를 차감합니다.";
+}
+if ($kind == "send") { // 보낸쪽지함 일때만 메시지를 출력 합니다.
+    $msg .= "<li>읽지 않은 쪽지를 삭제하면, 발신이 취소(수신자 쪽지함에서 삭제) 됩니다.";
+}
+if ($kind == "send" || $kind == "recv") { // 보낸쪽지함 일때만 메시지를 출력 합니다.
+    $msg .= "<li>보관안된 쪽지는 " . $config['cf_memo_del'] . "일 후 삭제되므로 중요한 쪽지는 보관하시기 바랍니다.";
+}
+if ($msg !== "") { 
+    echo '<div class="container"><div class="panel panel-default"><div class="panel-heading">';
+    echo "<ul>$msg</ul>";
+    echo '</div></div></div>';
+} ?>
 
 <?
 // 구글 광고를 include
