@@ -40,7 +40,7 @@ if ($member['mb_id'] == "" && $g4['keyword_seo'])
 
 <title><?=$g4['title']?></title>
 
-<link rel="stylesheet" href="<?=$g4['path']?>/js/bootstrap/css/bootstrap.css" type="text/css" media="screen" title="no title" charset="<?=$g4[charset]?>">
+<link rel="stylesheet" href="<?=$g4['path']?>/js/bootstrap/css/bootstrap.min.css" type="text/css" media="screen" title="no title" charset="<?=$g4[charset]?>">
 <link rel="stylesheet" href="<?=$g4['path']?>/js/font-awesome/css/font-awesome.min.css" type="text/css" media="screen" title="no title" charset="<?=$g4[charset]?>">
 <!--[if lt IE 7]>
     <script src="<?=$g4['path']?>/js/font-awesome/css/font-awesome-ie7.min.js"></script>
