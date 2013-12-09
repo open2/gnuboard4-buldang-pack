@@ -53,6 +53,8 @@ echo popup("alert", "popup_alert")
         <li class="dropdown">
             <a class="dropdown-toggle" href="#" data-toggle="dropdown">토크 <b class="caret"></b></a>
             <ul class="dropdown-menu">
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=notice">공지</a></li>
+                <li class="divider"></li>
                 <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=g4_100">그누보드100일완성</a></li>
                 <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=g4_books">그누보드참고서</a></li>
                 <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=sitetips">사이트개발운영</a></li>
@@ -131,7 +133,7 @@ echo popup("alert", "popup_alert")
                 <li><a href="$g4[path]?>/club/">클럽2 테스트</a></li>
             </ul>
         </li>
-        <li><a href="<?=$g4[plugin_path]?>/attendance/attendance.php">출석체크</a></li>
+        <li><a href="<?=$g4[plugin_path]?>/attendance/attendance.php">출석</a></li>
     </ul>
     </div>
 
