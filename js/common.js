@@ -336,13 +336,13 @@ if (typeof(COMMON_JS) == 'undefined') { // 한번만 실행
     {
         if (!url)
             url = g4_path + "/" + g4_bbs + "/memo.php";
-        //win_open(url, "winMemo", "left=50,top=50,width=616,height=460,scrollbars=1");
+        //win_open(url, "winMemo", "left=50,top=50,width=616,height=650,scrollbars=1");
         if (domain) 
             domain = domain.replace(/(\.|\-)/g,"_");
         else
             domain = "domain";
         var memo_name = "WinMemo_" + mb_id + "_" + domain;
-        win_open(url, memo_name, "left=50,top=50,width=730,height=600,scrollbars=1");
+        win_open(url, memo_name, "left=50,top=50,width=730,height=730,scrollbars=1");
     }
 
     // 포인트 창
