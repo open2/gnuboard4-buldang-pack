@@ -35,7 +35,7 @@ if ($is_nogood) $colspan++;
 </div>
 
 <!-- 제목 -->
-<form name="fboardlist" method="post" role="form" class="form-horizontal">
+<form name="fboardlist" method="post" role="form" class="form-inline">
 <input type='hidden' name='bo_table' value='<?=$bo_table?>'>
 <input type='hidden' name='sfl'  value='<?=$sfl?>'>
 <input type='hidden' name='stx'  value='<?=$stx?>'>
@@ -114,27 +114,23 @@ if ($is_nogood) $colspan++;
 <? if (count($list) == 0) { echo "<tr><td colspan='$colspan' height=100 align=center>게시물이 없습니다.</td></tr>"; } ?>
 </tboby>
 </table>
+</div>
 </form>
 
 <!-- 페이지 -->
-<table width="100%" cellspacing="0" cellpadding="0">
-<tr> 
-    <td width="100%" align="center" height=30 valign=bottom>
-        <ul class="pagination">
-        <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>이전검색</a></li>"; } ?>
-        <?
-        // 기본으로 넘어오는 페이지를 아래와 같이 변환하여 다양하게 출력할 수 있습니다.
-        $write_pages = str_replace("이전", "<i class='fa fa-angle-left'></i>", $write_pages);
-        $write_pages = str_replace("다음", "<i class='fa fa-angle-right'></i>", $write_pages);
-        $write_pages = str_replace("처음", "<i class='fa fa-angle-double-left'></i>", $write_pages);
-        $write_pages = str_replace("맨끝", "<i class='fa fa-angle-double-right'></i>", $write_pages);
-        ?>
-        <?=$write_pages?>
-        <? if ($next_part_href) { echo "<li><a href='$next_part_href'>이후검색</a></li>"; } ?>
-        </ul>
-    </td>
-</tr>
-</table>
+<div class="center-block">
+    <ul class="pagination">
+    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>이전검색</a></li>"; } ?>
+    <?
+    // 기본으로 넘어오는 페이지를 아래와 같이 변환하여 다양하게 출력할 수 있습니다.
+    $write_pages = str_replace("이전", "<i class='fa fa-angle-left'></i>", $write_pages);
+    $write_pages = str_replace("다음", "<i class='fa fa-angle-right'></i>", $write_pages);
+    $write_pages = str_replace("처음", "<i class='fa fa-angle-double-left'></i>", $write_pages);
+    $write_pages = str_replace("맨끝", "<i class='fa fa-angle-double-right'></i>", $write_pages);
+    ?>
+    <?=$write_pages?>
+    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>이후검색</a></li>"; } ?>
+    </ul>
 </div>
 
 <!-- 링크 버튼, 검색 -->
@@ -143,6 +139,8 @@ if ($is_nogood) $colspan++;
 <input type=hidden name=sca      value="<?=$sca?>">
 <div class="btn-group">
     <? if ($list_href) { ?><a href="<?=$list_href?>" class="btn btn-default"><i class='fa fa-list'></i> 목록</a><? } ?>
+</div>
+<div class="btn-group">
     <? if ($write_href) { ?><a href="<?=$write_href?>" class="btn btn-default"><i class='fa fa-edit'></i> 쓰기</a><? } ?>
 </div>
 <? if ($is_checkbox) { ?>
@@ -189,7 +187,7 @@ if ($is_nogood) $colspan++;
 
 </td></tr></table>
 
-<script language="JavaScript">
+<script type="text/javascript"
 if ('<?=$sca?>') document.fcategory.sca.value = '<?=$sca?>';
 if ('<?=$stx?>') {
     document.fsearch.sfl.value = '<?=$sfl?>';
@@ -198,7 +196,7 @@ if ('<?=$stx?>') {
 </script>
 
 <? if ($is_checkbox) { ?>
-<script language="JavaScript">
+<script type="text/javascript"
 function all_checked(sw) {
     var f = document.fboardlist;
 
