@@ -5,18 +5,18 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 include_once("$g4[path]/lib/view.skin.lib.php");
 ?>
 
-<!-- 게시글 보기 시작 -->
-<table width="<?=$width?>" align="center" cellpadding="0" cellspacing="0" id="view_<?=$wr_id?>"><tr><td>
+<div width="<?=$width?>" class="table-responsive" id="view_<?=$wr_id?>">
 
 <!-- 링크 버튼 -->
-<? 
-ob_start(); 
-?>
-<div>
+<div id="view-top">
     <div class="btn-group">
         <? if ($search_href) { echo "<a href=\"$search_href\" class=\"btn btn-default btn-sm\">검색</a> "; } ?>
         <? echo "<a href=\"$list_href\" class=\"btn btn-default btn-sm\">목록</a> "; ?>
+    </div>
+    <div class="btn-group">
         <? if ($write_href) { echo "<a href=\"$write_href\" class=\"btn btn-default btn-sm\">쓰기</a> "; } ?>
+    </div>
+    <div class="btn-group">
         <? if ($reply_href) { echo "<a href=\"$reply_href\" class=\"btn btn-default btn-sm\">답변</a> "; } ?>
         <? if ($update_href) { echo "<a href=\"$update_href\" class=\"btn btn-default btn-sm\">수정</a> "; } ?>
         <? if ($delete_href) { echo "<a href=\"$delete_href\" class=\"btn btn-default btn-sm\">삭제</a> "; } ?>
@@ -44,80 +44,49 @@ ob_start();
     </div>
 </div>
 
-<?
-$link_buttons = ob_get_contents();
-ob_end_flush();
-?>
-
-<!-- 제목, 글쓴이, 날짜, 조회, 추천, 비추천 -->
-<table width="100%" cellspacing="0" cellpadding="0" id="view_Contents">
-<tr><td height=2 bgcolor="#0A7299"></td></tr> 
-<tr><td height=30 style="padding:5px 0 5px 0;">
-    <table width=100% cellpadding=0 cellspacing=0>
-    <tr>
-    	<td style='word-break:break-all; height:28px;'>&nbsp;&nbsp;<strong><span id="writeSubject"><? if ($is_category) { echo ($category_name ? "[$view[ca_name]] " : ""); } ?><?=cut_hangul_last(get_text($view[wr_subject]))?></span></strong></td>
-    	<td width=100>
-            <? if ($board['bo_print_level'] && $member[mb_level] >= $board['bo_print_level']) { ?>
-            <script type="text/javascript" src="<?=$board_skin_path?>/../print_contents.cheditor.js"></script>
-            <a href="#" onclick="javascript:print_contents2('view_Contents', 'commentContents', '<?=$g4[title]?>')"><img src='<?=$board_skin_path?>/img/btn_print.gif' border=0 title='프린트' alt='print'></a>
-            <? }?>
-    </td>
-    </tr>
-	  <tr><td colspan="2" height=3 style="background:url(<?=$board_skin_path?>/img/title_bg.gif) repeat-x;"></td></tr>
-    </table></td></tr>
-<tr><td height=30>
-    <span style="float:left;">
-    &nbsp;&nbsp;글쓴이 : <?=$view[name]?><? if ($is_ip_view) { echo "&nbsp;($ip)"; } ?>&nbsp;&nbsp;&nbsp;&nbsp;
-    날짜 : <?=substr($view[wr_datetime],2,14)?>&nbsp;&nbsp;&nbsp;&nbsp;
-    조회 : <?=$view[wr_hit]?>&nbsp;&nbsp;&nbsp;&nbsp;
-    <? if ($is_good) { ?><font style="font:normal 11px 돋움; color:#BABABA;">추천</font> :<font style="font:normal 11px tahoma; color:#BABABA;"> <?=$view[wr_good]?>&nbsp;&nbsp;&nbsp;&nbsp;<?}?></font>
-    <? if ($is_nogood) { ?><font style="font:normal 11px 돋움; color:#BABABA;">비추천</font> :<font style="font:normal 11px tahoma; color:#BABABA;"> <?=$view[wr_nogood]?>&nbsp;&nbsp;&nbsp;&nbsp;<?}?></font>
-    </span>
-    <?if ($singo_href) { ?><span style="float:right;padding-right:5px;"><a href="javascript:win_singo('<?=$singo_href?>');"><img src='<?=$board_skin_path?>/img/icon_singo.gif' alt='singo'></a></span><?}?>
-    <?if ($unsingo_href) { ?><span style="float:right;padding-right:5px;"><a href="javascript:win_unsingo('<?=$unsingo_href?>');"><img src='<?=$board_skin_path?>/img/icon_unsingo.gif' alt='unsingo'></a></span><?}?>
-</td></tr>
-
-<!-- 게시글 주소를 복사하기 쉽게 하기 위해서 아랫 부분을 삽입 -->
-<tr><td height=30>
-        <font style="font:normal 11px 돋움; color:#BABABA;">&nbsp;&nbsp;게시글 주소 : <a href="javascript:clipboard_trackback('<?=$posting_url?>');" style="letter-spacing:0;" title='이 글을 소개할 때는 이 주소를 사용하세요'><?=$posting_url;?></a></font>
-        <? if ($g4[use_bitly]) { ?>
-            <? if ($view[bitly_url]) { ?>
-            &nbsp;bitly : <span id="bitly_url" class=bitly style="font:normal 11px 돋움; color:#BABABA;"><a href=<?=$view[bitly_url]?> target=new><?=$view[bitly_url]?></a></span>
-            <? } else { ?>
-            &nbsp;bitly : <span id="bitly_url" class=bitly style="font:normal 11px 돋움; color:#BABABA;"></span>
-            <script language=javascript>
-            // encode 된 것을 넘겨주면, 알아서 decode해서 결과를 return 해준다.
-            // encode 하기 전의 url이 있어야 결과를 꺼낼 수 있기 때문에, 결국 2개를 넘겨준다.
-            // 왜? java script에서는 urlencode, urldecode가 없으니까. ㅎㅎ
-            // 글쿠 이거는 마지막에 해야 한다. 왜??? 그래야 정보를 html page에 업데이트 하쥐~!
-            get_bitly_g4('#bitly_url', '<?=$bo_table?>', '<?=$wr_id?>');
-            </script>
-            <?}?>
-        <?}?>
-        
-        <? 
-        if ($is_member && $g4[use_gblog]) {
-            $gb4_path="../blog";
-            include_once("$gb4_path/common.php");
-        ?>
-        type="text/javascript"
-        // gblog에서 쓰는 java script 변수들을 설정
-        var gb4_blog        = "<?=$gb4['bbs_path']?>";
+<div id="view-header" class="container" style="margin-top:5px;">
+		<p>
+        <? if ($is_category) { echo ($category_name ? "[$view[ca_name]] " : ""); } ?>
+        <strong><?=cut_hangul_last(get_text($view[wr_subject]))?></strong>
+		</p>
+		<p>
+        글쓴이 : <?=$view[name]?><? if ($is_ip_view) { echo "&nbsp;($ip)"; } ?>&nbsp;&nbsp;
+	  		날짜 : <?php echo substr($view['wr_datetime'], 2, 14); ?>&nbsp;&nbsp;
+        조회 : <?=$view[wr_hit]?>&nbsp;&nbsp;
+        <? if ($is_good) { ?><font style="font:normal 11px 돋움; color:#BABABA;">추천</font> :<font style="font:normal 11px tahoma; color:#BABABA;"> <?=$view[wr_good]?>&nbsp;&nbsp;&nbsp;&nbsp;<?}?></font>
+        <? if ($is_nogood) { ?><font style="font:normal 11px 돋움; color:#BABABA;">비추천</font> :<font style="font:normal 11px tahoma; color:#BABABA;"> <?=$view[wr_nogood]?>&nbsp;&nbsp;&nbsp;&nbsp;<?}?></font>
+        <?if ($singo_href) { ?><span style="float:right;padding-right:5px;"><a href="javascript:win_singo('<?=$singo_href?>');"><img src='<?=$board_skin_path?>/img/icon_singo.gif' alt='singo'></a></span><?}?>
+        <?if ($unsingo_href) { ?><span style="float:right;padding-right:5px;"><a href="javascript:win_unsingo('<?=$unsingo_href?>');"><img src='<?=$board_skin_path?>/img/icon_unsingo.gif' alt='unsingo'></a></span><?}?>
+		</p>
+    <!-- 게시글 주소를 복사하기 쉽게 하기 위해서 아랫 부분을 삽입 -->
+    <p>
+    <font style="font:normal 11px 돋움; color:#BABABA;">게시글 주소 : <a href="javascript:clipboard_trackback('<?=$posting_url?>');" style="letter-spacing:0;" title='이 글을 소개할 때는 이 주소를 사용하세요'><?=$posting_url;?></a></font>
+    <? if ($g4[use_bitly]) { ?>
+        <? if ($view[bitly_url]) { ?>
+        &nbsp;bitly : <span id="bitly_url" class=bitly style="font:normal 11px 돋움; color:#BABABA;"><a href=<?=$view[bitly_url]?> target=new><?=$view[bitly_url]?></a></span>
+        <? } else { ?>
+        &nbsp;bitly : <span id="bitly_url" class=bitly style="font:normal 11px 돋움; color:#BABABA;"></span>
+        <script language=javascript>
+        // encode 된 것을 넘겨주면, 알아서 decode해서 결과를 return 해준다.
+        // encode 하기 전의 url이 있어야 결과를 꺼낼 수 있기 때문에, 결국 2개를 넘겨준다.
+        // 왜? java script에서는 urlencode, urldecode가 없으니까. ㅎㅎ
+        // 글쿠 이거는 마지막에 해야 한다. 왜??? 그래야 정보를 html page에 업데이트 하쥐~!
+        get_bitly_g4('#bitly_url', '<?=$bo_table?>', '<?=$wr_id?>');
         </script>
-        <script type="text/javascript"  src="<?="$gb4[path]/js/blog.js"?>"></script>
-        <a href="javascript:send_to_gblog('<?=$bo_table?>','<?=$wr_id?>')">블로그로보내기</a>
-        <? } ?>
-</td></tr>
-<tr><td height=1 bgcolor=#E7E7E7></td></tr>
+        <?}?>
+    <?}?>
+    </p>
+</div>
 
+<div id="view-main" class="container">
+<p>
 <?
 // 가변 파일
 $cnt = 0;
 for ($i=0; $i<count($view[file]); $i++) {
     if ($view[file][$i][source] && !$view[file][$i][view]) {
         $cnt++;
-        //echo "<tr><td height=22>&nbsp;&nbsp;<img src='{$board_skin_path}/img/icon_file.gif' align=absmiddle> <a href='{$view[file][$i][href]}' title='{$view[file][$i][content]}'><strong>{$view[file][$i][source]}</strong> ({$view[file][$i][size]}), Down : {$view[file][$i][download]}, {$view[file][$i][datetime]}</a></td></tr>";
-        echo "<tr><td height=30>&nbsp;&nbsp;<i class=\"fa fa-file\" title='attached file'> <a href=\"javascript:file_download('{$view[file][$i][href]}', '{$view[file][$i][source]}');\" title='{$view[file][$i][content]}'><font style='normal 11px 돋움;'>{$view[file][$i][source]} ({$view[file][$i][size]}), Down : {$view[file][$i][download]}, {$view[file][$i][datetime]}</font></a></td></tr><tr><td height='1'  bgcolor='#E7E7E7'></td></tr>";
+        echo "<i class=\"fa fa-file\" title='attached file'> <a href=\"javascript:file_download('{$view[file][$i][href]}', '{$view[file][$i][source]}');\" title='{$view[file][$i][content]}'><font style='normal 11px 돋움;'>{$view[file][$i][source]} ({$view[file][$i][size]}), Down : {$view[file][$i][download]}, {$view[file][$i][datetime]}</font></a><br>";
     }
 }
 
@@ -127,29 +96,19 @@ for ($i=1; $i<=$g4[link_count]; $i++) {
     if ($view[link][$i]) {
         $cnt++;
         $link = cut_str($view[link][$i], 70);
-        echo "<tr><td height=30>&nbsp;&nbsp;<img src='{$board_skin_path}/img/icon_link.gif' align=absmiddle alt='link'> <a href='{$view[link_href][$i]}' target=_blank><font  style='normal 11px 돋움;'>{$link} ({$view[link_hit][$i]})</font></a></td></tr><tr><td height='1' bgcolor='#E7E7E7'></td></tr>";
+        echo "<a href='{$view[link_href][$i]}' target=_blank><font  style='normal 11px 돋움;'>{$link} ({$view[link_hit][$i]})</font></a>";
     }
 }
 ?>
-
-<!-- <tr><td height=1 bgcolor=#"E7E7E7"></td></tr> //-->
-<tr> 
-    <td height="150" style='word-break:break-all;padding:10px;'>
-    <div id="resContents" class="resContents">
+<p>
 
         <?
         // 파일 출력
-        ob_start(); 
         for ($i=0; $i<=$view[file][count]; $i++) {
             if ($view[file][$i][view]) {
-                // function resize_content($content, $width=0, $height=0, $quality=0, $thumb_create=0, $image_window=1, $water_mark="", $image_filter="", $image_min=0, $imgage_min_kb=0)
-                echo resize_dica($view[file][$i][view],250,300) . "<br/>&nbsp;&nbsp;&nbsp;" . $view[file][$i][content] . "<br/>"; if (trim($view[file][$i][content])) echo "<br/>"; 
-                //echo resize_content($view[file][$i][view], 0,0,0,1,1,"","",300,90) . "<br/>&nbsp;&nbsp;&nbsp;" . $view[file][$i][content] . "<br/>"; if (trim($view[file][$i][content])) echo "<br/>";
-                //echo $view[file][$i][view] . "<br/>&nbsp;&nbsp;&nbsp;" . $view[file][$i][content] . "<br/>"; if (trim($view[file][$i][content])) echo "<br/>";
+                echo resize_dica($view[file][$i][view],250,300) . "<p>" . $view[file][$i][content] . "<br/>";
             }
         }
-        $file_viewer = ob_get_contents();
-        ob_end_clean();
 
         // 신고된 게시글의 이미지를 선택하여 출력하기
         if ($view['wr_singo'] and trim($file_viewer)) {
@@ -165,7 +124,7 @@ for ($i=1; $i<=$g4[link_count]; $i++) {
         ?>
 
         <!-- 내용 출력 -->
-        <span id="writeContents" class="ct lh">
+        <span id="writeContents">
         <?
             $write_contents=resize_dica($view[content],400,300);
             echo $write_contents;
@@ -175,8 +134,8 @@ for ($i=1; $i<=$g4[link_count]; $i++) {
         <?//echo $view[rich_content]; // {이미지:0} 과 같은 코드를 사용할 경우?>
         <!-- 테러 태그 방지용 --></xml></xmp><a href=""></a><a href=''></a>
 
-        <tr><td height="1" bgcolor="#E7E7E7"></td></tr>
-        <? if ($is_signature) { echo "<tr><td align='center' style='border-bottom:1px solid #E7E7E7; padding:5px 0;'>$signature</td></tr>"; } // 서명 출력 ?>
+
+        <? if ($is_signature) { echo "<p>$signature</p>"; } // 서명 출력 ?>
 
         <?
         // CCL 정보
@@ -250,10 +209,6 @@ for ($i=1; $i<=$g4[link_count]; $i++) {
             }
         } ?>
 </div>
-</td>
-</tr>
-
-</table><br>
 
 <?
 // 광고가 있는 경우 광고를 연결
@@ -273,7 +228,8 @@ else if ($member['mb_level'] >= $board['bo_comment_read_level'])
 <tr><td>
 <? include_once("$g4[path]/adsense_page_bottom.php"); ?>
 </td></tr>
-</table><br>
+
+</div>
 
 <script type="text/javascript"  src="<?="$g4[path]/js/board.js"?>"></script>
 <script language="JavaScript">

@@ -11,7 +11,7 @@ if ($is_nogood) $colspan++;
 ?>
 
 <!-- 게시판 목록 시작 -->
-<table width="<?=$width?>" align=center><tr><td>
+<div width="<?=$width?>" class="table-responsive"> 
 
 <!-- 분류 셀렉트 박스, 게시물 몇건, 관리자화면 링크 -->
 <div>
@@ -185,7 +185,7 @@ if ($is_nogood) $colspan++;
 </div>
 </form>
 
-</td></tr></table>
+</div>
 
 <script type="text/javascript"
 if ('<?=$sca?>') document.fcategory.sca.value = '<?=$sca?>';
