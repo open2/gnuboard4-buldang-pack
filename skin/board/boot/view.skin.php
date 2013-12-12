@@ -5,9 +5,10 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 include_once("$g4[path]/lib/view.skin.lib.php");
 ?>
 
-<div width="<?=$width?>" class="table-responsive" id="view_<?=$wr_id?>">
+<div width="<?=$width?>" class="table-responsive" id="view_<?=$wr_id?>" >
 
 <!-- 링크 버튼 -->
+<? ob_start(); // 한번 만들어서 두번 씁니다 ?>
 <div id="view-top">
     <div class="btn-group">
         <? if ($search_href) { echo "<a href=\"$search_href\" class=\"btn btn-default btn-sm\">검색</a> "; } ?>
@@ -43,8 +44,13 @@ include_once("$g4[path]/lib/view.skin.lib.php");
     </div>
     </div>
 </div>
+<?
+$link_buttons = ob_get_contents();
+ob_end_flush();
+?>
 
-<div id="view-header" class="container" style="margin-top:5px;">
+<div id="view-header" class="panel panel-default" style="margin-top:5px; outline: 1px solid white">
+<div class="panel-heading">
 		<p>
         <? if ($is_category) { echo ($category_name ? "[$view[ca_name]] " : ""); } ?>
         <strong><?=cut_hangul_last(get_text($view[wr_subject]))?></strong>
@@ -59,7 +65,7 @@ include_once("$g4[path]/lib/view.skin.lib.php");
         <?if ($unsingo_href) { ?><span style="float:right;padding-right:5px;"><a href="javascript:win_unsingo('<?=$unsingo_href?>');"><img src='<?=$board_skin_path?>/img/icon_unsingo.gif' alt='unsingo'></a></span><?}?>
 		</p>
     <!-- 게시글 주소를 복사하기 쉽게 하기 위해서 아랫 부분을 삽입 -->
-    <p>
+    <p class="row collapse navbar-collapse">
     <font style="font:normal 11px 돋움; color:#BABABA;">게시글 주소 : <a href="javascript:clipboard_trackback('<?=$posting_url?>');" style="letter-spacing:0;" title='이 글을 소개할 때는 이 주소를 사용하세요'><?=$posting_url;?></a></font>
     <? if ($g4[use_bitly]) { ?>
         <? if ($view[bitly_url]) { ?>
@@ -78,7 +84,7 @@ include_once("$g4[path]/lib/view.skin.lib.php");
     </p>
 </div>
 
-<div id="view-main" class="container">
+<div id="view-main" class="panel-body">
 <p>
 <?
 // 가변 파일
@@ -214,7 +220,11 @@ for ($i=1; $i<=$g4[link_count]; $i++) {
 // 광고가 있는 경우 광고를 연결
 if (file_exists("$board_skin_path/adsense_view_comment.php"))
     include_once("$board_skin_path/adsense_view_comment.php");
+?>
 
+</div>
+
+<?
 // 코멘트 입출력
 if (!$board['bo_comment_read_level'])
   include_once("./view_comment.php");
@@ -222,12 +232,14 @@ else if ($member['mb_level'] >= $board['bo_comment_read_level'])
   include_once("./view_comment.php");
 ?>
 
+
 <?=$link_buttons?>
 
 </td></tr>
 <tr><td>
 <? include_once("$g4[path]/adsense_page_bottom.php"); ?>
 </td></tr>
+
 
 </div>
 
