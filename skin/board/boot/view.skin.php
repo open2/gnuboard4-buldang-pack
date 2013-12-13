@@ -29,18 +29,18 @@ include_once("$g4[path]/lib/view.skin.lib.php");
         <? if ($nosecret_href) { echo "<a href=\"$nosecret_href\" class=\"btn btn-default btn-sm\">비밀글해제</a> "; } ?>
         <? if ($secret_href) { echo "<a href=\"$secret_href\" class=\"btn btn-default btn-sm\">비밀글</a> "; } ?>
     </div>
-    <div class="btn-group">
-        <? if ($copy_href) { echo "<a href=\"$copy_href\" class=\"btn btn-default btn-sm\">복사</a> "; } ?>
-        <? if ($move_href) { echo "<a href=\"$move_href\" class=\"btn btn-default btn-sm\">이동</a> "; } ?>
-        <? if ($now_href) { echo "<a href=\"$now_href\" class=\"btn btn-default btn-sm\">갱신</a> "; } ?>
-    </div>
-    <div class="pull-right">
-    <div class="btn-group">
+    <div class="btn-group pull-right">
         <? if ($prev_href) { echo "<a href=\"$prev_href\" title=\"$prev_wr_subject\" class=\"btn btn-default btn-sm\">이전글</a>"; } ?>
         <? if ($next_href) { echo "<a href=\"$next_href\" title=\"$next_wr_subject\" class=\"btn btn-default btn-sm\">다음글</a>"; } ?>
  	      <a href="javascript:scaleFont(+1);" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-zoom-in"></span></a>
         <a href="javascript:scaleFont(-1);" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-zoom-out"></span></a>
     </div>
+    <div class="btn-group hidden-xs hidden-sm  pull-right">
+        <? if ($copy_href) { echo "<a href=\"$copy_href\" class=\"btn btn-default btn-sm\">복사</a> "; } ?>
+        <? if ($move_href) { echo "<a href=\"$move_href\" class=\"btn btn-default btn-sm\">이동</a> "; } ?>
+        <? if ($now_href) { echo "<a href=\"$now_href\" class=\"btn btn-default btn-sm\">갱신</a> "; } ?>
+    </div>
+    <div class="pull-right">
     </div>
 </div>
 <?

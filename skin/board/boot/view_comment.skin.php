@@ -21,7 +21,7 @@ var char_max = parseInt(<?=$comment_max?>); // 최대
 { font-size:11px; color:#ff6600; text-decoration:none; font-family:gulim; }
 </style>
 
-<? if ($cwin==1) { ?><table width=100% cellpadding=10 align=center><tr><td><?}?>
+<? if ($cwin==1) { ?><div width="<?=$width?>" class="table-responsive"><?}?>
 
 <!-- 코멘트 리스트 -->
 <div id="commentContents" class="commentContents">
@@ -406,7 +406,7 @@ comment_box('', 'c'); // 코멘트 입력폼이 보이도록 처리하기위해서 추가 (root님)
 </script>
 <? } ?>
 
-<? if($cwin==1) { ?></td><tr></table><p align=center><a href="javascript:window.close();"><img src="<?=$board_skin_path?>/img/btn_close.gif" border="0"></a><br><br><?}?>
+<? if($cwin==1) { ?></div><p align=center><a class="btn btn-default" href="javascript:window.close();">닫 기</a><?}?>
 
 <!-- post 방식으로 javascript submit을 수행 -->
 <script type="text/javascript">
