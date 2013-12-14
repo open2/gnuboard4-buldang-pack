@@ -17,6 +17,14 @@ if ($is_nogood) $colspan++;
 <div>
     <div class="btn-group">
     <a href="<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?>" class="btn btn-default btn-sm"><?=$board[bo_subject]?></a>
+    </div>
+
+    <div class="btn-group">
+    <? if ($write_href) { ?>
+    <div class="btn-group">
+        <a href="<?=$write_href?>" class="btn btn-sm btn-default"><i class='fa fa-edit'></i> 쓰기</a>
+    </div>
+    <? } ?>
     <? include("$g4[bbs_path]/my_menu_add_script.php");?>
     <? if ($rss_href) { ?><a href='<?=$rss_href?>' class="btn btn-default btn-sm"><i class='fa fa-rss'></i></a><?}?>
     <? if ($admin_href) { ?><a href="<?=$admin_href?>" class="btn btn-default btn-sm"><i class='fa fa-cog'></i></a><?}?>
@@ -137,14 +145,18 @@ if ($is_nogood) $colspan++;
 <form name=fsearch method=get role="form" class="form-inline">
 <input type=hidden name=bo_table value="<?=$bo_table?>">
 <input type=hidden name=sca      value="<?=$sca?>">
+<? if ($list_href) { ?>
 <div class="btn-group">
-    <? if ($list_href) { ?><a href="<?=$list_href?>" class="btn btn-default"><i class='fa fa-list'></i> 목록</a><? } ?>
+    <a href="<?=$list_href?>" class="btn btn-default"><i class='fa fa-list'></i> 목록</a>
 </div>
+<? } ?>
+<? if ($write_href) { ?>
 <div class="btn-group">
-    <? if ($write_href) { ?><a href="<?=$write_href?>" class="btn btn-default"><i class='fa fa-edit'></i> 쓰기</a><? } ?>
+    <a href="<?=$write_href?>" class="btn btn-default"><i class='fa fa-edit'></i> 쓰기</a>
 </div>
+<? } ?>
 <? if ($is_checkbox) { ?>
-<div class="btn-group">
+<div class="btn-group hidden-sm hidden-xs">
     <a href="javascript:select_delete();" class="btn btn-default">선택삭제</a>
     <a href="javascript:select_copy('copy');" class="btn btn-default">선택복사</a>
     <a href="javascript:select_copy('move');" class="btn btn-default">선택이동</a>

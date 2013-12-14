@@ -21,34 +21,12 @@ var char_max = parseInt(<?=$comment_max?>); // 최대
 <div id="commentContents" class="commentContents">
 
 <? if (trim($board[bo_comment_notice])) { ?>
-<table width=100% cellpadding=0 cellspacing=0>
-<tr>
-    <td></td>
-    <td width="100%">
-        <table width=100% cellpadding=0 cellspacing=0>
-        <tr>
-            <!-- 이름, 아이피 -->
-            <td>
-                <span class=mw_basic_comment_name><img src="<?=$board_skin_path?>/img/icon_notice.gif"></span>
-            </td>
-            <!-- 링크 버튼, 코멘트 작성시간 -->
-            <td align=right>
-                <span class=mw_basic_comment_datetime><?=substr($view[wr_datetime],2,14)?></span>
-            </td>
-        </tr>
-        <tr height=5><td></td></tr>
-        </table>
-        <table width=100% cellpadding=0 cellspacing=0 class=mw_basic_comment_content>
-        <tr>                            
-            <td colspan=2>
-                <div><?=get_text($board[bo_comment_notice], 1)?></div>
-            </td>
-        </tr>
-        </table>
-    </td>
-</tr>
-</table>
-<br/>
+<div>
+</div>
+<div class="well">
+    <span class="pull-right"><i class="fa fa-volume-up"></i>&nbsp;<?=substr($view[wr_datetime],2,14)?></span>
+    <?=get_text($board[bo_comment_notice], 1)?>
+</div>
 <? } ?>
 
 <?
@@ -56,7 +34,7 @@ for ($i=0; $i<count($list); $i++) {
     $comment_id = $list[$i][wr_id];
 ?>
 <a name="c_<?=$comment_id?>" id="c_<?=$comment_id?>"></a>
-<table width=100% cellpadding=0 cellspacing=0 border=0 id=view_<?=$wr_id?> >
+<table role="table" width=100% cellpadding=0 cellspacing=0 border=0 id=view_<?=$wr_id?> >
 <tr>
     <td><? for ($k=0; $k<strlen($list[$i][wr_comment_reply]); $k++) echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; ?></td>
     <td width='100%'>
@@ -70,27 +48,28 @@ for ($i=0; $i<count($list); $i++) {
         </tr>
         <tr>
             <td valign=top>
-                <div style="height:28px; background:url(<?=$board_skin_path?>/img/co_title_bg.gif); clear:both; line-height:28px;">
                 <div style="float:left; margin:2px 0 0 2px;">
                 <strong><?=$list[$i][name]?></strong>
                 <span style="color:#888888; font-size:11px;"><?=$list[$i][datetime]?></span>
+                <?
+                // $board[bo_new] 시간내에 새로운 코멘트가 있으면 icon_new.gif를 뒤에
+                if ($list[$i]['wr_datetime'] >= date("Y-m-d H:i:s", $g4['server_time'] - ($board['bo_new'] * 3600))) 
+                    echo "<span class=\"badge\">n</span>";
+                ?>
+                <? if ($is_ip_view) { echo "<span style=\"color:#B2B2B2; font-size:11px;\">{$list[$i][ip]}</span>"; } ?>
                 </div>
-                <div style="float:right; margin-top:5px;">
-                <? if ($is_ip_view) { echo "&nbsp;<span style=\"color:#B2B2B2; font-size:11px;\">{$list[$i][ip]}</span>"; } ?>
-                <? if ($list[$i][is_reply] && $check_comment_allow) { echo "<a href=\"javascript:comment_box('{$comment_id}','c');\"><img src='$board_skin_path/img/co_btn_reply.gif' border=0 align=absmiddle alt='답변'></a> "; } ?>
-                <? if ($list[$i][is_edit]) { echo "<a href=\"javascript:comment_box('{$comment_id}', 'cu');\"><img src='$board_skin_path/img/co_btn_modify.gif' border=0 align=absmiddle alt='수정'></a> "; } ?>
-                <? if ($list[$i][is_del])  { echo "<a href=\"javascript:comment_delete('{$list[$i][del_link]}');\"><img src='$board_skin_path/img/co_btn_delete.gif' border=0 align=absmiddle alt='삭제'></a> "; } ?>
-                <? if ($list[$i][singo_href]) { ?>&nbsp;<a href="javascript:;" onclick="win_singo('<?=$list[$i][singo_href]?>');"><img src='<?=$board_skin_path?>/img/icon_singo.gif'></a><?}?>
-                <? if ($list[$i][secret_href]) { ?>&nbsp;<a href="<?=$list[$i][secret_href]?>"><img src='<?=$board_skin_path?>/img/icon_comment_secret.gif' border='0' align='absmiddle'></a><?}?>
-                <? if ($list[$i][nosecret_href]) { ?>&nbsp;<a href="<?=$list[$i][nosecret_href]?>"><img src='<?=$board_skin_path?>/img/icon_comment_nosecret.gif' border='0' align='absmiddle'></a><?}?>
-                &nbsp;
-                </div>
+                <div class="btn-group pull-right" style="margin-top:5px;">
+                <? if ($list[$i][is_reply] && $check_comment_allow) { echo "<a class=\"btn btn-default btn-sm\" href=\"javascript:comment_box('{$comment_id}','c');\">Reply</a> "; } ?>
+                <? if ($list[$i][is_edit]) { echo "<a class=\"btn btn-default btn-sm\" href=\"javascript:comment_box('{$comment_id}', 'cu');\">Modify</a> "; } ?>
+                <? if ($list[$i][is_del])  { echo "<a class=\"btn btn-default btn-sm\" href=\"javascript:comment_delete('{$list[$i][del_link]}');\">Delete</a> "; } ?>
+                <? if ($list[$i][singo_href]) { ?><a class="btn btn-default btn-sm" href="javascript:;" onclick="win_singo('<?=$list[$i][singo_href]?>');">Singo</a><?}?>
+                <? if ($list[$i][secret_href]) { ?><a class="btn btn-default btn-sm" href="<?=$list[$i][secret_href]?>">Secret</a><?}?>
+                <? if ($list[$i][nosecret_href]) { ?><a class="btn btn-default btn-sm" href="<?=$list[$i][nosecret_href]?>">UnSecret</a><?}?>
                 </div>
 
                 <!-- 코멘트 출력 -->
                 <div style='line-height:20px; padding:7px; word-break:break-all; overflow:hidden; clear:both; '>
                 <?
-                //if (strstr($list[$i][wr_option], "secret") and ($list[$i][mb_id] == $member[mb_id] or $is_admin or $member[mb_id] == $write[mb_id])) echo "<span style='color:#ff6600;FONT-WEIGHT:bold'>*비밀글입니다</span><BR> ";
                 if (strstr($list[$i][wr_option], "secret")) echo "<span style='color:#ff6600;FONT-WEIGHT:bold'>*비밀글입니다</span><BR> ";
                 
                 if (strstr($list[$i][wr_option], "html"))
@@ -107,15 +86,8 @@ for ($i=0; $i<count($list); $i++) {
                 $str = preg_replace("/\[\<a\s*href\=\"(http|https|ftp)\:\/\/([^[:space:]]+)\.(gif|png|jpg|jpeg|bmp)\"\s*[^\>]*\>[^\s]*\<\/a\>\]/i", "<img src='$1://$2.$3' id='target_resize_image[]' onclick='image_window(this);'>", $str);
                 } else {
                 $str = preg_replace("/\[\<a\s.*href\=\"(http|https|ftp|mms)\:\/\/([^[:space:]]+)\.(mp3|wma|wmv|asf|asx|mpg|mpeg)\".*\<\/a\>\]/i", "<script>doc_write(obj_movie('$1://$2.$3'));</script>", $str);
-                // FLASH XSS 공격에 의해 주석 처리 - 110406
-                //$str = preg_replace("/\[\<a\s.*href\=\"(http|https|ftp)\:\/\/([^[:space:]]+)\.(swf)\".*\<\/a\>\]/i", "<script>doc_write(flash_movie('$1://$2.$3'));</script>", $str);
-                //$str = preg_replace("/\[\<a\s*href\=\"(http|https|ftp)\:\/\/([^[:space:]]+)\.(gif|png|jpg|jpeg|bmp)\"\s*[^\>]*\>[^\s]*\<\/a\>\]/i", "<img src='$1://$2.$3' id='target_resize_image[]' onclick='image_window(this);'>", $str);
-                // resize code는 view_comment.php로 이동
-                //$str = preg_replace("/(\<img )([^\>]*)(\>)/i", "\\1 name='target_resize_image[]' onclick='image_window(this)' style='cursor:pointer;' \\2 \\3", $str);
                 }
-                //if (strstr($list[$i][wr_option], "secret")) $str = "<span class='secret'>$str</span>"; 
 
-                //echo resize_content($str, $board[bo_image_width] - 50 * strlen($list[$i][wr_comment_reply]));
                 echo resize_content($str, $board[bo_image_width] - 150);
                 ?>
                 </div>
@@ -150,7 +122,7 @@ if ($is_dhtml_editor) {
 
 <div id=comment_write style="display:none;">
 <table width=100% border=0 cellpadding=1 cellspacing=0 bgcolor="#dddddd"><tr><td>
-<form name="fviewcomment" method="post" action="./write_comment_update.php" onsubmit="return fviewcomment_submit(this);" autocomplete="off" style="margin:0px;">
+<form role="form" class="form-horizontal" name="fviewcomment" method="post" action="./write_comment_update.php" onsubmit="return fviewcomment_submit(this);" autocomplete="off" style="margin:0px;">
 <input type=hidden name=w           id=w value='c'>
 <input type=hidden name=bo_table    value='<?=$bo_table?>'>
 <input type=hidden name=wr_id       value='<?=$wr_id?>'>
@@ -163,13 +135,13 @@ if ($is_dhtml_editor) {
 <input type=hidden name=cwin        value='<?=$cwin?>'>
 <input type=hidden name=is_good     value=''>
 
-<table width=100% cellpadding=3 height=156 cellspacing=0 bgcolor="#ffffff" style="border:1px solid #fff; background:url(<?=$board_skin_path?>/img/co_bg.gif) x-repeat;">
+<table role="table" width=100% cellpadding=3 height=156 cellspacing=0 bgcolor="#ffffff" style="border:1px solid #fff; background:url(<?=$board_skin_path?>/img/co_bg.gif) x-repeat;">
 <tr>
     <td colspan="2" style="padding:5px 0 0 5px;">
         <? if (!$is_dhtml_editor) { ?>
-        <span style="cursor: pointer;" onclick="textarea_decrease('wr_content', 8);"><img src="<?=$board_skin_path?>/img/co_btn_up.gif"></span>
-        <span style="cursor: pointer;" onclick="textarea_original('wr_content', 8);"><img src="<?=$board_skin_path?>/img/co_btn_init.gif"></span>
-        <span style="cursor: pointer;" onclick="textarea_increase('wr_content', 8);"><img src="<?=$board_skin_path?>/img/co_btn_down.gif"></span>
+        <span style="cursor: pointer;" onclick="textarea_decrease('wr_content', 5);"> <i class="fa fa-minus-square"></i> </span>
+        <span style="cursor: pointer;" onclick="textarea_original('wr_content', 8);"> <i class="fa fa-circle-o"></i> </span>
+        <span style="cursor: pointer;" onclick="textarea_increase('wr_content', 5);"> <i class="fa fa-plus-square"></i> </span>
         <? } ?>
         
         <? if ($is_guest) { ?>
@@ -181,7 +153,9 @@ if ($is_dhtml_editor) {
             <script type="text/javascript" src="<?="$g4[path]/zmSpamFree/zmspamfree.js"?>"></script>
             <?}?>
         <? } ?>
+        <label class="checkbox-inline">
         <input type=checkbox id="wr_secret" name="wr_secret" value="secret">비밀글
+        </label>
         <? if ($comment_min || $comment_max) { ?><span id=char_count></span>글자<?}?>
     </td>
 </tr>
@@ -205,13 +179,13 @@ if ($is_dhtml_editor) {
 		</script>
 
 		<? } else { ?>
-        <textarea id="wr_content" name="wr_content" rows=8 itemname="내용" required
+        <textarea class="form-control" id="wr_content" name="wr_content" rows=8 itemname="내용" required
         <? if ($comment_min || $comment_max) { ?>onkeyup="check_byte('wr_content', 'char_count');"<?}?> style='width:100%; word-break:break-all;' class=tx></textarea>
         <? if ($comment_min || $comment_max) { ?><script language="javascript"> check_byte('wr_content', 'char_count'); </script><?}?>
 		<? } ?>
     </td>
     <td width=85 align=center>
-        <div><input type="image" src="<?=$board_skin_path?>/img/co_btn_write.gif" border=0 accesskey='s'></div>
+        <button type="submit" class="btn btn-default">Write</button>
     </td>
 </tr>
 </table>
@@ -234,18 +208,6 @@ function fviewcomment_submit(f)
     <? } else { ?>
         var save_html = f.wr_content.innerHTML;
     <? } ?>
-
-    /*
-    var s;
-    if (s = word_filter_check(f.wr_content.value))
-    {
-        alert("내용에 금지단어('"+s+"')가 포함되어있습니다");
-        <? if (!$is_dhtml_editor) { ?>
-        f.wr_content.focus();
-        <? } ?>
-        return false;
-    }
-    */
 
     var subject = "";
     var content = "";

@@ -90,15 +90,15 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
     <div class="panel-body">
         <? if ($option) { ?>
         <div class="form-group">
-            <label class="col-xs-1 hidden-xs">Option</label>
-            <div class="col-xs-11"><?=$option?></div>
+            <label class="col-sm-1 hidden-xs">Option</label>
+            <div class="col-xs-12 col-sm-11"><?=$option?></div>
         </div>
         <?}?>
 
         <? if ($is_name) { ?>
         <div class="form-group">
-            <label class="col-xs-1 hidden-xs">Name</label>
-            <div class="col-xs-11">
+            <label class="col-sm-1 hidden-xs">Name</label>
+            <div class="col-xs-12 col-sm-11">
             <input class="form-control" maxlength=20 size=15 name=wr_name itemname="이름" placeholder="이름" required value="<?=$name?>">
             </div>
         </div>
@@ -106,8 +106,8 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
 
         <? if ($is_password) { ?>
         <div class="form-group">
-            <label class="col-xs-1 hidden-xs">Password</label>
-            <div class="col-xs-11">
+            <label class="col-sm-1 hidden-xs">Password</label>
+            <div class="col-xs-12 col-sm-11">
             <input class="form-control" type=password maxlength=20 size=15 name=wr_password itemname="패스워드" placeholder="패스워드" <?=$password_required?>>
             </div>
         </div>
@@ -115,8 +115,8 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
 
         <? if ($is_email) { ?>
         <div class="form-group">
-            <label class="col-xs-1 hidden-xs">E-mail</label>
-            <div class="col-xs-11">
+            <label class="col-sm-1 hidden-xs">E-mail</label>
+            <div class="col-xs-12 col-sm-11">
             <input class="form-control" type="email" maxlength=100 size=50 name=wr_email email itemname="이메일" placeholder="이메일" value="<?=$email?>">
             </div>
         </div>
@@ -124,24 +124,24 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
 
         <? if ($is_homepage) { ?>
         <div class="form-group">
-            <label class="col-xs-1 hidden-xs">Homepage URL</label>
-            <div class="col-xs-11">
+            <label class="col-sm-1 hidden-xs">Homepage URL</label>
+            <div class="col-xs-12 col-sm-11">
             <input class="form-control" type="url" size=50 name=wr_homepage itemname="홈페이지" placeholder="홈페이지" value="<?=$homepage?>">
             </div>
         </div>
         <? } ?>            
 
         <div class="form-group">
-            <label class="col-xs-1 hidden-xs">Subject</label>
-            <div class="col-xs-11">
+            <label class="col-sm-1 hidden-xs">Subject</label>
+            <div class="col-xs-12 col-sm-11">
             <input class="form-control" name=wr_subject id="wr_subject" itemname="제목" placeholder="제목" required value="<?=$subject?>" placeholder="Subject">
             </div>
         </div>
 
         <? if ($is_category) { ?>
         <div class="form-group">
-            <label class="col-xs-1 hidden-xs">Category</label>
-            <div class="col-xs-11">
+            <label class="col-sm-1 hidden-xs">Category</label>
+            <div class="col-xs-12 col-sm-11">
             <select class="form-control" name=ca_name required itemname="분류"><option value="">선택하세요<?=$category_option?></select>
             </div>
         </div>
@@ -153,9 +153,9 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
                 <? if ($is_dhtml_editor) { ?>
                     <?=cheditor2('wr_content', $content);?>
                 <? } else { ?>
-                    <span style="cursor: pointer;" onclick="textarea_decrease('wr_content', 5);"> <i class="fa fa-minus-square"> </i></span>
-                    <span style="cursor: pointer;" onclick="textarea_original('wr_content', 15);"> <i class="fa fa-circle-o"> </i></span>
-                    <span style="cursor: pointer;" onclick="textarea_increase('wr_content', 5);"> <i class="fa fa-plus-square"> </i></span>
+                    <span style="cursor: pointer;" onclick="textarea_decrease('wr_content', 5);"> <i class="fa fa-minus-square"></i> </span>
+                    <span style="cursor: pointer;" onclick="textarea_original('wr_content', 15);"> <i class="fa fa-circle-o"></i> </span>
+                    <span style="cursor: pointer;" onclick="textarea_increase('wr_content', 5);"> <i class="fa fa-plus-square"></i> </span>
                     <? if ($write_min || $write_max) { ?><div class="pull-right"><span id=char_count></span>글자</div><?}?>
                     <textarea class="form-control" id="wr_content" name="wr_content" style='width:100%; word-break:break-all;' rows=15 itemname="내용" required 
                     <? if ($write_min || $write_max) { ?>onkeyup="check_byte('wr_content', 'char_count');"<?}?>><?=$content?></textarea>
@@ -186,7 +186,7 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
 
         <? if ($is_file) { ?>
         <div class="form-group">
-            <label class="col-sm-1 hidden-xs">File
+            <label class="col-xs-1 hidden-xs">File
             <a onclick="add_file();" style="cursor:pointer;"><i class="fa fa-plus"></i></a> <a onclick="del_file();" style="cursor:pointer;"><i class="fa fa-minus"></i></a>
 
             </label>
