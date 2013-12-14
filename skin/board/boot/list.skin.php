@@ -22,7 +22,7 @@ if ($is_nogood) $colspan++;
     <? if ($admin_href) { ?><a href="<?=$admin_href?>" class="btn btn-default btn-sm"><i class='fa fa-cog'></i></a><?}?>
     <? if ($is_category) { ?>
     <form name="fcategory" method="get" role="form" class="form-inline">
-    <select name=sca onchange="location='<?=$category_location?>'+<?=strtolower($g4[charset])=='utf-8' ? "encodeURIComponent(this.value)" : "this.value"?>;">
+    <select class="form-control input-sm" name=sca onchange="location='<?=$category_location?>'+<?=strtolower($g4[charset])=='utf-8' ? "encodeURIComponent(this.value)" : "this.value"?>;">
     <option value=''>전체</option><?=$category_option?></select>
     </form>
     <? } ?>
@@ -52,7 +52,7 @@ if ($is_nogood) $colspan++;
     <? if ($is_checkbox) { ?><th width=40><INPUT onclick="if (this.checked) all_checked(true); else all_checked(false);" type=checkbox></th><?}?>
     <th>제목</th>
     <th width=110px>글쓴이</th>
-    <th width=60px><?=subject_sort_link('wr_datetime', $qstr2, 1)?>날짜</a></a></th>
+    <th width=60px><?=subject_sort_link('wr_datetime', $qstr2, 1)?>날짜</a></th>
     <th width=60px><?=subject_sort_link('wr_hit', $qstr2, 1)?>조회</a></th>
     <? if ($is_good) { ?><th width=60px><?=subject_sort_link('wr_good', $qstr2, 1)?>추천</a></th><?}?>
     <? if ($is_nogood) { ?><th width=60px><?=subject_sort_link('wr_nogood', $qstr2, 1)?>비추천</a></th><?}?>
@@ -94,13 +94,13 @@ if ($is_nogood) $colspan++;
 
         //echo " " . $list[$i][icon_new];
         if ($list[$i][icon_new]) echo " <i class=\"fa fa-bell\" title='new'>";
-        if ($list[$i][icon_file]) echo " <i class=\"fa fa-file\" title='attached file'>";
+        if ($list[$i][icon_file]) echo " <i class=\"fa fa-file\" title='attached file'></i>";
         echo " " . $list[$i][icon_link];
         if (!$list[$i][is_notice]) {
 
-        if ($list[$i][icon_hot]) echo " <i class=\"fa fa-fire\" title='hot article'>";
+        if ($list[$i][icon_hot]) echo " <i class=\"fa fa-fire\" title='hot article'></i>";
         }
-        if ($list[$i][icon_secret]) echo " <i class=\"fa fa-lock\" title='new'>";
+        if ($list[$i][icon_secret]) echo " <i class=\"fa fa-lock\" title='new'></i>";
         echo $nobr_end;
         ?></td>
     <td><nobr style='display:block; overflow:hidden; width:105px;'><?=$list[$i][name]?></nobr></td>
@@ -187,7 +187,7 @@ if ($is_nogood) $colspan++;
 
 </div>
 
-<script type="text/javascript"
+<script type="text/javascript">
 if ('<?=$sca?>') document.fcategory.sca.value = '<?=$sca?>';
 if ('<?=$stx?>') {
     document.fsearch.sfl.value = '<?=$sfl?>';
@@ -196,7 +196,7 @@ if ('<?=$stx?>') {
 </script>
 
 <? if ($is_checkbox) { ?>
-<script type="text/javascript"
+<script type="text/javascript">
 function all_checked(sw) {
     var f = document.fboardlist;
 

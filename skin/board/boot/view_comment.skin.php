@@ -15,12 +15,6 @@ var char_min = parseInt(<?=$comment_min?>); // 최소
 var char_max = parseInt(<?=$comment_max?>); // 최대
 </script>
 
-<style type="text/css">
-.secret, .secret p, .secret div
-.secret a:hover, .secret a:active, .secret a:visited, .secret a:link
-{ font-size:11px; color:#ff6600; text-decoration:none; font-family:gulim; }
-</style>
-
 <? if ($cwin==1) { ?><div width="<?=$width?>" class="table-responsive"><?}?>
 
 <!-- 코멘트 리스트 -->

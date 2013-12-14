@@ -11,20 +11,13 @@ if ($is_dhtml_editor) {
 include_once("$g4[path]/lib/write.skin.lib.php");
 ?>
 
-<div style="height:14px; line-height:1px; font-size:1px;">&nbsp;</div>
-
-<style type="text/css">
-.write_head { height:30px; text-align:center; color:#8492A0; }
-.field { border:1px solid #ccc; }
-</style>
-
 <script type="text/javascript">
 // 글자수 제한
 var char_min = parseInt(<?=$write_min?>); // 최소
 var char_max = parseInt(<?=$write_max?>); // 최대
 </script>
 
-<form name="fwrite" method="post" onsubmit="return fwrite_submit(this);" enctype="multipart/form-data" style="margin:0px;">
+<form role="form" class="form-horizontal" name="fwrite" method="post" onsubmit="return fwrite_submit(this);" enctype="multipart/form-data">
 <input type=hidden name=null> 
 <input type=hidden name=w        value="<?=$w?>">
 <input type=hidden name=bo_table value="<?=$bo_table?>">
@@ -39,120 +32,141 @@ var char_max = parseInt(<?=$write_max?>); // 최대
 <input type=hidden name=mnb      value="<?=$mnb?>">
 <input type=hidden name=snb      value="<?=$snb?>">
 
-<table width="<?=$width?>" align=center cellpadding=0 cellspacing=0><tr><td>
-
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-<colgroup width=100>
-<colgroup width=''>
-<tr><td colspan=2 height=2 bgcolor="#0A7299"></td></tr>
-<tr><td style='padding-left:20px' colspan=2 height=38 bgcolor="#FBFBFB"><strong><?=$title_msg?></strong></td></tr>
-<tr><td colspan="2" style="background:url(<?=$board_skin_path?>/img/title_bg.gif) repeat-x; height:3px;"></td></tr>
-<? if ($is_name) { ?>
-<tr>
-    <td style='padding-left:20px; height:30px;'>· 이름</td>
-    <td><input class='field_pub_01' maxlength=20 size=15 name=wr_name itemname="이름" required value="<?=$name?>"></td></tr>
-<tr><td colspan=2 height=1 bgcolor=#e7e7e7></td></tr>
-<? } ?>
-
-<? if ($is_password) { ?>
-<tr>
-    <td style='padding-left:20px; height:30px;'>· 패스워드</td>
-    <td><input class='field_pub_01' type=password maxlength=20 size=15 name=wr_password itemname="패스워드" <?=$password_required?>></td></tr>
-<tr><td colspan=2 height=1 bgcolor=#e7e7e7></td></tr>
-<? } ?>
-
-<? if ($is_email) { ?>
-<tr>
-    <td style='padding-left:20px; height:30px;'>· 이메일</td>
-    <td><input class='field_pub_01' maxlength=100 size=50 name=wr_email email itemname="이메일" value="<?=$email?>"></td></tr>
-<tr><td colspan=2 height=1 bgcolor=#e7e7e7></td></tr>
-<? } ?>
-
-<? if ($is_homepage) { ?>
-<tr>
-    <td style='padding-left:20px; height:30px;'>· 홈페이지</td>
-    <td><input class='field_pub_01' size=50 name=wr_homepage itemname="홈페이지" value="<?=$homepage?>"></td></tr>
-<tr><td colspan=2 height=1 bgcolor=#e7e7e7></td></tr>
-<? } ?>
-
 <? 
 $option = "";
 $option_hidden = "";
 if ($is_notice || $is_html || $is_secret || $is_mail) { 
     $option = "";
-    if ($is_notice) { 
-        $option .= "<input type=checkbox name=notice value='1' $notice_checked>공지&nbsp;";
+    if ($is_notice) {
+        $option .= '<label class="checkbox-inline">';
+        $option .= "<input type=checkbox name=notice value='1' $notice_checked>공지";
+        $option .= '</label>';
     }
 
     // 불당팩 - 전체 공지
     if ($is_g_notice) {
-        $option .= "<input type=checkbox name=g_notice value='1' $g_notice_checked>전체공지&nbsp;";
+        $option .= '<label class="checkbox-inline">';
+        $option .= "<input type=checkbox name=g_notice value='1' $g_notice_checked>전체공지";
+        $option .= '</label>';
     }
 
     if ($is_html) {
         if ($is_dhtml_editor) {
             $option_hidden .= "<input type=hidden value='html1' name='html'>";
         } else {
-            $option .= "<input onclick='html_auto_br(this);' type=checkbox value='$html_value' name='html' $html_checked><span class=w_title>html</span>&nbsp;";
+            $option .= '<label class="checkbox-inline">';
+            $option .= "<input onclick='html_auto_br(this);' type=checkbox value='$html_value' name='html' $html_checked>html";
+            $option .= '</label>';
         }
     }
 
     if ($is_secret) {
         if ($is_admin || $is_secret==1) {
-            $option .= "<input type=checkbox value='secret' name='secret' $secret_checked><span class=w_title>비밀글</span>&nbsp;";
+            $option .= '<label class="checkbox-inline">';
+            $option .= "<input type=checkbox value='secret' name='secret' $secret_checked>비밀글";
+            $option .= '</label>';
         } else {
             $option_hidden .= "<input type=hidden value='secret' name='secret'>";
         }
     }
     
     if ($is_mail) {
-        $option .= "<input type=checkbox value='mail' name='mail' $recv_email_checked>답변메일받기&nbsp;";
+        $option .= '<label class="checkbox-inline">';
+        $option .= "<input type=checkbox value='mail' name='mail' $recv_email_checked>답변메일받기";
+        $option .= '</label>';
     }
+
+      // hidden으로 넘겨야 하는 옵션을 출력 합니다.
+			echo $option_hidden;
 }
-
-echo $option_hidden;
-if ($option) {
 ?>
-<tr>
-    <td class=write_head>옵 션</td>
-    <td style='padding-left:20px; height:30px;'><?=$option?></td></tr>
-<tr><td colspan=2 height=1 bgcolor=#e7e7e7></td></tr>
-<? } ?>
 
-<? if ($is_category) { ?>
-<tr>
-    <td style='padding-left:20px; height:30px;'>· 분류</td>
-    <td><select name=ca_name required itemname="분류"><option value="">선택하세요<?=$category_option?></select></td></tr>
-<tr><td colspan=2 height=1 bgcolor=#e7e7e7></td></tr>
-<? } ?>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div>
+            <strong><?=$title_msg?></strong>
+        </div>
+    </div>
+    <div class="panel-body">
+        <? if ($option) { ?>
+        <div class="form-group">
+            <label class="col-xs-1 hidden-xs">Option</label>
+            <div class="col-xs-11"><?=$option?></div>
+        </div>
+        <?}?>
 
-<tr>
-    <td style='padding-left:20px; height:30px;'>· 제목</td>
-    <td><input class="field_pub_01" style="width:100%;" name=wr_subject id="wr_subject" itemname="제목" required value="<?=$subject?>"></td></tr>
-<tr><td colspan=2 height=1 bgcolor=#e7e7e7></td></tr>
-<tr>
-    <td style='padding-left:20px;'>· 내용</td>
-    <td style='padding:5 0 5 0;'>
-        <? if ($is_dhtml_editor) { ?>
-            <?=cheditor2('wr_content', $content);?>
-        <? } else { ?>
-        <table width=100% cellpadding=0 cellspacing=0>
-        <tr>
-            <td width=50% align=left valign=bottom>
-                <span style="cursor: pointer;" onclick="textarea_decrease('wr_content', 10);"><img src="<?=$board_skin_path?>/img/up.gif"></span>
-                <span style="cursor: pointer;" onclick="textarea_original('wr_content', 10);"><img src="<?=$board_skin_path?>/img/start.gif"></span>
-                <span style="cursor: pointer;" onclick="textarea_increase('wr_content', 10);"><img src="<?=$board_skin_path?>/img/down.gif"></span></td>
-            <td width=50% align=right><? if ($write_min || $write_max) { ?><span id=char_count></span>글자<?}?></td>
-        </tr>
-        </table>
-        <textarea id="wr_content" name="wr_content" class=tx style='width:100%; word-break:break-all;' rows=10 itemname="내용" required 
-        <? if ($write_min || $write_max) { ?>onkeyup="check_byte('wr_content', 'char_count');"<?}?>><?=$content?></textarea>
-        <? if ($write_min || $write_max) { ?><script language="javascript"> check_byte('wr_content', 'char_count'); </script><?}?>
+        <? if ($is_name) { ?>
+        <div class="form-group">
+            <label class="col-xs-1 hidden-xs">Name</label>
+            <div class="col-xs-11">
+            <input class="form-control" maxlength=20 size=15 name=wr_name itemname="이름" placeholder="이름" required value="<?=$name?>">
+            </div>
+        </div>
         <? } ?>
-        </td>
-</tr>
-<tr><td colspan=2 height=1 bgcolor=#e7e7e7></td></tr>
 
+        <? if ($is_password) { ?>
+        <div class="form-group">
+            <label class="col-xs-1 hidden-xs">Password</label>
+            <div class="col-xs-11">
+            <input class="form-control" type=password maxlength=20 size=15 name=wr_password itemname="패스워드" placeholder="패스워드" <?=$password_required?>>
+            </div>
+        </div>
+        <? } ?>
+
+        <? if ($is_email) { ?>
+        <div class="form-group">
+            <label class="col-xs-1 hidden-xs">E-mail</label>
+            <div class="col-xs-11">
+            <input class="form-control" type="email" maxlength=100 size=50 name=wr_email email itemname="이메일" placeholder="이메일" value="<?=$email?>">
+            </div>
+        </div>
+        <? } ?>            
+
+        <? if ($is_homepage) { ?>
+        <div class="form-group">
+            <label class="col-xs-1 hidden-xs">Homepage URL</label>
+            <div class="col-xs-11">
+            <input class="form-control" type="url" size=50 name=wr_homepage itemname="홈페이지" placeholder="홈페이지" value="<?=$homepage?>">
+            </div>
+        </div>
+        <? } ?>            
+
+        <div class="form-group">
+            <label class="col-xs-1 hidden-xs">Subject</label>
+            <div class="col-xs-11">
+            <input class="form-control" name=wr_subject id="wr_subject" itemname="제목" placeholder="제목" required value="<?=$subject?>" placeholder="Subject">
+            </div>
+        </div>
+
+        <? if ($is_category) { ?>
+        <div class="form-group">
+            <label class="col-xs-1 hidden-xs">Category</label>
+            <div class="col-xs-11">
+            <select class="form-control" name=ca_name required itemname="분류"><option value="">선택하세요<?=$category_option?></select>
+            </div>
+        </div>
+        <? } ?>            
+
+        <div class="form-group">
+            <label class="col-sm-1 hidden-xs"></label>
+            <div class="col-xs-12 col-sm-11">
+                <? if ($is_dhtml_editor) { ?>
+                    <?=cheditor2('wr_content', $content);?>
+                <? } else { ?>
+                    <span style="cursor: pointer;" onclick="textarea_decrease('wr_content', 5);"> <i class="fa fa-minus-square"> </i></span>
+                    <span style="cursor: pointer;" onclick="textarea_original('wr_content', 15);"> <i class="fa fa-circle-o"> </i></span>
+                    <span style="cursor: pointer;" onclick="textarea_increase('wr_content', 5);"> <i class="fa fa-plus-square"> </i></span>
+                    <? if ($write_min || $write_max) { ?><div class="pull-right"><span id=char_count></span>글자</div><?}?>
+                    <textarea class="form-control" id="wr_content" name="wr_content" style='width:100%; word-break:break-all;' rows=15 itemname="내용" required 
+                    <? if ($write_min || $write_max) { ?>onkeyup="check_byte('wr_content', 'char_count');"<?}?>><?=$content?></textarea>
+                    <? if ($write_min || $write_max) { ?><script language="javascript"> check_byte('wr_content', 'char_count'); </script><?}?>
+                <? } ?>
+            </div>
+        </div>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<colgroup width=100>
+<colgroup width=''>
 <? if ($board[bo_ccl]) {
 // CCL 정보
 $view[wr_ccl] = $write[wr_ccl] = mw_get_ccl_info($write[wr_ccl]);
@@ -254,29 +268,27 @@ $view[wr_ccl] = $write[wr_ccl] = mw_get_ccl_info($write[wr_ccl]);
 <tr><td colspan=2 height=1 bgcolor=#e7e7e7></td></tr>
 <? } ?>
 
-<? if ($is_guest) { ?>
-<tr>
-    <td  class=write_head>
-    <script type="text/javascript" src="<?="$g4[path]/zmSpamFree/zmspamfree.js"?>"></script>
-    <img id="zsfImg">
-    </td>
-    <td><input class='ed' type=input size=10 name=wr_key id=wr_key itemname="자동등록방지" required >&nbsp;&nbsp;왼쪽의 글자를 입력하세요.</td>
-</tr>
-<tr><td colspan=2 height=1 bgcolor=#e7e7e7></td></tr>
-<? } ?>
-
-<tr><td colspan=2 height=2 bgcolor="#0A7299"></td></tr>
 </table>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-<tr>
-    <td width="100%" align="center" valign="top" style="padding-top:30px;">
-        <input type=image id="btn_submit" src="<?=$board_skin_path?>/img/btn_write.gif" border=0 accesskey='s'>&nbsp;
-        <a href="<?=$list_href?>"><img id="btn_list" src="<?=$board_skin_path?>/img/btn_list.gif" border=0></a></td>
-</tr>
-</table>
+        <? if ($is_guest) { ?>
+        <script type="text/javascript" src="<?="$g4[path]/zmSpamFree/zmspamfree.js"?>"></script>
+        <div class="form-group">
+            <div class="col-sm-1 hidden-xs"><img id="zsfImg"></div>
+            <div class="col-xs-12 col-sm-11">
+                <input class="form-control" type=input size=10 name=wr_key id=wr_key itemname="자동등록방지" placeholder="왼쪽의 Captcha 글자를 입력하세요." required>
+            </div>
+        </div>
+        <? } ?>
 
-</td></tr></table>
+    </div>
+</div>
+
+<span class="col-sm-1 hidden-xs"></span>
+<button type="submit" class="btn btn-success" id="btn_submit">Write</button>
+<span class="btn-group pull-right">
+    <a class="btn btn-default" href="<?=$list_href?>">List</a>
+</span>
+
 </form>
 
 <script type="text/javascript">
@@ -325,19 +337,6 @@ function html_auto_br(obj)
 
 function fwrite_submit(f) 
 {
-    /*
-    var s = "";
-    if (s = word_filter_check(f.wr_subject.value)) {
-        alert("제목에 금지단어('"+s+"')가 포함되어있습니다");
-        return false;
-    }
-
-    if (s = word_filter_check(f.wr_content.value)) {
-        alert("내용에 금지단어('"+s+"')가 포함되어있습니다");
-        return false;
-    }
-    */
-
     if (document.getElementById('char_count')) {
         if (char_min > 0 || char_max > 0) {
             var cnt = parseInt(document.getElementById('char_count').innerHTML);
@@ -397,9 +396,6 @@ function fwrite_submit(f)
         }
     }
 
-    document.getElementById('btn_submit').disabled = true;
-    document.getElementById('btn_list').disabled = true;
-
     <?
     if ($g4[https_url])
         echo "f.action = '$g4[https_url]/$g4[bbs]/write_update.php';";
@@ -407,7 +403,7 @@ function fwrite_submit(f)
         echo "f.action = './write_update.php';";
     ?>
     
-    return true;
+    //return true;
 }
 </script>
 
