@@ -188,10 +188,6 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 
     $list[$i][datetime] = substr($row[wr_datetime],2,14);
 
-    // 불당팩 - $board[bo_new] 시간내에 새로운 코멘트가 있으면 icon_new.gif를 뒤에
-    if ($row['wr_datetime'] >= date("Y-m-d H:i:s", $g4['server_time'] - ($board['bo_new'] * 3600))) 
-        $list[$i][datetime] .= "<img src='$board_skin_path/img/icon_new.gif' align='absmiddle'>";
-
     // 관리자가 아니라면 중간 IP 주소를 감춘후 보여줍니다.
     $list[$i][ip] = $row[wr_ip];
     if (!$is_admin)
