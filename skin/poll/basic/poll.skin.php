@@ -8,7 +8,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
 <div class="panel panel-default">
     <div class="panel-heading"><?=$po[po_subject]?>
-    <? if ($is_admin == "super") { ?>&nbsp<a href="<?=$g4[admin_path]?>/poll_form.php?w=u&po_id=<?=$po_id?>"><i class="fa fa-cog"></i></a><? } ?>
+    <? if ($is_admin == "super") { ?>&nbsp;<a href="<?=$g4[admin_path]?>/poll_form.php?w=u&po_id=<?=$po_id?>"><i class="fa fa-cog"></i></a><? } ?>
     </div>
     <div class="panel-body">
     <ul class="list-unstyled">
