@@ -164,111 +164,83 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
             </div>
         </div>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-<colgroup width=100>
-<colgroup width=''>
-<? if ($board[bo_ccl]) {
-// CCL 정보
-$view[wr_ccl] = $write[wr_ccl] = mw_get_ccl_info($write[wr_ccl]);
-?>
-<tr>
-    <td style='padding-left:20px;'>· CCL</td>
-    <td style='padding:5 0 5 0;'>
-        <select name="wr_ccl_by"><option value="by">사용</option><option value="">사용안함</option></select>
-        영리목적 : <select name="wr_ccl_nc"><option value="nc">사용불가</option><option value="">사용가능</option></select>
-        변경 : <select name="wr_ccl_nd"><option value="nd">변경불가</option><option value="sa">동일조건변경가능</option><option value="">변경가능</option></select>
-        <a href="http://www.creativecommons.or.kr/info/about" target=_blank>CCL이란?</a>
-        <? if ($w == "u") {?>
-        <script type="text/javascript">
-        document.fwrite.wr_ccl_by.value = "<?=$write[wr_ccl][by]?>";
-        document.fwrite.wr_ccl_nc.value = "<?=$write[wr_ccl][nc]?>";
-        document.fwrite.wr_ccl_nd.value = "<?=$write[wr_ccl][nd]?>";
-        </script>
+        <? if ($board[bo_related]) { ?>
+        <div class="form-group">
+            <label class="col-sm-1 hidden-xs">Keyword</label>
+            <div class="col-xs-12 col-sm-11">
+            <input class="form-control" type="text" size=50 name="wr_related" itemname="관련글 키워드" placeholder="관련글 키워드, 콤마로 구분 합니다. 예) 키워드1, 키워드2" value="<?=$write[wr_related]?>">
+            </div>
+        </div>
         <? } ?>
-    </td>
-</tr>
-<tr><td colspan=2 height=1 bgcolor=#e7e7e7></td></tr>
-<? } ?>
 
-<? if ($board[bo_related]) { ?>
-<tr>
-    <td>· 관련글 키워드</td>
-    <td height=50>
-        <input type="text" size=50 name="wr_related" itemname="관련글 키워드" value="<?=$write[wr_related]?>"> (예 : 키워드1, 키워드2, 키워드3)
-    </td>
-</tr>
-<tr><td colspan=2 height=1 bgcolor=#e7e7e7></td></tr>
-<? } ?>
+        <? if ($is_link) { ?>
+        <? for ($i=1; $i<=$g4[link_count]; $i++) { ?>
+        <div class="form-group">
+            <label class="col-sm-1 hidden-xs">Link #<?=$i?></label>
+            <div class="col-xs-12 col-sm-11">
+            <input class="form-control" type='text' class='field_pub_01' size=50 name='wr_link<?=$i?>' itemname='링크 #<?=$i?>' placeholder="링크 #<?=$i?>" value='<?=$write["wr_link{$i}"]?>'>
+            </div>
+        </div>
+        <? } ?>
+        <? } ?>
 
-<? if ($is_link) { ?>
-<? for ($i=1; $i<=$g4[link_count]; $i++) { ?>
-<tr>
-    <td style='padding-left:20px; height:30px;'>· 링크 #<?=$i?></td>
-    <td><input type='text' class='field_pub_01' size=50 name='wr_link<?=$i?>' itemname='링크 #<?=$i?>' value='<?=$write["wr_link{$i}"]?>'></td>
-</tr>
-<tr><td colspan=2 height=1 bgcolor=#e7e7e7></td></tr>
-<? } ?>
-<? } ?>
+        <? if ($is_file) { ?>
+        <div class="form-group">
+            <label class="col-sm-1 hidden-xs">File
+            <a onclick="add_file();" style="cursor:pointer;"><i class="fa fa-plus"></i></a> <a onclick="del_file();" style="cursor:pointer;"><i class="fa fa-minus"></i></a>
 
-<? if ($is_file) { ?>
-<tr>
-    <td style='padding-left:20px; height:30px;' valign=top><table cellpadding=0 cellspacing=0><tr><td style=" padding-top: 10px;">· 파일 <span onclick="add_file();" style='cursor:pointer; font-family:tahoma; font-size:12pt;'>+</span> <span onclick="del_file();" style='cursor:pointer; font-family:tahoma; font-size:12pt;'>-</span></td></tr></table></td>
-    <td style='padding:5 0 5 0;'><table id="variableFiles" cellpadding=0 cellspacing=0></table><?// print_r2($file); ?>
-        <script language="JavaScript">
-        var flen = 0;
-        function add_file(delete_code)
-        {
-            var upload_count = <?=(int)$board[bo_upload_count]?>;
-            if (upload_count && flen >= upload_count)
-            {
-                alert("이 게시판은 "+upload_count+"개 까지만 파일 업로드가 가능합니다.");
-                return;
+            </label>
+            <div class="col-xs-12 col-sm-11">
+                <table id="variableFiles" cellpadding=0 cellspacing=0></table>
+            <script type="text/javascript">
+            var flen = 0;
+            function add_file(delete_code) {
+                var upload_count = <?=(int)$board[bo_upload_count]?>;
+                if (upload_count && flen >= upload_count) {
+                    alert("이 게시판은 "+upload_count+"개 까지만 파일 업로드가 가능합니다.");
+                    return;
+                }
+
+                var objTbl;
+                var objRow;
+                var objCell;
+                if (document.getElementById)
+                    objTbl = document.getElementById("variableFiles");
+                else
+                    objTbl = document.all["variableFiles"];
+
+                objRow = objTbl.insertRow(objTbl.rows.length);
+                objCell = objRow.insertCell(0);
+
+                objCell.innerHTML = "<input class='form-control' type='file' name='bf_file[]' title='파일 용량 <?=$upload_max_filesize?> 이하만 업로드 가능' style=;width:100%'>";
+                if (delete_code)
+                    objCell.innerHTML += delete_code;
+                else {
+                    <? if ($is_file_content) { ?>
+                    objCell.innerHTML += "<input type='text' class='form-control' size=50 name='bf_content[]' placeholder='업로드 이미지 파일에 해당 되는 내용을 입력하세요.'>";
+                    <? } ?>
+                    ;
+                }
+
+                flen++;
             }
 
-            var objTbl;
-            var objRow;
-            var objCell;
-            if (document.getElementById)
-                objTbl = document.getElementById("variableFiles");
-            else
-                objTbl = document.all["variableFiles"];
+            <?=$file_script; //수정시에 필요한 스크립트?>
 
-            objRow = objTbl.insertRow(objTbl.rows.length);
-            objCell = objRow.insertCell(0);
-
-            objCell.innerHTML = "<input type='file' class='field_pub_01' name='bf_file[]' title='파일 용량 <?=$upload_max_filesize?> 이하만 업로드 가능'>";
-            if (delete_code)
-                objCell.innerHTML += delete_code;
-            else
-            {
-                <? if ($is_file_content) { ?>
-                objCell.innerHTML += "<br><input type='text' class='field_pub_01' size=50 name='bf_content[]' title='업로드 이미지 파일에 해당 되는 내용을 입력하세요.'> 파일의 내용을 입력하세요.";
-                <? } ?>
-                ;
+            function del_file() {
+                // file_length 이하로는 필드가 삭제되지 않아야 합니다.
+                var file_length = <?=(int)$file_length?>;
+                var objTbl = document.getElementById("variableFiles");
+                if (objTbl.rows.length - 1 > file_length) {
+                    objTbl.deleteRow(objTbl.rows.length - 1);
+                    flen--;
+                }
             }
+            </script>
 
-            flen++;
-        }
-
-        <?=$file_script; //수정시에 필요한 스크립트?>
-
-        function del_file()
-        {
-            // file_length 이하로는 필드가 삭제되지 않아야 합니다.
-            var file_length = <?=(int)$file_length?>;
-            var objTbl = document.getElementById("variableFiles");
-            if (objTbl.rows.length - 1 > file_length)
-            {
-                objTbl.deleteRow(objTbl.rows.length - 1);
-                flen--;
-            }
-        }
-        </script></td>
-</tr>
-<tr><td colspan=2 height=1 bgcolor=#e7e7e7></td></tr>
-<? } ?>
-
-</table>
+            </div>
+        </div>
+        <? } ?>
 
         <? if ($is_guest) { ?>
         <script type="text/javascript" src="<?="$g4[path]/zmSpamFree/zmspamfree.js"?>"></script>
