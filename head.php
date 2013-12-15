@@ -36,7 +36,7 @@ echo popup("alert", "popup_alert")
 <div class="row">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header col-sm-2">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex2-collapse">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-search-top-collapse">
             <i class="glyphicon glyphicon-search"></i>
         </button>
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -138,7 +138,7 @@ echo popup("alert", "popup_alert")
     </div>
 
     <div class="col-sm-3 pull-right">
-    <form class="navbar-form collapse navbar-collapse navbar-sm3-collapse" role="search" method="get" onsubmit="return fsearchbox_submit(this);" >
+    <form class="navbar-form collapse navbar-collapse navbar-search-top-collapse" role="search" method="get" onsubmit="return fsearchbox_submit(this);" >
     <div class="input-group">
         <input type="hidden" name="sfl" value="wr_subject||wr_content">
         <input type="hidden" name="sop" value="and">
