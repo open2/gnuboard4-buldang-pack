@@ -2,18 +2,15 @@
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
 ?>
 <!--ui object -->
-<table class="table table-hover">
-<colgroup>
-<col width="80px">
-<col width="120px">
-<col>
-</colgroup>
+<div class="well well-sm" style="margin-bottom:0px;"><strong><a href="<?=$PHP_SELF?>">현재접속자</a></strong></div>
+
+<table class="table table-hover" width=100%>
 <thead>
-    <tr class="success">
-    <th>번 호</th>
-    <th>이 름</th>
+<tr class="success">
+    <th class="col-sm-1 hidden-xs">번 호</th>
+    <th class="col-sm-2 col-xs-2">이 름</th>
     <th>링 크</th>
-    </tr>
+</tr>
 </thead>
 <tbody>
 <?
@@ -21,7 +18,7 @@ for ($i=0; $i<count($list); $i++) {
 
     echo "<tr>";
 
-    echo "<td>{$list[$i][num]}</td>";
+    echo "<td class=\"hidden-xs\">{$list[$i][num]}</td>";
     echo "<td>{$list[$i][name]}</td>";
 
     $location = $list[$i][lo_location];
