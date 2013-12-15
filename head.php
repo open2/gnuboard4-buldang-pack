@@ -140,11 +140,26 @@ echo popup("alert", "popup_alert")
     </ul>
     </div>
 
-    <div class="collapse navbar-collapse navbar-top-member-collapse">
-    <ul class="nav navbar-nav">
-        <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=qna">자유게시판</a></li>
+    <ul class="nav navbar-nav ">
+        <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">불당팩 <b class="caret"></b></a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack">불당팩다운로드</a></li>
+                <li class="divider"></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_book">불당팩 매뉴얼</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_skin">불당팩 스킨</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_req">불당팩 버그 및 개선</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_qna">불당팩 묻고답하기</a></li>
+                <li class="divider"></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gblog">gblog 불당버젼</a></li>
+                <li><a href="<?=$g4[path]?>/blog/" target=new>gblog 테스트</a></li>
+                <li class="divider"></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=club2">클럽2</a></li>
+                <li><a href="$g4[path]?>/club/">클럽2 테스트</a></li>
+            </ul>
+        </li>
+
     </ul>
-    </div>
 
     <div class="col-sm-3 pull-right">
     <form class="navbar-form collapse navbar-collapse navbar-search-top-collapse" role="search" method="get" onsubmit="return fsearchbox_submit(this);" >
