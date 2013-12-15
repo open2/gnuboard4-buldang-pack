@@ -1,17 +1,6 @@
 <?
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
-
-// 선택옵션으로 인해 셀합치기가 가변적으로 변함
-$colspan = 5;
-
-//if ($is_category) $colspan++;
-if ($is_checkbox) $colspan++;
-if ($is_good) $colspan++;
-if ($is_nogood) $colspan++;
 ?>
-
-<!-- 게시판 목록 시작 -->
-<div width="<?=$width?>" class="table-responsive"> 
 
 <!-- 분류 셀렉트 박스, 게시물 몇건, 관리자화면 링크 -->
 <div>
@@ -52,18 +41,17 @@ if ($is_nogood) $colspan++;
 <input type='hidden' name='sw'   value=''>
 <input type='hidden' name='sca'   value=''>
 
-<div class="table-responsive">
 <table width=100% class="table table-hover">
 <thead>
 <tr class="success" align=center>
-    <th width=50><?=subject_sort_link('wr_id', $qstr2, 1)?>번호</a></th>
-    <? if ($is_checkbox) { ?><th width=40><INPUT onclick="if (this.checked) all_checked(true); else all_checked(false);" type=checkbox></th><?}?>
+    <th width=50px class="hidden-xs"><?=subject_sort_link('wr_id', $qstr2, 1)?>번호</a></th>
+    <? if ($is_checkbox) { ?><th class="hidden-xs"><INPUT class="hidden-xs" onclick="if (this.checked) all_checked(true); else all_checked(false);" type=checkbox></td><?}?>
     <th>제목</th>
-    <th width=110px>글쓴이</th>
-    <th width=60px><?=subject_sort_link('wr_datetime', $qstr2, 1)?>날짜</a></th>
-    <th width=60px><?=subject_sort_link('wr_hit', $qstr2, 1)?>조회</a></th>
-    <? if ($is_good) { ?><th width=60px><?=subject_sort_link('wr_good', $qstr2, 1)?>추천</a></th><?}?>
-    <? if ($is_nogood) { ?><th width=60px><?=subject_sort_link('wr_nogood', $qstr2, 1)?>비추천</a></th><?}?>
+    <th width=110px class="hidden-xs" align="center">글쓴이</th>
+    <th width=60px class="hidden-xs"><?=subject_sort_link('wr_datetime', $qstr2, 1)?>날짜</a></th>
+    <th class="hidden-xs"><?=subject_sort_link('wr_hit', $qstr2, 1)?>조회</a></th>
+    <? if ($is_good) { ?><th width=60px class="hidden-xs"><?=subject_sort_link('wr_good', $qstr2, 1)?>추천</a></th><?}?>
+    <? if ($is_nogood) { ?><th width=60px class="hidden-xs"><?=subject_sort_link('wr_nogood', $qstr2, 1)?>비추천</a></th><?}?>
 </tr>
 </thead>
 
@@ -71,7 +59,7 @@ if ($is_nogood) $colspan++;
 <tboby>
 <? for ($i=0; $i<count($list); $i++) { ?>
 <tr height=28 align=center> 
-    <td>
+    <td class="hidden-xs">
         <? 
         if ($list[$i][is_notice]) // 공지사항 
             echo "<i class=\"fa fa-microphone\" title='notice'></i> ";
@@ -80,7 +68,7 @@ if ($is_nogood) $colspan++;
         else
             echo "<span style='font:normal 11px tahoma; color:#BABABA;'>{$list[$i][num]}</span>";
         ?></td>
-    <? if ($is_checkbox) { ?><td><input type=checkbox name=chk_wr_id[] value="<?=$list[$i][wr_id]?>"></td><? } ?>
+    <? if ($is_checkbox) { ?><td class="hidden-xs"><input type=checkbox name=chk_wr_id[] value="<?=$list[$i][wr_id]?>"></td><? } ?>
     <td align=left style='word-break:break-all;'>
         <? 
         echo $nobr_begin;
@@ -110,19 +98,23 @@ if ($is_nogood) $colspan++;
         }
         if ($list[$i][icon_secret]) echo " <i class=\"fa fa-lock\" title='new'></i>";
         echo $nobr_end;
-        ?></td>
-    <td><nobr style='display:block; overflow:hidden; width:105px;'><?=$list[$i][name]?></nobr></td>
-    <td><span style='font:normal 11px tahoma; color:#BABABA;'><?=$list[$i][datetime2]?></span></td>
-    <td><span style='font:normal 11px tahoma; color:#BABABA;'><?=$list[$i][wr_hit]?></span></td>
-    <? if ($is_good) { ?><td align="center"><span style='font:normal 11px tahoma; color:#BABABA;'><?=$list[$i][wr_good]?></span></td><? } ?>
-    <? if ($is_nogood) { ?><td align="center"><span style='font:normal 11px tahoma; color:#BABABA;'><?=$list[$i][wr_nogood]?></span></td><? } ?>
+        ?>
+        <div class="visible-xs pull-right"><small>
+        <?=$list[$i][name]?>&nbsp;&nbsp;<?=$list[$i][datetime2]?>&nbsp;&nbsp;<span class="badge"><?=$list[$i][wr_hit]?></span>
+        </small>
+        </div>
+        </td>
+    <td class="hidden-xs"><nobr style='display:block; overflow:hidden;'><?=$list[$i][name]?></nobr></td>
+    <td class="hidden-xs"><span style='font:normal 11px tahoma; color:#BABABA;'><?=$list[$i][datetime2]?></span></td>
+    <td class="hidden-xs"><span style='font:normal 11px tahoma; color:#BABABA;'><?=$list[$i][wr_hit]?></span></td>
+    <? if ($is_good) { ?><td class="hidden-xs" align="center"><span style='font:normal 11px tahoma; color:#BABABA;'><?=$list[$i][wr_good]?></span></td><? } ?>
+    <? if ($is_nogood) { ?><td class="hidden-xs" align="center"><span style='font:normal 11px tahoma; color:#BABABA;'><?=$list[$i][wr_nogood]?></span></td><? } ?>
 </tr>
 <?}?>
 
 <? if (count($list) == 0) { echo "<tr><td colspan='$colspan' height=100 align=center>게시물이 없습니다.</td></tr>"; } ?>
 </tboby>
 </table>
-</div>
 </form>
 
 <!-- 페이지 -->
@@ -195,9 +187,8 @@ if ($is_nogood) $colspan++;
         <button class="btn btn-primary">검색</button>
     </div>
 </div>
-</form>
 
-</div>
+</form>
 
 <script type="text/javascript">
 if ('<?=$sca?>') document.fcategory.sca.value = '<?=$sca?>';
