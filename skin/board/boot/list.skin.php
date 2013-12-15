@@ -25,7 +25,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <? } ?>
     </div>
 
-    <div class="pull-right">
+    <div class="pull-right hidden-xs">
         Total <?=number_format($total_count)?>
     </div>
 
@@ -45,7 +45,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <thead>
 <tr class="success" align=center>
     <th width=50px class="hidden-xs"><?=subject_sort_link('wr_id', $qstr2, 1)?>번호</a></th>
-    <? if ($is_checkbox) { ?><th class="hidden-xs"><INPUT class="hidden-xs" onclick="if (this.checked) all_checked(true); else all_checked(false);" type=checkbox></td><?}?>
+    <? if ($is_checkbox) { ?><th class="hidden-xs"><INPUT class="hidden-xs" onclick="if (this.checked) all_checked(true); else all_checked(false);" type=checkbox></th><?}?>
     <th>제목</th>
     <th width=110px class="hidden-xs" align="center">글쓴이</th>
     <th width=60px class="hidden-xs"><?=subject_sort_link('wr_datetime', $qstr2, 1)?>날짜</a></th>
@@ -148,6 +148,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 </div>
 <? } ?>
 <? if ($is_checkbox) { ?>
+<span style='display:inline-block!important;vertical-align:bottom;'>
 <div class="btn-group hidden-sm hidden-xs">
     <a href="javascript:select_delete();" class="btn btn-default">선택삭제</a>
     <a href="javascript:select_copy('copy');" class="btn btn-default">선택복사</a>
@@ -157,6 +158,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <select name=sca2><?=$category_option?></select>
     <? } ?>
 </div>
+</span>
 <? } ?>
 
 <div class="pull-right">
