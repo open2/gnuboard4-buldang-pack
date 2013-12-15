@@ -36,18 +36,21 @@ echo popup("alert", "popup_alert")
 <div class="row">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header col-sm-2">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-top-menu-collapse">
+            <i class="glyphicon glyphicon-list"></i>
+        </button>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-top-member-collapse">
+            <i class="glyphicon glyphicon-info-sign"></i>
+        </button>
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-search-top-collapse">
             <i class="glyphicon glyphicon-search"></i>
-        </button>
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-            <i class="glyphicon glyphicon-list"></i>
         </button>
         <a class="navbar-brand" href="<?=$g4['path']?>/">
         <img src="<?=$g4[path]?>/images/logo_opencode.gif" align=absmiddle alt="brand logo">
         </a>
     </div>
 
-    <div class="collapse navbar-collapse navbar-ex1-collapse col-sm-7">
+    <div class="collapse navbar-collapse navbar-top-menu-collapse col-sm-7">
     <ul class="nav navbar-nav">
         <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=qna">자유게시판</a></li>
         <li class="dropdown">
@@ -134,6 +137,12 @@ echo popup("alert", "popup_alert")
             </ul>
         </li>
         <li><a href="<?=$g4[plugin_path]?>/attendance/attendance.php">출석</a></li>
+    </ul>
+    </div>
+
+    <div class="collapse navbar-collapse navbar-top-member-collapse">
+    <ul class="nav navbar-nav">
+        <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=qna">자유게시판</a></li>
     </ul>
     </div>
 
