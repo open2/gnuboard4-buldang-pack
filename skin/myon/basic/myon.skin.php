@@ -4,6 +4,30 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 $subject_len = 60;
 ?>
 
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="<?=$g4[bbs_path]?>/myon.php"><strong>MyOn</strong></a>
+        <div class="pull-right" style="vertical-align:middle;">
+            <strong><a href="#" onClick="javascript:win_profile('<?=$member[mb_id]?>');"><?=$member[mb_nick]?></a></strong>&nbsp;
+            <? if ($config[cf_use_point]) { ?>
+                &nbsp;<a href="javascript:win_point();"><font color="#737373"><small><?=number_format($member[mb_point])?></small></font></a>&nbsp;
+            <? } ?>
+            <span class="badge"><small><?=$member[mb_level]?></small></span>
+        </div>
+    </div>
+    <div class="panel-body">
+            <div class="btn-group">
+                <a class="btn btn-default" href="javascript:win_memo('', '<?=$member[mb_id]?>', '<?=$_SERVER[SERVER_NAME]?>');" onfocus="this.blur()" ?>
+                Memo (<strong><?=$member['mb_memo_unread']?></strong>)
+                </a>
+                <a class="btn btn-default" href="javascript:win_scrap();" >Scrap</a>
+            </div>
+
+            <a class="btn btn-default" href="<?=$g4['bbs_path']?>/member_confirm.php?url=register_form.php">Modify</a>
+            <a class="btn btn-default" href="<?=$g4['bbs_path']?>/logout.php">Logout</a>
+    </div>
+</div>
+
 
 
 
@@ -18,29 +42,6 @@ $subject_len = 60;
 <tr>
     <td >
 
-		
-
-		<table bgcolor="#dddddd" width='100%' cellpadding='1' cellspacing='1' border='0'>
-		<tr class="trs">
-		    <td class="status_form_title">닉네임</td>
-			<td class="status_form_content"><?=$member[mb_name]?></td>
-			<td class="status_form_title">아이디</td>
-			<td class="status_form_content"><?=$member[mb_id]?></td>
-			<td class="status_form_title">정보수정</td>
-			<td class="status_form_content"><a href="<?=$g4['path']?>/bbs/member_confirm.php?url=register_form.php">수정하기</a></td>
-		</tr>
-
-		<tr class="trs">
-		    <td class="status_form_title">포인트</td>
-			<td class="status_form_content"><a href="javascript:win_point();"><?=$member[mb_point]?> point</a></td>
-			<td class="status_form_title">쪽지</td>
-			<td class="status_form_content"><a href="javascript:win_memo('', '<?=$member[mb_id]?>', '<?=$_SERVER[SERVER_NAME]?>');"  onfocus="this.blur()"> (<?=$member['mb_memo_unread']?>)</a></td>
-			<td class="status_form_title">스크랩</td>
-			<td class="status_form_content"><a href="javascript:win_scrap();"  onfocus="this.blur()">나의 스크랩</a></td>
-		</tr>
-
-		
-		</table>
 
 		
 <div style="background-color:rgb(247,247,247); border-width:5px; border-color:white; border-style:solid;"></div>
@@ -52,4 +53,3 @@ $subject_len = 60;
 </td>
 </tr>
 </table>
-

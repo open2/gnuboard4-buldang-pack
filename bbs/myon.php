@@ -1,7 +1,7 @@
 <?
 include_once("./_common.php");
 
-$g4[title] = "$config[cf_title] - My on";
+$g4[title] = "$config[cf_title] - MyOn";
 
 $head = (int) $head;
 $rows = (int) $rows;
