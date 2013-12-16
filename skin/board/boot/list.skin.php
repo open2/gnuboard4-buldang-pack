@@ -56,7 +56,6 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 </thead>
 
 <!-- 목록 -->
-<tboby>
 <? for ($i=0; $i<count($list); $i++) { ?>
 <tr height=28 align=center> 
     <td class="hidden-xs">
@@ -113,7 +112,6 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <?}?>
 
 <? if (count($list) == 0) { echo "<tr><td colspan='$colspan' height=100 align=center>게시물이 없습니다.</td></tr>"; } ?>
-</tboby>
 </table>
 </form>
 
