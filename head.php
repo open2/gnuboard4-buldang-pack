@@ -39,9 +39,19 @@ echo popup("alert", "popup_alert")
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-top-menu-collapse">
             <i class="glyphicon glyphicon-list"></i>
         </button>
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-top-member-collapse">
-            <i class="glyphicon glyphicon-info-sign"></i>
-        </button>
+        <? if ($member['mb_id'] == "") { 
+        $login_url = "$g4[bbs_path]/login.php?url=".urlencode($lo_url);
+        ?>
+        <a class="btn btn-default navbar-toggle" value="Page" onclick="location.href='<?=$login_url?>';">
+            <i class="glyphicon glyphicon-user"></i>
+        </a>
+        <? } else {
+        $login_url = "$g4[bbs_path]/myon.php";
+        ?>
+        <a class="btn btn-default navbar-toggle" value="Page" onclick="location.href='<?=$login_url?>';">
+            <i class="glyphicon glyphicon-shopping-cart"></i>
+        </a>
+        <? } ?>
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-search-top-collapse">
             <i class="glyphicon glyphicon-search"></i>
         </button>
@@ -123,7 +133,6 @@ echo popup("alert", "popup_alert")
             <a class="dropdown-toggle" href="#" data-toggle="dropdown">불당팩 <b class="caret"></b></a>
             <ul class="dropdown-menu" role="menu">
                 <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack">불당팩다운로드</a></li>
-                <li class="divider"></li>
                 <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_book">불당팩 매뉴얼</a></li>
                 <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_skin">불당팩 스킨</a></li>
                 <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_req">불당팩 버그 및 개선</a></li>
@@ -139,27 +148,6 @@ echo popup("alert", "popup_alert")
         <li><a href="<?=$g4[plugin_path]?>/attendance/attendance.php">출석</a></li>
     </ul>
     </div>
-
-    <ul class="nav navbar-nav ">
-        <li class="dropdown">
-            <a class="dropdown-toggle" href="#" data-toggle="dropdown">불당팩 <b class="caret"></b></a>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack">불당팩다운로드</a></li>
-                <li class="divider"></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_book">불당팩 매뉴얼</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_skin">불당팩 스킨</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_req">불당팩 버그 및 개선</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_qna">불당팩 묻고답하기</a></li>
-                <li class="divider"></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gblog">gblog 불당버젼</a></li>
-                <li><a href="<?=$g4[path]?>/blog/" target=new>gblog 테스트</a></li>
-                <li class="divider"></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=club2">클럽2</a></li>
-                <li><a href="$g4[path]?>/club/">클럽2 테스트</a></li>
-            </ul>
-        </li>
-
-    </ul>
 
     <div class="col-sm-3 pull-right">
     <form class="navbar-form collapse navbar-collapse navbar-search-top-collapse" role="search" method="get" onsubmit="return fsearchbox_submit(this);" >
