@@ -88,7 +88,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
             echo " <a href=\"{$list[$i][comment_href]}\"><span style='font-family:Tahoma;font-size:10px;color:#EE5A00;'>{$list[$i][comment_cnt]}</span></a>";
 
         //echo " " . $list[$i][icon_new];
-        if ($list[$i][icon_new]) echo " <i class=\"fa fa-bell\" title='new'>";
+        if ($list[$i][icon_new]) echo " <i class=\"fa fa-bell\" title='new'></i>";
         if ($list[$i][icon_file]) echo " <i class=\"fa fa-file\" title='attached file'></i>";
         echo " " . $list[$i][icon_link];
         if (!$list[$i][is_notice]) {
