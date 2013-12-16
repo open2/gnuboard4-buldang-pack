@@ -23,6 +23,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         </div>
     </div>
     </div>
+
     <div class="collapse navbar-collapse navbar-bottom-collapse">
         <ul class="list-inline">
         <li><a href="<?=$g4[path]?>/company/company.php?id=privacy"><strong>개인정보취급방침</strong></a></li>
@@ -35,6 +36,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <p><?=$config[cf_title]?>는 지식중개자로서 지식의 주문, 배송 및 환불의 의무와 책임은 각 회원에 있습니다.<br>
     <?=$config[cf_title]?>의 사전 서면 동의 없이 <?=$config[cf_title]?>의 일체의 정보, 콘텐츠 및 UI등을 상업적 목적으로 전재, 전송, 스크래핑 등 무단 사용할 수 없습니다.<br>
     Copyright &copy; <a href="http://opencode.co.kr" target="_blank">Opencode.co.kr</a>. All rights reserved.</p>
+    </div>
 </div>
 </footer>
 
