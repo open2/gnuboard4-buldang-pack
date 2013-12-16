@@ -57,8 +57,8 @@ echo popup("alert", "popup_alert")
         <a class="navbar-brand hidden-xs" href="<?=$g4['path']?>/">
         <img src="<?=$g4[path]?>/images/logo_opencode.gif" align=absmiddle alt="brand logo">
         </a>
-        <a class="navbar-brand navbar-toggle" href="<?=$g4['path']?>/" style="border:0;">
-        <img src="<?=$g4[path]?>/images/logo_opencode.gif" alt="brand logo" style="width:120px;margin-top:10px;">
+        <a class="navbar-brand navbar-toggle pull-left" href="<?=$g4['path']?>/" style="border:0;margin-bottom:0;">
+        <img src="<?=$g4[path]?>/images/logo_opencode.gif" alt="brand logo" style="width:120px;">
         </a>
     </div>
 
