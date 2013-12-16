@@ -33,7 +33,6 @@ echo popup("alert", "popup_alert")
 
 <div class="navbar navbar-default" role="navigation">
 <div class="container">
-<div class="row">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header col-sm-2">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-top-menu-collapse">
@@ -55,8 +54,11 @@ echo popup("alert", "popup_alert")
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-search-top-collapse">
             <i class="glyphicon glyphicon-search"></i>
         </button>
-        <a class="navbar-brand" href="<?=$g4['path']?>/">
+        <a class="navbar-brand hidden-xs" href="<?=$g4['path']?>/">
         <img src="<?=$g4[path]?>/images/logo_opencode.gif" align=absmiddle alt="brand logo">
+        </a>
+        <a class="navbar-brand navbar-toggle" href="<?=$g4['path']?>/" style="border:0;">
+        <img src="<?=$g4[path]?>/images/logo_opencode.gif" alt="brand logo" style="width:120px;margin-top:10px;">
         </a>
     </div>
 
@@ -164,7 +166,6 @@ echo popup("alert", "popup_alert")
 
 </div>
 
-</div>
 </div>
 </div>
 </header><!-- »ó´Ü header ³¡ -->
