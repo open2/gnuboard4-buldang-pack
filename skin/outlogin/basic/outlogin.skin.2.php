@@ -19,7 +19,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         <a class="btn btn-default btn-sm" style="border-color: #ffffff;" href="javascript:win_scrap();" >Scrap</a>
     </div>
     <div class="btn-group btn-group-justified">
-        <a class="btn btn-default btn-sm" href="<?=$g4['bbs_path']?>/logout.php" >Logout</a>
+        <a class="btn btn-default btn-sm" href="<?=$g4['bbs_path']?>/logout.php">Logout</a>
         <a class="btn btn-default btn-sm" href="<?=$g4['bbs_path']?>/member_confirm.php?url=register_form.php" >Modify</a>
         <? if ($is_admin == "super" || $is_auth) { ?><a class="btn btn-primary btn-sm" href="<?=$g4['admin_path']?>/"><i class="fa fa-cog"></i></a><? } ?>
     </div>
