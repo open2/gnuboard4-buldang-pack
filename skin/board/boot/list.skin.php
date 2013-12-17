@@ -89,7 +89,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
         //echo " " . $list[$i][icon_new];
         if ($list[$i][icon_new]) echo " <i class=\"fa fa-bell\" title='new'></i>";
-        if ($list[$i][icon_file]) echo " <i class=\"fa fa-file\" title='attached file'></i>";
+        if ($list[$i][icon_file]) echo " <i class=\"fa fa-file-o\" title='attached file'></i>";
         echo " " . $list[$i][icon_link];
         if (!$list[$i][is_notice]) {
 
