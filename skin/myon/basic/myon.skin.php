@@ -31,13 +31,13 @@ $whatson_url = "$g4[bbs_path]/whatson.php?check=1&rows=30";
         <div style="margin-top:5px;">
             <div class="btn-group">
                 <a class="btn btn-default" href="<?=$whatson_url?>" >What's On</a>
-                <a class="btn btn-default" href="javascript:win_scrap();" >나의게시글</a>
-                <a class="btn btn-default" href="javascript:win_scrap();" >나의코멘트</a>
+                <a class="btn btn-default" href="<?=$g4[path]?>/bbs/new.php?gr_id=&mb_id=<?=$member[mb_id]?>" >나의게시글</a>
+                <a class="btn btn-default" href="<?=$g4[path]?>/bbs/new.php?gr_id=&view_type=c&mb_id=<?=$member[mb_id]?>" >나의코멘트</a>
             </div>
             <div class="btn-group">
-                <a class="btn btn-default" href="javascript:win_scrap();" >신고된 내역</a>
-                <a class="btn btn-default" href="javascript:win_scrap();" >신고한 내역</a>
-                <a class="btn btn-default" href="javascript:win_scrap();" >휴지통</a>
+                <a class="btn btn-default" href="" >신고된 내역</a>
+                <a class="btn btn-default" href="" >신고한 내역</a>
+                <a class="btn btn-default" href="<a href='<?=$g4[bbs_path]?>/recycle_list.php'>" >휴지통</a>
             </div>
         </div>
     </div>
