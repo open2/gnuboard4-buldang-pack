@@ -2,6 +2,8 @@
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
 
 $subject_len = 60;
+
+$whatson_url = "$g4[bbs_path]/whatson.php?check=1&rows=30";
 ?>
 
 <div class="panel panel-default">
@@ -28,7 +30,7 @@ $subject_len = 60;
         </div>
         <div style="margin-top:5px;">
             <div class="btn-group">
-                <a class="btn btn-default" href="javascript:win_scrap();" >What's On</a>
+                <a class="btn btn-default" href="<?=$whatson_url?>" >What's On</a>
                 <a class="btn btn-default" href="javascript:win_scrap();" >나의게시글</a>
                 <a class="btn btn-default" href="javascript:win_scrap();" >나의코멘트</a>
             </div>

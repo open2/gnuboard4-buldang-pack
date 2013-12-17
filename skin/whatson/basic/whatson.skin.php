@@ -35,7 +35,6 @@ var list_delete_php = "whatson_delete_all.php";
                     echo "<input type=hidden name=wo_id[$i] value='{$list[$i][wo_id]}'>";
                     echo "<div class='checkbox'><input type=checkbox name=chk[] value='$i'></div>&nbsp;";
                 }
-                echo "";
 
                 // 이미 읽은 글은 바로 새창, 아니면, ajax로 읽은거 mark 한 후에 새창
                 if ($list[$i][wo_status])
