@@ -38,14 +38,15 @@ $subject_len = 60;
                 <a class="btn btn-default" href="javascript:win_scrap();" >휴지통</a>
             </div>
         </div>
-        <div style="margin-top:5px;margin-bottom:5px;">
-            <?
-            include_once("$g4[path]/lib/whatson.lib.php");
-            include_once("$g4[path]/lib/latest.my.lib.php");
-            ?>
-            <?=whatson('basic')?>
-            <?=latest_my('basic','나의 게시글',80,10,25);?>
-            <?=latest_my('basic','나의 코멘트',80,10,25,'comment');?>
-        </div>
     </div>
+</div>
+
+<div style="margin-top:5px;margin-bottom:5px;">
+    <?
+    include_once("$g4[path]/lib/whatson.lib.php");
+    include_once("$g4[path]/lib/latest.my.lib.php");
+    ?>
+    <?=whatson('basic')?>
+    <?=latest_my('basic','나의 게시글',80,10,25);?>
+    <?=latest_my('basic','나의 코멘트',80,10,25,'comment');?>
 </div>
