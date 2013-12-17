@@ -212,7 +212,7 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
                 objRow = objTbl.insertRow(objTbl.rows.length);
                 objCell = objRow.insertCell(0);
 
-                objCell.innerHTML = "<input class='form-control' type='file' name='bf_file[]' title='파일 용량 <?=$upload_max_filesize?> 이하만 업로드 가능' style=;width:100%'>";
+                objCell.innerHTML = "<input type='file' name='bf_file[]' style='margin-top:5px;margin-bottom:5px;' title='파일 용량 <?=$upload_max_filesize?> 이하만 업로드 가능'>";
                 if (delete_code)
                     objCell.innerHTML += delete_code;
                 else {
