@@ -1,9 +1,7 @@
 <?
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
-// naver layout이 아니면, style을 include
-if ($g4[layout_skin] !== "naver")
-    echo "<link rel='stylesheet' href='<?=$g4[path]?>/style.latest.css' type='text/css'>";
+$whatson_url = "$g4[bbs_path]/whatson.php?check=1&rows=30";
 ?>
 
 <script type="text/javascript" src="<?=$g4[admin_path]?>/admin.js"></script>
@@ -11,33 +9,38 @@ if ($g4[layout_skin] !== "naver")
 var list_delete_php = "whatson_delete_all.php";
 </script>
 
-<form name=fsingolist method=post style="margin:0px;">
+<form role="form" class="form-inline" name=fsingolist method=post>
 <input type=hidden name=head  value='<?=$head?>'>
 <input type=hidden name=check value='<?=$check?>'>
 <input type=hidden name=rows  value='<?=$rows?>'>
-<div class="section_ul">
-	<h2><em><a href="<?=$g4[bbs_path]?>/whatson.php?check=1&rows=30" <?=$target_link?> ><?=$skin_title?>What's On</a></em></h2>
-	<ul>
-  <?
-  if (count($list) == 0) {
-      echo "<li><span class='bu'></span> <a href='#'>내용없슴</a></li>";
-  } else {
+<div class="panel panel-default">
+    <div class="panel-heading"><a href="<?=$whatson_url?>">What's On</a>
+    <span class="pull-right">
+    <a href="<?=$whatson_url?>"><small>more</small></a>
+    </span>
+    </div>
+    <div class="panel-body">
+        <ul>
+        <?
+        if (count($list) == 0) {
+            echo "<li><a href='#'>내용없슴</a></li>";
+        } else {
 
-      for ($i=0; $i<count($list); $i++) {
+            for ($i=0; $i<count($list); $i++) {
 
-          echo "<li><span class='bu'>";
-          if ($check == 1) {
-              echo $row[wo_id];
-              echo "<input type=hidden name=wo_id[$i] value='{$list[$i][wo_id]}'>";
-              echo "<input type=checkbox name=chk[] value='$i'>";
-          }
-          echo "</span> ";
+                echo "<li>";
+                if ($check == 1) {
+                    echo $row[wo_id];
+                    echo "<input type=hidden name=wo_id[$i] value='{$list[$i][wo_id]}'>";
+                    echo "<input type=checkbox name=chk[] value='$i'>";
+                }
+                echo "";
 
-          // 이미 읽은 글은 바로 새창, 아니면, ajax로 읽은거 mark 한 후에 새창
-          if ($list[$i][wo_status])
-              echo "<a href='" . $list[$i][url]  . "' $target_link >";
-          else
-              echo "<a href='javascript: void(0)' onclick='javascript:whatson_read(\"" . $list[$i][url] . "\", " . $list[$i][wo_id] . ");return false;' >";
+                // 이미 읽은 글은 바로 새창, 아니면, ajax로 읽은거 mark 한 후에 새창
+                if ($list[$i][wo_status])
+                    echo "<a href='" . $list[$i][url]  . "' $target_link >";
+                else
+                    echo "<a href='javascript: void(0)' onclick='javascript:whatson_read(\"" . $list[$i][url] . "\", " . $list[$i][wo_id] . ");return false;' >";
 
           echo "(" . $list[$i][wo_count] . ")";
        //   if ($list[$i][comment_id]) echo "<img src='" . $whatson_skin_path . "/img/icon_comment.gif'>";
@@ -65,6 +68,8 @@ var list_delete_php = "whatson_delete_all.php";
 	<? if ($total_count > 0) { ?>
 	<a href="<?=$g4[bbs_path]?>/whatson.php?check=1&rows=30" <?=$target_link?> onfocus='this.blur()' class="more"><span></span>더보기</a>
 	<? } ?>
+
+    </div>
 </div>
 
 <? if ($check == 1 && $i>0) { ?>
