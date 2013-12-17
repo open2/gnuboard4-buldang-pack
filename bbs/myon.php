@@ -30,47 +30,7 @@ if ($rows > 0) {
 else
     $rows = 20;
 
-// 최근 Whats On
-$sql = " select * from $g4[whatson_table] where mb_id='$member[mb_id]' order by wo_id desc limit 0, $rows";
-$whatson_result = sql_query($sql);
-
-// 내가 방문한 게시판
-$sql = " select b.bo_table, b.bo_subject, a.my_datetime from $g4[my_board_table] a left join $g4[board_table] b on a.bo_table = b.bo_table
-          where a.mb_id = '$member[mb_id]' group by b.bo_table order by a.my_datetime desc limit 0, $rows ";
-$myboard_result = sql_query($sql);
-
-// 최근 게시글
-$sql = " select * from $g4[board_new_table]
-          where mb_id = '$member[mb_id]' and wr_is_comment = '0' order by bn_id desc limit 0, $rows ";
-$recent_result = sql_query($sql);
-
-// 최근 코멘트
-$sql = " select * from $g4[board_new_table]
-          where mb_id = '$member[mb_id]' and wr_is_comment = '1' order by bn_id desc limit 0, $rows ";
-$comment_result = sql_query($sql);
-
-// 내글의 반응
-$sql = " select bo_table, wr_id from $g4[board_new_table] 
-          where mb_id = '$member[mb_id]'  and wr_is_comment = '0' and my_datetime not like '0%' and bn_datetime > '$sql_datetime' 
-          order by my_datetime desc limit 0, $rows ";
-$my_result = sql_query($sql);
-
-// 휴지통
-$sql = " select * from $g4[recycle_table] where rc_wr_id = rc_wr_parent and mb_id = '$member[mb_id]' order by rc_no desc limit 0, $rows ";
-$recycle_result = sql_query($sql);
-
-// 신고된 글
-$sql = " select * from $g4[singo_table] where mb_id= '$member[mb_id]' order by sg_id desc limit 0, $rows ";
-$singoed_result = sql_query($sql);
-
-// 신고한 글
-$sql = " select * from $g4[singo_table] where sg_mb_id= '$member[mb_id]' order by sg_id desc limit 0, $rows ";
-$singo_result = sql_query($sql);
-
-// 최근 포인트
-$sql = " select * from $g4[point_table] where mb_id='$member[mb_id]' order by po_id desc limit 0, $rows";
-$point_result = sql_query($sql);
-
+/* 불당팩 1.2에서 모두 함수로 이동했습니다 */
 
 $myon_skin_path = "$g4[path]/skin/myon/$skin";
 

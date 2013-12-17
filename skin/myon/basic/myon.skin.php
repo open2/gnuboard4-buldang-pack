@@ -16,40 +16,36 @@ $subject_len = 60;
         </div>
     </div>
     <div class="panel-body">
+        <div>
             <div class="btn-group">
                 <a class="btn btn-default" href="javascript:win_memo('', '<?=$member[mb_id]?>', '<?=$_SERVER[SERVER_NAME]?>');" onfocus="this.blur()" ?>
                 Memo (<strong><?=$member['mb_memo_unread']?></strong>)
                 </a>
                 <a class="btn btn-default" href="javascript:win_scrap();" >Scrap</a>
             </div>
-
             <a class="btn btn-default" href="<?=$g4['bbs_path']?>/member_confirm.php?url=register_form.php">Modify</a>
             <a class="btn btn-default" href="<?=$g4['bbs_path']?>/logout.php">Logout</a>
+        </div>
+        <div style="margin-top:5px;">
+            <div class="btn-group">
+                <a class="btn btn-default" href="javascript:win_scrap();" >What's On</a>
+                <a class="btn btn-default" href="javascript:win_scrap();" >나의게시글</a>
+                <a class="btn btn-default" href="javascript:win_scrap();" >나의코멘트</a>
+            </div>
+            <div class="btn-group">
+                <a class="btn btn-default" href="javascript:win_scrap();" >신고된 내역</a>
+                <a class="btn btn-default" href="javascript:win_scrap();" >신고한 내역</a>
+                <a class="btn btn-default" href="javascript:win_scrap();" >휴지통</a>
+            </div>
+        </div>
+        <div style="margin-top:5px;margin-bottom:5px;">
+            <?
+            include_once("$g4[path]/lib/whatson.lib.php");
+            include_once("$g4[path]/lib/latest.my.lib.php");
+            ?>
+            <?=whatson('basic')?>
+            <?=latest_my('basic','나의 게시글',80,10,25);?>
+            <?=latest_my('basic','나의 코멘트',80,10,25,'comment');?>
+        </div>
     </div>
 </div>
-
-
-
-
-<style type="text/css">
-.trs { height:30px; background:#dddddd; text-align:center;}
-.status_form_title { background:#eeeeee; width:13%; text-align:center;  }
-.status_form_content { text-align:left; padding-left:5px; width:20%; background:#ffffff;  }
-.n_title1 { font-family:돋움; font-size:9pt; color:#FFFFFF; }
-.n_title2 { font-family:돋움; font-size:9pt; color:#5E5E5E; }
-</style>
-<table width="100%" height="40" border="0" cellpadding="0" cellspacing="0" align="center">
-<tr>
-    <td >
-
-
-		
-<div style="background-color:rgb(247,247,247); border-width:5px; border-color:white; border-style:solid;"></div>
-
-<table width='100%' >
-<tr>
-<td>
-<? include("$myon_skin_path/tab.html"); ?>
-</td>
-</tr>
-</table>
