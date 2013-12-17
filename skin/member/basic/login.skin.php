@@ -38,7 +38,7 @@ else {
 			<div class="form-group">
 				<label for="mb_password" class="col-sm-2 control-label">패스워드</label>
 				<div class="col-sm-4">
-					<input type="password" name="mb_password" id="mb_password" class="form-control" maxLength=20 size=15  itemname="패스워드"placeholder="password">
+					<input type="password" name="mb_password" id="mb_password" class="form-control" maxLength=20 size=15  itemname="패스워드" placeholder="password">
 				</div>
 			</div>
 			<div class="form-group">

@@ -18,7 +18,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         <a href="<?=$g4[path]?>/company/company.php?id=privacy"><strong>개인정보취급방침</strong></a>
         <a href="<?=$g4[path]?>/company/company.php?id=service">이용약관</a>
         <div class="pull-right">
-        <small>(주)오픈코드 All rights reserved.</small>
+        <small>(주)오픈코드</small>
         <a style="display:inline;" class="btn btn-default btn-sm" data-toggle="collapse" data-target=".navbar-bottom-collapse">Info.</a>
         </div>
     </div>
