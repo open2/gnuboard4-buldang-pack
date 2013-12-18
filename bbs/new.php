@@ -48,14 +48,13 @@ $total_page  = ceil($total_count / $rows);  // 전체 페이지 계산
 if (!$page) $page = 1; // 페이지가 없으면 첫 페이지 (1 페이지)
 $from_record = ($page - 1) * $rows; // 시작 열을 구함
 
-$group_select = "<select name=gr_id id=gr_id onchange='select_change();'><option value=''>전체그룹";
 $sql = " select gr_id, gr_subject from $g4[group_table] where gr_use_search = 1 order by gr_id ";
 $result = sql_query($sql);
+$group_select_list = array();
 for ($i=0; $row=sql_fetch_array($result); $i++) 
 {
-    $group_select .= "<option value='$row[gr_id]'>$row[gr_subject]";
+    $group_select_list[] = $row;
 }
-$group_select .= "</select>";
 
 $sql_select = " a.bo_table, a.wr_id, a.wr_parent, a.bn_id, b.bo_subject, b.gr_id ";
 $list = array();
@@ -85,6 +84,14 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         $comment_link = "";
         $comment_id = "";
         $row2 = sql_fetch(" select wr_id, wr_subject, mb_id, wr_name, wr_email, wr_homepage, wr_datetime, wr_comment from $tmp_write_table where wr_id = '$row[wr_id]' ");
+
+        // 가끔 최근글 record만 있는 경우가 있다. 그렇다면 그걸 지워야지...
+        if (!$row2) {
+            $sql = " delete from $g4[board_new_table] where bn_id = '$row[bn_id]' ";
+            sql_query($sql);
+            continue;
+        }
+
         $list[$i] = $row2;
 
         $name = get_sideview($row2[mb_id], cut_str($row2[wr_name], $config[cf_cut_name]), $row2[wr_email], $row2[wr_homepage]);
@@ -104,6 +111,14 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         $comment_id = $row[wr_id];
         $row2 = sql_fetch(" select wr_id, wr_subject from $tmp_write_table where wr_id = '$row[wr_parent]' ");
         $row3 = sql_fetch(" select mb_id, wr_name, wr_email, wr_homepage, wr_datetime from $tmp_write_table where wr_id = '$row[wr_id]' ");
+
+        // 가끔 최근글 record만 있는 경우가 있다. 그렇다면 그걸 지워야지...
+        if (!$row2) {
+            $sql = " delete from $g4[board_new_table] where bn_id = '$row[bn_id]' ";
+            sql_query($sql);
+            continue;
+        }
+
         $list[$i] = $row2;
         $list[$i][mb_id] = $row3[mb_id];
         $list[$i][wr_name] = $row3[wr_name];
