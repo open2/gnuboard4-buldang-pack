@@ -41,18 +41,16 @@ if ($write[wr_is_comment]) { // 코멘트인 경우
        insert_point($row[mb_id], $board[bo_comment_point] * (-1), "$board[bo_subject] {$write[wr_id]}-{wr_id} 코멘트삭제");
 
     // 코멘트 삭제
-    sql_query(" delete from $write_table where wr_id = '$wr_id' ");
+    sql_query(" delete from $write_table where wr_id = '$wr_id' ", FALSE);
     
-    $sql = " delete from $write_table where wr_id = '$wr_id' ";
-
     // 최근게시물 삭제
-    sql_query(" delete from $g4[board_new_table] where bo_table = '$bo_table' and wr_id = '$wr_id' ");
+    sql_query(" delete from $g4[board_new_table] where bo_table = '$bo_table' and wr_id = '$wr_id' ", FALSE);
 
     // 게시글의 코멘트 숫자 감소
-    sql_query(" update $write_table set wr_comment = wr_comment - 1 where wr_id = '$write[wr_parent]' ");    
+    sql_query(" update $write_table set wr_comment = wr_comment - 1 where wr_id = '$write[wr_parent]' ", FALSE);
     
     // 글 숫자 감소
-    sql_query(" update $g4[board_table] set bo_count_comment = bo_count_comment - 1 where bo_table = '$bo_table' ");    
+    sql_query(" update $g4[board_table] set bo_count_comment = bo_count_comment - 1 where bo_table = '$bo_table' ", FALSE);
 
 } else { // 코멘트가 아닌경우
 
@@ -92,7 +90,7 @@ if ($write[wr_is_comment]) { // 코멘트인 경우
                 @unlink("$g4[data_path]/file/$bo_table/$row2[bf_file]");
                 
             // 파일테이블 행 삭제
-            sql_query(" delete from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$row[wr_id]' ");
+            sql_query(" delete from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$row[wr_id]' ", FALSE);
 
             $count_write++;
         } 
@@ -136,5 +134,5 @@ if ($write[wr_is_comment]) { // 코멘트인 경우
 } // if의 끝
 } // for loop의 끝
 
-goto_url("$g4[bbs_path]/new.php?gr_id=$gr_id&view=$view&mb_id=$mb_id" . $qstr);
+goto_url("$g4[bbs_path]/new.php?gr_id=$gr_id&view=$view&mb_id=$mb_id&page=$page&view_type=$view_type" . $qstr);
 ?>
