@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
+if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 ?>
 
 <? if ($is_admin) { ?>
@@ -30,8 +30,19 @@ function select_new_batch(sw){////ssh06-04-12
 
 <!-- 분류 시작 -->
 <form name=fnew method=get role="form" class="form-inline" style="margin-bottom:5px;">
-<a class="btn btn-default" href="<?=$g4[bbs_path]?>/new.php">처음으로</a>
+<a class="btn btn-default" href="<?=$g4[bbs_path]?>/new.php">처음으로
+<? if ($total_count > 0) {?>&nbsp;(<?=number_format($total_count)?>)<?}?>
+</a>
 <div class="pull-right">
+    <?
+    // bbs/new.php에서 하던 $group_select를 new.skin.php로 이동. select에 style을 넣기 위해서.
+    $group_select = "<select class='form-control' name=gr_id id=gr_id onchange='select_change();'><option value=''>전체그룹";
+    for ($i=0; $i < count($group_select_list); $i++) {
+        $row = $group_select_list[$i];
+        $group_select .= "<option value='$row[gr_id]'>$row[gr_subject]";
+    }
+    $group_select .= "</select>";
+    ?>
     <?=$group_select?>
     <select class="form-control" id=view_type name=view_type onchange="select_change()">
         <option value=''>원글만
@@ -39,9 +50,11 @@ function select_new_batch(sw){////ssh06-04-12
         <option value='a'>전체게시물
     </select>
 
+    <? if ($member[mb_id]) { ?>
     <div class="form-group">
         <input class="form-control" type="text" id="mb_id" name="mb_id" value="<?=$mb_id?>" placeholder="회원 아이디">
     </div>
+    <? } ?>
     <input class="btn btn-default" type=submit value='검색'>
 </div>
 
@@ -61,9 +74,11 @@ document.getElementById("view_type").value = "<?=$view_type?>";
 
 <form name="fboardlist" method="post" style="margin:0px;">
 <input type="hidden" name="sw"   value="">	
-<input type="hidden" name="gr_id"   value="<?=$gr_id?>">	
-<input type="hidden" name="view"   value="<?=$view_type?>">	
-<input type="hidden" name="mb_id"   value="<?=$mb_id?>">	
+<input type="hidden" name="gr_id"   value="<?=$gr_id?>">
+<input type="hidden" name="view"   value="<?=$view_type?>">
+<input type="hidden" name="mb_id"   value="<?=$mb_id?>">
+<input type="hidden" name="page"   value="<?=$page?>">
+<input type="hidden" name="view_type"   value="<?=$view_type?>">
 
 <!-- 제목 시작 -->
 <table width="100%" class="table table-hover">
