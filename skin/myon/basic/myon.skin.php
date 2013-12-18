@@ -23,7 +23,7 @@ $whatson_url = "$g4[bbs_path]/whatson.php?check=1&rows=30";
                 <a class="btn btn-default" href="javascript:win_memo('', '<?=$member[mb_id]?>', '<?=$_SERVER[SERVER_NAME]?>');" onfocus="this.blur()" ?>
                 Memo (<strong><?=$member['mb_memo_unread']?></strong>)
                 </a>
-                <a class="btn btn-default" href="javascript:win_scrap();" >Scrap</a>
+                <a class="btn btn-default" href="<?=$g4['bbs_path']?>/scrap.php?head_on=1&snb=scrap" >Scrap</a>
             </div>
             <a class="btn btn-default" href="<?=$g4['bbs_path']?>/member_confirm.php?url=register_form.php">Modify</a>
             <a class="btn btn-default" href="<?=$g4['bbs_path']?>/logout.php">Logout</a>
@@ -31,13 +31,14 @@ $whatson_url = "$g4[bbs_path]/whatson.php?check=1&rows=30";
         <div style="margin-top:5px;">
             <div class="btn-group">
                 <a class="btn btn-default" href="<?=$whatson_url?>" >What's On</a>
-                <a class="btn btn-default" href="<?=$g4[path]?>/bbs/new.php?gr_id=&mb_id=<?=$member[mb_id]?>" >나의게시글</a>
-                <a class="btn btn-default" href="<?=$g4[path]?>/bbs/new.php?gr_id=&view_type=c&mb_id=<?=$member[mb_id]?>" >나의코멘트</a>
+                <a class="btn btn-default" href="<?=$g4[bbs_path]?>/new.php?gr_id=&mb_id=<?=$member[mb_id]?>">나의게시글</a>
+                <a class="btn btn-default" href="<?=$g4[bbs_path]?>/new.php?gr_id=&view_type=c&mb_id=<?=$member[mb_id]?>">나의코멘트</a>
+                <a class="btn btn-default" href="<?=$g4[bbs_path]?>/my_good.php?w=good&head_on=1">추천한글</a>
+                <a class="btn btn-default" href="<?=$g4[bbs_path]?>/my_good.php?w=nogood&head_on=1">비추천한글</a>
             </div>
             <div class="btn-group">
-                <a class="btn btn-default" href="" >신고된 내역</a>
-                <a class="btn btn-default" href="" >신고한 내역</a>
-                <a class="btn btn-default" href="<a href='<?=$g4[bbs_path]?>/recycle_list.php'>" >휴지통</a>
+                <a class="btn btn-default" href="<?=$g4[bbs_path]?>/singo_search.php">신고된 내역</a>
+                <a class="btn btn-default" href="<?=$g4[bbs_path]?>/recycle_list.php">휴지통</a>
             </div>
         </div>
     </div>
