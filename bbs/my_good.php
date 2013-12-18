@@ -95,8 +95,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         $bo_list[$i] = $row;
 }
 
-$member_skin_path = "$g4[path]/skin/member/$config[cf_member_skin]";
-include_once("$member_skin_path/good.skin.php");
+$skin_path = "$g4[path]/skin/my_good/$g4[my_good_skin]";
+include_once("$skin_path/my_good.skin.php");
 
 if ($head_on)
     include_once("$g4[path]/tail.php");

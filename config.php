@@ -239,6 +239,9 @@ $g4['good_list_skin'] = "basic";
 $g4['new_use_list_view'] = true;
 $g4['goodlist_use_list_view'] = false;
 
+// 내가 추천한 글/추천 받은 글 설정
+$g4['my_good_skin'] = "basic";
+
 // IE의 UA를 정의 - 5, 7, 8, Edge, EmulateIE7 - http://opencode.co.kr/bbs/board.php?bo_table=qna&wr_id=3611
 $g4['ie_ua'] = "";
 
