@@ -95,6 +95,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         $bo_list[$i] = $row;
 }
 
+$write_pages = get_paging($config[cf_write_pages], $page, $total_page, "?qstr=$qstr&page=");
+
 $skin_path = "$g4[path]/skin/my_good/$g4[my_good_skin]";
 include_once("$skin_path/my_good.skin.php");
 
