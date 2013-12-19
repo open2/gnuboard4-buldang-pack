@@ -81,7 +81,7 @@ document.getElementById("view_type").value = "<?=$view_type?>";
 <input type="hidden" name="view_type"   value="<?=$view_type?>">
 
 <!-- 제목 시작 -->
-<table width="100%" class="table table-hover">
+<table width="100%" class="table table-hover table-condensed">
 <tr class="success" align=center> 
     <td class="col-sm-1">그룹</td>
     <td class="col-sm-2">게시판</td>
