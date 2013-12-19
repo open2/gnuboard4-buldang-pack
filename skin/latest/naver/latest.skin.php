@@ -9,58 +9,57 @@ if (!$skin_title) {
         $skin_title = "최신글";
     }
 }
-
-// naver layout이 아니면, style을 include
-if ($g4[layout_skin] !== "naver")
-    echo "<link rel='stylesheet' href='<?=$g4[path]?>/style.latest.css' type='text/css'>";
 ?>
-
-<div class="section_ul">
-	<h2><em><a href='<?=$skin_title_link?>' onfocus='this.blur()'><?=$skin_title?></a></em></h2>
-	<ul>
-  <?
-  if (count($list) == 0) {
-      echo "<li><span class='bu'></span> <a href='#'>내용없슴</a></li>";
-  } else {
-      for ($i=0; $i<count($list); $i++) { 
-
-          echo "<li><span class='bu'></span> ";
-
-          if ($list[$i][icon_secret])
-              echo "<span style='float:left'>" . "<img src='$latest_skin_path/img/icon_secret.gif' alt='secret' align=absmiddle> " . "</span>";
-
-          if ($list[$i][bo_name])
-              $list_title = $list[$i][bo_name] . " : " . $list[$i][subject] . " (". $list[$i][datetime] . ")" ;
-          else
-              $list_title = $list[$i][subject]  . " (". $list[$i][datetime] . ")" ;
-
-          if ($list[$i][comment_cnt]) 
-              echo " <a href=\"{$list[$i][comment_href]}\" onfocus=\"this.blur()\"><span style='font-family:돋움; font-size:8pt; color:#9A9A9A;'>{$list[$i][comment_cnt]}</span></a> ";
-
-          if ($list[$i][icon_reply])
-              echo "<span style='float:left'>" . $list[$i][icon_reply] . "</span>";
-
-          echo "<a href='{$list[$i][href]}' onfocus='this.blur()' title='{$list_title}' {$target_link}>";
-          if ($list[$i][is_notice])
-              echo "<font style='font-family:돋움; font-size:9pt; color:#2C88B9;'><strong>" . $list[$i][subject] . "</strong></font>";
-          else
-              echo "<font style='font-family:돋움; font-size:9pt; color:#6A6A6A;'>" . $list[$i][subject] . "</font>";
-          echo "</a>";
-
-          if ($list[$i][icon_new])
-              echo " " . "<span style='float:left'>" . $list[$i][icon_new] . "</span>";
-
-          echo "</li>";
-      }
-  }
-  // fill이 true이고, 덜 채워지면 꽉 채워준다.
-  if (is_array($options) && $options['fill'] && $i < $rows) {
-        for ($j=$i; $j<$rows;$j++) {
-            echo "<li><span class='bu'></span> ";
-            echo "<a href='#'><font style='font-family:돋움; font-size:9pt; color:#6A6A6A;'>&nbsp;</font></a></li>";
+<div class="panel panel-default">
+<div class="panel-heading">
+    <a href='<?=$skin_title_link?>' onfocus='this.blur()'><?=$skin_title?></a>
+  	<a class="pull-right" href='<?=$skin_title_link?>' onfocus='this.blur()'><small>more</small></a>
+</div>
+<div class="panel-body">
+  	<ul class="list-unstyled">
+    <?
+    if (count($list) == 0) {
+        echo "<li><a href='#'>내용없슴</a></li>";
+    } else {
+        for ($i=0; $i<count($list); $i++) { 
+  
+            echo "<li>";
+  
+            if ($list[$i][icon_secret])
+                echo "<i class=\"fa fa-lock\"></i> ";
+  
+            if ($list[$i][bo_name])
+                $list_title = $list[$i][bo_name] . " : " . $list[$i][subject] . " (". $list[$i][datetime] . ")" ;
+            else
+                $list_title = $list[$i][subject]  . " (". $list[$i][datetime] . ")" ;
+  
+            if ($list[$i][comment_cnt]) 
+                echo " <a href=\"{$list[$i][comment_href]}\" onfocus=\"this.blur()\"><small>{$list[$i][comment_cnt]}</small></a> ";
+  
+            if ($list[$i][icon_reply])
+                echo "<i class=\"fa fa-reply\"></i> ";
+  
+            echo "<a href='{$list[$i][href]}' onfocus='this.blur()' title='{$list_title}' {$target_link}>";
+            if ($list[$i][is_notice])
+                echo "<strong>" . $list[$i][subject] . "</strong>";
+            else
+                echo $list[$i][subject];
+            echo "</a>";
+  
+            if ($list[$i][icon_new])
+                echo "  <i class=\"fa fa-bell-o\"></i>";
+  
+            echo "</li>";
         }
-  }
-  ?>
-  </ul>
-	<a href='<?=$skin_title_link?>' onfocus='this.blur()' class="more"><span></span>더보기</a>
+    }
+    // fill이 true이고, 덜 채워지면 꽉 채워준다.
+    if (is_array($options) && $options['fill'] && $i < $rows) {
+          for ($j=$i; $j<$rows;$j++) {
+              echo "<li><span class='bu'></span> ";
+              echo "<a href='#'><font style='font-family:돋움; font-size:9pt; color:#6A6A6A;'>&nbsp;</font></a></li>";
+          }
+    }
+    ?>
+    </ul>
+</div>
 </div>
