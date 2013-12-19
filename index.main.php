@@ -7,7 +7,6 @@ include_once("$g4[path]/lib/latest.group.lib.php"); // 그룹 최신글
 include_once("$g4[path]/lib/latest.my.lib.php"); // 그룹 최신글
 include_once("$g4[path]/lib/latest.club.lib.php");  // 클럽 최신글
 
-
 echo "<table width=100%><tr>";
 
 // 한개의 게시글을 출력
@@ -46,7 +45,7 @@ echo "</td>";
 // 클럽 최신글을 출력
 echo "<td width='50%' valign=top>";
 include_once("$g4[path]/lib/latest.club.lib.php");
-echo cb_latest_main('naver',12,40);
+//echo cb_latest_main('naver',12,40);
 $ja++;
 echo "</td>";
 
