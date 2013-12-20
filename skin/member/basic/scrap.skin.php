@@ -60,11 +60,11 @@ $memo_str_list = $memo_str0 . $memo_str;
     <td>제목</td>
     <td class="col-sm-2">글쓴이</td>
     <td class="col-sm-2">메모</td>
-    <td class="col-sm-1">스크랩날짜</td>
+    <td class="col-sm-1">날짜</td>
 </tr>
 <? for ($i=0; $i<count($list); $i++) { ?>
     <tr> 
-        <td><?=$list[$i][num]?></td>
+        <td align="center"><?=$list[$i][num]?></td>
         <td>
         <? if ($head_on) { ?>
             <a href="<?=$list[$i][opener_href]?>">
@@ -75,23 +75,25 @@ $memo_str_list = $memo_str0 . $memo_str;
         </td>
         <? // 비밀글인 스크랩의 경우 비밀글 아이콘을 앞에 표시
         if ($list[$i][secret]) 
-            $secret_icon = "<i class=\"fa fa-lock\"></i>";
+            $secret_icon = "<i class=\"fa fa-lock\"></i>&nbsp;";
         else
             $secret_icon = "";
         ?>
-        <td align="left" style='word-break:break-all;'><?=$secret_icon?>&nbsp;
+        <td align="left" style='word-break:break-all;'><?=$secret_icon?>
         <? if ($head_on) { ?>
             <a href="<?=$list[$i][opener_href_wr_id]?>" title="<?=$list[$i][subject]?>">
         <? } else { ?>
             <a href="javascript:;" onclick="opener.document.location.href='<?=$list[$i][opener_href_wr_id]?>';" title="<?=$list[$i][subject]?>">
         <? } ?>
-        <?=cut_str($list[$i][wr_subject],30)?></a></td>
+        <?=cut_str($list[$i][wr_subject],30)?></a>
+        <a href="javascript:del('<?=$list[$i][del_href]?>');"><i class="fa fa-trash-o"></i></a>
+        </td>
         <td><?=$list[$i][mb_nick]?></td>
-        <td align="left" style='word-break:break-all;'>&nbsp;<a href="#" title="<?=$list[$i][ms_memo]?>"><?=$list[$i][ms_memo]?>
+        <td align="left" style='word-break:break-all;'><a href="#" title="<?=$list[$i][ms_memo]?>"><?=$list[$i][ms_memo]?>
         &nbsp;<a class="btn btn-default btn-xs" href="javascript:memo_box(<?=$list[$i][ms_id]?>)"><i class="fa fa-pencil-square-o"></i></a>
         <span id='memo_<?=$list[$i][ms_id]?>' style='display:none;'>
-        <input type="type" class="ed" name="memo_edit_<?=$list[$i][ms_id]?>" id="memo_edit_<?=$list[$i][ms_id]?>" size="30" value="<?=preg_replace("/\"/", "&#034;", stripslashes(get_text($list[$i][ms_memo],0)))?>" />
-        <a href='javascript:memo_update(<?=$list[$i][ms_id]?>)'><img src='<?=$member_skin_path?>/img/btn_c_ok.gif' border='0'/></a>
+        <input type="type" placeholder="scrap memo" name="memo_edit_<?=$list[$i][ms_id]?>" id="memo_edit_<?=$list[$i][ms_id]?>" size="50" value="<?=preg_replace("/\"/", "&#034;", stripslashes(get_text($list[$i][ms_memo],0)))?>" />
+        <a class="btn btn-default btn-xs" href='javascript:memo_update(<?=$list[$i][ms_id]?>)'>write</a>
         <BR>
         <?
         $memo_str_tmp = "<select name='ms_memo_{$list[$i][ms_id]}' onchange=\"javascript:document.getElementById('memo_edit_{$list[$i][ms_id]}').value=this.value;\">";
@@ -99,8 +101,7 @@ $memo_str_list = $memo_str0 . $memo_str;
         ?>
         </span> 
         </td>
-        <td><?=cut_str($list[$i][ms_datetime],10, '')?></td>
-        <td><a href="javascript:del('<?=$list[$i][del_href]?>');"><i class="fa fa-trash-o"></i></a></td>
+        <td><?=get_date($list[$i][ms_datetime])?></td>
     </tr>
 <? } ?>
 
@@ -124,8 +125,8 @@ $memo_str_list = $memo_str0 . $memo_str;
 </div>
 
 <? if (!$head_on) { ?>
-<div>
-<a class="btn btn-default" href="javascript:window.close();">닫기</a>
+<div class="container"  style="display: inline-block;text-align: center;">
+    <a class="btn btn-default" href="javascript:window.close();" >닫기</a>
 </div>
 <? } ?>
 
