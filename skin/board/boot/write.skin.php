@@ -187,8 +187,8 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
         <? if ($is_file) { ?>
         <div class="form-group">
             <label class="col-xs-1 hidden-xs">File
+            <br>
             <a onclick="add_file();" style="cursor:pointer;"><i class="fa fa-plus"></i></a> <a onclick="del_file();" style="cursor:pointer;"><i class="fa fa-minus"></i></a>
-
             </label>
             <div class="col-xs-12 col-sm-11">
                 <table id="variableFiles" cellpadding=0 cellspacing=0></table>
@@ -255,9 +255,9 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
     </div>
 </div>
 
-<span class="col-sm-1 hidden-xs"></span>
-<button type="submit" class="btn btn-success" id="btn_submit">Write</button>
-<span class="btn-group pull-right">
+<span class="pull-right">
+    <button type="submit" class="btn btn-success" id="btn_submit">Write</button>
+    &nbsp;&nbsp;&nbsp;
     <a class="btn btn-default" href="<?=$list_href?>">List</a>
 </span>
 
