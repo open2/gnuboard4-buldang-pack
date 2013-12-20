@@ -2,6 +2,10 @@
 // 이 상수가 정의되지 않으면 각각의 개별 페이지는 별도로 실행될 수 없음
 define("_GNUBOARD_", TRUE);
 
+$g4['bver'] = "1000";   // 부트스트랩 CSS 버젼
+$g4['aver'] = "1000";   // 폰트어썸 CSS 버젼
+$g4['sver'] = "1000";   // style.css CSS 버젼
+
 // $qstr이 없는 상황에서 필요한 것을 넘기기 위해서 사용 (메뉴 변수 등...)
 $mstr = "";
 if (isset($mnb))  { // 불당빌더 기본메뉴
@@ -38,6 +42,7 @@ $g4['epost_key'] = "f91427a9fc7337ff91385268803210";
 // 채널 - 다수대의 web server를 쓸 때, 어떤 서버인지 확인을 위해 채널에 ip 마지막 자리를 넣어주면 편하다.
 $g4['channel'] = "";
 
-// bbs/write.php에서 그냥 나갈때 경고할지 안할지 결정, 쓰기할 때 경고가 필요하지 않은 경우는 write.head.skin.php에서 false로 하면 됨
+// bbs/write.php에서 그냥 나갈때 경고할지 안할지 결정
+// 쓰기할 때 경고가 필요하지 않은 경우는 write.head.skin.php에서 false로 하면 됨
 $g4['write_escape'] = true;
 ?>

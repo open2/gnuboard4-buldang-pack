@@ -40,12 +40,12 @@ if ($member['mb_id'] == "" && $g4['keyword_seo'])
 
 <title><?=$g4['title']?></title>
 
-<link rel="stylesheet" href="<?=$g4['path']?>/js/bootstrap/css/bootstrap.min.css" type="text/css" media="screen" title="no title" charset="<?=$g4[charset]?>">
-<link rel="stylesheet" href="<?=$g4['path']?>/js/font-awesome/css/font-awesome.min.css" type="text/css" media="screen" title="no title" charset="<?=$g4[charset]?>">
+<link rel="stylesheet" href="<?=$g4['path']?>/js/bootstrap/css/bootstrap.min.css?bver=<?=$g4[bver]?>" type="text/css" media="screen" title="no title" charset="<?=$g4[charset]?>">
+<link rel="stylesheet" href="<?=$g4['path']?>/js/font-awesome/css/font-awesome.min.css?aver=<?=$g4[aver]?>" type="text/css" media="screen" title="no title" charset="<?=$g4[charset]?>">
 <!--[if lt IE 7]>
     <script src="<?=$g4['path']?>/js/font-awesome/css/font-awesome-ie7.min.js"></script>
 <![endif]-->
-<link rel="stylesheet" href="<?=$g4['path']?>/style.css" type="text/css">
+<link rel="stylesheet" href="<?=$g4['path']?>/style.css?sver=<?=$g4[sver]?>" type="text/css">
 
 <? // canonical link by ¸»·¯83, http://sir.co.kr/bbs/board.php?bo_table=g4_tiptech&wr_id=20826
 if(stristr($_SERVER[PHP_SELF], "/bbs/board.php") == true && $bo_table) {
