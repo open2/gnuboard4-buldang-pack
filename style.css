@@ -5,7 +5,3 @@ margin-left: auto;
 margin-right: auto;
 float:none;
 }
-
-@media (max-width: 768px) {
-    .form-inline .radio, .form-inline .checkbox.custom { margin-top: 0; margin-bottom: 0; }
-}
