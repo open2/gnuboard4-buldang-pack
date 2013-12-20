@@ -186,6 +186,12 @@ echo outlogin("basic");
 <!-- 로그인박스와의 여백 -->
     <table><tr><td height="1px"></td></tr></table>
     <?
+    if ($member[mb_id]) {
+        include_once("$g4[path]/lib/whatson.lib.php");
+        echo whatson("basic", 10, 12);
+    }
+    ?>
+    <?
     // 투표
     include_once("$g4[path]/lib/poll.lib.php");
     echo poll();
