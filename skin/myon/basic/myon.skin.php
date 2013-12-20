@@ -26,7 +26,7 @@ $whatson_url = "$g4[bbs_path]/whatson.php?check=1&rows=30";
                 <a class="btn btn-default" href="<?=$g4['bbs_path']?>/scrap.php?head_on=1&snb=scrap" >Scrap</a>
             </div>
             <a class="btn btn-default" href="<?=$g4['bbs_path']?>/member_confirm.php?url=register_form.php">Modify</a>
-            <a class="btn btn-default" href="<?=$g4['bbs_path']?>/logout.php">Logout</a>
+            <a class="btn btn-default pull-right" href="<?=$g4['bbs_path']?>/logout.php">Logout</a>
         </div>
         <div style="margin-top:5px;">
             <div class="btn-group">
