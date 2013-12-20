@@ -188,7 +188,7 @@ echo outlogin("basic");
     <?
     if ($member[mb_id]) {
         include_once("$g4[path]/lib/whatson.lib.php");
-        echo whatson("basic", 10, 12);
+        echo whatson("basic", 10, 14);
     }
     ?>
     <?

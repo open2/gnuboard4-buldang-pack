@@ -40,7 +40,7 @@ var list_delete_php = "whatson_delete_all.php";
                 if ($list[$i][wo_status])
                     echo "<a href='" . $list[$i][url]  . "' $target_link >";
                 else
-                    echo "<a href='javascript: void(0)' onclick='javascript:whatson_read(\"" . $list[$i][url] . "\", " . $list[$i][wo_id] . ");return false;' >";
+                    echo "<a href='javascript: void(0)' onclick='javascript:whatson_read(\"" . $list[$i][url] . "\", " . $list[$i][wo_id] . ");return false;'>";
 
                 echo "(" . $list[$i][wo_count] . ")";
 
@@ -52,11 +52,12 @@ var list_delete_php = "whatson_delete_all.php";
                     echo "</font>";
                 echo "</a>";
 
+                if ($check == 1) {
                 echo "&nbsp;<small>" . $list[$i][datetime] . "</small>&nbsp;";
 
                 $delete_href = "javascript:del('" . $g4[bbs_path] . "/ajax_whatson.php?w=d&page=$page&rows=$rows&check=$check&wo_id=".$list[$i][wo_id]."');";
                 echo " " . "<a href=\"$delete_href\" ><i class=\"fa fa-trash-o\"></i></a> ";
-
+                }
                 echo "</li>";
         }
     }
