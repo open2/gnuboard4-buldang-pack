@@ -51,7 +51,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <th width=60px class="hidden-xs"><?=subject_sort_link('wr_datetime', $qstr2, 1)?>날짜</a></th>
     <th class="hidden-xs"><?=subject_sort_link('wr_hit', $qstr2, 1)?>조회</a></th>
     <? if ($is_good) { ?><th width=60px class="hidden-xs"><?=subject_sort_link('wr_good', $qstr2, 1)?>추천</a></th><?}?>
-    <? if ($is_nogood) { ?><th width=60px class="hidden-xs"><?=subject_sort_link('wr_nogood', $qstr2, 1)?>비추천</a></th><?}?>
+    <? if ($is_nogood) { ?><th width=60px class="hidden-xs"><?=subject_sort_link('wr_nogood', $qstr2, 1)?>비추</a></th><?}?>
 </tr>
 </thead>
 
@@ -160,6 +160,10 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <? } ?>
 
 <div class="pull-right">
+    <a class="btn btn-default" data-toggle="collapse" data-target=".board-bottom-search-collapse"><i class='fa fa-search'></i></a>
+</div>
+
+<div class="pull-right collapse collapse-xs board-bottom-search-collapse">
     <div class="form-group">
         <label class="sr-only" for="sfl">sfl</label>
         <select name=sfl class="form-control">
