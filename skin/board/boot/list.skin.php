@@ -159,11 +159,11 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 </span>
 <? } ?>
 
-<div class="pull-right">
+<div class="pull-right hidden-lg hidden-md hidden-sm">
     <a class="btn btn-default" data-toggle="collapse" data-target=".board-bottom-search-collapse"><i class='fa fa-search'></i></a>
 </div>
 
-<div class="pull-right collapse collapse-xs board-bottom-search-collapse">
+<div class="pull-right collapse navbar-collapse board-bottom-search-collapse">
     <div class="form-group">
         <label class="sr-only" for="sfl">sfl</label>
         <select name=sfl class="form-control">
