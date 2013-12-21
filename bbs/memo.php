@@ -6,8 +6,8 @@ $g4['title'] = "쪽지5";
 include_once("$g4[path]/head.sub.php");
 include_once("$g4[path]/memo.config.php");
 
-if (!$member['mb_id']) 
-    alert_close("회원만 이용하실 수 있습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.");
+if (!$member['mb_id'])
+    alert("회원만 이용하실 수 있습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.", "./login.php?$qstr&url=".urlencode("$_SERVER[PHP_SELF]?kind=$kind"));
 
 // 자동응답으로 설정되어 있는 경우에는 쪽지를 사용할 수 없습니다.
 if (!$is_admin && $member['mb_memo_no_reply'] && $kind != "memo_config")
@@ -746,7 +746,7 @@ break;
 } // end of switch($kind)
 
 // 쪽지5 스킨을 읽어들입니다.
-include_once("$memo_skin_path/memo2.skin.php");
+include_once("$g4[memo_skin_path]/memo2.skin.php");
 
 include_once("$g4[path]/tail.sub.php");
 ?>

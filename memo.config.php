@@ -54,7 +54,7 @@ if (function_exists('sql_fetch')) {
 }
 
 // 쪽지 첨부파일 경로
-$memo_file_path = $g4['data_path'] . "/memo2/" . $member['mb_id']; 
+$g4['memo_file_path'] = $g4['data_path'] . "/memo2/" . $member['mb_id']; 
 
 // memo skin
 $g4['memo_skin'] = "basic";
@@ -63,7 +63,7 @@ $g4['memo_skin'] = "basic";
 $g4['memo_skin_path'] = "$g4[path]/skin/memo/" . $g4['memo_skin'];
 
 // 쪽지 프로그램의 location을 정의, $_SERVER[PHP_SELF]를 안쓰기 위해서
-$memo_url = $g4[bbs_path] . "/memo.php";
+$g4['memo_url'] = $g4[bbs_path] . "/memo.php";
 
 // 사용자의 환경설정은 실시간쪽지, 부재중 응답이 가능할 때만
 if ($config['cf_memo_realtime'] || $config['cf_memo_no_reply'])
