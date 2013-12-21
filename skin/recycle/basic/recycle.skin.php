@@ -22,7 +22,7 @@ function recycle_delete(ok)
 }
 </script>
 
-<form name=fsearch method=get role="form" class="form-inline" >
+<form name=fsearch method=get role="form" class="form-inline">
 <a class="btn btn-default" href="<?=$_SERVER[PHP_SELF]?>">처음</a>
 (휴지글수 : <?=number_format($total_count)?>, 삭제글수 : <?=number_format($delete_count)?>)
 <div class="pull-right">
@@ -36,7 +36,7 @@ function recycle_delete(ok)
 </div>
 </form>
 
-<form name=fmemberlist method=post>
+<form name=fmemberlist method=post role="form" class="form-inline">
 <input type=hidden name=sst   value='<?=$sst?>'>
 <input type=hidden name=sod   value='<?=$sod?>'>
 <input type=hidden name=sfl   value='<?=$sfl?>'>
@@ -45,7 +45,7 @@ function recycle_delete(ok)
 <input type=hidden name=token value='<?=$token?>'>
 
 <table width=100% class="table table-hover table-condensed">
-<tr class="success" >
+<tr class="success">
     <td class="col-sm-2"><?=subject_sort_link('bo_table')?>게시판</a></td>
     <td>(wr_id) 게시글제목</td>
     <td>작성일</td>
@@ -122,7 +122,7 @@ if ($stx)
 </div>
 </form>
 
-<ul>
+<ul class="well">
 <li>DB에서 완전히 게시글 삭제를 하기를 원하는 경우 관리자에게 문의하시기 바랍니다.</li>
 <li>회원아이디 옆에 아이콘이 있는 글은, 사용자가 삭제한 것이 아니라 관리자가 삭제한 글 입니다.</li>
 <li>게시판을 클릭하면 해당 게시판의 삭제글이 정렬되며, 게시글 id를 클릭하면 해당 게시글의 새창이 뜹니다.</li>

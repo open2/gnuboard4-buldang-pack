@@ -57,7 +57,7 @@ $sql = " select *
           limit $from_record, $rows ";
 $result = sql_query($sql);
 
-$write_pages = get_paging($config[cf_write_pages], $page, $total_page, "?qstr=$qstr&page=");
+$write_pages = get_paging($g4[recycle_page_rows], $page, $total_page, "?qstr=$qstr&page=");
 
 $recycle_skin_path = "$g4[path]/skin/recycle/$g4[recycle_skin]";
 

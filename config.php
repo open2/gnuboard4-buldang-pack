@@ -246,6 +246,10 @@ $g4['my_good_skin'] = "basic";
 $g4['recycle_skin'] = "basic";
 $g4['recycle_page_rows'] = 24;
 
+// 신고 설정
+$g4['singo_skin'] = "basic";
+$g4['singo_page_rows'] = 24;
+
 // IE의 UA를 정의 - 5, 7, 8, Edge, EmulateIE7 - http://opencode.co.kr/bbs/board.php?bo_table=qna&wr_id=3611
 $g4['ie_ua'] = "";
 
