@@ -134,7 +134,7 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
         <div class="form-group">
             <label class="col-sm-1 hidden-xs">Subject</label>
             <div class="col-xs-12 col-sm-11">
-            <input class="form-control" name=wr_subject id="wr_subject" itemname="力格" placeholder="力格" required value="<?=$subject?>" placeholder="Subject">
+            <input class="form-control" name=wr_subject id="wr_subject" itemname="力格" required value="<?=$subject?>" placeholder="Subject">
             </div>
         </div>
 

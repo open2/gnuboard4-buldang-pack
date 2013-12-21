@@ -139,9 +139,9 @@ if ($is_dhtml_editor) {
 <tr>
     <td colspan="2" style="padding:5px 0 0 5px;">
         <? if (!$is_dhtml_editor) { ?>
-        <span style="cursor: pointer;" onclick="textarea_decrease('wr_content', 5);"> <i class="fa fa-minus-square"></i> </span>
-        <span style="cursor: pointer;" onclick="textarea_original('wr_content', 8);"> <i class="fa fa-circle-o"></i> </span>
-        <span style="cursor: pointer;" onclick="textarea_increase('wr_content', 5);"> <i class="fa fa-plus-square"></i> </span>
+        <span style="cursor: pointer;" onclick="textarea_decrease('wr_content', 5);"> <i class="fa fa-minus-square"></i></span>
+        <span style="cursor: pointer;" onclick="textarea_original('wr_content', 8);"> <i class="fa fa-circle-o"></i></span>
+        <span style="cursor: pointer;" onclick="textarea_increase('wr_content', 5);"> <i class="fa fa-plus-square"></i></span>
         <? } ?>
         
         <? if ($is_guest) { ?>
@@ -153,9 +153,7 @@ if ($is_dhtml_editor) {
             <script type="text/javascript" src="<?="$g4[path]/zmSpamFree/zmspamfree.js"?>"></script>
             <?}?>
         <? } ?>
-        <label class="checkbox-inline">
-        <input type=checkbox id="wr_secret" name="wr_secret" value="secret">비밀글
-        </label>
+        <label><input type=checkbox id="wr_secret" name="wr_secret" value="secret">비밀글</label>
         <? if ($comment_min || $comment_max) { ?><span id=char_count></span>글자<?}?>
     </td>
 </tr>
