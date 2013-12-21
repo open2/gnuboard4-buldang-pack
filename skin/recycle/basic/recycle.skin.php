@@ -2,7 +2,7 @@
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 ?>
 <script type="text/javascript" src="<?=$g4[path]?>/js/sideview.js"></script>
-<script language="JavaScript">
+<script type="text/javascript">
 var list_delete_php = "recycle_list_delete.php";
 </script>
 
@@ -46,20 +46,15 @@ function recycle_delete(ok)
 
 <table width=100% class="table table-hover table-condensed">
 <tr class="success" >
-    <td><?=subject_sort_link('mb_id')?>글쓴이</a></td>
-    <td><?=subject_sort_link('bo_table')?>게시판</a></td>
+    <td class="col-sm-2"><?=subject_sort_link('bo_table')?>게시판</a></td>
     <td>(wr_id) 게시글제목</td>
     <td>작성일</td>
     <td><?=subject_sort_link('rc_datetime', '', 'desc')?>삭제일</a></td>
   	<td>복구</td>
 </tr>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) {
     
-    $mb = get_member($row[mb_id]);
-    $mb_nick = get_sideview($mb[mb_id], $mb[mb_nick], $mb[mb_email], $mb[mb_homepage]);    
-
     // 게시글 제목
     $tmp_write_table = $g4['write_prefix'] . $row[rc_bo_table];
     $sql2 = " select wr_subject, wr_content, wr_datetime from $tmp_write_table where wr_id = '$row[rc_wr_id]' ";
@@ -85,21 +80,20 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     // 운영자가 삭제한거 (mb_id와 rc_mb_id가 다른 경우)에는 뒤에 mark
     $mb_remover="";
     if ($row[mb_id] !== $row[rc_mb_id])
-        $mb_remover="&nbsp;<img src='$g4[admin_path]/img/icon_admin.gif' align=absmiddle border=0 title='관리자가 지워버린 글'>";
+        $mb_remover="<i class=\"fa fa-eraser\"></i>&nbsp;";
 
     // 게시판아이디. 게시판 정렬
     $bo_info = get_board($row[bo_table],"bo_subject");
-    $bo_table1 = "<a href='$g4[bbs_path]/recycle_list.php?sfl=bo_table&stx=$row[bo_table]' title='$bo_info[bo_subject]'>$row[bo_table]</a>";
+    $bo_table1 = "<a href='$g4[bbs_path]/recycle_list.php?sfl=bo_table&stx=$row[bo_table]' title='$bo_info[bo_subject]'>" . cut_str($bo_info[bo_subject],80) . "</a>";
 
     $list = $i%2;
     echo "
     <input type=hidden name=rc_no[$i] value='$row[rc_no]'>
     <tr class='list$list col1 ht center'>
-        <td title='$row[mb_id]'>$mb_nick$mb_remover</td>
         <td>$bo_table1</td>
-        <td>($wr_id) " . conv_subject($write[wr_subject],80) . "</td>
-        <td>" . get_datetime($write[wr_datetime]) . "</td>
-        <td>" . get_datetime($row[rc_datetime]) . "</td>
+        <td>($wr_id) $mb_remover" . conv_subject($write[wr_subject],80) . "</td>
+        <td>" . get_date($write[wr_datetime]) . "</td>
+        <td>" . get_date($row[rc_datetime]) . "</td>
         <td>$s_recover</td>
     </tr>";
 }
