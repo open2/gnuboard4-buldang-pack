@@ -178,6 +178,8 @@ if ($stx)
 
             $sql2 = " select bo_subject from $g4[board_table] where bo_table = '{$g4_search[tables][$i]}' ";
             $row2 = sql_fetch($sql2);
+            $search_table_subject[] = $row2['bo_subject'];
+
             $str_board_list .= "<li><a href='$_SERVER[PHP_SELF]?$search_query&gr_id=$gr_id&onetable={$g4_search[tables][$i]}'>$row2[bo_subject]</a> ($row[cnt])";
         }
     }
@@ -187,7 +189,7 @@ if ($stx)
     if ($page == "") { $page = 1; } // 페이지가 없으면 첫 페이지 (1 페이지)
     $from_record = ($page - 1) * $rows; // 시작 열을 구함
 
-    for ($i=0; $i<count($search_table); $i++) 
+    for ($i=0; $i<count($search_table); $i++)
     {
         if ($from_record < $search_table_count[$i]) 
         {
@@ -263,13 +265,6 @@ if ($stx)
 
     echo "<script type=\"text/javascript\" src=\"$g4[path]/js/sideview.js\"></script>";
 }
-
-$group_select = "<select id='gr_id' name='gr_id' class=select><option value=''>전체 분류";
-$sql = " select gr_id, gr_subject from $g4[group_table] order by gr_id ";
-$result = sql_query($sql);
-for ($i=0; $row=sql_fetch_array($result); $i++)
-    $group_select .= "<option value='$row[gr_id]'>$row[gr_subject]";
-$group_select .= "</select>";
 
 if (!$sfl) $sfl = "wr_subject";
 if (!$sop) $sop = "or";

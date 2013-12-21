@@ -72,7 +72,7 @@ document.getElementById("view_type").value = "<?=$view_type?>";
 </form>
 <!-- ºÐ·ù ³¡ -->
 
-<form name="fboardlist" method="post" role="form" class="form-inline" style="margin:0px;">
+<form name="fboardlist" method="post" role="form" class="form-inline"">
 <input type="hidden" name="sw"   value="">	
 <input type="hidden" name="gr_id"   value="<?=$gr_id?>">
 <input type="hidden" name="view"   value="<?=$view_type?>">
