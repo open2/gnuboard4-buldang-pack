@@ -62,17 +62,18 @@ ob_end_flush();
         글쓴이 : <?=$view[name]?><? if ($is_ip_view) { echo "&nbsp;($ip)"; } ?>&nbsp;&nbsp;
 	  		날짜 : <?php echo substr($view['wr_datetime'], 2, 14); ?>&nbsp;&nbsp;
         조회 : <?=$view[wr_hit]?>&nbsp;&nbsp;
-        <? if ($is_good) { ?><font style="font:normal 11px 돋움; color:#BABABA;">추천</font> :<font style="font:normal 11px tahoma; color:#BABABA;"> <?=$view[wr_good]?>&nbsp;&nbsp;&nbsp;&nbsp;</font><?}?>
-        <? if ($is_nogood) { ?><font style="font:normal 11px 돋움; color:#BABABA;">비추천</font> :<font style="font:normal 11px tahoma; color:#BABABA;"> <?=$view[wr_nogood]?>&nbsp;&nbsp;&nbsp;&nbsp;</font><?}?>
+        <? if ($is_good) { ?><font style="color:#BABABA;">추천</font> :<font style="color:#BABABA;"> <?=$view[wr_good]?>&nbsp;&nbsp;&nbsp;&nbsp;</font><?}?>
+        <? if ($is_nogood) { ?><font style="color:#BABABA;">비추천</font> :<font style="color:#BABABA;"> <?=$view[wr_nogood]?>&nbsp;&nbsp;&nbsp;&nbsp;</font><?}?>
     </p>
     <!-- 게시글 주소를 복사하기 쉽게 하기 위해서 아랫 부분을 삽입 -->
-    <p class="row collapse navbar-collapse">
-    <font style="font:normal 11px 돋움; color:#BABABA;">게시글 주소 : <a href="javascript:clipboard_trackback('<?=$posting_url?>');" style="letter-spacing:0;" title='이 글을 소개할 때는 이 주소를 사용하세요'><?=$posting_url;?></a></font>
+    <p>
+    <small>
+    <font style="color:#BABABA;">게시글 주소 : <a href="javascript:clipboard_trackback('<?=$posting_url?>');" style="letter-spacing:0;" title='이 글을 소개할 때는 이 주소를 사용하세요'><?=$posting_url;?></a></font>
     <? if ($g4[use_bitly]) { ?>
         <? if ($view[bitly_url]) { ?>
-        &nbsp;bitly : <span id="bitly_url" class=bitly style="font:normal 11px 돋움; color:#BABABA;"><a href=<?=$view[bitly_url]?> target=new><?=$view[bitly_url]?></a></span>
+        &nbsp;bitly : <span id="bitly_url" style="color:#BABABA;"><a href=<?=$view[bitly_url]?> target=new><?=$view[bitly_url]?></a></span>
         <? } else { ?>
-        &nbsp;bitly : <span id="bitly_url" class=bitly style="font:normal 11px 돋움; color:#BABABA;"></span>
+        &nbsp;bitly : <span id="bitly_url" style="color:#BABABA;"></span>
         <script language=javascript>
         // encode 된 것을 넘겨주면, 알아서 decode해서 결과를 return 해준다.
         // encode 하기 전의 url이 있어야 결과를 꺼낼 수 있기 때문에, 결국 2개를 넘겨준다.
@@ -82,6 +83,7 @@ ob_end_flush();
         </script>
         <?}?>
     <?}?>
+    </small>
     </p>
     <p>
         <?
@@ -100,7 +102,7 @@ ob_end_flush();
             if ($view[link][$i]) {
                 $cnt++;
                 $link = cut_str($view[link][$i], 70);
-                echo "<a href='{$view[link_href][$i]}' target=_blank><font  style='normal 11px 돋움;'>{$link} ({$view[link_hit][$i]})</font></a>";
+                echo "<a href='{$view[link_href][$i]}' target=_blank>{$link} ({$view[link_hit][$i]})</a>";
             }
         }
     ?>
@@ -113,7 +115,7 @@ ob_end_flush();
     // 파일 출력
     for ($i=0; $i<=$view[file][count]; $i++) {
         if ($view[file][$i][view]) {
-            echo resize_dica($view[file][$i][view],250,300) . "<p>" . $view[file][$i][content] . "<br/>";
+            echo resize_dica($view[file][$i][view],250,300) . "<p>" . $view[file][$i][content] . "</p>";
         }
     }
 
