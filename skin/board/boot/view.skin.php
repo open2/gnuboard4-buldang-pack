@@ -11,34 +11,34 @@ include_once("$g4[path]/lib/view.skin.lib.php");
 <? ob_start(); // 한번 만들어서 두번 씁니다 ?>
 <div id="view_top">
     <div class="btn-group">
-        <? if ($search_href) { echo "<a href=\"$search_href\" class=\"btn btn-default btn-sm\">검색</a> "; } ?>
-        <? echo "<a href=\"$list_href\" class=\"btn btn-default btn-sm\">목록</a> "; ?>
+        <? if ($search_href) { echo "<a href=\"$search_href\" class=\"btn btn-default btn-sm btn-search\">검색</a> "; } ?>
+        <? echo "<a href=\"$list_href\" class=\"btn btn-default btn-sm btn-list\">목록</a> "; ?>
     </div>
     <div class="btn-group">
-        <? if ($write_href) { echo "<a href=\"$write_href\" class=\"btn btn-default btn-sm\">쓰기</a> "; } ?>
+        <? if ($write_href) { echo "<a href=\"$write_href\" class=\"btn btn-default btn-sm btn-write\">쓰기</a> "; } ?>
     </div>
     <div class="btn-group">
-        <? if ($reply_href) { echo "<a href=\"$reply_href\" class=\"btn btn-default btn-sm\">답변</a> "; } ?>
-        <? if ($update_href) { echo "<a href=\"$update_href\" class=\"btn btn-default btn-sm\">수정</a> "; } ?>
-        <? if ($delete_href) { echo "<a href=\"$delete_href\" class=\"btn btn-default btn-sm\">삭제</a> "; } ?>
+        <? if ($reply_href) { echo "<a href=\"$reply_href\" class=\"btn btn-default btn-sm btn-reply\">답변</a> "; } ?>
+        <? if ($update_href) { echo "<a href=\"$update_href\" class=\"btn btn-default btn-sm btn-modify\">수정</a> "; } ?>
+        <? if ($delete_href) { echo "<a href=\"$delete_href\" class=\"btn btn-default btn-sm btn-delete\">삭제</a> "; } ?>
     </div>
     <div class="btn-group">
-        <? if ($good_href) { echo "<a href=\"$good_href\" target='hiddenframe' class=\"btn btn-default btn-sm\">추천</a> "; } ?>
-        <? if ($nogood_href) { echo "<a href=\"$nogood_href\" target='hiddenframe' class=\"btn btn-default btn-sm\">비추천</a> "; } ?>
-        <? if ($scrap_href) { echo "<a href=\"javascript:;\" onclick=\"win_scrap('$scrap_href');\" class=\"btn btn-default btn-sm\">스크랩</a> "; } ?>
-        <? if ($nosecret_href) { echo "<a href=\"$nosecret_href\" class=\"btn btn-default btn-sm\">비밀글해제</a> "; } ?>
-        <? if ($secret_href) { echo "<a href=\"$secret_href\" class=\"btn btn-default btn-sm\">비밀글</a> "; } ?>
+        <? if ($good_href) { echo "<a href=\"$good_href\" target='hiddenframe' class=\"btn btn-default btn-sm btn-good\">추천</a> "; } ?>
+        <? if ($nogood_href) { echo "<a href=\"$nogood_href\" target='hiddenframe' class=\"btn btn-default btn-sm btn-nogood\">비추천</a> "; } ?>
+        <? if ($scrap_href) { echo "<a href=\"javascript:;\" onclick=\"win_scrap('$scrap_href');\" class=\"btn btn-default btn-sm btn-scrap\">스크랩</a> "; } ?>
+        <? if ($nosecret_href) { echo "<a href=\"$nosecret_href\" class=\"btn btn-default btn-sm btn-nosecret\">비밀글해제</a> "; } ?>
+        <? if ($secret_href) { echo "<a href=\"$secret_href\" class=\"btn btn-default btn-sm btn-secret\">비밀글</a> "; } ?>
     </div>
     <div class="btn-group pull-right">
-        <? if ($prev_href) { echo "<a href=\"$prev_href\" title=\"$prev_wr_subject\" class=\"btn btn-default btn-sm\">이전글</a>"; } ?>
-        <? if ($next_href) { echo "<a href=\"$next_href\" title=\"$next_wr_subject\" class=\"btn btn-default btn-sm\">다음글</a>"; } ?>
- 	      <a href="javascript:scaleFont(+1);" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-zoom-in"></span></a>
-        <a href="javascript:scaleFont(-1);" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-zoom-out"></span></a>
+        <? if ($prev_href) { echo "<a href=\"$prev_href\" title=\"$prev_wr_subject\" class=\"btn btn-default btn-sm btn-prev\">이전글</a>"; } ?>
+        <? if ($next_href) { echo "<a href=\"$next_href\" title=\"$next_wr_subject\" class=\"btn btn-default btn-sm btn-next\">다음글</a>"; } ?>
+ 	      <a href="javascript:scaleFont(+1);" class="btn btn-default btn-sm btn-zoom-in"><span class="glyphicon glyphicon-zoom-in"></span></a>
+        <a href="javascript:scaleFont(-1);" class="btn btn-default btn-sm btn-zoom-out"><span class="glyphicon glyphicon-zoom-out"></span></a>
     </div>
     <div class="btn-group hidden-xs hidden-sm  pull-right">
-        <? if ($copy_href) { echo "<a href=\"$copy_href\" class=\"btn btn-default btn-sm\">복사</a> "; } ?>
-        <? if ($move_href) { echo "<a href=\"$move_href\" class=\"btn btn-default btn-sm\">이동</a> "; } ?>
-        <? if ($now_href) { echo "<a href=\"$now_href\" class=\"btn btn-default btn-sm\">갱신</a> "; } ?>
+        <? if ($copy_href) { echo "<a href=\"$copy_href\" class=\"btn btn-default btn-sm btn-copy\">복사</a> "; } ?>
+        <? if ($move_href) { echo "<a href=\"$move_href\" class=\"btn btn-default btn-sm btn-move\">이동</a> "; } ?>
+        <? if ($now_href) { echo "<a href=\"$now_href\" class=\"btn btn-default btn-sm btn-update\">갱신</a> "; } ?>
     </div>
     <div class="pull-right">
     </div>

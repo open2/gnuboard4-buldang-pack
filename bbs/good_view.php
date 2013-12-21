@@ -27,15 +27,15 @@ include_once("./_tail.php");
 
 <script type="text/javascript">
 var btn_hide = function() {
-    $('img[src*="btn_copy.gif"]').hide();
-    $('img[src*="btn_move.gif"]').hide();
-    $('img[src*="btn_prev.gif"]').hide();
-    $('img[src*="btn_next.gif"]').hide();
-    $('img[src*="btn_write.gif"]').hide();
+    $('.btn-copy').hide();
+    $('.btn-move').hide();
+    $('.btn-prev').hide();
+    $('.btn-next').hide();
+    $('.btn-write').hide();
     //$('img[src*="btn_reply.gif"]').hide();
     //$('img[src*="btn_modify.gif"]').hide();
     //$('img[src*="btn_del.gif"]').hide();
-    $('img[src*="btn_list.gif"]').closest('a').attr("href", "<?=$g4[bbs_path]?>/good_list.php?page=<?=$page?>&bo_table_search=<?=$bo_table_search?>&qstr=<?=$qstr?>");
+    $('.btn-list').closest('a').attr("href", "<?=$g4[bbs_path]?>/good_list.php?page=<?=$page?>&bo_table_search=<?=$bo_table_search?>&qstr=<?=$qstr?>");
 };
 
 $(function() {
