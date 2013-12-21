@@ -893,7 +893,7 @@ if ($config[cf_db_version] < 1111) {
 if ($config[cf_db_version] < 2000) {
 
     $sql = "
-            CREATE TABLE IF NOT EXISTS `g4_admin_log` (
+            CREATE TABLE IF NOT EXISTS `$g4[admin_log_table]` (
               `log_no` int(11) NOT NULL AUTO_INCREMENT,
               `log_datetime` datetime NOT NULL,
               `log` text NOT NULL,
@@ -910,6 +910,13 @@ if ($config[cf_db_version] < 2000) {
 
     sql_query(" ALTER TABLE  `$g4[good_list_table]` ADD  `gl_flag` TINYINT( 4 ) NOT NULL AFTER  `gl_id` ", FALSE);
 
+    $sql = "
+        ALTER TABLE `$g4[member_table]` ADD `mb_email_status` TINYINT( 4 ) NOT NULL ,
+        ADD `mb_kakao_id` VARCHAR( 255 ) NOT NULL ,
+        ADD `mb_line_id` VARCHAR( 255 ) NOT NULL
+            );
+            ";
+    sql_query($sql, FALSE);
 }
             
 // db 버젼을 업데이트 - major version + mid version - patch version

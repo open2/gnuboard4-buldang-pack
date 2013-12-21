@@ -560,20 +560,6 @@ CREATE TABLE `$g4[scrap_table]` (
 );
 
 ##
-## Table structure for table `$g4[token_table]`
-##
-
-DROP TABLE IF EXISTS `$g4[token_table]`;
-CREATE TABLE `$g4[token_table]` (
-  `to_token` varchar(32) NOT NULL default '',
-  `to_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
-  `to_ip` varchar(255) NOT NULL default '',
-  PRIMARY KEY  (`to_token`),
-  KEY `to_datetime` (`to_datetime`),
-  KEY `to_ip` (`to_ip`)
-);
-
-##
 ## Table structure for table `$g4[visit_table]`
 ##
 

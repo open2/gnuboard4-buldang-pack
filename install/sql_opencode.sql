@@ -1139,3 +1139,7 @@ CREATE TABLE IF NOT EXISTS `$g4[admin_log_table]` (
 );
 
 ALTER TABLE `$g4[board_table]` ADD `bo_list_scrap` INT( 11 ) NOT NULL AFTER `bo_list_view`;
+
+ALTER TABLE `$g4[member_table]` ADD `mb_email_status` TINYINT( 4 ) NOT NULL ,
+ADD `mb_kakao_id` VARCHAR( 255 ) NOT NULL ,
+ADD `mb_line_id` VARCHAR( 255 ) NOT NULL;

@@ -1,6 +1,6 @@
 <?
-// 이 상수가 정의되지 않으면 각각의 개별 페이지는 별도로 실행될 수 없음
-define("_GNUBOARD_", TRUE);
+// 불당팩의 사용과정에서 필요한 설정변경사항들로
+// config.php의 수정을 최소로 하기 위해서 입니다.
 
 $g4['bver'] = "1000";   // 부트스트랩 CSS 버젼
 $g4['aver'] = "1000";   // 폰트어썸 CSS 버젼
@@ -17,9 +17,11 @@ if (isset($snb))  { // 불당빌더 서브메뉴
     $snb = mysql_real_escape_string($snb);
     $mstr .= '&snb=' . urlencode($snb);
 }
-if ($sfl == "wr_good" || $sfl == "wr_nogood" || $sfl == "wr_nogood_down" || $sfl == "wr_7" || $sfl == "wr_hit")  {
-    $mstr .= '&sfl=' . urlencode($sfl);
-    $mstr .= '&stx=' . urlencode($stx);
+if (isset($snb)) {
+    if ($sfl == "wr_good" || $sfl == "wr_nogood" || $sfl == "wr_nogood_down" || $sfl == "wr_7" || $sfl == "wr_hit")  {
+        $mstr .= '&sfl=' . urlencode($sfl);
+        $mstr .= '&stx=' . urlencode($stx);
+    }
 }
 
 if (isset($head_on))  { // 불당팩에서 가끔 쓰는 변수
