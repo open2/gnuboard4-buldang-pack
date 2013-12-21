@@ -46,7 +46,7 @@ else {
 				<div class="col-sm-10">
           <div class="checkbox">
 					<input type="checkbox" id="auto_login" name="auto_login" onclick="if (this.checked) { if (confirm('자동로그인을 사용하시면 다음부터 회원아이디와 패스워드를 입력하실 필요가 없습니다.\n\n\공공장소에서는 개인정보가 유출될 수 있으니 사용을 자제하여 주십시오.\n\n자동로그인을 사용하시겠습니까?')) { this.checked = true; } else { this.checked = false;} }">
-					<label for="auto_login">Login Auto Check</label>
+					<label for="auto_login">Remember me</label>
 					</div>
 				</div>
 			</div>
