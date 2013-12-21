@@ -184,7 +184,7 @@ $g4['rdb1']     = "1";            // redis DB space (1) - login 관리에 사용. 다�
 $g4['rdb2']     = "2";            // redis DB space (2) - sideview에 사용. 검색성능 개선을 위해서
 
 // redis 세션 path
-$g4['rpath']    = "tcp://$g4[rhost]:$g4[rport]?weight=1&auth=$g4[redis_auth]&database=$g4[rdb]";    
+$g4['rpath']    = "tcp://$g4[rhost]:$g4[rport]?weight=1&auth=$g4[rauth]&database=$g4[rdb]";    
 
 // redis 기본키 구성 - 참조자료
 // g4_login     : $g4[rdomain] . "_login_" . $remote_addr
