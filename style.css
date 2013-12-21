@@ -5,3 +5,7 @@ margin-left: auto;
 margin-right: auto;
 float:none;
 }
+
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;    
+}
