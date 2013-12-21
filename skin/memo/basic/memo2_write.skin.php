@@ -26,90 +26,76 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <form role="form" class="form-inline" name=fmemoform method=post enctype='multipart/form-data' onsubmit="return fmemoform_submit(this);" style="margin:0px;">
 <input type=hidden name=me_send_mb_id value="<?=$member[mb_id]?>">
 <div class="container">
-<table class="table table-condensed table-striped" width="100%">
-<colgroup> 
-<col width="80">
-<col width="">
-</colgroup> 
-<tr>
-    <td style="border:none;">받는사람</td>
-    <td align=left style="border:none;">
-        <? $ss_id = 'me_recv_mb_id' ?>
-        <? if ($option == 'notice') { // 공지쪽지인 경우 ?>
-            <? include_once("$g4[admin_path]/admin.lib.php")?>
-            <input type="hidden" name="<?=$ss_id?>" id="<?=$ss_id?>" required="required" itemname="받는 회원아이디" value="<?=$me_recv_mb_id?>" style="width:200px;" />
-            &nbsp;회원레벨
-            <?=get_member_level_select('notice_level_1', 2, 10, 2) ?> - <?=get_member_level_select('notice_level_2', 2, 10, 10) ?>
-        <? } else { ?>
-            &nbsp;<input class="form-control" type="text" name="<?=$ss_id?>" id="<?=$ss_id?>" required="required" itemname="받는 회원아이디" value="<?=$me_recv_mb_id?>" />
-        <? } ?>
-        </td>
-</tr>
-<tr>
-    <td style="border:none;">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</td>
-    <td align=left style="border:none;">
-    &nbsp;<input class="form-control" type="text" name="me_subject" id="me_subject" required="required" value='<?=$subject?>' >
-    </td>
-</tr>
-<tr>
-    <td colspan=2 style="border:none;">
-    <? if ($is_dhtml_editor) { ?>
-        <input type=hidden value="html1" name="html">
-        <?
-        // cheditor를 쓰기 위한 설정
-        include_once("$g4[path]/lib/cheditor4.lib.php");
-        echo "<script type='text/javascript' src='$g4[cheditor4_path]/cheditor.js'></script>";
-        echo cheditor1('me_memo', '100%', '300px');
-        // cheditor 편집기 메뉴의 일부를 disable
-        ?>
-        <script type='text/javascript'>
-        ed_me_memo.config.usePreview = false;
-        ed_me_memo.config.NewDocument = false;
-        ed_me_memo.config.usePasteFromWord = false;
-        ed_me_memo.config.useOrderedList = false;
-        ed_me_memo.config.useUnOrderedList = false;
-        ed_me_memo.config.useOrderedList = false;
-        ed_me_memo.config.useUnOrderedList = false;
-        ed_me_memo.config.useOutdent = false;
-        ed_me_memo.config.useIndent = false;
-        ed_me_memo.config.useJustifyRight = false;
-        ed_me_memo.config.useJustifyFull = false;
 
-        ed_me_memo.config.useLink = false;
-        ed_me_memo.config.useUnLink = false;
-        ed_me_memo.config.useFlash = false;
-        ed_me_memo.config.useMedia = false;
-        ed_me_memo.config.useImageUrl = false;
-        </script>
-        <?
-        echo cheditor2('me_memo', $content);
-    } else { ?>
-        <textarea class="form-control" name='me_memo' id='me_memo' rows=15 style='width:100%;' required itemname='내용' tabindex=1><?=$content?></textarea>
-    <? } ?>
-    </td>
-</tr>
+<? $ss_id = 'me_recv_mb_id' ?>
+<? if ($option == 'notice') { // 공지쪽지인 경우 ?>
+    <? include_once("$g4[admin_path]/admin.lib.php")?>
+    <input type="hidden" name="<?=$ss_id?>" id="<?=$ss_id?>" required="required" itemname="받는 회원아이디" value="<?=$me_recv_mb_id?>" placeholder="receive member id"/>
+    회원레벨
+    <?=get_member_level_select('notice_level_1', 2, 10, 2) ?> - <?=get_member_level_select('notice_level_2', 2, 10, 10) ?>
+<? } else { ?>
+    <div class="input-group">
+        <span class="input-group-addon">수신</span>
+        <input class="form-control" type="text" name="<?=$ss_id?>" id="<?=$ss_id?>" required="required" itemname="받는 회원아이디" value="<?=$me_recv_mb_id?>" placeholder="receive member id"/>
+    </div>
+<? } ?>
+
+<div class="input-group">
+    <span class="input-group-addon">제목</span>
+    <input class="form-control" type="text" name="me_subject" id="me_subject" required="required" value='<?=$subject?>' placeholder="subject">
+</div>
+
+<div style="margin-bottom:10px;">
+<? if ($is_dhtml_editor) { ?>
+    <input type=hidden value="html1" name="html">
+    <?
+    // cheditor를 쓰기 위한 설정
+    include_once("$g4[path]/lib/cheditor4.lib.php");
+    echo "<script type='text/javascript' src='$g4[cheditor4_path]/cheditor.js'></script>";
+    echo cheditor1('me_memo', '100%', '300px');
+    // cheditor 편집기 메뉴의 일부를 disable
+    ?>
+    <script type='text/javascript'>
+    ed_me_memo.config.usePreview = false;
+    ed_me_memo.config.NewDocument = false;
+    ed_me_memo.config.usePasteFromWord = false;
+    ed_me_memo.config.useOrderedList = false;
+    ed_me_memo.config.useUnOrderedList = false;
+    ed_me_memo.config.useOrderedList = false;
+    ed_me_memo.config.useUnOrderedList = false;
+    ed_me_memo.config.useOutdent = false;
+    ed_me_memo.config.useIndent = false;
+    ed_me_memo.config.useJustifyRight = false;
+    ed_me_memo.config.useJustifyFull = false;
+
+    ed_me_memo.config.useLink = false;
+    ed_me_memo.config.useUnLink = false;
+    ed_me_memo.config.useFlash = false;
+    ed_me_memo.config.useMedia = false;
+    ed_me_memo.config.useImageUrl = false;
+    </script>
+    <?
+    echo cheditor2('me_memo', $content);
+} else { ?>
+    <textarea class="form-control" name='me_memo' id='me_memo' rows=15 style='width:100%;' required itemname='내용' tabindex=1><?=$content?></textarea>
+<? } ?>
+</div>
+
 <!-- 파일첨부하기-->
 <? if ($config['cf_memo_use_file']) { ?>
-<tr>
-    <td style="border:none;">파일첨부</td>
-    <td align=left style="border:none;">&nbsp;
-        <? if ($memo_dir_msg) {
-             echo $memo_dir_msg;
-        } else { ?>
+<div>
+    <? if ($memo_dir_msg) {
+        echo $memo_dir_msg;
+    } else { ?>
         <div class="form-group">
         <input class="form-control" type="file" id="memo_file" name="memo_file" style="width:100%">
         </div>
-        <? } ?>
-    </td>
-</tr>
+    <? } ?>
+</div>
 <? } ?>
-</table>
 
-<button type="submit" class="btn btn-success" id="btn_submit">
-    Send
-</button>
-
-<div class="btn-group pull-right">
+<div class="pull-right">
+    <button type="submit" class="btn btn-success" id="btn_submit">Send</button>&nbsp;&nbsp;&nbsp;
     <a class="btn btn-default" href='<?=$memo_url?>?kind=recv'>List</a>
 </div>
 
