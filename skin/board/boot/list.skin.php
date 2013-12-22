@@ -5,15 +5,16 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <!-- 분류 셀렉트 박스, 게시물 몇건, 관리자화면 링크 -->
 <div>
     <div class="btn-group">
-    <a href="<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?>" class="btn btn-default btn-sm"><?=$board[bo_subject]?></a>
+        <a href="<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?>" class="btn btn-default btn-sm"><?=$board[bo_subject]?></a>
     </div>
 
-    <div class="btn-group">
     <? if ($write_href) { ?>
     <div class="btn-group">
         <a href="<?=$write_href?>" class="btn btn-sm btn-default"><i class='fa fa-edit'></i> 쓰기</a>
     </div>
     <? } ?>
+
+    <div class="btn-group">
     <? include("$g4[bbs_path]/my_menu_add_script.php");?>
     <? if ($rss_href) { ?><a href='<?=$rss_href?>' class="btn btn-default btn-sm"><i class='fa fa-rss'></i></a><?}?>
     <? if ($admin_href) { ?><a href="<?=$admin_href?>" class="btn btn-default btn-sm"><i class='fa fa-cog'></i></a><?}?>
@@ -28,7 +29,6 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <div class="pull-right hidden-xs">
         Total <?=number_format($total_count)?>
     </div>
-
 </div>
 
 <!-- 제목 -->

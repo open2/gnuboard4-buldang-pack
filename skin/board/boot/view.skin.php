@@ -40,8 +40,6 @@ include_once("$g4[path]/lib/view.skin.lib.php");
         <? if ($move_href) { echo "<a href=\"$move_href\" class=\"btn btn-default btn-sm btn-move\">이동</a> "; } ?>
         <? if ($now_href) { echo "<a href=\"$now_href\" class=\"btn btn-default btn-sm btn-update\">갱신</a> "; } ?>
     </div>
-    <div class="pull-right">
-    </div>
 </div>
 <?
 $link_buttons = ob_get_contents();
