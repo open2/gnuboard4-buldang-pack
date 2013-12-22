@@ -25,6 +25,11 @@ $whatson_url = "$g4[bbs_path]/whatson.php?check=1&rows=30";
                 </a>
                 <a class="btn btn-default" href="<?=$g4['bbs_path']?>/scrap.php?head_on=1&snb=scrap" >Scrap</a>
             </div>
+            <?
+            // 추천으로 회원가입
+            if ($g4['member_suggest_join']) { ?>
+                <a class="btn btn-default" href="<?=$g4['path']?>/plugin/recommend/index.php" >가입추천</a>
+            <? } ?>
             <a class="btn btn-default" href="<?=$g4['bbs_path']?>/member_confirm.php?url=register_form.php">Modify</a>
             <a class="btn btn-default pull-right" href="<?=$g4['bbs_path']?>/logout.php">Logout</a>
         </div>
