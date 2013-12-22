@@ -48,27 +48,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         $point_list[$i]['po_url'] = "";
 }
 
-$bo_str = "<select name='bo_table' onchange=\"location='$g4[bbs_path]/point.php?sfl=po_rel_table&stx='+this.value;\">";
-$bo_str .= "<option value='all'>전체목록보기</option>";
-
-$sql = " select distinct po_rel_table from $g4[point_table] where mb_id = '$member[mb_id]' ";
-$result = sql_query($sql);
-
-for ($i=0; $row=sql_fetch_array($result); $i++) {
-
-        // g4_point 테이블과 g4_board 테이블을 left join 하지 않도록 코드 수정
-        $row[bo_table] = $row[po_rel_table];
-        $temp = sql_fetch(" select bo_subject from $g4[board_table] where bo_table = '$row[po_rel_table]' ");
-        if ($temp) 
-            $row[bo_subject] = $temp[bo_subject];
-        else
-            $row[bo_subject] = $row[bo_table];
-
-        $bo_str .= "<option value='$row[bo_table]'";
-        if ($sfl=='po_rel_table' and $row['bo_table'] == $stx) $bo_str .= " selected";
-        $bo_str .= ">$row[bo_subject]</option>";
-}
-$bo_str .= "</select>";
+$write_pages = get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");
 
 $member_skin_path = "$g4[path]/skin/member/$config[cf_member_skin]";
 include_once("$member_skin_path/point.skin.php");
