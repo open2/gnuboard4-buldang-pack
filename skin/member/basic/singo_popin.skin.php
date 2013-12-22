@@ -37,7 +37,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
                     echo $str;
                     ?>
                 </select>
-                <input class="form-control" type=text name="sg_reason" required itemname='신고이유'>
+                <input class="form-control" type=text name="sg_reason" required itemname='신고이유' placeholder="신고이유">
             </td>
         </tr>
         </table>
