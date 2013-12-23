@@ -41,11 +41,12 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <input type='hidden' name='sw'   value=''>
 <input type='hidden' name='sca'   value=''>
 
-<table width=100% class="table table-hover">
+<div class="table-responsive">
+<table width=100% class="table table-condensed table-hover" style="word-wrap:break-word;">
 <thead>
 <tr class="success" align=center>
     <th width=50px class="hidden-xs"><?=subject_sort_link('wr_id', $qstr2, 1)?>번호</a></th>
-    <? if ($is_checkbox) { ?><th class="hidden-xs"><INPUT class="hidden-xs" onclick="if (this.checked) all_checked(true); else all_checked(false);" type=checkbox></th><?}?>
+    <? if ($is_checkbox) { ?><th class="hidden-xs"><INPUT onclick="if (this.checked) all_checked(true); else all_checked(false);" type=checkbox></th><?}?>
     <th>제목</th>
     <th width=110px class="hidden-xs" align="center">글쓴이</th>
     <th width=60px class="hidden-xs"><?=subject_sort_link('wr_datetime', $qstr2, 1)?>날짜</a></th>
@@ -99,15 +100,16 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         </div>
         </td>
     <td class="hidden-xs"><nobr style='display:block; overflow:hidden;'><?=$list[$i][name]?></nobr></td>
-    <td class="hidden-xs"><span style='font:normal 11px tahoma; color:#BABABA;'><?=$list[$i][datetime2]?></span></td>
-    <td class="hidden-xs"><span style='font:normal 11px tahoma; color:#BABABA;'><?=$list[$i][wr_hit]?></span></td>
-    <? if ($is_good) { ?><td class="hidden-xs" align="center"><span style='font:normal 11px tahoma; color:#BABABA;'><?=$list[$i][wr_good]?></span></td><? } ?>
-    <? if ($is_nogood) { ?><td class="hidden-xs" align="center"><span style='font:normal 11px tahoma; color:#BABABA;'><?=$list[$i][wr_nogood]?></span></td><? } ?>
+    <td class="hidden-xs"><?=$list[$i][datetime2]?></td>
+    <td class="hidden-xs"><?=$list[$i][wr_hit]?></td>
+    <? if ($is_good) { ?><td class="hidden-xs" align="center"><?=$list[$i][wr_good]?></td><? } ?>
+    <? if ($is_nogood) { ?><td class="hidden-xs" align="center"><?=$list[$i][wr_nogood]?></td><? } ?>
 </tr>
 <?}?>
 
 <? if (count($list) == 0) { echo "<tr><td colspan='$colspan' height=100 align=center>게시물이 없습니다.</td></tr>"; } ?>
 </table>
+</div>
 </form>
 
 <!-- 페이지 -->
