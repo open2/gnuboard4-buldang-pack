@@ -34,19 +34,20 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <input type="hidden" name="page" value="<?=$page?>">
 <input type="hidden" name="sw"   value="">
 
-<div class="container" >
-<ul class="list-inline">
+<div class="container">
+<ul class="list-inline col-sm-10">
 <?
 //for ($i=0; $i<count($list); $i++) {
 for ($i=0; $i<30; $i++) {
 ?>
-    <li>
-        <img class="img-responsive" src="../images/logo_opencode.gif">
+    <li class="thumbnail col-sm-1">
+        <img src="../images/logo_opencode.gif">
     </li>
 <? } ?>
 <? if (count($list) == 0) { echo "<div class='well'>게시물이 없습니다.</div>"; } ?>
 </ul>
 </div>
+
 </form>
 
 <!-- 페이지 -->
@@ -137,7 +138,7 @@ if ("<?=$stx?>") {
 </script>
 
 <? if ($is_checkbox) { ?>
-<script language="JavaScript">
+<script type="text/javascript">
 function all_checked(sw)
 {
     var f = document.fboardlist;
