@@ -71,10 +71,9 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <td align=left style='word-break:break-all;'>
         <? 
         echo $nobr_begin;
-        echo $list[$i][reply];
-        if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply\" title='reply'> ";
+        if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply\" title='reply'></i> ";
         if ($is_category && $list[$i][ca_name]) { 
-            echo "<span class=small><font color=gray>[<a href='{$list[$i][ca_name_href]}'>{$list[$i][ca_name]}</a>]</font></span> ";
+            echo "<font color=gray><a href='{$list[$i][ca_name_href]}'><small>({$list[$i][ca_name]})</small></a></font> ";
         }
         $style = "";
         if ($list[$i][is_notice]) $style .= " style='font-weight:bold;'";
@@ -85,16 +84,12 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         echo "</a>";
 
         if ($list[$i][comment_cnt]) 
-            echo " <a href=\"{$list[$i][comment_href]}\"><span style='font-family:Tahoma;font-size:10px;color:#EE5A00;'>{$list[$i][comment_cnt]}</span></a>";
+            echo " <a href=\"{$list[$i][comment_href]}\"><span style='color:#EE5A00;'><small>{$list[$i][comment_cnt]}</small></span></a>";
 
-        //echo " " . $list[$i][icon_new];
         if ($list[$i][icon_new]) echo " <i class=\"fa fa-bell\" title='new'></i>";
         if ($list[$i][icon_file]) echo " <i class=\"fa fa-file-o\" title='attached file'></i>";
-        echo " " . $list[$i][icon_link];
-        if (!$list[$i][is_notice]) {
-
+        if ($list[$i][icon_link]) echo " <i class=\"fa fa-link\" title='link'></i>";
         if ($list[$i][icon_hot]) echo " <i class=\"fa fa-fire\" title='hot article'></i>";
-        }
         if ($list[$i][icon_secret]) echo " <i class=\"fa fa-lock\" title='new'></i>";
         echo $nobr_end;
         ?>
