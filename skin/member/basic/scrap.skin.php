@@ -134,7 +134,7 @@ $memo_str_list = $memo_str0 . $memo_str;
 <input type="hidden" class="ed" id="memo_edit" name="memo_edit" value="<?=$memo_edit?>" />
 </form>
 
-<script language="JavaScript">
+<script type="text/javascript">
 var save_before = '';
 
 function memo_box(memo_id)
