@@ -10,17 +10,17 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
     display: block;    
 }
 
-@media (min-width: 1200px) { body {
-          font-size: 12px;
-        }
+@media (min-width: 1200px) { 
 }
 
-@media (min-width: 768px) and (max-width: 979px) { body {
-          font-size: 12px;
-        }
+@media (min-width: 768px) and (max-width: 979px) {
 }
 
-@media (max-width: 767px) { body {
-          font-size: 12px;
-        }
+@media (max-width: 767px) {
+}
+
+@media (max-width: 480px) {
+    body {
+          font-size: 14px;
+    }
 }
