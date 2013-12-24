@@ -18,7 +18,7 @@ function get_datetime($datetime)
     // 연도는 다르더라도 60일 이내이면, 헷갈리지 않게 월-일로 표시
     else if (days_diff($datetime) <= 60)
         return substr($datetime,5,5);
-    // 이제는 연-월로 표시
+    // 이제는 연/월로 표시
     else
         return substr($datetime,0,7);
 }

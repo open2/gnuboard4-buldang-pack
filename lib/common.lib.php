@@ -399,15 +399,8 @@ function get_list($write_row, $board, $skin_path, $subject_len=40, $gallery_view
 
     // 당일인 경우 시간으로 표시함 (참조. b4.lib.php의 get_datetime 함수)
     $list['datetime'] = substr($list['wr_datetime'],0,10);
-    $list['datetime2'] = $list['wr_datetime'];
-    if ($list['datetime'] == $g4['time_ymd'])
-        $list['datetime2'] = substr($list['datetime2'],11,5);
-    else if (substr($list['datetime'],0,4) == substr($g4['time_ymd'],0,4))
-        $list['datetime2'] = substr($list['datetime2'],5,5);
-    else if (days_diff($list['datetime']) <= 60)
-        $list['datetime2'] = substr($list['datetime2'],5,5);
-    else
-        $list['datetime2'] = substr($list['datetime2'],0,7);
+    $list['datetime2'] = get_datetime($list['wr_datetime']);
+
     // 4.1
     $list['last'] = substr($list['wr_last'],0,10);
     $list['last2'] = $list['wr_last'];
