@@ -70,7 +70,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         ?></td>
     <? if ($is_checkbox) { ?><td class="hidden-xs"><input type=checkbox name=chk_wr_id[] value="<?=$list[$i][wr_id]?>"></td><? } ?>
     <td align=left style='word-break:break-all;'>
-        <? 
+        <?
         echo $nobr_begin;
         if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply\" title='reply'></i> ";
         if ($is_category && $list[$i][ca_name]) { 
