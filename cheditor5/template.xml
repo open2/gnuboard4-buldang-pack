@@ -14,7 +14,7 @@
         <Html>
             <![CDATA[
                 <div class="cheditor-container">
-                    <div id="toolbar" style="padding:4px;height:50px"></div>
+                    <div id="toolbar" style="padding:4px;"></div>
                     <div id="editWrapper" class="cheditor-editarea-wrapper">
                         <iframe frameborder="0" class="cheditor-editarea"></iframe>
                     </div>
