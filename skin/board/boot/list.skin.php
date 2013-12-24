@@ -80,8 +80,14 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         if ($list[$i][is_notice]) $style .= " style='font-weight:bold;'";
         if ($list[$i][wr_singo]) $style .= " style='color:#B8B8B8;'";
 
+        // xs 사이즈에서 40글자 이상이면 table width를 넘어서 수평 스크롤이 생깁니다
         echo "<a href='{$list[$i][href]}' $style>";
+        echo "<span class=\"hidden-xs\"  style='display:inline-block!important;>";
         echo $list[$i][subject];
+        echo "</span>";
+        echo "<span class=\"visible-xs\" style='display:inline-block!important;>";
+        echo cut_str($list[$i][subject],40);
+        echo "</span>";
         echo "</a>";
 
         if ($list[$i][comment_cnt]) 
