@@ -4,13 +4,25 @@ include_once("./_common.php");
 $g4['title'] = "";
 include_once("./_head.php");
 ?>
-<a class="btn btn-default sideview" data-toggle="popover" title="" data-content="1111">popover</a>
-<a class="btn btn-default sideview" data-toggle="popover" title="" data-content="2222">popover</a>
+<a class="btn btn-default sideview">popover</a>
+<a class="btn btn-default sideview" alt="test12">popover</a>
 
 <script>
-$(function (){
-   $(".sideview").popover("hide");
+$(document).ready(function() {
+  $(".sideview").click(function() {
+    var el = $(this);
+    var _data = "mb_id="+el.attr('alt');
+    $.ajax({url: "<?=$g4[bbs_path]?>/ajax_sideview.php", type: "POST", data: _data, success: function(response) {
+      el.unbind('click').popover({
+        content: response,
+        title: 'Sideview&nbsp;<a onclick="$(this).parent().parent().hide();" style="cursor:pointer"><i class="fa fa-times-circle"></i></a>',
+        html: true,
+      }).popover('show');
+      }
+    });
+  });
 });
+
 </script>
 
 <?
