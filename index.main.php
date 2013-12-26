@@ -7,7 +7,7 @@ include_once("$g4[path]/lib/latest.group.lib.php"); // 그룹 최신글
 include_once("$g4[path]/lib/latest.my.lib.php"); // 그룹 최신글
 include_once("$g4[path]/lib/latest.club.lib.php");  // 클럽 최신글
 
-echo "<table width=100%><tr>";
+echo "<table width=100%>";
 
 // 한개의 게시글을 출력
 echo "<tr valign=top>";
@@ -22,6 +22,7 @@ echo "</tr>";
 
 // 전체 최근글 출력
 // function latest_group($skin_dir="", $gr_id="", $rows=10, $subject_len=40, $content_len="", $skin_title="", $skin_title_link="")
+echo "<tr valign=top>";
 echo "<td width='50%' valign=top>";
 echo db_cache('all_latest', 1, "latest_group(naver, , 12, 40, , 전체최근글, '$g4[bbs_path]/new.php')");
 $ja++;
@@ -48,8 +49,10 @@ include_once("$g4[path]/lib/latest.club.lib.php");
 //echo cb_latest_main('naver',12,40);
 $ja++;
 echo "</td>";
+echo "</tr>";
 
 // 그룹 최신글을 출력
+echo "<tr valign=top>";
 $sql = " select * from $g4[group_table] where gr_use_search = 1";
 $result = sql_query($sql);
 for ($i=0; $row=sql_fetch_array($result); $i++) {
