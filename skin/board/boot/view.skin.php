@@ -138,7 +138,7 @@ ob_end_flush();
     ?>
     </span>
 
-    <? if ($is_signature && $signature) { echo "<div style='margin-top:20px;text-align:center;'>$signature</div>"; } // 서명 출력 ?>
+    <? if ($is_signature && $signature) { echo "<div style='margin-top:30px;margin-bottom:30px;text-align:center;'>$signature</div>"; } // 서명 출력 ?>
 
 </div>
 
