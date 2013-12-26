@@ -35,7 +35,7 @@ echo popup("alert", "popup_alert")
 <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header col-sm-2">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-top-menu-collapse">
+        <button type="button" class="btn btn-default navbar-toggle" data-toggle="collapse" data-target=".navbar-top-menu-collapse">
             <i class="glyphicon glyphicon-list"></i>
         </button>
         <? if ($member['mb_id'] == "") { 
@@ -51,7 +51,7 @@ echo popup("alert", "popup_alert")
             <i class="glyphicon glyphicon-shopping-cart"></i>
         </a>
         <? } ?>
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-search-top-collapse">
+        <button type="button" class="btn btn-default navbar-toggle" data-toggle="collapse" data-target=".navbar-search-top-collapse">
             <i class="glyphicon glyphicon-search"></i>
         </button>
         <a class="navbar-brand hidden-xs" href="<?=$g4['path']?>/">
