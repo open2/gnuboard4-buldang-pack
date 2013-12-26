@@ -159,6 +159,9 @@ if ($is_dhtml_editor) {
 </tr>
 <tr>
     <td width=95%>
+    <!-- 코멘트 위치를 잡아줍니다 -->
+    <a name="g4_comment"></a>
+
 		<!-- 에디터를 화면에 출력합니다. -->
 		<? if ($is_dhtml_editor) { ?>
 		
@@ -358,6 +361,13 @@ function comment_delete(url)
 
 comment_box('', 'c'); // 코멘트 입력폼이 보이도록 처리하기위해서 추가 (root님)
 </script>
+<? } ?>
+
+<!-- 모바일에서는 로그인창이 안보입니다. 코멘트 입력을 위해 로그인창을 보여주는게 좋습니다 -->
+<? if ($member['mb_id'] == "" && $board['bo_comment_level'] > 1) {
+    $login_url = "./login.php?wr_id=$wr_id{$qstr}&url=".urlencode("board.php?bo_table=$bo_table&wr_id=$wr_id#g4_comment");
+?>
+<div class="well"><a href="<?=$login_url?>" title="login">로그인 하시면 댓글을 남길 수 있습니다</a></div>
 <? } ?>
 
 <? if($cwin==1) { ?></div><p align=center><a class="btn btn-default" href="javascript:window.close();">닫 기</a><?}?>
