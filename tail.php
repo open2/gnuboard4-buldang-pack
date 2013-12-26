@@ -19,7 +19,18 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         <a href="<?=$g4[path]?>/company/company.php?id=service">이용약관</a>
         <div class="pull-right">
         <small>(주)오픈코드</small>
-        <a style="display:inline;" class="btn btn-default btn-sm" data-toggle="collapse" data-target=".navbar-bottom-collapse">Info.</a>
+
+        <div class="btn-group">
+        <? if ($member['mb_id']) { ?>
+            <a class="btn btn-default visible-xs" href="<?=$g4['bbs_path']?>/logout.php">Logout</a>
+        <? } else { 
+            $login_url = "$g4[bbs_path]/login.php?$qstr";
+        ?>
+            <a class="btn btn-default visible-xs" href="<?=$login_url?>">Login</a>
+        <? } ?>
+        <a class="btn btn-default" data-toggle="collapse" data-target=".navbar-bottom-collapse">Info.</a>
+        </div>
+
         </div>
     </div>
     </div>
