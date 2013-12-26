@@ -5,7 +5,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 include_once("$g4[path]/lib/view.skin.lib.php");
 ?>
 
-<div width="<?=$width?>" id="view_<?=$wr_id?>" >
+<div width="<?=$width?>" id="view_<?=$wr_id?>">
 
 <!-- 링크 버튼 -->
 <? ob_start(); // 한번 만들어서 두번 씁니다 ?>
@@ -46,7 +46,7 @@ $link_buttons = ob_get_contents();
 ob_end_flush();
 ?>
 
-<div id="view_header" class="panel panel-default" style="outline: 1px solid white">
+<div id="view_header" class="panel panel-default">
 <div class="panel-heading">
     <p class="pull-right">
         <?if ($singo_href) { ?><a class="btn btn-default btn-xs" href="javascript:win_singo('<?=$singo_href?>');">신고</a><?}?>

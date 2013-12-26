@@ -67,9 +67,10 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
             echo "<span style='font:bold 11px tahoma; color:#E15916;'>{$list[$i][num]}</span>";
         else
             echo "<span style='font:normal 11px tahoma; color:#BABABA;'>{$list[$i][num]}</span>";
-        ?></td>
+        ?>
+    </td>
     <? if ($is_checkbox) { ?><td class="hidden-xs"><input type=checkbox name=chk_wr_id[] value="<?=$list[$i][wr_id]?>"></td><? } ?>
-    <td align=left style='word-break:break-all;'>
+    <td class="hidden-xs" align=left style='word-break:break-all;'>
         <?
         echo $nobr_begin;
         if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply\" title='reply'></i> ";
@@ -80,14 +81,50 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         if ($list[$i][is_notice]) $style .= " style='font-weight:bold;'";
         if ($list[$i][wr_singo]) $style .= " style='color:#B8B8B8;'";
 
-        // xs 사이즈에서 40글자 이상이면 table width를 넘어서 수평 스크롤이 생깁니다
         echo "<a href='{$list[$i][href]}' $style>";
-        echo "<span class=\"hidden-xs\"  style='display:inline-block!important;>";
         echo $list[$i][subject];
-        echo "</span>";
-        echo "<span class=\"visible-xs\" style='display:inline-block!important;>";
-        echo cut_str($list[$i][subject],40);
-        echo "</span>";
+        echo "</a>";
+
+        if ($list[$i][comment_cnt]) 
+            echo " <a href=\"{$list[$i][comment_href]}\"><span style='color:#EE5A00;'><small>{$list[$i][comment_cnt]}</small></span></a>";
+
+        if ($list[$i][icon_new]) echo " <i class=\"fa fa-bell\" title='new'></i>";
+        if ($list[$i][icon_file]) echo " <i class=\"fa fa-file-o\" title='attached file'></i>";
+        if ($list[$i][icon_link]) echo " <i class=\"fa fa-link\" title='link'></i>";
+        if ($list[$i][icon_hot]) echo " <i class=\"fa fa-fire\" title='hot article'></i>";
+        if ($list[$i][icon_secret]) echo " <i class=\"fa fa-lock\" title='new'></i>";
+        echo $nobr_end;
+        ?>
+        </td>
+    <td class="hidden-xs"><nobr style='display:block; overflow:hidden;'><?=$list[$i][name]?></nobr></td>
+    <td class="hidden-xs"><?=$list[$i][datetime2]?></td>
+    <td class="hidden-xs"><?=$list[$i][wr_hit]?></td>
+    <? if ($is_good) { ?><td class="hidden-xs" align="center"><?=$list[$i][wr_good]?></td><? } ?>
+    <? if ($is_nogood) { ?><td class="hidden-xs" align="center"><?=$list[$i][wr_nogood]?></td><? } ?>
+    <!-- 
+    xs 사이즈에서 40글자 이상이면 table width를 넘어서 수평 스크롤이 생깁니다 
+    그래서, 따로 출력하는 row를 만들어 줬습니다.
+    xs 사이즈에서는 아래처럼 1개의 td만 출력 됩니다. 다른 것은 모두 hidden.
+    더 좋은 방법에 대한 제안은 언제든 환영 합니다.
+    -->
+    <td class="visible-xs" align=left style='word-break:break-all;'>
+        <?
+        echo $nobr_begin;
+
+        if ($list[$i][is_notice]) // 공지사항 
+            echo "<i class=\"fa fa-microphone\" title='notice'></i> ";
+
+
+        if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply\" title='reply'></i> ";
+        if ($is_category && $list[$i][ca_name]) { 
+            echo "<font color=gray><a href='{$list[$i][ca_name_href]}'><small>({$list[$i][ca_name]})</small></a></font> ";
+        }
+        $style = "";
+        if ($list[$i][is_notice]) $style .= " style='font-weight:bold;'";
+        if ($list[$i][wr_singo]) $style .= " style='color:#B8B8B8;'";
+
+        echo "<a href='{$list[$i][href]}' $style>";
+        echo cut_str($list[$i][subject], 40);
         echo "</a>";
 
         if ($list[$i][comment_cnt]) 
@@ -104,12 +141,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         <?=$list[$i][name]?>&nbsp;&nbsp;<?=$list[$i][datetime2]?>&nbsp;&nbsp;<span class="badge"><?=$list[$i][wr_hit]?></span>
         </small>
         </div>
-        </td>
-    <td class="hidden-xs"><nobr style='display:block; overflow:hidden;'><?=$list[$i][name]?></nobr></td>
-    <td class="hidden-xs"><?=$list[$i][datetime2]?></td>
-    <td class="hidden-xs"><?=$list[$i][wr_hit]?></td>
-    <? if ($is_good) { ?><td class="hidden-xs" align="center"><?=$list[$i][wr_good]?></td><? } ?>
-    <? if ($is_nogood) { ?><td class="hidden-xs" align="center"><?=$list[$i][wr_nogood]?></td><? } ?>
+    </td>
 </tr>
 <?}?>
 
