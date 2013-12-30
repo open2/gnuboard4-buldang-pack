@@ -58,7 +58,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
 <!-- 목록 -->
 <? for ($i=0; $i<count($list); $i++) { ?>
-<tr height=28 align=center> 
+<tr align=center> 
     <td class="hidden-xs">
         <? 
         if ($list[$i][is_notice]) // 공지사항 
