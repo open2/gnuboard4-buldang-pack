@@ -66,7 +66,7 @@ $group_select .= "</select>";
     <div class="panel-heading">
         <strong>게시판 : <?=$board_count ?> 게시글 : <?=number_format($total_count)?></strong>
         <div class="pull-right hidden-lg hidden-md hidden-sm">
-            <a class="btn btn-default btn-sm" style="display:inline;" data-toggle="collapse" data-target=".search-board-collapse"><i class='fa fa-align-justify'></i></a>
+            <a class="btn btn-default btn-sm" data-toggle="collapse" data-target=".search-board-collapse"><i class='fa fa-align-justify'></i></a>
         </div>
     </div>
     <div class="panel-body">
