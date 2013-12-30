@@ -9,20 +9,33 @@ include_once("./_head.php");
 
 <script>
 $(document).ready(function() {
-  $(".sideview").click(function() {
+
+	$('.sideview').popover({
+		html: true,
+		trigger: 'manual',
+		title: 'Sideview&nbsp;<a onclick="$(this).parent().parent().hide();"  style="cursor:pointer"><i class="fa fa-times-circle"></i></a>'
+	}).click(function(e) {
+		if($(".popover").css("display") == "block"){
+			$(this).popover('hide');
+		}else{
+			$(this).popover('show');
+
     var el = $(this);
     var _data = "mb_id="+el.attr('alt');
-    $.ajax({url: "<?=$g4[bbs_path]?>/ajax_sideview.php", type: "POST", data: _data, success: function(response) {
-      el.unbind('click').popover({
-        content: response,
-        title: 'Sideview&nbsp;<a onclick="$(this).parent().parent().hide();" style="cursor:pointer"><i class="fa fa-times-circle"></i></a>',
-        html: true,
-      }).popover('show');
-      }
-    });
-  });
-});
+    
+			$.ajax({url: "<?=$g4[bbs_path]?>/ajax_sideview.php", type: "POST", data: _data, success: function(response) {
+					$(".popover-content").html(response);
+				}
+			});
 
+		}
+
+    // 한개의 sideview popover만을 원할때
+    $('.sideview').not(this).popover('hide');
+
+	})
+	;
+});
 </script>
 
 <?
