@@ -16,9 +16,9 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <div class="panel panel-default hidden-sm hidden-md hidden-lg">
     <div class="panel-heading">
         <a href="<?=$g4[path]?>/company/company.php?id=privacy"><strong>개인정보취급방침</strong></a>
-        <div class="pull-right">
         <small>(주)오픈코드</small>
 
+        <div class="pull-right">
         <div class="btn-group">
         <? if ($member['mb_id']) { ?>
             <a class="btn btn-default visible-xs" href="<?=$g4['bbs_path']?>/logout.php">Logout</a>
