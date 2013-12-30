@@ -31,14 +31,24 @@ $memo_str_list = $memo_str0 . $memo_str;
 
 <script type="text/javascript" src="<?=$g4[path]?>/js/sideview.js"></script>
 
+<div class="container">
+
 <form name=fsearch method=get role="form" class="form-inline">
 <table width="100%" align="center" class="table table-hover">
 <input type=hidden name=head_on value=<?=$head_on?>>
 <input type=hidden name=mnb value=<?=$mnb?>>
 <input type=hidden name=snb value=<?=$snb?>>
 
-<a class="btn btn-default" href="<?=$g4[bbs_path]?>/scrap.php?head_on=<?=$head_on?>&mnb=<?=$mnb?>&snb=<?=$snb?>">처음</a>&nbsp;&nbsp;<?=$str?>&nbsp;&nbsp;<?=$memo_str_list?>
-<div class="pull-right">
+<a class="btn btn-default" href="<?=$g4[bbs_path]?>/scrap.php?head_on=<?=$head_on?>&mnb=<?=$mnb?>&snb=<?=$snb?>">처음</a>
+<div class="pull-right hidden-lg hidden-md hidden-sm">
+    <a class="btn btn-default" data-toggle="collapse" data-target=".scrap-search-collapse"><i class='fa fa-search'></i></a>
+</div>
+
+<span class="">
+<?=$str?><?=$memo_str_list?>
+</span>
+
+<div class="pull-right collapse navbar-collapse scrap-search-collapse">
     <select class='form-control' name=sfl class=cssfl>
         <option value='wr_subject_memo' <? if ($sfl=='wr_subject_memo') echo "selected" ?> >제목+메모</option>
         <option value='wr_subject' <? if ($sfl=='wr_subject') echo "selected" ?> >제목</option>
@@ -55,17 +65,17 @@ $memo_str_list = $memo_str0 . $memo_str;
 
 <table width="100%"  class="table table-hover table-condensed">
 <tr class="success"> 
-    <td class="col-sm-1" align=center>번호</td>
-    <td class="col-sm-2">게시판</td>
+    <td class="col-sm-1 hidden-xs" align=center>번호</td>
+    <td class="col-sm-2 hidden-xs">게시판</td>
     <td>제목</td>
-    <td class="col-sm-2">글쓴이</td>
-    <td class="col-sm-2">메모</td>
-    <td class="col-sm-1">날짜</td>
+    <td class="col-sm-2 hidden-xs">글쓴이</td>
+    <td class="col-sm-2 hidden-xs">메모</td>
+    <td class="col-sm-1 hidden-xs">날짜</td>
 </tr>
 <? for ($i=0; $i<count($list); $i++) { ?>
     <tr> 
-        <td align="center"><?=$list[$i][num]?></td>
-        <td>
+        <td class="hidden-xs" align="center"><?=$list[$i][num]?></td>
+        <td class="hidden-xs">
         <? if ($head_on) { ?>
             <a href="<?=$list[$i][opener_href]?>">
         <? } else { ?>
@@ -79,7 +89,7 @@ $memo_str_list = $memo_str0 . $memo_str;
         else
             $secret_icon = "";
         ?>
-        <td align="left" style='word-break:break-all;'><?=$secret_icon?>
+        <td class="hidden-xs" align="left" style='word-break:break-all;'><?=$secret_icon?>
         <? if ($head_on) { ?>
             <a href="<?=$list[$i][opener_href_wr_id]?>" title="<?=$list[$i][subject]?>">
         <? } else { ?>
@@ -88,8 +98,8 @@ $memo_str_list = $memo_str0 . $memo_str;
         <?=cut_str($list[$i][wr_subject],30)?></a>
         <a href="javascript:del('<?=$list[$i][del_href]?>');"><i class="fa fa-trash-o"></i></a>
         </td>
-        <td><?=$list[$i][mb_nick]?></td>
-        <td align="left" style='word-break:break-all;'><a href="#" title="<?=$list[$i][ms_memo]?>"><?=$list[$i][ms_memo]?>
+        <td class="hidden-xs"><?=$list[$i][mb_nick]?></td>
+        <td class="hidden-xs" align="left" style='word-break:break-all;'><a href="#" title="<?=$list[$i][ms_memo]?>"><?=$list[$i][ms_memo]?>
         &nbsp;<a class="btn btn-default btn-xs" href="javascript:memo_box(<?=$list[$i][ms_id]?>)"><i class="fa fa-pencil-square-o"></i></a>
         <span id='memo_<?=$list[$i][ms_id]?>' style='display:none;'>
         <input type="type" placeholder="scrap memo" name="memo_edit_<?=$list[$i][ms_id]?>" id="memo_edit_<?=$list[$i][ms_id]?>" size="50" value="<?=preg_replace("/\"/", "&#034;", stripslashes(get_text($list[$i][ms_memo],0)))?>" />
@@ -101,7 +111,24 @@ $memo_str_list = $memo_str0 . $memo_str;
         ?>
         </span> 
         </td>
-        <td><?=get_date($list[$i][ms_datetime])?></td>
+        <td class="hidden-xs"><?=get_date($list[$i][ms_datetime])?></td>
+        <td class="visible-xs">
+            <? if ($head_on) { ?>
+                <a href="<?=$list[$i][opener_href]?>">
+            <? } else { ?>
+                <a href="javascript:;" onclick="opener.document.location.href='<?=$list[$i][opener_href]?>';">
+            <? } ?>
+            <?=cut_str($list[$i][wr_subject],30)?></a>
+            <br>
+            <div class="pull-left">
+                <small>
+                <?=$list[$i][bo_subject]?>&nbsp;&nbsp;<?=$list[$i][ms_memo]?>
+                </small>
+            </div>
+            <div class="pull-right">
+                <?=$list[$i][mb_nick]?>&nbsp;&nbsp;<?=get_date($list[$i][ms_datetime])?>
+            </div>
+        </td>
     </tr>
 <? } ?>
 
@@ -129,6 +156,8 @@ $memo_str_list = $memo_str0 . $memo_str;
     <a class="btn btn-default" href="javascript:window.close();" >닫기</a>
 </div>
 <? } ?>
+
+</div>
 
 <form name=flist method=post>
 <input type="hidden" class="ed" id="memo_edit" name="memo_edit" value="<?=$memo_edit?>" />
