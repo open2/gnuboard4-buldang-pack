@@ -38,7 +38,7 @@ function select_new_batch(sw){////ssh06-04-12
 <? if ($total_count > 0) {?>&nbsp;(<?=number_format($total_count)?>)<?}?>
 </a>
 
-<form name="fboardlist" method="post" style="margin:0px;">
+<form name="fboardlist" method="post" role="form" class="form-inline">
 <input type="hidden" name="sw"   value="">	
 <input type="hidden" name="gr_id"   value="<?=$gr_id?>">	
 <input type="hidden" name="view"   value="<?=$view?>">	
@@ -48,7 +48,7 @@ function select_new_batch(sw){////ssh06-04-12
 <tr class="success" align=center> 
     <td class="col-sm-2">게시판</td>
     <td>제목
-    <span class="pull-right">
+    <span class="pull-right hidden-xs">
     <?
     if ($is_admin) {
     ?>
@@ -63,18 +63,18 @@ function select_new_batch(sw){////ssh06-04-12
     <? } } ?>
     </span>
     </td>
-    <td class="col-sm-2">글쓴이</td>
-    <td class="col-sm-1"><?=subject_sort_link('wr_datetime', $qstr2, 1)?>날짜</a></td>
-    <td class="col-sm-1">조회</td>
+    <td class="col-sm-2 hidden-xs">글쓴이</td>
+    <td class="col-sm-1 hidden-xs"><?=subject_sort_link('wr_datetime', $qstr2, 1)?>날짜</a></td>
+    <td class="col-sm-1 hidden-xs">조회</td>
 </tr>
 <?
 for ($i=0; $i<count($list); $i++) {
     $bo_subject = cut_str($list[$i][bo_subject], 10);
     $wr_subject = get_text(cut_str($list[$i][wr_subject], 40));
 ?>
-<tr height=28 align=center> 
+<tr align=center>
     <td align="center"><a href='./good_list.php?bo_table_search=<?=$list[$i][bo_table]?>'><?=$bo_subject?></a></td>
-    <td width="" align=left>
+    <td align=left class="hidden-xs">
     <?
     if ($is_admin) {
           echo "<input type=checkbox name=chk_gl_id[] value='{$list[$i][gl_id]}'>&nbsp;";
@@ -82,10 +82,27 @@ for ($i=0; $i<count($list); $i++) {
     ?>
     <a href='<?=$list[$i][href]?>'><?=$wr_subject?></a>
     <? if ($list[$i][wr_comment]) echo "<span style='font-family:Tahoma;font-size:10px;color:#EE5A00;'>(" . $list[$i][wr_comment] . ")</span>"?>
+    
     </td>
-    <td align="center"><?=$list[$i][name]?></td>
-    <td align="center"><?=$list[$i][wr_datetime2]?></td>
-    <td align="center"><?=$list[$i][wr_hit]?></td>
+    <td align="center" class="hidden-xs"><?=$list[$i][name]?></td>
+    <td align="center" class="hidden-xs"><?=$list[$i][wr_datetime2]?></td>
+    <td align="center" class="hidden-xs"><?=$list[$i][wr_hit]?></td>
+    <!-- 
+    xs 사이즈에서 30글자 이상이면 table width를 넘어서 수평 스크롤이 생깁니다 
+    그래서, 따로 출력하는 row를 만들어 줬습니다.
+    xs 사이즈에서는 아래처럼 1개의 td만 출력 됩니다. 다른 것은 모두 hidden.
+    더 좋은 방법에 대한 제안은 언제든 환영 합니다.
+    -->
+    <td align=left style='word-break:break-all;'>
+        <a href='<?=$list[$i][href]?>'><?=cut_str($wr_subject,30)?></a>
+        <? if ($list[$i][wr_comment]) echo "<span style='color:#EE5A00;'>(" . $list[$i][wr_comment] . ")</span>"?>
+        <br>
+        <div class="visible-xs pull-right">
+            <small>
+            <?=$list[$i][name]?>&nbsp;&nbsp;<?=$list[$i][wr_datetime2]?>&nbsp;&nbsp;
+            <span class="badge"><?=$list[$i][wr_hit]?></span></small>
+        </div>
+    </td>
 </tr>
 <?}?>
 <? if ($i == 0) { ?>
