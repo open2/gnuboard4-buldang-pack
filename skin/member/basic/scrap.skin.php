@@ -63,7 +63,7 @@ $memo_str_list = $memo_str0 . $memo_str;
 </div>
 </form>
 
-<table width="100%"  class="table table-hover table-condensed">
+<table width="100%" class="table table-hover table-condensed">
 <tr class="success"> 
     <td class="col-sm-1 hidden-xs" align=center>번호</td>
     <td class="col-sm-2 hidden-xs">게시판</td>
