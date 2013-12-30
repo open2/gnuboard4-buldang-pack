@@ -45,7 +45,11 @@ $whatson_url = "$g4[bbs_path]/whatson.php?check=1&rows=30";
                 <a class="btn btn-default" href="<?=$g4[bbs_path]?>/singo_search.php">신고된 내역</a>
                 <a class="btn btn-default" href="<?=$g4[bbs_path]?>/recycle_list.php">휴지통</a>
             </div>
+            <div class="col-sm-2">
+                <? include_once("$g4[bbs_path]/my_menu_outlogin_script.php")?>
+            </div>
         </div>
+
     </div>
 </div>
 

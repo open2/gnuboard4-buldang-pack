@@ -7,29 +7,24 @@ while ($row = sql_fetch_array($qry))
     $my_menu[] = $row;
 }
 ?>
-
-<select class=quick_move onchange="quick_move(this.value)" style="width:160;">
-<option value="">게시판 바로가기</option>
-<option value="">-------------------------</option>
-<? for ($i=0; $i<count($my_menu); $i++) {?>
-<option value="<?=$my_menu[$i][bo_table]?>"><?=$my_menu[$i][bo_subject]?></option>
-<? } ?>
-<option value="">-------------------------</option>
-<option value="menu-edit">바로가기 편집</option>
+<select class="form-control" onchange="quick_move(this.value)" style="width:160;">
+    <option value="">게시판 바로가기</option>
+    <option value="">-------------------------</option>
+    <? for ($i=0; $i<count($my_menu); $i++) {?>
+        <option value="<?=$my_menu[$i][bo_table]?>"><?=$my_menu[$i][bo_subject]?></option>
+    <? } ?>
+    <option value="">-------------------------</option>
+    <option value="menu-edit">바로가기 편집</option>
 </select>
 
-<script language="JavaScript">
+<script type="text/javascript">
 function quick_move(bo_table)
 {
     if (!bo_table) return;
     if (bo_table == 'menu-edit') {
-        popup_window("<?=$g4[bbs_path]?>/my_menu_edit.php", "my_menu_edit", "width=350, height=400, scrollbars=1");
+        document.location.href = "<?=$g4[bbs_path]?>/my_menu_edit.php";
         return;
     }
-    if (bo_table == 'mypage') {
-        document.location.href = "<?=$_SERVER[PHP_SELF]?>?menu_id=<?=bo_table?>&url=<?=$g4[path]?>/customer/mypage.php";
-        return;
-    }
-    document.location.href = "<?=$_SERVER[PHP_SELF]?>?menu_id=<?=bo_table?>&url=<?=$g4[bbs_path]?>/board.php?bo_table=" + bo_table;
+    document.location.href = "<?=$g4[bbs_path]?>/board.php?bo_table=" + bo_table;
 }
 </script>
