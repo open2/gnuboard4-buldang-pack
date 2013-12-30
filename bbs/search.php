@@ -173,7 +173,8 @@ if ($stx)
             $board_count++;
             $search_table[] = $g4_search[tables][$i];
             $read_level[]   = $g4_search[read_level][$i];
-            $search_table_count[] = $row[cnt];
+            $search_table_count[] = $total_count;
+            $search_table_result_count[] = $row[cnt];
 
             $sql2 = " select bo_subject from $g4[board_table] where bo_table = '{$g4_search[tables][$i]}' ";
             $row2 = sql_fetch($sql2);

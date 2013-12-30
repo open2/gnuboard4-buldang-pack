@@ -79,7 +79,7 @@ $group_select .= "</select>";
             echo "<a class=\"btn btn-default btn-success\" href='?$search_query&gr_id=$gr_id'>전체게시판 검색</a>";
 
         for ($i=0; $i<count($search_table); $i++) { ?>
-            <a class="btn btn-default" href="<?=$_SERVER[PHP_SELF]?>?<?=$search_query?>&gr_id=<?=$gr_id?>&onetable=<?=$search_table[$i]?>"><?=$search_table_subject[$i]?> <sup><?=$search_table_count[$i]?></sup></a>
+            <a class="btn btn-default" href="<?=$_SERVER[PHP_SELF]?>?<?=$search_query?>&gr_id=<?=$gr_id?>&onetable=<?=$search_table[$i]?>"><?=$search_table_subject[$i]?> <sup><?=$search_table_result_count[$i]?></sup></a>
         <? }
     } ?>
     </div>
