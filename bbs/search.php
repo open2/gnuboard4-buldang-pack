@@ -149,7 +149,6 @@ if ($stx)
     $str .= ")";
 
     $sql_search = $str . " and wr_option not like '%secret%' "; // 비밀글은 제외
-    //$sql_search = $str;
 
     $str_board_list = "";
     $board_count = 0;
@@ -174,7 +173,7 @@ if ($stx)
             $board_count++;
             $search_table[] = $g4_search[tables][$i];
             $read_level[]   = $g4_search[read_level][$i];
-            $search_table_count[] = $total_count;
+            $search_table_count[] = $row[cnt];
 
             $sql2 = " select bo_subject from $g4[board_table] where bo_table = '{$g4_search[tables][$i]}' ";
             $row2 = sql_fetch($sql2);
@@ -238,7 +237,7 @@ if ($stx)
 
             if ($read_level[$idx] <= $member[mb_level])
             {
-                $content = cut_str(get_text($row[wr_content]),300,"…");
+                $content = cut_str(conv_content(strip_tags($row[wr_content]),1),300,"…");
                 if (strstr($sfl, "wr_content")) 
                     $content = search_font($stx, $content);
             }
