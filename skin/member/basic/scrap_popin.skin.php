@@ -38,8 +38,7 @@ $memo_str .= "<option value=''>내가 사용하는 참고메모 선택하기</option>";
             </td>
         </tr>
         <tr>
-            <td></td>
-            <td>
+            <td colspan=2>
             <ul>
                 <li>참고메모는 스크랩을 분류 및 검색할 때 쓰는 키워드 입니다 (예: 스크랩).</li>
                 <li>새로운 참고메모는 직접 입력해야 합니다.</li>
