@@ -93,7 +93,7 @@ for ($i=0; $i<count($list); $i++) {
     xs 사이즈에서는 아래처럼 1개의 td만 출력 됩니다. 다른 것은 모두 hidden.
     더 좋은 방법에 대한 제안은 언제든 환영 합니다.
     -->
-    <td align=left style='word-break:break-all;'>
+    <td align=left class="visible-xs" style='word-break:break-all;'>
         <a href='<?=$list[$i][href]?>'><?=cut_str($wr_subject,30)?></a>
         <? if ($list[$i][wr_comment]) echo "<span style='color:#EE5A00;'>(" . $list[$i][wr_comment] . ")</span>"?>
         <br>
