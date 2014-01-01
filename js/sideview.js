@@ -4,8 +4,6 @@ if (typeof(SIDEVIEW_JS) == 'undefined') // 한번만 실행
         alert('g4_is_member 변수가 선언되지 않았습니다. js/sideview.js');
     if (typeof g4_path == 'undefined')
         alert('g4_path 변수가 선언되지 않았습니다. js/sideview.js');
-    if (typeof g4_sms4 == 'undefined')
-        var g4_sms4 = false;
         
     var SIDEVIEW_JS = true;
 
@@ -101,9 +99,6 @@ if (typeof(SIDEVIEW_JS) == 'undefined') // 한번만 실행
         }
         if (mb_id) {
             this.insertTail("new", "<a href='"+g4_path+"/" + g4_bbs + "/new.php?mb_id="+mb_id+"'>전체게시물</a>");
-        }
-        if (g4_sms4) {
-            this.insertTail("hp", "<a href='"+g4_path+"/sms/?mb_id="+mb_id+"'>문자 보내기</a>");
         }
 
         // 최고관리자일 경우
