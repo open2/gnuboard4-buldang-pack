@@ -2220,4 +2220,31 @@ function conv_content_rev($content, $writeContents_id, $wr_option)
 
     return $content;
 }
+
+// mb_nick으로 사용자정보를 조회 - 개인정보 보호를 위해
+function get_member_nick($mb_nick, $fields='*') 
+{ 
+    global $g4; 
+
+    $mb_nick = trim($mb_nick); 
+    if (!$mb_nick) return; 
+
+    $sql = "select $fields from $g4[member_table] where mb_nick = '$mb_nick'";
+    $row = sql_fetch($sql, FALSE);
+    if (!$row) {
+        $sql = "select * from $g4[member_table] where mb_nick = '$mb_nick'";
+        $row = sql_fetch($sql);
+    }
+
+    // 그룹명을 위해 한번 더 SQL을 - join보다는 2번 해주는게 캐슁 때문에 실제로는 더 빠를껄? ㅎㅎ
+    // 그나저나, member가 없는데, 그룹정보를 가져올 이유는 없져
+    if ($row) {
+        // 모두 다 또는 gl_name이 있을 때만
+        if ($fields=="*" || preg_match("/gl_name/",$fields)) {
+            $row['gl_name'] = get_gl_name($row[mb_level]);
+        }
+    }
+
+    return $row; 
+}
 ?>
