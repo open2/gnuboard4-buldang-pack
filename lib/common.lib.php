@@ -1,9 +1,6 @@
 <?
 if (!defined('_GNUBOARD_')) exit;
 
-if (!isset($sideview))
-    $sideview = array();
-
 /*************************************************************************
 **
 **  일반 함수 모음
@@ -308,7 +305,6 @@ function get_list($write_row, $board, $skin_path, $subject_len=40, $gallery_view
 {
     global $g4, $config;
     global $qstr, $page;
-    global $sideview;
     global $mstr;
     global $member;
 
@@ -346,12 +342,6 @@ function get_list($write_row, $board, $skin_path, $subject_len=40, $gallery_view
         $list['content'] = conv_content($list['wr_content'], $html);
 	}
 
-    /*
-    $list['comment_cnt'] = "";
-    if ($list['wr_comment'])
-        $list['comment_cnt'] = "($list[wr_comment])";
-    */
-
     // $board[bo_new] 시간내에 새로운 코멘트가 있으면 코멘트 갯수를 굵게
     $list['comment_cnt'] = "";
     if ($list['wr_comment']) {
@@ -367,48 +357,20 @@ function get_list($write_row, $board, $skin_path, $subject_len=40, $gallery_view
 
     // 4.1
     $list['last'] = substr($list['wr_last'],0,10);
-    $list['last2'] = $list['wr_last'];
-    if ($list['last'] == $g4['time_ymd'])
-        $list['last2'] = substr($list['last2'],11,5);
-    else
-        $list['last2'] = substr($list['last2'],5,5);
+    $list['last2'] = get_datetime($list['wr_last']);
 
     $list['wr_homepage'] = get_text(addslashes($list['wr_homepage']));
 
-    // 사이드뷰 정보를 기록 합니다 - 불당팩 수정
-    $tmp_mb_id = $list['mb_id'];
-    if ($board['bo_use_sideview'] && $tmp_mb_id)
-        if ($sideview[$tmp_mb_id]) { // 한번 불러온 정보가 있으면 그것을 사용
-            $list['name'] = $sideview[$tmp_mb_id];
-        } else {
+    // 사이드뷰 정보를 기록 합니다 - 불당팩 / 부트스트랩
+    // 글쓴이의 개인정보가 바뀐 시점 이후에 쓰여진 글이라면 개인정보를 다시 가져올 필요가 없지만
+    // 언제 글쓴이의 정보가 바뀌었는지, 데이터를 가지고 오려면 SQL Query를 해야지 해서 그냥 엎어 써 버립니다.
+    $mb = get_member($list['mb_id'], "mb_nick, mb_name");
+    if ($board[bo_use_name])
+        $tmp_name = $mb[mb_name];
+    else
+        $tmp_name = $mb[mb_nick];
 
-            // 글쓴이의 개인정보가 바뀐 시점 이후에 쓰여진 글이라면 개인정보를 다시 가져올 필요가 없지만
-            // 언제 글쓴이의 정보가 바뀌었는지, 데이터를 가지고 오려면 SQL Query를 해야지 해서 그냥 엎어 써 버립니다.
-            $mb = get_member($list['mb_id'], "mb_nick, mb_name, mb_email, mb_email_certify, mb_homepage, mb_homepage_certify");
-
-            // 게시판에 출력할 글쓴이의 이름/닉네임이 바뀌었을 때 어떻게 될까요? 몰래 닉네임 바꾸고 장난치면 어찌 될까요?
-            if ($board[bo_use_name])
-                $tmp_name = $mb[mb_name];
-            else
-                $tmp_name = $mb[mb_nick];
-            $tmp_name = get_text(cut_str($tmp_name, $config['cf_cut_name'])); // 설정된 자리수 만큼만 이름 출력
-        
-            // 이메일 sideview는 메일인증을 쓰고 인증된 경우에만 보여지게 합니다.
-            if ($config[cf_use_email_certify] && !preg_match("/[1-9]/", $mb[mb_email_certify]))
-                $list['wr_email'] = $mb['mb_email'];
-            // 홈페이지가 있으면서 인증이 안되었으면, 인증을 하게 합니다.
-            if ($config['cf_use_homepage'] && $mb['mb_homepage'] && !preg_match("/[1-9]/", $mb[mb_homepage_certify])) {
-                $mb['mb_homepage'] = set_http2($mb['mb_homepage'], $list['mb_id']);
-            }
-            $list['wr_homepage'] = $mb['mb_homepage'];
-            
-            $list['name'] = get_sideview($list['mb_id'], $tmp_name, $list['wr_email'], $list['wr_homepage']);
-            $sideview[$tmp_mb_id] = $list['name']; // 한번 불러온 사용자 정보를 임시저장
-        }
-    else {
-        $tmp_name = get_text(cut_str($list['wr_name'], $config['cf_cut_name'])); // 설정된 자리수 만큼만 이름 출력
-        $list['name'] = "<span class='".($list['mb_id']?'member':'guest')."'>$tmp_name</span>";
-    }
+    $list['name'] = get_sideview($list['mb_id'], $tmp_name);
 
     $reply = $list['wr_reply'];
 
@@ -1100,53 +1062,9 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
 {
     global $config, $g4, $member, $board;
 
-    // redis 세션관리.
-    // 게시판 정보가 있을 때만 생성하고 이외에는 생성 안합니다. sideview가 섞이는 것을 막기 위해서
-    /*
-    if ($g4['session_type'] == "redis" && $g4['redis_sideview'] == 1 && $member && $member['mb_id'] !== "") {
-
-        // key 값이 있는지를 체크
-        $redis_sideview = new Redis();
-        $redis_sideview->connect($g4["rhost"], $g4["rport"]);
-        $redis_sideview->select($g4["rdb2"]);
-
-        // redis key를 정의. 비회원은 key를 정의할 필요 엄따는...
-        $rkey = $g4["rdomain"] . "_sideview_" . $mb_id . "_" . $board['bo_table'];
-
-        // key가 있으면 값을 가져와야죠?
-        if ($redis_sideview->exists($rkey)) {
-
-            $tmp_name = $redis_sideview->get($rkey);
-            // key에 값이 있으면 return 하고, 없으면 key를 지워버린다.
-            if ($tmp_name)
-                return $redis_sideview->get($rkey);
-            else
-                $redis_sideview->delete($rkey);
-
-        } else {
-            // key가 없거나 key에 값이 없으면 그냥 지나 갑니다.
-            ;
-        }
-    }
-    */
-
-    if ($config[cf_email_use])
-        $email = base64_encode($email);
-    else
-        $email = "";
-
-    if ($config['cf_use_homepage'])
-        $homepage = set_http($homepage);
-    else
-        $homepage = "";
-
-    $name = preg_replace("/\&#039;/", "", $name);
-    $name = preg_replace("/\'/", "", $name);
-    $name = preg_replace("/\"/", "&#034;", $name);
-    $title_name = $name;
+    $tmp_name = get_text(cut_str($tmp_name, $config['cf_cut_name'])); // 설정된 자리수 만큼만 이름 출력
 
     if ($mb_id) {
-        $tmp_name = "<span class='member'>$name</span>";
 
         if ($config['cf_use_member_icon']) {
             $mb_dir = substr($mb_id,0,2);
@@ -1170,38 +1088,18 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
                 $tmp_name = "<img src='$icon_file' width='$width' height='$height' align='absmiddle' border='0'>";
 
                 if ($config['cf_use_member_icon'] == 2) // 회원아이콘+이름
-                    $tmp_name = $tmp_name . " <span class='member'>$name</span>";
+                    $tmp_name = $tmp_name . " $name";
             }
         }
-        $title_mb_id = "[$mb_id]";
+        $title_mb_id = $name;
     } else {
-        $tmp_name = "<span class='guest'>$name</span>";
         $title_mb_id = "[비회원]";
     }
 
-    $name     = get_text($name);
-    $email    = get_text($email);
-    $homepage = get_text($homepage);
-
-    //로그인 회원만 사이드뷰가 보이고, 나머지의 경우 닉네임이나 이름만 보이도록
-    if ($member['mb_id']) {
-      $tmp_name = "<a href=\"javascript:;\" onClick=\"showSideView(this, '$mb_id', '$name', '$email', '$homepage');\" title=\"{$title_mb_id}{$title_name}\">$tmp_name</a>";
-    }
-
-    /*
-    if ($g4['session_type'] == "redis" && $g4['redis_sideview'] == 1 && $member && $member['mb_id'] !== "") {
-
-        // sideview를 업데이트
-        $redis_sideview->set($rkey, $tmp_name);
-
-        // redis instance connection을 닫아줍니다.
-        $redis_sideview->close();
-    }
-    */
-
+    $tmp_name = "<a class=\"sideview\" alt=\"$title_mb_id\" style=\"cursor:pointer;\">$tmp_name</a>";
     return $tmp_name;
-}
 
+}
 
 // 파일을 보이게 하는 링크 (이미지, 플래쉬, 동영상)
 function view_file_link($file, $width, $height, $content="")
