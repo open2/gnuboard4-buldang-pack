@@ -8,6 +8,30 @@ session_write_close();
 
 <script type="text/javascript" src="<?=$g4['path']?>/js/wrest.js"></script>
 
+<!-- sideview script -->
+<script type="text/javascript">
+$('.sideview').bind('click',function(e){
+
+    var el=$(this);
+    var popover_title = el.attr('alt');
+    var _data = "mb_nick="+escape(popover_title)+"&mb_nick2=<?=$member[mb_nick]?>&bo_table=<?=$bo_table?>&sfl=<?=$sfl?>";
+
+    e.isDefaultPrevented();
+
+    $.ajax({url: "<?=$g4[bbs_path]?>/ajax_sideview.php", type: "POST", data: _data, 
+            success: function(response) {
+              el.popover({html: true, content: response, title: '<a onclick="" style="cursor:pointer">'+popover_title+'&nbsp;<i class="fa fa-times-circle"></i></a>'});
+              el.popover('show'); 
+              ;
+    //alert(response);
+            }
+    });
+
+    el.unbind('click');
+
+});
+</script>
+
 <!-- 새창 대신 사용하는 iframe -->
 <iframe width=0 height=0 name='hiddenframe' style='display:none;' title='hidden frame'></iframe>
 
