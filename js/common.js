@@ -356,7 +356,7 @@ if (typeof(COMMON_JS) == 'undefined') { // 한번만 실행
     {
         if (!url)
             url = g4_path + "/" + g4_bbs + "/scrap.php";
-        win_open(url, "scrap", "left=20, top=20, width=820, height=500, scrollbars=1,resizable=yes");
+        win_open(url, "scrap", "left=20, top=20, width=760, height=500, scrollbars=1,resizable=yes");
     }
 
     // 신고 창
