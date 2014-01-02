@@ -48,9 +48,9 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <th width=50px class="hidden-xs"><?=subject_sort_link('wr_id', $qstr2, 1)?>번호</a></th>
     <? if ($is_checkbox) { ?><th class="hidden-xs"><INPUT onclick="if (this.checked) all_checked(true); else all_checked(false);" type=checkbox></th><?}?>
     <th>제목</th>
-    <th width=110px class="hidden-xs" align="center">글쓴이</th>
-    <th width=70px class="hidden-xs"><?=subject_sort_link('wr_datetime', $qstr2, 1)?>날짜</a></th>
-    <th class="hidden-xs"><?=subject_sort_link('wr_hit', $qstr2, 1)?>조회</a></th>
+    <th width=80px class="hidden-xs" align=center>글쓴이</th>
+    <th width=70px class="hidden-xs" align=center><?=subject_sort_link('wr_datetime', $qstr2, 1)?>날짜</a></th>
+    <th width=80px class="hidden-xs" align=center><?=subject_sort_link('wr_hit', $qstr2, 1)?>조회</a></th>
     <? if ($is_good) { ?><th width=60px class="hidden-xs"><?=subject_sort_link('wr_good', $qstr2, 1)?>추천</a></th><?}?>
     <? if ($is_nogood) { ?><th width=60px class="hidden-xs"><?=subject_sort_link('wr_nogood', $qstr2, 1)?>비추</a></th><?}?>
 </tr>
@@ -74,7 +74,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         <?
         echo $nobr_begin;
         if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply\" title='reply'></i> ";
-        if ($is_category && $list[$i][ca_name]) { 
+        if ($is_category && $list[$i][ca_name]) {
             echo "<font color=gray><a href='{$list[$i][ca_name_href]}'><small>({$list[$i][ca_name]})</small></a></font> ";
         }
         $style = "";
@@ -96,9 +96,9 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         echo $nobr_end;
         ?>
         </td>
-    <td class="hidden-xs"><nobr style='display:block; overflow:hidden;'><?=$list[$i][name]?></nobr></td>
-    <td class="hidden-xs"><?=$list[$i][datetime2]?></td>
-    <td class="hidden-xs"><?=$list[$i][wr_hit]?></td>
+    <td class="hidden-xs" align=center><nobr style='display:block; overflow:hidden;'><?=$list[$i][name]?></nobr></td>
+    <td class="hidden-xs" align=center><?=$list[$i][datetime2]?></td>
+    <td class="hidden-xs" align=center><?=$list[$i][wr_hit]?></td>
     <? if ($is_good) { ?><td class="hidden-xs" align="center"><?=$list[$i][wr_good]?></td><? } ?>
     <? if ($is_nogood) { ?><td class="hidden-xs" align="center"><?=$list[$i][wr_nogood]?></td><? } ?>
     <!-- 
@@ -145,7 +145,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 </tr>
 <?}?>
 
-<? if (count($list) == 0) { echo "<tr><td colspan='$colspan' height=100 align=center>게시물이 없습니다.</td></tr>"; } ?>
+<? if (count($list) == 0) { echo "<tr><td colspan=5 height=100 align=center>게시물이 없습니다.</td></tr>"; } ?>
 </table>
 </div>
 </form>
@@ -188,7 +188,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <a href="javascript:select_copy('move');" class="btn btn-default">선택이동</a>
     <? if ($is_category) { ?>
     <a href="javascript:select_category();"  class="btn btn-default">카테고리변경</a>
-    <select name=sca2><?=$category_option?></select>
+    <select class="form-control input-sm" name=sca2><?=$category_option?></select>
     <? } ?>
 </div>
 </span>
