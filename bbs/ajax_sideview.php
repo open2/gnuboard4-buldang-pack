@@ -1,8 +1,29 @@
 <?
 include_once("_common.php");
 
-$mb_nick = trim($_POST['$mb_nick']);    // sideview의 대상
-$mb_nick2 = trim($_POST['$mb_nick2']);  // sideview를 클릭한 사람
+header("Content-Type: text/html; charset=utf-8");
+
+//$mb_nick = trim($_POST[$mb_nick]);    // sideview의 대상
+$mb_nick2 = trim($_POST[$mb_nick2]);  // sideview를 클릭한 사람
+echo $mb_nick;
+print_r($_POST);
+
+if (strtolower($g4[charset]) == 'euc-kr') 
+{
+    $mb_nick = js_unescape($mb_nick);
+    $mb_nick2 = js_unescape($mb_nick2);
+}
+
+// 비회원의 sideview는 그냥 return
+if ($mb_nick == "[비회원]") {
+    $res = "<div>";
+    $res .= "<ul class='list-unstyled'>";
+    $res .= "<li>비회원입니다</li>";
+    $res .= "</ul>";
+    $res .= "</div>";
+    echo iconv($g4['charset'], "UTF-8", $res);
+    exit;
+}
 
 $mb = get_member_nick($mb_nick);
 $mb2 = get_member_nick($mb_nick2);
