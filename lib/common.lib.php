@@ -364,14 +364,17 @@ function get_list($write_row, $board, $skin_path, $subject_len=40, $gallery_view
     // 사이드뷰 정보를 기록 합니다 - 불당팩 / 부트스트랩
     // 글쓴이의 개인정보가 바뀐 시점 이후에 쓰여진 글이라면 개인정보를 다시 가져올 필요가 없지만
     // 언제 글쓴이의 정보가 바뀌었는지, 데이터를 가지고 오려면 SQL Query를 해야지 해서 그냥 엎어 써 버립니다.
-    $mb = get_member($list['mb_id'], "mb_nick, mb_name");
-    if ($board[bo_use_name])
-        $tmp_name = $mb[mb_name];
-    else
-        $tmp_name = $mb[mb_nick];
-
-    $list['name'] = get_sideview($list['mb_id'], $tmp_name);
-
+    if ($list['mb_id']) {
+        $mb = get_member($list['mb_id'], "mb_nick, mb_name");
+        if ($board[bo_use_name])
+            $tmp_name = $mb[mb_name];
+        else
+            $tmp_name = $mb[mb_nick];
+        $list['name'] = get_sideview($list['mb_id'], $tmp_name);
+    } else {
+        $tmp_name = get_text(cut_str($list['wr_name'], $config['cf_cut_name'])); // 설정된 자리수 만큼만 이름 출력
+        $list['name'] = "<span>$tmp_name</span>";
+    }
     $reply = $list['wr_reply'];
 
     $list['reply'] = "";
@@ -1062,7 +1065,7 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
 {
     global $config, $g4, $member, $board;
 
-    $tmp_name = get_text(cut_str($tmp_name, $config['cf_cut_name'])); // 설정된 자리수 만큼만 이름 출력
+    $tmp_name = get_text(cut_str($name, $config['cf_cut_name'])); // 설정된 자리수 만큼만 이름 출력
 
     if ($mb_id) {
 
@@ -1085,10 +1088,10 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
                     $width = $size[0] * ($config['cf_member_icon_height'] / $size[1]);
                 }
 
-                $tmp_name = "<img src='$icon_file' width='$width' height='$height' align='absmiddle' border='0'>";
+                $tmp_name = "<img src='$icon_file' width='$width' height='$height' align='absmiddle' border='0'> ";
 
                 if ($config['cf_use_member_icon'] == 2) // 회원아이콘+이름
-                    $tmp_name = $tmp_name . " $name";
+                    $tmp_name = $tmp_name . $name;
             }
         }
         $title_mb_id = $name;
