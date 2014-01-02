@@ -1,7 +1,6 @@
 <?
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 ?>
-<script type="text/javascript" src="<?=$g4[path]?>/js/sideview.js"></script>
 <script type="text/javascript">
 var list_delete_php = "recycle_list_delete.php";
 </script>

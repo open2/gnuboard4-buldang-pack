@@ -29,8 +29,6 @@ $memo_str = "<option value='all'>전체목록보기</option>";
 $memo_str_list = $memo_str0 . $memo_str;
 ?>
 
-<script type="text/javascript" src="<?=$g4[path]?>/js/sideview.js"></script>
-
 <div class="container">
 
 <form name=fsearch method=get role="form" class="form-inline">

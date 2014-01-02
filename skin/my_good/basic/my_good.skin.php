@@ -15,8 +15,6 @@ $str .= "<option value='all'>전체목록보기</option>";
     $str .= "</select>";
 ?>
 
-<script type="text/javascript" src="<?=$g4[path]?>/js/sideview.js"></script>
-
 <form name=fsearch method=get role="form" class="form-inline" style="margin-bottom:5px;">
 <input type=hidden name=head_on value="<?=$head_on?>">
 <input type=hidden name=mnb value="<?=$mnb?>">

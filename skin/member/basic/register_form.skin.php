@@ -6,7 +6,6 @@ var member_skin_path = "<?=$member_skin_path?>";
 </script>
 <script type="text/javascript" src="<?=$member_skin_path?>/jquery.ajax_register_form.js"></script>
 <script type="text/javascript" src="<?=$g4[path]?>/js/md5.js"></script>
-<script type="text/javascript" src="<?=$g4[path]?>/js/sideview.js"></script>
 
 <form class="form-horizontal" role="form" name=fregisterform id=fregisterform method=post onsubmit="return fregisterform_submit(this);" enctype="multipart/form-data" autocomplete="off">
 <input type=hidden name=w                id=w                   value="<?=$w?>">
@@ -350,7 +349,6 @@ var member_skin_path = "<?=$member_skin_path?>";
         </TR>
         <? } else if ( $config[cf_use_recommend] && $member[mb_recommend]) {?>
         <TR bgcolor="#FFFFFF">
-            <script type='text/javascript' src='<?=$g4[path]?>/js/sideview.js'></script>
             <? $mb=get_member($member['mb_recommend'], "mb_id, mb_nick")?>
             <TD width="160" class=m_title>추천인아이디</TD>
             <TD class=m_padding><?=get_sideview($mb['mb_id'], $mb['mb_nick'])?></TD>

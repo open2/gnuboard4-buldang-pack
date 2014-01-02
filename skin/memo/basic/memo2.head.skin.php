@@ -1,9 +1,6 @@
 <?
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
 ?>
-<!-- sideview를 위해서 -->
-<script type='text/javascript' src='<?=$g4[path]?>/js/sideview.js'></script>
-
 <header class="header-wrapper"><!-- 상단 header 시작 -->
 <div class="container" style="margin-bottom:5px;">
 <div class="btn-group">

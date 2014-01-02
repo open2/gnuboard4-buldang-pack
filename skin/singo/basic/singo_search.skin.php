@@ -1,8 +1,6 @@
 <?
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
 ?>
-<script type="text/javascript" src="<?=$g4[path]?>/js/sideview.js"></script>
-
 <form name=fsearch method=get role="form" class="form-inline">
 <a class="btn btn-default" href='<?=$_SERVER[PHP_SELF]?>'>처음</a>
 (신고된 게시물 : <?=number_format($total_count)?>)
