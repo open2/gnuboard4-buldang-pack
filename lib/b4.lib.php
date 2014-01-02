@@ -2247,4 +2247,18 @@ function get_member_nick($mb_nick, $fields='*')
 
     return $row; 
 }
+
+// http://www.phpschool.com/gnuboard4/bbs/board.php?bo_table=tipntech&wr_id=65180
+// javascript의 escape/unescape를 php에서 가능하게
+function js_unescape($str, $chr_set='CP949') { 
+	  $callback_function = create_function('$matches, $chr_set="'.$chr_set.'"', 'return iconv("UTF-16BE", $chr_set, pack("n*", hexdec($matches[1])));'); 
+  	return rawurldecode(preg_replace_callback('/%u([[:alnum:]]{4})/', $callback_function, $str)); 
+}
+
+function js_escape($str, $chr_set='CP949') { 
+  	$arr_dec = unpack("n*", iconv($chr_set, "UTF-16BE", $str)); 
+	  $callback_function = create_function('$dec', 'if(in_array($dec, array(42, 43, 45, 46, 47, 64, 95))) return chr($dec); elseif($dec >= 127) return "%u".strtoupper(dechex($dec)); else return rawurlencode(chr($dec));'); 
+  	$arr_hexcode = array_map($callback_function, $arr_dec); 
+	  return implode($arr_hexcode); 
+} 
 ?>
