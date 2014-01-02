@@ -54,7 +54,6 @@ $result = sql_query($sql);
 $colspan = 5;
 ?>
 
-<script type="text/javascript" src="<?=$g4[path]?>/js/sideview.js"></script>
 <script language="JavaScript">
 var list_delete_php = "dbcache_list_delete.php";
 </script>

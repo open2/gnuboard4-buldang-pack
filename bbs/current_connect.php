@@ -81,8 +81,6 @@ for ($i=0; $i < count($list); $i++)
 
 $write_pages = get_paging($config[cf_write_pages], $page, $total_page, "?gr_id=$gr_id&page=");
 
-echo "<script type=\"text/javascript\" src=\"$g4[path]/js/sideview.js\"></script>\n";
-
 $connect_skin_path = "$g4[path]/skin/connect/$config[cf_connect_skin]";
 
 include_once("$connect_skin_path/current_connect.skin.php");

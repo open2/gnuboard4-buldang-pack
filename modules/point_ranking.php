@@ -7,8 +7,6 @@ $html_title = "포인트순위";
 $g4[title] = "" . $html_title; 
 
 include_once("./_head.php"); 
-
-echo "<script type=\"text/javascript\" src=\"$g4[path]/js/sideview.js\"></script>\n"; 
 ?> 
 
 <?

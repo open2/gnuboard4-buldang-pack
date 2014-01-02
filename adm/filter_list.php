@@ -54,7 +54,6 @@ $result = sql_query($sql);
 $colspan = 15;
 ?>
 
-<script type="text/javascript" src="<?=$g4[path]?>/js/sideview.js"></script>
 <script type="text/javascript">
 var list_delete_php = "filter_delete.php";
 var list_update_php = "filter_update.php";

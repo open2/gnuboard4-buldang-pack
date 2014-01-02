@@ -60,7 +60,6 @@ $result = sql_query($sql);
 $colspan = 15;
 ?>
 
-<script type="text/javascript" src="<?=$g4[path]?>/js/sideview.js"></script>
 <script language="JavaScript">
 var list_update_php = "singo_list_update.php";
 var list_delete_php = "singo_list_delete.php";

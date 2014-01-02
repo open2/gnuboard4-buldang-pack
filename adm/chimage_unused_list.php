@@ -58,7 +58,6 @@ $result = sql_query($sql);
 $colspan = 15;
 ?>
 
-<script type="text/javascript" src="<?=$g4[path]?>/js/sideview.js"></script>
 <script language="JavaScript">
 var list_delete_php = "chimage_unused_delete.php";
 </script>

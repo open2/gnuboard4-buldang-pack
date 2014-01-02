@@ -27,7 +27,6 @@ include_once("./_head.php");
 include_once("$g4[admin_path]/admin.lib.php");
 ?>
 
-<script type="text/javascript" src='<?=$g4['path']?>/js/sideview.js'></script>
 <script type="text/javascript" src='<?=$g4['admin_path']?>/admin.js'></script>
 
 <script language='javascript'>

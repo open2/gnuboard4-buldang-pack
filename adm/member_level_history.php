@@ -70,8 +70,6 @@ $result = sql_query($sql);
 $colspan = 6;
 ?>
 
-<script type="text/javascript" src="<?=$g4[path]?>/js/sideview.js"></script>
-
 <table width=100%>
 <form name=fsearch method=get>
 <tr>

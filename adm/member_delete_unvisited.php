@@ -43,9 +43,6 @@ if ($w == 'd' && $mb_id) {
 
 }
 
-// 사이드뷰
-echo "<script language=\"javascript\" src=\"$g4[path]/js/sideview.js\"></script>\n";
-
 $login_time = "365"; //지난 몇일 동안 접속하지 않은 회원을 삭제할지를 결정?
 $today_login_time = date("Y-m-d H:i:s", $g4['server_time'] - ($login_time * 86400));
 

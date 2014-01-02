@@ -56,7 +56,6 @@ $result = sql_query($sql);
 $colspan = 15;
 ?>
 
-<script type="text/javascript" src="<?=$g4[path]?>/js/sideview.js"></script>
 <script language="JavaScript">
 </script>
 

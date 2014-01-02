@@ -64,7 +64,6 @@ include_once ("./admin.head.php");
 $colspan = 8;
 ?>
 
-<script type="text/javascript" src="<?=$g4[path]?>/js/sideview.js"></script>
 <script language="JavaScript">
 var list_update_php = "";
 var list_delete_php = "popular_list_delete.php";

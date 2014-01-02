@@ -180,7 +180,6 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 }
 ?>
 
-<script type="text/javascript" src="<?=$g4[path]?>/js/sideview.js"></script>
 <br>
 <table class="tbl_type1" border="1" cellspacing="0" summary="회원 가입 추천 내역">
 <caption>회원가입추천 내역</caption>

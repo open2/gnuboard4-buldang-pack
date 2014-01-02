@@ -6,8 +6,6 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 include_once("$g4[path]/_head.php");
 
 // 출석시간 설정
-
-echo "<script language=\"javascript\" src=\"$g4[path]/js/sideview.js\"></script>\n";
 ?>
 
 <table width="100%" cellspacing="0" cellpadding="0" align="center" valign="top">
