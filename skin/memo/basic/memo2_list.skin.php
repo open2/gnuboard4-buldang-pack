@@ -2,9 +2,9 @@
 <input type='hidden' name='kind' value='<?=$kind?>'>
 <div class="container">
     <strong><a href="<?=$memo_url?>?kind=<?=$kind?>"><?=$memo_title?></a>&nbsp;
-    ( <? if ($kind == "recv") echo "<a href='$memo_url?kind=recv&unread=only' title='안읽은쪽지'><font color=red>$total_count_recv_unread</font></a> / "?><a href='<?=$memo_url?>?kind=$kind'><?=number_format($total_count)?></a></span>
+    ( <? if ($kind == "recv") echo "<a href='$memo_url?kind=recv&unread=only' title='안읽은쪽지'><font color=red>$total_count_recv_unread</font></a> / "?><a href='<?=$memo_url?>?kind=$kind'><?=number_format($total_count)?></a>
     </strong>
-    /&nbsp<a href="<?=$memo_url?>?kind=<?=$kind?>&sfl=me_file&stx=me_file"><i class="fa fa-file"></i></a>
+    /&nbsp;<a href="<?=$memo_url?>?kind=<?=$kind?>&sfl=me_file&stx=me_file"><i class="fa fa-file"></i></a>
     )
 
     <a class="btn btn-navbar btn-xs pull-right" data-toggle="collapse" data-target=".navbar-ex4-collapse">
@@ -39,11 +39,11 @@
 </div>
 </form>
 
-<form name="fboardlist" method="post" style="margin:0px;">
+<form name="fboardlist" method="post" role="form" class="form-inline">
 <input type=hidden name=kind value="<?=$kind?>">
 
 <div class="container">
-<table class="table table-hover table-condensed" width="100%">
+<table class="table table-hover table-condensed table-borderless" width="100%">
 <colgroup> 
     <col width="35">
     <col width="110">

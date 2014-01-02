@@ -1,46 +1,26 @@
-<table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
-<tr>
-  <td align=left>&nbsp;<img src="<?=$memo_skin_path?>/img/btn_c_ok.gif" align=absmiddle />
-  &nbsp;<b><?=$memo_title?> - 쪽지설정</b></td>
-</tr>
-</table>
+<div class="container">
+    <strong><a href="<?=$memo_url?>?kind=<?=$kind?>"><?=$memo_title?></a></strong>
 
-<form name='fmemoform' method='post' enctype='multipart/form-data' onsubmit="return fmemoconfig_submit(document.fmemoform);">
+    <form  role="form" class="form-inline" name='fmemoform' method='post' enctype='multipart/form-data' onsubmit="return fmemoconfig_submit(this);">
+    <input type=hidden name=mb_memo_no_reply_org value="<?=$member[mb_memo_no_reply]?>">
 
-<div class="section">
-    <h2 class="hx">개인설정</h2>
-    <div class="tx">
-    <? if ($config[cf_memo_user_config]) { ?>
-  			<table width="100%" border="0" cellspacing="0" cellpadding="2">
-        <colgroup> 
-        <col width="150">
-        <col width="">
-        </colgroup> 
-        <? if ($config[cf_memo_realtime]) { ?>
-        <tr>
-          <td>실시간 쪽지</td>
-          <td><input type=checkbox name=mb_realmemo value='1' <?=($member[mb_realmemo])?'checked':'';?>>실시간쪽지 사용</td>
-        </tr>
-        <tr>
-          <td>음성 알림</td>
-          <td><input type=checkbox name=mb_realmemo_sound value='1' <?=($member[mb_realmemo_sound])?'checked':'';?>>음성알림사용(실시간쪽지 사용시에만 동작함)</td>
-        </tr>
-        <? } ?>
-
+    <div class="panel panel-default">
+    <div class="panel-heading">개인설정</div>
+    <div class="panel-body">
+        <? if ($config[cf_memo_user_config]) { ?>
+  			<table width="100%" class="table table-hover table-condensed table-borderless" style="border:none;">
         <?
         $time_diff = ($g4[server_time] - (86400 * $config['cf_memo_no_reply'])) - strtotime($member[mb_memo_no_reply_datetime]);
-        if ($config['cf_memo_no_reply'] && $time_diff > 0) {
         ?>
-        <input type=hidden name=mb_memo_no_reply_org value="<?=$member[mb_memo_no_reply]?>">
         <tr>
-            <td>부재중설정</td>
-            <td><input type=checkbox name=mb_memo_no_reply value='1' <?=($member[mb_memo_no_reply])?'checked':'';?>>수신된 쪽지에 자동으로 부재중 응답을 보냅니다.<BR>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
+            <td width="150px;">부재중설정</td>
             <td>
-            <b>부재중설정 정보를 수정하면 <font color="red"><?=$config['cf_memo_no_reply']?> 일</font> 후에 변경이 가능</b>
+                <? if ($config['cf_memo_no_reply'] && $time_diff > 0) { ?>
+                    <input type=checkbox name=mb_memo_no_reply value='1' <?=($member[mb_memo_no_reply])?'checked':'';?>>수신된 쪽지에 자동으로 부재중 응답을 보냅니다.<BR>
+                <? } else { ?>
+                    <?=$member[mb_memo_no_reply_datetime]?>에 부재중 설정을 변경하셨습니다.<br>
+                <? } ?>
+                <strong>부재중설정 정보를 수정하면 <font color="red"><?=$config['cf_memo_no_reply']?> 일</font> 후에 변경이 가능합니다.</strong>
             </td>
         </tr>
         <tr>
@@ -51,33 +31,28 @@
             <td>부재중알림메모</td>
             <td><textarea class=ed name='mb_memo_no_reply_text' rows=5 style='width:98%;'><?=stripslashes($member[mb_memo_no_reply_text])?></textarea>
         </tr>
-        <? } ?>
-
         </table>
-    <? } else { ?>
-        설정할 항목이 없습니다.
-    <? } ?>
+        <? } else { ?>
+            설정할 항목이 없습니다.
+        <? } ?>
     </div>
-</div>
+    </div>
 
-<? if ($is_admin == 'super') { ?>
-<? include_once("$g4[admin_path]/admin.lib.php")?>
-<div class="section" style="margin-top:5px">
-    <h2 class="hx">시스템설정</h2>
-    <div class="tx">
-  			<table width="100%" border="0" cellspacing="0" cellpadding="2">
-        <colgroup> 
-        <col width="150">
-        <col width="">
-        </colgroup> 
+
+    <? if ($is_admin == 'super') { ?>
+    <? include_once("$g4[admin_path]/admin.lib.php")?>
+    <div class="panel panel-default">
+    <div class="panel-heading">시스템설정</div>
+    <div class="panel-body">
+  			<table width="100%" class="table table-hover table-condensed table-borderless">
         <tr>
-            <td>페이지당 목록수</td>
-            <td><input type=text required class=ed name='cf_memo_page_rows' size='5' required itemname='페이지당 목록' value='<?=$config[cf_memo_page_rows]?>'>
+            <td width="150px;">페이지당 목록수</td>
+            <td><input type=text required name='cf_memo_page_rows' size='5' required itemname='페이지당 목록' value='<?=$config[cf_memo_page_rows]?>'>
             </td>
         </tr>
         <tr>
             <td>쪽지보낼시 차감 포인트</td>
-            <td><input type=text required class=ed name='cf_memo_send_point' size='5' required itemname='쪽지전송시 차감 포인트' value='<?=$config[cf_memo_send_point]?>'> 점
+            <td><input type=text required name='cf_memo_send_point' size='5' required itemname='쪽지전송시 차감 포인트' value='<?=$config[cf_memo_send_point]?>'> 점
             <!-- <BR>(양수로 입력하십시오. 0으로 입력하시면 쪽지보낼시 포인트를 차감하지 않습니다.) -->
             </td>
         </tr>
@@ -132,13 +107,13 @@
             <td><input type=checkbox name=cf_memo_del_file value='1' <?=($config[cf_memo_del_file])?'checked':'';?>>첨부파일을 서버에서 삭제하는 기능사용
             </td>
         </tr>
-        -->
   			<tr>
             <td>실시간쪽지</td>
             <td>
             <input type=checkbox name=cf_memo_realtime value='1' <?=($config[cf_memo_realtime])?'checked':'';?>> 실시간쪽지 기능을 사용
             </td>
         </tr>
+        -->
         <tr>
             <td>친구관리</td>
             <td><input type=checkbox name=cf_friend_management value='1' <?=($config[cf_friend_management])?'checked':'';?>>친구관리 기능사용
@@ -172,20 +147,19 @@
 	          <a href="#" onclick="tmpFileChk();">삭제하기</a>
             </td>
         </tr>
+        </table>
     </div>
+    </div>
+    <? } ?>
+
+    <div class="pull-right">
+        <button type="submit" class="btn btn-success" id="btn_submit">Send</button>
+    </div>
+
+    </form>
+
 </div>
-<? } ?>
 
-<table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
-<tr>
-    <td align="center">
-    <input id=btn_submit type=image src="<?=$memo_skin_path?>/img/send2.gif" border=0 alt="보내기" align='absmiddle'>
-    </td>
-</tr>
-</table>
-
-</form>
-      
 <script type="text/javascript">
 function fmemoconfig_submit(f) {
     f.action = "./memo2_config_update.php";

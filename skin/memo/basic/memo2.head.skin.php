@@ -20,7 +20,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
   <button type="button" class="btn btn-default btn-sm">친구</button>
   <button type="button" class="btn btn-default btn-sm">그룹</button>
   <button type="button" class="btn btn-default btn-sm">주소록</button>
-  <button type="button" class="btn btn-default btn-sm">설정</button>
+  <a href="<?=$g4[memo_url]?>?kind=memo_config" class="btn btn-default btn-sm">설정</a>
 </div>
 </div>
 </header><!-- 상단 header 끝 -->

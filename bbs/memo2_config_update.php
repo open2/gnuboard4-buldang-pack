@@ -98,7 +98,7 @@ if ($is_admin) {
                   `cf_memo_file_size` tinyint(4) default NULL,
                   `cf_max_memo_file_size` int(11) default NULL,
                   `cf_friend_management` tinyint(4) NOT NULL default '1',
-                  `cf_memo_no_reply` tinyint(4) NOT NULL default '0',
+                  `cf_memo_no_reply` tinyint(4) NOT NULL default '1',
                   `cf_memo_notice_board` varchar(255) default NULL,
                   `cf_memo_notice_memo` text default NULL,
                   `cf_memo_before_after` tinyint(4) NOT NULL,
