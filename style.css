@@ -24,3 +24,6 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
           font-size: 14px;
     }
 }
+
+.table-borderless td, th {
+  border: 0 !important;} 
