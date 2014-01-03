@@ -44,7 +44,6 @@ function get_paging($write_pages, $cur_page, $total_page, $url, $add="")
     if ($cur_page < $total_page) {
         $str .= "<li><a href='$url$total_page{$add}'>¸Ç³¡</a></li>";
     }
-    $str .= "";
 
     return $str;
 }
@@ -97,7 +96,6 @@ function goto_url($url)
     } else {
         echo "<script type='text/javascript'> location.replace('$url'); </script>; ";
     }
-
     exit;
 }
 
@@ -245,7 +243,7 @@ function get_file($bo_table, $wr_id)
 {
     global $g4, $qstr;
 
-    $file["count"] = 0;
+    $file['count'] = 0;
     $sql_select = " bf_no, bf_download, bf_filesize, bf_file, bf_datetime, bf_width, bf_height, bf_type, bf_source, bf_content ";
     $sql = " select $sql_select from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' order by bf_no ";
     $result = sql_query($sql);
