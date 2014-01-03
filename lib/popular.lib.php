@@ -33,7 +33,7 @@ function popular($skin_dir='basic', $pop_cnt=7, $date_cnt=3, $bo_table='')
     {
         $list[$i] = $row;
         // 스크립트등의 실행금지
-        $list[$i][pp_word] = get_text($list[$i][pp_word]);
+        $list[$i][pp_word] = get_text($list[$i]['pp_word']);
     }
 
     ob_start();
