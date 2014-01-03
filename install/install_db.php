@@ -18,6 +18,8 @@ HEREDOC;
     exit;
 }
 
+error_reporting(E_ALL ^ E_NOTICE);
+
 $gmnow = gmdate("D, d M Y H:i:s") . " GMT";
 header("Expires: 0"); // rfc2616 - Section 14.21
 header("Last-Modified: " . $gmnow);
@@ -54,7 +56,7 @@ if (!$select_db) {
 ?>
 <html>
 <head>
-<meta http-equiv="content-type" content="text/html; charset=<?=$g4[charset]?>">
+<meta http-equiv="content-type" content="text/html; charset=<?=$g4['charset']?>">
 <title>그누보드4 설치 (3/3) - DB</title>
 <style type="text/css">
 .body {
