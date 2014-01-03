@@ -271,13 +271,13 @@ mysql_query($sql) or die(mysql_error() . "<p>" . $sql);
 
 //-------------------------------------------------------------------------------------------------
 // 약관, 개인정보 파일에서 읽어오기
-$service=addslashes(implode("", file("../company/service.html")));
-$priv=addslashes(implode("", file("../company/privacy.html")));
+$service=addslashes(implode("", file("./service.html")));
+$priv=addslashes(implode("", file("./privacy.html")));
 
-$priv1=addslashes(implode("", file("../company/priv1.txt")));
-$priv2=addslashes(implode("", file("../company/priv2.txt")));
-$priv3=addslashes(implode("", file("../company/priv3.txt")));
-$priv4=addslashes(implode("", file("../company/priv4.txt")));
+$priv1=addslashes(implode("", file("./priv1.txt")));
+$priv2=addslashes(implode("", file("./priv2.txt")));
+$priv3=addslashes(implode("", file("./priv3.txt")));
+$priv4=addslashes(implode("", file("./priv4.txt")));
 
 $sql = " insert into $g4[config_reg_table]
             set 
