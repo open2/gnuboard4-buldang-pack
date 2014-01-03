@@ -1,6 +1,8 @@
 <?
 set_time_limit(0);
 
+error_reporting(E_ALL ^ E_NOTICE);
+
 $g4['path'] = "..";
 include_once ("../config.php");
 include_once ("../config.2.php");
@@ -17,8 +19,6 @@ if (file_exists("../dbconfig.php")) {
 HEREDOC;
     exit;
 }
-
-error_reporting(E_ALL ^ E_NOTICE);
 
 $gmnow = gmdate("D, d M Y H:i:s") . " GMT";
 header("Expires: 0"); // rfc2616 - Section 14.21
