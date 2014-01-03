@@ -34,7 +34,7 @@ HEREDOC;
 ?>
 <html>
 <head>
-<meta http-equiv="content-type" content="text/html; charset=<?=$g4[charset]?>">
+<meta http-equiv="content-type" content="text/html; charset=<?=$g4['charset']?>">
 <title>그누보드4 설치 (2/3) - 설정</title>
 <style type="text/css">
 <!--
