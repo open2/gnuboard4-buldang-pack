@@ -1,40 +1,50 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE HTML>
+<html lang="ko">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
-<title>open code : </title>
-<style type="text/css">
-<!--
-#wrap{clear:both; width:660px;margin:0px auto; text-align:left}
-	.logo_01{border-bottom:1px solid #d4d4d4; margin-top:50px; margin-bottom:20px;}
-	.time_01{margin-top:12px;margin-bottom:12px;font-family:Verdana;font-size:18pt;color:#FF6DA7;font-weight: bold;}
-		.time_01 .small{font-size:10px;}
-	.phone_01{font-family:Verdana;font-size:18pt;color:#57A9CF;font-weight: bold;}
+<?
+// 이곳에서 설정을 합니다.
+$g4['title'] = "On PM - 시스템 점검중입니다";
+$g4['path'] = ".";
+$g4['charset'] = "euc-kr";
+?>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="content-type" content="text/html;charset=<?=$g4['charset']?>">
+<title><?=$g4['title']?></title>
 
--->
-</style>
+<link rel="stylesheet" href="<?=$g4['path']?>/js/bootstrap/css/bootstrap.min.css?bver=<?=$g4[bver]?>" type="text/css" media="screen" title="no title" charset="<?=$g4[charset]?>">
+<link rel="stylesheet" href="<?=$g4['path']?>/js/font-awesome/css/font-awesome.min.css?aver=<?=$g4[aver]?>" type="text/css" media="screen" title="no title" charset="<?=$g4[charset]?>">
+<!--[if lt IE 7]>
+    <script src="<?=$g4['path']?>/js/font-awesome/css/font-awesome-ie7.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="<?=$g4['path']?>/style.css?sver=<?=$g4[sver]?>" type="text/css">
+
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="<?=$g4['path']?>/js/bootstrap/js/bootstrap.min.js"></script>
+<!--[if lt IE 9]>
+    <script src="<?=$g4['path']?>/js/html5shiv/html5shiv.js"></script>
+    <script src="<?=$g4['path']?>/js/respond/respond.min.js"></script>
+<![endif]-->
 </head>
 
 <body>
-<div id="wrap">
-<!--
-	<div class="logo_01"><img src="http://www.opencode.co.kr/img/logo.jpg" alt="로고" width="190" height="82" /></div>
--->
-	<div><img src="img/on_01.gif" width="469" height="116" alt="정기점검중입니다 : )" /></div>
-	<div class="time_01"><img src="img/on_02.gif" width="130" height="25" alt="예정점검시간"  align=absmiddle /> 
-		<!-- 공사기간 -->
-		<span class="small">2012-</span>
-		6-23 12:00  ~  
-		<span class="small">2012-</span>
-		6-24 12:00
-		<!-- 공사기간 -->
-	</div>
-	<div class="phone_01"><img src="img/on_03.gif" width="39" height="27" alt="전화번호" align=absmiddle />
-		<!-- 전화번호 -->
-		test@gmail.com
-		<!-- 전화번호 -->
-	</div>
+<a class="sr-only" href="#content"><?=$g4['title']?></a>
 
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h1><span class="glyphicon glyphicon-info-sign"></span> 정기점검중입니다 :)</h1>
+        <p>안정적이고 더 나은 서비스를 위하여 정기점검을 실시합니다.<br>
+        불편을 드려 죄송합니다.
+        </p>
+    </div>
+    <div class="panel-body">
+        <div><h4><span class="glyphicon glyphicon-calendar"></span> <strong>점검 일정</strong></h4>
+         2013/12월1일 01시00분~2013/12월 2일 01시00분
+        </div>
+        <div><h4><span class="glyphicon glyphicon-phone-alt"></span> <strong>긴급 연락</strong></h4>
+         opencode@opencode.co.kr
+        </div>
+    </div>
 </div>
+
 </body>
 </html>
