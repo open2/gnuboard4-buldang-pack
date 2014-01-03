@@ -1741,7 +1741,7 @@ function bad_tag_convert($code)
 
     //return preg_replace("/\<([\/]?)(script|iframe)([^\>]*)\>/i", "&lt;$1$2$3&gt;", $code);
     // script 나 iframe 태그를 막지 않는 경우 필터링이 되도록 수정
-    return preg_replace("/\<([\/]?)(script|iframe|form)([^\>]*)\>?/i", "&lt;$1$2$3&gt;", $code);
+    return preg_replace("/\<([\/]?)(script|iframe|form|applet)([^\>]*)\>?/i", "&lt;$1$2$3&gt;", $code);
 }
 
 
