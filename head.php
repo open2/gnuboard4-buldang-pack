@@ -140,6 +140,10 @@ echo popup("alert", "popup_alert")
                 <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_req">불당팩 버그 및 개선</a></li>
                 <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_qna">불당팩 묻고답하기</a></li>
                 <li class="divider"></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=yc4_pack_download">영카트4s 불당팩</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=yc4_tips">영카트4s 팁</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=yc4_pack_qna">영카트4s 묻고답하기</a></li>
+                <li class="divider"></li>
                 <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gblog">gblog 불당버젼</a></li>
                 <li><a href="<?=$g4[path]?>/blog/" target=new>gblog 테스트</a></li>
                 <li class="divider"></li>
