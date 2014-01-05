@@ -10,6 +10,37 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 </div>
 </div><!-- 중간의 메인부 끝 -->
 
+<a href="#" class="btn btn-default back-to-top">Back to Top</a>
+<style>
+.back-to-top {
+    position: fixed;
+    bottom: 2em;
+    right: 10px;
+    padding: 1em;
+    display: none;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+    var offset = 350;   // 수직으로 어느정도 움직여야 버튼이 나올까?
+    var duration = 0;   // top으로 이동할때까지의 animate 시간 (밀리세컨드, default는 400. 예제의 기본은 500)
+    $(window).scroll(function() {
+        if ($(this).scrollTop() > offset) {
+            $('.back-to-top').fadeIn(duration);
+        } else {
+            $('.back-to-top').fadeOut(duration);
+        }
+    });
+    
+    $('.back-to-top').click(function(event) {
+        event.preventDefault();
+        $('html, body').animate({scrollTop: 0}, duration);
+        return false;
+    })
+});
+</script>
+
+
 <!-- 페이지 하단부 footer -->
 <footer class="footer-wrapper col-sm-offset-2" role="contentinfo" style="margin-top:20px;">
 <div class="container" id="footer">
