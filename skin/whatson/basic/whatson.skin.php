@@ -24,7 +24,7 @@ var list_delete_php = "whatson_delete_all.php";
         <ul class="list-unstyled">
         <?
         if (count($list) == 0) {
-            echo "<li><a href='#'>³»¿ë¾ø½¿</a></li>";
+            echo "<li>³»¿ë¾ø½¿</li>";
         } else {
 
             for ($i=0; $i<count($list); $i++) {
