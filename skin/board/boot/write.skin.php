@@ -393,6 +393,3 @@ function showImageInfo() {
     }
 }
 </script>
-
-<script type="text/javascript" src="<?="$g4[path]/js/board.js"?>"></script>
-<script type="text/javascript"> window.onload=function() { drawFont(); } </script>
