@@ -117,6 +117,8 @@ if ($wr_id)
                 }
             }
 
+            $ss_name = 'ss_secret_'.$bo_table.'_'.$write['wr_num'];
+
             if (!$is_owner)
             {
                 //$ss_name = "ss_secret_{$bo_table}_{$wr_id}";
