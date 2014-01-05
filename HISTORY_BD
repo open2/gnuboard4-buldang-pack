@@ -1,3 +1,895 @@
+1.2.4 (2014.01.05)
+
+1.2.4 버젼부터는 실제 개발에 사용하셔도 됩니다.
+1.2.5는 좀 오래 걸리지만 사용자 부분이 아니므로 사용에 큰 문제는 없습니다.
+
+왜???
+1. 빌더 기능 들어 갑니다.
+2. 관리자 페이지 부트스트랩으로 변경 됩니다.
+
+*** 1.2.0 변경사항 입니다 ***
+기존의 불당팩과 차이가 좀~~~ 많습니다. 
+1.2.x 버젼은 CSS가 기본 버젼과 완전히 다른 것 입니다...
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_pack&wr_id=1720
+
+*** known issues ***
+1. sideview의 auto close (너무 어렵다능... stackoverflow의 개발자들도 명확한 답을 못 내놓고 있습니다)
+2. cheditor의 폰트 크기가 12px로 고정 된 것
+
+*** 기타 참조 ***
+1. 그누보드 5에 사용된 htmlpurifier의 경우 사용을 유보 합니다.
+2. 그누보드 4.37.01에 적용된 도로명 주소는 업데이트 하지 않습니다. 꼭 써야 하는 것 아닙니다.
+3. 네이버 신디케이션? 안합니다. 동접이 많은 사이트는 네이버 친화적일수록 더 머리가 아픕니다.
+
+*** DB 추가 ***
+
+CREATE TABLE IF NOT EXISTS `g4_admin_log` (
+  `log_no` int(11) NOT NULL AUTO_INCREMENT,
+  `log_datetime` datetime NOT NULL,
+  `log` text NOT NULL,
+  PRIMARY KEY (`log_no`)
+)
+
+ALTER TABLE `g4_board` ADD `bo_list_scrap` INT( 11 ) NOT NULL AFTER `bo_list_view` 
+
+ALTER TABLE `g4_member` ADD `mb_email_status` TINYINT( 4 ) NOT NULL ,
+ADD `mb_kakao_id` VARCHAR( 255 ) NOT NULL ,
+ADD `mb_line_id` VARCHAR( 255 ) NOT NULL 
+
+tail.php
+
+bbs/board.php
+
+cheditor5/cheditor.js
+
+skin/board/boot/view.skin.php
+skin/board/boot/write.skin.php
+
+skin/memo/basic/memo2_view.skin.php 
+
+
+- 비회원 비밀글 읽기 오류 수정
+bbs/board.php
+
+- font 색상 버튼 살리고 이텔릭 폰트 기능 죽이고
+cheditor5/cheditor.js
+
+- back to top 버튼 기능 
+tail.php
+
+- 폰트 크기 줄어드는 문제
+skin/board/boot/view.skin.php
+skin/board/boot/write.skin.php
+skin/memo/basic/memo2_view.skin.php
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_pack_req&wr_id=1515
+
+
+1.2.3
+
+on_pm.php
+
+install/*
+
+lib/common.lib.php
+lib/visit.lib.php
+
+- install 프로그램 정비
+install/*
+
+- 정기점검 화면 부트화 (코드정리)
+on_pm.php
+
+- 그누보드 4.37.01 보안업데이트
+lib/common.lib.php
+: applet 태그를 이용한 취약점 해결 (i2sec 김동현님께서 알려 주셨습니다.) 
+lib/common.lib.php 
+            return preg_replace("/\]*)\>?/i", "<$1$2$3>", $code); 
+
+- 그누5 참조 업데이트
+lib/visit.lib.php
+
+
+1.2.2
+
+style.css
+tail.sub.php
+
+adm/* (굉장히 많으므로...)
+
+bbs/ajax_sideview.php
+bbs/board.php
+bbs/current_connect.php
+bbs/memo2_config_update.php
+bbs/new.php
+bbs/poll_form.php
+bbs/poll_result.php
+bbs/profile.php
+bbs/search.php
+
+js/common.js
+js/sideview.js (삭제)
+
+lib/common.lib.php
+
+modules/attendance.php
+modules/point_ranking.php
+
+plugin/recommend/index.php
+
+skin/board/boot/list.skin.php
+skin/board/boot/view.skin.php
+
+skin/good_list/basic/good_list.skin.php
+
+skin/member/basic/register_form.skin.php
+skin/member/basic/scrap.skin.php
+
+skin/memo/basic/memo2.head.skin.php
+skin/memo/basic/memo2_config.skin.php
+skin/memo/basic/memo2_list.skin.php
+skin/my_good/basic/my_good.skin.php
+skin/recycle/basic/recycle.skin.php
+skin/singo/basic/singo_search.skin.php
+
+
+- scrap 팝업창 크기변경 (xs로)
+js/common.js
+
+- 코멘트 바로가기 버튼추가
+skin/board/boot/view.skin.php
+
+- 쪽지 6 화면 부트화 (미작업 부분)
+bbs/memo2_config_update.php
+skin/memo/basic/memo2.head.skin.php
+skin/memo/basic/memo2_config.skin.php
+skin/memo/basic/memo2_list.skin.php
+
+- table-borderless style 추가
+style.css
+
+- sideview.js 코드 삭제 (이제는 필요없는...)
+adm/* (굉장히 많으므로...)
+bbs/board.php
+bbs/current_connect.php
+bbs/new.php
+bbs/poll_form.php
+bbs/poll_result.php
+bbs/profile.php
+bbs/search.php
+js/sideview.js (삭제)
+modules/attendance.php
+modules/point_ranking.php
+plugin/recommend/index.php
+skin/good_list/basic/good_list.skin.php
+skin/member/basic/register_form.skin.php
+skin/member/basic/scrap.skin.php
+skin/memo/basic/memo2.head.skin.php
+skin/my_good/basic/my_good.skin.php
+skin/recycle/basic/recycle.skin.php
+skin/singo/basic/singo_search.skin.php
+
+- style 오류 수정
+skin/board/boot/list.skin.php 
+
+- bootstrap sideview (ajax)
+tail.sub.php
+bbs/ajax_sideview.php
+lib/common.lib.php
+
+- js escape/unescape php 함수추가
+lib/b4.lib.php
+
+
+1.2.1 
+
+tail.php
+
+bbs/my_menu_add_script.php
+bbs/my_menu_edit.php
+bbs/my_menu_outlogin_script.php
+bbs/search.php
+
+js/common.js
+
+skin/good_list/basic/good_list.skin.php
+
+skin/myon/basic/myon.skin.php
+
+skin/member/basic/password.skin.php
+skin/member/basic/scrap.skin.php
+skin/member/basic/scrap_popin.skin.php
+
+skin/poll/basic/poll.skin.php
+
+
+- 크롬에서 버튼 겹침.
+skin/poll/basic/poll.skin.php
+
+- sms4 흔적 삭제
+js/common.js
+
+- my_menu 부트화
+bbs/my_menu_add_script.php
+bbs/my_menu_edit.php
+bbs/my_menu_outlogin_script.php
+skin/myon/basic/myon.skin.php
+
+- 스크랩 화면 모바일화
+skin/member/basic/scrap.skin.php
+
+- tail 모바일 화면 조금 수정
+tail.php
+
+- 검색결과 게시판별 갯수오류 수정 + 검색결과값에서 태그 없애기
+bbs/search.php
+
+- sideview를 ajax popover로 변경
+
+- 쪽지 6 부트화 미적용 화면 부트화
+
+- 보기에서 폰트가 12px로 바뀌는 오류
+
+- 베스트글 모바일 뷰 수정
+skin/good_list/basic/good_list.skin.php
+
+- 스크랩화면 스타일 수정
+skin/member/basic/scrap_popin.skin.php
+
+- 패스워드 입력화면 부트화
+skin/member/basic/password.skin.php
+
+
+1.2.0
+
+=== known bugs ===
+
+1. 설치가 개판 입니다. 2번째 페이지에 글짜도 깨어져 나갑니다. 당분간은 그냥 써주세요. =..=...
+
+2. 관리자는 부트화 안했습니다. 시간이 부족해서 입니다.
+
+3. 내용/코멘트의 글자가 로딩후에 12px로 바뀝니다. 원인을 못 찾고 있습니다. ㅠㅠ...
+
+5. UTF-8 버젼은 소스가 안정되는 1-2월중에 변환되어 제공될 것 입니다. 변환도 일이라서...
+
+6. 새글용 폰트어썸이 안이쁩니다. 사람들이 폰트추가 issue 오픈했으니, 다음버젼에 반영될 듯 합니다.
+
+7. 사이드뷰가 지 맘대로 날아다닙니다. popover ajax로 변경할 겁니다.
+
+=== 불당팩 기본 구성요소들 ===
+
+Jquery 1.10.1
+Bootstrap 3.0.3 http://getbootstrap.com/ 
+* LESS 수정사항 http://opencode.co.kr/bbs/board.php?bo_table=gnu4_pack&wr_id=1700
+Font-awesome 4.0.3 http://fontawesome.io/
+html5 Shiv 3.7.0 https://github.com/aFarkas/html5shiv
+respond 1.4.2 https://github.com/scottjehl/Respond
+
+== DB 추가 ===
+
+CREATE TABLE IF NOT EXISTS `g4_admin_log` (
+  `log_no` int(11) NOT NULL AUTO_INCREMENT,
+  `log_datetime` datetime NOT NULL,
+  `log` text NOT NULL,
+  PRIMARY KEY (`log_no`)
+)
+
+ALTER TABLE `g4_board` ADD `bo_list_scrap` INT( 11 ) NOT NULL AFTER `bo_list_view` 
+
+ALTER TABLE `g4_member` ADD `mb_email_status` TINYINT( 4 ) NOT NULL ,
+ADD `mb_kakao_id` VARCHAR( 255 ) NOT NULL ,
+ADD `mb_line_id` VARCHAR( 255 ) NOT NULL 
+
+
+=== 수정/개선 사항 ===
+
+1. 개인정보보호법을 지키도록 수정을 했습니다.
+관리자 권한변경 내역은 log에 남기고, 일정시간후에 비밀번호 변경을 요청하게 하는 것 등을 보완 했습니다.
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=996
+
+2. 베스트글 선정기준에 scrap을 추가 했습니다.
+
+3. 관리자 보안 강화를 위해 관리자 로그인은 모두 log를 db에 기록 합니다.
+
+4. SMS4 등 사용자도 드물고 앱에 문제가 될 것 같은 프로그램은 대부분 삭제 했습니다.
+
+5. 그누보드 업그레이드
+
+6. 앱버젼 대응을 위한 코드정리 (진행중)
+
+7. 부트스트랩 적용 
+ 
+
+=== 알파 및 베타버젼의 수정사항 ===
+
+거의 모든 파일이 변경 되었다 생각하는 것이 편합니다. 뭘 고쳤는지 개발자도 헷갈립니다.
+
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_pack&wr_id=1696
+
+1.2.0 베타 6
+Jquery 1.10.1
+Bootstrap 3.0.3 http://getbootstrap.com/
+Font-awesome 4.0.3 http://fontawesome.io/
+html5 Shiv 3.7.0 https://github.com/aFarkas/html5shiv
+respond 1.4.2 https://github.com/scottjehl/Respond
+
+==
+
+DB 추가
+
+CREATE TABLE IF NOT EXISTS `g4_admin_log` (
+  `log_no` int(11) NOT NULL AUTO_INCREMENT,
+  `log_datetime` datetime NOT NULL,
+  `log` text NOT NULL,
+  PRIMARY KEY (`log_no`)
+)
+
+ALTER TABLE `g4_board` ADD `bo_list_scrap` INT( 11 ) NOT NULL AFTER `bo_list_view` 
+
+ALTER TABLE `g4_member` ADD `mb_email_status` TINYINT( 4 ) NOT NULL ,
+ADD `mb_kakao_id` VARCHAR( 255 ) NOT NULL ,
+ADD `mb_line_id` VARCHAR( 255 ) NOT NULL 
+
+1. 개인정보보호법 규정에 따라 관리자 권한변경 내역은 log에 남기도록 했습니다.
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=996
+
+2. 베스트글 선정기준에 scrap을 추가 했습니다.
+
+3. 관리자 보안 강화를 위해 관리자 로그인은 모두 log를 db에 기록 합니다.
+
+4. SMS4 등 사용자도 드물고 앱에 문제가 될 것 같은 것 삭제 (필요하면 나중에 다시 고민)
+
+5. 그누보드 업그레이드
+- 앱버젼 대응을 위한 코드정리 
+- html5shiv 추가 (html5 기능이 가능하게 하는 것. 3.7.0)
+- 기타 잔잔한 수정 
+
+common.php
+config.php
+config2.php
+head.php
+head.sub.php
+index.php
+memo.config.php
+style.css
+tail.php
+tail.sub.php
+on_pm.html (삭제)
+on_pm.php
+
+adm/admin.menu200.php
+adm/admin.menu900.php (삭제)
+adm/auth_update.php
+adm/auth_list_delete.php
+adm/board_form.php
+adm/board_form_update.php
+adm/boardgroup_form_update.php
+adm_boardgroup_list_update.php
+adm/sms_admin/* (삭제)
+adm/ssh_delete_spam.php
+adm/visit_search.php
+
+bbs/board.php
+bbs/good_view.php
+bbs/list.php
+bbs/login_check.php
+bbs/memo.php
+bbs/move.php
+bbs/my_good.php
+bbs/myon.php
+bbs/new.php
+bbs/password_change_request.php
+bbs/password_change_reset.php (신규)
+bbs/point.php
+bbs/readtime_* (삭제)
+bbs/recycle_list.php
+bbs/register_form.php
+bbs/register_form_update.php
+bbs/scrap_delete.php
+bbs/scrap_popin_update.php
+bbs/search.php
+bbs/singo_search.php
+bbs/view.php
+bbs/view_comment.php
+bbs/visit_insert.inc.php
+bbs/write.php
+bbs/write_update.php
+
+cheditor5/cheditor.js
+cheditor5/template.xml
+
+company/* 
+
+js/b4.common.js
+js/common.js
+js/desktop.js
+js/bootstrap/*
+js/font-awesome/*
+js/html5shiv/html5shiv.js
+js/respond/respond.min.js
+js/압축/* (삭제)
+
+ 
+
+lib/b4.lib.php
+lib/common.lib.php
+lib/sms.lib.php (삭제)
+lib/visit.lib.php
+
+skin/connect/basic/*
+skin/connect/basic/*
+
+skin/member/basic/*
+
+skin/memo/basic/* (신규)
+
+skin/my_good/basic/*
+
+skin/myon/basic/*
+
+skin/new/basic/*
+
+skin/outlogin/basic/*
+
+skin/poll/basic/*
+
+skin/popular/board/popular.skin.php 
+
+skin/popup/alert/*
+
+skin/visit/basic/*
+
+skin/whatson/basic/*
+
+sms/* (삭제)
+
+
+=== 베타 7 ===
+
+- 코멘트 입력을 위한 로그인창 메시지 출력
+skin/board/boot/view_comment.skin.php
+
+- 잔잔한 버그 수정
+skin/board/boot/list.skin.php
+skin/board/boot/view.skin.php
+
+- 날짜표시방식 개선 (전년도는 연도만 표시)
+lib/b4.lib.php
+lib/common.lib.php
+
+- cheditor 메뉴줄을 반응형으로
+cheditor5/template.xml
+
+- move.php 스킨분리
+bbs/move.php
+skin/member/basic/move.skin.php
+
+- 게시글목록 list를 table responsive로 변경 (완전하지 않음. 이슈 open)
+skin/board/boot/list.skin.php
+
+
+=== 베타 6 ===
+
+- xs 이외에는 폰트 사이즈를 12px로 변경
+style.css
+
+- 포인트내역 부트화
+bbs/point.php
+skin/member/basic/point.skin.php
+
+- profile 정보 부트화
+skin/member/basic/profile.skin.php
+
+- formmail 부트화
+skin/member/basic/formmail.skin.php
+
+- 베스트글 버튼 콘트롤 수정
+bbs/good_view.php
+skin/board/boot/view.skin.php
+
+- memo 수정 반영
+memo.config.php
+bbs/memo.php
+
+- 쪽지 6 발신화면 수정
+skin/memo/basic/memo2.write.skin.php
+
+- boot 스킨 수정
+skin/board/boot/view_comment.skin.php
+skin/board/boot/write.skin.php
+
+- 검색기능 부트화
+bbs/search.php
+skin/search/basic/*
+
+=== 베타 5 ===
+
+- board/boot 목록 하단부 검색버튼 toggle
+skin/boot/list.skin.php
+
+- 마우스 올려 놓으면 메뉴가 열리게
+style.css
+http://opencode.co.kr/bbs/board.php?bo_table=css&wr_id=92
+
+- 신고글 부트화
+bbs/singo_search.php
+skin/singo/basic/*
+
+- 휴지통 목록 부트화
+bbs/recycle_list.php
+skin/recycle/basic/*
+
+- popup 오류시 아무것도 안하게 수정
+lib/popup.lib.php
+- redis 변수설정 오류 수정
+config.php
+
+- DB 필드추가 (mb_email_status, mb_kakao_id, mb_line_id)
+
+- cheditor 메뉴를 1줄로 (모바일을 위해...)
+cheditor5/template.xml
+
+- 신고화면 부트화
+skin/member/basic/singo_popin.skin.php
+
+- board/boot 스킨 쓰기화면 버튼 이동
+skin/board/boot/write.skin.php
+
+- cheditor 메뉴 변경 (모바일에서 메뉴 줄바꿈 안생기게)
+cheditor5/cheditor.js
+
+- css 버젼설정 추가
+config2.php
+head.sub.php
+
+- 부트스트랩 CSS 변경 (폰트 14로 변경)
+js/bootstrap/css/bootstrap.min.css
+
+- 스크랩 부트화 
+skin/member/basic/scrap.skin.php
+skin/member/basic/scrap_popin.skin.php
+
+- respond 1.4.2 업데이트
+js/respond/respond.min.js
+
+- latest/one.scrap.naver 스킨 부트화
+latest/one/*
+latest/scrap/*
+latest/naver/*
+
+- my_good 스킨 분리 (member 디렉토리에서) 및 부트화
+bbs/my_good.php
+skin/my_good/basic/*
+
+- myon 스킨 부트화
+skin/myon/basic/myon.skin.php
+
+- 투표스킨 버튼색 변경
+skin/poll/basic/poll/skin.php
+
+- 최신글 로직 변경/프로그램 개선
+adm/ssh_delete_spam.php
+bbs/new.php
+
+- 최신글 스킨 부트화
+skin/new/basic/*
+
+
+=== 베타 4 ===
+
+- latest/basic 스킨 부트화
+skin/latest/basic/*
+
+- whatson 스킨 부트화
+skin/whatson/basic/whatson.skin.php
+
+- 문자셋 오류 수정
+js/common.js
+
+- MyOn 부트화
+bbs/myon.php
+skin/myon/basic/myon.skin.php
+skin/myon/basic/tab.html (삭제)
+
+- 첨부파일 스타일 수정
+skin/board/boot/write.skin.php
+
+- typo
+skin/member/basic/login.skin.php
+
+- 비밀번호 확인 화면 부트화
+skin/member/basic/member_confirm.skin.php
+
+- responsive barnd logo (문제가 좀 있습니다...)
+head.php
+
+
+=== 베타 3 ===
+
+- 상단부 navbar에 로그인 메뉴 부착
+head.php
+http://opencode.co.kr/bbs/board.php?bo_table=css&wr_id=86
+
+- 빼먹은 /i 태그추가 (이거 때문에 이상한 어썸이 나옴)
+skin/board/boot/list.skin.php
+
+- tbody 태그 삭제
+skin/board/boot/list.skin.php
+
+- 빼먹은 /div 태그 추가
+tail.php
+
+
+=== 베타 2 ===
+
+- 하단 tail info 버튼 정렬오류 수정
+tail.php
+
+- 상단 네비바 search 버튼 안내려 오는 오류 수정
+head.php
+
+- boot 스킨 하단부 버튼 정렬 안되는 오류 수정
+skin/board/boot/list.skin.php
+
+- 현재접속자 스킨 반응형 안되는 오류 수정
+skin/connect/basic/current_connect.skin.php
+
+- jquery cookie 삭제 (쓸일이 없네요)
+head.sub.php
+js/jqueey-cookie/*
+
+
+=== 베타 1 ===
+
+- 코멘트 날짜뒤의 new.icon 붙이는거 삭제 (위치를 스킨으로 이동)
+bbs/view_comment.php
+
+- 게시판 나머지 화면 (반응형 안되는거 수정)
+skin/boot/*
+
+- type 오류수정
+tail.php
+skin/poll/basic/poll.skin.php
+skin/popular/board/popular.skin.php
+skin/visit/basic/visit.skin.php
+
+- 게시판 글쓰기 나올때 warn하는 스크립트 위치변경 (/html 태그안으로)
+bbs/write.php
+
+- 게시판 폭 관련. 100 이상은 뒤에 px 붙이게 함
+bbs/board.php
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=1015
+ 
+
+=== 알파 3 ===
+
+- 쪽지 6.0 알파 1
+skin/memo/basic/*
+skin/member/basic/에서 쪽지5 관련 파일은 모두 삭제함
+
+- outlogin skin 수정
+skin/outlogin/basic/outlogin.2.skin.php
+
+- 패스워드 변경주기 관련 코드 수정/스킨화 등등
+bbs/login_check.php
+bbs/password_change_request.php
+bbs/password_change_reset.php
+skin/member/basic/password_change_request.skin.php
+
+- 패스워드 8자 이상으로 + 관련 주의사항 추가 (KISA 강제사항)
+skin/member/basic/register_form.skin.php
+
+
+=== 알파 2 ===
+
+- 부트스트랩 alert 팝업
+head.php
+lib/b4.lib.php
+skin/popup/alert/*
+
+- respond 1.4.1
+js/respond/resond.min.js
+
+- jquery cookie 1.4.0
+head.sub.php
+js/jquery-cookie/*
+
+- font awesome 4.0.3
+js/font-awesome/*
+
+- 부트스트랩 3.0.3
+js/bootstrap/*
+
+- basic outlogin 스킨 수정 (모두 바꾸면 됩니다. 이미지 하나도 없슴)
+style.css
+
+skin/outlogin/basic/*
+http://stackoverflow.com/questions/20422540/when-screen-size-changed-to-narrow-check-box-height-change-to-high
+
+. 레이아웃 부트스트랩 오류 수정 (3.0에 맞춰서)
+head.php
+tail.php
+
+. 패스워드 찾기 스킨 (부트화)
+skin/member/basic/password_lost.skin.php
+
+. 로그인스킨 (부트화)
+skin/member/basic/login.skin.php
+
+. 게시글 목록. 보기에서 쓰기 버튼 나오게 (모바일 등을 위해서...이게 더 편함)
+bbs/list.php
+bbs/view.php
+
+. 게시판순위 인기글 스킨 부트화
+skin/popular/board/popular.skin.php
+
+=== 알파 1 ===
+
+- 스크랩 갯수를 베스트글에 포함
+adm/board_form.php
+adm/board_form_update.php
+bbs/scrap_delete.php
+bbs/scrap_popin_update.php
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=1000
+
+- redis sideview 코드 삭제 (헉...왜 남아 있지?)
+bbs/register_form_update.php
+
+- 투표스킨
+skin/poll/basic/*
+
+- 관리자 login 기록 남기기
+bbs/login_check.php
+lib/b4.lib.php
+
+- 관리권한 변경 log 남기기
+config.php
+adm/auth_update.php
+adm/auth_list_delete.php
+adm/board_form_update.php
+adm/boardgroup_form_update.php
+adm_boardgroup_list_update.php
+
+- 불당썸에서 쓰는 팝업창 script 수정 (화면 불안정 해결)
+js/b4.common.js
+js/common.js
+
+- 그누보드 4.36.28 (보안업데이트)
+bbs/register_form.php
+bbs/register_form_update.php
+4.36.28 (2013.11.14) 
+    :  회원아이콘 업로드 취약점 해결 (testtest2 님께서 알려주셨습니다.) 
+    :  XSS 취약점을 이용하여 관리자 이외의 패스워드를 변경할수 있는 오류를 수정 (testtest2 님께서 알려주셨습니다.) 
+
+        bbs/register_form.php 에서 아래 코드를 주석 처리하거나 삭제합니다. { 는 제외 
+            // if ($_POST['mb_password']) 
+
+        bbs/register_form_update.php 에 아래 코드를 추가합니다. 
+            if (preg_match("/[^0-9a-z_]+/i", $mb_id)) { 
+                alert("회원아이디는 영문자, 숫자, _ 만 사용할수 있습니다."); 
+            } 
+
+- 쪽지 resize 가능하게 수정 
+js/common.js
+
+- 방문자 스킨 부트스스랩화 + 오류수정
+skin/visit/basic/*
+
+- 방문자 lib에 관리자 $is_admin 변수추가
+lib/visit.lib.php
+
+- 개인정보수집 방침 등을 보여주는 화면 모두 정리 (삭제+정리+부트스트랩화+사용방법변경)
+company/* 
+
+- 현재접속자 스킨 부트스트랩으로 변경
+
+skin/connect/basic/*
+
+- IE6-8에서의 CSS3 대응
+js/respond/respond.min.js
+
+- 부트스트랩으로 레이아웃 변경 
+head.sub.php
+tail.sub.php
+head.php
+index.php
+tail.php
+
+- 페이징을 css스타일로 변경
+lib/common.lib.php
+
+- 관리안되는 js 압축코드 삭제
+js/압축/* (삭제)
+
+- 부트스트랩 3.0.0
+js/bootstrap/*
+
+- html5shiv 코드추가 (3.7.0 - 버젼은 js 열면 나옵니다)
+head.sub.php
+js/html5shiv/html5shiv.js
+
+- F5 이미지 우클릭 금지 코드, 별도의 js로 분리 (head.sub.php를 깔끔하게 + 앱 대응 준비)
+head.sub.php
+js/desktop.js
+
+- bit.ly 관련 코드 삭제
+config.php
+head.sub.php
+
+- SMS4 삭제
+config.2.php
+head.sub.php
+adm/admin.menu900.php (삭제)
+adm/sms_admin/* (삭제)
+install/install_db.php
+lib/sms.lib.php (삭제)
+sms/* (삭제)
+
+- 현재접속자 코드를 head.sub.php에서 common.php로 이동 (head.sub.php를 간략하게 하기 위해서)
+common.php
+head.sub.php
+
+- 실시간쪽지 관련 코드 삭제
+head.sub.php
+bbs/readtime_* (삭제)
+
+- filter 걸린 금칙어는 SEO에 들어가지 않게 수정
+bbs/visit_insert.inc.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/6247db8b9df353b7529b8ace905982891459e97d
+
+- SEO 데이터 생성을 함수로 분리, 비회원일때만 생성하게 수정
+head.sub.php
+lib/b4.lib.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/6e7ab00561e02fe83c3e0a53a3047ad895248fbd
+
+- 쪽지 온 것을 체크하는 부분을 함수로 분리 + 부하가 작은 SQL로 교체 (group by 없앰)
+head.sub.php
+lib/b4.lib.php
+
+- 그누보드 4.36.27
+adm/admin.menu200.php
+adm/visit_search.php
+
+4.36.27 (2013.09.06) 
+    :  접속자검색 기능 추가 
+
+- 그누보드 4.36.26
+skin/member/basic/ajax_mb_nick_check.php 
+
+4.36.26 (2013.08.30) 
+    :  회원가입시 별명에 특수문자를 사용하지 못하도록 수정 
+
+- 그누보드 4.36.24/25
+bbs/write_update.php
+lib/common.lib.php
+
+4.36.25 (2013.08.19) 
+    :  mysql_escape_string 는 PHP 5.3 부터 사용되지 않습니다. 
+        mysql_real_escape_string 로 대체합니다. 
+
+4.36.24 (2013.07.16) 
+    :  embed 태그의 allowscriptaccess 속성을 이용한 XSS 취약점 보완 
+
+- chimage에서 속도 걸리는 이슈 삭제 (TopScool님)
+lib/b4.lib.php
+
+- 그누보드 4.36.23 (2013.07.11) 
+    :  embed 태그의 allowscriptaccess 속성을 이용한 XSS 취약점 해결 (i2sec 최호성님께서 알려 주셨습니다.) 
+        AllowScriptAccess 의 값 always 를 제거하고 never 로 적용하여 플래시에서 스크립트가 실행되지 않도록 합니다. 
+lib/common.lib.php
+
+- 안쓰는 설정변수 삭제 (token_time)
+config.php
+
+- on_pm.html 확장자를 php로 변경
+lib/common.lib.php
+on_pm.html (삭제)
+on_pm.php
+
+- 그누보드 4.36.22
+http://sir.co.kr/bbs/board.php?bo_table=g4_pds&wr_id=8661
+cheditor 관련건은 오래전에 패치된 것 입니다. 반영하지 않습니다.
+
+
 1.1.14 (2013.06.08)
 
 1.1.14의 가장 큰 변경사항은 빠른 성능을 위해 redis 기능을  추가 한 것 입니다.
