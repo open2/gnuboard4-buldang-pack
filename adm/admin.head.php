@@ -4,237 +4,167 @@ if (!defined("_GNUBOARD_")) exit;
 $begin_time = get_microtime();
 
 include_once("$g4[path]/head.sub.php");
-
-function print_menu1($key, $no)
-{
-    global $menu;
-
-    $str = "<table width=130 cellpadding=1 cellspacing=0 id='menu_{$key}' style='position:absolute; display:none; z-index:1;' onpropertychange=\"selectBoxHidden('menu_{$key}')\"><colgroup><colgroup><colgroup width=10><tr><td rowspan=2 colspan=2 bgcolor=#EFCA95><table width=127 cellpadding=0 cellspacing=0 bgcolor=#FEF8F0><colgroup style='padding-left:10px'>";
-    $str .= print_menu2($key, $no);
-    $str .= "</table></td><td></td></tr><tr><td bgcolor=#DDDAD5 height=40></td></tr><tr><td width=4></td><td height=3 width=127 bgcolor=#DDDAD5></td><td bgcolor=#DDDAD5></td></tr></table>\n";
-
-    return $str;
-}
-
-
-function print_menu2($key, $no)
-{
-    global $menu, $auth_menu, $is_admin, $auth, $g4;
-
-    $str = "";
-    for($i=1; $i<count($menu[$key]); $i++)
-    {
-        if ($is_admin != "super" && (!array_key_exists($menu[$key][$i][0],$auth) || !strstr($auth[$menu[$key][$i][0]], "r")))
-            continue;
-
-        if ($menu[$key][$i][0] == "-")
-            $str .= "<tr><td class=bg_line{$no}></td></tr>";
-        else
-        {
-            $span1 = $span2 = "";
-            if (isset($menu[$key][$i][3]))
-            {
-                $span1 = "<span style='{$menu[$key][$i][3]}'>";
-                $span2 = "</span>";
-            }
-            $str .= "<tr><td class=bg_menu{$no}>";
-            if ($no == 2)
-                $str .= "&nbsp;&nbsp;<img src='{$g4[admin_path]}/img/icon.gif' align=absmiddle> ";
-            //$str .= "<a href='{$menu[$key][$i][2]}' style='color:#555500;'>{$span1}{$menu[$key][$i][1]}{$span2}</a></td></tr>";
-            if ($menu[$key][$i][3]) 
-                $target_link = "target='$menu[$key][$i][3]'"; 
-            else 
-                $target_link = ""; 
-            $str .= "<a href='{$menu[$key][$i][2]}' {$target_link} style='color:#555500;'>{$span1}{$menu[$key][$i][1]}{$span2}</a></td></tr>";
-            $auth_menu[$menu[$key][$i][0]] = $menu[$key][$i][1];
-        }
-    }
-
-    return $str;
-}
 ?>
-
-<script language="JavaScript">
-if (!g4_is_ie) document.captureEvents(Event.MOUSEMOVE)
-document.onmousemove = getMouseXY;
-var tempX = 0;
-var tempY = 0;
-var prevdiv = null;
-var timerID = null;
-
-function getMouseXY(e) 
-{
-    if (g4_is_ie) { // grab the x-y pos.s if browser is IE
-        tempX = event.clientX + document.body.scrollLeft;
-        tempY = event.clientY + document.body.scrollTop;
-    } else {  // grab the x-y pos.s if browser is NS
-        tempX = e.pageX;
-        tempY = e.pageY;
-    }  
-
-    if (tempX < 0) {tempX = 0;}
-    if (tempY < 0) {tempY = 0;}  
-
-    return true;
-}
-
-function imageview(id, w, h)
-{
-
-    menu(id);
-
-    var el_id = document.getElementById(id);
-
-    //submenu = eval(name+".style");
-    submenu = el_id.style;
-    submenu.left = tempX - ( w + 11 );
-    submenu.top  = tempY - ( h / 2 );
-
-    selectBoxVisible();
-
-    if (el_id.style.display != 'none')
-        selectBoxHidden(id);
-}
-
-function help(id, left, top)
-{
-    menu(id);
-
-    var el_id = document.getElementById(id);
-
-    //submenu = eval(name+".style");
-    submenu = el_id.style;
-    submenu.left = tempX - 50 + left + 'px';
-    submenu.top  = tempY + 15 + top + 'px';
-
-    selectBoxVisible();
-
-    if (el_id.style.display != 'none')
-        selectBoxHidden(id);
-}
-
-// TEXTAREA 사이즈 변경
-function textarea_size(fld, size)
-{
-	var rows = parseInt(fld.rows);
-
-	rows += parseInt(size);
-	if (rows > 0) {
-		fld.rows = rows;
-	}
-}
-</script>
-
-<script type="text/javascript" src="<?=$g4['path']?>/js/common.js"></script>
-<script language="JavaScript">
-var save_layer = null;
-function layer_view(link_id, menu_id, opt, x, y)
-{
-    var link = document.getElementById(link_id);
-    var menu = document.getElementById(menu_id);
-
-    //for (i in link) { document.write(i + '<br/>'); } return;
-
-    if (save_layer != null)
-    {
-        save_layer.style.display = "none";
-        selectBoxVisible();
-    }
-
-    if (link_id == '')
-        return;
-
-    if (opt == 'hide')
-    {
-        menu.style.display = 'none';
-        selectBoxVisible();
-    }
-    else
-    {
-        x = parseInt(x);
-        y = parseInt(y);
-        menu.style.left = get_left_pos(link) + x + 'px';
-        menu.style.top  = get_top_pos(link) + link.offsetHeight + y + 'px';
-        menu.style.display = 'block';
-    }
-
-    save_layer = menu;
-}
-</script>
-
-<link rel="stylesheet" href="<?=$g4['admin_path']?>/admin.style.css" type="text/css">
-<style>
-.bg_menu1 { height:22px; 
-            padding-left:15px; 
-            padding-right:15px; } 
-.bg_line1 { height:1px; background-color:#EFCA95; } 
-
-.bg_menu2 { height:22px; 
-            padding-left:25px; } 
-.bg_line2 { background-image:url('<?=$g4['admin_path']?>/img/dot.gif'); height:3px; } 
-.dot {color:#D6D0C8;border-style:dotted;}
-
-#csshelp1 { border:0px; background:#FFFFFF; padding:6px; }
-#csshelp2 { border:2px solid #BDBEC6; padding:0px; }
-#csshelp3 { background:#F9F9F9; padding:6px; width:200px; color:#222222; line-height:120%; text-align:left; }
-</style>
-
-<body leftmargin=0 topmargin=0>
+<body>
 <a name='gnuboard4_admin_head'></a>
-<table width=1004 cellpadding=0 cellspacing=0 border=0>
-<colgroup width=180>
-<colgroup>
-<tr bgcolor=#E3DCD2 height=70>
-    <td colspan=2 onmouseover="layer_view('','','','','')"><a href='<?=$g4['admin_path']?>/'><img src='<?=$g4['admin_path']?>/img/logo.gif' border=0></a></td>
-    <td>
-        <?
-        foreach($amenu as $key=>$value)
-        {
-            $href1 = $href2 = "";
-            if ($menu["menu{$key}"][0][2])
-            {
-                $href1 = "<a href='".$menu["menu{$key}"][0][2]."'>";
-                $href2 = "</a>";
-            }
-            echo "{$href1}<img src='$g4[admin_path]/img/menu{$key}.gif' border=0 id='id_menu{$key}' onmouseover=\"layer_view('id_menu{$key}', 'menu_menu{$key}', 'view', -2, 5);\">{$href2}&nbsp; ";
-            echo print_menu1("menu{$key}", 1);
-        }
-        ?>
-    </td>
-</tr>
-<tr><td colspan=3 bgcolor=#C3BBB1 height=1></td></tr>
-<tr><td colspan=3 bgcolor=#E5E5E5 height=2></td></tr>
-<tr onmouseover="layer_view('','','','','')">
-    <td><a href='<?=$g4['path']?>/'><img src='<?=$g4['admin_path']?>/img/home.gif' border=0></a><a href='<?=$g4['bbs_path']?>/logout.php'><img src='<?=$g4['admin_path']?>/img/logout.gif' border=0></a></td>
-    <td rowspan=2 width=1 bgcolor=#DBDBDB></td>
-    <td bgcolor=#F8F8F8 align=right>
-        <img src='<?=$g4['admin_path']?>/img/navi_icon.gif' align=absmiddle> 
-        &nbsp;<a href='<?=$g4['admin_path']?>/'>Admin</a> > 
-        <? 
-        $tmp_menu = "";
-        if (isset($sub_menu))
-            $tmp_menu = substr($sub_menu, 0, 3);
-        if (isset($menu["menu{$tmp_menu}"][0][1]))
-        {
-            if ($menu["menu{$tmp_menu}"][0][2])
-            {
-                echo "<a href='".$menu["menu{$tmp_menu}"][0][2]."'>";
-                echo $menu["menu{$tmp_menu}"][0][1];
-                echo "</a> > ";
-            }
-            else
-                echo $menu["menu{$tmp_menu}"][0][1]." > ";
-        }
-        ?>
-        <?=$g4['title']?> <span class=small>: <?=$member['mb_id']?>님</span>&nbsp;&nbsp;</td>
-</tr>
-<tr onmouseover="layer_view('','','','','')">
-    <td valign=top>
-        <table width=180 cellpadding=0 cellspacing=0>
-        <?
-        echo "<tr><td><img src='$g4[admin_path]/img/title_menu{$tmp_menu}.gif'></td></tr>";
-        echo print_menu2("menu{$tmp_menu}", 2);
-        ?>
-        </table><br>
-    </td>
-    <td valign=top style='padding:10px;'>
+
+<header class="header-wrapper"><!-- 상단 header 시작 -->
+<div class="container">
+
+<div class="navbar navbar-default" role="navigation">
+<div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header col-sm-2">
+        <button type="button" class="btn btn-default navbar-toggle" data-toggle="collapse" data-target=".navbar-top-menu-collapse">
+            <i class="glyphicon glyphicon-list"></i>
+        </button>
+        <a class="navbar-brand hidden-xs" href="<?=$g4['admin_path']?>/">
+        <img src="<?=$g4[path]?>/images/logo_opencode.gif" align=absmiddle alt="brand logo">
+        </a>
+        <a class="navbar-brand navbar-toggle pull-left" href="<?=$g4['path']?>/" style="border:0;margin-bottom:0;">
+        <img src="<?=$g4[path]?>/images/logo_opencode.gif" alt="brand logo" style="width:120px;">
+        </a>
+    </div>
+    <div class="pull-right">
+        <div class="btn-toolbar">
+            <div class="btn-group">
+                <a data-placement="bottom" data-original-title="E-mail" data-toggle="tooltip" class="btn btn-default btn-sm">
+                  <i class="fa fa-envelope"></i>
+                  <span class="label label-warning">5</span>
+                </a>
+                <a data-placement="bottom" data-original-title="Messages" href="#" data-toggle="tooltip" class="btn btn-default btn-sm">
+                  <i class="fa fa-comments"></i>
+                  <span class="label label-danger">4</span>
+                </a>
+            </div>
+              <div class="btn-group">
+                <a data-placement="bottom" data-original-title="Document" href="#" data-toggle="tooltip" class="btn btn-default btn-sm">
+                  <i class="fa fa-file"></i>
+                </a>
+                <a data-toggle="modal" data-original-title="Help" data-placement="bottom" class="btn btn-default btn-sm" href="#helpModal">
+                  <i class="fa fa-question"></i>
+                </a>
+              </div>
+              <div class="btn-group">
+                <a href="<?=$g4[bbs_path]?>/logout.php" data-toggle="tooltip" data-original-title="Logout" data-placement="bottom" class="btn btn-default btn-sm">
+                  <i class="fa fa-power-off"></i>
+                </a>
+              </div>
+            </div>
+          </div><!-- /.topnav -->
+          
+    <div class="collapse navbar-collapse navbar-top-menu-collapse col-sm-7">
+    <ul class="nav navbar-nav">
+        <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=qna">자유게시판</a></li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">토크 <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=notice">공지</a></li>
+                <li class="divider"></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=g4_100">그누보드100일완성</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=g4_books">그누보드참고서</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=sitetips">사이트개발운영</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=biz">비즈니스참고자료</a></li>
+                <li class="divider"></li>
+                <li><a href="<?=$g4[bbs_path]?>/good_list.php">베스트글</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/new.php">최근게시글</a></li>
+                <li class="divider"></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=test">테스트</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=test2">테스트2</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">개발팁 <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=linux_tips">Linux</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=virtual">가상화</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=apache_tips">Apache</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=mysql_tips">MySQL</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=mariadb_tips">Maria DB</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=nosql">NoSQL</a></li>
+                <li class="divider"></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=css">CSS/부트스트랩</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=php_tips">PHP</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=jquery_tips">jQuery</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=javascript_tips">Java Script</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=ajax">AJAX</a></li>
+                <li class="divider"></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=html_tips">HTML</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=html5_tips">HTML5</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=other_tips">기타 팁들</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=cheditor">cheditor(상용)</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">그누4 <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_turning">그누보드4 튜닝</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_turning2">그누보드4 튜닝(비공개)</a></li>
+                <li class="divider"></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=memo4">쪽지5</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=thumb">불당썸/Resize</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=layout">불당빌더(100%수동빌더)</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=g4_recycle">휴지통/Recycle</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_unicro">유니크로장터/게시판</a></li>
+                <li class="divider"></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_skin">그누보드스킨</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_tips">그누보드팁</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_qna">그누보드 묻고 답하기</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">App <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=and_talk">안드로이드 게시판</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=and_tip">안드로이드 팁</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=and_pds">안드로이드 자료실</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=webapp">웹앱</a></li>
+            </ul>
+        </li>
+
+        <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">불당팩 <b class="caret"></b></a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack">불당팩다운로드</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_book">불당팩 매뉴얼</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_skin">불당팩 스킨</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_req">불당팩 버그 및 개선</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_qna">불당팩 묻고답하기</a></li>
+                <li class="divider"></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=yc4_pack_download">영카트4s 불당팩</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=yc4_tips">영카트4s 팁</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=yc4_pack_qna">영카트4s 묻고답하기</a></li>
+                <li class="divider"></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gblog">gblog 불당버젼</a></li>
+                <li><a href="<?=$g4[path]?>/blog/" target=new>gblog 테스트</a></li>
+                <li class="divider"></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=club2">클럽2</a></li>
+                <li><a href="$g4[path]?>/club/">클럽2 테스트</a></li>
+            </ul>
+        </li>
+        <li><a href="<?=$g4[plugin_path]?>/attendance/attendance.php">출석</a></li>
+    </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+</div>
+</header>
+
+<!-- 중간의 메인부 시작 -->
+<div role="main" class="container">
+<div class="row">
+
+<!-- 왼쪽 side 시작 -->
+<div class="col-sm-2 visible-sm visible-md visible-lg">
+<?
+// 아웃로그인
+include_once("$g4[path]/lib/outlogin.lib.php");
+echo outlogin("basic");
+?>

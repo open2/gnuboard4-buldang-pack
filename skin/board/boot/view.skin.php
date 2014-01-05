@@ -167,7 +167,6 @@ else if ($member['mb_level'] >= $board['bo_comment_read_level'])
 <script type="text/javascript">
 window.onload=function() {
     resizeBoardImage($(view_main).width()-20);
-    drawFont();
     OnclickCheck(document.getElementById("writeContents"), '<?=$config[cf_link_target]?>'); 
 }
 </script>
