@@ -117,6 +117,7 @@ $memo_str_list = $memo_str0 . $memo_str;
                 <a href="javascript:;" onclick="opener.document.location.href='<?=$list[$i][opener_href]?>';">
             <? } ?>
             <?=cut_str($list[$i][wr_subject],30)?></a>
+            <a href="javascript:del('<?=$list[$i][del_href]?>');"><i class="fa fa-trash-o"></i></a>
             <br>
             <div class="pull-left">
                 <small>
