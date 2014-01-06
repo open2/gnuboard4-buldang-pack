@@ -35,6 +35,7 @@ include_once("$g4[path]/lib/view.skin.lib.php");
  	      <a href="javascript:scaleFont(+1);" class="btn btn-default btn-sm btn-zoom-in"><span class="glyphicon glyphicon-zoom-in"></span></a>
         <a href="javascript:scaleFont(-1);" class="btn btn-default btn-sm btn-zoom-out"><span class="glyphicon glyphicon-zoom-out"></span></a>
         <a href="#commentContents" class="btn btn-default btn-sm">코멘트</a>
+        <? echo "<a href=\"$list_href\" class=\"btn btn-default btn-sm btn-list\">목록</a> "; ?>
     </div>
     <div class="btn-group hidden-xs hidden-sm  pull-right">
         <? if ($copy_href) { echo "<a href=\"$copy_href\" class=\"btn btn-default btn-sm btn-copy\">복사</a> "; } ?>
