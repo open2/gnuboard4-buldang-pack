@@ -47,6 +47,14 @@ skin/board/boot/write.skin.php
 
 skin/memo/basic/memo2_view.skin.php 
 
+skin/whatson/basic/whatson.skin.php
+
+
+- board/boot/skin/view.skin.php에서 글쓴이... 같은 style 삭제 (스맛폰에서 줄바꿈 일어나서)
+skin/board/boot/view.skin.php
+
+- 내용없슴에서 링크 삭제
+skin/whatson/basic/whatson.skin.php
 
 - 비회원 비밀글 읽기 오류 수정
 bbs/board.php
