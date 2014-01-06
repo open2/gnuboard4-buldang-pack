@@ -58,11 +58,11 @@ ob_end_flush();
         <strong><?=cut_hangul_last(get_text($view[wr_subject]))?></strong>
 		</p>
 		<p>
-        글쓴이 : <?=$view[name]?><? if ($is_ip_view) { echo "&nbsp;($ip)"; } ?>&nbsp;&nbsp;
-	  		날짜 : <?php echo substr($view['wr_datetime'], 2, 14); ?>&nbsp;&nbsp;
-        조회 : <?=$view[wr_hit]?>&nbsp;&nbsp;
-        <? if ($is_good) { ?><font style="color:#BABABA;">추천</font> :<font style="color:#BABABA;"> <?=$view[wr_good]?>&nbsp;&nbsp;&nbsp;&nbsp;</font><?}?>
-        <? if ($is_nogood) { ?><font style="color:#BABABA;">비추천</font> :<font style="color:#BABABA;"> <?=$view[wr_nogood]?>&nbsp;&nbsp;&nbsp;&nbsp;</font><?}?>
+        <?=$view[name]?><? if ($is_ip_view) { echo "&nbsp;($ip)"; } ?>&nbsp;&nbsp;
+	  		<?php echo substr($view['wr_datetime'], 2, 14); ?>&nbsp;&nbsp;
+        조회 <?=$view[wr_hit]?>&nbsp;&nbsp;
+        <? if ($is_good) { ?><font style="color:#BABABA;">추천</font> <font style="color:#BABABA;"> <?=$view[wr_good]?>&nbsp;&nbsp;&nbsp;&nbsp;</font><?}?>
+        <? if ($is_nogood) { ?><font style="color:#BABABA;">비추천</font> <font style="color:#BABABA;"> <?=$view[wr_nogood]?>&nbsp;&nbsp;&nbsp;&nbsp;</font><?}?>
     </p>
     <!-- 게시글 주소를 복사하기 쉽게 하기 위해서 아랫 부분을 삽입 -->
     <p>
