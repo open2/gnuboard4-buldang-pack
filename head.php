@@ -32,9 +32,9 @@ echo popup("alert", "popup_alert")
 </div>
 
 <div class="navbar navbar-default" role="navigation">
-<div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header col-sm-2">
+        <!-- collapse 되었을 때, 우측에 나오는 메뉴 버튼 -->
         <button type="button" class="btn btn-default navbar-toggle" data-toggle="collapse" data-target=".navbar-top-menu-collapse">
             <i class="glyphicon glyphicon-list"></i>
         </button>
@@ -54,9 +54,11 @@ echo popup("alert", "popup_alert")
         <button type="button" class="btn btn-default navbar-toggle" data-toggle="collapse" data-target=".navbar-search-top-collapse">
             <i class="glyphicon glyphicon-search"></i>
         </button>
+        <!-- sm, md, lg에서 나오는 로고 -->
         <a class="navbar-brand hidden-xs" href="<?=$g4['path']?>/">
         <img src="<?=$g4[path]?>/images/logo_opencode.gif" align=absmiddle alt="brand logo">
         </a>
+        <!-- collapse 되었을 때 나오는 로고 -->
         <a class="navbar-brand navbar-toggle pull-left" href="<?=$g4['path']?>/" style="border:0;margin-bottom:0;">
         <img src="<?=$g4[path]?>/images/logo_opencode.gif" alt="brand logo" style="width:120px;">
         </a>
@@ -167,10 +169,8 @@ echo popup("alert", "popup_alert")
     </div>
     </form>
     </div>
+</div><!-- navbar의 끝 -->
 
-</div>
-
-</div>
 </div>
 </header><!-- 상단 header 끝 -->
 
