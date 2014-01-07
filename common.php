@@ -441,8 +441,8 @@ if (isset($comment_id)) { // 리스트 페이지
     $comment_id = (int)$comment_id;
 }
 
-if (isset($mb_id)) {
-    $mb_id = mysql_real_escape_string($mb_id);
+if (isset($_GET['mb_id'])) {
+    $mb_id = preg_replace('/[^0-9a-z\-\_]/i', '', $_GET['mb_id']);
 }
 
 if (isset($mb_email)) {
@@ -453,8 +453,8 @@ if (isset($po_id)) {
     $po_id = (int)$po_id;
 }
 
-if (isset($ug_id)) {
-    $ug_id = mysql_real_escape_string($ug_id);
+if (isset($_GET['ug_id'])) {
+    $ug_id = preg_replace('/[^0-9a-z\-\_]/i', '', $_GET['ug_id']);
 }
 
 // 그누보드 4.34.09 보안패치 ($_SERVER의 SQL Injection 방어)
