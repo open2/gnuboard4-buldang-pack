@@ -14,7 +14,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
             $bs = "label-default";
         echo "<li>";
         echo "<span class='label $bs pull-left'>$rank</span>&nbsp;";
-        echo "<a href='$g4[bbs_path]/board.php?bo_table={$list[$i][bo_table]}'>";
+        echo "&nbsp;<a href='$g4[bbs_path]/board.php?bo_table={$list[$i][bo_table]}'>";
         echo $list[$i][bo_subject];
         echo "</a></li>";
     }
