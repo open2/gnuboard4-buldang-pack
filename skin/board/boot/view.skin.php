@@ -146,8 +146,8 @@ ob_end_flush();
 
 <?
 // 광고가 있는 경우 광고를 연결
-if (file_exists("$g4[path]/adsense_view_comment.php"))
-    include_once("$g4[path]/adsense_view_comment.php");
+if (file_exists("$g4[path]/adsense/adsense_view_comment.php"))
+    include_once("$g4[path]/adsense/adsense_view_comment.php");
 ?>
 
 </div>
@@ -160,7 +160,7 @@ else if ($member['mb_level'] >= $board['bo_comment_read_level'])
   include_once("./view_comment.php");
 ?>
 <?=$link_buttons?>
-<? include_once("$g4[path]/adsense_page_bottom.php"); ?>
+<? include_once("$g4[path]/adsense/adsense_page_bottom.php"); ?>
 
 </div>
 
