@@ -6,16 +6,23 @@ margin-right: auto;
 float:none;
 }
 
-<!-- 마우스가 메뉴에 올라가면 자동으로 dropdown 되게 -->
+/* 마우스가 메뉴에 올라가면 자동으로 dropdown 되게 */
 ul.nav li.dropdown:hover > ul.dropdown-menu {
     display: block;    
+}
+
+/* navbar안에서는 btn-info 속성이 안먹힙니다. 그때 btn-info 색을 바꿔주는 방법 */
+.btn-info-navbar {
+    color: #fff;
+    background-color: #5bc0de !important;
+    border-color: #46b8da !important;
 }
 
 .table-borderless td, th {
   border: 0 !important;
 }
 
-<!-- lg, md, sm, xs 크기별로 동작하는 media query -->
+/* lg, md, sm, xs 크기별로 동작하는 media query */
 @media (min-width: 1200px) { 
 }
 
