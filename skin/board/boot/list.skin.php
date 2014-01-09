@@ -108,6 +108,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     더 좋은 방법에 대한 제안은 언제든 환영 합니다.
     -->
     <td class="visible-xs" align=left style='word-break:break-all;'>
+        <div>
         <?
         echo $nobr_begin;
 
@@ -137,10 +138,15 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         if ($list[$i][icon_secret]) echo " <i class=\"fa fa-lock\" title='new'></i>";
         echo $nobr_end;
         ?>
-        <div class="visible-xs pull-right"><small>
-        <?=$list[$i][name]?>&nbsp;&nbsp;<?=$list[$i][datetime2]?>&nbsp;&nbsp;<span class="badge"><?=$list[$i][wr_hit]?></span>
-        </small>
         </div>
+        <span class="visible-xs pull-left"><small>
+        <?=$list[$i][datetime2]?>&nbsp;&nbsp;<?=$list[$i][name]?>
+        </small>
+        </span>
+        <span class="visible-xs pull-right"><small>
+        <span class="badge"><?=$list[$i][wr_hit]?></span>
+        </small>
+        </span>
     </td>
 </tr>
 <?}?>
