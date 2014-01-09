@@ -65,10 +65,10 @@ else
         $login_url = "$g4[bbs_path]/myon.php";
         ?>
         <a class="btn <?=$whatson_btn?> navbar-toggle" value="Page" onclick="location.href='<?=$login_url?>';">
-            <i class="glyphicon glyphicon-shopping-cart" <?=$whatson_status?>><sup style="margin-left:3px;"><?=$g4['whatson_unread']?></sup></i>
+            <i class="glyphicon glyphicon-shopping-cart"><sup style="margin-left:3px;"><?=$g4['whatson_unread']?></sup></i>
         </a>
-        <a class="navbar-toggle btn <?=$memo_btn?> " value="Page" href="javascript:win_memo('', '<?=$member[mb_id]?>', '<?=$_SERVER[SERVER_NAME]?>');" onfocus="this.blur()">
-            <i class="glyphicon glyphicon-envelope""><sup style="margin-left:3px;"><?=$member[mb_memo_unread]?></sup></i>
+        <a class="btn <?=$memo_btn?> navbar-toggle" value="Page" href="javascript:win_memo('', '<?=$member[mb_id]?>', '<?=$_SERVER[SERVER_NAME]?>');" onfocus="this.blur()">
+            <i class="glyphicon glyphicon-envelope"><sup style="margin-left:3px;"><?=$member[mb_memo_unread]?></sup></i>
         </a>
         <? } ?>
         <button type="button" class="btn btn-default navbar-toggle" data-toggle="collapse" data-target=".navbar-search-top-collapse">
