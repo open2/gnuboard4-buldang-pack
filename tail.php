@@ -46,10 +46,8 @@ $(document).ready(function() {
 <div class="container" id="footer">
     <div class="panel panel-default hidden-sm hidden-md hidden-lg">
     <div class="panel-heading">
-        <a href="<?=$g4[path]?>/company/company.php?id=privacy"><strong>개인정보취급방침</strong></a>
-        <small>(주)오픈코드</small>
-
-        <div class="pull-right">
+        <div>
+        <a class="btn btn-default" data-toggle="collapse" data-target=".navbar-bottom-collapse">Info.</a>
         <div class="btn-group">
         <? if ($member['mb_id']) { ?>
             <a class="btn btn-default visible-xs" href="<?=$g4['bbs_path']?>/logout.php">Logout</a>
@@ -58,8 +56,10 @@ $(document).ready(function() {
         ?>
             <a class="btn btn-default visible-xs" href="<?=$login_url?>">Login</a>
         <? } ?>
-        <a class="btn btn-default" data-toggle="collapse" data-target=".navbar-bottom-collapse">Info.</a>
         </div>
+
+        <a href="<?=$g4[path]?>/company/company.php?id=privacy"><strong>개인정보취급방침</strong></a>
+        <small>(주)오픈코드</small>
 
         </div>
     </div>
@@ -80,7 +80,6 @@ $(document).ready(function() {
     </div>
 </div>
 </footer>
-
 <?
 include_once("$g4[path]/tail.sub.php");
 ?>
