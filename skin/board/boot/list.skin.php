@@ -5,28 +5,27 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <!-- 분류 셀렉트 박스, 게시물 몇건, 관리자화면 링크 -->
 <div>
     <div class="btn-group">
-        <a href="<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?>" class="btn btn-default btn-sm"><?=$board[bo_subject]?></a>
+        <a href="<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?>" class="btn btn-default"><?=$board[bo_subject]?></a>
     </div>
 
     <? if ($write_href) { ?>
     <div class="btn-group">
-        <a href="<?=$write_href?>" class="btn btn-sm btn-default"><i class='fa fa-edit'></i> 쓰기</a>
+        <a href="<?=$write_href?>" class="btn btn-default"><i class='fa fa-edit'></i> 쓰기</a>
     </div>
     <? } ?>
 
-    <div class="btn-group">
     <? include("$g4[bbs_path]/my_menu_add_script.php");?>
-    <? if ($rss_href) { ?><a href='<?=$rss_href?>' class="btn btn-default btn-sm"><i class='fa fa-rss'></i></a><?}?>
-    <? if ($admin_href) { ?><a href="<?=$admin_href?>" class="btn btn-default btn-sm"><i class='fa fa-cog'></i></a><?}?>
+    <? if ($rss_href) { ?><a href='<?=$rss_href?>' class="btn btn-default"><i class='fa fa-rss'></i></a><?}?>
+    <? if ($admin_href) { ?><a href="<?=$admin_href?>" class="btn btn-default"><i class='fa fa-cog'></i></a><?}?>
+
     <? if ($is_category) { ?>
     <form name="fcategory" method="get" role="form" class="form-inline">
-    <select class="form-control input-sm" name=sca onchange="location='<?=$category_location?>'+<?=strtolower($g4[charset])=='utf-8' ? "encodeURIComponent(this.value)" : "this.value"?>;">
-    <option value=''>전체</option><?=$category_option?></select>
+        <select class="form-control" name=sca onchange="location='<?=$category_location?>'+<?=strtolower($g4[charset])=='utf-8' ? "encodeURIComponent(this.value)" : "this.value"?>;">
+        <option value=''>전체</option><?=$category_option?></select>
     </form>
     <? } ?>
-    </div>
 
-    <div class="pull-right hidden-xs">
+    <div class="pull-right">
         Total <?=number_format($total_count)?>
     </div>
 </div>

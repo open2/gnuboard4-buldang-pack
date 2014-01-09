@@ -1,6 +1,6 @@
 <? if ($is_member) { ?>
 
-<a class="btn btn-default" href="javascript:my_menu_add()" style="margin:0 10px 0 0;"><i class="fa fa-thumb-tack"></i></a>
+<a class="btn btn-default" href="javascript:my_menu_add()"><i class="fa fa-thumb-tack"></i></a>
 
 <script language=javascript>
 function my_menu_add() { 
