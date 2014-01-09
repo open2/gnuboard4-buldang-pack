@@ -6,10 +6,16 @@ margin-right: auto;
 float:none;
 }
 
+<!-- 마우스가 메뉴에 올라가면 자동으로 dropdown 되게 -->
 ul.nav li.dropdown:hover > ul.dropdown-menu {
     display: block;    
 }
 
+.table-borderless td, th {
+  border: 0 !important;
+}
+
+<!-- lg, md, sm, xs 크기별로 동작하는 media query -->
 @media (min-width: 1200px) { 
 }
 
@@ -24,6 +30,3 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
           font-size: 14px;
     }
 }
-
-.table-borderless td, th {
-  border: 0 !important;} 
