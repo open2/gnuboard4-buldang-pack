@@ -21,6 +21,16 @@ if ($member[mb_id]) {
     include_once("$g4[path]/lib/whatson.lib.php");
     $g4['whatson_unread'] = whatson_count($member[mb_id]);
 }
+
+// 버튼에 알람을??? btn-info-navbar class는 style.css에 있습니다.
+if ($member['mb_memo_unread'] > 0)
+    $memo_btn = "btn-info btn-info-navbar";
+else
+    $memo_btn = "btn-default";
+if ($g4['whatson_unread'] > 0)
+    $whatson_btn = "btn-info btn-info-navbar";
+else
+    $whatson_btn = "btn-default";
 ?>
 
 <header class="header-wrapper"><!-- 상단 header 시작 -->
@@ -54,11 +64,11 @@ if ($member[mb_id]) {
         <? } else {
         $login_url = "$g4[bbs_path]/myon.php";
         ?>
-        <a class="btn btn-default navbar-toggle" value="Page" onclick="location.href='<?=$login_url?>';">
-            <i class="glyphicon glyphicon-shopping-cart"><sup style="margin-left:3px;"><?=$g4['whatson_unread']?></sup></i>
+        <a class="btn <?=$whatson_btn?> navbar-toggle" value="Page" onclick="location.href='<?=$login_url?>';">
+            <i class="glyphicon glyphicon-shopping-cart" <?=$whatson_status?>><sup style="margin-left:3px;"><?=$g4['whatson_unread']?></sup></i>
         </a>
-        <a class="btn btn-default navbar-toggle" value="Page" href="javascript:win_memo('', '<?=$member[mb_id]?>', '<?=$_SERVER[SERVER_NAME]?>');" onfocus="this.blur()">
-            <i class="glyphicon glyphicon-envelope"><sup style="margin-left:3px;"><?=$member[mb_memo_unread]?></sup></i>
+        <a class="navbar-toggle btn <?=$memo_btn?> " value="Page" href="javascript:win_memo('', '<?=$member[mb_id]?>', '<?=$_SERVER[SERVER_NAME]?>');" onfocus="this.blur()">
+            <i class="glyphicon glyphicon-envelope""><sup style="margin-left:3px;"><?=$member[mb_memo_unread]?></sup></i>
         </a>
         <? } ?>
         <button type="button" class="btn btn-default navbar-toggle" data-toggle="collapse" data-target=".navbar-search-top-collapse">
@@ -152,15 +162,19 @@ if ($member[mb_id]) {
                 <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_req">불당팩 버그 및 개선</a></li>
                 <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_qna">불당팩 묻고답하기</a></li>
                 <li class="divider"></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=yc4_pack_download">영카트4s 불당팩</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=yc4_tips">영카트4s 팁</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=yc4_pack_qna">영카트4s 묻고답하기</a></li>
-                <li class="divider"></li>
                 <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gblog">gblog 불당버젼</a></li>
                 <li><a href="<?=$g4[path]?>/blog/" target=new>gblog 테스트</a></li>
                 <li class="divider"></li>
                 <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=club2">클럽2</a></li>
                 <li><a href="$g4[path]?>/club/">클럽2 테스트</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">영카트4s <b class="caret"></b></a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=yc4_pack_download">영카트4s 불당팩</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=yc4_tips">영카트4s 팁</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=yc4_pack_qna">영카트4s 묻고답하기</a></li>
             </ul>
         </li>
         <li><a href="<?=$g4[plugin_path]?>/attendance/attendance.php">출석</a></li>
@@ -169,7 +183,7 @@ if ($member[mb_id]) {
 
     <div class="col-sm-3 pull-right">
     <form class="navbar-form collapse navbar-collapse navbar-search-top-collapse" role="search" method="get" onsubmit="return fsearchbox_submit(this);" >
-    <div class="input-group">
+    <div class="input-group" id="search-bar">
         <input type="hidden" name="sfl" value="wr_subject||wr_content">
         <input type="hidden" name="sop" value="and">
         <input type="text" class="form-control" placeholder="검색어는 2단어까지" name="stx" id="stx" maxlength="20" value="<?=$stx;?>">
