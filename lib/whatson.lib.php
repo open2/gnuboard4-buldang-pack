@@ -1,6 +1,15 @@
 <?
 if (!defined('_GNUBOARD_')) exit;
 
+function whatson_count($mb_id) {
+    global $g4, $member, $config;
+
+    $sql = " select count(*) as cnt from $g4[whatson_table] where mb_id='$mb_id' and wo_status = 0 ";
+    $result = sql_fetch($sql);
+    
+    return $result['cnt'];
+}
+
 // 그누보드 왔숑~ 추출
 function whatson($skin_dir="", $rows=10, $subject_len=25, $page=1, $options="", $target="", $check="", $head="")
 {
@@ -41,9 +50,9 @@ function whatson($skin_dir="", $rows=10, $subject_len=25, $page=1, $options="", 
         $list[$i] = $row;
         
         if ($check == 1)
-            $list[$i][subject] = $row[wr_subject];
+            $list[$i][subject] = strip_tags(htmlspecialchars_decode($row[wr_subject]));
         else
-            $list[$i][subject] = cut_str($row[wr_subject], $subject_len);
+            $list[$i][subject] = cut_str(strip_tags(htmlspecialchars_decode($row[wr_subject])), $subject_len);
         if ($row[bo_table] && $row[wr_id])
             $list[$i][url] = "$g4[bbs_path]/board.php?bo_table=$row[bo_table]&wr_id=$row[wr_id]";
         if ($row[comment_id])

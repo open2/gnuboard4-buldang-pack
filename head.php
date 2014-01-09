@@ -13,7 +13,14 @@ include_once("$g4[path]/lib/banner.lib.php");
 <?
 // 상단부에 alert 팝업을 출력 합니다.
 include_once("$g4[path]/lib/popup.lib.php");
-echo popup("alert", "popup_alert")
+echo popup("alert", "popup_alert");
+
+// 회원인 경우 왓쑝~을 읽어서, 안읽은 갯수를 계산해 둡니다.
+// 왓쑝을 안쓰는 경우에는 그냥 그런거라 선택 가능하게 head.php에 넣습니다.
+if ($member[mb_id]) {
+    include_once("$g4[path]/lib/whatson.lib.php");
+    $g4['whatson_unread'] = whatson_count($member[mb_id]);
+}
 ?>
 
 <header class="header-wrapper"><!-- 상단 header 시작 -->
@@ -48,7 +55,10 @@ echo popup("alert", "popup_alert")
         $login_url = "$g4[bbs_path]/myon.php";
         ?>
         <a class="btn btn-default navbar-toggle" value="Page" onclick="location.href='<?=$login_url?>';">
-            <i class="glyphicon glyphicon-shopping-cart"></i>
+            <i class="glyphicon glyphicon-shopping-cart"><sup style="margin-left:3px;"><?=$g4['whatson_unread']?></sup></i>
+        </a>
+        <a class="btn btn-default navbar-toggle" value="Page" href="javascript:win_memo('', '<?=$member[mb_id]?>', '<?=$_SERVER[SERVER_NAME]?>');" onfocus="this.blur()">
+            <i class="glyphicon glyphicon-envelope"><sup style="margin-left:3px;"><?=$member[mb_memo_unread]?></sup></i>
         </a>
         <? } ?>
         <button type="button" class="btn btn-default navbar-toggle" data-toggle="collapse" data-target=".navbar-search-top-collapse">
@@ -191,7 +201,6 @@ echo outlogin("basic");
     <table><tr><td height="1px"></td></tr></table>
     <?
     if ($member[mb_id]) {
-        include_once("$g4[path]/lib/whatson.lib.php");
         echo whatson("basic", 10, 14);
     }
     ?>
