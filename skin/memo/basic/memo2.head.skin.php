@@ -19,7 +19,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 </div>
 
 <div class="collapse navbar-collapse navbar-top-menu-collapse">
-    <ul class="nav navbar-nav">
+    <ul class="nav navbar-nav hidden-xs">
         <li><a href="<?=$g4[memo_url]?>?kind=recv" id="recv"><strong>수신</strong></a></li>
         <li><a href="<?=$g4[memo_url]?>?kind=send" id="send"><strong>발신</strong></a></li>
         <li><a href="<?=$g4[memo_url]?>?kind=write" id="write"><strong>보내기</strong></a></li>
