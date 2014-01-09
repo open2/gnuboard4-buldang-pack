@@ -44,23 +44,16 @@
 
 <div class="container">
 <table class="table table-hover table-condensed table-borderless" width="100%">
-<colgroup> 
-    <col width="35">
-    <col width="110">
-    <col width="">
-    <col width="80">
-    <col width="80">
-</colgroup> 
 <thead>
 <tr class="success">
-    <th>
+    <th width=35>
     <!-- 공지쪽지함은 삭제 선택이 없게... -->
     <input name="chk_me_id_all" type="checkbox" onclick="if (this.checked) all_checked(true); else all_checked(false);" />
     </th>
-    <th><?=$list_title ?></th>
+    <th class="hidden-xs" width=110><?=$list_title ?></th>
     <th>제 목</th>
-    <th>발신</th>
-    <th>
+    <th class="hidden-xs" width=80>발신</th>
+    <th width=80>
     <? if ($kind == 'notice') {
         if ($is_admin=='super' || $member['mb_id']==$view['me_send_mb_id']) { ?>  
             수신레벨
@@ -80,8 +73,8 @@
         <input name="chk_me_id[]" type="checkbox" value="<?=$list[$i][me_id]?>" />
         <? } ?>
     </td>
-    <td><?=$list[$i]['name']?></td>
-    <td align="left">
+    <td class="hidden-xs"><?=$list[$i]['name']?></td>
+    <td align="left" class="hidden-xs">
         <?
         if ($list[$i]['read_datetime'] == '읽지 않음' or $list[$i]['read_datetime'] == '수신 않음') {
             $style1 = "<strong>";
@@ -90,10 +83,11 @@
             $style1 = "";
             $style2 = "";
         }
+        $view_url = $list[$i]['view_href'] . "&page=$page&sfl=$sfl&stx=$stx&unread=$unread";
         ?>
-        <? if ($list[$i]['me_file']) { ?><i class="fa fa-file"></i>&nbsp;<?}?><a href='<?=$list[$i]['view_href']?>&page=<?=$page?>&sfl=<?=$sfl?>&stx=<?=$stx?>&unread=<?=$unread?>' title='<?=$list[$i]['subject']?>'><?=$style1?><?=cut_str($list[$i]['subject'],27)?><?=$style2?></a>
+        <? if ($list[$i]['me_file']) { ?><i class="fa fa-file"></i>&nbsp;<?}?><a href='<?=$view_url?>' title='<?=$list[$i]['subject']?>'><?=$style1?><?=cut_str($list[$i]['subject'],27)?><?=$style2?></a>
         </td>
-        <td <?=$style?> ><?=$list[$i]['send_datetime']?></td>
+        <td <?=$style?> class="hidden-xs"><?=$list[$i]['send_datetime']?></td>
         <?
         // 공지쪽지의 읽은 날짜는???
         if ($kind == 'notice') { 
@@ -103,7 +97,15 @@
                 $list[$i]['read_datetime'] = "";
         }
         ?>
-        <td <?=$style?> ><?=$list[$i]['read_datetime']?></td>
+        <td class="visible-xs">
+        <? if ($list[$i]['me_file']) { ?><i class="fa fa-file"></i>&nbsp;<?}?><a href='<?=$view_url?>' title='<?=$list[$i]['subject']?>'><?=$style1?><?=cut_str($list[$i]['subject'],27)?><?=$style2?></a>
+        <br>
+        <small>
+        <?=$list[$i]['send_datetime']?>&nbsp;
+        <?=$list[$i]['name']?>
+        </small>
+        </td>
+        <td <?=$style?>><?=$list[$i]['read_datetime']?></td>
     </tr>
     <? } ?>
     <? if ($i==0) { ?>
