@@ -118,7 +118,7 @@
         <td colspan=5>
         <div class="btn-group">
             <? if ($i > 0 and $kind !='notice') { ?>
-            <a href="javascript:select_delete();" class="btn btn-default">Delete</a>
+            <a href="javascript:select_delete();" class="btn btn-default" title="delete/삭제"><i class="fa fa-trash-o"></i></a>
             <? } ?>
             <? if ($i > 0 and $kind == "trash") { ?>
             <a href="javascript:all_delete_trash();" class="btn btn-default">Empty Trash</a>
@@ -127,8 +127,15 @@
         <div class="pull-right">
             <ul class="pagination" style="margin-top:0;margin-bottom:0;" >
             <?
-            $page = get_paging($config['cf_write_pages'], $page, $total_page, "?&kind=$kind&sfl=$sfl&stx=$stx&unread=$unread&page="); 
-            echo "$page";
+            $write_pages = get_paging($config['cf_page_rows_xs'], $page, $total_page, "?&kind=$kind&sfl=$sfl&stx=$stx&unread=$unread&page="); 
+
+            // 기본으로 넘어오는 페이지를 아래와 같이 변환하여 다양하게 출력할 수 있습니다.
+            $write_pages = str_replace("이전", "<i class='fa fa-angle-left'></i>", $write_pages);
+            $write_pages = str_replace("다음", "<i class='fa fa-angle-right'></i>", $write_pages);
+            $write_pages = str_replace("처음", "<i class='fa fa-angle-double-left'></i>", $write_pages);
+            $write_pages = str_replace("맨끝", "<i class='fa fa-angle-double-right'></i>", $write_pages);
+
+            echo "$write_pages";
             ?>
             </ul>
         </div>
