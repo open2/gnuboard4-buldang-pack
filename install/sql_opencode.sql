@@ -1143,3 +1143,8 @@ ALTER TABLE `$g4[board_table]` ADD `bo_list_scrap` INT( 11 ) NOT NULL AFTER `bo_
 ALTER TABLE `$g4[member_table]` ADD `mb_email_status` TINYINT( 4 ) NOT NULL ,
 ADD `mb_kakao_id` VARCHAR( 255 ) NOT NULL ,
 ADD `mb_line_id` VARCHAR( 255 ) NOT NULL;
+
+ALTER TABLE  `$g4[good_list_table]` ADD  `gl_flag` TINYINT( 4 ) NOT NULL AFTER  `gl_id` ;
+
+ALTER TABLE `$g4[config_table]` ADD COLUMN `cf_page_rows_xs` INT(11) NULL ";
+update `$g4[config_table]` set `cf_page_rows_xs` = 5";

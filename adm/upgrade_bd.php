@@ -890,8 +890,9 @@ if ($config[cf_db_version] < 1111) {
     sql_query($sql, FALSE);
 }
 
-if ($config[cf_db_version] < 2000) {
+if ($config[cf_db_version] < 1205) {
 
+    // 관리자 log를 추가
     $sql = "
             CREATE TABLE IF NOT EXISTS `$g4[admin_log_table]` (
               `log_no` int(11) NOT NULL AUTO_INCREMENT,
@@ -904,12 +905,10 @@ if ($config[cf_db_version] < 2000) {
 
     // 베스트글에 scrap 갯수를 추가
     sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_list_scrap` INT( 11 ) NOT NULL AFTER `bo_list_view` ", FALSE);
-}
-
-if ($config[cf_db_version] < 2000) {
 
     sql_query(" ALTER TABLE  `$g4[good_list_table]` ADD  `gl_flag` TINYINT( 4 ) NOT NULL AFTER  `gl_id` ", FALSE);
 
+    // mb에 sns 아이디를 추가
     $sql = "
         ALTER TABLE `$g4[member_table]` ADD `mb_email_status` TINYINT( 4 ) NOT NULL ,
         ADD `mb_kakao_id` VARCHAR( 255 ) NOT NULL ,
@@ -917,10 +916,14 @@ if ($config[cf_db_version] < 2000) {
             );
             ";
     sql_query($sql, FALSE);
-}
-            
+
+    // xs 상태에서의 페이징 갯수 추가
+    sql_query(" ALTER TABLE `$g4[config_table]` ADD COLUMN `cf_page_rows_xs` INT(11) NULL ", FALSE);
+    sql_query(" update `$g4[config_table]` set `cf_page_rows_xs` = 5", FALSE);
+} 
+ 
 // db 버젼을 업데이트 - major version + mid version - patch version
-$max_version = "1113";
+$max_version = "1205";
 sql_query(" update $g4[config_table] set cf_db_version = '$max_version' ");
 
 echo "불당팩 $max_version - UPGRADE 완료.";
