@@ -1,3 +1,132 @@
+1.2.5 (2014.01.10)
+
+1.2.4 버젼부터는 실제 개발에 사용하셔도 됩니다.
+1.2.5는 1.2.4의 일부 패치버젼으로 실적용 하면서 몇가지 수정한 것입니다.
+
+*** 중요한거 ***
+모바일에서 10개의 페이징이 너무 과하다는 의견이 있어서 xs 페이지 설정을 따로 분리했습니다.
+기본 5로 설정하시면 됩니다.
+ALTER TABLE `opencode`.`g4_config` ADD COLUMN `cf_page_rows_xs` INT(11) NULL
+
+*** 1.2.6은 좀 오래 걸리지만 사용자 부분이 아니므로 사용에 큰 문제는 없습니다. ***
+1) 빌더 기능 들어 갑니다.
+2) 관리자 페이지 부트스트랩으로 변경 됩니다.
+
+*** 1.2.0 변경사항 입니다 ***
+
+기존의 불당팩과 차이가 좀~~~ 많습니다. 
+1.2.x 버젼은 CSS가 기본 버젼과 완전히 다른 것 입니다.
+DB도 변경되었으므로 DB도 업글해 주셔야 합니다.
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_pack&wr_id=1720
+
+*** known issues ***
+1. sideview의 auto close (너무 어렵다능... stackoverflow의 개발자들도 명확한 답을 못 내놓고 있습니다)
+2. cheditor의 폰트 크기가 12px로 고정 된 것
+3. summernote 웹편집기의 적용 (모바일에 아주 좋습니다...)
+
+*** 기타 참조 ***
+1. 그누보드 5에 사용된 htmlpurifier의 경우 사용을 유보 합니다.
+2. 그누보드 4.37.01에 적용된 도로명 주소는 업데이트 하지 않습니다. 꼭 써야 하는 것 아닙니다.
+3. 네이버 신디케이션? 안합니다. 동접이 많은 사이트는 네이버 친화적일수록 더 머리가 아픕니다.
+ 
+*** 불당팩 기본 구성요소들 ***
+Jquery 1.10.2 http://jquery.com/
+Bootstrap 3.0.3 http://getbootstrap.com/ 
+* LESS 수정사항 http://opencode.co.kr/bbs/board.php?bo_table=gnu4_pack&wr_id=1700
+Font-awesome 4.0.3 http://fontawesome.io/
+html5 Shiv 3.7.0 https://github.com/aFarkas/html5shiv
+respond 1.4.2 https://github.com/scottjehl/Respond
+
+head.php
+style.css
+tail.php
+
+adsense/*
+
+bbs/list.php
+bbs/my_menu_add_script.php
+
+js/jquery.js
+
+skin/board/boot/list.skin.php
+skin/board/boot/view.skin.php
+
+skin/member/basic/scrap.skin.php
+
+skin/memo/basic/memo2.head.skin.php
+skin/memo/basic/memo2_list.skin.php
+
+skin/popular/board/popular.skin.php
+skin/popular/naver_popular/popular.skin.php
+
+
+- xs 모드에서 페이징을 5페이지로? 관리자 페이지에 cf_page_rows_xs 추가
+bbs/list.php
+skin/board/boot/list.skin.php
+
+- skin/board/boot/list.skin.php 아이콘 설명에 한글 추가
+skin/board/boot/list.skin.php
+
+- 쪽지 6 부트스트랩 수정 (목록이 이상해요...ㄷㄷㄷ)
+skin/memo/basic/memo2.head.skin.php
+skin/memo/basic/memo2_list.skin.php
+
+- navbar의 memo, whatson 버튼에도 알람을
+head.php
+
+- 주석추가
+style.css
+
+- nbp 아이콘 추가
+adsense/nbp/*
+
+- whatson 알람추가 (상단 네비바)
+head.php
+
+- scroll to top 버튼 겹칩 때문에 버튼 위치 변경
+tail.php
+
+- whatson, memo 알람을 outlogin 스킨에 추가
+skin/outlogin/basic/outlogin.skin.2.php
+
+- board/boot 스킨의 가독성 개선
+bbs/my_menu_add_script.php
+skin/board/boot/list.skin.php
+
+- xs 화면일 때 (collapse 되었을 때) 쪽지 갯수를 navbar에 출력
+head.php
+
+- adsense 파일 위치 1곳으로 이동
+adsense/*
+
+- adsense 파일 위치변경
+skin/board/boot/view.skin.php
+
+- 인기글 부트스트랩화
+skin/popular/board/popular.skin.php
+skin/popular/naver_popular/popular.skin.php
+
+-그누보드 4.37.02
+common.php
+4.37.02 (2014.01.03) 
+    :  XSS 취약점을 해결 (한국인터넷진흥원에서 알려주셨습니다.) 
+        bbs/new.php ==> 불당팩은 common.php에서 처리하기 때문에 common.php를 바꿨습니다
+            $mb_id = preg_replace('/[^0-9a-z\-\_]/i', '', $_GET['mb_id']);
+* 도로명 주소는 아직까지 반영하지 않습니다
+
+- 불필요 태그 삭제 + 코드주석 추가
+head.php
+
+- 보기화면에서 list버튼을 우측에도 추가
+skin/board/boot/view.skin.php
+
+- scrap visible-xs 화면에 삭제 버튼추가
+skin/member/basic/scrap.skin.php
+
+- jquery 1.10.2 업데이트
+js/jquery.js
+
+
 1.2.4 (2014.01.05)
 
 1.2.4 버젼부터는 실제 개발에 사용하셔도 됩니다.
