@@ -61,7 +61,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <td class="hidden-xs">
         <? 
         if ($list[$i][is_notice]) // 공지사항 
-            echo "<i class=\"fa fa-microphone\" title='notice'></i> ";
+            echo "<i class=\"fa fa-microphone\" title='notice/공지사항'></i> ";
         else if ($wr_id == $list[$i][wr_id]) // 현재위치
             echo "<span style='font:bold 11px tahoma; color:#E15916;'>{$list[$i][num]}</span>";
         else
@@ -72,7 +72,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <td class="hidden-xs" align=left style='word-break:break-all;'>
         <?
         echo $nobr_begin;
-        if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply\" title='reply'></i> ";
+        if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply\" title='reply/답글'></i> ";
         if ($is_category && $list[$i][ca_name]) {
             echo "<font color=gray><a href='{$list[$i][ca_name_href]}'><small>({$list[$i][ca_name]})</small></a></font> ";
         }
@@ -87,11 +87,11 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         if ($list[$i][comment_cnt]) 
             echo " <a href=\"{$list[$i][comment_href]}\"><span style='color:#EE5A00;'><small>{$list[$i][comment_cnt]}</small></span></a>";
 
-        if ($list[$i][icon_new]) echo " <i class=\"fa fa-bell\" title='new'></i>";
-        if ($list[$i][icon_file]) echo " <i class=\"fa fa-file-o\" title='attached file'></i>";
-        if ($list[$i][icon_link]) echo " <i class=\"fa fa-link\" title='link'></i>";
-        if ($list[$i][icon_hot]) echo " <i class=\"fa fa-fire\" title='hot article'></i>";
-        if ($list[$i][icon_secret]) echo " <i class=\"fa fa-lock\" title='new'></i>";
+        if ($list[$i][icon_new]) echo " <i class=\"fa fa-bell\" title='new articla/새글'></i>";
+        if ($list[$i][icon_file]) echo " <i class=\"fa fa-file-o\" title='attached file/첨부파일'></i>";
+        if ($list[$i][icon_link]) echo " <i class=\"fa fa-link\" title='link/링크'></i>";
+        if ($list[$i][icon_hot]) echo " <i class=\"fa fa-fire\" title='hot article/조횟수 많은 글'></i>";
+        if ($list[$i][icon_secret]) echo " <i class=\"fa fa-lock\" title='secret/비밀글'></i>";
         echo $nobr_end;
         ?>
         </td>
@@ -112,10 +112,10 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         echo $nobr_begin;
 
         if ($list[$i][is_notice]) // 공지사항 
-            echo "<i class=\"fa fa-microphone\" title='notice'></i> ";
+            echo "<i class=\"fa fa-microphone\" title='notice/공지사항'></i> ";
 
 
-        if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply\" title='reply'></i> ";
+        if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply\" title='reply/답글'></i> ";
         if ($is_category && $list[$i][ca_name]) { 
             echo "<font color=gray><a href='{$list[$i][ca_name_href]}'><small>({$list[$i][ca_name]})</small></a></font> ";
         }
@@ -130,11 +130,11 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         if ($list[$i][comment_cnt]) 
             echo " <a href=\"{$list[$i][comment_href]}\"><span style='color:#EE5A00;'><small>{$list[$i][comment_cnt]}</small></span></a>";
 
-        if ($list[$i][icon_new]) echo " <i class=\"fa fa-bell\" title='new'></i>";
-        if ($list[$i][icon_file]) echo " <i class=\"fa fa-file-o\" title='attached file'></i>";
-        if ($list[$i][icon_link]) echo " <i class=\"fa fa-link\" title='link'></i>";
-        if ($list[$i][icon_hot]) echo " <i class=\"fa fa-fire\" title='hot article'></i>";
-        if ($list[$i][icon_secret]) echo " <i class=\"fa fa-lock\" title='new'></i>";
+        if ($list[$i][icon_new]) echo " <i class=\"fa fa-bell\" title='new articla/새글'></i>";
+        if ($list[$i][icon_file]) echo " <i class=\"fa fa-file-o\" title='attached file/첨부파일'></i>";
+        if ($list[$i][icon_link]) echo " <i class=\"fa fa-link\" title='link/링크'></i>";
+        if ($list[$i][icon_hot]) echo " <i class=\"fa fa-fire\" title='hot article/조횟수 많은 글'></i>";
+        if ($list[$i][icon_secret]) echo " <i class=\"fa fa-lock\" title='secret/비밀글'></i>";
         echo $nobr_end;
         ?>
         </div>

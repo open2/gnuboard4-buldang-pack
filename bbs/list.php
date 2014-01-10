@@ -93,8 +93,6 @@ else
 }
 
 $total_page  = ceil($total_count / $board[bo_page_rows]);  // 전체 페이지 계산
-//if (!$page) { $page = 1; } // 페이지가 없으면 첫 페이지 (1 페이지)
-//$from_record = ($page - 1) * $board[bo_page_rows]; // 시작 열을 구함
 
 // 불당팩 - 홈이네 팁으로 수정, http://sir.co.kr/bbs/board.php?bo_table=g4_tiptech&wr_id=20870
 if ($wr_id && !$page)
