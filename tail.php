@@ -10,7 +10,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 </div>
 </div><!-- 중간의 메인부 끝 -->
 
-<a href="#" class="btn btn-default back-to-top">Back to Top</a>
+<a href="#" class="btn btn-default back-to-top"><span class="glyphicon glyphicon-chevron-up"></span></a>
 <style>
 .back-to-top {
     position: fixed;
