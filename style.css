@@ -19,7 +19,12 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
 }
 
 .table-borderless td, th {
-  border: 0 !important;
+    border: 0 !important;
+}
+
+/* panel bottom의 높이를 20px에서 10px로 */
+.panel {
+    margin-bottom: 10px;
 }
 
 /* lg, md, sm, xs 크기별로 동작하는 media query */
