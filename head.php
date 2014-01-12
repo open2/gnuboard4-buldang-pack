@@ -76,11 +76,11 @@ else
         </button>
         <!-- sm, md, lg에서 나오는 로고 -->
         <a class="navbar-brand hidden-xs" href="<?=$g4['path']?>/">
-        <img src="<?=$g4[path]?>/images/logo_opencode.gif" align=absmiddle alt="brand logo">
+        <img src="<?=$g4[path]?>/images/opencode_aaa.png" align=absmiddle alt="brand logo">
         </a>
         <!-- collapse 되었을 때 나오는 로고 -->
         <a class="navbar-brand navbar-toggle pull-left" href="<?=$g4['path']?>/" style="border:0;margin-bottom:0;">
-        <img src="<?=$g4[path]?>/images/logo_opencode.gif" alt="brand logo" style="width:120px;">
+        <img src="<?=$g4[path]?>/images/opencode_aaa.png" alt="brand logo" style="width:120px;">
         </a>
     </div>
 
@@ -175,6 +175,7 @@ else
                 <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=yc4_pack_download">영카트4s 불당팩</a></li>
                 <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=yc4_tips">영카트4s 팁</a></li>
                 <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=yc4_pack_qna">영카트4s 묻고답하기</a></li>
+                <li><a href="<?=$g4[path]?>/shop/index.php">영카트4s 테스트</a></li>
             </ul>
         </li>
         <li><a href="<?=$g4[plugin_path]?>/attendance/attendance.php">출석</a></li>
@@ -210,6 +211,16 @@ else
 include_once("$g4[path]/lib/outlogin.lib.php");
 echo outlogin("basic");
 ?>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 2CPU - 우측광고 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:200px;height:200px"
+     data-ad-client="ca-pub-2309139745261135"
+     data-ad-slot="1974345174"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 <!-- 로그인박스와의 여백 -->
     <table><tr><td height="1px"></td></tr></table>
