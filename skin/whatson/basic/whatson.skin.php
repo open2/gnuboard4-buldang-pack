@@ -5,7 +5,7 @@ $whatson_url = "$g4[bbs_path]/whatson.php?check=1&rows=30";
 ?>
 
 <script type="text/javascript" src="<?=$g4[admin_path]?>/admin.js"></script>
-<script language="JavaScript">
+<script type="text/javascript">
 var list_delete_php = "whatson_delete_all.php";
 </script>
 
@@ -33,7 +33,7 @@ var list_delete_php = "whatson_delete_all.php";
                 if ($check == 1) {
                     echo $row[wo_id];
                     echo "<input type=hidden name=wo_id[$i] value='{$list[$i][wo_id]}'>";
-                    echo "<div class='checkbox'><input type=checkbox name=chk[] value='$i'></div>&nbsp;";
+                    echo "<div class='checkbox'><input type=checkbox name=chk[] value='$i' style='display:inline'></div>&nbsp;";
                 }
 
                 // 이미 읽은 글은 바로 새창, 아니면, ajax로 읽은거 mark 한 후에 새창
