@@ -6,7 +6,7 @@ function connect($skin_dir="")
 {
     global $config, $g4;
 
-    if ($g4['session_type'] = "redis") {
+    if ($g4['session_type'] == "redis") {
 
         // redis일때만 redis login 관리를 쓴다.
         $redis_login = new Redis();
