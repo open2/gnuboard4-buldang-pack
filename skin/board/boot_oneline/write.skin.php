@@ -67,7 +67,7 @@ if ($is_notice || $is_secret || $is_mail) {
 			echo $option_hidden;
 }
 ?>
-<div>
+<div class="container">
         <? if ($option) { ?>
         <div class="form-group">
             <div><?=$option?></div>
