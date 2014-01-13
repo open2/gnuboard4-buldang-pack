@@ -89,7 +89,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
         // 밑에서 한번 더 써야 하기 때문에 배열에 담아 둡니다.
         $icon_images = "";
-        if ($list[$i][icon_new]) $icon_images .= " <i class=\"fa fa-bell\" title='new articla/새글'></i>";
+        if ($list[$i][icon_new]) $icon_images .= " <i class=\"fa fa-pagelines\" title='new articla/새글'></i>";
         if ($list[$i][icon_file]) $icon_images .=  " <i class=\"fa fa-file-o\" title='attached file/첨부파일'></i>";
         if ($list[$i][icon_link]) $icon_images .=  " <i class=\"fa fa-link\" title='link/링크'></i>";
         if ($list[$i][icon_hot]) $icon_images .= " <i class=\"fa fa-fire\" title='hot article/조횟수 많은 글'></i>";
