@@ -152,7 +152,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 </tr>
 <?}?>
 
-<? if (count($list) == 0) { echo "<tr><td colspan=5 height=100 align=center>게시물이 없습니다.</td></tr>"; } ?>
+<? if (count($list) == 0) { echo "<tr><td colspan=6 height=100 align=center>게시물이 없습니다.</td></tr>"; } ?>
 </table>
 </div>
 </form>
