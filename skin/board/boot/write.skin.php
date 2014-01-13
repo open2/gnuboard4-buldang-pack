@@ -187,56 +187,57 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
         <? if ($is_file) { ?>
         <div class="form-group">
             <label class="col-xs-1 hidden-xs">File
-            <br>
-            <a onclick="add_file();" style="cursor:pointer;"><i class="fa fa-plus"></i></a> <a onclick="del_file();" style="cursor:pointer;"><i class="fa fa-minus"></i></a>
             </label>
             <div class="col-xs-12 col-sm-11">
-                <table id="variableFiles" cellpadding=0 cellspacing=0></table>
-            <script type="text/javascript">
-            var flen = 0;
-            function add_file(delete_code) {
-                var upload_count = <?=(int)$board[bo_upload_count]?>;
-                if (upload_count && flen >= upload_count) {
-                    alert("이 게시판은 "+upload_count+"개 까지만 파일 업로드가 가능합니다.");
-                    return;
+                <a class="btn btn-default btn-xs" onclick="add_file();" style="cursor:pointer;" title="add file/첨부파일 입력창 1개 추가"><i class="fa fa-plus"></i></a>&nbsp;&nbsp;
+                <a class="btn btn-default btn-xs" onclick="del_file();" style="cursor:pointer;" title="delete file/첨부파일 입력창 1개 삭제"><i class="fa fa-minus"></i></a>
+                <br>
+                <table id="variableFiles" class="table table-condensed" style="word-break:break-all;overflow:hidden;table-layout:fixed"></table>
+                <script type="text/javascript">
+                var flen = 0;
+                function add_file(delete_code) {
+                    var upload_count = <?=(int)$board[bo_upload_count]?>;
+                    if (upload_count && flen >= upload_count) {
+                        alert("이 게시판은 "+upload_count+"개 까지만 파일 업로드가 가능합니다.");
+                        return;
+                    }
+    
+                    var objTbl;
+                    var objRow;
+                    var objCell;
+                    if (document.getElementById)
+                        objTbl = document.getElementById("variableFiles");
+                    else
+                        objTbl = document.all["variableFiles"];
+    
+                    objRow = objTbl.insertRow(objTbl.rows.length);
+                    objCell = objRow.insertCell(0);
+    
+                    objCell.innerHTML = "<input type='file' name='bf_file[]' style='margin-top:5px;margin-bottom:5px;' title='파일 용량 <?=$upload_max_filesize?> 이하만 업로드 가능'>";
+                    if (delete_code)
+                        objCell.innerHTML += delete_code;
+                    else {
+                        <? if ($is_file_content) { ?>
+                        objCell.innerHTML += "<input type='text' class='form-control' name='bf_content[]' placeholder='업로드 이미지 파일에 해당 되는 내용을 입력하세요.'>";
+                        <? } ?>
+                        ;
+                    }
+    
+                    flen++;
                 }
+    
+                <?=$file_script; //수정시에 필요한 스크립트?>
 
-                var objTbl;
-                var objRow;
-                var objCell;
-                if (document.getElementById)
-                    objTbl = document.getElementById("variableFiles");
-                else
-                    objTbl = document.all["variableFiles"];
-
-                objRow = objTbl.insertRow(objTbl.rows.length);
-                objCell = objRow.insertCell(0);
-
-                objCell.innerHTML = "<input type='file' name='bf_file[]' style='margin-top:5px;margin-bottom:5px;' title='파일 용량 <?=$upload_max_filesize?> 이하만 업로드 가능'>";
-                if (delete_code)
-                    objCell.innerHTML += delete_code;
-                else {
-                    <? if ($is_file_content) { ?>
-                    objCell.innerHTML += "<input type='text' class='form-control' size=50 name='bf_content[]' placeholder='업로드 이미지 파일에 해당 되는 내용을 입력하세요.'>";
-                    <? } ?>
-                    ;
+                function del_file() {
+                    // file_length 이하로는 필드가 삭제되지 않아야 합니다.
+                    var file_length = <?=(int)$file_length?>;
+                    var objTbl = document.getElementById("variableFiles");
+                    if (objTbl.rows.length - 1 > file_length) {
+                        objTbl.deleteRow(objTbl.rows.length - 1);
+                        flen--;
+                    }
                 }
-
-                flen++;
-            }
-
-            <?=$file_script; //수정시에 필요한 스크립트?>
-
-            function del_file() {
-                // file_length 이하로는 필드가 삭제되지 않아야 합니다.
-                var file_length = <?=(int)$file_length?>;
-                var objTbl = document.getElementById("variableFiles");
-                if (objTbl.rows.length - 1 > file_length) {
-                    objTbl.deleteRow(objTbl.rows.length - 1);
-                    flen--;
-                }
-            }
-            </script>
+                </script>
 
             </div>
         </div>
