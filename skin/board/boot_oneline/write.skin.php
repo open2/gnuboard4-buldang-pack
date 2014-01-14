@@ -6,6 +6,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 var char_min = parseInt(<?=$write_min?>); // 최소
 var char_max = parseInt(<?=$write_max?>); // 최대
 </script>
+
 <form role="form" class="form-horizontal" name="fwrite" method="post" onsubmit="return fwrite_submit(this);" enctype="multipart/form-data">
 <input type=hidden name=null> 
 <input type=hidden name=w        value="<?=$w?>">
@@ -24,7 +25,11 @@ var char_max = parseInt(<?=$write_max?>); // 최대
 <input type=hidden name=wr_subject value="wr_subject">
 
 <?
-// list.skin.php에서 읽어들일 때... bbs/write.php에서 참조했습니다
+// reply일 때는 $content를 비워버립니다
+if ($w == "r")
+    $content = "";
+
+// list.skin.php에서 읽어들일 때 write.php의 흉내를 내기 위해서 bbs/write.php에서 참조했습니다
 if ($w == "") {
     $is_notice = false;
 
@@ -67,28 +72,27 @@ if ($is_notice || $is_secret || $is_mail) {
 			echo $option_hidden;
 }
 ?>
-<div class="container">
-        <? if ($option) { ?>
-        <div class="form-group">
-            <div><?=$option?></div>
-        </div>
-        <?}?>
 
-        <div class="form-group">
-                <textarea class="form-control" id="wr_content" name="wr_content" style='width:100%; word-break:break-all;' rows=5 itemname="내용" required 
-                <? if ($write_min || $write_max) { ?>onkeyup="check_byte('wr_content', 'char_count');"<?}?>><?=$content?></textarea>
-                <? if ($write_min || $write_max) { ?><script language="javascript"> check_byte('wr_content', 'char_count'); </script><?}?>
-                <span style="cursor: pointer;" onclick="textarea_decrease('wr_content', 5);"> <i class="fa fa-minus-square"></i> </span>
-                &nbsp;<span style="cursor: pointer;" onclick="textarea_original('wr_content', 5);"> <i class="fa fa-circle-o"></i> </span>
-                &nbsp;<span style="cursor: pointer;" onclick="textarea_increase('wr_content', 5);"> <i class="fa fa-plus-square"></i> </span>
-                <? if ($write_min || $write_max) { ?><span id=char_count></span>글자<?}?>
+<div >
+    <textarea class="form-control" id="wr_content" name="wr_content" style='word-break:break-all;' rows=5 itemname="내용" required 
+    <? if ($write_min || $write_max) { ?>onkeyup="check_byte('wr_content', 'char_count');"<?}?>><?=$content?></textarea>
+    <? if ($write_min || $write_max) { ?><script type="text/javascript"> check_byte('wr_content', 'char_count'); </script><?}?>
 
-                <span class="pull-right" style="margin-top:5px;">
-                    <button type="submit" class="btn btn-success" id="btn_submit">Write</button>
-                    &nbsp;&nbsp;&nbsp;
-                    <a class="btn btn-default" href="<?=$list_href?>">List</a>
-                </span>
-        </div>
+<div class="btn-group" style="margin-top:5px;margin-bottom:5px;">
+    <span class="btn btn-default" style="cursor: pointer;" onclick="textarea_decrease('wr_content', 5);"> <i class="fa fa-minus-square"></i> </span>
+    &nbsp;<span class="btn btn-default" style="cursor: pointer;" onclick="textarea_original('wr_content', 5);"> <i class="fa fa-circle-o"></i> </span>
+    &nbsp;<span class="btn btn-default" style="cursor: pointer;" onclick="textarea_increase('wr_content', 5);"> <i class="fa fa-plus-square"></i> </span>
+</div>
+    <? if ($write_min || $write_max) { ?><span id=char_count></span>글자<?}?>
+
+    <span class="pull-right" style="margin-top:5px;margin-bottom:5px;">
+    <? if ($option) { ?>
+        <?=$option?>&nbsp;&nbsp;&nbsp;&nbsp;
+    <?}?>
+        <a class="btn btn-default" href="<?=$list_href?>">List</a>
+        &nbsp;&nbsp;&nbsp;
+        <button type="submit" class="btn btn-success" id="btn_submit">Write</button>
+    </span>
 </div>
 </form>
 
