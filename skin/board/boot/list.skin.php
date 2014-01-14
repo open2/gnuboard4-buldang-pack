@@ -72,7 +72,9 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <td class="hidden-xs" align=left style='word-break:break-all;'>
         <?
         echo $nobr_begin;
-        if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply\" title='reply/답글'></i> ";
+
+        echo $list[$i][reply];
+        if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply fa-rotate-180\" title='reply/답글'></i> ";
         if ($is_category && $list[$i][ca_name]) {
             echo "<font color=gray><a href='{$list[$i][ca_name_href]}'><small>({$list[$i][ca_name]})</small></a></font> ";
         }
