@@ -80,7 +80,6 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         }
         $style = "";
         if ($list[$i][is_notice]) $style .= " style='font-weight:bold;'";
-        if ($list[$i][wr_singo]) $style .= " style='color:#B8B8B8;'";
 
         echo "<a href='{$list[$i][href]}' $style>";
         echo $list[$i][subject];
@@ -127,7 +126,6 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         }
         $style = "";
         if ($list[$i][is_notice]) $style .= " style='font-weight:bold;'";
-        if ($list[$i][wr_singo]) $style .= " style='color:#B8B8B8;'";
 
         echo "<a href='{$list[$i][href]}' $style>";
         echo cut_str($list[$i][subject], 40);
