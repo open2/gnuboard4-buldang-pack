@@ -37,7 +37,7 @@ if (!$skin_title) {
                 echo " <a href=\"{$list[$i][comment_href]}\" onfocus=\"this.blur()\"><small>{$list[$i][comment_cnt]}</small></a> ";
   
             if ($list[$i][icon_reply])
-                echo "<i class=\"fa fa-reply\"></i> ";
+                echo "<i class=\"fa fa-reply fa-rotate-180\"></i> ";
   
             echo "<a href='{$list[$i][href]}' onfocus='this.blur()' title='{$list_title}' {$target_link}>";
             if ($list[$i][is_notice])
