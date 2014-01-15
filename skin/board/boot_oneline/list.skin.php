@@ -53,25 +53,35 @@ else if ($w == "r")
 <? for ($i=0; $i<count($list); $i++) { ?>
 <tr> 
     <td>
-        <div>
+        <div style="float:left;display:block">
         <? 
+        if ($list[$i][reply]) { 
+            echo $list[$i][reply];
+            if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply fa-rotate-180\" title='reply/답글'></i> ";
+        }
+        ?>
+        </div>
+        <div style="display:block">
+
+        <?
         if ($list[$i][is_notice]) // 공지사항 
             echo "<i class=\"fa fa-microphone\" title='notice/공지사항'></i> ";
         else {
          		$list[$i][subject] = emoticon_html($list[$i][subject], $board_skin_path1);
             echo $list[$i][subject];
-            }
+        }
         ?>
         <? if ($is_checkbox) { ?><input type=checkbox name=chk_wr_id[] value="<?=$list[$i][wr_id]?>"><? } ?>
         <?
-        echo $list[$i][reply];
-        if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply fa-rotate-180\" title='reply/답글'></i> ";
-
      		$list[$i][wr_content] = conv_content($list[$i][wr_content], 0);
 
      		echo $list[$i][wr_content];
-        echo " " . $list[$i][icon_new];
-        echo " " . $list[$i][icon_secret];
+
+        // 밑에서 한번 더 써야 하기 때문에 배열에 담아 둡니다.
+        $icon_images = "";
+        if ($list[$i][icon_new]) $icon_images .= " <i class=\"fa fa-pagelines\" title='new articla/새글'></i>";
+        if ($list[$i][icon_secret]) $icon_images .= " <i class=\"fa fa-lock\" title='secret/비밀글'></i>";
+        echo $icon_images;
         ?>
 
         <div class="pull-right">
@@ -97,11 +107,11 @@ else if ($w == "r")
 
         </div>
 
+    </td>
 </tr>
 <?}?>
 
-<? if (count($list) == 0) { echo "<tr><td colspan='$colspan' height=100 align=center>게시물이 없습니다.</td></tr>"; } ?>
-<tr><td colspan=<?=$colspan?> bgcolor="#0A7299" height="2"></td></tr>
+<? if (count($list) == 0) { echo "<tr><td height=100 align=center>게시물이 없습니다.</td></tr>"; } ?>
 </table>
 </form>
 
