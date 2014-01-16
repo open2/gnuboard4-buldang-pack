@@ -79,7 +79,8 @@ if ($is_notice || $is_secret || $is_mail) {
     <? if ($write_min || $write_max) { ?><script type="text/javascript"> check_byte('wr_content', 'char_count'); </script><?}?>
 
 <div class="btn-group" style="margin-top:5px;margin-bottom:5px;">
-    <span class="btn btn-default" style="cursor: pointer;" onclick="textarea_decrease('wr_content', 5);"> <i class="fa fa-minus-square"></i> </span>
+    <a class="btn btn-default" style="cursor: pointer;" onclick="textarea_decrease('wr_content', 5);"> <i class="fa fa-smile-o"></i> ÀÌ¹ÌÁö</a>
+    &nbsp;<span class="btn btn-default" style="cursor: pointer;" onclick="textarea_decrease('wr_content', 5);"> <i class="fa fa-minus-square"></i> </span>
     &nbsp;<span class="btn btn-default" style="cursor: pointer;" onclick="textarea_original('wr_content', 5);"> <i class="fa fa-circle-o"></i> </span>
     &nbsp;<span class="btn btn-default" style="cursor: pointer;" onclick="textarea_increase('wr_content', 5);"> <i class="fa fa-plus-square"></i> </span>
 </div>
