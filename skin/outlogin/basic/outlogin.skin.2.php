@@ -20,7 +20,7 @@ if ($g4['whatson_unread'] > 0)
     </div>
     <div class="btn-group btn-group-justified">
         <a class="btn btn-default btn-sm <?=$memo_status?>" style="border-color: #ffffff;" href="javascript:win_memo('', '<?=$member[mb_id]?>', '<?=$_SERVER[SERVER_NAME]?>');" onfocus="this.blur()" ?>Memo</a>
-        <a class="btn btn-default btn-sm <?=$myon_status?>" style="border-color: #ffffff;" href="<?=$g4['bbs_path']?>/myon.php" >MyOn</a>
+        <a class="btn btn-default btn-sm <?=$myon_status?>" style="border-color: #ffffff;" href="<?=$g4['bbs_path']?>/myon.php?head=1" >MyOn</a>
         <a class="btn btn-default btn-sm" style="border-color: #ffffff;" href="javascript:win_scrap();" >Scrap</a>
     </div>
     <div class="btn-group btn-group-justified">
