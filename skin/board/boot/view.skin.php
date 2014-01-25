@@ -52,7 +52,7 @@ ob_end_flush();
 <div class="panel-heading">
     <p class="pull-right">
         <?if ($singo_href) { ?><a class="btn btn-default btn-xs" href="javascript:win_singo('<?=$singo_href?>');">신고</a><?}?>
-        <?if ($unsingo_href) { ?><span style="float:right;padding-right:5px;"><a href="javascript:win_unsingo('<?=$unsingo_href?>');"><img src='<?=$board_skin_path?>/img/icon_unsingo.gif' alt='unsingo'></a></span><?}?>
+        <?if ($unsingo_href) { ?><span style="float:right;padding-right:5px;"><a href="javascript:win_unsingo('<?=$unsingo_href?>');">신고취소</a></span><?}?>
 		</p>
 		<p>
         <? if ($is_category) { echo ($category_name ? "[$view[ca_name]] " : ""); } ?>

@@ -135,7 +135,7 @@ if ($is_dhtml_editor) {
 <input type=hidden name=cwin        value='<?=$cwin?>'>
 <input type=hidden name=is_good     value=''>
 
-<table role="table" width=100% cellpadding=3 height=156 cellspacing=0 bgcolor="#ffffff" style="border:1px solid #fff; background:url(<?=$board_skin_path?>/img/co_bg.gif) x-repeat;">
+<table role="table" width=100%>
 <tr>
     <td colspan="2" style="padding:5px 0 0 5px;">
         <? if (!$is_dhtml_editor) { ?>
