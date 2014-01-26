@@ -49,13 +49,23 @@ else if ($w == "r")
 
 <!-- 목록 -->
 <? for ($i=0; $i<count($list); $i++) { ?>
-    <table role="table" width=100% class="table table-hover table-condensed" style="word-wrap:break-word;margin-bottom:0px;margin-right:0px;margin-left:-10px;padding:0;">
-    <tr>
+    <table role="table" width=100% class="table table-hover table-condensed" style="word-wrap:break-word;margin-bottom:0px;margin-right:0px;margin-left:0px;padding:0;">
+    <tr >
+    <!-- reply 이외에는 td가 나오면 안됨. 괜히 공간 잡아먹어 이상해짐 -->
+    <? if (strlen($list[$i][wr_reply]) > 0) { ?>
     <td valign=top style="border:0px;">
         <!-- 그냥 &nbsp; 출력하면 너무 적고, strlen으로 하면 너무 많고. 꼼수로 wr_reply의 5배만큼만... -->
         <? for ($k=0; $k<(strlen($list[$i][wr_reply])*6); $k++) echo "&nbsp;"; ?>
     </td>
-    <td align=left width=100%>
+    <?}?>
+    <?
+    // 공지사항일때는 success class로.
+    if ($list[$i][is_notice])
+        $td_class = "class='success'";
+    else
+        $td_class="";
+    ?>
+    <td align=left width=100% <?=$td_class?>>
         <? if ($is_checkbox) { ?><input type=checkbox name=chk_wr_id[] value="<?=$list[$i][wr_id]?>"><? } ?>
         <? 
         if ($list[$i][reply]) { 

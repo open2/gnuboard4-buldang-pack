@@ -72,7 +72,8 @@ if ($is_notice || $is_secret || $is_mail) {
 			echo $option_hidden;
 }
 ?>
-<div >
+<? if ($member[mb_level] > 1) { ?>
+<div>
     <textarea class="form-control" id="wr_content" name="wr_content" style='word-break:break-all;' rows=4 itemname="내용" required 
     <? if ($write_min || $write_max) { ?>onkeyup="check_byte('wr_content', 'char_count');"<?}?>><?=$content?></textarea>
     <? if ($write_min || $write_max) { ?><script type="text/javascript"> check_byte('wr_content', 'char_count'); </script><?}?>
@@ -96,6 +97,14 @@ if ($is_notice || $is_secret || $is_mail) {
         <button type="submit" class="btn btn-success" id="btn_submit">Write</button>
     </span>
 </div>
+<? } else { ?>
+<div class="well">
+    <?
+    $login_url = "./login.php?url=".urlencode("board.php?bo_table=$bo_table");
+    ?>
+    <a href="<?=$login_url?>">로그인 하시면 댓글을 남길 수 있습니다</a>
+</div>
+<? } ?>
 </form>
 
 <script type="text/javascript">
