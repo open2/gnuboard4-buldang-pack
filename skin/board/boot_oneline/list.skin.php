@@ -30,7 +30,6 @@ else if ($w == "r")
         alert("공지에는 답변 할 수 없습니다.");
 */
 ?>
-
 <? if (!$member[mb_id] || $member[mb_level] >= $board[bo_write_level] ||($is_admin && $w == 'u' && $member[mb_id] != $write[mb_id]))
       include ("$board_skin_path/write.skin.php"); 
 ?>
@@ -48,21 +47,21 @@ else if ($w == "r")
 <input type='hidden' name='page' value='<?=$page?>'>
 <input type='hidden' name='sw'   value=''>
 
-<table width=100% class="table table-hover" style="word-wrap:break-word;">
 <!-- 목록 -->
 <? for ($i=0; $i<count($list); $i++) { ?>
-<tr> 
-    <td>
-        <div style="float:left;display:block">
+    <table role="table" width=100% class="table table-hover table-condensed" style="word-wrap:break-word;margin-bottom:0px;margin-right:0px;margin-left:-10px;padding:0;">
+    <tr>
+    <td valign=top style="border:0px;">
+        <!-- 그냥 &nbsp; 출력하면 너무 적고, strlen으로 하면 너무 많고. 꼼수로 wr_reply의 5배만큼만... -->
+        <? for ($k=0; $k<(strlen($list[$i][wr_reply])*6); $k++) echo "&nbsp;"; ?>
+    </td>
+    <td align=left width=100%>
+        <? if ($is_checkbox) { ?><input type=checkbox name=chk_wr_id[] value="<?=$list[$i][wr_id]?>"><? } ?>
         <? 
         if ($list[$i][reply]) { 
-            echo $list[$i][reply];
             if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply fa-rotate-180\" title='reply/답글'></i> ";
         }
         ?>
-        </div>
-        <div style="display:block">
-
         <?
         if ($list[$i][is_notice]) // 공지사항 
             echo "<i class=\"fa fa-microphone\" title='notice/공지사항'></i> ";
@@ -71,9 +70,8 @@ else if ($w == "r")
             echo $list[$i][subject];
         }
         ?>
-        <? if ($is_checkbox) { ?><input type=checkbox name=chk_wr_id[] value="<?=$list[$i][wr_id]?>"><? } ?>
         <?
-     		$list[$i][wr_content] = conv_content($list[$i][wr_content], 0);
+ 		    $list[$i][wr_content] = conv_content($list[$i][wr_content], 0);
 
      		echo $list[$i][wr_content];
 
@@ -86,33 +84,28 @@ else if ($w == "r")
 
         <div class="pull-right">
             <?=$list[$i][datetime2]?>&nbsp;<?=$list[$i][name]?>
-        </div>
-
         <?
-		    if ($member[mb_id]) {
-		    ?>
-	          <div class="btn-group pull-right" style="margin-right:10px;">
-	          <a href="<?=$write_href?>&w=r&wr_id=<?=$list[$i][wr_id]?>&page=<?=$page?>&sca=<?=$ca_name?>" class="btn btn-default btn-sm">답변</a>
-				    </div>
+        if ($member[mb_id]) {
+        ?>
+            <div class="btn-group" style="margin-right:10px;">
+            <a href="<?=$write_href?>&w=r&wr_id=<?=$list[$i][wr_id]?>&page=<?=$page?>&sca=<?=$ca_name?>" class="btn btn-default btn-sm">답변</a>
+    		    </div>
         <? } ?>
-
         <?
-		    if (($member[mb_id] && ($member[mb_id] == $list[$i][mb_id])) || $is_admin) {
-		    ?>
-	          <div class="btn-group pull-right" style="margin-right:10px;">
-	          <a href="<?=$write_href?>&w=u&wr_id=<?=$list[$i][wr_id]?>&page=<?=$page?>&sca=<?=$ca_name?>" class="btn btn-default btn-sm">수정</a>
-	          <a href="javascript:if (confirm('삭제하시겠습니까?')) { location='./delete.php?w=d&bo_table=<?=$bo_table?>&wr_id=<?=$list[$i][wr_id]?>&sca=<?=$sca?>';}" class="btn btn-default btn-sm">삭제</a>
-				    </div>
+        if (($member[mb_id] && ($member[mb_id] == $list[$i][mb_id])) || $is_admin) {
+        ?>
+            <div class="btn-group" style="margin-right:10px;">
+            <a href="<?=$write_href?>&w=u&wr_id=<?=$list[$i][wr_id]?>&page=<?=$page?>&sca=<?=$ca_name?>" class="btn btn-default btn-sm">수정</a>
+            <a href="javascript:if (confirm('삭제하시겠습니까?')) { location='./delete.php?w=d&bo_table=<?=$bo_table?>&wr_id=<?=$list[$i][wr_id]?>&sca=<?=$sca?>';}" class="btn btn-default btn-sm">삭제</a>
+    		    </div>
         <? } ?>
-
         </div>
-
     </td>
-</tr>
+    </tr>
+    </table>
 <?}?>
 
-<? if (count($list) == 0) { echo "<tr><td height=100 align=center>게시물이 없습니다.</td></tr>"; } ?>
-</table>
+<? if (count($list) == 0) { echo "<table><tr><td height=100 align=center>게시물이 없습니다.</td></tr></table>"; } ?>
 </form>
 
 <!-- 페이지 -->

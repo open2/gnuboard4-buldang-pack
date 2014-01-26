@@ -72,9 +72,8 @@ if ($is_notice || $is_secret || $is_mail) {
 			echo $option_hidden;
 }
 ?>
-
 <div >
-    <textarea class="form-control" id="wr_content" name="wr_content" style='word-break:break-all;' rows=5 itemname="내용" required 
+    <textarea class="form-control" id="wr_content" name="wr_content" style='word-break:break-all;' rows=4 itemname="내용" required 
     <? if ($write_min || $write_max) { ?>onkeyup="check_byte('wr_content', 'char_count');"<?}?>><?=$content?></textarea>
     <? if ($write_min || $write_max) { ?><script type="text/javascript"> check_byte('wr_content', 'char_count'); </script><?}?>
 
@@ -87,8 +86,10 @@ if ($is_notice || $is_secret || $is_mail) {
     <? if ($write_min || $write_max) { ?><span id=char_count></span>글자<?}?>
 
     <span class="pull-right" style="margin-top:5px;margin-bottom:5px;">
+    <? if ($member[mb_level] > 1) { ?>
     <? if ($option) { ?>
         <?=$option?>&nbsp;&nbsp;&nbsp;&nbsp;
+    <?}?>
     <?}?>
         <a class="btn btn-default" href="<?=$list_href?>">List</a>
         &nbsp;&nbsp;&nbsp;
