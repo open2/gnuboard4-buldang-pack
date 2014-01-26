@@ -25,7 +25,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
               echo " <a href=\"{$list[$i][comment_href]}\" onfocus=\"this.blur()\"><small>{$list[$i][comment_cnt]}</small></a> ";
 
           if ($list[$i][icon_reply])
-              echo $list[$i][icon_reply] . " ";
+              echo "<i class=\"fa fa-reply fa-rotate-180\"></i> ";
 
           echo "<a href='{$list[$i][href]}' onfocus='this.blur()' title='{$list_title}' {$target_link}>";
           if ($list[$i][is_notice])
