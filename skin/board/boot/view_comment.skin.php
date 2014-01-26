@@ -21,8 +21,6 @@ var char_max = parseInt(<?=$comment_max?>); // √÷¥Î
 <div id="commentContents" class="commentContents">
 
 <? if (trim($board[bo_comment_notice])) { ?>
-<div>
-</div>
 <div class="well">
     <span class="pull-right"><i class="fa fa-volume-up"></i>&nbsp;<?=substr($view[wr_datetime],2,14)?></span>
     <?=get_text($board[bo_comment_notice], 1)?>
