@@ -81,6 +81,11 @@ else if ($w == "r")
         }
         ?>
         <?
+        if ($list[$i][wr_subject]) {
+            $emo = $list[$i][wr_subject];
+            echo "<img src='$board_skin_path/emoticons/" . $emo . ".png'>";
+        }
+            
  		    $list[$i][wr_content] = conv_content($list[$i][wr_content], 0);
 
      		echo $list[$i][wr_content];
