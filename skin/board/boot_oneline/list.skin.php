@@ -115,7 +115,7 @@ else if ($w == "r")
     </table>
 <?}?>
 
-<? if (count($list) == 0) { echo "<table><tr><td height=100 align=center>게시물이 없습니다.</td></tr></table>"; } ?>
+<? if (count($list) == 0) { echo "<table width=100%><tr><td height=100 align=center>게시물이 없습니다.</td></tr></table>"; } ?>
 </form>
 
 <!-- 페이지 -->
