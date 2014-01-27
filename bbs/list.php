@@ -93,8 +93,6 @@ else
 }
 
 $total_page = ceil($total_count / $board[bo_page_rows]);        // 전체 페이지 계산
-$total_page_xs = ceil($total_count / $config[cf_page_rows_xs]);  // 전체 페이지 계산
-
 // 불당팩 - 홈이네 팁으로 수정, http://sir.co.kr/bbs/board.php?bo_table=g4_tiptech&wr_id=20870
 if ($wr_id && !$page)
 {
@@ -301,7 +299,7 @@ while ($row = sql_fetch_array($result))
 }
 
 $write_pages = get_paging($config[cf_write_pages], $page, $total_page, "./board.php?bo_table=$bo_table".$qstr."&page=");
-$write_pages_xs = get_paging($config[cf_page_rows_xs], $page, $total_page_xs, "./board.php?bo_table=$bo_table".$qstr."&page=");
+$write_pages_xs = get_paging($config[cf_page_rows_xs], $page, $total_page, "./board.php?bo_table=$bo_table".$qstr."&page=");
 
 $list_href = '';
 $prev_part_href = '';
