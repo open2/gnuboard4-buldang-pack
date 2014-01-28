@@ -1,6 +1,9 @@
 <?
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
 
+// 게시글 삭제를 위해서 (bbs/view.php에서 가져온 코드)
+set_session("ss_delete_token", $token = uniqid(time()));
+
 // 이모티콘 적용하기
 function emoticon_html($str, $board_skin_path)
 {
@@ -55,6 +58,7 @@ else if ($w == "r")
 <input type='hidden' name='spt'  value='<?=$spt?>'>
 <input type='hidden' name='page' value='<?=$page?>'>
 <input type='hidden' name='sw'   value=''>
+<input type='hidden' name='token' value='<?=$token?>'>
 
 <!-- 목록 -->
 <? for ($i=0; $i<count($list); $i++) { ?>
@@ -122,7 +126,7 @@ else if ($w == "r")
         ?>
             <div class="btn-group" style="margin-right:10px;">
             <a href="<?=$write_href?>&w=u&wr_id=<?=$list[$i][wr_id]?>&page=<?=$page?>&sca=<?=$ca_name?>" class="btn btn-default btn-sm">수정</a>
-            <a href="javascript:if (confirm('삭제하시겠습니까?')) { location='./delete.php?w=d&bo_table=<?=$bo_table?>&wr_id=<?=$list[$i][wr_id]?>&sca=<?=$sca?>';}" class="btn btn-default btn-sm">삭제</a>
+            <a href="javascript:if (confirm('삭제하시겠습니까?')) { location='./delete.php?w=d&bo_table=<?=$bo_table?>&wr_id=<?=$list[$i][wr_id]?>&sca=<?=$sca?>&token=<?=$token?>&page=<?=$page?>';}" class="btn btn-default btn-sm">삭제</a>
     		    </div>
         <? } ?>
         </div>
