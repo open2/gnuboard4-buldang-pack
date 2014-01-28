@@ -87,6 +87,7 @@ else
     <div class="collapse navbar-collapse navbar-top-menu-collapse col-sm-7">
     <ul class="nav navbar-nav">
         <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=qna">자유게시판</a></li>
+        <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=test">한줄이야기</a></li>
         <li class="dropdown">
             <a class="dropdown-toggle" href="#" data-toggle="dropdown">토크 <b class="caret"></b></a>
             <ul class="dropdown-menu">
