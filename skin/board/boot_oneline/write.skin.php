@@ -1,5 +1,11 @@
 <?
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
+
+// 이모티콘이 수정할 때 사라지지 않게...
+if ($w == "u")
+    $wr_subject = $write['wr_subject'];
+else
+    $wr_subject = "no-image";
 ?>
 <script type="text/javascript">
 // 글자수 제한
@@ -22,7 +28,7 @@ var char_max = parseInt(<?=$write_max?>); // 최대
 <input type=hidden name=mnb      value="<?=$mnb?>">
 <input type=hidden name=snb      value="<?=$snb?>">
 
-<input type=hidden name=wr_subject id=wr_subject value="no-image">
+<input type=hidden name=wr_subject id=wr_subject value="<?=$wr_subject?>">
 
 <?
 // reply일 때는 $content를 비워버립니다
@@ -105,6 +111,10 @@ if ($is_notice || $is_secret || $is_mail) {
                 $('#collapseOne').collapse('hide');$('#smiley').attr('src','<?=$board_skin_path?>/emoticons/'+emo_no+'.png');
                 $('#wr_subject').val(emo_no);
             });
+        
+            <? if ($w == "u") { ?>
+                $('#smiley').attr('src','<?=$board_skin_path?>/emoticons/'+<?=$wr_subject?>+'.png');
+            <? } ?>
         </script>
     
         <? if ($write_min || $write_max) { ?><span id=char_count></span>글자<?}?>
