@@ -22,7 +22,7 @@ var char_max = parseInt(<?=$write_max?>); // 최대
 <input type=hidden name=mnb      value="<?=$mnb?>">
 <input type=hidden name=snb      value="<?=$snb?>">
 
-<input type=hidden name=wr_subject value="">
+<input type=hidden name=wr_subject id=wr_subject value="no-image">
 
 <?
 // reply일 때는 $content를 비워버립니다
@@ -73,51 +73,53 @@ if ($is_notice || $is_secret || $is_mail) {
 }
 ?>
 <? if ($member[mb_level] > 1) { ?>
-<div>
-    <textarea class="form-control" id="wr_content" name="wr_content" style='word-break:break-all;' rows=4 itemname="내용" required 
-    <? if ($write_min || $write_max) { ?>onkeyup="check_byte('wr_content', 'char_count');"<?}?>><?=$content?></textarea>
-    <? if ($write_min || $write_max) { ?><script type="text/javascript"> check_byte('wr_content', 'char_count'); </script><?}?>
-
-<a class="btn btn-default" style="cursor: pointer;" data-toggle="collapse" href="#collapseOne">이미지</a>
-<img id="smiley">
-<div class="btn-group" style="margin-top:5px;margin-bottom:5px;">
-    &nbsp;<span class="btn btn-default" style="cursor: pointer;" onclick="textarea_decrease('wr_content', 5);"> <i class="fa fa-minus-square"></i> </span>
-    &nbsp;<span class="btn btn-default" style="cursor: pointer;" onclick="textarea_original('wr_content', 5);"> <i class="fa fa-circle-o"></i> </span>
-    &nbsp;<span class="btn btn-default" style="cursor: pointer;" onclick="textarea_increase('wr_content', 5);"> <i class="fa fa-plus-square"></i> </span>
-</div>
-
-<div id="collapseOne" class="collapse well">
-    <ul class="list-unstyled list-inline" style="margin-bottom:5px;">
-        <?
-        for ($i=101; $i<144;$i++) {
-            echo "<li><img class='emoticon' id='$i' src='$board_skin_path/emoticons/$i.png' style='cursor:pointer'></li>";
-        }
-        ?>
-        <li><a href='#' onclick="$('#collapseOne').collapse('hide');$('#smiley').attr('src','');$('wr_subject').val('')">이모티콘 없애기</a></li>
-    </ul>
-</div>
-
-<script type="text/javascript">
-    $('.emoticon').click(function() {
-        var emo_no = $(this).attr("id");
-        $('#collapseOne').collapse('hide');$('#smiley').attr('src','<?=$board_skin_path?>/emoticons/'+emo_no+'.png');
-        $('#wr_subject').val(emo_no);
-    });
-</script>
-
-    <? if ($write_min || $write_max) { ?><span id=char_count></span>글자<?}?>
-
-    <span class="pull-right" style="margin-top:5px;margin-bottom:5px;">
-    <? if ($member[mb_level] > 1) { ?>
-    <? if ($option) { ?>
-        <?=$option?>&nbsp;&nbsp;&nbsp;&nbsp;
-    <?}?>
-    <?}?>
-        <a class="btn btn-default" href="<?=$list_href?>">List</a>
-        &nbsp;&nbsp;&nbsp;
-        <button type="submit" class="btn btn-success" id="btn_submit">Write</button>
-    </span>
-</div>
+    <div>
+        <textarea class="form-control" id="wr_content" name="wr_content" style='word-break:break-all;' rows=4 itemname="내용" required 
+        <? if ($write_min || $write_max) { ?>onkeyup="check_byte('wr_content', 'char_count');"<?}?>><?=$content?></textarea>
+        <? if ($write_min || $write_max) { ?><script type="text/javascript"> check_byte('wr_content', 'char_count'); </script><?}?>
+    
+        <a class="btn btn-default" style="cursor: pointer;" data-toggle="collapse" href="#collapseOne">이미지</a>
+        <img id="smiley">
+        <div class="btn-group" style="margin-top:5px;margin-bottom:5px;">
+            &nbsp;<span class="btn btn-default" style="cursor: pointer;" onclick="textarea_decrease('wr_content', 5);"> <i class="fa fa-minus-square"></i> </span>
+            <!-- 이게 있으면 폰에서 줄바꿈이 일어나기도... -..-...
+            &nbsp;<span class="btn btn-default" style="cursor: pointer;" onclick="textarea_original('wr_content', 5);"> <i class="fa fa-circle-o"></i> </span>
+            -->
+            &nbsp;<span class="btn btn-default" style="cursor: pointer;" onclick="textarea_increase('wr_content', 5);"> <i class="fa fa-plus-square"></i> </span>
+        </div>
+        
+        <div id="collapseOne" class="collapse well">
+            <ul class="list-unstyled list-inline" style="margin-bottom:5px;">
+                <?
+                for ($i=101; $i<144;$i++) {
+                    echo "<li><img class='emoticon' id='$i' src='$board_skin_path/emoticons/$i.png' style='cursor:pointer'></li>";
+                }
+                ?>
+                <li><a href='#' onclick="$('#collapseOne').collapse('hide');$('#smiley').attr('src','');$('wr_subject').val('no-image')" class="btn btn-default btn-sm" style="margin-top:5px;">이모티콘없애기</a></li>
+            </ul>
+        </div>
+        
+        <script type="text/javascript">
+            $('.emoticon').click(function() {
+                var emo_no = $(this).attr("id");
+                $('#collapseOne').collapse('hide');$('#smiley').attr('src','<?=$board_skin_path?>/emoticons/'+emo_no+'.png');
+                $('#wr_subject').val(emo_no);
+            });
+        </script>
+    
+        <? if ($write_min || $write_max) { ?><span id=char_count></span>글자<?}?>
+    
+        <span class="pull-right" style="margin-top:5px;margin-bottom:5px;">
+        <? if ($member[mb_level] > 1) { ?>
+        <? if ($option) { ?>
+            <?=$option?>&nbsp;&nbsp;&nbsp;&nbsp;
+        <?}?>
+        <?}?>
+            <a class="btn btn-default" href="<?=$list_href?>">List</a>
+            &nbsp;
+            <button type="submit" class="btn btn-success" id="btn_submit">Write</button>
+        </span>
+    </div>
 <? } else { ?>
 <div class="well">
     <?

@@ -4,11 +4,20 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 // 이모티콘 적용하기
 function emoticon_html($str, $board_skin_path)
 {
-  if ($str <= 1 or $str > 44) return ""; // 범위를 벗어나거나 기본표정의 경우 출력하지 않음
-	$emo_id = "$str";
-	$img_src = "<img src='$board_skin_path/emoticons/$str.gif' width=18 height=18 border=0>";
-	$str = preg_replace("/{$emo_id}/i", $img_src, $str);
-	return $str;
+    if ($str == "no-image")
+        return "";
+
+    if ($str >= 1 && $str <= 44) {
+        // 옛날 한줄게시판 데이터와의 호환을 위해
+      	$emo_file = "$str.gif";
+    } else if ($str >= 101 && $str <= 143) {
+        // 새로운 부트스트랩 한줄게시판 이미지
+      	$emo_file = "$str.png";
+    } else {
+        return ""; // 범위를 벗어나거나 기본표정의 경우 출력하지 않음
+    }
+   	$img_src = "<img src='$board_skin_path/emoticons/" . $emo_file . "' border=0> ";
+	  return $img_src;
 }
 
 /*
@@ -76,15 +85,17 @@ else if ($w == "r")
         if ($list[$i][is_notice]) // 공지사항 
             echo "<i class=\"fa fa-microphone\" title='notice/공지사항'></i> ";
         else {
-         		$list[$i][subject] = emoticon_html($list[$i][subject], $board_skin_path1);
+         		$list[$i][subject] = emoticon_html($list[$i][subject], $board_skin_path);
             echo $list[$i][subject];
         }
         ?>
         <?
+        /*
         if ($list[$i][wr_subject]) {
             $emo = $list[$i][wr_subject];
             echo "<img src='$board_skin_path/emoticons/" . $emo . ".png'>";
         }
+        */
             
  		    $list[$i][wr_content] = conv_content($list[$i][wr_content], 0);
 
