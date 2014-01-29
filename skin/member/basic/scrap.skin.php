@@ -5,7 +5,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 $sql = " select distinct a.bo_table, b.bo_subject from $g4[scrap_table] a left join $g4[board_table] b on a.bo_table=b.bo_table where a.mb_id = '$member[mb_id]' ";
 $result = sql_query($sql);
 $str = "<select class='form-control' name='bo_table' onchange=\"location='$g4[bbs_path]/scrap.php?head_on=$head_on&mnb=$mnb&snb=$snb&sfl=bo_table&stx='+this.value;\">";
-$str .= "<option value='all'>전체목록보기</option>";
+$str .= "<option value='all'>전체게시판</option>";
     for ($i=0; $row=sql_fetch_array($result); $i++)
     {
         $str .= "<option value='$row[bo_table]'";
@@ -18,7 +18,7 @@ $str .= "<option value='all'>전체목록보기</option>";
 $sql = " select distinct ms_memo from $g4[scrap_table] where mb_id = '$member[mb_id]' and ms_memo != '' ";
 $result = sql_query($sql);
 $memo_str0 = "<select class='form-control' name='ms_memo' onchange=\"location='$g4[bbs_path]/scrap.php?head_on=$head_on&mnb=$mnb&snb=$snb&sfl=ms_memo&stx='+this.value;\">";
-$memo_str = "<option value='all'>전체목록보기</option>";
+$memo_str = "<option value='all'>전체메모</option>";
     for ($i=0; $row=sql_fetch_array($result); $i++)
     {
         $memo_str .= "<option value='$row[ms_memo]'";
@@ -99,17 +99,23 @@ $memo_str_list = $memo_str0 . $memo_str;
         <td class="hidden-xs"><?=$list[$i][mb_nick]?></td>
         <td class="hidden-xs" align="left" style='word-break:break-all;'><a href="#" title="<?=$list[$i][ms_memo]?>"><?=$list[$i][ms_memo]?>
         &nbsp;<a class="btn btn-default btn-xs" href="javascript:memo_box(<?=$list[$i][ms_id]?>)"><i class="fa fa-pencil-square-o"></i></a>
+
         <span id='memo_<?=$list[$i][ms_id]?>' style='display:none;'>
-        <input type="type" placeholder="scrap memo" name="memo_edit_<?=$list[$i][ms_id]?>" id="memo_edit_<?=$list[$i][ms_id]?>" size="50" value="<?=preg_replace("/\"/", "&#034;", stripslashes(get_text($list[$i][ms_memo],0)))?>" />
-        <a class="btn btn-default btn-xs" href='javascript:memo_update(<?=$list[$i][ms_id]?>)'>write</a>
-        <BR>
-        <?
-        $memo_str_tmp = "<select name='ms_memo_{$list[$i][ms_id]}' onchange=\"javascript:document.getElementById('memo_edit_{$list[$i][ms_id]}').value=this.value;\">";
-        echo $memo_str_tmp . $memo_str;
-        ?>
-        </span> 
+            <div class="input-group" style="margin:5px 0;">
+            <input type="type" class="form-control" placeholder="scrap memo" name="memo_edit_<?=$list[$i][ms_id]?>" id="memo_edit_<?=$list[$i][ms_id]?>" size="50" value="<?=preg_replace("/\"/", "&#034;", stripslashes(get_text($list[$i][ms_memo],0)))?>" />
+            <span class="input-group-btn">
+            <a class="btn btn-default" href='javascript:memo_update(<?=$list[$i][ms_id]?>)'>write</a>
+            </span>
+            </div>
+            <?
+            $memo_str_tmp = "<select class='form-control' name='ms_memo_{$list[$i][ms_id]}' onchange=\"javascript:document.getElementById('memo_edit_{$list[$i][ms_id]}').value=this.value;\">";
+            echo $memo_str_tmp . $memo_str;
+            ?>
+        </span>
+
         </td>
         <td class="hidden-xs"><?=get_date($list[$i][ms_datetime])?></td>
+        <!-- xs... 모바일 상태에서 나오는 것. 메모편집은 따로 해야 하기에 한번 더 copy 하면서 수정 -->
         <td class="visible-xs">
             <? if ($head_on) { ?>
                 <a href="<?=$list[$i][opener_href]?>">
@@ -120,9 +126,22 @@ $memo_str_list = $memo_str0 . $memo_str;
             <a href="javascript:del('<?=$list[$i][del_href]?>');"><i class="fa fa-trash-o"></i></a>
             <br>
             <div class="pull-left">
-                <small>
-                <?=$list[$i][bo_subject]?>&nbsp;&nbsp;<?=$list[$i][ms_memo]?>
-                </small>
+                <?=$list[$i][bo_subject]?>&nbsp;&nbsp;<a class="btn btn-default btn-xs" href="javascript:memo_box('<?=$list[$i][ms_id]?>_1')"><i class="fa fa-pencil-square-o"></i></a> <?=$list[$i][ms_memo]?>
+
+                <!-- id가 같으면 충돌하기 때문에 _1을 뒤에 붙여서 구분 합니다 -->
+                <span id='memo_<?=$list[$i][ms_id]?>_1' style='display:none;'>
+                    <div class="input-group" style="margin:5px 0;">
+                    <input type="type" class="form-control" placeholder="scrap memo" name="memo_edit_<?=$list[$i][ms_id]?>_1" id="memo_edit_<?=$list[$i][ms_id]?>_1" size="50" value="<?=preg_replace("/\"/", "&#034;", stripslashes(get_text($list[$i][ms_memo],0)))?>" />
+                    <span class="input-group-btn">
+                    <a class="btn btn-default" href="javascript:memo_update('<?=$list[$i][ms_id]?>_1')">write</a>
+                    </span>
+                    </div>
+                    <?
+                    $memo_str_tmp = "<select class='form-control' name='ms_memo_{$list[$i][ms_id]}' onchange=\"javascript:document.getElementById('memo_edit_{$list[$i][ms_id]}_1').value=this.value;\">";
+                    echo $memo_str_tmp . $memo_str;
+                    ?>
+                </span>
+
             </div>
             <div class="pull-right">
                 <?=$list[$i][mb_nick]?>&nbsp;&nbsp;<?=get_date($list[$i][ms_datetime])?>
