@@ -9,7 +9,6 @@ $new_point_rows = 5;
 $new_write_rows = 5;
 
 $sql_common = " from $g4[member_table] ";
-
 $sql_search = " where (1) ";
 
 //if ($is_admin == 'group') $sql_search .= " and mb_level = '$member[mb_level]' ";
@@ -23,6 +22,7 @@ if (!isset($sst)) {
 
 $sql_order = " order by $sst $sod ";
 
+// 전체회원수
 $sql = " select count(*) as cnt
          $sql_common
          $sql_search
@@ -48,6 +48,7 @@ $sql = " select count(*) as cnt
 $row = sql_fetch($sql);
 $intercept_count = $row['cnt'];
 
+// 신규가입 회원목록
 $sql = " select *
           $sql_common
           $sql_search
@@ -55,8 +56,6 @@ $sql = " select *
           limit $new_member_rows ";
 $result = sql_query($sql);
 
-$colspan = 12;
-?>
 
 <?=subtitle("신규가입회원 {$new_member_rows}건", "./member_list.php");?>
 

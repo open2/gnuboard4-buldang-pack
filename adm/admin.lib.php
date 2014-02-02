@@ -211,6 +211,7 @@ function auth_check($auth, $attr)
 
 
 // 텍스트에리어 늘리기, 줄이기
+/*
 function textarea_size($fld) 
 {
     global $g4;
@@ -222,9 +223,10 @@ function textarea_size($fld)
     $s .= "&nbsp;&nbsp;</td></tr></table>";
     return $s;
 }
-
+*/
 
 // 작업아이콘 출력
+/*
 function icon($act, $link="", $target="_parent")
 {
     global $g4;
@@ -238,7 +240,7 @@ function icon($act, $link="", $target="_parent")
         $s = $icon;
     return $s;
 }
-
+*/
 
 // rm -rf 옵션 : exec(), system() 함수를 사용할 수 없는 서버 또는 win32용 대체
 // www.php.net 참고 : pal at degerstrom dot com
@@ -259,6 +261,7 @@ function rm_rf($file)
     }
 }
 
+/*
 function help($help="", $left=0, $top=0)
 {
     global $g4;
@@ -275,6 +278,7 @@ function help($help="", $left=0, $top=0)
 
     return $str;
 }
+*/
 
 function subtitle($title, $more="") 
 {
@@ -333,6 +337,7 @@ else if ($is_admin != "super")
 }
 
 // 관리자의 아이피, 브라우저와 다르다면 세션을 끊고 관리자에게 메일을 보낸다.
+// ss_mb_key 세션은 bbs/login_check.php에서 생성된다.
 $admin_key = md5($member[mb_datetime] . $_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
 if (get_session("ss_mb_key") !== $admin_key) {
 
@@ -342,7 +347,7 @@ if (get_session("ss_mb_key") !== $admin_key) {
     // 메일 알림
     mailer($member['mb_nick'], $member['mb_email'], $member['mb_email'], "XSS 공격 알림", "{$_SERVER['REMOTE_ADDR']} 아이피로 XSS 공격이 있었습니다.\n\n관리자 권한을 탈취하려는 접근이므로 주의하시기 바랍니다.\n\n해당 아이피는 차단하시고 의심되는 게시물이 있는지 확인하시기 바랍니다.\n\n$g4[url]", 0);
 
-    //alert_close("정상적으로 로그인하여 접근하시기 바랍니다.");
+    alert("정상적으로 로그인하여 접근하시기 바랍니다.");
 }
 
 @ksort($auth);
@@ -368,5 +373,4 @@ if (isset($sod)) $qstr .= "&sod=$sod";
 if (isset($sfl)) $qstr .= "&sfl=$sfl";
 if (isset($stx)) $qstr .= "&stx=$stx";
 if (isset($page)) $qstr .= "&page=$page";
-//$qstr = "sst=$sst&sod=$sod&sfl=$sfl&stx=$stx&page=$page";
 ?>
