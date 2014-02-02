@@ -99,6 +99,7 @@ function latest_group($skin_dir="", $gr_id="", $rows=10, $subject_len=40, $conte
                 continue;
             $write = $row2;
             $list[$j] = get_list($write, $board, $latest_skin_path, $subject_len);
+            $list[$j]['bo_subject'] = $board[bo_subject];
             $j++;
         }
     }   
