@@ -7,6 +7,12 @@ if (!defined("_GNUBOARD_")) exit;
 </div>
 </div><!-- 중간의 메인부 끝 -->
 
+<footer class="footer-wrapper" role="contentinfo" style="margin-top:20px;">
+<div class="container well">
+    <p>실행시간 : <?=get_microtime() - $begin_time;?>
+</div>
+</footer>
+
 <a href="#" class="btn btn-default back-to-top"><span class="glyphicon glyphicon-chevron-up"></span></a>
 <style>
 .back-to-top {
