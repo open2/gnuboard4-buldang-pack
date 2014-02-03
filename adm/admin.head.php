@@ -41,11 +41,11 @@ function print_menu2($key, $no)
     return $str;
 }
 
-function print_menu1($key, $no)
+function print_menu1($key, $no, $sub_menu)
 {
     global $menu, $auth_menu, $is_admin, $auth, $g4;
 
-    $str .= "<ul class=\"nav nav-sidebar\" role=\"navigation\">";
+    $str .= "<ul class=\"nav nav-pills nav-stacked\" role=\"navigation\">";
 
     for($i=1; $i<count($menu[$key]); $i++)
     {
@@ -64,8 +64,14 @@ function print_menu1($key, $no)
                 $span1 = " <i class=\"fa fa-external-link\"></i>";
             } else 
                 $target_link = "";
+            // 선택된 메뉴는 active로
+            if ($menu[$key][$i][0] == $sub_menu)
+                $active = "active";
+            else
+                $active = "";
+
             // 조금 빽빽하게 보이게, 일부러 style을 바꿔준다. 요기만 하는거라 class 생략
-            $str .= "<li style='margin-top:-5px;margin-bottom:-5px;'><a href='{$menu[$key][$i][2]}' {$target_link}>{$menu[$key][$i][1]}{$span1}</a></li>";
+            $str .= "<li style='margin-top:-5px;margin-bottom:-5px;' class='$active'><a href='{$menu[$key][$i][2]}' {$target_link}>{$menu[$key][$i][1]}{$span1}</a></li>";
             $auth_menu[$menu[$key][$i][0]] = $menu[$key][$i][1];
         }
     }
@@ -164,7 +170,7 @@ function print_menu1($key, $no)
     <div class="well" style="margin-bottom:5px;"><strong><?=$tmp_menu1_title?></strong></div>
     <div class="panel panel-default">
         <?
-        echo print_menu1($tmp_menu1, 1);
+        echo print_menu1($tmp_menu1, 1, $sub_menu);
         ?>
     </div>
 
