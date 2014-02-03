@@ -1,5 +1,5 @@
 <?
-$sub_menu = "100200";
+$sub_menu = "100110";
 include_once("./_common.php");
 
 if ($is_admin != "super")
@@ -69,7 +69,11 @@ var list_delete_php = "auth_list_delete.php";
             <option value='a.mb_id'>회원아이디</option>
         </select>
         <input type=text name=stx class=ed required itemname='검색어' value='<?=$stx?>'>
-        <input type=image src='<?=$g4[admin_path]?>/img/btn_search.gif' align=absmiddle></td>
+        <button type="submit" class="btn">검색 <i class="glyphicon glyphicon-search"></i></button>
+        <!--
+        <input type=image src='<?=$g4[admin_path]?>/img/btn_search.gif' align=absmiddle>
+        -->
+    </td>
 </tr>
 </form>
 </table>
@@ -82,21 +86,19 @@ var list_delete_php = "auth_list_delete.php";
 <input type=hidden name=page  value='<?=$page?>'>
 <input type=hidden name=token value='<?=$token?>'>
 
-<table width=100% cellpadding=0 cellspacing=0>
+<table width=100% class="table table-hover" style="word-wrap:break-word;">
 <colgroup width=30>
 <colgroup width=120>
 <colgroup width=150>
 <colgroup width=''>
 <colgroup width=100>
-<tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
-<tr class='bgcol1 bold col1 ht center'>
+<tr class='success'>
     <td><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
     <td><?=subject_sort_link('a.mb_id')?>회원아이디</a></td>
     <td><?=subject_sort_link('mb_nick')?>별명</a></td>
 	<td>메뉴</td>
 	<td>권한</td>
 </tr>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) 
 {
