@@ -19,15 +19,14 @@ include_once ("./admin.head.php");
 <form name='fconfigform' method='post' onsubmit="return fconfigform_submit(this);">
 <input type=hidden name=token value='<?=$token?>'>
 
-<table width=100% cellpadding=0 cellspacing=0 border=0>
-<colgroup width=20% class='col1 pad1 bold right'>
-<colgroup width=30% class='col2 pad2'>
-<colgroup width=20% class='col1 pad1 bold right'>
-<colgroup width=30% class='col2 pad2'>
-<tr class='ht'>
-    <td colspan=4 align=left><?=subtitle("기본 설정")?></td>
+<table width=100% class="table table-hover" style="word-wrap:break-word;">
+<colgroup width=20%>
+<colgroup width=30%>
+<colgroup width=20%>
+<colgroup width=30%>
+<tr class='success'>
+    <td colspan=4>기본 설정</td>
 </tr>
-<tr><td colspan=4 class=line1></td></tr>
 <tr class='ht'>
     <td>홈페이지 제목</td>
     <td>
