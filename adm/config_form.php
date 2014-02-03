@@ -14,26 +14,6 @@ $config = get_config("reg");
 
 $g4['title'] = "기본환경설정";
 include_once ("./admin.head.php");
-
-
-function help($help="", $left=0, $top=0)
-{
-    global $g4;
-    static $idx = 0;
-
-    $idx++;
-
-    $help = preg_replace("/\n/", "<br>", $help);
-    
-    $str  = "<img src='$g4[admin_path]/img/icon_help.gif' border=0 width=15 height=15 align=absmiddle onclick=\"help('help$idx', $left, $top);\" style='cursor:hand;'>";
-    $str .= "<div id='help$idx' style='position:absolute; display:none; z-index:9999;'>";
-    $str .= "<div id='csshelp1'><div id='csshelp2'><div id='csshelp3'>$help</div></div></div>";
-    $str .= "</div>";
-
-    return $str;
-}
-
-
 ?>
 <form name='fconfigform' method='post' onsubmit="return fconfigform_submit(this);">
 <input type=hidden name=token value='<?=$token?>'>
