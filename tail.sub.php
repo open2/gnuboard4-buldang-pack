@@ -11,7 +11,7 @@ session_write_close();
 <!-- bootstrap tooltip script -->
 <script type="text/javascript">
 $(document).ready(function(){
-    $(".tooltip-help").tooltip({trigger: 'hover click','placement': 'right'});
+    $(".tooltip-help").tooltip({trigger: 'hover click','placement': 'top'});
 });
 </script>
 
