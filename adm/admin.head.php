@@ -40,6 +40,39 @@ function print_menu2($key, $no)
 
     return $str;
 }
+
+function print_menu1($key, $no)
+{
+    global $menu, $auth_menu, $is_admin, $auth, $g4;
+
+    $str .= "<ul class=\"nav nav-sidebar\" role=\"navigation\">";
+
+    for($i=1; $i<count($menu[$key]); $i++)
+    {
+        if ($is_admin != "super" && (!array_key_exists($menu[$key][$i][0],$auth) || !strstr($auth[$menu[$key][$i][0]], "r")))
+            continue;
+
+        if ($menu[$key][$i][0] == "-")
+            $str .= "<li class=\"nav-divider\"></li>";
+        else
+        {
+            // target link가 있는 경우
+            $span1 = "";
+
+            if ($menu[$key][$i][3]) {
+                $target_link = "target='$menu[$key][$i][3]'"; 
+                $span1 = " <i class=\"fa fa-external-link\"></i>";
+            } else 
+                $target_link = ""; 
+            $str .= "<li><a href='{$menu[$key][$i][2]}' {$target_link}>{$menu[$key][$i][1]}{$span1}</a></li>";
+            $auth_menu[$menu[$key][$i][0]] = $menu[$key][$i][1];
+        }
+    }
+
+    $str .= "</ul>";
+
+    return $str;
+}
 ?>
 <link rel="stylesheet" href="<?=$g4['admin_path']?>/admin.style.css" type="text/css">
 
@@ -113,20 +146,26 @@ function print_menu2($key, $no)
 
 <!-- 왼쪽 side 시작 -->
 <div class="col-sm-2 visible-sm visible-md visible-lg">
-<?
-// 아웃로그인
-include_once("$g4[path]/lib/outlogin.lib.php");
-echo outlogin("basic");
-?>
+    <?
+    // 아웃로그인
+    include_once("$g4[path]/lib/outlogin.lib.php");
+    echo outlogin("basic");
 
-<? if ($tmp_menu !== "") { ?>
-    <div class="well"><?=$tmp_menu?></div>
-    <ul class="list-group">
+    // menu 설정 - 아무것도 없으면 처음 나오는 key를 기본 key로 설정
+    if ($tmp_menu == "") {
+        $tmp_menu1 = key($menu);
+    } else {
+        $tmp_menu1 = "menu" . $tmp_menu;
+    }
+    $tmp_menu1_title = $menu[$tmp_menu1][0][1];
+    ?>
+
+    <div class="well" style="margin-bottom:5px;"><?=$tmp_menu1_title?></div>
+    <div class="panel panel-default">
         <?
-        echo print_menu2("menu{$tmp_menu}", 2);
+        echo print_menu1($tmp_menu1, 1);
         ?>
-    </ul>
-<? } ?>
+    </div>
 
 </div><!-- 왼쪽 side 끝 -->
 
