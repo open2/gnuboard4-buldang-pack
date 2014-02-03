@@ -28,7 +28,8 @@ else {
 <!-- 로그인 전 외부로그인 시작 -->
 <form name="fhead" method="post" onsubmit="return fhead_submit(this);" autocomplete="off" role="form" class="form-inline">
 <input type="hidden" name="url" value="<?=$outlogin_url?>">
-<input type="text" class="form-control" name="mb_id" maxlength="20" itemname="아이디" placeholder="login id">
+
+<input type="text" class="form-control" name="mb_id" maxlength="20" itemname="아이디" placeholder="login id" style="width:100%;">
 
 <div class="input-group">
     <input type="password" class="form-control" name="mb_password" id="outlogin_mb_password" maxlength="20" itemname="패스워드" placeholder="password">
