@@ -63,8 +63,9 @@ function print_menu1($key, $no)
                 $target_link = "target='$menu[$key][$i][3]'"; 
                 $span1 = " <i class=\"fa fa-external-link\"></i>";
             } else 
-                $target_link = ""; 
-            $str .= "<li><a href='{$menu[$key][$i][2]}' {$target_link}>{$menu[$key][$i][1]}{$span1}</a></li>";
+                $target_link = "";
+            // 조금 빽빽하게 보이게, 일부러 style을 바꿔준다. 요기만 하는거라 class 생략
+            $str .= "<li style='margin-top:-5px;margin-bottom:-5px;'><a href='{$menu[$key][$i][2]}' {$target_link}>{$menu[$key][$i][1]}{$span1}</a></li>";
             $auth_menu[$menu[$key][$i][0]] = $menu[$key][$i][1];
         }
     }
@@ -160,7 +161,7 @@ function print_menu1($key, $no)
     $tmp_menu1_title = $menu[$tmp_menu1][0][1];
     ?>
 
-    <div class="well" style="margin-bottom:5px;"><?=$tmp_menu1_title?></div>
+    <div class="well" style="margin-bottom:5px;"><strong><?=$tmp_menu1_title?></strong></div>
     <div class="panel panel-default">
         <?
         echo print_menu1($tmp_menu1, 1);

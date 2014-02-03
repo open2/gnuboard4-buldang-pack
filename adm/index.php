@@ -55,106 +55,47 @@ $sql = " select *
           $sql_order
           limit $new_member_rows ";
 $result = sql_query($sql);
-
-
-<?=subtitle("신규가입회원 {$new_member_rows}건", "./member_list.php");?>
-
-<table width=100%>
-<tr>
-    <td width=50% align=left><?//=$listall?> (총회원수 : <?=number_format($total_count)?>, <font color=orange>차단 : <?=number_format($intercept_count)?></font>, <font color=crimson>탈퇴 : <?=number_format($leave_count)?></font>)</td>
-    <td width=50% align=right></td>
-</tr>
-</table>
-
-<table width=100% cellpadding=0 cellspacing=0>
-<input type=hidden name=sst  value='<?=$sst?>'>
-<input type=hidden name=sod  value='<?=$sod?>'>
-<input type=hidden name=sfl  value='<?=$sfl?>'>
-<input type=hidden name=stx  value='<?=$stx?>'>
-<input type=hidden name=page value='<?=$page?>'>
-<colgroup width=80>
-<colgroup width=80>
-<colgroup width=>
-<colgroup width=40>
-<colgroup width=50>
-<colgroup width=80>
-<colgroup width=40>
-<colgroup width=40>
-<colgroup width=40>
-<colgroup width=40>
-<colgroup width=40>
-<tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
-<tr class='bgcol1 bold col1 ht center'>
-    <td>회원아이디</td>
-    <td>이름</td>
-    <td>별명</td>
-    <td>권한</td>
-    <td>포인트</td>
-    <td>최종접속</td>
-    <td title='메일수신허용여부'>수신</td>
-    <td title='정보공개여부'>공개</td>
-    <td title='이메일인증'>인증</td>
-    <td>차단</td>
-    <td title='접근가능한 그룹수'>그룹</td>
-</tr>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
-<?
-for ($i=0; $row=sql_fetch_array($result); $i++) 
-{
-    // 접근가능한 그룹수
-    $sql2 = " select count(*) as cnt from $g4[group_member_table] where mb_id = '$row[mb_id]' ";
-    $row2 = sql_fetch($sql2);
-    $group = "";
-    if ($row2['cnt'])
-        $group = "<a href='./boardgroupmember_form.php?mb_id=$row[mb_id]'>$row2[cnt]</a>";
-
-    if ($is_admin == 'group') 
-    {
-        $s_mod = "";
-        $s_del = "";
-    } 
-    else 
-    {
-        $s_mod = "<a href=\"./member_form.php?$qstr&w=u&mb_id=$row[mb_id]\"><img src='img/icon_modify.gif' border=0 title='수정'></a>";
-        $s_del = "<a href=\"javascript:del('./member_delete.php?$qstr&w=d&mb_id=$row[mb_id]&url=$_SERVER[PHP_SELF]');\"><img src='img/icon_delete.gif' border=0 title='삭제'></a>";
-    }
-    $s_grp = "<a href='./boardgroupmember_form.php?mb_id=$row[mb_id]'><img src='img/icon_group.gif' border=0 title='그룹'></a>";
-
-    $leave_date = $row['mb_leave_date'] ? $row['mb_leave_date'] : date("Ymd", $g4['server_time']);
-    $intercept_date = $row['mb_intercept_date'] ? $row['mb_intercept_date'] : date("Ymd", $g4['server_time']);
-
-    $mb_nick = get_sideview($row['mb_id'], $row['mb_nick'], $row['mb_email'], $row['mb_homepage']);
-
-    $mb_id = $row['mb_id'];
-    if ($row['mb_leave_date'])
-        $mb_id = "<font color=crimson>$mb_id</font>";
-    else if ($row['mb_intercept_date'])
-        $mb_id = "<font color=orange>$mb_id</font>";
-
-    $list = $i%2;
-    echo "
-    <input type=hidden name=mb_id[$i] value='$row[mb_id]'>
-    <tr class='list$list col1 ht center'>
-        <td title='$row[mb_id]'><nobr style='display:block; overflow:hidden; width:100px;'>&nbsp;$mb_id</nobr></td>
-        <td>$row[mb_name]</td>
-        <td>$mb_nick</td>
-        <td>$row[mb_level]</td>
-        <td align=right><a href='./point_list.php?sfl=mb_id&stx=$row[mb_id]' class=tt>".number_format($row['mb_point'])."</a>&nbsp;</td>
-        <td>".substr($row['mb_today_login'],2,8)."</td>
-        <td>".($row['mb_mailling']?'&radic;':'&nbsp;')."</td>
-        <td>".($row['mb_open']?'&radic;':'&nbsp;')."</td>
-        <td title='$row[mb_email_certify]'>".(preg_match('/[1-9]/', $row['mb_email_certify'])?'&radic;':'&nbsp;')."</td>
-        <td title='$row[mb_intercept_date]'>".($row['mb_intercept_date']?'&radic;':'&nbsp;')."</td>
-        <td>$group</td>               
-    </tr>";
-}
-
-if ($i == 0)
-    echo "<tr><td colspan='$colspan' align=center height=100 class=contentbg>자료가 없습니다.</td></tr>";
-
-echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
-echo "</table>";
 ?>
+
+<div class="row-fluid row">
+<div class="col-sm-6">
+    <div class="panel panel-default">
+        <div class="panel-heading"><a href="./member_list.php">신규가입회원 <?=$new_member_rows?>건</a>
+            <span class="pull-right">총회원수 : <?=number_format($total_count)?>, 차단 : <?=number_format($intercept_count)?>, 탈퇴 : <?=number_format($leave_count)?></span>
+        </div>
+    </div>
+    <table width=100% class="table table-hover" style="word-wrap:break-word;">
+    <tr class="success">
+        <td>회원아이디</td>
+        <td>이름</td>
+        <td>별명</td>
+        <td>권한</td>
+        <td>포인트</td>
+        <td>최종접속</td>
+    </tr>
+    <?
+    for ($i=0; $row=sql_fetch_array($result); $i++) 
+    {
+        $mb_nick = get_sideview($row['mb_id'], $row['mb_nick'], $row['mb_email'], $row['mb_homepage']);
+    
+        $mb_id = $row['mb_id'];
+        echo "
+        <tr>
+            <td title='$row[mb_id]'>$mb_id</td>
+            <td>$row[mb_name]</td>
+            <td>$mb_nick</td>
+            <td>$row[mb_level]</td>
+            <td align=right><a href='./point_list.php?sfl=mb_id&stx=$row[mb_id]'>".number_format($row['mb_point'])."</a></td>
+            <td>".substr($row['mb_today_login'],2,8)."</td>
+                 
+        </tr>";
+    }
+    
+    if ($i == 0)
+        echo "<tr><td colspan='6' align=center height=100>자료가 없습니다.</td></tr>";
+    ?>
+    </table>
+</div>
 
 <?
 // 최근 게시물 $new_write_rows 건을 구합니다
@@ -165,29 +106,24 @@ $sql_order = " order by bn_id desc ";
 $colspan = 5;
 ?>
 
-<br><br>
-<?=subtitle("최근게시물", "$g4[bbs_path]/new.php");?>
+<div class="col-sm-6">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href='<?=$g4[bbs_path]?>/new.php' target="_blank">최근게시물</a>
+        </div>
+    </div>
 
-<table width=100% cellpadding=0 cellspacing=1>
-<input type=hidden name=sst  value='<?=$sst?>'>
-<input type=hidden name=sod  value='<?=$sod?>'>
-<input type=hidden name=sfl  value='<?=$sfl?>'>
-<input type=hidden name=stx  value='<?=$stx?>'>
-<input type=hidden name=page value='<?=$page?>'>
-<colgroup width=100>
+<table width=100% class="table table-hover" style="word-wrap:break-word;">
 <colgroup width=100>
 <colgroup width=''>
 <colgroup width=80>
 <colgroup width=80>
-<tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
-<tr class='bgcol1 bold col1 ht center'>
-    <td>그룹</td>
+<tr class='success'>
     <td>게시판</td>
     <td>제목</td>
     <td>이름</td>
     <td>일시</td>
 </tr>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <?
 $sql = " select *
           $sql_common
@@ -209,12 +145,10 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     $gr = get_group($row[gr_id], "gr_subject");
     $gr_subject = cut_str($gr['gr_subject'],10);
 
-    $list = $i%2;
     echo "
-    <tr class='list$list col1 ht center'>
-        <td class=small><a href='$g4[bbs_path]/new.php?gr_id=$row[gr_id]'>".$gr_subject."</a></td>
-        <td class=small><a href='$g4[bbs_path]/board.php?bo_table=$row[bo_table]'>".$bo_subject."</a></td>
-        <td align=left style='word-break:break-all;'>&nbsp;<a href='$g4[bbs_path]/board.php?bo_table=$row[bo_table]&wr_id=$row2[wr_id]'>".conv_subject($row2['wr_subject'], 100)."</a></td>
+    <tr>
+        <td><a href='$g4[bbs_path]/board.php?bo_table=$row[bo_table]'>".$bo_subject."</a></td>
+        <td ><a href='$g4[bbs_path]/board.php?bo_table=$row[bo_table]&wr_id=$row2[wr_id]'>".conv_subject($row2['wr_subject'], 40)."</a></td>
         <td>$name</td>
         <td>$datetime</td>
     </tr> ";  
@@ -226,6 +160,9 @@ if ($i == 0)
 echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
 echo "</table>";
 ?>
+
+</div>
+
 
 
 
