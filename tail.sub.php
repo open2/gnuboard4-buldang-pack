@@ -8,6 +8,13 @@ session_write_close();
 
 <script type="text/javascript" src="<?=$g4['path']?>/js/wrest.js"></script>
 
+<!-- bootstrap tooltip script -->
+<script type="text/javascript">
+$(document).ready(function(){
+    $(".tooltip-help").tooltip({trigger: 'hover click','placement': 'right'});
+});
+</script>
+
 <!-- sideview script -->
 <script type="text/javascript">
 $('.sideview').bind('click',function(e){
