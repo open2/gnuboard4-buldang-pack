@@ -168,6 +168,16 @@ function print_menu1($key, $no)
         ?>
     </div>
 
+    <?
+    // 방문자
+    include_once("$g4[path]/lib/visit.lib.php");
+    echo visit();
+
+    // 현재접속자
+    include_once("$g4[path]/lib/connect.lib.php");
+    echo connect();
+    ?>
+
 </div><!-- 왼쪽 side 끝 -->
 
 <div class="col-sm-10" id="main"><!-- 메인 content 시작 -->

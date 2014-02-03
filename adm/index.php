@@ -86,7 +86,7 @@ $result = sql_query($sql);
             <td>$mb_nick</td>
             <td>$row[mb_level]</td>
             <td><a href='./point_list.php?sfl=mb_id&stx=$row[mb_id]'>".number_format($row['mb_point'])."</a></td>
-            <td>".substr($row['mb_today_login'],2,8)."</td>
+            <td>".get_datetime($row['mb_today_login'])."</td>
                  
         </tr>";
     }
