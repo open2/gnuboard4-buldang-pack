@@ -14,8 +14,27 @@ $config = get_config("reg");
 
 $g4['title'] = "기본환경설정";
 include_once ("./admin.head.php");
-?>
 
+
+function help($help="", $left=0, $top=0)
+{
+    global $g4;
+    static $idx = 0;
+
+    $idx++;
+
+    $help = preg_replace("/\n/", "<br>", $help);
+    
+    $str  = "<img src='$g4[admin_path]/img/icon_help.gif' border=0 width=15 height=15 align=absmiddle onclick=\"help('help$idx', $left, $top);\" style='cursor:hand;'>";
+    $str .= "<div id='help$idx' style='position:absolute; display:none; z-index:9999;'>";
+    $str .= "<div id='csshelp1'><div id='csshelp2'><div id='csshelp3'>$help</div></div></div>";
+    $str .= "</div>";
+
+    return $str;
+}
+
+
+?>
 <form name='fconfigform' method='post' onsubmit="return fconfigform_submit(this);">
 <input type=hidden name=token value='<?=$token?>'>
 
@@ -42,7 +61,10 @@ include_once ("./admin.head.php");
 <tr class='ht'>
     <td>로그인시 포인트</td>
     <td><input type=text class=ed name='cf_login_point' size='5' required itemname='로그인시 포인트' value='<?=$config[cf_login_point]?>'> 점
-        <?=help("회원에게 하루에 한번만 부여")?></td>
+        <a href="#" data-toggle="tooltip" class="tooltip-help" title="회원에게 하루에 한번만 부여">
+        <span class="glyphicon glyphicon-info-sign"></span>
+        </a>
+    </td>
     <td>쪽지보낼시 차감 포인트</td>
     <td><input type=text class=ed name='cf_memo_send_point' size='5' required itemname='쪽지전송시 차감 포인트' value='<?=$config[cf_memo_send_point]?>'> 점
         <?=help("양수로 입력하십시오.<br>0으로 입력하시면 쪽지보낼시 포인트를 차감하지 않습니다.")?></td>
