@@ -1,113 +1,80 @@
 <?php
 include_once("./_common.php");
 
-$g4[title] = "KCB(코리아크레딧뷰로) - okname 본인인증";
+$g4[title] = "KCB(�ڸ���ũ�������) - okname ��������";
 include_once("./_head.php");
 include_once("./nc.config.php");
 
-//	생년월일 본인 확인서비스 결과 화면
-/* 공통 리턴 항목 */
-$idcfMbrComCd		  = $_POST["idcf_mbr_com_cd"];		  // 고객사코드
-$hsCertSvcTxSeqno	= $_POST["hs_cert_svc_tx_seqno"];	// 거래번호
-$hsCertRqstCausCd	= $_POST["hs_cert_rqst_caus_cd"];	// 인증요청사유코드 2byte  (00:회원가입, 01:성인인증, 02:회원정보수정, 03:비밀번호찾기, 04:상품구매, 99:기타);// 
 
-$resultCd			    = $_POST["result_cd"];				    // 결과코드
-$resultMsg			  = $_POST["result_msg"];				    // 결과메세지
-$certDtTm			    = $_POST["cert_dt_tm"];				    // 인증일시
+//	������� ���� Ȯ�μ��� ��� ȭ��
+/* ���� ���� �׸� */
+$idcfMbrComCd		  = $_POST["idcf_mbr_com_cd"];		  // �������ڵ�
+$hsCertSvcTxSeqno	= $_POST["hs_cert_svc_tx_seqno"];	// �ŷ���ȣ
+$hsCertRqstCausCd	= $_POST["hs_cert_rqst_caus_cd"];	// ������û�����ڵ� 2byte  (00:ȸ������, 01:��������, 02:ȸ����������, 03:��й�ȣã��, 04:��ǰ����, 99:��Ÿ);// 
+
+$resultCd			    = $_POST["result_cd"];				    // ����ڵ�
+$resultMsg			  = $_POST["result_msg"];				    // ����޼���
+$certDtTm			    = $_POST["cert_dt_tm"];				    // �����Ͻ�
 $di					      = $_POST["di"];						        // DI
 $ci					      = $_POST["ci"];						        // CI
-$name				      = $_POST["name"];					        // 성명
-$birthday			    = $_POST["birthday"];				      // 생년월일
-$gender				    = $_POST["gender"];					      //성별
-$nation				    = $_POST["nation"];					      //내외국인구분
-$telComCd			    = $_POST["tel_com_cd"];			      //통신사코드
-$telNo				    = $_POST["tel_no"];					      //휴대폰번호
-$returnMsg			  = $_POST["return_msg"];			      //리턴메시지
+$name				      = $_POST["name"];					        // ����
+$birthday			    = $_POST["birthday"];				      // �������
+$gender				    = $_POST["gender"];					      //����
+$nation				    = $_POST["nation"];					      //���ܱ��α���
+$telComCd			    = $_POST["tel_com_cd"];			      //��Ż��ڵ�
+$telNo				    = $_POST["tel_no"];					      //�޴�����ȣ
+$returnMsg			  = $_POST["return_msg"];			      //���ϸ޽���
 ?>
 
-<link rel="stylesheet" href="<?=$g4['path']?>/plugin/kcb/css/style.css" type="text/css">
-
 <? if ($resultCd == "B000") { ?>
-<div class="kcb-summary">
-	<h2>KCB 본인확인 시스템</h2>
-	<div class="content">
-		<ul>
-			<li>다음과 같이 본인확인 되었습니다.</li>
-			<li>관련 법률에 따라 다른 사람의 개인정보를 도용하여 인터넷 서비스에 가입하는 경우는 명백한 범죄행위로
-		    <noth class="color_red">3년 이하의 징역또는 1천만원 이하의 벌금</noth>에 처해질 수 있습니다.</li>
-		</ul>
-	</div>
-</div>
+<h3>������ ���� ����Ȯ���� �Ǿ����ϴ�</h3>
+<ul>
+  <li>����			: <?=$name?> </li>
+  <li>�������		: <?=$birthday?> </li>
+  <li>����			: <?=$gender?> </li>
+  <li>���ܱ��α���	: <?=$nation?> </li>
+  <li>��Ż��ڵ�	: <?=$telComCd?> </li>
+  <li>�޴�����ȣ	: <?=$telNo?> </li>
+</ul>
 
-<fieldset><label>성명</label><?=$name?></fieldset>
-
-<table>
-<tr><td width=120px>이름</td><td width=200px><?=$name?></td></tr>
-<tr><td width=120px>휴대폰번호</td><td width=200px><?=$telNo?></td></tr>
-</table>
+��Ȱ�� ���� �̿��� ���� �ٸ� ����� ��Ź�帳�ϴ�.<br>
+���� ������ ���� �ٸ� ����� ���������� �����Ͽ� ���ͳ� ���񽺿� �����ϴ� ���� ������ ����������<br>
+<b>3�� ������ ¡���Ǵ� 1õ���� ������ ����</b>�� ó���� �� �ֽ��ϴ�.
 
 <? } else {?>
-<div class="kcb-summary">
-	<h2>KCB 본인확인 시스템</h2>
-	<div class="content">
-		<ul>
-			<li>본인확인 오류 입니다.</li>
-			<li>다시 본인확인을 받으시려면, <a href="./index.php"><b>이곳</b></a> 을 클릭해주세요.</li>
-			<li>관련 법률에 따라 다른 사람의 개인정보를 도용하여 인터넷 서비스에 가입하는 경우는 명백한 범죄행위로
-		    <noth class="color_red">3년 이하의 징역또는 1천만원 이하의 벌금</noth>에 처해질 수 있습니다.</li>
-		</ul>
-	</div>
-</div>
+<h3>����Ȯ�� �����Դϴ�</h3>
+<ul>
+  <li>����ڵ�		: <?=$resultCd?></li>
+  <li>����޼���	: <?=$resultMsg?></li>
+  <li>�ŷ���ȣ		: <?=$hsCertSvcTxSeqno?> </li>
+  <li>����			: <?=$name?> </li>
+  <li>�������		: <?=$birthday?> </li>
+  <li>����			: <?=$gender?> </li>
+  <li>���ܱ��α���	: <?=$nation?> </li>
+  <li>��Ż��ڵ�	: <?=$telComCd?> </li>
+  <li>�޴�����ȣ	: <?=$telNo?> </li>
+</ul>
 
-<form>
-<fieldset>
-<label>이름 : </label>
-<?=$name?>
-</fieldset>
-<fieldset>
-<label>휴대폰번호 : </label>
-<?=$telNo?>
-</fieldset>
-<fieldset>
-<label>결과코드 : </label>
-<?=$resultCd?>
-</fieldset>
-<fieldset>
-<label>결과메세지 : </label>
-<?=$resultMsg?>
-</fieldset>
-</form>
-
+�ٽ� ���������÷���, <a href="./index.php">�̰�</a>�� Ŭ�����ּ���.
 <? } ?>
 
-  <div id="content">
-    <div class="post">
-        <div class="postheader">
-            <span class="date"><strong>본인확인</strong>KCB<small>Ok Name</small></span>
-            <h2><a href="http://okname.allcredit.co.kr" target="new" alt="OK Name">당 사이트의 본인확인은 KCB (코리아크레딧뷰로,OK Name) 의 본인확인 서비스로 이루어 집니다.</a></h2>
-            <a href="#" class="comments">중요</a>
-            <p><span>OK Name 서비스문의 KCB(T.02-708-1000) <a href="http://www.buspang.kr" target=new>ⓒ buspang.kr</a></span>
-			<a href="http://okname.allcredit.co.kr">기입된 정보로 개인정보가 변경될 수 있습니다.</a></p>
-        </div>
-    </div>
-
-<!--  // 개발과정에서만 Open해서 보세요.
-<h3>인증결과</h3>
+<!--  // ���߰��������� Open�ؼ� ������.
+<h3>�������</h3>
 <ul>
-  <li>고객사코드	: <?=$idcfMbrComCd?> </li>
-  <li>인증사유코드	: <?=$hsCertRqstCausCd?></li>
-  <li>결과코드		: <?=$resultCd?></li>
-  <li>결과메세지	: <?=$resultMsg?></li>
-  <li>거래번호		: <?=$hsCertSvcTxSeqno?> </li>
-  <li>인증일시		: <?=$certDtTm?> </li>
+  <li>�������ڵ�	: <?=$idcfMbrComCd?> </li>
+  <li>���������ڵ�	: <?=$hsCertRqstCausCd?></li>
+  <li>����ڵ�		: <?=$resultCd?></li>
+  <li>����޼���	: <?=$resultMsg?></li>
+  <li>�ŷ���ȣ		: <?=$hsCertSvcTxSeqno?> </li>
+  <li>�����Ͻ�		: <?=$certDtTm?> </li>
   <li>DI			: <?=$di?> </li>
   <li>CI			: <?=$ci?> </li>
-  <li>성명			: <?=$name?> </li>
-  <li>생년월일		: <?=$birthday?> </li>
-  <li>성별			: <?=$gender?> </li>
-  <li>내외국인구분	: <?=$nation?> </li>
-  <li>통신사코드	: <?=$telComCd?> </li>
-  <li>휴대폰번호	: <?=$telNo?> </li>
+  <li>����			: <?=$name?> </li>
+  <li>�������		: <?=$birthday?> </li>
+  <li>����			: <?=$gender?> </li>
+  <li>���ܱ��α���	: <?=$nation?> </li>
+  <li>��Ż��ڵ�	: <?=$telComCd?> </li>
+  <li>�޴�����ȣ	: <?=$telNo?> </li>
 </ul>
 -->
 

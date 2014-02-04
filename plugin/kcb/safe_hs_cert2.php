@@ -1,27 +1,27 @@
 <?php
 /**************************************************************************
- * íŒŒì¼ëª… : safe_hs_cert2.php
+ * ÆÄÀÏ¸í : safe_hs_cert2.php
  *
- * ìƒë…„ì›”ì¼ ë³¸ì¸ í™•ì¸ì„œë¹„ìŠ¤ ê°œì¸ ì •ë³´ ì…ë ¥ í™”ë©´
- *    (ê³ ê° ì¸ì¦ì •ë³´ KCBíŒì—…ì°½ì—ì„œ ì…ë ¥ìš©)
+ * »ı³â¿ùÀÏ º»ÀÎ È®ÀÎ¼­ºñ½º °³ÀÎ Á¤º¸ ÀÔ·Â È­¸é
+ *    (°í°´ ÀÎÁõÁ¤º¸ KCBÆË¾÷Ã¢¿¡¼­ ÀÔ·Â¿ë)
  *
- * â€»ì£¼ì˜
- * 	ì‹¤ì œ ìš´ì˜ì‹œì—ëŠ” 
- * 	response.writeë¥¼ ì‚¬ìš©í•˜ì—¬ í™”ë©´ì— ë³´ì—¬ì§€ëŠ” ë°ì´í„°ë¥¼ 
- * 	ì‚­ì œí•˜ì—¬ ì£¼ì‹œê¸° ë°”ëë‹ˆë‹¤. ë°©ë¬¸ìì—ê²Œ ì‚¬ì´íŠ¸ë°ì´í„°ê°€ ë…¸ì¶œë  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+ * ¡ØÁÖÀÇ
+ * 	½ÇÁ¦ ¿î¿µ½Ã¿¡´Â 
+ * 	response.write¸¦ »ç¿ëÇÏ¿© È­¸é¿¡ º¸¿©Áö´Â µ¥ÀÌÅÍ¸¦ 
+ * 	»èÁ¦ÇÏ¿© ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù. ¹æ¹®ÀÚ¿¡°Ô »çÀÌÆ®µ¥ÀÌÅÍ°¡ ³ëÃâµÉ ¼ö ÀÖ½À´Ï´Ù.
 **************************************************************************/
  
 include_once("./_common.php");
 
-// ë¹„íšŒì› ì ‘ì†ë¶ˆê°€
+// ºñÈ¸¿ø Á¢¼ÓºÒ°¡
 if ($member['mb_id'] == "")
     die;
 
-$g4[title] = "KCB(ì½”ë¦¬ì•„í¬ë ˆë”§ë·°ë¡œ) - okname ë³¸ì¸í™•ì¸";
+$g4[title] = "KCB(ÄÚ¸®¾ÆÅ©·¹µ÷ºä·Î) - okname º»ÀÎÈ®ÀÎ";
 
 include_once("./nc.config.php");
 
-// ëª¨ë“ˆí˜¸ì¶œëª…ë ¹ì–´
+// ¸ğµâÈ£Ãâ¸í·É¾î
 $cmd = "$exe $svcTxSeqno \"$name\" $birthday $gender $ntvFrnrTpCd $mblTelCmmCd $mbphnNo $rsv1 $rsv2 $rsv3 \"$returnMsg\" $returnUrl $inTpBit $hsCertMsrCd $hsCertRqstCausCd $memid $qryIP $qryDomain $EndPointURL $logPath $option2 ";
 
 if ($kcb_test) {
@@ -29,20 +29,20 @@ if ($kcb_test) {
     //exit;
 }
 
-//cmd ì‹¤í–‰
+//cmd ½ÇÇà
 exec($cmd, $out, $ret);
 
 if ($kcb_test)
     echo "ret=".$ret."<br>";
 
 /**************************************************************************
- okname ì‘ë‹µ ì •ë³´
+ okname ÀÀ´ä Á¤º¸
 **************************************************************************/
-$retcode = "";			// ê²°ê³¼ì½”ë“œ
-$retmsg = "";				// ê²°ê³¼ë©”ì‹œì§€
-$e_rqstData = "";		// ì•”í˜¸í™”ëœìš”ì²­ë°ì´í„°
+$retcode = "";			// °á°úÄÚµå
+$retmsg = "";				// °á°ú¸Ş½ÃÁö
+$e_rqstData = "";		// ¾ÏÈ£È­µÈ¿äÃ»µ¥ÀÌÅÍ
 	
-if ($ret == 0) {//ì„±ê³µì¼ ê²½ìš° ë³€ìˆ˜ë¥¼ ê²°ê³¼ì—ì„œ ì–»ìŒ
+if ($ret == 0) {//¼º°øÀÏ °æ¿ì º¯¼ö¸¦ °á°ú¿¡¼­ ¾òÀ½
 		$retcode = $out[0];
 		$retmsg  = $out[1];
 		$e_rqstData = $out[2];
@@ -54,21 +54,21 @@ if ($ret == 0) {//ì„±ê³µì¼ ê²½ìš° ë³€ìˆ˜ë¥¼ ê²°ê³¼ì—ì„œ ì–»ìŒ
 }
 	
 /**************************************************************************
- * safe_hs_cert3.php ì‹¤í–‰ ì •ë³´
+ * safe_hs_cert3.php ½ÇÇà Á¤º¸
  **************************************************************************/
-$targetId = "";				// íƒ€ê²ŸID (íŒì—…ì˜¤í”ˆ ìŠ¤í¬ë¦½íŠ¸ì˜ window.name ê³¼ ë™ì¼í•˜ê²Œ ì„¤ì •
+$targetId = "";				// Å¸°ÙID (ÆË¾÷¿ÀÇÂ ½ºÅ©¸³Æ®ÀÇ window.name °ú µ¿ÀÏÇÏ°Ô ¼³Á¤
 
 // ########################################################################
-// # ìš´ì˜ì „í™˜ì‹œ ë³€ê²½ í•„ìš”
+// # ¿î¿µÀüÈ¯½Ã º¯°æ ÇÊ¿ä
 // ########################################################################
 if ($kcb_test)
-    $commonSvlUrl = "https://tsafe.ok-name.co.kr:2443/CommonSvl";	// í…ŒìŠ¤íŠ¸ URL
+    $commonSvlUrl = "https://tsafe.ok-name.co.kr:2443/CommonSvl";	// Å×½ºÆ® URL
 else
-    $commonSvlUrl = "https://safe.ok-name.co.kr/CommonSvl";	      // ìš´ì˜ URL
+    $commonSvlUrl = "https://safe.ok-name.co.kr/CommonSvl";	      // ¿î¿µ URL
 ?>
 <html>
 	<head>
-	<title>KCB ìƒë…„ì›”ì¼ ë³¸ì¸ í™•ì¸ì„œë¹„ìŠ¤ ìƒ˜í”Œ</title>
+	<title>KCB »ı³â¿ùÀÏ º»ÀÎ È®ÀÎ¼­ºñ½º »ùÇÃ</title>
 	<script>
 		function request(){
 		window.name = "<?=$targetId?>";
@@ -83,12 +83,12 @@ else
 
  <body>
 	<form name="form1">
-	<!-- ì¸ì¦ ìš”ì²­ ì •ë³´ -->
-	<!--// í•„ìˆ˜ í•­ëª© -->
-	<input type="hidden" name="tc" value="kcb.oknm.online.safehscert.popup.cmd.P901_CertChoiceCmd">				<!-- ë³€ê²½ë¶ˆê°€-->
-	<input type="hidden" name="rqst_data"				value="<?=$e_rqstData?>">		<!-- ìš”ì²­ë°ì´í„° -->
-	<input type="hidden" name="target_id"				value="<?=$targetId?>">			<!-- íƒ€ê²ŸID --> 
-	<!-- í•„ìˆ˜ í•­ëª© //-->	
+	<!-- ÀÎÁõ ¿äÃ» Á¤º¸ -->
+	<!--// ÇÊ¼ö Ç×¸ñ -->
+	<input type="hidden" name="tc" value="kcb.oknm.online.safehscert.popup.cmd.P901_CertChoiceCmd">				<!-- º¯°æºÒ°¡-->
+	<input type="hidden" name="rqst_data"				value="<?=$e_rqstData?>">		<!-- ¿äÃ»µ¥ÀÌÅÍ -->
+	<input type="hidden" name="target_id"				value="<?=$targetId?>">			<!-- Å¸°ÙID --> 
+	<!-- ÇÊ¼ö Ç×¸ñ //-->	
 	</form>
   <form name="kcbResultForm" method="post" >
         <input type="hidden" name="idcf_mbr_com_cd" 		value="" 	/>
@@ -100,10 +100,10 @@ else
   </form>  
 <?php
  	if ($retcode == "B000") {
-		//ì¸ì¦ìš”ì²­
+		//ÀÎÁõ¿äÃ»
 		echo ("<script>request();</script>");
 	} else {
-		//ìš”ì²­ ì‹¤íŒ¨ í˜ì´ì§€ë¡œ ë¦¬í„´
+		//¿äÃ» ½ÇÆĞ ÆäÀÌÁö·Î ¸®ÅÏ
 		echo ("<script>alert(\"$retcode\"); self.close();</script>");
 	}
 ?>

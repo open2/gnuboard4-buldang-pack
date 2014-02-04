@@ -1,0 +1,360 @@
+[2013-05-23 01:24:38.481] # OKNAME v3.63 start!<br>
+[2013-05-23 01:24:38.532] # mode=SAFE_AUTH_POPUP<br>
+[2013-05-23 01:24:38.532] # argv[ 1](hs_cert_svc_tx_seqno)=20130523012438<br>
+[2013-05-23 01:24:38.532] # argv[ 2](nm)=x<br>
+[2013-05-23 01:24:38.532] # argv[ 3](brdt)=x<br>
+[2013-05-23 01:24:38.532] # argv[ 4](sex)=x<br>
+[2013-05-23 01:24:38.532] # argv[ 5](ntv_frnr_tp_cd)=x<br>
+[2013-05-23 01:24:38.532] # argv[ 6](var1)=x<br>
+[2013-05-23 01:24:38.532] # argv[ 7](var2)=x<br>
+[2013-05-23 01:24:38.532] # argv[ 8](var3)=0<br>
+[2013-05-23 01:24:38.532] # argv[ 9](var4)=0<br>
+[2013-05-23 01:24:38.532] # argv[10](var5)=0<br>
+[2013-05-23 01:24:38.532] # argv[11](return_msg)=x<br>
+[2013-05-23 01:24:38.532] # argv[12](return_url)=http://opencode.co.kr/plugin/kcb/safe_hs_cert3.php<br>
+[2013-05-23 01:24:38.532] # argv[13](in_tp_bit)=0<br>
+[2013-05-23 01:24:38.532] # argv[14](hs_cert_msr_cd)=10<br>
+[2013-05-23 01:24:38.532] # argv[15](hs_cert_rqst_caus_cd)=02<br>
+[2013-05-23 01:24:38.532] # argv[16](idcf_mbr_com_cd)=V01270000000<br>
+[2013-05-23 01:24:38.532] # argv[17](client_ip)=x<br>
+[2013-05-23 01:24:38.533] # argv[18](client_site_nm)=opencode.co.kr<br>
+[2013-05-23 01:24:38.533] # argv[19](end_point_url)=http://tsafe.ok-name.co.kr:29080/KcbWebService/OkNameService<br>
+[2013-05-23 01:24:38.533] # argv[20](log_path)=/home/opencode/public_html/plugin/kcb/data/real<br>
+[2013-05-23 01:24:38.533] # argv[21](option)=QL<br>
+[2013-05-23 01:24:38.533] # soap_timeout: 30000 ms<br>
+[2013-05-23 01:24:38.554] # key   : AwazJR2tX40Q+QkjsVSPKuh4+JUMyg==:BAg7TkkYQ32zqHPcobuN5g==<br>
+[2013-05-23 01:24:38.554] # spkey : AwazJR2tX40Q+QkjsVSPKuh4+JUMyg==<br>
+[2013-05-23 01:24:38.554] # ssig  : BAg7TkkYQ32zqHPcobuN5g==<br>
+[2013-05-23 01:24:38.555] # nm               : x    <br>
+[2013-05-23 01:24:38.555] # brdt             : x    <br>
+[2013-05-23 01:24:38.555] # e_nm             : GhSEQBA=<br>
+[2013-05-23 01:24:38.555] # e_brdt           : GhSEQBA=<br>
+[2013-05-23 01:24:38.555] # cpkey : AgYpoH2+zHDiaw68DCjKXR0SrFuUaw==<br>
+[2013-05-23 01:24:38.555] # csig  : qjOvDkG0PArel4EPdbf7+A==<br>
+[2013-05-23 01:24:38.639] retmsg: IASUUApoxRzubMPHMKzj2e71DyTd+V1ZOvbUqMACd1vLQdT1gEcCVWTo7DvhgGpRKccrEKN90vOxuNafEA8dunIsiRD8jexYdkfwp8q8GrEzfAsnL/+NnwR0snl27O+2aD69BxUqPP0I74bpZ5y08eYH9AFlaozBFju6jMrIxF7TVJ4rBkOZkf+b02sddod/bpAgAE9NpZwVFN5oLGy8sTw+
+[2013-05-23 01:24:38.683] retmsg: B000:정상:LXJyFYm+Z0j/RlEoWUUrxMlqHJZKzc3yV6x4pmTRTIXl1Xd85ZT3Gr2JCwtGLAkif5fBkObZkFvPfyCIfjinmGlDdOYkN/RaevQ5qwUoN3tUpDx0QDy8JYiKKnvC7V4Jim2oxUrZIPdkoqYa1WHp2A==
+[2013-05-23 01:24:38.683] B000
+[2013-05-23 01:24:38.683] 정상
+[2013-05-23 01:24:38.683] LXJyFYm+Z0j/RlEoWUUrxMlqHJZKzc3yV6x4pmTRTIXl1Xd85ZT3Gr2JCwtGLAkif5fBkObZkFvPfyCIfjinmGlDdOYkN/RaevQ5qwUoN3tUpDx0QDy8JYiKKnvC7V4Jim2oxUrZIPdkoqYa1WHp2A==
+[2013-05-23 01:24:38.683] # final ret code=0<br>
+[2013-05-23 01:24:52.938] # OKNAME v3.63 start!<br>
+[2013-05-23 01:24:52.938] # mode=IPIN_CKDEC<br>
+[2013-05-23 01:24:52.938] # argv[ 1](keypath    )=/home/opencode/public_html/plugin/kcb/data/safecert_V01270000000.key<br>
+[2013-05-23 01:24:52.938] # argv[ 2](memid      )=V01270000000<br>
+[2013-05-23 01:24:52.938] # argv[ 3](EndPointURL)=http://tsafe.ok-name.co.kr:29080/KcbWebService/OkNameService<br>
+[2013-05-23 01:24:52.938] # argv[ 4](cPubKey     )=AgAkzlDTDhzYfjsdT3v2LutGiWz4xw==<br>
+[2013-05-23 01:24:52.938] # argv[ 5](cSig )=XPvkxNwgPqliA5bg4C/OOA==<br>
+[2013-05-23 01:24:52.938] # argv[ 6](EncData  )=4fOsEIMDMbF1Fly5h9+kkmL+h8uJGZli8yEo3eG3EKCFh+cFKAPtYgzeBP5IYadJ/taGqvjkqMy+JVDIX6vfa1Lz9f/WSRBzRhyBGy9LlTvwn5C/uGgGS4shwy5y9e+zwoXOgKIJNLQvbsPWkBjTAyAz1YlSquEC<br>
+[2013-05-23 01:24:52.938] # argv[ 7](logpath	)=/home/opencode/public_html/plugin/kcb/data/real<br>
+[2013-05-23 01:24:52.938] # argv[ 8](Option     )=SL<br>
+[2013-05-23 01:24:52.944] # clnPublicKey : AgAkzlDTDhzYfjsdT3v2LutGiWz4xw==<br>
+[2013-05-23 01:24:52.944] # clnSignature : XPvkxNwgPqliA5bg4C/OOA==<br>
+[2013-05-23 01:24:52.944] # srvPrivateKey: Ae9LRPzSi1LKyONKsIJsxTpOIvvc<br>
+[2013-05-23 01:24:52.944] # srvSecurekey : BnYaRp94Sh75RG+ew18WODgVsWVY<br>
+[2013-05-23 01:24:52.944] # decData      : B100|인증실패(명의자 주민번호 불일치)[26]|20130523012438|20130523012453| | | |강윤호|19800101|1|1|02|01089870174| | | |x<br>
+[2013-05-23 01:24:52.944] B100
+[2013-05-23 01:24:52.944] 인증실패(명의자 주민번호 불일치)[26]
+[2013-05-23 01:24:52.944] 20130523012438
+[2013-05-23 01:24:52.944] 20130523012453
+[2013-05-23 01:24:52.944]  
+[2013-05-23 01:24:52.944]  
+[2013-05-23 01:24:52.944]  
+[2013-05-23 01:24:52.944] 강윤호
+[2013-05-23 01:24:52.944] 19800101
+[2013-05-23 01:24:52.944] 1
+[2013-05-23 01:24:52.944] 1
+[2013-05-23 01:24:52.944] 02
+[2013-05-23 01:24:52.944] 01089870174
+[2013-05-23 01:24:52.944]  
+[2013-05-23 01:24:52.944]  
+[2013-05-23 01:24:52.944]  
+[2013-05-23 01:24:52.944] x
+[2013-05-23 01:24:52.944] # final ret code=0<br>
+[2013-05-23 01:25:54.242] # OKNAME v3.63 start!<br>
+[2013-05-23 01:25:54.242] # mode=SAFE_AUTH_POPUP<br>
+[2013-05-23 01:25:54.242] # argv[ 1](hs_cert_svc_tx_seqno)=20130523012554<br>
+[2013-05-23 01:25:54.242] # argv[ 2](nm)=x<br>
+[2013-05-23 01:25:54.242] # argv[ 3](brdt)=x<br>
+[2013-05-23 01:25:54.242] # argv[ 4](sex)=x<br>
+[2013-05-23 01:25:54.242] # argv[ 5](ntv_frnr_tp_cd)=x<br>
+[2013-05-23 01:25:54.242] # argv[ 6](var1)=x<br>
+[2013-05-23 01:25:54.242] # argv[ 7](var2)=x<br>
+[2013-05-23 01:25:54.243] # argv[ 8](var3)=0<br>
+[2013-05-23 01:25:54.243] # argv[ 9](var4)=0<br>
+[2013-05-23 01:25:54.243] # argv[10](var5)=0<br>
+[2013-05-23 01:25:54.243] # argv[11](return_msg)=x<br>
+[2013-05-23 01:25:54.243] # argv[12](return_url)=http://opencode.co.kr/plugin/kcb/safe_hs_cert3.php<br>
+[2013-05-23 01:25:54.243] # argv[13](in_tp_bit)=0<br>
+[2013-05-23 01:25:54.243] # argv[14](hs_cert_msr_cd)=10<br>
+[2013-05-23 01:25:54.243] # argv[15](hs_cert_rqst_caus_cd)=02<br>
+[2013-05-23 01:25:54.243] # argv[16](idcf_mbr_com_cd)=V01270000000<br>
+[2013-05-23 01:25:54.243] # argv[17](client_ip)=x<br>
+[2013-05-23 01:25:54.243] # argv[18](client_site_nm)=opencode.co.kr<br>
+[2013-05-23 01:25:54.243] # argv[19](end_point_url)=http://tsafe.ok-name.co.kr:29080/KcbWebService/OkNameService<br>
+[2013-05-23 01:25:54.243] # argv[20](log_path)=/home/opencode/public_html/plugin/kcb/data/real<br>
+[2013-05-23 01:25:54.243] # argv[21](option)=QL<br>
+[2013-05-23 01:25:54.243] # soap_timeout: 30000 ms<br>
+[2013-05-23 01:25:54.265] # key   : AwUrHlGH8gr5YssAHZcG4pHKdCd4gA==:OBTLEGM3H8CsrkrjNG1FWA==<br>
+[2013-05-23 01:25:54.265] # spkey : AwUrHlGH8gr5YssAHZcG4pHKdCd4gA==<br>
+[2013-05-23 01:25:54.265] # ssig  : OBTLEGM3H8CsrkrjNG1FWA==<br>
+[2013-05-23 01:25:54.266] # nm               : x    <br>
+[2013-05-23 01:25:54.266] # brdt             : x    <br>
+[2013-05-23 01:25:54.266] # e_nm             : 0PHY6Nc=<br>
+[2013-05-23 01:25:54.266] # e_brdt           : 0PHY6Nc=<br>
+[2013-05-23 01:25:54.266] # cpkey : AgMr5D5QNj9qFwzW+7BQKPONTAOASw==<br>
+[2013-05-23 01:25:54.266] # csig  : R9FZCb0A6Fm/5n/eFmoM0w==<br>
+[2013-05-23 01:25:54.309] retmsg: 6uHI+M02cwjKy3i6Tq2IcE2FfPqRqpIKzPajj9onynW2Tl7xEJTWlZJXl2ntLv6YFXPNUCa29RFzAD7hrvwVyCbyUQafqGuL4RzwWV4kt1P31UI4sxLIkNvUrAa1trzeDsW5IlBZgn2ovmtqrO0gKXVuctd/3PoaOZgh4qGkKS5lVva2pM+0lMMWR/Cfr0nk0TBYFOdDdJzBEd3ChPUP1KJk
+[2013-05-23 01:25:54.310] retmsg: B000:정상:LXJyFYm+Z0j/RlEoWUUrxMcWgbsZni2xJBDnzB1PJZvk6G+E5qQaNmBfLPv9U0cI+IJXOcsCR7veh3tMRoR2DI57kO3iJQk5k/0ZS8kkUmV7bOaImZ3OjNl1CFocLA9QHGxE2JwWi9QiSIqARIF8BA==
+[2013-05-23 01:25:54.310] B000
+[2013-05-23 01:25:54.310] 정상
+[2013-05-23 01:25:54.310] LXJyFYm+Z0j/RlEoWUUrxMcWgbsZni2xJBDnzB1PJZvk6G+E5qQaNmBfLPv9U0cI+IJXOcsCR7veh3tMRoR2DI57kO3iJQk5k/0ZS8kkUmV7bOaImZ3OjNl1CFocLA9QHGxE2JwWi9QiSIqARIF8BA==
+[2013-05-23 01:25:54.310] # final ret code=0<br>
+[2013-05-23 01:26:09.639] # OKNAME v3.63 start!<br>
+[2013-05-23 01:26:09.639] # mode=IPIN_CKDEC<br>
+[2013-05-23 01:26:09.639] # argv[ 1](keypath    )=/home/opencode/public_html/plugin/kcb/data/safecert_V01270000000.key<br>
+[2013-05-23 01:26:09.639] # argv[ 2](memid      )=V01270000000<br>
+[2013-05-23 01:26:09.639] # argv[ 3](EndPointURL)=http://tsafe.ok-name.co.kr:29080/KcbWebService/OkNameService<br>
+[2013-05-23 01:26:09.639] # argv[ 4](cPubKey     )=AgNpVKYOymIJIJzgZrjrRIUQDB+yyQ==<br>
+[2013-05-23 01:26:09.640] # argv[ 5](cSig )=Xb1+LnBm7XBUEa5w3cyIwQ==<br>
+[2013-05-23 01:26:09.640] # argv[ 6](EncData  )=KUuc7phRHA08QN8HyKLh/MuYAaJqEA2GQ3qwW98glLVa7IlGQoxxq6ra92g5Rm4eG5wOqsqw2DIyKpxp/gy/vDlWomAH9pVdKJI1Q0WUcaC+OnBVRq2r+NC/NygRmXFw8+bnAB5fRp+JIuQi5sh81YwbVsZqcyZB<br>
+[2013-05-23 01:26:09.640] # argv[ 7](logpath	)=/home/opencode/public_html/plugin/kcb/data/real<br>
+[2013-05-23 01:26:09.640] # argv[ 8](Option     )=SL<br>
+[2013-05-23 01:26:09.641] # clnPublicKey : AgNpVKYOymIJIJzgZrjrRIUQDB+yyQ==<br>
+[2013-05-23 01:26:09.641] # clnSignature : Xb1+LnBm7XBUEa5w3cyIwQ==<br>
+[2013-05-23 01:26:09.641] # srvPrivateKey: Ae9LRPzSi1LKyONKsIJsxTpOIvvc<br>
+[2013-05-23 01:26:09.641] # srvSecurekey : AK5bHoq1qE9i4eolpZQjMDdJ6qLY<br>
+[2013-05-23 01:26:09.641] # decData      : B100|인증실패(명의자 주민번호 불일치)[26]|20130523012554|20130523012610| | | |강윤호|19800101|1|1|02|01089870174| | | |x<br>
+[2013-05-23 01:26:09.641] B100
+[2013-05-23 01:26:09.641] 인증실패(명의자 주민번호 불일치)[26]
+[2013-05-23 01:26:09.641] 20130523012554
+[2013-05-23 01:26:09.641] 20130523012610
+[2013-05-23 01:26:09.641]  
+[2013-05-23 01:26:09.641]  
+[2013-05-23 01:26:09.641]  
+[2013-05-23 01:26:09.641] 강윤호
+[2013-05-23 01:26:09.641] 19800101
+[2013-05-23 01:26:09.641] 1
+[2013-05-23 01:26:09.641] 1
+[2013-05-23 01:26:09.641] 02
+[2013-05-23 01:26:09.641] 01089870174
+[2013-05-23 01:26:09.641]  
+[2013-05-23 01:26:09.641]  
+[2013-05-23 01:26:09.641]  
+[2013-05-23 01:26:09.641] x
+[2013-05-23 01:26:09.641] # final ret code=0<br>
+[2013-05-23 01:26:17.797] # OKNAME v3.63 start!<br>
+[2013-05-23 01:26:17.797] # mode=SAFE_AUTH_POPUP<br>
+[2013-05-23 01:26:17.797] # argv[ 1](hs_cert_svc_tx_seqno)=20130523012617<br>
+[2013-05-23 01:26:17.797] # argv[ 2](nm)=x<br>
+[2013-05-23 01:26:17.797] # argv[ 3](brdt)=x<br>
+[2013-05-23 01:26:17.797] # argv[ 4](sex)=x<br>
+[2013-05-23 01:26:17.797] # argv[ 5](ntv_frnr_tp_cd)=x<br>
+[2013-05-23 01:26:17.797] # argv[ 6](var1)=x<br>
+[2013-05-23 01:26:17.797] # argv[ 7](var2)=x<br>
+[2013-05-23 01:26:17.797] # argv[ 8](var3)=0<br>
+[2013-05-23 01:26:17.797] # argv[ 9](var4)=0<br>
+[2013-05-23 01:26:17.797] # argv[10](var5)=0<br>
+[2013-05-23 01:26:17.797] # argv[11](return_msg)=x<br>
+[2013-05-23 01:26:17.797] # argv[12](return_url)=http://opencode.co.kr/plugin/kcb/safe_hs_cert3.php<br>
+[2013-05-23 01:26:17.797] # argv[13](in_tp_bit)=0<br>
+[2013-05-23 01:26:17.797] # argv[14](hs_cert_msr_cd)=10<br>
+[2013-05-23 01:26:17.797] # argv[15](hs_cert_rqst_caus_cd)=02<br>
+[2013-05-23 01:26:17.797] # argv[16](idcf_mbr_com_cd)=V01270000000<br>
+[2013-05-23 01:26:17.797] # argv[17](client_ip)=x<br>
+[2013-05-23 01:26:17.797] # argv[18](client_site_nm)=opencode.co.kr<br>
+[2013-05-23 01:26:17.797] # argv[19](end_point_url)=http://tsafe.ok-name.co.kr:29080/KcbWebService/OkNameService<br>
+[2013-05-23 01:26:17.797] # argv[20](log_path)=/home/opencode/public_html/plugin/kcb/data/real<br>
+[2013-05-23 01:26:17.797] # argv[21](option)=QL<br>
+[2013-05-23 01:26:17.797] # soap_timeout: 30000 ms<br>
+[2013-05-23 01:26:17.955] # key   : AgYoGTbwDn1Fy12INvR49pjEcK7zSw==:PnoCIxoAcSU7N2pat+ofTw==<br>
+[2013-05-23 01:26:17.955] # spkey : AgYoGTbwDn1Fy12INvR49pjEcK7zSw==<br>
+[2013-05-23 01:26:17.955] # ssig  : PnoCIxoAcSU7N2pat+ofTw==<br>
+[2013-05-23 01:26:17.957] # nm               : x    <br>
+[2013-05-23 01:26:17.957] # brdt             : x    <br>
+[2013-05-23 01:26:17.957] # e_nm             : 4qMsiTg=<br>
+[2013-05-23 01:26:17.957] # e_brdt           : 4qMsiTg=<br>
+[2013-05-23 01:26:17.957] # cpkey : AgejvCgV4Phy+ZPGMwkK5lUN54Zn5g==<br>
+[2013-05-23 01:26:17.957] # csig  : fJkmylcHexTkIHrcFuqJZA==<br>
+[2013-05-23 01:26:18.012] retmsg: 2LM8mSIectodAURHwtI9QJZBOhsNMbOOUI+WJ4s9od0P/+n6tRHbygxCp91l3UJ1lo7g3/bmVdXwnCVk2KOM9kjL8Fnv87B99mZ1YRKeF2AQkJUkccIKxBSu/wVi51TcwG3AoVuSiqdfy65Ovpo/EuyIZdNx1/dPAVAoAkJAzIsk2U2uIedFtYPHjEyCVlCKJVqJiQTEBYy3+QBS8LXARtqe
+[2013-05-23 01:26:18.012] retmsg: B000:정상:LXJyFYm+Z0j/RlEoWUUrxFOMuKzTUVbRXjoLIUxI4dYnHNkja1TrRtfSor1c0VeUfKsIiQeCObyTvM5wa6biM2Jz0I24bGSp9vaQeBnbL2k0mFqsM3BJjh2yODfwwV9ZjtKryJzkVlkErFQWfJfF3g==
+[2013-05-23 01:26:18.012] B000
+[2013-05-23 01:26:18.012] 정상
+[2013-05-23 01:26:18.012] LXJyFYm+Z0j/RlEoWUUrxFOMuKzTUVbRXjoLIUxI4dYnHNkja1TrRtfSor1c0VeUfKsIiQeCObyTvM5wa6biM2Jz0I24bGSp9vaQeBnbL2k0mFqsM3BJjh2yODfwwV9ZjtKryJzkVlkErFQWfJfF3g==
+[2013-05-23 01:26:18.012] # final ret code=0<br>
+[2013-05-23 01:29:24.464] # OKNAME v3.63 start!<br>
+[2013-05-23 01:29:24.464] # mode=IPIN_CKDEC<br>
+[2013-05-23 01:29:24.464] # argv[ 1](keypath    )=/home/opencode/public_html/plugin/kcb/data/safecert_V01270000000.key<br>
+[2013-05-23 01:29:24.464] # argv[ 2](memid      )=V01270000000<br>
+[2013-05-23 01:29:24.464] # argv[ 3](EndPointURL)=http://tsafe.ok-name.co.kr:29080/KcbWebService/OkNameService<br>
+[2013-05-23 01:29:24.464] # argv[ 4](cPubKey     )=AwXCp1v+3QHu+gjTKJpgulnBYJua+w==<br>
+[2013-05-23 01:29:24.464] # argv[ 5](cSig )=/3gQPT1Bo9pyCzaOgDq+fA==<br>
+[2013-05-23 01:29:24.465] # argv[ 6](EncData  )=peWu3EEMxES4rllLYTYp4fmarr1rDlezrXk/qmiYUj3YeJ2/d+Msd9J0E/glms4deBhMtK3KnudgxbzMgS71e4b8DEFGHHORL2jyUUvw9r4l+W7+pdWa+UV4pKovuCjQ68H3Bj7mwCol7ZfraKyS/myiFfDPutFsvihAtu+v+sIkZtVIKtZ6ND3wdxai7YuXYWLnKm0TypM5y4Y/AnhcT3fes8AoZKm8t2CMbsDVehRzINIoMkAFxuhn7gmT121er2y/HrDm9zdfuJifVJGg+Po74n0zamoWmE+eoJ76dtt2poZ6CN31OMWD7GYikytvIzkBhJIc2A==<br>
+[2013-05-23 01:29:24.465] # argv[ 7](logpath	)=/home/opencode/public_html/plugin/kcb/data/real<br>
+[2013-05-23 01:29:24.465] # argv[ 8](Option     )=SL<br>
+[2013-05-23 01:29:24.466] # clnPublicKey : AwXCp1v+3QHu+gjTKJpgulnBYJua+w==<br>
+[2013-05-23 01:29:24.466] # clnSignature : /3gQPT1Bo9pyCzaOgDq+fA==<br>
+[2013-05-23 01:29:24.466] # srvPrivateKey: Ae9LRPzSi1LKyONKsIJsxTpOIvvc<br>
+[2013-05-23 01:29:24.466] # srvSecurekey : AKa8JEIWUQLLkrKI0ZJ+7/GiJ1qf<br>
+[2013-05-23 01:29:24.466] # decData      : B000|본인인증 완료|20130523012617|20130523012852|MC0GCCqGSIb3DQIJAyEAI/ZFcbw+iAkJC6F+Eiwk2TShuGDM10hcZo45bOTMQhk=|Hfd8mmV0jfx9qslcvqTY2m+iHpHZfj7abSzPwGQA1VJNNOS7hTEOnCw3rNzZI1Zys1QkA6HOENGK77BRawoUlw==| |강윤호|19671227|1|1|02|01089870174| | | |x<br>
+[2013-05-23 01:29:24.466] B000
+[2013-05-23 01:29:24.466] 본인인증 완료
+[2013-05-23 01:29:24.466] 20130523012617
+[2013-05-23 01:29:24.466] 20130523012852
+[2013-05-23 01:29:24.466] MC0GCCqGSIb3DQIJAyEAI/ZFcbw+iAkJC6F+Eiwk2TShuGDM10hcZo45bOTMQhk=
+[2013-05-23 01:29:24.466] Hfd8mmV0jfx9qslcvqTY2m+iHpHZfj7abSzPwGQA1VJNNOS7hTEOnCw3rNzZI1Zys1QkA6HOENGK77BRawoUlw==
+[2013-05-23 01:29:24.466]  
+[2013-05-23 01:29:24.466] 강윤호
+[2013-05-23 01:29:24.466] 19671227
+[2013-05-23 01:29:24.466] 1
+[2013-05-23 01:29:24.466] 1
+[2013-05-23 01:29:24.466] 02
+[2013-05-23 01:29:24.466] 01089870174
+[2013-05-23 01:29:24.466]  
+[2013-05-23 01:29:24.466]  
+[2013-05-23 01:29:24.466]  
+[2013-05-23 01:29:24.466] x
+[2013-05-23 01:29:24.466] # final ret code=0<br>
+[2013-05-23 10:47:34.658] # OKNAME v3.63 start!<br>
+[2013-05-23 10:47:34.658] # mode=SAFE_AUTH_POPUP<br>
+[2013-05-23 10:47:34.658] # argv[ 1](hs_cert_svc_tx_seqno)=20130523104734<br>
+[2013-05-23 10:47:34.658] # argv[ 2](nm)=x<br>
+[2013-05-23 10:47:34.658] # argv[ 3](brdt)=x<br>
+[2013-05-23 10:47:34.658] # argv[ 4](sex)=x<br>
+[2013-05-23 10:47:34.658] # argv[ 5](ntv_frnr_tp_cd)=x<br>
+[2013-05-23 10:47:34.658] # argv[ 6](var1)=x<br>
+[2013-05-23 10:47:34.658] # argv[ 7](var2)=x<br>
+[2013-05-23 10:47:34.658] # argv[ 8](var3)=0<br>
+[2013-05-23 10:47:34.658] # argv[ 9](var4)=0<br>
+[2013-05-23 10:47:34.658] # argv[10](var5)=0<br>
+[2013-05-23 10:47:34.658] # argv[11](return_msg)=x<br>
+[2013-05-23 10:47:34.658] # argv[12](return_url)=http://opencode.co.kr/plugin/kcb/safe_hs_cert3.php<br>
+[2013-05-23 10:47:34.658] # argv[13](in_tp_bit)=0<br>
+[2013-05-23 10:47:34.658] # argv[14](hs_cert_msr_cd)=10<br>
+[2013-05-23 10:47:34.658] # argv[15](hs_cert_rqst_caus_cd)=02<br>
+[2013-05-23 10:47:34.658] # argv[16](idcf_mbr_com_cd)=V01270000000<br>
+[2013-05-23 10:47:34.658] # argv[17](client_ip)=x<br>
+[2013-05-23 10:47:34.658] # argv[18](client_site_nm)=opencode.co.kr<br>
+[2013-05-23 10:47:34.658] # argv[19](end_point_url)=http://tsafe.ok-name.co.kr:29080/KcbWebService/OkNameService<br>
+[2013-05-23 10:47:34.659] # argv[20](log_path)=/home/opencode/public_html/plugin/kcb/data/real<br>
+[2013-05-23 10:47:34.659] # argv[21](option)=QL<br>
+[2013-05-23 10:47:34.659] # soap_timeout: 30000 ms<br>
+[2013-05-23 10:47:34.803] # key   : AwTvpLjt5gh3xZJ6B2dr6H24A7t3BA==:q7bv7ajQjcR6Ix8puZ3XNQ==<br>
+[2013-05-23 10:47:34.803] # spkey : AwTvpLjt5gh3xZJ6B2dr6H24A7t3BA==<br>
+[2013-05-23 10:47:34.803] # ssig  : q7bv7ajQjcR6Ix8puZ3XNQ==<br>
+[2013-05-23 10:47:34.805] # nm               : x    <br>
+[2013-05-23 10:47:34.805] # brdt             : x    <br>
+[2013-05-23 10:47:34.805] # e_nm             : PdMtWHk=<br>
+[2013-05-23 10:47:34.805] # e_brdt           : PdMtWHk=<br>
+[2013-05-23 10:47:34.805] # cpkey : AweDabmB/HOXPLd3etSQl9kELbN0bA==<br>
+[2013-05-23 10:47:34.805] # csig  : PJnC+2dLZZeFCVPThzlsLg==<br>
+[2013-05-23 10:47:34.929] retmsg: B8M9SGNQsduvvDqCK/FoBQCcOQx5Sd3GMlJCIjv9s1+XKN3X+Wga8Nyn6ANyUMF/Y8wt1SdkZbaWRENXrrohPVChYq98MU1QckJgsfgDy6iSCtpa8b11ya3ckNflE3xcdzoeUM0A9TAVJgVoW4RgBmHzVH7imY7lo6umMZTcXCGwoZXJff28sAnIN7+o6hX6kEnaE8bcuHA5zifCiTRf+ErC
+[2013-05-23 10:47:34.929] retmsg: B000:정상:LXJyFYm+Z0j/RlEoWUUrxNtPYTrrtGlxFPFgrM+fiSQ6xQzaD4E/CoAe011Uh2eipWDi00U35Ezb+ua92LHGXQZwvwUbkhPXia00jFh9AplyQQWxeuXsztsfvImEhmAbpDO1GI8p5qbunZXG3cDQtw==
+[2013-05-23 10:47:34.929] B000
+[2013-05-23 10:47:34.929] 정상
+[2013-05-23 10:47:34.929] LXJyFYm+Z0j/RlEoWUUrxNtPYTrrtGlxFPFgrM+fiSQ6xQzaD4E/CoAe011Uh2eipWDi00U35Ezb+ua92LHGXQZwvwUbkhPXia00jFh9AplyQQWxeuXsztsfvImEhmAbpDO1GI8p5qbunZXG3cDQtw==
+[2013-05-23 10:47:34.929] # final ret code=0<br>
+[2013-05-23 10:48:04.729] # OKNAME v3.63 start!<br>
+[2013-05-23 10:48:04.730] # mode=IPIN_CKDEC<br>
+[2013-05-23 10:48:04.730] # argv[ 1](keypath    )=/home/opencode/public_html/plugin/kcb/data/safecert_V01270000000.key<br>
+[2013-05-23 10:48:04.730] # argv[ 2](memid      )=V01270000000<br>
+[2013-05-23 10:48:04.730] # argv[ 3](EndPointURL)=http://tsafe.ok-name.co.kr:29080/KcbWebService/OkNameService<br>
+[2013-05-23 10:48:04.730] # argv[ 4](cPubKey     )=AgU07E2xmHZJ/LhmJVEiyAsSQ4j4zw==<br>
+[2013-05-23 10:48:04.730] # argv[ 5](cSig )=Ji7+jI5R6cTLyett2WLxrA==<br>
+[2013-05-23 10:48:04.730] # argv[ 6](EncData  )=LJ3MiQ6oZrwPZv7X06j8SHwOss833synUXk6zpoxYBqKBBv/ma6ywO0CHyL5ol6lZkMk9KgW1ISgh/Imb7ptPsdHqjMg0ADmMGY9<br>
+[2013-05-23 10:48:04.730] # argv[ 7](logpath	)=/home/opencode/public_html/plugin/kcb/data/real<br>
+[2013-05-23 10:48:04.730] # argv[ 8](Option     )=SL<br>
+[2013-05-23 10:48:04.757] # clnPublicKey : AgU07E2xmHZJ/LhmJVEiyAsSQ4j4zw==<br>
+[2013-05-23 10:48:04.757] # clnSignature : Ji7+jI5R6cTLyett2WLxrA==<br>
+[2013-05-23 10:48:04.757] # srvPrivateKey: Ae9LRPzSi1LKyONKsIJsxTpOIvvc<br>
+[2013-05-23 10:48:04.757] # srvSecurekey : A+GAuw2ne7LqYHu9B8Ns357UfB3E<br>
+[2013-05-23 10:48:04.757] # decData      : B123|본인인증 취소|20130523104734|20130523104805| | | | | | | |01| | | | | <br>
+[2013-05-23 10:48:04.757] B123
+[2013-05-23 10:48:04.757] 본인인증 취소
+[2013-05-23 10:48:04.757] 20130523104734
+[2013-05-23 10:48:04.757] 20130523104805
+[2013-05-23 10:48:04.757]  
+[2013-05-23 10:48:04.757]  
+[2013-05-23 10:48:04.757]  
+[2013-05-23 10:48:04.757]  
+[2013-05-23 10:48:04.757]  
+[2013-05-23 10:48:04.757]  
+[2013-05-23 10:48:04.757]  
+[2013-05-23 10:48:04.757] 01
+[2013-05-23 10:48:04.757]  
+[2013-05-23 10:48:04.757]  
+[2013-05-23 10:48:04.757]  
+[2013-05-23 10:48:04.757]  
+[2013-05-23 10:48:04.757]  
+[2013-05-23 10:48:04.757] # final ret code=0<br>
+[2013-05-23 10:48:14.902] # OKNAME v3.63 start!<br>
+[2013-05-23 10:48:14.903] # mode=SAFE_AUTH_POPUP<br>
+[2013-05-23 10:48:14.903] # argv[ 1](hs_cert_svc_tx_seqno)=20130523104814<br>
+[2013-05-23 10:48:14.903] # argv[ 2](nm)=x<br>
+[2013-05-23 10:48:14.903] # argv[ 3](brdt)=x<br>
+[2013-05-23 10:48:14.903] # argv[ 4](sex)=x<br>
+[2013-05-23 10:48:14.903] # argv[ 5](ntv_frnr_tp_cd)=x<br>
+[2013-05-23 10:48:14.903] # argv[ 6](var1)=x<br>
+[2013-05-23 10:48:14.903] # argv[ 7](var2)=x<br>
+[2013-05-23 10:48:14.903] # argv[ 8](var3)=0<br>
+[2013-05-23 10:48:14.903] # argv[ 9](var4)=0<br>
+[2013-05-23 10:48:14.903] # argv[10](var5)=0<br>
+[2013-05-23 10:48:14.903] # argv[11](return_msg)=x<br>
+[2013-05-23 10:48:14.903] # argv[12](return_url)=http://opencode.co.kr/plugin/kcb/safe_hs_cert3.php<br>
+[2013-05-23 10:48:14.903] # argv[13](in_tp_bit)=0<br>
+[2013-05-23 10:48:14.903] # argv[14](hs_cert_msr_cd)=10<br>
+[2013-05-23 10:48:14.903] # argv[15](hs_cert_rqst_caus_cd)=02<br>
+[2013-05-23 10:48:14.903] # argv[16](idcf_mbr_com_cd)=V01270000000<br>
+[2013-05-23 10:48:14.903] # argv[17](client_ip)=x<br>
+[2013-05-23 10:48:14.903] # argv[18](client_site_nm)=opencode.co.kr<br>
+[2013-05-23 10:48:14.903] # argv[19](end_point_url)=http://tsafe.ok-name.co.kr:29080/KcbWebService/OkNameService<br>
+[2013-05-23 10:48:14.903] # argv[20](log_path)=/home/opencode/public_html/plugin/kcb/data/real<br>
+[2013-05-23 10:48:14.903] # argv[21](option)=QL<br>
+[2013-05-23 10:48:14.903] # soap_timeout: 30000 ms<br>
+[2013-05-23 10:48:14.953] # key   : AwaIN+aUMR8zx0oY0xz5AszEgJZKWw==:GcTHPWFRvlJFH6oECJ3vbQ==<br>
+[2013-05-23 10:48:14.953] # spkey : AwaIN+aUMR8zx0oY0xz5AszEgJZKWw==<br>
+[2013-05-23 10:48:14.953] # ssig  : GcTHPWFRvlJFH6oECJ3vbQ==<br>
+[2013-05-23 10:48:14.954] # nm               : x    <br>
+[2013-05-23 10:48:14.954] # brdt             : x    <br>
+[2013-05-23 10:48:14.954] # e_nm             : zIRS3fo=<br>
+[2013-05-23 10:48:14.954] # e_brdt           : zIRS3fo=<br>
+[2013-05-23 10:48:14.954] # cpkey : AgGKzaAXPeY4PMtWRtjEwIXyyD8DHg==<br>
+[2013-05-23 10:48:14.954] # csig  : oj+gr8+DJLEv+hE477S58g==<br>
+[2013-05-23 10:48:15.003] retmsg: 9pRCzeDyHu2zNG9OMu5INx1rPw4l8B3bsBXGutdGeBNySSoRpnYs/F8LVdyWR1GdUT/ta+BhgTK9EnNCJKOpTx50PGWYj3PdnsM4GtflDEs7XtlMQgl+pC3+GPg59Nj6TUX3TUSvp10EDD80KOrFkvlJws1k+uRO6JeoemEI9dTF7O1AroKIUsl1wxcClxPhfxiDIZxTaeVquyAluLlVyyWT
+[2013-05-23 10:48:15.003] retmsg: B000:정상:LXJyFYm+Z0j/RlEoWUUrxFd4yJ2kk/tVKJn/9RlAPa4AWtphKhzlJYsM4VcffRia+jn+ieQOffPFfXkrIAqds/JdRuR5vr4kChALFnRD2C1FJPPv9IlxiAsb5nL1YJh4RHGy8Gk/jnref0pLdqSAcQ==
+[2013-05-23 10:48:15.003] B000
+[2013-05-23 10:48:15.003] 정상
+[2013-05-23 10:48:15.003] LXJyFYm+Z0j/RlEoWUUrxFd4yJ2kk/tVKJn/9RlAPa4AWtphKhzlJYsM4VcffRia+jn+ieQOffPFfXkrIAqds/JdRuR5vr4kChALFnRD2C1FJPPv9IlxiAsb5nL1YJh4RHGy8Gk/jnref0pLdqSAcQ==
+[2013-05-23 10:48:15.003] # final ret code=0<br>
+[2013-05-23 10:49:25.978] # OKNAME v3.63 start!<br>
+[2013-05-23 10:49:25.978] # mode=IPIN_CKDEC<br>
+[2013-05-23 10:49:25.978] # argv[ 1](keypath    )=/home/opencode/public_html/plugin/kcb/data/safecert_V01270000000.key<br>
+[2013-05-23 10:49:25.978] # argv[ 2](memid      )=V01270000000<br>
+[2013-05-23 10:49:25.979] # argv[ 3](EndPointURL)=http://tsafe.ok-name.co.kr:29080/KcbWebService/OkNameService<br>
+[2013-05-23 10:49:25.979] # argv[ 4](cPubKey     )=AwXz8P/cVGtDFLbwiFn6Vv0bj6aWmQ==<br>
+[2013-05-23 10:49:25.979] # argv[ 5](cSig )=GgiCwgmSfghwc48qh+KYIw==<br>
+[2013-05-23 10:49:25.979] # argv[ 6](EncData  )=J2iLBeeUSlT8Of/h0z69wHNCzLeq0TXbNbtGBziWsvQSWTM34FQ3yNZSkVxRin9GTq9iETG6+o647LNbgFCRcxTHqFje8CTo2tb2qu9Cb9sGmVM2IzBbf3w6W1xC+Xj6jZ1gqhL8RKN4OVbCXlqokkRej96NUhm5EZ4+sf/ht5v/uz93uWSgTUIOQfWZ32lNdDSaUemou0bZCwHe6qOvaI97o3uvMvvsyWWGLbBZgv7Tp24h5O0oVWucJxZCHu6QZm2B0DmwrNvPp0sCZzEd4aeT1JBoR8AbGD6HP/cpB7oWTCSL/gePAeRhb57rkwRCjtIGCZ7JAQ==<br>
+[2013-05-23 10:49:25.979] # argv[ 7](logpath	)=/home/opencode/public_html/plugin/kcb/data/real<br>
+[2013-05-23 10:49:25.979] # argv[ 8](Option     )=SL<br>
+[2013-05-23 10:49:25.980] # clnPublicKey : AwXz8P/cVGtDFLbwiFn6Vv0bj6aWmQ==<br>
+[2013-05-23 10:49:25.980] # clnSignature : GgiCwgmSfghwc48qh+KYIw==<br>
+[2013-05-23 10:49:25.980] # srvPrivateKey: Ae9LRPzSi1LKyONKsIJsxTpOIvvc<br>
+[2013-05-23 10:49:25.980] # srvSecurekey : BJ5MTd6/B6B/gGqiK7Cvcy2Kgw8k<br>
+[2013-05-23 10:49:25.980] # decData      : B000|본인인증 완료|20130523104814|20130523104850|MC0GCCqGSIb3DQIJAyEAUZjaTV13EYfDTVD62Yn5TUoWOUUOkxMoFaaVX2ehARw=|eFtwsMJ3IGKcY+vKHqgPPmI/ehnuqm7Rx9lYmtf4+DergC2MKaxGGsGeyK57cAbVVzYq0QgMuq0G17982rouhA==| |김태용|19870313|1|1|02|01093577107| | | |x<br>
+[2013-05-23 10:49:25.980] B000
+[2013-05-23 10:49:25.980] 본인인증 완료
+[2013-05-23 10:49:25.980] 20130523104814
+[2013-05-23 10:49:25.980] 20130523104850
+[2013-05-23 10:49:25.980] MC0GCCqGSIb3DQIJAyEAUZjaTV13EYfDTVD62Yn5TUoWOUUOkxMoFaaVX2ehARw=
+[2013-05-23 10:49:25.980] eFtwsMJ3IGKcY+vKHqgPPmI/ehnuqm7Rx9lYmtf4+DergC2MKaxGGsGeyK57cAbVVzYq0QgMuq0G17982rouhA==
+[2013-05-23 10:49:25.980]  
+[2013-05-23 10:49:25.980] 김태용
+[2013-05-23 10:49:25.980] 19870313
+[2013-05-23 10:49:25.980] 1
+[2013-05-23 10:49:25.980] 1
+[2013-05-23 10:49:25.980] 02
+[2013-05-23 10:49:25.980] 01093577107
+[2013-05-23 10:49:25.980]  
+[2013-05-23 10:49:25.980]  
+[2013-05-23 10:49:25.980]  
+[2013-05-23 10:49:25.980] x
+[2013-05-23 10:49:25.980] # final ret code=0<br>

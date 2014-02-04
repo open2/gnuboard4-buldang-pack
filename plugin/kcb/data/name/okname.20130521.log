@@ -1,0 +1,26 @@
+[2013-05-21 14:59:34.811] # OKNAME v3.63 start!<br>
+[2013-05-21 14:59:34.811] # mode=RN_birth<br>
+[2013-05-21 14:59:34.811] # argv[ 1](name       )=°­À±È£<br>
+[2013-05-21 14:59:34.811] # argv[ 2](birthday   )=19671227<br>
+[2013-05-21 14:59:34.811] # argv[ 3](gender     )=1<br>
+[2013-05-21 14:59:34.811] # argv[ 4](memid      )=P00000000003<br>
+[2013-05-21 14:59:34.811] # argv[ 5](qryKndCd   )=1<br>
+[2013-05-21 14:59:34.811] # argv[ 6](qryRsnCd   )=01<br>
+[2013-05-21 14:59:34.811] # argv[ 7](qryIP      )=x<br>
+[2013-05-21 14:59:34.811] # argv[ 8](qryDomain  )=diorcafe.co.kr<br>
+[2013-05-21 14:59:34.811] # argv[ 9](EndPointURL)=http://twww.ok-name.co.kr:8888/KcbWebService/OkNameService<br>
+[2013-05-21 14:59:34.811] # argv[10](LogPath    )=/home/opencode/public_html/data/kcb/name<br>
+[2013-05-21 14:59:34.811] # argv[11](Option     )=RL<br>
+[2013-05-21 14:59:34.811] # soap_timeout: 30000 ms<br>
+[2013-05-21 14:59:34.830] # key   : AgYWsIeR/H+zxYA6WArBmPCdAuHqSA==:tuZfDFD5th7qZBYS+LYRsA==<br>
+[2013-05-21 14:59:34.830] # spkey : AgYWsIeR/H+zxYA6WArBmPCdAuHqSA==<br>
+[2013-05-21 14:59:34.830] # ssig  : tuZfDFD5th7qZBYS+LYRsA==<br>
+[2013-05-21 14:59:34.832] # name  : °­À±È£<br>
+[2013-05-21 14:59:34.832] # ssn   : 19671227<br>
+[2013-05-21 14:59:34.832] # e_name: uI9j0CMC<br>
+[2013-05-21 14:59:34.832] # e_ssn : ORuVVtqT208=<br>
+[2013-05-21 14:59:34.832] # cpkey : AgXq0MgzVLPgL8fnUUQD0SVyLohQng==<br>
+[2013-05-21 14:59:34.832] # csig  : oehKTFNkDQdz4c1/wNWhJg==<br>
+[2013-05-21 14:59:34.852] retmsg: B000:
+[2013-05-21 14:59:34.852] # ret=0, msg=B000<br>
+[2013-05-21 14:59:34.852] # final ret code=0<br>

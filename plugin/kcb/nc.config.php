@@ -1,133 +1,75 @@
 <?
-// ì‚¬ìš©ë²•
-// 1. php.iniì—ì„œ shell_exec(), exec() í•¨ìˆ˜ì˜ ì‚¬ìš©ì„ í•  ìˆ˜ ìžˆê²Œ ì„¤ì •í•´ì•¼ í•©ë‹ˆë‹¤.
-// 2. g4_member í…Œì´ë¸”ì—, mb_namecheck, mb_realcheck í•„ë“œë¥¼ datetime í˜•ì‹ìœ¼ë¡œ ìƒì„±í•©ë‹ˆë‹¤.
-//    ë¡œê·¸ì €ìž¥ì„ ìœ„í•´ g4_namecheck, g4_realcheckì„ ìƒì„±í•´ ì¤ë‹ˆë‹¤.
-/*
-CREATE TABLE IF NOT EXISTS `g4_namecheck` (
-  `cb_id` int(11) NOT NULL AUTO_INCREMENT,
-  `mb_id` varchar(255) NOT NULL,
-  `mb_jumin` varchar(255) NOT NULL,
-  `mb_name` varchar(255) NOT NULL,
-  `cb_ip` varchar(255) NOT NULL,
-  `cb_datetime` datetime NOT NULL,
-  `cb_returncode` tinyint(4) NOT NULL,
-  PRIMARY KEY (`cb_id`),
-  KEY `mb_id` (`mb_id`)
-)
-CREATE TABLE IF NOT EXISTS `g4_realcheck` (
-  `cb_id` int(11) NOT NULL AUTO_INCREMENT,
-  `mb_id` varchar(255) NOT NULL,
-  `cb_ip` varchar(255) NOT NULL,
-  `cb_datetime` datetime NOT NULL,
-  `cb_authtype` char(1) NOT NULL,
-  `cb_errorcode` char(4) NOT NULL,
-  PRIMARY KEY (`cb_id`),
-  KEY `mb_id` (`mb_id`)
-)
-ALTER TABLE  `g4_member` ADD  `mb_namecheck` DATETIME NOT NULL
-ALTER TABLE  `g4_member` ADD  `mb_realcheck` DATETIME NOT NULL
-*/
-// 3. ì‹¤í–‰í™”ì¼ oknameì„ ì—…ë¥´ë“œ í•˜ê³  okname ëª¨ë“ˆì˜ ì‹¤í–‰ê¶Œí•œì„ ì¶”ê°€(r-x---r-x)í•´ ì£¼ì…”ì•¼ í•©ë‹ˆë‹¤.
-// 4. ë¡œê·¸ ë””ë ‰í† ë¦¬(plugin/kcb/data)ì˜ ê¶Œí•œì„ rwx---rwxë¡œ ì¤˜ì•¼ í•©ë‹ˆë‹¤.
+// »ç¿ë¹ý
+// 1. php.ini¿¡¼­ shell_exec(), exec() ÇÔ¼öÀÇ »ç¿ëÀ» ÇÒ ¼ö ÀÖ°Ô ¼³Á¤ÇØ¾ß ÇÕ´Ï´Ù.
+// 2. g4_member Å×ÀÌºí¿¡, mb_namecheck, mb_realcheck ÇÊµå¸¦ datetime Çü½ÄÀ¸·Î »ý¼ºÇÕ´Ï´Ù.
+// 3. ½ÇÇàÈ­ÀÏ oknameÀ» ¾÷¸£µå ÇÏ°í okname ¸ðµâÀÇ ½ÇÇà±ÇÇÑÀ» Ãß°¡(r-x---r-x)ÇØ ÁÖ¼Å¾ß ÇÕ´Ï´Ù.
+// 4. ·Î±× µð·ºÅä¸®(plugin/kcb/data)ÀÇ ±ÇÇÑÀ» rwx---rwx·Î Áà¾ß ÇÕ´Ï´Ù.
 
-// Log DB í…Œì´ë¸”ì´ ì •ì˜ ë˜ì§€ ì•Šì•˜ìœ¼ë©´ DB í…Œì´ë¸”ì„ ì •ì˜í•´ ì¤ë‹ˆë‹¤.
-if (!$g4['namecheck_table'])
-    $g4['namecheck_table']      = $g4['table_prefix'] . "namecheck";          // ì‹¤ëª…ì¸ì¦ History í…Œì´ë¸”
-if (!$g4['realcheck_table'])
-    $g4['realcheck_table']      = $g4['table_prefix'] . "realcheck";          // ë³¸ì¸ì¸ì¦ History í…Œì´ë¸”
+// Å×½ºÆ®ÁßÀÏ¶§´Â. 1·Î ¼³Á¤ÇÏ°í ÀÌÈÄ¿¡´Â 0À¸·Î ÇÏ¸é µË´Ï´Ù.
+$kcb_test = 0;
 
-// í…ŒìŠ¤íŠ¸ì¤‘ì¼ë•ŒëŠ”. 1ë¡œ ì„¤ì •í•˜ê³  ì´í›„ì—ëŠ” 0ìœ¼ë¡œ í•˜ë©´ ë©ë‹ˆë‹¤.
-$kcb_test = 1;
-
-// KCB ì‹¤í–‰íŒŒì¼ì˜ ìœ„ì¹˜
+// KCB ½ÇÇàÆÄÀÏÀÇ À§Ä¡
 $kcbpath ="/home/opencode/public_html/plugin/kcb";
 
-// KCB ë¡œê·¸íŒŒì¼ì˜ ìœ„ì¹˜
-$kcblog = "/home/openode/public_html/data/kcb";
+// KCB ·Î±×ÆÄÀÏÀÇ À§Ä¡
+$kcblog = "/home/opencode/public_html/data/kcb";
 
-// okname ì‹¤í–‰í™”ì¼ì˜ ì ˆëŒ€ê²½ë¡œ. 
+// okname ½ÇÇàÈ­ÀÏÀÇ Àý´ë°æ·Î. 
 $exe = "$kcbpath/okname";
 
-// *** íšŒì›ì‚¬ ë„ë©”ì¸, $_SERVER["HTTP_HOST"] ì‚¬ìš©ê°€ëŠ¥.
+// *** È¸¿ø»ç µµ¸ÞÀÎ, $_SERVER["HTTP_HOST"] »ç¿ë°¡´É.
 $qryDomain = $_SERVER["HTTP_HOST"];
 
-// ìƒë…„ì›”ì¼ í™•ì¸ ë¡œê·¸ ë””ë ‰í† ë¦¬ (ì ˆëŒ€ê²½ë¡œë¡œ ì¤ë‹ˆë‹¤)
+// »ý³â¿ùÀÏ È®ÀÎ ·Î±× µð·ºÅä¸® (Àý´ë°æ·Î·Î ÁÝ´Ï´Ù)
 $qryLogpath = "$kcblog/name";	
 
-// ë³¸ì¸í™•ì¸ ë¡œê·¸ ë””ë ‰í† ë¦¬ (ì ˆëŒ€ê²½ë¡œë¡œ ì¤ë‹ˆë‹¤)
+// º»ÀÎÈ®ÀÎ ·Î±× µð·ºÅä¸® (Àý´ë°æ·Î·Î ÁÝ´Ï´Ù)
 $logPath = "$kcblog/real";	
 
-// *** íšŒì›ì‚¬ IP,   $_SERVER["SERVER_ADDR"] ì‚¬ìš©ê°€ëŠ¥.
+// *** È¸¿ø»ç IP,   $_SERVER["SERVER_ADDR"] »ç¿ë°¡´É.
 $qryIP = "x";
 
-// Live  íšŒì›ì‚¬ì½”ë“œ
-$memid = "V0xxx0000000";
+// Live  È¸¿ø»çÄÚµå
+$memid = "V01270000000";
 
-// ë³¸ì¸í™•ì¸ ë¦¬í„´ URL ì„¤ì •- ë³¸ì¸ì¸ì¦ ì™„ë£Œí›„ ë¦¬í„´ë  URL (ë„ë©”ì¸ í¬í•¨ full path)
+// º»ÀÎÈ®ÀÎ ¸®ÅÏ URL ¼³Á¤- º»ÀÎÀÎÁõ ¿Ï·áÈÄ ¸®ÅÏµÉ URL (µµ¸ÞÀÎ Æ÷ÇÔ full path)
 $returnUrl = "http://$qryDomain/plugin/kcb/safe_hs_cert3.php";
 
-// ì‹¤ëª…ì¸ì¦ ì‚¬ìš©ì—¬ë¶€, 1 : ì‹¤ëª…ì¸ì¦ ì‚¬ìš©
-$okname_name = 1;
-
-// ë³¸ì¸ì¸ì¦ ì‚¬ìš©ì—¬ë¶€, 1 : ë³¸ì¸ì¸ì¦ ì‚¬ìš©
+// º»ÀÎÀÎÁõ »ç¿ë¿©ºÎ, 1 : º»ÀÎÀÎÁõ »ç¿ë
 $okname_me = 1;
 
-// KCBì˜ ì¸ì¦ URL.
+// KCBÀÇ ÀÎÁõ URL.
 if ($kcb_test) {
-
-    // ìƒë…„ì›”ì¼ í™•ì¸
-    $qryEndPointURL  = "http://twww.ok-name.co.kr:8888/KcbWebService/OkNameService"; 
-
-    // ë³¸ì¸í™•ì¸
+    // º»ÀÎÈ®ÀÎ
     $EndPointURL = "http://tsafe.ok-name.co.kr:29080/KcbWebService/OkNameService"; 
 } else {
-
-    // ìƒë…„ì›”ì¼ í™•ì¸
-    $qryEndPointURL  = "http://www.ok-name.co.kr/KcbWebService/OkNameService"; 
-
-    // ë³¸ì¸í™•ì¸
+    // º»ÀÎÈ®ÀÎ
     $EndPointURL = "http://safe.ok-name.co.kr/KcbWebService/OkNameService"; 
 }
 
 /**************************************************************************
- * okname ìƒë…„ì›”ì¼ í™•ì¸ì„œë¹„ìŠ¤ íŒŒë¼ë¯¸í„°
+ * okname º»ÀÎ È®ÀÎ¼­ºñ½º ÆÄ¶ó¹ÌÅÍ
  **************************************************************************/
-$qryBrcCd = "x";                    // íšŒì›ì‚¬ ì§€ì ì½”ë“œ, ê³ ì •ê°’ "x"
-$qryBrcNm = "x";                    // íšŒì›ì‚¬ ì§€ì ì´ë¦„
-$qryId = "u1234";                   // ì¿¼ë¦¬ID, ê³ ì •ê°’ 
-$qryRsnCd = "01";                   // ì¡°íšŒì‚¬ìœ   íšŒì›ê°€ìž… : 01, íšŒì›ì •ë³´ìˆ˜ì • : 02, íšŒì›íƒˆíšŒ : 03, ì„±ì¸ì¸ì¦ : 04, ê¸°íƒ€ : 05
-$qryOption = "R";                   // R:ìƒë…„ì›”ì¼í™•ì¸, utf-8ì¸ê²½ìš°ëŠ” Uì¶”ê°€, D: debug mode(Consoleì—ì„œ ì‚¬ìš©ì‹œì—), L: log ê¸°ë¡.
-
-if (strtoupper($g4['charset']) == 'UTF-8')
-    $qryOption .= "U";
-
-// í˜„ìž¬ì¼ìž 20101101 ê³¼ ê°™ì´ ìˆ«ìž8ìžë¦¬ ìž…ë ¥ë˜ì–´ì•¼í•¨.
-$qryDt = date("Ymd");
-
-/**************************************************************************
- * okname ë³¸ì¸ í™•ì¸ì„œë¹„ìŠ¤ íŒŒë¼ë¯¸í„°
- **************************************************************************/
-$inTpBit = "0";										// ìž…ë ¥êµ¬ë¶„ì½”ë“œ(ê³ ì •ê°’ '0' : KCBíŒì—…ì—ì„œ ê°œì¸ì •ë³´ ìž…ë ¥)
-$name = "x";										  // ì„±ëª… (ê³ ì •ê°’ 'x')
-$birthday = "x";									// ìƒë…„ì›”ì¼ (ê³ ì •ê°’ 'x')
-$gender = "x";										// ì„±ë³„ (ê³ ì •ê°’ 'x')
-$ntvFrnrTpCd="x";									// ë‚´ì™¸êµ­ì¸êµ¬ë¶„ (ê³ ì •ê°’ 'x')
-$mblTelCmmCd="x";									// ì´ë™í†µì‹ ì‚¬ì½”ë“œ (ê³ ì •ê°’ 'x')
-$mbphnNo="x";										  // íœ´ëŒ€í°ë²ˆí˜¸ (ê³ ì •ê°’ 'x')
+$inTpBit = "0";										// ÀÔ·Â±¸ºÐÄÚµå(°íÁ¤°ª '0' : KCBÆË¾÷¿¡¼­ °³ÀÎÁ¤º¸ ÀÔ·Â)
+$name = "x";										  // ¼º¸í (°íÁ¤°ª 'x')
+$birthday = "x";									// »ý³â¿ùÀÏ (°íÁ¤°ª 'x')
+$gender = "x";										// ¼ºº° (°íÁ¤°ª 'x')
+$ntvFrnrTpCd="x";									// ³»¿Ü±¹ÀÎ±¸ºÐ (°íÁ¤°ª 'x')
+$mblTelCmmCd="x";									// ÀÌµ¿Åë½Å»çÄÚµå (°íÁ¤°ª 'x')
+$mbphnNo="x";										  // ÈÞ´ëÆù¹øÈ£ (°íÁ¤°ª 'x')
 	
-$svcTxSeqno = date("YmdHis");		  // ê±°ëž˜ë²ˆí˜¸. ë™ì¼ë¬¸ìžì—´ì„ ë‘ë²ˆ ì‚¬ìš©í•  ìˆ˜ ì—†ìŒ. ( 20ìžë¦¬ì˜ ë¬¸ìžì—´. 0-9,A-Z,a-z ì‚¬ìš©.)
+$svcTxSeqno = date("YmdHis");		  // °Å·¡¹øÈ£. µ¿ÀÏ¹®ÀÚ¿­À» µÎ¹ø »ç¿ëÇÒ ¼ö ¾øÀ½. ( 20ÀÚ¸®ÀÇ ¹®ÀÚ¿­. 0-9,A-Z,a-z »ç¿ë.)
 	
-$rsv1 = "0";										  // ì˜ˆì•½ í•­ëª©
-$rsv2 = "0";										  // ì˜ˆì•½ í•­ëª©
-$rsv3 = "0";										  // ì˜ˆì•½ í•­ëª©
+$rsv1 = "0";										  // ¿¹¾à Ç×¸ñ
+$rsv2 = "0";										  // ¿¹¾à Ç×¸ñ
+$rsv3 = "0";										  // ¿¹¾à Ç×¸ñ
 	
-$hsCertMsrCd = "10";							// ì¸ì¦ìˆ˜ë‹¨ì½”ë“œ 2byte  (10:í•¸ë“œí°)
-$returnMsg = "x";									// ë¦¬í„´ë©”ì‹œì§€ (ê³ ì •ê°’ 'x') 
+$hsCertMsrCd = "10";							// ÀÎÁõ¼ö´ÜÄÚµå 2byte  (10:ÇÚµåÆù)
+$returnMsg = "x";									// ¸®ÅÏ¸Þ½ÃÁö (°íÁ¤°ª 'x') 
 
-$hsCertRqstCausCd = "02";					// ì¸ì¦ìš”ì²­ì‚¬ìœ ì½”ë“œ 2byte  (00:íšŒì›ê°€ìž…, 01:ì„±ì¸ì¸ì¦, 02:íšŒì›ì •ë³´ìˆ˜ì •, 03:ë¹„ë°€ë²ˆí˜¸ì°¾ê¸°, 04:ìƒí’ˆêµ¬ë§¤, 99:ê¸°íƒ€)
-$option2 = "QL";                  // D: debug mode(Consoleì—ì„œ ì‚¬ìš©ì‹œì—), L: log ê¸°ë¡.
-$option3 = "SL";                  // D: debug mode(Consoleì—ì„œ ì‚¬ìš©ì‹œì—), L: log ê¸°ë¡. safe_hd_cert3.phpì˜ ì˜µì…˜ì€ S ìž…ë‹ˆë‹¤.
+$hsCertRqstCausCd = "02";					// ÀÎÁõ¿äÃ»»çÀ¯ÄÚµå 2byte  (00:È¸¿ø°¡ÀÔ, 01:¼ºÀÎÀÎÁõ, 02:È¸¿øÁ¤º¸¼öÁ¤, 03:ºñ¹Ð¹øÈ£Ã£±â, 04:»óÇ°±¸¸Å, 99:±âÅ¸)
+$option2 = "QL";                   // D: debug mode(Console¿¡¼­ »ç¿ë½Ã¿¡), L: log ±â·Ï.
+$option3 = "SL";                  // D: debug mode(Console¿¡¼­ »ç¿ë½Ã¿¡), L: log ±â·Ï. safe_hd_cert3.phpÀÇ ¿É¼ÇÀº S ÀÔ´Ï´Ù.
 ?>
 <script type="text/javascript">
 function popup_real()

@@ -1,45 +1,46 @@
 <?php
 /**************************************************************************
-	íŒŒì¼ëª… : safe_hs_cert3.php
+	ÆÄÀÏ¸í : safe_hs_cert3.php
 	
-	ìƒë…„ì›”ì¼ ë³¸ì¸ í™•ì¸ì„œë¹„ìŠ¤ ê²°ê³¼ í™”ë©´(return url)
+	»ý³â¿ùÀÏ º»ÀÎ È®ÀÎ¼­ºñ½º °á°ú È­¸é(return url)
 **************************************************************************/
 
 include_once("./_common.php");
 
-// ë¹„íšŒì› ì ‘ì†ë¶ˆê°€
+// ºñÈ¸¿ø Á¢¼ÓºÒ°¡
 if ($member['mb_id'] == "")
     die;
 
-$g4[title] = "KCB(ì½”ë¦¬ì•„í¬ë ˆë”§ë·°ë¡œ) - okname ë³¸ì¸í™•ì¸";
+$g4[title] = "KCB(ÄÚ¸®¾ÆÅ©·¹µ÷ºä·Î) - okname º»ÀÎÈ®ÀÎ";
 
 include_once("./nc.config.php");
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <meta http-equiv="content-type" content="text/html; charset=<?=$g4['charset']?>">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <?
-/* ê³µí†µ ë¦¬í„´ í•­ëª© */
-$idcfMbrComCd			=	$_POST["idcf_mbr_com_cd"];		  // ê³ ê°ì‚¬ì½”ë“œ
-$hsCertSvcTxSeqno	=	$_POST["hs_cert_svc_tx_seqno"];	// ê±°ëž˜ë²ˆí˜¸
-$rqstSiteNm				=	$_POST["rqst_site_nm"];			    // ì ‘ì†ë„ë©”ì¸	
-$hsCertRqstCausCd	=	$_POST["hs_cert_rqst_caus_cd"];	// ì¸ì¦ìš”ì²­ì‚¬ìœ ì½”ë“œ 2byte  (00:íšŒì›ê°€ìž…, 01:ì„±ì¸ì¸ì¦, 02:íšŒì›ì •ë³´ìˆ˜ì •, 03:ë¹„ë°€ë²ˆí˜¸ì°¾ê¸°, 04:ìƒí’ˆêµ¬ë§¤, 99:ê¸°íƒ€)
+/* °øÅë ¸®ÅÏ Ç×¸ñ */
+$idcfMbrComCd			=	$_POST["idcf_mbr_com_cd"];		  // °í°´»çÄÚµå
+$hsCertSvcTxSeqno	=	$_POST["hs_cert_svc_tx_seqno"];	// °Å·¡¹øÈ£
+$rqstSiteNm				=	$_POST["rqst_site_nm"];			    // Á¢¼Óµµ¸ÞÀÎ	
+$hsCertRqstCausCd	=	$_POST["hs_cert_rqst_caus_cd"];	// ÀÎÁõ¿äÃ»»çÀ¯ÄÚµå 2byte  (00:È¸¿ø°¡ÀÔ, 01:¼ºÀÎÀÎÁõ, 02:È¸¿øÁ¤º¸¼öÁ¤, 03:ºñ¹Ð¹øÈ£Ã£±â, 04:»óÇ°±¸¸Å, 99:±âÅ¸)
 
-$resultCd				=	$_POST["result_cd"];			// ê²°ê³¼ì½”ë“œ
-$resultMsg			=	$_POST["result_msg"];			// ê²°ê³¼ë©”ì„¸ì§€
-$certDtTm				=	$_POST["cert_dt_tm"];			// ì¸ì¦ì¼ì‹œ
+$resultCd				=	$_POST["result_cd"];			// °á°úÄÚµå
+$resultMsg			=	$_POST["result_msg"];			// °á°ú¸Þ¼¼Áö
+$certDtTm				=	$_POST["cert_dt_tm"];			// ÀÎÁõÀÏ½Ã
 
 /**************************************************************************
- * ëª¨ë“ˆ í˜¸ì¶œ	; ìƒë…„ì›”ì¼ ë³¸ì¸ í™•ì¸ì„œë¹„ìŠ¤ ê²°ê³¼ ë°ì´í„°ë¥¼ ë³µí˜¸í™”í•œë‹¤.
+ * ¸ðµâ È£Ãâ	; »ý³â¿ùÀÏ º»ÀÎ È®ÀÎ¼­ºñ½º °á°ú µ¥ÀÌÅÍ¸¦ º¹È£È­ÇÑ´Ù.
  **************************************************************************/
 $encInfo = $_POST["encInfo"];
 
-//KCBì„œë²„ ê³µê°œí‚¤
+//KCB¼­¹ö °ø°³Å°
 $WEBPUBKEY = trim($_POST["WEBPUBKEY"]);
-//KCBì„œë²„ ì„œëª…ê°’
+//KCB¼­¹ö ¼­¸í°ª
 $WEBSIGNATURE = trim($_POST["WEBSIGNATURE"]);
 
-// ë³¸ì¸í™•ì¸ - ì•”í˜¸í™”í‚¤ íŒŒì¼ ì„¤ì • (ì ˆëŒ€ê²½ë¡œ) - íŒŒì¼ì€ ì£¼ì–´ì§„ íŒŒì¼ëª…ìœ¼ë¡œ ìžë™ ìƒì„± ë¨
+// º»ÀÎÈ®ÀÎ - ¾ÏÈ£È­Å° ÆÄÀÏ ¼³Á¤ (Àý´ë°æ·Î) - ÆÄÀÏÀº ÁÖ¾îÁø ÆÄÀÏ¸íÀ¸·Î ÀÚµ¿ »ý¼º µÊ
 if ($kcb_test)
     $keypath = "$kcblog/tsafecert_$idcfMbrComCd.key";
 else
@@ -48,21 +49,21 @@ else
 $cpubkey = $WEBPUBKEY;    //server publickey
 $csig = $WEBSIGNATURE;    //server signature
 
-// ëª…ë ¹ì–´
+// ¸í·É¾î
 $cmd = "$exe $keypath $idcfMbrComCd $EndPointURL $WEBPUBKEY $WEBSIGNATURE $encInfo $logPath $option3";
 if ($kcb_test) {
     echo "$cmd<br>";
 }
 
-// ì‹¤í–‰
+// ½ÇÇà
 exec($cmd, $out, $ret);
 if ($kcb_test) {
     echo "ret=$ret<br/>";
 }
 
 if($ret == 0) {
-		echo "ë³µí˜¸í™” ìš”ì²­ í˜¸ì¶œ ì„±ê³µ.<br/>";		 
-		// ê²°ê³¼ë¼ì¸ì—ì„œ ê°’ì„ ì¶”ì¶œ
+		echo "º¹È£È­ ¿äÃ» È£Ãâ ¼º°ø.<br/>";		 
+		// °á°ú¶óÀÎ¿¡¼­ °ªÀ» ÃßÃâ
 		foreach($out as $a => $b) {
 			if($a < 17) {
 				$field[$a] = $b;
@@ -70,59 +71,59 @@ if($ret == 0) {
 		}
 		$resultCd = $field[0];
 } else {
-		echo "ë³µí˜¸í™” ìš”ì²­ í˜¸ì¶œ ì—ëŸ¬. ë¦¬í„´ê°’ : ".$ret."<br/>";		 
+		echo "º¹È£È­ ¿äÃ» È£Ãâ ¿¡·¯. ¸®ÅÏ°ª : ".$ret."<br/>";		 
 		if($ret <=200)
 			$resultCd=sprintf("B%03d", $ret);
 		else
 			$resultCd=sprintf("S%03d", $ret);
 }
 
-// *** ì´ ë‘ ê°’ì„ $_POST ì˜ ê°’ ëŒ€ì‹  ì‚¬ìš©.
+// *** ÀÌ µÎ °ªÀ» $_POST ÀÇ °ª ´ë½Å »ç¿ë.
 $resultCd = $field[0];
 $resultMsg = $field[1];
 $hsCertSvcTxSeqno = $field[2];
 
-// *** í…ŒìŠ¤íŠ¸í• ë•Œ í’€ì–´ì£¼ì„¸ìš”.
+// *** Å×½ºÆ®ÇÒ¶§ Ç®¾îÁÖ¼¼¿ä.
 //$kcb_test = 1;
 if ($kcb_test) {
-    echo "ì²˜ë¦¬ê²°ê³¼ì½”ë“œ		:$resultCd	<br/>";
-    echo "ì²˜ë¦¬ê²°ê³¼ë©”ì‹œì§€	:$field[1]	<br/>";
-    echo "ê±°ëž˜ì¼ë ¨ë²ˆí˜¸		:$field[2]	<br/>";
-    echo "ì¸ì¦ì¼ì‹œ			  :$field[3]	<br/>";
+    echo "Ã³¸®°á°úÄÚµå		:$resultCd	<br/>";
+    echo "Ã³¸®°á°ú¸Þ½ÃÁö	:$field[1]	<br/>";
+    echo "°Å·¡ÀÏ·Ã¹øÈ£		:$field[2]	<br/>";
+    echo "ÀÎÁõÀÏ½Ã			  :$field[3]	<br/>";
     echo "DI				      :$field[4]	<br/>";
     echo "CI				      :$field[5]	<br/>";
-    echo "ì„±ëª…				    :$field[7]	<br/>";
-    echo "ìƒë…„ì›”ì¼			  :$field[8]	<br/>";
-    echo "ì„±ë³„				    :$field[9]	<br/>";
-    echo "ë‚´ì™¸êµ­ì¸êµ¬ë¶„		:$field[10]	<br/>";
-    echo "í†µì‹ ì‚¬ì½”ë“œ		  :$field[11]	<br/>";
-    echo "íœ´ëŒ€í°ë²ˆí˜¸		  :$field[12]	<br/>";
-    echo "ë¦¬í„´ë©”ì‹œì§€		  :$field[16]	<br/>";
+    echo "¼º¸í				    :$field[7]	<br/>";
+    echo "»ý³â¿ùÀÏ			  :$field[8]	<br/>";
+    echo "¼ºº°				    :$field[9]	<br/>";
+    echo "³»¿Ü±¹ÀÎ±¸ºÐ		:$field[10]	<br/>";
+    echo "Åë½Å»çÄÚµå		  :$field[11]	<br/>";
+    echo "ÈÞ´ëÆù¹øÈ£		  :$field[12]	<br/>";
+    echo "¸®ÅÏ¸Þ½ÃÁö		  :$field[16]	<br/>";
 }
-// *** í…ŒìŠ¤íŠ¸í•  ë•Œ í’€ì–´ì£¼ì„¸ìš”.
+// *** Å×½ºÆ®ÇÒ ¶§ Ç®¾îÁÖ¼¼¿ä.
 //print_r($field);die;
 
-// ê²°ê³¼ì²˜ë¦¬ ===
+// °á°úÃ³¸® ===
 switch ($resultCd) {
-    case "B000" : // ì •ìƒì²˜ë¦¬
+    case "B000" : // Á¤»óÃ³¸®
         $sql = " update $g4[member_table] set mb_name = '$name', mb_realcheck = '$g4[time_ymdhis]', mb_hp = '$field[12]' where mb_id = '$member[mb_id]' ";
         sql_query($sql);
 
-        // ì‚¬ìš©ìž í™•ìž¥íŒŒì¼
+        // »ç¿ëÀÚ È®ÀåÆÄÀÏ
         @include("./realcheck.skin.php");
 
         break;
-    default :     // ì •ìƒì´ ì•„ë‹Œ ê²½ìš°
+    default :     // Á¤»óÀÌ ¾Æ´Ñ °æ¿ì
         ;
         break;
 }
 
-// ë¬´ì¡°ê±´ ë¡œê·¸ë¥¼ ë‚¨ê¸´ë‹¤
+// ¹«Á¶°Ç ·Î±×¸¦ ³²±ä´Ù
 $sql = " insert into $g4[realcheck_table] set mb_id = '$member[mb_id]', cb_authtype = '$hsCertRqstCausCd', cb_ip = '$_SERVER[REMOTE_ADDR]', cb_datetime = '$g4[time_ymdhis]', cb_errorcode = '$resultCd' ";
 sql_query($sql);
 ?>
 <head>
-	<title>KCB ìƒë…„ì›”ì¼ ë³¸ì¸ í™•ì¸ì„œë¹„ìŠ¤ ìƒ˜í”Œ</title>
+	<title>KCB »ý³â¿ùÀÏ º»ÀÎ È®ÀÎ¼­ºñ½º »ùÇÃ</title>
   <script language="javascript" type="text/javascript" >
 	function fncOpenerSubmit() {
 		opener.document.kcbResultForm.idcf_mbr_com_cd.value = "<?=$idcfMbrComCd?>";
