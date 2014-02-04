@@ -2260,5 +2260,18 @@ function js_escape($str, $chr_set='CP949') {
 	  $callback_function = create_function('$dec', 'if(in_array($dec, array(42, 43, 45, 46, 47, 64, 95))) return chr($dec); elseif($dec >= 127) return "%u".strtoupper(dechex($dec)); else return rawurlencode(chr($dec));'); 
   	$arr_hexcode = array_map($callback_function, $arr_dec); 
 	  return implode($arr_hexcode); 
-} 
+}
+
+// 부트스트랩 tooltip을 출력
+function help($msg, $gly='') {
+
+    if ($gly == "")
+        $gly = "info-sign";
+
+    $str = "<a href=\"#\" data-toggle=\"tooltip\" class=\"tooltip-help\" title=\"$msg\">
+            <span class=\"glyphicon glyphicon-$gly\"></span>
+            </a>";
+
+    return $str;
+}
 ?>
