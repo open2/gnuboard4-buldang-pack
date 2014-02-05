@@ -8,6 +8,9 @@
 // 테스트중일때는. 1로 설정하고 이후에는 0으로 하면 됩니다.
 $kcb_test = 0;
 
+// Live  회원사코드
+$memid = "kcb에서 알려주는 값...";
+
 // KCB 실행파일의 위치
 $kcbpath ="/home/opencode/public_html/plugin/kcb";
 
@@ -20,17 +23,11 @@ $exe = "$kcbpath/okname";
 // *** 회원사 도메인, $_SERVER["HTTP_HOST"] 사용가능.
 $qryDomain = $_SERVER["HTTP_HOST"];
 
-// 생년월일 확인 로그 디렉토리 (절대경로로 줍니다)
-$qryLogpath = "$kcblog/name";	
-
 // 본인확인 로그 디렉토리 (절대경로로 줍니다)
 $logPath = "$kcblog/real";	
 
 // *** 회원사 IP,   $_SERVER["SERVER_ADDR"] 사용가능.
 $qryIP = "x";
-
-// Live  회원사코드
-$memid = "V01270000000";
 
 // 본인확인 리턴 URL 설정- 본인인증 완료후 리턴될 URL (도메인 포함 full path)
 $returnUrl = "http://$qryDomain/plugin/kcb/safe_hs_cert3.php";
@@ -40,10 +37,8 @@ $okname_me = 1;
 
 // KCB의 인증 URL.
 if ($kcb_test) {
-    // 본인확인
     $EndPointURL = "http://tsafe.ok-name.co.kr:29080/KcbWebService/OkNameService"; 
 } else {
-    // 본인확인
     $EndPointURL = "http://safe.ok-name.co.kr/KcbWebService/OkNameService"; 
 }
 
@@ -68,7 +63,7 @@ $hsCertMsrCd = "10";							// 인증수단코드 2byte  (10:핸드폰)
 $returnMsg = "x";									// 리턴메시지 (고정값 'x') 
 
 $hsCertRqstCausCd = "02";					// 인증요청사유코드 2byte  (00:회원가입, 01:성인인증, 02:회원정보수정, 03:비밀번호찾기, 04:상품구매, 99:기타)
-$option2 = "QL";                   // D: debug mode(Console에서 사용시에), L: log 기록.
+$option2 = "QL";                  // D: debug mode(Console에서 사용시에), L: log 기록.
 $option3 = "SL";                  // D: debug mode(Console에서 사용시에), L: log 기록. safe_hd_cert3.php의 옵션은 S 입니다.
 ?>
 <script type="text/javascript">

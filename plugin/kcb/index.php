@@ -34,7 +34,7 @@ include_once("./nc.config.php");
 	</ul>
 </div>
 </div>
-<p>본인인증을 받으시려면 <a href="javascript:popup_real();"><strong>이곳</strong></a>을 클릭해주세요.</p>
+
 <?
 include_once("./_tail.php"); 
 ?>
