@@ -89,8 +89,8 @@ var list_update_php = "./boardgroup_list_update.php";
 <table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <tr class="success">
     <td width=30><input type=checkbox name=chkall value="1" onclick="check_all(this.form)"></td>
+    <td width=45><? if ($is_admin == "super") { echo "<a href='./boardgroup_form.php'><i class='fa fa-plus-square fa-2x' title='생성'></i></a>"; } ?></td>
     <td width=120><?=subject_sort_link("gr_id")?>그룹아이디</a></td>
-    <td width=60><? if ($is_admin == "super") { echo "<a href='./boardgroup_form.php'><i class='fa fa-plus-square fa-2x' title='생성'></i></a>"; } ?></td>
     <td><?=subject_sort_link("gr_subject")?>제목</a></td>
     <td width=80><?=subject_sort_link("gr_admin")?>그룹관리자</a></td>
     <td width=80>게시판</td>
@@ -120,8 +120,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     echo "<input type=hidden name=gr_id[$i] value='$row[gr_id]'>";
     echo "<tr>";
     echo "<td><input type=checkbox name=chk[] value='$i'></td>";
-    echo "<td><a href='$g4[bbs_path]/group.php?gr_id=$row[gr_id]'><b>$row[gr_id]</b></a></td>";
     echo "<td>$s_upd $s_del</td>";
+    echo "<td><a href='$g4[bbs_path]/group.php?gr_id=$row[gr_id]'><b>$row[gr_id]</b></a></td>";
     echo "<td><input type=text class=ed name=gr_subject[$i] value='".get_text($row[gr_subject])."' size=30></td>";
 
     if ($is_admin == "super")

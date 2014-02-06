@@ -6,11 +6,6 @@ auth_check($auth[$sub_menu], "r");
 
 $token = get_token();
 
-// DHTML 에디터 사용 필드 추가 : 061021
-// sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_use_dhtml_editor` TINYINT NOT NULL AFTER `bo_use_secret` ", false);
-// RSS 보이기 사용 필드 추가 : 061106
-// sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_use_rss_view` TINYINT NOT NULL AFTER `bo_use_dhtml_editor` ", false);
-
 $sql_common = " from $g4[board_table] a ";
 $sql_search = " where (1) ";
 
@@ -73,30 +68,31 @@ var list_update_php = 'board_list_update.php';
 var list_delete_php = 'board_list_delete.php';
 </script>
 
-<table width=100% cellpadding=3 cellspacing=1>
-<form name=fsearch method=get>
-<tr>
-    <td width=50% align=left><?=$listall?> (게시판수 : <?=number_format($total_count)?>개)</td>
-    <td width=50% align=right>
-        <select name=sfl>
-            <option value='bo_table'>TABLE</option>
-            <option value='bo_subject'>제목</option>
-            <option value='a.gr_id'>그룹ID</option>
-        </select>
-        <input type=text name=stx class=ed required itemname='검색어' value='<?=$stx?>'>
-        <input type=image src='<?=$g4[admin_path]?>/img/btn_search.gif' align=absmiddle></td>
-</tr>
+<form name=fsearch method=get role="form" class="form-inline">
+<div class="btn-group">
+    <?=$listall?> (게시판수 : <?=number_format($total_count)?>개)
+</div>
+<div class="pull-right">
+    <select name=sfl class="form-control">
+        <option value='bo_table'>TABLE</option>
+        <option value='bo_subject'>제목</option>
+        <option value='a.gr_id'>그룹ID</option>
+    </select>
+    <input class="form-control" type=text name=stx required itemname='검색어' value='<?=$stx?>'>
+    <div class="form-group">
+        <button class="btn btn-primary">검색</button>
+    </div>
+</div>
 </form>
-</table>
 
-<form name=fboardlist method=post>
+<form name=fboardlist method=post role="form" class="form-inline">
 <input type=hidden name=sst   value="<?=$sst?>">
 <input type=hidden name=sod   value="<?=$sod?>">
 <input type=hidden name=sfl   value="<?=$sfl?>">
 <input type=hidden name=stx   value="<?=$stx?>">
 <input type=hidden name=page  value="<?=$page?>">
 <input type=hidden name=token value="<?=$token?>">
-<table width=100% cellpadding=0 cellspacing=1>
+<table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <colgroup width=30>
 <colgroup width=>
 <colgroup width=100>
@@ -107,11 +103,9 @@ var list_delete_php = 'board_list_delete.php';
 <colgroup width=55>
 <colgroup width=35>
 <colgroup width=35>
-<colgroup width=80>
-<tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
 <tr class='bgcol1 bold col1 ht2 center'>
     <td rowspan=2><input type=checkbox name=chkall value="1" onclick="check_all(this.form)"></td>
-    <td rowspan=2><?=subject_sort_link("bo_table")?>TABLE</a></td>
+    <td rowspan=2><?=subject_sort_link("bo_table")?>TABLE</a>&nbsp;&nbsp;&nbsp;<a href="./board_form.php"><i class='fa fa-plus-square fa-2x' title='생성'></i></a></td>
     <td colspan=2><?=subject_sort_link("bo_subject")?>제목</a></td>
     <td rowspan=2 title="글읽기 포인트"><?=subject_sort_link("bo_read_point")?>읽기<br>포인트</a></td>
     <td rowspan=2 title="글쓰기 포인트"><?=subject_sort_link("bo_write_point")?>쓰기<br>포인트</a></td>
@@ -119,13 +113,11 @@ var list_delete_php = 'board_list_delete.php';
     <td rowspan=2 title="다운로드 포인트"><?=subject_sort_link("bo_download_point")?>다운<br>포인트</a></td>
     <td rowspan=2 title="검색사용"><?=subject_sort_link("bo_use_search")?>검색<br>사용</a></td>
     <td rowspan=2 title="검색순서"><?=subject_sort_link("bo_order_search")?>검색<br>순서</a></td>
-	<td rowspan=2><a href="./board_form.php"><img src='<?=$g4[admin_path]?>/img/icon_insert.gif' border=0 title='생성'></a></td>
 </tr>
 <tr class='bgcol1 bold col1 ht2 center'>
     <td><?=subject_sort_link("a.gr_id")?>그룹</a></td>
     <td><?=subject_sort_link("bo_skin", "", "desc")?>스킨</a></td>
 </tr>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <?
 // 스킨디렉토리
 $skin_options = "";
@@ -140,36 +132,19 @@ for ($k=0; $k<count($arr); $k++)
 }
 
 for ($i=0; $row=sql_fetch_array($result); $i++) {
-    $s_upd = "<a href='./board_form.php?w=u&bo_table=$row[bo_table]&$qstr'><img src='img/icon_modify.gif' border=0 title='수정'></a>";
+    $s_upd = "<a href='./board_form.php?w=u&bo_table=$row[bo_table]&$qstr'><i class='fa fa-pencil' title='수정'></i></a>";
     $s_del = "";
     if ($is_admin == "super") {
-        //$s_del = "<a href=\"javascript:del('./board_delete.php?bo_table=$row[bo_table]&$qstr');\"><img src='img/icon_delete.gif' border=0 title='삭제'></a>";
-        $s_del = "<a href=\"javascript:post_delete('board_delete.php', '$row[bo_table]');\"><img src='img/icon_delete.gif' border=0 title='삭제'></a>";
+        $s_del = "&nbsp;<a href=\"javascript:post_delete('board_delete.php', '$row[bo_table]');\"><i class='fa fa-trash-o' title='삭제'></i></a>";
     }
-    $s_copy = "<a href=\"javascript:board_copy('$row[bo_table]');\"><img src='img/icon_copy.gif' border=0 title='복사'></a>";
-    $s_sort = "<a href='./board_sort.php?bo_table=$row[bo_table]'><img src='img/icon_sort.gif' border=0 title='정렬'></a>";
-    /*
-    // 스킨디렉토리
-    $skin_options = "";
-    $arr = get_skin_dir("board");
-    for ($k=0; $k<count($arr); $k++) 
-    {
-        $option = $arr[$k];
-        if (strlen($option) > 10)
-            $option = substr($arr[$k], 0, 18) . "…";
-
-        $skin_options .= "<option value='$arr[$k]'";
-        if ($arr[$k] == $row[bo_skin])
-            $skin_options .= " selected";
-        $skin_options .= ">$option</option>";
-    }
-    */
+    $s_copy = "&nbsp;<a href=\"javascript:board_copy('$row[bo_table]');\"><i class='fa fa-copy' title='복사'></i></a>";
+    $s_sort = "&nbsp;<a href='./board_sort.php?bo_table=$row[bo_table]'><i class='fa fa-sort-amount-desc' title='정렬'></i></a>";
 
     $list = $i % 2;
     echo "<input type=hidden name=board_table[$i] value='$row[bo_table]'>";
     echo "<tr class='list$list col1 ht center'>";
     echo "<td rowspan=2 height=25><input type=checkbox name=chk[] value='$i'></td>";
-    echo "<td rowspan=2><a href='$g4[bbs_path]/board.php?bo_table=$row[bo_table]'><b>$row[bo_table]</b></a></td>";
+    echo "<td><a href='$g4[bbs_path]/board.php?bo_table=$row[bo_table]'><b>$row[bo_table]</b></a></td>";
     echo "<td colspan=2 align=left height=25><input type=text class=ed name=bo_subject[$i] value='".get_text($row[bo_subject])."' style='width:99%'></td>";
     echo "<td rowspan=2 title='읽기 포인트'><input type=text class=ed name=bo_read_point[$i] value='$row[bo_read_point]' style='width:33px;'></td>";
     echo "<td rowspan=2 title='쓰기 포인트'><input type=text class=ed name=bo_write_point[$i] value='$row[bo_write_point]' style='width:33px;'></td>";
@@ -177,10 +152,10 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     echo "<td rowspan=2 title='다운로드 포인트'><input type=text class=ed name=bo_download_point[$i] value='$row[bo_download_point]' style='width:33px;'></td>";
     echo "<td rowspan=2 title='검색사용'><input type=checkbox name=bo_use_search[$i] ".($row[bo_use_search]?'checked':'')." value='1'></td>";
     echo "<td rowspan=2 title='검색순서'><input type=text class=ed name=bo_order_search[$i] value='$row[bo_order_search]' size=2></td>";
-    echo "<td rowspan=2>$s_upd $s_del $s_copy $s_sort</td>";
     echo "</tr>";
     echo "<tr class='list$list col1 ht center'>";
 
+    echo "<td>$s_upd $s_del $s_copy $s_sort</td>";
     if ($is_admin == "super")
         echo "<td align=left>".get_group_select("gr_id[$i]", $row[gr_id])."</td>";
     else
@@ -196,18 +171,23 @@ if ($i == 0)
 
 echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
 echo "</table>";
+?>
 
-$pagelist = get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");
-echo "<table width=100% cellpadding=3 cellspacing=1>";
-echo "<tr><td width=70%>";
-echo "<input type=button class='btn1' value='선택수정' onclick=\"btn_check(this.form, 'update')\"> ";
+<!-- 페이지 -->
+<div class="hidden-xs" style="text-align:center;">
+    <ul class="pagination">
+    <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
+    </ul>
+</div>
 
-if ($is_admin == "super")
-    echo "<input type=button class='btn1' value='선택삭제' onclick=\"btn_check(this.form, 'delete')\">";
+<div class="btn-group">
+    <input type=button class='btn btn-default' value='선택수정' onclick="btn_check(this.form, 'update')">
+    <? if ($is_admin == "super") { ?>
+        <input type=button class='btn btn-default' value='선택삭제' onclick="btn_check(this.form, 'delete')">
+    <? } ?>
+</div>
 
-echo "</td>";
-echo "<td width=30% align=right>$pagelist</td></tr></table>\n";
-
+<?
 if ($stx)
     echo "<script>document.fsearch.sfl.value = '$sfl';</script>";
 ?>

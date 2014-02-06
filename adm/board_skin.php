@@ -1,5 +1,5 @@
 <?
-$sub_menu = "300210";
+$sub_menu = "300510";
 include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "r");
@@ -11,20 +11,16 @@ $colspan=3;
 
 // 게시판 스킨목록
 $arr = get_skin_dir("board");
-
 ?>
-<table width=100% cellpadding=0 cellspacing=1>
+<table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <colgroup width=150>
 <colgroup width=50>
 <colgroup width=>
-<tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
-<tr class='bgcol1 bold col1 ht2 center'>
+<tr class='success'>
     <td>skin 이름</td>
     <td>갯수</td>
     <td>skin 적용 게시판</td>
 </tr>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
-
 <?
 $i=1;
 foreach ($arr as $skin) {

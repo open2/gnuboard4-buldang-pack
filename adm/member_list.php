@@ -85,12 +85,12 @@ $result = sql_query($sql);
 $colspan = 15;
 ?>
 
-<script language="JavaScript">
+<script type="text/javascript">
 var list_update_php = "member_list_update.php";
 var list_delete_php = "member_list_delete.php";
 </script>
 
-<script language="JavaScript">
+<script type="text/javascript">
 function member_delete_unvisited()
 {
     if (confirm("오랫동안 접속하지 않고 글작성도 없는 회원을 정리합니다\n\n정리기간 등은 /adm/member_undelete_unvisited.php에서 설정가능합니다.\n\n\n그래도 진행하시겠습니까?"))
@@ -100,38 +100,39 @@ function member_delete_unvisited()
 }
 </script>
 
-<table width=100%>
-<form name=fsearch method=get>
-<tr>
-    <td width=50% align=left><?=$listall?> 
-        (총회원수 : <?=number_format($total_count)?>, 
-        <a href='?sst=mb_intercept_date&sod=desc&sfl=<?=$sfl?>&stx=<?=$stx?>' title='차단된 회원부터 출력'><font color=orange>차단 : <?=number_format($intercept_count)?></font></a>, 
-        <a href='?sst=mb_leave_date&sod=desc&sfl=<?=$sfl?>&stx=<?=$stx?>' title='탈퇴한 회원부터 출력'><font color=crimson>탈퇴 : <?=number_format($leave_count)?></font></a>)
-        &nbsp;&nbsp;<a href="javascript:member_delete_unvisited();">장기미접속회원정리</a>
-    </td>
-    <td width=50% align=right>
-        <select name=sfl class=cssfl>
-            <option value='mb_id'>회원아이디</option>
-            <option value='mb_name'>이름</option>
-            <option value='mb_nick'>별명</option>
-            <option value='mb_level'>권한</option>
-            <option value='mb_email'>E-MAIL</option>
-            <option value='mb_tel'>전화번호</option>
-            <option value='mb_hp'>핸드폰번호</option>
-            <option value='mb_point'>포인트</option>
-            <option value='mb_datetime'>가입일시</option>
-            <option value='mb_ip'>IP</option>
-            <option value='mb_recommend'>추천인</option>
-            <option value='ug_id'>사용자그룹</option>
-            <option value='mb_no'>회원번호</option>
-        </select>
-        <input type=text name=stx class=ed required itemname='검색어' value='<? echo $stx ?>'>
-        <input type=image src='<?=$g4[admin_path]?>/img/btn_search.gif' align=absmiddle></td>
-</tr>
-</form>
-</table>
 
-<form name=fmemberlist method=post>
+<form name=fsearch method=get role="form" class="form-inline">
+<div class="btn-group">
+    <?=$listall?> 
+    (총회원수 : <?=number_format($total_count)?>, 
+    <a href='?sst=mb_intercept_date&sod=desc&sfl=<?=$sfl?>&stx=<?=$stx?>' title='차단된 회원부터 출력'><font color=orange>차단 : <?=number_format($intercept_count)?></font></a>, 
+    <a href='?sst=mb_leave_date&sod=desc&sfl=<?=$sfl?>&stx=<?=$stx?>' title='탈퇴한 회원부터 출력'><font color=crimson>탈퇴 : <?=number_format($leave_count)?></font></a>)
+    &nbsp;&nbsp;<a href="javascript:member_delete_unvisited();">장기미접속회원정리</a>
+</div>
+<div class="pull-right">
+    <select name=sfl class="form-control">
+        <option value='mb_id'>회원아이디</option>
+        <option value='mb_name'>이름</option>
+        <option value='mb_nick'>별명</option>
+        <option value='mb_level'>권한</option>
+        <option value='mb_email'>E-MAIL</option>
+        <option value='mb_tel'>전화번호</option>
+        <option value='mb_hp'>핸드폰번호</option>
+        <option value='mb_point'>포인트</option>
+        <option value='mb_datetime'>가입일시</option>
+        <option value='mb_ip'>IP</option>
+        <option value='mb_recommend'>추천인</option>
+        <option value='ug_id'>사용자그룹</option>
+        <option value='mb_no'>회원번호</option>
+    </select>
+    <input class="form-control" type=text name=stx required itemname='검색어' value='<?=$stx?>'>
+    <div class="form-group">
+        <button class="btn btn-primary">검색</button>
+    </div>
+</div>
+</form>
+
+<form name=fmemberlist method=post role="form" class="form-inline">
 <input type=hidden name=sst   value='<?=$sst?>'>
 <input type=hidden name=sod   value='<?=$sod?>'>
 <input type=hidden name=sfl   value='<?=$sfl?>'>
@@ -139,8 +140,9 @@ function member_delete_unvisited()
 <input type=hidden name=page  value='<?=$page?>'>
 <input type=hidden name=token value='<?=$token?>'>
 
-<table width=100% cellpadding=0 cellspacing=0>
+<table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <colgroup width=30>
+<colgroup width=90>
 <colgroup width=80>
 <colgroup width=80>
 <colgroup width=''>
@@ -153,10 +155,9 @@ function member_delete_unvisited()
 <colgroup width=40>
 <colgroup width=50>
 <colgroup width=50>
-<colgroup width=90>
-<tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
 <tr class='bgcol1 bold col1 ht center'>
     <td><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
+  	<td><a href="./member_form.php"><i class='fa fa-plus-square fa-2x' title='생성'></i></a></td>
     <td><?=subject_sort_link('mb_id')?>회원아이디</a></td>
     <td><?=subject_sort_link('mb_name')?>이름</a></td>
     <td><?=subject_sort_link('mb_nick')?>별명</a></td>
@@ -170,9 +171,7 @@ function member_delete_unvisited()
     <td><?=subject_sort_link('mb_intercept_date', '', 'desc')?>차단</a></td>
     <td title='사용자그룹'><?=subject_sort_link('ug_id', '', 'desc')?>U그룹</a></td>
     <td title='접근가능한 그룹수'>B그룹</td>
-	<td><a href="./member_form.php"><img src='<?=$g4[admin_path]?>/img/icon_insert.gif' border=0 title='추가'></a></td>
 </tr>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) {
     // 접근가능한 그룹수
@@ -198,11 +197,10 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     } 
     else 
     {
-        $s_mod = "<a href=\"./member_form.php?$qstr&w=u&mb_id=$row[mb_id]\"><img src='img/icon_modify.gif' border=0 title='수정'></a>";
-        //$s_del = "<a href=\"javascript:del('./member_delete.php?$qstr&w=d&mb_id=$row[mb_id]');\"><img src='img/icon_delete.gif' border=0 title='삭제'></a>";
-        $s_del = "<a href=\"javascript:post_delete('member_delete.php', '$row[mb_id]');\"><img src='img/icon_delete.gif' border=0 title='삭제'></a>";
+        $s_mod = "<a href=\"./member_form.php?$qstr&w=u&mb_id=$row[mb_id]\"><i class='fa fa-pencil' title='수정'></i></a>";
+        $s_del = "&nbsp;<a href=\"javascript:post_delete('member_delete.php', '$row[mb_id]');\"><i class='fa fa-trash-o' title='삭제'></i></a>";
     }
-    $s_grp = "<a href='./boardgroupmember_form.php?mb_id=$row[mb_id]'><img src='img/icon_group.gif' border=0 title='그룹'></a>";
+    $s_grp = "&nbsp;<a href='./boardgroupmember_form.php?mb_id=$row[mb_id]'><i class='fa fa-group' title='삭제'></i></a>";
 
     $leave_date = $row[mb_leave_date] ? $row[mb_leave_date] : date("Ymd", $g4[server_time]);
     $intercept_date = $row[mb_intercept_date] ? $row[mb_intercept_date] : date("Ymd", $g4[server_time]);
@@ -220,6 +218,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     <input type=hidden name=mb_id[$i] value='$row[mb_id]'>
     <tr class='list$list col1 ht center'>
         <td><input type=checkbox name=chk[] value='$i'></td>
+        <td>$s_mod $s_del $s_grp</td>
         <td title='$row[mb_id]'><nobr style='display:block; overflow:hidden; width:90;'>&nbsp;$mb_id</nobr></td>
         <td><nobr style='display:block; overflow:hidden; width:90px;'>$row[mb_name]</nobr></td>
         <td><nobr style='display:block; overflow:hidden; width:90px;'><u>$mb_nick</u></nobr></td>
@@ -233,24 +232,28 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         <td title='$row[mb_intercept_date]'><input type=checkbox name=mb_intercept_date[$i] ".($row[mb_intercept_date]?'checked':'')." value='$intercept_date'></td>
         <td>$ug_name</td>
         <td>$group</td>
-        <td>$s_mod $s_del $s_grp</td>
     </tr>";
 }
 
 if ($i == 0)
     echo "<tr><td colspan='$colspan' align=center height=100 class=contentbg>자료가 없습니다.</td></tr>";
 
-echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
 echo "</table>";
+?>
 
-$pagelist = get_paging($config[cf_write_pages], $page, $total_page, "?$qstr&page=");
-echo "<table width=100% cellpadding=3 cellspacing=1>";
-echo "<tr><td width=50%>";
-echo "<input type=button class='btn1' value='선택수정' onclick=\"btn_check(this.form, 'update')\">&nbsp;";
-echo "<input type=button class='btn1' value='선택삭제' onclick=\"btn_check(this.form, 'delete')\">";
-echo "</td>";
-echo "<td width=50% align=right>$pagelist</td></tr></table>\n";
+<!-- 페이지 -->
+<div class="hidden-xs" style="text-align:center;">
+    <ul class="pagination">
+    <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
+    </ul>
+</div>
 
+<div class="btn-group">
+    <input type=button class='btn btn-default' value='선택수정' onclick="btn_check(this.form, 'update')">
+    <input type=button class='btn btn-default' value='선택삭제' onclick="btn_check(this.form, 'delete')">
+</div>
+
+<?
 if ($stx)
     echo "<script language='javascript'>document.fsearch.sfl.value = '$sfl';</script>\n";
 ?>

@@ -1,6 +1,6 @@
 <?php 
 
-$sub_menu = "300400"; 
+$sub_menu = "300520"; 
 include_once("./_common.php"); 
 
 auth_check($auth[$sub_menu], "r"); 
