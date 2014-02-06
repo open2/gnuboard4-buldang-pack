@@ -169,8 +169,6 @@ $result = sql_query($sql);
 </div>
 </div> <!-- 1st row -->
 
-
-
 <div class="row-fluid row"> <!-- 2nd row -->
 <div class="col-sm-6">
     <div class="panel panel-default">
@@ -284,6 +282,17 @@ $result = sql_query($sql);
 </div>
 </div> <!-- 2nd row -->
 
+<div class="hidden-md hidden-lg">
+    <?
+    // 방문자
+    //include_once("$g4[path]/lib/visit.lib.php");
+    echo visit();
+
+    // 현재접속자
+    //include_once("$g4[path]/lib/connect.lib.php");
+    echo connect();
+    ?>
+</div>
 <?
 include_once ("./admin.tail.php");
 ?>
