@@ -299,7 +299,7 @@ while ($row = sql_fetch_array($result))
 }
 
 $write_pages = get_paging($config[cf_write_pages], $page, $total_page, "./board.php?bo_table=$bo_table".$qstr."&page=");
-$write_pages_xs = get_paging($config[cf_page_rows_xs], $page, $total_page, "./board.php?bo_table=$bo_table".$qstr."&page=");
+$write_pages_xs = get_paging($config[cf_write_pages_xs], $page, $total_page, "./board.php?bo_table=$bo_table".$qstr."&page=");
 
 $list_href = '';
 $prev_part_href = '';

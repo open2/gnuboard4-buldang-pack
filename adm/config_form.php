@@ -150,7 +150,7 @@ include_once ("./admin.head.php");
 <tr><td colspan=2 class=ht></td></tr>
 
 <tr>
-    <td colspan=2 align=left><?=subtitle("기본 설정(2)")?></td>
+    <td colspan=2 align=left>기본 설정(2)</td>
 </tr>
 <tr><td colspan=2 class=line1></td></tr>
 <tr class='ht'>
@@ -191,7 +191,7 @@ include_once ("./admin.head.php");
 <tr><td colspan=2 class=ht></td></tr>
 
 <tr>
-    <td colspan=2 align=left><?=subtitle("홈페이지 메타정보 설정")?></td>
+    <td colspan=2 align=left>홈페이지 메타정보 설정</td>
 </tr>
 <tr><td colspan=2 class=line1></td></tr>
 <tr class='ht'>
@@ -219,7 +219,7 @@ include_once ("./admin.head.php");
 <tr><td colspan=2 class=ht></td></tr>
 
 <tr>
-    <td colspan=2 align=left><?=subtitle("휴지통 설정")?></td>
+    <td colspan=2 align=left>휴지통 설정</td>
 </tr>
 <tr><td colspan=2 class=line1></td></tr>
 <tr class='ht'>
@@ -246,7 +246,7 @@ include_once ("./admin.head.php");
 <tr><td colspan=2 class=ht></td></tr>
 
 <tr>
-    <td colspan=2 align=left><?=subtitle("신고설정")?></td>
+    <td colspan=2 align=left>신고설정</td>
 </tr>
 <tr><td colspan=2 class=line1></td></tr>
 <tr class='ht'>
@@ -288,7 +288,7 @@ include_once ("./admin.head.php");
 <tr><td colspan=2 class=ht></td></tr>
 
 <tr>
-    <td colspan=2 align=left><?=subtitle("게시판 설정")?></td>
+    <td colspan=2 align=left>게시판 설정</td>
 </tr>
 <tr><td colspan=2 class=line1></td></tr>
 <tr class='ht'>
@@ -333,6 +333,12 @@ include_once ("./admin.head.php");
     <td><input type=text class=ed name='cf_write_pages' size='10' required itemname='페이지 표시 수' value='<?=$config[cf_write_pages]?>'> 페이지씩 표시</td>
 </tr>
 <tr class='ht'>
+    <td>페이지 표시 수(xs)</td>
+    <td><input type=text class=ed name='cf_write_pages_xs' size='10' required itemname='페이지 표시 수' value='<?=$config[cf_write_pages_xs]?>'> 페이지씩 표시
+        <?=help("모바일 xs/ 화면에서 페이지의 표시수")?></td>
+    </td>
+</tr>
+<tr class='ht'>
     <td>이미지 업로드 확장자</td>
     <td><input type=text class=ed name='cf_image_extension' size='80' itemname='이미지 업로드 확장자' value='<?=$config[cf_image_extension]?>'>
         <?=help("게시판 글작성시 이미지 파일 업로드 가능 확장자. | 로 구분")?></td>
@@ -357,7 +363,7 @@ include_once ("./admin.head.php");
 
 
 <tr class='ht'>
-    <td colspan=2 align=left><?=subtitle("글쓰기제한 설정")?></td>
+    <td colspan=2 align=left>글쓰기제한 설정</td>
 </tr>
 <tr><td colspan=2 class=line1></td></tr>
 <tr class='ht'>
@@ -377,7 +383,7 @@ include_once ("./admin.head.php");
 
 
 <tr class='ht'>
-    <td colspan=2 align=left><?=subtitle("회원가입 설정")?></td>
+    <td colspan=2 align=left>회원가입 설정</td>
 </tr>
 <tr><td colspan=2 class=line1></td></tr>
 <tr class='ht'>
@@ -539,7 +545,7 @@ include_once ("./admin.head.php");
 <tr><td colspan=2 class=ht></td></tr>
 
 <tr class='ht'>
-    <td colspan=2 align=left><?=subtitle("핸드폰인증 설정")?></td>
+    <td colspan=2 align=left>핸드폰인증 설정</td>
 </tr>
 <tr><td colspan=2 class=line1></td></tr>
 <tr class='ht'>
@@ -561,7 +567,7 @@ include_once ("./admin.head.php");
 <tr><td colspan=2 class=ht></td></tr>
 
 <tr class='ht'>
-    <td colspan=2 align=left><?=subtitle("메일 설정")?></td>
+    <td colspan=2 align=left>메일 설정</td>
 </tr>
 <tr><td colspan=2 class=line1></td></tr>
 <tr class='ht'>
@@ -623,10 +629,10 @@ include_once ("./admin.head.php");
 <tr><td colspan=2 class=ht></td></tr>
 
 
-<tr class='ht'>
-    <td colspan=2 align=left><?=subtitle("여분 필드")?></td>
+<tr>
+    <td  class="success">여분 필드</td>
+    <td></td>
 </tr>
-<tr><td colspan=2 class=line1></td></tr>
 <? for ($i=1; $i<=10; $i=$i+2) { $k=$i+1; ?>
 <tr class='ht'>
     <td><input type=text class=ed name='cf_<?=$i?>_subj' value='<?=get_text($config["cf_{$i}_subj"])?>' title='여분필드 <?=$i?> 제목' style='text-align:right;font-weight:bold;' size=15></td>
@@ -635,17 +641,15 @@ include_once ("./admin.head.php");
     <input type='text' class=ed style='width:99%;' name=cf_<?=$k?> value='<?=$config["cf_$k"]?>' title='여분필드 <?=$k?> 설정값'></td>
 </tr>
 <? } ?>
-<tr><td colspan=2 class=line2></td></tr>
-<tr><td colspan=2 class=ht></td></tr>
 
 
-<tr class='ht'>
-    <td colspan=2 align=left>
-        <?=subtitle("XSS / CSRF 방지")?>
+<tr>
+    <td class="success">
+        "XSS / CSRF 방지
     </td>
+    <td></td>
 </tr>
-<tr><td colspan=2 class=line1></td></tr>
-<tr class='ht'>
+<tr>
     <td>
         관리자 패스워드
     </td>
@@ -654,8 +658,6 @@ include_once ("./admin.head.php");
         <?=help("관리자 권한을 빼앗길 것에 대비하여 로그인한 관리자의 패스워드를 한번 더 묻는것 입니다.");?>
     </td>
 </tr>
-<tr><td colspan=2 class=line2></td></tr>
-<tr><td colspan=2 class=ht></td></tr>
 </table>
 
 <p align=center>

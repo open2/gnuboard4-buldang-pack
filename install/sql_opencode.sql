@@ -1146,5 +1146,5 @@ ADD `mb_line_id` VARCHAR( 255 ) NOT NULL;
 
 ALTER TABLE  `$g4[good_list_table]` ADD  `gl_flag` TINYINT( 4 ) NOT NULL AFTER  `gl_id` ;
 
-ALTER TABLE `$g4[config_table]` ADD COLUMN `cf_page_rows_xs` INT(11) NULL ";
-update `$g4[config_table]` set `cf_page_rows_xs` = 5";
+ALTER TABLE `$g4[config_table]` ADD COLUMN `cf_write_pages_xs` INT(11) NULL ";
+update `$g4[config_table]` set `cf_write_pages_xs` = 5";

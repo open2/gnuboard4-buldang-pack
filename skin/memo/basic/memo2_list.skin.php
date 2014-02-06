@@ -127,7 +127,7 @@
         <div class="pull-right">
             <ul class="pagination" style="margin-top:0;margin-bottom:0;" >
             <?
-            $write_pages = get_paging($config['cf_page_rows_xs'], $page, $total_page, "?&kind=$kind&sfl=$sfl&stx=$stx&unread=$unread&page="); 
+            $write_pages = get_paging($config['cf_write_pages_xs'], $page, $total_page, "?&kind=$kind&sfl=$sfl&stx=$stx&unread=$unread&page="); 
 
             // 기본으로 넘어오는 페이지를 아래와 같이 변환하여 다양하게 출력할 수 있습니다.
             $write_pages = str_replace("이전", "<i class='fa fa-angle-left'></i>", $write_pages);

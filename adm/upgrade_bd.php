@@ -918,9 +918,10 @@ if ($config[cf_db_version] < 1205) {
     sql_query($sql, FALSE);
 
     // xs 상태에서의 페이징 갯수 추가
-    sql_query(" ALTER TABLE `$g4[config_table]` ADD COLUMN `cf_page_rows_xs` INT(11) NULL ", FALSE);
-    sql_query(" update `$g4[config_table]` set `cf_page_rows_xs` = 5", FALSE);
-} 
+    sql_query(" ALTER TABLE `$g4[config_table]` ADD COLUMN `cf_write_pages_xs` INT(11) NULL ", FALSE);
+    sql_query(" update `$g4[config_table]` set `cf_write_pages_xs` = 5", FALSE);
+}
+
  
 // db 버젼을 업데이트 - major version + mid version - patch version
 $max_version = "1205";
