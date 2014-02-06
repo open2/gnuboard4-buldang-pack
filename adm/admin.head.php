@@ -90,9 +90,11 @@ function print_menu1($key, $no, $sub_menu)
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header col-sm-2">
         <!-- collapse 되었을 때, 우측에 나오는 메뉴 버튼 -->
-        <button type="button" class="btn btn-default navbar-toggle" data-toggle="collapse" data-target=".navbar-top-menu-collapse">
+        <button type="button" class="btn navbar-toggle  btn-primary" data-toggle="collapse" data-target=".navbar-top-menu-collapse">
             <i class="glyphicon glyphicon-list"></i>
         </button>
+        <a class="btn navbar-toggle" href="<?=$g4[admin_path]?>">Home</a>
+
         <!-- sm, md, lg에서 나오는 로고 -->
         <a class="navbar-brand hidden-xs" href="<?=$g4['admin_path']?>/">
         <img src="<?=$g4[path]?>/images/opencode_aaa.png" align=absmiddle alt="brand logo">
