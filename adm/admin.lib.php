@@ -210,38 +210,6 @@ function auth_check($auth, $attr)
 }
 
 
-// 텍스트에리어 늘리기, 줄이기
-/*
-function textarea_size($fld) 
-{
-    global $g4;
-
-    $size = 10;
-    $s  = "<table cellpadding=2 cellspacing=0 border=0 width=100%><tr><td align=right>";
-    $s .= "<span onclick=\"javascript:textarea_size(document.getElementById('$fld'), {$size})\"><img src='$g4[admin_path]/img/btn_up.gif' border=0 align=absmiddle></span> ";
-    $s .= "<span onclick=\"javascript:textarea_size(document.getElementById('$fld'), ".$size*(-1).")\"><img src='$g4[admin_path]/img/btn_down.gif' border=0 align=absmiddle></span>";
-    $s .= "&nbsp;&nbsp;</td></tr></table>";
-    return $s;
-}
-*/
-
-// 작업아이콘 출력
-/*
-function icon($act, $link="", $target="_parent")
-{
-    global $g4;
-
-    $img = array("입력"=>"insert", "추가"=>"insert", "생성"=>"insert", "수정"=>"modify", "삭제"=>"delete", "이동"=>"move", "그룹"=>"move", "보기"=>"view", "미리보기"=>"view", "복사"=>"copy");
-    $icon = "<img src='{$g4[admin_path]}/img/icon_{$img[$act]}.gif' border=0 align=absmiddle title='$act' width=22 height=21>";
-    if ($link)
-        //$s = "<a href=\"$link\" target=\"$target\">$icon</a>";
-        $s = "<a href=\"$link\">$icon</a>";
-    else
-        $s = $icon;
-    return $s;
-}
-*/
-
 // rm -rf 옵션 : exec(), system() 함수를 사용할 수 없는 서버 또는 win32용 대체
 // www.php.net 참고 : pal at degerstrom dot com
 function rm_rf($file) 
@@ -259,37 +227,6 @@ function rm_rf($file)
         } else 
             unlink($file);
     }
-}
-
-/*
-function help($help="", $left=0, $top=0)
-{
-    global $g4;
-    static $idx = 0;
-
-    $idx++;
-
-    $help = preg_replace("/\n/", "<br>", $help);
-    
-    $str  = "<img src='$g4[admin_path]/img/icon_help.gif' border=0 width=15 height=15 align=absmiddle onclick=\"help('help$idx', $left, $top);\" style='cursor:hand;'>";
-    $str .= "<div id='help$idx' style='position:absolute; display:none; z-index:9999;'>";
-    $str .= "<div id='csshelp1'><div id='csshelp2'><div id='csshelp3'>$help</div></div></div>";
-    $str .= "</div>";
-
-    return $str;
-}
-*/
-
-function subtitle($title, $more="") 
-{
-    global $g4;
-
-    $s = "<table width=100% cellpadding=0 cellspacing=0><tr><td width=80% align=left><table border='0' cellpadding='0' cellspacing='1'><tr><td height='24'><img src='$g4[admin_path]/img/icon_title.gif' width=20 height=9> <font color='#525252'><b>$title</b></font> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr></table><table width=100% cellpadding=0 cellspacing=0><tr><td height=1></td></tr></table></td><td width=20% align=right>";
-    if ($more)
-        $s .= "<a href='$more'><img src='$g4[admin_path]/img/icon_more.gif' width='43' height='11' border=0 align=absmiddle></a>";
-    $s .= "</td></tr></table>\n";
-    
-    return $s;
 }
 
 // 출력순서
