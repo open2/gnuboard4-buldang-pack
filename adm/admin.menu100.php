@@ -9,7 +9,7 @@ $menu["menu100"] = array (
     array("-"),
     array("100300", "메일 테스트", "$g4[admin_path]/sendmail_test.php"),
     array("-"),
-    array("100400", "버전정보", "$g4[admin_path]/version.php"),
+    array("100400", "그누보드 버전정보", "$g4[admin_path]/version.php"),
     array("100410", "db상태정보", "$g4[admin_path]/db_status.php"),
     array("100420", "g4_info()", "$g4[admin_path]/g4_info.php"),
     array("100430", "phpinfo()", "$g4[admin_path]/phpinfo.php"),

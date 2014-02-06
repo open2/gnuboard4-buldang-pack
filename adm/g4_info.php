@@ -1,5 +1,5 @@
 <?
-$sub_menu = "100520";
+$sub_menu = "100420";
 include_once("./_common.php");
 
 check_demo();

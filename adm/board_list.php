@@ -103,7 +103,7 @@ var list_delete_php = 'board_list_delete.php';
 <colgroup width=55>
 <colgroup width=35>
 <colgroup width=35>
-<tr class='bgcol1 bold col1 ht2 center'>
+<tr>
     <td rowspan=2><input type=checkbox name=chkall value="1" onclick="check_all(this.form)"></td>
     <td rowspan=2><?=subject_sort_link("bo_table")?>TABLE</a>&nbsp;&nbsp;&nbsp;<a href="./board_form.php"><i class='fa fa-plus-square fa-2x' title='积己'></i></a></td>
     <td colspan=2><?=subject_sort_link("bo_subject")?>力格</a></td>

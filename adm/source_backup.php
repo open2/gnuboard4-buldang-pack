@@ -34,6 +34,8 @@ $backup_list = $backup_dir . "/www_".$g4[time_ymd]. ".txt";
 $no_backup = " --exclude=". $g4[path] . "/data ";
 $no_backup .= " --exclude=". $g4[path] . "/dbconfig.php ";
 
+echo "<div class='well'>";
+
 $fb = popen("tar -cvpf " . $backup_file . $no_backup . $g4[path] . " > " . $backup_list, "r");
 
 if ($fb) {
@@ -59,15 +61,16 @@ if ($fb) {
     @rename($backup_file, $backup_file2);
     @rename($backup_list, $backup_list2);
 
-    echo         "그누 사이트의 소스파일 백업을 완료했습니다.";
+    echo "그누 사이트의 소스파일 백업을 완료했습니다.";
     echo "<br><br>PC로 다운로드 하신후 백업파일을 삭제해 주세요.";
     echo "<br><br>다운로드 하시려면 <a href='$backup_file2'>[ 여 기 ]</a> 를 눌러주세요";
 
 } 
 else 
 {
-    echo         "그누 사이트의 소스파일 백업을 할 수 없습니다. 서버 운영자에게 문의하세요.";
+    echo "<br>그누 사이트의 소스파일 백업을 할 수 없습니다. 서버 운영자에게 문의하세요.";
 }
+echo "</div>";
 
 include_once("./admin.tail.php");
 ?>
