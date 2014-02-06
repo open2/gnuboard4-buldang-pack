@@ -62,7 +62,7 @@ else
             <i class="glyphicon glyphicon-user"></i>
         </a>
         <? } else {
-        $login_url = "$g4[bbs_path]/myon.php";
+        $login_url = "$g4[bbs_path]/myon.php?head=1";
         ?>
         <a class="btn <?=$whatson_btn?> navbar-toggle" value="Page" onclick="location.href='<?=$login_url?>';">
             <i class="glyphicon glyphicon-shopping-cart"><sup style="margin-left:3px;"><?=$g4['whatson_unread']?></sup></i>
