@@ -8,7 +8,8 @@ $whatson_url = "$g4[bbs_path]/whatson.php?check=1&rows=30";
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <a href="<?=$g4[bbs_path]?>/myon.php"><strong>MyOn</strong></a>
+        <a href="<?=$g4[bbs_path]?>/myon.php?head=<?=$head?>"><strong>MyOn</strong></a>
+        <? if ($is_admin == "super" || $is_auth) { ?><a class="btn btn-primary btn-sm" href="<?=$g4['admin_path']?>/"><i class="fa fa-cog"></i></a><? } ?>
         <div class="pull-right" style="vertical-align:middle;">
             <strong><a href="#" onClick="javascript:win_profile('<?=$member[mb_id]?>');"><?=$member[mb_nick]?></a></strong>&nbsp;
             <? if ($config[cf_use_point]) { ?>
