@@ -136,15 +136,15 @@ $count_member = sql_fetch(" select count(*) as cnt from $g4[member_table] where 
 $new_member = sql_fetch(" select count(*) as cnt from $g4[member_table] where mb_open_date = '$g4[time_ymd]' "); 
 ?>
 
-<table cellpadding=0 cellspacing=0 width=420> 
+<table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;"> 
 <colgroup width=160>
 <colgroup width=''>
-<tr> 
-    <td align=left colspan=2>
-    <b>계정 정보</b>
+<tr class="success">
+    <td align=left>
+    <strong>계정 정보</strong>
     </td> 
+    <td></td>
 </tr>
-<tr height=15px><td></td></tr>
 <tr> 
     <td>사용자 id</td>
     <td><?=$user_id?></td>
@@ -179,7 +179,6 @@ $new_member = sql_fetch(" select count(*) as cnt from $g4[member_table] where mb
     <td><?=$ip_addr?></td>
 </tr>
 
-<tr height=15px><td></td></tr>
 <tr> 
     <td>계정 DISK 사용량(A)</td>
     <td><?=size($account_space)?></td>
@@ -195,19 +194,16 @@ $new_member = sql_fetch(" select count(*) as cnt from $g4[member_table] where mb
 <? } ?>
 
 <? if ($apache_version) { ?>
-<tr height=15px><td></td></tr>
 <tr>
     <td>Apache 버젼</td>
     <td><?=$apache_version;?></td>
 </tr>
-<tr height=15px><td></td></tr>
 <tr>
     <td>Apache 모듈</td>
     <td><?=$apache_modules;?></td>
 </tr>
 <? } ?>
 
-<tr height=15px><td></td></tr>
 <tr>
     <td>PHP 버젼</td>
     <td><?=$php_version;?></td>
@@ -228,7 +224,6 @@ $new_member = sql_fetch(" select count(*) as cnt from $g4[member_table] where mb
     <td>php에 할당된 메모리 사이즈</td>
     <td><?=size(memory_get_usage());?></td>
 </tr>
-<tr height=15px><td></td></tr>
 <tr>
     <td>MYSQL 버젼</td>
     <td><?=$m_version[ver]?>
@@ -275,14 +270,12 @@ $new_member = sql_fetch(" select count(*) as cnt from $g4[member_table] where mb
     <td><?=number_format($db_rows)?>
     </td> 
 </tr> 
-<tr height=15px><td></td></tr>
 
 <tr> 
-    <td align=left colspan=2>
+    <td class="success">
     <b>그누보드4 정보</b>
     </td> 
 </tr>
-<tr height=15px><td></td></tr>
 <tr>
     <td>전체 게시판 갯수</td>
     <td><?=number_format($count_board[cnt])?>
@@ -325,12 +318,9 @@ $new_member = sql_fetch(" select count(*) as cnt from $g4[member_table] where mb
 </tr> 
 <tr>
     <td>오늘 가입한 회원수</td>
-    <td><?=number_format($new_member[cnt])?>
-    </td> 
+    <td><?=number_format($new_member[cnt])?></td> 
 </tr> 
-
 </table> 
-
 
 <?
 include_once("./admin.tail.php");

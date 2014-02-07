@@ -7,6 +7,8 @@ if ($is_admin != "super")
 
 $g4[title] = "테이블 복구 및 최적화";
 include_once("./admin.head.php");
+
+echo "'설정일이 지난 접속자로그, 인기검색어, 최근게시물, 쪽지, 등을 삭제합니다.<br>";
 echo "'완료' 메세지가 나오기 전에 프로그램의 실행을 중지하지 마십시오.<br>";
 echo "<span id='ct'></span>";
 include_once("./admin.tail.php");
@@ -42,7 +44,6 @@ while ($row=sql_fetch_array($result))
     // 회원자료 삭제
     member_delete($row[mb_id]);
 }
-
 
 $sql = "SHOW TABLE STATUS FROM ".$mysql_db;
 $result = sql_query($sql);

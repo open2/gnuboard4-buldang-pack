@@ -1,5 +1,5 @@
 <?
-$sub_menu = "100700";
+$sub_menu = "100720";
 include_once("./_common.php");
 
 if ($is_admin != "super")
@@ -7,7 +7,8 @@ if ($is_admin != "super")
 
 $g4[title] = "세션 삭제";
 include_once("./admin.head.php");
-echo "'완료' 메세지가 나오기 전에 프로그램의 실행을 중지하지 마십시오.<br><br>";
+echo " '완료' 메세지가 나오기 전에 프로그램의 실행을 중지하지 마십시오.<br>";
+echo " 파일세션을 쓰는 경우 세션파일의 삭제를 주기적으로 해야 하며, 디스크에 큰 부하를 주므로 새벽에 진행하시기 바랍니다.<br><br>";
 echo "<span id='ct'></span>";
 include_once("./admin.tail.php");
 flush();
