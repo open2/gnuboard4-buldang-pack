@@ -185,6 +185,7 @@ eval("\$file = \"$file\";");
 $f = explode(";", $file);
 for ($i=0; $i<count($f); $i++) {
     if (trim($f[$i]) == "") continue;
+    echo $f[$i] . "<br>";
     mysql_query($f[$i]) or die(mysql_error());
 }
 // 테이블 생성 (불당팩) -----------------------------
@@ -291,7 +292,7 @@ $sql = " insert into $g4[config_reg_table]
 mysql_query($sql) or die(mysql_error() . "<p>" . $sql);
 
 // 운영자 회원가입
-$sql = " insert into $g4[member_table]
+$sql = " insert into $g4[member_table] 
             set mb_id = '$admin_id',
                 mb_password = PASSWORD('$admin_pass'),
                 mb_name = '$admin_name',
