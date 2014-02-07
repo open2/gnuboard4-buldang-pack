@@ -1,5 +1,5 @@
 <?
-$sub_menu = "300700";
+$sub_menu = "300560";
 include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "r");
@@ -68,11 +68,11 @@ $result = sql_query($sql);
 $colspan = 15;
 ?>
 
-<script language="JavaScript">
+<script type="text/javascript">
 var list_delete_php = "recycle_list_delete.php";
 </script>
 
-<script language="JavaScript">
+<script type="text/javascript">
 function recycle_delete(ok)
 {
     var msg;
@@ -82,33 +82,32 @@ function recycle_delete(ok)
     else
         msg = "<?=$config[cf_recycle_days]?>일이 지난 휴지글을 삭제합니다.\n\n\n그래도 진행하시겠습니까?";
 
-    if (confirm(msg))
-    {
+    if (confirm(msg)) {
         document.location.href = "./recycle_delete.php?ok=" + ok;
     }
 }
 </script>
 
-<table width=100%>
-<form name=fsearch method=get>
-<tr>
-    <td width=50% align=left><?=$listall?> 
+<form name=fsearch method=get role="form" class="form-inline">
+<div class="btn-group">
+    <?=$listall?> 
         (휴지글수 : <?=number_format($total_count)?>, 삭제글수 : <?=number_format($delete_count)?>)
         &nbsp;&nbsp;<a href="javascript:recycle_delete();">휴지글삭제</a>
         &nbsp;&nbsp;<a href="javascript:recycle_delete(1);">휴지글완전삭제</a>
-    </td>
-    <td width=50% align=right>
-        <select name=sfl class=cssfl>
-            <option value='mb_id'>회원아이디</option>
-            <option value='bo_table'>게시판</option>
-        </select>
-        <input type=text name=stx class=ed required itemname='검색어' value='<? echo $stx ?>'>
-        <input type=image src='<?=$g4[admin_path]?>/img/btn_search.gif' align=absmiddle></td>
-</tr>
+</div>
+<div class="pull-right">
+    <select name=sfl class="form-control">
+        <option value='mb_id'>회원아이디</option>
+        <option value='bo_table'>게시판</option>
+    </select>
+    <input class="form-control" type=text name=stx required itemname='검색어' value='<?=$stx?>'>
+    <div class="form-group">
+        <button class="btn btn-primary">검색</button>
+    </div>
+</div>
 </form>
-</table>
 
-<form name=fmemberlist method=post>
+<form name=fmemberlist method=post role="form" class="form-inline">
 <input type=hidden name=sst   value='<?=$sst?>'>
 <input type=hidden name=sod   value='<?=$sod?>'>
 <input type=hidden name=sfl   value='<?=$sfl?>'>
@@ -116,7 +115,7 @@ function recycle_delete(ok)
 <input type=hidden name=page  value='<?=$page?>'>
 <input type=hidden name=token value='<?=$token?>'>
 
-<table width=100% cellpadding=0 cellspacing=0>
+<table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <colgroup width=30>
 <colgroup width=100>
 <colgroup width=80>
@@ -125,8 +124,7 @@ function recycle_delete(ok)
 <colgroup width=40>
 <colgroup width=80>
 <colgroup width=80>
-<tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
-<tr class='bgcol1 bold col1 ht center'>
+<tr class='success'>
     <td><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
     <td><?=subject_sort_link('mb_id')?>회원아이디</a></td>
     <td><?=subject_sort_link('bo_table')?>게시판id</a></td>
@@ -135,7 +133,6 @@ function recycle_delete(ok)
     <td><?=subject_sort_link('rc_datetime', '', 'desc')?>삭제일</a></td>
   	<td>복구</td>
 </tr>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) {
     
@@ -163,14 +160,14 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 
     // 복구 버튼을 출력
     if ($row[rc_delete] == 0)
-        $s_recover = "<a href=\"javascript:post_recover('recycle_recover.php', '$row[rc_no]');\"><img src='img/icon_recover.gif' border=0 title='복구'></a>";
+        $s_recover = "<a href=\"javascript:post_recover('recycle_recover.php', '$row[rc_no]');\"><i class=\"fa fa-undo\" title='복구'></i></a>";
     else
         $s_recover = "";
 
     // 운영자가 삭제한거 (mb_id와 rc_mb_id가 다른 경우)에는 뒤에 mark
     $mb_remover="";
     if ($row[mb_id] !== $row[rc_mb_id])
-        $mb_remover="&nbsp;<img src='img/icon_admin.gif' align=absmiddle border=0 title='관리자가 지워버린 글'>";
+        $mb_remover="&nbsp;<i class='fa fa-gavel' title='관리자가 지워버린 글'></i>";
 
     // 게시판아이디. 게시판 정렬
     $bo_info = get_board($row[bo_table],"bo_subject");
@@ -181,9 +178,9 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     <input type=hidden name=rc_no[$i] value='$row[rc_no]'>
     <tr class='list$list col1 ht center'>
         <td><input type=checkbox name=chk[] value='$i'></td>
-        <td title='$row[mb_id]'><nobr style='display:block; overflow:hidden; width:90;'>&nbsp;$mb_nick$mb_remover</nobr></td>
-        <td><nobr style='display:block; overflow:hidden; width:90px;'>$bo_table1</nobr></td>
-        <td><nobr style='display:block; overflow:hidden; width:90px;'>$wr_id</nobr></td>
+        <td title='$row[mb_id]'>$mb_nick$mb_remover</td>
+        <td>$bo_table1</td>
+        <td>$wr_id</td>
         <td>$wr_subject</td>
         <td>" . get_datetime($row[rc_datetime]) . "</td>
         <td>$s_recover</td>
@@ -191,18 +188,25 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='$colspan' align=center height=100 class=contentbg>자료가 없습니다.</td></tr>";
+    echo "<tr><td colspan='7' align=center height=100>자료가 없습니다.</td></tr>";
 
-echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
 echo "</table>";
+?>
 
-$pagelist = get_paging($config[cf_write_pages], $page, $total_page, "?$qstr&page=");
-echo "<table width=100% cellpadding=3 cellspacing=1>";
-echo "<tr><td width=50%>";
-echo "<input type=button class='btn1' value='선택삭제' onclick=\"btn_check(this.form, 'delete')\">";
-echo "</td>";
-echo "<td width=50% align=right>$pagelist</td></tr></table>\n";
+<!-- 페이지 -->
+<div class="hidden-xs" style="text-align:center;">
+    <ul class="pagination">
+    <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
+    </ul>
+</div>
 
+<div class="btn-group">
+    <? if ($is_admin == "super") { ?>
+        <input type=button class='btn btn-default' value='선택삭제' onclick="btn_check(this.form, 'delete')">
+    <? } ?>
+</div>
+
+<?
 if ($stx)
     echo "<script language='javascript'>document.fsearch.sfl.value = '$sfl';</script>\n";
 ?>
@@ -212,7 +216,7 @@ if ($stx)
 * 회원아이디 옆에 아이콘이 있는 글은, 사용자가 삭제한 것이 아니라 관리자가 삭제한 글 입니다.<br>
 * 게시판id를 클릭하면 해당 게시판의 삭제글이 정렬되며, 게시글 id를 클릭하면 해당 게시글의 새창이 뜹니다.
 
-<script>
+<script type="text/javascript">
 // POST 방식으로 삭제
 function post_recover(action_url, val)
 {

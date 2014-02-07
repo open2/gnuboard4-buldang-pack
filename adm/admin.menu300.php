@@ -13,7 +13,6 @@ $menu["menu300"] = array (
     array("-"),
     array("300560", "휴지통관리", "$g4[admin_path]/recycle_list.php"),
     array("-"),
-    array("-"),
     array("300300", "배너관리", "$g4[admin_path]/banner_list.php"),
     array("300310", "배너그룹관리", "$g4[admin_path]/banner_group_list.php"),
     array("300320", "배너클릭현황", "$g4[admin_path]/banner_click_list.php"),

@@ -1,5 +1,5 @@
 <?
-$sub_menu = "300810";
+$sub_menu = "300820";
 include_once("./_common.php");
 
 check_demo();
@@ -22,8 +22,8 @@ flush();
 echo "<script>document.getElementById('ct').innerHTML += '<p>안쓰는 이미지 정리중...';</script>\n";
 flush();
 
-// 현재부터 7일 이전의 이미지에 대해서만 clear 합니다.
-$clear_days = 3;
+// 현재부터 30일 이전의 이미지에 대해서만 clear 합니다.
+$clear_days = 30;
 $clear_datetime = date("Y-m-d H:i:s", $g4[server_time] - (86400 * $clear_days));
 
 // 한번에 정리할 이미지의 숫자

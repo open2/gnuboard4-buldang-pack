@@ -59,8 +59,6 @@ $listall = "<a href='$_SERVER[PHP_SELF]'>처음</a>";
 
 $g4[title] = "게시판관리";
 include_once("./admin.head.php");
-
-$colspan = 13;
 ?>
 
 <script type="text/javascript">
@@ -167,9 +165,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 } 
 
 if ($i == 0)
-    echo "<tr><td colspan='$colspan' align=center height=100 bgcolor=#ffffff>자료가 없습니다.</td></tr>"; 
+    echo "<tr><td colspan='9' align=center height=100>자료가 없습니다.</td></tr>"; 
 
-echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
 echo "</table>";
 ?>
 

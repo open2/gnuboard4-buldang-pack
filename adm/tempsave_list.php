@@ -1,5 +1,5 @@
 <?
-$sub_menu = "300830";
+$sub_menu = "300840";
 include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "r");
@@ -48,50 +48,45 @@ $sql = " select *
           $sql_order
           limit $from_record, $rows ";
 $result = sql_query($sql);
-
-$colspan = 15;
 ?>
 
-<script language="JavaScript">
+<script type="text/javascript">
 var list_delete_php = "tempsave_list_delete.php";
 </script>
 
-<form name=fsearch method=get style="margin:0px;">
-<table width=100%>
-<tr>
-    <td width=50% align=left><?=$listall?>
-        (임시저장글갯수 : <?=number_format($total_count)?>)
-    </td>
-    <td width=50% align=right>
-        <select name=sfl class=cssfl>
+<form name=fsearch method=get role="form" class="form-inline">
+<div class="btn-group">
+    <?=$listall?> (임시저장글갯수 : <?=number_format($total_count)?>)
+</div>
+<div class="pull-right">
+    <select name=sfl class="form-control">
             <option value='mb_id'>회원아이디</option>
             <option value='ip_addr'>접속한 IP</option>
             <option value='bo_table'>게시판</option>
-        </select>
-        <input type=text name=stx required itemname='검색어' value='<? echo $stx ?>'>
-        <input type=image src='<?=$g4[admin_path]?>/img/btn_search.gif' align=absmiddle></td>
-</tr>
-</table>
+    </select>
+    <input class="form-control" type=text name=stx required itemname='검색어' value='<?=$stx?>'>
+    <div class="form-group">
+        <button class="btn btn-primary">검색</button>
+    </div>
+</div>
 </form>
 
-<form name=fsingolist method=post style="margin:0px;">
+<form name=fsingolist method=post role="form" class="form-inline">
 <input type=hidden name=sst  value='<?=$sst?>'>
 <input type=hidden name=sod  value='<?=$sod?>'>
 <input type=hidden name=sfl  value='<?=$sfl?>'>
 <input type=hidden name=stx  value='<?=$stx?>'>
 <input type=hidden name=page value='<?=$page?>'>
 
-<table width=100% cellpadding=0 cellspacing=0 border=0>
-<tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
-<tr class='bgcol1 bold col1 ht center'>
+<table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
+<tr class='success'>
     <td width=30><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
-    <td width=110 align='left'><?=subject_sort_link('mb_id')?>회원아이디</a></td>
-    <td align='left'>제목</td>
+    <td width=110><?=subject_sort_link('mb_id')?>회원아이디</a></td>
     <td width=110>tempsave 일시</td>
     <td width=100><?=subject_sort_link('ip_addr')?>IP</a></td>
 	  <td width=60>IP차단</td>
+    <td align='left'>제목</td>
 </tr>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) {
     if ($row[mb_id]) {
@@ -110,39 +105,45 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 
     echo "
     <input type=hidden name=tmp_id[$i] value='$row[tmp_id]'>
-    <tr class='list$list col1 center' height=25>
+    <tr>
         <td><input type=checkbox name=chk[] value='$i'></td>
         <td title='$row[mb_id]' align='left'>$mb_nick</td>
-        <td align=left style='padding:0 5px 0 5px;'>$subject</td>
-        <td>$row[wr_datetime]</td>
-        <td align=left>&nbsp; <a href='?sfl=ip_addr&stx=" . $log_ip . "'>$log_ip</a> $log_ip_intercept</td>
+        <td>" . get_datetime($row[wr_datetime]) . "</td>
+        <td><a href='?sfl=ip_addr&stx=" . $log_ip . "'>$log_ip</a> $log_ip_intercept</td>
         <td>
         <a href=\"javascript:singo_intercept('$row[mb_id]', '$log_ip');\"><span style='color:#222222;'>차단</span></a>
+        <td>$subject</td>
         </td>
     </tr>
     ";
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='$colspan' align=center height=100 class=contentbg>내역이 없습니다.</td></tr>";
+    echo "<tr><td colspan='6' align=center height=100>내역이 없습니다.</td></tr>";
 
-echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
 echo "</table>";
+?>
 
-$pagelist = get_paging($config[cf_write_pages], $page, $total_page, "?$qstr&page=");
-echo "<table width=100% cellpadding=3 cellspacing=1>";
-echo "<tr><td width=50%>";
-echo "<input type=button class='btn1' value='선택삭제' onclick=\"btn_check(this.form, 'delete')\">";
-echo "</td>";
-echo "<td width=50% align=right>$pagelist</td></tr></table>\n";
+<!-- 페이지 -->
+<div class="hidden-xs" style="text-align:center;">
+    <ul class="pagination">
+    <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
+    </ul>
+</div>
 
-echo "</form>";
+<div class="btn-group">
+    <? if ($is_admin == "super") { ?>
+        <input type=button class='btn btn-default' value='선택삭제' onclick="btn_check(this.form, 'delete')">
+    <? } ?>
+</div>
 
+<?
 if ($stx)
     echo "<script language='javascript'>document.fsearch.sfl.value = '$sfl';</script>\n";
 ?>
+</form>
 
-<br>* 차단하는 경우 기본환경설정의 접근차단IP에 등록됩니다.
+<div class="well" style="margin-top:20px;">* IP를 차단하는 경우 기본환경설정의 접근차단IP에 등록됩니다.</div>
 
 <form name="fsingo" method="post" action="" style="margin:0px;">
 <input type="hidden" name="mb_id">
@@ -150,7 +151,7 @@ if ($stx)
 <input type="hidden" name="page" value="<?=$page?>">
 </form>
 
-<script language="javascript">
+<script type="text/javascript">
 function singo_intercept(mb_id, ip) 
 {
     var f = document.fsingo;

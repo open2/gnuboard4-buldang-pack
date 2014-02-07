@@ -1,5 +1,5 @@
 <?
-$sub_menu = "300910";
+$sub_menu = "300310";
 include_once("./_common.php");
 
 if ($w == 'u')

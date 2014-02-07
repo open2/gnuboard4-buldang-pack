@@ -1,5 +1,5 @@
 <?
-$sub_menu = "300810";
+$sub_menu = "300820";
 include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "r");
@@ -54,59 +54,52 @@ $sql = " select *
           $sql_order
           limit $from_record, $rows ";
 $result = sql_query($sql);
-
-$colspan = 15;
 ?>
 
-<script language="JavaScript">
+<script type="text/javascript">
 var list_delete_php = "chimage_unused_delete.php";
 </script>
 
-<script language="JavaScript">
-function unused_clear()
-{
-    if (confirm("안쓰는 이미지 정리를 선택하시면, 현재부터 하루 이전의 모든 사용되지 않은 이미지룰 모두 삭제 합니다.\n\n삭제된 이미지는 _delete로 끝나는 디렉토리에 저장 되므로 백업후 삭제 하시기 바랍니다.\n\n\n그래도 진행하시겠습니까?"))
-    {
+<script type="text/javascript">
+function unused_clear() {
+    if (confirm("안쓰는 이미지 정리를 선택하시면, 현재부터 하루 이전의 모든 사용되지 않은 이미지룰 모두 삭제 합니다.\n\n삭제된 이미지는 _delete로 끝나는 디렉토리에 저장 되므로 백업후 삭제 하시기 바랍니다.\n\n\n그래도 진행하시겠습니까?")) {
         document.location.href = "./chimage_unused_clear.php?ok=1";
     }
 }
 </script>
 
-<form name=fsearch method=get style="margin:0px;">
-<table width=100%>
-<tr>
-    <td width=50% align=left><?=$listall?>
-        (안쓰는이미지갯수 : <?=number_format($total_count)?>) <a href="javascript:unused_clear();">전체 안쓰는 이미지 정리</a>
-    </td>
-    <td width=50% align=right>
-        <select name=sfl class=cssfl>
-            <option value='mb_id'>회원아이디</option>
-            <option value='bo_table'>게시판</option>
-        </select>
-        <input type=text name=stx required itemname='검색어' value='<? echo $stx ?>'>
-        <input type=image src='<?=$g4[admin_path]?>/img/btn_search.gif' align=absmiddle></td>
-</tr>
-</table>
+<form name=fsearch method=get role="form" class="form-inline">
+<div class="btn-group">
+    <?=$listall?> (안쓰는이미지갯수 : <?=number_format($total_count)?>) <a href="javascript:unused_clear();">전체 안쓰는 이미지 정리</a>
+</div>
+<div class="pull-right">
+    <select name=sfl class="form-control">
+        <option value='mb_id'>회원아이디</option>
+        <option value='bo_table'>게시판</option>
+    </select>
+    <input class="form-control" type=text name=stx required itemname='검색어' value='<?=$stx?>'>
+    <div class="form-group">
+        <button class="btn btn-primary">검색</button>
+    </div>
+</div>
 </form>
 
-<form name=fsingolist method=post style="margin:0px;">
+<form name=fsingolist method=post role="form" class="form-inline">
 <input type=hidden name=sst  value='<?=$sst?>'>
 <input type=hidden name=sod  value='<?=$sod?>'>
 <input type=hidden name=sfl  value='<?=$sfl?>'>
 <input type=hidden name=stx  value='<?=$stx?>'>
 <input type=hidden name=page value='<?=$page?>'>
 
-<table width=100% cellpadding=0 cellspacing=0 border=0>
-<tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
+<table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <tr class='bgcol1 bold col1 ht center'>
     <td width=30><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
-    <td width=110 align='left'><?=subject_sort_link('mb_id')?>회원아이디</a></td>
+    <td width=110><?=subject_sort_link('mb_id')?>회원아이디</a></td>
     <td width=110><?=subject_sort_link('bo_table')?>게시판</a></td>
-    <td align='left'>이미지파일 이름</td>
-    <td align='left' width=100><?=subject_sort_link('bc_filesize')?>이미지용량(KB)</a></td>
+    <td width=100><?=subject_sort_link('bc_filesize')?>이미지용량(KB)</a></td>
 	  <td width=100><?=subject_sort_link('bc_datetime')?>날짜</a></td>
+    <td>이미지파일 이름</td>
 </tr>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) {
     if ($row[mb_id]) {
@@ -136,52 +129,38 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     <tr class='list$list col1 center' height=25>
         <td><input type=checkbox name=chk[] value='$i'></td>
         <td title='$row[mb_id]' align='left'>$mbinfo</td>
-        <td style='padding:0 5px 0 5px;'>" . $boinfo . "</td>
-        <td align=left>&nbsp;" . $imginfo. "</td>
-        <td align=left>&nbsp$bc_filesize</td>
-        <td>" . get_datetime($row[bc_datetime]) . "</a>
-        </td>
+        <td>" . $boinfo . "</td>
+        <td>&nbsp$bc_filesize</td>
+        <td>" . get_datetime($row[bc_datetime]) . "</a></td>
+        <td>" . $imginfo. "</td>
     </tr>
     ";
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='$colspan' align=center height=100 class=contentbg>내역이 없습니다.</td></tr>";
+    echo "<tr><td colspan='6' align=center height=100>내역이 없습니다.</td></tr>";
 
-echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
 echo "</table>";
+?>
 
-$pagelist = get_paging($config[cf_write_pages], $page, $total_page, "?$qstr&page=");
-echo "<table width=100% cellpadding=3 cellspacing=1>";
-echo "<tr><td width=50%>";
-echo "<input type=button class='btn1' value='선택삭제' onclick=\"btn_check(this.form, 'delete')\">";
-echo "</td>";
-echo "<td width=50% align=right>$pagelist</td></tr></table>\n";
+<!-- 페이지 -->
+<div class="hidden-xs" style="text-align:center;">
+    <ul class="pagination">
+    <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
+    </ul>
+</div>
 
-echo "</form>";
+<div class="btn-group">
+    <? if ($is_admin == "super") { ?>
+        <input type=button class='btn btn-default' value='선택삭제' onclick="btn_check(this.form, 'delete')">
+    <? } ?>
+</div>
 
+<?
 if ($stx)
     echo "<script language='javascript'>document.fsearch.sfl.value = '$sfl';</script>\n";
 ?>
-
-<form name="fsingo" method="post" action="" style="margin:0px;">
-<input type="hidden" name="mb_id">
-<input type="hidden" name="ip">
-<input type="hidden" name="page" value="<?=$page?>">
 </form>
-
-<script language="javascript">
-function singo_intercept(mb_id, ip) 
-{
-    var f = document.fsingo;
-    if (confirm(ip+" : IP를 정말 차단 하시겠습니까?")) {
-        f.mb_id.value = ''; // 로그인 오류의 경우 회원정보는 차단하지 않습니다.
-        f.ip.value = ip;
-        f.action = "singo_intercept.php";
-        f.submit();
-    }
-}
-</script>
 
 <?
 include_once ("./admin.tail.php");
