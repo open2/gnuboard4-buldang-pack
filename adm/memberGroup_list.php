@@ -1,5 +1,5 @@
 <?
-$sub_menu = "200400";
+$sub_menu = "200130";
 include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "r");
@@ -11,62 +11,47 @@ include_once("./admin.head.php");
 
 $sql = " select * from $g4[member_group_table] order by gl_id asc";
 $result = sql_query($sql);
-
-$colspan = 15;
 ?>
-
-<script language="JavaScript">
+<script type="text/javascript">
 var list_update_php = "memberGroup_list_update.php";
 </script>
 
-<table width=100%>
-<tr>
-    <td width=50% align=left>회원 레벨(권한)명을 설정합니다.</td>
-</tr>
-</table>
+<div>
+    회원 레벨(권한)명을 설정합니다.
+</div>
 
-<form name=fmemberG_list method=post>
+<form name=fmemberG_list method=post role="form" class="form-inline">
 <input type=hidden name=token value='<?=$token?>'>
-<table width=100% cellpadding=0 cellspacing=0>
+<table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <colgroup width=30>
-<colgroup width=90>
-<colgroup width=90>
-<colgroup width="30">
+<colgroup width=80>
 <colgroup width="">
-	<tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
-	<tr class='bgcol1 bold col1 ht center'>
+<tr class='success'>
     <td><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
     <td>회원레벨</td>
     <td>레벨명</td>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
+</tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) {
     $list = $i%2;
 ?>    
     <input type="hidden" name="gl_id[<?=$row[gl_id]?>]" value="<?=$row[gl_id]?>">
-    <tr class='list<?=$list?> col1 ht center'>
+    <tr>
         <td><input type="checkbox" name="chk[]" value='<?=$i?>'></td>
-        <td title='<?=$row[gl_id]?>'><nobr style='display:block; overflow:hidden; width:90;'>&nbsp;<?=$row[gl_id]?></nobr></td>
-        <td><input type='text' name='groupName_[<?=$i?>]' value='<?=$row[gl_name]?>'></nobr></td>
-        <td><img src='img/icon_modify.gif' border=0 title='수정' onclick="member_group_update('<?=$row[gl_name]?>' , '<?=$row[gl_id]?>' ,'<?=$i?>');"></a></td>
-				<td></td>
+        <td title='<?=$row[gl_id]?>'><?=$row[gl_id]?></td>
+        <td>
+            <input class="form-control" type='text' name='groupName_[<?=$i?>]' value='<?=$row[gl_name]?>'>
+            <a class="btn btn-default" href="#" onclick="member_group_update('<?=$row[gl_name]?>' , '<?=$row[gl_id]?>' ,'<?=$i?>');">수정</a>
+        </td>
     </tr>
 <?
 }
 ?>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 </table>
 
-
-<table width=100% cellpadding=3 cellspacing=1>
-	<tr>
-		<td width=50%><input type=button class='btn1' value='선택수정' onclick="btn_check(this.form, 'update')"></td>
-		<td width=50% align=right></td>
-	</tr>
-</table>
+<div>
+    <input type=button class='btn btn-default' value='선택수정' onclick="btn_check(this.form, 'update')">
+</div>
 
 </form>
 

@@ -60,37 +60,34 @@ if ($sfl == "mb_id" && $stx)
 
 $g4[title] = "인기검색어관리";
 include_once ("./admin.head.php");
-
-$colspan = 8;
 ?>
 
-<script language="JavaScript">
+<script type="text/javascript">
 var list_update_php = "";
 var list_delete_php = "popular_list_delete.php";
 </script>
 
-<table width=100%>
-<form name=fsearch method=get>
-<tr>
-    <td width=50% align=left>
-        <?=$listall?> (건수 : <?=number_format($total_count)?>)
-    </td>
-    <td width=50% align=right>
-        <select name=sfl class=cssfl>
-            <option value='a.pp_word'>검색어</option>
-            <option value='a.mb_id'>회원아이디</option>
-            <option value='a.bo_table'>게시판</option>
-            <option value='a.pp_id'>ip</option>
-            <option value='a.pp_date'>검색일자</option>
-        </select>
-        <? if ($stx == "all_dn") $stx = ""; ?>
-        <input type=text name=stx class=ed required itemname='검색어' value='<?=$stx?>'>
-        <input type=image src='<?=$g4[admin_path]?>/img/btn_search.gif' align=absmiddle></td>
-</tr>
+<form name=fsearch method=get role="form" class="form-inline">
+<div class="btn-group">
+    <?=$listall?> (건수 : <?=number_format($total_count)?>)
+</div>
+<div class="pull-right">
+    <select name=sfl class="form-control">
+        <option value='a.pp_word'>검색어</option>
+        <option value='a.mb_id'>회원아이디</option>
+        <option value='a.bo_table'>게시판</option>
+        <option value='a.pp_id'>ip</option>
+        <option value='a.pp_date'>검색일자</option>
+    </select>
+    <? if ($stx == "all_dn") $stx = ""; ?>
+    <input class="form-control" type=text name=stx required itemname='검색어' value='<?=$stx?>'>
+    <div class="form-group">
+        <button class="btn btn-primary">검색</button>
+    </div>
+</div>
 </form>
-</table>
 
-<form name=fpointlist method=post>
+<form name=fpointlist method=post role="form" class="form-inline">
 <input type=hidden name=sst   value='<?=$sst?>'>
 <input type=hidden name=sod   value='<?=$sod?>'>
 <input type=hidden name=sfl   value='<?=$sfl?>'>
@@ -98,28 +95,25 @@ var list_delete_php = "popular_list_delete.php";
 <input type=hidden name=page  value='<?=$page?>'>
 <input type=hidden name=token value='<?=$token?>'>
 
-<table width=100% cellpadding=0 cellspacing=1>
+<table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <colgroup width=30>
 <colgroup width=100>
-<colgroup width=120>
 <colgroup width=''>
+<colgroup width=120>
 <colgroup width=120>
 <colgroup width=80>
 <colgroup width=80>
 <colgroup width=60>
-<tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
-<tr class='bgcol1 bold col1 ht center'>
+<tr class='success'>
     <td><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
-    <td><?=subject_sort_link('a.mb_id')?>회원닉네임</a></td>
     <td><?=subject_sort_link('a.bo_table')?>게시판</a></td>
     <td>검색어</td>
     <td>sfl</td>
+    <td><?=subject_sort_link('a.mb_id')?>닉네임</a></td>
     <td>ip</td>
     <td><?=subject_sort_link('a.pp_date')?>검색일시</a></td>
     <td>검색횟수</td>
 </tr>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
-
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) 
 {
@@ -137,32 +131,36 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     <input type=hidden name=pp_ip[$i] value='$row[pp_ip]'>
     <tr class='list$list col1 ht center'>
         <td><input type=checkbox name=chk[] value='$i'></td>
-        <td><a href='?sfl=a.mb_id&stx=$row[mb_id]'>$mb[mb_nick]</a></td>
         <td><a href='?sfl=a.bo_table&stx=$row[bo_table]'>" . cut_str($row[bo_subject],20) . "</a></td>
         <td><a href='?sfl=a.pp_word&stx=$row[pp_word]'>" . $row[pp_word] . "</a></td>
         <td>" . $row[sfl] . "</td>
-        <td align=right><a href='?sfl=a.pp_ip&stx=$row[pp_ip]'>" . $row[pp_ip] . "</a></td>
-        <td align=right><a href='?sfl=a.pp_date&stx=$row[pp_date]'>" . $row[pp_date] . "</td>
-        <td align=center>". number_format($tot[cnt])."</td>
+        <td><a href='?sfl=a.mb_id&stx=$row[mb_id]'>$mb[mb_nick]</a></td>
+        <td><a href='?sfl=a.pp_ip&stx=$row[pp_ip]'>" . $row[pp_ip] . "</a></td>
+        <td><a href='?sfl=a.pp_date&stx=$row[pp_date]'>" . $row[pp_date] . "</td>
+        <td>". number_format($tot[cnt])."</td>
     </tr> ";
 } 
 
 if ($i == 0)
-    echo "<tr><td colspan='$colspan' align=center height=100 bgcolor=#ffffff>자료가 없습니다.</td></tr>";
+    echo "<tr><td colspan='$colspan' align=center height=100>자료가 없습니다.</td></tr>";
 
-echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
 echo "</table>";
+?>
 
-$pagelist = get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");
-echo "<table width=100% cellpadding=3 cellspacing=1>";
-echo "<tr><td width=50%>";
+<!-- 페이지 -->
+<div class="hidden-xs" style="text-align:center;">
+    <ul class="pagination">
+    <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
+    </ul>
+</div>
 
-if ($is_admin == "super")
-    echo "<input type=button class='btn1' value='선택삭제' onclick=\"btn_check(this.form, 'delete')\">";
+<div class="btn-group">
+    <? if ($is_admin == "super") { ?>
+        <input type=button class='btn btn-default' value='선택삭제' onclick="btn_check(this.form, 'delete')">
+    <? } ?>
+</div>
 
-echo "</td>";
-echo "<td width=50% align=right>$pagelist</td></tr></table>\n";
-
+<?
 if ($stx)
     echo "<script language='javascript'>document.fsearch.sfl.value = '$sfl';</script>\n";
 

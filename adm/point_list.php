@@ -54,51 +54,47 @@ if ($sfl == "mb_id" && $stx)
 
 $g4[title] = "포인트관리";
 include_once ("./admin.head.php");
-
-$colspan = 8;
 ?>
 
-<script language="JavaScript">
+<script type="text/javascript">
 var list_delete_php = "point_list_delete.php";
 </script>
 
 <script type="text/javascript">
 function point_clear()
 {
-    if (confirm("포인트 정리를 하시면 최근 30일 이전의 30건이 넘는 포인트에 대해서 포인트 내역을 삭제하므로\n\n포인트 내역을 필요로 할때 찾지 못할 수도 있습니다.\n\n\n그래도 진행하시겠습니까?"))
-    {
+    if (confirm("포인트 정리를 하시면 최근 30일 이전의 30건이 넘는 포인트에 대해서 포인트 내역을 삭제하므로\n\n포인트 내역을 필요로 할때 찾지 못할 수도 있습니다.\n\n\n그래도 진행하시겠습니까?")) {
         document.location.href = "./point_clear.php?ok=1";
     }
 }
 </script>
 
-<table width=100%>
-<form name=fsearch method=get>
-<tr>
-    <td width=60% align=left>
-        <?=$listall?> (건수 : <?=number_format($total_count)?>)
-        <? 
-        if ($mb[mb_id]) 
-            echo "&nbsp;(" . $mb[mb_id] ." 님 포인트 합계 : " . number_format($mb[mb_point]) . "점)";
-        else {
-            $row2 = sql_fetch(" select sum(po_point) as sum_point from $g4[point_table] ");
-            echo "&nbsp;(전체 포인트 합계 : " . number_format($row2[sum_point]) . "점)";
-        }
-        ?>
-        <? if ($is_admin == "super") { ?><a href="javascript:point_clear();">포인트정리</a><? } ?>
-    </td>
-    <td width=40% align=right>
-        <select name=sfl class=cssfl>
-            <option value='mb_id'>회원아이디</option>
-            <option value='po_content'>내용</option>
-        </select>
-        <input type=text name=stx class=ed required itemname='검색어' value='<?=$stx?>'>
-        <input type=image src='<?=$g4[admin_path]?>/img/btn_search.gif' align=absmiddle></td>
-</tr>
+<form name=fsearch method=get role="form" class="form-inline">
+<div class="btn-group">
+    <?=$listall?> (건수 : <?=number_format($total_count)?>)
+    <? 
+    if ($mb[mb_id]) 
+        echo "&nbsp;(" . $mb[mb_id] ." 님 포인트 합계 : " . number_format($mb[mb_point]) . "점)";
+    else {
+        $row2 = sql_fetch(" select sum(po_point) as sum_point from $g4[point_table] ");
+        echo "&nbsp;(전체 포인트 합계 : " . number_format($row2[sum_point]) . "점)";
+    }
+    ?>
+    <? if ($is_admin == "super") { ?><a href="javascript:point_clear();">포인트정리</a><? } ?>
+</div>
+<div class="pull-right">
+    <select name=sfl class="form-control">
+        <option value='mb_id'>회원아이디</option>
+        <option value='po_content'>내용</option>
+    </select>
+    <input class="form-control" type=text name=stx required itemname='검색어' value='<?=$stx?>'>
+    <div class="form-group">
+        <button class="btn btn-primary">검색</button>
+    </div>
+</div>
 </form>
-</table>
 
-<form name=fpointlist method=post>
+<form name=fpointlist method=post role="form" class="form-inline">
 <input type=hidden name=sst   value='<?=$sst?>'>
 <input type=hidden name=sod   value='<?=$sod?>'>
 <input type=hidden name=sfl   value='<?=$sfl?>'>
@@ -106,27 +102,25 @@ function point_clear()
 <input type=hidden name=page  value='<?=$page?>'>
 <input type=hidden name=token value='<?=$token?>'>
 
-<table width=100% cellpadding=0 cellspacing=1>
+<table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <colgroup width=30>
 <colgroup width=100>
 <colgroup width=80>
 <colgroup width=80>
-<colgroup width=140>
-<colgroup width=''>
+<colgroup width=80>
 <colgroup width=50>
 <colgroup width=80>
-<tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
-<tr class='bgcol1 bold col1 ht center'>
+<colgroup width=''>
+<tr class="success">
     <td><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
     <td><?=subject_sort_link('mb_id')?>회원아이디</a></td>
     <td>이름</td>
     <td>별명</td>
     <td><?=subject_sort_link('po_datetime')?>일시</a></td>
-    <td><?=subject_sort_link('po_content')?>포인트 내용</a></td>
     <td><?=subject_sort_link('po_point')?>포인트</a></td>
     <td>포인트합</td>
+    <td><?=subject_sort_link('po_content')?>포인트 내용</a></td>
 </tr>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <?
     if ($sod == "asc")
         $sod = "desc";
@@ -211,26 +205,31 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         <td><a href='?sfl=mb_id&stx=$row[mb_id]'>$row[mb_id]</a></td>
         <td>$row2[mb_name]</td>
         <td>$mb_nick</td>
-        <td>$row[po_datetime]</td>
-        <td align=left>&nbsp;{$link1}$row[po_content]{$link2}</td>
-        <td align=right>".number_format($row[po_point])."&nbsp;</td>
-        <td align=right>".number_format($mb_sum)."&nbsp;</td>
+        <td>" . get_datetime($row[po_datetime]) . "</td>
+        <td>".number_format($row[po_point])."&nbsp;</td>
+        <td>".number_format($mb_sum)."&nbsp;</td>
+        <td>&nbsp;{$link1}$row[po_content]{$link2}</td>
     </tr> ";
 } 
 
 if ($i == 0)
-    echo "<tr><td colspan='$colspan' align=center height=100 bgcolor=#ffffff>자료가 없습니다.</td></tr>";
+    echo "<tr><td colspan='6' align=center height=100>자료가 없습니다.</td></tr>";
 
-echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
 echo "</table>";
+?>
 
-$pagelist = get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");
-echo "<table width=100% cellpadding=3 cellspacing=1>";
-echo "<tr><td width=50%>";
-echo "<input type=button class='btn1' value='선택삭제' onclick=\"btn_check(this.form, 'delete')\">";
-echo "</td>";
-echo "<td width=50% align=right>$pagelist</td></tr></table>\n";
+<!-- 페이지 -->
+<div class="hidden-xs" style="text-align:center;">
+    <ul class="pagination">
+    <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
+    </ul>
+</div>
 
+<div class="btn-group">
+    <input type=button class='btn btn-default' value='선택삭제' onclick="btn_check(this.form, 'delete')">
+</div>
+
+<?
 if ($stx)
     echo "<script type='text/javascript'>document.fsearch.sfl.value = '$sfl';</script>\n";
 
@@ -253,13 +252,13 @@ else
 <input type=hidden name=page  value='<?=$page?>'>
 <input type=hidden name=token value='<?=$token?>'>
 <table width=100% cellpadding=0 cellspacing=1 class=tablebg>
-<colgroup width=150>
+<colgroup width=80>
 <colgroup width=''>
 <colgroup width=100>
 <colgroup width=120>
 <colgroup width=100>
 <tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
-<tr class='bgcol1 bold col1 ht center'>
+<tr class='success'>
     <td>회원아이디</td>
     <td>포인트 내용</td>
     <td>포인트</td>
