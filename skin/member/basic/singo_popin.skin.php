@@ -50,7 +50,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
         </form>
 
-        <div class="container"><small>정상적인 게시물을 신고하시는 경우 본인이 제재를 당할 수 있습니다.<br>
+        <div class="container">정상적인 게시물을 신고하시는 경우 본인이 제재를 당할 수 있습니다.<br>
         신고하게 된 이유를 자세히 써주시면 운영자의 관련 결정에 도움이 됩니다.<br>
         (*신고이유출력)으로 표시된 이유를 선택하면 게시글에 신고이유가 출력 됩니다.
         <? if ($config[cf_singo_point_send]) { ?>
@@ -59,7 +59,6 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         <? if ($config[cf_singo_point_recv]) { ?>
         <BR>신고된 회원은 <?=$config[cf_singo_point_recv]?> 포인트가 차감됩니다.
         <? } ?>
-        </small>
         </div>
     </div>
 </div>
