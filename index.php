@@ -4,40 +4,14 @@ include_once("./_common.php");
 $g4['title'] = "";
 include_once("./_head.php");
 ?>
-<a class="btn btn-default sideview">popover</a>
-<a class="btn btn-default sideview" alt="test12">popover</a>
+<?
+include_once("./lib/tree.lib.php");
 
-<script>
-$(document).ready(function() {
+$tree_table = "g4_menu";
+$tree = get_tree_items($tree_table);
 
-	$('.sideview').popover({
-		html: true,
-		trigger: 'manual',
-		title: 'Sideview&nbsp;<a onclick="$(this).parent().parent().hide();"  style="cursor:pointer"><i class="fa fa-times-circle"></i></a>'
-	}).click(function(e) {
-		if($(".popover").css("display") == "block"){
-			$(this).popover('hide');
-		}else{
-			$(this).popover('show');
-
-    var el = $(this);
-    var _data = "mb_id="+el.attr('alt');
-    
-			$.ajax({url: "<?=$g4[bbs_path]?>/ajax_sideview.php", type: "POST", data: _data, success: function(response) {
-					$(".popover-content").html(response);
-				}
-			});
-
-		}
-
-    // 한개의 sideview popover만을 원할때
-    $('.sideview').not(this).popover('hide');
-
-	})
-	;
-});
-</script>
-
+//echo make_tree($tree, 0, 0, -1);
+?>
 <?
 switch ($mnb) {
     case ''     : include_once("$g4[path]/index.main.php"); break;  // $mnb==""은 메인일때라는거죠.

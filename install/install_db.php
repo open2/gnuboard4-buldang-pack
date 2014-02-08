@@ -54,117 +54,66 @@ if (!$select_db) {
     exit;
 }
 ?>
-<html>
+<!DOCTYPE HTML>
+<html lang="ko">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=<?=$g4['charset']?>">
-<title>그누보드4 설치 (3/3) - DB</title>
-<style type="text/css">
-.body {
-    font-family: 굴림;
-	font-size: 12px;
-}
-.box {
-	background-color: #FCFCFC;
-    color:#B19265;
-    font-family:굴림;
-	font-size: 12px;
-}
-.nobox {
-	background-color: #FCFCFC;
-    border-style:none;
-    font-family:굴림;
-    font-size: 12px;
-}
-</style>
+<title>그누보드4 설치 (3/3) - 라이센스(License)</title>
+
+<link rel="stylesheet" href="<?=$g4['path']?>/js/bootstrap/css/bootstrap.min.css?bver=<?=$g4[bver]?>" type="text/css" media="screen" title="no title" charset="<?=$g4[charset]?>">
+<link rel="stylesheet" href="<?=$g4['path']?>/js/font-awesome/css/font-awesome.min.css?aver=<?=$g4[aver]?>" type="text/css" media="screen" title="no title" charset="<?=$g4[charset]?>">
+<!--[if lt IE 7]>
+    <script src="<?=$g4['path']?>/js/font-awesome/css/font-awesome-ie7.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="<?=$g4['path']?>/style.css?sver=<?=$g4[sver]?>" type="text/css">
+
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="<?=$g4['path']?>/js/bootstrap/js/bootstrap.min.js"></script>
+<!--[if lt IE 9]>
+    <script src="<?=$g4['path']?>/js/html5shiv/html5shiv.js"></script>
+    <script src="<?=$g4['path']?>/js/respond/respond.min.js"></script>
+<![endif]-->
 </head>
 
 <body background="img/all_bg.gif" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<div align="center">
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <table width="587" border="0" cellspacing="0" cellpadding="0">
-    <form name=frminstall2>
-    <tr> 
-                <td colspan="3"><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" width="587" height="22">
-                        <param name="movie" value="../install/img/top.swf">
-                        <param name="quality" value="high">
-                        <embed src="../install/img/top.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="587" height="22"></embed></object></td>
-    </tr>
-    <tr> 
-      <td width="3"><img src="../install/img/box_left.gif" width="3" height="340"></td>
-      <td width="581" valign="top" bgcolor="#FCFCFC"><table width="581" border="0" cellspacing="0" cellpadding="0">
-          <tr> 
-            <td><img src="../install/img/box_title.gif" width="581" height="56"></td>
-          </tr>
-        </table>
-        <br>
-        <table width="541" border="0" align="center" cellpadding="0" cellspacing="0" class="body">
-          <tr> 
-            <td>설치를 시작합니다. <font color="#CC0000">설치중 작업을 중단하지 마십시오. </font></td>
-          </tr>
-          <tr> 
-            <td>&nbsp;</td>
-          </tr>
-          <tr> 
-            <td><div align="left">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input name="status_bar" type="text" class="box" size="76" readonly></div></td>
-          </tr>
-          <tr> 
-            <td>&nbsp;</td>
-          </tr>
-          <tr> 
-            <td><table width="350" border="0" align="center" cellpadding="5" cellspacing="0" class="body">
-                <tr> 
-                  <td width="50"> </td>
-                  <td width="300"><input type=text name=job1 class=nobox size=80 readonly></td>
-                </tr>
-                <tr> 
-                  <td width="50"> </td>
-                  <td width="300"><input type=text name=job2 class=nobox size=80 readonly></td>
-                </tr>
-                <tr> 
-                  <td width="50"> </td>
-                  <td width="300"><input type=text name=job3 class=nobox size=80 readonly></td>
-                </tr>
-                <tr> 
-                  <td width="50"> 
-                    <div align="center"></div></td>
-                  <td width="300"><input type=text name=job4 class=nobox size=80 readonly></td>
-                </tr>
-              </table></td>
-          </tr>
-          <tr>
-            <td>&nbsp;</td>
-          </tr>
-          <tr> 
-            <td><input type=text name=job5 class=nobox size=90 readonly></td>
-          </tr>
-        </table>
-        <table width="562" border="0" align="center" cellpadding="0" cellspacing="0">
-          <tr>
-            <td height=20><img src="../install/img/box_line.gif" width="562" height="2"></td>
-          </tr>
-        </table>
-        <table width="551" border="0" align="center" cellpadding="0" cellspacing="0">
-          <tr> 
-            <td align="right"> 
-              <input type="button" name="btn_next" disabled value="메인화면" onclick="location.href='../';">
-            </td>
-          </tr>
-        </table></td>
-      <td width="3"><img src="../install/img/box_right.gif" width="3" height="340"></td>
-    </tr>
-    <tr> 
-      <td colspan="3"><img src="../install/img/box_bottom.gif" width="587" height="3"></td>
-    </tr>
-    </form>
-  </table>
+
+<div class="container" style="width:621px;margin-top:100px;">
+
+<div class="panel panel-primary">
+<div class="panel-heading">
+    <strong>그누보드4 설치 (3/3)</strong>
 </div>
+<div class="panel-body">
+    <form name=frminstall2>
+
+    <p>
+    설치를 시작합니다. <font color="#CC0000">설치중 작업을 중단하지 마십시오. </font>
+    </p>
+    <input name="status_bar" style="height:50px;border:0px;">
+
+    <input name=job1 style="height:40px;border:0px;" size=100 readonly><br>
+    <input name=job2 style="height:40px;border:0px;" size=100 readonly><br>
+    <input name=job3 style="height:40px;border:0px;" size=100 readonly><br>
+    <input name=job4 style="height:40px;border:0px;" size=100 readonly><br>
+    <input name=job5 style="height:40px;border:0px;" size=100 readonly>
+
+    <p style="height:30px;"></p>
+
+    <div class="pull-right">
+        <input type="button" name="btn_next" disabled value="메인화면" onclick="location.href='../';">
+    </div>
+
+    </form>
+
+</div>
+<div class="panel-footer">
+</div>
+</div>
+
+</div><!-- end of container -->
+
 <?
-flush(); usleep(50000); 
+flush(); usleep(500); 
 
 // 테이블 생성 ------------------------------------
 $file = implode("", file("./sql_gnuboard4.sql"));
@@ -185,7 +134,6 @@ eval("\$file = \"$file\";");
 $f = explode(";", $file);
 for ($i=0; $i<count($f); $i++) {
     if (trim($f[$i]) == "") continue;
-    echo $f[$i] . "<br>";
     mysql_query($f[$i]) or die(mysql_error());
 }
 // 테이블 생성 (불당팩) -----------------------------

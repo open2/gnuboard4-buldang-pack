@@ -13,7 +13,7 @@ include_once("$g4[path]/lib/latest.club.lib.php");  // 클럽 최신글
 </div>
 <div class="col-sm-6">
 <table width=100%><tr><td><!-- 요기만 table로 감싸주는 것은 그렇게 하지 않으면 div, span 태그가 이상하게 동작하기 때문이다 -->
-<?echo db_cache('main_notice2', 1, "latest_one('one', 'gnu4_pack_skin, 118, 0, 430)");?>
+<?echo db_cache('main_notice2', 1, "latest_one('one', 'gnu4_pack, 1697, 0, 430)");?>
 </td></tr></table>
 </div>
 </div>

@@ -32,119 +32,128 @@ HEREDOC;
     exit;
 }
 ?>
-<html>
+<!DOCTYPE HTML>
+<html lang="ko">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=<?=$g4['charset']?>">
-<title>그누보드4 설치 (2/3) - 설정</title>
-<style type="text/css">
-<!--
-.body {
-	font-size: 12px;
-}
-.box {
-    font-family:Tahoma;
-	background-color: #D6D3CE;
-	font-size: 12px;
-}
--->
-</style>
+<title>그누보드4 설치 (2/3) - 라이센스(License)</title>
+
+<link rel="stylesheet" href="<?=$g4['path']?>/js/bootstrap/css/bootstrap.min.css?bver=<?=$g4[bver]?>" type="text/css" media="screen" title="no title" charset="<?=$g4[charset]?>">
+<link rel="stylesheet" href="<?=$g4['path']?>/js/font-awesome/css/font-awesome.min.css?aver=<?=$g4[aver]?>" type="text/css" media="screen" title="no title" charset="<?=$g4[charset]?>">
+<!--[if lt IE 7]>
+    <script src="<?=$g4['path']?>/js/font-awesome/css/font-awesome-ie7.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="<?=$g4['path']?>/style.css?sver=<?=$g4[sver]?>" type="text/css">
+
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="<?=$g4['path']?>/js/bootstrap/js/bootstrap.min.js"></script>
+<!--[if lt IE 9]>
+    <script src="<?=$g4['path']?>/js/html5shiv/html5shiv.js"></script>
+    <script src="<?=$g4['path']?>/js/respond/respond.min.js"></script>
+<![endif]-->
 </head>
 
 <body background="img/all_bg.gif" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<div align="center">
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <table width="587" border="0" cellspacing="0" cellpadding="0">
-    <form name=frm method=post action="javascript:frm_submit(document.frm)" autocomplete="off">
-    <tr> 
-        <td colspan="3"><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" width="587" height="22">
-            <param name="movie" value="img/top.swf">
-            <param name="quality" value="high">
-            <embed src="img/top.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="587" height="22"></embed></object></td>
-    </tr>
-    <tr> 
-      <td width="3"><img src="img/box_left.gif" width="3" height="340"></td>
-      <td width="581" valign="top" bgcolor="#FCFCFC"><table width="581" border="0" cellspacing="0" cellpadding="0">
-          <tr> 
-            <td><img src="img/box_title.gif" width="581" height="56"></td>
-          </tr>
-        </table>
-        <br>
-        <table width="540" border="0" align="center" cellpadding="0" cellspacing="0" class="body">
-          <tr> 
-            <td width="270" height="16"><strong>MySQL 정보입력 </strong><br>
-              <br>
-              <table width="270" border="0" cellpadding="0" cellspacing="0" class="body">
-                <tr> 
-                  <td width="80" align="right" height=30>Host :&nbsp;</td>
-                  <td><input name="mysql_host" type="text" class="box" value="localhost"></td>
-                </tr>
-                <tr> 
-                  <td width="80" align="right" height=30>User :&nbsp;</td>
-                  <td><input name="mysql_user" type="text" class="box"></td>
-                </tr>
-                <tr> 
-                  <td width="80" align="right" height=30>Password :&nbsp;</td>
-                  <td><input name="mysql_pass" type="text" class="box"></td>
-                </tr>
-                <tr> 
-                  <td width="80" align="right" height=30>DB :&nbsp;</td>
-                  <td><input name="mysql_db" type="text" class="box"></td>
-                </tr>
-              </table></td>
-            <td><strong>최고관리자 정보입력</strong> <br>
-              <br>
-              <table width="270" border="0" cellpadding="0" cellspacing="0" class="body">
-                <tr> 
-                  <td width="80" align="right" height=30>ID :&nbsp;</td>
-                  <td><input name="admin_id" type="text" class="box" value="admin" onkeypress="only_alpha_numeric();"></td>
-                </tr>
-                <tr> 
-                  <td width="80" align="right" height=30>Password :&nbsp;</td>
-                  <td><input name="admin_pass" type="text" class="box"></td>
-                </tr>
-                <tr> 
-                  <td width="80" align="right" height=30>Name :&nbsp;</td>
-                  <td><input name="admin_name" type="text" class="box" value="최고관리자"></td>
-                </tr>
-                <tr> 
-                  <td width="80" align="right" height=30>E-mail :&nbsp;</td>
-                  <td><input name="admin_email" type="text" class="box" value="admin@domain.domain"></td>
-                </tr>
-              </table> </td>
-          </tr>
-        </table>
-        <table width="562" border="0" align="center" cellpadding="0" cellspacing="0">
-          <tr> 
-            <td height=15><img src="img/box_line.gif" width="562" height="2"></td>
-          </tr>
-          <tr> 
-            <td class=body align=right height=35><font color=crimson>이미 그누보드4가 존재한다면 DB 자료가 망실되므로 주의하십시오.</font></td>
-          </tr>
-          <tr> 
-            <td height=15><img src="img/box_line.gif" width="562" height="2"></td>
-          </tr>
-        </table>
-        <br>
-        <table width="551" border="0" align="center" cellpadding="0" cellspacing="0">
-          <tr> 
-            <td align="right"> 
-              <input type="submit" name="Submit2" value=" 다   음 ">
-            </td>
-          </tr>
-        </table></td>
-      <td width="3"><img src="img/box_right.gif" width="3" height="340"></td>
-    </tr>
-    <tr> 
-      <td colspan="3"><img src="img/box_bottom.gif" width="587" height="3"></td>
-    </tr>
-    </form>
-  </table>
-</div>
 
-<script language="JavaScript">
+<form name=frm method=post action="javascript:frm_submit(document.frm)" autocomplete="off">
+
+<div class="container" style="width:621px;margin-top:100px;">
+
+<div class="panel panel-primary">
+<div class="panel-heading">
+    <strong>그누보드4 설치 (2/3)</strong>
+</div>
+<div class="panel-body">
+
+    <table width=100% class="table table-condensed table-hover table-borderless" style="word-wrap:break-word;">
+    <tr>
+        <td width=45%>
+            <!-- TAB 순서 때문에 테이블을 2개로 -->
+            <table width=100% class="table table-condensed table-hover table-borderless" style="word-wrap:break-word;">
+            <tr>
+                <td colspan=2><strong>MySQL 정보입력</strong></td>
+            </tr>
+            <tr>
+                <td width=80>Host :</td>
+                <td>
+                    <input name="mysql_host" type="text" class="form-control" value="localhost">
+                </td>
+            </tr>
+            <tr>
+                <td>User :</td>
+                <td>
+                    <input name="mysql_user" type="text" class="form-control" placeholder="MySQL 사용자명">
+                </td>
+            </tr>
+            <tr>
+                <td>Password :</td>
+                <td>
+                    <input name="mysql_pass" type="text" class="form-control" placeholder="MySQL 접속 패스워드">
+                </td>
+            </tr>
+            <tr>
+                <td>DB :</td>
+                <td>
+                    <input name="mysql_db" type="text" class="form-control" placeholder="MySQL DB 이름">
+                </td>
+            </tr>
+            </table>
+
+        </td>
+        <td width=5%></td>
+        <td width=45%>
+
+            <table width=100% class="table table-condensed table-hover table-borderless" style="word-wrap:break-word;">
+            <tr>
+                <td colspan=2><strong>최고관리자 정보입력</strong></td>
+            </tr>
+            <tr>
+                <td width=80>ID :</td>
+                <td>
+                    <input name="admin_id" type="text" class="form-control" value="admin" onkeypress="only_alpha_numeric();">
+                </td>
+            </tr>
+            <tr>
+                <td>Password :</td>
+                <td>
+                    <input name="admin_pass" type="text" class="form-control" placeholder="관리자 패스워드">
+                </td>
+            </tr>
+            <tr>
+                <td>Name :</td>
+                <td>
+                    <input name="admin_name" type="text" class="form-control" value="최고관리자" placeholder="최고관리자 이름">
+                </td>
+            </tr>
+            <tr>
+                <td>E-mail :</td>
+                <td>
+                    <input name="admin_email" type="text" class="form-control" value="admin@domain.domain">
+                </td>
+            </tr>
+            </table>
+
+        </td>
+        <td width=5%></td>
+    </tr>
+    </table>
+
+    <p class="text-danger">
+    이미 그누보드4가 존재한다면 DB 자료가 망실되므로 주의하십시오.
+    </p>
+
+    <div class="pull-right" style="margin-bottom:10px;">
+        <input type="submit" name="submit2" class="btn btn-default" value=" 다   음 ">
+    </div>
+</div>
+<div class="panel-footer">
+</div>
+</div>
+</form>
+
+</div><!-- end of container -->
+
+<script type="text/javascript">
 <!--
 function frm_submit(f)
 {

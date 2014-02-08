@@ -49,27 +49,13 @@ function get_perms($mode)
 if (file_exists("../dbconfig.php")) {
     echo "<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'>";    
     echo <<<HEREDOC
-    <script language="JavaScript">
+    <script type="text/javascript">
     alert("dbconfig.php가 있어서 설치하실 수 없습니다.\n설치하시려면 dbconfig.php를 지우세요.\n새로 설치를 하면 db는 모두 삭제될 수 있습니다.");
     location.href="../";
     </script>
 HEREDOC;
     exit;
 }
-
-
-/*
-// 루트 디렉토리에 파일, 디렉토리 생성 가능한지 검사.
-$perms = get_perms(fileperms("../"));
-if ($perms["world_read"].$perms["world_write"].$perms["world_execute"] != "rwx") {
-    echo <<<HEREDOC
-    <script language="JavaScript">
-    alert("루트 디렉토리의 퍼미션을 707로 변경하여 주십시오.\\n\\ncommon.php 파일이 있는곳이 루트 디렉토리 입니다.\\n\\n$> chmod 707 . \\n\\n그 다음 설치하여 주십시오.");
-    </script>
-HEREDOC;
-    exit;
-}
-*/
 
 // 루트 디렉토리에 파일 생성 가능한지 검사.
 if (!is_writeable("..")) 
@@ -78,120 +64,62 @@ if (!is_writeable(".."))
     echo "<script language='JavaScript'>alert('루트 디렉토리의 퍼미션을 707로 변경하여 주십시오.\\n\\ncommon.php 파일이 있는곳이 루트 디렉토리 입니다.\\n\\n$> chmod 707 . \\n\\n그 다음 설치하여 주십시오.');</script>"; 
     exit;
 }
-
-
-/*
-$perms = get_perms(fileperms("../common.php"));
-if ($perms["world_read"].$perms["world_write"] != "rw") {
-    echo <<<HEREDOC
-    <script language="JavaScript">
-    alert("루트 디렉토리에 있는 common.php 파일의 퍼미션을 606 또는 707로 변경하여 주십시오.\\n\\n$> chmod 606 common.php \\n\\n그 다음 설치하여 주십시오.");
-    </script>
-HEREDOC;
-    exit;
-}
-*/
 ?>
-<html>
+<!DOCTYPE HTML>
+<html lang="ko">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=<?=$g4['charset']?>">
 <title>그누보드4 설치 (1/3) - 라이센스(License)</title>
-<style type="text/css">
-<!--
-.body {
-    font-family: 굴림;
-	font-size: 12px;
-}
-.box {
-	background-color: #D6D3CE;
-    font-family:굴림;
-	font-size: 12px;
-}
--->
-</style>
+
+<link rel="stylesheet" href="<?=$g4['path']?>/js/bootstrap/css/bootstrap.min.css?bver=<?=$g4[bver]?>" type="text/css" media="screen" title="no title" charset="<?=$g4[charset]?>">
+<link rel="stylesheet" href="<?=$g4['path']?>/js/font-awesome/css/font-awesome.min.css?aver=<?=$g4[aver]?>" type="text/css" media="screen" title="no title" charset="<?=$g4[charset]?>">
+<!--[if lt IE 7]>
+    <script src="<?=$g4['path']?>/js/font-awesome/css/font-awesome-ie7.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="<?=$g4['path']?>/style.css?sver=<?=$g4[sver]?>" type="text/css">
+
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="<?=$g4['path']?>/js/bootstrap/js/bootstrap.min.js"></script>
+<!--[if lt IE 9]>
+    <script src="<?=$g4['path']?>/js/html5shiv/html5shiv.js"></script>
+    <script src="<?=$g4['path']?>/js/respond/respond.min.js"></script>
+<![endif]-->
 </head>
 
 <body background="img/all_bg.gif" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <table width="587" border="0" cellspacing="0" cellpadding="0" align=center>
-    <tr> 
-        <td colspan="3"><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" width="587" height="22">
-                <param name="movie" value="img/top.swf">
-                <param name="quality" value="high">
-                <embed src="img/top.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="587" height="22"></embed></object></td>
-    </tr>
-    <tr> 
-      <td width="3"><img src="img/box_left.gif" width="3" height="470"></td>
-      <td width="581" valign="top" bgcolor="#FCFCFC">
-	  <table width="581" border="0" cellspacing="0" cellpadding="0">
-          <tr> 
-                    <td><img src="img/box_title.gif" width="581" height="56"></td>
-          </tr>
-      </table>
-      <table width="541" border="0" align="center" cellpadding="0" cellspacing="0" class="body">
-          <tr> 
-            <td height="10"></td>
-          </tr>
-          <tr> 
-            <td>라이센스(License) 내용을 반드시 확인하십시오.</td>
-          </tr>
-          <tr> 
-            <td height="10"></td>
-          </tr>
-          <tr> 
-            <td align="center">
-			
-<textarea name="textarea" style='width:99%' rows="9" class="box" readonly>
-<?=implode("", file("../LICENSE"));?>
-</textarea> 
 
-            </td>
-          </tr>
-          <tr>
-            <td height=10></td>
-          </tr>
-          <tr> 
-            <td align="center">
-			
-<textarea name="textarea" style='width:99%' rows="9" class="box" readonly>
-<?=implode("", file("../LICENSE_BD"));?>
-</textarea> 
+<div class="container" style="width:621px;margin-top:100px;">
 
-            </td>
-          </tr>
-          <tr>
-            <td height=10></td>
-          </tr>
-          <tr> 
-            <td>설치를 원하시면 위 내용에 동의하셔야 합니다.<br>
-              동의를 원하시면 &lt;예, 동의합니다&gt; 버튼을 클릭해 주세요.</td>
-          </tr>
-        </table>
-        <table width="562" border="0" align="center" cellpadding="0" cellspacing="0">
-          <tr>
-            <td height=20><img src="img/box_line.gif" width="562" height="2"></td>
-          </tr>
-        </table>
-        <table width="551" border="0" align="center" cellpadding="0" cellspacing="0">
-          <tr> 
-            <td align="right"> 
-                <form name=frm method=post onsubmit="return frm_submit(document.frm);" autocomplete="off">
-                <input type="hidden" name="agree" value="동의함">
-                <input type="submit" name="btn_submit" value="예, 동의합니다 ">
-                </form>
-            </td>
-          </tr>
-        </table>
-		</td>
-      <td width="3"><img src="img/box_right.gif" width="3" height="470"></td>
-    </tr>
-    <tr> 
-      <td colspan="3"><img src="img/box_bottom.gif" width="587" height="3"></td>
-    </tr>
-  </table>
+<div class="panel panel-primary">
+<div class="panel-heading">
+    <strong>그누보드4 설치 (1/3)</strong>
+</div>
+<div class="panel-body">
+    <p>
+    라이센스(License) 내용을 반드시 확인하십시오.
+    </p>
+    <textarea name="textarea" style='width:99%;margin-bottom:10px;' rows="9" class="box" readonly><?=implode("", file("../LICENSE"));?></textarea>
+    <textarea name="textarea" style='width:99%' rows="9" class="box" readonly><?=implode("", file("../LICENSE_BD"));?></textarea>
+    
+    <p style="margin-top:5px;" class="text-danger">
+    설치를 원하시면 위 내용에 동의하셔야 합니다.<br>
+    동의를 원하시면 &lt;예, 동의합니다&gt; 버튼을 클릭해 주세요.
+    </p>
+
+    <div class="pull-right">
+        <form name=frm method=post onsubmit="return frm_submit(document.frm);" autocomplete="off" role="form" class="form-inline">
+        <input type="hidden" name="agree" value="동의함">
+        <input type="submit" name="btn_submit" class="btn btn-default" value="예, 동의합니다 ">
+        </form>
+    </div>
+
+</div>
+<div class="panel-footer">
+</div>
+
+</div>
+
+</div><!-- end of container -->
 
 <script  type="text/javascript">
 function frm_submit(f)
