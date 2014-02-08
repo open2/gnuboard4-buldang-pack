@@ -2,7 +2,7 @@
 //                       CHEditor 5
 // ----------------------------------------------------------------
 // Homepage: http://www.chcode.com
-// Copyright (c) 1997-2011 CHSOFT
+// Copyright (c) 1997-2014 CHSOFT
 // ================================================================
 var AppWidth = "250";
 var AppHeight = "175";
@@ -64,7 +64,7 @@ function CHXUploadRUN(src) {
 
 function popupClose()
 {
-    oEditor.popupWinClose();
+    oEditor.popupWinCancel();
 }
 
 function doSubmit ()
@@ -95,7 +95,7 @@ function doSubmit ()
     imageArray[0]['align'] = align;
 
     oEditor.doInsertImage(imageArray);
-    popupClose();
+    oEditor.popupWinClose();
 }
 
 function previewImage (source) {

@@ -1,26 +1,30 @@
 #uploadWindow {
-    position:absolute;
     display: none;
-	background-color: #ebe9ed;
 }
 
 .clear { clear: both; }
 
 #container {
 	padding: 8px;
-    font-family: gulim,tahoma,helvetica;
+    font-family: Malgun Gothic,gulim,tahoma,helvetica;
 }
 
 #imageListWrapper {
 	background-color: #fff;
-	border:1px #c5c5cc solid;
+	border:1px #aaa solid;
+    border-radius:4px;
+    box-shadow: 0 0 3px #aaa;
 	position: absolute;
+    height: 300px;
+    /*overflow-y: scroll;*/
 }
 #imageInfoBox {
 	padding: 7px;
-	background-color: #fff;
 	border:1px #c5c5cc solid;
-	float: right;
+    border-radius:4px;
+    position:absolute;
+	left:545px;
+    width: 200px;
 }
 .button {
 	width: 77px;
@@ -40,21 +44,25 @@
 }
 .imageBox .imageBox_theImage{
 	border: 1px solid #ddd;
+    /*order-radius:2px;*/
 	background-image: url('../icons/dot.gif');
 	background-position: center center;
 	background-repeat: no-repeat;
 }
 .imageBox .imageBox_theImage_over {
 	border: 1px solid #000;
+    border-radius:2px;
 	background-image: url('../icons/dot.gif');
 	background-position: center center;
 	background-repeat: no-repeat;
 }
 .imageBoxHighlighted .imageBox_theImage {
 	border: 1px solid #ff6600;
+    border-radius:2px;
 }
 .imageBoxHighlighted .imageBox_theImage_over {
 	border: 1px solid #ff6600;
+    border-radius:2px;
 	background-image: url('../icons/dot.gif');
 	background-position: center center;
 	background-repeat: no-repeat;
@@ -91,7 +99,6 @@
 }
 
 body {
-	background-color: #ebe9ed;
 	margin: 0px;
 	border: none;
 	padding: 0px;

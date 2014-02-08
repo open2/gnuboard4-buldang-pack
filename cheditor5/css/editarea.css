@@ -1,0 +1,9 @@
+p { 
+    margin: 0px 
+}
+span:after,span:before {
+	content: '\feff';
+	white-space: nowrap;
+}
+table, td, th{ border:1px dotted #ccc; }
+table { border-collapse: collapse }

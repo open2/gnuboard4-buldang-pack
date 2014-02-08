@@ -2,7 +2,7 @@
 //                       CHEditor 5
 // ----------------------------------------------------------------
 // Homepage: http://www.chcode.com
-// Copyright (c) 1997-2011 CHSOFT
+// Copyright (c) 1997-2014 CHSOFT
 // ================================================================
 var button = [
     { alt : "", img : 'submit.gif', cmd : doSubmit },
@@ -76,16 +76,15 @@ function doSubmit() {
     }
 
     oEditor.insertHtmlPopup(mapImg);
-    oEditor.insertHtmlPopup(document.createElement('br'));
     oEditor.setImageEvent(true);
-    popupClose();
+    oEditor.popupWinClose();
 }
 
 function searchAddress() {
     var address = document.getElementById('fm_address').value;
     var geocoder = new google.maps.Geocoder();
-    var results, status;
-    var marker = new google.maps.Marker({ 'map': map, 'draggable': true });
+    //var results, status;
+    //var marker = new google.maps.Marker({ 'map': map, 'draggable': true });
 
     geocoder.geocode( {'address' : address},
             function (results, status) {
@@ -134,5 +133,5 @@ function initMap(zoom) {
 }
 
 function popupClose() {
-    oEditor.popupWinClose();
+    oEditor.popupWinCancel();
 }

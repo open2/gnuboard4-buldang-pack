@@ -1,16 +1,23 @@
 body {
-    background-color: #ebe9ed;
+    background-color: #f0f0f0;
     margin: 0px;
     border: 0px;
     padding: 10px;
     font-size: 9pt;
-    font-family: gulim,tahoma,helvetica;
+    font-family: Malgun Gothic,gulim,tahoma,helvetica;
 }
 
-td, input, select {
+td, input {
     font-size: 9pt;
     vertical-align: middle;
     margin:0px;
+    line-height: 15px;
+    height: 15px;
+}
+select {
+    font-size: 9pt;
+    vertical-align: middle;
+    margin:0px;    
 }
 
 .handCursor {
@@ -27,7 +34,7 @@ table.dlg {
 }
 
 fieldset {
-    border: 1px solid #c5c5cc;
+    border: 1px solid #a0a0a0;
     padding: 2px;
     margin: 0px;
 }
@@ -52,6 +59,11 @@ form {
 
 .font-normal {
     font-size: 9pt;
+}
+
+legend {
+    font-size: 9pt;
+    font-weight: bold;
 }
 
 .button {
@@ -116,13 +128,13 @@ form {
 
 .clear { clear: both }
 .flash-player-wrapper {
-    width:480px;
-    height:385px;
+    width:470px;
+    height:320px;
     margin-top:5px;
+    padding: 5px;
     border:1px #c5c5cc solid;
     text-align:center;
-    overflow-x:auto;
-    overflow-y:hidden;
+    overflow:auto;
 }
 .media-player-wrapper {
     height:200px;
@@ -130,4 +142,51 @@ form {
     text-align:center;
     overflow-x:auto;
     overflow-y:hidden;
+}
+.hr {
+    border: 0px;
+    background:#ccc;
+    height:1px;
+}
+
+.colorCellMouseOver {
+    line-height: 0px;
+    font-size: 0px;
+    height: 8px;
+    width: 8px;    
+    border: 1px solid #fff;
+}
+.colorCellMouseOut {
+    line-height: 8px;
+    font-size: 0px;
+    height: 8px;
+    width: 8px;    
+    border: 1px solid #000;
+}
+.colorInputBox {
+    background-color:#000;
+    text-align:center;
+    border:1px solid #000;
+    height:16px;
+}
+.colorWrapper {
+    border:1px solid #000;
+    background-color:#fff;
+    position:absolute;
+    padding:2px;
+    display: none;
+}
+.colorPickerButton {
+    background: url("../icons/button/color_picker.png") no-repeat center center;
+    width: 24px;
+    height: 20px;
+    cursor:pointer;
+    float: left;
+}
+.colorPickerButtonGray {
+    background: url("../icons/button/color_picker_disable.png") no-repeat center center;
+    width: 24px;
+    height: 20px;
+    cursor:pointer;
+    float: left;
 }

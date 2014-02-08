@@ -2,7 +2,7 @@
 //                       CHEditor 5
 // ----------------------------------------------------------------
 // Homepage: http://www.chcode.com
-// Copyright (c) 1997-2011 CHSOFT
+// Copyright (c) 1997-2014 CHSOFT
 // ================================================================
 var c = null;
 var curView = null;
@@ -118,7 +118,7 @@ function inputChar() {
 }
 
 function popupClose() {
-    oEditor.popupWinClose();
+    oEditor.popupWinCancel();
 }
 
 function setupEvent() {

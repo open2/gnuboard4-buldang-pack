@@ -2,7 +2,7 @@
 //                       CHEditor 5
 // ----------------------------------------------------------------
 // Homepage: http://www.chcode.com
-// Copyright (c) 1997-2011 CHSOFT
+// Copyright (c) 1997-2014 CHSOFT
 // ================================================================
 var oEditor = null;
 var button = [ { alt : "", img : 'submit.gif', cmd : doSubmit },              
@@ -13,6 +13,8 @@ var colour = ["ffffcc","ffcc66","ff9900","ffcc99","ff6633","ffcccc","cc9999","ff
               "ffff33","cc9900","cc6600","cc6633","ff0000","ff3333","993333","cc3366","cc0066","cc6699","ff33ff","cc33cc","9900cc","9900ff","6633cc","6600ff","666699","3333cc","0000cc","0033ff","6699cc","3399cc","669999","33ffff","00ffcc","339966","33cc66","00ff66","669966","00cc00","33cc00","66cc33","99cc00","cccc99","999933","666666",
               "ffff00","cc9933","996633","993300","cc0000","ff0033","990033","996666","993366","cc0099","ff00ff","990099","996699","660099","663399","330099","333399","000099","0033cc","003399","336699","0099cc","006666","00ffff","33cccc","009966","00cc66","339933","336633","33cc33","339900","669933","99cc33","666633","999900","333333",
               "cccc00","996600","663300","660000","990000","cc0033","330000","663333","660033","990066","cc3399","993399","660066","663366","330033","330066","333366","000066","000033","003366","006699","003333","336666","00cccc","009999","006633","009933","006600","003300","00cc33","009900","336600","669900","333300","666600","000000"];
+var none = '없음';
+var whichColor = null;
 
 function init(dialog) {
 	oEditor = this;
@@ -24,25 +26,24 @@ function init(dialog) {
 }
 
 function popupClose() {
-	oEditor.popupWinClose();
+	oEditor.popupWinCancel();
 }
 
-function drawColor(el)
-{
+function drawColor() {
     var table = document.createElement('table');
     table.cellPadding = 0;
     table.cellSpacing = 0;
     table.border = 0;
+    table.align = 'center';
 	var tr = table.insertRow(0);
 	var td = tr.insertCell(0);
-	td.style.backgroundColor = '#000';
+	td.style.backgroundColor = '#fff';
 
 	var insideTable = document.createElement('table');
 	insideTable.border = 0;
 	insideTable.cellSpacing = 1;
 	insideTable.cellPadding = 0;
 	insideTable.align = 'center';
-    
     var k = 0;
 
     for (var i = 0; i < 6; i++) {
@@ -50,112 +51,251 @@ function drawColor(el)
         for (var j = 0; j < 36; j++) {
             var td2 = tr2.insertCell(j);
             td2.setAttribute('bgColor', '#' + colour[k]);
-            td2.className = el;
-            td2.style.width = '9px';
-            td2.style.height = '9px';
+            td2.className = 'colorCellMouseOut';
             td2.onclick = getColor;
+            td2.appendChild(document.createTextNode('\u00a0'));
+            td2.onmouseover = function() { this.className = 'colorCellMouseOver'; };
+            td2.onmouseout = function() { this.className = 'colorCellMouseOut'; };
             k++;
         }
     }
 
     td.appendChild(insideTable);
-    document.getElementById(el + '_wrapper').appendChild(table);
+    document.getElementById('colorWrapper').appendChild(table);
+}
+
+function setColor(which) {
+    whichColor = which;
 }
 
 function getColor()
 {
     var color = this.bgColor;
-    var input = document.getElementById("id"+this.className);
-    input.style.backgroundColor = input.value = color.toUpperCase();
+    var input = document.getElementById("id"+whichColor);
+    input.style.backgroundColor = input.value = color;
 }
 
 function doSubmit()
 {
-    var rows = parseInt(document.getElementById("numrows").value);
-    if (isNaN(rows))
+    var rows, cols, border, width, height, cellpd, cellsp, bgcolor, align, bordercolor, cssclass, cssid;
+    rows = document.getElementById("numrows").value;
+    rows = parseInt(oEditor.trimSpace(rows));
+    if (isNaN(rows)) {
     	rows = 0;
-    
-    var cols = parseInt(document.getElementById("numcols").value);
-    if (isNaN(cols))
-    	cols = 0;
-    
-    var border  = parseInt(document.getElementById("bordersize").value);
-    if (isNaN(border))
-    	border = 0;
-    
-    var width = document.getElementById("width").value;
-    if (document.getElementById("widthtype").value == 'none')
-    	width = null;
-    else {
-    	width = isNaN(width) ? null : parseInt(width) + document.getElementById("widthtype").value;
     }
-    
-    var height = document.getElementById("height").value;
-    if (document.getElementById("heighttype").value == 'none')
-    	height = null;
-    else {
-    	height = isNaN(height) ? null : height + document.getElementById("heighttype").value;
-    }
-    
-    var cellpd = parseInt(document.getElementById("cellpd").value);
-    if (isNaN(cellpd))
-    	cellpd = 0;
-    
-    var cellsp = parseInt(document.getElementById("cellsp").value);
-    if (isNaN(cellsp))
-    	cellsp = 0;
-    
-    var bgcolor = document.getElementById("idbgcolor").value;
-    bgcolor = oEditor.trimSpace(bgcolor);
-    if (bgcolor == '--' || bgcolor == '')
-    	bgcolor = null;
-    
-    var align = document.getElementById("talign").value;
-    if (align == 'none')
-    	align = null;
-    
-    var bordercolor = document.getElementById("idbordercolor").value;
-    bordercolor = oEditor.trimSpace(bordercolor);
-    if (bordercolor == '')
-    	bordercolor = null;
 
+    cols = document.getElementById("numcols").value;
+    cols = parseInt(oEditor.trimSpace(cols));
+    if (isNaN(cols)) {
+    	cols = 0;
+    }
+        
+    border = document.getElementById("bordersize").value;
+    border = parseInt(oEditor.trimSpace(border));
+    if (isNaN(border)) {
+        border = 0;
+    }
+    
+    width = document.getElementById("width").value;
+    width = parseInt(oEditor.trimSpace(width));
+    if (isNaN(width)) {
+        width = null;
+    }
+    else {
+        width += document.getElementById("widthtype").value;
+    }
+    
+    height = document.getElementById("height").value;
+    height = parseInt(oEditor.trimSpace(height));
+    if (isNaN(height)) {
+    	height = null;
+    }
+    else {
+    	height += document.getElementById("heighttype").value;
+    }
+    
+    cellpd = document.getElementById("cellpd").value;
+    cellpd = parseInt(oEditor.trimSpace(cellpd));
+    if (isNaN(cellpd)) {
+    	cellpd = 0;
+    }
+    
+    cellsp = document.getElementById("cellsp").value;
+    cellsp = parseInt(oEditor.trimSpace(cellsp));
+    if (isNaN(cellsp)) {
+    	cellsp = 0;
+    }
+    
+    bgcolor = document.getElementById("idbgcolor").value;
+    bgcolor = oEditor.trimSpace(bgcolor);
+    if (bgcolor === none || bgcolor === '') {
+    	bgcolor = null;
+    }
+    
+    align = document.getElementById("talign").value;
+    if (align === 'none') {
+    	align = null;
+    }
+    
+    bordercolor = document.getElementById("idbordercolor").value;
+    bordercolor = oEditor.trimSpace(bordercolor);
+    if (bordercolor === '') {
+    	bordercolor = null;
+    }
+
+    cssclass = document.getElementById("cssClass").value;
+    cssclass = oEditor.trimSpace(cssclass);
+    if (cssclass === '') {
+        cssclass = null;
+    }
+    
+    cssid = document.getElementById("cssId").value;
+    cssid = oEditor.trimSpace(cssid);
+    if (cssid === '') {
+        cssid = null;
+    }
+    
     if (rows < 1 || cols < 1) {
-    	alert('테이블 행 또는 열 개수를 바르게 입력하여 주십시오.');
+    	alert('표의 줄 또는 칸 개수가 1개 이상 필요합니다.');
     	return;
     }
     
-    if (rows > 0 && cols > 0) {
-        var table = document.createElement("table");
-        
-        if (border) table.setAttribute("border", border);
-        if (width) 	table.setAttribute("width", width);
-        if (height) table.setAttribute("height", height);
-        if (align) table.setAttribute("align", align);
-        
-        table.style.borderStyle = 'solid';
-        table.setAttribute("cellpadding", cellpd);
-        table.setAttribute("cellspacing", cellsp);
-        table.style.borderCollapse = "collapse";
+    var caption = document.getElementById('tableCaption');
+    var captionValue = oEditor.trimSpace(caption.value);
+    var summary = document.getElementById('tableSummary');
+    var summaryValue = oEditor.trimSpace(summary.value);
+    var header =  document.getElementById('tableHeader').value;
+    var table = document.createElement("table");
 
-        if (bgcolor) table.setAttribute("bgcolor", bgcolor);
-        if (bordercolor) table.setAttribute("bordercolor", bordercolor);
+    var createHeadCell = function(scope) {
+        var cell = document.createElement('th');
+        cell.setAttribute('scope', scope);
+        return cell;
+    };
+    
+    var oHead = document.createElement('thead');
+    var oBody = document.createElement('tbody');
 
-        //var ie = navigator.userAgent.toLowerCase().indexOf("msie") != -1;
-        //var tdWidth = (cols > 1) ? parseInt(100 / cols) : null; 
-
-        for (var i=0; i < rows; i++) {
-            var tr = table.insertRow(i);
-            for (var j=0; j < cols; j++) {
-                var td = tr.insertCell(j);
-                /*if (tdWidth)
-                	td.setAttribute("width", tdWidth + "%");*/
-                td.innerHTML = '&nbsp;';
-                tr.appendChild(td);
-            }
+    if (border) {
+        if (bordercolor) {
+            table.style.borderColor = oEditor.colorConvert(bordercolor, 'rgb');
         }
-        
-       	oEditor.insertHtmlPopup(table.cloneNode(true));
+        table.style.borderStyle = 'solid';
+        table.style.borderWidth = border + 'px';
     }
     
-    popupClose();
+    table.style.borderCollapse = "collapse";
+    
+    for (var i=0; i < rows; i++) {
+        var row;
+        var tr = document.createElement('tr');
+        if ((header == 'col' || header == 'all') && i==0) {
+            row = oHead.appendChild(tr);
+        }
+        else {
+            row = oBody.appendChild(tr);
+        }
+
+        for (var j=0; j < cols; j++) {
+            var cell;
+            if (header == 'col' && i==0) {
+                cell = createHeadCell('col');
+            }
+            else if (header == 'all') {
+                if (j == 0) {
+                    cell = createHeadCell('row');
+                }
+                else if (i == 0 && j > 0) {
+                    cell = createHeadCell('col');
+                }
+                else {
+                    cell = document.createElement('td');
+                }
+            }
+            else if (header == 'row' && j == 0) {
+                cell = createHeadCell('row');
+            }
+            else {
+                cell = document.createElement('td');
+            }
+
+            if (border) {
+                cell.style.borderStyle = 'solid';
+                cell.style.borderWidth = table.style.borderWidth;
+                cell.style.borderColor = table.style.borderColor;
+            }
+            cell.appendChild(document.createTextNode('\u00a0'));
+            row.appendChild(cell);
+        }
+    }
+
+    if (oHead.hasChildNodes()) {
+        table.appendChild(oHead);
+    }
+   
+    table.appendChild(oBody);
+    
+    if (summaryValue !== '') table.setAttribute('summary', summaryValue);
+    if (width) 	table.setAttribute("width", width);
+    if (height) table.setAttribute("height", height);
+    if (align) table.setAttribute("align", align);
+    if (bgcolor) table.setAttribute("bgcolor", bgcolor);
+
+    table.setAttribute("cellpadding", cellpd);
+    table.setAttribute("cellspacing", cellsp);
+
+    if (captionValue !== '') {
+        var hideCaption, tableCaption;
+        tableCaption = table.createCaption();
+        tableCaption.appendChild(document.createTextNode(captionValue));
+        
+        hideCaption = document.getElementById('hideCaption');
+        if (hideCaption.checked === true) {
+            tableCaption.style.visibility = 'hidden';
+            tableCaption.style.overFlow = 'hidden';
+            tableCaption.style.lineHeight = '0px';
+            tableCaption.style.position = 'absolute';
+            tableCaption.style.display = 'none';
+        }
+    }
+
+    table.id = oEditor.makeRandomString();
+    oEditor.insertHtmlPopup(table.outerHTML);
+    var newTable = oEditor._$(table.id);
+    
+    var p = document.createElement('p');
+    p.appendChild(document.createTextNode('\u00a0'));
+    if (newTable.parentNode.nodeName.toLowerCase() === 'body') {
+        oEditor.doc.body.insertBefore(p, newTable);
+        oEditor.doc.body.insertBefore(newTable, p);
+        oEditor.doc.body.insertBefore(p.cloneNode(true), newTable);
+    }
+    
+    newTable.removeAttribute('id');
+    
+    if (cssclass) newTable.className = cssclass;
+    if (cssid) newTable.id = cssid;
+    
+    var focusCell = newTable.getElementsByTagName('th')[0];
+    if (typeof focusCell === 'undefined') {
+        focusCell = newTable.getElementsByTagName('td')[0];
+    }
+    
+    if (oEditor.getBrowser().msie) {
+        var cursor = oEditor.doc.body.createTextRange();
+        cursor.moveToElementText(focusCell);
+        cursor.collapse(false);
+        cursor.select();
+        oEditor.setRange(oEditor.getRange());        
+    }
+    else {
+        var selection = oEditor.getSelection();
+        var range = oEditor.getRange();
+        range.selectNodeContents(focusCell);
+        range.collapse(false);
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
+
+    oEditor.popupWinClose();
 }

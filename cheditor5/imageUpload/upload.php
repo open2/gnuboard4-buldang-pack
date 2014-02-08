@@ -2,8 +2,8 @@
 // ---------------------------------------------------------------------------
 //                              CHXImage
 //
-// ì´ ì½”ë“œëŠ” ë°ëª¨ë¥¼ ìœ„í•´ì„œ ì œê³µë©ë‹ˆë‹¤.
-// í™˜ê²½ì— ë§ê²Œ ìˆ˜ì • ë˜ëŠ” ì°¸ê³ í•˜ì—¬ ì‚¬ìš©í•´ ì£¼ì‹­ì‹œì˜¤.
+// ÀÌ ÄÚµå´Â µ¥¸ğ¸¦ À§ÇØ¼­ Á¦°øµË´Ï´Ù.
+// È¯°æ¿¡ ¸Â°Ô ¼öÁ¤ ¶Ç´Â Âü°íÇÏ¿© »ç¿ëÇØ ÁÖ½Ê½Ã¿À.
 //
 // ---------------------------------------------------------------------------
 
@@ -15,12 +15,10 @@ require_once("config.php");
 $tempfile = $_FILES['file']['tmp_name'];
 $filename = $_FILES['file']['name'];
 
-//if (preg_match("/\.(php|htm|inc)/i", $filename)) die("-ERR: File Format");
-
-// demo.html íŒŒì¼ì—ì„œ ì„¤ì •í•œ SESSID ê°’ì…ë‹ˆë‹¤.
+// demo.html ÆÄÀÏ¿¡¼­ ¼³Á¤ÇÑ SESSID °ªÀÔ´Ï´Ù.
 //$sessid   = $_POST['sessid'];
 
-// ì €ì¥ íŒŒì¼ ì´ë¦„
+// ÀúÀå ÆÄÀÏ ÀÌ¸§
 // $savefile = SAVE_DIR . '/' . $_FILES['file']['name'];
 
 $pos = strrpos($filename, '.');
@@ -52,13 +50,13 @@ if (!$imgsize) {
 	$random_name = '-ERR';
 	unlink($savefile);
 } else {
-  // image typeì´ 1ë³´ë‹¤ ì‘ê±°ë‚˜ 16 ë³´ë‹¤ í¬ë©´ ì˜¤ë¥˜ë¥¼
+  // image typeÀÌ 1º¸´Ù ÀÛ°Å³ª 16 º¸´Ù Å©¸é ¿À·ù¸¦
   if ($imgsize[2] < 1 || $imgsize[2] > 16)
   {
     die("-ERR: File Format!");
   }
 
-  // ì˜¬ë¼ê°„ íŒŒì¼ì˜ í¼ë¯¸ì…˜ì„ ë³€ê²½í•©ë‹ˆë‹¤.
+  // ¿Ã¶ó°£ ÆÄÀÏÀÇ ÆÛ¹Ì¼ÇÀ» º¯°æÇÕ´Ï´Ù.
   chmod($savefile, 0606);
 }
 
@@ -73,7 +71,7 @@ $rdata = sprintf( "{ fileUrl: '%s/%s', filePath: '%s/%s', origName: '%s', fileNa
 
 echo $rdata;
 
-// ë¶ˆë‹¹íŒ© - ì˜¬ë¼ê°€ëŠ” ëª¨ë“  image íŒŒì¼ì„ ì²´í¬, ê²Œì‹œíŒì— ì˜¬ë¼ê°€ëŠ”ê±°ë§Œ ì²˜ë¦¬.
+// ºÒ´çÆÑ - ¿Ã¶ó°¡´Â ¸ğµç image ÆÄÀÏÀ» Ã¼Å©, °Ô½ÃÆÇ¿¡ ¿Ã¶ó°¡´Â°Å¸¸ Ã³¸®.
 if ($bo_table !== "") {
     $bc_url = SAVE_URL . "/" . $random_name;
     $sql = " insert into $g4[board_cheditor_table]

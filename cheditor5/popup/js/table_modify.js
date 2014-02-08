@@ -2,7 +2,7 @@
 //                       CHEditor 5
 // ----------------------------------------------------------------
 // Homepage: http://www.chcode.com
-// Copyright (c) 1997-2011 CHSOFT
+// Copyright (c) 1997-2014 CHSOFT
 // ================================================================
 var oEditor = null;
 var button = [ { alt : "", img : 'submit.gif', cmd : doSubmit },              
@@ -14,8 +14,10 @@ var colour = ["ffffcc","ffcc66","ff9900","ffcc99","ff6633","ffcccc","cc9999","ff
               "ffff00","cc9933","996633","993300","cc0000","ff0033","990033","996666","993366","cc0099","ff00ff","990099","996699","660099","663399","330099","333399","000099","0033cc","003399","336699","0099cc","006666","00ffff","33cccc","009966","00cc66","339933","336633","33cc33","339900","669933","99cc33","666633","999900","333333",
               "cccc00","996600","663300","660000","990000","cc0033","330000","663333","660033","990066","cc3399","993399","660066","663366","330033","330066","333366","000066","000033","003366","006699","003333","336666","00cccc","009999","006633","009933","006600","003300","00cc33","009900","336600","669900","333300","666600","000000"];
 
-var modifyTable = null;
-	
+var none = '없음';
+var modifyTable;
+var beforeHeaderType;
+
 function init(dialog) {
 	oEditor = this;
 	oEditor.dialog = dialog;
@@ -23,13 +25,17 @@ function init(dialog) {
 	var dlg = new Dialog(oEditor);
 	dlg.showButton(button);
 	dlg.setDialogHeight();
-	
-  	var rng = oEditor.range;
+
+  	var rng = oEditor.range, table;
   	var selectionType = oEditor.getSelectionType(rng);
 
   	if (!oEditor.getBrowser().msie) {
-  		var table = rng.startContainer;
-  		if (selectionType == 3 && table.nodeName != 'TABLE' && table.nodeName != 'TD') {
+  		table = rng.startContainer;
+  		if (selectionType == 3 && 
+                table.nodeName.toLowerCase() !== 'table' && 
+                table.nodeName.toLowerCase() !== 'td' &&
+                table.nodeName.toLowerCase() !== 'th') 
+        {
   			isError();
   			return;
   		}
@@ -37,7 +43,7 @@ function init(dialog) {
   	else {
   		if (rng.item) {
   			table = rng.item(0);
-  			if (table.nodeName != 'TABLE') {
+  			if (table.nodeName.toLowerCase() !== 'table') {
   				isError();
   				return;
   			}
@@ -46,114 +52,223 @@ function init(dialog) {
   			table = rng.parentElement();
   	}
 	
-  	while (table && table.nodeName != 'TABLE')
+  	while (table && table.nodeName.toLowerCase() !== 'table')
   		table = table.parentNode;
   	
-  	if (table.nodeName != 'TABLE') {
+  	if (table.nodeName.toLowerCase() !== 'table') {
   		isError();
   		return;
   	}
-  		
-  	modifyTable = table;
-  	
-    var border  = table.getAttribute('border');
-    if (isNaN(border)) border = 0;
-    document.getElementById("bordersize").value = border ? border : 0;
+
+    modifyTable = table;
     
-    var el_size = table.getAttribute('width');
-    var fm_size = document.getElementById("width");
-    var el_type = 'none';
-    var fm_type = document.getElementById("widthtype");
+    var border, el_size, fm_size, el_type, fm_type, cellpd, cellsp, bgcolor, idbgcolor,
+        bordercolor, idbordercolor, captionValue, summaryValue, caption, captionInput, summary;
     
-    if (el_size != null) {
-    	el_type = (/\%$/.test(el_size)) ? '%' : 'px';
+    border = modifyTable.getAttribute('border');
+    if (!border || isNaN(border)) {
+        border = parseInt(modifyTable.style.borderWidth);
+        if (!border) {
+            border = 0;
+        }
+    }
+    document.getElementById("bordersize").value = border;
+    
+    if (modifyTable.className != '') {
+        document.getElementById('cssClass').value = modifyTable.className;
+    }
+    if (modifyTable.id != '') {
+        document.getElementById('cssId').value = modifyTable.id;
+    }
+    
+    el_size = modifyTable.getAttribute('width');
+    if (!el_size) {
+        el_size = modifyTable.style.width;
+    }
+    
+    fm_size = document.getElementById("width");
+    el_type = 'px';
+    fm_type = document.getElementById("widthtype");
+    
+    if (el_size) {
+    	el_type = (/%$/.test(el_size)) ? '%' : 'px';
     	el_size = parseInt(el_size);
-    	if (isNaN(el_size)) el_size = 0;
+    	if (isNaN(el_size)) {
+            el_size = '';
+        }
     }
     else {
-    	el_size = 0;
+    	el_size = '';
     }
 
     fm_size.value = el_size;
     fm_type.value = el_type;
     
-    el_size = table.getAttribute('height');
+    el_size = modifyTable.getAttribute('height');
+    if (!el_size) {
+        el_size = modifyTable.style.height;
+    }
     fm_size = document.getElementById("height");
-    el_type = 'none';
+    el_type = 'px';
     fm_type = document.getElementById("heighttype");
     
-    if (el_size != null) {
+    if (el_size) {
     	el_type = (/\%$/.test(el_size)) ? '%' : 'px';
     	el_size = parseInt(el_size);
-    	if (isNaN(el_size)) el_size = 0;
+    	if (isNaN(el_size)) {
+            el_size = '';
+        }
     }
     else {
-    	el_size = 0;
+    	el_size = '';
     }
 
     fm_size.value = el_size;
     fm_type.value = el_type;
     
-    fm_type = table.getAttribute('align');
-    if (fm_type == null) fm_type = 'none';
+    fm_type = modifyTable.getAttribute('align');
+    if (!fm_type) {
+        fm_type = 'none';
+    }
 	document.getElementById("talign").value = fm_type;
 	
-	
-    var cellpd = table.getAttribute('cellpadding');
-    if (isNaN(cellpd)) cellpd = 0;
+    cellpd = modifyTable.getAttribute('cellpadding');
+    if (isNaN(cellpd)) {
+        cellpd = 0;
+    }
     document.getElementById("cellpd").value = cellpd ? cellpd : 0;
     
-    var cellsp = table.getAttribute('cellspacing');
-    if (isNaN(cellsp)) cellsp = 0;
+    cellsp = modifyTable.getAttribute('cellspacing');
+    if (isNaN(cellsp)) {
+        cellsp = 0;
+    }
     document.getElementById("cellsp").value = cellsp ? cellsp : 0;
     
-    var bgcolor = table.getAttribute('bgcolor');
-    var idbgcolor = document.getElementById("idbgcolor");
+    bgcolor = modifyTable.getAttribute('bgcolor');
+    idbgcolor = document.getElementById("idbgcolor");
     if (bgcolor) {
-        idbgcolor.value = bgcolor.toUpperCase();
+        if (/rgb/.test(bgcolor)) {
+            bgcolor = oEditor.colorConvert(bgcolor, 'hex');
+        }        
+        idbgcolor.value = bgcolor.toLowerCase();
         idbgcolor.style.backgroundColor = idbgcolor.value;
     }
     else {
-    	idbgcolor.value = '--';
+    	idbgcolor.value = none;
     }
-    	    
 
-    var bordercolor = table.getAttribute('bordercolor');
-    var idbordercolor = document.getElementById("idbordercolor");
+    bordercolor = modifyTable.getAttribute('bordercolor');
+    if (!bordercolor) {
+        bordercolor = modifyTable.style.borderColor;
+        if (bordercolor) {
+            bordercolor = oEditor.colorConvert(bordercolor, 'hex');
+        }
+        else {
+            bordercolor = null;
+        }
+    }
+    
+    idbordercolor = document.getElementById("idbordercolor");
     if (bordercolor) {
-    	idbordercolor.value = bordercolor.toUpperCase();
+        if (/rgb/.test(bordercolor)) {
+            bordercolor = oEditor.colorConvert(bordercolor, 'hex');
+        }        
+    	idbordercolor.value = bordercolor.toLowerCase();
     	idbordercolor.style.backgroundColor = idbordercolor.value;
     }
     else {
-    	idbordercolor.value = '--';
+    	idbordercolor.value = none;
     }
+
+    caption = modifyTable.getElementsByTagName('caption')[0];
+    if (caption) {
+        captionValue = oEditor.trimSpace(caption.innerHTML);
+        if (captionValue !== '') {
+            captionInput = document.getElementById('tableCaption');
+            captionInput.value = captionValue;
+            
+            if (caption.style.visibility === 'hidden') {
+                document.getElementById('hideCaption').checked = 'checked';
+            }            
+        }
+    }
+    
+    summaryValue = modifyTable.getAttribute('summary');
+    if (summaryValue) {
+        summaryValue = oEditor.trimSpace(summaryValue);
+        if (summaryValue !== '') {
+            summary = document.getElementById('tableSummary');
+            summary.value = summaryValue;
+        }
+    }
+    
+    var tableHeader, rows, i, j, cells, headCol, headRow, rowLength, rowCellLength, cellLength, header, headTagName;
+    headCol = headRow = null;
+    headTagName = 'th';
+    
+    tableHeader = document.getElementById('tableHeader');
+    rows = (modifyTable.rows && modifyTable.rows.length > 0) ? modifyTable.rows : modifyTable.getElementsByTagName('tr');
+    rowLength = rows.length;
+    
+    document.getElementById('numrows').appendChild(document.createTextNode(rowLength));
+    
+    if (rowLength > 0) {
+        cells = rows[0].cells;
+        cellLength = cells.length;
+        if (cellLength > 0) {
+            for (j=0; j < cellLength; j++) {
+                if (cells[j].tagName.toLowerCase() === headTagName) {
+                    headCol = 'col';
+                }
+                else {
+                    headCol = null;
+                    break;
+                }
+            }
+        }
+        
+        rowCellLength = 0;
+        for (i=0; i < rowLength; i++) {
+            headRow = (rows[i].cells[0] && rows[i].cells[0].tagName.toLowerCase() === headTagName) ? 'row' : null;
+            if (rowCellLength < rows[i].cells.length) {
+                rowCellLength = rows[i].cells.length;
+            }
+        }
+        
+        if (headRow && headCol && cellLength === 1) {
+            headCol = null;
+        }
+        document.getElementById('numcols').appendChild(document.createTextNode(rowCellLength));
+    }
+    
+    header = (headCol && headRow) ? 'all' : headCol || headRow || 'none';
+    tableHeader.value = beforeHeaderType = header;
 }
 
 function isError() {
-	alert('수정하실 테이블을 선택하십시오.');
+	alert('표 정보를 얻을 수 없습니다. 수정하실 표을 다시 한 번 선택해 주십시오.');
 	popupClose();
 }
 
 function popupClose() {
-	oEditor.popupWinClose();
+	oEditor.popupWinCancel();
 }
 
-function drawColor(el)
-{
+function drawColor() {
     var table = document.createElement('table');
     table.cellPadding = 0;
     table.cellSpacing = 0;
     table.border = 0;
+    table.align = 'center';
 	var tr = table.insertRow(0);
 	var td = tr.insertCell(0);
-	td.style.backgroundColor = '#000';
+	td.style.backgroundColor = '#fff';
 
 	var insideTable = document.createElement('table');
 	insideTable.border = 0;
 	insideTable.cellSpacing = 1;
 	insideTable.cellPadding = 0;
 	insideTable.align = 'center';
-    
     var k = 0;
 
     for (var i = 0; i < 6; i++) {
@@ -161,76 +276,341 @@ function drawColor(el)
         for (var j = 0; j < 36; j++) {
             var td2 = tr2.insertCell(j);
             td2.setAttribute('bgColor', '#' + colour[k]);
-            td2.className = el;
-            td2.style.width = '9px';
-            td2.style.height = '9px';
+            td2.className = 'colorCellMouseOut';
             td2.onclick = getColor;
+            td2.appendChild(document.createTextNode('\u00a0'));
+            td2.onmouseover = function() { this.className = 'colorCellMouseOver'; };
+            td2.onmouseout = function() { this.className = 'colorCellMouseOut'; };
             k++;
         }
     }
 
     td.appendChild(insideTable);
-    document.getElementById(el + '_wrapper').appendChild(table);
+    document.getElementById('colorWrapper').appendChild(table);
+}
+
+function setColor(which) {
+    whichColor = which;
 }
 
 function getColor()
 {
     var color = this.bgColor;
-    var input = document.getElementById("id"+this.className);
-    input.style.backgroundColor = input.value = color.toUpperCase();
+    var input = document.getElementById("id"+whichColor);
+    input.style.backgroundColor = input.value = color;
 }
 
 function doSubmit()
 {
-    var border  = parseInt(document.getElementById("bordersize").value);
-    if (isNaN(border)) border = 0;
-    modifyTable.removeAttribute('border');
-    if (border) modifyTable.setAttribute('border', border);
-    
-    var width = document.getElementById("width").value;
-    if (document.getElementById("widthtype").value == 'none')
-    	width = null;
-    else {
-    	width = isNaN(width) ? null : parseInt(width) + document.getElementById("widthtype").value;
+    var width, widthValue;
+    width = document.getElementById("width");
+    if (width) {
+        widthValue = parseInt(oEditor.trimSpace(width.value));
+        if (isNaN(widthValue)) {
+            widthValue = null;
+        }
+        else {
+            widthValue += document.getElementById("widthtype").value;
+            modifyTable.removeAttribute('width');
+            modifyTable.style.width = widthValue;            
+        }
+    }
+
+    var height, heightValue;
+    height = document.getElementById("height");
+    if (height) {
+        heightValue = parseInt(oEditor.trimSpace(height.value));
+        if (isNaN(heightValue)) {
+            heightValue = null;
+        }
+        else {
+            heightValue += document.getElementById("heighttype").value;
+            modifyTable.removeAttribute('height');
+            modifyTable.style.height = heightValue;
+        }
+    }
+
+    var cellpadding, cellpaddingValue;
+    cellpadding = document.getElementById("cellpd");
+    if (cellpadding) {
+        cellpaddingValue = oEditor.trimSpace(cellpadding.value);
+        if (!cellpaddingValue || isNaN(cellpaddingValue)) {
+            cellpaddingValue = 0;
+        }
+        else {
+            cellpaddingValue = parseInt(cellpaddingValue);
+        }
+        modifyTable.setAttribute('cellpadding', cellpaddingValue);
+    }
+
+    var cellspacing, cellspacingValue;
+    cellspacing = document.getElementById("cellsp");
+    if (cellspacing) {
+        cellspacingValue = oEditor.trimSpace(cellspacing.value);
+        if (!cellspacingValue || isNaN(cellspacingValue)) {
+            cellspacingValue = 0;
+        }
+        else {
+            cellspacingValue = parseInt(cellspacingValue);
+        }
+         modifyTable.setAttribute('cellspacing', cellspacingValue);
+    }
+   
+    var bgcolor, bgcolorValue;
+    bgcolor = document.getElementById("idbgcolor");
+    if (bgcolor) {
+        bgcolorValue = oEditor.trimSpace(bgcolor.value);
+        if (bgcolorValue !== '' && bgcolorValue !== none) {
+            modifyTable.removeAttribute('bgcolor');
+            modifyTable.setAttribute('bgcolor', bgcolorValue);
+        }
     }
     
-    modifyTable.removeAttribute('width');
-    if (width) modifyTable.setAttribute('width', width);
-    
-    var height = document.getElementById("height").value;
-    if (document.getElementById("heighttype").value == 'none')
-    	height = null;
+    var align, alignValue;
+    align = document.getElementById("talign");
+    if (align) {
+        alignValue = align.value;
+        if (alignValue !== 'none') {
+            modifyTable.removeAttribute('align');
+            modifyTable.setAttribute('align', alignValue);
+        }
+    }
+
+    var cssclass, cssclassValue, cssid, cssidValue;
+    cssclass = document.getElementById('cssClass');
+    cssclassValue = oEditor.trimSpace(cssclass.value);
+    if (cssclassValue !== '') {
+        modifyTable.className = cssclassValue;
+    }
     else {
-    	height = isNaN(height) ? null : height + document.getElementById("heighttype").value;
+        modifyTable.removeAttribute('class');
     }
     
-    modifyTable.removeAttribute('height');
-    if (height) modifyTable.setAttribute('height', height);
+    cssid = document.getElementById('cssId');
+    cssidValue = oEditor.trimSpace(cssid.value);
+    if (cssidValue !== '') {
+        modifyTable.id = cssidValue;
+    }
+    else {
+        modifyTable.removeAttribute('id');
+    }
     
-    var cellpd = parseInt(document.getElementById("cellpd").value);
-    if (isNaN(cellpd)) cellpd = 0;
-    modifyTable.setAttribute('cellpadding', cellpd);
+    var caption = document.getElementById('tableCaption');
+    var captionValue = oEditor.trimSpace(caption.value);
+    var summary = document.getElementById('tableSummary');
+    var summaryValue = oEditor.trimSpace(summary.value);
+
+    if (summaryValue !== '') {
+        modifyTable.setAttribute('summary', summaryValue);
+    }
+    if (captionValue !== '') {
+        var hideCaption, tableCaption;
+        tableCaption = modifyTable.createCaption();
+        tableCaption.innerHTML = captionValue;
+        
+        hideCaption = document.getElementById('hideCaption');
+        if (hideCaption.checked === true) {
+            tableCaption.style.visibility = 'hidden';
+            tableCaption.style.overFlow = 'hidden';
+            tableCaption.style.lineHeight = '0px';
+            tableCaption.style.position = 'absolute';
+            tableCaption.style.display = 'none';
+        }
+        else {
+            tableCaption.removeAttribute('style');
+        }
+    }
+    else {
+        var oCaption = modifyTable.getElementsByTagName('caption')[0];
+        if (oCaption) {
+            modifyTable.removeChild(oCaption);
+        }
+    }
+ 
+    var copyAttribute = function(target, source) {
+        var attr, i, attrValue, nodeName;
+        attr = source.attributes;
+        for (i=0; i<attr.length; i++) {
+            nodeName = attr[i].nodeName;
+            if (nodeName === 'style') {
+                attrValue = source.getAttribute(nodeName);
+                target.style.cssText = (typeof attrValue.cssText !== 'undefined') ? attrValue.cssText : attrValue;
+            }
+            else if (nodeName === 'class' || nodeName === 'id' || nodeName === 'nowrap' || nodeName === 'colspan' || 
+                      nodeName === 'rowspan' || nodeName === 'align') 
+            {
+                attrValue = source.getAttribute(nodeName);
+                if (attrValue) {
+                    target.setAttribute(nodeName, attrValue);
+                }
+            }
+        }
+    };
     
-    var cellsp = parseInt(document.getElementById("cellsp").value);
-    if (isNaN(cellsp)) cellsp = 0;
-    modifyTable.setAttribute('cellspacing', cellsp);
+    var copyChildNodes = function (target, source) {
+        var child;
+        child = source.firstChild;
+        while (child) {
+            target.appendChild(child);
+            child = source.firstChild;
+        }        
+    };
     
-    var bgcolor = document.getElementById("idbgcolor").value;
-    bgcolor = oEditor.trimSpace(bgcolor);
-    if (bgcolor == '' || bgcolor == '--') bgcolor = null;
-    modifyTable.removeAttribute('bgcolor');
-    if (bgcolor) modifyTable.setAttribute('bgcolor', bgcolor);
+    var tableHeader;
+    tableHeader = document.getElementById('tableHeader').value;
     
-    var align = document.getElementById("talign").value;
-    if (align == 'none') align = null;
-    modifyTable.removeAttribute('align');
-    if (align) modifyTable.setAttribute('align', align);
+    var replaceCol = function (rows, newTagName) {
+        var i, j, cellLength, newCell, oldCell, newCells=[], oHead, row;
+
+        row = rows[0];
+        cellLength = row.cells.length;
+        
+        for (i=0; i < cellLength; i++) {
+            oldCell = row.cells[i];
+            newCell = document.createElement(newTagName);
+            copyAttribute(newCell, oldCell);
+            copyChildNodes(newCell, oldCell);
+            
+            if (newTagName === 'th') {
+                newCell.setAttribute('scope', 'col');
+            }
+            else {
+                newCell.removeAttribute('scope');
+            }
+            
+            newCells.push(newCell);
+        }
+
+        j = cellLength-1;
+        for (; j >= 0; j--) {
+            row.deleteCell(j);
+        }
+
+        for (j=0; j < newCells.length; j++) {
+            row.appendChild(newCells[j]);
+        }
+
+        var oHead;
+        if (newTagName === 'th') {
+            oHead = modifyTable.getElementsByTagName('thead')[0];
+            if (!oHead) {
+                oHead = document.createElement('thead');
+                modifyTable.insertBefore(oHead, modifyTable.firstChild);
+                oHead.appendChild(row);
+            }
+        }
+        else if (row.parentNode.nodeName.toLowerCase() === 'thead') {
+            oHead = row.parentNode;
+            if (rows[1]) {
+                rows[1].parentNode.insertBefore(row, rows[1]);
+            }
+            else {
+                modifyTable.insertBefore(row, oHead);
+            }
+            modifyTable.removeChild(oHead);
+        }
+    };
     
-    var bordercolor = document.getElementById("idbordercolor").value;
-    bordercolor = oEditor.trimSpace(bordercolor);
-    if (bordercolor == ''|| bordercolor == '--') bordercolor = null;
-    modifyTable.removeAttribute('bordercolor');
-    if (bordercolor) modifyTable.setAttribute('bordercolor', bordercolor);
+    var replaceRow = function (rows, newTagName) {
+        var len, newCell;
+        len = rows.length;
+        for (i=0; i < len; i++) {
+            row = rows[i];
+            sourceCell = row.cells[0];
+            newCell = document.createElement(newTagName);
+            
+            if (newTagName === 'th') {
+                newCell.setAttribute('scope', 'row');
+            }
+            else {
+                sourceCell.removeAttribute('scope');
+            }
+            
+            row.insertBefore(newCell, sourceCell);
+            copyAttribute(newCell, sourceCell);
+            copyChildNodes(newCell, sourceCell);            
+            row.deleteCell(1);
+        }
+    };
     
-    popupClose();
+    if (beforeHeaderType !== tableHeader) {
+        var rows, rowLength, sourceCell;
+        rows = (modifyTable.rows && modifyTable.rows.length > 0) ? 
+                    modifyTable.rows : 
+                        modifyTable.getElementsByTagName('tr');
+        rowLength = rows.length;
+        
+        if (tableHeader === 'col') {
+            replaceRow(rows, 'td');            
+            replaceCol(rows, 'th');
+        }
+        else if (tableHeader === 'row') {
+            replaceCol(rows, 'td');
+            replaceRow(rows, 'th');
+        }
+        else if (tableHeader === 'all') {
+            replaceCol(rows, 'th');
+            replaceRow(rows, 'th');
+        }
+        else if (tableHeader === 'none') {
+            replaceCol(rows, 'td');
+            replaceRow(rows, 'td');
+        }
+        
+        var oCaption = modifyTable.getElementsByTagName('caption')[0];
+        if (oCaption && oCaption !== modifyTable.firstChild) {
+            modifyTable.insertBefore(oCaption, modifyTable.firstChild);
+        }
+    }
+
+    var border, borderValue;
+    border  = document.getElementById("bordersize");
+    if (border) {
+        borderValue = oEditor.trimSpace(border.value);
+        if (isNaN(borderValue) === false) {
+            var borderColor, borderColorValue, rows, row, rowLength, i, j, cellLength, cell;
+            borderValue = parseInt(borderValue);
+            rows = (modifyTable.rows && modifyTable.rows.length > 0) ? 
+                        modifyTable.rows : 
+                            modifyTable.getElementsByTagName('tr');            
+                    
+            if (borderValue) {
+                borderColor = document.getElementById("idbordercolor");
+                if (borderColor) {
+                    borderColorValue = oEditor.trimSpace(borderColor.value);
+                }
+                if (!borderColorValue || borderColorValue === none) {
+                    borderColorValue = '#000000';
+                }
+                    
+                borderColorValue = oEditor.colorConvert(borderColorValue, 'rgb');
+                
+                modifyTable.style.border = borderValue + 'px solid ' + borderColorValue;
+                modifyTable.style.borderCollapse = "collapse";
+                modifyTable.removeAttribute('border');
+                
+                for (i=0; i < rows.length; i++) {
+                    row = rows[i];
+                    for (j=0; j < row.cells.length; j++) {
+                        cell = row.cells[j];
+                        cell.style.border = borderValue + 'px solid ' + borderColorValue;
+                    }
+                }
+            }
+            else if (borderValue == 0) {
+                modifyTable.removeAttribute('border');
+                modifyTable.style.border = '';
+                modifyTable.style.borderCollapse = '';
+                for (i=0; i < rows.length; i++) {
+                    row = rows[i];
+                    for (j=0; j < row.cells.length; j++) {
+                        cell = row.cells[j];
+                        cell.style.border = '';
+                    }
+                }                
+            }
+        }
+    }
+    
+    oEditor.popupWinClose();
 }

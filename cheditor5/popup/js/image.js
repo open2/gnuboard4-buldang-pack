@@ -2,7 +2,7 @@
 //                       CHEditor 5
 // ----------------------------------------------------------------
 // Homepage: http://www.chcode.com
-// Copyright (c) 1997-2012 CHSOFT
+// Copyright (c) 1997-2014 CHSOFT
 // ================================================================
 var operaBrowser = false;
 if (navigator.userAgent.indexOf('Opera') >= 0)
@@ -16,7 +16,6 @@ var DeleteScript = "";
 
 var AppID = "CHXImage";
 var AppSRC = "";
-
 var activeImage = false;
 var readyToMove = false;
 var moveTimer = -1;
@@ -108,7 +107,7 @@ function createInsertionMaker() {
 
 function popupClose() {
 // ----------------------------------------------------------------------------------
-   	oEditor.popupWinClose();
+   	oEditor.popupWinCancel();
 }
 
 function showContents() {
@@ -259,7 +258,7 @@ function uploadComplete(fileData) {
 	fileData = fileData.replace(/^\s+/g, '').replace(/\s+$/g, '');
 	if (/^-ERR/.test(fileData)) {
 		alert(fileData);
-		popupClose();
+		oEditor.popupWinClose();
 	}
 
 	if (imageCompleted >= uploadMaxNumber)
@@ -488,31 +487,35 @@ function cancelEvent() {
 function getTopPos(inputObj) {		
 // ----------------------------------------------------------------------------------
 	var returnValue = inputObj.offsetTop;
-  	while ((inputObj = inputObj.offsetParent) != null) {
+    
+    inputObj = inputObj.offsetParent;
+  	while (inputObj) {
 	  	if (inputObj.tagName != 'HTML') {
 	  		returnValue += (inputObj.offsetTop - inputObj.scrollTop);
 			if (MSIE)
 				returnValue+=inputObj.clientTop;
 	  	}
-	} 
-
+        inputObj = inputObj.offsetParent;
+	}
 	return returnValue;
 }
 
 function getLeftPos(inputObj) {	  
 // ----------------------------------------------------------------------------------
 	var returnValue = inputObj.offsetLeft;
-  	while ((inputObj = inputObj.offsetParent) != null) {
+    
+    inputObj = inputObj.offsetParent;
+  	while (inputObj) {
 	  	if (inputObj.id != 'imageListWrapper') {
 	  		returnValue += inputObj.offsetLeft;
 			if (MSIE)
 				returnValue+=inputObj.clientLeft;
 	  	}
+        inputObj = inputObj.offsetParent;
 	}
-
 	return returnValue;
 }
-		
+
 function selectImage(e) {
 // ----------------------------------------------------------------------------------
 	if (MSIE)
@@ -844,5 +847,5 @@ function doSubmit() {
 	if (imageArray.length > 0)
 		oEditor.doInsertImage(imageArray);
 
-	popupClose();
+	oEditor.popupWinClose();
 }

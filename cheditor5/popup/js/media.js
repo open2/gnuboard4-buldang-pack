@@ -2,7 +2,7 @@
 //                       CHEditor 5
 // ----------------------------------------------------------------
 // Homepage: http://www.chcode.com
-// Copyright (c) 1997-2011 CHSOFT
+// Copyright (c) 1997-2014 CHSOFT
 // ================================================================
 var button = [
 	{ alt : "", img : 'play.gif', cmd : play },
@@ -38,9 +38,9 @@ function doSubmit()
     var file = document.getElementById("fm_linkurl");
     var media = "<embed src='"+file.value+"' autostart='true' loop='true'></embed>";
     oEditor.insertHtmlPopup(media);
-    popupClose();
+    oEditor.popupWinClose();
 }
 
 function popupClose() {
-    oEditor.popupWinClose();
+    oEditor.popupWinCancel();
 }

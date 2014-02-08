@@ -2,7 +2,7 @@
 //                       CHEditor 5
 // ----------------------------------------------------------------
 // Homepage: http://www.chcode.com
-// Copyright (c) 1997-2011 CHSOFT
+// Copyright (c) 1997-2014 CHSOFT
 // ================================================================
 var button = [
 	{ alt : "", img : 'play.gif', cmd : doPlay },              
@@ -11,6 +11,7 @@ var button = [
 ];
 
 var oEditor = null;
+var iframeSource = false;
 
 function init(dialog) {
 	oEditor = this;
@@ -25,11 +26,19 @@ function init(dialog) {
 function doPlay()
 {
     var elem = oEditor.trimSpace(document.getElementById("fm_embed").value);
+    elem = oEditor.trimSpace(elem);
+    if (elem == '') return;
+    
+    if (elem.toLowerCase().indexOf("iframe") !== -1) {
+        document.getElementById('fm_player').innerHTML = elem;
+        iframeSource = true;
+        return;
+    }
+    
     var embed = null;
-	var div = document.createElement('DIV');
-		
+	var div = document.createElement('div');
 	var pos = elem.toLowerCase().indexOf("embed");
-	if (pos != -1) {
+	if (pos !== -1) {
 		var str = elem.substr(pos);
 		pos = str.indexOf(">");
 		div.innerHTML = "<" + str.substr(0, pos) + ">";
@@ -46,7 +55,7 @@ function doPlay()
 			var params = new Array();
 
 			do {
-				if ((child.nodeName == 'PARAM') &&  (typeof child.name != 'undefined') && (typeof child.value != 'undefined'))
+				if ((child.nodeName === 'PARAM') &&  (typeof child.name !== 'undefined') && (typeof child.value !== 'undefined'))
 				{
 					params.push({key: (child.name == 'movie') ? 'src' : child.name, val: child.value});
 				}
@@ -66,23 +75,29 @@ function doPlay()
 		}
 	}
 		
-	if (embed != null) {
+	if (embed !== null) {
 		document.getElementById('fm_player').appendChild(embed);
 	}
 }
 
 function doSubmit()
 {
-	var source = '' + oEditor.trimSpace(document.getElementById("fm_embed").value);
-	if (source != '') {
+    var source = '' + oEditor.trimSpace(document.getElementById("fm_embed").value);
+    if (source === '') popupClose();
+    
+    
+    if (iframeSource || source.indexOf("iframe") !== -1) {
+        oEditor.insertHtmlPopup(source);
+    }
+    else {
 		oEditor.insertFlash(source);
 	}
 	
 	document.getElementById('fm_player').innerHTML = '';
-    popupClose();
+    oEditor.popupWinClose();
 }
 
 function popupClose() {
 	document.getElementById('fm_player').innerHTML = '';
-    oEditor.popupWinClose();
+    oEditor.popupWinCancel();
 }

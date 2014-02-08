@@ -1,9 +1,8 @@
 // ================================================================
-//                       CHEditor
+//                       CHEditor 5
 // ----------------------------------------------------------------
-// Author: Na Chang-Ho (chna@chcode.com)
 // Homepage: http://www.chcode.com
-// Copyright (c) 1997-2011 CHSOFT
+// Copyright (c) 1997-2014 CHSOFT
 // ================================================================
 var oEditor = null;
 var button = [ { alt : "", img : 'cancel.gif', cmd : popupClose } ];
@@ -22,12 +21,12 @@ function insertIcon() {
 	this.removeAttribute("className");
 	this.removeAttribute("class");
 	this.style.margin = '1px 4px';
-  	oEditor.insertHtmlPopup(this.cloneNode(false));
-  	popupClose();
+  	oEditor.insertHtmlPopup(this.cloneNode(false).outerHTML);
+    oEditor.popupWinClose();
 }
 
 function popupClose() {
-    oEditor.popupWinClose();
+    oEditor.popupWinCancel();
 }
 
 function showContents() {

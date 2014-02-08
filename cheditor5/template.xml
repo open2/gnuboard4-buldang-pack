@@ -6,7 +6,7 @@
 // Author: Na Chang Ho
 // Homepage: http://www.chcode.com
 // EMail: support@chcode.com
-// Copyright (c) 1997-2012 CHSOFT
+// Copyright (c) 1997-2014 CHSOFT
 // ================================================================
 -->
 <Template>
@@ -39,7 +39,7 @@
                 <div class="cheditor-popup-window" onselectstart="return false">
                     <div class="cheditor-popup-drag-handle">
                         <div class="cheditor-popup-titlebar">
-                            <span>&#160;</span><label class="cheditor-popup-title"></label>
+                            <span><label class="cheditor-popup-title"></label>&nbsp;</span>
                         </div>
                     </div>
                     <div class="cheditor-popup-cframe"></div>
@@ -276,13 +276,13 @@
             </Button>
         </Group>
         <Group name="Table">
-            <Button name="Table" tooltip="테이블">
+            <Button name="Table" tooltip="표 만들기">
                 <Attribute class="cheditor-tb-bg" width="23" height="23">
                     <Icon position="510" width="16" class="cheditor-tb-icon" />
                     <Execution method="windowOpen" value="Table" />
                 </Attribute>
             </Button>
-            <Button name="ModifyTable" tooltip="테이블 고치기">
+            <Button name="ModifyTable" tooltip="표 수정">
                 <Attribute class="cheditor-tb-bg" width="23" height="23">
                     <Icon position="526" width="16" class="cheditor-tb-icon" />
                     <Execution method="windowOpen" value="ModifyTable" />
