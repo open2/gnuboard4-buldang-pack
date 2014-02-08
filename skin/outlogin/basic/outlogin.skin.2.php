@@ -4,7 +4,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 if ($member['mb_memo_unread'] > 0)
     $memo_status = "btn-info";
 if ($g4['whatson_unread'] > 0)
-    $whatson_status = "btn-info";
+    $myon_status = "btn-info";
 ?>
 
 <!-- 로그인 후 외부로그인 시작 -->
