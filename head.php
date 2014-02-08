@@ -19,7 +19,7 @@ echo popup("alert", "popup_alert");
 // 왓쑝을 안쓰는 경우에는 그냥 그런거라 선택 가능하게 head.php에 넣습니다.
 if ($member[mb_id]) {
     include_once("$g4[path]/lib/whatson.lib.php");
-    $g4['whatson_unread'] = whatson_count($member[mb_id]);
+    $g4['whatson_unread'] = whatson_count($member['mb_id']);
 }
 
 // 버튼에 알람을??? btn-info-navbar class는 style.css에 있습니다.
