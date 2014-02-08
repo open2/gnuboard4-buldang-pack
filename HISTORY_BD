@@ -1,3 +1,189 @@
+1.2.6 (2014.02.08)
+
+관리자 작업중 db field 명을 잘못 붙인 것을 발견했습니다. =..=...
+아직까지도 개발중인 버젼이라서 실사용자는 없다고 생각하고... 불당팩 업그레이드에는 넣지 않았습니다.
+1.2.6 이전버젼을 설치하신 분들은 DB 관리자에서 다음과 같이 변경해주세요.
+ALTER TABLE `g4_config` CHANGE `cf_page_rows_xs` `cf_write_pages_xs` INT( 11 ) NULL DEFAULT NULL 
+
+
+*** 불당팩 기본 구성요소들 ***
+Jquery 1.10.2 http://jquery.com/ 
+Bootstrap 3.1.0 http://getbootstrap.com/  
+* bootstrap LESS 수정사항 http://opencode.co.kr/bbs/board.php?bo_table=gnu4_pack&wr_id=1700 
+Font-awesome 4.0.3 http://fontawesome.io/ 
+html5 Shiv 3.7.0 https://github.com/aFarkas/html5shiv 
+respond 1.4.2 https://github.com/scottjehl/Respond 
+
+head.sub.php
+index.main.php
+style.css
+tail.php
+tail.sub.php
+
+bbs/list.php 
+bbs/myon.php
+
+cheditor5/*
+
+js/bootstrap/* 
+
+lib/b4.lib.php
+lib/connect.lib.php
+lib/latest.group.lib.php
+
+plugin/kcb/*
+
+skin/board/boot/list.skin.php
+skin/board/boot/view.skin.php
+skin/board/boot/view_comment.skin.php
+skin/board/boot/write.skin.php
+
+skin/board/boot_oneline/*
+
+skin/latest/basic/latest.skin.php
+
+skin/lastest/scrap/latest.skin.php
+
+skin/member/basic/singo_popin.skin.php
+
+skin/memo/basic/memo2_list.skin.php
+skin/memo/basic/memo2_view.skin.php
+
+skin/myon/basic/myon.skin.php
+
+skin/outlogin/basic/outlogin.skin.1.php 
+skin/outlogin/basic/outlogin.skin.2.php
+
+skin/whatson/basic/whatson.skin.php
+
+
+*** 2월 8일까지의 수정사항 ***
+- cheditor 버젼업 (현재 편집기는 좀 많이 이상...ㄷㄷㄷ)
+cheditor5/*
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_pack_book&wr_id=106
+
+- 관리자페이지 부트스트랩화
+adm/* (다 바꿔야 함...ㄷㄷㄷ... 메뉴 아이디가 모두 변경되었으므로, auth 설정도 모두 다시 해주세요.)
+
+- 신고창 설명이 small 없앰
+skin/member/basic/singo_popin.skin.php
+
+
+*** 2월 7일까지의 수정사항 ***
+- 사이트 설정에 cf_write_pages_xs 설정하기 추가
+adm/config_form.php
+adm/config_form_update.php
+bbs/list.php
+bbs/memo2_list.skin.php
+
+- myon skin에 관리자 버튼추가 (mobile을 위해서) + head 변수연결
+skin/myon/basic/myon.skin.php
+
+- myon이 모바일에서 보여질때 head/tail 안나타 나는 것
+head.sub.php
+
+
+*** 2.6일까지의 수정사항 ***
+
+- kcb 본인인증
+plugin/kcb/*
+
+- tooltip 함수추가
+lib/b4.lib.php
+
+- tooltip 초기화 jQuery 스크립트 추가
+tail.sub.php
+
+
+*** 2.3일까지의 수정사항 ***
+- bootstrap 3.1.0 호환이슈
+skin/outlogin/basic/outlogin.skin.1.php
+
+- bootstrap 3.1.0 적용 (변수랑 뭐랑 상당히 바뀜...ㄷㄷㄷ)
+js/bootstrap/*
+
+- 전체 최근글 정보에 게시판명 추가
+lib/latest.group.lib.php
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_pack_qna&wr_id=4944
+
+- 스크랩 스킨 오류 수정 및 메모편집 영역 부트화(돼지코쿠뇽님)
+skin/member/basic/scrap.skin.php
+http://opencode.co.kr/bbs/board.php?bo_table=qna&wr_id=4376
+
+
+*** 1월 28일까지의 수정사항 ***
+- 한줄게시판
+skin/board/boot_oneline/*
+
+- 모바일 페이징 오류 수정
+bbs/list.php
+
+- 불필요 마크업 삭제
+skin/board/boot/view_comment.skin.php
+
+- reply icon을 font-awesome으로 변경
+skin/lastest/scrap/latest.skin.php
+
+
+*** 2014.01.25일까지 수정분 ***
+- board/boot 스킨의 사소한 오류 수정
+skin/board/boot/view.skin.php
+skin/board/boot/view_comment.skin.php
+ 
+- myon tail 안나오는 오류 수정
+bbs/myon.php
+skin/outlogin/basic/outlogin.skin.2.php
+
+- myon/basic 스킨 수정
+skin/myon/basic/myon.skin.php
+
+- reply icon을 폰트어썸으로 (배꼽 나왔슴...)
+skin/latest/basic/latest.skin.php
+
+- board/boot/list.skin.php이 페이징을 가운데 정렬하기
+skin/board/boot/list.skin.php
+http://stackoverflow.com/questions/18153234/center-a-div-using-bootstrap-3-markup-or-css
+
+- latest/naver 스킨의 답글 icon을 180도 회전 (보기좋게)
+skin/latest/naver/lastest.skin.php
+
+- board/boot 스킨에서 목록 답글 계층화 안되는 오류수정 + 답글 아이콘 180도 회전
+skin/board/boot/list.skin.php
+
+
+*** 2014.01.14일까지 수정분 ***
+- memo 조회 화면에 list 버튼 하나 더 추가. 편의를 위해
+skin/memo/basic/memo2_view.skin.php
+- colspan 빈거 수정
+skin/board/boot/list.skin.php
+
+- </td> 하나 더 들어간 것 삭제
+skin/board/boot/view_comment.skin.php
+
+- 첨부파일 설명시 input 창이 넓어지는 오류 임시변통... table-fixed
+skin/board/boot/write.skin.php
+http://opencode.co.kr/bbs/board.php?bo_table=qna&wr_id=4335
+
+- whats'on 체크박스 줄바꿈 오류 해결
+skin/whatson/basic/whatson.skin.php
+http://opencode.co.kr/bbs/board.php?bo_table=qna&wr_id=4333
+
+- 프로그램 오류수정 (무조건 redis를 하게 된거)
+lib/connect.lib.php
+
+- bootstrap style을 조금 기준 그누보드와 비슷하게
+js/bootstrap/css/*
+
+- panel 하단부의 margin을 20px에서 10px로 변경
+style.css
+
+- Back to Top을 글리피콘으로 변경
+tail.php
+
+- 메인 예제를 table에서 flow-row 가능한 div로 변경
+index.main.php
+
+
 1.2.5 (2014.01.10)
 
 1.2.4 버젼부터는 실제 개발에 사용하셔도 됩니다.
