@@ -12,29 +12,23 @@ if (!$mb[mb_id])
 
 $g4[title] = "접근가능그룹선택";
 include_once("./admin.head.php");
-
-$colspan = 4;
 ?>
 
-<table width=100% cellpadding=3 cellspacing=1>
-<tr>
-    <td>* <? echo "<a href='./member_form.php?w=u&mb_id=$mb[mb_id]'><b>$mb[mb_id]</b> ($mb[mb_name] / $mb[mb_nick])</a> 님이 접근가능한 그룹 목록"; ?></td>
-</tr>
-</table>
+<div>
+<? echo "<a href='./member_form.php?w=u&mb_id=$mb[mb_id]'><b>$mb[mb_id]</b> ($mb[mb_nick])</a> 님이 접근가능한 그룹 목록"; ?></td>
+</div>
     
-<table width=100% cellpadding=0 cellspacing=0>
+<table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <colgroup width=120>
 <colgroup width=''>
 <colgroup width=200>
 <colgroup width=100>
-<tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
-<tr class='bgcol1 bold col1 ht center'>
+<tr class="success">
     <td>그룹아이디</td>
     <td>그룹</td>
     <td>처리일시</td>
     <td>삭제</td>
 </tr>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <?
 $sql = " select * 
            from $g4[group_member_table] a, 
@@ -46,24 +40,21 @@ if ($is_admin != 'super')
 $sql .= " order by a.gr_id desc ";
 $result = sql_query($sql);
 for ($i=0; $row=sql_fetch_array($result); $i++) {
-    //$s_del = "<a href=\"javascript:del('./boardgroupmember_update.php?w=d&gm_id=$row[gm_id]')\"><img src='img/icon_delete.gif' border=0></a>";
-    $s_del = "<a href=\"javascript:post_delete('boardgroupmember_update.php', '$row[gm_id]');\"><img src='img/icon_delete.gif' border=0 title='삭제'></a>";
+    $s_del = "<a href=\"javascript:post_delete('boardgroupmember_update.php', '$row[gm_id]');\"><i class='fa fa-trash-o' title='삭제'></i></a>";
 
-    $list = $i%2;
     echo "
-    <tr class='list$list col1 ht center'>
+    <tr >
         <td><a href='$g4[bbs_path]/group.php?gr_id=$row[gr_id]'><b>$row[gr_id]</b></a></td>
         <td><b>$row[gr_subject]</b></td>
-        <td>$row[gm_datetime]</td>
+        <td>" . get_datetime($row[gm_datetime]) . "</td>
         <td>$s_del</td>
     </tr>";
 }
 
 if ($i == 0) {
-    echo "<tr><td colspan='$colspan' align=center height=100>접근가능한 그룹이 없습니다.</td></tr>";
+    echo "<tr><td colspan='4' align=center height=100>접근가능한 그룹이 없습니다.</td></tr>";
 }
 ?>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 </table>
 
 <p>

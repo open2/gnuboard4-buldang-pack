@@ -53,32 +53,27 @@ include_once("./admin.head.php");
 $colspan = 5;
 ?>
 
-<script language="JavaScript">
-var list_update_php = "";
+<script type="text/javascript">
 var list_delete_php = "auth_list_delete.php";
 </script>
 
-<table width=100%>
-<form name=fsearch method=get>
-<tr>
-    <td width=50% align=left>
-        <?=$listall?> (건수 : <?=number_format($total_count)?>)
-    </td>
-    <td width=50% align=right>
-        <select name=sfl class=cssfl>
-            <option value='a.mb_id'>회원아이디</option>
-        </select>
-        <input type=text name=stx class=ed required itemname='검색어' value='<?=$stx?>'>
-        <button type="submit" class="btn">검색 <i class="glyphicon glyphicon-search"></i></button>
-        <!--
-        <input type=image src='<?=$g4[admin_path]?>/img/btn_search.gif' align=absmiddle>
-        -->
-    </td>
-</tr>
+<form name=fsearch method=get role="form" class="form-inline">
+<div class="btn-group">
+    <?=$listall?> (건수 : <?=number_format($total_count)?>)
+</div>
+<div class="pull-right">
+    <select name=sfl class="form-control">
+        <option value='a.mb_id'>회원아이디</option>
+    </select>
+    <input class="form-control" type=text name=stx required itemname='검색어' value='<?=$stx?>'>
+    <div class="form-group">
+        <button class="btn btn-primary">검색</button>
+    </div>
+</div>
 </form>
-</table>
 
-<form name=fauthlist method=post>
+
+<form name=fauthlist method=post role="form" class="form-inline">
 <input type=hidden name=sst   value='<?=$sst?>'>
 <input type=hidden name=sod   value='<?=$sod?>'>
 <input type=hidden name=sfl   value='<?=$sfl?>'>
@@ -96,8 +91,8 @@ var list_delete_php = "auth_list_delete.php";
     <td><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
     <td><?=subject_sort_link('a.mb_id')?>회원아이디</a></td>
     <td><?=subject_sort_link('mb_nick')?>별명</a></td>
-	<td>메뉴</td>
-	<td>권한</td>
+  	<td>메뉴</td>
+	  <td>권한</td>
 </tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) 
@@ -119,24 +114,31 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         <td><input type=checkbox name=chk[] value='$i'></td>
         <td><a href='?sfl=a.mb_id&stx=$row[mb_id]'>$row[mb_id]</a></td>
         <td>$mb_nick</td>
-        <td align=left>&nbsp; [$row[au_menu]] {$auth_menu[$row[au_menu]]}</td>
+        <td>[$row[au_menu]] {$auth_menu[$row[au_menu]]}</td>
         <td>$row[au_auth]</td>
     </tr>";
 }
 
 if ($i==0) 
-    echo "<tr><td colspan='$colspan' height=100 align=center bgcolor='#FFFFFF'>자료가 없습니다.</td></tr>";
+    echo "<tr><td colspan='5' height=100 align=center>자료가 없습니다.</td></tr>";
 
-echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
 echo "</table>";
+?>
 
-$pagelist = get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");
-echo "<table width=100% cellpadding=3 cellspacing=1>";
-echo "<tr><td width=50%>";
-echo "<input type=button class='btn1' value='선택삭제' onclick=\"btn_check(this.form, 'delete')\">";
-echo "</td>";
-echo "<td width=50% align=right>$pagelist</td></tr></table>\n";
+<!-- 페이지 -->
+<div class="hidden-xs" style="text-align:center;">
+    <ul class="pagination">
+    <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
+    </ul>
+</div>
 
+<div class="btn-group">
+    <? if ($is_admin == "super") { ?>
+        <input type=button class='btn btn-default' value='선택삭제' onclick="btn_check(this.form, 'delete')">
+    <? } ?>
+</div>
+
+<?
 if ($stx)
     echo "<script language='javascript'>document.fsearch.sfl.value = '$sfl';</script>\n";
 
@@ -147,10 +149,11 @@ else
 ?>
 </form>
 
-<script language='javascript'> document.fsearch.stx.focus(); </script>
+<script type="text/javascript">
+    document.fsearch.stx.focus();
+</script>
 
-<?$colspan=4?>
-<p>
+<BR>
 
 <form name=fauthlist2 method=post onsubmit="return fauthlist2_submit(this);" autocomplete="off">
 <input type=hidden name=sfl   value='<?=$sfl?>'>
@@ -160,20 +163,18 @@ else
 <input type=hidden name=page  value='<?=$page?>'>
 <input type=hidden name=token value='<?=$token?>'>
 
-<table cellpadding=0 cellspacing=0>
+<table class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <colgroup width=150>
 <colgroup width=''>
 <colgroup width=150>
 <colgroup width=100>
-<tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
-<tr class='bgcol1 bold col1 ht center'>
+<tr class="success">
     <td>회원아이디</span></td>
     <td>접근가능메뉴</span></td>
     <td>권한</span></td>
     <td>입력</span></td>
 </tr>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
-<tr class='ht center'>
+<tr>
     <td><input type=text class=ed name=mb_id required itemname='회원아이디' value='<?=$mb_id?>'></td>
     <td>
         <select name=au_menu required itemname='접근가능메뉴'>
@@ -200,14 +201,13 @@ else
         	<td>d<br>(삭제)</td>
         </tr>
         </table></td>
-    <td><input type=submit class=btn1 value='  확  인  '></td>
+    <td><input type=submit class="btn btn-default" value='  확  인  '></td>
 </tr>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 </table>
 
 </form>
 
-<script language="JavaScript">
+<script type="text/javascript">
 function fauthlist2_submit(f)
 {
     f.action = "./auth_update.php";

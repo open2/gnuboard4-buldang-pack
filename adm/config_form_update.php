@@ -115,6 +115,7 @@ $cf_meta_author          = $_POST[cf_meta_author];
 $cf_meta_keywords        = $_POST[cf_meta_keywords];
 $cf_meta_description     = $_POST[cf_meta_description];
 $cf_memo_mb_member       = $_POST[cf_memo_mb_member];
+$cf_admin_email          = $_POST[cf_admin_email];
 
 $cf_1_subj               = $_POST[cf_1_subj];
 $cf_2_subj               = $_POST[cf_2_subj];
@@ -253,6 +254,7 @@ $sql = " update $g4[config_table]
         				cf_use_recycle          = '$cf_use_recycle',
 				        cf_recycle_table        = '$cf_recycle_table',
 				        cf_recycle_days         = '$cf_recycle_days',
+				        cf_admin_email          = '$cf_admin_email',
                 cf_filter               = '$cf_filter',
                 cf_1_subj               = '$cf_1_subj',
                 cf_2_subj               = '$cf_2_subj',
