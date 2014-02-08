@@ -922,6 +922,10 @@ if ($config[cf_db_version] < 1205) {
     sql_query(" update `$g4[config_table]` set `cf_write_pages_xs` = 5", FALSE);
 }
 
+if ($config[cf_db_version] < 1207) {
+    // 관리자 메일주소 기능 추가
+    sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_admin_email` VARCHAR( 255 ) NOT NULL  ", FALSE);
+}
  
 // db 버젼을 업데이트 - major version + mid version - patch version
 $max_version = "1205";
