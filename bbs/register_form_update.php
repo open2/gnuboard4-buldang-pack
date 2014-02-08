@@ -270,7 +270,7 @@ if ($w == "")
         $content = ob_get_contents();
         ob_end_clean();
         
-        mailer($admin[mb_nick], $admin[mb_email], $mb_email, $subject, $content, 1);
+        mailer($config['cf_title'], $config['cf_admin_email'], $mb_email, $subject, $content, 1);
     }
 
     // 불당팩 - 회원님께 쪽지 발송
@@ -357,6 +357,7 @@ else if ($w == "u")
 
     // 이전 메일주소와 수정한 메일주소가 틀리다면 인증을 다시 해야하므로 값을 삭제
     $sql_email_certify = "";
+
     //불당팩 - 이메일 인증에 값이 있으면, 인증을 하는 상황이 아니라도 인증날짜를 clear
     //if ($old_email != $mb_email && $config[cf_use_email_certify])
     if ($old_email != $mb_email && ($config[cf_use_email_certify] || preg_match("/[1-9]/", $member[mb_email_certify])))
@@ -413,8 +414,8 @@ else if ($w == "u")
         include_once ("./register_form_update_mail3.php");
         $content = ob_get_contents();
         ob_end_clean();
-        
-        mailer($admin[mb_nick], $admin[mb_email], $mb_email, $subject, $content, 1);
+
+        mailer($config['cf_title'], $config['cf_admin_email'], $mb_email, $subject, $content, 1);
     }
 }
 

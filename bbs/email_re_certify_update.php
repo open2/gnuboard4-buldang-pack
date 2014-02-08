@@ -40,7 +40,7 @@ include_once ("./register_form_update_mail3.php");
 $content = ob_get_contents();
 ob_end_clean();
         
-mailer($config[cf_title], $admin[mb_email], $mb_email, $subject, $content, 1);
+mailer($config[cf_title], $config['cf_admin_email'], $mb_email, $subject, $content, 1);
 
 alert("인증메일을 발송했습니다. 확인해 보시기 바랍니다.", $g4[path]);
 ?>
