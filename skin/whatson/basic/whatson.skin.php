@@ -42,14 +42,15 @@ var list_delete_php = "whatson_delete_all.php";
                 else
                     echo "<a href='javascript: void(0)' onclick='javascript:whatson_read(\"" . $list[$i][url] . "\", " . $list[$i][wo_id] . ");return false;'>";
 
-                echo "(" . $list[$i][wo_count] . ")";
-
                 // 이미 읽은 글은 회색으로 표시
                 if ($list[$i][wo_status])
-                    echo "<font color='gray'>";
+                    echo "<span class='text-muted'>";
+
+                echo "(" . $list[$i][wo_count] . ")"; 
                 echo " " . $list[$i][subject];
                 if ($list[$i][wo_status])
-                    echo "</font>";
+                    echo "</span>";
+
                 echo "</a>";
 
                 if ($check == 1) {
