@@ -213,6 +213,7 @@ $download_point = -10;
 $sql = " insert into $g4[config_table]
             set cf_title = '그누보드4 - 불당팩',
                 cf_admin = '$admin_id',
+                cf_admin_email = 'admin_email',
                 cf_use_point = '1',
                 cf_use_norobot = '1',
                 cf_use_copy_log = '1',
