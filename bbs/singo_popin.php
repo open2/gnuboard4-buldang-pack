@@ -57,6 +57,9 @@ if ($row['wr_is_comment']) {
 } // end of if
 
 $wr_subject = get_text(cut_str($write['wr_subject'], 255));
+$wr_content = $write['wr_content'];
+$wr_ip = $write['wr_ip'];
+$wr_datetime = $write['wr_datetime'];
 
 $member_skin_path = "$g4[path]/skin/member/$config[cf_member_skin]";
 include_once("$member_skin_path/singo_popin.skin.php");

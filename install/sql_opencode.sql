@@ -1147,3 +1147,8 @@ ALTER TABLE `$g4[config_table]` ADD COLUMN `cf_write_pages_xs` INT(11) NULL;
 update `$g4[config_table]` set `cf_write_pages_xs` = 5;
 
 ALTER TABLE `$g4[config_table]` ADD `cf_admin_email` VARCHAR( 255 ) NOT NULL;
+
+ALTER TABLE `$g4[singo_table]` ADD `wr_subject` VARCHAR( 255 ) NOT NULL AFTER `wr_parent` ,
+ADD `wr_content` TEXT NOT NULL AFTER `wr_subject` ,
+ADD `wr_ip` VARCHAR( 255 ) NOT NULL AFTER `wr_content` ,
+ADD `wr_datetime` DATETIME NOT NULL AFTER `wr_ip` ;

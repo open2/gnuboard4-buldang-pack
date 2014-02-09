@@ -913,7 +913,6 @@ if ($config[cf_db_version] < 1205) {
         ALTER TABLE `$g4[member_table]` ADD `mb_email_status` TINYINT( 4 ) NOT NULL ,
         ADD `mb_kakao_id` VARCHAR( 255 ) NOT NULL ,
         ADD `mb_line_id` VARCHAR( 255 ) NOT NULL
-            );
             ";
     sql_query($sql, FALSE);
 
@@ -926,9 +925,20 @@ if ($config[cf_db_version] < 1207) {
     // 관리자 메일주소 기능 추가
     sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_admin_email` VARCHAR( 255 ) NOT NULL  ", FALSE);
 }
+
+if ($config[cf_db_version] < 1207) {
+    // 신고기능 업그레이드
+    $sql = "
+        ALTER TABLE `$g4[singo_table]` ADD `wr_subject` VARCHAR( 255 ) NOT NULL AFTER `wr_parent` ,
+        ADD `wr_content` TEXT NOT NULL AFTER `wr_subject` ,
+        ADD `wr_ip` VARCHAR( 255 ) NOT NULL AFTER `wr_content` ,
+        ADD `wr_datetime` DATETIME NOT NULL AFTER `wr_ip` 
+            ";
+    sql_query($sql, FALSE);
+}
  
 // db 버젼을 업데이트 - major version + mid version - patch version
-$max_version = "1207";
+$max_version = "1208";
 sql_query(" update $g4[config_table] set cf_db_version = '$max_version' ");
 
 echo "불당팩 $max_version - UPGRADE 완료.";

@@ -12,6 +12,13 @@ $sql_search = " where (1) ";
 if ($stx) {
     $sql_search .= " and ( ";
     switch ($sfl) {
+        case "wr_subject" :
+        case "wr_content" :
+            $sql_search .= " ($sfl like '%$stx%') ";
+            break;
+        case "wr_content2" :
+            $sql_search .= " (wr_subject like '%$stx%' and wr_content like '%$stx%') ";
+            break;
         case "wr_id" :
             $wr = explode(",", $stx);
             if ($wr[1] && is_integer($wr[1]))
@@ -77,6 +84,9 @@ var list_delete_php = "singo_list_delete.php";
         <option value='sg_mb_id'>신고한 회원아이디</option>
         <option value='sg_ip'>신고한 IP</option>
         <option value='sg_reason'>신고한 이유</option>
+        <option value='wr_subject'>게시글제목</option>
+        <option value='wr_content'>게시글내용</option>
+        <option value='wr_content2'>게시글제목,내용</option>
         <option value='bo_table'>bo_table</option>
         <option value='wr_id'>bo_table,wr_id</option>
     </select>
@@ -178,24 +188,22 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         $sql = " select wr_subject, wr_content, wr_ip, wr_is_comment, wr_parent, wr_datetime, wr_singo from $write_table where wr_id = '$row[wr_id]' ";
         $write_row = sql_fetch($sql);
         if ($write_row[wr_is_comment]) {
-            $sql = " select wr_subject, wr_ip, wr_datetime from $write_table where wr_id = '$write_row[wr_parent]' ";
-            $parent_row = sql_fetch($sql);
-            $wr_subject = "[코] ".$parent_row[wr_subject];
-            $wr_ip = $parent_row[wr_ip];
-            $wr_datetime = $parent_row[wr_datetime];
+            $wr_subject = $row[wr_subject];
+            $wr_ip = $row[wr_ip];
+            $wr_datetime = $row[wr_datetime];
             
-            $title = strip_tags($write_row[wr_content]);
+            $title = $row[wr_content];
         } else {
             // wr_singo == 0, 신고해제가 되어 무효가 된 신고라는거. 신고해제는 원글에만 해당.
             if ($write_row[wr_singo] == 0)
-                $wr_subject = "<del>" . $write_row[wr_subject] . "</del>";
+                $wr_subject = "<del>" . $row[wr_subject] . "</del>";
             else
-                $wr_subject = $write_row[wr_subject];
+                $wr_subject = $row[wr_subject];
 
             $wr_subject = "<a href='./singo_list.php?sfl=wr_id&stx=$row[bo_table],$row[wr_id]'>" . $wr_subject . "</a>";
 
-            $wr_ip = $write_row[wr_ip];
-            $wr_datetime = $write_row[wr_datetime];
+            $wr_ip = $row[wr_ip];
+            $wr_datetime = $row[wr_datetime];
 
             // 신고해제 건수를 계산
             $sql3 = " select count(*) as cnt from $g4[unsingo_table] where bo_table='$row[bo_table]' and wr_id = '$row[wr_id]' ";
@@ -237,14 +245,14 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     <tr>
         <td rowspan=2><input type=checkbox name=chk[] value='$i'></td>
         <td title='$row[mb_id]' align='left'>$mb_nick</td>
-        <td align=left>
+        <td>
                 $bo_subject -
                 $wr_subject
                 $unsingo
                 {$singo_href}<i class='fa fa-external-link'></i></a>
         </td>
-        <td>".substr($wr_datetime,2,14)."</td>
-        <td align=left>$wr_ip $wr_ip_intercept</td>
+        <td>".get_datetime($wr_datetime)."</td>
+        <td>$wr_ip $wr_ip_intercept</td>
         <td>
         <a href=\"javascript:singo_intercept('$row[mb_id]', '$wr_ip');\">차단</a>
         </td>
