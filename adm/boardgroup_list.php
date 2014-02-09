@@ -54,8 +54,6 @@ $listall = "<a href='$_SERVER[PHP_SELF]'>처음</a>";
 
 $g4[title] = "게시판그룹설정";
 include_once("./admin.head.php");
-
-$colspan = 10;
 ?>
 
 <script type="text/javascript">
@@ -122,7 +120,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     echo "<td><input type=checkbox name=chk[] value='$i'></td>";
     echo "<td>$s_upd $s_del</td>";
     echo "<td><a href='$g4[bbs_path]/group.php?gr_id=$row[gr_id]'><b>$row[gr_id]</b></a></td>";
-    echo "<td><input type=text class=ed name=gr_subject[$i] value='".get_text($row[gr_subject])."' size=30></td>";
+    echo "<td><input type=text name=gr_subject[$i] value='".get_text($row[gr_subject])."' size=30></td>";
 
     if ($is_admin == "super")
         echo "<td><input type=text class=ed name=gr_admin[$i] value='$row[gr_admin]' maxlength=20></td>";
@@ -138,7 +136,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 } 
 
 if ($i == 0)
-    echo "<tr><td colspan='$colspan' align=center height=100 bgcolor=#ffffff>자료가 없습니다.</td></tr>"; 
+    echo "<tr><td colspan='10' align=center height=100 bgcolor=#ffffff>자료가 없습니다.</td></tr>"; 
 
 echo "</table>";
 ?>
