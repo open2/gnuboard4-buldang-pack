@@ -36,9 +36,9 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
         <label>개인정보 취급방침</label>
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#cf_privacy_2" data-toggle="tab">개인정보의수집 및 이용목적</a></li>
-            <li><a href="#cf_privacy_3" data-toggle="tab">개인정보의 보유</a></li>
-            <li><a href="#cf_privacy_1" data-toggle="tab">수집하는 개인정보의 항목</a></li>
+            <li class="active"><a href="#cf_privacy_2" data-toggle="tab">수집 및 이용목적</a></li>
+            <li><a href="#cf_privacy_3" data-toggle="tab">보유</a></li>
+            <li><a href="#cf_privacy_1" data-toggle="tab">수집하는 항목</a></li>
         </ul>
 
         <div class="tab-content">

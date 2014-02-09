@@ -46,8 +46,7 @@ var member_skin_path = "<?=$member_skin_path?>";
             <label for="mb_password_re" class="col-sm-2 control-label">패스워드확인</label>
             <div class="col-sm-6">
                 <INPUT class="form-control" type="password" name="mb_password_re" style="ime-mode:disabled" size=20 minlength=8 maxlength=20 <?=($w=="")?"required":"";?> itemname="패스워드 확인" placeholder="Password를 한번 더 입력">
-                <p class="help-block">비밀번호는 8자 이상으로 쉽게 추정할 수 없어야 합니다.<br>
-                비밀번호는 숫자,영문자를 섞어서 만들어야 안전합니다.</p>
+                <p class="help-block">비밀번호는 8자 이상으로 쉽게 추정할 수 없게 숫자와 영문자를 섞어서 만들면 안전합니다.</p>
             </div>
         </div>
 
@@ -167,40 +166,41 @@ var member_skin_path = "<?=$member_skin_path?>";
         <? } ?>
 
         <? if ($config[cf_use_hp]) { ?>
-        <TR bgcolor="#FFFFFF">
-            <TD class=m_title>핸드폰번호</TD>
-            <? if ($config[cf_hp_certify] && $w=='u') { ?>
-            <TD class='m_padding lh'> 
-            <? 
-            if ($member[mb_hp_certify_datetime] != '0000-00-00 00:00:00') { 
-                echo "<span class='small' style='color:#ff3300;'>$member[mb_hp_certify_datetime] 에 인증하였습니다.</span><br>"; 
-                echo "<input type='hidden' name='mb_hp_old' value='$member[mb_hp]'>"; 
-            } 
-            ?> 
-            <input class=m_text type=text name='mb_hp' size=21 maxlength=20 <?=$config[cf_req_hp]?'required':'';?> itemname='핸드폰번호' value='<?=$member[mb_hp]?>'>  
-            <input type=button value='인증번호 전송' class='small' onclick="hp_certify(this.form);">  
-              인증번호 : <input class=m_text type=text name='mb_hp_certify' size=6 maxlength=6> 6자리 숫자<br> 
-            <span class=small style='color:blue;'> 
-                핸드폰으로 전송된 인증번호를 입력 후 회원정보를 수정(확인 버튼)하시기 바랍니다.<br> 
-            </span> 
-            <script> 
-            function hp_certify(f) { 
-                var pattern = /^01[0-9][-]{0,1}[0-9]{3,4}[-]{0,1}[0-9]{4}$/; 
-                if(!pattern.test(f.mb_hp.value)){  
-                    alert("핸드폰 번호가 입력되지 않았거나 번호가 틀립니다.\n\n핸드폰 번호를 010-123-4567 또는 01012345678 과 같이 입력해 주십시오."); 
-                    f.mb_hp.select(); 
-                    f.mb_hp.focus(); 
-                    return; 
+        <div class="form-group">
+            <label for="mb_homepage" class="col-sm-2 control-label">핸드폰번호</label>
+            <div class="col-sm-6">
+                <?
+                if ($member[mb_hp_certify_datetime] && $member[mb_hp_certify_datetime] !== '0000-00-00 00:00:00') {
+                    echo "$member[mb_hp_certify_datetime] 에 인증하였습니다.<br>"; 
+                    echo "<input type='hidden' name='mb_hp_old' value='$member[mb_hp]'>"; 
                 } 
-
-                win_open("<?=$g4[sms_path]?>/hp_certify.php?hp="+f.mb_hp.value+"&token=<?=$token?>", "hiddenframe"); 
-            } 
-            </script> 
-            </TD> 
-            <? } else { ?>
-            <TD class=m_padding><input class=m_text type=text name='mb_hp' size=21 maxlength=20 <?=$config[cf_req_hp]?'required':'';?> itemname='핸드폰번호' value='<?=$member[mb_hp]?>'></TD>
-            <? } ?>    
-        </TR>
+                ?>
+                <?if ($w=='u') { ?>
+                    <input type=text name='mb_hp' size=21 maxlength=20 <?=$config[cf_req_hp]?'required':'';?> itemname='핸드폰번호' value='<?=$member[mb_hp]?>'>
+                    <? if ($config[cf_hp_certify]) { ?>
+                        <input type=button value='인증번호 전송' onclick="hp_certify(this.form);">  
+                        인증번호 : <input class=m_text type=text name='mb_hp_certify' size=6 maxlength=6> 6자리 숫자<br> 
+                        <span> 
+                            핸드폰으로 전송된 인증번호를 입력 후 회원정보를 수정(확인 버튼)하시기 바랍니다.<br> 
+                        </span> 
+                        <script> 
+                        function hp_certify(f) { 
+                            var pattern = /^01[0-9][-]{0,1}[0-9]{3,4}[-]{0,1}[0-9]{4}$/; 
+                            if(!pattern.test(f.mb_hp.value)){  
+                                alert("핸드폰 번호가 입력되지 않았거나 번호가 틀립니다.\n\n핸드폰 번호를 010-123-4567 또는 01012345678 과 같이 입력해 주십시오."); 
+                                f.mb_hp.select(); 
+                                f.mb_hp.focus(); 
+                                return; 
+                            } 
+                            win_open("<?=$g4[sms_path]?>/hp_certify.php?hp="+f.mb_hp.value+"&token=<?=$token?>", "hiddenframe"); 
+                        } 
+                        </script>
+                    <? } ?>
+                <? } else { ?>
+                    <input class="form-control" type=text name='mb_hp' size=21 maxlength=20 <?=$config[cf_req_hp]?'required':'';?> itemname='핸드폰번호' value='<?=$member[mb_hp]?>'>
+                <? } ?>
+            </div>
+        </div>
         <? } ?>
 
         <? if ($config[cf_use_tel]) { ?>
@@ -222,25 +222,17 @@ var member_skin_path = "<?=$member_skin_path?>";
         <? } ?>
 
         <? if ($config[cf_use_addr]) { ?>
-        <TR bgcolor="#FFFFFF">
-            <TD class=m_title>주소</TD>
-            <TD valign="middle" class=m_padding>
-                <table width="330" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td height="25"><input class=m_text type=text name='mb_zip1' size=4 maxlength=3 readonly <?=$config[cf_req_addr]?'required':'';?> itemname='우편번호 앞자리' value='<?=$member[mb_zip1]?>'>
-                         - 
-                        <input class=m_text type=text name='mb_zip2' size=4 maxlength=3 readonly <?=$config[cf_req_addr]?'required':'';?> itemname='우편번호 뒷자리' value='<?=$member[mb_zip2]?>'>
-                        &nbsp;<a href="javascript:;" onclick="win_zip('fregisterform', 'mb_zip1', 'mb_zip2', 'mb_addr1', 'mb_addr2');"><img width="91" height="20" src="<?=$member_skin_path?>/img/post_search_btn.gif" border=0 align=absmiddle></a></td>
-                </tr>
-                <tr>
-                    <td height="25" colspan="2"><input class=m_text type=text name='mb_addr1' size=60 readonly <?=$config[cf_req_addr]?'required':'';?> itemname='주소' value='<?=$member[mb_addr1]?>'></td>
-                </tr>
-                <tr>
-                    <td height="25" colspan="2"><input class=m_text type=text name='mb_addr2' size=60 <?=$config[cf_req_addr]?'required':'';?> itemname='상세주소' value='<?=$member[mb_addr2]?>'></td>
-                </tr>
-                </table>
-            </TD>
-        </TR>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">주소</label>
+            <div class="col-sm-6">
+                <input class=m_text type=text name='mb_zip1' size=4 maxlength=3 readonly <?=$config[cf_req_addr]?'required':'';?> itemname='우편번호 앞자리' value='<?=$member[mb_zip1]?>'>
+                - 
+                <input class=m_text type=text name='mb_zip2' size=4 maxlength=3 readonly <?=$config[cf_req_addr]?'required':'';?> itemname='우편번호 뒷자리' value='<?=$member[mb_zip2]?>'>
+                &nbsp;<a href="javascript:;" onclick="win_zip('fregisterform', 'mb_zip1', 'mb_zip2', 'mb_addr1', 'mb_addr2');"><img width="91" height="20" src="<?=$member_skin_path?>/img/post_search_btn.gif" border=0 align=absmiddle></a>
+                <input class="form-control" type=text name='mb_addr1' size=60 readonly <?=$config[cf_req_addr]?'required':'';?> itemname='주소' value='<?=$member[mb_addr1]?>'>
+                <input class="form-control" type=text name='mb_addr2' size=60 <?=$config[cf_req_addr]?'required':'';?> itemname='상세주소' value='<?=$member[mb_addr2]?>'>
+            </div>
+        </div>
         <? } ?>
 
         <div class="form-group">
@@ -303,56 +295,59 @@ var member_skin_path = "<?=$member_skin_path?>";
         <? } ?>
 
         <? if ($config[cf_use_signature]) { ?>
-        <TR bgcolor="#FFFFFF">
-            <TD width="160" class=m_title>서명</TD>
-            <TD class=m_padding><textarea name=mb_signature class=m_textarea rows=3 style='width:95%;' <?=$config[cf_req_signature]?'required':'';?> itemname='서명'><?=$member[mb_signature]?></textarea></TD>
-        </TR>
+        <div class="form-group">
+            <label for="mb_open" class="col-sm-2 control-label">서명</label>
+            <div class="col-sm-6">
+                <textarea name=mb_signature class="form-control" rows=3 style='width:100%;' <?=$config[cf_req_signature]?'required':'';?> itemname='서명'><?=$member[mb_signature]?></textarea>
+        </div>
         <? } ?>
 
         <? if ($config[cf_use_profile]) { ?>
-        <TR bgcolor="#FFFFFF">
-            <TD width="160" class=m_title>자기소개</TD>
-            <TD class=m_padding><textarea name=mb_profile class=m_textarea rows=3 style='width:95%;' <?=$config[cf_req_profile]?'required':'';?> itemname='자기 소개'><?=$member[mb_profile]?></textarea></TD>
-        </TR>
+        <div class="form-group">
+            <label for="mb_open" class="col-sm-2 control-label">자기소개</label>
+            <div class="col-sm-6">
+                <textarea name=mb_profile class="form-control" rows=3 style='width:100%;' <?=$config[cf_req_profile]?'required':'';?> itemname='자기 소개'><?=$member[mb_profile]?></textarea>            </div>
+        </div>
         <? } ?>
 
         <? if ($member[mb_level] >= $config[cf_icon_level]) { ?>
-        <TR bgcolor="#FFFFFF">
-            <TD width="160" class=m_title>회원아이콘</TD>
-            <TD class=m_padding><INPUT class=m_text type=file name='mb_icon' size=30>
-                <table width="350" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td class=m_padding3>* 이미지 크기는 가로(<?=$config[cf_member_icon_width]?>픽셀)x세로(<?=$config[cf_member_icon_height]?>픽셀) 이하로 해주세요.<br>&nbsp;&nbsp;(gif/jpg/bmp/png만 가능 / 용량:<?=number_format($config[cf_member_icon_size]/1000)?>k 바이트 이하만 등록됩니다.)
-                            <? if ($w == "u" && file_exists($mb_icon)) { ?>
-                                <br><img src='<?=$mb_icon?>' align=absmiddle> <input type=checkbox name='del_mb_icon' value='1'>삭제
-                            <? } ?>
-                        </td>
-                    </tr>
-                </table></TD>
-        </TR>
+        <div class="form-group">
+            <label for="mb_open" class="col-sm-2 control-label">회원아이콘</label>
+            <div class="col-sm-6">
+                <INPUT type=file name='mb_icon' size=30>
+    						<div>
+                * 이미지 크기는 가로(<?=$config[cf_member_icon_width]?>픽셀)x세로(<?=$config[cf_member_icon_height]?>픽셀) 이하로 해주세요.<br>&nbsp;&nbsp;(gif/jpg/bmp/png만 가능 / 용량:<?=number_format($config[cf_member_icon_size]/1000)?>k 바이트 이하만 등록됩니다.)
+                <? if ($w == "u" && file_exists($mb_icon)) { ?>
+                    <br><img src='<?=$mb_icon?>' align=absmiddle> <input type=checkbox name='del_mb_icon' value='1'>삭제
+                <? } ?>
+                </div>
+            </div>
+        </div>
         <? } ?>
 
         <? if ($w == "" && $config[cf_use_recommend]) { ?>
-        <TR bgcolor="#FFFFFF">
-            <TD width="160" class=m_title>추천인아이디</TD>
-            <TD class=m_padding>
-            <? if ($mb_recommend) { ?>
-            <input type=hidden name=mb_recommend         id=mb_recommend            value="<?=$mb_recommend?>">
-            <?=$mb_recommend?>
-            <? } else { ?>
-            <input type=text name=mb_recommend maxlength=20 size=20 <?=$config[cf_req_recommend]?'required':'';?> itemname='추천인아이디' class=m_text>
-            <? } ?>
-            <? if ($config[cf_recommend_point]) { ?>
-                *추천 회원에게 <?=$config[cf_recommend_point]?> 포인트를 지급합니다.
-            <? } ?>
-            </TD>
-        </TR>
-        <? } else if ( $config[cf_use_recommend] && $member[mb_recommend]) {?>
-        <TR bgcolor="#FFFFFF">
-            <? $mb=get_member($member['mb_recommend'], "mb_id, mb_nick")?>
-            <TD width="160" class=m_title>추천인아이디</TD>
-            <TD class=m_padding><?=get_sideview($mb['mb_id'], $mb['mb_nick'])?></TD>
-        </TR>
+        <div class="form-group">
+            <label for="mb_recommend" class="col-sm-2 control-label">추천인아이디</label>
+            <div class="col-sm-6">
+                <? if ($mb_recommend) { ?>
+                    <input type=hidden name=mb_recommend         id=mb_recommend            value="<?=$mb_recommend?>">
+                    <?=$mb_recommend?>
+                <? } else { ?>
+                    <input  class="form-control" type=text name=mb_recommend maxlength=20 size=20 <?=$config[cf_req_recommend]?'required':'';?> itemname='추천인아이디'>
+                <? } ?>
+                <? if ($config[cf_recommend_point]) { ?>
+                    *추천 회원에게 <?=$config[cf_recommend_point]?> 포인트를 지급합니다.
+                <? } ?>
+            </div>
+        </div>
+        <? } else if ($config[cf_use_recommend] && $member[mb_recommend]) {?>
+        <div class="form-group">
+            <label for="mb_recommend" class="col-sm-2 control-label">추천인아이디</label>
+            <div class="col-sm-6">
+                <? $mb=get_member($member['mb_recommend'], "mb_id, mb_nick")?>
+                <?=get_sideview($mb['mb_id'], $mb['mb_nick'])?>
+            </div>
+        </div>
         <? } ?>
 
         <? if ($config[cf_use_norobot]) { ?>
@@ -379,8 +374,12 @@ var member_skin_path = "<?=$member_skin_path?>";
 
     </div>
     <div class="panel-footer">
-    <button class="btn btn-success">가입합니다</button>
-    &nbsp;&nbsp;&nbsp;
+    <? if ($w == "") { ?>
+        <button class="btn btn-success">가 입</button>
+    <? } else { ?>
+        <button class="btn btn-success">수 정</button>
+    <? } ?>
+
     <? if ($is_member) { ?> 
     <a href="javascript:member_leave();" class="btn btn-default pull-right">회원탈퇴</a>
     <? } ?> 
