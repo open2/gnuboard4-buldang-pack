@@ -1,3 +1,71 @@
+1.2.7 (2014.02.09)
+
+*** 그누보드 5의 기능도 일부 들어 갑니다. ***
+1. 관리자 이메일 주소 분리 (기본환경 설정에서 관리자의 메일주소 설정. 이메일 인증. 관리자 메일발송에 씁니다)
+
+*** 별첨의 cheditor 5.9.4로 바꾸세요 ***
+5.09.3은 IE 11에서 문제가 크답니다...
+
+*** DB 변동사항 ***
+ALTER TABLE `g4_config` ADD `cf_admin_email` VARCHAR( 255 ) NOT NULL 
+
+
+*** 불당팩 기본 구성요소들 ***
+Jquery 1.10.2 http://jquery.com/ 
+Bootstrap 3.1.0 http://getbootstrap.com/  
+* bootstrap LESS 수정사항 http://opencode.co.kr/bbs/board.php?bo_table=gnu4_pack&wr_id=1700 
+Font-awesome 4.0.3 http://fontawesome.io/ 
+html5 Shiv 3.7.0 https://github.com/aFarkas/html5shiv 
+respond 1.4.2 https://github.com/scottjehl/Respond 
+
+
+adm/*
+
+bbs/email_re_certify_update.php
+bbs/register_form_update.php
+
+skin/member/basic/register.skin.php
+skin/member/basic/register_form.skin.php
+
+skin/outlogin/basic/outlogin.skin.1.php
+
+skin/outlogin/basic/outlogin.skin.2.php
+
+skin/whatson/basic/whatson.skin.php
+
+
+- mobile에 적합하게 가입화면 수정 (일부항목 줄 바뀜 없게...)
+skin/member/basic/register.skin.php
+skin/member/basic/register_form.skin.php
+
+- 관리자 수정 (부트화+코드정리...)
+adm/*
+
+*** 2월 8일까지 작업한 내역 ***
+
+- 자동로그인 위치 변경 + style 수정
+skin/outlogin/basic/outlogin.skin.1.php
+
+- 회원가입화면 부트화 안된거 부트화 (빼먹...)
+skin/member/basic/register_form.skin.php
+
+- 설치프로그램 부트화 + 오류수정
+install/*
+
+- 이메일 발신을 위한 주소 추가
+adm/sendmail_test.php
+adm/mail_select_update.php
+bbs/email_re_certify_update.php
+bbs/register_form_update.php
+
+- outlogin 스킨에서 whatson count가 0보타 클때 MyOn 버튼이 info로 안바뀌는 오류 수정
+skin/outlogin/basic/outlogin.skin.2.php
+
+- What'son skin의 읽은 글 색상을 gray에서 helper class의 text-muted로 변경
+skin/whatson/basic/whatson.skin.php
+http://getbootstrap.com/css/#helper-classes
+
+
 1.2.6 (2014.02.08)
 
 관리자 작업중 db field 명을 잘못 붙인 것을 발견했습니다. =..=...
