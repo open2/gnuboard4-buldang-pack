@@ -14,6 +14,10 @@ if ($stx) {
     switch ($sfl) {
         case "wr_id" :
             $wr = explode(",", $stx);
+            if ($wr[1] && is_integer($wr[1]))
+                ;
+            else
+                alert("게시글의 wr_id를 입력해주세요");
             $sql_search .= " (bo_table = '$wr[0]' and wr_id = $wr[1]) ";
             break;
         case "sg_reason" :
@@ -73,8 +77,8 @@ var list_delete_php = "singo_list_delete.php";
         <option value='sg_mb_id'>신고한 회원아이디</option>
         <option value='sg_ip'>신고한 IP</option>
         <option value='sg_reason'>신고한 이유</option>
-        <option value='bo_table'>게시판</option>
-        <option value='wr_id'>게시판,게시글</option>
+        <option value='bo_table'>bo_table</option>
+        <option value='wr_id'>bo_table,wr_id</option>
     </select>
     <input class="form-control" type=text name=stx required itemname='검색어' value='<?=$stx?>'>
     <div class="form-group">
@@ -256,7 +260,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='$colspan' align=center height=100>내역이 없습니다.</td></tr>";
+    echo "<tr><td colspan='6' align=center height=100>내역이 없습니다.</td></tr>";
 
 echo "</table>";
 ?>
