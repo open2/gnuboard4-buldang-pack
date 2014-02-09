@@ -9,10 +9,10 @@ $token = get_token();
 /*
 CREATE TABLE IF NOT EXISTS `g4_singo_reason` (
   `sg_id` int(11) NOT NULL AUTO_INCREMENT,
-  `sg_reason` varchar(255) NOT NULL,
-  `sg_use` tinyint(4) NOT NULL,
-  `sg_print` tinyint(4) NOT NULL,
-  `sg_datetime` datetime NOT NULL,
+  `sg_reason` varchar(255) NOT NULL,  // 신고사유
+  `sg_use` tinyint(4) NOT NULL,       // 사용여부
+  `sg_print` tinyint(4) NOT NULL,     // 신고이유를 사용자에게 출력
+  `sg_datetime` datetime NOT NULL,    // 등록일
   PRIMARY KEY (`sg_id`)
 )
 */
