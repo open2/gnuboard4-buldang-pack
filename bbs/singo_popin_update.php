@@ -18,7 +18,6 @@ $row = sql_fetch($sql);
 if ($row[sg_datetime]) 
     alert_close("이미 신고한 글입니다. (신고일시 : $row[sg_datetime])");
 
-
 $write_table = $g4['write_prefix'].$bo_table;
 if ($bo_table == "@memo") {
     // 신고사유
@@ -48,6 +47,7 @@ $sql = " insert into $g4[singo_table]
                 bo_table = '$bo_table',
                 wr_id = '$wr_id',
                 wr_parent = '$wr_parent',
+                wr_subject = '$wr_subject',
                 sg_mb_id = '$member[mb_id]',
                 sg_reason = '$sg_reason',
                 sg_datetime = '$g4[time_ymdhis]',
@@ -167,25 +167,20 @@ foreach($memo_list as $memo_recv_mb_id) {
 
 <?
 if ($bo_table == "@memo" or $bo_table == "@user") { // 쪽지.사용자 신고가 아닌 경우에만 확인
-} 
-else if ($bo_table == "hidden_comment") 
-{
-
-
+    ;
+} else if ($bo_table == "hidden_comment") {
 ?>
-<SCRIPT LANGUAGE="JavaScript">
+<script type="text/javascript">
 alert("게시물을 신고하였습니다.\n\n담당자 확인 후 해당 게시물에 대해서 관련조치를 하겠습니다.\n\n감사합니다.");
 opener.document.location.href = "<?="board.php?bo_table=$write[bo_table]&wr_id=$write[wr_id]"?>";
 window.close();
-</SCRIPT>
+</script>
 <?
-} 
-else
-{
+} else {
 ?>
-<SCRIPT LANGUAGE="JavaScript">
+<script type="text/javascript">
 alert("게시물을 신고하였습니다.\n\n담당자 확인 후 해당 게시물에 대해서 관련조치를 하겠습니다.\n\n감사합니다.");
 opener.document.location.href = "<?="board.php?bo_table=$bo_table&wr_id=$wr_id"?>";
 window.close();
-</SCRIPT>
+</script>
 <? } ?>

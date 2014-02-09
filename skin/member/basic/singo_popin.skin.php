@@ -11,6 +11,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         <input type="hidden" name="bo_table"    value="<?=$bo_table?>">
         <input type="hidden" name="wr_id"       value="<?=$wr_id?>">
         <input type="hidden" name="wr_parent"   value="<?=$wr_parent?>">
+        <input type="hidden" name="wr_subject"  value="<?=$wr_subject?>">
 
         <table class="table table-hover" width=100%>
         <tr class="success">
