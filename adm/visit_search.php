@@ -13,94 +13,54 @@ include_once("$g4[path]/lib/visit.lib.php");
 
 $qstr = "search_word=$search_word&search_sort=$search_sort"; //페이징 처리관련 변수
 
-$colspan = 5;
-
 $listall = "<a href='{$_SERVER['PHP_SELF']}' class=tt>처음</a>"; //페이지 처음으로 (초기화용도)
 ?>
 
-<!-- 달력 datepicker 시작 -->
-<link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/themes/base/jquery-ui.css" rel="stylesheet" />
-<style>
-.ui-datepicker { font:12px dotum }
-.ui-datepicker select.ui-datepicker-month, 
-.ui-datepicker select.ui-datepicker-year { width: 70px;}
-.ui-datepicker-trigger { margin:0 0 -5px 2px }
-.search_sort {width:100px;vertical-align:middle}
-.ed {vertical-align:middle}
-</style>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/jquery-ui.min.js"></script>
-<script type="text/javascript">
-jQuery(function($){
-    $.datepicker.regional["ko"] = { 
-        closeText: "닫기", 
-        prevText: "이전달", 
-        nextText: "다음달", 
-        currentText: "오늘", 
-        monthNames: ["1월(JAN)","2월(FEB)","3월(MAR)","4월(APR)","5월(MAY)","6월(JUN)", "7월(JUL)","8월(AUG)","9월(SEP)","10월(OCT)","11월(NOV)","12월(DEC)"], 
-        monthNamesShort: ["1월","2월","3월","4월","5월","6월", "7월","8월","9월","10월","11월","12월"], 
-        dayNames: ["일","월","화","수","목","금","토"], 
-        dayNamesShort: ["일","월","화","수","목","금","토"], 
-        dayNamesMin: ["일","월","화","수","목","금","토"], 
-        weekHeader: "Wk", 
-        dateFormat: "yymmdd", 
-        firstDay: 0, 
-        isRTL: false, 
-        showMonthAfterYear: true, 
-        yearSuffix: ""
-    };
-    $.datepicker.setDefaults($.datepicker.regional["ko"]);
-});
-</script>
-<!-- 달력 datepicker 끝 -->
-
-<table width="100%" cellpadding="3" cellspacing="1">
-<form name="fvisit" method="get">
-<tr>
-    <td class="sch_wrp">
-        <?=$listall?>
-        <label for="sch_sort">검색분류</label>
-        <select name="search_sort" id="sch_sort" class="search_sort">
-            <?php 
-            //echo '<option value="vi_ip" '.($search_sort=='vi_ip'?'selected="selected"':'').'>IP</option>'; //selected 추가
-            if($search_sort=='vi_ip'){ //select 안의 옵셥값이 vi_ip면
-                echo '<option value="vi_ip" selected="selected">IP</option>'; //selected 추가
-            }else{
-                echo '<option value="vi_ip">IP</option>';
-            }
-            if($search_sort=='vi_referer'){ //select 안의 옵셥값이 vi_referer면
-                echo '<option value="vi_referer" selected="selected">접속경로</option>'; //selected 추가
-            }else{
-                echo '<option value="vi_referer">접속경로</option>';
-            }
-            if($search_sort=='vi_date'){ //select 안의 옵셥값이 vi_date면
-                echo '<option value="vi_date" selected="selected">날짜</option>'; //selected 추가
-            }else{
-                echo '<option value="vi_date">날짜</option>';
-            }
-            ?>
-        </select>
-        <input type="text" name="search_word" size="20" value="<?=$search_word?>" id="sch_word" class="ed">
-        <input type="image" src="<?=$g4['admin_path']?>/img/btn_search.gif" alt="검색" align="absmiddle" onclick="fvisit_submit('visit_search.php');">
-    </td>
-</tr>
+<form name="fvisit" method=get role="form" class="form-inline">
+<div class="btn-group">
+    <?=$listall?>
+</div>
+<div class="pull-right">
+    <select name="search_sort" id="sch_sort" class="form-control">
+        <?php 
+        //echo '<option value="vi_ip" '.($search_sort=='vi_ip'?'selected="selected"':'').'>IP</option>'; //selected 추가
+        if($search_sort=='vi_ip'){ //select 안의 옵셥값이 vi_ip면
+            echo '<option value="vi_ip" selected="selected">IP</option>'; //selected 추가
+        }else{
+            echo '<option value="vi_ip">IP</option>';
+        }
+        if($search_sort=='vi_referer'){ //select 안의 옵셥값이 vi_referer면
+            echo '<option value="vi_referer" selected="selected">접속경로</option>'; //selected 추가
+        }else{
+            echo '<option value="vi_referer">접속경로</option>';
+        }
+        if($search_sort=='vi_date'){ //select 안의 옵셥값이 vi_date면
+            echo '<option value="vi_date" selected="selected">날짜</option>'; //selected 추가
+        }else{
+            echo '<option value="vi_date">날짜</option>';
+        }
+        ?>
+    </select>
+    <input class="form-control" type=text name=stx required itemname='검색어' value='<?=$stx?>'>
+    <div class="form-group">
+        <button class="btn btn-primary">검색</button>
+    </div>
+</div>
 </form>
-</table>
 
-<table width="100%" cellpadding="0" cellspacing="1" border="0">
-<colgroup width="100">
-<colgroup width="350">
+<table width="100%" class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <colgroup width="100">
 <colgroup width="100">
+<colgroup width="100">
+<colgroup width="80">
 <colgroup width="">
-<tr><td colspan="<?=$colspan?>" class="line1"></td></tr>
-<tr class="bgcol1 bold col1 ht center">
+<tr class="success">
     <td>IP</td>
-    <td>접속 경로</td>
     <td>브라우저</td>
     <td>OS</td>
     <td>일시</td>
+    <td>접속 경로</td>
 </tr>
-<tr><td colspan="<?=$colspan?>" class="line2"></td></tr>
 <?php 
 $sql_common = " from {$g4['visit_table']} ";
 if ($search_sort) {
@@ -137,11 +97,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     $title = "";
     if ($row['vi_referer']) {
 
-        /*
-        $referer = $row['vi_referer'];
-        $referer = htmlspecialchars($referer);
-        */
-        $referer = get_text(cut_str($row[vi_referer], 255, ""));
+        $referer = get_text(cut_str($row[vi_referer], 80, ""));
         $referer = urldecode($referer);
 
         if (strtolower($g4['charset']) == 'utf-8') {
@@ -167,28 +123,30 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     if ($brow == '기타') { $brow = "<span title='$row[vi_agent]'>$brow</span>"; }
     if ($os == '기타') { $os = "<span title='$row[vi_agent]'>$os</span>"; }
 
-    $list = ($i%2);
+    $vi_datetime = $row[vi_date] . " " . $row[vi_time];
+
     echo "
     <tr class='list$list col1 ht center'>
-        <td align='left'>&nbsp;<a href='{$_SERVER['PHP_SELF']}?search_sort=vi_ip&amp;search_word=$ip'>$ip</a></td>
-        <td align=left><nobr style='display:block; overflow:hidden; width:350;'>$link$title</a></nobr></td>
+        <td>&nbsp;<a href='{$_SERVER['PHP_SELF']}?search_sort=vi_ip&amp;search_word=$ip'>$ip</a></td>
         <td>$brow</td>
         <td>$os</td>
-        <td><a href='{$_SERVER['PHP_SELF']}?search_sort=vi_date&amp;search_word={$row['vi_date']}'>$row[vi_date]</a> $row[vi_time]</td>
+        <td><a href='{$_SERVER['PHP_SELF']}?search_sort=vi_date&amp;search_word={$row['vi_date']}'>" . get_datetime($vi_datetime) . "</a></td>
+        <td><nobr style='display:block; overflow:hidden; width:350;'>$link$title</a></nobr></td>
     </tr>";
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='$colspan' height=100 align=center>자료가 없습니다.</td></tr>"; 
+    echo "<tr><td colspan='5' height=100 align=center>자료가 없습니다.</td></tr>"; 
 
-echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
 echo "</table>";
-
-$page = get_paging($config['cf_write_pages'], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&domain=$domain&page=");
-if ($page) {
-    echo "<table width=100% cellpadding=3 cellspacing=1><tr><td align=right>$page</td></tr></table>";
-}
 ?>
+
+<!-- 페이지 -->
+<div class="hidden-xs" style="text-align:center;">
+    <ul class="pagination">
+    <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
+    </ul>
+</div>
 
 <script type='text/javascript'>
 $(function(){

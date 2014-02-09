@@ -48,25 +48,24 @@ $listall = "<a href='$_SERVER[PHP_SELF]' class=tt>처음</a>";
 
 $g4[title] = "투표관리";
 include_once("./admin.head.php");
-
-$colspan = 7;
 ?>
 
-<table width=100%>
-<form name=fsearch method=get>
-<tr>
-    <td width=50% align=left><?=$listall?> (투표수 : <?=number_format($total_count)?>개)</td>
-    <td width=50% align=right>
-        <select name=sfl>
-            <option value='po_subject'>제목</option>
-        </select>
-        <input type=text name=stx class=ed required itemname='검색어' value='<?=$stx?>'>
-        <input type=image src='<?=$g4[admin_path]?>/img/btn_search.gif' align=absmiddle></td>
-</tr>
+<form name=fsearch method=get role="form" class="form-inline">
+<div class="btn-group">
+    <?=$listall?> (투표수 : <?=number_format($total_count)?>개)
+</div>
+<div class="pull-right">
+    <select name=sfl class="form-control">
+        <option value='po_subject'>제목</option>
+    </select>
+    <input class="form-control" type=text name=stx required itemname='검색어' value='<?=$stx?>'>
+    <div class="form-group">
+        <button class="btn btn-primary">검색</button>
+    </div>
+</div>
 </form>
-</table>
 
-<table width=100% cellpadding=0 cellspacing=0>
+<table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <colgroup width=60>
 <colgroup width=''>
 <colgroup width=100>
@@ -74,17 +73,15 @@ $colspan = 7;
 <colgroup width=60>
 <colgroup width=70>
 <colgroup width=40>
-<tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
-<tr class='bgcol1 bold col1 ht center'>
+<tr class="success">
 	<td>번호</td>
 	<td>제목</td>
 	<td>투표권한</td>
 	<td>투표수</td>
 	<td>기타의견</td>
 	<td>접근사용</td>
-	<td><a href="./poll_form.php"><img src='<?=$g4[admin_path]?>/img/icon_insert.gif' border=0 title='생성'></a></td>
+	<td><a href="./poll_form.php"><i class='fa fa-plus-square fa-2x' title='생성'></i></a></td>
 </tr>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) {
     $sql2 = " select sum(po_cnt1+po_cnt2+po_cnt3+po_cnt4+po_cnt5+po_cnt6+po_cnt7+po_cnt8+po_cnt9) as sum_po_cnt from $g4[poll_table] where po_id = '$row[po_id]' ";
@@ -92,9 +89,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     $po_etc = ($row[po_etc]) ? "사용" : "<b>미사용</b>";
     $po_use_access = ($row[po_use_access]) ? "<b>사용</b>" : "미사용";
     
-    $s_mod = "<a href='./poll_form.php?$qstr&w=u&po_id=$row[po_id]'><img src='img/icon_modify.gif' border=0 title='수정'></a>";
-    //$s_del = "<a href=\"javascript:del('./poll_form_update.php?$qstr&w=d&po_id=$row[po_id]');\"><img src='img/icon_delete.gif' border=0 title='삭제'></a>";
-    $s_del = "<a href=\"javascript:post_delete('poll_form_update.php', '$row[po_id]');\"><img src='img/icon_delete.gif' border=0 title='삭제'></a>";
+    $s_mod = "<a href='./poll_form.php?$qstr&w=u&po_id=$row[po_id]'><i class='fa fa-pencil' title='수정'></i></a>";
+    $s_del = "<a href=\"javascript:post_delete('poll_form_update.php', '$row[po_id]');\"><i class='fa fa-trash-o' title='삭제'></i></a>";
 
     $list = $i%2;
 ?>
@@ -105,30 +101,34 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         <td><?=$row2[sum_po_cnt]?></td>
         <td><?=$po_etc?></td>
         <td><?=$po_use_access?></td>
-        <td><?=$s_mod?> <?=$s_del?></td>
+        <td><?=$s_mod?>&nbsp;&nbsp;<?=$s_del?></td>
     </tr>
 <?
 }
 
 if ($i==0) 
-    echo "<tr><td colspan='$colspan' height=100 align=center bgcolor='#FFFFFF'>자료가 없습니다.</td></tr>";
+    echo "<tr><td colspan='7' height=100 align=center>자료가 없습니다.</td></tr>";
 
-echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
 echo "</table>";
+?>
 
-$pagelist = get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");
-if ($pagelist)
-    echo "<table width=100% cellpadding=3 cellspacing=1><tr><td align=right>$pagelist</td></tr></table>\n";
+<!-- 페이지 -->
+<div class="hidden-xs" style="text-align:center;">
+    <ul class="pagination">
+    <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
+    </ul>
+</div>
 
+<?
 if ($stx)
     echo "<script language='javascript'>document.fsearch.sfl.value = '$sfl';</script>\n";
 ?>
 
-<script language='javascript'>
+<script type="text/javascript">
     document.fsearch.stx.focus();
 </script>
 
-<script>
+<script type="text/javascript">
 // POST 방식으로 삭제
 function post_delete(action_url, val)
 {

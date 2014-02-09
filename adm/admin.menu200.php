@@ -20,11 +20,9 @@ $menu["menu200"] = array (
     array("-"),
     array("200800", "접속자현황", "$g4[admin_path]/visit_list.php"),
     array("200810", "접속자검색", "$g4[admin_path]/visit_search.php"), 
-    array("200820", "게시판별접속자", "$g4[admin_path]/mw.adm/board_visit_list.php"),
+    array("200820", "게시판별접속자", "$g4[admin_path]/board_visit_list.php"),
     array("200830", "SEO-유입키워드", "$g4[admin_path]/seo_keyword_list.php"),
     array("-"),
     array("200900", "투표관리", "$g4[admin_path]/poll_list.php")
 );
-
-//    array("200310", "회원메일검증", "$g4[admin_path]/mail_validate.php"),
 ?>

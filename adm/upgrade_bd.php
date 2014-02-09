@@ -928,7 +928,7 @@ if ($config[cf_db_version] < 1207) {
 }
  
 // db 버젼을 업데이트 - major version + mid version - patch version
-$max_version = "1205";
+$max_version = "1207";
 sql_query(" update $g4[config_table] set cf_db_version = '$max_version' ");
 
 echo "불당팩 $max_version - UPGRADE 완료.";

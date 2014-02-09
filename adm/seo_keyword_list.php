@@ -60,30 +60,26 @@ $sql = " select a.*, b.bo_subject
 $result = sql_query($sql);
 
 $listall = "<a href='$_SERVER[PHP_SELF]'>처음</a>";
-
-$colspan = 6;
 ?>
 
-<table width=100%>
-<form name=fsearch method=get>
-<tr>
-    <td width=50% align=left>
-        <?=$listall?> (건수 : <?=number_format($total_count)?>)
-    </td>
-    <td width=50% align=right>
-        <select name=sfl class=cssfl>
-            <option value='a.tag_name'>태그명</option>
-            <option value='a.bo_table'>게시판</option>
-            <option value='a.tag_date'>검색일시</option>
-            <option value='a.count'>검색횟수</option>
-        </select>
-        <input type=text name=stx class=ed required itemname='검색어' value='<?=$stx?>'>
-        <input type=image src='<?=$g4[admin_path]?>/img/btn_search.gif' align=absmiddle></td>
-</tr>
+<form name=fsearch method=get role="form" class="form-inline">
+<div class="btn-group">
+    <?=$listall?> (건수 : <?=number_format($total_count)?>)
+</div>
+<div class="pull-right">
+    <select name=sfl class="form-control">
+        <option value='a.tag_name'>태그명</option>
+        <option value='a.bo_table'>게시판</option>
+        <option value='a.tag_date'>검색일시</option>
+        <option value='a.count'>검색횟수</option>    </select>
+    <input class="form-control" type=text name=stx required itemname='검색어' value='<?=$stx?>'>
+    <div class="form-group">
+        <button class="btn btn-primary">검색</button>
+    </div>
+</div>
 </form>
-</table>
 
-<form name=fpointlist method=post>
+<form name=fpointlist method=post role="form" class="form-inline">
 <input type=hidden name=sst   value='<?=$sst?>'>
 <input type=hidden name=sod   value='<?=$sod?>'>
 <input type=hidden name=sfl   value='<?=$sfl?>'>
@@ -91,15 +87,14 @@ $colspan = 6;
 <input type=hidden name=page  value='<?=$page?>'>
 <input type=hidden name=token value='<?=$token?>'>
 
-<table width=100% cellpadding=0 cellspacing=1>
+<table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <colgroup width=30>
 <colgroup width=180>
 <colgroup width=120>
 <colgroup width=''>
 <colgroup width=80>
 <colgroup width=60>
-<tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
-<tr class='bgcol1 bold col1 ht center'>
+<tr class="success">
     <td><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
     <td><?=subject_sort_link('a.tag_name')?>태그명</a></td>
     <td><?=subject_sort_link('a.bo_table')?>게시판</a></td>
@@ -107,8 +102,6 @@ $colspan = 6;
     <td><?=subject_sort_link('a.tag_date')?>검색일시</a></td>
     <td>검색횟수</td>
 </tr>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
-
 <?
 $sql = " select a.*, b.bo_subject
           $sql_common
@@ -129,24 +122,25 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         <td><a href='?sfl=a.tag_name&stx=$row[tag_name]'>$row[tag_name]</a></td>
         <td><a href='?sfl=a.bo_table&stx=$row[bo_table]'>" . cut_str($row[bo_subject],20) . "</a></td>
         <td><a href='$g4[bbs_path]/board.php?bo_table=$row[bo_table]&wr_id=$row[wr_id]' target=new>" . cut_str($write[wr_subject],40) . "</a></td>
-        <td align=right><a href='?sfl=a.tag_date&stx=$row[tag_date]'>" . $row[tag_date] . "</td>
-        <td align=center>". number_format($row[count])."</td>
+        <td><a href='?sfl=a.tag_date&stx=$row[tag_date]'>" . get_datetime($row[tag_date]) . "</td>
+        <td>". number_format($row[count])."</td>
     </tr> ";
 } 
 
 if ($i == 0)
-    echo "<tr><td colspan='$colspan' align=center height=100 bgcolor=#ffffff>자료가 없습니다.</td></tr>";
+    echo "<tr><td colspan='6' align=center height=100>자료가 없습니다.</td></tr>";
 
-echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
 echo "</table>";
+?>
 
-$pagelist = get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");
-echo "<table width=100% cellpadding=3 cellspacing=1>";
-echo "<tr><td width=50%>";
+<!-- 페이지 -->
+<div class="hidden-xs" style="text-align:center;">
+    <ul class="pagination">
+    <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
+    </ul>
+</div>
 
-echo "</td>";
-echo "<td width=50% align=right>$pagelist</td></tr></table>\n";
-
+<?
 if ($stx)
     echo "<script language='javascript'>document.fsearch.sfl.value = '$sfl';</script>\n";
 ?>

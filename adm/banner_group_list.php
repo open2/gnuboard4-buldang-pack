@@ -48,38 +48,38 @@ $listall = "<a href='$_SERVER[PHP_SELF]'>처음</a>";
 
 $g4[title] = "배너그룹관리";
 include_once("./admin.head.php");
-
-$colspan = 10;
 ?>
 
 <script type="text/javascript">
 var list_update_php = "./banner_group_list_update.php";
 </script>
 
-<table width=100% cellpadding=3 cellspacing=1>
-<form name=fsearch method=get>
-<tr>
-    <td width=50% align=left><?=$listall?> (그룹수 : <?=number_format($total_count)?>개)</td>
-    <td width=50% align=right>
-        <select name=sfl>
-            <option value="bg_id">ID</option>
-            <option value="bg_name">이름</option>
-            <option value="bg_desc">설명</option>
-        </select>
-        <input type=text name=stx class=ed required itemname='검색어' value='<?=$stx?>'>
-        <input type=image src='<?=$g4[admin_path]?>/img/btn_search.gif' align=absmiddle></td>
-</tr>
+<form name=fsearch method=get role="form" class="form-inline">
+<div class="btn-group">
+    <?=$listall?> (그룹수 : <?=number_format($total_count)?>개)
+</div>
+<div class="pull-right">
+    <select name=sfl class="form-control">
+        <option value="bg_id">ID</option>
+        <option value="bg_name">이름</option>
+        <option value="bg_desc">설명</option>
+    </select>
+    <input class="form-control" type=text name=stx required itemname='검색어' value='<?=$stx?>'>
+    <div class="form-group">
+        <button class="btn btn-primary">검색</button>
+    </div>
+</div>
 </form>
-</table>
 
-<form name=fbannergrouplist method=post>
+<form name=fbannergrouplist method=post role="form" class="form-inline">
 <input type=hidden name=sst  value='<?=$sst?>'>
 <input type=hidden name=sod  value='<?=$sod?>'>
 <input type=hidden name=sfl  value='<?=$sfl?>'>
 <input type=hidden name=stx  value='<?=$stx?>'>
 <input type=hidden name=page value='<?=$page?>'>
 <input type=hidden name=token value='<?=$token?>'>
-<table width=100% cellpadding=0 cellspacing=1 border=0>
+
+<table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <colgroup width=30>
 <colgroup width=120>
 <colgroup width=120>
@@ -88,24 +88,22 @@ var list_update_php = "./banner_group_list_update.php";
 <colgroup width=100>
 <colgroup width=60>
 
-<tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
-<tr class='bgcol1 bold col1 ht center'>
+<tr class="success">
     <td><input type=checkbox name=chkall value="1" onclick="check_all(this.form)"></td>
     <td><?=subject_sort_link("bg_id")?>그룹아이디</a></td>
     <td><?=subject_sort_link("bg_subject")?>제목</a></td>
     <td>그룹관리자</td>
     <td>사용</td>
     <td>Width*Height</td>
-    <td><? if ($is_admin == "super") { echo "<a href='./banner_group_form.php'><img src='$g4[admin_path]/img/icon_insert.gif' border=0 title='생성'></a>"; } ?></td>
+    <td><? if ($is_admin == "super") { echo "<a href='./banner_group_form.php'><i class='fa fa-plus-square fa-2x' title='생성'></i></a>"; } ?></td>
 </tr>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) 
 {
-    $s_upd = "<a href='./banner_group_form.php?$qstr&w=u&bg_id=$row[bg_id]'><img src='img/icon_modify.gif' border=0 title='수정'></a>";
+    $s_upd = "<a href='./banner_group_form.php?$qstr&w=u&bg_id=$row[bg_id]'><i class='fa fa-pencil' title='수정'></i></a>";
     $s_del = "";
     if ($is_admin == "super") {
-        $s_del = "<a href=\"javascript:post_delete('banner_group_delete.php', '$row[bg_id]');\"><img src='img/icon_delete.gif' border=0 title='삭제'></a>";
+        $s_del = "<a href=\"javascript:post_delete('banner_group_delete.php', '$row[bg_id]');\"><i class='fa fa-trash-o' title='삭제'></i></a>";
     }
 
     // 배너 갯수를 세어준다
@@ -114,7 +112,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 
     $list = $i%2;
     echo "<input type=hidden name=bg_id[$i] value='$row[bg_id]'>";
-    echo "<tr class='list$list' onmouseover=\"this.className='mouseover';\" onmouseout=\"this.className='list$list';\" height=27 align=center>";
+    echo "<tr>";
     echo "<td><input type=checkbox name=chk[] value='$i'></td>";
     echo "<td><a href='$g4[admin_path]/banner_list.php?sfl=a.bg_id&stx=$row[bg_id]'><b>$row[bg_id]</b></a> ($bn_count)</td>";
     echo "<td><input type=text class=ed name=bg_subject[$i] value='".get_text($row[bg_subject])."' size=30></td>";
@@ -132,19 +130,23 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 } 
 
 if ($i == 0)
-    echo "<tr><td colspan='$colspan' align=center height=100 bgcolor=#ffffff>자료가 없습니다.</td></tr>"; 
+    echo "<tr><td colspan='7' align=center height=100>자료가 없습니다.</td></tr>"; 
 
-echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
 echo "</table>";
+?>
 
-$pagelist = get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");
-echo "<table width=100% cellpadding=3 cellspacing=1>";
-echo "<tr><td width=70%>";
-echo "<input type=button class='btn1' value='선택수정' onclick=\"btn_check(this.form, 'update')\">";
-//echo " <input type=button value='선택삭제' onclick=\"btn_check(this.form, 'delete')\">";
-echo "</td>";
-echo "<td width=30% align=right>$pagelist</td></tr></table>\n";
+<!-- 페이지 -->
+<div class="hidden-xs" style="text-align:center;">
+    <ul class="pagination">
+    <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
+    </ul>
+</div>
 
+<div class="btn-group">
+    <input type=button class='btn btn-default' value='선택수정' onclick="btn_check(this.form, 'update')">
+</div>
+
+<?
 if ($stx)
     echo "<script>document.fsearch.sfl.value = '$sfl';</script>";
 ?>

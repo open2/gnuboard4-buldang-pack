@@ -7,25 +7,21 @@ auth_check($auth[$sub_menu], "r");
 $g4[title] = "ip주소별 접속자현황";
 include_once("./admin.head.php");
 include_once("./visit.sub.php");
-
-$colspan = 5;
 ?>
 
-<table width=100% cellpadding=0 cellspacing=1 border=0>
+<table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <colgroup width=100>
 <colgroup width=200>
 <colgroup width=100>
 <colgroup width=100>
 <colgroup width=''>
-<tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
-<tr class='bgcol1 bold col1 ht center'>
+<tr class="success">
     <td>순위</td>
     <td>ip주소</td>
     <td>방문자수</td>
     <td>비율(%)</td>
     <td>그래프</td>
 </tr>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <?
 $sql_common = " from $g4[visit_table] ";
 $sql_search = " where vi_date between '$fr_date' and '$to_date' 
@@ -84,25 +80,23 @@ if ($sum_count > 0) {
     }
 
     echo "
-    <tr><td colspan='$colspan' class='line2'></td></tr>
-    <tr class='bgcol2 bold col1 ht center'>
+    <tr>
         <td>합계</td>
         <td>".number_format($sum_count)."</td>
         <td colspan=2>&nbsp;</td>
     </tr>";
 } else {
-    echo "<tr><td colspan='$colspan' height=100 align=center>자료가 없습니다.</td></tr>";
+    echo "<tr><td colspan='5' height=100 align=center>자료가 없습니다.</td></tr>";
 }
 ?>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 </table>
 
-<?
-$page = get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&domain=$domain&page=");
-if ($page) {
-    echo "<table width=100% cellpadding=3 cellspacing=1><tr><td align=right>$page</td></tr></table>";
-}
-?>
+<!-- 페이지 -->
+<div class="hidden-xs" style="text-align:center;">
+    <ul class="pagination">
+    <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
+    </ul>
+</div>
 
 <?
 include_once("./admin.tail.php");

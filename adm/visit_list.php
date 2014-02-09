@@ -7,19 +7,16 @@ auth_check($auth[$sub_menu], "r");
 $g4[title] = "접속자현황";
 include_once("./admin.head.php");
 include_once("./visit.sub.php");
-
-$colspan = 6;
 ?>
 
-<table width=100% cellpadding=0 cellspacing=1 border=0>
+<table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <colgroup width=140>
 <colgroup width=>
 <colgroup width=100>
 <colgroup width=80>
 <colgroup width=80>
 <colgroup width=80>
-<tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
-<tr class='bgcol1 bold col1 ht center'>
+<tr class="success">
     <td>ip</td>
     <td><?=subject_sort_link('vi_referer',"fr_date=$fr_date&to_date=$to_date&domain=$domain&ip=$ip")?>접속 경로</a></td>
     <td>검색어</td>
@@ -27,7 +24,6 @@ $colspan = 6;
     <td>OS</td>
     <td>일시</td>
 </tr>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <?
 //unset($br); // 브라우저
 //unset($os); // OS
@@ -90,8 +86,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         }
 
         $title = str_replace(array("<", ">"), array("&lt;", "&gt;"), urldecode($row[vi_referer]));
-        $link = "<a href='#' onclick=\"goto_page('" . $row[vi_referer] . "');return false;\" title='$title '>" . "<img align=absmiddle src='./img/icon_referer.gif'></a>";
-        //$link = "<a href='$row[vi_referer]' target=_blank>";
+        $link = "<a href='#' onclick=\"goto_page('" . $row[vi_referer] . "');return false;\" title='$title '>" . "<i class='fa fa-sign-in'></i></a>";
     }
 
     if ($is_admin == 'super')
@@ -103,7 +98,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     preg_match("/^(http:\/\/)?([^\/]+)/i", $title, $matches);
     $ref_domain = $matches[2];
     if ($ref_domain)
-        $ref_link = "<a href='./visit_list.php?fr_date=$fr_date&to_date=$to_date&domain=$ref_domain' title='$ref_domain 으로 접속한 목록'>" . "<img align=absmiddle src='./img/icon_whois.gif'></a>";
+        $ref_link = "<a href='./visit_list.php?fr_date=$fr_date&to_date=$to_date&domain=$ref_domain' title='$ref_domain 으로 접속한 목록'>" . "<i class='fa fa-user'></i></a>";
     else
         $ref_link = "";
     $title_link = "<a href='./visit_list.php?fr_date=$fr_date&to_date=$to_date&domain=$title' title='$title 으로 접속한 목록'>";
@@ -122,9 +117,9 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         $query = iconv('EUC-KR' , $g4[charset], $q);      // google
 
     echo "
-    <tr class='list$list col1 ht center'>
-        <td align=left><a href='http://www.ip-adress.com/ip_tracer/$ip' target=_new><img align=absmiddle src='./img/icon_link.gif'></a> $ip_link$ip</a></td>
-        <td align=left><nobr style='display:block; overflow:hidden; width:350;'>$link $ref_link $title_link" . cut_str($title,40) . "</a></nobr></td>
+    <tr>
+        <td><a href='http://www.ip-adress.com/ip_tracer/$ip' target=_new><i class='fa fa-question'></i>&nbsp;&nbsp;$ip_link$ip</a></td>
+        <td>$link $ref_link $title_link" . cut_str($title,40) . "</a></td>
         <td>$query</td>
         <td>$brow</td>
         <td>$os</td>
@@ -133,20 +128,23 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='$colspan' height=100 align=center>자료가 없습니다.</td></tr>"; 
+    echo "<tr><td colspan='6' height=100 align=center>자료가 없습니다.</td></tr>"; 
 
-echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
 echo "</table>";
+?>
 
-$pagelist = get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");
-if ($page) {
-    echo "<table width=100% cellpadding=3 cellspacing=1><tr><td>전체 방문자수 : " . number_format($total_count) . "</td><td align=right>$pagelist</td></tr></table>";
-}
+<!-- 페이지 -->
+<div class="hidden-xs" style="text-align:center;">
+    <ul class="pagination">
+    <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
+    </ul>
+</div>
 
+<?
 include_once("./admin.tail.php");
 ?>
 
-<script language="JavaScript">
+<script type="text/javascript">
 // java script로 페이지 이동 (referer를 남기지 않기 위해서)
 function goto_page(page)
 {

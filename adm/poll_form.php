@@ -30,7 +30,7 @@ $g4[title] = $html_title;
 include_once("./admin.head.php");
 ?>
 
-<form name=fpoll method=post onsubmit="return fpoll_check(this);" enctype="multipart/form-data">
+<form name=fpoll method=post onsubmit="return fpoll_check(this);" enctype="multipart/form-data" role="form" class="form-inline">
 <input type=hidden name=po_id value='<?=$po_id?>'>
 <input type=hidden name=w     value='<?=$w?>'>
 <input type=hidden name=sfl   value='<?=$sfl?>'>
@@ -39,27 +39,25 @@ include_once("./admin.head.php");
 <input type=hidden name=sod   value='<?=$sod?>'>
 <input type=hidden name=page  value='<?=$page?>'>
 <input type=hidden name=token value='<?=$token?>'>
-<table width=100% cellpadding=0 cellspacing=0>
+
+<table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <colgroup width=20% class='col1 pad1 bold right'>
 <colgroup width=30% class='col2 pad2'>
 <colgroup width=20% class='col1 pad1 bold right'>
 <colgroup width=30% class='col2 pad2'>
-<tr>
-    <td colspan=4 class=title align=left><img src='<?=$g4[admin_path]?>/img/icon_title.gif'> <?=$html_title?></td>
+<tr class="success">
+    <td colspan=4><?=$html_title?></td>
 </tr>
-<tr><td colspan=4 class='line1'></td></tr>
-<tr class='ht'>
+<tr>
     <td>투표 제목</td>
     <td colspan=3><input type='text' class=ed name='po_subject' style='width:99%;' required itemname='투표 제목' value='<?=$po[po_subject]?>' maxlength="125"></td>
 </tr>
-
-<tr class='ht'>
+<tr>
     <td>투표 개요</td>
     <td colspan=3>
     <textarea class=ed name="po_summary" rows=5 style='width:99%;'><?=$po['po_summary']?></textarea>
     </td>
 </tr>
-
 <? 
 for ($i=1; $i<=9; $i++) {
     $required = "";
@@ -72,7 +70,7 @@ for ($i=1; $i<=9; $i++) {
     $po_poll = get_text($po["po_poll".$i]);
 
     echo <<<HEREDOC
-    <tr class='ht'>
+    <tr>
         <td>항목{$i}</td>
         <td><input type="text" class=ed name="po_poll{$i}" {$required} {$itemname} value="{$po_poll}" style="width:99%;" maxlength="125"></td>
         <td>투표수</td>
@@ -83,7 +81,7 @@ HEREDOC;
 } 
 ?>
 
-<tr class='ht'>
+<tr>
     <td>기타의견</td>
     <td colspan=3>
     <input type='text' class=ed name='po_etc' style='width:95%;' value='<?=get_text($po[po_etc])?>' maxlength="125">
@@ -91,7 +89,7 @@ HEREDOC;
     </td>
 </tr>
 
-<tr class='ht'>
+<tr>
     <td>스킨 디렉토리</td>
     <td colspan=3><select name=po_skin required itemname="스킨 디렉토리">
         <?
@@ -100,11 +98,11 @@ HEREDOC;
             echo "<option value='$arr[$i]'>$arr[$i]</option>\n";
         }
         ?></select>
-        <script language="JavaScript">document.fpoll.po_skin.value="<?=$po[po_skin]?>";</script>
+        <script type="text/javascript">document.fpoll.po_skin.value="<?=$po[po_skin]?>";</script>
     </td>
 </tr>
 
-<tr class='ht'>
+<tr>
     <td>접근사용</td>
     <td colspan=3>
         <input type=checkbox name=po_use_access value='1' <?=$po[po_use_access]?'checked':'';?>>사용
@@ -112,29 +110,29 @@ HEREDOC;
     </td>
 </tr>
 
-<tr class='ht'>
+<tr>
     <td>투표권한</td>
     <td colspan=3><?=get_member_level_select("po_level", 1, 10, $po[po_level])?>이상 투표할 수 있음</td>
 </tr>
 
-<tr class='ht'>
+<tr>
     <td>기타의견 권한</td>
     <td colspan=3><?=get_member_level_select("po_etc_level", $po[po_level], 10, $po[po_etc_level])?>이상 투표할 수 있음</td>
 </tr>
 
-<tr class='ht'>
+<tr>
     <td>포인트</td>
     <td colspan=3><input type='text' class=ed name='po_point' size='10' value='<?=$po[po_point]?>'> 점 (투표한 회원에게 부여함)</td>
 </tr>
 
-<tr class='ht'>
+<tr>
     <td>투표시작일</td>
     <td colspan=3><input type="text" class=ed name="po_date" id="po_date" size=10 maxlength=10 value="<?=$po[po_date]?>" itemname="투표시작일" >
     <a href="#none" onClick="win_calendar('po_date', document.getElementById('po_date').value, '-');" >날짜 선택</a>
     </td>
 </tr>
 
-<tr class='ht'>
+<tr>
     <td>투표마감일</td>
     <td colspan=3><input type="text" class=ed name="po_end_date" id="po_end_date" size=10 maxlength=10 value="<?=$po[po_end_date]?>" itemname="투표마감일" >
     <a href="#none" onClick="win_calendar('po_end_date', document.getElementById('po_end_date').value, '-');" >날짜 선택</a> (마감일을 <a href="#none" onClick="document.getElementById('po_end_date').value = '0000-00-00';" >0000-00-00</a>으로 입력하면 투표종료가 되지 않습니다)
@@ -143,12 +141,12 @@ HEREDOC;
 
 <? if ($w == "u") { ?>
 
-<tr class='ht'>
+<tr>
     <td>투표참가 IP</td>
     <td colspan=3><textarea class=ed name="po_ips" rows=10 style='width:99%;' readonly><?=preg_replace("/\n/", " / ", $po[po_ips])?></textarea></td>
 </tr>
 
-<tr class='ht'>
+<tr>
     <td>투표참가 회원</td>
     <td colspan=3><textarea class=ed name="mb_ids" rows=10 style='width:99%;' readonly><?=preg_replace("/\n/", " / ", $po[mb_ids])?></textarea></td>
 </tr>
@@ -159,11 +157,11 @@ HEREDOC;
 </table>
 
 <p align=center>
-    <input type=submit class=btn1 accesskey='s' value='  확  인  '>&nbsp;
-    <input type=button class=btn1 value='  목  록  ' onclick="document.location.href='./poll_list.php?<?=$qstr?>';">
+    <input type=submit class="btn btn-default" accesskey='s' value='  확  인  '>&nbsp;
+    <input type=button class="btn btn-default" value='  목  록  ' onclick="document.location.href='./poll_list.php?<?=$qstr?>';">
 </form>
 
-<script language='Javascript'>
+<script type="text/javascript">
 function fpoll_check(f)
 {
     f.action = './poll_form_update.php';

@@ -55,15 +55,14 @@ include_once ("$g4[path]/lib/banner.lib.php");
 <input type=hidden name="page"  value="<?=$page?>">
 <input type=hidden name="token" value="<?=$token?>">
 
-<table width=100% cellpadding=0 cellspacing=0 border=0>
-<colgroup width=5% class='left'>
-<colgroup width=20% class='col1 pad1 bold right'>
-<colgroup width=75% class='col2 pad2'>
+<table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
+<colgroup width=5%>
+<colgroup width=20%>
+<colgroup width=75%>
 <tr>
-    <td colspan=3 class=title align=left><img src='<?=$g4[admin_path]?>/img/icon_title.gif'> <?=$html_title?></td>
+    <td colspan=3><?=$html_title?></td>
 </tr>
-<tr><td colspan=3 class='line1'></td></tr>
-<tr class='ht'>
+<tr>
     <td></td>
     <td>배너ID</td>
     <td><input type=text class=ed name=bn_id size=30 maxlength=20 <?=$bn_table_attr?> required itemname='배너ID' value='<?=$bn[bn_id] ?>'>
@@ -73,14 +72,14 @@ include_once ("$g4[path]/lib/banner.lib.php");
         ?>
     </td>
 </tr>
-<tr class='ht'>
+<tr>
     <td></td>
     <td>그룹</td>
     <td>
         <?=get_banner_group_select('bg_id', $bn[bg_id], "required itemname='그룹'");?>
         <? if ($w=='u') { ?><a href="javascript:location.href='./banner_list.php?sfl=a.bg_id&stx='+document.fbannerform.bg_id.value;">동일그룹배너목록</a><?}?></td>
 </tr>
-<tr class='ht'>
+<tr>
     <td></td>
     <td>배너 제목</td>
     <td>
@@ -88,8 +87,7 @@ include_once ("$g4[path]/lib/banner.lib.php");
     </td>
 </tr>
 
-<tr><td colspan=3 class='line2'></td></tr>
-<tr class='ht'>
+<tr>
     <td></td>
     <td>배너 이미지</td>
     <td style='padding-top:7px; padding-bottom:7px;'>
@@ -108,7 +106,7 @@ include_once ("$g4[path]/lib/banner.lib.php");
     </td>
 </tr>
 </tr>
-<tr class='ht'>
+<tr>
     <td></td>
     <td>배너 TEXT</td>
     <td style='padding-top:7px; padding-bottom:7px;'>
@@ -118,31 +116,30 @@ include_once ("$g4[path]/lib/banner.lib.php");
     </td>
 </tr>
 
-<tr><td colspan=3 class='line2'></td></tr>
-<tr class='ht'>
+<tr>
     <td><input type=checkbox name=chk_use value=1></td>
     <td>배너사용</td>
     <td><input type=checkbox name=bn_use value='1' <?=$bn[bn_use]?'checked':'';?>>사용</td>
 </tr>
-<tr class='ht'>
+<tr>
     <td><input type=checkbox name=chk_target value=1></td>
     <td>배너타겟</td>
     <td><input type=checkbox name=bn_target value='1' <?=$bn[bn_target]?'checked':'';?>>새창 (체크하면 새창으로)</td>
 </tr>
-<tr class='ht'>
+<tr>
     <td></td>
     <td>타겟URL</td>
     <td><input type=text class=ed name=bn_url size=60 required itemname='타겟 URL' value='<?=$bn[bn_url]?>'></td>
 </tr>
 
-<tr class='ht'>
+<tr>
     <td><input type=checkbox name=chk_start_datetime value=1></td>
     <td>시작일</td>
     <td><input type=text class=ed name='bn_start_datetime' id='bn_start_datetime' size=24 maxlength=19 required value='<?=$bn[bn_start_datetime]?>'>
     <a href="javascript:win_calendar('bn_start_datetime', document.getElementById('bn_start_datetime').value, '-');"><img src='<?=$g4[admin_path]?>/img/calendar.gif' border=0 align=absmiddle title='달력 - 날짜를 선택하세요'></a>
     </td>
 </tr>
-<tr class='ht'>
+<tr>
     <td><input type=checkbox name=chk_end_datetime value=1></td>
     <td>종료일</td>
     <td><input type=text class=ed name='bn_end_datetime' id='bn_end_datetime' size=24 maxlength=19 required value='<?=$bn[bn_end_datetime]?>'>
@@ -152,23 +149,21 @@ include_once ("$g4[path]/lib/banner.lib.php");
     +180<input type=button name=end_date_chk3 value="<? echo date("Y-m-d", $g4[server_time]+(60*60*24*180)); ?>" onclick="this.form.bn_end_datetime.value=this.value+' 23:59:59'" title='오늘+180일'>
     </td>
 </tr>
-<tr class='ht'>
+<tr>
     <td></td>
     <td>배너 순서</td>
     <td><input type=text class=ed name=bn_order size=5 value='<?=$bn[bn_order]?>'> 숫자가 낮은 배너 부터 검색</td>
 </tr>
 
-<tr><td colspan=3 class='line2'></td></tr>
-
 <? for ($i=1; $i<=3; $i++) { ?>
-<tr class='ht'>
+<tr>
     <td><input type=checkbox name=chk_<?=$i?> value=1></td>
     <td><input type=text class=ed name='bn_<?=$i?>_subj' value='<?=get_text($bn["bn_{$i}_subj"])?>' title='여분필드 <?=$i?> 제목' style='text-align:right;font-weight:bold;'></td>
     <td><input type=text class=ed style='width:80%;' name='bn_<?=$i?>' value='<?=get_text($bn["bn_$i"])?>' title='여분필드 <?=$i?> 설정값'></td>
 </tr>
 <? } ?>
 
-<tr class='ht'>
+<tr>
     <td></td>
     <td>배너 수정일</td>
     <td><?=$bn['bn_datetime']?></td>
@@ -177,8 +172,8 @@ include_once ("$g4[path]/lib/banner.lib.php");
 </table>
 
 <p align=center>
-    <input type=submit class=btn1 accesskey='s' value='  확  인  '>&nbsp;
-    <input type=button class=btn1 value='  목  록  ' onclick="document.location.href='./banner_list.php?<?=$qstr?>';">&nbsp;
+    <input type=submit class="btn btn-default" accesskey='s' value='  확  인  '>&nbsp;
+    <input type=button class="btn btn-default" value='  목  록  ' onclick="document.location.href='./banner_list.php?<?=$qstr?>';">&nbsp;
 </form>
 
 <script type="text/javascript">
