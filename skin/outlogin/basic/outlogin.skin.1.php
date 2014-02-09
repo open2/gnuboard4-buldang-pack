@@ -29,10 +29,10 @@ else {
 <form name="fhead" method="post" onsubmit="return fhead_submit(this);" autocomplete="off" role="form" class="form-inline">
 <input type="hidden" name="url" value="<?=$outlogin_url?>">
 
-<input type="text" class="form-control" name="mb_id" maxlength="20" itemname="아이디" placeholder="login id" style="width:100%;">
+<input type="text" class="form-control" style="width:100%;" name="mb_id" maxlength="20" itemname="아이디" placeholder="login id">
+<input type="password" class="form-control" style="width:100%;margin-top:-1px;" name="mb_password" id="outlogin_mb_password" maxlength="20" itemname="패스워드" placeholder="password">
 
-<div class="input-group">
-    <input type="password" class="form-control" name="mb_password" id="outlogin_mb_password" maxlength="20" itemname="패스워드" placeholder="password">
+<div class="input-group" style="margin-top:-1px;">
     <span class="input-group-addon">
         <div class="checkbox custom">
         <label>
@@ -41,12 +41,13 @@ else {
         </label>
         </div>
     </span>
+    <button type="submit" class="btn btn-default btn-group-justified" >Login</button>
 </div>
-<button type="submit" class="btn btn-default btn-group-justified" >Login</button>
-    <div class="btn-group btn-group-justified">
-        <a class="btn btn-default" style="border-color: #ffffff;" title="회원가입" href="<?=$g4[bbs_path]?>/register.php">회원가입</a>
-        <a class="btn btn-default" style="border-color: #ffffff;" title="회원 id, password 찾기" href="javascript:win_password_lost();">아이디찾기</a>
-    </div>
+    
+<div class="btn-group btn-group-justified" style="margin-bottom:3px;">
+    <a class="btn btn-default" style="border-color: #ffffff;" title="회원가입" href="<?=$g4[bbs_path]?>/register.php">회원가입</a>
+    <a class="btn btn-default" style="border-color: #ffffff;" title="회원 id, password 찾기" href="javascript:win_password_lost();">아이디찾기</a>
+</div>
 
 </form>
 
