@@ -10,6 +10,7 @@ $menu["menu300"] = array (
     array("-"),
     array("300540", "신고관리", "$g4[admin_path]/singo_list.php"),
     array("300550", "신고해제관리", "$g4[admin_path]/unsingo_list.php"),
+    array("300555", "신고사유관리", "$g4[admin_path]/singo_reason_list.php"),
     array("-"),
     array("300560", "휴지통관리", "$g4[admin_path]/recycle_list.php"),
     array("-"),
