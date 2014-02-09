@@ -9,7 +9,6 @@ $menu["menu200"] = array (
     array("200150", "닉네임변경이력", "$g4[admin_path]/nickname_list.php"),
     array("200160", "로그인오류보기", "$g4[admin_path]/login_fail_list.php"),
     array("200170", "회원가입통계", "$g4[admin_path]/member_join_stat.php"),
-    array("200180", "탈퇴한회원보기", "$g4[admin_path]/member_list.php?&sst=mb_leave_date&sod=desc"),
     array("-"),
     array("200200", "포인트관리", "$g4[admin_path]/point_list.php"),
     array("-"),

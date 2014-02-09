@@ -121,7 +121,7 @@ include_once ("./admin.head.php");
         if ($w == "") 
             echo "영문자, 숫자, _ 만 가능 (공백없이 20자 이내)";
         else 
-            echo "<a href='$g4[bbs_path]/board.php?bo_table=$board[bo_table]'><img src='$g4[admin_path]/img/icon_view.gif' border=0 align=absmiddle></a>";
+            echo "<a href='$g4[bbs_path]/board.php?bo_table=$board[bo_table]' target=_new><i class='fa fa-external-link'></i></a>";
         ?>
     </td>
 </tr>

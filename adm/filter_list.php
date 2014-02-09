@@ -51,7 +51,6 @@ $sql = " select *
           $sql_order
           limit $from_record, $rows ";
 $result = sql_query($sql);
-$colspan = 15;
 ?>
 
 <script type="text/javascript">
@@ -59,41 +58,38 @@ var list_delete_php = "filter_delete.php";
 var list_update_php = "filter_update.php";
 </script>
 
-<form name=fsearch method=get style="margin:0px;">
-<table width=100%>
-<tr>
-    <td width=50% align=left><?=$listall?>
-        (필터갯수 : <?=number_format($total_count)?>)
-    </td>
-    <td width=50% align=right>
-        <select name=sfl class=cssfl>
-            <option value='pp_word'>필터</option>
-            <option value='pp_level'>필터레벨</option>
-        </select>
-        <input type=text name=stx required itemname='검색어' value='<? echo $stx ?>'>
-        <input type=image src='<?=$g4[admin_path]?>/img/btn_search.gif' align=absmiddle></td>
-</tr>
-</table>
+<form name=fsearch method=get role="form" class="form-inline">
+<div class="btn-group">
+    <?=$listall?> (필터갯수 : <?=number_format($total_count)?>)
+</div>
+<div class="pull-right">
+    <select name=sfl class="form-control">
+        <option value='pp_word'>필터</option>
+        <option value='pp_level'>필터레벨</option>
+    </select>
+    <input class="form-control" type=text name=stx required itemname='검색어' value='<?=$stx?>'>
+    <div class="form-group">
+        <button class="btn btn-primary">검색</button>
+    </div>
+</div>
 </form>
 
-<form name=fsingolist method=post style="margin:0px;">
+<form name=fsingolist method=post role="form" class="form-inline">
 <input type=hidden name=sst  value='<?=$sst?>'>
 <input type=hidden name=sod  value='<?=$sod?>'>
 <input type=hidden name=sfl  value='<?=$sfl?>'>
 <input type=hidden name=stx  value='<?=$stx?>'>
 <input type=hidden name=page value='<?=$page?>'>
 
-<table width=100% cellpadding=0 cellspacing=0 border=0>
-<tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
-<tr class='bgcol1 bold col1 center'>
+<table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
+<tr class="success">
     <td width=30><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
-    <td width=110 align='left'><?=subject_sort_link('pp_id')?>pp_id</a></td>
-    <td align='left'><?=subject_sort_link('pp_word')?>필터</td>
+    <td width=110><?=subject_sort_link('pp_id')?>pp_id</a></td>
+    <td><?=subject_sort_link('pp_word')?>필터</td>
     <td width=100><?=subject_sort_link('pp_level')?>필터 레벨</a></td>
 	  <td width=100>필터된 갯수</td>
     <td width=110>필터일시</td>
 </tr>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) {
 
@@ -115,33 +111,33 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='$colspan' align=center height=100 class=contentbg>내역이 없습니다.</td></tr>";
+    echo "<tr><td colspan='6' align=center height=100>내역이 없습니다.</td></tr>";
 
-echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
 echo "</table>";
+?>
 
-$pagelist = get_paging($config[cf_write_pages], $page, $total_page, "?$qstr&page=");
-echo "<table width=100% cellpadding=3 cellspacing=1>";
-echo "<tr><td width=50%>";
+<!-- 페이지 -->
+<div class="hidden-xs" style="text-align:center;">
+    <ul class="pagination">
+    <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
+    </ul>
+</div>
 
-if ($is_admin == "super") {
-    echo "<input type=button class='btn1' value='선택수정' onclick=\"btn_check(this.form, 'update')\">&nbsp;";
+<div class="btn-group">
+    <input type=button class='btn btn-default' value='선택수정' onclick="btn_check(this.form, 'update')">
+    <? if ($is_admin == "super") { ?>
+        <input type=hidden name=act value='delete'>
+        <input type=button class='btn btn-default' value='선택삭제' onclick="btn_check(this.form, 'delete')">
+    <? } ?>
+</div>
 
-    echo "<input type=hidden name=act  value='delete'>";
-    echo "<input type=button class='btn1' value='선택삭제' onclick=\"btn_check(this.form, 'delete')\">";
-}
-
-echo "</td>";
-echo "<td width=50% align=right>$pagelist</td></tr></table>\n";
-
-echo "</form>";
-
+<?
 if ($stx)
     echo "<script language='javascript'>document.fsearch.sfl.value = '$sfl';</script>\n";
 ?>
+</form>
 
-<?$colspan=4?>
-<p>
+<br>
 <form name=fpointlist2 method=post onsubmit="return f_filter_submit(this);" autocomplete="off">
 <input type=hidden name=sfl   value='<?=$sfl?>'>
 <input type=hidden name=stx   value='<?=$stx?>'>
@@ -149,28 +145,25 @@ if ($stx)
 <input type=hidden name=sod   value='<?=$sod?>'>
 <input type=hidden name=page  value='<?=$page?>'>
 <input type=hidden name=act   value='insert'>
-<table width=100% cellpadding=0 cellspacing=1 class=tablebg>
+<table width=100% class="table table-condensed table-hover table-responsive table-borderless" style="word-wrap:break-word;">
 <colgroup width=150>
 <colgroup width=100>
 <colgroup width=100>
 <colgroup width=''>
-<tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
-<tr class='bgcol1 bold col1 ht center'>
+<tr>
     <td>필터</td>
     <td>필터레벨</td>
     <td></td>
     <td></td>
 </tr>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
-<tr class='ht center'>
+<tr>
     <td><input type=text class=ed name=pp_word required itemname='필터' value=''></td>
     <td><?=get_member_level_select('pp_level', 1, 10, 5) ?></td>
-    <td><input type=submit class=btn1 value='  확  인  '></td>
+    <td><input type=submit class="btn btn-default" value='  확  인  '></td>
     <td></td>
 </tr>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
-</form>
 </table>
+</form>
 
 <script type="text/javascript">
 function f_filter_submit(f)

@@ -56,59 +56,53 @@ $sql = " select *
           $sql_order
           limit $from_record, $rows ";
 $result = sql_query($sql);
-
-$colspan = 15;
 ?>
 
-<script language="JavaScript">
+<script type="text/javascript">
 var list_delete_php = "unsingo_list_delete.php";
 </script>
 
-<form name=fsearch method=get style="margin:0px;">
-<table width=100%>
-<tr>
-    <td width=50% align=left><?=$listall?>
-        (신고해제 게시물 : <?=number_format($total_count)?>)
-    </td>
-    <td width=50% align=right>
-        <select name=sfl class=cssfl>
-            <option value='mb_id'>신고된 회원아이디</option>
-            <option value='unsg_mb_id'>신고해제한 회원아이디</option>
-            <option value='unsg_ip'>신고해제한 IP</option>
-            <option value='unsg_reason'>신고해제한 이유</option>
-            <option value='bo_table'>게시판</option>
-            <option value='wr_id'>게시판,게시글</option>
-        </select>
-        <input type=text name=stx required itemname='검색어' value='<? echo $stx ?>'>
-        <input type=image src='<?=$g4[admin_path]?>/img/btn_search.gif' align=absmiddle></td>
-</tr>
-</table>
+<form name=fsearch method=get role="form" class="form-inline">
+<div class="btn-group">
+    <?=$listall?> (신고해제 게시물 : <?=number_format($total_count)?>)
+</div>
+<div class="pull-right">
+    <select name=sfl class="form-control">
+        <option value='mb_id'>신고된 회원아이디</option>
+        <option value='unsg_mb_id'>신고해제한 회원아이디</option>
+        <option value='unsg_ip'>신고해제한 IP</option>
+        <option value='unsg_reason'>신고해제한 이유</option>
+        <option value='bo_table'>게시판</option>
+        <option value='wr_id'>게시판,게시글</option>
+    </select>
+    <input class="form-control" type=text name=stx required itemname='검색어' value='<?=$stx?>'>
+    <div class="form-group">
+        <button class="btn btn-primary">검색</button>
+    </div>
+</div>
 </form>
 
-<form name=fsingolist method=post style="margin:0px;">
+<form name=fsingolist method=post role="form" class="form-inline">
 <input type=hidden name=sst  value='<?=$sst?>'>
 <input type=hidden name=sod  value='<?=$sod?>'>
 <input type=hidden name=sfl  value='<?=$sfl?>'>
 <input type=hidden name=stx  value='<?=$stx?>'>
 <input type=hidden name=page value='<?=$page?>'>
 
-<table width=100% cellpadding=0 cellspacing=0 border=0>
-<tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
-<tr class='bgcol1 bold col1 ht2 center'>
+<table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
+<tr class="success">
     <td width=30 rowspan=2><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
     <td width=110 align='left'><?=subject_sort_link('mb_id')?>신고된 회원</a></td>
     <td align='left'>게시판 - 게시물 - 신고</td>
     <td width=110>게시물 등록일시</td>
     <td width=100>게시물 IP</td>
-	  <td width=60 rowspan=2></td>
 </tr>
-<tr class='bgcol1 bold col1 ht2 center'>
+<tr class="success">
     <td align='left'><?=subject_sort_link('unsg_mb_id')?>신고해제한 회원</a></td>
     <td align='left'>신고해제한 이유</td>
     <td>신고해제한 일시</td>
     <td>신고해제한 IP</td>
 </tr>
-<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) {
     $mb = array();
@@ -211,52 +205,57 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     
     echo "
     <input type=hidden name=unsg_id[$i] value='$row[unsg_id]'>
-    <tr class='list$list col1 center' height=25>
+    <tr>
         <td rowspan=2><input type=checkbox name=chk[] value='$i'></td>
-        <td title='$row[mb_id]' align='left'>$mb_nick</td>
-        <td align=left style='padding:0 5px 0 5px;'>
+        <td title='$row[mb_id]'>$mb_nick</td>
+        <td>
                 $bo_subject -
-                <span style='color:#555555;'>$wr_subject</span> 
+                $wr_subject 
                 $unsingo
-                {$singo_href}<img src='./img/icon.gif' align=absmiddle><img src='./img/icon.gif' align=absmiddle></a>
+                {$singo_href}<i class='fa fa-external-link'></i></a>
         </td>
-        <td>".substr($wr_datetime,2,14)."</td>
-        <td align=left>&nbsp; $wr_ip $wr_ip_intercept</td>
-        <td>
-        </td>
+        <td>".get_datetime($wr_datetime)."</td>
+        <td>&nbsp; $wr_ip $wr_ip_intercept</td>
     </tr>
-    <tr class='list$list col1 center' height=25>
-        <td title='$row[unsg_mb_id]' align='left'>: $unsg_mb_nick</td>
-        <td align=left style='padding:0 5px 0 5px;'><span style='color:#C15B27;'>".get_text($row[unsg_reason])."</span></td>
-        <td><span style='color:#C15B27;'>".substr($row[unsg_datetime],2,14)."</span></td>
-        <td align=left>&nbsp; <span style='color:#C15B27;'>$unsg_ip</span> $unsg_ip_intercept</td>
-        <td>
-        </td>
+    <tr>
+        <td title='$row[unsg_mb_id]'>: $unsg_mb_nick</td>
+        <td>".get_text($row[unsg_reason])."</td>
+        <td>".get_datetime($row[unsg_datetime])."</td>
+        <td>$unsg_ip $unsg_ip_intercept</td>
     </tr>
     ";
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='$colspan' align=center height=100 class=contentbg>내역이 없습니다.</td></tr>";
+    echo "<tr><td colspan='4' align=center height=100>내역이 없습니다.</td></tr>";
 
-echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
 echo "</table>";
+?>
 
-$pagelist = get_paging($config[cf_write_pages], $page, $total_page, "?$qstr&page=");
-echo "<table width=100% cellpadding=3 cellspacing=1>";
-echo "<tr><td width=50%>";
-echo "<input type=button class='btn1' value='선택삭제' onclick=\"btn_check(this.form, 'delete')\">";
-echo "</td>";
-echo "<td width=50% align=right>$pagelist</td></tr></table>\n";
-echo "</form>";
+<!-- 페이지 -->
+<div class="hidden-xs" style="text-align:center;">
+    <ul class="pagination">
+    <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
+    </ul>
+</div>
 
+<div class="btn-group">
+    <? if ($is_admin == "super") { ?>
+        <input type=button class='btn btn-default' value='선택삭제' onclick="btn_check(this.form, 'delete')">
+    <? } ?>
+</div>
+
+<?
 if ($stx)
     echo "<script language='javascript'>document.fsearch.sfl.value = '$sfl';</script>\n";
 ?>
+</form>
 
-<p>* 삭제시 신고해제된 내역만을 삭제하며 게시물의 삭제는 하지 않습니다.
-<br>* 신고해제에서는 차단을 하지 않습니다. 이것은 방어권이라 존중합니다.
-<br>* 회원별명 옆의 <font color='#ff0000'>*</font> 표시는 차단된 회원임을 나타냅니다. 마우스 오버시 차단일자가 표시됩니다.
+<p>
+* 삭제시 신고해제된 내역만을 삭제하며 게시물의 삭제는 하지 않습니다.<br>
+* 신고해제에서는 차단을 하지 않습니다. 이것은 방어권이라 존중합니다.<br>
+* 회원별명 옆의 <font color='#ff0000'>*</font> 표시는 차단된 회원임을 나타냅니다. 마우스 오버시 차단일자가 표시됩니다.
+</p>
 
 <?
 include_once ("./admin.tail.php");

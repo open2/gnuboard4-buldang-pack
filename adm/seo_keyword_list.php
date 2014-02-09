@@ -1,6 +1,6 @@
 <?
 // SEO 유입키워드 관리
-$sub_menu = "200850";
+$sub_menu = "200830";
 include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "r");

@@ -92,8 +92,8 @@ var list_delete_php = 'board_list_delete.php';
 <input type=hidden name=token value="<?=$token?>">
 <table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <colgroup width=30>
-<colgroup width=>
 <colgroup width=100>
+<colgroup width=>
 <colgroup width=100>
 <colgroup width=55>
 <colgroup width=55>
@@ -140,10 +140,10 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 
     $list = $i % 2;
     echo "<input type=hidden name=board_table[$i] value='$row[bo_table]'>";
-    echo "<tr class='list$list col1 ht center'>";
-    echo "<td rowspan=2 height=25><input type=checkbox name=chk[] value='$i'></td>";
+    echo "<tr>";
+    echo "<td rowspan=2><input type=checkbox name=chk[] value='$i'></td>";
     echo "<td><a href='$g4[bbs_path]/board.php?bo_table=$row[bo_table]'><b>$row[bo_table]</b></a></td>";
-    echo "<td colspan=2 align=left height=25><input type=text class=ed name=bo_subject[$i] value='".get_text($row[bo_subject])."' style='width:99%'></td>";
+    echo "<td colspan=2 align=left><input type=text class=ed name=bo_subject[$i] value='".get_text($row[bo_subject])."' style='width:99%'></td>";
     echo "<td rowspan=2 title='읽기 포인트'><input type=text class=ed name=bo_read_point[$i] value='$row[bo_read_point]' style='width:33px;'></td>";
     echo "<td rowspan=2 title='쓰기 포인트'><input type=text class=ed name=bo_write_point[$i] value='$row[bo_write_point]' style='width:33px;'></td>";
     echo "<td rowspan=2 title='속글쓰기 포인트'><input type=text class=ed name=bo_comment_point[$i] value='$row[bo_comment_point]' style='width:33px;'></td>";
@@ -151,8 +151,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     echo "<td rowspan=2 title='검색사용'><input type=checkbox name=bo_use_search[$i] ".($row[bo_use_search]?'checked':'')." value='1'></td>";
     echo "<td rowspan=2 title='검색순서'><input type=text class=ed name=bo_order_search[$i] value='$row[bo_order_search]' size=2></td>";
     echo "</tr>";
-    echo "<tr class='list$list col1 ht center'>";
 
+    echo "<tr>";
     echo "<td>$s_upd $s_del $s_copy $s_sort</td>";
     if ($is_admin == "super")
         echo "<td align=left>".get_group_select("gr_id[$i]", $row[gr_id])."</td>";

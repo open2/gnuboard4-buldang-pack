@@ -28,7 +28,6 @@ $g4[title] = $html_title;
 include_once("./admin.head.php");
 ?>
 
-<table width=100% cellpadding=0 cellspacing=0>
 <form name=fboardgroup method=post action="javascript:fboardgroup_check(document.fboardgroup);" autocomplete="off">
 <input type=hidden name=w    value='<?=$w?>'>
 <input type=hidden name=sfl  value='<?=$sfl?>'>
@@ -37,19 +36,20 @@ include_once("./admin.head.php");
 <input type=hidden name=sod  value='<?=$sod?>'>
 <input type=hidden name=page value='<?=$page?>'>
 <input type=hidden name=token value="<?=$token?>">
-<colgroup width=20% class='col1 pad1 bold right'>
-<colgroup width=30% class='col2 pad2'>
-<colgroup width=20% class='col1 pad1 bold right'>
-<colgroup width=30% class='col2 pad2'>
-<tr class='ht'>
-    <td colspan=4 class=title align=left><img src='<?=$g4[admin_path]?>/img/icon_title.gif'> <?=$html_title?></td>
+
+<table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
+<colgroup width=20%>
+<colgroup width=30%>
+<colgroup width=20%>
+<colgroup width=30%>
+<tr>
+    <td colspan=4><?=$html_title?></td>
 </tr>
-<tr><td colspan=4 class='line1'></td></tr>
-<tr class='ht'>
+<tr>
     <td>그룹 ID</td>
     <td colspan=3><input type='text' class=ed name=gr_id size=11 maxlength=10 <?=$gr_id_attr?> alphanumericunderline itemname='그룹 아이디' value='<?=$gr[ug_id]?>'> 영문자, 숫자, _ 만 가능 (공백없이)</td>
 </tr>
-<tr class='ht'>
+<tr>
     <td>그룹 제목</td>
     <td colspan=3>
         <input type='text' class=ed name=gr_subject size=40 required itemname='그룹 제목' value='<?=get_text($gr[ug_subject])?>'>
@@ -59,7 +59,7 @@ include_once("./admin.head.php");
         ?>
     </td>
 </tr>
-<tr class='ht'>
+<tr>
     <td>그룹 관리자</td>
     <td colspan=3>
         <?
@@ -72,7 +72,7 @@ include_once("./admin.head.php");
 </tr>
 
 <? for ($i=1; $i<=10; $i=$i+2) { $k=$i+1; ?>
-<tr class='ht'>
+<tr>
     <td><input type=text class=ed name='gr_<?=$i?>_subj' value='<?=get_text($gr["ug_{$i}_subj"])?>' title='여분필드 <?=$i?> 제목' style='text-align:right;font-weight:bold;' size=15></td>
     <td><input type='text' class=ed style='width:99%;' name=gr_<?=$i?> value='<?=$gr["ug_$i"]?>' title='여분필드 <?=$i?> 설정값'></td>
     <td><input type=text class=ed name='gr_<?=$k?>_subj' value='<?=get_text($gr["ug_{$k}_subj"])?>' title='여분필드 <?=$k?> 제목' style='text-align:right;font-weight:bold;' size=15></td>
@@ -80,12 +80,11 @@ include_once("./admin.head.php");
 </tr>
 <? } ?>
 
-<tr><td colspan=4 class='line2'></td></tr>
 </table>
 
 <p align=center>
-    <input type=submit class=btn1 accesskey='s' value='  확  인  '>&nbsp;
-    <input type=button class=btn1 value='  목  록  ' onclick="document.location.href='./ug_list.php?<?=$qstr?>';">
+    <input type=submit class="btn btn-default" accesskey='s' value='  확  인  '>&nbsp;
+    <input type=button class="btn btn-default" value='  목  록  ' onclick="document.location.href='./ug_list.php?<?=$qstr?>';">
 </form>
 
 <script language='JavaScript'>
