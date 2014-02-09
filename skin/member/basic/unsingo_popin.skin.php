@@ -7,7 +7,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <strong>신고해제</strong>
     </div>
     <div class="panel-body">
-        <form name="fsingo" method="post" action="unsingo_popin_update.php" style="margin:0px;">
+        <form name="fsingo" method="post" action="unsingo_popin_update.php" role="form" class="form-inline">
         <input type="hidden" name="bo_table"    value="<?=$bo_table?>">
         <input type="hidden" name="wr_id"       value="<?=$wr_id?>">
         <input type="hidden" name="wr_parent"   value="<?=$wr_parent?>">
