@@ -178,12 +178,16 @@ if ($write[wr_singo] and $board[bo_singo_action] > 0 and $write[wr_singo] >= $bo
 
     // 신고이유의 출력 여부를 결정 (singo_popin.skin.php에서 출력여부를 판단하면 사용자가 선택후 값을 변경할 수 있기 때문임)
     // 표준 신고이유만 출력하는 것이 원칙. 그렇지 않은 경우 신고기능을 타인의 비방에 사용할 수 있기 때문입니다.
-    $sql = " select distinct a.sg_reason from $g4[singo_table] a, $g4[singo_reason_table] b where a.bo_table = '$bo_table' and a.wr_id = '$wr_id' and a.sg_reason = b.sg_reason order by a.sg_id ";
+    // 표준 신고이더라도. sg_print = 1인 경우만 출력 합니다.
+    $sql = " select distinct a.sg_reason, b.sg_print from $g4[singo_table] a, $g4[singo_reason_table] b where a.bo_table = '$bo_table' and a.wr_id = '$wr_id' and a.sg_reason = b.sg_reason order by a.sg_id ";
     $sg_result = sql_query($sql);
         
     $sg_reason = "";
     for ($i=0; $sg_row = sql_fetch_array($sg_result); $i++) {
-        $sg_reason .= $sg_row['sg_reason'] . "/" ;
+
+        // sg_print = 1 : 사유를 출력
+        if ($sg_row['sg_print'] > 0)
+            $sg_reason .= $sg_row['sg_reason'] . "/" ;
     }
             
     if ($sg_reason)
