@@ -29,7 +29,7 @@ $g4[title] = $html_title;
 include_once("./admin.head.php");
 ?>
 
-<form name=fboardgroup method=post onsubmit="return fboardgroup_check(this);" autocomplete="off">
+<form name=fboardgroup method=post onsubmit="return fboardgroup_check(this);" autocomplete="off" role="form" class="form-inline">
 <input type=hidden name=w     value='<?=$w?>'>
 <input type=hidden name=sfl   value='<?=$sfl?>'>
 <input type=hidden name=stx   value='<?=$stx?>'>
