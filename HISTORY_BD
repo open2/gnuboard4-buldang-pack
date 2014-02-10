@@ -1,3 +1,87 @@
+1.2.8 (2014.02.10)
+
+*** 1.2.8은 GA (실적용 가능 버젼) 입니다 ***
+수정이 필요한 사항을 알려주세요.
+관리자 일부는 대충 마무리 했습니다. 나중에...시간나면 부트화를 다시할 것 입니다. =..=
+
+UTF-8 버젼은 변환만 하고, 테스트는 안했습니다...ㄷㄷㄷ... 
+변환에 문제가 있으면 알려주세요.
+
+*** 신고기능 업그레이드 ***
+신고를 하면, wr_subject는 저장하지 않았는데,
+신고후 제목을 변경하는 경우도 있고... 
+신고글에 대한 사항을 조금 더 정확하게 파악할 필요가 있을 것 같아서, v.2.0으로 업그레이드 했습니다.
+
+*** DB 변경사항 ***
+ALTER TABLE `g4_singo` ADD `wr_subject` VARCHAR( 255 ) NOT NULL AFTER `wr_parent` ,
+ADD `wr_content` TEXT NOT NULL AFTER `wr_subject` ,
+ADD `wr_ip` VARCHAR( 255 ) NOT NULL AFTER `wr_content` ,
+ADD `wr_datetime` DATETIME NOT NULL AFTER `wr_ip` 
+
+*** 그누5에 있는 기능중 있었으면 좋겠다는 것은 알려주세요 ***
+그누5를 분석하거나 체크할 시간이 없어서 자세히 못 봤으며, 인지한 필요은 모두 반영했습니다.
+
+*** 별첨의 cheditor 5.9.4로 바꾸세요 ***
+5.09.3은 IE 11에서 문제가 크답니다...
+
+adm/admin.menu300.php
+adm/boardgroup_form.php
+adm/singo_list.php
+adm/singo_reason_delete.php
+adm/singo_reason_list.php
+adm/singo_reason_form.php
+adm/singo_reason_form_update.php
+adm/singo_reason_list_update.php
+adm/upgrade_bd.php
+
+bbs/singo_popin.php
+bbs/singo_popin_update.php
+bbs/view.php
+
+cheditor5/cheditor.js
+cheditor5/css/ui.css
+
+skin/board/boot/list.skin.php
+skin/board/boot/view.skin.php
+
+skin/member/unsingo_popin.skin.php
+
+skin/poll/basic/poll_result.skin.php
+
+- 기타의견 버튼을 fontawesome으로 변경
+skin/poll/basic/poll_result.skin.php
+
+- 가독성을 위해 게시글 주소를 link로 대체
+skin/board/boot/list.skin.php
+skin/board/boot/view.skin.php
+
+- cheditor 5.09.4 패치 업그레이드 (IE 11의 오류 등...)
+cheditor5/cheditor.js
+cheditor5/css/ui.css
+
+- 신고 v.2.0
+adm/admin.menu300.php
+adm/singo_list.php
+adm/singo_reason_delete.php
+adm/singo_reason_list.php
+adm/singo_reason_form.php
+adm/singo_reason_form_update.php
+adm/singo_reason_list_update.php
+adm/upgrade_bd.php
+bbs/singo_popin.php
+bbs/singo_popin_update.php
+skin/member/unsingo_popin.skin.php
+
+- 신고이유 출력에 대한 flag 처리가 누락된 것을 보완
+bbs/view.php
+
+- typo 수정
+adm/boardgroup_form.php
+
+- 신고취소 버튼 부트화... 이거는 왜 안바꿨나? ㅠㅠ...
+skin/board/boot/view.skin.php
+
+
 1.2.7 (2014.02.09)
 
 *** 그누보드 5의 기능도 일부 들어 갑니다. ***
