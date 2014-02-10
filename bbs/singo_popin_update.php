@@ -35,6 +35,9 @@ if ($bo_table == "@memo") {
     $row = sql_fetch($sql);
     if (!$row[cnt])
         alert_close("신고할 게시물이 존재하지 않습니다.");
+    
+    // form으로 넘기면 좀 복잡해서...
+    $wr_content = $write[wr_content];
 }
 
 // 비회원의 글을 신고할 경우 $write[mb_id]에 값이 없는 문제를 해결하기 위해서...ㅠ..ㅠ...

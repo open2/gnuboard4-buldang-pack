@@ -4,15 +4,14 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <div class="container">
 <div class="panel panel-default">
     <div class="panel-heading">
-    <strong>신고</strong>
+        <strong>신고</strong>
     </div>
     <div class="panel-body">
-        <form role="form" class="form-inline" name="fsingo" method="post" action="singo_popin_update.php" style="margin:0px;">
+        <form role="form" class="form-inline" name="fsingo" method="post" action="singo_popin_update.php">
         <input type="hidden" name="bo_table"    value="<?=$bo_table?>">
         <input type="hidden" name="wr_id"       value="<?=$wr_id?>">
         <input type="hidden" name="wr_parent"   value="<?=$wr_parent?>">
         <input type="hidden" name="wr_subject"  value="<?=$wr_subject?>">
-        <input type="hidden" name="wr_content"  value="<?=$wr_content?>">
         <input type="hidden" name="wr_ip"       value="<?=$wr_ip?>">
         <input type="hidden" name="wr_datetime" value="<?=$wr_datetime?>">
 
@@ -32,10 +31,11 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
                     <option value="">신고이유를 선택하십시오.</option>
                     <?
                     for ($i=0; $row=sql_fetch_array($result); $i++) {
-                        $str .= "<option value='$row[sg_reason]'";
-                        $str .= ">$row[sg_reason]";
-                        if ($row[sg_print] == 1)
-                            $str .= " (*신고이유출력)"; // 메시지 수정시 하단부 경고문도 같이 수정해주세욤~!
+                        $str .= "<option value='$row[sg_reason]'>";
+                        //if ($row[sg_print] == 1)
+                        //    $str .= "(*신고이유출력) "; // 메시지 수정시 하단부 경고문도 같이 수정해주세욤~!
+                        // 오해의 소지를 막기 위해서... hidden
+                        $str .= "$row[sg_reason]";
                         $str .= "</option>";
                     }
                     echo $str;
