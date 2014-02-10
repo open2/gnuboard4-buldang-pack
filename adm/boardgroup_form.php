@@ -45,11 +45,11 @@ include_once("./admin.head.php");
 <tr class='success'>
     <td colspan=4 align=left><?=$html_title?></td>
 </tr>
-<tr class='ht'>
+<tr>
     <td>그룹 ID</td>
     <td colspan=3><input type='text' class=ed name=gr_id size=21 maxlength=20 <?=$gr_id_attr?> alphanumericunderline itemname='그룹 아이디' value='<?=$group[gr_id]?>'> 영문자, 숫자, _ 만 가능 (공백없이)</td>
 </tr>
-<tr class='ht'>
+<tr>
     <td>그룹 제목</td>
     <td colspan=3>
         <input type='text' class=ed name=gr_subject size=40 required itemname='그룹 제목' value='<?=get_text($group[gr_subject])?>'>
@@ -59,7 +59,7 @@ include_once("./admin.head.php");
         ?>
     </td>
 </tr>
-<tr class='ht'>
+<tr>
     <td>그룹 관리자</td>
     <td colspan=3>
         <?
@@ -70,14 +70,14 @@ include_once("./admin.head.php");
             echo "<input type=hidden name='gr_admin' value='$gr[gr_admin]' size=40>$gr[gr_admin]";
         ?></td>
 </tr>
-<tr class='ht'>
+<tr>
     <td>접근회원사용</td>
     <td colspan=3>
         <input type=checkbox name=gr_use_access value='1' <?=$gr[gr_use_access]?'checked':'';?>>사용 
         <?=help("사용에 체크하시면 이 그룹에 속한 게시판은 접근가능한 회원만 접근이 가능합니다.")?>
     </td>
 </tr>
-<tr class='ht'>
+<tr>
     <td>접근회원수</td>
     <td colspan=3>
         <?
@@ -89,14 +89,14 @@ include_once("./admin.head.php");
     </td>
 </tr>
 
-<tr class='ht'>
+<tr>
     <td>전체 검색 사용</td>
     <td colspan=3>
         <input type=checkbox name=gr_use_search value='1' <?=$gr[gr_use_search]?'checked':'';?>>사용
     </td>
 </tr>
 
-<tr class='ht'>
+<tr>
     <td>전체 검색 순서</td>
     <td colspan=3>
         <input type=text class=ed name=gr_order_search size=5 value='<?=$gr[gr_order_search]?>'> 숫자가 낮은 그룹 부터 검색
@@ -104,7 +104,7 @@ include_once("./admin.head.php");
 </tr>
 
 <? for ($i=1; $i<=10; $i=$i+2) { $k=$i+1; ?>
-<tr class='ht'>
+<tr>
     <td><input type=text class=ed name='gr_<?=$i?>_subj' value='<?=get_text($group["gr_{$i}_subj"])?>' title='여분필드 <?=$i?> 제목' style='text-align:right;font-weight:bold;' size=15></td>
     <td><input type='text' class=ed style='width:99%;' name=gr_<?=$i?> value='<?=$gr["gr_$i"]?>' title='여분필드 <?=$i?> 설정값'></td>
     <td><input type=text class=ed name='gr_<?=$k?>_subj' value='<?=get_text($group["gr_{$k}_subj"])?>' title='여분필드 <?=$k?> 제목' style='text-align:right;font-weight:bold;' size=15></td>
@@ -112,7 +112,6 @@ include_once("./admin.head.php");
 </tr>
 <? } ?>
 
-<tr><td colspan=4 class='line2'></td></tr>
 </table>
 
 <p align=center>
