@@ -2740,7 +2740,7 @@ getContents : function (fullSource) {
 	this.checkDocLinks();
 	this.checkDocImages();
 
-	if ((GB.browser.msie || GB.browser.opera) && this.config.ieEnterMode == 'css') {
+  if ((GB.browser.msie || GB.browser.iegecko || GB.browser.opera) && this.config.ieEnterMode == 'css') {
 		var para = this.doc.body.getElementsByTagName('P');
 		var len = para.length;
 		for (var i=0; i < len; i++) {
@@ -2791,7 +2791,7 @@ getContents : function (fullSource) {
 	    mydoc = this.xhtmlParse(fullSource ? tmpDoc : tmpDoc.body, this.config.xhtmlLang, this.config.xhtmlEncoding);
 	}
 
-	if ((GB.browser.msie || GB.browser.opera) && this.config.ieEnterMode == 'div') {
+  if ((GB.browser.msie || GB.browser.iegecko || GB.browser.opera) && this.config.ieEnterMode == 'div') {
 		mydoc = mydoc.replace(/<(\/?)p([^>]*)>/ig,
 				function (a, b, c) {
 					if (/^\S/.test(c)) return a;
@@ -3033,7 +3033,7 @@ doOnArrowKeyPress : function (ev) {
 },
 
 doOnKeyPress : function (ev) {
-    if (GB.browser.msie && this.config.ieEnterMode == 'br') {
+    if ((GB.browser.msie || GB.browser.iegecko) && this.config.ieEnterMode == 'br') {
         var key = this.editArea.event.keyCode;
         if (key && key == 13) {
             if (this.editArea.event.shiftKey == false) {
