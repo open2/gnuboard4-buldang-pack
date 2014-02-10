@@ -9,20 +9,20 @@ auth_check($auth[$sub_menu], "w");
 check_token();
 
 if ($is_admin != "super")
-    alert("게시판 삭제는 최고관리자만 가능합니다.");
+    alert("최고관리자만 접근 가능합니다.");
 
 for ($i=0; $i<count($chk); $i++) 
 {
     // 실제 번호를 넘김
-		$k = $_POST[chk][$i];
-    $j = $_POST[chk][$i]+1;
+    $k = $chk[$i];
 
-  	$groupName = "groupName_".$k;
-    $sql = " update $g4[member_group_table]
-                set gl_name = '$groupName_[$k]'
-              where gl_id = '{$_POST[gl_id][$j]}' ";
+    $sql = " update $g4[singo_reason_table]
+                set sg_reason = '{$_POST['sg_reason'][$k]}',
+                    sg_print  = '{$_POST['sg_print'][$k]}',
+                    sg_use    = '{$_POST['sg_use'][$k]}'
+              where sg_id = '{$_POST['chk_sg_id'][$k]}' ";
     sql_query($sql);
 }
 
-goto_url("./memberGroup_list.php");
+goto_url("./singo_reason_list.php?$qstr");
 ?>

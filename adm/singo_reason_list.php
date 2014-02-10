@@ -69,6 +69,7 @@ include_once("./admin.head.php");
 ?>
 
 <script type="text/javascript">
+var list_update_php = "./singo_reason_list_update.php";
 var list_delete_php = "./singo_reason_delete.php";
 </script>
 
@@ -147,6 +148,7 @@ echo "</table>";
 </div>
 
 <div class="btn-group">
+    <input type=button class='btn btn-default' value='선택수정' onclick="btn_check(this.form, 'update')">
     <input type=button class='btn btn-default' value='선택삭제' onclick="btn_check(this.form, 'delete')">
 </div>
 
