@@ -262,7 +262,7 @@ $sql = " UPDATE `$g4[config_table]` SET `cf_open_modify` = '7' ";
 @mysql_query($sql);
 
 // 항상 마지막에 - 버젼을 업데이트
-$sql = " UPDATE `$g4[config_table]` SET `cf_db_version` = '1107' ";
+$sql = " UPDATE `$g4[config_table]` SET `cf_db_version` = '1207' ";
 @mysql_query($sql);
 
 
