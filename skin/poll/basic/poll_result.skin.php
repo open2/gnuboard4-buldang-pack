@@ -85,8 +85,9 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <tbody>
 <? for ($i=0; $i<count($list2); $i++) { ?>
 <tr>
-    <td><? if ($list2[$i][del]) { echo $list2[$i][del] . "<button type='submit' class='btn btn-warning btn-xs'>del</button></a>"; } ?>
+    <td>
     <?=$list2[$i][idea]?>
+    <? if ($list2[$i][del]) { echo $list2[$i][del] . "<button type='submit' class='btn btn-xs'><i class='fa fa-trash-o' title='삭제'></i></button></a>"; } ?>
     </td>
     <td align=center><?=$list2[$i][name]?></td>
     <td><?=get_datetime($list2[$i][datetime])?></td>
