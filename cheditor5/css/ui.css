@@ -22,6 +22,14 @@ a.cheditor-tag-path-elem:hover {
     display: block;
     background: #f5f5f5 url(../icons/toolbar-wrapper-bg.png) repeat-x left bottom;
 }
+.cheditor-tb-wrapper-readonly {
+    border-right:1px #ccc solid;
+    border-left:1px #ccc solid;
+    border-bottom:1px #ccc solid;
+    position: relative;
+    display: block;
+    background: #f5f5f5 url(../icons/readonlymode.png) no-repeat 10px center;
+}
 .cheditor-editarea-wrapper {
     border-right: 1px #ccc solid;
     border-bottom: 1px #ccc solid;
@@ -324,8 +332,8 @@ a.cheditor-tag-path-elem:hover {
     position: fixed;
     left: 0px;
 	top: 0px;
-	/*_position: absolute;
-	_left: expression((0 + (ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft)) + 'px');	
+	_position: absolute;
+	/*_left: expression((0 + (ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft)) + 'px');	
 	_top: expression((270 + (ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop)) + 'px');*/
     z-index: 1000;
     text-align: left;
@@ -339,8 +347,8 @@ a.cheditor-tag-path-elem:hover {
 	left: 0px;
 	width: 100%;
 	height: 100%;
-	/*_position: absolute;
-	_left: expression((0 + (ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft)) + 'px');
+	_position: absolute;
+	/*_left: expression((0 + (ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft)) + 'px');
 	_top: expression((270 + (ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop)) + 'px');*/
 }
 .cheditor-dragWindowTransparent { background-color: #fff; position: absolute; display: block; left:0px; top: 27px; }

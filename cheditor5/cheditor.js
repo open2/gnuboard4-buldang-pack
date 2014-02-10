@@ -2268,7 +2268,7 @@ doInsertImage : function (images) {
 		img.setAttribute('width', attr.width);
 		img.setAttribute('height', attr.height);
 		img.setAttribute('alt', attr.alt ? attr.alt : attr.info.origName);
-		img.style.border = 'none';
+		//img.style.border = 'none';
 
 		this.resizeImage(img);
 
@@ -2561,7 +2561,9 @@ xhtmlParse : function (node, lang, encoding, needNewLine, inside_pre) {
 							break;
 						default:
 							try {
-								attrValue = child.getAttribute(attrName);
+								attrValue = (GB.browser.msie && GB.browser.ver < 9) ? 
+									child.getAttribute(attrName, 2) :
+										child.getAttribute(attrName);
 							}
 							catch (e) {
 								validAttr = false;
@@ -3118,7 +3120,7 @@ popupWinLoad : function (popupAttr) {
 		iframe.contentWindow.init.call(self, iframe, popupAttr['argv'] ? popupAttr['argv'] : null);
 	};
 
-	if (GB.browser.msie && iframe.onreadystatechange) {
+	if (GB.browser.msie) {
 		var done = false;
 		iframe.onreadystatechange = function() {
 			if (!done && (!this.readyState || this.readyState === "loaded" || this.readyState === "complete")) {
