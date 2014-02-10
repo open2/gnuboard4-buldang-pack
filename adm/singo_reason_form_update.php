@@ -7,13 +7,20 @@ if ($w == 'u')
 
 auth_check($auth[$sub_menu], "w");
 
-while(list($key,$value) = each($HTTP_POST_VARS)){
-        echo("변수명은 :".$key." - 변수의 값은 :".$value."<br>");
-}	
-
 if ($w == "")
 {
-    alert("잘못된 인자값입니다. w : 매개변수 확인"); 
+    $sql = " select count(*) as cnt from $g4[singo_reason_table] where sg_reason = '$sg_reason' ";	
+    $sg = sql_fetch($sql);
+    if ($sg['cnt'] >= 1)
+        alert("이미 존재하는 사유 입니다"); 
+
+    $sql = " insert into $g4[singo_reason_table]
+                set sg_reason = '$sg_reason',
+                    sg_print = '$sg_print',
+                    sg_use = '$sg_use',
+                    sg_datetime = '$g4[time_ymdhis]'
+                    ";
+    sql_query($sql);
 }
 
 else if ($w == "u") 
@@ -21,18 +28,15 @@ else if ($w == "u")
     if ($is_admin != "super")
         alert("관리자만이 수정하실수 있습니다..");
 
-    $sql = " select count(*) as cnt from $g4[member_group_table] where gl_id = '$gl_id' ";	
-    $gd = sql_fetch($sql);
-    if ($gd[cnt] != 1)
-        alert("존재하지 않거나 중복이 있는는 회원레벨입니다."); 
-
-    $sql = " update $g4[member_group_table]
-                set gl_name = '$gl_name'
-              where gl_id = '$gl_id' ";	
+    $sql = " update $g4[singo_reason_table]
+                set sg_reason = '$sg_reason',
+                    sg_print = '$sg_print',
+                    sg_use = '$sg_use' 
+              where sg_id = '$sg_id' ";	
     sql_query($sql);
 } 
 else
     alert("제대로 된 값이 넘어오지 않았습니다.");
 
-goto_url("./memberGroup_list.php");
+goto_url("./singo_reason_list.php");
 ?>
