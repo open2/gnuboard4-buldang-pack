@@ -64,17 +64,15 @@ ob_end_flush();
         조회 <?=$view[wr_hit]?>&nbsp;&nbsp;
         <? if ($is_good) { ?><font style="color:#BABABA;">추천</font> <font style="color:#BABABA;"> <?=$view[wr_good]?>&nbsp;&nbsp;&nbsp;&nbsp;</font><?}?>
         <? if ($is_nogood) { ?><font style="color:#BABABA;">비추천</font> <font style="color:#BABABA;"> <?=$view[wr_nogood]?>&nbsp;&nbsp;&nbsp;&nbsp;</font><?}?>
-    </p>
     <!-- 게시글 주소를 복사하기 쉽게 하기 위해서 아랫 부분을 삽입 -->
-    <p>
-    <small>
-    <font style="color:#BABABA;">게시글 주소 : <a href="javascript:clipboard_trackback('<?=$posting_url?>');" style="letter-spacing:0;" title='이 글을 소개할 때는 이 주소를 사용하세요'><?=$posting_url;?></a></font>
+    <span class="pull-right">
+    <a href="javascript:clipboard_trackback('<?=$posting_url?>');" style="letter-spacing:0;" title='이 글을 소개할 때는 이 주소를 사용하세요'><i class="fa fa-link"></i></a>
     <? if ($g4[use_bitly]) { ?>
         <? if ($view[bitly_url]) { ?>
-        &nbsp;bitly : <span id="bitly_url" style="color:#BABABA;"><a href=<?=$view[bitly_url]?> target=new><?=$view[bitly_url]?></a></span>
+        &nbsp;<span id="bitly_url"><a href=<?=$view[bitly_url]?> target=new><?=$view[bitly_url]?></a></span>
         <? } else { ?>
-        &nbsp;bitly : <span id="bitly_url" style="color:#BABABA;"></span>
-        <script language=javascript>
+        &nbsp;<span id="bitly_url"></span>
+        <script type="text/javascript">
         // encode 된 것을 넘겨주면, 알아서 decode해서 결과를 return 해준다.
         // encode 하기 전의 url이 있어야 결과를 꺼낼 수 있기 때문에, 결국 2개를 넘겨준다.
         // 왜? java script에서는 urlencode, urldecode가 없으니까. ㅎㅎ
@@ -83,8 +81,9 @@ ob_end_flush();
         </script>
         <?}?>
     <?}?>
-    </small>
+    </span>
     </p>
+
     <p>
         <?
         // 가변 파일

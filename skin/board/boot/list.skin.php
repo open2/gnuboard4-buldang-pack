@@ -43,13 +43,13 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <div class="table-responsive">
 <table width=100% class="table table-condensed table-hover" style="word-wrap:break-word;">
 <thead>
-<tr class="success" align=center>
+<tr class="success">
     <th width=50px class="hidden-xs"><?=subject_sort_link('wr_id', $qstr2, 1)?>번호</a></th>
     <? if ($is_checkbox) { ?><th class="hidden-xs"><INPUT onclick="if (this.checked) all_checked(true); else all_checked(false);" type=checkbox></th><?}?>
     <th>제목</th>
-    <th width=80px class="hidden-xs" align=center>글쓴이</th>
-    <th width=70px class="hidden-xs" align=center><?=subject_sort_link('wr_datetime', $qstr2, 1)?>날짜</a></th>
-    <th width=80px class="hidden-xs" align=center><?=subject_sort_link('wr_hit', $qstr2, 1)?>조회</a></th>
+    <th width=80px class="hidden-xs">글쓴이</th>
+    <th width=70px class="hidden-xs"><?=subject_sort_link('wr_datetime', $qstr2, 1)?>날짜</a></th>
+    <th width=80px class="hidden-xs"><?=subject_sort_link('wr_hit', $qstr2, 1)?>조회</a></th>
     <? if ($is_good) { ?><th width=60px class="hidden-xs"><?=subject_sort_link('wr_good', $qstr2, 1)?>추천</a></th><?}?>
     <? if ($is_nogood) { ?><th width=60px class="hidden-xs"><?=subject_sort_link('wr_nogood', $qstr2, 1)?>비추</a></th><?}?>
 </tr>
@@ -57,7 +57,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
 <!-- 목록 -->
 <? for ($i=0; $i<count($list); $i++) { ?>
-<tr align=center> 
+<tr> 
     <td class="hidden-xs">
         <? 
         if ($list[$i][is_notice]) // 공지사항 
@@ -71,8 +71,6 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <? if ($is_checkbox) { ?><td class="hidden-xs"><input type=checkbox name=chk_wr_id[] value="<?=$list[$i][wr_id]?>"></td><? } ?>
     <td class="hidden-xs" align=left style='word-break:break-all;'>
         <?
-        echo $nobr_begin;
-
         echo $list[$i][reply];
         if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply fa-rotate-180\" title='reply/답글'></i> ";
         if ($is_category && $list[$i][ca_name]) {
@@ -97,13 +95,11 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         if ($list[$i][icon_hot]) $icon_images .= " <i class=\"fa fa-fire\" title='hot article/조횟수 많은 글'></i>";
         if ($list[$i][icon_secret]) $icon_images .= " <i class=\"fa fa-lock\" title='secret/비밀글'></i>";
         echo $icon_images;
-
-        echo $nobr_end;
         ?>
         </td>
-    <td class="hidden-xs" align=center><nobr style='display:block; overflow:hidden;'><?=$list[$i][name]?></nobr></td>
-    <td class="hidden-xs" align=center><?=$list[$i][datetime2]?></td>
-    <td class="hidden-xs" align=center><?=$list[$i][wr_hit]?></td>
+    <td class="hidden-xs"><?=$list[$i][name]?></td>
+    <td class="hidden-xs"><?=$list[$i][datetime2]?></td>
+    <td class="hidden-xs"><?=$list[$i][wr_hit]?></td>
     <? if ($is_good) { ?><td class="hidden-xs" align="center"><?=$list[$i][wr_good]?></td><? } ?>
     <? if ($is_nogood) { ?><td class="hidden-xs" align="center"><?=$list[$i][wr_nogood]?></td><? } ?>
     <!-- 
@@ -115,8 +111,6 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <td class="visible-xs" align=left style='word-break:break-all;'>
         <div>
         <?
-        echo $nobr_begin;
-
         if ($list[$i][is_notice]) // 공지사항 
             echo "<i class=\"fa fa-microphone\" title='notice/공지사항'></i> ";
 
@@ -138,16 +132,12 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
         // 위에서 저장한 $icon_images 출력
         echo $icon_images;
-
-        echo $nobr_end;
         ?>
         </div>
-        <span class="visible-xs pull-left"><small>
-        <?=$list[$i][datetime2]?>&nbsp;&nbsp;<?=$list[$i][name]?>
-        </small>
-        </span>
         <span class="visible-xs pull-right"><small>
-        <span class="badge"><?=$list[$i][wr_hit]?></span>
+        <?=$list[$i][datetime2]?>&nbsp;&nbsp;
+        <?=$list[$i][wr_hit]?>&nbsp;&nbsp;
+        <?=$list[$i][name]?>
         </small>
         </span>
     </td>
