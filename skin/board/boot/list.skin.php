@@ -18,7 +18,22 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <? if ($rss_href) { ?><a href='<?=$rss_href?>' class="btn btn-default"><i class='fa fa-rss'></i></a><?}?>
     <? if ($admin_href) { ?><a href="<?=$admin_href?>" class="btn btn-default"><i class='fa fa-cog'></i></a><?}?>
 
-    <a href="" class="btn btn-default" title="공지사항 Flip"><i class="fa fa-microphone"></i></a>
+    <script type="text/javascript">
+        $('#notice_flip').bind('click',function(e){
+            $('.is_notice').toggle();
+            alert('11');
+        });
+    </script>
+    <?
+    // flip cookie를 가져와서 비교 합니다
+    $flip_datetime = get_cookie($bo_table . "_flip_datetime");
+
+    // flip한 이후에 공지가 올라오면 flip cookie를 삭제해주고, flip이 되지 않게 합니다. 새로운 공지는 반드시 봐야 합니다.
+    if ($g4['last_notice_datetime'] > $flip_datetime) {
+        echo "flip.안했슴. 무조건 공지보세요...";
+    }
+    ?>
+    <a href="#" id="notice_flip" class="btn btn-default" title="공지사항 Flip"><i class="fa fa-microphone"></i></a>
 
     <? if ($is_category) { ?>
     <form name="fcategory" method="get" role="form" class="form-inline">
@@ -59,7 +74,12 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
 <!-- 목록 -->
 <? for ($i=0; $i<count($list); $i++) { ?>
-<tr> 
+<?
+$is_notice = "";
+if ($list[$i][is_notice])
+    $is_notice = "is_notice";
+?>
+<tr class="<?=$is_notice?>"> 
     <td class="hidden-xs">
         <? 
         if ($list[$i][is_notice]) // 공지사항 
