@@ -18,6 +18,8 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <? if ($rss_href) { ?><a href='<?=$rss_href?>' class="btn btn-default"><i class='fa fa-rss'></i></a><?}?>
     <? if ($admin_href) { ?><a href="<?=$admin_href?>" class="btn btn-default"><i class='fa fa-cog'></i></a><?}?>
 
+    <a href="" class="btn btn-default" title="공지사항 Flip"><i class="fa fa-microphone"></i></a>
+
     <? if ($is_category) { ?>
     <form name="fcategory" method="get" role="form" class="form-inline">
         <select class="form-control" name=sca onchange="location='<?=$category_location?>'+<?=strtolower($g4[charset])=='utf-8' ? "encodeURIComponent(this.value)" : "this.value"?>;">
