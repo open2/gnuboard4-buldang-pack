@@ -11,6 +11,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 </div><!-- 중간의 메인부 끝 -->
 
 <a href="#" class="btn btn-default back-to-top"><span class="glyphicon glyphicon-chevron-up"></span></a>
+<a href="#" class="btn btn-default go-to-bottom"><span class="glyphicon glyphicon-chevron-down"></span></a>
 <style>
 .back-to-top {
     position: fixed;
@@ -19,22 +20,43 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     padding: 1em;
     display: none;
 }
+.go-to-bottom {
+    position: fixed;
+    top: 2em;
+    right: 10px;
+    padding: 1em;
+    display: none;
+}
+</style>
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
-    var offset = 350;   // 수직으로 어느정도 움직여야 버튼이 나올까?
-    var duration = 0;   // top으로 이동할때까지의 animate 시간 (밀리세컨드, default는 400. 예제의 기본은 500)
+    var offset1 = 300;    // 수직으로 어느정도 움직여야 버튼이 나올까?
+    var offset2 = 100;    // 수직으로 어느정도 움직여야 버튼이 나올까?
+    var duration = 0;     // top으로 이동할때까지의 animate 시간 (밀리세컨드, default는 400. 예제의 기본은 500)
     $(window).scroll(function() {
-        if ($(this).scrollTop() > offset) {
+        if ($(this).scrollTop() > offset1) {
             $('.back-to-top').fadeIn(duration);
         } else {
             $('.back-to-top').fadeOut(duration);
+        }
+    });
+    $(window).scroll(function() {
+        if ($(this).scrollTop() > offset2) {
+            $('.go-to-bottom').fadeIn(duration);
+        } else {
+            $('.go-to-bottom').fadeOut(duration);
         }
     });
     
     $('.back-to-top').click(function(event) {
         event.preventDefault();
         $('html, body').animate({scrollTop: 0}, duration);
+        return false;
+    })
+    $('.go-to-bottom').click(function(event) {
+        event.preventDefault();
+        $('html, body').animate({ scrollTop: $(document).height() }, duration);
         return false;
     })
 });
