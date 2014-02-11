@@ -178,8 +178,7 @@ $today2 = $g4[time_ymd];
 $list = array();
 $i = 0;
 
-// 항상 공지가 나오게 수정 - 불당팩
-//if (!$sca && !$stx) 
+if (!$sca && !$stx) 
 {
  
     // 불당팩 - 전체 공지를 가져 온다
