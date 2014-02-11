@@ -18,7 +18,7 @@ var char_max = parseInt(<?=$comment_max?>); // 최대
 <? if ($cwin==1) { ?><div width="<?=$width?>" class="table-responsive"><?}?>
 
 <!-- 코멘트 리스트 -->
-<div id="commentContents" class="commentContents">
+<div name="commentContents" id="commentContents" class="commentContents">
 
 <? if (trim($board[bo_comment_notice])) { ?>
 <div class="well">
