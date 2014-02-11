@@ -48,7 +48,7 @@ $(document).ready(function() {
             $('.go-to-bottom').fadeOut(duration);
         }
     });
-    
+
     $('.back-to-top').click(function(event) {
         event.preventDefault();
         $('html, body').animate({scrollTop: 0}, duration);
