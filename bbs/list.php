@@ -24,8 +24,9 @@ else
 if (!$board[bo_page_rows])
     $board[bo_page_rows] = $config[cf_page_rows];
 
-// select 할 필드를 지정
-$list_select = " mb_id, wr_id, wr_subject, wr_option, wr_content, wr_comment, wr_parent, wr_datetime, wr_last, wr_homepage, wr_name, wr_email, wr_reply, wr_link1, wr_link2, wr_link1_hit, wr_link2_hit, ca_name, wr_hit, wr_file_count, wr_good, wr_nogood, wr_1, wr_2, wr_3, wr_4, wr_5, wr_6, wr_7, wr_8, wr_9, wr_10, wr_singo ";
+// 불당팩 - select 할 필드를 지정 (속도를 더 높이고 싶으면 코멘트로 막힌 부분으로 바꿔줍니다)
+// $list_select = " mb_id, wr_id, wr_subject, wr_option, wr_content, wr_comment, wr_parent, wr_datetime, wr_last, wr_homepage, wr_name, wr_email, wr_reply, wr_link1, wr_link2, wr_link1_hit, wr_link2_hit, ca_name, wr_hit, wr_file_count, wr_good, wr_nogood, wr_1, wr_2, wr_3, wr_4, wr_5, wr_6, wr_7, wr_8, wr_9, wr_10, wr_singo ";
+$list_select = " * ";
 
 // 분류 사용 여부
 $is_category = false;
@@ -212,9 +213,9 @@ if (!$sca && !$stx)
                 $list[$i]['n_notice'] = $n_board['bo_table'];
                 $i++;
 
-                // 가장 마지막 공지사항 날짜를 찾는다 (전체공지의 날짜를...)
-                if ($list[$i][wr_datetime] > $g4['last_notice_datetime'])
-                    $g4['last_notice_datetime'] = $list[$i][wr_datetime];
+                // 가장 마지막 공지사항 날짜를 찾는다 (전체공지의 날짜를. 그런데 $list[$i][wr_datetime]은 안먹힌다. 더 수정하기 귀챦...)
+                if ($n_row['wr_datetime'] > $g4['last_notice_datetime'])
+                    $g4['last_notice_datetime'] = $n_row[wr_datetime];
             }
         }
     }
