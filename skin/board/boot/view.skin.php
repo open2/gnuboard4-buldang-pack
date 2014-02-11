@@ -34,7 +34,7 @@ include_once("$g4[path]/lib/view.skin.lib.php");
         <? if ($next_href) { echo "<a href=\"$next_href\" title=\"$next_wr_subject\" class=\"btn btn-default btn-sm btn-next\">다음글</a>"; } ?>
  	      <a href="javascript:scaleFont(+1);" class="btn btn-default btn-sm btn-zoom-in"><span class="glyphicon glyphicon-zoom-in"></span></a>
         <a href="javascript:scaleFont(-1);" class="btn btn-default btn-sm btn-zoom-out"><span class="glyphicon glyphicon-zoom-out"></span></a>
-        <a href="#commentContents" class="btn btn-default btn-sm">코멘트</a>
+        <a href="#commentContents" class="btn btn-default btn-sm"><i class="fa fa-chevron-down"></i></a>
         <? echo "<a href=\"$list_href\" class=\"btn btn-default btn-sm btn-list\">목록</a> "; ?>
     </div>
     <div class="btn-group hidden-xs hidden-sm  pull-right">
