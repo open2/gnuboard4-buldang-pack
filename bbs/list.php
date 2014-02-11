@@ -178,9 +178,11 @@ $today2 = $g4[time_ymd];
 $list = array();
 $i = 0;
 
+// 가장 마지막 공지사항 날짜를 찾는다 (초기화)
+$g4['last_notice_datetime'] = 0;
+
 if (!$sca && !$stx) 
 {
- 
     // 불당팩 - 전체 공지를 가져 온다
     if ($board['bo_naver_notice']) {
 
@@ -209,6 +211,10 @@ if (!$sca && !$stx)
                 $list[$i]['is_notice'] = true;
                 $list[$i]['n_notice'] = $n_board['bo_table'];
                 $i++;
+
+                // 가장 마지막 공지사항 날짜를 찾는다 (전체공지의 날짜를...)
+                if ($list[$i][wr_datetime] > $g4['last_notice_datetime'])
+                    $g4['last_notice_datetime'] = $list[$i][wr_datetime];
             }
         }
     }
@@ -243,6 +249,10 @@ if (!$sca && !$stx)
 
                 $list[$i] = get_list($row_notice, $board, $board_skin_path, $board[bo_subject_len]);
                 $list[$i][is_notice] = true;
+
+                // 가장 마지막 공지사항 날짜를 찾는다 (공지의 날짜를)
+                if ($list[$i][wr_datetime] > $g4['last_notice_datetime'])
+                    $g4['last_notice_datetime'] = $list[$i][wr_datetime];
 
                 $i++;
             } // end of while
