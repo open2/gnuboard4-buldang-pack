@@ -22,7 +22,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 }
 .go-to-bottom {
     position: fixed;
-    top: 2em;
+    bottom: 6em;
     right: 10px;
     padding: 1em;
     display: none;
