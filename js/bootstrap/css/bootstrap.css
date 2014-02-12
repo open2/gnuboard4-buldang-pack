@@ -286,12 +286,12 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #626262;
+  color: #333333;
   text-decoration: none;
 }
 a:hover,
 a:focus {
-  color: #3c3c3c;
+  color: #0d0d0d;
   text-decoration: underline;
 }
 a:focus {
@@ -686,7 +686,7 @@ code,
 kbd,
 pre,
 samp {
-  font-family: Tahoma, dotum, "돋움", Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 code {
   padding: 2px 4px;
@@ -2277,7 +2277,7 @@ fieldset[disabled] .btn-danger.active {
   background-color: #ffffff;
 }
 .btn-link {
-  color: #626262;
+  color: #333333;
   font-weight: normal;
   cursor: pointer;
   border-radius: 0;
@@ -2298,7 +2298,7 @@ fieldset[disabled] .btn-link {
 }
 .btn-link:hover,
 .btn-link:focus {
-  color: #3c3c3c;
+  color: #0d0d0d;
   text-decoration: underline;
   background-color: transparent;
 }
@@ -3483,7 +3483,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav .open > a:hover,
 .nav .open > a:focus {
   background-color: #eeeeee;
-  border-color: #626262;
+  border-color: #333333;
 }
 .nav .nav-divider {
   height: 1px;
@@ -4143,7 +4143,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   padding: 6px 12px;
   line-height: 1.67;
   text-decoration: none;
-  color: #626262;
+  color: #333333;
   background-color: #ffffff;
   border: 1px solid #dddddd;
   margin-left: -1px;
@@ -4163,7 +4163,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .pagination > li > span:hover,
 .pagination > li > a:focus,
 .pagination > li > span:focus {
-  color: #3c3c3c;
+  color: #0d0d0d;
   background-color: #eeeeee;
   border-color: #dddddd;
 }
@@ -4358,7 +4358,7 @@ a.badge:focus {
 }
 a.list-group-item.active > .badge,
 .nav-pills > .active > a > .badge {
-  color: #626262;
+  color: #333333;
   background-color: #ffffff;
 }
 .nav-pills > li > a > .badge {
@@ -4421,7 +4421,7 @@ a.list-group-item.active > .badge,
 a.thumbnail:hover,
 a.thumbnail:focus,
 a.thumbnail.active {
-  border-color: #626262;
+  border-color: #333333;
 }
 .thumbnail .caption {
   padding: 9px;
