@@ -18,7 +18,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <? if ($rss_href) { ?><a href='<?=$rss_href?>' class="btn btn-default"><i class='fa fa-rss'></i></a><?}?>
     <? if ($admin_href) { ?><a href="<?=$admin_href?>" class="btn btn-default"><i class='fa fa-cog'></i></a><?}?>
 
-    <a href="#" id="notice_flip" class="btn btn-default" title="공지사항 Flip"><i class="fa fa-microphone"></i></a>
+    <a href="#" class="btn btn-default notice_flip" title="공지사항 Flip"><i class="fa fa-microphone"></i></a>
 
     <? if ($is_category) { ?>
     <form name="fcategory" method="get" role="form" class="form-inline">
@@ -249,30 +249,26 @@ if ($list[$i][is_notice])
 
 </form>
 
-<?=$g4['last_notice_datetime']?>
-<?
-$ck_name = $bo_table . "_flip_datetime";
-//set_cookie($ck_name, $g4['time_ymdhis'], 86400 * 365);
-set_cookie($ck_name, "111", 86400 * 365);
-
-$flip_datetime = get_cookie($ck_name);
-echo "qqq" . $flip_datetime;
-?>
 <script type="text/javascript">
 <?
 // flip cookie를 가져와서 비교 합니다
+$ck_name = $bo_table . "_flip_datetime";
+$flip_datetime = $_COOKIE[$ck_name];
+
 if ($g4['last_notice_datetime'] > $flip_datetime) {
     // flip한 이후에 공지가 올라오면 flip cookie를 삭제해주고, flip이 되지 않게 합니다. 새로운 공지는 반드시 봐야 합니다.
-
+?>
+    set_cookie( '<?=$ck_name?>', '', 86400 * 365, g4_cookie_domain);
+    $('.is_notice').show();
+<?
 } else {
     // flip은 했고, 새로운 공지도 없으면 공지를 감춰줍니다
-    echo "aaa";
 ?>
     $('.is_notice').hide();
 <? } ?>
-
-$('#notice_flip').click(function() {
+$('.notice_flip').click(function() {
     $('.is_notice').toggle();
+    set_cookie( '<?=$ck_name?>', '<?=$g4[time_ymdhis]?>', 86400 * 365, g4_cookie_domain);
 });
 </script>
 
