@@ -1,3 +1,59 @@
+1.2.9 (2014.02.12)
+
+*** 1.2.9에 적용한 bootstrap.min.css는 getbootstrap 사이트에서 compile한 것 입니다 ***
+네이버 필이 제대로 나오는 Navbar 색상은 아직 못 찾았으며, 폰트는 Tahoma, dotum 입니다.
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_pack&wr_id=1700 
+
+UTF-8 버젼은 변환만 하고, 테스트는 안했습니다...ㄷㄷㄷ... 
+변환에 문제가 있으면 알려주세요.
+
+*** 그누5에 있는 기능중 있었으면 좋겠다는 것은 알려주세요 ***
+그누5를 분석하거나 체크할 시간이 없어서 자세히 못 봤으며, 인지한 필요은 모두 반영했습니다.
+
+*** 기존 1.1.x 버젼의 사용자들도 cheditor는 별첨의 cheditor 5.9.4로 바꾸세요 ***
+5.09.3은 IE 11에서 문제가 크답니다...
+
+===
+
+tail.php
+
+bbs/list.php
+
+js/bootstrap/*
+
+skin/board/boot/list.skin.php
+skin/board/boot/view.skin.php
+
+skin/board/boot/view_comment.skin.php
+
+
+- 공지글 flip
+bbs/list.php
+skin/board/boot/list.skin.php
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=1025
+
+- 검색할 때는 공지가 안나오게 수정 (모바일에서 아주 불편...)
+bbs/list.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/bc8d5bd3d01c0bc6a9fc2322582981861941e17c
+
+- 스마트폰에서 코멘트로가기 동작 안하는 오류 수정 + 코멘트를 밑으로 꺽인 화살표로 교체
+skin/board/boot/view.skin.php
+skin/board/boot/view_comment.skin.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/baf162d5000a3163f00dc517c19a2f7e8e976ab6
+https://github.com/open2/gnuboard4-buldang-pack/commit/67d4eb66ad23741f0a7f56754d66eb766c4170d0
+
+- 가장 밑으로 기능 추가
+tail.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/7261324427dda3d1abc3140cf13d9a6be6c88347
+
+- dotum으로 폰트변경
+js/bootstrap/*
+
+- 닉네임이 길 때 밀리는 현상
+skin/board/boot/list.skin.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/f23737b15076ee86c62c73bd8f0c2d309273c67d
+
+
 1.2.8 (2014.02.10)
 
 *** 1.2.8은 GA (실적용 가능 버젼) 입니다 ***
