@@ -42,3 +42,5 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
           font-size: 14px;
     }
 }
+
+a:visited:not(.btn) { color: #808080; }

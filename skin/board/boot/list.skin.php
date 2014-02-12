@@ -83,12 +83,18 @@ if ($list[$i][is_notice])
         if ($is_category && $list[$i][ca_name]) {
             echo "<font color=gray><a href='{$list[$i][ca_name_href]}'><small>({$list[$i][ca_name]})</small></a></font> ";
         }
-        $style = "";
-        if ($list[$i][is_notice]) $style .= " style='font-weight:bold;'";
-        if ($list[$i][wr_singo]) $style .= " style='color:#B8B8B8;'";
 
-        echo "<a href='{$list[$i][href]}' $style>";
-        echo $list[$i][subject];
+        if ($list[$i][is_notice]) 
+            $style = " style='font-weight:bold;'";
+        else if ($wr_id == $list[$i][wr_id])
+            $style = " style='font-weight:bold;color:#E15916;'";
+        else if ($list[$i][wr_singo])
+            $style = " style='color:#B8B8B8;'";
+        else
+            $style = "";
+
+        echo "<a href='{$list[$i][href]}'";
+        echo "<span $style>" . $list[$i][subject] . "</span>";
         echo "</a>";
 
         if ($list[$i][comment_cnt]) 
@@ -126,12 +132,18 @@ if ($list[$i][is_notice])
         if ($is_category && $list[$i][ca_name]) { 
             echo "<font color=gray><a href='{$list[$i][ca_name_href]}'><small>({$list[$i][ca_name]})</small></a></font> ";
         }
-        $style = "";
-        if ($list[$i][is_notice]) $style .= " style='font-weight:bold;'";
-        if ($list[$i][wr_singo]) $style .= " style='color:#B8B8B8;'";
 
-        echo "<a href='{$list[$i][href]}' $style>";
-        echo cut_str($list[$i][subject], 40);
+        if ($list[$i][is_notice]) 
+            $style = " style='font-weight:bold;'";
+        else if ($wr_id == $list[$i][wr_id])
+            $style = " style='font-weight:bold;color:#E15916;'";
+        else if ($list[$i][wr_singo])
+            $style = " style='color:#B8B8B8;'";
+        else
+            $style = "";
+
+        echo "<a href='{$list[$i][href]}'>";
+        echo "<span $style>" . cut_str($list[$i][subject], 40) . "</span>";
         echo "</a>";
 
         if ($list[$i][comment_cnt]) 
