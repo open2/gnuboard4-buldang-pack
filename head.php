@@ -46,7 +46,7 @@ else
 
 <div class="navbar navbar-default" role="navigation">
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header col-sm-2">
+    <div class="navbar-header col-md-2 col-lg-2">
         <!-- collapse 되었을 때, 우측에 나오는 메뉴 버튼 -->
         <button type="button" class="btn btn-default navbar-toggle" data-toggle="collapse" data-target=".navbar-top-menu-collapse">
             <i class="glyphicon glyphicon-list"></i>
@@ -71,7 +71,7 @@ else
             <i class="glyphicon glyphicon-search"></i>
         </button>
         <!-- sm, md, lg에서 나오는 로고 -->
-        <a class="navbar-brand hidden-xs" href="<?=$g4['path']?>/">
+        <a class="navbar-brand hidden-xs hidden-sm" href="<?=$g4['path']?>/">
         <img src="<?=$g4[path]?>/images/opencode_aaa.png" align=absmiddle alt="brand logo">
         </a>
         <!-- collapse 되었을 때 나오는 로고 -->
@@ -80,7 +80,7 @@ else
         </a>
     </div>
 
-    <div class="collapse navbar-collapse navbar-top-menu-collapse col-sm-7">
+    <div class="collapse navbar-collapse navbar-top-menu-collapse col-sm-9 col-md-7 col-lg-7">
     <ul class="nav navbar-nav">
         <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=qna">자유게시판</a></li>
         <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=test">한줄이야기</a></li>
@@ -179,18 +179,19 @@ else
     </ul>
     </div>
 
-    <div class="col-sm-3 pull-right">
     <form class="navbar-form collapse navbar-collapse navbar-search-top-collapse" role="search" method="get" onsubmit="return fsearchbox_submit(this);" >
+    <input type="hidden" name="sfl" value="wr_subject||wr_content">
+    <input type="hidden" name="sop" value="and">
+    <div class="col-sm-3 col-md-3 col-lg-3 pull-right">
     <div class="input-group" id="search-bar">
-        <input type="hidden" name="sfl" value="wr_subject||wr_content">
-        <input type="hidden" name="sop" value="and">
-        <input type="text" class="form-control" placeholder="검색어는 2단어까지" name="stx" id="stx" maxlength="20" value="<?=$stx;?>">
-        <div class="input-group-btn">
-            <button type="submit" class="btn">검색 <i class="glyphicon glyphicon-search"></i></button>
-        </div>
+        <input type="text" class="form-control pull-right" placeholder="검색어는 2단어까지" name="stx" id="stx" maxlength="20" value="<?=$stx;?>">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="submit" >검색 <i class="glyphicon glyphicon-search"></i></button>
+        </span>
+    </div><!-- /input-group -->
     </div>
     </form>
-    </div>
+
 </div><!-- navbar의 끝 -->
 
 </div>
@@ -202,7 +203,7 @@ else
 <div class="row">
 
 <!-- 왼쪽 side 시작 -->
-<div class="col-md-2 col-lg-2 hidden-xs hidden-sm">
+<div class="hidden-xs hidden-sm col-md-2 col-lg-2">
 <?
 // 아웃로그인
 include_once("$g4[path]/lib/outlogin.lib.php");
