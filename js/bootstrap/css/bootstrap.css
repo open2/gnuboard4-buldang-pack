@@ -273,7 +273,7 @@ html {
 body {
   font-family: Tahoma, dotum, "돋움", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
-  line-height: 1.67;
+  line-height: 1.62;
   color: #333333;
   background-color: #ffffff;
 }
@@ -315,7 +315,7 @@ img {
 }
 .img-thumbnail {
   padding: 4px;
-  line-height: 1.67;
+  line-height: 1.62;
   background-color: #ffffff;
   border: 1px solid #dddddd;
   border-radius: 4px;
@@ -329,8 +329,8 @@ img {
   border-radius: 50%;
 }
 hr {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 19px;
+  margin-bottom: 19px;
   border: 0;
   border-top: 1px solid #eeeeee;
 }
@@ -395,8 +395,8 @@ h2,
 .h2,
 h3,
 .h3 {
-  margin-top: 20px;
-  margin-bottom: 10px;
+  margin-top: 19px;
+  margin-bottom: 9.5px;
 }
 h1 small,
 .h1 small,
@@ -418,8 +418,8 @@ h5,
 .h5,
 h6,
 .h6 {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 9.5px;
+  margin-bottom: 9.5px;
 }
 h4 small,
 .h4 small,
@@ -460,10 +460,10 @@ h6,
   font-size: 11px;
 }
 p {
-  margin: 0 0 10px;
+  margin: 0 0 9.5px;
 }
 .lead {
-  margin-bottom: 20px;
+  margin-bottom: 19px;
   font-size: 13px;
   font-weight: 200;
   line-height: 1.4;
@@ -557,14 +557,14 @@ a.bg-danger:hover {
   background-color: #e4b9b9;
 }
 .page-header {
-  padding-bottom: 9px;
-  margin: 40px 0 20px;
+  padding-bottom: 8.5px;
+  margin: 38px 0 19px;
   border-bottom: 1px solid #eeeeee;
 }
 ul,
 ol {
   margin-top: 0;
-  margin-bottom: 10px;
+  margin-bottom: 9.5px;
 }
 ul ul,
 ol ul,
@@ -590,11 +590,11 @@ ol ol {
 }
 dl {
   margin-top: 0;
-  margin-bottom: 20px;
+  margin-bottom: 19px;
 }
 dt,
 dd {
-  line-height: 1.67;
+  line-height: 1.62;
 }
 dt {
   font-weight: bold;
@@ -602,7 +602,7 @@ dt {
 dd {
   margin-left: 0;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .dl-horizontal dt {
     float: left;
     width: 160px;
@@ -626,8 +626,8 @@ abbr[data-original-title] {
   text-transform: uppercase;
 }
 blockquote {
-  padding: 10px 20px;
-  margin: 0 0 20px;
+  padding: 9.5px 19px;
+  margin: 0 0 19px;
   font-size: 15px;
   border-left: 5px solid #eeeeee;
 }
@@ -641,7 +641,7 @@ blockquote small,
 blockquote .small {
   display: block;
   font-size: 80%;
-  line-height: 1.67;
+  line-height: 1.62;
   color: #999999;
 }
 blockquote footer:before,
@@ -678,9 +678,9 @@ blockquote:after {
   content: "";
 }
 address {
-  margin-bottom: 20px;
+  margin-bottom: 19px;
   font-style: normal;
-  line-height: 1.67;
+  line-height: 1.62;
 }
 code,
 kbd,
@@ -706,10 +706,10 @@ kbd {
 }
 pre {
   display: block;
-  padding: 9.5px;
-  margin: 0 0 10px;
+  padding: 9px;
+  margin: 0 0 9.5px;
   font-size: 11px;
-  line-height: 1.67;
+  line-height: 1.62;
   word-break: break-all;
   word-wrap: break-word;
   color: #333333;
@@ -1405,7 +1405,7 @@ th {
 }
 .table {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 19px;
 }
 .table > thead > tr > th,
 .table > tbody > tr > th,
@@ -1414,7 +1414,7 @@ th {
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
   padding: 8px;
-  line-height: 1.67;
+  line-height: 1.62;
   vertical-align: top;
   border-top: 1px solid #dddddd;
 }
@@ -1581,7 +1581,7 @@ table th[class*="col-"] {
 @media (max-width: 767px) {
   .table-responsive {
     width: 100%;
-    margin-bottom: 15px;
+    margin-bottom: 14.25px;
     overflow-y: hidden;
     overflow-x: scroll;
     -ms-overflow-style: -ms-autohiding-scrollbar;
@@ -1635,7 +1635,7 @@ legend {
   display: block;
   width: 100%;
   padding: 0;
-  margin-bottom: 20px;
+  margin-bottom: 19px;
   font-size: 18px;
   line-height: inherit;
   color: #333333;
@@ -1681,16 +1681,16 @@ output {
   display: block;
   padding-top: 7px;
   font-size: 12px;
-  line-height: 1.67;
+  line-height: 1.62;
   color: #555555;
 }
 .form-control {
   display: block;
   width: 100%;
-  height: 34px;
+  height: 33px;
   padding: 6px 12px;
   font-size: 12px;
-  line-height: 1.67;
+  line-height: 1.62;
   color: #555555;
   background-color: #ffffff;
   background-image: none;
@@ -1731,7 +1731,7 @@ textarea.form-control {
   height: auto;
 }
 input[type="date"] {
-  line-height: 34px;
+  line-height: 33px;
 }
 .form-group {
   margin-bottom: 15px;
@@ -1739,7 +1739,7 @@ input[type="date"] {
 .radio,
 .checkbox {
   display: block;
-  min-height: 20px;
+  min-height: 19px;
   margin-top: 10px;
   margin-bottom: 10px;
   padding-left: 20px;
@@ -1823,16 +1823,16 @@ select[multiple].input-lg {
   position: relative;
 }
 .has-feedback .form-control {
-  padding-right: 42.5px;
+  padding-right: 41.25px;
 }
 .has-feedback .form-control-feedback {
   position: absolute;
-  top: 25px;
+  top: 24px;
   right: 0;
   display: block;
-  width: 34px;
-  height: 34px;
-  line-height: 34px;
+  width: 33px;
+  height: 33px;
+  line-height: 33px;
   text-align: center;
 }
 .has-success .help-block,
@@ -1965,7 +1965,7 @@ select[multiple].input-lg {
 }
 .form-horizontal .radio,
 .form-horizontal .checkbox {
-  min-height: 27px;
+  min-height: 26px;
 }
 .form-horizontal .form-group {
   margin-left: -5px;
@@ -1995,7 +1995,7 @@ select[multiple].input-lg {
   white-space: nowrap;
   padding: 6px 12px;
   font-size: 12px;
-  line-height: 1.67;
+  line-height: 1.62;
   border-radius: 4px;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -3020,7 +3020,7 @@ input[type="button"].btn-block {
 }
 .dropdown-menu .divider {
   height: 1px;
-  margin: 9px 0;
+  margin: 8.5px 0;
   overflow: hidden;
   background-color: #e5e5e5;
 }
@@ -3029,7 +3029,7 @@ input[type="button"].btn-block {
   padding: 3px 20px;
   clear: both;
   font-weight: normal;
-  line-height: 1.67;
+  line-height: 1.62;
   color: #333333;
   white-space: nowrap;
 }
@@ -3078,7 +3078,7 @@ input[type="button"].btn-block {
   display: block;
   padding: 3px 20px;
   font-size: 11px;
-  line-height: 1.67;
+  line-height: 1.62;
   color: #999999;
 }
 .dropdown-backdrop {
@@ -3105,7 +3105,7 @@ input[type="button"].btn-block {
   bottom: 100%;
   margin-bottom: 1px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .navbar-right .dropdown-menu {
     left: auto;
     right: 0;
@@ -3487,7 +3487,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .nav .nav-divider {
   height: 1px;
-  margin: 9px 0;
+  margin: 8.5px 0;
   overflow: hidden;
   background-color: #e5e5e5;
 }
@@ -3503,7 +3503,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .nav-tabs > li > a {
   margin-right: 2px;
-  line-height: 1.67;
+  line-height: 1.62;
   border: 1px solid transparent;
   border-radius: 4px 4px 0 0;
 }
@@ -3648,12 +3648,12 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-bottom: 10px;
   border: 1px solid transparent;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .navbar {
     border-radius: 4px;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .navbar-header {
     float: left;
   }
@@ -3670,7 +3670,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-collapse.in {
   overflow-y: auto;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .navbar-collapse {
     width: auto;
     border-top: 0;
@@ -3699,7 +3699,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-right: -5px;
   margin-left: -5px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .container > .navbar-header,
   .container-fluid > .navbar-header,
   .container > .navbar-collapse,
@@ -3712,7 +3712,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   z-index: 1000;
   border-width: 0 0 1px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .navbar-static-top {
     border-radius: 0;
   }
@@ -3724,7 +3724,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   left: 0;
   z-index: 1030;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .navbar-fixed-top,
   .navbar-fixed-bottom {
     border-radius: 0;
@@ -3741,16 +3741,16 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-brand {
   float: left;
-  padding: 15px 5px;
+  padding: 15.5px 5px;
   font-size: 15px;
-  line-height: 20px;
-  height: 20px;
+  line-height: 19px;
+  height: 19px;
 }
 .navbar-brand:hover,
 .navbar-brand:focus {
   text-decoration: none;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .navbar > .container .navbar-brand,
   .navbar > .container-fluid .navbar-brand {
     margin-left: -5px;
@@ -3780,20 +3780,20 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-toggle .icon-bar + .icon-bar {
   margin-top: 4px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .navbar-toggle {
     display: none;
   }
 }
 .navbar-nav {
-  margin: 7.5px -5px;
+  margin: 7.75px -5px;
 }
 .navbar-nav > li > a {
   padding-top: 10px;
   padding-bottom: 10px;
-  line-height: 20px;
+  line-height: 19px;
 }
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   .navbar-nav .open .dropdown-menu {
     position: static;
     float: none;
@@ -3808,14 +3808,14 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     padding: 5px 15px 5px 25px;
   }
   .navbar-nav .open .dropdown-menu > li > a {
-    line-height: 20px;
+    line-height: 19px;
   }
   .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-nav .open .dropdown-menu > li > a:focus {
     background-image: none;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .navbar-nav {
     float: left;
     margin: 0;
@@ -3824,14 +3824,14 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     float: left;
   }
   .navbar-nav > li > a {
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 15.5px;
+    padding-bottom: 15.5px;
   }
   .navbar-nav.navbar-right:last-child {
     margin-right: -5px;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .navbar-left {
     float: left !important;
   }
@@ -3847,8 +3847,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-bottom: 1px solid transparent;
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: 8.5px;
+  margin-bottom: 8.5px;
 }
 @media (min-width: 768px) {
   .navbar-form .form-group {
@@ -3882,12 +3882,12 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     top: 0;
   }
 }
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   .navbar-form .form-group {
     margin-bottom: 5px;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .navbar-form {
     width: auto;
     border: 0;
@@ -3912,8 +3912,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-bottom-left-radius: 0;
 }
 .navbar-btn {
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: 8.5px;
+  margin-bottom: 8.5px;
 }
 .navbar-btn.btn-sm {
   margin-top: 11px;
@@ -3924,10 +3924,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-bottom: 14px;
 }
 .navbar-text {
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: 15.5px;
+  margin-bottom: 15.5px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .navbar-text {
     float: left;
     margin-left: 5px;
@@ -3992,7 +3992,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-color: #319d16;
   color: #555555;
 }
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #ffffff;
   }
@@ -4075,7 +4075,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-color: #080808;
   color: #ffffff;
 }
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
     border-color: #080808;
   }
@@ -4111,7 +4111,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .breadcrumb {
   padding: 8px 15px;
-  margin-bottom: 20px;
+  margin-bottom: 19px;
   list-style: none;
   background-color: #f5f5f5;
   border-radius: 4px;
@@ -4130,7 +4130,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .pagination {
   display: inline-block;
   padding-left: 0;
-  margin: 20px 0;
+  margin: 19px 0;
   border-radius: 4px;
 }
 .pagination > li {
@@ -4141,7 +4141,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   position: relative;
   float: left;
   padding: 6px 12px;
-  line-height: 1.67;
+  line-height: 1.62;
   text-decoration: none;
   color: #333333;
   background-color: #ffffff;
@@ -4222,7 +4222,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .pager {
   padding-left: 0;
-  margin: 20px 0;
+  margin: 19px 0;
   list-style: none;
   text-align: center;
 }
@@ -4402,8 +4402,8 @@ a.list-group-item.active > .badge,
 .thumbnail {
   display: block;
   padding: 4px;
-  margin-bottom: 20px;
-  line-height: 1.67;
+  margin-bottom: 19px;
+  line-height: 1.62;
   background-color: #ffffff;
   border: 1px solid #dddddd;
   border-radius: 4px;
@@ -4429,7 +4429,7 @@ a.thumbnail.active {
 }
 .alert {
   padding: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 19px;
   border: 1px solid transparent;
   border-radius: 4px;
 }
@@ -4518,8 +4518,8 @@ a.thumbnail.active {
 }
 .progress {
   overflow: hidden;
-  height: 20px;
-  margin-bottom: 20px;
+  height: 19px;
+  margin-bottom: 19px;
   background-color: #f5f5f5;
   border-radius: 4px;
   -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -4530,7 +4530,7 @@ a.thumbnail.active {
   width: 0%;
   height: 100%;
   font-size: 11px;
-  line-height: 20px;
+  line-height: 19px;
   color: #ffffff;
   text-align: center;
   background-color: #428bca;
@@ -4757,7 +4757,7 @@ a.list-group-item-danger.active:focus {
   line-height: 1.3;
 }
 .panel {
-  margin-bottom: 20px;
+  margin-bottom: 19px;
   background-color: #ffffff;
   border: 1px solid transparent;
   border-radius: 4px;
@@ -4933,7 +4933,7 @@ a.list-group-item-danger.active:focus {
   border-bottom-left-radius: 3px;
 }
 .panel-group {
-  margin-bottom: 20px;
+  margin-bottom: 19px;
 }
 .panel-group .panel {
   margin-bottom: 0;
@@ -5152,14 +5152,14 @@ button.close {
 .modal-header {
   padding: 15px;
   border-bottom: 1px solid #e5e5e5;
-  min-height: 16.67px;
+  min-height: 16.62px;
 }
 .modal-header .close {
   margin-top: -2px;
 }
 .modal-title {
   margin: 0;
-  line-height: 1.67;
+  line-height: 1.62;
 }
 .modal-body {
   position: relative;
