@@ -206,7 +206,7 @@ else
 <div class="row">
 
 <!-- 왼쪽 side 시작 -->
-<div class="col-sm-2 visible-sm visible-md visible-lg">
+<div class="col-md-2 col-lg-2 hidden-xs hidden-sm">
 <?
 // 아웃로그인
 include_once("$g4[path]/lib/outlogin.lib.php");
@@ -261,7 +261,7 @@ echo outlogin("basic");
 
 </div><!-- 왼쪽 side 끝 -->
 
-<div class="col-sm-10" id="main"><!-- 메인 content 시작 -->
+<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10" id="main"><!-- 메인 content 시작 -->
 
 <script type="text/javascript">
 function fsearchbox_submit(f)
