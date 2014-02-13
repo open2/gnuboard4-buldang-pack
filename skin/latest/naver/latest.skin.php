@@ -24,8 +24,8 @@ if (!$skin_title) {
         for ($i=0; $i<count($list); $i++) { 
   
             echo "<li>";
-
             echo "<a href='{$list[$i][href]}' onfocus='this.blur()' title='{$list_title}' {$target_link}>";
+
             if ($list[$i][icon_secret])
                 echo "<i class=\"fa fa-lock\"></i> ";
   
@@ -36,6 +36,9 @@ if (!$skin_title) {
   
             if ($list[$i][icon_reply])
                 echo "<i class=\"fa fa-reply fa-rotate-180\"></i> ";
+
+  	        if ($list[$i][comment_cnt])
+	              echo " <small>" . $list[$i][comment_cnt] . "</small> ";
   
             if ($list[$i][is_notice])
                 echo "<strong>" . $list[$i][subject] . "</strong>";
