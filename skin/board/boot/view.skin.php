@@ -60,10 +60,12 @@ ob_end_flush();
 		</p>
 		<p>
         <?=$view[name]?><? if ($is_ip_view) { echo "&nbsp;($ip)"; } ?>&nbsp;&nbsp;
-	  		<?php echo substr($view['wr_datetime'], 2, 14); ?>&nbsp;&nbsp;
+        <font style="color:#BABABA;">
+	  		<?=get_datetime($view['wr_datetime'])?>&nbsp;&nbsp;
         조회 <?=$view[wr_hit]?>&nbsp;&nbsp;
-        <? if ($is_good) { ?><font style="color:#BABABA;">추천</font> <font style="color:#BABABA;"> <?=$view[wr_good]?>&nbsp;&nbsp;&nbsp;&nbsp;</font><?}?>
-        <? if ($is_nogood) { ?><font style="color:#BABABA;">비추천</font> <font style="color:#BABABA;"> <?=$view[wr_nogood]?>&nbsp;&nbsp;&nbsp;&nbsp;</font><?}?>
+        <? if ($is_good) { ?>추천  <?=$view[wr_good]?>&nbsp;&nbsp;&nbsp;&nbsp;<?}?>
+        <? if ($is_nogood) { ?>비추천  <?=$view[wr_nogood]?>&nbsp;&nbsp;&nbsp;&nbsp;<?}?>
+        </font>
     <!-- 게시글 주소를 복사하기 쉽게 하기 위해서 아랫 부분을 삽입 -->
     <span class="pull-right">
     <a href="javascript:clipboard_trackback('<?=$posting_url?>');" style="letter-spacing:0;" title='이 글을 소개할 때는 이 주소를 사용하세요'><i class="fa fa-link"></i></a>

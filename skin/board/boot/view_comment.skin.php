@@ -22,7 +22,7 @@ var char_max = parseInt(<?=$comment_max?>); // 최대
 
 <? if (trim($board[bo_comment_notice])) { ?>
 <div class="well">
-    <span class="pull-right"><i class="fa fa-volume-up"></i>&nbsp;<?=substr($view[wr_datetime],2,14)?></span>
+    <span class="pull-right"><i class="fa fa-volume-up"></i></span>
     <?=get_text($board[bo_comment_notice], 1)?>
 </div>
 <? } ?>
@@ -48,13 +48,15 @@ for ($i=0; $i<count($list); $i++) {
             <td valign=top>
                 <div style="float:left; margin:2px 0 0 2px;">
                 <strong><?=$list[$i][name]?></strong>
-                <span style="color:#888888; font-size:11px;"><?=$list[$i][datetime]?></span>
+                <font style="color:#BABABA;">
+                <?=get_datetime($list[$i][wr_datetime])?>
                 <?
                 // $board[bo_new] 시간내에 새로운 코멘트가 있으면 icon_new.gif를 뒤에
                 if ($list[$i]['wr_datetime'] >= date("Y-m-d H:i:s", $g4['server_time'] - ($board['bo_new'] * 3600))) 
                     echo "<span class=\"badge\">n</span>";
                 ?>
-                <? if ($is_ip_view) { echo "<span style=\"color:#B2B2B2; font-size:11px;\">{$list[$i][ip]}</span>"; } ?>
+                <? if ($is_ip_view) { echo "{$list[$i][ip]}"; } ?>
+                </font>
                 </div>
                 <div class="btn-group pull-right" style="margin-top:5px;">
                 <? if ($list[$i][is_reply] && $check_comment_allow) { echo "<a class=\"btn btn-default btn-sm\" href=\"javascript:comment_box('{$comment_id}','c');\">Reply</a> "; } ?>

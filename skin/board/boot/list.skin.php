@@ -70,9 +70,9 @@ if ($list[$i][is_notice])
         if ($list[$i][is_notice]) // 공지사항 
             echo "<i class=\"fa fa-microphone\" title='notice/공지사항'></i> ";
         else if ($wr_id == $list[$i][wr_id]) // 현재위치
-            echo "<span style='font:bold 11px tahoma; color:#E15916;'>{$list[$i][num]}</span>";
+            echo "<span style='font-weight:bold; color:#E15916;'>{$list[$i][num]}</span>";
         else
-            echo "<span style='font:normal 11px tahoma; color:#BABABA;'>{$list[$i][num]}</span>";
+            echo "<span style='color:#BABABA;'>{$list[$i][num]}</span>";
         ?>
     </td>
     <? if ($is_checkbox) { ?><td class="hidden-xs"><input type=checkbox name=chk_wr_id[] value="<?=$list[$i][wr_id]?>"></td><? } ?>
@@ -153,11 +153,12 @@ if ($list[$i][is_notice])
         echo $icon_images;
         ?>
         </div>
-        <span class="visible-xs pull-right"><small>
+        <span class="visible-xs pull-right">
+        <font style="color:#BABABA;">
         <?=$list[$i][datetime2]?>&nbsp;&nbsp;
         <?=$list[$i][wr_hit]?>&nbsp;&nbsp;
+        </font>
         <?=$list[$i][name]?>
-        </small>
         </span>
     </td>
 </tr>
