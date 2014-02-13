@@ -35,17 +35,13 @@ else
 
 <header class="header-wrapper"><!-- 상단 header 시작 -->
 <div class="container">
-<div class="row visible-sm visible-md visible-lg">
-    <div class="col-sm-2">
-    </div>
-    <div class="col-sm-5">
-    </div>
-    <div class="col-sm-5">
+<div class="row hidden-xs">
+        <div class="pull-right">
         <?
         echo get_banner("top_github", "basic", "github");
         echo get_banner("top", "basic", "", 1);
         ?>
-    </div>
+        </div>
 </div>
 
 <div class="navbar navbar-default" role="navigation">
