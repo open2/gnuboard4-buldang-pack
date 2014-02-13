@@ -13,7 +13,7 @@ if (!$skin_title) {
 <div class="panel panel-default">
 <div class="panel-heading">
     <a href='<?=$skin_title_link?>' onfocus='this.blur()'><?=$skin_title?></a>
-  	<a class="pull-right" href='<?=$skin_title_link?>' onfocus='this.blur()'><small>more</small></a>
+  	<a class="pull-right" href='<?=$skin_title_link?>' onfocus='this.blur()'>more</a>
 </div>
 <div class="panel-body">
   	<ul class="list-unstyled">
@@ -24,7 +24,8 @@ if (!$skin_title) {
         for ($i=0; $i<count($list); $i++) { 
   
             echo "<li>";
-  
+
+            echo "<a href='{$list[$i][href]}' onfocus='this.blur()' title='{$list_title}' {$target_link}>";
             if ($list[$i][icon_secret])
                 echo "<i class=\"fa fa-lock\"></i> ";
   
@@ -33,22 +34,18 @@ if (!$skin_title) {
             else
                 $list_title = $list[$i][subject]  . " (". $list[$i][datetime] . ")" ;
   
-            if ($list[$i][comment_cnt]) 
-                echo " <a href=\"{$list[$i][comment_href]}\" onfocus=\"this.blur()\"><small>{$list[$i][comment_cnt]}</small></a> ";
-  
             if ($list[$i][icon_reply])
                 echo "<i class=\"fa fa-reply fa-rotate-180\"></i> ";
   
-            echo "<a href='{$list[$i][href]}' onfocus='this.blur()' title='{$list_title}' {$target_link}>";
             if ($list[$i][is_notice])
                 echo "<strong>" . $list[$i][subject] . "</strong>";
             else
                 echo $list[$i][subject];
-            echo "</a>";
   
             if ($list[$i][icon_new])
                 echo "  <i class=\"fa fa-bell-o\"></i>";
-  
+
+            echo "</a>";
             echo "</li>";
         }
     }
