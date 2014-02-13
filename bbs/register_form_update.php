@@ -2,7 +2,6 @@
 include_once("./_common.php");
 include_once("$g4[path]/lib/mailer.lib.php");
 
-/*
 // 081022 : CSRF 에서 토큰 비교는 의미 없음
 // 세션에 저장된 토큰과 폼값으로 넘어온 토큰을 비교하여 틀리면 에러
 if ($_POST["token"] && get_session("ss_token") == $_POST["token"]) 
@@ -19,10 +18,9 @@ else
     alert_close("토큰 에러");
     exit;
 }
-*/
 
 // 리퍼러 체크
-//referer_check();
+referer_check();
 
 if (!($w == "" || $w == "u")) 
     alert("w 값이 제대로 넘어오지 않았습니다.");
