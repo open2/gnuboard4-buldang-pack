@@ -16,6 +16,7 @@ var member_skin_path = "<?=$member_skin_path?>";
 <input type=hidden name=mb_name_enabled  id="mb_name_enabled"   value="" >
 <input type=hidden name=ug_id            id="ug_id"             value="<?=$ug_id?>" >
 <input type=hidden name=join_code        id="join_code"         value="<?=$join_code?>" >
+<input type=hidden name=token            id="token"             value="<?=$token?>" >
 
 <div class="panel panel-default">
     <div class="panel-heading"><h4><strong>회원정보</strong></h4>
