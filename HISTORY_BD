@@ -1,3 +1,61 @@
+1.2.10 (2014.02.14)
+
+*** 그동안 바쁘다는 핑계로 방치한 버그. 사용자들의 요구사항 등을 수정중입니다 ***
+
+- navbar, brand-logo, 2컬럼 그리드를 모두 정비했습니다. 폰, 테블릿 가로/세로. PC 모두 대응 됩니다.
+- 가독성을 높이기 위해 다른 사이트를 참조하여 조횟수 등의 정보성 정보를 모두 회색으로 바꿨습니다.
+- css/테마의 첨부는 break point를 md로 변경한 것 입니다.
+
+head.php
+
+bbs/register_form_update.php
+
+js/bootstrap/*
+
+skin/board/boot/list.skin.php
+skin/board/boot/view.skin.php
+skin/board/boot/view_comment.skin.php
+
+skin/latest/naver/latest.skin.php
+skin/latest/scrap/latest.skin.php
+
+skin/member/basic/register_form.skin.php
+
+
+
+- 가독성을 높이기 위해 첨부파일의 날짜를 get_datetime 하고, 회색으로 처리
+skin/board/boot/view.skin.php
+
+- 가독성을 높이기 위해 xs에서 Total을 제목이 있는 곳으로 이동
+skin/board/boot/list.skin.php
+
+- grid break point는 @screen-md로 변경
+js/bootstrap/*
+
+- 상단부 배너 영역의 grid 시스템 정비
+head.php
+
+- navbar, brand-logo 그리드시스템 정비
+head.php
+
+- 화면폭이 줄어들면서 테블릿 사이즈에서 우측에 빈칸 생기는 문제 해결 (그리드 시스템 정비)
+head.php
+http://opencode.co.kr/bbs/board.php?bo_table=css&wr_id=158
+
+- a:visited css를 설적하면 최신글 코멘트 새창링크의 색상이 그대로인 문제가 생겨서...
+skin/latest/naver/latest.skin.php
+skin/latest/scrap/latest.skin.php
+
+- 스맛폰에서 편안하게 보이게 제목/글쓴이 이외에는 회색으로 변경
+skin/board/boot/list.skin.php
+skin/board/boot/view.skin.php
+skin/board/boot/view_comment.skin.php
+
+- 로봇의 회원가입 차단
+bbs/register_form_update.php
+skin/member/basic/register_form.skin.php
+
+
 1.2.9 (2014.02.12)
 
 *** 1.2.9에 적용한 bootstrap.min.css는 getbootstrap 사이트에서 compile한 것 입니다 ***
