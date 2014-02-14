@@ -2,7 +2,6 @@
 include_once("./_common.php");
 include_once("$g4[path]/lib/mailer.lib.php");
 
-// 081022 : CSRF 에서 토큰 비교는 의미 없음
 // 세션에 저장된 토큰과 폼값으로 넘어온 토큰을 비교하여 틀리면 에러
 if ($_POST["token"] && get_session("ss_token") == $_POST["token"]) 
 {
@@ -15,12 +14,23 @@ if ($_POST["token"] && get_session("ss_token") == $_POST["token"])
 } 
 else 
 {
-    alert_close("토큰 에러");
+    alert("토큰 에러", "$g4[path]");
     exit;
 }
 
 // 리퍼러 체크
 referer_check();
+
+// 현재의 ip에서 연속가입을 방어 합니다.
+// 같은 ip에서 10분 이내에 가입한 회원이 있으면, 로봇으로 처리 합니다.
+// 메시지는 일부러 엉뚱하게 출력 합니다.
+$sql = " select *, count(*) as cnt from $g4[member_table]
+          where mb_login_ip = '$remote_addr' and mb_datetime >= '" . date("Y-m-d H:i:s", $g4[server_time] - 60*10 ) . "'
+          order by mb_datetime desc limit 1";
+$result = sql_fetch($sql);
+
+if ($result['cnt'] > 0)
+    alert("데이터 BUS 에러", "$g4[path]");
 
 if (!($w == "" || $w == "u")) 
     alert("w 값이 제대로 넘어오지 않았습니다.");
