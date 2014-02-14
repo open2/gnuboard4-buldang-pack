@@ -27,7 +27,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     </form>
     <? } ?>
 
-    <div class="pull-right">
+    <div class="pull-right hidden-xs">
         Total <?=number_format($total_count)?>
     </div>
 </div>
@@ -48,7 +48,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <tr class="success">
     <th width=50px class="hidden-xs"><?=subject_sort_link('wr_id', $qstr2, 1)?>번호</a></th>
     <? if ($is_checkbox) { ?><th class="hidden-xs"><INPUT onclick="if (this.checked) all_checked(true); else all_checked(false);" type=checkbox></th><?}?>
-    <th>제목</th>
+    <th>제목<span class="visible-xs pull-right" style="font-weight: normal;color:#B8B8B8;">Total <?=number_format($total_count)?></span></th>
     <th width=120px class="hidden-xs">글쓴이</th>
     <th width=70px class="hidden-xs"><?=subject_sort_link('wr_datetime', $qstr2, 1)?>날짜</a></th>
     <th width=80px class="hidden-xs"><?=subject_sort_link('wr_hit', $qstr2, 1)?>조회</a></th>
