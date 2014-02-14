@@ -375,11 +375,13 @@ var member_skin_path = "<?=$member_skin_path?>";
 
     </div>
     <div class="panel-footer">
+    <div style="text-align:center">
     <? if ($w == "") { ?>
         <button class="btn btn-success">°¡ ÀÔ</button>
     <? } else { ?>
         <button class="btn btn-success">¼ö Á¤</button>
     <? } ?>
+    </style>
 
     <? if ($is_member) { ?> 
     <a href="javascript:member_leave();" class="btn btn-default pull-right">È¸¿øÅ»Åð</a>
