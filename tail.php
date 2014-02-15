@@ -34,9 +34,11 @@ $(document).ready(function() {
     var offset1 = 300;    // 수직으로 어느정도 움직여야 버튼이 나올까?
     var offset2 = 100;    // 수직으로 어느정도 움직여야 버튼이 나올까?
     var duration = 0;     // top으로 이동할때까지의 animate 시간 (밀리세컨드, default는 400. 예제의 기본은 500)
+    var delay1 = 2000;    // 버튼이 사라질때까지의 시간 (2000 = 2초)
     $(window).scroll(function() {
         if ($(this).scrollTop() > offset1) {
             $('.back-to-top').fadeIn(duration);
+            setTimeout(function(){$('.back-to-top').hide();},2000);
         } else {
             $('.back-to-top').fadeOut(duration);
         }
@@ -44,6 +46,7 @@ $(document).ready(function() {
     $(window).scroll(function() {
         if ($(this).scrollTop() > offset2) {
             $('.go-to-bottom').fadeIn(duration);
+            setTimeout(function(){$('.go-to-bottom').hide();},2000);
         } else {
             $('.go-to-bottom').fadeOut(duration);
         }
@@ -61,7 +64,6 @@ $(document).ready(function() {
     })
 });
 </script>
-
 
 <!-- 페이지 하단부 footer -->
 <footer class="footer-wrapper col-sm-offset-2" role="contentinfo" style="margin-top:20px;">
