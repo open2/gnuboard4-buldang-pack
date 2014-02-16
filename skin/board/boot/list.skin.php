@@ -1,5 +1,7 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
+if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
+
+$notice_count = $global_notice_count + $arr_notice_count;
 ?>
 
 <!-- 분류 셀렉트 박스, 게시물 몇건, 관리자화면 링크 -->
@@ -18,7 +20,9 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <? if ($rss_href) { ?><a href='<?=$rss_href?>' class="btn btn-default"><i class='fa fa-rss'></i></a><?}?>
     <? if ($admin_href) { ?><a href="<?=$admin_href?>" class="btn btn-default"><i class='fa fa-cog'></i></a><?}?>
 
+    <? if ($notice_count > 0) { ?>
     <a href="#" class="btn btn-default notice_flip" title="공지사항 Flip"><i class="fa fa-microphone"></i></a>
+    <? } ?>
 
     <? if ($is_category) { ?>
     <form name="fcategory" method="get" role="form" class="form-inline">

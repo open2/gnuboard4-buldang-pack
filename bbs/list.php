@@ -189,6 +189,7 @@ if (!$sca && !$stx)
 
         $sql = " select * from $g4[notice_table] order by no_id desc ";
         $global_notice = sql_query($sql);
+        $global_notice_count = mysql_num_rows($global_notice);
 
         while ($row_notice = sql_fetch_array($global_notice)) 
         {
