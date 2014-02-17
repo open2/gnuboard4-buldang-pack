@@ -9,8 +9,14 @@ if (!$skin_title) {
         $skin_title = "최신글";
     }
 }
+
+if ($content_len ==0)
+    $content_len = 250;
+
+//id를 랜덤하게 만듭니다. 몇개의 아코디언이 있을 때 쫑나지 않게...
+$rand1 = rand();
 ?>
-<div class="panel-group" id="accordion">
+<div class="panel-group" id="accordion_<?=$rand1?>">
     <?
     if (count($list) == 0) {
         echo "<div style='height:200px;'><a href='#'>내용없슴</a></div>";
@@ -30,7 +36,7 @@ if (!$skin_title) {
         <!-- margin-bottom:-6px는 css마다 다르므로... 알아서 수정해주세요 -->
         <div class="panel panel-default" style="margin-bottom:-6px;">
         <div class="panel-heading">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse_<?=$i?>">
+            <a data-toggle="collapse" data-parent="#accordion_<?=$rand1?>" href="#collapse_<?=$rand1?>_<?=$i?>">
             <?
             if ($list[$i][icon_secret])
                 echo "<i class=\"fa fa-lock\"></i> ";
@@ -68,9 +74,9 @@ if (!$skin_title) {
         else
             $in = "";
         ?>
-        <div id="collapse_<?=$i?>" class="panel-collapse collapse <?=$in?>" >
+        <div id="collapse_<?=$rand1?>_<?=$i?>" class="panel-collapse collapse <?=$in?>" >
             <div class="panel-body">
-                <?=cut_str(strip_tags($list[$i][wr_content]),250)?>
+                <?=cut_str(strip_tags($list[$i][wr_content]),$content_len)?>
             </div>
         </div>
     </div>
