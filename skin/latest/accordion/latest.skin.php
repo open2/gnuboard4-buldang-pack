@@ -18,12 +18,14 @@ if (!$skin_title) {
         // 랜덤하게 아코디언을 열어줍니다
         $open_in = rand(0, count($list)-1);
 
-        // 오픈되는 배열을 가장 위로 올린다
-        $tmp = $list[0];
-        $list[0] = $list[$open_in];
-        $list[$open_in] = $tmp;
+        // 오픈되는 배열을 가장 위로 올린다 (선택된 것을 0으로 올리고, 0부터 선택된거 위까지 밀어 내린다)
+        $tmp = $list[$open_in];
+        for ($i=$open_in; $i>0; $i--) {
+            $list[$i] = $list[$i-1];
+        }
+        $list[0] = $tmp;
 
-        for ($i=0; $i<count($list); $i++) { 
+        for ($i=0; $i<count($list); $i++) {
     ?>
         <!-- margin-bottom:-6px는 css마다 다르므로... 알아서 수정해주세요 -->
         <div class="panel panel-default" style="margin-bottom:-6px;">
