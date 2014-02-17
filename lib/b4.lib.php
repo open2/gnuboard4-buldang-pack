@@ -1212,6 +1212,10 @@ function check_singo_nowrite($bo_singo_nowrite, $bo_table='')
     else
         $sql_bo_table = "";
 
+    // 누적된 신고건수가 없으면, 그냥 return 해버립니다.
+    if ($member[mb_singo] == 0)
+        return false;
+
     // 대부분의 사용자는 신고건수가 없기 때문에, 신고건수가 있는 사람만 cost가 많이 들어가는 sql을 수행하게 합니다.
     $sql = " SELECT count(*) as cnt from $g4[singo_table] 
               WHERE mb_id = '$mb_id' $sql_bo_table
