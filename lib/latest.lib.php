@@ -244,6 +244,34 @@ function latest_one($skin_dir="", $bo_table, $wr_id, $subject_len=40, $content_l
     return $content;
 }
 
+// 여러개의 게시글 추출 ($bo_table과 $wr_id는 매칭되는 배열 입니다)
+// $bo1[] = "게시판1"; $wr1[] = "게시글id1"; 처럼 넣으면 됩니다.
+function latest_multi($skin_dir="", $bo_table, $wr_id, $subject_len=40, $content_len=0, $gallery_view=0, $options="") {
+    global $g4, $qstr;
+
+    if ($skin_dir)
+        $latest_skin_path = "$g4[path]/skin/latest/$skin_dir";
+    else
+        $latest_skin_path = "$g4[path]/skin/latest/basic";
+
+    $list = array();
+
+    for ($i=0; $i<count($bo_table);$i++) {
+
+        $board = get_board($bo_table[$i]);
+        $tmp_write_table = $g4['write_prefix'] . $bo_table[$i]; // 게시판 테이블 전체이름
+        $row = sql_fetch(" select * from $tmp_write_table where wr_id = '$wr_id[$i]' ");
+    
+        $list[$i] = get_list($row, $board, $latest_skin_path, $subject_len, $gallery_view);
+    }
+
+    ob_start();
+    include "$latest_skin_path/latest.skin.php";
+    $content = ob_get_contents();
+    ob_end_clean();
+
+    return $content;
+}
 
 // 추천 기준으로 게시글 추출
 function latest_good($skin_dir="", $bo_table, $rows=10, $subject_len=40, $bg_flag="good", $gallery_view=0, $options="") {
