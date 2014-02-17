@@ -936,9 +936,16 @@ if ($config[cf_db_version] < 1207) {
             ";
     sql_query($sql, FALSE);
 }
- 
+
+if ($config[cf_db_version] < 1211) {
+    // 신고기능 업그레이드 - 인덱스추가
+    sql_query(" ALTER TABLE `$g4[singo_table]` ADD INDEX `sg_datetime` ( `sg_datetime` ) ", FALSE);
+    sql_query(" ALTER TABLE `$g4[member_table]` ADD `mb_singo_datetime` DATETIME NOT NULL ", FALSE);
+    sql_query(" ALTER TABLE `$g4[member_table]` ADD `mb_singo` INT( 11 ) NOT NULL ", FALSE);
+}
+
 // db 버젼을 업데이트 - major version + mid version - patch version
-$max_version = "1208";
+$max_version = "1211";
 sql_query(" update $g4[config_table] set cf_db_version = '$max_version' ");
 
 echo "불당팩 $max_version - UPGRADE 완료.";

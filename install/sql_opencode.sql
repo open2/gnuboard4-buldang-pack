@@ -1152,3 +1152,7 @@ ALTER TABLE `$g4[singo_table]` ADD `wr_subject` VARCHAR( 255 ) NOT NULL AFTER `w
 ADD `wr_content` TEXT NOT NULL AFTER `wr_subject` ,
 ADD `wr_ip` VARCHAR( 255 ) NOT NULL AFTER `wr_content` ,
 ADD `wr_datetime` DATETIME NOT NULL AFTER `wr_ip` ;
+
+ALTER TABLE `$g4[singo_table]` ADD INDEX `sg_datetime` ( `sg_datetime` );
+ALTER TABLE `$g4[member_table]` ADD `mb_singo_datetime` DATETIME NOT NULL;
+ALTER TABLE `$g4[member_table]` ADD `mb_singo` INT( 11 ) NOT NULL;
