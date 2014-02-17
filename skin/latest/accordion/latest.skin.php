@@ -15,6 +15,9 @@ if (!$skin_title) {
     if (count($list) == 0) {
         echo "<div style='height:200px;'><a href='#'>내용없슴</a></div>";
     } else {
+        // 랜덤하게 아코디언을 열어줍니다
+        $open_in = rand(0, count($list)-1);
+
         for ($i=0; $i<count($list); $i++) { 
     ?>
         <!-- margin-bottom:-6px는 css마다 다르므로... 알아서 수정해주세요 -->
@@ -53,7 +56,7 @@ if (!$skin_title) {
         </div>
         <?
         // 처음나오는 것을 open... in이 class에 들어가면 열립니다
-        if ($i == 0)
+        if ($i == $open_in)
             $in = "in";
         else
             $in = "";
