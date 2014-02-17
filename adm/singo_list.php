@@ -187,6 +187,11 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         $bo = get_board($row[bo_table], "bo_subject");
         $sql = " select wr_subject, wr_content, wr_ip, wr_is_comment, wr_parent, wr_datetime, wr_singo from $write_table where wr_id = '$row[wr_id]' ";
         $write_row = sql_fetch($sql);
+
+        // 옛날 신고는 제목이 없으니... 현재의 제목이라도 넣어준다. 제목을 바꿨으면... ㄷㄷㄷ
+        if ($row[wr_subject] == "")
+            $row[wr_subject] = $write_row[wr_subject];
+
         if ($write_row[wr_is_comment]) {
             $wr_subject = $row[wr_subject];
             $wr_ip = $row[wr_ip];
