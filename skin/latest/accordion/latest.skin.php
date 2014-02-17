@@ -18,6 +18,11 @@ if (!$skin_title) {
         // 랜덤하게 아코디언을 열어줍니다
         $open_in = rand(0, count($list)-1);
 
+        // 오픈되는 배열을 가장 위로 올린다
+        $tmp = $list[0];
+        $list[0] = $list[$open_in];
+        $list[$open_in] = $tmp;
+
         for ($i=0; $i<count($list); $i++) { 
     ?>
         <!-- margin-bottom:-6px는 css마다 다르므로... 알아서 수정해주세요 -->
@@ -56,7 +61,7 @@ if (!$skin_title) {
         </div>
         <?
         // 처음나오는 것을 open... in이 class에 들어가면 열립니다
-        if ($i == $open_in)
+        if ($i == 0)
             $in = "in";
         else
             $in = "";
