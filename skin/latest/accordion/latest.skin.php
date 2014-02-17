@@ -78,9 +78,11 @@ $rand1 = rand();
             $in = "";
         ?>
         <div id="collapse_<?=$rand1?>_<?=$i?>" class="panel-collapse collapse <?=$in?>" >
-            <div class="panel-body">
+            <a style="text-decoration:none;" href='<?=$list[$i][href]?>' onfocus='this.blur()' title='<?=$list_title?>' <?=$target_link?>>
+            <div class="panel-body" style="word-break:break-all;">
                 <?=cut_str(strip_tags($list[$i][wr_content]),$content_len)?>
             </div>
+            </a>
         </div>
     </div>
     <?
