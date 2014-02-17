@@ -415,7 +415,7 @@ if (isset($spt))  { // search part (검색 파트[구간])
 }
 
 if (isset($page)) { // 리스트 페이지
-    $page = (int)$page;
+    $page = abs((int)$page);
     $qstr .= '&page=' . urlencode($page);
 }
 
