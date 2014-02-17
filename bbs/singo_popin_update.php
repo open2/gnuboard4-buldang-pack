@@ -82,6 +82,10 @@ if ($config[cf_singo_point_send])
 if ($config[cf_singo_point_recv])
     insert_point($mb_id, -$config[cf_singo_point_recv], "신고처리 포인트", '@member', $mb_id, '신고처리');
 
+// 신고된 사람의 정보를 업데이트 (신고건수, 신고된 날짜)
+$sql = " update $g4[member_table] set mb_singo = mb_singo + 1, mb_singo_datetime = '$g4[time_ymdhis]'  where mb_id = '$write[mb_id]' ";
+sql_query($sql, false);
+
 //------------------------------------------------------------------------------------
 // 신고된 건수가 몇회이상이면 차단할지를 설정
 // 회원의 권한을 1로 설정하고 차단일자를 저장하여 접근을 차단함

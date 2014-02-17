@@ -29,6 +29,10 @@ $sql = " insert into $g4[singo_table]
                 sg_ip = '$remote_addr' ";
 sql_query($sql);
 
+// 신고된 사람의 정보를 업데이트 (신고건수, 신고된 날짜)
+$sql = " update $g4[member_table] set mb_singo = mb_singo + 1, mb_singo_datetime = '$g4[time_ymdhis]'  where mb_id = '$singo_mb_id' ";
+sql_query($sql, false);
+
 // 신고당사자, 게시판관리자/그룹관리자/사이트 관리자에게 쪽지를 발송 (불당의 쪽지2)
 $memo_list = array();
 
