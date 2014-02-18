@@ -1183,46 +1183,13 @@ function view_image($view, $number, $attribute)
 }
 
 
-/*
-// {link:0} ... {link:n} 과 같은 형식
-function view_link($view, $number, $attribute)
-{
-    global $config;
-
-    if ($view[link][$number][link])
-    {
-        if (!preg_match("/target/i", $attribute))
-            $attribute .= " target='$config[cf_link_target]'";
-        return "<a href='{$view[link][$number][href]}' $attribute>{$view[link][$number][link]}</a>";
-    }
-    else
-        return "{".$number."번 링크 없음}";
-}
-*/
-
-
-// 한글 한글자(2byte, 유니코드 3byte)는 길이 2, 공란.영숫자.특수문자는 길이 1
-// 유니코드는 http://g4uni.winnwe.net/bbs/board.php?bo_table=g4uni_faq&wr_id=7 의 Mr.Learn님의 글을 참고하였습니다.
+// 멀티바이트 문자열 자르기
+// http://kr.php.net/manual/kr/function.mb-strimwidth.php
 function cut_str($str, $len, $suffix="…")
 {
     global $g4;
 
-    if (strtoupper($g4['charset']) == 'UTF-8') {
-        $c = substr(str_pad(decbin(ord($str{$len})),8,'0',STR_PAD_LEFT),0,2); 
-        if ($c == '10') 
-            for (;$c != '11' && $c{0} == 1;$c = substr(str_pad(decbin(ord($str{--$len})),8,'0',STR_PAD_LEFT),0,2)); 
-        return substr($str,0,$len) . (strlen($str)-strlen($suffix) >= $len ? $suffix : ''); 
-    } else {
-        $s = substr($str, 0, $len);
-        $cnt = 0;
-        for ($i=0; $i<strlen($s); $i++)
-            if (ord($s[$i]) > 127)
-                $cnt++;
-        $s = substr($s, 0, $len - ($cnt % 2));
-        if (strlen($s) >= strlen($str))
-            $suffix = "";
-        return $s . $suffix;
-    }
+    return mb_strimwidth($str, 0, $len, $suffix, $g4['charset']);
 }
 
 
