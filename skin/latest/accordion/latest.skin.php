@@ -61,14 +61,13 @@ $rand1 = rand();
                 echo "  <i class=\"fa fa-bell-o\"></i>";
             ?>
             </a>
+            <!--
             <span class="pull-right" style="margin-top:-8px;">
                 <a class="btn" href='<?=$list[$i][href]?>' onfocus='this.blur()' title='<?=$list_title?>' <?=$target_link?>>
-                <!--
-                <i class="fa fa-external-link fa-lg" style="color:gray;"></i>
-                -->
                 <font color=gray>more</font>
                 </a>
             </span>
+            -->
         </div>
         <?
         // 처음나오는 것을 open... in이 class에 들어가면 열립니다
