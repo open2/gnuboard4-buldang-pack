@@ -68,7 +68,7 @@ for ($i=0; $i<count($list); $i++) {
                 </div>
 
                 <!-- 코멘트 출력 -->
-                <div style='line-height:20px; padding:7px; word-break:break-all; overflow:hidden; clear:both; '>
+                <div style='line-height:20px; padding:7px; word-break:break-all; word-wrap:break-word; overflow:hidden; clear:both; '>
                 <?
                 if (strstr($list[$i][wr_option], "secret")) echo "<span style='color:#ff6600;FONT-WEIGHT:bold'>*비밀글입니다</span><BR> ";
                 

@@ -134,7 +134,7 @@ ob_end_flush();
     ?>
 
     <!-- 내용 출력 -->
-    <span id="writeContents">
+    <span id="writeContents" style="word-wrap:break-word;">
     <?
         $write_contents=resize_dica($view[content],400,300);
         echo $write_contents;
