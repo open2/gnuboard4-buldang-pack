@@ -25,7 +25,7 @@ header("Pragma: no-cache"); // HTTP/1.0
 <!DOCTYPE HTML>
 <html lang="ko">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1">
 <meta http-equiv="content-type" content="text/html; charset=<?=$g4['charset']?>">
 <? if ($config['cf_meta_author']) { ?><meta name="author" content="<?=$config['cf_meta_author']?>"><? } ?>
 <?
