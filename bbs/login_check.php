@@ -174,15 +174,11 @@ if ($auto_login) {
     // 자동로그인 ---------------------------
     // 쿠키 한달간 저장
     if ($g4['load_balance']) {
-        if ($g4['g4_mobile_device'])
-            $key = md5($g4['load_balance'] . $_SERVER[HTTP_USER_AGENT] . $mb[mb_password]);
-        else
-            $key = md5($g4['load_balance'] . $_SERVER[REMOTE_ADDR] . $_SERVER[HTTP_USER_AGENT] . $mb[mb_password]);
+        $key = md5($g4['load_balance'] . $_SERVER[HTTP_USER_AGENT] . $mb[mb_password] . $mb['mb_no']);
+        //$key = md5($g4['load_balance'] . $_SERVER[REMOTE_ADDR] . $_SERVER[HTTP_USER_AGENT] . $mb[mb_password]);
     } else {
-        if ($g4['g4_mobile_device'])
-            $key = md5($_SERVER[SERVER_ADDR] . $_SERVER[HTTP_USER_AGENT] . $mb[mb_password]);
-        else
-            $key = md5($_SERVER[SERVER_ADDR] . $_SERVER[REMOTE_ADDR] . $_SERVER[HTTP_USER_AGENT] . $mb[mb_password]);
+        $key = md5($_SERVER[SERVER_ADDR] . $_SERVER[HTTP_USER_AGENT] . $mb[mb_password] . $mb['mb_no']);
+        //$key = md5($_SERVER[SERVER_ADDR] . $_SERVER[REMOTE_ADDR] . $_SERVER[HTTP_USER_AGENT] . $mb[mb_password]);
     }
     // 불당팩 - 쿠키를 암호화 하여 저장
     //set_cookie('ck_mb_id', $mb[mb_id], 86400 * 31);

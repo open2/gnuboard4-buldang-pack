@@ -273,7 +273,7 @@ $is_secret = $board[bo_use_secret];
 // DHTML 에디터 사용 선택 가능하게 수정 : 061021
 //$is_dhtml_editor = $board[bo_use_dhtml_editor];
 // 090713
-if ($board[bo_use_dhtml_editor] && $member[mb_level] >= $board[bo_dhtml_editor_level] && !$g4[g4_mobile_device])
+if ($board[bo_use_dhtml_editor] && $member[mb_level] >= $board[bo_dhtml_editor_level])
     $is_dhtml_editor = true;
 else
     $is_dhtml_editor = false;
