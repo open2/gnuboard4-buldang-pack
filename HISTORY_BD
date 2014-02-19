@@ -1,3 +1,103 @@
+1.2.11 (2014.02.19)
+
+*** 불당팩 기본 구성요소들 ***
+Jquery 1.10.2 http://jquery.com/
+Bootstrap 3.1.1 http://getbootstrap.com/ 
+* LESS 수정사항 http://opencode.co.kr/bbs/board.php?bo_table=gnu4_pack&wr_id=1700
+Font-awesome 4.0.3 http://fontawesome.io/
+html5 Shiv 3.7.0 https://github.com/aFarkas/html5shiv
+respond 1.4.2 https://github.com/scottjehl/Respond
+
+
+ALTER TABLE `g4_singo` ADD INDEX `sg_datetime` ( `sg_datetime` )
+ALTER TABLE `g4_member` ADD `mb_singo_datetime` DATETIME NOT NULL
+ALTER TABLE `g4_member` ADD `mb_singo` INT( 11 ) NOT NULL???
+
+common.php
+tail.php
+
+adm/singo_list.php
+adm/upgrade_bd.php
+
+bbs/list.php
+bbs/login_check.php
+bbs/memo.php
+bbs/register_form_update.php
+bbs/singo_member_update.php
+bbs/singo_popin_update.php
+bbs/write.php
+
+js/bootstrap/*
+
+lib/b4.lib.php
+lib/common.lib.php
+lib/latest.lib.php
+
+skin/board/boot/list.skin.php
+skin/board/boot/view_comment.skin.php
+
+skin/latest/accordion/*
+
+skin/member/basic/register_form.skin.php
+
+
+- 링크된 요소의 줄바꿈으로 인한 보기 싫음 
+skin/board/boot/list.skin.php
+skin/board/boot/view_comment.skin.php
+
+- 부트스트랩 3.1.1
+js/bootstrap/*
+
+- g4_mobile_device 기능삭제 - 이제는 뭐가 모바일이고 뭐가 모바일이 아닌지 구분도 불가...
+common.php
+bbs/login_check.php
+bbs/memo.php
+bbs/write.php
+
+- 문자열 자르기 기능 개선
+lib/common.lib.php
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=1044
+
+- 신고기능 오류수정
+adm/singo_list.php
+
+- latest_multi 함수추가 (사용자가 여러개의 최신글을 임의로 지정)
+lib/latest.lib.php
+
+-마이너스 페이징이 나오지 않게
+common.php
+
+- 신고로 인한 글쓰기 제한 체크는 신고 count가 있는 사람만
+bbs/singo_member_update.php
+bbs/singo_popin_update.php
+lib/b4.lib.php
+
+* DB정리를 하지 않습니다. 적용 이전건에 대해서는 사면(?) 입니다. ㅋㅋ
+
+- 아코디언 최신글
+skin/latest/accordion/*
+
+- 공지사항 flip 버튼이 공지사항 있을 때만 나오기 하기
+bbs/list.php
+skin/board/boot/list.skin.php
+
+- 위/아래로 버튼이 스크롤 멈추는 시점부터 나오게 하는 기능 추가
+tail.php
+http://opencode.co.kr/bbs/board.php?bo_table=css&wr_id=174
+
+- 위로/아래로 버튼에 3초후에 사라지는 기능추가
+tail.php
+http://opencode.co.kr/bbs/board.php?bo_table=css&wr_id=165
+
+- 회원가입화면, 가입버튼 중간으로 (captcha 입력후 좌측 이동은 어색...)
+skin/member/basic/register_form.skin.php
+
+- 로봇회원 가입방지를 위한 ...
+
+bbs/register_form_update.php
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=1043
+
+
 1.2.10 (2014.02.14)
 
 *** 그동안 바쁘다는 핑계로 방치한 버그. 사용자들의 요구사항 등을 수정중입니다 ***
