@@ -28,7 +28,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     display: none;
 }
 </style>
-</style>
+
 <script type="text/javascript">
 $(document).ready(function() {
     var offset1 = 300;    // 수직으로 어느정도 움직여야 버튼이 나올까?
