@@ -2278,4 +2278,10 @@ function help($msg, $gly='') {
 
     return $str;
 }
+
+// url에서 page를 제거하기
+function strip_page($qstr) {
+    $qstr = preg_replace('/&?page=[0-9]/i', '', $qstr);
+    return $qstr;
+}
 ?>

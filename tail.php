@@ -36,8 +36,8 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     ?>
     // 게시글 목록 page swipe
     var hammertime2 = $("#list_<?=$bo_table?>").hammer();
-    var link2 = "<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?>&page=<?=$page2?>";
-    var link3 = "<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?>&page=<?=$page3?>";
+    var link2 = "<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?><?=strip_page($qstr)?>&page=<?=$page2?>";
+    var link3 = "<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?><?=strip_page($qstr)?>&page=<?=$page3?>";
     hammertime2.on("swipeleft dragleft", function(ev) {
         ev.gesture.preventDefault();
         $(location).attr('href',link2);
