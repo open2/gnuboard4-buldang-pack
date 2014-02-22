@@ -57,11 +57,13 @@ if(stristr($_SERVER[PHP_SELF], "/bbs/board.php") == true && $bo_table) {
 ?>
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script type="text/javascript" src="<?=$g4['path']?>/js/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<?=$g4['path']?>/js/hammer/hammer.min.js"></script>
+<script type="text/javascript" src="<?=$g4['path']?>/js/hammer/jquery.hammer-full.min.js"></script>
+
 <!--[if lt IE 9]>
     <script src="<?=$g4['path']?>/js/html5shiv/html5shiv.js"></script>
     <script src="<?=$g4['path']?>/js/respond/respond.min.js"></script>
 <![endif]-->
+
 <script type="text/javascript">
 // 자바스크립트에서 사용하는 전역변수 선언
 var g4_path      = "<?=$g4['path']?>";
