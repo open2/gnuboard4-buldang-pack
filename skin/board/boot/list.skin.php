@@ -46,7 +46,7 @@ $notice_count = $global_notice_count + $arr_notice_count;
 <input type='hidden' name='sw'   value=''>
 <input type='hidden' name='sca'   value=''>
 
-<div class="table-responsive">
+<div class="table-responsive" id="list_<?=$bo_table?>" name="list_<?=$bo_table?>">
 <table width=100% class="table table-condensed table-hover" style="word-wrap:break-word;">
 <thead>
 <tr class="success">
@@ -146,7 +146,7 @@ if ($list[$i][is_notice])
         else
             $style = "";
 
-        echo "<a href='{$list[$i][href]}'>";
+        echo "<a href='" . $list[$i][href] . "'>";
         echo "<span $style>" . cut_str($list[$i][subject], 40) . "</span>";
         echo "</a>";
 
