@@ -52,7 +52,7 @@ $notice_count = $global_notice_count + $arr_notice_count;
 <tr class="success">
     <th width=50px class="hidden-xs"><?=subject_sort_link('wr_id', $qstr2, 1)?>번호</a></th>
     <? if ($is_checkbox) { ?><th class="hidden-xs"><INPUT onclick="if (this.checked) all_checked(true); else all_checked(false);" type=checkbox></th><?}?>
-    <th>제목<span class="visible-xs pull-right" style="font-weight: normal;color:#B8B8B8;">Total <?=number_format($total_count)?></span></th>
+    <th>제목<span class="visible-xs pull-right" style="font-weight: normal;color:#B8B8B8;">Page <?=$page?>/<?=$total_page?></span></th>
     <th width=120px class="hidden-xs">글쓴이</th>
     <th width=70px class="hidden-xs"><?=subject_sort_link('wr_datetime', $qstr2, 1)?>날짜</a></th>
     <th width=80px class="hidden-xs"><?=subject_sort_link('wr_hit', $qstr2, 1)?>조회</a></th>
@@ -282,6 +282,7 @@ if ($g4['last_notice_datetime'] > $flip_datetime) {
     // flip은 했고, 새로운 공지도 없으면 공지를 감춰줍니다
 ?>
     $('.is_notice').hide();
+    $('.notice_flip').addClass('active');   // 버튼이 눌러진 상태로 바꿔줍니다.
 <? } ?>
 $('.notice_flip').click(function() {
     $('.is_notice').toggle();
