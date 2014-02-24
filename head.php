@@ -9,7 +9,6 @@ include_once("$g4[path]/lib/banner.lib.php");
 // 사용자 화면 상단과 좌측을 담당하는 페이지입니다.
 // 상단, 좌측 화면을 꾸미려면 이 파일을 수정합니다.
 ?>
-
 <?
 // 상단부에 alert 팝업을 출력 합니다.
 include_once("$g4[path]/lib/popup.lib.php");
@@ -149,6 +148,7 @@ else
                 <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=webapp">웹앱</a></li>
             </ul>
         </li>
+
         <li class="dropdown">
             <a class="dropdown-toggle" href="#" data-toggle="dropdown">불당팩 <b class="caret"></b></a>
             <ul class="dropdown-menu" role="menu">
@@ -166,12 +166,12 @@ else
             </ul>
         </li>
         <li class="dropdown">
-            <a class="dropdown-toggle" href="#" data-toggle="dropdown">영카트4s <b class="caret"></b></a>
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">영카트5 <b class="caret"></b></a>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=yc4_pack_download">영카트4s 불당팩</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=yc4_tips">영카트4s 팁</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=yc4_pack_qna">영카트4s 묻고답하기</a></li>
-                <li><a href="<?=$g4[path]?>/shop/index.php">영카트4s 테스트</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=yc4_pack_download">영카트5 불당팩</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=yc4_tips">영카트5 팁</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=yc4_pack_qna">영카트5 묻고답하기</a></li>
+                <li><a href="<?=$g4[path]?>/shop/index.php">영카트5 테스트</a></li>
             </ul>
         </li>
         <li><a href="<?=$g4[plugin_path]?>/attendance/attendance.php">출석</a></li>

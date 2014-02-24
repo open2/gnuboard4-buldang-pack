@@ -14,12 +14,14 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <script type="text/javascript">
     <? if ($bo_table && $wr_id) { ?>
     // 게시글 view page swipe
-    var hammertime1 = $("#view_<?=$wr_id?>").hammer();
-    var link1 = "<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?>&page=<?=$page?>&qstr=<?=$qstr?>";
-    hammertime1.on("swipeleft dragleft", function(ev) {
-        ev.gesture.preventDefault();
-        $(location).attr('href',link1);
-    });
+    if ($('#desktopTest_md_lg').is(':hidden')) {
+        var hammertime1 = $("#view_<?=$wr_id?>").hammer();
+        var link1 = "<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?>&page=<?=$page?>&qstr=<?=$qstr?>";
+        hammertime1.on("swipeleft dragleft", function(ev) {
+            ev.gesture.preventDefault();
+            $(location).attr('href',link1);
+        });
+    }
     <? } ?>
 
     <? if ($bo_table && !$wr_id) {
