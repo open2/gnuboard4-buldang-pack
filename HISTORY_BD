@@ -1,3 +1,64 @@
+1.2.12 (2014.02.24)
+
+1.2.12에는 스마트폰을 위한 hammer.js의 touch swipe 기능이 들어갑니다.
+스마트폰 웹브라우져는 멀티터치 체크를 위해 300ms의 delay를 두고 있는데, hammer.js가 적용되면서 이것이 없어지기 때문에
+스마트폰에서 버튼 터치 등의 반응속도가 현저히 올라갑니다.
+
+1.2.12에 적용된 swipe 사항
+- 게시글 보기에서 좌측으로 : 목록
+- 게시글 목록에서 좌측 : 목록 페이지 - 1
+                        우측 : 목록 페이지 + 1
+
+*** 불당팩 기본 구성요소들 ***
+Jquery 1.10.2 http://jquery.com/
+jQuery Hammer.js 1.0.6 http://eightmedia.github.io/hammer.js/
+Bootstrap 3.1.1 http://getbootstrap.com/ 
+* LESS 수정사항 http://opencode.co.kr/bbs/board.php?bo_table=gnu4_pack&wr_id=1700
+Font-awesome 4.0.3 http://fontawesome.io/
+html5 Shiv 3.7.0 https://github.com/aFarkas/html5shiv
+respond 1.4.2 https://github.com/scottjehl/Respond
+
+head.php
+head.sub.php
+tail.php
+
+js/hammer/*
+
+lib/b4.lib.php
+
+skin/member/boot/list.skin.php
+skin/member/boot/view.skin.php
+
+-공지를 hidden 시킨 게시판의 경우 공지 flip 버튼을 active로 바꿔줍니다.
+skin/board/boot/list.skin.php
+
+- 중간영역 div 이름 변경 (main -> main_content)
+head.php
+
+- hammer.js 적용
+head.sub.php
+tail.php
+js/hammer/*
+lib/b4.lib.php
+skin/member/boot/list.skin.php
+skin/member/boot/view.skin.php
+
+- 가장위로, 아래로 버튼의 위치를 3em만큼 위로 (가장 하단부 버튼과 겹치지 않게)
+tail.php
+
+- 스맛폰 화면(xs)에 tail 영역에 TOP 버튼추가 
+tail.php
+
+- typo 오류수정
+tail.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/2978960d2f746526c34e112b723cb75d894aef52
+
+- 뷰포트 크기변경을 할 수 없게 (hammer.js 적용을 위해)
+head.sub.php
+https://github.com/EightMedia/hammer.js/wiki/Tips-&-Tricks
+https://github.com/open2/gnuboard4-buldang-pack/commit/4e59ae97f87afb96b2286e21148f410a9eb2aadc
+
+
 1.2.11 (2014.02.19)
 
 *** 불당팩 기본 구성요소들 ***
