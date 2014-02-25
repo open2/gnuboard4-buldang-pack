@@ -32,7 +32,7 @@ $notice_count = $global_notice_count + $arr_notice_count;
     <? } ?>
 
     <div class="pull-right hidden-xs">
-        Total <?=number_format($total_count)?>
+        Page <?=$page?>/<?=$total_page?>
     </div>
 </div>
 
