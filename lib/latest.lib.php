@@ -106,9 +106,12 @@ function latest_bo_notice($skin_dir="", $bo_table, $rows=10, $subject_len=40, $g
 }
 
 // 전체 공지글 추출
-function latest_notice($skin_dir="", $rows=10, $subject_len=40, $gallery_view=0, $sod="rand", $skin_title="", $skin_title_link="", $options="")
+function latest_notice($skin_dir="", $rows=10, $subject_len=40, $gallery_view=0, $sod="rand", $skin_title="전체공지", $skin_title_link="", $options="")
 {
     global $g4;
+
+    if ($skin_title_link == "")
+        $skin_title_link = $g4[bbs_path] . "/notice_list.php";
 
     if ($skin_dir)
         $latest_skin_path = "$g4[path]/skin/latest/$skin_dir";
