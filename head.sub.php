@@ -90,3 +90,4 @@ var g4_is_ie     = navigator.userAgent.toLowerCase().indexOf("msie") != -1;
 <body>
 <a class="sr-only" href="#content">Skip navigation</a>
 <a name="g4_head"></a>
+<div id="desktopTest_md_lg" class="visible-md visible-lg"></div>
