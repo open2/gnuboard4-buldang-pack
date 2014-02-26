@@ -21,32 +21,82 @@ if ($sca || $stx) {
     $list_href = "./board.php?bo_table=$bo_table&page=$page" . $mstr;
 }
 
-if (!$board[bo_use_list_view]) {
+if (!$board['bo_use_list_view']) {
     if ($sql_search)
         $sql_search = " and " . $sql_search;
 
     // 윗글을 얻음
-    if ($write['wr_reply']) {
-        // 답글일 때. 답글이 아닐 때는 돌려봐야 답이 없습니다.
-        $sql = " select wr_id, wr_subject from $write_table where wr_is_comment = 0 and wr_num = '$write[wr_num]' and wr_reply < '$write[wr_reply]' $sql_search order by wr_num desc, wr_reply desc limit 1 ";
-        $prev = sql_fetch($sql);
-    }
-    // 위의 쿼리문으로 값을 얻지 못했다면
-    if (!$prev[wr_id])     {
-        $sql = " select wr_id, wr_subject from $write_table where wr_is_comment = 0 and wr_num < '$write[wr_num]' $sql_search order by wr_num desc, wr_reply desc limit 1 ";
-        $prev = sql_fetch($sql);
+    // 불당팩 - tmp table을 만들고, 거기서 한판 더 돌리는게 빠르다. $sql_search는 index를 안타니까...
+    // 팀장처럼 create temporaty table의 권한을 안주는 경우, config.php에서 $g4['old_stype_search'] 설정값을 1로.
+    if ($g4['old_stype_search']) {
+        if ($write['wr_reply']) {
+            // 답글일 때. 답글이 아닐 때는 돌려봐야 답이 없습니다.
+            $sql = " select wr_id, wr_subject from $write_table where wr_is_comment = 0 and wr_num = '$write[wr_num]' and wr_reply < '$write[wr_reply]' $sql_search order by wr_num desc, wr_reply desc limit 1 ";
+            $prev = sql_fetch($sql);
+        }
+        // 위의 쿼리문으로 값을 얻지 못했다면
+        if (!$prev['wr_id'])     {
+            $sql = " select wr_id, wr_subject from $write_table where wr_is_comment = 0 and wr_num < '$write[wr_num]' $sql_search order by wr_num desc, wr_reply desc limit 1 ";
+            $prev = sql_fetch($sql);
+        }
+    } else {
+        if ($write['wr_reply']) {
+            // 답글일 때. 답글이 아닐 때는 돌려봐야 답이 없습니다.
+            $sql = " select * from $write_table where wr_is_comment = 0 and wr_num = '$write[wr_num]' and wr_reply < '$write[wr_reply]' ";
+            $sql_tmp = " create TEMPORARY table view_tmp_prev as $sql ";
+            $sql_ord = " select wr_id, wr_subject from view_tmp_prev where 1 $sql_search order by wr_num desc, wr_reply desc limit 1 ";
+
+            @mysql_query($sql_tmp) or die("<p>$sql_tmp<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : $_SERVER[PHP_SELF]");
+            $result = @mysql_query($sql_ord) or die("<p>$sql_ord<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : $_SERVER[PHP_SELF]");
+            $prev = @mysql_fetch_assoc($result);
+        }
+        // 위의 쿼리문으로 값을 얻지 못했다면
+        if (!$prev['wr_id'])     {
+            $sql = " select * from $write_table where wr_is_comment = 0 and wr_num < '$write[wr_num]' ";
+            $sql_tmp = " create TEMPORARY table view_tmp_prev1 as $sql ";
+            $sql_ord = " select wr_id, wr_subject from view_tmp_prev1 where 1 $sql_search order by wr_num desc, wr_reply desc limit 1 ";
+
+            @mysql_query($sql_tmp) or die("<p>$sql_tmp<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : $_SERVER[PHP_SELF]");
+            $result = @mysql_query($sql_ord) or die("<p>$sql_ord<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : $_SERVER[PHP_SELF]");
+            $prev = @mysql_fetch_assoc($result);
+        }
     }
 
     // 아래글을 얻음
-    if ($write['wr_reply']) {
-        // 답글일 때. 답글이 아닐 때는 돌려봐야 답이 없습니다.
-        $sql = " select wr_id, wr_subject from $write_table where wr_is_comment = 0 and wr_num = '$write[wr_num]' and wr_reply > '$write[wr_reply]' $sql_search order by wr_num, wr_reply limit 1 ";
-        $next = sql_fetch($sql);
-    }
-    // 위의 쿼리문으로 값을 얻지 못했다면
-    if (!$next[wr_id]) {
-        $sql = " select wr_id, wr_subject from $write_table where wr_is_comment = 0 and wr_num > '$write[wr_num]' $sql_search order by wr_num, wr_reply limit 1 ";
-        $next = sql_fetch($sql);
+    // 불당팩 - tmp table을 만들고, 거기서 한판 더 돌리는게 빠르다. $sql_search는 index를 안타니까...
+    // 팀장처럼 create temporaty table의 권한을 안주는 경우, config.php에서 $g4['old_stype_search'] 설정값을 1로.
+    if ($g4['old_stype_search']) {
+        if ($write['wr_reply']) {
+            // 답글일 때. 답글이 아닐 때는 돌려봐야 답이 없습니다.
+            $sql = " select wr_id, wr_subject from $write_table where wr_is_comment = 0 and wr_num = '$write[wr_num]' and wr_reply > '$write[wr_reply]' $sql_search order by wr_num, wr_reply limit 1 ";
+            $next = sql_fetch($sql);
+        }
+        // 위의 쿼리문으로 값을 얻지 못했다면
+        if (!$next['wr_id']) {
+            $sql = " select wr_id, wr_subject from $write_table where wr_is_comment = 0 and wr_num > '$write[wr_num]' $sql_search order by wr_num, wr_reply limit 1 ";
+            $next = sql_fetch($sql);
+        }
+    } else {
+        if ($write['wr_reply']) {
+            // 답글일 때. 답글이 아닐 때는 돌려봐야 답이 없습니다.
+            $sql = " select * from $write_table where wr_is_comment = 0 and wr_num = '$write[wr_num]' and wr_reply > '$write[wr_reply]' ";
+            $sql_tmp = " create TEMPORARY table view_tmp_next as $sql ";
+            $sql_ord = " select wr_id, wr_subject from view_tmp_next where 1 $sql_search order by wr_num, wr_reply limit 1 ";
+
+            @mysql_query($sql_tmp) or die("<p>$sql_tmp<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : $_SERVER[PHP_SELF]");
+            $result = @mysql_query($sql_ord) or die("<p>$sql_ord<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : $_SERVER[PHP_SELF]");
+            $next = @mysql_fetch_assoc($result);
+        }
+        // 위의 쿼리문으로 값을 얻지 못했다면
+        if (!$next['wr_id'])     {
+            $sql = " select * from $write_table where wr_is_comment = 0 and wr_num > '$write[wr_num]' ";
+            $sql_tmp = " create TEMPORARY table view_tmp_next1 as $sql ";
+            $sql_ord = " select wr_id, wr_subject from view_tmp_next1 where 1 $sql_search order by wr_num, wr_reply limit 1 ";
+
+            @mysql_query($sql_tmp) or die("<p>$sql_tmp<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : $_SERVER[PHP_SELF]");
+            $result = @mysql_query($sql_ord) or die("<p>$sql_ord<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : $_SERVER[PHP_SELF]");
+            $next = @mysql_fetch_assoc($result);
+        }
     }
 }
 
