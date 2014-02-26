@@ -72,13 +72,13 @@ if ($sca || $stx)
     // 불당팩 - tmp table을 만들고, 거기서 distinct를 하는게 더 빠르다
     // 팀장처럼 create temporaty table의 권한을 안주는 경우, config.php에서 $g4['old_stype_search'] 설정값을 1로.
     if ($g4['old_stype_search']) {
-        $sql = " select distinct wr_parent from $write_table where $sql_search ";
+        $sql = " select distinct wr_parent from $write_table where wr_is_comment = '0' and $sql_search ";
         $result = sql_query($sql);
         $total_count = mysql_num_rows($result);
     } else {
-        $sql = " select wr_parent from $write_table where $sql_search ";
+        $sql = " select wr_parent, wr_is_comment from $write_table where $sql_search ";
         $sql_tmp = " create TEMPORARY table list_tmp_count as $sql ";
-        $sql_ord = " select distinct wr_parent from list_tmp_count ";
+        $sql_ord = " select distinct wr_parent, wr_is_comment from list_tmp_count where wr_is_comment = '0' ";
 
         @mysql_query($sql_tmp) or die("<p>$sql_tmp<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : $_SERVER[PHP_SELF]");
         $result = @mysql_query($sql_ord) or die("<p>$sql_ord<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : $_SERVER[PHP_SELF]");
@@ -155,12 +155,12 @@ if ($sca || $stx)
     } else {
         // 팀장처럼 create temporaty table의 권한을 안주는 경우, config.php에서 $g4['old_stype_search'] 설정값을 1로.
         if ($g4['old_stype_search']) {
-            $sql = " select distinct wr_parent from $write_table where $sql_search $sql_order limit $from_record, $board[bo_page_rows] ";
+            $sql = " select distinct wr_parent from $write_table where wr_is_comment = '0' and $sql_search $sql_order limit $from_record, $board[bo_page_rows] ";
             $result = sql_query($sql);
         } else {
-            $sql = " select wr_parent from $write_table where $sql_search $sql_order";
+            $sql = " select wr_parent, wr_is_comment from $write_table where $sql_search $sql_order";
             $sql_tmp = " create TEMPORARY table list_tmp as $sql ";
-            $sql_ord = " select distinct wr_parent from list_tmp limit $from_record, $board[bo_page_rows] ";
+            $sql_ord = " select distinct wr_parent from list_tmp where wr_is_comment = '0' limit $from_record, $board[bo_page_rows] ";
 
             @mysql_query($sql_tmp) or die("<p>$sql_tmp<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : $_SERVER[PHP_SELF]");
             $result = @mysql_query($sql_ord) or die("<p>$sql_ord<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : $_SERVER[PHP_SELF]");
