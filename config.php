@@ -235,9 +235,17 @@ $g4['good_list_rows'] = 30;
 $g4['good_list_head'] = "../head.php";
 $g4['good_list_tail'] = "../tail.php";
 $g4['good_list_skin'] = "basic";
-
-$g4['new_use_list_view'] = true;
 $g4['goodlist_use_list_view'] = false;
+
+// 공지글 설정은 여기에서
+$g4['notice_list_rows'] = 30;
+$g4['notice_list_head'] = "../head.php";
+$g4['notice_list_tail'] = "../tail.php";
+$g4['notice_list_skin'] = "basic";
+$g4['notice_use_list_view'] = true;
+
+// 새글 설정은 여기에서
+$g4['new_use_list_view'] = true;
 
 // 내가 추천한 글/추천 받은 글 설정
 $g4['my_good_skin'] = "basic";
