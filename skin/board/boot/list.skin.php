@@ -157,7 +157,7 @@ if ($list[$i][is_notice])
         echo $icon_images;
         ?>
         </div>
-        <span class="visible-xs pull-right">
+        <span class="pull-right">
         <font style="color:#BABABA;">
         <?=$list[$i][datetime2]?>&nbsp;&nbsp;
         <?=$list[$i][wr_hit]?>&nbsp;&nbsp;
