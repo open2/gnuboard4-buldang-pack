@@ -13,15 +13,36 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <!-- view page swipe -->
 <script type="text/javascript">
     <? if ($bo_table && $wr_id) { ?>
-    // 게시글 view page swipe
-    if ($('#desktopTest_md_lg').is(':hidden')) {
-        var hammertime1 = $("#view_<?=$wr_id?>").hammer();
-        var link1 = "<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?>&page=<?=$page?>&qstr=<?=$qstr?>";
-        hammertime1.on("swipeleft dragleft", function(ev) {
-            ev.gesture.preventDefault();
-            $(location).attr('href',link1);
-        });
-    }
+        <? if ($board['bo_use_list_view']) { ?>
+            // 게시글 view page swipe - 전체목록보기일때는 왼쪽으로 밀면 목록으로 간다
+            if ($('#desktopTest_md_lg').is(':hidden')) {
+                var hammertime1 = $("#view_<?=$wr_id?>").hammer();
+                var link1 = "<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?>&page=<?=$page?>&qstr=<?=$qstr?>";
+                hammertime1.on("swipeleft dragleft", function(ev) {
+                    ev.gesture.preventDefault();
+                    $(location).attr('href',link1);
+                });
+            }
+        <? } else { ?>
+            // 게시글 view page swipe - 게시글만 보기일 때는, 앞뒤글로 이동한다
+            if ($('#desktopTest_md_lg').is(':hidden')) {
+                var hammertime1 = $("#view_<?=$wr_id?>").hammer();
+                <? if ($prev_href) { ?>
+                var link1 = "<?=$prev_href?>";
+                hammertime1.on("swipeleft dragleft", function(ev) {
+                    ev.gesture.preventDefault();
+                    $(location).attr('href',link1);
+                });
+                <? } ?>
+                <? if ($next_href) { ?>
+                var link2 = "<?=$next_href?>";
+                hammertime1.on("swiperight dragright", function(ev) {
+                    ev.gesture.preventDefault();
+                    $(location).attr('href',link2);
+                });
+                <? } ?>
+            }
+        <? } ?>
     <? } ?>
 
     <? if ($bo_table && !$wr_id) {
