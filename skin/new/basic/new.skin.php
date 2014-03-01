@@ -30,9 +30,7 @@ function select_new_batch(sw){////ssh06-04-12
 
 <!-- 분류 시작 -->
 <form name=fnew method=get role="form" class="form-inline" style="margin-bottom:5px;">
-<a class="btn btn-default" href="<?=$g4[bbs_path]?>/new.php">처음으로
-<? if ($total_count > 0) {?>&nbsp;(<?=number_format($total_count)?>)<?}?>
-</a>
+<a class="btn btn-default" href="<?=$g4[bbs_path]?>/new.php">처음으로&nbsp;(<?=number_format($total_count)?>)</a>
 <div class="pull-right">
     <?
     // bbs/new.php에서 하던 $group_select를 new.skin.php로 이동. select에 style을 넣기 위해서.
@@ -54,8 +52,8 @@ function select_new_batch(sw){////ssh06-04-12
     <div class="form-group">
         <input class="form-control" type="text" id="mb_id" name="mb_id" value="<?=$mb_id?>" placeholder="회원 아이디">
     </div>
-    <? } ?>
     <input class="btn btn-default" type=submit value='검색'>
+    <? } ?>
 </div>
 
 <script type="text/javascript">
@@ -83,16 +81,17 @@ document.getElementById("view_type").value = "<?=$view_type?>";
 <!-- 제목 시작 -->
 <table width="100%" class="table table-hover table-condensed">
 <tr class="success" align=center> 
-    <td class="col-sm-1">그룹</td>
-    <td class="col-sm-2">게시판</td>
-    <td width="" align=left>
+    <td class="col-sm-1 hidden-xs">그룹</td>
+    <td class="col-sm-2 hidden-xs">게시판</td>
+    <td align=left>
         <?  if ($is_admin == "super") { ?>
             <INPUT onclick="if (this.checked) all_checked(true); else all_checked(false);" type=checkbox>&nbsp;&nbsp;
         <? } ?>
         제목
     </td>
-    <td align=center class="col-sm-1 hidden-xs">글쓴이</td>
-    <td align=center class="col-sm-1 hidden-xs">날짜</td>
+    <td class="col-sm-1 hidden-xs">글쓴이</td>
+    <td class="col-sm-1 hidden-xs">날짜</td>
+    <td class="col-sm-1 hidden-xs">조회</td>
 </tr>
 
 <?
@@ -101,37 +100,52 @@ for ($i=0; $i<count($list); $i++)
     $gr_subject = cut_str($list[$i][gr_subject], 10);
     $bo_subject = cut_str($list[$i][bo_subject], 10);
     $wr_subject = get_text(cut_str($list[$i][wr_subject], 40));
-
-    echo <<<HEREDOC
-<tr> 
-    <td align="center" height="30"><a href='./new.php?gr_id={$list[$i][gr_id]}'>{$gr_subject}</a></td>
-    <td align="center"><a href='./new.php?bo_table_search={$list[$i][bo_table]}&mb_id=$mb_id&gr_id=$gr_id'>{$bo_subject}</a></td>
-    <td width="">
-HEREDOC;
-
+    ?>
+    <tr align=center>
+    <td class="hidden-xs"><a href='./new.php?gr_id=<?=$list[$i][gr_id]?>'><?=$gr_subject?></a></td>
+    <td class="hidden-xs"><a href='./new.php?bo_table_search=<?=$list[$i][bo_table]?>&mb_id=<?=$mb_id?>&gr_id=<?=$gr_id?>'><?=$bo_subject?></a></td>
+    <td align=left class="hidden-xs">
+    <?
     if ($is_admin) {
       if ($list[$i][comment])
           echo "<input type=checkbox name=chk_wr_id[] value='{$list[$i][comment_id]}|{$list[$i][bo_table]}'>";
       else
           echo "<input type=checkbox name=chk_wr_id[] value='{$list[$i][wr_id]}|{$list[$i][bo_table]}'>";
+      echo "&nbsp;";
     }
 
     // 코멘트 갯수를 출력
     $comment_cnt = "";
     if (!$list[$i][comment] && $list[$i][wr_comment] > 0)
         $comment_cnt = " <span style='font-family:Tahoma;font-size:10px;color:#EE5A00;'>({$list[$i][wr_comment]})</span>";
-
-    echo <<<HEREDOC2
-    &nbsp;<a href='{$list[$i][href]}'>{$list[$i][comment]}{$wr_subject}</a> {$comment_cnt}
-    <div class="visible-xs">{$list[$i][name]} <small>{$list[$i][datetime2]}</small>
+    ?>
+    <a href='<?=$list[$i][href]?>'><?=$list[$i][comment]?><?=$wr_subject?></a> <?=$comment_cnt?>
+    <div class="visible-xs"><?=$list[$i][name]?> <small><?=$list[$i][datetime2]?></small>
     </div>
     </td>
-    <td align=center class="hidden-xs">{$list[$i][name]}</td>
-    <td align=center class="hidden-xs">{$list[$i][datetime2]}</td>
+    <td class="hidden-xs"><?=$list[$i][name]?></td>
+    <td class="hidden-xs"><?=$list[$i][datetime2]?></td>
+    <td class="hidden-xs"><?=$list[$i][wr_hit]?></td>
+    <!-- 
+    xs 사이즈에서 40글자 이상이면 table width를 넘어서 수평 스크롤이 생깁니다 
+    그래서, 따로 출력하는 row를 만들어 줬습니다.
+    xs 사이즈에서는 아래처럼 1개의 td만 출력 됩니다. 다른 것은 모두 hidden.
+    더 좋은 방법에 대한 제안은 언제든 환영 합니다.
+    -->
+    <td class="visible-xs" align=left style='word-break:break-all;'>
+        <div>
+            <a href='<?=$list[$i][href]?>'><?=$list[$i][comment]?><?=$wr_subject?></a> <?=$comment_cnt?>
+            <span class="pull-right"><font style="color:#BABABA;"><a href='./new.php?gr_id=<?=$list[$i][gr_id]?>'><?=$gr_subject?></a> : <a href='./new.php?bo_table_search=<?=$list[$i][bo_table]?>&mb_id=<?=$mb_id?>&gr_id=<?=$gr_id?>'><?=$bo_subject?></a></font></span>
+        </div>
+        <span class="pull-right">
+        <font style="color:#BABABA;">
+        <?=$list[$i][datetime2]?>&nbsp;&nbsp;
+        <?=$list[$i][wr_hit]?>&nbsp;&nbsp;
+        </font>
+        <?=$list[$i][name]?>
+        </span>    </td>
 </tr>
-HEREDOC2;
-}
-?>
+<? } ?>
 
 <? if ($i == 0) { ?>
 <tr><td colspan="5" height=50 align=center>게시물이 없습니다.</td></tr>

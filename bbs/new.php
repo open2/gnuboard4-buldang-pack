@@ -83,7 +83,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         $comment = "";
         $comment_link = "";
         $comment_id = "";
-        $row2 = sql_fetch(" select wr_id, wr_subject, mb_id, wr_name, wr_email, wr_homepage, wr_datetime, wr_comment from $tmp_write_table where wr_id = '$row[wr_id]' ");
+        $row2 = sql_fetch(" select wr_id, wr_subject, mb_id, wr_name, wr_email, wr_homepage, wr_datetime, wr_comment, wr_hit from $tmp_write_table where wr_id = '$row[wr_id]' ");
 
         // 가끔 최근글 record만 있는 경우가 있다. 그렇다면 그걸 지워야지...
         if (!$row2) {
