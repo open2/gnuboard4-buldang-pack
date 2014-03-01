@@ -44,7 +44,7 @@ function select_new_batch(sw){////ssh06-04-12
 
 <table width="100%" class="table table-hover table-condensed">
 <tr class="success" align=center> 
-    <td class="col-sm-2">게시판</td>
+    <td class="col-sm-2 hidden-xs">게시판</td>
     <td>제목
     <span class="pull-right hidden-xs">
     <?
@@ -71,7 +71,7 @@ for ($i=0; $i<count($list); $i++) {
     $wr_subject = get_text(cut_str($list[$i][wr_subject], 40));
 ?>
 <tr align=center>
-    <td align="center"><a href='./good_list.php?bo_table_search=<?=$list[$i][bo_table]?>'><?=$bo_subject?></a></td>
+    <td align="center" class="hidden-xs"><a href='./good_list.php?bo_table_search=<?=$list[$i][bo_table]?>'><?=$bo_subject?></a></td>
     <td align=left class="hidden-xs">
     <?
     if ($is_admin) {
@@ -92,14 +92,18 @@ for ($i=0; $i<count($list); $i++) {
     더 좋은 방법에 대한 제안은 언제든 환영 합니다.
     -->
     <td align=left class="visible-xs" style='word-break:break-all;'>
-        <a href='<?=$list[$i][href]?>'><?=cut_str($wr_subject,30)?></a>
-        <? if ($list[$i][wr_comment]) echo "<span style='color:#EE5A00;'>(" . $list[$i][wr_comment] . ")</span>"?>
-        <br>
-        <div class="visible-xs pull-right">
-            <small>
-            <?=$list[$i][name]?>&nbsp;&nbsp;<?=$list[$i][wr_datetime2]?>&nbsp;&nbsp;
-            <span class="badge"><?=$list[$i][wr_hit]?></span></small>
+        <div>
+            <a href='<?=$list[$i][href]?>'><?=cut_str($wr_subject,30)?></a>
+            <? if ($list[$i][wr_comment]) echo "<span style='color:#EE5A00;'>(" . $list[$i][wr_comment] . ")</span>"?>
+            <span class="pull-right"><font style="color:#BABABA;"><?=$bo_subject?></font></span>
         </div>
+        <span class="visible-xs pull-right">
+        <font style="color:#BABABA;">
+        <?=$list[$i][datetime2]?>&nbsp;&nbsp;
+        <?=$list[$i][wr_hit]?>&nbsp;&nbsp;
+        </font>
+        <?=$list[$i][name]?>
+        </span>
     </td>
 </tr>
 <?}?>
