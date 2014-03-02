@@ -13,7 +13,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
 <table width="100%" class="table table-hover table-condensed">
 <tr class="success" align=center> 
-    <td class="col-sm-2">게시판</td>
+    <td class="col-sm-2 hidden-xs">게시판</td>
     <td>제목</td>
     <td class="col-sm-2 hidden-xs">글쓴이</td>
     <td class="col-sm-1 hidden-xs"><?=subject_sort_link('wr_datetime', $qstr2, 1)?>날짜</a></td>
@@ -25,7 +25,7 @@ for ($i=0; $i<count($list); $i++) {
     $wr_subject = get_text(cut_str($list[$i][wr_subject], 40));
 ?>
 <tr align=center>
-    <td align="center"><?=$bo_subject?></td>
+    <td align="center" class="hidden-xs"><?=$bo_subject?></td>
     <td align=left class="hidden-xs">
     <?
     if ($is_admin) {
