@@ -135,15 +135,18 @@ for ($i=0; $i<count($list); $i++)
     <td class="visible-xs" align=left style='word-break:break-all;'>
         <div>
             <a href='<?=$list[$i][href]?>'><?=$list[$i][comment]?><?=$wr_subject?></a> <?=$comment_cnt?>
-            <span class="pull-right"><font style="color:#BABABA;"><a href='./new.php?gr_id=<?=$list[$i][gr_id]?>'><?=$gr_subject?></a> : <a href='./new.php?bo_table_search=<?=$list[$i][bo_table]?>&mb_id=<?=$mb_id?>&gr_id=<?=$gr_id?>'><?=$bo_subject?></a></font></span>
         </div>
+        <span class="pull-left">
+            <a href='./new.php?gr_id=<?=$list[$i][gr_id]?>'><?=$gr_subject?></a> : <a href='./new.php?bo_table_search=<?=$list[$i][bo_table]?>&mb_id=<?=$mb_id?>&gr_id=<?=$gr_id?>'><?=$bo_subject?></a>
+        </span>
         <span class="pull-right">
-        <font style="color:#BABABA;">
-        <?=$list[$i][datetime2]?>&nbsp;&nbsp;
-        <?=$list[$i][wr_hit]?>&nbsp;&nbsp;
-        </font>
-        <?=$list[$i][name]?>
-        </span>    </td>
+            <font style="color:#BABABA;">
+            <?=$list[$i][datetime2]?>&nbsp;&nbsp;
+            <?=$list[$i][wr_hit]?>&nbsp;&nbsp;
+            <?=$list[$i][name]?>
+            </font>
+        </span>
+    </td>
 </tr>
 <? } ?>
 
