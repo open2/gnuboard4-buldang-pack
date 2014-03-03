@@ -137,7 +137,7 @@ for ($i=0; $i<count($list); $i++)
             <a href='<?=$list[$i][href]?>'><?=$list[$i][comment]?><?=$wr_subject?></a> <?=$comment_cnt?>
         </div>
         <span class="pull-left">
-            <a href='./new.php?gr_id=<?=$list[$i][gr_id]?>'><?=$gr_subject?></a> : <a href='./new.php?bo_table_search=<?=$list[$i][bo_table]?>&mb_id=<?=$mb_id?>&gr_id=<?=$gr_id?>'><?=$bo_subject?></a>
+            <a href='./new.php?gr_id=<?=$list[$i][gr_id]?>'><font color="BABABA"><?=$gr_subject?></font></a> : <a href='./new.php?bo_table_search=<?=$list[$i][bo_table]?>&mb_id=<?=$mb_id?>&gr_id=<?=$gr_id?>'><font color="BABABA"><?=$bo_subject?></font></a>
         </span>
         <span class="pull-right">
             <font style="color:#BABABA;">
