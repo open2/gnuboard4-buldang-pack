@@ -1,3 +1,70 @@
+1.2.13 (2014.03.03)
+
+부트스트랩 관련 core의 변경은 더는 없어도 될 것 같습니다.
+잔잔한 적용상의 수정들 입니다.
+
+아직까지 cheditor의 버그가 있습니다.
+chsoft에서 신버젼이 나오면 그때 fix 될 것 같아요.
+
+
+config.php
+tail.sub.php
+
+bbs/list.php
+bbs/new.php
+bbs/notice_list.php
+bbs/notice_view.php
+bbs/view.php
+
+lib/latest.lib.php
+
+skin/board/boot/list.skin.php
+skin/good_list/basic/good_list.skin.php
+skin/new/basic/new.skin.php
+skin/notice_list/basic/notice_list.skin.php
+
+
+- xs 화면의 스타일 수정
+skin/new/basic/new.skin.php
+skin/notice_list/basic/notice_list.skin.php
+
+*** 3/1 까지의 수정사항 ***
+
+- typo 수정
+skin/board/boot/list.skin.php
+
+- new 스킨 부트화 수정
+bbs/new.php
+skin/new/basic/new.skin.php
+
+- style 통일 (boot 스킨 게시판처럼...)
+skin/good_list/basic/good_list.skin.php
+skin/notice_list/basic/notice_list.skin.php
+
+- 전체공지사항 목록 (이게 왜 없었을까???)
+config.php
+bbs/notice_list.php
+bbs/notice_view.php
+skin/notice_list/basic/notice_list.skin.php
+
+- 전체 게시글 목록보기가 없는 경우 view 상태에서 앞의 게시글/ 뒤의 게시글로 swipe 변경
+tail.php
+
+- view.php 튜닝 (1) (2)
+bbs/view.php
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_turning&wr_id=259
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_turning&wr_id=258
+
+- 실행시간 막혀 있는 것 풀어줌 
+tail.sub.php
+
+- 게시글만 삭제되고 코멘트가 남은 경우 list.php에서 오류가 나옵니다  (탑스쿨님 제보)
+bbs/list.php
+
+- 전체공지사항 최신글 제목+링크 오류 수정
+lib/latest.lib.php
+
+
 1.2.12 (2014.02.24)
 
 1.2.12에는 스마트폰을 위한 hammer.js의 touch swipe 기능이 들어갑니다.
