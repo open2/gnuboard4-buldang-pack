@@ -45,6 +45,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 }
 
 $write_pages = get_paging($config[cf_write_pages], $page, $total_page, "./good_list.php?gr_id=$gr_id&bo_table=$bo_table&qstr=$qstr&page=");
+$write_pages_xs = get_paging($config[cf_write_pages_xs], $page, $total_page, "./good_list.php?gr_id=$gr_id&bo_table=$bo_table&qstr=$qstr&page=");
 
 if (!$wr_id)
     include_once($g4[notice_list_head]);
