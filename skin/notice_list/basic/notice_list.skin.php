@@ -27,14 +27,8 @@ for ($i=0; $i<count($list); $i++) {
 <tr align=center>
     <td align="center" class="hidden-xs"><?=$bo_subject?></td>
     <td align=left class="hidden-xs">
-    <?
-    if ($is_admin) {
-          echo "<input type=checkbox name=chk_gl_id[] value='{$list[$i][gl_id]}'>&nbsp;";
-    }
-    ?>
     <a href='<?=$list[$i][href]?>'><?=$wr_subject?></a>
     <? if ($list[$i][wr_comment]) echo "<span style='font-family:Tahoma;font-size:10px;color:#EE5A00;'>(" . $list[$i][wr_comment] . ")</span>"?>
-    
     </td>
     <td align="center" class="hidden-xs"><?=$list[$i][name]?></td>
     <td align="center" class="hidden-xs"><?=$list[$i][wr_datetime2]?></td>
