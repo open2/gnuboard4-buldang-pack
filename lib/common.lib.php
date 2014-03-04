@@ -1086,7 +1086,7 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
                     $width = $size[0] * ($config['cf_member_icon_height'] / $size[1]);
                 }
 
-                $tmp_name = "<img src='$icon_file' width='$width' height='$height' align='absmiddle' border='0'> ";
+                $tmp_name = "<img src='$icon_file' width='$width' height='$height' align='absmiddle' alt='' border='0'> ";
 
                 if ($config['cf_use_member_icon'] == 2) // 회원아이콘+이름
                     $tmp_name = $tmp_name . $name;

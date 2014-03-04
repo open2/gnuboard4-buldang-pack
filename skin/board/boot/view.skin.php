@@ -9,7 +9,7 @@ include_once("$g4[path]/lib/view.skin.lib.php");
 
 <!-- 링크 버튼 -->
 <? ob_start(); // 한번 만들어서 두번 씁니다 ?>
-<div id="view_top">
+<div id="view_btn_top">
     <div class="btn-group">
         <? if ($search_href) { echo "<a href=\"$search_href\" class=\"btn btn-default btn-sm btn-search\">검색</a> "; } ?>
         <? echo "<a href=\"$list_href\" class=\"btn btn-default btn-sm btn-list\">목록</a> "; ?>

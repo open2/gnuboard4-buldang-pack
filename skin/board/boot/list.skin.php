@@ -97,7 +97,7 @@ if ($list[$i][is_notice])
         else
             $style = "";
 
-        echo "<a href='{$list[$i][href]}'";
+        echo "<a href='{$list[$i][href]}'>";
         echo "<span $style>" . $list[$i][subject] . "</span>";
         echo "</a>";
 

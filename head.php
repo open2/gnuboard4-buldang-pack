@@ -159,7 +159,7 @@ else
                 <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_qna">불당팩 묻고답하기</a></li>
                 <li class="divider"></li>
                 <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gblog">gblog 불당버젼</a></li>
-                <li><a href="<?=$g4[path]?>/blog/" target=new>gblog 테스트</a></li>
+                <li><a href="<?=$g4[path]?>/blog/" target=_blank>gblog 테스트</a></li>
                 <li class="divider"></li>
                 <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=club2">클럽2</a></li>
                 <li><a href="$g4[path]?>/club/">클럽2 테스트</a></li>
@@ -247,12 +247,12 @@ echo outlogin("basic");
 
     <table><tr><td height="1px"></td></tr></table>
     <center>
-    <a href="http://idc.gabia.com/colo/" target=new><img src="<?=$g4[path]?>/img/banner/gabia.gif" alt=""></a>
-    <a href="http://idc.kinx.net/" target=new><img src="<?=$g4[path]?>/img/banner/kinx.gif" alt=""></a>
-    <a href="http://worknet.co.kr" target=new><img src="<?=$g4[path]?>/img/banner/worknet.gif" alt=""></a>
-    <a href="http://jobnet.co.kr" target=new><img src="<?=$g4[path]?>/img/banner/jobnet.gif" alt=""></a>
-    <a href="http://bugsboard.co.kr" target=new><img src="<?=$g4[path]?>/img/banner/bugs4_logo.gif" alt=""></a>
-    <a href="http://peoplenjob.com" target=new><img src="<?=$g4[path]?>/img/banner/peoplenjob.gif" alt=""></a>
+    <a href="http://idc.gabia.com/colo/" target=_blank><img src="<?=$g4[path]?>/img/banner/gabia.gif" alt=""></a>
+    <a href="http://idc.kinx.net/" target=_blank><img src="<?=$g4[path]?>/img/banner/kinx.gif" alt=""></a>
+    <a href="http://worknet.co.kr" target=_blank><img src="<?=$g4[path]?>/img/banner/worknet.gif" alt=""></a>
+    <a href="http://jobnet.co.kr" target=_blank><img src="<?=$g4[path]?>/img/banner/jobnet.gif" alt=""></a>
+    <a href="http://bugsboard.co.kr" target=_blank><img src="<?=$g4[path]?>/img/banner/bugs4_logo.gif" alt=""></a>
+    <a href="http://peoplenjob.com" target=_blank><img src="<?=$g4[path]?>/img/banner/peoplenjob.gif" alt=""></a>
     </center>
 
 </div><!-- 왼쪽 side 끝 -->
