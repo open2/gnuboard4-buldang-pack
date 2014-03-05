@@ -184,6 +184,7 @@ else
     <div class="col-sm-3 col-md-3 col-lg-3 pull-right">
     <div class="input-group" id="search-bar">
         <input type="text" class="form-control pull-right" placeholder="검색어는 2단어까지" name="stx" id="stx" maxlength="20" value="<?=$stx;?>">
+        <label for="stx" class="sr-only">search</label>
         <span class="input-group-btn">
             <button class="btn btn-default" type="submit" >검색 <i class="glyphicon glyphicon-search"></i></button>
         </span>

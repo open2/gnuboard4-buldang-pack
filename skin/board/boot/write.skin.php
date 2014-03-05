@@ -97,42 +97,42 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
 
         <? if ($is_name) { ?>
         <div class="form-group">
-            <label class="col-sm-1 hidden-xs">Name</label>
+            <label for="wr_name" class="col-sm-1 hidden-xs">Name</label>
             <div class="col-xs-12 col-sm-11">
-            <input class="form-control" maxlength=20 size=15 name=wr_name itemname="이름" placeholder="이름" required value="<?=$name?>">
+            <input class="form-control" maxlength=20 size=15 name=wr_name id=wr_name itemname="이름" placeholder="이름" required value="<?=$name?>">
             </div>
         </div>
         <? } ?>
 
         <? if ($is_password) { ?>
         <div class="form-group">
-            <label class="col-sm-1 hidden-xs">Password</label>
+            <label for="" class="col-sm-1 hidden-xs">Password</label>
             <div class="col-xs-12 col-sm-11">
-            <input class="form-control" type=password maxlength=20 size=15 name=wr_password itemname="패스워드" placeholder="패스워드" <?=$password_required?>>
+            <input class="form-control" type=password maxlength=20 size=15 name=wr_password id=wr_password itemname="패스워드" placeholder="패스워드" <?=$password_required?>>
             </div>
         </div>
         <? } ?>
 
         <? if ($is_email) { ?>
         <div class="form-group">
-            <label class="col-sm-1 hidden-xs">E-mail</label>
+            <label for="wr_email" class="col-sm-1 hidden-xs">E-mail</label>
             <div class="col-xs-12 col-sm-11">
-            <input class="form-control" type="email" maxlength=100 size=50 name=wr_email email itemname="이메일" placeholder="이메일" value="<?=$email?>">
+            <input class="form-control" type="email" maxlength=100 size=50 name=wr_email id=wr_email email itemname="이메일" placeholder="이메일" value="<?=$email?>">
             </div>
         </div>
         <? } ?>            
 
         <? if ($is_homepage) { ?>
         <div class="form-group">
-            <label class="col-sm-1 hidden-xs">Homepage URL</label>
+            <label for="wr_homepage" class="col-sm-1 hidden-xs">Homepage URL</label>
             <div class="col-xs-12 col-sm-11">
-            <input class="form-control" type="url" size=50 name=wr_homepage itemname="홈페이지" placeholder="홈페이지" value="<?=$homepage?>">
+            <input class="form-control" type="url" size=50 name=wr_homepage id=wr_homepage itemname="홈페이지" placeholder="홈페이지" value="<?=$homepage?>">
             </div>
         </div>
         <? } ?>            
 
         <div class="form-group">
-            <label class="col-sm-1 hidden-xs">Subject</label>
+            <label for="wr_subject" class="col-sm-1 hidden-xs">Subject</label>
             <div class="col-xs-12 col-sm-11">
             <input class="form-control" name=wr_subject id="wr_subject" itemname="제목" required value="<?=$subject?>" placeholder="Subject">
             </div>
@@ -140,9 +140,9 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
 
         <? if ($is_category) { ?>
         <div class="form-group">
-            <label class="col-sm-1 hidden-xs">Category</label>
+            <label for="ca_name" class="col-sm-1 hidden-xs">Category</label>
             <div class="col-xs-12 col-sm-11">
-            <select class="form-control" name=ca_name required itemname="분류"><option value="">선택하세요<?=$category_option?></select>
+            <select class="form-control" name=ca_name id="ca_name" required itemname="분류"><option value="">선택하세요<?=$category_option?></select>
             </div>
         </div>
         <? } ?>            
@@ -246,7 +246,7 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
         <? if ($is_guest) { ?>
         <script type="text/javascript" src="<?="$g4[path]/zmSpamFree/zmspamfree.js"?>"></script>
         <div class="form-group">
-            <div class="col-sm-1 hidden-xs"><img id="zsfImg"></div>
+            <div class="col-sm-1 hidden-xs"><img id="zsfImg" alt='zmSpamFree Captcha'></div>
             <div class="col-xs-12 col-sm-11">
                 <input class="form-control" type=input size=10 name=wr_key id=wr_key itemname="자동등록방지" placeholder="왼쪽의 Captcha 글자를 입력하세요." required>
             </div>

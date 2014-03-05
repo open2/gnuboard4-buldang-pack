@@ -219,7 +219,7 @@ if ($is_unlock_secret && strstr($view[wr_option], "secret") && $view['mb_id'] !=
 $view[content] = conv_content($view[wr_content], $html);
 if (strstr($sfl, "content"))
     $view[content] = search_font($stx, $view[content]);
-$view[content] = preg_replace("/(\<img )([^\>]*)(\>)/i", "\\1 name='target_resize_image[]' onclick='image_window(this)' class='pointer' \\2 \\3", $view[content]);
+$view[content] = preg_replace("/(\<img )([^\>]*)(\>)/i", "\\1 name='target_resize_image[]' onclick='image_window(this)' class='pointer' alt='' \\2 \\3", $view[content]);
 
 //$view[rich_content] = preg_replace("/{img\:([0-9]+)[:]?([^}]*)}/ie", "view_image(\$view, '\\1', '\\2')", $view[content]);
 $view[rich_content] = preg_replace("/{¿ÃπÃ¡ˆ\:([0-9]+)[:]?([^}]*)}/ie", "view_image(\$view, '\\1', '\\2')", $view[content]);

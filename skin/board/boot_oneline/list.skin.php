@@ -19,7 +19,7 @@ function emoticon_html($str, $board_skin_path)
     } else {
         return ""; // 범위를 벗어나거나 기본표정의 경우 출력하지 않음
     }
-   	$img_src = "<img src='$board_skin_path/emoticons/" . $emo_file . "' border=0> ";
+   	$img_src = "<img src='$board_skin_path/emoticons/" . $emo_file . "' border=0 alt=''> ";
 	  return $img_src;
 }
 
@@ -94,13 +94,6 @@ else if ($w == "r")
         }
         ?>
         <?
-        /*
-        if ($list[$i][wr_subject]) {
-            $emo = $list[$i][wr_subject];
-            echo "<img src='$board_skin_path/emoticons/" . $emo . ".png'>";
-        }
-        */
-            
  		    $list[$i][wr_content] = conv_content($list[$i][wr_content], 0);
 
      		echo $list[$i][wr_content];

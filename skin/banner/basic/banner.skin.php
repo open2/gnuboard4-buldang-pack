@@ -15,5 +15,5 @@ if (count($list)) {
     else
         $target = "";
 ?>
-    <a href='<?=$url?>' <?=$target?> alt='<?=$subject?>'><img src='<?=$img?>' align=absmiddle alt='배너클릭이미지'></a>
+    <a href='<?=$url?>' <?=$target?> alt='<?=$subject?>'><img src='<?=$img?>' align=absmiddle alt='<?=$subject?>' title='<?=$subject?>'></a>
 <? } ?>
