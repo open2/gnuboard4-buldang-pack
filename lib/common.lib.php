@@ -154,6 +154,7 @@ function alert($msg='', $url='')
     if (!$msg) $msg = '올바른 방법으로 이용해 주십시오.';
 
 	//header("Content-Type: text/html; charset=$g4[charset]");
+  header("X-Content-Type-Options: nosniff");
 	echo "<meta http-equiv=\"content-type\" content=\"text/html; charset=$g4[charset]\">";
 	echo "<script type='text/javascript'>alert('$msg');";
     if (!$url)
