@@ -80,7 +80,7 @@ $sql_common = " bg_id               = '$bg_id',
                  ";
 
 if ($_FILES[bn_image][name]) {
-    $bn_image_urlencode = $bn_id."_".time();
+    $bn_image_urlencode = $bn_id."_".time().".gif";
     $sql_common .= " , bn_image = '$bn_image_urlencode' ";
     $sql_common .= " , bn_filename = '$bn_filename' ";
 }
