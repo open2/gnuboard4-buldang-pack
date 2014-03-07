@@ -38,6 +38,7 @@ if ($member['mb_id'] == "" && $g4['keyword_seo'])
 <? if ($config['cf_meta_description']) { ?><meta name="description" content="<?=$config['cf_meta_description']?>"><? } ?>
 <? if ($g4['ie_ua']) { ?><meta http-equiv="X-UA-Compatible" content="IE=<?=$g4[ie_ua]?>" /><? } ?>
 <meta http-equiv="Imagetoolbar" content="no">
+<meta http-equiv="X-Frame-Options" content="deny">
 
 <title><?=$g4['title']?></title>
 
