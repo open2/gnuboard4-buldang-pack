@@ -2,10 +2,12 @@
 <html lang="ko">
 <head>
 <?
+// 설정 파일
+include_once("$g4[path]/config.php");
+
 // 이곳에서 설정을 합니다.
 $g4['title'] = "On PM - 시스템 점검중입니다";
 $g4['path'] = ".";
-$g4['charset'] = "euc-kr";
 ?>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="content-type" content="text/html;charset=<?=$g4['charset']?>">
