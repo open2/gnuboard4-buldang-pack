@@ -1,3 +1,43 @@
+1.2.14 (2014.03.06)
+
+웹접근성 인증을 위한 부분을 보강하였는데, 스크린리더가 없어서 테스트를 못해봤습니다.
+
+테스트 방법 http://www.wah.or.kr/
+수정사항 http://opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=1050
+결과 (거의 100% 가까움...) http://opencode.co.kr/bbs/board.php?bo_table=qna&wr_id=4510
+
+*** 불당팩 기본 구성요소들 ***
+Jquery 1.10.2 http://jquery.com/
+jQuery Hammer.js 1.0.6 http://eightmedia.github.io/hammer.js/
+Bootstrap 3.1.1 http://getbootstrap.com/ 
+* LESS 수정사항 http://opencode.co.kr/bbs/board.php?bo_table=gnu4_pack&wr_id=1700
+Font-awesome 4.0.3 http://fontawesome.io/
+html5 Shiv 3.7.0 https://github.com/aFarkas/html5shiv
+respond 1.4.2 https://github.com/scottjehl/Respond
+
+
+head.php
+
+bbs/view.php
+
+skin/banner/basic/banner.skin.php
+
+skin/board/boot/write.skin.php
+
+skin/board/boot_oneline/list.skin.php
+
+skin/outlogin/basic/outlogin.skin.1.php
+
+
+- 웹접근성 이슈 해결
+head.php
+bbs/view.php
+skin/banner/basic/banner.skin.php
+skin/board/boot/write.skin.php
+skin/board/boot_oneline/list.skin.php
+skin/outlogin/basic/outlogin.skin.1.php
+
+
 1.2.13 (2014.03.03)
 
 부트스트랩 관련 core의 변경은 더는 없어도 될 것 같습니다.
