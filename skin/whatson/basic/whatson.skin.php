@@ -5,7 +5,7 @@ $whatson_url = "$g4[bbs_path]/whatson.php?check=1&rows=30";
 ?>
 
 <script type="text/javascript" src="<?=$g4[admin_path]?>/admin.js"></script>
-<script language="JavaScript">
+<script type="text/javascript">
 var list_delete_php = "whatson_delete_all.php";
 </script>
 
@@ -72,8 +72,37 @@ var list_delete_php = "whatson_delete_all.php";
 
     </div>
 </div>
-
 </form>
+
+<!-- 페이지 -->
+<div class="hidden-xs" style="text-align:center;">
+    <ul class="pagination">
+    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>이전검색</a></li>"; } ?>
+    <?
+    // 기본으로 넘어오는 페이지를 아래와 같이 변환하여 다양하게 출력할 수 있습니다.
+    $write_pages = str_replace("이전", "<i class='fa fa-angle-left'></i>", $write_pages);
+    $write_pages = str_replace("다음", "<i class='fa fa-angle-right'></i>", $write_pages);
+    $write_pages = str_replace("처음", "<i class='fa fa-angle-double-left'></i>", $write_pages);
+    $write_pages = str_replace("맨끝", "<i class='fa fa-angle-double-right'></i>", $write_pages);
+    ?>
+    <?=$write_pages?>
+    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>이후검색</a></li>"; } ?>
+    </ul>
+</div>
+<div class="center-block visible-xs">
+    <ul class="pagination">
+    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>이전검색</a></li>"; } ?>
+    <?
+    // 기본으로 넘어오는 페이지를 아래와 같이 변환하여 다양하게 출력할 수 있습니다.
+    $write_pages_xs = str_replace("이전", "<i class='fa fa-angle-left'></i>", $write_pages_xs);
+    $write_pages_xs = str_replace("다음", "<i class='fa fa-angle-right'></i>", $write_pages_xs);
+    $write_pages_xs = str_replace("처음", "<i class='fa fa-angle-double-left'></i>", $write_pages_xs);
+    $write_pages_xs = str_replace("맨끝", "<i class='fa fa-angle-double-right'></i>", $write_pages_xs);
+    ?>
+    <?=$write_pages_xs?>
+    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>이후검색</a></li>"; } ?>
+    </ul>
+</div>
 
 <script type="text/javascript">
 function whatson_read(url, wo_id) {
