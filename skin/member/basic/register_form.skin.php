@@ -27,7 +27,7 @@ var member_skin_path = "<?=$member_skin_path?>";
             <label for="mb_id" class="col-sm-2 control-label">아이디</label>
             <div class="col-sm-6">
                 <input class="form-control" placeholder="User id" maxlength=20 size=20 id='mb_id' name="mb_id" required style="ime-mode:disabled" value="<?=$member[mb_id]?>" 
-                <? if ($w=='u') { echo "disabled"; } ?>
+                <? if ($w=='u') { echo "readonly"; } ?>
                 <? if ($w=='') { echo "onblur='reg_mb_id_check()'"; } ?>>
                 <? if ($w=='') { ?>
                     <p class="help-block">영문자, 숫자, _ 만 입력 가능. 3자이상 입력하세요.</p>
@@ -39,14 +39,14 @@ var member_skin_path = "<?=$member_skin_path?>";
         <div class="form-group">
             <label for="mb_password" class="col-sm-2 control-label">패스워드</label>
             <div class="col-sm-6">
-                <INPUT class="form-control" type="password" name="mb_password" id="mb_password" style="ime-mode:disabled" size=20 minlength=8 maxlength=20 <?=($w=="")?"required":"";?> itemname="패스워드" onblur="passwordStrength(this.value)" placeholder="Password">
+                <INPUT class="form-control" type="password" name="mb_password" id="mb_password" style="ime-mode:disabled" size=20 maxlength=20 <?=($w=="")?"required":"";?> itemname="패스워드" onblur="passwordStrength(this.value)" placeholder="Password">
             </div>
         </div>
 
         <div class="form-group">
             <label for="mb_password_re" class="col-sm-2 control-label">패스워드확인</label>
             <div class="col-sm-6">
-                <INPUT class="form-control" type="password" name="mb_password_re" style="ime-mode:disabled" size=20 minlength=8 maxlength=20 <?=($w=="")?"required":"";?> itemname="패스워드 확인" placeholder="Password를 한번 더 입력">
+                <INPUT class="form-control" type="password" name="mb_password_re" style="ime-mode:disabled" size=20 maxlength=20 <?=($w=="")?"required":"";?> itemname="패스워드 확인" placeholder="Password를 한번 더 입력">
                 <p class="help-block">비밀번호는 8자 이상으로 쉽게 추정할 수 없게 숫자와 영문자를 섞어서 만들면 안전합니다.</p>
             </div>
         </div>
@@ -56,7 +56,7 @@ var member_skin_path = "<?=$member_skin_path?>";
             <label for="mb_password_re" class="col-sm-2 control-label">이름</label>
             <div class="col-sm-6">
                 <INPUT class="form-control" type="text" name=mb_name id=mb_name size=20 maxlength=20 required itemname="이름" value="<?=$member[mb_name]?>" placeholder="Name"
-                <? if ($w=='u') { echo "disabled"; } ?>
+                <? if ($w=='u') { echo "readonly"; } ?>
                 <? if ($w=='') { echo "onblur='reg_mb_name_check()'"; } ?>>
                 <? if ($w=='') { ?>
                     <p class="help-block">공백없이 한글 또는 영문만 입력 가능합니다.</p>
@@ -85,7 +85,7 @@ var member_skin_path = "<?=$member_skin_path?>";
                 <?
                 $d_times = (int)(($config[cf_nick_modify] * 86400 - ( $g4[server_time] - strtotime($member[mb_nick_date]))) / 86400) + 1;
                 ?>
-                <input class="form-control" disabled type="text" id='mb_nick' name='mb_nick' value='<?=$member[mb_nick]?>'>
+                <input class="form-control" readonly type="text" id='mb_nick' name='mb_nick' value='<?=$member[mb_nick]?>'>
                     <p class="help-block">※ <?=$d_times?>일 후 변경이 가능 합니다.</p>
             </div>
         </div>
