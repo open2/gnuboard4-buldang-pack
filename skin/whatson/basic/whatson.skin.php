@@ -75,6 +75,7 @@ var list_delete_php = "whatson_delete_all.php";
 </form>
 
 <!-- 페이지 -->
+<? if ($write_pages) { ?>
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>이전검색</a></li>"; } ?>
@@ -103,6 +104,7 @@ var list_delete_php = "whatson_delete_all.php";
     <? if ($next_part_href) { echo "<li><a href='$next_part_href'>이후검색</a></li>"; } ?>
     </ul>
 </div>
+<? } ?>
 
 <script type="text/javascript">
 function whatson_read(url, wo_id) {
