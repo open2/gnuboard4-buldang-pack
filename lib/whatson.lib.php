@@ -11,7 +11,7 @@ function whatson_count($mb_id) {
 }
 
 // 그누보드 왔숑~ 추출
-function whatson($skin_dir="", $rows=10, $subject_len=25, $page=1, $options="", $target="", $check="", $head="")
+function whatson($skin_dir="", $rows=10, $subject_len=25, $page=1, $options="", $target="", $check="", $head=1)
 {
     global $g4, $member, $config;
 
@@ -40,8 +40,10 @@ function whatson($skin_dir="", $rows=10, $subject_len=25, $page=1, $options="", 
     $from_record = ($page - 1) * $rows; // 시작 열을 구함
     $limit_sql = " limit $from_record, $rows ";
 
-    $write_pages = get_paging($config[cf_write_pages], $page, $total_page, "$g4[bbs_path]/whatson.php?head=$head&rows=$rows&check=$check&page=");
-    $write_pages_xs = get_paging($config[cf_write_pages_xs], $page, $total_page, "$g4[bbs_path]/whatson.php?head=$head&rows=$rows&check=$check&page=");
+    if (!$head || $check==1) {
+        $write_pages = get_paging($config[cf_write_pages], $page, $total_page, "$g4[bbs_path]/whatson.php?head=$head&rows=$rows&check=$check&page=");
+        $write_pages_xs = get_paging($config[cf_write_pages_xs], $page, $total_page, "$g4[bbs_path]/whatson.php?head=$head&rows=$rows&check=$check&page=");
+    }
 
     $sql = " select * from $g4[whatson_table] where mb_id='$member[mb_id]' order by wo_datetime desc $limit_sql ";
     $result = sql_query($sql);
