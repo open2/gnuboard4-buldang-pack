@@ -39,7 +39,7 @@ var member_skin_path = "<?=$member_skin_path?>";
         <div class="form-group">
             <label for="mb_password" class="col-sm-2 control-label">패스워드</label>
             <div class="col-sm-6">
-                <INPUT class="form-control" type="password" name="mb_password" id="mb_password" style="ime-mode:disabled" size=20 maxlength=20 <?=($w=="")?"required":"";?> itemname="패스워드" onblur="passwordStrength(this.value)" placeholder="Password">
+                <INPUT class="form-control" type="password" name="mb_password" id="mb_password" style="ime-mode:disabled" size=20 maxlength=20 <?=($w=="")?"required":"";?> itemname="패스워드" placeholder="Password">
             </div>
         </div>
 
