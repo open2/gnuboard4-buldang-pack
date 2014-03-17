@@ -180,6 +180,7 @@ $sql = " insert into $g4[config_table]
                 cf_search_bgcolor = 'YELLOW',
                 cf_search_color = 'RED',
                 cf_write_pages = '10',
+                cf_write_pages_xs = '5',
                 cf_link_target = '_blank',
                 cf_delay_sec = '30',
                 cf_delay_level = '9',
