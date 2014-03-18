@@ -1,6 +1,7 @@
 <?php
 include_once('./_common.php');
-include_once("$g4[path]/head.sub.php");
+
+header("Content-Type: text/html; charset=$g4[charset]");
 
 if ($is_admin != 'super')
     die('최고관리자만 접근 가능합니다.');
