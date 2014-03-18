@@ -1,14 +1,14 @@
 <?php
-$sub_menu = "100290";
+$sub_menu = "300910";
 include_once('./_common.php');
 
 if ($is_admin != 'super')
-    alert_close('ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.');
+    alert_close('ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.');
 
-$g4['title'] = 'ë©”ë‰´ ì¶”ê°€';
+$g4['title'] = '¸Ş´º Ãß°¡';
 include_once("$g4[path]/head.sub.php");
 
-// ì½”ë“œ
+// ÄÚµå
 if($new == 'new' || !$code) {
     $code = base_convert(substr($code,0, 2), 36, 10);
     $code += 36;
@@ -24,12 +24,12 @@ if($new == 'new' || !$code) {
     <form name="fmenuform" id="fmenuform" role="form">
 
     <div class="new_win_desc">
-        <label for="me_type">ëŒ€ìƒì„ íƒ</label>
+        <label for="me_type">´ë»ó¼±ÅÃ</label>
         <select name="me_type" id="me_type" class="form-control">
-            <option value="">ì§ì ‘ì…ë ¥</option>
-            <option value="group">ê²Œì‹œíŒê·¸ë£¹</option>
-            <option value="board">ê²Œì‹œíŒ</option>
-            <!--<option value="content">ë‚´ìš©ê´€ë¦¬</option>-->
+            <option value="">Á÷Á¢ÀÔ·Â</option>
+            <option value="group">°Ô½ÃÆÇ±×·ì</option>
+            <option value="board">°Ô½ÃÆÇ</option>
+            <!--<option value="content">³»¿ë°ü¸®</option>-->
         </select>
     </div>
     <div id="menu_result"></div>
@@ -80,44 +80,44 @@ function add_menu_list(name, link, code)
 
     var list = "<tr class=\"menu_list menu_group_<?php echo $code; ?>\">\n";
     list += "<td"+sub_menu_class+">\n";
-    list += "<label for=\"me_name_"+ms+"\"  class=\"sound_only\">ë©”ë‰´</label>\n";
+    list += "<label for=\"me_name_"+ms+"\"  class=\"sound_only\">¸Ş´º</label>\n";
     list += "<input type=\"hidden\" name=\"code[]\" value=\"<?php echo $code; ?>\">\n";
     list += "<input type=\"text\" name=\"me_name[]\" value=\""+name+"\" id=\"me_name_"+ms+"\" required class=\"required frm_input full_input\">\n";
     list += "</td>\n";
     list += "<td>\n";
-    list += "<label for=\"me_link_"+ms+"\"  class=\"sound_only\">ë§í¬</label>\n";
+    list += "<label for=\"me_link_"+ms+"\"  class=\"sound_only\">¸µÅ©</label>\n";
     list += "<input type=\"text\" name=\"me_link[]\" value=\""+link+"\" id=\"me_link_"+ms+"\" required class=\"required frm_input full_input\">\n";
     list += "</td>\n";
     list += "<td class=\"td_mng\">\n";
-    list += "<label for=\"me_target_"+ms+"\"  class=\"sound_only\">ìƒˆì°½</label>\n";
+    list += "<label for=\"me_target_"+ms+"\"  class=\"sound_only\">»õÃ¢</label>\n";
     list += "<select name=\"me_target[]\" id=\"me_target_"+ms+"\">\n";
-    list += "<option value=\"self\">ì‚¬ìš©ì•ˆí•¨</option>\n";
-    list += "<option value=\"blank\">ì‚¬ìš©í•¨</option>\n";
+    list += "<option value=\"self\">»ç¿ë¾ÈÇÔ</option>\n";
+    list += "<option value=\"blank\">»ç¿ëÇÔ</option>\n";
     list += "</select>\n";
     list += "</td>\n";
     list += "<td class=\"td_numsmall\">\n";
-    list += "<label for=\"me_order_"+ms+"\"  class=\"sound_only\">ìˆœì„œ</label>\n";
+    list += "<label for=\"me_order_"+ms+"\"  class=\"sound_only\">¼ø¼­</label>\n";
     list += "<input type=\"text\" name=\"me_order[]\" value=\"0\" id=\"me_order_"+ms+"\" required class=\"required frm_input\" size=\"5\">\n";
     list += "</td>\n";
     list += "<td class=\"td_mngsmall\">\n";
-    list += "<label for=\"me_use_"+ms+"\"  class=\"sound_only\">PCì‚¬ìš©</label>\n";
+    list += "<label for=\"me_use_"+ms+"\"  class=\"sound_only\">PC»ç¿ë</label>\n";
     list += "<select name=\"me_use[]\" id=\"me_use_"+ms+"\">\n";
-    list += "<option value=\"1\">ì‚¬ìš©í•¨</option>\n";
-    list += "<option value=\"0\">ì‚¬ìš©ì•ˆí•¨</option>\n";
+    list += "<option value=\"1\">»ç¿ëÇÔ</option>\n";
+    list += "<option value=\"0\">»ç¿ë¾ÈÇÔ</option>\n";
     list += "</select>\n";
     list += "</td>\n";
     list += "<td class=\"td_mngsmall\">\n";
-    list += "<label for=\"me_mobile_use_"+ms+"\"  class=\"sound_only\">ëª¨ë°”ì¼ì‚¬ìš©</label>\n";
+    list += "<label for=\"me_mobile_use_"+ms+"\"  class=\"sound_only\">¸ğ¹ÙÀÏ»ç¿ë</label>\n";
     list += "<select name=\"me_mobile_use[]\" id=\"me_mobile_use_"+ms+"\">\n";
-    list += "<option value=\"1\">ì‚¬ìš©í•¨</option>\n";
-    list += "<option value=\"0\">ì‚¬ìš©ì•ˆí•¨</option>\n";
+    list += "<option value=\"1\">»ç¿ëÇÔ</option>\n";
+    list += "<option value=\"0\">»ç¿ë¾ÈÇÔ</option>\n";
     list += "</select>\n";
     list += "</td>\n";
     list += "<td class=\"td_mngsmall\">\n";
     <?php if($new == 'new') { ?>
-    list += "<button type=\"button\" class=\"btn_add_submenu\">ì¶”ê°€</button>\n";
+    list += "<button type=\"button\" class=\"btn_add_submenu\">Ãß°¡</button>\n";
     <?php } ?>
-    list += "<button type=\"button\" class=\"btn_del_menu\">ì‚­ì œ</button>\n";
+    list += "<button type=\"button\" class=\"btn_del_menu\">»èÁ¦</button>\n";
     list += "</td>\n";
     list += "</tr>\n";
 

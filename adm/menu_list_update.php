@@ -1,15 +1,15 @@
-<?php
-$sub_menu = "100290";
+<?
+$sub_menu = "300910";
 include_once('./_common.php');
 
 check_demo();
 
 if ($is_admin != 'super')
-    alert('ìµœê³ ê´€ë¦¬ìžë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.');
+    alert('ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.');
 
 check_token();
 
-// ì´ì „ ë©”ë‰´ì •ë³´ ì‚­ì œ
+// ÀÌÀü ¸Þ´ºÁ¤º¸ »èÁ¦
 $sql = " delete from {$g4['menu_table']} ";
 sql_query($sql);
 
@@ -54,7 +54,7 @@ for ($i=0; $i<$count; $i++)
         $primary_code = $me_code;
     }
 
-    // ë©”ë‰´ ë“±ë¡
+    // ¸Þ´º µî·Ï
     $sql = " insert into {$g4['menu_table']}
                 set me_code         = '$me_code',
                     me_name         = '$me_name',

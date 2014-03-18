@@ -1,25 +1,28 @@
 <?php
 include_once('./_common.php');
+include_once("$g4[path]/head.sub.php");
 
 if ($is_admin != 'super')
-    die('ÏµúÍ≥†Í¥ÄÎ¶¨ÏûêÎßå Ï†ëÍ∑º Í∞ÄÎä•Ìï©ÎãàÎã§.');
+    die('√÷∞Ì∞¸∏Æ¿⁄∏∏ ¡¢±Ÿ ∞°¥…«’¥œ¥Ÿ.');
 
 switch($type) {
     case 'group':
         $sql = " select gr_id as id, gr_subject as subject
                     from $g4[group_table]
-                    order by gr_order, gr_id ";
+                    order by gr_id ";
         break;
     case 'board':
         $sql = " select bo_table as id, bo_subject as subject
                     from $g4[board_table]
-                    order by bo_order, bo_table ";
+                    order by bo_table ";
         break;
-   // case 'content':
-   //     $sql = " select co_id as id, co_subject as subject
-   //                 from $g4[content_table]
-   //                 order by co_id ";
-   //     break;
+        /*
+    case 'content':
+        $sql = " select co_id as id, co_subject as subject
+                    from $g4[content_table]
+                    order by co_id ";
+        break;
+    */
     default:
         $sql = '';
         break;
@@ -36,8 +39,8 @@ if($sql) {
 <table class="table table-hover">
         <thead>
         <tr>
-        <th scope="col">Ï†úÎ™©</th>
-        <th scope="col">ÏÑ†ÌÉù</th>
+        <th scope="col">¡¶∏Ò</th>
+        <th scope="col">º±≈√</th>
         </tr>
         </thead>
         <tbody>
@@ -49,9 +52,11 @@ if($sql) {
             case 'board':
                 $link = $g4[bbs_path].'/board.php?bo_table='.$row['id'];
                 break;
-         //   case 'content':
-         //       $link = $g4[bbs_path].'/content.php?co_id='.$row['id'];
-         //       break;
+            /*
+            case 'content':
+                $link = $g4[bbs_path].'/content.php?co_id='.$row['id'];
+                break;
+            */
             default:
                 $link = '';
                 break;
@@ -63,7 +68,7 @@ if($sql) {
         <td>
             <input type="hidden" name="subject[]" value="<?php echo preg_replace('/[\'\"]/', '', $row['subject']); ?>">
             <input type="hidden" name="link[]" value="<?php echo $link; ?>">
-			<button type="button" name="act_button" class="btn btn-success"><span class="sr-only"><?php echo $row['subject']; ?> </span>ÏÑ†ÌÉù</button>
+			<button type="button" name="act_button" class="btn btn-success"><span class="sr-only"><?php echo $row['subject']; ?> </span>º±≈√</button>
         </td>
     </tr>
 
@@ -74,7 +79,7 @@ if($sql) {
 
 
 <div>
-    <button type="button" class="btn btn-default" onclick="window.close();">Ï∞ΩÎã´Í∏∞</button>
+    <button type="button" class="btn btn-default" onclick="window.close();">√¢¥›±‚</button>
 </div>
 
 <?php } else { ?>
@@ -87,14 +92,14 @@ if($sql) {
     </colgroup>
     <tbody class="col-lg-2">
     <tr>
-        <th scope="row"><label for="me_name">Î©îÎâ¥</label></th>
+        <th scope="row"><label for="me_name">∏ﬁ¥∫</label></th>
         <td><input type="text" name="me_name" id="me_name" required class="form-control"></td>
     </tr>
     <tr>
-        <th scope="row"><label for="me_link">ÎßÅÌÅ¨</label></th>
+        <th scope="row"><label for="me_link">∏µ≈©</label></th>
         <td>
             <input type="text" name="me_link" id="me_link" required class="form-control">
-          	<?=help("ÌöåÏõêÏóêÍ≤å ÌïòÎ£®Ïóê ÌïúÎ≤àÎßå Î∂ÄÏó¨")?>
+          	<?=help("»∏ø¯ø°∞‘ «œ∑Áø° «—π¯∏∏ ∫Œø©")?>
         </td>
     </tr>
     </tbody>
@@ -102,7 +107,7 @@ if($sql) {
 </div>
 
 <div class="text-center">
-    <button type="button" id="add_manual" class="btn btn-success">Ï∂îÍ∞Ä</button>
-    <button type="button" class="btn btn-default" onclick="window.close();">Ï∞ΩÎã´Í∏∞</button>
+    <button id="add_manual" class="btn btn-success">√ﬂ∞°</button>
+    <button class="btn btn-default" onclick="window.close();">√¢¥›±‚</button>
 </div>
 <?php } ?>
