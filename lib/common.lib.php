@@ -1258,8 +1258,14 @@ function sql_connect($host, $user, $pass)
 
     $link = @mysql_connect($host, $user, $pass);
     if (!$link) {
-        include_once("$g4[path]/on_pm.php");
-        die;
+        if (is_dir("$g4[path]/install") && !file_exists("$g4[path]/dbconfig.php")) {
+            // install 디렉토리가 있고, dbconfig.php가 없으면, 설치화면으로 이동
+            goto_url("$g4[path]/install/");
+        } else {
+            // db가 죽은 경우
+            include_once("$g4[path]/on_pm.php");
+            die;
+        }
     }
 
     return $link;

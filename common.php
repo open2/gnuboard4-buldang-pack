@@ -265,32 +265,12 @@ $g4['url'] = preg_replace("/\/$/", "", $g4['url']);
 //==============================================================================
 $dirname = dirname(__FILE__).'/';
 $dbconfig_file = "dbconfig.php";
-/* - 설치된 이후에는 dbcofig.php 파일체크를 할 필요 없죠???
-if (file_exists("$g4[path]/$dbconfig_file"))
-{
-    if (is_dir("$g4[path]/install")) die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script type='text/javascript'> alert('install 디렉토리를 삭제하여야 정상 실행됩니다.'); </script>");
-*/
-    @include_once("$g4[path]/$dbconfig_file");
-    $connect_db = sql_connect($mysql_host, $mysql_user, $mysql_password);
-    $select_db = sql_select_db($mysql_db, $connect_db);
-    if (!$select_db)
-        die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script type='text/javascript'> alert('DB 접속 오류'); </script>");
-/*
-}
-else
-{
-    echo "<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'>";
-    echo <<<HEREDOC
-    <script type="text/javascript">
-    alert("DB 설정 파일이 존재하지 않습니다.\\n\\n프로그램 설치 후 실행하시기 바랍니다.");
-    location.href = "./install/";
-    </script>
-HEREDOC;
-    exit;
-}
-unset($my); // DB 설정값을 클리어 해줍니다.
-*/
-//print_r2($GLOBALS);
+
+@include_once("$g4[path]/$dbconfig_file");
+$connect_db = sql_connect($mysql_host, $mysql_user, $mysql_password);
+$select_db = sql_select_db($mysql_db, $connect_db);
+if (!$select_db)
+    die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script type='text/javascript'> alert('DB 접속 오류'); </script>");
 
 $_SERVER['PHP_SELF'] = htmlentities($_SERVER['PHP_SELF']);
 
