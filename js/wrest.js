@@ -447,20 +447,10 @@ if (typeof(WREST_JS) == 'undefined') // 한번만 실행
         for (var i = 0; i < document.forms.length; i++) 
         {
             // onsubmit 이벤트가 있다면 저장해 놓는다.
-            if (document.forms[i].onsubmit) document.forms[i].oldsubmit = document.forms[i].onsubmit;
-            document.forms[i].onsubmit = wrestSubmit;
-            for (var j = 0; j < document.forms[i].elements.length; j++) 
-            {
-                // 필수 입력일 경우는 * 배경이미지를 준다.
-                if (document.forms[i].elements[j].getAttribute("required") != null) 
-                {
-                    //document.forms[i].elements[j].style.backgroundColor = wrestFldDefaultColor;
-                    //document.forms[i].elements[j].className = "wrest_required";
-                    document.forms[i].elements[j].style.backgroundImage = "url("+g4_path+"/js/wrest.gif)";
-                    document.forms[i].elements[j].style.backgroundPosition = "top right";
-                    document.forms[i].elements[j].style.backgroundRepeat = "no-repeat";
-                }
+            if (document.forms[i].onsubmit) {
+                document.forms[i].oldsubmit = document.forms[i].onsubmit;
             }
+            document.forms[i].onsubmit = wrestSubmit;
         }
     }
 
