@@ -1156,3 +1156,16 @@ ADD `wr_datetime` DATETIME NOT NULL AFTER `wr_ip` ;
 ALTER TABLE `$g4[singo_table]` ADD INDEX `sg_datetime` ( `sg_datetime` );
 ALTER TABLE `$g4[member_table]` ADD `mb_singo_datetime` DATETIME NOT NULL;
 ALTER TABLE `$g4[member_table]` ADD `mb_singo` INT( 11 ) NOT NULL;
+
+DROP TABLE IF EXISTS `$g4[menu_table]`;
+CREATE TABLE IF NOT EXISTS `$g4[menu_table]` (
+  `me_id` int(11) NOT NULL AUTO_INCREMENT,
+  `me_code` varchar(255) NOT NULL DEFAULT '',
+  `me_name` varchar(255) NOT NULL DEFAULT '',
+  `me_link` varchar(255) NOT NULL DEFAULT '',
+  `me_target` varchar(255) NOT NULL DEFAULT '',
+  `me_order` int(11) NOT NULL DEFAULT '0',
+  `me_use` tinyint(4) NOT NULL DEFAULT '0',
+  `me_mobile_use` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`me_id`)
+);
