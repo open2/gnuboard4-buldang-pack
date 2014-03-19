@@ -69,7 +69,7 @@ if($sql) {
         <td>
             <input type="hidden" name="subject[]" value="<?php echo preg_replace('/[\'\"]/', '', $row['subject']); ?>">
             <input type="hidden" name="link[]" value="<?php echo $link; ?>">
-			<button type="button" name="act_button" class="btn btn-success"><span class="sr-only"><?php echo $row['subject']; ?> </span>선택</button>
+			<button type="button" name="act_button" class="btn btn-success add_select"><span class="sr-only"><?php echo $row['subject']; ?> </span>선택</button>
         </td>
     </tr>
 
@@ -100,7 +100,7 @@ if($sql) {
         <th scope="row"><label for="me_link">링크</label></th>
         <td>
             <input type="text" name="me_link" id="me_link" required class="form-control">
-          	<?=help("회원에게 하루에 한번만 부여")?>
+          	<?=help("링크는 http://를 포함해서 입력해 주세요.")?>
         </td>
     </tr>
     </tbody>
