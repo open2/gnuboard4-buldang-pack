@@ -85,7 +85,7 @@ $colspan = 5;
         echo '<tr id="empty_menu_list"><td colspan="'.$colspan.'" class="empty_table">자료가 없습니다.</td></tr>';
     ?>
     </tbody>
-      </table>
+    </table>
 </div>
 
 <div class="text-center">
@@ -135,14 +135,14 @@ function add_menu()
     });
 
     var url = "./menu_form.php?code="+max_code+"&new=new";
-    window.open(url, "add_menu", "left=100,top=100,width=550,height=650");
+    window.open(url, "add_menu", "left=100,top=100,width=550,height=650,scrollbars=yes,resizable=yes");
     return false;
 }
 
 function add_submenu(code)
 {
     var url = "./menu_form.php?code="+code;
-    window.open(url, "add_menu", "left=100,top=100,width=550,height=650");
+    window.open(url, "add_menu", "left=100,top=100,width=550,height=650,scrollbars=yes,resizable=yes");
     return false;
 }
 
