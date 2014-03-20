@@ -220,6 +220,7 @@ for ($i=0; $i<$ext_cnt; $i++) {
 @extract($_POST);
 @extract($_SERVER);
 
+
 // 완두콩님이 알려주신 보안관련 오류 수정
 // $member 에 값을 직접 넘길 수 있음
 $config = array();
@@ -266,19 +267,19 @@ $g4['url'] = preg_replace("/\/$/", "", $g4['url']);
 $dirname = dirname(__FILE__).'/';
 $dbconfig_file = "dbconfig.php";
 
-@include_once("$g4[path]/$dbconfig_file");
-$connect_db = sql_connect($mysql_host, $mysql_user, $mysql_password);
-$select_db = sql_select_db($mysql_db, $connect_db);
-if (!$select_db)
-    die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script type='text/javascript'> alert('DB 접속 오류'); </script>");
+    @include_once("$g4[path]/$dbconfig_file");
+    $connect_db = sql_connect($mysql_host, $mysql_user, $mysql_password);
+    $select_db = sql_select_db($mysql_db, $connect_db);
+    if (!$select_db)
+        die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script type='text/javascript'> alert('DB 접속 오류'); </script>");
 
 $_SERVER['PHP_SELF'] = htmlentities($_SERVER['PHP_SELF']);
 
 //-------------------------------------------
 // SESSION 설정
 //-------------------------------------------
-@ini_set("session.use_trans_sid", 0);    // PHPSESSID를 자동으로 넘기지 않음
-@ini_set("url_rewriter.tags",""); // 링크에 PHPSESSID가 따라다니는것을 무력화함 (해뜰녘님께서 알려주셨습니다.)
+@ini_set("session.use_trans_sid", 0);     // PHPSESSID를 자동으로 넘기지 않음
+@ini_set("url_rewriter.tags","");         // 링크에 PHPSESSID가 따라다니는것을 무력화함 (해뜰녘님께서 알려주셨습니다.)
 
 // 사용할 session 형태를 지정 합니다. db. memcache. file - 3종 입니다
 switch ($g4['session_type']) {
