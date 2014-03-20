@@ -214,20 +214,11 @@ for ($i=0; $i<$ext_cnt; $i++) {
 }
 //==========================================================================================================================
 
-/*
 // PHP 4.1.0 부터 지원됨
 // php.ini 의 register_globals=off 일 경우
 @extract($_GET);
 @extract($_POST);
 @extract($_SERVER);
-*/
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> 53abb24d07f02b7b6d394d4d155093683f6024fa
-=======
->>>>>>> 53abb24d07f02b7b6d394d4d155093683f6024fa
 
 // 완두콩님이 알려주신 보안관련 오류 수정
 // $member 에 값을 직접 넘길 수 있음
@@ -274,53 +265,11 @@ $g4['url'] = preg_replace("/\/$/", "", $g4['url']);
 //==============================================================================
 $dirname = dirname(__FILE__).'/';
 $dbconfig_file = "dbconfig.php";
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     @include_once("$g4[path]/$dbconfig_file");
-=======
-    include_once("$g4[path]/$dbconfig_file");
->>>>>>> 53abb24d07f02b7b6d394d4d155093683f6024fa
-=======
-    include_once("$g4[path]/$dbconfig_file");
->>>>>>> 53abb24d07f02b7b6d394d4d155093683f6024fa
-=======
-    include_once("$g4[path]/$dbconfig_file");
->>>>>>> 53abb24d07f02b7b6d394d4d155093683f6024fa
     $connect_db = sql_connect($mysql_host, $mysql_user, $mysql_password);
     $select_db = sql_select_db($mysql_db, $connect_db);
     if (!$select_db)
         die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script type='text/javascript'> alert('DB 접속 오류'); </script>");
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 53abb24d07f02b7b6d394d4d155093683f6024fa
-=======
->>>>>>> 53abb24d07f02b7b6d394d4d155093683f6024fa
-
-    // sql_escape_string 적용
-    $_POST    = array_map_deep('sql_escape_string', $_POST);
-    $_GET     = array_map_deep('sql_escape_string', $_GET);
-    $_COOKIE  = array_map_deep('sql_escape_string', $_COOKIE);
-    $_REQUEST = array_map_deep('sql_escape_string', $_REQUEST);
-
-    // PHP 4.1.0 부터 지원됨
-    // php.ini 의 register_globals=off 일 경우
-    @extract($_GET);
-    @extract($_POST);
-    @extract($_SERVER);
-
-unset($my); // DB 설정값을 클리어 해줍니다.
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 53abb24d07f02b7b6d394d4d155093683f6024fa
-=======
->>>>>>> 53abb24d07f02b7b6d394d4d155093683f6024fa
-=======
->>>>>>> 53abb24d07f02b7b6d394d4d155093683f6024fa
 
 $_SERVER['PHP_SELF'] = htmlentities($_SERVER['PHP_SELF']);
 
