@@ -222,7 +222,10 @@ for ($i=0; $i<$ext_cnt; $i++) {
 @extract($_SERVER);
 */
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> 53abb24d07f02b7b6d394d4d155093683f6024fa
 =======
 >>>>>>> 53abb24d07f02b7b6d394d4d155093683f6024fa
 
@@ -274,7 +277,11 @@ $dbconfig_file = "dbconfig.php";
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     @include_once("$g4[path]/$dbconfig_file");
+=======
+    include_once("$g4[path]/$dbconfig_file");
+>>>>>>> 53abb24d07f02b7b6d394d4d155093683f6024fa
 =======
     include_once("$g4[path]/$dbconfig_file");
 >>>>>>> 53abb24d07f02b7b6d394d4d155093683f6024fa
@@ -287,7 +294,10 @@ $dbconfig_file = "dbconfig.php";
         die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script type='text/javascript'> alert('DB 접속 오류'); </script>");
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 53abb24d07f02b7b6d394d4d155093683f6024fa
 =======
 >>>>>>> 53abb24d07f02b7b6d394d4d155093683f6024fa
 
@@ -305,6 +315,9 @@ $dbconfig_file = "dbconfig.php";
 
 unset($my); // DB 설정값을 클리어 해줍니다.
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 53abb24d07f02b7b6d394d4d155093683f6024fa
+=======
 >>>>>>> 53abb24d07f02b7b6d394d4d155093683f6024fa
 =======
 >>>>>>> 53abb24d07f02b7b6d394d4d155093683f6024fa
