@@ -22,7 +22,6 @@ $g4[title] = "KCB(코리아크레딧뷰로) - okname 본인확인";
 include_once("./nc.config.php");
 
 // 모듈호출명령어
-//$cmd = "$exe $svcTxSeqno \"$name\" $birthday $gender $ntvFrnrTpCd $mblTelCmmCd $mbphnNo $rsv1 $rsv2 $rsv3 \"$returnMsg\" $returnUrl $inTpBit $hsCertMsrCd $hsCertRqstCausCd $memid $qryIP $qryDomain $EndPointURL $logPath $option2 ";
 $cmd = array($svcTxSeqno, $name, $birthday, $gender, $ntvFrnrTpCd, $mblTelCmmCd, $mbphnNo, $rsv1, $rsv2, $rsv3, $returnMsg, $returnUrl, $inTpBit, $hsCertMsrCd, $hsCertRqstCausCd, $memid, $qryIP, $qryDomain, $EndPointURL, $logPath, $option2);
 
 if ($kcb_test) {
@@ -31,7 +30,6 @@ if ($kcb_test) {
 }
 
 //cmd 실행
-//exec($cmd, $out, $ret);
 $output = NULL;
 $ret = okname($cmd, $output);
 

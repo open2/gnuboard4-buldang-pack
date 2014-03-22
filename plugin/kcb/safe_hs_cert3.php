@@ -50,7 +50,6 @@ $cpubkey = $WEBPUBKEY;    //server publickey
 $csig = $WEBSIGNATURE;    //server signature
 
 // 명령어
-//$cmd = "$exe $keypath $idcfMbrComCd $EndPointURL $WEBPUBKEY $WEBSIGNATURE $encInfo $logPath $option3";
 $cmd = array($keypath, $idcfMbrComCd, $EndPointURL, $WEBPUBKEY, $WEBSIGNATURE, $encInfo, $logPath, $option3);
 
 if ($kcb_test) {
@@ -58,7 +57,6 @@ if ($kcb_test) {
 }
 
 // 실행
-//exec($cmd, $out, $ret);
 $output = NULL;
 $ret = okname($cmd, $output);
 if ($kcb_test) {
@@ -70,14 +68,6 @@ if($ret == 0) {
 		// echo "복호화 요청 호출 성공.<br/>";
 
 		// 결과라인에서 값을 추출
-		/*
-		foreach($out as $a => $b) {
-			if($a < 17) {
-				$field[$a] = $b;
-			}
-		}
-		$resultCd = $field[0];
-		*/
 		$field = explode("\n", $output);
 } else {
 		echo "복호화 요청 호출 에러. 리턴값 : ".$ret."<br/>";		 
