@@ -369,6 +369,7 @@ if (isset($stx))  { // search text (검색어)
 
 if (isset($sst))  {
     $sst = mysql_real_escape_string($sst);
+    $sst = preg_replace("/[\<\>\'\"\%\=\(\)\s]/", "", $sst);
     $qstr .= '&sst=' . urlencode($sst); // search sort (검색 정렬 필드)
 }
 
