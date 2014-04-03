@@ -202,7 +202,7 @@ $g4['use_gblog']   = 0;   // gblog로 글보내기를 원치 않을때는, 0으로 설정을 변경
 
 // 제목에서 특수문자 모두 없애기
 $g4['remove_special_chars'] = 1;    // 1은 없애는거, 0은 안 없애는거
-$g4['special_chars_change'] = "☆★◇◆□■△▲▽▼○◎※◁◀▷▶♤♠♧♣◈▣♡♥#";  // 없애고 싶은 문자는 요기에 추가/삭제
+$g4['special_chars_change'] = "☆★◇◆□■△▲▽▼○◎※◁◀▷▶♤♠♧♣◈▣♡♥";  // 없애고 싶은 문자는 요기에 추가/삭제
 
 // phpmyadmin의 경로를 지정
 $g4['phpmyadmin_dir'] = $g4['admin_path'] . "/phpMyAdmin/";
