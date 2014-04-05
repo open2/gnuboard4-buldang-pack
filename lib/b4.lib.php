@@ -1405,7 +1405,7 @@ function check_bo_from_date()
 // 남성/여성이 bo_sex 필드에 M/F로 등록된 경우에만 게시판을 접근을 허용 
 function check_bo_sex()
 {
-    global $board, $member, $is_admin;
+    global $g4, $board, $member, $is_admin;
     
     if($board[bo_sex]) {
         if ($member[mb_sex]) { 
