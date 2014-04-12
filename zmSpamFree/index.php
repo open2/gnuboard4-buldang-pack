@@ -30,7 +30,7 @@ $solveNo=1;	# 문제해결 번호
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
 <head>
 	<title> ZmSpamFree 1.1 Demo - http://www.casternet.com/spamfree/</title>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="content-type" content="text/html; charset=$g4[charset]" />
 	<meta name="author" content="ZnMee,지앤미" />
 	<meta name="keywords" content="http://www.casternet.com,http://www.spamfree.kr,CAPTCHA" />
 	<meta name="description" content="Automatic test program to tell computers and humans apart. Programmed by ZnMee in Republic of Korea." />
