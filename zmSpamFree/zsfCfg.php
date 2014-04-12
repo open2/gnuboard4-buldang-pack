@@ -103,4 +103,6 @@ $zsfCfg['zsfLogo'] = 0;			# SpamFree.kr 라는 로고 출력 여부 (1: 출력, 0: 출력 안
 
 $zsfCfg['charset'] = $g4['charset'];
 $zsfCfg['mb_str'] = "1";
+
+$zsfCfg['mp3'] = "basic";   # mp3 파일의 종류
 ?>
