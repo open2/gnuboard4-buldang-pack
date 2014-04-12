@@ -4,7 +4,7 @@ include("_common.php");
 if (function_exists("date_default_timezone_set"))
     date_default_timezone_set("Asia/Seoul");
 
-   /*
+ /*
 	* @file  zmSpamFree.php
 	* @author 지앤미(ZnMee) <znmee@naver.com>
 	* ZmSpamFree(zmCaptcha) Main Program ver. 1.1
@@ -40,8 +40,8 @@ if ( is_file( $thisZsfCfg['cfgFile'] ) ) { include ( $thisZsfCfg['cfgFile'] ); }
 /*
 	이미지를 출력하는 경우 시작
 */
-if ( isset($_GET['zsfimg']) ) {
-	# 함수 : str_shuffle ( PHP 4.3.0 이전버전을 위한 배려)
+if ( isset($_REQUEST['zsfimg']) ) {
+	// 함수 : str_shuffle ( PHP 4.3.0 이전버전을 위한 배려)
 	if ( !function_exists('str_shuffle') ) {
 		function str_shuffle ( $str ) {
 			$strLen = strlen( $str );
@@ -51,7 +51,7 @@ if ( isset($_GET['zsfimg']) ) {
 			return ( implode('',$strArr) );
 		}
 	}
-	# 함수 : 지난 파일 삭제
+	// 함수 : 지난 파일 삭제
 	function zsfCleanFile ( $dir, $term ) {
 		$zsfDir = opendir($dir);
 		$termTime = zsfNow - ( 86400 * $term );
@@ -59,11 +59,11 @@ if ( isset($_GET['zsfimg']) ) {
 			if ( $file!='.' && $file!='..' && fileaTime($dir.$file) < $termTime && $file!='.' ) 	{ unlink ( $dir.$file ); }
 		}
 	}
-	# 함수 : 최소값 및 최대값 검증
+	// 함수 : 최소값 및 최대값 검증
 	function zsfVarChk ( $var, $min, $max ) { if ( $var > $min && $var < $max ) { return true; } else { return false; } }
-	# 세션쿠키가 없을 경우 다시 로드
+	// 세션쿠키가 없을 경우 다시 로드
 	if ( !defined('zsfSessId') ) { session_start(); header('Location:'.$PHP_SELF.'?zsfimg'); exit; }
-	# 환경설정 기본값
+	// 환경설정 기본값
 	$thisZsfCfg = array (
 		'codeForm' => 6,
 		'fontName' => 'MalgunGothic40px',
@@ -83,13 +83,13 @@ if ( isset($_GET['zsfimg']) ) {
 		'str' => '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@.?+==×÷',
 		'codeCfg' => array ( 1=>4, 2=>4, 3=>2, 4=>2, 5=>1, 6=>4, 7=>4, 8=>4 )
 		);
-	# 'SpamFree.kr' 이미지맵
+	// 'SpamFree.kr' 이미지맵
 	$zsfLogoMap = array ('0100', '0200', '0300', '0500', '0600', '0700', '1100', '1200', '1500', '1900', '0001', '0501', '0801', '1001', '1301', '1501', '1601', '1801', '1901', '0102', '0202', '0502', '0602', '0702', '1002', '1102', '1202', '1302', '1502', '1702', '1902', '0303', '0503', '1003', '1303', '1503', '1903', '0004', '0104', '0204', '0504', '1004', '1304', '1504', '1904', '0007', '0107', '0207', '0407', '0507', '0607', '0907', '1007', '1107', '1307', '1407', '1507', '1907', '0008', '0408', '0708', '0908', '1308', '1908', '0009', '0109', '0409', '0509', '0609', '0909', '1009', '1309', '1409', '1909', '2109', '2309', '2409', '0010', '0410', '0710', '0910', '1310', '1910', '2010', '2310', '0011', '0411', '0711', '0911', '1011', '1111', '1311', '1411', '1511', '1711', '1911', '2111', '2311');
-	# 환경설정파일 내용 검증 및 초기화 'codeForm';
+	// 환경설정파일 내용 검증 및 초기화 'codeForm';
 	if ( isset($zsfCfg['codeForm']) && is_array($zsfCfg['codeForm']) ) { shuffle ( $zsfCfg['codeForm'] ); $thisZsfCfg['codeForm'] = $zsfCfg['codeForm'][0]; }
-	# 환경설정파일 내용 검증 및 초기화 'fontName';
+	// 환경설정파일 내용 검증 및 초기화 'fontName';
 	$zsfFontIncOk = false;	# 폰트 로딩 확인 임시변수
-	# 환경설정의 폰트파일이 있을 경우 INCLUDE
+	// 환경설정의 폰트파일이 있을 경우 INCLUDE
 	if ( isset($zsfCfg['fontName']) && is_array($zsfCfg['fontName']) ) {
 		shuffle ( $zsfCfg['fontName'] );
 		if ( is_file (zsfAr.'Fonts/'.$zsfCfg['fontName'][0].'.php') ) {
@@ -98,18 +98,18 @@ if ( isset($_GET['zsfimg']) ) {
 			$zsfFontIncOk = true;
 		}
 	}
-	# 위에서 폰트파일을 못 불렀을 경우 기본 폰트파일 INCLUDE
+	// 위에서 폰트파일을 못 불렀을 경우 기본 폰트파일 INCLUDE
 	if ( !$zsfFontIncOk ) {
 		if ( is_file ( zsfAr.'Fonts/'.$thisZsfCfg['fontName'].'.php' ) ) {
 			include zsfAr.'Fonts/'.$thisZsfCfg['fontName'].'.php';
 			$zsfFontIncOk = true;
 		}
-		else {	# 결국 폰트파일을 INCLUDE하지 못했을 때 에러
+		else {	// 결국 폰트파일을 INCLUDE하지 못했을 때 에러
 			zsfErr( 'There is not Font file <span style="color: #c00; font-weight: bold">'. $thisZsfCfg['fontName'] .'</span>.', 20 );
 		}
 	}
 	unset ( $zsfFontIncOk );
-	#	환경설정 변수 검증
+	//	환경설정 변수 검증
 	if ( isset($zsfCfg['view']) && zsfVarChk( $zsfCfg['view'], 0 , 4 ) ) { $thisZsfCfg['view'] = $zsfCfg['view']; }
 	//if ( isset($zsfCfg['border-color']) && eregi('#[0-9abcdef]{6}',$zsfCfg['border-color']) ) { $thisZsfCfg['border-color'] = $zsfCfg['border-color']; }
   if ( isset($zsfCfg['border-color']) && preg_match('/#[0-9abcdef]{6}/i',$zsfCfg['border-color']) ) { $thisZsfCfg['border-color'] = $zsfCfg['border-color']; }
@@ -120,14 +120,14 @@ if ( isset($_GET['zsfimg']) ) {
 	if ( isset($zsfCfg['padding-top']) && zsfVarChk( $zsfCfg['padding-top'], -1 , 301 ) ) { $thisZsfCfg['padding-top'] = $zsfCfg['padding-top']; }
 	if ( isset($zsfCfg['letter-spacing']) && zsfVarChk( $zsfCfg['letter-spacing'], -1 , 301 ) ) { $thisZsfCfg['letter-spacing'] = $zsfCfg['letter-spacing']; }
 	if ( isset($zsfCfg['space-width']) && zsfVarChk( $zsfCfg['space-width'], -1 , 301 ) ) { $thisZsfCfg['space-width'] = $zsfCfg['space-width']; }
-	# 한글이 필요할 경우 필요한 변수
+	// 한글이 필요할 경우 필요한 변수
 	if ( $thisZsfCfg['view'] == 3 ) {
 		$thisZsfCfg['jong'] = '1101001110';
 		$thisZsfCfg['josa'] = array('와','과');
 		$thisZsfCfg['mi'] = array('는','은');
 	}
-	# Log/Connect/ 디렉토리에 세션파일이 등록되어 있을 경우 INCLUDE, 아닐 경우 문제&답 만들기
-	if ( defined('zsfSessId') && is_file( zsfAr1.'Connect/'.zsfSessId.'.php' ) && !isset($_GET['re']) && !isset($_GET['cfg']) ) {
+	// Log/Connect/ 디렉토리에 세션파일이 등록되어 있을 경우 INCLUDE, 아닐 경우 문제&답 만들기
+	if ( defined('zsfSessId') && is_file( zsfAr1.'Connect/'.zsfSessId.'.php' ) && !isset($_REQUEST['re']) && !isset($_REQUEST['cfg']) ) {
 		include zsfAr1.'Connect/'.zsfSessId.'.php';
 	}
 	else {
