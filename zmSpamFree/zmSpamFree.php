@@ -373,49 +373,61 @@ if ( isset($_GET['zsfimg']) ) {
 	imageDestroy ( $zsfImRe );
 
   set_session("captcha_count", 0);
-  set_session("captcha_keystring", "$zsfA");
+  set_session("captcha_keystringA", "$zsfA");
+  set_session("captcha_keystringQ", "$zsfQ");
  
 }
 /* 이미지를 출력하는 경우 끝 */
-else
-/* 검증 함수 시작 */
-{
-	function zsfCheck ( $zsfCode, $zsfLog='', $zsfMethod='POST' ) {
-		# 기본 변수 설정
-		$zsfCode = stripslashes(trim($zsfCode));
-		$zsfQ = '';
-		$zsfA = '';
-		$thisZsfCfg = array ( 'Passed' => 3, 'Denied' => 3 );
-		if ( isset($zsfCfg['logPassed']) && isset($zsfCfg['logDenied']) ) { $thisZsfCfg['Passed'] = $zsfCfg['Passed']; $thisZsfCfg['Denied'] = $zsfCfg['Denied']; }
-		# 함수 : 로깅 및 이전 데이터 삭제
-		function zsfLog ( $zsfLogFile,  $zsfQ, $zsfA, $zsfCode, $zsfMethod, $zsfLog, $zsfTerm ) {
-			$zsfLogFile = zsfAr1.$zsfLogFile.'.php';
-			$zsfLogDataArr = array ();
-			$i = 0;
-			if ( is_file($zsfLogFile) ) {
+
+if ( isset($_REQUEST['zsfCode']) && trim($_REQUEST['zsfCode']) !='' ) {
+	$zsfLog='';
+	if ( isset($_REQUEST['zsfLog']) ) { $zsfLog = $_REQUEST['zsfLog']; }
+	$rslt = zsfCheck ( $_REQUEST['zsfCode'], $zsfLog, 'AJAX' );
+	echo $rslt*1;
+}
+unset ( $thisZsfCfg );
+
+// 함수 : 로깅 및 이전 데이터 삭제
+function zsfLog_write ( $zsfLogFile,  $zsfQ, $zsfA, $zsfCode, $zsfMethod, $zsfLog, $zsfTerm ) {
+
+    $zsfLogFile = zsfAr1.$zsfLogFile.'.php';
+		$zsfLogDataArr = array ();
+		$i = 0;
+		if ( is_file($zsfLogFile) ) {
 				$zsfLogDataArr = file($zsfLogFile);
 				array_pop($zsfLogDataArr);
 				$zsfLimit = zsfNow-$zsfTerm*86400;
 				foreach ($zsfLogDataArr as $k=>$v ) {
 					if ( substr($v,0,10) < $zsfLimit || !$v ) { unset($zsfLogDataArr[$k]); } else { $zsfLogDataArr[$k] = str_replace("\n",'',$v); }
 				}
-			}
-			$zsfCode = str_replace('|','',$zsfCode);
-			$zsfLog = str_replace('|','',$zsfLog);
-			array_push($zsfLogDataArr, zsfNow.'|'.date('Y-m-d/H:i:s',zsfNow).'|'.$_SERVER['REMOTE_ADDR'].'|'.$zsfMethod.'|'.$zsfQ.'|'.$zsfA.'|'.$zsfCode.'|'.$zsfLog);
-			$zsfLogData = implode("\n", $zsfLogDataArr);
-			$zsfFp = fopen( $zsfLogFile, 'w' );
-			fwrite ( $zsfFp, '<?php /*'."\n".$zsfLogData."\n".'*/ ?>' ) ;
-			fclose($zsfFp);
 		}
-		# 세션파일 있을 경우 INCLUDE
+		$zsfCode = str_replace('|','',$zsfCode);
+		$zsfLog = str_replace('|','',$zsfLog);
+		array_push($zsfLogDataArr, zsfNow.'|'.date('Y-m-d/H:i:s',zsfNow).'|'.$_SERVER['REMOTE_ADDR'].'|'.$zsfMethod.'|'.$zsfQ.'|'.$zsfA.'|'.$zsfCode.'|'.$zsfLog);
+		$zsfLogData = implode("\n", $zsfLogDataArr);
+		$zsfFp = fopen( $zsfLogFile, 'w' );
+		fwrite ( $zsfFp, '<?php /*'."\n".$zsfLogData."\n".'*/ ?>' ) ;
+		fclose($zsfFp);
+		}
+
+		// 세션파일 있을 경우 INCLUDE
 		if ( defined( 'zsfSessId' ) && is_file( zsfAr1.'Connect/'.zsfSessId.'.php' ) ) {
 			include zsfAr1.'Connect/'.zsfSessId.'.php';
 			if ( $zsfMethod == 'POST' ) {
 				unlink ( zsfAr1.'Connect/'.zsfSessId.'.php' );
 			}
 		}
-		# 보안코드 입력값의 참, 거짓 검증
+
+function zsfCheck ( $zsfCode, $zsfLog='', $zsfMethod='POST' ) {
+
+		// 기본 변수 설정
+		$zsfCode = stripslashes(trim($zsfCode));
+		$zsfQ = $_SESSION['captcha_keystringQ'];
+		$zsfA = $_SESSION['captcha_keystringA'];
+
+		$thisZsfCfg = array ( 'Passed' => 3, 'Denied' => 3 );
+		if ( isset($zsfCfg['logPassed']) && isset($zsfCfg['logDenied']) ) { $thisZsfCfg['Passed'] = $zsfCfg['Passed']; $thisZsfCfg['Denied'] = $zsfCfg['Denied']; }
+		// 보안코드 입력값의 참, 거짓 검증
 		$zsfR = false;
 		if ( isset($zsfA) && $zsfA && $zsfCode && strtoupper($zsfCode) == $zsfA ) {	# 보안코드의 참 거짓 여부 ( 맞으면 true, 틀리면 false )
 			$zsfR = true;
@@ -426,16 +438,8 @@ else
 			}
 		}
 		$zsfRTxt = $zsfR ? 'Passed' : 'Denied';
-		# 로그 기록
-		zsfLog ( $zsfRTxt, $zsfQ, $zsfA, $zsfCode, $zsfMethod, $zsfLog, $thisZsfCfg[$zsfRTxt] );
+		// 로그 기록
+		zsfLog_write ( $zsfRTxt, $zsfQ, $zsfA, $zsfCode, $zsfMethod, $zsfLog, $thisZsfCfg[$zsfRTxt] );
 		return ($zsfR);
-	}
 }
-if ( isset($_GET['zsfCode']) && trim($_GET['zsfCode']) !='' ) {
-	$zsfLog='';
-	if ( isset($_GET['zsfLog']) ) { $zsfLog = $_GET['zsfLog']; }
-	$rslt = zsfCheck ( $_GET['zsfCode'], $zsfLog, 'AJAX' );
-	echo $rslt*1;
-}
-unset ( $thisZsfCfg );
 ?>

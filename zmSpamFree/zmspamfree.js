@@ -22,7 +22,7 @@ function checkFrm() {
     send = 'zsfCode='+zsfCode;
     
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: url,
         data: send,
         cache: false,
