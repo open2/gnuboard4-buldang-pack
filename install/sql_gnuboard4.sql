@@ -553,7 +553,7 @@ CREATE TABLE `$g4[scrap_table]` (
   `ms_id` int(11) NOT NULL auto_increment,
   `mb_id` varchar(255) NOT NULL default '',
   `bo_table` varchar(20) NOT NULL default '',
-  `wr_id` varchar(15) NOT NULL default '',
+  `wr_id` int(11) NOT NULL default '0',
   `ms_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`ms_id`),
   KEY `mb_id` (`mb_id`)

@@ -946,6 +946,9 @@ if ($config[cf_db_version] < 1211) {
 
 
 if ($config[cf_db_version] < 1216) {
+    // scrap index 오류 수정
+    sql_query(" ALTER TABLE `$g4[scrap_table]` CHANGE `wr_id` `wr_id` INT( 11 ) NOT NULL ", FALSE);
+
     // 메뉴관리
     $sql = "
         CREATE TABLE IF NOT EXISTS `$g4[menu_table]` (
