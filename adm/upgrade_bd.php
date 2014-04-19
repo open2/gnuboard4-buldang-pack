@@ -950,20 +950,6 @@ if ($config[cf_db_version] < 1216) {
     sql_query(" ALTER TABLE `$g4[scrap_table]` CHANGE `wr_id` `wr_id` INT( 11 ) NOT NULL ", FALSE);
 
     // 메뉴관리
-    $sql = "
-        CREATE TABLE IF NOT EXISTS `$g4[menu_table]` (
-          `me_id` int(11) NOT NULL AUTO_INCREMENT,
-          `me_code` varchar(255) NOT NULL DEFAULT '',
-          `me_name` varchar(255) NOT NULL DEFAULT '',
-          `me_link` varchar(255) NOT NULL DEFAULT '',
-          `me_target` varchar(255) NOT NULL DEFAULT '',
-          `me_order` int(11) NOT NULL DEFAULT '0',
-          `me_use` tinyint(4) NOT NULL DEFAULT '0',
-          `me_mobile_use` tinyint(4) NOT NULL DEFAULT '0',
-          PRIMARY KEY (`me_id`)
-        )
-        ";
-    sql_query($sql, FALSE);
 }
 
 // db 버젼을 업데이트 - major version + mid version - patch version
