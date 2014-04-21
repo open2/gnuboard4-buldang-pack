@@ -1,3 +1,117 @@
+1.2.16 (2014.04.20)
+
+그누보드 5에 추가된 메뉴관리 기능을 추가하지 않습니다.
+사용가능한 그런게 아닙니다.
+장기적 관점에서 (1) 후딱 부트스트랩을 메뉴관리를 쓴다 (2) 자체개발한다... 고민중입니다.
+
+
+*** 불당팩 기본 구성요소들 ***
+Jquery 1.10.2 http://jquery.com/
+jQuery Hammer.js 1.1.0dev http://eightmedia.github.io/hammer.js/
+                                    https://github.com/EightMedia/jquery.hammer.js
+Bootstrap 3.1.1 http://getbootstrap.com/ 
+* LESS 수정사항 http://opencode.co.kr/bbs/board.php?bo_table=gnu4_pack&wr_id=1700
+Font-awesome 4.0.3 http://fontawesome.io/
+html5 Shiv 3.7.0 https://github.com/aFarkas/html5shiv
+respond 1.4.2 https://github.com/scottjehl/Respond
+
+DB변경사항
+1. 잘못걸린 데이터 형식... 그누4의 버그 입니다.
+ALTER TABLE `g4_scrap` CHANGE `wr_id` `wr_id` INT( 11 ) NOT NULL
+
+config.php
+common.php
+
+adm/admin.menu300.php
+adm/menu*
+adm/upgrade_db.php
+
+bbs/email_re_certift.php
+
+js/wrest.js
+
+lib/b4.lib.php
+lib/common.lib.php
+
+install/install_db.php
+install/sql_opencode.sql
+
+js/hammer/jquery.hammer-full.js
+js/hammer/jquery.hammer-full.min.js
+
+layout/* (삭제)
+menu/* (삭제)
+
+plugin/kcb/safe_hs_cert2.php
+plugin/kcb/safe_hs_cert3.php
+
+skin/member/basic/email_re_certify.skin.php
+
+zmSpamFree/zmspamfree.js
+zmSpamFree/zmSpamFree.php
+
+- hammer.js 1.1.0 dev
+js/hammer/jquery.hammer-full.js
+js/hammer/jquery.hammer-full.min.js
+
+- zmSpamFree 버그수정
+zmSpamFree/zmspamfree.js
+zmSpamFree/zmSpamFree.php
+
+- 그누보드 4.37.08
+lib/common.lib.php
+    : 4.37.07 버전의 SQL Injection 취약점 해결로 인해 union, information_schema 회원아이디를 사용하지 못하는 것을 보완 
+    ==> union을 막으면 안되는 것이 많아서, union 제한은 제외. 궁극적으로 PDO로 풀어야 하는거임
+    : 1 MB = 1,048,576 bytes 로 문구 변경 
+    ==> 오래전에 수정되어 있었슴. 언제 수정했는지는 기억이 없...
+    : cheditor 5.1 버전으로 업그레이드
+    ==> 아직까지도 불안정...
+
+- 성별 게시판 이동오류 수정
+lib/b4.lib.php
+
+-제목에서 #이 "됬" 글자를 이상하게 바꿔버림
+config.php
+
+- 그누보드4.37.07 (2014.03.24) 
+common.php
+lib/common.lib.php
+    : SQL Injection 취약점 해결 (코코파님께서 알려 주셨습니다.)
+* common.lib.php는 적용을 취소합니다.
+union 자체를 쓸 수 없게 코드를 수정해 버립니다. ㄷㄷㄷ...
+
+- KCB 본인확인 코드변경 (KCB. 새로운 실행파일에 맞춰서)
+plugin/kcb/safe_hs_cert2.php
+plugin/kcb/safe_hs_cert3.php
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=1054
+
+-그누보드 4.37.07 보안패치 (취소됨. 버그로 인해...)
+common.php
+lib/common.lib.php
+http://sir.co.kr/bbs/download.php?bo_table=g4_pds&wr_id=8935&no=1
+4.37.07 (2014.03.19) 
+ : Blind SQL Injection 취약점 문제 해결 (Suninatas팀 2theT0P님께서 알려 주셨습니다.)
+
+- wrest.js수정
+js/wrest.js
+
+- 설치방법 개선 (초기 설치시. 설치화면으로 이동)
+common.php
+lib/common.lib.php
+
+- 설치파일에 mobile paging 추가 ($cf_write_pages_xs = 5)
+install/install_db.php
+
+- 이메일 재인증하기 부트화
+bbs/email_re_certift.php
+skin/member/basic/email_re_certify.skin.php
+http://opencode.co.kr/bbs/email_re_certify.php
+
+- 안쓰는 코드 삭제
+layout/* (삭제)
+menu/* (삭제)
+
+
 1.2.15 (2014.03.07)
 
 KT의 해킹이후 관련된 보안점검을 실시하였고, 몇가지를 보완 하였습니다.
