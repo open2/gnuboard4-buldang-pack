@@ -51,7 +51,7 @@ if ($login_check) {
         $sql = " select count(*) as cnt from $g4[login_fail_log_table] where log_datetime >= '" . date("Y-m-d H:i:s", $g4[server_time] - $config['cf_retry_time_interval'] ) . "' and ip_addr='$remote_addr' ";
         $result = sql_fetch($sql);
         
-        $ip = $_SERVER[REMOTE_ADDR];
+        $ip = $_SERVER['REMOTE_ADDR'];
         if ($result['cnt'] >= $config['cf_retry_count']) {
             $pattern = explode("\n", trim($config['cf_intercept_ip']));
             if (empty($pattern[0])) // ip 차단목록이 비어 있을 때
@@ -61,10 +61,11 @@ if ($login_check) {
             $sql = " update {$g4['config_table']} set cf_intercept_ip = '$cf_intercept_ip' ";
             sql_query($sql);
 
-            alert_close($msg);
+            $msg = "[ERROR:L001] 가입된 회원이 아니거나 패스워드가 틀립니다.";
         } else {
-            alert($msg);
+            $msg = "[ERROR:L002] 가입된 회원이 아니거나 패스워드가 틀립니다.";
         }
+        alert($msg);
     }
     
     alert("가입된 회원이 아니거나 패스워드가 틀립니다.\\n\\n패스워드는 대소문자를 구분합니다.");
