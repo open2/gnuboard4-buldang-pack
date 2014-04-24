@@ -281,6 +281,10 @@ $g4['debug'] = true;
 // 별명으로만 가입을 허용하기
 $g4['nick_reg_only'] = 1;
 
+// 임시글 저장시간 (분단위 입니다. 기본은 5분.)
+// 실제로는 1분 이내만 인정하는게 맞는데, 웹 브라우저가 죽기도 하니 5분을 줍니다.
+$g4['tempsave_time'] = 5;
+
 // 유니크로 - 유니크로 게시판을 쓰는 경우에만 아래의 주석을 풀어주세요.
 //$g4['unicro_item_table']    = $g4['table_prefix'] . "unicro_item"; // 유니크로 아이템 테이블 
 //$g4['unicro_url']           = "unicro" . $g4['cookie_domain'];

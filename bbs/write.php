@@ -448,13 +448,18 @@ if ($_SESSION[ss_tempsave] == "") {
     set_session("ss_tempsave", $g4[server_time]);
 } else {
     $ss_tempsave = $_SESSION[ss_tempsave];
-    // 여유 있게, 5분 이내의 세션만 유효한걸루 인정한다. 실제로는 1분 이내만 인정하는게 맞는거다. 가끔 웹 브라우저가 죽기도 하니 5분 주는거다.
-    $new_time = date("Y-m-d H:i:s", $g4['server_time'] - 60*5 - 1);
-    $sql = " select * from $g4[tempsave_table] where wr_session = '$ss_tempsave' and bo_table='$bo_table' and wr_id= '$wr_id' and wr_datetime > '$new_time' order by tmp_id desc limit 1";
-    $wr = sql_fetch($sql);
-    if ($wr) {
-        $content = get_text(trim($wr[wr_content]), 0);
-        $subject = get_text(trim($wr[wr_subject]), 0);
+
+    // 지정된 시간 범위의 임시저장된 게시글 정보를 가져 옵니다
+    if ($ss_tempsave) {
+        if ($g4['tempsave_time'] == "" || $g4['tempsave_time'] == 0)
+            $g4['tempsave_time'] = 5;
+        $new_time = date("Y-m-d H:i:s", $g4['server_time'] - 60*$g4['tempsave_time'] - 1);
+        $sql = " select * from $g4[tempsave_table] where wr_session = '$ss_tempsave' and bo_table='$bo_table' and wr_id= '$wr_id' and wr_datetime > '$new_time' order by tmp_id desc limit 1";
+        $wr = sql_fetch($sql);
+        if ($wr) {
+            $content = get_text(trim($wr[wr_content]), 0);
+            $subject = get_text(trim($wr[wr_subject]), 0);
+        }
     }
 }
 

@@ -13,10 +13,11 @@ if (substr_count($wr_content, "&#") > 50) {
 
 // 불당팩 - 이전에 저장된 것은 싹~ 지우고, 임시저장 DB에 저장을 해줍니다.
 $ss_tempsave = $_SESSION[ss_tempsave];
-$sql = " delete from $g4[tempsave_table] where wr_session='$ss_tempsave' ";
-sql_query($sql);
-$sql = " delete from $g4[tempsave_table] where bo_table='$bo_table' and mb_id = '$member[mb_id]' ";
-sql_query($sql);
+if ($ss_tempsave) {
+    $sql = " delete from $g4[tempsave_table] where wr_session='$ss_tempsave' ";
+    sql_query($sql);
+}
+
 $sql = " insert into $g4[tempsave_table] 
             set 
                 bo_table='$bo_table', 
@@ -788,8 +789,8 @@ if($board['bo_use_dhtml_editor'])
     }
 }
 
-// 불당팩 - 임시저장된 것을 지워주고 세션도 날립니다.
-$sql = " delete from $g4[tempsave_table] where wr_session = '$ss_tempsave' ";
+// 불당팩 - 임시저장된 것을 모두 지워주고 세션도 날립니다 (ss_tempsave 세션만 지우면 찌꺼기 남을 수 있슴...)
+$sql = " delete from $g4[tempsave_table] where bo_table='$bo_table' and mb_id = '$member[mb_id]' ";
 sql_query($sql);
 set_session("ss_tempsave", "");
 
