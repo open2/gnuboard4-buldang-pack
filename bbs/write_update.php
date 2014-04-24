@@ -11,6 +11,15 @@ if (substr_count($wr_content, "&#") > 50) {
 }
 */
 
+// 같은 글을 여기저기 게시판에 펌 하시는 분들을 위해서. 뒤에서 쓰기 끝낸후에 저장한 것과 비교
+if ($w == "" || $w == "r") {
+    if ($is_admin == "") {
+        $tmp_subject = md5($_SERVER[REMOTE_ADDR].$wr_subject);
+        if ($tmp_subject == $_SESSION['ss_wr_subject'])
+            alert("내용에 올바르지 않은 코드가 다수 포함되어 있습니다.");
+    }
+}
+
 // 불당팩 - 이전에 저장된 것은 싹~ 지우고, 임시저장 DB에 저장을 해줍니다.
 $ss_tempsave = $_SESSION[ss_tempsave];
 if ($ss_tempsave) {
@@ -194,7 +203,7 @@ if ($w == "" || $w == "r")
     $curr_md5 = md5($_SERVER[REMOTE_ADDR].$wr_subject.$wr_content);
     if ($row[prev_md5] == $curr_md5 && !$is_admin)
         alert("동일한 내용을 연속해서 등록할 수 없습니다.", $goto_url);
-} 
+}
 
 // 자동등록방지 검사 - 비회원의 경우만
 if (!$is_member) {
@@ -807,6 +816,14 @@ if($board['bo_use_dhtml_editor'] && $board['bo_chimage']) {
 
 if (file_exists("$board_skin_path/write_update.tail.skin.php"))
     @include_once("$board_skin_path/write_update.tail.skin.php");
+
+// 같은 글을 여기저기 게시판에 펌 하시는 분들을 위해서. 체크는 앞에서.
+if ($w == "" || $w == "r")
+{
+    if ($is_admin == "") {
+        set_session("ss_wr_subject", md5($_SERVER[REMOTE_ADDR].$wr_subject));
+    }
+}
 
 if ($g4[https_url])
     $https_url = "$g4[url]/$g4[bbs]";
