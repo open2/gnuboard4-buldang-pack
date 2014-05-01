@@ -9,7 +9,7 @@ if (!$board[bo_table])
        alert("존재하지 않는 게시판입니다.", $g4[path]);
 }
 
-if ($write[wr_is_comment]) 
+if ($write[wr_is_comment])
 {
     /*
     if ($cwin) // 코멘트 보기
@@ -20,20 +20,20 @@ if ($write[wr_is_comment])
     goto_url("./board.php?bo_table=$bo_table&wr_id=$write[wr_parent]#c_{$wr_id}");
 }
 
-if (!$bo_table) 
+if (!$bo_table)
 {
     $msg = "bo_table 값이 넘어오지 않았습니다.\\n\\nboard.php?bo_table=code 와 같은 방식으로 넘겨 주세요.";
     if ($cwin) // 코멘트 보기
         alert_close($msg);
-    else 
+    else
         alert($msg);
 }
 
-// wr_id 값이 있으면 글읽기 
-if ($wr_id) 
+// wr_id 값이 있으면 글읽기
+if ($wr_id)
 {
     // 글이 없을 경우 해당 게시판 목록으로 이동
-    if (!$write[wr_id]) 
+    if (!$write[wr_id])
     {
         $msg = "글이 존재하지 않습니다.\\n\\n글이 삭제되었거나 이동된 경우입니다.";
         if ($cwin)
@@ -43,48 +43,48 @@ if ($wr_id)
     }
 
     // 그룹접근 사용
-    if ($group[gr_use_access]) 
+    if ($group[gr_use_access])
     {
         if (!$member[mb_id]) {
             $msg = "비회원은 이 게시판에 접근할 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.";
             if ($cwin)
                 alert_close($msg);
-            else 
-                alert($msg, "./login.php?wr_id=$wr_id{$qstr}&url=".urlencode("./board.php?bo_table=$bo_table&wr_id=$wr_id"));
+            else
+                alert($msg, "./login.php?wr_id=$wr_id{$qstr}&url=".urlencode("$_SERVER[PHP_SELF]?bo_table=$bo_table&wr_id=$wr_id"));
         }
 
-        // 그룹관리자 이상이라면 통과 
-        if ($is_admin == "super" || $is_admin == "group") 
-            ; 
-        else 
+        // 그룹관리자 이상이라면 통과
+        if ($is_admin == "super" || $is_admin == "group")
+            ;
+        else
         {
             // 그룹접근
-            $sql = " select count(*) as cnt 
-                       from $g4[group_member_table] 
+            $sql = " select count(*) as cnt
+                       from $g4[group_member_table]
                       where gr_id = '$board[gr_id]' and mb_id = '$member[mb_id]' ";
             $row = sql_fetch($sql);
-            if (!$row[cnt]) 
-                alert("그룹접근 - 접근 권한이 없으므로 글읽기가 불가합니다.\\n\\n궁금하신 사항은 관리자에게 문의 바랍니다.", $g4[path]);
+            if (!$row[cnt])
+                alert("접근 권한이 없으므로 글읽기가 불가합니다.\\n\\n궁금하신 사항은 관리자에게 문의 바랍니다.", $g4[path]);
         }
     }
 
     // 로그인된 회원의 권한이 설정된 읽기 권한보다 작다면
-    if ($member[mb_level] < $board[bo_read_level]) 
+    if ($member[mb_level] < $board[bo_read_level])
     {
-        if ($member[mb_id]) 
+        if ($member[mb_id])
             //alert("글을 읽을 권한이 없습니다.");
             alert("글을 읽을 권한이 없습니다.", $g4[path]);
-        else 
-            alert("글을 읽을 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.", "./login.php?wr_id=$wr_id{$qstr}&url=".urlencode("./board.php?bo_table=$bo_table&wr_id=$wr_id"));
+        else
+            alert("글을 읽을 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.", "./login.php?wr_id=$wr_id{$qstr}&url=".urlencode("$_SERVER[PHP_SELF]?bo_table=$bo_table&wr_id=$wr_id"));
     }
 
     // 자신의 글이거나 관리자라면 통과
     if (($write[mb_id] && $write[mb_id] == $member[mb_id]) || $is_admin)
         ;
-    else 
+    else
     {
         // 비밀글이라면
-        if (strstr($write[wr_option], "secret")) 
+        if (strstr($write[wr_option], "secret"))
         {
             // 기본으로는 비밀글은 볼 수 없다.
             $is_unlock_secret = 0;
@@ -94,12 +94,12 @@ if ($wr_id)
             // 회원이 관리자가 올린 답변글을 바로 볼 수 없던 오류를 수정
             if ($write[wr_reply] && $member[mb_id])
             {
-                $sql = " select mb_id from $write_table 
-                          where wr_num = '$write[wr_num]' 
+                $sql = " select mb_id from $write_table
+                          where wr_num = '$write[wr_num]'
                             and wr_reply = ''
                             and wr_is_comment = '0' ";
                 $row = sql_fetch($sql);
-                if ($row['mb_id'] == $member['mb_id']) 
+                if ($row['mb_id'] == $member['mb_id'])
                     $is_owner = true;
             }
             
@@ -137,8 +137,7 @@ if ($wr_id)
 
     // 한번 읽은글은 브라우저를 닫기전까지는 카운트를 증가시키지 않음
     $ss_name = "ss_view_{$bo_table}_{$wr_id}";
-
-    if (!get_session($ss_name)) 
+    if (!get_session($ss_name))
     {
         sql_query(" update $write_table set wr_hit = wr_hit + 1 where wr_id = '$wr_id' ");
 
@@ -182,7 +181,6 @@ if ($wr_id)
                     }
                 }
             }
-
         }
 
         set_session($ss_name, TRUE);
@@ -190,21 +188,21 @@ if ($wr_id)
 
     // 불당팩 - SEO를 위해서 순서를 변경
     if($cwin)
-        $g4[title] =  strip_tags(conv_subject($write[wr_subject], 255)) . " [코멘트] > $board[bo_subject] > $group[gr_subject]"; 
+        $g4[title] =  strip_tags(conv_subject($write[wr_subject], 255)) . " [코멘트] > $board[bo_subject] > $group[gr_subject]";
     else
-        $g4[title] =  strip_tags(conv_subject($write[wr_subject], 255)) . " > $board[bo_subject] > $group[gr_subject]"; 
-} 
-else 
+        $g4[title] =  strip_tags(conv_subject($write[wr_subject], 255)) . " > $board[bo_subject] > $group[gr_subject]";
+}
+else
 {
-    if ($member[mb_level] < $board[bo_list_level]) 
+    if ($member[mb_level] < $board[bo_list_level])
     {
-        if ($member[mb_id]) 
+        if ($member[mb_id])
             alert("목록을 볼 권한이 없습니다.", $g4[path]);
-        else 
-            alert("목록을 볼 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.", "./login.php?wr_id=$wr_id{$qstr}&url=".urlencode("board.php?bo_table=$bo_table&wr_id=$wr_id"));
+        else
+            alert("목록을 볼 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.", "./login.php?wr_id=$wr_id{$qstr}&url=".urlencode("$_SERVER[PHP_SELF]?bo_table=$bo_table&wr_id=$wr_id"));
     }
 
-    if (!$page) $page = 1; 
+    if (!$page) $page = 1;
 
     $g4[title] = "$group[gr_subject] > $board[bo_subject] $page 페이지";
 }
@@ -213,7 +211,7 @@ include_once("$g4[path]/head.sub.php");
 
 $width = $board[bo_table_width];
 if ($width <= 100)
-    $width .= '%'; 
+    $width .= '%';
 else
     $width .= 'px'; 
 
@@ -236,35 +234,35 @@ if ($board[bo_use_category]) {
 
 // 추천 사용
 $is_good = false;
-if ($board[bo_use_good]) 
+if ($board[bo_use_good])
     $is_good = true;
 
 // 비추천 사용
 $is_nogood = false;
-if ($board[bo_use_nogood]) 
+if ($board[bo_use_nogood])
     $is_nogood = true;
 
 $admin_href = "";
 // 최고관리자 또는 그룹관리자라면
-if ($member[mb_id] && ($is_admin == 'super' || $group[gr_admin] == $member[mb_id])) 
+if ($member[mb_id] && ($is_admin == 'super' || $group[gr_admin] == $member[mb_id]))
     $admin_href = "$g4[admin_path]/board_form.php?w=u&bo_table=$bo_table";
 
-if (!($board[bo_use_comment] && $cwin)) 
+if (!($board[bo_use_comment] && $cwin))
     include_once("./board_head.php");
 
 if (!($board[bo_use_comment] && $cwin)) {
     // 게시물 아이디가 있다면 게시물 보기를 INCLUDE
-    if ($wr_id) 
+    if ($wr_id)
         include_once("./view.php");
 
     // 전체목록보이기 사용이 "예" 또는 wr_id 값이 없다면 목록을 보임
-    //if ($board[bo_use_list_view] || empty($wr_id)) 
+    //if ($board[bo_use_list_view] || empty($wr_id))
     if ($member[mb_level] >= $board[bo_list_level] && $board[bo_use_list_view] || empty($wr_id))
-        include_once ("./list.php"); 
+        include_once ("./list.php");
 
     include_once("./board_tail.php");
 }
-else 
+else
     include_once("./view_comment.php");
 
 echo "\n<!-- 사용스킨 : $board[bo_skin] -->\n";
