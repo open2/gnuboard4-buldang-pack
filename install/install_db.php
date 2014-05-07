@@ -307,6 +307,7 @@ flush(); usleep(50000);
 // 디렉토리 생성
 $dir_arr = array ("../$g4[data]",
                   "../$g4[data]/file",
+                  "../$g4[data]/kcb",
                   "../$g4[data]/log",
                   "../$g4[data]/log/zmSpamFree",
                   "../$g4[data]/member",
