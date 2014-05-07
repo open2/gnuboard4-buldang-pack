@@ -68,6 +68,7 @@ if($ret == 0) {
 		// echo "복호화 요청 호출 성공.<br/>";
 
 		// 결과라인에서 값을 추출
+		$output = iconv($g4['okname_charset'] , $g4['charset'], $output);
 		$field = explode("\n", $output);
 } else {
 		echo "복호화 요청 호출 에러. 리턴값 : ".$ret."<br/>";		 

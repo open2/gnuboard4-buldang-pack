@@ -1,9 +1,10 @@
 <?
 // 사용법
-// 1. php.ini에서 shell_exec(), exec() 함수의 사용을 할 수 있게 설정해야 합니다.
-// 2. g4_member 테이블에, mb_namecheck, mb_realcheck 필드를 datetime 형식으로 생성합니다.
-// 3. 실행화일 okname을 업르드 하고 okname 모듈의 실행권한을 추가(r-x---r-x)해 주셔야 합니다.
-// 4. 로그 디렉토리(plugin/kcb/data)의 권한을 rwx---rwx로 줘야 합니다.
+// 1. g4_member 테이블에, mb_realcheck 필드를 datetime 형식으로 생성합니다.
+// 2. php_okname.so php extension 화일을 업로드 하고 php.ini에 extension을 추가해야 합니다.
+// 3. 로그 디렉토리(date/kcb)의 권한을 rwx---rwx로 줘야 합니다.
+// 4. nc.config.php에서 회원사코드, KCB 실행화일, 로그파일의 위치정보를 수정해야 합니다.
+// 5. 서버의 문자셋과 사이트의 문자셋이 다른 경우에는 $g4['okname_charset']에 값을 넣어줘야 합니다.
 
 // 테스트중일때는. 1로 설정하고 이후에는 0으로 하면 됩니다.
 $kcb_test = 0;
@@ -19,6 +20,9 @@ $kcblog = "/home/opencode/public_html/data/kcb";
 
 // okname 실행화일의 절대경로. 
 $exe = "$kcbpath/okname";
+
+// 서버의 문자셋 - 문자셋이 사이트와 다른 경우에는 수정해주세요 (euc-kr/utf-8)
+$g4['okname_charset'] = $g4['charset'];
 
 // *** 회원사 도메인, $_SERVER["HTTP_HOST"] 사용가능.
 $qryDomain = $_SERVER["HTTP_HOST"];
