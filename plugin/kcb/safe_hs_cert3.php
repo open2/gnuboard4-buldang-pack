@@ -15,11 +15,7 @@ $g4[title] = "KCB(코리아크레딧뷰로) - okname 본인확인";
 
 include_once("$g4[path]/head.sub.php");
 include_once("./nc.config.php");
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<meta http-equiv="content-type" content="text/html; charset=<?=$g4['charset']?>">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<?
+
 /* 공통 리턴 항목 */
 $idcfMbrComCd			=	$_POST["idcf_mbr_com_cd"];		  // 고객사코드
 $hsCertSvcTxSeqno	=	$_POST["hs_cert_svc_tx_seqno"];	// 거래번호
