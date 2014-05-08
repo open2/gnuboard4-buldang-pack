@@ -16,13 +16,11 @@ include_once("./nc.config.php");
     <? if ($member['mb_id'] == "") { ?>
 				<p>회원대상 서비스 입니다. <a href='<?=$g4[bbs_path]?>/login.php?<?=$qstr?>&url=<?=urlencode("$_SERVER[PHP_SELF]")?>'>로그인</a> 하신후 이용해주세요.</p>
     <? } else { ?>
-        <? if ($okname_me) { ?>
-            <? if ($member[mb_realcheck] !== "0000-00-00 00:00:00") { ?>
-                <p><?=$member[mb_realcheck]?> 에 본인인증을 받으셨습니다.</p>
- 	        	<? } else { ?>
-    		    	  <p>본인인증을 받으시려면 <a href="javascript:popup_real();"><strong>이곳</strong></a>을 클릭해주세요.</p>
-       			<? } ?>
-        <? } ?>
+        <? if ($member[mb_realcheck] !== "0000-00-00 00:00:00") { ?>
+            <p><?=$member[mb_realcheck]?> 에 본인인증을 받으셨습니다.</p>
+       	<? } else { ?>
+ 		    	  <p>본인인증을 받으시려면 <a href="javascript:popup_real();"><strong>이곳</strong></a>을 클릭해주세요.</p>
+   			<? } ?>
     <? } ?>
 </div>
 <div class="panel-footer">
