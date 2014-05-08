@@ -1,6 +1,8 @@
 <?
 include_once("_common.php");
 
+$reg_mb_email = $_POST['reg_mb_email'];
+
 if (trim($reg_mb_email)=='') {
     echo "110"; // 입력이 없습니다.
 } else if (!preg_match("/^([0-9a-zA-Z_-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/", $reg_mb_email)) {

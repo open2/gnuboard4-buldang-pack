@@ -24,6 +24,8 @@ if (!function_exists('convert_charset')) {
     }
 }
 
+$reg_mb_nick = $_POST['reg_mb_nick'];
+
 if (strtolower($g4[charset]) == 'euc-kr') 
     $reg_mb_nick = convert_charset('UTF-8','CP949',$reg_mb_nick);
 

@@ -24,6 +24,8 @@ if (!function_exists('convert_charset')) {
     }
 }
 
+$mb_name = $_POST['mb_name'];
+
 $mb_name = convert_charset('UTF-8','CP949',$mb_name);
 
 // 별명은 한글, 영문, 숫자만 가능
