@@ -188,7 +188,6 @@ $g4['rpath']    = "tcp://$g4[rhost]:$g4[rport]?weight=1&auth=$g4[rauth]&database
 
 // redis 기본키 구성 - 참조자료
 // g4_login     : $g4[rdomain] . "_login_" . $remote_addr
-// g4_sideview  : $g4[rdomain] . "_sideview_" . $member[mb_id] . "_" . $board[bo_table]
 
 // cdn 경로를 설정 합니다. (예: http://cdnid.imagetong.com)
 $g4['cdn_path']          = "";
