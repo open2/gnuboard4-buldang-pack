@@ -12,5 +12,4 @@ $filepath = sprintf("%s/%s", SAVE_DIR, $delete);
 $r = unlink($filepath);
 
 echo $r ? true : false;
-
 ?>

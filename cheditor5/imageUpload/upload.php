@@ -13,10 +13,7 @@ require_once("config.php");
 //
 //
 $tempfile = $_FILES['file']['tmp_name'];
-$filename = $_FILES['file']['name'];
-
-// demo.html 파일에서 설정한 SESSID 값입니다.
-//$sessid   = $_POST['sessid'];
+$filename = md5($_SERVER['REMOTE_ADDR']).'_'.$_FILES['file']['name'];
 
 // 저장 파일 이름
 // $savefile = SAVE_DIR . '/' . $_FILES['file']['name'];
