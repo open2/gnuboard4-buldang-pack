@@ -51,17 +51,18 @@ if (preg_match("/[^0-9a-z_]+/i", $mb_id)) {
     alert("회원아이디는 영문자, 숫자, _ 만 사용할수 있습니다.");
 }
 $mb_password = trim(mysql_real_escape_string($_POST[mb_password]));
-$mb_nick = trim(strip_tags(mysql_real_escape_string($_POST[mb_nick])));
-$mb_email = trim(strip_tags(mysql_real_escape_string($_POST[mb_email])));
-$mb_homepage = trim(strip_tags(mysql_real_escape_string($_POST[mb_homepage])));
-$ug_id = trim(strip_tags(mysql_real_escape_string($_POST[ug_id])));
-
 // 닉네임으로 가입하는 경우, $mb_name = $mb_knick
 if ($g4['nick_reg_only'] !== 1) {
     $mb_name = trim(strip_tags(mysql_real_escape_string($_POST[mb_name])));
 } else {
     $mb_name = $mb_nick;
 }
+$mb_nick = trim(strip_tags(mysql_real_escape_string($_POST[mb_nick])));
+$mb_email = trim(strip_tags(mysql_real_escape_string($_POST[mb_email])));
+$mb_homepage = trim(strip_tags(mysql_real_escape_string($_POST[mb_homepage])));
+$mb_email = str_replace('\\', '', $mb_email);
+$mb_homepage = str_replace('\\', '', $mb_homepage);
+$ug_id = trim(strip_tags(mysql_real_escape_string($_POST[ug_id])));
 
 if ($w == '' || $w == 'u') 
 {
