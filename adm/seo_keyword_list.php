@@ -113,7 +113,11 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 {
     if ($row[bo_table]) {
         $tmp_write_table = $g4[write_prefix] . $row[bo_table];
-        $write = sql_fetch("select * from $tmp_write_table where wr_id = $row[wr_id] ");
+        $write = sql_fetch("select * from $tmp_write_table where wr_id = $row[wr_id] ", FALSE);
+        
+        if ($write['wr_subject'] == "") {
+            $write['wr_subject'] = "삭제된 게시판";
+        }
     }
     echo "
     <input type=hidden name=tag_id[$i] value='$row[tag_id]'>
