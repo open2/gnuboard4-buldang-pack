@@ -468,8 +468,12 @@ else
     // 회원아이디가 쿠키에 저장되어 있다면 (3.27)
     if ($tmp_mb_id = get_cookie("ck_mb_id"))
     {
-        // 불당팩 - 암호화된 쿠키를 디코드
-        $tmp_mb_id = decrypt( $tmp_mb_id, $g4[encrypt_key]); 
+        // 불당팩 - 암호화된 쿠키값을 이용해서 mb_id를 가져온다
+        $sql = " select * from $g4[cookie_table] where cookie_name='$tmp_mb_id' ";
+        $mb_cookie = sql_fetch($sql);
+
+        $tmp_mb_id = $mb_cookie['cookie_value'];
+        $tmp_key = $mb_cookie['cookie_key'];
 
         $tmp_mb_id = substr(preg_replace("/[^a-zA-Z0-9_]*/", "", $tmp_mb_id), 0, 20);
         // 최고관리자는 자동로그인 금지
@@ -478,13 +482,10 @@ else
             $row = get_member("$tmp_mb_id", "mb_no, mb_password, mb_intercept_date, mb_leave_date, mb_email_certify");
             if ($g4['load_balance']) {
                 $key = md5($g4['load_balance'] . $_SERVER['HTTP_USER_AGENT'] . $row['mb_password'] . $row['mb_no']);
-                //$key = md5($g4['load_balance'] . $_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT'] . $row['mb_password']);
             } else {
                 $key = md5($_SERVER['SERVER_ADDR'] . $_SERVER['HTTP_USER_AGENT'] . $row['mb_password'] . $row['mb_no']);
-                //$key = md5($_SERVER['SERVER_ADDR'] . $_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT'] . $row['mb_password']);
             }
             // 쿠키에 저장된 키와 같다면
-            $tmp_key = get_cookie("ck_auto");
             if ($tmp_key == $key && $tmp_key)
             {
                 // 차단, 탈퇴가 아니고 메일인증이 사용이면서 인증을 받았다면

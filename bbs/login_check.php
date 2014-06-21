@@ -176,20 +176,25 @@ if ($auto_login) {
     // 쿠키 한달간 저장
     if ($g4['load_balance']) {
         $key = md5($g4['load_balance'] . $_SERVER[HTTP_USER_AGENT] . $mb[mb_password] . $mb['mb_no']);
-        //$key = md5($g4['load_balance'] . $_SERVER[REMOTE_ADDR] . $_SERVER[HTTP_USER_AGENT] . $mb[mb_password]);
     } else {
         $key = md5($_SERVER[SERVER_ADDR] . $_SERVER[HTTP_USER_AGENT] . $mb[mb_password] . $mb['mb_no']);
-        //$key = md5($_SERVER[SERVER_ADDR] . $_SERVER[REMOTE_ADDR] . $_SERVER[HTTP_USER_AGENT] . $mb[mb_password]);
     }
-    // 불당팩 - 쿠키를 암호화 하여 저장
-    //set_cookie('ck_mb_id', $mb[mb_id], 86400 * 31);
-    $mb_key = encrypt($mb[mb_id],$g4[encrypt_key]);
-    set_cookie('ck_mb_id', $mb_key, 86400 * 31);
-    set_cookie('ck_auto', $key, 86400 * 31);
+
+    // 불당팩 - unique한 값을 생성해 줍니다
+    $uid = md5(uniqid($_SERVER[SERVER_ADDR], true));
+
+    // cookie DB에서 key가 같은 경우를 모두 삭제해줍니다
+    $sql = " delete from $g4[cookie_table] where cookie_key='$key' ";
+    sql_query($sql);
+
+    // 쿠키와 Key를 DB에 저장
+    $sql = " insert into $g4[cookie_table] set cookie_name='$uid', cookie_value='$mb[mb_id]', cookie_key='$key', cookie_datetime='$g4[time_ymdhis]' ";
+    sql_query($sql);
+
+    set_cookie('ck_mb_id', $uid, 86400 * 31);
     // 자동로그인 end ---------------------------
 } else {
     set_cookie('ck_mb_id', '', 0);
-    set_cookie('ck_auto', '', 0);
 }
 
 // 불당팩 - 아이디 자동저장

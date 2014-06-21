@@ -121,6 +121,7 @@ $g4['banner_click_sum_table']   = $g4['table_prefix'] . "banner_click_sum";     
 $g4['category_table']       = $g4['table_prefix'] . "category";           // 카테고리 테이블
 $g4['admin_log_table']      = $g4['table_prefix'] . "admin_log";          // 관리자 log 테이블
 $g4['menu_table']           = $g4['table_prefix'] . "menu";               // 메뉴관리 테이블
+$g4['cookie_table']         = $g4['table_prefix'] . "cookie";             // cookie 테이블
 
 // 곱슬최씨 (배추팁)
 $mw['table_prefix'] = $g4['table_prefix']."mw_";
