@@ -952,8 +952,26 @@ if ($config[cf_db_version] < 1216) {
     // 메뉴관리
 }
 
+if ($config[cf_db_version] < 1216) {
+
+    $sql = "
+        CREATE TABLE IF NOT EXISTS `$g4[cookie_table]` (
+          `cookie_id` int(11) NOT NULL AUTO_INCREMENT,
+          `cookie_name` varchar(255) NOT NULL,
+          `cookie_value` varchar(255) NOT NULL,
+          `cookie_key` varchar(255) NOT NULL,
+          `cookie_datetime` datetime NOT NULL,
+          PRIMARY KEY (`cookie_id`),
+          UNIQUE KEY `cookie_id` (`cookie_id`),
+          KEY `cookie_name` (`cookie_name`),
+          KEY `cookie_datetime` (`cookie_datetime`)
+        )
+            ";
+    sql_query($sql, FALSE);
+}
+
 // db 버젼을 업데이트 - major version + mid version - patch version
-$max_version = "1211";
+$max_version = "1300";
 sql_query(" update $g4[config_table] set cf_db_version = '$max_version' ");
 
 echo "불당팩 $max_version - UPGRADE 완료.";

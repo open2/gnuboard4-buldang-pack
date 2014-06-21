@@ -1156,3 +1156,15 @@ ADD `wr_datetime` DATETIME NOT NULL AFTER `wr_ip` ;
 ALTER TABLE `$g4[singo_table]` ADD INDEX `sg_datetime` ( `sg_datetime` );
 ALTER TABLE `$g4[member_table]` ADD `mb_singo_datetime` DATETIME NOT NULL;
 ALTER TABLE `$g4[member_table]` ADD `mb_singo` INT( 11 ) NOT NULL;
+
+CREATE TABLE IF NOT EXISTS `$g4[cookie_table]` (
+  `cookie_id` int(11) NOT NULL AUTO_INCREMENT,
+  `cookie_name` varchar(255) NOT NULL,
+  `cookie_value` varchar(255) NOT NULL,
+  `cookie_key` varchar(255) NOT NULL,
+  `cookie_datetime` datetime NOT NULL,
+  PRIMARY KEY (`cookie_id`),
+  UNIQUE KEY `cookie_id` (`cookie_id`),
+  KEY `cookie_name` (`cookie_name`),
+  KEY `cookie_datetime` (`cookie_datetime`)
+);
