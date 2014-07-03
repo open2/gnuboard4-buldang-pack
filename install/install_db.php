@@ -336,6 +336,9 @@ $str = <<<EOD
 Order allow,deny 
 Deny from all
 </FilesMatch>
+<IfModule mod_headers.c>
+Header set Content-Disposition attachment 
+</IfModule>
 EOD;
 fwrite($f, $str);
 fclose($f);
