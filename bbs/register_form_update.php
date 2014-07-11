@@ -267,9 +267,24 @@ if ($w == "")
     sql_query($sql2);
 
     // 회원님께 메일 발송
-    if ($config[cf_email_mb_member]) 
+    // 메일인증을 사용하면 인증메일을 발송. 메일만 쓰면 감사메일 발송 - 불당팩
+    if ($config[cf_use_email_certify])
     {
-        $subject = "회원가입을 축하드립니다.";
+        $subject = "인증확인 메일입니다. " . $config['cf_title'];
+
+        $mb_md5 = md5($mb_id.$mb_email.$member[mb_datetime]);
+        $certify_href = "$g4[url]/$g4[bbs]/email_certify.php?mb_id=$mb_id&mb_md5=$mb_md5";
+        
+        ob_start();
+        include_once ("./register_form_update_mail3.php");
+        $content = ob_get_contents();
+        ob_end_clean();
+
+        mailer($config['cf_title'], $config['cf_admin_email'], $mb_email, $subject, $content, 1);
+    } else
+    if ($config[cf_email_mb_member])
+    {
+        $subject = "회원가입을 축하드립니다. " . $config['cf_title'];
 
         $mb_md5 = md5($mb_id.$mb_email.$g4[time_ymdhis]);
         $certify_href = "$g4[url]/$g4[bbs]/email_certify.php?mb_id=$mb_id&mb_md5=$mb_md5";
@@ -312,7 +327,7 @@ if ($w == "")
     }
 
     // 메일인증 사용하지 않는 경우에만 로그인
-    if (!$config[cf_use_email_certify]) 
+    if (!$config[cf_use_email_certify])
         set_session("ss_mb_id", $mb_id);
 
     set_session("ss_mb_reg", $mb_id);
