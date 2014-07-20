@@ -76,6 +76,7 @@ if (empty($_POST))
 $w = $_POST['w'];
 $wr_link1 = mysql_real_escape_string(strip_tags($_POST['wr_link1']));
 $wr_link2 = mysql_real_escape_string(strip_tags($_POST['wr_link2']));
+$wr_email = mysql_real_escape_string(strip_tags($_POST['wr_email']));
 
 $notice_array = explode("\n", trim($board[bo_notice]));
 
@@ -250,8 +251,9 @@ for ($i=0; $i<count($_FILES[bf_file][name]); $i++)
         $upload[$i][del_check] = false;
 
     $tmp_file  = $_FILES[bf_file][tmp_name][$i];
-    $filename  = $_FILES[bf_file][name][$i];
     $filesize  = $_FILES[bf_file][size][$i];
+    $filename  = $_FILES[bf_file][name][$i];
+    $filename  = preg_replace('/(\s|\<|\>|\=|\(|\))/', '_', $filename);
 
     // 서버에 설정된 값보다 큰파일을 업로드 한다면
     if ($filename)
@@ -430,8 +432,6 @@ if ($w == "" || $w == "r")
     sql_query(" update $write_table set wr_parent = '$wr_id' where wr_id = '$wr_id' ");
 
     // 새글 INSERT
-    //sql_query(" insert into $g4[board_new_table] ( bo_table, wr_id, wr_parent, bn_datetime ) values ( '$bo_table', '$wr_id', '$wr_id', '$g4[time_ymdhis]' ) ");
-    //sql_query(" insert into $g4[board_new_table] ( bo_table, wr_id, wr_parent, bn_datetime, mb_id ) values ( '$bo_table', '$wr_id', '$wr_id', '$g4[time_ymdhis]', '$member[mb_id]' ) ");
     sql_query(" insert into $g4[board_new_table] ( bo_table, wr_id, wr_parent, bn_datetime, mb_id, wr_is_comment, gr_id, wr_option, parent_mb_id) 
                 values ( '$bo_table', '$wr_id', '$wr_id', '$g4[time_ymdhis]', '$member[mb_id]', '0', '$gr_id', '$secret', '$parent_mb_id[mb_id]') "); 
     
