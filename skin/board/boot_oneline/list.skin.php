@@ -22,25 +22,6 @@ function emoticon_html($str, $board_skin_path)
    	$img_src = "<img src='$board_skin_path/emoticons/" . $emo_file . "' border=0 alt=''> ";
 	  return $img_src;
 }
-
-/*
-else if ($w == "r")
-{
-    if ($member[mb_level] < $board[bo_reply_level]) {
-        if ($member[mb_id])
-            alert("글을 답변할 권한이 없습니다.");
-        else
-            alert("글을 답변할 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.", "./login.php?$qstr&url=".urlencode("$_SERVER[PHP_SELF]?bo_table=$bo_table"));
-    }
-
-    $tmp_point = $member[mb_point] ? $member[mb_point] : 0;
-    if ($tmp_point + $board[bo_write_point] < 0 && !$is_admin)
-        alert("보유하신 포인트(".number_format($member[mb_point]).")가 없거나 모자라서 글답변(".number_format($board[bo_comment_point]).")가 불가합니다.\\n\\n포인트를 적립하신 후 다시 글답변 해 주십시오.");
-
-    //if (preg_match("/[^0-9]{0,1}{$wr_id}[\r]{0,1}/",$board[bo_notice]))
-    if (in_array((int)$wr_id, $notice_array))
-        alert("공지에는 답변 할 수 없습니다.");
-*/
 ?>
 <? if (!$member[mb_id] || $member[mb_level] >= $board[bo_write_level] ||($is_admin && $w == 'u' && $member[mb_id] != $write[mb_id]))
       include ("$board_skin_path/write.skin.php"); 

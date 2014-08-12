@@ -101,7 +101,7 @@ if ($is_notice || $is_secret || $is_mail) {
                     echo "<li><img class='emoticon' id='$i' src='$board_skin_path/emoticons/$i.png' style='cursor:pointer'></li>";
                 }
                 ?>
-                <li><a href='#' onclick="$('#collapseOne').collapse('hide');$('#smiley').attr('src','');$('wr_subject').val('no-image')" class="btn btn-default btn-sm" style="margin-top:5px;">이모티콘없애기</a></li>
+                <li><a href='#' onclick="$('#collapseOne').collapse('hide');$('#smiley').attr('src','');$('#wr_subject').val('no-image')" class="btn btn-default btn-sm" style="margin-top:5px;">이모티콘없애기</a></li>
             </ul>
         </div>
         
