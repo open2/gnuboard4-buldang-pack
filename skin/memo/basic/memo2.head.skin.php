@@ -9,13 +9,13 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <div class="pull-left" style="margin-left:5px;">
         <a href="<?=$g4[memo_url]?>?kind=notice" class="btn btn-default navbar-toggle" id="notice">공지</a>
         <a href="<?=$g4[memo_url]?>?kind=save" class="btn btn-default navbar-toggle" id="save">보관</a>
-        <a href="<?=$g4[memo_url]?>?kind=write" class="btn btn-default navbar-toggle" id="write"><strong>보내기</strong></a>
         <a href="<?=$g4[memo_url]?>?kind=send" class="btn btn-default navbar-toggle" id="send"><strong>발신</strong></a>
         <a href="<?=$g4[memo_url]?>?kind=recv" class="btn btn-default navbar-toggle" id="recv"><strong>수신</strong></a>
     </div>
     <button type="button" class="btn btn-default navbar-toggle" data-toggle="collapse" data-target=".navbar-top-menu-collapse">
         <i class="glyphicon glyphicon-list"></i>
     </button>
+    <a href="<?=$g4[memo_url]?>?kind=write" class="btn btn-default navbar-toggle" id="write"><strong>보내기</strong></a>
 </div>
 
 <div class="collapse navbar-collapse navbar-top-menu-collapse">
