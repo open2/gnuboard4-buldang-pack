@@ -94,9 +94,12 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 </div>
 <? } ?>
 
+<div class="pull-left">
+    <a class="btn btn-default" href='<?=$memo_url?>?kind=recv'>List</a>
+</div>
+
 <div class="pull-right">
     <button type="submit" class="btn btn-success" id="btn_submit">Send</button>&nbsp;&nbsp;&nbsp;
-    <a class="btn btn-default" href='<?=$memo_url?>?kind=recv'>List</a>
 </div>
 
 </div>
