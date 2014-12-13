@@ -1,5 +1,4 @@
 <?
-$g4[title] = $wr_subject . "글입력";
 include_once("./_common.php");
 
 $g4[title] = $wr_subject . "글입력";
