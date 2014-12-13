@@ -46,7 +46,14 @@ if ($config[cf_use_norobot]) {
     if ( !zsfCheck( $_POST['wr_key'], 'sms_admin' ) ) { alert ('스팸차단코드가 틀렸습니다.'); }    
 }
 
-$mb_id = trim(strip_tags(mysql_real_escape_string($_POST[mb_id])));
+//$mb_id = trim(strip_tags(mysql_real_escape_string($_POST[mb_id])));
+if($w == 'u')
+    $mb_id = isset($_SESSION['ss_mb_id']) ? trim($_SESSION['ss_mb_id']) : '';
+else if($w == '')
+    $mb_id = trim(strip_tags(mysql_real_escape_string($_POST[mb_id])));
+else
+    alert('잘못된 접근입니다', $g4[url]);
+
 if (preg_match("/[^0-9a-z_]+/i", $mb_id)) {
     alert("회원아이디는 영문자, 숫자, _ 만 사용할수 있습니다.");
 }
