@@ -1,4 +1,5 @@
 <?
+$g4[title] = $wr_subject . "글입력";
 include_once("./_common.php");
 
 $g4[title] = $wr_subject . "글입력";
@@ -216,136 +217,6 @@ if (!$is_member) {
 
 if (!isset($_POST[wr_subject]) || !trim($_POST[wr_subject])) 
     alert("제목을 입력하여 주십시오.", $goto_url); 
-
-// 디렉토리가 없다면 생성합니다. (퍼미션도 변경하구요.)
-@mkdir("$g4[data_path]/file/$bo_table", 0707);
-@chmod("$g4[data_path]/file/$bo_table", 0707);
-
-// 년월별로 데이터를 저장하게, $ym을 구한다 - 불당팩
-$data_dir = dirname($g4[data_path] . "/nothing");
-$ym = date("ym", $g4[server_time]);
-@mkdir("$g4[data_path]/file/$bo_table/$ym", 0707);
-@chmod("$g4[data_path]/file/$bo_table/$ym", 0707);
-
-// "인터넷옵션 > 보안 > 사용자정의수준 > 스크립팅 > Action 스크립팅 > 사용 안 함" 일 경우의 오류 처리
-// 이 옵션을 사용 안 함으로 설정할 경우 어떤 스크립트도 실행 되지 않습니다.
-//if (!$_POST[wr_content]) die ("내용을 입력하여 주십시오.");
-
-$chars_array = array_merge(range(0,9), range('a','z'), range('A','Z'));
-//print_r2($chars_array); exit;
-
-// 가변 파일 업로드
-$file_upload_msg = "";
-$upload = array();
-for ($i=0; $i<count($_FILES[bf_file][name]); $i++) 
-{
-    // 삭제에 체크가 되어있다면 파일을 삭제합니다.
-    if ($_POST[bf_file_del][$i]) 
-    {
-        $upload[$i][del_check] = true;
-
-        $row = sql_fetch(" select bf_file from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_no = '$i' ");
-        @unlink("$g4[data_path]/file/$bo_table/$row[bf_file]");
-    }
-    else
-        $upload[$i][del_check] = false;
-
-    $tmp_file  = $_FILES[bf_file][tmp_name][$i];
-    $filesize  = $_FILES[bf_file][size][$i];
-    $filename  = $_FILES[bf_file][name][$i];
-    $filename  = preg_replace('/(\s|\<|\>|\=|\(|\))/', '_', $filename);
-
-    // 서버에 설정된 값보다 큰파일을 업로드 한다면
-    if ($filename)
-    {
-        if ($_FILES[bf_file][error][$i] == 1)
-        {
-            $file_upload_msg .= "\'{$filename}\' 파일의 용량이 서버에 설정($upload_max_filesize)된 값보다 크므로 업로드 할 수 없습니다.\\n";
-            continue;
-        }
-        else if ($_FILES[bf_file][error][$i] != 0)
-        {
-            $file_upload_msg .= "\'{$filename}\' 파일이 정상적으로 업로드 되지 않았습니다.\\n";
-            continue;
-        }
-    }
-
-    if (is_uploaded_file($tmp_file)) 
-    {
-        // 관리자가 아니면서 설정한 업로드 사이즈보다 크다면 건너뜀
-        if (!$is_admin && $filesize > $board[bo_upload_size]) 
-        {
-            $file_upload_msg .= "\'{$filename}\' 파일의 용량(".number_format($filesize)." 바이트)이 게시판에 설정(".number_format($board[bo_upload_size])." 바이트)된 값보다 크므로 업로드 하지 않습니다.\\n";
-            continue;
-        }
-
-        //=================================================================\
-        // 090714
-        // 이미지나 플래시 파일에 악성코드를 심어 업로드 하는 경우를 방지
-        // 에러메세지는 출력하지 않는다.
-        //-----------------------------------------------------------------
-        $timg = @getimagesize($tmp_file);
-        // image type
-        if ( preg_match("/\.($config[cf_image_extension])$/i", $filename) ||
-             preg_match("/\.($config[cf_flash_extension])$/i", $filename) ) 
-        {
-            if ($timg[2] < 1 || $timg[2] > 16)
-            {
-                //$file_upload_msg .= "\'{$filename}\' 파일이 이미지나 플래시 파일이 아닙니다.\\n";
-                continue;
-            }
-        }
-        //=================================================================
-
-        $upload[$i][image] = $timg;
-
-        // 4.00.11 - 글답변에서 파일 업로드시 원글의 파일이 삭제되는 오류를 수정
-        if ($w == 'u')
-        {
-            // 존재하는 파일이 있다면 삭제합니다.
-            $row = sql_fetch(" select bf_file from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_no = '$i' ");
-            @unlink("$g4[data_path]/file/$bo_table/$row[bf_file]");
-        }
-
-        // 프로그램 원래 파일명
-        $upload[$i][source] = $filename;
-        $upload[$i][filesize] = $filesize;
-
-        // 아래의 문자열이 들어간 파일은 -x 를 붙여서 웹경로를 알더라도 실행을 하지 못하도록 함
-        $filename = preg_replace("/\.(php|phtm|htm|cgi|pl|exe|jsp|asp|inc)/i", "$0-x", $filename);
-
-        // 접미사를 붙인 파일명
-        //$upload[$i][file] = abs(ip2long($_SERVER[REMOTE_ADDR])).'_'.substr(md5(uniqid($g4[server_time])),0,8).'_'.urlencode($filename);
-        // 달빛온도님 수정 : 한글파일은 urlencode($filename) 처리를 할경우 '%'를 붙여주게 되는데 '%'표시는 미디어플레이어가 인식을 못하기 때문에 재생이 안됩니다. 그래서 변경한 파일명에서 '%'부분을 빼주면 해결됩니다. 
-        //$upload[$i][file] = abs(ip2long($_SERVER[REMOTE_ADDR])).'_'.substr(md5(uniqid($g4[server_time])),0,8).'_'.str_replace('%', '', urlencode($filename)); 
-        shuffle($chars_array);
-        $shuffle = implode("", $chars_array);
-        // 불당팩 - ip주소를 그대로 노출하는 것이라 timestamp로 변경
-        //$upload[$i][file] = abs(ip2long($_SERVER[REMOTE_ADDR])).'_'.substr($shuffle,0,8).'_'.str_replace('%', '', urlencode($filename)); 
-        // 첨부파일 첨부시 첨부파일명에 공백이 포함되어 있으면 일부 PC에서 보이지 않거나 다운로드 되지 않는 현상이 있습니다. (길상여의 님 090925)
-        //$upload[$i][file] = time().'_'.substr($shuffle,0,8).'_'.str_replace('%', '', urlencode($filename));
-        
-        // 파일이름이 255글자를 넘으면 문제가 생길 수 있어서, 임의의 이름으로 바꿔버립니다. 어쩔 수 없습니다.
-        if (strlen(str_replace('%', '', urlencode(str_replace(' ', '_', $filename)))) > 200)
-            $upload[$i][file] = time().'_'.substr($shuffle,0,8).'_'.md5(uniqid($g4[server_time]));
-        else
-            $upload[$i][file] = time().'_'.substr($shuffle,0,8).'_'.str_replace('%', '', urlencode(str_replace(' ', '_', $filename)));
-
-        // 연월($ym)별로 첨부파일을 분리하여 업로드 - 불당팩
-        $upload[$i][file] = $ym . "/" . $upload[$i][file];
-
-        $dest_file = "$g4[data_path]/file/$bo_table/" . $upload[$i][file];
-
-        // 업로드가 안된다면 에러메세지 출력하고 죽어버립니다.
-        $error_code = move_uploaded_file($tmp_file, $dest_file) or die($_FILES[bf_file][error][$i]);
-
-        // 올라간 파일의 퍼미션을 변경합니다.
-        chmod($dest_file, 0606);
-
-        //$upload[$i][image] = @getimagesize($dest_file);
-
-    }
-}
 
 if ($w == "" || $w == "r") 
 {
@@ -590,6 +461,135 @@ else if ($w == "u")
     }
 }
 
+// 디렉토리가 없다면 생성합니다. (퍼미션도 변경하구요.)
+@mkdir("$g4[data_path]/file/$bo_table", 0707);
+@chmod("$g4[data_path]/file/$bo_table", 0707);
+
+// 년월별로 데이터를 저장하게, $ym을 구한다 - 불당팩
+$data_dir = dirname($g4[data_path] . "/nothing");
+$ym = date("ym", $g4[server_time]);
+@mkdir("$g4[data_path]/file/$bo_table/$ym", 0707);
+@chmod("$g4[data_path]/file/$bo_table/$ym", 0707);
+
+// "인터넷옵션 > 보안 > 사용자정의수준 > 스크립팅 > Action 스크립팅 > 사용 안 함" 일 경우의 오류 처리
+// 이 옵션을 사용 안 함으로 설정할 경우 어떤 스크립트도 실행 되지 않습니다.
+//if (!$_POST[wr_content]) die ("내용을 입력하여 주십시오.");
+
+$chars_array = array_merge(range(0,9), range('a','z'), range('A','Z'));
+//print_r2($chars_array); exit;
+
+// 가변 파일 업로드
+$file_upload_msg = "";
+$upload = array();
+for ($i=0; $i<count($_FILES[bf_file][name]); $i++) 
+{
+    // 삭제에 체크가 되어있다면 파일을 삭제합니다.
+    if ($_POST[bf_file_del][$i]) 
+    {
+        $upload[$i][del_check] = true;
+
+        $row = sql_fetch(" select bf_file from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_no = '$i' ");
+        @unlink("$g4[data_path]/file/$bo_table/$row[bf_file]");
+    }
+    else
+        $upload[$i][del_check] = false;
+
+    $tmp_file  = $_FILES[bf_file][tmp_name][$i];
+    $filesize  = $_FILES[bf_file][size][$i];
+    $filename  = $_FILES[bf_file][name][$i];
+    $filename  = preg_replace('/(\s|\<|\>|\=|\(|\))/', '_', $filename);
+
+    // 서버에 설정된 값보다 큰파일을 업로드 한다면
+    if ($filename)
+    {
+        if ($_FILES[bf_file][error][$i] == 1)
+        {
+            $file_upload_msg .= "\'{$filename}\' 파일의 용량이 서버에 설정($upload_max_filesize)된 값보다 크므로 업로드 할 수 없습니다.\\n";
+            continue;
+        }
+        else if ($_FILES[bf_file][error][$i] != 0)
+        {
+            $file_upload_msg .= "\'{$filename}\' 파일이 정상적으로 업로드 되지 않았습니다.\\n";
+            continue;
+        }
+    }
+
+    if (is_uploaded_file($tmp_file)) 
+    {
+        // 관리자가 아니면서 설정한 업로드 사이즈보다 크다면 건너뜀
+        if (!$is_admin && $filesize > $board[bo_upload_size]) 
+        {
+            $file_upload_msg .= "\'{$filename}\' 파일의 용량(".number_format($filesize)." 바이트)이 게시판에 설정(".number_format($board[bo_upload_size])." 바이트)된 값보다 크므로 업로드 하지 않습니다.\\n";
+            continue;
+        }
+
+        //=================================================================\
+        // 090714
+        // 이미지나 플래시 파일에 악성코드를 심어 업로드 하는 경우를 방지
+        // 에러메세지는 출력하지 않는다.
+        //-----------------------------------------------------------------
+        $timg = @getimagesize($tmp_file);
+        // image type
+        if ( preg_match("/\.($config[cf_image_extension])$/i", $filename) ||
+             preg_match("/\.($config[cf_flash_extension])$/i", $filename) ) 
+        {
+            if ($timg[2] < 1 || $timg[2] > 16)
+            {
+                //$file_upload_msg .= "\'{$filename}\' 파일이 이미지나 플래시 파일이 아닙니다.\\n";
+                continue;
+            }
+        }
+        //=================================================================
+
+        $upload[$i][image] = $timg;
+
+        // 4.00.11 - 글답변에서 파일 업로드시 원글의 파일이 삭제되는 오류를 수정
+        if ($w == 'u')
+        {
+            // 존재하는 파일이 있다면 삭제합니다.
+            $row = sql_fetch(" select bf_file from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_no = '$i' ");
+            @unlink("$g4[data_path]/file/$bo_table/$row[bf_file]");
+        }
+
+        // 프로그램 원래 파일명
+        $upload[$i][source] = $filename;
+        $upload[$i][filesize] = $filesize;
+
+        // 아래의 문자열이 들어간 파일은 -x 를 붙여서 웹경로를 알더라도 실행을 하지 못하도록 함
+        $filename = preg_replace("/\.(php|phtm|htm|cgi|pl|exe|jsp|asp|inc)/i", "$0-x", $filename);
+
+        // 접미사를 붙인 파일명
+        //$upload[$i][file] = abs(ip2long($_SERVER[REMOTE_ADDR])).'_'.substr(md5(uniqid($g4[server_time])),0,8).'_'.urlencode($filename);
+        // 달빛온도님 수정 : 한글파일은 urlencode($filename) 처리를 할경우 '%'를 붙여주게 되는데 '%'표시는 미디어플레이어가 인식을 못하기 때문에 재생이 안됩니다. 그래서 변경한 파일명에서 '%'부분을 빼주면 해결됩니다. 
+        //$upload[$i][file] = abs(ip2long($_SERVER[REMOTE_ADDR])).'_'.substr(md5(uniqid($g4[server_time])),0,8).'_'.str_replace('%', '', urlencode($filename)); 
+        shuffle($chars_array);
+        $shuffle = implode("", $chars_array);
+        // 불당팩 - ip주소를 그대로 노출하는 것이라 timestamp로 변경
+        //$upload[$i][file] = abs(ip2long($_SERVER[REMOTE_ADDR])).'_'.substr($shuffle,0,8).'_'.str_replace('%', '', urlencode($filename)); 
+        // 첨부파일 첨부시 첨부파일명에 공백이 포함되어 있으면 일부 PC에서 보이지 않거나 다운로드 되지 않는 현상이 있습니다. (길상여의 님 090925)
+        //$upload[$i][file] = time().'_'.substr($shuffle,0,8).'_'.str_replace('%', '', urlencode($filename));
+        
+        // 파일이름이 255글자를 넘으면 문제가 생길 수 있어서, 임의의 이름으로 바꿔버립니다. 어쩔 수 없습니다.
+        if (strlen(str_replace('%', '', urlencode(str_replace(' ', '_', $filename)))) > 200)
+            $upload[$i][file] = time().'_'.substr($shuffle,0,8).'_'.md5(uniqid($g4[server_time]));
+        else
+            $upload[$i][file] = time().'_'.substr($shuffle,0,8).'_'.str_replace('%', '', urlencode(str_replace(' ', '_', $filename)));
+
+        // 연월($ym)별로 첨부파일을 분리하여 업로드 - 불당팩
+        $upload[$i][file] = $ym . "/" . $upload[$i][file];
+
+        $dest_file = "$g4[data_path]/file/$bo_table/" . $upload[$i][file];
+
+        // 업로드가 안된다면 에러메세지 출력하고 죽어버립니다.
+        $error_code = move_uploaded_file($tmp_file, $dest_file) or die($_FILES[bf_file][error][$i]);
+
+        // 올라간 파일의 퍼미션을 변경합니다.
+        chmod($dest_file, 0606);
+
+        //$upload[$i][image] = @getimagesize($dest_file);
+
+    }
+}
 
 //------------------------------------------------------------------------------
 // 가변 파일 업로드
