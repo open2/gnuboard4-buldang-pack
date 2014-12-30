@@ -37,26 +37,6 @@ function out(id)
 <? } ?>
 
 <?
-// wr_content의 내용을 역으로 풀어줍니다 - 이미지맵에 꼭 필요합니다. /board/cheditor_popup/view.skin.php에도 같은 코드를 넣어야 합니다.
-function conv_content_rev($content, $writeContents_id, $wr_option)
-{
-    $content = preg_replace("/\&lt\;/", "<", $content);
-    $content = preg_replace("/\&gt\;/", ">", $content);
-    $content = preg_replace("/area/", "area onmouseover=\"over('{$writeContents_id}', 'pointer');\" onmouseout=\"out('{$writeContents_id}');\" ", $content);
-
-		if (!strstr($wr_option, "html1")) {
-		    $html = 0;
-        $content = conv_content($content, $html);
-    }
-
-    // map과 area 태그를 남기고 모든 태그를 없앤다 - http://kr.php.net/manual/kr/function.strip-tags.php
-    $content = strip_tags($content, "<map>,<area>"); 
-
-    return $content;
-}
-?>
-
-<?
 for ($i=0; $i<count($list); $i++) {
 
 // cookie 정보를 읽어서, done인 경우에는 출력을 하지 않고 통과합니다. 불필요한 창을 여는 것은 낭비입니다.
