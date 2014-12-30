@@ -650,8 +650,8 @@ if ($member['mb_level'] > 1) {
 // head.sub.php에서 이동
 $lo_location = addslashes($g4['title']);
 if (!$lo_location)
-    $lo_location = $_SERVER['REQUEST_URI'];
-$lo_url = $_SERVER['REQUEST_URI'];
+    $lo_location = addslashes($_SERVER['REQUEST_URI']);
+$lo_url = addslashes($_SERVER['REQUEST_URI']);
 if (strstr($lo_url, "/$g4[admin]/") || $is_admin == "super") $lo_url = "";
 
 // 불당팩 - 추가적인 개별 변수설정을 위해
