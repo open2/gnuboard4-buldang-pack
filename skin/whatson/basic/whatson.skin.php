@@ -54,7 +54,7 @@ var list_delete_php = "whatson_delete_all.php";
                 echo "</a>";
 
                 if ($check == 1) {
-                echo "&nbsp;<small>" . $list[$i][datetime] . "</small>&nbsp;";
+                echo "&nbsp;<small>" . get_datetime($list[$i][datetime]) . "</small>&nbsp;";
 
                 $delete_href = "javascript:del('" . $g4[bbs_path] . "/ajax_whatson.php?w=d&page=$page&rows=$rows&check=$check&wo_id=".$list[$i][wo_id]."');";
                 echo " " . "<a href=\"$delete_href\" ><i class=\"fa fa-trash-o\"></i></a> ";
