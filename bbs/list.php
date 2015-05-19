@@ -73,8 +73,8 @@ if ($sca || $stx)
     // 팀장처럼 create temporaty table의 권한을 안주는 경우, config.php에서 $g4['old_stype_search'] 설정값을 1로.
     if ($g4['old_stype_search']) {
         $sql = " select distinct wr_parent from $write_table where wr_is_comment = '0' and $sql_search ";
-        $result = sql_query($sql);
-        $total_count = mysql_num_rows($result);
+        $result = sql_query($sql, false);
+        $total_count = @mysql_num_rows($result);
     } else {
         $sql = " select wr_parent, wr_is_comment from $write_table where $sql_search ";
         $sql_tmp = " create TEMPORARY table list_tmp_count as $sql ";
@@ -170,7 +170,7 @@ if ($sca || $stx)
 else
 {
     $sql = " select $list_select from $write_table where wr_is_comment = 0 $sql_notice $sql_order limit $from_record, $board[bo_page_rows] ";
-    $result = sql_query($sql);
+    $result = sql_query($sql, false);
 }
 
 // 년도 2자리
