@@ -5,7 +5,8 @@ $reg_mb_email = $_POST['reg_mb_email'];
 
 if (trim($reg_mb_email)=='') {
     echo "110"; // 입력이 없습니다.
-} else if (!preg_match("/^([0-9a-zA-Z_-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/", $reg_mb_email)) {
+
+} else if (!preg_match("/^([0-9a-zA-Z_-]+)@([0-9a-zA-Z_-]+)\.([0-9a-zA-Z_-]+)$/", $reg_mb_email)) {
     echo "120"; // E-mail 주소 형식에 맞지 않음
 } else {
     $sql = " select count(*) as cnt from $g4[member_table] where mb_id <> '$reg_mb_id' and mb_email = '$reg_mb_email' ";
