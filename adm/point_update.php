@@ -6,7 +6,7 @@ auth_check($auth[$sub_menu], "w");
 
 check_token();
 
-if ($member[mb_password] != sql_password($_POST['admin_password'])) {
+if ($member[mb_password] !== sql_password($_POST['admin_password'])) {
     alert("패스워드가 다릅니다.");
 }
 

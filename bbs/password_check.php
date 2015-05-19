@@ -6,7 +6,7 @@ if ($w == "s") {
 
     $wr = get_write($write_table, $wr_id);
 
-    if (sql_password($wr_password) != $wr[wr_password]) 
+    if (sql_password($wr_password) !== $wr[wr_password]) 
         alert("패스워드가 틀립니다.");
 
     // 세션에 아래 정보를 저장. 하위번호는 패스워드없이 보아야 하기 때문임.

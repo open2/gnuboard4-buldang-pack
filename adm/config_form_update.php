@@ -9,7 +9,7 @@ auth_check($auth[$sub_menu], "w");
 if ($is_admin != "super")
     alert("최고관리자만 접근 가능합니다.");
 
-if ($member[mb_password] != sql_password($_POST['admin_password'])) {
+if ($member[mb_password] !== sql_password($_POST['admin_password'])) {
     alert("패스워드가 다릅니다.");
 }
 

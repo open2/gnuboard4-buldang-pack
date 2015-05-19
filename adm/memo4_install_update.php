@@ -8,7 +8,7 @@ check_demo();
 if ($is_admin != "super")
     alert("최고관리자만 접근 가능합니다.", $g4[path]);
 
-if (!($mb_password && sql_password($mb_password)==$member[mb_password]))
+if (!($mb_password && sql_password($mb_password)===$member[mb_password]))
     alert("최고관리자 패스워드가 틀립니다.");
 
 // 테이블 생성 ------------------------------------

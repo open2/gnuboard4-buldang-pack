@@ -13,7 +13,7 @@ $leave_reason = $_POST[leave_reason];
 
 // 회원정보를 가져 옵니다
 $mb = get_member($mb_id, "mb_name, mb_password");
-if (!$mb_id || !$mb_name || !$mb_password || $mb_name != $mb[mb_name] || (sql_password($mb_password) != $mb[mb_password] and sql_old_password($mb_password) != $mb[mb_password]))
+if (!$mb_id || !$mb_name || !$mb_password || $mb_name != $mb[mb_name] || (sql_password($mb_password) !== $mb[mb_password] and sql_old_password($mb_password) !== $mb[mb_password]))
     alert("회원아이디/비밀번호가 틀리거나 정상적인 접근이 아닌것 같습니다.");
 
 // 회원탈퇴일과 탈퇴사유를 저장

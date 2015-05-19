@@ -60,7 +60,7 @@ else if ($w == "d" or $w == "p")
         sql_query($sql);
     } else if (!$member[mb_id]) {
         $result = sql_fetch(" select pc_password from $g4[poll_etc_table] where pc_id = '$pc_id' and po_id = '$po_id' ");
-        if (sql_password($wr_password) != $result['pc_password'])
+        if (sql_password($wr_password) !== $result['pc_password'])
             alert("패스워드가 틀립니다.");
             
         $sql = " delete from $g4[poll_etc_table] where pc_id = '$pc_id' and po_id = '$po_id' and pc_password = '" . sql_password($wr_password) . "'";

@@ -71,9 +71,9 @@ else if ($w == "u")
     if ($member[mb_id] != $mb_id)
         alert("로그인된 회원과 넘어온 정보가 서로 다릅니다.");
 
-    //if (!($member[mb_password] == sql_password($_POST[mb_password]) && $_POST[mb_password]))
+    //if (!($member[mb_password] === sql_password($_POST[mb_password]) && $_POST[mb_password]))
     /*
-    if (!($member[mb_password] == sql_password($_POST[mb_password]) && $_POST[mb_password]) && !($member[mb_password] == sql_old_password($_POST[mb_password]) && $_POST[mb_password])) 
+    if (!($member[mb_password] === sql_password($_POST[mb_password]) && $_POST[mb_password]) && !($member[mb_password] == sql_old_password($_POST[mb_password]) && $_POST[mb_password])) 
         alert("패스워드가 틀립니다.");
 
     // 수정 후 다시 이 폼으로 돌아오기 위해 임시로 저장해 놓음
@@ -90,7 +90,7 @@ else if ($w == "u")
             $tmp_password_old = sql_old_password($_POST['mb_password']);
         }
 
-        //if (!($member[mb_password] == sql_password($_POST[mb_password]) && $_POST[mb_password]) && !($member[mb_password] == sql_old_password($_POST[mb_password]) && $_POST[mb_password])) 
+        //if (!($member[mb_password] === sql_password($_POST[mb_password]) && $_POST[mb_password]) && !($member[mb_password] == sql_old_password($_POST[mb_password]) && $_POST[mb_password])) 
         if ($_POST['is_update']) {
             if ($member['mb_password'] != $tmp_password)
                 alert("패스워드가 틀립니다.");

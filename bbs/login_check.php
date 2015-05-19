@@ -22,7 +22,7 @@ $mb = get_member($mb_id);
 // 가입된 회원이 아니다. 패스워드가 틀리다. 라는 메세지를 따로 보여주지 않는 이유는 
 // 회원아이디를 입력해 보고 맞으면 또 패스워드를 입력해보는 경우를 방지하기 위해서입니다.
 // 불법사용자의 경우 회원아이디가 틀린지, 패스워드가 틀린지를 알기까지는 많은 시간이 소요되기 때문입니다.
-//if (!$mb[mb_id] || (sql_password($mb_password) != $mb[mb_password]))
+//if (!$mb[mb_id] || (sql_password($mb_password) !== $mb[mb_password]))
 //if (!$mb[mb_id] || ($check_password !== $mb[mb_password] and sql_old_password($mb_password) !== $mb[mb_password])) {
 
 $login_check=0;
