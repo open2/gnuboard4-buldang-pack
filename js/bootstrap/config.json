@@ -40,13 +40,13 @@
     "@icon-font-svg-id": "\"glyphicons_halflingsregular\"",
     "@padding-base-vertical": "6px",
     "@padding-base-horizontal": "12px",
-    "@padding-large-vertical": "@padding-base-vertical",
+    "@padding-large-vertical": " @padding-base-vertical",
     "@padding-large-horizontal": "@padding-base-horizontal",
     "@padding-small-vertical": "5px",
     "@padding-small-horizontal": "10px",
     "@padding-xs-vertical": "1px",
     "@padding-xs-horizontal": "5px",
-    "@line-height-large": "1.33",
+    "@line-height-large": "1.3333333",
     "@line-height-small": "1.5",
     "@border-radius-base": "4px",
     "@border-radius-large": "@border-radius-base",
@@ -94,6 +94,7 @@
     "@input-height-base": "(@line-height-computed + (@padding-base-vertical * 2) + 2)",
     "@input-height-large": "(ceil(@font-size-large * @line-height-large) + (@padding-large-vertical * 2) + 2)",
     "@input-height-small": "(floor(@font-size-small * @line-height-small) + (@padding-small-vertical * 2) + 2)",
+    "@form-group-margin-bottom": "15px",
     "@legend-color": "@gray-dark",
     "@legend-border-color": "#e5e5e5",
     "@input-group-addon-bg": "@gray-lighter",
@@ -134,7 +135,7 @@
     "@container-sm": "@container-tablet",
     "@container-desktop": "(940px + @grid-gutter-width)",
     "@container-md": "@container-desktop",
-    "@container-large-desktop": "((1260px+@grid-gutter-width))",
+    "@container-large-desktop": "(1260px + @grid-gutter-width)",
     "@container-lg": "@container-large-desktop",
     "@navbar-height": "50px",
     "@navbar-margin-bottom": "10px",
@@ -425,5 +426,5 @@
     "scrollspy.js",
     "transition.js"
   ],
-  "customizerUrl": "http://getbootstrap.com/customize/?id=e97a898a15a0403a82ca"
+  "customizerUrl": "http://getbootstrap.com/customize/?id=38dcf605f2e8e2597d6c"
 }
