@@ -86,7 +86,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         }
 
         $title = str_replace(array("<", ">"), array("&lt;", "&gt;"), urldecode($row[vi_referer]));
-        $link = "<a href='#' onclick=\"goto_page('" . $row[vi_referer] . "');return false;\" title='$title '>" . "<i class='fa fa-sign-in'></i></a>";
+        $link = "<a href='#' onclick=\"goto_page('" . htmlspecialchars($row['vi_referer']) . "');return false;\" title='$title '>" . "<i class='fa fa-sign-in'></i></a>";
     }
 
     if ($is_admin == 'super')
