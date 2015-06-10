@@ -1,8 +1,8 @@
 // ================================================================
-//                       CHEditor 5
+//                            CHEditor 5
 // ----------------------------------------------------------------
 // Homepage: http://www.chcode.com
-// Copyright (c) 1997-2014 CHSOFT
+// Copyright (c) 1997-2015 CHSOFT
 // ================================================================
 var button = [
 	{ alt : "", img : 'play.gif', cmd : doPlay },              
@@ -27,7 +27,9 @@ function doPlay()
 {
     var elem = oEditor.trimSpace(document.getElementById("fm_embed").value);
     elem = oEditor.trimSpace(elem);
-    if (elem == '') return;
+    if (elem == '') {
+        return;
+    }
     
     if (elem.toLowerCase().indexOf("iframe") !== -1) {
         document.getElementById('fm_player').innerHTML = elem;
@@ -49,10 +51,10 @@ function doPlay()
 		var object = div.getElementsByTagName('OBJECT')[0];
 		if (object && object.hasChildNodes()) {
 			var child = object.firstChild;
-			var movieHeight, movieWidth;
+			var movieHeight, movieWidth, i;
 			movieWidth  = (isNaN(object.width) != true) ? object.width : 320;
 			movieHeight = (isNaN(object.height)!= true) ? object.height: 240;
-			var params = new Array();
+			var params = [];
 
 			do {
 				if ((child.nodeName === 'PARAM') &&  (typeof child.name !== 'undefined') && (typeof child.value !== 'undefined'))
@@ -68,8 +70,9 @@ function doPlay()
 				embed.setAttribute("width", movieWidth);
 				embed.setAttribute("height", movieHeight);
 				
-				for (var i=0; i<params.length; i++)
-					embed.setAttribute(params[i].key, params[i].val);
+				for (i=0; i<params.length; i++) {
+                    embed.setAttribute(params[i].key, params[i].val);
+                }
 				embed.setAttribute("type", "application/x-shockwave-flash");
 			}
 		}
@@ -80,11 +83,17 @@ function doPlay()
 	}
 }
 
+function popupClose() {
+	document.getElementById('fm_player').innerHTML = '';
+    oEditor.popupWinCancel();
+}
+
 function doSubmit()
 {
-    var source = '' + oEditor.trimSpace(document.getElementById("fm_embed").value);
-    if (source === '') popupClose();
-    
+    var source = String(oEditor.trimSpace(document.getElementById("fm_embed").value));
+    if (source === '') {
+        popupClose();
+    }
     
     if (iframeSource || source.indexOf("iframe") !== -1) {
         oEditor.insertHtmlPopup(source);
@@ -95,9 +104,4 @@ function doSubmit()
 	
 	document.getElementById('fm_player').innerHTML = '';
     oEditor.popupWinClose();
-}
-
-function popupClose() {
-	document.getElementById('fm_player').innerHTML = '';
-    oEditor.popupWinCancel();
 }

@@ -1,8 +1,8 @@
 // ================================================================
-//                       CHEditor 5
+//                            CHEditor 5
 // ----------------------------------------------------------------
 // Homepage: http://www.chcode.com
-// Copyright (c) 1997-2014 CHSOFT
+// Copyright (c) 1997-2015 CHSOFT
 // ================================================================
 function Dialog(oEditor) {
 	this.oEditor = oEditor;
@@ -18,19 +18,21 @@ Dialog.prototype.setDialogCss = function() {
 };
 
 Dialog.prototype.setDialogHeight = function(height) {
-	this.oEditor.dialog.style.height = (typeof height != 'undefined' ? height : document.body.scrollHeight) + 2 + 'px';
+	this.oEditor.dialog.style.height = (height || document.body.scrollHeight) + 'px';
 };
 
 Dialog.prototype.showButton = function(button) {
 	var buttonUrl = this.oEditor.config.iconPath + 'button/';
 	var wrapper = document.getElementById("buttonWrapper");
-	
-	for (var i=0; i < button.length; i++) {
-		var img = new Image();
+	var i, img;
+    
+	for (i=0; i < button.length; i++) {
+		img = new Image();
 		img.alt = button[i].alt;
 		
-		if (typeof button[i].hspace != 'undefined')
+		if (!this.oEditor.undefined(button[i].hspace)) {
 			img.hspace = button[i].hspace;
+        }
 		
 		img.className = "button";
 		img.src = buttonUrl + button[i].img;

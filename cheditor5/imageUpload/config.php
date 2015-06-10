@@ -10,7 +10,7 @@
 # 위에서 설정한 'SAVE_DIR'의 URL을 설정합니다.
 # 끝에 슬래쉬(/)는 붙이지 않습니다.
 
-//define("SAVE_URL", "http://udomain.com/cheditor/attach");
+//define("SAVE_URL", "http://localhost/cheditor/attach");
 
 // ---------------------------------------------------------------------------
 include_once("./_common.php");

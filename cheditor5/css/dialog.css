@@ -2,11 +2,11 @@ body {
     background-color: #f0f0f0;
     margin: 0px;
     border: 0px;
-    padding: 10px;
+    padding: 0px;
     font-size: 9pt;
     font-family: Malgun Gothic,gulim,tahoma,helvetica;
+    line-height: 1em;
 }
-
 td, input {
     font-size: 9pt;
     vertical-align: middle;
@@ -36,6 +36,12 @@ table.dlg {
 fieldset {
     border: 1px solid #a0a0a0;
     padding: 2px;
+    margin: 0px;
+}
+
+.content-outline {
+    border: 1px solid #a0a0a0;
+    padding: 5px;
     margin: 0px;
 }
 
@@ -69,7 +75,7 @@ legend {
 .button {
     width: 64px;
     height: 22px;
-    margin: 0px 2px 0px 2px;
+    margin: 1px 2px 1px 2px;
     cursor: pointer;
     vertical-align: middle;
 }
@@ -94,16 +100,6 @@ legend {
     cursor: pointer;
 }
 
-.emImgBlock {
-    padding: 5px;
-    text-align: center;
-}
-
-.emImgRow {
-    margin: 3px;
-    text-align: center;
-}
-
 .schar {
     border:1px solid #ccc;
     background-color:#fff;
@@ -111,8 +107,8 @@ legend {
     height: 17px;
     text-align:center;
     cursor: pointer;
-    font-size: 9pt;
-    line-height: 17px;
+    font-size: 12px;
+    line-height: 1.2em;
 }
 
 .spacer {
@@ -127,14 +123,19 @@ legend {
 }
 
 .clear { clear: both }
+.flash-movie-source {
+    margin: 0 auto;
+}
 .flash-player-wrapper {
-    width:470px;
-    height:320px;
-    margin-top:5px;
-    padding: 5px;
-    border:1px #c5c5cc solid;
+    width: 560px;
+    height:315px;
+    margin-top:10px;
+    border:1px #a0a0a0 solid;
     text-align:center;
     overflow:auto;
+    margin: 0 auto;
+    background-color: #fff;
+    display: block;
 }
 .media-player-wrapper {
     height:200px;

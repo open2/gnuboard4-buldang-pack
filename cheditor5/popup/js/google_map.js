@@ -1,14 +1,9 @@
 // ================================================================
-//                       CHEditor 5
+//                            CHEditor 5
 // ----------------------------------------------------------------
 // Homepage: http://www.chcode.com
-// Copyright (c) 1997-2014 CHSOFT
+// Copyright (c) 1997-2015 CHSOFT
 // ================================================================
-var button = [
-    { alt : "", img : 'submit.gif', cmd : doSubmit },
-    { alt : "", img : 'cancel.gif', cmd : popupClose }
-];
-
 var oEditor = null;
 var centerLat = 0;
 var centerLng = 0;
@@ -16,42 +11,31 @@ var latlng = 0;
 var setZoom = 14;
 var marker_lat = 0;
 var marker_lng = 0;
-var currentName = { '지도' : 'map',
-                '중첩' : 'hybrid',
-                '위성' : 'satellite',
-                '지형' : 'satellite' };
-var mapType;
+var mapType = "roadmap";
 var map;
 var mapWidth = 512;
 var mapHeight = 320;
 var panorama;
 var panoramaVisible = false;
 
-function init(dialog) {
-    oEditor = this;
-    oEditor.dialog = dialog;
-
-    var dlg = new Dialog(oEditor);
-    dlg.showButton(button);
-
-    var buttonUrl = oEditor.config.iconPath + 'button/map_address.gif';
-    var search = new Image();
-    search.src = buttonUrl;
-    search.onclick = function() { searchAddress(); };
-    search.className = 'button';
-    document.getElementById('map_search').appendChild(search);
-    dlg.setDialogHeight();
-
-}
-
 function doSubmit() {
-    var mapImg = new Image();
-    if (marker_lat == 0) marker_lat = centerLat;
-    if (marker_lng == 0) marker_lng = centerLng;
+    var mapImg = document.createElement("img");
+    if (marker_lat === 0) {
+        marker_lat = centerLat;
+    }
+    if (marker_lng === 0) {
+        marker_lng = centerLng;
+    }
 
-    mapImg.setAttribute('width', mapWidth);
-    mapImg.setAttribute('height',mapHeight);
+    mapImg.style.width = mapWidth + 'px';
+    mapImg.style.height = mapHeight + 'px';
     mapImg.style.border = '1px #000 solid';
+    mapImg.setAttribute("alt", "Google Map");
+    mapImg.onload = function() {
+        oEditor.insertHtmlPopup(mapImg);
+        oEditor.setImageEvent(true);
+        oEditor.popupWinClose();
+    };
 
     if (panoramaVisible) {
         var panoramaPitch = panorama.getPov().pitch;
@@ -70,14 +54,10 @@ function doSubmit() {
         mapImg.src = "http://maps.google.com/maps/api/staticmap?center=" + centerLat + ',' + centerLng +
             "&zoom=" + setZoom +
             "&size=" + mapWidth + 'x' + mapHeight +
-            "&maptype=" + currentName[mapType] +
-            "&markers=" + marker_lat + ',' + marker_lng +
+            "&maptype=" + mapType +
+            //"&markers=" + marker_lat + ',' + marker_lng +
             "&sensor=false" + "&language=ko";
     }
-
-    oEditor.insertHtmlPopup(mapImg);
-    oEditor.setImageEvent(true);
-    oEditor.popupWinClose();
 }
 
 function searchAddress() {
@@ -88,11 +68,10 @@ function searchAddress() {
 
     geocoder.geocode( {'address' : address},
             function (results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
+                if (status === google.maps.GeocoderStatus.OK) {
                     centerLat = results[0].geometry.location.lat();
                     centerLng = results[0].geometry.location.lng();
                     latlng = new google.maps.LatLng(centerLat, centerLng);
-                    //marker.setPosition(results[0].geometry.location);
                     map.setCenter(latlng);
                     map.setZoom(setZoom);
                 }
@@ -100,7 +79,7 @@ function searchAddress() {
 }
 
 function initMap(zoom) {
-    zoom = zoom ? zoom : setZoom;
+    zoom = zoom || setZoom;
     var mapOptions = {
         zoom: zoom,
         panControl: true,
@@ -112,6 +91,8 @@ function initMap(zoom) {
         mapTypeId: google.maps.MapTypeId.ROADMAP };
 
     map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+    centerLat = map.getCenter().lat();
+    centerLng = map.getCenter().lng();
 
     google.maps.event.addListener(map, 'dragend', function() {
             centerLat = map.getCenter().lat();
@@ -123,7 +104,9 @@ function initMap(zoom) {
     });
 
     google.maps.event.addListener(map, 'zoom_changed', function() {
-            setZoom = map.getZoom();
+            //setZoom = map.getZoom();
+            centerLat = map.getCenter().lat();
+            centerLng = map.getCenter().lng();
     });
 
     panorama = map.getStreetView();
@@ -134,4 +117,25 @@ function initMap(zoom) {
 
 function popupClose() {
     oEditor.popupWinCancel();
+}
+
+function init(dialog) {
+    oEditor = this;
+    oEditor.dialog = dialog;
+
+    var button = [
+        { alt : "", img : 'submit.gif', cmd : doSubmit },
+        { alt : "", img : 'cancel.gif', cmd : popupClose }
+    ];
+
+    var dlg = new Dialog(oEditor);
+    dlg.showButton(button);
+
+    var buttonUrl = oEditor.config.iconPath + 'button/map_address.gif';
+    var search = new Image();
+    search.src = buttonUrl;
+    search.onclick = function() { searchAddress(); };
+    search.className = 'button';
+    document.getElementById('map_search').appendChild(search);
+    dlg.setDialogHeight();
 }

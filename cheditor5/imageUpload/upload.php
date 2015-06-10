@@ -1,125 +1,87 @@
 <?php
-// ---------------------------------------------------------------------------
-//                              CHXImage
-//
-// 이 코드는 데모를 위해서 제공됩니다.
-// 환경에 맞게 수정 또는 참고하여 사용해 주십시오.
-//
-// ---------------------------------------------------------------------------
-
 require_once("config.php");
 
 //----------------------------------------------------------------------------
 //
 //
-$tempfile = $_FILES['file']['tmp_name'];
-$filename = md5($_SERVER['REMOTE_ADDR']).'_'.$_FILES['file']['name'];
+$ymd = date("ymd", time());
 
-// 저장 파일 이름
-// $savefile = SAVE_DIR . '/' . $_FILES['file']['name'];
+$filename = null;
+$savefile = null;
+$filesize = 0;
 
-$pos = strrpos($filename, '.');
-$ext = strtolower(substr($filename, $pos, strlen($filename)));
+if (isset($_POST["filehtml5"])) {
+	//$filename = $_POST["randomname"];
+	$filename = $ymd . "_" .  md5($_SERVER['REMOTE_ADDR']) . '_' . $_POST["randomname"];
+	$savefile = SAVE_DIR . '/' . $filename;
+	$fh = fopen($savefile, "w");
+	fwrite($fh, base64_decode($_POST["filehtml5"]));
+	fclose($fh);
+}
+else {
+	$tempfile = $_FILES['file']['tmp_name'];
+	$filename = $_FILES['file']['name'];
 
-switch ($ext) {
-case '.gif' :
-case '.png' :
-case '.jpg' :
-case '.jpeg' :
-	break;
-default :
-	die("-ERR: File Format!");
+	$type = substr($filename, strrpos($filename, "."));
+	$found = false;
+	switch ($type) {
+	case ".jpg":
+	case ".jpeg":
+	case ".gif":
+	case ".png":
+		$found = true;
+	}
+
+	if ($found != true) {
+		exit;
+	}
+
+	//$filename = $_POST["randomname"];
+	$filename = $ymd . "_" .  md5($_SERVER['REMOTE_ADDR']) . '_' . $_POST["randomname"];
+	$savefile = SAVE_DIR . '/' . $filename;
+
+	move_uploaded_file($tempfile, $savefile);
+	$imgsize = getimagesize($savefile);
+	
+	if (!$imgsize) {
+		$filesize = 0;
+		$filename = '-ERR';
+		unlink($savefile);
+	}
 }
 
-$ym = date("ym", time());
-$ymd = date("ymd", time());
-$pos = strrpos($filename, '.');
-$ext = substr($filename, $pos, strlen($filename));
-//$random_name = random_generator() . $ext;
-$random_name = $ymd . "_" .  md5($_SERVER['REMOTE_ADDR']) . '_' . random_generator() . $ext;
-$savefile = SAVE_DIR . '/' . $random_name;
-move_uploaded_file($tempfile, $savefile);
-$imgsize = getimagesize($savefile);
+// 올라간 파일의 퍼미션을 변경합니다.
+chmod($savefile, 0606);
+
+// 저장 파일 이름: 년월일시분초_렌덤문자8자
+// 20140327125959_abcdefghi.jpg
+// 원본 파일 이름: $_POST["origname"]
 $filesize = filesize($savefile);
 
-if (!$imgsize) {
-	$filesize = 0;
-	$random_name = '-ERR';
-	unlink($savefile);
-} else {
-  // image type이 1보다 작거나 16 보다 크면 오류를
-  if ($imgsize[2] < 1 || $imgsize[2] > 16)
-  {
-    die("-ERR: File Format!");
-  }
-
-  // 올라간 파일의 퍼미션을 변경합니다.
-  chmod($savefile, 0606);
-}
-
-$rdata = sprintf( "{ fileUrl: '%s/%s', filePath: '%s/%s', origName: '%s', fileName: '%s', fileSize: '%d' }",
+$rdata = sprintf('{"fileUrl": "%s/%s", "filePath": "%s", "fileName": "%s", "fileSize": "%d" }',
 	SAVE_URL,
-	$random_name,
-	SAVE_DIR,
-	$random_name,
 	$filename,
-	$random_name,
+	$savefile,
+	$filename,
 	$filesize );
 
 echo $rdata;
 
 // 불당팩 - 올라가는 모든 image 파일을 체크, 게시판에 올라가는거만 처리.
 if ($bo_table !== "") {
-    $bc_url = SAVE_URL . "/" . $random_name;
+    $bc_url = SAVE_URL . "/" . $filename;
     $sql = " insert into $g4[board_cheditor_table]
             SET
                 mb_id = '$member[mb_id]',
                 bc_dir = '" . SAVE_DIR . "',
-                bc_file = '$random_name',
+                bc_file = '$filename',
                 bc_url = '$bc_url',
                 bc_filesize = '" . filesize2bytes($filesize)/1024 . "',
-                bc_source = '" . mysql_real_escape_string($filename) . "',
+                bc_source = '" . mysql_real_escape_string($_POST['origname']) . "',
                 bc_ip = '$remote_addr',
                 bc_datetime = '$g4[time_ymdhis]',
                 bo_table = '$bo_table'
         ";
     sql_query($sql);
 }
-
-function random_generator ($min=8, $max=32, $special=NULL, $chararray=NULL) {
-// ---------------------------------------------------------------------------
-//
-//
-    $random_chars = array();
-    
-    if ($chararray == NULL) {
-        $str = "abcdefghijklmnopqrstuvwxyz";
-        $str .= strtoupper($str);
-        $str .= "1234567890";
-
-        if ($special) {
-            $str .= "!@#$%";
-        }
-    }
-    else {
-        $str = $charray;
-    }
-
-    for ($i=0; $i<strlen($str)-1; $i++) {
-        $random_chars[$i] = $str[$i];
-    }
-
-    srand((float)microtime()*1000000);
-    shuffle($random_chars);
-
-    $length = rand($min, $max);
-    $rdata = '';
-    
-    for ($i=0; $i<$length; $i++) {
-        $char = rand(0, count($random_chars) - 1);
-        $rdata .= $random_chars[$char];
-    }
-    return $rdata;
-}
-
 ?>

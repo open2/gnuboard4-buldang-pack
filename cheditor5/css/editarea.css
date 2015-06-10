@@ -1,9 +1,48 @@
+/*html {
+    cursor: text; *cursor: auto;
+}*/
 p { 
-    margin: 0px 
+    margin: 0px;
 }
-span:after,span:before {
-	content: '\feff';
-	white-space: nowrap;
-}
-table, td, th{ border:1px dotted #ccc; }
+table, td, th { border:1px dotted #ccc; }
 table { border-collapse: collapse }
+
+/*-------------------------------------------------------------------------------*/
+.ch_bogus_spacer {}
+.cheditor-zero-width { font-family: "Courier New"; }
+.htmlSourceMode {
+    font-family:  "Malgun Gothic", "Apple SD Gothic Neo", gulim;
+}
+.source-comment {
+    font-size: inherit;
+    font-family: inherit;
+    color: #666;
+    font-style: italic;
+}
+.cheditor-prettify-tabspace {
+	tab-size:5;
+	-moz-tab-size: 5;
+	-o-tab-size:  5;
+}
+code {
+    font-family:  "Malgun Gothic", "Apple SD Gothic Neo", gulim;
+    font-size: 12px;
+}
+.comment { color: #999; font-style: italic; }
+.keyword { color: #0033cc; font-weight: bold; }
+.function .keyword, .sub .keyword, .method { color: #080; }
+.string, .cdata, .filter .argument { color: #cf6a4c; }
+.attribute { color: #080; }
+.value { color: #cf6a4c; }
+.subst { color: #daefa3; }
+.regexp { color: #cf6a4c; }
+.function .title, .sub .identifier, .pi, .tag .keyword, .decorator { color: #0033cc; }
+.tag { color: #0033cc; }
+.symbol, .number { color: red; }
+.params, .variable { color: #6666ff; }
+.css .keyword { color: #cda869; }
+.rules .keyword { color: #cc33ff; font-weight: normal; }
+.rules .value { color: #cf6a4c; }
+.css .id { color: #8b98ab; }
+.hexcolor, .css .number { color: #dd7b3b; }
+.css .function { color: #dad085; }

@@ -1,12 +1,9 @@
 // ================================================================
-//                       CHEditor 5
+//                            CHEditor 5
 // ----------------------------------------------------------------
 // Homepage: http://www.chcode.com
-// Copyright (c) 1997-2014 CHSOFT
+// Copyright (c) 1997-2015 CHSOFT
 // ================================================================
-var button = [
-	{ alt : "", img : 'cancel.gif', cmd : popupClose }
-];
 var colour = ["ffffcc","ffcc66","ff9900","ffcc99","ff6633","ffcccc","cc9999","ff6699","ff99cc","ff66cc","ffccff","cc99cc","cc66ff","cc99ff","9966cc","ccccff","9999cc","3333ff","6699ff","0066ff","99ccff","66ccff","99cccc","ccffff","99ffcc","66cc99","66ff99","99ff99","ccffcc","33ff33","66ff00","ccff99","99ff00","ccff66","cccc66","ffffff",
               "ffff99","ffcc00","ff9933","ff9966","cc3300","ff9999","cc6666","ff3366","ff3399","ff00cc","ff99ff","cc66cc","cc33ff","9933cc","9966ff","9999ff","6666ff","3300ff","3366ff","0066cc","3399ff","33ccff","66cccc","99ffff","66ffcc","33cc99","33ff99","66ff66","99cc99","00ff33","66ff33","99ff66","99ff33","ccff00","cccc33","cccccc",
               "ffff66","ffcc33","cc9966","ff6600","ff3300","ff6666","cc3333","ff0066","ff0099","ff33cc","ff66ff","cc00cc","cc00ff","9933ff","6600cc","6633ff","6666cc","3300cc","0000ff","3366cc","0099ff","00ccff","339999","66ffff","33ffcc","00cc99","00ff99","33ff66","66cc66","00ff00","33ff00","66cc00","99cc66","ccff33","999966","999999",
@@ -17,68 +14,19 @@ var colour = ["ffffcc","ffcc66","ff9900","ffcc99","ff6633","ffcccc","cc9999","ff
 var oEditor = null;
 var setColor = null;
 
-function init(dialog, argv) {
-	oEditor = this;
-	oEditor.dialog = dialog;
-	setColor = argv;
-	
-	var dlg = new Dialog(oEditor);
-	dlg.showButton(button);
-	dlg.setDialogHeight();
-	setShowColor();
-}
-
 function setShowColor() {
 	var showColor = document.getElementById('show_color');
 	var color = setColor.selectedCell.getAttribute('bgcolor');
     if (color) {
     	showColor.style.backgroundColor = color;
-    }	
+    }
 }
 
-function drawColor(el)
-{
-    var table = document.createElement('table');
-    table.cellPadding = 0;
-    table.cellSpacing = 0;
-    table.border = 0;
-    table.setAttribute('align', 'center');
-	var tr = table.insertRow(0);
-	var td = tr.insertCell(0);
-	td.style.backgroundColor = '#000';
-
-	var insideTable = document.createElement('table');
-	insideTable.border = 0;
-	insideTable.cellSpacing = 1;
-	insideTable.cellPadding = 0;
-	insideTable.align = 'center';
-    
-    var showColor = document.getElementById('show_color');
-    var k = 0;
-
-    for (var i = 0; i < 6; i++) {
-        var tr2 = insideTable.insertRow(i);
-        for (var j = 0; j < 36; j++) {
-            var td2 = tr2.insertCell(j);
-            td2.setAttribute('bgColor', '#' + colour[k]);
-            td2.style.width = '9px';
-            td2.style.height = '9px';
-            td2.onclick = getColor;
-            td2.colour = '#' + colour[k];
-            td2.style.border = '1px solid #' + colour[k];
-            td2.onmouseover = function() { 
-            	this.style.border = '1px solid #fff';
-            	showColor.style.backgroundColor=this.colour;
-            };
-            td2.onmouseout = function() { 
-            	this.style.border = '1px solid ' + this.colour ;
-            };
-            k++;
-        }
-    }
-
-    td.appendChild(insideTable);
-    document.getElementById(el).appendChild(table);
+function popupClose() {
+    oEditor.editArea.focus();
+    oEditor.backupRange(oEditor.restoreRange());
+    oEditor.clearStoredSelections();
+    oEditor.popupWinClose();
 }
 
 function getColor()
@@ -88,6 +36,56 @@ function getColor()
     popupClose();
 }
 
-function popupClose() {
-    oEditor.popupWinClose();
+function drawColor(el) {
+    var table, tr, td, insideTable, k = 0, i, j, tr2, td2;
+
+    table = document.createElement('table');
+    table.cellPadding = 0;
+    table.cellSpacing = 0;
+    table.border = 0;
+    table.align = 'center';
+	tr = table.insertRow(0);
+	td = tr.insertCell(0);
+	td.style.backgroundColor = '#fff';
+
+	insideTable = document.createElement('table');
+	insideTable.border = 0;
+	insideTable.cellSpacing = 1;
+	insideTable.cellPadding = 0;
+	insideTable.align = 'center';
+
+    var onMouseOver = function() { this.className = 'colorCellMouseOver'; };
+    var onMouseOut = function() { this.className = 'colorCellMouseOut'; };
+
+    for (i = 0; i < 6; i++) {
+        tr2 = insideTable.insertRow(i);
+        for (j = 0; j < 36; j++) {
+            td2 = tr2.insertCell(j);
+            td2.setAttribute('bgColor', '#' + colour[k]);
+            td2.className = 'colorCellMouseOut';
+            td2.onclick = getColor;
+            td2.appendChild(document.createTextNode('\u00a0'));
+            td2.onmouseover = onMouseOver;
+            td2.onmouseout = onMouseOut;
+            k++;
+        }
+    }
+
+    td.appendChild(insideTable);
+    document.getElementById(el).appendChild(table);
+}
+
+function init(dialog, argv) {
+	oEditor = this;
+	oEditor.dialog = dialog;
+	setColor = argv;
+
+    var button = [
+        { alt : "", img : 'cancel.gif', cmd : popupClose }
+    ];
+
+	var dlg = new Dialog(oEditor);
+	dlg.showButton(button);
+	dlg.setDialogHeight();
+	setShowColor();
 }

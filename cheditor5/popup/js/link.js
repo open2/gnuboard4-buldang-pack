@@ -1,24 +1,10 @@
 // ================================================================
-//                       CHEditor 5
+//                            CHEditor 5
 // ----------------------------------------------------------------
 // Homepage: http://www.chcode.com
-// Copyright (c) 1997-2014 CHSOFT
+// Copyright (c) 1997-2015 CHSOFT
 // ================================================================
 var oEditor = null;
-var button = [	{ alt : "", img : 'submit.gif', cmd : returnSelected },              
-          		{ alt : "", img : 'cancel.gif', cmd : popupClose } ];
-
-function init(dialog) {
-	oEditor = this;
-	oEditor.dialog = dialog;
-	
-	resetValues();
-	getSelected();
-	
-	var dlg = new Dialog(oEditor);
-	dlg.showButton(button);
-	dlg.setDialogHeight();
-}
 
 function resetValues() {
 	document.getElementById('fm_link_value').value = 'http://';
@@ -45,8 +31,9 @@ function UpdateProtocol()
     	datum = datum.replace(/^\//, "");
   	}
   	else {
-    	if(inputtedText.indexOf(":") > 0)
-      		datum = "";
+    	if(inputtedText.indexOf(":") > 0) {
+            datum = "";
+        }
     	else {
       		datum = protocol[0];
       		datum = protocol[0].replace(/^\/\/\//, "//");
@@ -94,21 +81,22 @@ function getSelected() {
 		link = rng.parentElement ? oEditor.getElement(rng.parentElement(), "A") : oEditor.getElement(rng.item(0), "A");
 	}
 	
-  	if (link == null || link.nodeName.toLowerCase() != 'a')
-  		return;
+  	if (link == null || link.nodeName.toLowerCase() != 'a') {
+        return;
+    }
 	
     var protocol = link.href.split(":");
     
     if (protocol[0]) {
 		var protocolSel = document.getElementById("fm_protocol");
-      
-      	for (var i=0; i<protocolSel.length; i++) {    
+        var i, oldTarget, targetSel, j;
+      	for (i=0; i<protocolSel.length; i++) {    
         	if (protocolSel[i].value.indexOf(protocol[0].toLowerCase()) != -1) {
-          		var oldTarget = link.target;
-          		var targetSel = document.getElementById("fm_target");
+          		oldTarget = link.target;
+          		targetSel = document.getElementById("fm_target");
           
           		if (oldTarget) {
-            		for (var j=0; j < targetSel.length; j++) {
+            		for (j=0; j < targetSel.length; j++) {
               			if (targetSel[j].value == oldTarget.toLowerCase()) {
                 			targetSel[j].selected = true;
                 			break;
@@ -129,4 +117,19 @@ function getSelected() {
       	}   
 	}
     document.getElementById("fm_link_value").value = link.href;
+}
+
+var button = [	{ alt : "", img : 'submit.gif', cmd : returnSelected },              
+          		{ alt : "", img : 'cancel.gif', cmd : popupClose } ];
+            
+function init(dialog) {
+	oEditor = this;
+	oEditor.dialog = dialog;
+	
+	resetValues();
+	getSelected();
+	
+	var dlg = new Dialog(oEditor);
+	dlg.showButton(button);
+	dlg.setDialogHeight();
 }
