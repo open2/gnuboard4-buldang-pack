@@ -62,6 +62,12 @@ if (get_cookie("ck_po_id") != $po[po_id])
         $mb_ids = $po[mb_ids];
         if ($member[mb_id])
             $mb_ids .= $member[mb_id] . "\n";
+
+        $gb_poll = (int)$_POST[gb_poll];
+        if ($gb_poll<1 || $gb_poll>9) {
+            alert_close("투표 항목이 존재하지 않습니다.");
+        }
+
         sql_query(" update $g4[poll_table] set po_cnt{$gb_poll} = po_cnt{$gb_poll} + 1, po_ips = '$po_ips', mb_ids = '$mb_ids' where po_id = '$po_id' ");
         $msg = "";
     } else 
