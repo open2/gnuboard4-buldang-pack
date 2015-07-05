@@ -6,6 +6,8 @@ $begin_time = get_microtime();
 
 if (!$g4['title'])
     $g4['title'] = $config['cf_title'];
+// DB injection을 방어하기 위해서 tag를 strip한다
+$g4['title'] = strip_tags($g4['title']);
 
 // 쪽지를 받았나?
 if (trim($member['mb_memo_call'])) {
