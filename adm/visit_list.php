@@ -63,6 +63,7 @@ $sql = " select *
 $result = sql_query($sql);
 
 for ($i=0; $row=sql_fetch_array($result); $i++) {
+    $row['vi_agent'] = get_text($row['vi_agent']);
     $brow = get_brow($row[vi_agent]);
     $os   = get_os($row[vi_agent]);
 
