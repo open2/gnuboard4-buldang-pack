@@ -30,7 +30,7 @@ var GB = {
     lineHeightBlock : '|address|blockquote|dd|div|dl|h1|h2|h3|h4|h5|h6|li|p|pre|td|th|code|section|aside|article|figcaption|',
     doctype : '<!DOCTYPE html>',
 	popupWindow : {
-        ImageUpload :   {tmpl : 'image.html',           width : 700, posv: 420, title : '내 PC 사진 넣기'},
+        ImageUpload :   {tmpl : 'image.html',           width : 310, posv: 420, title : '내 PC 사진 넣기'},
 		ImageUrl :      {tmpl : 'image_url.html',       width : 350, posv: 380, title : '웹 사진 넣기'},
 		Embed :         {tmpl : 'media.html',           width : 430, posv: 380, title : '미디어'},
 		Table :         {tmpl : 'table.html',           width : 430, posv: 390, title : '표 만들기'},

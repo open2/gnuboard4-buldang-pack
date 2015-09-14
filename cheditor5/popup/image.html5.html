@@ -12,14 +12,16 @@
 		<div id="uploadWindow">
  			<div id="container">
                 <div style="margin: 0px 0px 10px 0px;">
-                    <img src="../icons/imageUpload/remove_all.gif" class="remove-button" onclick="removeImages();"
-                         alt="" style="vertical-align: middle" />
                     <input type="file" name="imageUpload[]" accept="image/jpeg,image/png,image/gif" id="inputImageUpload" multiple="multiple"
                          onchange="fileSelect(this);" style="vertical-align: middle; visibility: hidden; width: 0px"/>
                     <img id="fileSelectButton" src="../icons/imageUpload/add.gif" alt="image button" onclick="inputImageUpload.click()"
                          style="vertical-align: middle; margin-left: -5px; cursor: pointer"/>
+                    <!--
                     <span style="vertical-align: middle">(사진을 점선 안으로 끌어 놓을 수 있습니다.)</span>
-                    <span style="left:555px; top:5px;position:absolute;"><span id="imageCount">0</span>장 / 최대 <span id="maxImageNum"></span>장 사진</span>
+                    -->
+                    <img src="../icons/imageUpload/remove_all.gif" class="remove-button" onclick="removeImages();"
+                         alt="" style="vertical-align: middle" />
+                    <span style="vertical-align: middle"><span id="imageCount">0</span>장/최대<span id="maxImageNum"></span>장</span>
                 </div>
                 <div id="imageListWrapper" class="imageListWrapperHtml5"></div>
                 <div id="imageInfoBox">
