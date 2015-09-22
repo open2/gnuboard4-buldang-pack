@@ -43,7 +43,7 @@ $whatson_url = "$g4[bbs_path]/whatson.php?check=1&rows=30";
                 <a class="btn btn-default" href="<?=$g4[bbs_path]?>/my_good.php?w=nogood&head_on=1">비추천한글</a>
             </div>
             <div class="btn-group">
-                <a class="btn btn-default" href="<?=$g4[bbs_path]?>/singo_search.php">신고된 내역</a>
+                <a class="btn btn-default" href="<?=$g4[bbs_path]?>/singo_search.php">신고한 내역</a>
                 <a class="btn btn-default" href="<?=$g4[bbs_path]?>/recycle_list.php">휴지통</a>
             </div>
             <div class="col-sm-2">
