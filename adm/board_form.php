@@ -563,12 +563,18 @@ if (!preg_match("/([m|M])$/", $upload_max_filesize)) {
 <tr>
     <td><input type=checkbox name=chk_include_head value=1></td>
     <td>상단 파일 경로</td>
-    <td><input type=text class=ed name=bo_include_head style='width:80%;' value='<?=$board[bo_include_head]?>'></td>
+    <td>
+        <input type=text class=ed name=bo_include_head style='width:80%;' value='<?=$board[bo_include_head]?>'>
+        <?=help("http://도메인/head.php 와 같은 경로는 사용할수 없습니다.<br>_head.php 또는 /home/user/www/head.php 와 같은 경로만 사용할수 있습니다.");?>
+    </td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_include_tail value=1></td>
     <td>하단 파일 경로</td>
-    <td><input type=text class=ed name=bo_include_tail style='width:80%;' value='<?=$board[bo_include_tail]?>'></td>
+    <td>
+        <input type=text class=ed name=bo_include_tail style='width:80%;' value='<?=$board[bo_include_tail]?>'>
+        <?=help("http://도메인/tail.php 와 같은 경로는 사용할수 없습니다.<br>_tail.php 또는 /home/user/www/tail.php 와 같은 경로만 사용할수 있습니다.");?>
+    </td>
 </tr>
 
 <tr>
