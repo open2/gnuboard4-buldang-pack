@@ -36,7 +36,7 @@ function member_delete($mb_id)
     global $config;
     global $g4;
 
-    $sql = " select mb_name, mb_nick, mb_ip, mb_recommend, mb_memo, mb_level from $g4[member_table] where mb_id= '$mb_id' ";
+    $sql = " select mb_name, mb_nick, mb_ip, mb_recommend, mb_memo, mb_level from $g4[unlogin_table] where mb_id= '$mb_id' ";
     $mb = sql_fetch($sql);
     if ($mb[mb_recommend]) {
         $row = sql_fetch(" select count(*) as cnt from $g4[member_table] where mb_id = '".addslashes($mb[mb_recommend])."' ");
@@ -45,8 +45,45 @@ function member_delete($mb_id)
     }
 
     // 회원자료는 정보만 없앤 후 아이디는 보관하여 다른 사람이 사용하지 못하도록 함 : 061025
+    // 휴면화 되면서 대부분의 정보는 clear 되지만, 한번 더 확실하게...
     if ($mb[mb_level] >= 1) {
         $sql = " update $g4[member_table] 
+                    set
+                        mb_name = '',
+                        mb_nick = '',
+                        mb_password = '',
+                        mb_level = '1',
+                        mb_email = '',
+                        mb_homepage = '',
+                        mb_tel = '',
+                        mb_hp = '',
+                        mb_zip1 = '',
+                        mb_zip2 = '',
+                        mb_addr1 = '',
+                        mb_addr2 = '',
+                        mb_birth = '',
+                        mb_sex = '',
+                        mb_signature = '',
+                        mb_memo = '".date("Ymd",$g4['server_time'])." 삭제함\n\n$mb[mb_memo]',
+                        mb_leave_date = '".date("Ymd",$g4['server_time'])."',
+                        mb_profile='',
+                        mb_memo_call='',
+                        mb_memo_no_reply_text='',
+                        mb_1='',
+                        mb_2='',
+                        mb_3='',
+                        mb_4='',
+                        mb_5='',
+                        mb_6='',
+                        mb_7='',
+                        mb_8='',
+                        mb_9='',
+                        mb_10=''
+                  where mb_id = '$mb_id' ";
+        sql_query($sql);
+
+        // 휴면 테이블에서는 mb_name, mb_nick은 clear 하지 않습니다.
+        $sql = " update $g4[unlogin_table] 
                     set 
                         mb_password = '',
                         mb_level = '1',

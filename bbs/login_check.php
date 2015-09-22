@@ -19,6 +19,14 @@ set_session("ss_login_check_time", $g4['server_time']);
 
 $mb = get_member($mb_id);
 
+// 휴면계정이면, 휴면계정 테이블에서 읽어서 로그인을 진행 합니다.
+if ($mb['mb_unlogin'] !== "0000-00-00 00:00:00") {
+
+    // lib/common.lib.php의 get_member 함수 참조
+    $sql = "select * from $g4[unlogin_table] where mb_id = '$mb_id'";
+    $mb = sql_fetch($sql, FALSE);
+}
+
 // 가입된 회원이 아니다. 패스워드가 틀리다. 라는 메세지를 따로 보여주지 않는 이유는 
 // 회원아이디를 입력해 보고 맞으면 또 패스워드를 입력해보는 경우를 방지하기 위해서입니다.
 // 불법사용자의 경우 회원아이디가 틀린지, 패스워드가 틀린지를 알기까지는 많은 시간이 소요되기 때문입니다.
@@ -253,6 +261,28 @@ if (is_admin_check($mb_id)) {
                 set log_datetime = '$g4[time_ymdhis]',
                     log = '" . mysql_real_escape_string($log) . "' ";
     sql_query($sql);
+}
+
+// 불당팩 - 휴면회원 정보를 DB에 복구한다
+// g4_member와 g4_member_unlogin은 db의 구조와 순서를 100% 동일하게 가져가야 합니다!!!
+if ($mb['mb_unlogin'] !== "0000-00-00 00:00:00") {
+    $sql = " replace $g4[member_table] select * from $g4[unlogin_table] where mb_id = '$mb_id' ";
+    sql_query($sql);
+
+    // mb_unlogin 필드를 초기화 합니다.
+    $sql = " update $g4[member_table] set mb_unlogin = '0000-00-00 00:00:00' where mb_id = '$mb_id' ";
+    sql_query($sql);
+
+    // unlogin_table의 해당 필드를 삭제 합니다.
+    $sql = " delete from $g4[unlogin_table] where mb_id = '$mb_id' ";
+    sql_query($sql);
+
+    // 휴면계정 복구에 따라서 해야 하는 사항을 정의 합니다.
+    if (file_exists("$member_skin_path/unlogin_member.skin.php"))
+        @include_once("$member_skin_path/unlogin_member.skin.php");
+
+    // 비밀번호 변경요청 페이지로 이동 합니다.
+    $link = "$g4[bbs_path]/password_change_request.php?url=$url";
 }
 
 goto_url($link);

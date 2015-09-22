@@ -1168,3 +1168,7 @@ CREATE TABLE IF NOT EXISTS `$g4[cookie_table]` (
   KEY `cookie_name` (`cookie_name`),
   KEY `cookie_datetime` (`cookie_datetime`)
 );
+
+# 1.3.10
+ALTER TABLE `$g4[member_table]` ADD `mb_unlogin` DATETIME NOT NULL ;
+CREATE TABLE `$g4[unlogin_table] like `$g4[member_table]`;

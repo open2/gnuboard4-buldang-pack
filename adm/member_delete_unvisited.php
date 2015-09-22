@@ -43,37 +43,16 @@ if ($w == 'd' && $mb_id) {
 
 }
 
-$login_time = "365"; //지난 몇일 동안 접속하지 않은 회원을 삭제할지를 결정?
+$login_time = 365 * 5; //지난 몇일 동안 접속하지 않은 회원을 삭제할지를 결정?
 $today_login_time = date("Y-m-d H:i:s", $g4['server_time'] - ($login_time * 86400));
 
 // $login_time일 이전에 로그인한 회원 출력. 즉 최근 $login_time일안에 로그인한 사람이 없다는 것이다.
-$sql = " select * from $g4[member_table] where mb_today_login < '$today_login_time' and mb_level > '1' order by mb_today_login desc ";
+$sql = " select * from $g4[unlogin_table] where mb_today_login < '$today_login_time' and mb_level > '1' order by mb_today_login desc ";
 $result = sql_query($sql);
 
 $j = 0;
 for ($i=0; $row=sql_fetch_array($result); $i++) { 
 
-    // 게시물 체크. 코멘트 및 원글 포함
-    $sql2 = " select count(*) as cnt from $g4[board_new_table] where mb_id = '$row[mb_id]' ";
-    $new = sql_fetch($sql2); 
-
-    // 내역이 없다면 않았다면? 삭제하지 않습니다. 혹시 모르니까요.
-    if (!$new['cnt']) {
-
-        // 닉네임
-        $nick = get_sideview($row['mb_id'], $row['mb_nick'], $row['mb_email'], $row['mb_homepage']);
-
-        // 일단 삭제할 아이디와 최종 로그인 출력
-        //echo "<tr height='25'>";
-        //echo "<td align='center'>{$nick}</td>";
-        //echo "<td align='right'>". number_format($row['mb_point']) . "</td>";
-        //echo "<td></td>";
-        //echo "<td align='center'>{$row['mb_today_login']}</td>";
-        //echo "<td align='center'><a href='?w=d&mb_id={$row['mb_id']}'>삭제</a></td>";
-        //echo "</tr>";
-        //echo "<tr><td height='1' bgcolor='#f3f3f3' colspan='6'></td></tr>";
-
-        $j++;
         // 회원삭제
         member_delete($row['mb_id']);
 

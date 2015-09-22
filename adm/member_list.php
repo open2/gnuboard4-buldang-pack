@@ -52,6 +52,15 @@ $total_page  = ceil($total_count / $rows);  // 전체 페이지 계산
 if (!$page) $page = 1; // 페이지가 없으면 첫 페이지 (1 페이지)
 $from_record = ($page - 1) * $rows; // 시작 열을 구함
 
+// 휴면 회원수
+$sql = " select count(*) as cnt
+         $sql_common
+         $sql_search
+            and mb_unlogin <> '0000-00-00 00:00:00'
+         $sql_order ";
+$row = sql_fetch($sql);
+$unlogin_count = $row[cnt];
+
 // 탈퇴회원수
 $sql = " select count(*) as cnt
          $sql_common
@@ -100,13 +109,24 @@ function member_delete_unvisited()
 }
 </script>
 
+<script type="text/javascript">
+function member_delete_unlogin()
+{
+    if (confirm("1년이상 접속하지 않은 회원을 정리합니다\n\n진행하시겠습니까?"))
+    {
+        document.location.href = "./member_delete_unlogin.php?ok=1";
+    }
+}
+</script>
 
 <form name=fsearch method=get role="form" class="form-inline">
 <div class="btn-group">
     <?=$listall?> 
     (총회원수 : <?=number_format($total_count)?>, 
+    <a href='?sst=mb_unlogin&sod=desc&sfl=<?=$sfl?>&stx=<?=$stx?>' title='휴면회원부터 출력'><font color=orange>휴면 : <?=number_format($unlogin_count)?></font></a>, 
     <a href='?sst=mb_intercept_date&sod=desc&sfl=<?=$sfl?>&stx=<?=$stx?>' title='차단된 회원부터 출력'><font color=orange>차단 : <?=number_format($intercept_count)?></font></a>, 
     <a href='?sst=mb_leave_date&sod=desc&sfl=<?=$sfl?>&stx=<?=$stx?>' title='탈퇴한 회원부터 출력'><font color=crimson>탈퇴 : <?=number_format($leave_count)?></font></a>)
+    &nbsp;&nbsp;<a href="javascript:member_delete_unlogin();">휴면회원정리</a>
     &nbsp;&nbsp;<a href="javascript:member_delete_unvisited();">장기미접속회원정리</a>
 </div>
 <div class="pull-right">
