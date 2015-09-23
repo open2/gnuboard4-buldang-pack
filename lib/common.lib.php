@@ -154,7 +154,6 @@ function alert($msg='', $url='')
     if (!$msg) $msg = '올바른 방법으로 이용해 주십시오.';
 
 	//header("Content-Type: text/html; charset=$g4[charset]");
-  header("X-Content-Type-Options: nosniff");
 	echo "<meta http-equiv=\"content-type\" content=\"text/html; charset=$g4[charset]\">";
 	echo "<script type='text/javascript'>alert('$msg');";
     if (!$url)
@@ -1103,6 +1102,7 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
 
 }
 
+
 // 파일을 보이게 하는 링크 (이미지, 플래쉬, 동영상)
 function view_file_link($file, $width, $height, $content="")
 {
@@ -1379,12 +1379,6 @@ function sql_password($value)
 {
     // mysql 4.0x 이하 버전에서는 password() 함수의 결과가 16bytes
     // mysql 4.1x 이상 버전에서는 password() 함수의 결과가 41bytes
-
-    // mysql 4.1x 이상 버젼에서도 password() 함수의 결과가 16bytes가 되어서
-    // 41바이트의 기존 비밀번호 때문에 로그인 오류가 나는 경우에는 아래 코멘트를 풀어주세요
-    // 마루호스팅에서 테스트 했습니다.
-    //sql_query("set old_passwords=0");
-
     $row = sql_fetch(" select password('$value') as pass ");
     return $row[pass];
 }
@@ -1722,7 +1716,8 @@ function bad_tag_convert($code)
 
     //return preg_replace("/\<([\/]?)(script|iframe)([^\>]*)\>/i", "&lt;$1$2$3&gt;", $code);
     // script 나 iframe 태그를 막지 않는 경우 필터링이 되도록 수정
-    return preg_replace("/\<([\/]?)(script|iframe|form|applet)([^\>]*)\>?/i", "&lt;$1$2$3&gt;", $code);
+    //return preg_replace("/\<([\/]?)(script|iframe|form|applet)([^\>]*)\>?/i", "&lt;$1$2$3&gt;", $code);
+    return preg_replace("/\<([\/]?)(script|form|applet)([^\>]*)\>?/i", "&lt;$1$2$3&gt;", $code);
 }
 
 
