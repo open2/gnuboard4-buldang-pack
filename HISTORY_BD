@@ -1,3 +1,607 @@
+1.3.1 (2015.09.24)
+
+1.3.1 버젼은 너무 수정한게 많고 복잡한거 같아서 이전버젼에서 올라가는 패치파일은 제공하지 않습니다.
+
+1.3.1 버젼 이후에는 앱 연동을 위한 부분이 집중적으로 개선될 것 입니다.
+
+ 
+
+===
+
+DB변경사항
+
+ALTER TABLE `g4_member` ADD `mb_unlogin` DATETIME NOT NULL ;
+
+CREATE TABLE g4_member_unlogin like g4_member
+
+ 
+
+네이버 신디케이션은 적용하지 않습니다.
+신디를 이용해서 네이버에 SEO하시는 것보다는 사이트의 credit을 높이는 것이 더 좋습니다.
+
+
+
+Jquery 1.11.3 http://jquery.com/
+
+Font-awesome 4.4.0 http://fontawesome.io/
+
+
+
+
+jQuery Hammer.js 2.0.4 http://hammerjs.github.io/ https://github.com/hammerjs/jquery.hammer.js
+
+Bootstrap 3.3.4 http://getbootstrap.com/ 
+
+* LESS 수정사항 http://opencode.co.kr/bbs/board.php?bo_table=gnu4_pack&wr_id=1700
+
+
+
+
+html5 Shiv 3.7.3 https://github.com/aFarkas/html5shiv
+
+respond 1.4.2 https://github.com/scottjehl/Respond
+
+
+
+ 
+
+
+
+common.php
+
+
+config.php
+head.sub.php
+ 
+
+adm/admin.lib.php
+
+adm/board_form.php
+
+
+
+adm/board_form_update.php
+
+adm/config_form_update.php
+
+
+
+adm/member_delete_unlogin.php
+
+adm/member_delete_unvisited.php
+
+
+adm/member_list.php
+
+adm/memo4_install_update.php
+
+adm/point_update.php
+
+
+adm/upgrade_bd.php
+
+adm/visit_list.php
+
+adm/visit_search.php
+
+
+
+
+bbs/delete.php
+
+
+bbs/delete_all.php
+
+bbs/delete_comment.php
+
+bbs/list.php
+
+
+
+
+bbs/login_check.php
+
+bbs/mb_leave_update.php
+
+bbs/mb_leave.php
+
+bbs/password_check.php
+
+bbs/poll_etc_update.php
+
+bbs/poll_update.php
+
+bbs/register_form_update.php
+bbs/singo_popin_update.php
+
+
+bbs/write.php
+
+bbs/write_update.php
+
+
+ 
+
+ 
+
+cheditor5/*
+
+ 
+
+install/sql_opencode.sql
+
+
+
+
+js/jquery.js
+
+
+js/bootstrap/*
+
+js/font-awesome/*
+
+js/html5shiv/*
+
+ 
+
+lib/common.lib.php
+
+
+skin/board/boot_oneline/list.php
+skin/board/boot_oneline/write.php
+
+
+
+
+
+skin/member/basic/ajax_mb_email_check.php
+
+
+skin/member/basic/unlogin_member.skin.php
+
+skin/memo/basic/memo2.head.skin.php
+skin/memo/basic/memo2_write.skin.php
+
+ 
+
+skin/myon/basic/myon.skin.php
+
+
+
+
+skin/popup/basic/popup.skin.php
+
+
+
+
+skin/whatson/basic/whatson.skin.php
+
+
+ 
+
+ 
+
+- common.lib.php 오류수정
+
+lib/common.lib.php
+
+http://www.opencode.co.kr/bbs/board.php?bo_table=gnu4_pack_req&wr_id=1535
+
+ 
+
+- font awesome 4.4.0
+
+js/font-awesome/*
+
+
+
+
+
+- cheditor 5.1.4
+
+cheditor5/*
+
+
+- 신고한거 취소하는 기능 (MyOn) 타이틀 오류
+
+
+skin/myon/basic/myon.skin.php 
+
+ 
+
+- 장기 미접속자 DB분리
+
+
+config.php
+
+install/sql_opencode.sql
+
+adm/upgrade_bd.php
+
+bbs/login_check.php
+
+skin/member/basic/unlogin_member.skin.php
+
+http://www.opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=1066
+
+ 
+
+adm/member_list.php
+
+adm/member_delete_unlogin.php
+
+http://www.opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=1071
+
+ 
+
+adm/admin.lib.php
+
+adm/member_delete_unvisited.php
+
+http://www.opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=1076
+
+ 
+
+- 그누보드 4.37.36
+
+4.37.36 (2015.09.03) 
+    : LFI(Local File Inclusion) 취약점 보완 (한국인터넷진흥원에서 알려 주셨습니다.) 
+      상단 파일 경로와 하단 파일 경로에는 URL을 사용할수 없도록 하였습니다. 
+
+        adm/board_form_update.php 가 아래와 같이 수정 되었습니다. 
+
+            $_POST[bo_include_head] = substr($_POST[bo_include_head], 0, 255); 
+            $_POST[bo_include_tail] = substr($_POST[bo_include_tail], 0, 255); 
+
+            if ($file = $_POST[bo_include_head]) { 
+                $purl = parse_url($file); 
+                $file = $purl['path']; 
+                if (!preg_match("/\.(php|htm[l]?)$/i", $file)) { 
+                    alert("상단 파일 경로가 php, html 파일이 아닙니다."); 
+                } 
+                $_POST[bo_include_head] = $file; 
+            } 
+
+            if ($file = $_POST[bo_include_tail]) { 
+                $purl = parse_url($file); 
+                $file = $purl['path']; 
+                if (!preg_match("/\.(php|htm[l]?)$/i", $file)) { 
+                    alert("하단 파일 경로가 php, html 파일이 아닙니다."); 
+                } 
+                $_POST[bo_include_tail] = $file; 
+            } 
+
+        adm/board_form.php 에 아래의 코드가 추가 되었습니다. 
+
+            <?=help("http://도메인/head.php 와 같은 경로는 사용할수 없습니다.<br>_head.php 또는 /home/user/www/head.php 와 같은 경로만 사용할수 있습니다.");?> 
+            ... 
+            <?=help("http://도메인/tail.php 와 같은 경로는 사용할수 없습니다.<br>_tail.php 또는 /home/user/www/tail.php 와 같은 경로만 사용할수 있습니다.");?>
+
+ 
+
+- 그누보드 4.37.35
+
+http://sir.co.kr/g4_pds/9365 
+
+4.37.35 (2015.09.01) 
+    : LFI(Local File Inclusion) 취약점 해결 (한국인터넷진흥원을 통하여 익명의 제보자께서 알려 주셨습니다.) 
+
+ 
+
+- 그누보드 4.37.34
+
+
+- 그누보드 4.37.33
+
+- 그누보드 4.37.32
+
+html purifier... 오류 등의 이슈로 반영을 유보함
+
+ 
+
+- 그누보드 4.37.31
+
+우편번호 개선인데, 반영하지 않습니다. 의미 없슴
+
+http://sir.co.kr/g4_pds/9328
+
+ 
+
+- 그누보드 4.37.30
+
+4.37.30 (2015.07.06) 
+    : 접속자현황 및 접속자검색에서 XSS 취약점이 발견되어 수정 (한국인터넷진흥원 인터넷침해대응본부 김유홍 주임연구원께서 알려 주셨습니다.) 
+
+
+adm/visit_list.php
+
+adm/visit_search.php
+
+ 
+
+- DB injection 대응
+
+head.sub.php
+
+ 
+
+- 그누보드 4.37.29  
+
+bbs/poll_update.php
+
+http://opencode.co.kr/bbs/write.php?w=u&bo_table=gnu4_pack&wr_id=1866 
+
+    : 투표 항목 저장시 SQL Injection 이 발견되어 수정 (한국인터넷진흥원 인터넷침해대응본부 취약점 담당자 손기종 선임연구원께서 알려 주셨습니다.) 
+
+        bbs/poll_update.php 에 
+
+            $gb_poll = (int)$_POST[gb_poll]; 
+            if ($gb_poll<1 || $gb_poll>9) { 
+                alert_close("투표 항목이 존재하지 않습니다."); 
+            } 
+
+ 
+
+- 쪽지 보내기 제목변경 (쓰기 -> write)
+
+skin/memo/basic/memo2.head.skin.php
+
+ 
+
+-그누보드 4.37.28
+
+adm/visit_list.php
+
+4.37.28 (2015.05.27) 
+    : 접속자현황에서 XSS 취약점이 발견되어 수정 (KISA 침해사고분석단 취약점점검팀 방성천님께서 알려 주셨습니다.) 
+        adm/visit_list.php 의 
+            $link = "<a href='$row[vi_referer]' target=_blank title='$title '>";        
+            를 
+            $link = "<a href='".htmlspecialchars($row['vi_referer'])."' target=_blank title='$title '>"; 
+            로 수정하세요.
+
+
+* 불당팩은 java script로 팝업하는 조금은 다른 형태이지만... 그래도 수정했습니다.
+
+
+
+
+- bootstrap 3.3.4 업데이트
+
+js/bootstrap/*
+
+
+
+
+- html5shiv 3.7.3 업데이트
+
+js/html5shiv/*
+
+
+
+
+- font awesome 4.3.0 업데이트
+
+
+js/font-awesome/*
+
+
+
+
+- jquery 1.11.3 업데이트
+
+head.sub.php
+
+js/jquery-1.11.3.min.js
+
+
+
+
+- 그누보드 4.37.27
+
+adm/board_form_update.php
+
+adm/config_form_update.php
+
+adm/memo4_install_update.php
+
+adm/point_update.php
+
+bbs/delete.php
+
+bbs/delete_all.php
+
+bbs/delete_comment.php
+
+bbs/mb_leave_update.php
+
+bbs/mb_leave.php
+
+bbs/password_check.php
+
+bbs/poll_etc_update.php
+
+bbs/write.php
+
+
+
+
+4.37.27 (2015.05.13) 
+
+    : 로그인 검사시 Magic Hash 취약점이 발견되어 수정 (빈경윤님께서 알려주셨습니다.) 
+
+      국내 기사) http://www.boannews.com/media/view.asp?idx=46219&kind=4 
+      취약점 발표) https://blog.whitehatsec.com/magic-hashes/ 
+      
+      동작 환경) 
+      비밀번호 해시값이 '0e' + '숫자로만 생성'되었을 경우, 미리 알고 있는 Magic Hash 값을 통해 아무나 로그인할 수 있게 됩니다. 
+      그누보드에서는 mysql 의 password()함수로 hash 하므로, 
+      mysql 4.1 이전 버전이거나 old_password 설정이 활성화된 상태에서만 취약합니다. 
+      
+      해결방법) 
+      아래처럼 비밀번호 비교 구문을 모두 찾아, 동등 연산자(!=)를 일치 연산자(!==)로 변경해주시기만 하면 됩니다. 
+
+        bbs/login_check.php 의 
+
+            if (!$mb[mb_id] || (sql_password($mb_password) != $mb[mb_password])) { 
+
+            를 
+
+            if (!$mb[mb_id] || (sql_password($mb_password) !== $mb[mb_password])) { 
+
+            로 수정하세요.
+
+
+
+
+- 그누보드 4.37.26
+
+오래전에 패치된 코드 입니다. 수정사항 없습니다.
+
+http://sir.co.kr/bbs/board.php?bo_table=g4_pds&wr_id=9272
+
+
+
+
+- 그누보드 4.37.25
+
+bbs/list.php
+
+    : SQL 오류메세지가 노출되는 것을 방지 (한국인터넷진흥원 취약점 분석가 박지희님이 알려주셨습니다.) 
+
+        bbs/list.php 를 다음과 같이 수정 (앞의 숫자는 라인 표시) 
+
+            34 : $result = sql_query($sql, false); 
+            35 : $total_count = @mysql_num_rows($result); 
+            ... 
+            88 : $result = sql_query($sql, false); 
+
+
+
+
+
+
+
+- 그누보드 4.37.24
+
+skin/member/basic/ajax_mb_email_check.php
+
+
+
+
+4.37.24 (2015.01.16) 
+    : SQL Injection 취약점이 발견되어 수정 (한국인터넷진흥원 취약점 담당자 최명균님이 알려주셨습니다.) 
+        skin/member/basic/ajax_mb_email_check.php 
+            } else if (!preg_match("/^([0-9a-zA-Z_-]+)@([0-9a-zA-Z_-]+)\.([0-9a-zA-Z_-]+)$/", $reg_mb_email)) { 
+
+http://sir.co.kr/bbs/board.php?bo_table=g4_pds&wr_id=9252
+
+
+
+
+- 날짜 표시를 getdatetime으로 하도록 (스타일이 나빠져서)
+
+skin/whatson/basic/whatson.skin.php
+
+
+
+
+- 그누보드 4.37.23
+
+common.php (불당팩에서는 head.sub.php가 아닌, common.php에 위치)
+
+http://sir.co.kr/bbs/board.php?bo_table=g4_pds&wr_id=9227
+
+4.37.23 (2014.12.23) 
+    : SQL Injection 취약점이 발견되어 수정 (한국인터넷진흥원 침해사고분석단 취약점분석팀 손기종님이 알려주셨습니다.)
+
+
+
+
+- 중복정의된 함수 삭제
+
+skin/popup/basic/popup.skin.php
+
+http://opencode.co.kr/bbs/board.php?bo_table=gnu4_pack_qna&wr_id=5081
+
+
+
+
+- hammer.js 2.0.0 UMD
+
+js/hammer/hammer.js
+
+
+
+
+- bootstrap 3.3.1
+
+js/bootstrap/*
+
+
+
+
+- font awesome 4.2.0
+
+js/font-awesome/*
+
+
+
+
+- jquery 1.11.1
+
+head.sub.php
+
+js/jquery.js
+
+
+- 그누보드 4.37.22
+  : 다른 회원의 아이콘을 변경 할수 있는 오류 해결 (팔팔이님이 알려주셨습니다.) 
+        bbs/register_form_update.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/d2c078339200d61cd63cf0a6ed5558b378a0fed3
+  : 다른 게시물의 첨부파일을 공격(삭제) 할수 있는 오류 해결 (팔팔이님이 알려주셨습니다.) 
+        bbs/write_update.php 아래의 코드가 위치가 변경 되었습니다. 
+https://github.com/open2/gnuboard4-buldang-pack/commit/fb81fa183195146ebbed7f6ed2f1ea6608a2adbe
+
+- 쪽지 버튼 위치변경
+skin/memo/basic/memo2.head.skin.php
+skin/memo/basic/memo2_write.skin.php
+
+- 한줄게시판 이모티콘 없애기 안되는 오류 + 코드정리
+skin/board/boot_oneline/list.php
+
+
+skin/board/boot_oneline/write.php
+
+- 4.37.18 (보안패치)
+: SQL Injection 취약점이 발견되어 수정 (한국인터넷진흥원을 통하여 laughfool님이 알려주셨습니다.) 
+--> 이미 오래전에 반영된 사항 입니다.
+
+- 4.36.17 (보안패치)
+common.php
+: 회원가입시 홈페이지에 ' 가 포함되면 발생하던 오류 수정 (한국인터넷진흥원을 통해 김범수님이 알려주셨습니다.) 
+--> 이미 오래전에 반영된 사항임.
+: 최고관리자의 자동로그인 기능에서 대소문자 문제로 인한 우회 취약점을 해결 (한국인터넷진흥원을 통해 김범수님이 알려주셨습니다.) 
+ : POST 요청을 통해 $_FILES, $_SERVER 등의 글로벌 변수를 오버라이트 하는 취약점을 해결 (한국인터넷진흥원을 통해 김범수님이 알려주셨습니다.) 
+
+
+- 4.37.16
+. 신디케이션패치로 해당사항 없슴
+
+- (보안패치) 그누보드 4.37.15
+bbs/write_update.php
+: XSS 취약점 해결 (한국인터넷진흥원에서 알려 주셨습니다.) 
+  비회원 글 작성할 때 이메일 입력칸에 스크립트 코드를 입력하여 저장하면 글 수정시 스크립트가 실행되는 취약점이 발견 되었습니다. 
+    bbs/write_update.php 에 한줄 추가하세요. 
+        $wr_email = mysql_real_escape_string(strip_tags($_POST['wr_email'])); 
+
+- 신고 게시글의 escape
+bbs/singo_popin_update.php
+해결 https://github.com/open2/gnuboard4-buldang-pack/commit/2c7970ec4e31c68d972862109befa4f79c3e2208
+issue http://opencode.co.kr/bbs/board.php?bo_table=qna&wr_id=4682
+* 신고글의 내용을 넣어두는 것은, 신고된 후에 임의로 수정하고 BJR하는 분들이 있기 때문임...
+
+
 1.3.00 (2014.07.11)
 
 새로운 마음으로. 넘버링을 바꿉니다. 1.3.0
