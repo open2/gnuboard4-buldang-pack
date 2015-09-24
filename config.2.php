@@ -47,4 +47,16 @@ $g4['channel'] = "";
 // bbs/write.php에서 그냥 나갈때 경고할지 안할지 결정
 // 쓰기할 때 경고가 필요하지 않은 경우는 write.head.skin.php에서 false로 하면 됨
 $g4['write_escape'] = true;
+
+// 유니크로 쿠키를 구워줍니다.
+if ($g4[unicro_url]) {
+    $unicro_cookie_id = $member["mb_id"] . "^" . $member["mb_no"];
+    if (isset($_COOKIE[unicro_id]) && $_COOKIE[unicro_id] == "$unicro_cookie_id") { } else {
+        setcookie("unicro_id", "$unicro_cookie_id", $g4[server_time] + 3600, '/', $g4[cookie_domain]) ;
+    }
+}
+
+// geoip 체크, 한국이면 KR이 리턴 됩니다.
+if ($g4['use_geo_ip'])
+    $geoip = ipaddress_to_country_code($_SERVER['REMOTE_ADDR']);
 ?>
