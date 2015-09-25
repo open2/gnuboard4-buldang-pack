@@ -18,8 +18,12 @@ if ($referer) {
     $q = convertUrlQuery($u['query']);
     $host = $u['host'];
 
-    $sql = " insert $g4[seo_server_table] (server_name, server_date, count) values ('$host', '$g4[time_ymd]', 1) ON DUPLICATE KEY update count = count+1 ";
-    sql_query($sql);
+    //$sql = " insert $g4[seo_server_table] (server_name, server_date, count) values ('$host', '$g4[time_ymd]', 1) ON DUPLICATE KEY update count = count+1 ";
+    //sql_query($sql);
+
+    $stmt = mysqli_prepare($mysqli_db, " insert $g4[seo_server_table] (server_name, server_date, count) values (?, '$g4[time_ymd]', 1) ON DUPLICATE KEY update count = count+1 ");
+    mysqli_stmt_bind_param($stmt, "s", $host);
+    $result = sqli_query($stmt);
 
     $query = "";
     // 네이버
@@ -49,9 +53,13 @@ if ($referer) {
         unset($query);
 
     if ($query) {
-        $sql = " insert $g4[seo_tag_table] (tag_name, tag_date, count, bo_table, wr_id) 
-                 values ('$query', '$g4[time_ymd]', 1, '$bo_table', '$wr_id') ON DUPLICATE KEY update count = count+1 ";
-        sql_query($sql);
+        //$sql = " insert $g4[seo_tag_table] (tag_name, tag_date, count, bo_table, wr_id) 
+        //         values ('$query', '$g4[time_ymd]', 1, '$bo_table', '$wr_id') ON DUPLICATE KEY update count = count+1 ";
+        //sql_query($sql);
+
+        $stmt = mysqli_prepare($mysqli_db, " insert $g4[seo_tag_table] (tag_name, tag_date, count, bo_table, wr_id) values (?, '$g4[time_ymd]', 1, ?, ?) ON DUPLICATE KEY update count = count+1 ");
+        mysqli_stmt_bind_param($stmt, "ssi", $query, $bo_table, $wr_id);
+        $result = sqli_query($stmt);
     }
 }
 
@@ -63,8 +71,12 @@ if (get_cookie('ck_visit_ip') != $_SERVER['REMOTE_ADDR']) {
     //$tmp_row = sql_fetch(" select max(vi_id) as max_vi_id from $g4[visit_table] ");
     //$vi_id = $tmp_row[max_vi_id] + 1;
 
-    $sql = " insert $g4[visit_table] ( vi_ip, vi_date, vi_time, vi_referer, vi_agent ) values ( '$remote_addr', '$g4[time_ymd]', '$g4[time_his]', '$referer', '$user_agent' ) ";
-    $result = sql_query($sql, FALSE);
+    //$sql = " insert $g4[visit_table] ( vi_ip, vi_date, vi_time, vi_referer, vi_agent ) values ( '$remote_addr', '$g4[time_ymd]', '$g4[time_his]', '$referer', '$user_agent' ) ";
+    //$result = sql_query($sql, FALSE);
+
+    $stmt = mysqli_prepare($mysqli_db, " insert $g4[visit_table] ( vi_ip, vi_date, vi_time, vi_referer, vi_agent ) values ( '$remote_addr', '$g4[time_ymd]', '$g4[time_his]', ?, ?) ");
+    mysqli_stmt_bind_param($stmt, "ss", $referer, $user_agent);
+    $result = sqli_query($stmt, FALSE);
 
     // 정상으로 INSERT 되었다면 방문자 합계에 반영
     if ($result) {

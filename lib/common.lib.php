@@ -1764,6 +1764,31 @@ function is_utf8($str)
     return true; 
 }
 
+// mysqli $stmt를 실행한 후 결과값에서 한행을 얻는다.
+function sqli_fetch($stmt, $error=TRUE)
+{
+    if ($error)
+        mysqli_stmt_execute($stmt) or die(sql_failure_handler($stmt, mysqli_stmt_errno($stmt), mysqli_stmt_error($stmt)));
+    else
+        mysqli_stmt_execute($stmt);
+
+    $result = mysqli_stmt_get_result($stmt);
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+    return $row;
+}
+
+// mysqli_execute 와 mysql_error 를 한꺼번에 처리
+function sqli_query($stmt, $error=TRUE)
+{
+    if ($error)
+        $result = mysqli_stmt_execute($stmt) or die(sql_failure_handler($stmt, mysqli_stmt_error($stmt), mysqli_stmt_errno($stmt)));
+    else
+        $result = mysqli_stmt_execute($stmt);
+    
+    return $result;
+}
+
 // 불당팩 라이브러리를 읽습니다
 include_once("$g4[path]/lib/b4.lib.php");
 ?>

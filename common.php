@@ -272,6 +272,14 @@ $dbconfig_file = "dbconfig.php";
     if (!$select_db)
         die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script type='text/javascript'> alert('DB 접속 오류'); </script>");
 
+// 불당팩 - MySQLi 접속 ($mysqli_db가 접속 connection 입니다)
+$mysqli_db = mysqli_connect($mysql_host, $mysql_user, $mysql_password, $mysql_db);
+if (!$mysqli_db) {
+    die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script type='text/javascript'> alert('MySQLi DB 접속 오류'); </script>");
+}
+// mysqli의 설정 문자셋은 euc-kr이 아니라 euckr, utf-8이 아니라 utf8이라서 '-'를 없애줘야 합니다.
+mysqli_set_charset($mysqli_db, str_replace('-', '', $g4[charset]));
+
 $_SERVER['PHP_SELF'] = htmlentities($_SERVER['PHP_SELF']);
 
 //-------------------------------------------
@@ -523,19 +531,27 @@ else
 $write_table = "";
 if (isset($bo_table)) {
     $bo_table = preg_match("/^[a-zA-Z0-9_]+$/", $bo_table) ? $bo_table : "";
-    $board = sql_fetch(" select * from {$g4['board_table']} where bo_table = '$bo_table' ");
+    //$board = sql_fetch(" select * from {$g4['board_table']} where bo_table = '$bo_table' ");
+
+    $stmt = mysqli_prepare($mysqli_db, " select * from {$g4['board_table']} where bo_table = ? ");
+    mysqli_stmt_bind_param($stmt, "s", $bo_table);
+    $board = sqli_fetch($stmt);
+
     if ($board['bo_table']) {
         $gr_id = $board['gr_id'];
         $write_table = $g4['write_prefix'] . $bo_table; // 게시판 테이블 전체이름
-        if ($wr_id)
-            $write = sql_fetch(" select * from $write_table where wr_id = '$wr_id' ");
+        $write = sql_fetch(" select * from $write_table where wr_id = '$wr_id' ");
     }
 }
 
 // adm/board_list.php에서 gr_id를 배열로 쓰기 때문에, is_array를 체크해야 합니다. =..=...
 if (isset($gr_id) && !is_array($gr_id)) {
     $gr_id = preg_match("/^[a-zA-Z0-9_]+$/", $gr_id) ? $gr_id : "";
-    $group = sql_fetch(" select * from {$g4['group_table']} where gr_id = '$gr_id' ");
+    //$group = sql_fetch(" select * from {$g4['group_table']} where gr_id = '$gr_id' ");
+
+    $stmt = mysqli_prepare($mysqli_db, " select * from {$g4['group_table']} where gr_id = ? ");
+    mysqli_stmt_bind_param($stmt, "s", $gr_id);
+    $group = sqli_fetch($stmt);
 }
 
 // 회원, 비회원 구분
@@ -601,42 +617,47 @@ while ($entry = $tmp->read()) {
         include_once("$g4[path]/extend/$entry");
 }
 
-// 유니크로 쿠키를 구워줍니다.
-if ($g4[unicro_url]) {
-    $unicro_cookie_id = $member["mb_id"] . "^" . $member["mb_no"];
-    if (isset($_COOKIE[unicro_id]) && $_COOKIE[unicro_id] == "$unicro_cookie_id") { } else {
-        setcookie("unicro_id", "$unicro_cookie_id", $g4[server_time] + 3600, '/', $g4[cookie_domain]) ;
-    }
-}
-
 // 곱슬최씨 - 게시판별 카운터
 if ($gr_id && $bo_table) 
 {
     $board_visit = "$g4[time_ymd].$gr_id.$bo_table.$_SERVER[REMOTE_ADDR]";
 
-    $sql = " select count(*) as cnt from $mw[board_visit_log_table] where log = '$board_visit' ";
-    $result = sql_fetch($sql);
+    //$sql = " select count(*) as cnt from $mw[board_visit_log_table] where log = '$board_visit' ";
+    //$result = sql_fetch($sql);
+
+    $stmt = mysqli_prepare($mysqli_db, " select count(*) as cnt from $mw[board_visit_log_table] where log = ? ");
+    mysqli_stmt_bind_param($stmt, "s", $board_visit);
+    $result = sqli_fetch($stmt);
 
     // $result[cnt] == 0 : 오늘 처음 방문하는 경우.
     if ($result[cnt] == 0) {
-        $qry = sql_query("insert into $mw[board_visit_log_table] set log = '$board_visit'", false);
+        //$qry = sql_query("insert into $mw[board_visit_log_table] set log = '$board_visit'", false);
+
+        $stmt = mysqli_prepare($mysqli_db, " insert into $mw[board_visit_log_table] set log = ? ");
+        mysqli_stmt_bind_param($stmt, "s", $board_visit);
+        $qry = sqli_query($stmt);
+
         if ($qry) {
-            $sql = " update $mw[board_visit_table] set bv_count = bv_count + 1 where bv_date = '$g4[time_ymd]' and gr_id = '$gr_id' and bo_table = '$bo_table' ";
-            $qry = sql_query($sql, false);
+            //$sql = " update $mw[board_visit_table] set bv_count = bv_count + 1 where bv_date = '$g4[time_ymd]' and gr_id = '$gr_id' and bo_table = '$bo_table' ";
+            //$qry = sql_query($sql, false);
+
+            $stmt = mysqli_prepare($mysqli_db, " update $mw[board_visit_table] set bv_count = bv_count + 1 where bv_date = '$g4[time_ymd]' and gr_id = ? and bo_table = ? ");
+            mysqli_stmt_bind_param($stmt, "ss", $gr_id, $bo_table);
+            $qry = sqli_query($stmt);
 
             // 수정된 row가 하나도 없다면(업데이트가 안되는 오류) 새로운 날짜별 행을 생성하도록 insert를 실행
-            if ( mysql_affected_rows() == 0 ) {
-                $sql = " insert $mw[board_visit_table] set bv_date = '$g4[time_ymd]', gr_id = '$gr_id', bo_table = '$bo_table', bv_count = 1 ";
-                $qry = sql_query($sql);
+            if ( mysqli_stmt_affected_rows($stmt) == 0 ) {
+                //$sql = " insert $mw[board_visit_table] set bv_date = '$g4[time_ymd]', gr_id = '$gr_id', bo_table = '$bo_table', bv_count = 1 ";
+                //$qry = sql_query($sql);
+
+                $stmt = mysqli_prepare($mysqli_db, " insert $mw[board_visit_table] set bv_date = '$g4[time_ymd]', gr_id = ?, bo_table = ?, bv_count = 1 ");
+                mysqli_stmt_bind_param($stmt, "ss", $gr_id, $bo_table);
+                $qry = sqli_query($stmt);
             }
         }
         unset($board_visit);
     }
 }
-
-// geoip 체크, 한국이면 KR이 리턴 됩니다.
-if ($g4['use_geo_ip'])
-    $geoip = ipaddress_to_country_code($_SERVER['REMOTE_ADDR']);
 
 // 글쓰기제한
 $is_delay = false;
@@ -650,8 +671,8 @@ if ($member['mb_level'] > 1) {
 // head.sub.php에서 이동
 $lo_location = addslashes($g4['title']);
 if (!$lo_location)
-    $lo_location = addslashes($_SERVER['REQUEST_URI']);
-$lo_url = addslashes($_SERVER['REQUEST_URI']);
+    $lo_location = $_SERVER['REQUEST_URI'];
+$lo_url = $_SERVER['REQUEST_URI'];
 if (strstr($lo_url, "/$g4[admin]/") || $is_admin == "super") $lo_url = "";
 
 // 불당팩 - 추가적인 개별 변수설정을 위해
