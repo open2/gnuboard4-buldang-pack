@@ -21,9 +21,9 @@ if ($referer) {
     //$sql = " insert $g4[seo_server_table] (server_name, server_date, count) values ('$host', '$g4[time_ymd]', 1) ON DUPLICATE KEY update count = count+1 ";
     //sql_query($sql);
 
-    $stmt = mysqli_prepare($mysqli_db, " insert $g4[seo_server_table] (server_name, server_date, count) values (?, '$g4[time_ymd]', 1) ON DUPLICATE KEY update count = count+1 ");
-    mysqli_stmt_bind_param($stmt, "s", $host);
-    $result = sqli_query($stmt);
+    $stmt = $pdo_db->prepare(" insert $g4[seo_server_table] (server_name, server_date, count) values (:host, '$g4[time_ymd]', 1) ON DUPLICATE KEY update count = count+1 ");
+    $stmt->bindParam(":host", $host);
+    $result = pdo_query($stmt);
 
     $query = "";
     // 네이버
@@ -57,9 +57,11 @@ if ($referer) {
         //         values ('$query', '$g4[time_ymd]', 1, '$bo_table', '$wr_id') ON DUPLICATE KEY update count = count+1 ";
         //sql_query($sql);
 
-        $stmt = mysqli_prepare($mysqli_db, " insert $g4[seo_tag_table] (tag_name, tag_date, count, bo_table, wr_id) values (?, '$g4[time_ymd]', 1, ?, ?) ON DUPLICATE KEY update count = count+1 ");
-        mysqli_stmt_bind_param($stmt, "ssi", $query, $bo_table, $wr_id);
-        $result = sqli_query($stmt);
+        $stmt = $pdo_db->prepare(" insert $g4[seo_tag_table] (tag_name, tag_date, count, bo_table, wr_id) values (:query, '$g4[time_ymd]', 1, :bo_table, :wr_id) ON DUPLICATE KEY update count = count+1 ");
+        $stmt->bindParam(":query", $query);
+        $stmt->bindParam(":bo_table", $bo_table);
+        $stmt->bindParam(":wr_id", $wr_id);
+        $result = pdo_query($stmt);
     }
 }
 
@@ -74,9 +76,10 @@ if (get_cookie('ck_visit_ip') != $_SERVER['REMOTE_ADDR']) {
     //$sql = " insert $g4[visit_table] ( vi_ip, vi_date, vi_time, vi_referer, vi_agent ) values ( '$remote_addr', '$g4[time_ymd]', '$g4[time_his]', '$referer', '$user_agent' ) ";
     //$result = sql_query($sql, FALSE);
 
-    $stmt = mysqli_prepare($mysqli_db, " insert $g4[visit_table] ( vi_ip, vi_date, vi_time, vi_referer, vi_agent ) values ( '$remote_addr', '$g4[time_ymd]', '$g4[time_his]', ?, ?) ");
-    mysqli_stmt_bind_param($stmt, "ss", $referer, $user_agent);
-    $result = sqli_query($stmt, FALSE);
+    $stmt = $pdo_db->prepare(" insert $g4[visit_table] ( vi_ip, vi_date, vi_time, vi_referer, vi_agent ) values ( '$remote_addr', '$g4[time_ymd]', '$g4[time_his]', :referer, :user_agent) ");
+    $stmt->bindParam(":referer", $referer);
+    $stmt->bindParam(":user_agent", $user_agent);
+    $result = pdo_query($stmt, FALSE);
 
     // 정상으로 INSERT 되었다면 방문자 합계에 반영
     if ($result) {

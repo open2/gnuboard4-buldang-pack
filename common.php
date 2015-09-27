@@ -272,13 +272,13 @@ $dbconfig_file = "dbconfig.php";
     if (!$select_db)
         die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script type='text/javascript'> alert('DB 접속 오류'); </script>");
 
-// 불당팩 - MySQLi 접속 ($mysqli_db가 접속 connection 입니다)
-$mysqli_db = mysqli_connect($mysql_host, $mysql_user, $mysql_password, $mysql_db);
-if (!$mysqli_db) {
-    die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script type='text/javascript'> alert('MySQLi DB 접속 오류'); </script>");
+// PDO 접속
+try {
+    $pdo_db = new PDO( "mysql:host=$mysql_host;dbname=$mysql_db;charset=" . str_replace('-', '', $g4[charset]), "$mysql_user", "$mysql_password");
+    $pdo_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch(PDOException $e) {
+    die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script type='text/javascript'> alert('PDO 접속 오류 : ' . $e->getMessage()); </script>");
 }
-// mysqli의 설정 문자셋은 euc-kr이 아니라 euckr, utf-8이 아니라 utf8이라서 '-'를 없애줘야 합니다.
-mysqli_set_charset($mysqli_db, str_replace('-', '', $g4[charset]));
 
 $_SERVER['PHP_SELF'] = htmlentities($_SERVER['PHP_SELF']);
 
@@ -533,9 +533,9 @@ if (isset($bo_table)) {
     $bo_table = preg_match("/^[a-zA-Z0-9_]+$/", $bo_table) ? $bo_table : "";
     //$board = sql_fetch(" select * from {$g4['board_table']} where bo_table = '$bo_table' ");
 
-    $stmt = mysqli_prepare($mysqli_db, " select * from {$g4['board_table']} where bo_table = ? ");
-    mysqli_stmt_bind_param($stmt, "s", $bo_table);
-    $board = sqli_fetch($stmt);
+    $stmt = $pdo_db->prepare(" select * from {$g4['board_table']} where bo_table = :bo_table ");
+    $stmt->bindParam(":bo_table", $bo_table);
+    $board = pdo_fetch($stmt);
 
     if ($board['bo_table']) {
         $gr_id = $board['gr_id'];
@@ -549,9 +549,9 @@ if (isset($gr_id) && !is_array($gr_id)) {
     $gr_id = preg_match("/^[a-zA-Z0-9_]+$/", $gr_id) ? $gr_id : "";
     //$group = sql_fetch(" select * from {$g4['group_table']} where gr_id = '$gr_id' ");
 
-    $stmt = mysqli_prepare($mysqli_db, " select * from {$g4['group_table']} where gr_id = ? ");
-    mysqli_stmt_bind_param($stmt, "s", $gr_id);
-    $group = sqli_fetch($stmt);
+    $stmt = $pdo_db->prepare(" select * from {$g4['group_table']} where gr_id = :gr_id ");
+    $stmt->bindParam(":gr_id", $gr_id);
+    $group = pdo_fetch($stmt);
 }
 
 // 회원, 비회원 구분
@@ -625,34 +625,36 @@ if ($gr_id && $bo_table)
     //$sql = " select count(*) as cnt from $mw[board_visit_log_table] where log = '$board_visit' ";
     //$result = sql_fetch($sql);
 
-    $stmt = mysqli_prepare($mysqli_db, " select count(*) as cnt from $mw[board_visit_log_table] where log = ? ");
-    mysqli_stmt_bind_param($stmt, "s", $board_visit);
-    $result = sqli_fetch($stmt);
+    $stmt = $pdo_db->prepare(" select count(*) as cnt from $mw[board_visit_log_table] where log = :board_visit ");
+    $stmt->bindParam(":board_visit", $board_visit);
+    $result = pdo_fetch($stmt);
 
     // $result[cnt] == 0 : 오늘 처음 방문하는 경우.
     if ($result[cnt] == 0) {
         //$qry = sql_query("insert into $mw[board_visit_log_table] set log = '$board_visit'", false);
 
-        $stmt = mysqli_prepare($mysqli_db, " insert into $mw[board_visit_log_table] set log = ? ");
-        mysqli_stmt_bind_param($stmt, "s", $board_visit);
-        $qry = sqli_query($stmt);
+        $stmt = $pdo_db->prepare(" insert into $mw[board_visit_log_table] set log = :board_visit ");
+        $stmt->bindParam(":board_visit", $board_visit);
+        $result = pdo_query($stmt);
 
         if ($qry) {
             //$sql = " update $mw[board_visit_table] set bv_count = bv_count + 1 where bv_date = '$g4[time_ymd]' and gr_id = '$gr_id' and bo_table = '$bo_table' ";
             //$qry = sql_query($sql, false);
 
-            $stmt = mysqli_prepare($mysqli_db, " update $mw[board_visit_table] set bv_count = bv_count + 1 where bv_date = '$g4[time_ymd]' and gr_id = ? and bo_table = ? ");
-            mysqli_stmt_bind_param($stmt, "ss", $gr_id, $bo_table);
-            $qry = sqli_query($stmt);
+            $stmt = $pdo_db->prepare(" update $mw[board_visit_table] set bv_count = bv_count + 1 where bv_date = '$g4[time_ymd]' and gr_id = :gr_id and bo_table = :bo_table ");
+            $stmt->bindParam(":gr_id", $gr_id);
+            $stmt->bindParam(":bo_table", $bo_table);
+            $result = pdo_query($stmt, false);
 
             // 수정된 row가 하나도 없다면(업데이트가 안되는 오류) 새로운 날짜별 행을 생성하도록 insert를 실행
-            if ( mysqli_stmt_affected_rows($stmt) == 0 ) {
+            if ( $stmt->rowCount() == 0 ) {
                 //$sql = " insert $mw[board_visit_table] set bv_date = '$g4[time_ymd]', gr_id = '$gr_id', bo_table = '$bo_table', bv_count = 1 ";
                 //$qry = sql_query($sql);
 
-                $stmt = mysqli_prepare($mysqli_db, " insert $mw[board_visit_table] set bv_date = '$g4[time_ymd]', gr_id = ?, bo_table = ?, bv_count = 1 ");
-                mysqli_stmt_bind_param($stmt, "ss", $gr_id, $bo_table);
-                $qry = sqli_query($stmt);
+                $stmt = $pdo_db->prepare(" insert $mw[board_visit_table] set bv_date = '$g4[time_ymd]', gr_id = :gr_id, bo_table = :bo_table, bv_count = 1 ");
+                $stmt->bindParam(":gr_id", $gr_id);
+                $stmt->bindParam(":bo_table", $bo_table);
+                $result = pdo_query($stmt, false);
             }
         }
         unset($board_visit);
