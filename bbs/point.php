@@ -1,26 +1,31 @@
-<?
+ <?
 include_once("./_common.php");
 
 if (!$member[mb_id]) 
     alert_close("회원만 조회하실 수 있습니다.");
 
-$g4[title] = $member[mb_nick] . "님의 포인트 내역";
+$g4[title] = strip_tags($member[mb_nick]) . "님의 포인트 내역";
 include_once("$g4[path]/head.sub.php");
 
 $list = array();
+$params = array();
 
 $sql_common = " from $g4[point_table] a left join $g4[board_new_table] b 
                 on (a.po_rel_table = b.bo_table and a.po_rel_id = b.wr_id) ";
-$sql_where = " where a.mb_id = '".mysql_real_escape_string($member[mb_id])."' ";
+$sql_where = " where a.mb_id = :mb_id ";
+$params[] = array(':mb_id', $member[mb_id]);
 
 if($stx && $sfl && $stx != 'all'){
-   $sql_where .= " and a.$sfl = '$stx' ";
+   $sql_where .= " and a.$sfl = :stx ";
+   $params[] = array(':stx', $stx);
 }
 
 $sql_order = " order by a.po_id desc ";
 
 $sql = " select count(*) as cnt $sql_common $sql_where ";
-$row = sql_fetch($sql);
+$stmt = $pdo_db->prepare(" select count(*) as cnt $sql_common $sql_where ");
+$row = pdo_fetch_params($stmt, $params);
+
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
@@ -33,11 +38,13 @@ $sql = " select a.po_point, a.po_datetime, a.po_content, b.bo_table, b.wr_id
                 $sql_where 
                 $sql_order
                 limit $from_record, $rows ";
-$result = sql_query($sql);
+
+$stmt = $pdo_db->prepare($sql);
+$result = pdo_query_params($stmt, $params);
 
 $point_list = array();
 
-for ($i=0; $row=sql_fetch_array($result); $i++) {
+for ($i=0; $row=$stmt->fetch(PDO::FETCH_ASSOC); $i++) {
     $point_list[$i]['po_point'] = $row['po_point'];
     $point_list[$i]['po_datetime'] = $row['po_datetime'];
     $point_list[$i]['po_content'] = $row['po_content'];

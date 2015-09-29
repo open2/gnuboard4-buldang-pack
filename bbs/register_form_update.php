@@ -109,19 +109,28 @@ if ($w == '' || $w == 'u')
         }
 
         // 회원가입시 member_table에 중복 닉이 없는지 확인
-        $sql = " select count(*) as cnt from $g4[member_table] where mb_nick = '$mb_nick' ";
-        $row = sql_fetch($sql);
+        //$sql = " select count(*) as cnt from $g4[member_table] where mb_nick = '$mb_nick' ";
+        //$row = sql_fetch($sql);
+        $stmt = $pdo_db->prepare(" select count(*) as cnt from $g4[member_table] where mb_nick = :mb_nick ");
+        $stmt->bindParam(":mb_nick", $mb_nick);
+        $row = pdo_fetch($stmt);
         if ($row[cnt])
             alert("\'$mb_nick\' 은(는) 이미 다른분이 사용중인 별명이므로 사용이 불가합니다.");
 
         // 불당팩 - 회원가입시 mb_nick_table에 중복 닉이 없는지 확인
-        $sql = " select count(*) as cnt from $g4[mb_nick_table] where mb_nick = '$mb_nick' ";
-        $row = sql_fetch($sql);
+        //$sql = " select count(*) as cnt from $g4[mb_nick_table] where mb_nick = '$mb_nick' ";
+        //$row = sql_fetch($sql);
+        $stmt = $pdo_db->prepare(" select count(*) as cnt from $g4[mb_nick_table] where mb_nick = :mb_nick ");
+        $stmt->bindParam(":mb_nick", $mb_nick);
+        $row = pdo_fetch($stmt);
         if ($row[cnt])
             alert("\'$mb_nick\' 은(는) 이미 다른분이 사용중인 별명이므로 사용이 불가합니다.");
 
-        $sql = " select count(*) as cnt from $g4[member_table] where mb_email = '$mb_email' ";
-        $row = sql_fetch($sql);
+        //$sql = " select count(*) as cnt from $g4[member_table] where mb_email = '$mb_email' ";
+        //$row = sql_fetch($sql);
+        $stmt = $pdo_db->prepare(" select count(*) as cnt from $g4[member_table] where mb_email = :mb_email ");
+        $stmt->bindParam(":mb_email", $mb_email);
+        $row = pdo_fetch($stmt);
         if ($row[cnt])
             alert("\'$mb_email\' 은(는) 이미 다른분이 사용중인 E-mail이므로 사용이 불가합니다.");
     }
@@ -137,19 +146,30 @@ if ($w == '' || $w == 'u')
         // 불당팩 - 회원정보의 홈페이지를 이전 홈페이지로 옮기고 아래에서 비교함
         $old_homepage = $member[mb_homepage];
 
-        $sql = " select count(*) as cnt from $g4[member_table] where mb_nick = '$mb_nick' and mb_id <> '$mb_id' ";
-        $row = sql_fetch($sql);
+        //$sql = " select count(*) as cnt from $g4[member_table] where mb_nick = '$mb_nick' and mb_id <> '$mb_id' ";
+        //$row = sql_fetch($sql);
+        $stmt = $pdo_db->prepare(" select count(*) as cnt from $g4[member_table] where mb_nick = :mb_nick and mb_id <> :mb_id ");
+        $stmt->bindParam(":mb_nick", $mb_nick);
+        $stmt->bindParam(":mb_id", $mb_id);
+        $row = pdo_fetch($stmt);
         if ($row[cnt])
             alert("\'$mb_nick\' 은(는) 이미 다른분이 사용중인 별명이므로 사용이 불가합니다.");
 
         // 불당팩 - 회원가입시 mb_nick_table에 중복 닉이 없는지 확인
-        $sql = " select count(*) as cnt from $g4[mb_nick_table] where mb_nick = '$mb_nick' and mb_id != '$member[mb_id]' ";
-        $row = sql_fetch($sql);
+        //$sql = " select count(*) as cnt from $g4[mb_nick_table] where mb_nick = '$mb_nick' and mb_id != '$member[mb_id]' ";
+        //$row = sql_fetch($sql);
+        $stmt = $pdo_db->prepare(" select count(*) as cnt from $g4[mb_nick_table] where mb_nick = :mb_nick and mb_id != '$member[mb_id]' ");
+        $stmt->bindParam(":mb_nick", $mb_nick);
+        $row = pdo_fetch($stmt);
         if ($row[cnt])
             alert("\'$mb_nick\' 은(는) 이미 다른분이 사용중인 별명이므로 사용이 불가합니다.");
 
-        $sql = " select count(*) as cnt from $g4[member_table] where mb_email = '$mb_email' and mb_id <> '$mb_id' ";
-        $row = sql_fetch($sql);
+        //$sql = " select count(*) as cnt from $g4[member_table] where mb_email = '$mb_email' and mb_id <> '$mb_id' ";
+        //$row = sql_fetch($sql);
+        $stmt = $pdo_db->prepare(" select count(*) as cnt from $g4[member_table] where mb_email = :mb_email and mb_id <> :mb_id ");
+        $stmt->bindParam(":mb_email", $mb_email);
+        $stmt->bindParam(":mb_id", $mb_id);
+        $row = pdo_fetch($stmt);
         if ($row[cnt])
             alert("\'$mb_email\' 은(는) 이미 다른분이 사용중인 E-mail이므로 사용이 불가합니다.");
     }
@@ -270,8 +290,12 @@ if ($w == "")
         insert_point($mb_recommend, $config[cf_recommend_point], "{$mb_id}의 추천인", '@member', $mb_recommend, "{$mb_id} 추천");
 
     // 불당팩 - mb_nick을 db에 추가
-    $sql2 = " insert $g4[mb_nick_table] set  mb_id = '$mb_id', mb_nick = '$mb_nick', start_datetime = '$g4[time_ymdhis]' ";
-    sql_query($sql2);
+    //$sql2 = " insert $g4[mb_nick_table] set  mb_id = '$mb_id', mb_nick = '$mb_nick', start_datetime = '$g4[time_ymdhis]' ";
+    //sql_query($sql2);
+    $stmt = $pdo_db->prepare(" insert $g4[mb_nick_table] set  mb_id = :mb_id, mb_nick = :mb_nick, start_datetime = '$g4[time_ymdhis]' ");
+    $stmt->bindParam(":mb_id", $mb_id);
+    $stmt->bindParam(":mb_nick", $mb_nick);
+    $result = pdo_query($stmt, false);
 
     // 회원님께 메일 발송
     // 메일인증을 사용하면 인증메일을 발송. 메일만 쓰면 감사메일 발송 - 불당팩

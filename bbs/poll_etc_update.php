@@ -22,10 +22,23 @@ if ($w == "")
 
     $pc_idea = addslashes($pc_idea);
 
+    if ($member)
+        $pc_name = $member[mb_nick];
+    $pc_name = strip_tags($pc_name);
+
+    /*
     $sql = " insert into $g4[poll_etc_table]
                     ( pc_id, po_id, mb_id, pc_name, pc_idea, pc_datetime, pc_password )
              values ( '$pc_id', '$po_id', '$member[mb_id]', '$pc_name', '$pc_idea', '$g4[time_ymdhis]', '" . sql_password($pc_password) . "' ) ";
     sql_query($sql);
+    */
+
+    $stmt = $pdo_db->prepare("insert into $g4[poll_etc_table] ( pc_id, po_id, mb_id, pc_name, pc_idea, pc_datetime, pc_password ) 
+                              values ( '$pc_id', '$po_id', :mb_id, :pc_name, :pc_idea, '$g4[time_ymdhis]', '" . sql_password($pc_password) . "' ) ");
+    $stmt->bindParam(":mb_id", $member[mb_id]);
+    $stmt->bindParam(":pc_name", $pc_name);
+    $stmt->bindParam(":pc_idea", $pc_idea);
+    $result = pdo_query($stmt);
 
     $pc_idea = stripslashes($pc_idea);
 

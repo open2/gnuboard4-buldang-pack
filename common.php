@@ -436,14 +436,18 @@ if (isset($po_id)) {
     $po_id = (int)$po_id;
 }
 
+if (isset($pc_id)) {
+    $pc_id = (int)$pc_id;
+}
+
 if (isset($_GET['ug_id'])) {
     $ug_id = preg_replace('/[^0-9a-z\-\_]/i', '', $_GET['ug_id']);
 }
 
 // 그누보드 4.34.09 보안패치 ($_SERVER의 SQL Injection 방어)
-$remote_addr = mysql_real_escape_string($_SERVER['REMOTE_ADDR']); 
-$referer    = mysql_real_escape_string($_SERVER['HTTP_REFERER']); 
-$user_agent  = mysql_real_escape_string($_SERVER['HTTP_USER_AGENT']); 
+$remote_addr = mysql_real_escape_string($_SERVER['REMOTE_ADDR']);
+$referer    = mysql_real_escape_string($_SERVER['HTTP_REFERER']);
+$user_agent  = mysql_real_escape_string($_SERVER['HTTP_USER_AGENT']);
 
 //===================================
 

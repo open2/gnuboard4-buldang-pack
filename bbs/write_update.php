@@ -23,10 +23,15 @@ if ($w == "" || $w == "r") {
 // 불당팩 - 이전에 저장된 것은 싹~ 지우고, 임시저장 DB에 저장을 해줍니다.
 $ss_tempsave = $_SESSION[ss_tempsave];
 if ($ss_tempsave) {
-    $sql = " delete from $g4[tempsave_table] where wr_session='$ss_tempsave' ";
-    sql_query($sql);
+    //$sql = " delete from $g4[tempsave_table] where wr_session='$ss_tempsave' ";
+    //sql_query($sql);
+
+    $stmt = $pdo_db->prepare(" delete from $g4[tempsave_table] where wr_session=:ss_tempsave ");
+    $stmt->bindParam(":ss_tempsave", $ss_tempsave);
+    $result = pdo_query($stmt, false);
 }
 
+/*
 $sql = " insert into $g4[tempsave_table] 
             set 
                 bo_table='$bo_table', 
@@ -38,6 +43,25 @@ $sql = " insert into $g4[tempsave_table]
                 ip_addr = '$remote_addr',
                 wr_session='$ss_tempsave' ";
 sql_query($sql);
+*/
+$sql = " insert into $g4[tempsave_table] 
+            set 
+                bo_table=:bo_table, 
+                wr_id=:wr_id,
+                wr_subject=:wr_subject, 
+                wr_content=:wr_content, 
+                mb_id='$member[mb_id]', 
+                wr_datetime='$g4[time_ymdhis]', 
+                ip_addr = '$remote_addr',
+                wr_session=:ss_tempsave ";
+$stmt = $pdo_db->prepare($sql);
+$stmt->bindParam(":bo_table", $bo_table);
+$stmt->bindParam(":wr_id", $wr_id);
+$stmt->bindParam(":wr_subject", $wr_subject);
+$stmt->bindParam(":wr_content", $wr_content);
+$stmt->bindParam(":ss_tempsave", $ss_tempsave);
+$result = pdo_query($stmt, false);
+
 
 // 임시 DB 복구를 위해서 돌아갈 url을 정의해 줍니다.
 if ($w == "r")
@@ -302,11 +326,20 @@ if ($w == "" || $w == "r")
     sql_query(" update $write_table set wr_parent = '$wr_id' where wr_id = '$wr_id' ");
 
     // 새글 INSERT
-    sql_query(" insert into $g4[board_new_table] ( bo_table, wr_id, wr_parent, bn_datetime, mb_id, wr_is_comment, gr_id, wr_option, parent_mb_id) 
-                values ( '$bo_table', '$wr_id', '$wr_id', '$g4[time_ymdhis]', '$member[mb_id]', '0', '$gr_id', '$secret', '$parent_mb_id[mb_id]') "); 
+    //sql_query(" insert into $g4[board_new_table] ( bo_table, wr_id, wr_parent, bn_datetime, mb_id, wr_is_comment, gr_id, wr_option, parent_mb_id) 
+    //            values ( '$bo_table', '$wr_id', '$wr_id', '$g4[time_ymdhis]', '$member[mb_id]', '0', '$gr_id', '$secret', '$parent_mb_id[mb_id]') "); 
+
+    $stmt = $pdo_db->prepare(" insert into $g4[board_new_table] ( bo_table, wr_id, wr_parent, bn_datetime, mb_id, wr_is_comment, gr_id, wr_option, parent_mb_id) values ( :bo_table, '$wr_id', '$wr_id', '$g4[time_ymdhis]', '$member[mb_id]', '0', :gr_id, '$secret', '$parent_mb_id[mb_id]') ");
+    $stmt->bindParam(":gr_id", $gr_id);
+    $stmt->bindParam(":bo_table", $bo_table);
+    $result = pdo_query($stmt, false);
     
     // 게시글 1 증가
-    sql_query("update $g4[board_table] set bo_count_write = bo_count_write + 1, bo_modify_datetime = '$g4[time_ymdhis]' where bo_table = '$bo_table'");
+    //sql_query(" update $g4[board_table] set bo_count_write = bo_count_write + 1, bo_modify_datetime = '$g4[time_ymdhis]' where bo_table = '$bo_table' ");
+
+    $stmt = $pdo_db->prepare(" update $g4[board_table] set bo_count_write = bo_count_write + 1, bo_modify_datetime = '$g4[time_ymdhis]' where bo_table = :bo_table ");
+    $stmt->bindParam(":bo_table", $bo_table);
+    $result = pdo_query($stmt, false);
 
     // 쓰기 포인트 부여
     if ($w == '') 
@@ -329,18 +362,40 @@ if ($w == "" || $w == "r")
     // 불당팩 - 왔~숑~ : 답글의 왔숑 통보, 원글이 회원의 글이고, 원글의 회원아이디와 지금 글쓰는 아이디가 다를 경우에만
     if ($w == 'r' && $wr[mb_id] && $wr[mb_id] !== $member[mb_id]) 
     {
+        /*
         $tsql = " UPDATE $g4[whatson_table] 
                       SET wr_subject = '" . get_text(stripslashes($wr[wr_subject])) . "',
                           wo_count = wo_count+1,
                           wo_datetime = '$g4[time_ymdhis]' 
                     where bo_table = '$bo_table' and wr_id='$wr[wr_id]' and mb_id='$wr[mb_id]' and wo_type='write_reply' ";
         sql_query($tsql);
+        */
+        $tsql = " UPDATE $g4[whatson_table] 
+                      SET wr_subject = :wr_subject,
+                          wo_count = wo_count+1,
+                          wo_datetime = '$g4[time_ymdhis]' 
+                    where bo_table = :bo_table and wr_id='$wr[wr_id]' and mb_id='$wr[mb_id]' and wo_type='write_reply' ";
+
+        $stmt = $pdo_db->prepare($tsql);
+        $stmt->bindParam(":wr_subject", get_text(stripslashes($wr[wr_subject])));
+        $stmt->bindParam(":bo_table", $bo_table);
+        $result = pdo_query($stmt, false);
 
         // update가 안되는 경우에는 insert를 합니다.
-        if (!mysql_affected_rows()) {
+        //if (!mysql_affected_rows()) {
+        if ($stmt->rowCount() < 1) {
+            /*
             $tsql = " insert into $g4[whatson_table] ( mb_id, wr_subject, wo_type, wo_count, wo_datetime, bo_table, wr_id ) 
                       values ('$wr[mb_id]', '" . get_text(stripslashes($wr[wr_subject])) . "','write_reply','1','$g4[time_ymdhis]','$bo_table','$wr[wr_id]') ";
             sql_query($tsql);
+            */
+            $tsql = " insert into $g4[whatson_table] ( mb_id, wr_subject, wo_type, wo_count, wo_datetime, bo_table, wr_id ) 
+                      values ('$wr[mb_id]', :wr_subject,'write_reply','1','$g4[time_ymdhis]', :bo_table,'$wr[wr_id]') ";
+
+            $stmt = $pdo_db->prepare($tsql);
+            $stmt->bindParam(":wr_subject", get_text(stripslashes($wr[wr_subject])));
+            $stmt->bindParam(":bo_table", $bo_table);
+            $result = pdo_query($stmt, false);
         }
     }
 } 
@@ -441,11 +496,15 @@ else if ($w == "u")
                 
     if ($notice) 
     {
-        //if (!preg_match("/[^0-9]{0,1}{$wr_id}[\r]{0,1}/",$board[bo_notice])) 
         if (!in_array((int)$wr_id, $notice_array))
         {
-            $bo_notice = $wr_id . '\n' . $board[bo_notice];
-            sql_query(" update $g4[board_table] set bo_notice = '$bo_notice' where bo_table = '$bo_table' ");
+            $bo_notice = $wr_id . "\n" . $board[bo_notice];
+            //sql_query(" update $g4[board_table] set bo_notice = '$bo_notice' where bo_table = '$bo_table' ");
+
+            $stmt = $pdo_db->prepare(" update $g4[board_table] set bo_notice = :bo_notice where bo_table = :bo_table ");
+            $stmt->bindParam(":bo_notice", $bo_notice);
+            $stmt->bindParam(":bo_table", $bo_table);
+            $result = pdo_query($stmt, false);
         }
     } 
     else 
@@ -453,10 +512,14 @@ else if ($w == "u")
         $bo_notice = '';
         for ($i=0; $i<count($notice_array); $i++)
             if ((int)$wr_id != (int)$notice_array[$i])
-                $bo_notice .= $notice_array[$i] . '\n';
+                $bo_notice .= $notice_array[$i] . "\n";
         $bo_notice = trim($bo_notice);
-        //$bo_notice = preg_replace("/^".$wr_id."[\n]?$/m", "", $board[bo_notice]);
-        sql_query(" update $g4[board_table] set bo_notice = '$bo_notice' where bo_table = '$bo_table' ");
+        //sql_query(" update $g4[board_table] set bo_notice = '$bo_notice' where bo_table = '$bo_table' ");
+
+        $stmt = $pdo_db->prepare(" update $g4[board_table] set bo_notice = :bo_notice where bo_table = :bo_table ");
+        $stmt->bindParam(":bo_notice", $bo_notice);
+        $stmt->bindParam(":bo_table", $bo_table);
+        $result = pdo_query($stmt, false);
     }
 }
 

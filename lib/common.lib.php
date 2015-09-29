@@ -1779,9 +1779,48 @@ function pdo_fetch($stmt, $error=TRUE)
     return $row;
 }
 
+// PDO $stmt를 실행한 후 결과값에서 한행을 얻는다 - $params로 변수를 받는다
+function pdo_fetch_params($stmt, $params, $error=TRUE)
+{
+    // param을 binding 한다
+    foreach ($params as $p1) {
+        $stmt->bindParam($p1[0], $p1[1]);
+    }
+
+    if ($error)
+        $stmt->execute() or die(print_r($stmt->errorInfo()));
+    else
+        $stmt->execute();
+
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $row = $stmt->fetch();
+
+    return $row;
+}
+
 // pdo->execute 와 mysql_error 를 한꺼번에 처리
 function pdo_query($stmt, $error=TRUE)
 {
+    if ($error)
+        $result = $stmt->execute() or die(print_r($stmt->errorInfo()));
+    else
+        try { 
+            $result = $stmt->execute();
+        } catch (PDOException $e) { 
+            $result = 0;
+        }
+
+    return $result;
+}
+
+// pdo->execute 와 mysql_error 를 한꺼번에 처리
+function pdo_query_params($stmt, $params, $error=TRUE)
+{
+    // param을 binding 한다
+    foreach ($params as $p1) {
+        $stmt->bindParam($p1[0], $p1[1]);
+    }
+
     if ($error)
         $result = $stmt->execute() or die(print_r($stmt->errorInfo()));
     else
