@@ -56,6 +56,10 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         // 회원삭제
         member_delete($row['mb_id']);
 
+        // 1,000개 단위로 삭제
+        if ($i > 1000)
+            break;
+
     } // end if
 
 } // end for
