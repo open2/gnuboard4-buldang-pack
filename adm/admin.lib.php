@@ -209,6 +209,8 @@ function get_member_id_select($name, $level, $selected='', $event='')
 {
     global $g4;
 
+    $level = (int) $level;
+
     $sql = " select mb_id from $g4[member_table] where mb_level >= '$level' ";
     $result = sql_query($sql);
     $str = "<select name='$name' $event><option value=''>선택안함";
