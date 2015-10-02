@@ -7,6 +7,9 @@ if ($is_admin != "super")
 
 $token = get_token();
 
+// PDO bindParam 값을 넣어두는 변수 초기화
+$params = array();
+
 $sql_common = " from $g4[auth_table] a left join $g4[member_table] b on (a.mb_id=b.mb_id) ";
 
 $sql_search = " where (1) ";
@@ -14,7 +17,8 @@ if ($stx) {
     $sql_search .= " and ( ";
     switch ($sfl) {
         default : 
-            $sql_search .= " ($sfl like '%$stx%') ";
+            $sql_search .= " ($sfl like :stx) ";
+            $params = array(":stx", "%".$stx."%");
             break;
     }
     $sql_search .= " ) ";
@@ -30,8 +34,11 @@ $sql = " select count(*) as cnt
          $sql_common 
          $sql_search 
          $sql_order ";
-$row = sql_fetch($sql);
-$total_count = $row[cnt];
+//$row = sql_fetch($sql);
+//$total_count = $row[cnt];
+$stmt = $pdo_db->prepare($sql);
+$row = pdo_fetch_params($stmt, $params);
+$total_count = $row['cnt'];
 
 $rows = $config[cf_page_rows];
 $total_page  = ceil($total_count / $rows);  // 전체 페이지 계산
@@ -43,14 +50,14 @@ $sql = " select *
           $sql_search
           $sql_order
           limit $from_record, $rows ";
-$result = sql_query($sql);
+//$result = sql_query($sql);
+$stmt = $pdo_db->prepare($sql);
+$result = pdo_query_params($stmt, $params);  
 
 $listall = "<a href='$_SERVER[PHP_SELF]' class=tt>처음</a>";
 
 $g4[title] = "관리권한설정";
 include_once("./admin.head.php");
-
-$colspan = 5;
 ?>
 
 <script type="text/javascript">
@@ -95,14 +102,18 @@ var list_delete_php = "auth_list_delete.php";
 	  <td>권한</td>
 </tr>
 <?
-for ($i=0; $row=sql_fetch_array($result); $i++) 
+//for ($i=0; $row=sql_fetch_array($result); $i++)
+for ($i=0; $row=$stmt->fetch(PDO::FETCH_ASSOC); $i++)
 {
     $mb_nick = get_sideview($row[mb_id], $row[mb_nick], $row[mb_email], $row[mb_homepage]);
 
     // 메뉴번호가 바뀌는 경우에 현재 없는 저장된 메뉴는 삭제함
     if (!isset($auth_menu[$row[au_menu]]))
     {
-        sql_query(" delete from $g4[auth_table] where au_menu = '$row[au_menu]' ");
+        //sql_query(" delete from $g4[auth_table] where au_menu = '$row[au_menu]' ");
+        $stmt = $pdo_db->prepare(" delete from $g4[auth_table] where au_menu = :au_menu ");
+        $stmt->bindParam(":au_menu", $row[au_menu]);
+        $result = pdo_query($stmt);
         continue;
     }
 
@@ -140,7 +151,7 @@ echo "</table>";
 
 <?
 if ($stx)
-    echo "<script language='javascript'>document.fsearch.sfl.value = '$sfl';</script>\n";
+    echo "<script type='text/javascript'>document.fsearch.sfl.value = '$sfl';</script>\n";
 
 if (strstr($sfl, "mb_id"))
     $mb_id = $stx;
