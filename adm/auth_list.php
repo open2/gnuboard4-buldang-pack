@@ -18,7 +18,7 @@ if ($stx) {
     switch ($sfl) {
         default : 
             $sql_search .= " ($sfl like :stx) ";
-            $params = array(":stx", "%".$stx."%");
+            $params = array(":stx", pdo_bind_like($stx));
             break;
     }
     $sql_search .= " ) ";

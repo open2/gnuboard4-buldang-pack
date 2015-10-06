@@ -1833,6 +1833,22 @@ function pdo_query_params($stmt, $params, $error=TRUE)
     return $result;
 }
 
+// pdo->prepare에서 like query를 binding할 때, \, _, %를 없앤다
+// http://phpschool.com/gnuboard4/bbs/board.php?bo_table=tipntech&wr_id=80197
+function pdo_bind_like($stx, $pos)
+{
+    switch ($pos) {
+        case 1  : $stx = '%' . str_replace(array('\\', '%', '_'), array('\\\\', '\\%', '\\_'), $stx);
+                  break;
+        case 2  : $stx = str_replace(array('\\', '%', '_'), array('\\\\', '\\%', '\\_'), $stx) . '%';
+                  break;
+        default : $stx = '%' . str_replace(array('\\', '%', '_'), array('\\\\', '\\%', '\\_'), $stx) . '%';
+    }
+
+    return $tex;
+}
+
+
 // 불당팩 라이브러리를 읽습니다
 include_once("$g4[path]/lib/b4.lib.php");
 ?>

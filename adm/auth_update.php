@@ -63,5 +63,6 @@ $sql = " update $g4[member_table] set mb_auth_count = '$result[cnt]' where mb_id
 $stmt = $pdo_db->prepare($sql);
 $stmt->bindParam(":mb_id", $mb_id);
 $result = pdo_query($stmt);
+
 goto_url("./auth_list.php?$qstr");
 ?>
