@@ -1848,6 +1848,24 @@ function pdo_bind_like($stx, $pos)
     return $tex;
 }
 
+// DB 테이블의 field names와 관련정보들을 읽어서 array에 저장한다
+// http://php.net/manual/kr/function.mysql-list-fields.php
+// 아래와 같이 저장된다. 
+// [Field] => mb_no [Type] => int(11) [Null] => NO [Key] => PRI [Default] => [Extra] => auto_increment
+function sql_get_field_names($table_name)
+{
+    $result = sql_query(" SHOW COLUMNS FROM $table_name ");
+    if (!$result) {
+        alert("Error - Could not run query ");
+    }
+
+    $arr = array();
+    while ($row = sql_fetch_array($result)) {
+        $arr[] = $row;
+    }
+
+    return $arr;
+}
 
 // 불당팩 라이브러리를 읽습니다
 include_once("$g4[path]/lib/b4.lib.php");
