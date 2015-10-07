@@ -1,8 +1,8 @@
 <?
 include_once("./_common.php");
 
-$mb_id       = $_POST[mb_id];
-$mb_password = $_POST[mb_password];
+$mb_id       = strip_tags($_POST[mb_id]);
+$mb_password = strip_tags($_POST[mb_password]);
 
 if (!trim($mb_id) || !trim($mb_password))
     alert("회원아이디나 패스워드가 공백이면 안됩니다.");
@@ -39,21 +39,32 @@ if (!$mb[mb_id]) {
 } else if (sql_password($mb_password) !== $mb[mb_password]) {
 
     // 옛날 버젼의 패스워드일지도 모르니까 한번 더 확인합니다.
-    if (sql_old_password($mb_password) != $mb[mb_password]) {
+    if (sql_old_password($mb_password) !== $mb[mb_password]) {
         $login_check = 1;
     } else {
         // 옛날 패스워드를 새로운 패스워드로 바꿉니다.
-        $sql = " update $g4[member_table] set mb_password='" . sql_password($mb_password) . "' where mb_id='$mb_id' ";
-        sql_query($sql);
+        //$sql = " update $g4[member_table] set mb_password='" . sql_password($mb_password) . "' where mb_id='$mb_id' ";
+        //sql_query($sql);
+
+        $sql = " update $g4[member_table] set mb_password= :mb_password where mb_id=:mb_id ";
+        $stmt = $pdo_db->prepare($sql);
+        $stmt->bindParam(":mb_password", sql_password($mb_password));
+        $stmt->bindParam(":mb_id", $mb_id);
+        $result = pdo_query($stmt);
     }
 
 }
 
 if ($login_check) {
     // 로그인 오류를 db에 기록 합니다.
-    $sql = " insert into $g4[login_fail_log_table] (mb_id, ip_addr, log_datetime, log_url) values ('$mb_id', '$remote_addr', '$g4[time_ymdhis]', '/bbs/login_check.php') ";
-    sql_query($sql);
-    
+    //$sql = " insert into $g4[login_fail_log_table] (mb_id, ip_addr, log_datetime, log_url) values ('$mb_id', '$remote_addr', '$g4[time_ymdhis]', '/bbs/login_check.php') ";
+    //sql_query($sql);
+
+    $sql = " insert into $g4[login_fail_log_table] (mb_id, ip_addr, log_datetime, log_url) values (:mb_id, '$remote_addr', '$g4[time_ymdhis]', '/bbs/login_check.php') ";
+    $stmt = $pdo_db->prepare($sql);
+    $stmt->bindParam(":mb_id", $mb_id);
+    $result = pdo_query($stmt);
+
     // 오류 횟수를 체크해서 차단할지를 결정 합니다.
     if ($config['cf_retry_time_interval'] > 0 && $config['cf_retry_count']) {
         $sql = " select count(*) as cnt from $g4[login_fail_log_table] where log_datetime >= '" . date("Y-m-d H:i:s", $g4[server_time] - $config['cf_retry_time_interval'] ) . "' and ip_addr='$remote_addr' ";
@@ -103,7 +114,7 @@ if ($config['cf_double_login'] && $mb_id) {
     if ($g4['session_type'] == "db") {
         $sql = "select * from $g4[session_table] where mb_id = '$mb[mb_id]' and ss_ip != '$remote_addr' and ss_datetime > '$login_time' ";
         $sql.= "order by ss_datetime desc limit 1";
-        
+
             $login_time = date("Y-m-d H:i:s", $g4[server_time] - 60*10); // 10분
             $sql = " SELECT * from $g4[session_table] 
                       WHERE mb_id = '$mb[mb_id]' and ip_addr != '$remote_addr' and ss_datetime > '$login_time' ";
@@ -163,9 +174,16 @@ if ($g4['use_auto_levelup'] && !is_admin_check($mb_id))
     $res = member_level_up($mb_id);
     if ($res) {
 
+        //$tsql = " insert into $g4[whatson_table] ( mb_id, wr_subject, wo_type, wo_count, wo_datetime, bo_table, wr_id ) 
+        //          values ('$mb_id', '$res','mb_level','1','$g4[time_ymdhis]','','') ";
+        //sql_query($tsql);
+
         $tsql = " insert into $g4[whatson_table] ( mb_id, wr_subject, wo_type, wo_count, wo_datetime, bo_table, wr_id ) 
-                  values ('$mb_id', '$res','mb_level','1','$g4[time_ymdhis]','','') ";
-        sql_query($tsql);
+                  values (:mb_id, '$res','mb_level','1','$g4[time_ymdhis]','','') ";
+
+        $stmt = $pdo_db->prepare($sql);
+        $stmt->bindParam(":mb_id", $mb_id);
+        $result = pdo_query($stmt, FALSE);
     }
 }
 // --- 불당팩 회원 레벨업 끝
@@ -192,12 +210,25 @@ if ($auto_login) {
     $uid = md5(uniqid($_SERVER[SERVER_ADDR], true));
 
     // cookie DB에서 key가 같은 경우를 모두 삭제해줍니다
-    $sql = " delete from $g4[cookie_table] where cookie_key='$key' ";
-    sql_query($sql);
+    //$sql = " delete from $g4[cookie_table] where cookie_key='$key' ";
+    //sql_query($sql);
+
+    $sql = " delete from $g4[cookie_table] where cookie_key=:key ";
+    $stmt = $pdo_db->prepare($sql);
+    $stmt->bindParam(":key", $key);
+    $result = pdo_query($stmt, FALSE);
 
     // 쿠키와 Key를 DB에 저장
-    $sql = " insert into $g4[cookie_table] set cookie_name='$uid', cookie_value='$mb[mb_id]', cookie_key='$key', cookie_datetime='$g4[time_ymdhis]' ";
-    sql_query($sql);
+    //$sql = " insert into $g4[cookie_table] set cookie_name='$uid', cookie_value='$mb[mb_id]', cookie_key='$key', cookie_datetime='$g4[time_ymdhis]' ";
+    //sql_query($sql);
+
+    $sql = " insert into $g4[cookie_table] set cookie_name=:uid, cookie_value=:mb_id, cookie_key=:key, cookie_datetime='$g4[time_ymdhis]' ";
+
+    $stmt = $pdo_db->prepare($sql);
+    $stmt->bindParam(":uid", $uid);
+    $stmt->bindParam(":mb_id", $mb[mb_id]);
+    $stmt->bindParam(":key", $key);
+    $result = pdo_query($stmt, FALSE);
 
     set_cookie('ck_mb_id', $uid, 86400 * 31);
     // 자동로그인 end ---------------------------
@@ -242,8 +273,14 @@ if ($mb['mb_password_change_datetime'] == '0000-00-00 00:00:00') {
     $next_change = strtotime("$mb[mb_open_date] 00:00:00") + ($config['cf_password_change_dates'] * 24 * 60 * 60);
     $next_date = date('Y-m-d h:i:s', $next_change);
 
-    $sql = " update $g4[member_table] set mb_password_change_datetime = '$next_date' where mb_id = '$mb_id'";
-    sql_query($sql);
+    //$sql = " update $g4[member_table] set mb_password_change_datetime = '$next_date' where mb_id = '$mb_id'";
+    //sql_query($sql);
+
+    $sql = " update $g4[member_table] set mb_password_change_datetime = '$next_date' where mb_id = :mb_id ";
+
+    $stmt = $pdo_db->prepare($sql);
+    $stmt->bindParam(":mb_id", $mb_id);
+    $result = pdo_query($stmt, FALSE);
     
     // 설정값 저장
     $mb['mb_password_change_datetime'] = $next_date;
@@ -257,10 +294,16 @@ if ($config['cf_password_change_dates'] > 0 && $change_alert > 0) {
 // 불당팩 - 관리자 로그인 내역을 db log에 남깁니다
 if (is_admin_check($mb_id)) {
     $log = "관리자로그인 : $mb_id - $remote_addr - $_SERVER[HTTP_USER_AGENT]";
-    $sql = " insert into $g4[admin_log_table] 
-                set log_datetime = '$g4[time_ymdhis]',
-                    log = '" . mysql_real_escape_string($log) . "' ";
-    sql_query($sql);
+    //$sql = " insert into $g4[admin_log_table] 
+    //            set log_datetime = '$g4[time_ymdhis]',
+    //                log = '" . mysql_real_escape_string($log) . "' ";
+    //sql_query($sql);
+
+    $sql = " insert into $g4[admin_log_table] set log_datetime = '$g4[time_ymdhis]', log = :log ";
+
+    $stmt = $pdo_db->prepare($sql);
+    $stmt->bindParam(":log", $log);
+    $result = pdo_query($stmt, FALSE);
 }
 
 // 불당팩 - 휴면회원 정보를 DB에 복구한다
@@ -270,12 +313,24 @@ if ($mb['mb_unlogin'] !== "0000-00-00 00:00:00") {
     sql_query($sql);
 
     // mb_unlogin 필드를 초기화 합니다.
-    $sql = " update $g4[member_table] set mb_unlogin = '0000-00-00 00:00:00' where mb_id = '$mb_id' ";
-    sql_query($sql);
+    //$sql = " update $g4[member_table] set mb_unlogin = '0000-00-00 00:00:00' where mb_id = '$mb_id' ";
+    //sql_query($sql);
+
+    $sql = " update $g4[member_table] set mb_unlogin = '0000-00-00 00:00:00' where mb_id = :mb_id ";
+
+    $stmt = $pdo_db->prepare($sql);
+    $stmt->bindParam(":mb_id", $mb_id);
+    $result = pdo_query($stmt, FALSE);
 
     // unlogin_table의 해당 필드를 삭제 합니다.
-    $sql = " delete from $g4[unlogin_table] where mb_id = '$mb_id' ";
-    sql_query($sql);
+    //$sql = " delete from $g4[unlogin_table] where mb_id = '$mb_id' ";
+    //sql_query($sql);
+
+    $sql = " delete from $g4[unlogin_table] where mb_id = :mb_id ";
+
+    $stmt = $pdo_db->prepare($sql);
+    $stmt->bindParam(":mb_id", $mb_id);
+    $result = pdo_query($stmt, FALSE);
 
     // 휴면계정 복구에 따라서 해야 하는 사항을 정의 합니다.
     if (file_exists("$member_skin_path/unlogin_member.skin.php"))
