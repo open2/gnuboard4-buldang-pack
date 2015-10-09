@@ -7,6 +7,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <div class="navbar navbar-default" role="navigation">
 <div class="navbar-header">
     <div class="pull-left" style="margin-left:5px;">
+        <a onclick="javascript:window.close();" class="btn btn-default navbar-toggle" style="margin-left:10px;" id="memo_close">닫기</a>
         <a href="<?=$g4[memo_url]?>?kind=notice" class="btn btn-default navbar-toggle" id="notice">공지</a>
         <a href="<?=$g4[memo_url]?>?kind=save" class="btn btn-default navbar-toggle" id="save">보관</a>
         <a href="<?=$g4[memo_url]?>?kind=send" class="btn btn-default navbar-toggle" id="send"><strong>발신</strong></a>
