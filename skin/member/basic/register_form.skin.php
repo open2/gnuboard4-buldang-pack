@@ -300,6 +300,7 @@ var member_skin_path = "<?=$member_skin_path?>";
             <label for="mb_open" class="col-sm-2 control-label">서명</label>
             <div class="col-sm-6">
                 <textarea name=mb_signature class="form-control" rows=3 style='width:100%;' <?=$config[cf_req_signature]?'required':'';?> itemname='서명'><?=$member[mb_signature]?></textarea>
+            </div>
         </div>
         <? } ?>
 
@@ -308,6 +309,7 @@ var member_skin_path = "<?=$member_skin_path?>";
             <label for="mb_open" class="col-sm-2 control-label">자기소개</label>
             <div class="col-sm-6">
                 <textarea name=mb_profile class="form-control" rows=3 style='width:100%;' <?=$config[cf_req_profile]?'required':'';?> itemname='자기 소개'><?=$member[mb_profile]?></textarea>            </div>
+            </div>
         </div>
         <? } ?>
 
