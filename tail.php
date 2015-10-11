@@ -10,68 +10,6 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 </div>
 </div><!-- 중간의 메인부 끝 -->
 
-<!-- view page swipe -->
-<script type="text/javascript">
-    <? if ($bo_table && $wr_id) { ?>
-        <? if ($board['bo_use_list_view']) { ?>
-            // 게시글 view page swipe - 전체목록보기일때는 왼쪽으로 밀면 목록으로 간다
-            if ($('#desktopTest_md_lg').is(':hidden')) {
-                var hammertime1 = $("#view_<?=$wr_id?>").hammer();
-                var link1 = "<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?>&page=<?=$page?>&qstr=<?=$qstr?>";
-                hammertime1.on("swipeleft dragleft", function(ev) {
-                    ev.gesture.preventDefault();
-                    $(location).attr('href',link1);
-                });
-            }
-        <? } else { ?>
-            // 게시글 view page swipe - 게시글만 보기일 때는, 앞뒤글로 이동한다
-            if ($('#desktopTest_md_lg').is(':hidden')) {
-                var hammertime1 = $("#view_<?=$wr_id?>").hammer();
-                <? if ($prev_href) { ?>
-                var link1 = "<?=$prev_href?>";
-                hammertime1.on("swipeleft dragleft", function(ev) {
-                    ev.gesture.preventDefault();
-                    $(location).attr('href',link1);
-                });
-                <? } ?>
-                <? if ($next_href) { ?>
-                var link2 = "<?=$next_href?>";
-                hammertime1.on("swiperight dragright", function(ev) {
-                    ev.gesture.preventDefault();
-                    $(location).attr('href',link2);
-                });
-                <? } ?>
-            }
-        <? } ?>
-    <? } ?>
-
-    <? if ($bo_table && !$wr_id) {
-        // 페이지 늘리기
-        if ($total_page > $page)
-            $page2 = $page + 1;
-        else
-            $page2 = $page;
-        // 페이지 줄이기
-        if ($page > 1)
-            $page3 = $page - 1;
-        else
-            $page3 = 1;
-    ?>
-    // 게시글 목록 page swipe
-    var hammertime2 = $("#list_<?=$bo_table?>").hammer();
-    var link2 = "<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?><?=strip_page($qstr)?>&page=<?=$page2?>";
-    var link3 = "<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?><?=strip_page($qstr)?>&page=<?=$page3?>";
-    hammertime2.on("swipeleft dragleft", function(ev) {
-        ev.gesture.preventDefault();
-        $(location).attr('href',link2);
-    });
-    hammertime2.on("swiperight dragright", function(ev) {
-        ev.gesture.preventDefault();
-        $(location).attr('href',link3);
-    });
-    <? } ?>
-</script>
-
 <!-- 위/아래 이동하는 jQuery -->
 <a href="#" class="btn btn-default back-to-top"><span class="glyphicon glyphicon-chevron-up"></span></a>
 <a href="#" class="btn btn-default go-to-bottom"><span class="glyphicon glyphicon-chevron-down"></span></a>

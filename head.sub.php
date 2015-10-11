@@ -61,7 +61,6 @@ if(stristr($_SERVER[PHP_SELF], "/bbs/board.php") == true && $bo_table) {
 ?>
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="<?=$g4['path']?>/js/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<?=$g4['path']?>/js/hammer/jquery.hammer-full.min.js"></script>
 
 <!--[if lt IE 9]>
     <script src="<?=$g4['path']?>/js/html5shiv/html5shiv.js"></script>
