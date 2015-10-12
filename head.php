@@ -71,11 +71,11 @@ else
         </button>
         <!-- sm, md, lg에서 나오는 로고 -->
         <a class="navbar-brand hidden-xs hidden-sm" href="<?=$g4['path']?>/">
-        <img src="<?=$g4[path]?>/images/opencode_aaa.png" align=absmiddle alt="brand logo">
+        <img src="<?=$g4[path]?>/img/opencode_aaa.png" align=absmiddle alt="brand logo">
         </a>
         <!-- collapse 되었을 때 나오는 로고 -->
         <a class="navbar-brand navbar-toggle pull-left" href="<?=$g4['path']?>/" style="border:0;margin-bottom:0;">
-        <img src="<?=$g4[path]?>/images/opencode_aaa.png" alt="brand logo" style="width:120px;">
+        <img src="<?=$g4[path]?>/img/opencode_aaa.png" alt="brand logo" style="width:120px;">
         </a>
     </div>
 

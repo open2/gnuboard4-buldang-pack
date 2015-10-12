@@ -41,7 +41,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 for ($i=0; $i<30; $i++) {
 ?>
     <li class="thumbnail col-sm-1">
-        <img src="../images/logo_opencode.gif">
+        <img src="../img/logo_opencode.gif">
     </li>
 <? } ?>
 <? if (count($list) == 0) { echo "<div class='well'>게시물이 없습니다.</div>"; } ?>
