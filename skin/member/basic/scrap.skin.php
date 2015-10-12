@@ -32,10 +32,9 @@ $memo_str_list = $memo_str0 . $memo_str;
 <div class="container">
 
 <form name=fsearch method=get role="form" class="form-inline">
-<table width="100%" align="center" class="table table-hover">
-<input type=hidden name=head_on value=<?=$head_on?>>
-<input type=hidden name=mnb value=<?=$mnb?>>
-<input type=hidden name=snb value=<?=$snb?>>
+<input type=hidden name=head_on value="<?=$head_on?>">
+<input type=hidden name=mnb value="<?=$mnb?>">
+<input type=hidden name=snb value="<?=$snb?>">
 
 <a class="btn btn-default" href="<?=$g4[bbs_path]?>/scrap.php?head_on=<?=$head_on?>&mnb=<?=$mnb?>&snb=<?=$snb?>">처음</a>
 <div class="pull-right hidden-lg hidden-md hidden-sm">
@@ -97,7 +96,7 @@ $memo_str_list = $memo_str0 . $memo_str;
         <a href="javascript:del('<?=$list[$i][del_href]?>');"><i class="fa fa-trash-o"></i></a>
         </td>
         <td class="hidden-xs"><?=$list[$i][mb_nick]?></td>
-        <td class="hidden-xs" align="left" style='word-break:break-all;'><a href="#" title="<?=$list[$i][ms_memo]?>"><?=$list[$i][ms_memo]?>
+        <td class="hidden-xs" align="left" style='word-break:break-all;'><a href="#" title="<?=$list[$i][ms_memo]?>"><?=$list[$i][ms_memo]?></a>
         &nbsp;<a class="btn btn-default btn-xs" href="javascript:memo_box(<?=$list[$i][ms_id]?>)"><i class="fa fa-pencil-square-o"></i></a>
 
         <span id='memo_<?=$list[$i][ms_id]?>' style='display:none;'>
@@ -118,9 +117,9 @@ $memo_str_list = $memo_str0 . $memo_str;
         <!-- xs... 모바일 상태에서 나오는 것. 메모편집은 따로 해야 하기에 한번 더 copy 하면서 수정 -->
         <td class="visible-xs">
             <? if ($head_on) { ?>
-                <a href="<?=$list[$i][opener_href]?>">
+                <a href="<?=$list[$i][opener_href_wr_id]?>">
             <? } else { ?>
-                <a href="javascript:;" onclick="opener.document.location.href='<?=$list[$i][opener_href]?>';">
+                <a href="javascript:;" onclick="opener.document.location.href='<?=$list[$i][opener_href_wr_id]?>';">
             <? } ?>
             <?=cut_str($list[$i][wr_subject],30)?></a>
             <a href="javascript:del('<?=$list[$i][del_href]?>');"><i class="fa fa-trash-o"></i></a>
