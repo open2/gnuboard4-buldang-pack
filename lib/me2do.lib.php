@@ -1,5 +1,4 @@
 <?
-// 사용방법 : echo me2do("http://buspang.kr/lib/me2do.lib.php");
 // 참조문서 : http://opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=928
 // key값은? : config.2.php 넣어주면 됩니다.
 

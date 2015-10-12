@@ -306,47 +306,4 @@ function latest_good($skin_dir="", $bo_table, $rows=10, $subject_len=40, $bg_fla
 
     return $content;
 }
-
-// 추천 기준으로 유효한 소셜 게시글 추출
-function latest_good_metacoupon($skin_dir="", $bo_table, $rows=10, $subject_len=40, $bg_flag="good", $gallery_view=0, $options="") {
-    global $g4, $qstr;
-
-    if ($skin_dir)
-        $latest_skin_path = "$g4[path]/skin/latest/$skin_dir";
-    else
-        $latest_skin_path = "$g4[path]/skin/latest/basic";
-
-    if (is_array($options)) {
-        extract($options);
-        if ($stx)
-            $sql_search = " AND $sfl $sop $stx ";
-    }
-
-    $list = array();
-
-    // 게시판의 최근의 추천에서 쿠폰 딜의 날짜가 유효한 골라낸다
-    $board = get_board($bo_table);
-    $tmp_write_table = $g4['write_prefix'] . $bo_table; // 게시판 테이블 전체이름
-
-    $sql = " select distinct A.wr_id
-                    from $g4[board_good_table] A left join $tmp_write_table B on A.wr_id = B.wr_id
-                    where A.bo_table='$bo_table' and A.bg_flag='$bg_flag' and B.wr_5 > '$g4[time_ymdhis]'
-                          $sql_search 
-                    order by A.bg_id desc limit $rows ";
-    $result = sql_query($sql);
-
-    for ($i=0; $row = sql_fetch_array($result); $i++) {
-        $row = sql_fetch(" select * from $tmp_write_table where wr_id = '$row[wr_id]' ");
-        $list[$i] = get_list($row, $board, $latest_skin_path, $subject_len);
-        $deal = explode("|", $list[$i][wr_6]);
-        $list[$i][subject] = "<b>" . number_format($deal[0]) . "원</b>," .$list[$i][subject];
-    }
-
-    ob_start();
-    include "$latest_skin_path/latest.skin.php";
-    $content = ob_get_contents();
-    ob_end_clean();
-
-    return $content;
-}
 ?>
