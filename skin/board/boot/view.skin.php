@@ -133,6 +133,12 @@ ob_end_flush();
     }
     ?>
 
+    <?
+    // 광고가 있는 경우 광고를 연결
+    if (file_exists("$g4[path]/adsense/adsense_view_content.php"))
+        include_once("$g4[path]/adsense/adsense_view_content.php");
+    ?>
+
     <!-- 내용 출력 -->
     <span id="writeContents" style="word-wrap:break-word;">
     <?
