@@ -2284,4 +2284,16 @@ function strip_page($qstr) {
     $qstr = preg_replace('/&?page=[0-9]/i', '', $qstr);
     return $qstr;
 }
+
+// 특별한 문자를 변환하기
+// lastest 등에서 나온 것에 { ( 같은 문제가 1개만 있으면 캐쉬에 문제가 됩니다.
+// 그런 문자는 모두 break 해야 합니다.
+function conv_latest ($str) {
+    $str = str_replace('(', '&#40;', $str);    // (
+    $str = str_replace(')', '&#41;', $str);    // )
+    $str = str_replace('{', '&#123;', $str);   // {
+    $str = str_replace('}', '&#125;', $str);   // }
+
+    return $str;
+}
 ?>

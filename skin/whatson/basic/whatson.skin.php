@@ -14,7 +14,7 @@ var list_delete_php = "whatson_delete_all.php";
 <input type=hidden name=check value='<?=$check?>'>
 <input type=hidden name=rows  value='<?=$rows?>'>
 <div class="panel panel-default">
-    <div class="panel-heading"><a href="<?=$whatson_url?>">What's On</a>
+    <div class="panel-heading"><a href="<?=$whatson_url?>">Whats On</a>
     <? if ($total_count > 0) { ?>(<?=$total_count?>)<?}?>
     <span class="pull-right">
     <a href="<?=$whatson_url?>"><small>more</small></a>
@@ -33,7 +33,7 @@ var list_delete_php = "whatson_delete_all.php";
                 if ($check == 1) {
                     echo $row[wo_id];
                     echo "<input type=hidden name=wo_id[$i] value='{$list[$i][wo_id]}'>";
-                    echo "<label class='checkbox-inline'><input type=checkbox name=chk[] value='$i'></label>&nbsp;";
+                    echo "<input type=checkbox name=chk[] value='$i' style='margin-top:5px;'>&nbsp;";
                 }
 
                 // 이미 읽은 글은 바로 새창, 아니면, ajax로 읽은거 mark 한 후에 새창
@@ -46,7 +46,7 @@ var list_delete_php = "whatson_delete_all.php";
                 if ($list[$i][wo_status])
                     echo "<span class='text-muted'>";
 
-                echo "(" . $list[$i][wo_count] . ")"; 
+                echo "&#40;" . $list[$i][wo_count] . "&#41;";
                 echo " " . $list[$i][subject];
                 if ($list[$i][wo_status])
                     echo "</span>";
