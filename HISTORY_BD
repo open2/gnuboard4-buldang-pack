@@ -1,7 +1,168 @@
+2.0.0 (2015.10.15)
+
+부트스트랩 버젼의 버그가 은근히 많이 있는데, 그것을 이번에 거의 다 잡았고
+2.0.0 버젼을 base 버젼으로 release 합니다.
+
+2.0.0 버젼은 euc-kr로 당분간 배포 합니다.
+utf-8 서버에 euc-kr 코드가 잘 돌아가냐고 질문 하시면, 아주 잘 된다고 답해드리겠습니다.
+utf-8 버젼은 코드가 많이 안정화 되는 2.0.2 또는 그 이후버젼부터 제공될 겁니다.
+
+불당팩 2.0.0부터는... 
+php 5.1 이상 + PDO extension이 설치 안되면 동작하지 않습니다!!!
+보안 강화를 위해서 대중성을 포기 했습니다.
+
+모든 부분이 다 PDO로 간 것이 아닙니다.
+mysql과 PDO 2개의 DB connection을 동시에 열어서 사용합니다.
+기존 코드는 mysql로 동작하고, 일부 코드만 PDO로 동작하게 해서 기존 코드와의 호환성을 확보합니다.
+첨가된 코드들은 잘 검토해서, 사용자단의 input이 연결되는 경우 PDO로 코드수정을 해주셔야 합니다.
+
+이런 방식의 문제점은 db connection이 2배로 늘어나는 것 입니다 (mysql 1개, PDO 1개...)
+MySQL의 my.cnf config를 수정해서 db connection 갯수를 늘려서 대응하시기 바랍니다.
+
+최선으로 방어 했슴에도 뚫리는 것과 아무것도 안하고 뚫리는 것은 차이가 아주 큽니다.
+몇백만원 돈이 통장에 있으면 PDO로 이전 안해도 됩니다.
+ 
+
+common.php
+config.2.php
+head.php
+head.sub.php
+tail.php
+ 
+adm/admin.head.php
+adm/auth_list.php 
+adm/auth_update.php
+adm/member_delete_unlogin.php
+adm/member_delete_unvisited.php
+ 
+bbs/board_head.php
+bbs/board_tail.php 
+bbs/point.php
+bbs/poll_etc_update.php
+bbs/register_form_update.php
+bbs/scrap_popin_update.php
+bbs/visit_insert.inc.php
+bbs/view.php
+bbs/write_update.php
+ 
+js/b4.common.js
+js/bootstrap/*
+ 
+lib/b4.lib.php
+lib/common.lib.php
+lib/latest.lib.php
+lib/whatson.lib.php
+ 
+skin/board/boot/view.skin.php
+ 
+skin/member/basic/login.skin.php
+skin/member/basic/register_form.skin.php
+skin/member/basic/register_result.skin.php
+skin/member/basic/scrap.skin.php
+ 
+skin/memo/basic/memo2.head.skin.php
+ 
+skin/outlogin/basic/outlogin.skin.1.php
+ 
+skin/whatson/basic/whatson.skin.php
+
+ 
+
+(삭제)
+gchat.php
+images/*
+lib/daum.lin.php
+ 
+ 
+ 
+- 로그인 화면의 체크버튼 위치오류 수정
+skin/member/basic/login.skin.php
+ 
+- outlogin 버튼폭 오류수정
+skin/outlogin/basic/outlogin.skin.1.php
+ 
+- bule 테마로 교체
+head.php
+js/bootstrap/*
+js/bootstrap_green/* (기존 테마는이름 변경)
+ 
+*** 알파2 ***
+ 
+- 안쓰는 코드 정리
+gchat.php (삭제)
+head.php
+images/* (삭제)
+adm/admin.head.php
+js/b4.common.js
+lib/latest.lib.php
+lib/daum.lin.php (삭제. 2015.8 서비스종료)
+ 
+- 스크랩창 링크 이동 안되는 버그
+skin/member/basic/scrap.skin.php
+http://www.opencode.co.kr/bbs/board.php?bo_table=gnu4_pack_req&wr_id=1538
+ 
+- 게시판목록 상단에 빈줄 나오는 것
+bbs/board_head.php
+bbs/board_tail.php
+http://www.opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=1085
+ 
+- what's on stye 오류 수정
+lib/b4.lib.php
+lib/whatson.lib.php
+skin/whatson/basic/whatson.skin.php
+ 
+- style 수정
+skin/whatson/basic/whatson.skin.php
+ 
+- 게시글 내부 광고 삽입을 위한 코드
+skin/board/boot/view.skin.php
+ 
+- 회원가입 결과화면 style 수정
+skin/member/basic/register_result.skin.php
+ 
+- 태그오류 수정
+skin/member/basic/register_form.skin.php 
+ 
+- hammer.js 삭제 (속도와 오터치 때문)
+head.sub.php
+tail.php
+ 
+- 쪽지에 닫기 버튼추가 (모바일에서 필요...)
+skin/memo/basic/memo2.head.skin.php
+ 
+- 휴면회원 코드 개선
+adm/member_delete_unlogin.php
+lib/common.lib.php
+ 
+- 관리자 페이지 pdo 변경 (1)
+adm/auth_list.php
+adm/auth_update.php
+ 
+- $level 변수 (int)로 cast
+adm/admin.lib.php
+ 
+- PDO 적용 (common.php 관련)
+common.php
+bbs/point.php
+bbs/poll_etc_update.php
+bbs/register_form_update.php
+bbs/scrap_popin_update.php
+bbs/visit_insert.inc.php
+bbs/write_update.php
+lib/common.lib.php
+ 
+- 회원삭제를 1,000개 단위로 하게 코드 수정
+adm/member_delete_unvisited.php
+ 
+- 자주 안쓰는 설정코드 이동
+common.php
+config.2.php
+
+
+
 1.3.1 (2015.09.24)
 
 1.3.1 버젼은 너무 수정한게 많고 복잡한거 같아서 이전버젼에서 올라가는 패치파일은 제공하지 않습니다.
-
 1.3.1 버젼 이후에는 앱 연동을 위한 부분이 집중적으로 개선될 것 입니다.
 
  
