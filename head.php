@@ -43,61 +43,61 @@ else
         </div>
 </div>
 
-<div class="navbar navbar-default" role="navigation">
+<div class="navbar navbar-default" role="navigation" style="height:40px;margin-top:3px;">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header col-md-2 col-lg-2">
         <!-- collapse 되었을 때, 우측에 나오는 메뉴 버튼 -->
-        <button type="button" class="btn btn-default navbar-toggle" data-toggle="collapse" data-target=".navbar-top-menu-collapse">
+        <button type="button" class="btn btn-default navbar-toggle" data-toggle="collapse" data-target=".navbar-top-menu-collapse" style="border:none">
             <i class="glyphicon glyphicon-list"></i>
         </button>
         <? if ($member['mb_id'] == "") { 
         $login_url = "$g4[bbs_path]/login.php?url=".urlencode($lo_url);
         ?>
-        <a class="btn btn-default navbar-toggle" value="Page" onclick="location.href='<?=$login_url?>';">
+        <a class="btn btn-default navbar-toggle" value="Page" onclick="location.href='<?=$login_url?>';" style="border:none">
             <i class="glyphicon glyphicon-user"></i>
         </a>
         <? } else {
         $login_url = "$g4[bbs_path]/myon.php?head=1";
         ?>
-        <a class="btn <?=$whatson_btn?> navbar-toggle" value="Page" onclick="location.href='<?=$login_url?>';">
+        <a class="btn <?=$whatson_btn?> navbar-toggle" value="Page" onclick="location.href='<?=$login_url?>';" style="border:none">
             <i class="glyphicon glyphicon-shopping-cart"><sup style="margin-left:3px;"><?=$g4['whatson_unread']?></sup></i>
         </a>
-        <a class="btn <?=$memo_btn?> navbar-toggle" value="Page" href="javascript:win_memo('', '<?=$member[mb_id]?>', '<?=$_SERVER[SERVER_NAME]?>');" onfocus="this.blur()">
+        <a class="btn <?=$memo_btn?> navbar-toggle" value="Page" href="javascript:win_memo('', '<?=$member[mb_id]?>', '<?=$_SERVER[SERVER_NAME]?>');" onfocus="this.blur()" style="border:none">
             <i class="glyphicon glyphicon-envelope"><sup style="margin-left:3px;"><?=$member[mb_memo_unread]?></sup></i>
         </a>
         <? } ?>
-        <button type="button" class="btn btn-default navbar-toggle" data-toggle="collapse" data-target=".navbar-search-top-collapse">
+        <button type="button" class="btn btn-default navbar-toggle" data-toggle="collapse" data-target=".navbar-search-top-collapse" style="border:none">
             <i class="glyphicon glyphicon-search"></i>
         </button>
         <!-- sm, md, lg에서 나오는 로고 -->
-        <a class="navbar-brand hidden-xs hidden-sm" href="<?=$g4['path']?>/">
-        <img src="<?=$g4[path]?>/img/opencode_aaa.png" align=absmiddle alt="brand logo">
+        <a class="navbar-brand hidden-xs hidden-sm" href="<?=$g4['path']?>/" style="border:none">
+        <img src="<?=$g4[path]?>/img/opencode_aaa.png" align=absmiddle alt="brand logo" style="height:38px">
         </a>
         <!-- collapse 되었을 때 나오는 로고 -->
-        <a class="navbar-brand navbar-toggle pull-left" href="<?=$g4['path']?>/" style="border:0;margin-bottom:0;">
-        <img src="<?=$g4[path]?>/img/opencode_aaa.png" alt="brand logo" style="width:120px;">
+        <a class="navbar-brand navbar-toggle pull-left" href="<?=$g4['path']?>/" style="margin-bottom:5px;border:none;">
+        <img src="<?=$g4[path]?>/img/opencode_aaa.png" alt="brand logo" style="height:30px">
         </a>
     </div>
 
     <div class="collapse navbar-collapse navbar-top-menu-collapse col-sm-9 col-md-7 col-lg-7">
-    <ul class="nav navbar-nav">
-        <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=qna">자유게시판</a></li>
-        <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=test">한줄이야기</a></li>
+    <ul class="nav navbar-nav" id="gnb">
+        <li id="qna"><a href="<?=$g4[bbs_path]?>/board.php?bo_table=qna">자유게시판</a></li>
+        <li id="test"><a href="<?=$g4[bbs_path]?>/board.php?bo_table=test">한줄이야기</a></li>
         <li class="dropdown">
             <a class="dropdown-toggle" href="#" data-toggle="dropdown">토크 <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=notice">공지</a></li>
+                <li id="notice"><a href="<?=$g4[bbs_path]?>/board.php?bo_table=notice">공지</a></li>
                 <li class="divider"></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=g4_100">그누보드100일완성</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=g4_books">그누보드참고서</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=sitetips">사이트개발운영</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=biz">비즈니스참고자료</a></li>
+                <li id="g4_100"><a href="<?=$g4[bbs_path]?>/board.php?bo_table=g4_100">그누보드100일완성</a></li>
+                <li id="g4_books"><a href="<?=$g4[bbs_path]?>/board.php?bo_table=g4_books">그누보드참고서</a></li>
+                <li id="sitetips"><a href="<?=$g4[bbs_path]?>/board.php?bo_table=sitetips">사이트개발운영</a></li>
+                <li id="biz"><a href="<?=$g4[bbs_path]?>/board.php?bo_table=biz">비즈니스참고자료</a></li>
                 <li class="divider"></li>
                 <li><a href="<?=$g4[bbs_path]?>/good_list.php">베스트글</a></li>
                 <li><a href="<?=$g4[bbs_path]?>/new.php">최근게시글</a></li>
                 <li class="divider"></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=test">테스트</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=test2">테스트2</a></li>
+                <li id="test"><a href="<?=$g4[bbs_path]?>/board.php?bo_table=test">테스트</a></li>
+                <li id="test2"><a href="<?=$g4[bbs_path]?>/board.php?bo_table=test2">테스트2</a></li>
             </ul>
         </li>
         <li class="dropdown">
@@ -288,3 +288,10 @@ function fsearchbox_submit(f)
     return true;
 }
 </script>
+
+<!-- 게시판 메뉴 반전 시키기 -->
+<? if ($board['bo_table']) { ?>
+<script type="text/javascript">
+$('#gnb #<?=$board[bo_table]?>').addClass('active');
+</script>
+<? } ?>
