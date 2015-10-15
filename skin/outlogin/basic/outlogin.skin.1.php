@@ -29,12 +29,12 @@ else {
 <form name="fhead" method="post" onsubmit="return fhead_submit(this);" autocomplete="off" role="form" class="form-inline">
 <input type="hidden" name="url" value="<?=$outlogin_url?>">
 
-<input type="text" class="form-control" style="width:100%;" name="mb_id" id="mb_id" maxlength="20" itemname="아이디" placeholder="login id">
+<input type="text" class="form-control" style="width:100%" name="mb_id" id="mb_id" maxlength="20" itemname="아이디" placeholder="login id">
 <label for="mb_id" class="sr-only">member_id</label>
 <input type="password" class="form-control" style="width:100%;margin-top:-1px;" name="mb_password" id="outlogin_mb_password" maxlength="20" itemname="패스워드" placeholder="password">
 <label for="outlogin_mb_password" class="sr-only">password</label>
 
-<div class="input-group" style="margin-top:-1px;">
+<div class="input-group" style="margin-top:-1px;width:100%">
     <span class="input-group-addon">
         <div class="checkbox custom">
         <label>
@@ -43,7 +43,7 @@ else {
         </label>
         </div>
     </span>
-    <button type="submit" class="btn btn-default btn-group-justified" >Login</button>
+    <button type="submit" class="btn btn-default btn-group-justified">Login</button>
 </div>
     
 <div class="btn-group btn-group-justified" style="margin-bottom:3px;">
