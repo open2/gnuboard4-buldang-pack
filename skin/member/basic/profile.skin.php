@@ -47,6 +47,13 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         <? } ?>
 
         <?
+        // 자기소개를 출력
+        if ($mb[mb_profile]) {
+            echo "<hr>" . $mb[mb_profile];
+        }
+        ?>
+
+        <?
         // 서명을 출력
         if ($mb[mb_signature]) {
             echo "<hr>" . $mb[mb_signature];
