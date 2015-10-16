@@ -34,7 +34,7 @@ if (!$skin_title) {
                 echo "<i class=\"fa fa-reply fa-rotate-180\"></i> ";
 
             if ($list[$i][bo_name])
-                echo $list[$i][bo_name] . " : ";
+                echo "<font color='gray'>" . $list[$i][bo_name] . "</font> : ";
 
             if ($list[$i][is_notice])
                 echo "<strong>" . $list[$i][subject] . "</strong>";
