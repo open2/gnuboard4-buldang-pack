@@ -24,26 +24,25 @@ if (!$skin_title) {
         for ($i=0; $i<count($list); $i++) { 
   
             echo "<li>";
-            echo "<a href='{$list[$i][href]}' onfocus='this.blur()' title='{$list_title}' {$target_link}>";
+
+            echo "<a href='{$list[$i][href]}' onfocus='this.blur()' title='{$list[$i][subject]}' {$target_link}>";
 
             if ($list[$i][icon_secret])
                 echo "<i class=\"fa fa-lock\"></i> ";
   
-            if ($list[$i][bo_name])
-                $list_title = $list[$i][bo_name] . " : " . $list[$i][subject] . " (". $list[$i][datetime] . ")" ;
-            else
-                $list_title = $list[$i][subject]  . " (". $list[$i][datetime] . ")" ;
-  
             if ($list[$i][icon_reply])
                 echo "<i class=\"fa fa-reply fa-rotate-180\"></i> ";
 
-  	        if ($list[$i][comment_cnt])
-	              echo " <small>" . $list[$i][comment_cnt] . "</small> ";
-  
+            if ($list[$i][bo_name])
+                echo $list[$i][bo_name] . " : ";
+
             if ($list[$i][is_notice])
                 echo "<strong>" . $list[$i][subject] . "</strong>";
             else
                 echo $list[$i][subject];
+
+  	        if ($list[$i][comment_cnt])
+	              echo " <small>" . $list[$i][comment_cnt] . "</small> ";
   
             if ($list[$i][icon_new])
                 echo "  <i class=\"fa fa-bell-o\"></i>";
