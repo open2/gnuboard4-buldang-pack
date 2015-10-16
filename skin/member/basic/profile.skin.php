@@ -45,6 +45,13 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
         if ($is_admin == "super") { ?>
             <li>관리자메모 : <? echo nl2br($mb[mb_memo]) ?></li>
         <? } ?>
+
+        <?
+        // 서명을 출력
+        if ($mb[mb_signature]) {
+            echo "<hr>" . $mb[mb_signature];
+        }
+        ?>
     </ul>
     </div>
 </div>
