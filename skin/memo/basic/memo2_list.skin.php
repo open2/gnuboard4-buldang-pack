@@ -52,7 +52,7 @@
     </th>
     <th class="hidden-xs" width=110><?=$list_title ?></th>
     <th>제 목</th>
-    <th class="hidden-xs" width=80>발신</th>
+    <th class=width=80>발신</th>
     <th width=80>
     <? if ($kind == 'notice') {
         if ($is_admin=='super' || $member['mb_id']==$view['me_send_mb_id']) { ?>  
@@ -87,7 +87,6 @@
         ?>
         <? if ($list[$i]['me_file']) { ?><i class="fa fa-file"></i>&nbsp;<?}?><a href='<?=$view_url?>' title='<?=$list[$i]['subject']?>'><?=$style1?><?=cut_str($list[$i]['subject'],27)?><?=$style2?></a>
         </td>
-        <td <?=$style?> class="hidden-xs"><?=$list[$i]['send_datetime']?></td>
         <?
         // 공지쪽지의 읽은 날짜는???
         if ($kind == 'notice') { 
@@ -101,10 +100,10 @@
         <? if ($list[$i]['me_file']) { ?><i class="fa fa-file"></i>&nbsp;<?}?><a href='<?=$view_url?>' title='<?=$list[$i]['subject']?>'><?=$style1?><?=cut_str($list[$i]['subject'],27)?><?=$style2?></a>
         <br>
         <small>
-        <?=$list[$i]['send_datetime']?>&nbsp;
         <?=$list[$i]['name']?>
         </small>
         </td>
+        <td <?=$style?>><?=$list[$i]['send_datetime']?></td>
         <td <?=$style?>><?=$list[$i]['read_datetime']?></td>
     </tr>
     <? } ?>
