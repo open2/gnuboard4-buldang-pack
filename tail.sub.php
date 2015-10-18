@@ -27,7 +27,7 @@ $('.sideview').bind('click',function(e){
 
     $.ajax({url: "<?=$g4[bbs_path]?>/ajax_sideview.php", type: "POST", data: _data, 
             success: function(response) {
-                el.popover({html: true, content: response, title: '<a onclick="" style="cursor:pointer">'+popover_title+'&nbsp;<i class="fa fa-times-circle"></i></a>'});
+                el.popover({html: true, content: response, title: '<a onclick="" style="cursor:pointer">'+popover_title+'&nbsp;<i class="fa fa-plus-square"></i></a>'});
                 el.popover('show'); 
             }
     });

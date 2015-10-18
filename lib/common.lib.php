@@ -1097,7 +1097,7 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
         $title_mb_id = "[ºñÈ¸¿ø]";
     }
 
-    $tmp_name = "<a class=\"sideview\" alt=\"$title_mb_id\" style=\"cursor:pointer;\">$tmp_name</a>";
+    $tmp_name = "<a class=\"sideview\" alt=\"$title_mb_id\" style=\"cursor:pointer;\" role=\"button\" tabindex=\"0\" data-toggle=\"popover\" data-trigger=\"focus\">$tmp_name</a>";
     return $tmp_name;
 
 }
