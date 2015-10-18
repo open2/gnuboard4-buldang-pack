@@ -143,7 +143,10 @@ if ($list[$i][is_notice])
             $style = "";
 
         echo "<a href='{$list[$i][href]}'>";
-        echo "<span $style>" . cut_str($list[$i][subject], 40) . "</span>";
+        if ($sfl && $stx)
+            echo "<span $style>" . cut_str(strip_tags($list[$i][subject]), 40) . "</span>";
+        else
+            echo "<span $style>" . cut_str($list[$i][subject], 40) . "</span>";
         echo "</a>";
 
         if ($list[$i][comment_cnt]) 
