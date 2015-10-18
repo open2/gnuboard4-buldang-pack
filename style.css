@@ -1,11 +1,3 @@
-.navbar .navbar-brand {
-height: 45px;
-padding: 0;
-margin-left: auto;
-margin-right: auto;
-float:none;
-}
-
 /* 마우스가 메뉴에 올라가면 자동으로 dropdown 되게 */
 ul.nav li.dropdown:hover > ul.dropdown-menu {
     display: block;    

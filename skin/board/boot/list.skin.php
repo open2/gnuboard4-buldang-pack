@@ -147,6 +147,7 @@ if ($list[$i][is_notice])
             $style = "";
 
         echo "<a href='" . $list[$i][href] . "'>";
+        // 검색을 하면 $list[$i][subject]에 tag가 들어 있으므로 tag를 제거후 글자수 줄이기를 해야 함...
         if ($sfl && $stx)
             echo "<span $style>" . cut_str(strip_tags($list[$i][subject]), 40) . "</span>";
         else
