@@ -118,15 +118,14 @@ function get_session($session_name)
 
 
 // 쿠키변수 생성
-/*
 function set_cookie($cookie_name, $value, $expire)
 {
     global $g4;
 
     setcookie(md5($cookie_name), base64_encode($value), $g4[server_time] + $expire, '/', $g4[cookie_domain]);
 }
-*/
 
+/*
 function set_cookie($cookie_name, $value, $expire)
 {
     global $g4; 
@@ -138,6 +137,7 @@ function set_cookie($cookie_name, $value, $expire)
    else
          setcookie(md5($cookie_name), base64_encode($value), $g4[server_time] + $expire, '/', $g4[cookie_domain], $https_cookie);
 }
+*/
 
 // 쿠키변수값 얻음
 function get_cookie($cookie_name)
