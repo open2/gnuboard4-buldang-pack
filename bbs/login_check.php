@@ -201,13 +201,13 @@ if ($auto_login) {
     // 자동로그인 ---------------------------
     // 쿠키 한달간 저장
     if ($g4['load_balance']) {
-        $key = md5($g4['load_balance'] . $_SERVER[HTTP_USER_AGENT] . $mb[mb_password] . $mb['mb_no']);
+        $key = md5($g4['load_balance'] . $_SERVER['HTTP_USER_AGENT'] . $mb['mb_password'] . $mb['mb_no']);
     } else {
-        $key = md5($_SERVER[SERVER_ADDR] . $_SERVER[HTTP_USER_AGENT] . $mb[mb_password] . $mb['mb_no']);
+        $key = md5($_SERVER['SERVER_ADDR'] . $_SERVER['HTTP_USER_AGENT'] . $mb['mb_password'] . $mb['mb_no']);
     }
 
     // 불당팩 - unique한 값을 생성해 줍니다
-    $uid = md5(uniqid($_SERVER[SERVER_ADDR], true));
+    $uid = md5(uniqid($mb['mb_no'] . $_SERVER['HTTP_USER_AGENT'], true));
 
     // cookie DB에서 key가 같은 경우를 모두 삭제해줍니다
     //$sql = " delete from $g4[cookie_table] where cookie_key='$key' ";
