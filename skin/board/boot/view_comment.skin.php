@@ -49,14 +49,14 @@ for ($i=0; $i<count($list); $i++) {
                 <div style="float:left; margin:2px 0 0 2px;">
                 <strong><?=$list[$i][name]?></strong>
                 <font style="color:#BABABA;">
+                <? if ($is_ip_view) { echo "{$list[$i][ip]}"; } ?>
+                </font>
                 <?=get_datetime($list[$i][wr_datetime])?>
                 <?
                 // $board[bo_new] 시간내에 새로운 코멘트가 있으면 icon_new.gif를 뒤에
                 if ($list[$i]['wr_datetime'] >= date("Y-m-d H:i:s", $g4['server_time'] - ($board['bo_new'] * 3600))) 
-                    echo "<span class=\"badge\">n</span>";
+                    echo "<i class=\"fa fa-pagelines\" title='new articla/새글'></i>";
                 ?>
-                <? if ($is_ip_view) { echo "{$list[$i][ip]}"; } ?>
-                </font>
                 </div>
                 <div class="btn-group pull-right" style="margin-top:5px;">
                 <? if ($list[$i][is_reply] && $check_comment_allow) { echo "<a class=\"btn btn-default btn-sm\" href=\"javascript:comment_box('{$comment_id}','c');\">Reply</a> "; } ?>

@@ -15,7 +15,7 @@ if (!$skin_title) {
     <a href='<?=$skin_title_link?>' onfocus='this.blur()'><?=$skin_title?></a>
   	<a class="pull-right" href='<?=$skin_title_link?>' onfocus='this.blur()'>more</a>
 </div>
-<div class="panel-body">
+<div class="panel-body" style="overflow:hidden">
   	<ul class="list-unstyled">
     <?
     if (count($list) == 0) {
@@ -45,7 +45,7 @@ if (!$skin_title) {
 	              echo " <small>" . $list[$i][comment_cnt] . "</small> ";
   
             if ($list[$i][icon_new])
-                echo "  <i class=\"fa fa-bell-o\"></i>";
+                echo "  <i class=\"fa fa-pagelines\" style='color:gray'></i>";
 
             echo "</a>";
             echo "</li>";
