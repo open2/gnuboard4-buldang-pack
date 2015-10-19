@@ -92,7 +92,7 @@ $memo_str_list = $memo_str0 . $memo_str;
         <? } else { ?>
             <a href="javascript:;" onclick="opener.document.location.href='<?=$list[$i][opener_href_wr_id]?>';" title="<?=$list[$i][subject]?>">
         <? } ?>
-        <?=cut_str($list[$i][wr_subject],30)?></a>
+        <?=cut_str($list[$i][wr_subject],80)?></a>
         <a href="javascript:del('<?=$list[$i][del_href]?>');"><i class="fa fa-trash-o"></i></a>
         </td>
         <td class="hidden-xs"><?=$list[$i][mb_nick]?></td>
@@ -121,7 +121,7 @@ $memo_str_list = $memo_str0 . $memo_str;
             <? } else { ?>
                 <a href="javascript:;" onclick="opener.document.location.href='<?=$list[$i][opener_href_wr_id]?>';">
             <? } ?>
-            <?=cut_str($list[$i][wr_subject],30)?></a>
+            <?=cut_str($list[$i][wr_subject],60)?></a>
             <a href="javascript:del('<?=$list[$i][del_href]?>');"><i class="fa fa-trash-o"></i></a>
             <br>
             <div class="pull-left">

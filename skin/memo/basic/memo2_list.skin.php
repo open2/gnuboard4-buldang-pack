@@ -97,7 +97,7 @@
         }
         ?>
         <td class="visible-xs">
-        <? if ($list[$i]['me_file']) { ?><i class="fa fa-file"></i>&nbsp;<?}?><a href='<?=$view_url?>' title='<?=$list[$i]['subject']?>'><?=$style1?><?=cut_str($list[$i]['subject'],27)?><?=$style2?></a>
+        <? if ($list[$i]['me_file']) { ?><i class="fa fa-file"></i>&nbsp;<?}?><a href='<?=$view_url?>' title='<?=$list[$i]['subject']?>'><?=$style1?><?=cut_str($list[$i]['subject'],60)?><?=$style2?></a>
         <br>
         <small>
         <?=$list[$i]['name']?>
