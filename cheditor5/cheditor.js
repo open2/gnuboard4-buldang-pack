@@ -648,12 +648,18 @@ setDesignMode : function (designMode, doc) {
     if (!doc) {
         doc = this.doc;
     }
-	if (GB.browser.msie) {
-        doc.body.contentEditable = designMode;
-	}
-	else {
-        doc.designMode  = designMode ? "on" : "off";
-	}
+    
+ if (GB.browser.msie) {
+        if (doc.body.contentEditable !== designMode) {
+            doc.body.contentEditable = designMode;
+        }
+        return;
+ }
+
+    var mode = designMode ? "on" : "off";
+    if (doc.designMode !== mode) {
+        doc.designMode = mode;
+    }
 },
 
 openDoc : function (doc, contents) {
@@ -3152,10 +3158,9 @@ showTagSelector : function (on) {
 	this.cheditor.tagPath.style.display = on ? 'block' : 'none';
 },
 
-richMode : function () {
-	this.range = null;
-	this.cheditor.editArea.style.visibility = 'hidden';
-	this.setDesignMode(false);
+richMode : function () { 
+    this.range = null;
+    this.cheditor.editArea.style.visibility = 'hidden';
     this.cheditor.toolbarWrapper.style.display = '';
 
     var content = (this.cheditor.mode === 'preview') ?
@@ -3163,38 +3168,19 @@ richMode : function () {
                 this.makeHtmlContent();
     this.putContents(this.convertContentsSpacer(content));
     this.cheditor.toolbarWrapper.className = "cheditor-tb-wrapper";
-	this.setDesignMode(true);
-	this.setImageEvent(true);
+    this.setDesignMode(true);
+    this.setImageEvent(true);
     this.cheditor.editArea.style.visibility = 'visible';
 
-    if (this.doc.body.hasChildNodes()) {
-        var cursor = this.getRange(), selection, node;
-        if (this.W3CRange) {
-            selection = this.getSelection();
-            node = cursor.commonAncestorContainer;
-            cursor.selectNode(node);
-            cursor.collapse(false);
-            selection.removeAllRanges();
-            selection.addRange(cursor);
-        }
-        else {
-            node = this.doc.body.firstChild;
-            if (node.nodeType === GB.node.text) {
-                node = node.parentNode;
-            }
-            cursor.moveToElementText(node);
-            cursor.collapse(false);
-            cursor.select();
-        }
-    }
     this.editAreaFocus();
+
     if (this.doc.body.lastChild) {
         this.placeCaretAt(this.doc.body.lastChild, false);
-    }
+    }    
     else {
         this.initDefaultParagraphSeparator();
-    }
-	this.toolbarUpdate();
+    }    
+    this.toolbarUpdate();
 },
 
 editMode : function () {
