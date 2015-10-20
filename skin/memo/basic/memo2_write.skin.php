@@ -51,7 +51,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <?
     // cheditor를 쓰기 위한 설정
     include_once("$g4[path]/lib/cheditor4.lib.php");
-    echo "<script type='text/javascript' src='$g4[cheditor4_path]/cheditor.js'></script>";
+    echo "<script type='text/javascript' src='$g4[cheditor4_path]/cheditor.js?v=$g4[cheditor_ver]'></script>";
     echo cheditor1('me_memo', '100%', '300px');
     // cheditor 편집기 메뉴의 일부를 disable
     ?>

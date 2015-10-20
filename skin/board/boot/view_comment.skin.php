@@ -115,7 +115,7 @@ for ($i=0; $i<count($list); $i++) {
 <?
 if ($is_dhtml_editor) {
     include_once("$g4[path]/lib/cheditor4.lib.php");
-    echo "<script src='$g4[cheditor4_path]/cheditor.js'></script>";
+    echo "<script src='$g4[cheditor4_path]/cheditor.js?v=$g4[cheditor_ver]'></script>";
 }
 ?>
 

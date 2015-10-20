@@ -24,7 +24,7 @@ $g4[title] = $html_title;
 include_once("./admin.head.php");
 
 include_once("$g4[path]/lib/cheditor4.lib.php");
-echo "<script type='text/javascript' src='$g4[cheditor4_path]/cheditor.js'></script>";
+echo "<script type='text/javascript' src='$g4[cheditor4_path]/cheditor.js?v=$g4[cheditor_ver]'></script>";
 echo cheditor1('ma_content', '100%', '350px');
 echo "<script type='text/javascript'>ed_ma_content.config.includeHostname = true;</script>";
 ?>

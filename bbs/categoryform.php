@@ -70,7 +70,7 @@ include_once ("./_head.php");
 
 <?=subtitle("기본 입력")?>
 
-<script type="text/javascript" src="<?=$g4[cheditor4_path]?>/cheditor.js"></script>
+<script type="text/javascript" src="<?=$g4[cheditor4_path]?>/cheditor.js?v=$g4[cheditor_ver]"></script>
 <?=cheditor1('ca_head_html', '100%', '150');?>
 <?=cheditor1('ca_tail_html', '100%', '150');?>
 

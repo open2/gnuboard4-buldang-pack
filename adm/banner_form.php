@@ -110,7 +110,7 @@ include_once ("$g4[path]/lib/banner.lib.php");
     <td></td>
     <td>¹è³Ê TEXT</td>
     <td style='padding-top:7px; padding-bottom:7px;'>
-        <script type="text/javascript" src="<?=$g4[cheditor4_path]?>/cheditor.js"></script>
+        <script type="text/javascript" src="<?=$g4[cheditor4_path]?>/cheditor.js?v=$g4[cheditor_ver]"></script>
         <?=cheditor1('bn_text', '100%', '200');?>
         <?=cheditor2('bn_text', $bn[bn_text]);?>
     </td>

@@ -21,7 +21,7 @@ function popup_id(frm_name, ss_id, top, left)
 
 <?
     include_once("$g4[path]/lib/cheditor4.lib.php");
-    echo "<script type='text/javascript' src='$g4[cheditor4_path]/cheditor.js'></script>";
+    echo "<script type='text/javascript' src='$g4[cheditor4_path]/cheditor.js?v=$g4[cheditor_ver]'></script>";
     echo cheditor1('sg_reason', '100%', '250');
 ?>
 

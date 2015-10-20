@@ -91,7 +91,7 @@ $g4[title] = $html_title;
 include_once ("./admin.head.php");
 ?>
 
-<script type="text/javascript" src="<?=$g4[cheditor4_path]?>/cheditor.js"></script>
+<script type="text/javascript" src="<?=$g4[cheditor4_path]?>/cheditor.js?v=$g4[cheditor_ver]"></script>
 <?=cheditor1('bo_content_head', '100%', '200');?>
 <?=cheditor1('bo_content_tail', '100%', '200');?>
 <?=cheditor1('bo_insert_content', '100%', '250');?>
