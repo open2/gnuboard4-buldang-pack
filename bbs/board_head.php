@@ -10,6 +10,8 @@ if ($board[bo_image_head])
     echo "<img src='$g4[data_path]/file/$bo_table/$board[bo_image_head]' border='0'>";
 
 // 게시판 관리의 상단 내용
-if (strip_tags($board[bo_content_head]) !== "")
+if (strip_tags($board[bo_content_head]) == "" || $board[bo_content_head] == "<p>&nbsp;</p>")
+    ;
+else
     echo stripslashes($board[bo_content_head]); 
 ?>
