@@ -86,8 +86,8 @@ function emoticon_html($str, $board_skin_path)
         echo $icon_images;
         ?>
 
-        <div class="pull-right">
-            <?=$list[$i][datetime2]?>&nbsp;<?=$list[$i][name]?>
+        <div class="pull-right" style="color:gray;">
+            <?=$list[$i][name]?>&nbsp;&nbsp;<?=$list[$i][datetime2]?>
         <?
         if ($member[mb_id]) {
         ?>
