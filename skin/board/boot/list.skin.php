@@ -25,14 +25,16 @@ $notice_count = $global_notice_count + $arr_notice_count;
     <? } ?>
 
     <? if ($is_category) { ?>
+    <div style="float:right;margin-left:10px;">
     <form name="fcategory" method="get" role="form" class="form-inline">
         <select class="form-control" name=sca onchange="location='<?=$category_location?>'+<?=strtolower($g4[charset])=='utf-8' ? "encodeURIComponent(this.value)" : "this.value"?>;">
         <option value=''>전체</option><?=$category_option?></select>
     </form>
+    </div>
     <? } ?>
 
-    <div class="pull-right hidden-xs">
-        Page <?=$page?>/<?=$total_page?>
+    <div class="hidden-xs" style="block:inline;float:right;margin-right:3px;">
+        <?=$page?>/<?=$total_page?>
     </div>
 </div>
 
@@ -125,7 +127,9 @@ if ($list[$i][is_notice])
     xs 사이즈에서는 아래처럼 1개의 td만 출력 됩니다. 다른 것은 모두 hidden.
     더 좋은 방법에 대한 제안은 언제든 환영 합니다.
     -->
-    <td class="visible-xs" align=left style='word-break:break-all;'>
+</tr>
+<tr class="visible-xs">
+    <td align=left style='word-break:break-all;'>
         <div>
         <?
         if ($list[$i][is_notice]) // 공지사항 
