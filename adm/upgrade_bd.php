@@ -977,8 +977,12 @@ if ($config[cf_db_version] < 1310) {
     sql_query(" CREATE TABLE `$g4[unlogin_table] like `$g4[member_table]` ", FALSE);
 }
 
+if ($config[cf_db_version] < 1310) {
+    sql_query(" ALTER TABLE `$g4[my_board_table]` ADD INDEX `bo` ( `mb_id` , `bo_table` ) ", FALSE);
+}
+
 // db 버젼을 업데이트 - major version + mid version - patch version
-$max_version = "1310";
+$max_version = "2000";
 sql_query(" update $g4[config_table] set cf_db_version = '$max_version' ");
 
 echo "불당팩 $max_version - UPGRADE 완료.";

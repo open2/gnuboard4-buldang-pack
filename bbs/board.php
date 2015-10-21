@@ -273,7 +273,7 @@ include_once("$g4[path]/tail.sub.php");
 <?
 // 내가 방문한 게시판 정보를 db에 기록
 if ($member[mb_id]) {
-    sql_query(" update $g4[my_board_table] set my_datetime = '$g4[time_ymdhis]' where mb_id = '$member[mb_id]' and bo_table = '$bo_table' ");
+    sql_query(" update $g4[my_board_table] set my_datetime = '$g4[time_ymdhis]' where mb_id = '$member[mb_id]' and bo_table = '$bo_table' ", FALSE);
     if (mysql_affected_rows() == 0) 
         sql_query(" insert $g4[my_board_table] set mb_id = '$member[mb_id]', bo_table = '$bo_table', my_datetime = '$g4[time_ymdhis]' ", FALSE );
 }
