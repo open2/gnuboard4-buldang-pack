@@ -210,9 +210,13 @@ include_once("./admin.head.php");
     <td>IP</td>
     <td><?=$mb[mb_ip]?></td>
 </tr>
-<? if ($config[cf_use_email_certify]) { ?>
 <tr>
-    <td>인증일시</td>
+    <td>본인인증</td>
+    <td><?=$mb[mb_realcheck]?></td>
+</tr>
+<? if ($config[cf_use_email_certify] || $mb[mb_email_certify] !== "0000-00-00 00:00:00") { ?>
+<tr>
+    <td>이메일인증</td>
     <td><?=$mb[mb_email_certify]?> 
         <? if ($mb[mb_email_certify] == "0000-00-00 00:00:00") { echo "<input type=checkbox name=passive_certify>수동인증"; } ?>
     </td>
