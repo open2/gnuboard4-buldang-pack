@@ -7,7 +7,7 @@
     /&nbsp;<a href="<?=$memo_url?>?kind=<?=$kind?>&sfl=me_file&stx=me_file"><i class="fa fa-file"></i></a>
     )
 
-    <a class="btn btn-navbar btn-xs pull-right" data-toggle="collapse" data-target=".navbar-ex4-collapse">
+    <a class="btn btn-navbar btn-xs pull-right hidden-lg hidden-md" data-toggle="collapse" data-target=".navbar-ex4-collapse" style="margin-right:10px;">
         <i class="glyphicon glyphicon-search"></i>
     </a>
 
