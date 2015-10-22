@@ -50,10 +50,7 @@ ob_end_flush();
 
 <div id="view_header" class="panel panel-default">
 <div class="panel-heading">
-    <p class="pull-right">
-        <?if ($singo_href) { ?><a class="btn btn-default btn-xs" href="javascript:win_singo('<?=$singo_href?>');">신고</a><?}?>
-        <?if ($unsingo_href) { ?><a class="btn btn-default btn-xs" href="javascript:win_unsingo('<?=$unsingo_href?>');">신고취소</a><?}?>
-		</p>
+
 		<p>
         <? if ($is_category) { echo ($category_name ? "[$view[ca_name]] " : ""); } ?>
         <strong><?=cut_hangul_last(get_text($view[wr_subject]))?></strong>
@@ -66,24 +63,6 @@ ob_end_flush();
         <? if ($is_good) { ?>추천  <?=$view[wr_good]?>&nbsp;&nbsp;&nbsp;&nbsp;<?}?>
         <? if ($is_nogood) { ?>비추천  <?=$view[wr_nogood]?>&nbsp;&nbsp;&nbsp;&nbsp;<?}?>
         </font>
-    <!-- 게시글 주소를 복사하기 쉽게 하기 위해서 아랫 부분을 삽입 -->
-    <span class="pull-right">
-    <a href="javascript:clipboard_trackback('<?=$posting_url?>');" style="letter-spacing:0;" title='이 글을 소개할 때는 이 주소를 사용하세요'><i class="fa fa-link"></i></a>
-    <? if ($g4[use_bitly]) { ?>
-        <? if ($view[bitly_url]) { ?>
-        &nbsp;<span id="bitly_url"><a href=<?=$view[bitly_url]?> target=new><?=$view[bitly_url]?></a></span>
-        <? } else { ?>
-        &nbsp;<span id="bitly_url"></span>
-        <script type="text/javascript">
-        // encode 된 것을 넘겨주면, 알아서 decode해서 결과를 return 해준다.
-        // encode 하기 전의 url이 있어야 결과를 꺼낼 수 있기 때문에, 결국 2개를 넘겨준다.
-        // 왜? java script에서는 urlencode, urldecode가 없으니까. ㅎㅎ
-        // 글쿠 이거는 마지막에 해야 한다. 왜??? 그래야 정보를 html page에 업데이트 하쥐~!
-        get_bitly_g4('#bitly_url', '<?=$bo_table?>', '<?=$wr_id?>');
-        </script>
-        <?}?>
-    <?}?>
-    </span>
     </p>
 
     <p>
@@ -103,7 +82,7 @@ ob_end_flush();
             if ($view[link][$i]) {
                 $cnt++;
                 $link = cut_str($view[link][$i], 70);
-                echo "<a href='{$view[link_href][$i]}' target=_blank>{$link} ({$view[link_hit][$i]})</a>";
+                echo "<a href='{$view[link_href][$i]}' target=_blank>{$link} ({$view[link_hit][$i]})</a></BR>";
             }
         }
     ?>
@@ -113,10 +92,14 @@ ob_end_flush();
 <div id="view_main" class="panel-body">
 
     <?
+    // 이미지 파일이 출력 되었는지...
+    $view_img_file = 0;
+
     // 파일 출력
     for ($i=0; $i<=$view[file][count]; $i++) {
         if ($view[file][$i][view]) {
             echo resize_dica($view[file][$i][view],250,300) . "<p>" . $view[file][$i][content] . "</p>";
+            $view_img_file = 1;
         }
     }
 
@@ -133,13 +116,25 @@ ob_end_flush();
     }
     ?>
 
-    <?
-    // 광고가 있는 경우 광고를 연결
-    if (file_exists("$g4[path]/adsense/adsense_view_content.php"))
-        include_once("$g4[path]/adsense/adsense_view_content.php");
-    ?>
-
     <!-- 내용 출력 -->
+    <? if ($view_img_file == 0) { ?>
+    <div style="float:right;margin-left:10px;margin-bottom:10px;" class="hidden-xs hidden-sm">
+        <?=get_banner("b_view")?>
+    </div>
+
+    <div style="float:right;margin-left:10px;margin-bottom:10px;" class="visible-xs visible-sm">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 2CPU-컨텐츠 내부배너 - 직사각형 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:125px;height:125px"
+     data-ad-client="ca-pub-2309139745261135"
+     data-ad-slot="4040356375"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    </div>
+    <? } ?>
+
     <span id="writeContents" style="word-wrap:break-word;">
     <?
         $write_contents=resize_dica($view[content],400,300);
