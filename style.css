@@ -27,6 +27,13 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
 }
 
 @media (max-width: 767px) {
+    /* ½º¸ÀÆù¿¡¼­ 14px /*
+    body { 
+        font-size: 14px; 
+    } 
+    .btn-sm { 
+        font-size: 14px; 
+    }
 }
 
 @media (max-width: 480px) {
