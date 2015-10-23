@@ -136,7 +136,7 @@ if ($list[$i][is_notice])
             echo "<i class=\"fa fa-microphone\" title='notice/공지사항'></i> ";
 
 
-        if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply\" title='reply/답글'></i> ";
+        if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply fa-rotate-180\" title='reply/답글'></i> ";
         if ($is_category && $list[$i][ca_name]) { 
             echo "<font color=gray><a href='{$list[$i][ca_name_href]}'><small>({$list[$i][ca_name]})</small></a></font> ";
         }
