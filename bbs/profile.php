@@ -42,7 +42,7 @@ if ($is_member && ( $member['mb_id'] == '$mb_id' || $is_admin == 'super')) {
 $g4[title] = $mb[mb_nick] . "님의 자기소개";
 include_once("$g4[path]/head.sub.php");
 
-$mb_nick = get_sideview($mb[mb_id], $mb[mb_nick], $mb[mb_email], $mb[mb_homepage], $mb[mb_open]);
+$mb_nick = get_sideview($mb[mb_id], get_text($mb[mb_nick]), $mb[mb_email], $mb[mb_homepage], $mb[mb_open]);
 
 // 회원가입후 몇일째인지? + 1 은 당일을 포함한다는 뜻
 $sql = " select (TO_DAYS('$g4[time_ymdhis]') - TO_DAYS('$mb[mb_datetime]') + 1) as days ";

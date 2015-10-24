@@ -137,7 +137,7 @@ function recycle_delete(ok)
 for ($i=0; $row=sql_fetch_array($result); $i++) {
     
     $mb = get_member($row[mb_id]);
-    $mb_nick = get_sideview($mb[mb_id], $mb[mb_nick], $mb[mb_email], $mb[mb_homepage]);    
+    $mb_nick = get_sideview($mb[mb_id], get_text($mb[mb_nick]), $mb[mb_email], $mb[mb_homepage]);    
 
     // 게시글 제목
     $tmp_write_table = $g4['write_prefix'] . $row[rc_bo_table];

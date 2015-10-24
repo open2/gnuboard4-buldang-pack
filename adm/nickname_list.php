@@ -105,7 +105,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         $row2 = sql_fetch($sql2);
     }
 
-    $mb_nick = get_sideview($row[mb_id], $row2[mb_nick], $row2[mb_email], $row2[mb_homepage]);
+    $mb_nick = get_sideview($row[mb_id], get_text($row2[mb_nick]), $row2[mb_email], $row2[mb_homepage]);
 
     $link1 = $link2 = "";
     if (!preg_match("/^\@/", $row[po_rel_table]) && $row[po_rel_table])

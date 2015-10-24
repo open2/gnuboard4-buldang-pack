@@ -225,7 +225,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     $leave_date = $row[mb_leave_date] ? $row[mb_leave_date] : date("Ymd", $g4[server_time]);
     $intercept_date = $row[mb_intercept_date] ? $row[mb_intercept_date] : date("Ymd", $g4[server_time]);
 
-    $mb_nick = get_sideview($row[mb_id], $row[mb_nick], $row[mb_email], $row[mb_homepage]);
+    $mb_nick = get_sideview($row[mb_id], get_text($row[mb_nick]), $row[mb_email], $row[mb_homepage]);
 
     $mb_id = $row[mb_id];
     if ($row[mb_leave_date])

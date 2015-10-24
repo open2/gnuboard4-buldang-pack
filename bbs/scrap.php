@@ -107,7 +107,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     $list[$i][wr_secret] = $subject;
     $list[$i][del_href] = "./scrap_delete.php?ms_id=$row[ms_id]&page=$page&head_on=$head_on&mnb=$mnb&snb=$snb";
     $list[$i][mb_id] = $mb[mb_id];
-    $list[$i][mb_nick] = get_sideview($mb['mb_id'], $mb[mb_nick], $mb['mb_email'], $mb['mb_homepage']);
+    $list[$i][mb_nick] = get_sideview($mb['mb_id'], get_text($mb[mb_nick]), $mb['mb_email'], $mb['mb_homepage']);
 
 }
 

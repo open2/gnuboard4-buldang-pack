@@ -105,7 +105,7 @@ var list_delete_php = "auth_list_delete.php";
 //for ($i=0; $row=sql_fetch_array($result); $i++)
 for ($i=0; $row=$stmt->fetch(PDO::FETCH_ASSOC); $i++)
 {
-    $mb_nick = get_sideview($row[mb_id], $row[mb_nick], $row[mb_email], $row[mb_homepage]);
+    $mb_nick = get_sideview($row[mb_id], get_text($row[mb_nick]), $row[mb_email], $row[mb_homepage]);
 
     // 메뉴번호가 바뀌는 경우에 현재 없는 저장된 메뉴는 삭제함
     if (!isset($auth_menu[$row[au_menu]]))

@@ -84,7 +84,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 
     $mb = get_member($write[mb_id], "mb_id, mb_nick, mb_email, mb_homepage");
     $list[$i][mb_id] = $mb[mb_id];
-    $list[$i][mb_nick] = get_sideview($mb['mb_id'], $mb[mb_nick], $mb['mb_email'], $mb['mb_homepage']);
+    $list[$i][mb_nick] = get_sideview($mb['mb_id'], get_text($mb[mb_nick]), $mb['mb_email'], $mb['mb_homepage']);
 }
 
 // 게시판 목록별로 정렬하기

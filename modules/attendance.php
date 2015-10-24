@@ -58,7 +58,7 @@ $on = "";
 }
 
 // ´Ð³×ÀÓ
-$name = get_sideview($row[mb_id], $row[mb_nick], $row[mb_email], $row[mb_homepage]);
+$name = get_sideview($row[mb_id], get_text($row[mb_nick]), $row[mb_email], $row[mb_homepage]);
 
 // ·©Å·
 $rank = $i + 1;

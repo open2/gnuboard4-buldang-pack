@@ -103,7 +103,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     //$s_del = "<a href=\"javascript:del('./boardgroupmember_update.php?w=listdelete&gm_id=$row[gm_id]');\"><img src='img/icon_delete.gif' border=0 title='삭제'></a>";
     $s_del = "<a href=\"javascript:post_delete('boardgroupmember_update.php', '$row[gm_id]');\"><img src='img/icon_delete.gif' border=0 title='삭제'></a>";
 
-    $mb_nick = get_sideview($row[mb_id], $row[mb_nick], $row[mb_email], $row[mb_homepage]);
+    $mb_nick = get_sideview($row[mb_id], get_text($row[mb_nick]), $row[mb_email], $row[mb_homepage]);
 
     $list = $i%2;
     echo "

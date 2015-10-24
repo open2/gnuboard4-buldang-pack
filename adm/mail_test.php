@@ -14,7 +14,7 @@ check_demo();
 $g4[title] = "회원메일 테스트";
 
 $name = $member[mb_name];
-$nick = $member[mb_nick];
+$nick = get_text($member[mb_nick]);
 $mb_id = $member[mb_id];
 $email = $member[mb_email];
 $birth = $member[mb_birth];

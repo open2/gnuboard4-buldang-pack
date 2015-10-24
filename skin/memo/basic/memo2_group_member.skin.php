@@ -88,7 +88,7 @@ $ss_id = 'gr_mb_id'; // 직접 아이디를 지정하니까 오류가 생겨서 어쩔 수 없이... �
         <td><input type="checkbox" name="chk_fr_no[]" value="<?=$row[gr_mb_no]?>" /></td>
         <td><?=$i+1?></td>
         <td><?=$mb[mb_id]?></td>
-        <td><?=get_sideview($mb[mb_id], $mb[mb_nick], $mb[mb_email], $mb[mb_homepage]); ?></td>
+        <td><?=get_sideview($mb[mb_id], get_text($mb[mb_nick]), $mb[mb_email], $mb[mb_homepage]); ?></td>
         <td>
         <?
         $sql2 = " select count(*) as cnt 

@@ -175,7 +175,7 @@ $ss_id = 'fr_id'; // 직접 아이디를 지정하니까 오류가 생겨서 어쩔 수 없이... ㅠ..
         <? } ?>
         </td>
         <td><?=$mb['mb_id']?></td>
-        <td><?=get_sideview($mb['mb_id'], $mb['mb_nick'], $mb['mb_email'], $mb['mb_homepage']); ?>
+        <td><?=get_sideview($mb['mb_id'], get_text($mb['mb_nick']), $mb['mb_email'], $mb['mb_homepage']); ?>
         <? 
         if ($fr_type == 'fr_id') {
             $sql1 = " select count(*) as cnt from $sql_from 

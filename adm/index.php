@@ -76,7 +76,7 @@ $result = sql_query($sql);
     <?
     for ($i=0; $row=sql_fetch_array($result); $i++) 
     {
-        $mb_nick = get_sideview($row['mb_id'], $row['mb_nick'], $row['mb_email'], $row['mb_homepage']);
+        $mb_nick = get_sideview($row['mb_id'], get_text($row['mb_nick']), $row['mb_email'], $row['mb_homepage']);
     
         $mb_id = $row['mb_id'];
         echo "
@@ -140,7 +140,7 @@ $result = sql_query($sql);
     for ($i=0; $row=sql_fetch_array($result); $i++) 
     {
         $mb = get_member($row['mb_id']);
-        $mb_nick = get_sideview($row['mb_id'], $mb['mb_nick'], $mb['mb_email'], $mb['mb_homepage']);
+        $mb_nick = get_sideview($row['mb_id'], get_text($mb['mb_nick']), $mb['mb_email'], $mb['mb_homepage']);
     
         $link1 = $link2 = "";
         if (!preg_match("/^\@/", $row['po_rel_table']) && $row['po_rel_table'])

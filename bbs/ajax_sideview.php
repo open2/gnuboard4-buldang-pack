@@ -3,8 +3,8 @@ include_once("_common.php");
 
 header("Content-Type: text/html; charset=utf-8");
 
-$mb_nick = trim($_POST['mb_nick']);    // sideview의 대상
-$mb_nick2 = trim($_POST['mb_nick2']);  // sideview를 클릭한 사람
+$mb_nick = trim(get_text($_POST['mb_nick']));    // sideview의 대상
+$mb_nick2 = trim(get_text($_POST['mb_nick2']));  // sideview를 클릭한 사람
 $bo_table = trim($_POST['bo_table']);
 $sca = trim($_POST['sca']);
 

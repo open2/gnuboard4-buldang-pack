@@ -39,7 +39,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 
     if ($row[mb_id]) {
         $mb = get_member($row[mb_id], "mb_id, mb_nick, mb_email, mb_homepage, mb_intercept_date");
-        $mb_nick = get_sideview($mb[mb_id], $mb[mb_nick], $mb[mb_email], $mb[mb_homepage]);
+        $mb_nick = get_sideview($mb[mb_id], get_text($mb[mb_nick]), $mb[mb_email], $mb[mb_homepage]);
     } else 
         $mb_nick = "<span style='color:#222222;'>ºñÈ¸¿ø</a>";
 

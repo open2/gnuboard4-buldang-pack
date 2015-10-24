@@ -215,7 +215,7 @@ foreach ($list as $row) {
   <?
   if ($row[join_mb_id]) {
       $mb = get_member($row[join_mb_id], "mb_id, mb_nick, mb_email, mb_homepage");
-      $mb_nick = get_sideview($mb[mb_id], $mb[mb_nick], $mb[mb_email], $mb[mb_homepage]);
+      $mb_nick = get_sideview($mb[mb_id], get_text($mb[mb_nick]), $mb[mb_email], $mb[mb_homepage]);
       echo $mb_nick;
   } else {
       echo $row[join_cancel];

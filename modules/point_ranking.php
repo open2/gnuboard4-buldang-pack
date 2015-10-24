@@ -74,7 +74,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         $rank = (($page - 1) * $rows) + $i + 1; 
     }
     
-    $name = get_sideview($row[mb_id], $row[mb_nick], $row[mb_email], $row[mb_homepage]); 
+    $name = get_sideview($row[mb_id], get_text($row[mb_nick]), $row[mb_email], $row[mb_homepage]); 
     $point = number_format($row[mb_point]); 
     echo "<table width=98% cellpadding=0 align=center class=box border=0><tr>"; 
     echo "<td height=30>$rank. $name</td>"; 

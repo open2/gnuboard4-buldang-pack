@@ -12,7 +12,7 @@ check_token();
 $mb_id = mysql_real_escape_string(trim($_POST['mb_id']));
 
 $mb_name         = $_POST[mb_name];
-$mb_nick         = $_POST[mb_nick];
+$mb_nick         = get_text($_POST[mb_nick]);
 $mb_email        = $_POST[mb_email];
 $mb_homepage     = $_POST[mb_homepage];
 $mb_tel          = $_POST[mb_tel];

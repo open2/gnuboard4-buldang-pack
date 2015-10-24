@@ -27,7 +27,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     $mb_id = $row[mb_id];
     $mb_email = $row[mb_email];
     $mb_name = $row[mb_name];
-    $mb_nick = $row[mb_nick];
+    $mb_nick = get_text($row[mb_nick]);
 
     if (validate_email($mb_email)) {
         $sql = "update $g4[member_table] set mb_email_certify='$g4[time_ymdhis]' where mb_id = '$mb_id' ";
