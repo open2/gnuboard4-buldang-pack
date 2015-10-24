@@ -49,6 +49,10 @@ $colspan = 5;
             $sub_menu_info = '<span class="sr-only">'.$row['me_name'].'ÀÇ ¼­ºê</span>';
             $sub_menu_ico = '<span class="sub_menu_ico"></span>';
         }
+
+        $search  = array('"', "'");  
+        $replace = array('&#034;', '&#039;');  
+        $row['me_name'] = str_replace($search, $replace, $row['me_name']);  
     ?>
     <tr class="<?php echo $bg; ?> menu_list menu_group_<?php echo substr($row['me_code'], 0, 2); ?>">
         <td class="td_category<?php echo $sub_menu_class; ?>">

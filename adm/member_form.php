@@ -29,6 +29,8 @@ else if ($w == "u")
     $required_mb_password = "";
     $html_title = "¼öÁ¤";
 
+    $mb[mb_name]        = get_text($mb[mb_name]);
+    $mb[mb_nick]        = get_text($mb[mb_nick]);
     $mb[mb_email]       = get_text($mb[mb_email]);
     $mb[mb_homepage]    = get_text($mb[mb_homepage]);
     $mb[mb_birth]       = get_text($mb[mb_birth]);

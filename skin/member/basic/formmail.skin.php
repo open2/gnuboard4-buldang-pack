@@ -13,7 +13,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
       <div class="panel-body">
           <table class="table table-hover table-condensed">
                 <? if ($is_member) { // 회원이면 ?>
-                <input type='hidden' name='fnick'  value='<?=$member[mb_nick]?>'>
+                <input type='hidden' name='fnick'  value='<?=get_text($member[mb_nick])?>'>
                 <input type='hidden' name='fmail'  value='<?=$member[mb_email]?>'>
                 <? } else { ?>
                 <tr> 

@@ -54,6 +54,9 @@ if ($w == "") {
             alert("사용자 그룹이 바르지 않습니다. 관리자에게 문의하시기 바랍니다");
     }
 
+    $agree  = preg_replace('#[^0-9]#', '', $_POST['agree']);  
+    $agree2 = preg_replace('#[^0-9]#', '', $_POST['agree2']);  
+
     $member[mb_birth] = $birth;
     $member[mb_sex] = $sex;
     $member[mb_name] = $mb_name;

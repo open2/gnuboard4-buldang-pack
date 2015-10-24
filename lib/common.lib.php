@@ -357,7 +357,7 @@ function get_list($write_row, $board, $skin_path, $subject_len=40, $gallery_view
     $list['last'] = substr($list['wr_last'],0,10);
     $list['last2'] = get_datetime($list['wr_last']);
 
-    $list['wr_homepage'] = get_text(addslashes($list['wr_homepage']));
+    $list['wr_homepage'] = get_text($list['wr_homepage']);
 
     // 사이드뷰 정보를 기록 합니다 - 불당팩 / 부트스트랩
     // 글쓴이의 개인정보가 바뀐 시점 이후에 쓰여진 글이라면 개인정보를 다시 가져올 필요가 없지만
@@ -1197,10 +1197,16 @@ function cut_str($str, $len, $suffix="…")
 // TEXT 형식으로 변환
 function get_text($str, $html=0)
 {
-    /* 3.22 막음 (HTML 체크 줄바꿈시 출력 오류때문)
-    $source[] = "/  /";
-    $target[] = " &nbsp;";
-    */
+    $source[] = "<";  
+    $target[] = "&lt;";  
+    $source[] = ">";  
+    $target[] = "&gt;";  
+    $source[] = "\"";  
+    $target[] = "&#034;";  
+    $source[] = "\'";  
+    $target[] = "&#039;";  
+
+    $str = str_replace($target, $source, $str);  
 
     // 3.31
     // TEXT 출력일 경우 &amp; &nbsp; 등의 코드를 정상으로 출력해 주기 위함
@@ -1208,21 +1214,12 @@ function get_text($str, $html=0)
         $str = html_symbol($str);
     }
 
-    $source[] = "/</";
-    $target[] = "&lt;";
-    $source[] = "/>/";
-    $target[] = "&gt;";
-    //$source[] = "/\"/";
-    //$target[] = "&#034;";
-    $source[] = "/\'/";
-    $target[] = "&#039;";
-    //$source[] = "/}/"; $target[] = "&#125;";
     if ($html) {
-        $source[] = "/\n/";
+        $source[] = "\n";
         $target[] = "<br/>";
     }
 
-    return preg_replace($source, $target, $str);
+    return str_replace($source, $target, $str);
 }
 
 
@@ -1865,6 +1862,14 @@ function sql_get_field_names($table_name)
     }
 
     return $arr;
+}
+
+// XSS 관련 태그 제거
+function clean_xss_tags($str)
+{
+    $str = preg_replace('#</*(?:applet|b(?:ase|gsound|link)|embed|frame(?:set)?|i(?:frame|layer)|l(?:ayer|ink)|meta|object|s(?:cript|tyle)|title|xml)[^>]*+>#i', '', $str);
+
+    return $str;
 }
 
 // 불당팩 라이브러리를 읽습니다

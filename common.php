@@ -445,6 +445,10 @@ if (isset($_GET['ug_id'])) {
 }
 
 // 그누보드 4.34.09 보안패치 ($_SERVER의 SQL Injection 방어)
+$_SERVER['REMOTE_ADDR'] = get_text(clean_xss_tags($_SERVER['REMOTE_ADDR']));
+$_SERVER['HTTP_REFERER'] = get_text(clean_xss_tags($_SERVER['HTTP_REFERER']));
+$_SERVER['HTTP_USER_AGENT'] = get_text(clean_xss_tags($_SERVER['HTTP_USER_AGENT']));
+
 $remote_addr = mysql_real_escape_string($_SERVER['REMOTE_ADDR']);
 $referer    = mysql_real_escape_string($_SERVER['HTTP_REFERER']);
 $user_agent  = mysql_real_escape_string($_SERVER['HTTP_USER_AGENT']);

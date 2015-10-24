@@ -67,25 +67,25 @@ var member_skin_path = "<?=$member_skin_path?>";
         <? } ?>
 
         <? if ($member[mb_nick_date] <= date("Y-m-d", $g4[server_time] - ($config[cf_nick_modify] * 86400))) { // 별명수정일이 지났다면 수정가능 ?>
-        <input type=hidden name=mb_nick_default value='<?=$member[mb_nick]?>'>
+        <input type=hidden name=mb_nick_default value='<?=get_text($member[mb_nick])?>'>
         <div class="form-group">
             <label for="mb_nick" class="col-sm-2 control-label">닉네임</label>
             <div class="col-sm-6">
-                <input class="form-control" type="text" id='mb_nick' name='mb_nick' required hangulalphanumeric maxlength=20 value='<?=$member[mb_nick]?>' placeholder="Nick name" onblur="reg_mb_nick_check();">
+                <input class="form-control" type="text" id='mb_nick' name='mb_nick' required hangulalphanumeric maxlength=20 value='<?=get_text($member[mb_nick])?>' placeholder="Nick name" onblur="reg_mb_nick_check();">
                     <p class="help-block">공백없이 한글,영문,숫자만 입력 가능 (한글2자, 영문4자 이상)<br>
                     별명을 바꾸시면 앞으로 <?=(int)$config[cf_nick_modify]?>일 이내에는 변경 할 수 없습니다.</p>
       	    				<p class="help-block"><span id="msg_mb_nick"></span></p>
             </div>
         </div>
         <? } else { ?>
-        <input type=hidden name="mb_nick_default" value='<?=$member[mb_nick]?>'>
+        <input type=hidden name="mb_nick_default" value='<?=get_text($member[mb_nick])?>'>
         <div class="form-group">
             <label for="mb_nick" class="col-sm-2 control-label">닉네임</label>
             <div class="col-sm-6">
                 <?
                 $d_times = (int)(($config[cf_nick_modify] * 86400 - ( $g4[server_time] - strtotime($member[mb_nick_date]))) / 86400) + 1;
                 ?>
-                <input class="form-control" readonly type="text" id='mb_nick' name='mb_nick' value='<?=$member[mb_nick]?>'>
+                <input class="form-control" readonly type="text" id='mb_nick' name='mb_nick' value='<?=get_text($member[mb_nick])?>'>
                     <p class="help-block">※ <?=$d_times?>일 후 변경이 가능 합니다.</p>
             </div>
         </div>
@@ -177,7 +177,7 @@ var member_skin_path = "<?=$member_skin_path?>";
                 } 
                 ?>
                 <?if ($w=='u') { ?>
-                    <input type=text name='mb_hp' size=21 maxlength=20 <?=$config[cf_req_hp]?'required':'';?> itemname='핸드폰번호' value='<?=$member[mb_hp]?>'>
+                    <input type=text name='mb_hp' size=21 maxlength=20 <?=$config[cf_req_hp]?'required':'';?> itemname='핸드폰번호' value='<?=get_text($member[mb_hp])?>'>
                     <? if ($config[cf_hp_certify]) { ?>
                         <input type=button value='인증번호 전송' onclick="hp_certify(this.form);">  
                         인증번호 : <input class=m_text type=text name='mb_hp_certify' size=6 maxlength=6> 6자리 숫자<br> 
@@ -208,7 +208,7 @@ var member_skin_path = "<?=$member_skin_path?>";
         <div class="form-group">
             <label for="mb_tel" class="col-sm-2 control-label">전화번호</label>
             <div class="col-sm-6">
-                <INPUT class="form-control" type="text" name="mb_tel" size=21 maxlength=20 <?=$config[cf_req_tel]?'required':'';?> itemname='전화번호' value='<?=$member[mb_tel]?>' placeholder="Telephone no.">
+                <INPUT class="form-control" type="text" name="mb_tel" size=21 maxlength=20 <?=$config[cf_req_tel]?'required':'';?> itemname='전화번호' value='<?=get_text($member[mb_tel])?>' placeholder="Telephone no.">
             </div>
         </div>
         <? } ?>
@@ -217,7 +217,7 @@ var member_skin_path = "<?=$member_skin_path?>";
         <div class="form-group">
             <label for="mb_homepage" class="col-sm-2 control-label">홈페이지</label>
             <div class="col-sm-6">
-                <INPUT class="form-control" type="text" name="mb_homepage" id="mb_homepage" size=38 maxlength=255 <?=$config[cf_req_homepage]?'required':'';?> itemname='홈페이지' value='<?=$member[mb_homepage]?>' placeholder="Homepage URL">
+                <INPUT class="form-control" type="text" name="mb_homepage" id="mb_homepage" size=38 maxlength=255 <?=$config[cf_req_homepage]?'required':'';?> itemname='홈페이지' value='<?=get_text($member[mb_homepage])?>' placeholder="Homepage URL">
             </div>
         </div>
         <? } ?>
@@ -230,8 +230,8 @@ var member_skin_path = "<?=$member_skin_path?>";
                 - 
                 <input class=m_text type=text name='mb_zip2' size=4 maxlength=3 readonly <?=$config[cf_req_addr]?'required':'';?> itemname='우편번호 뒷자리' value='<?=$member[mb_zip2]?>'>
                 &nbsp;<a href="javascript:;" onclick="win_zip('fregisterform', 'mb_zip1', 'mb_zip2', 'mb_addr1', 'mb_addr2');"><img width="91" height="20" src="<?=$member_skin_path?>/img/post_search_btn.gif" border=0 align=absmiddle></a>
-                <input class="form-control" type=text name='mb_addr1' size=60 readonly <?=$config[cf_req_addr]?'required':'';?> itemname='주소' value='<?=$member[mb_addr1]?>'>
-                <input class="form-control" type=text name='mb_addr2' size=60 <?=$config[cf_req_addr]?'required':'';?> itemname='상세주소' value='<?=$member[mb_addr2]?>'>
+                <input class="form-control" type=text name='mb_addr1' size=60 readonly <?=$config[cf_req_addr]?'required':'';?> itemname='주소' value='<?=get_text($member[mb_addr1])?>'>
+                <input class="form-control" type=text name='mb_addr2' size=60 <?=$config[cf_req_addr]?'required':'';?> itemname='상세주소' value='<?=get_text($member[mb_addr2])?>'>
             </div>
         </div>
         <? } ?>
@@ -348,7 +348,7 @@ var member_skin_path = "<?=$member_skin_path?>";
             <label for="mb_recommend" class="col-sm-2 control-label">추천인아이디</label>
             <div class="col-sm-6">
                 <? $mb=get_member($member['mb_recommend'], "mb_id, mb_nick")?>
-                <?=get_sideview($mb['mb_id'], $mb['mb_nick'])?>
+                <?=get_sideview($mb['mb_id'], get_text($mb['mb_nick']))?>
             </div>
         </div>
         <? } ?>
