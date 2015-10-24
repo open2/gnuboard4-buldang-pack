@@ -31,8 +31,8 @@ if ($img = $_FILES[bo_image_tail][name]) {
     }
 }
 
-$_POST[bo_include_head] = substr($_POST[bo_include_head], 0, 255);
-$_POST[bo_include_tail] = substr($_POST[bo_include_tail], 0, 255);
+$_POST['bo_include_head'] = preg_replace("#[\\\]+$#", "", substr($_POST['bo_include_head'], 0, 255));  
+$_POST['bo_include_tail'] = preg_replace("#[\\\]+$#", "", substr($_POST['bo_include_tail'], 0, 255));  
 
 if ($file = $_POST[bo_include_head]) {
     $purl = parse_url($file);
