@@ -4,7 +4,7 @@ include_once("./_common.php");
 if (!$member[mb_id]) 
     alert_close("회원만 조회하실 수 있습니다.");
 
-$g4[title] = $member[mb_nick] . "님의 스크랩";
+$g4[title] = get_text($member[mb_nick]) . "님의 스크랩";
 
 if ($head_on)
     include_once("$g4[path]/head.php");

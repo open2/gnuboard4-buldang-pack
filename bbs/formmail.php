@@ -38,6 +38,8 @@ include_once("$g4[path]/head.sub.php");
 
 if (!$name)
     $name = base64_decode($email);
+else  
+    $name = get_text(stripslashes($name), true);  
 
 if (!isset($type)) 
     $type = 0;
