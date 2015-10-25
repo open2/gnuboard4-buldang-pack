@@ -166,16 +166,10 @@ $g4['member_suggest_join_days']  = 7;
 $g4['use_auto_levelup'] = 0;
 
 // 사용할 session 형태를 지정 합니다. 
-// db. memcache. redis. file - 4종 입니다
-// memcache를 사용하기 위해서는 PECL:memcache를 설치해야지 하며, memcache 서버의 설치가 필요합니다.
+// db. redis. file - 4종 입니다
 // redis를 사용하기 위해서는 PECL:redis와 phpredis를 설치해야지 합니다. redis 서버의 설치가 필요합니다.
 // 4종의 세션관리중 redis를 강력하게 추천 합니다.
 $g4['session_type'] = "db";
-
-// memcache 사용할때의 설정
-$g4['mhost'] = "localhost";
-$g4['mport'] = "11211";
-$g4['mpath'] = "tcp://$g4[mhost]:$g4[mport]?persistent=1&weight=2&timeout=2&retry_interval=10";
 
 // redis 사용할때의 설정
 $g4['rhost']    = "localhost";
