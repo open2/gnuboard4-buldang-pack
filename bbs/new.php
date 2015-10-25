@@ -30,6 +30,9 @@ else
     // ¿ø±Û
     $sql_common .= " and a.wr_is_comment = '0' ";
 
+$mb_id = isset($_GET['mb_id']) ? ($_GET['mb_id']) : '';
+$mb_id = substr(preg_replace('#[^a-z0-9_]#i', '', $mb_id), 0, 20);
+
 if ($mb_id) {
     if ($mb_id == "_m_")
         $sql_common .= " and a.mb_id = '$member[mb_id]' ";
