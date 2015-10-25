@@ -5,6 +5,10 @@ include_once("$g4[path]/lib/mailer.lib.php");
 // 리퍼러 체크
 referer_check();
 
+$po_id   = (int) $_POST['po_id'];
+$pc_name = strip_tags($_POST['pc_name']);
+$pc_idea = strip_tags($_POST['pc_idea']);
+
 if ($w == "") 
 {
     // 자동등록방지 검사

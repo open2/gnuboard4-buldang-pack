@@ -5,8 +5,8 @@ include_once("$g4[path]/head.sub.php");
 
 if (!$member[mb_id]) 
 {
-    $href = "./login.php?$qstr&url=".urlencode("./board.php?bo_table=$bo_table&wr_id=$wr_id");
-    echo "<script type='text/javascript'> alert('회원만 접근 가능합니다.'); top.location.href = '$href'; </script>";
+    $href = './login.php?'.$qstr.'&amp;url='.urlencode('./board.php?bo_table='.$bo_table.'&amp;wr_id='.$wr_id);
+    echo '<script type='text/javascript'> alert(\'회원만 접근 가능합니다.\'); top.location.href = \''.str_replace('&amp;', '&', $href).'\'; </script>';
     exit;
 }
 
