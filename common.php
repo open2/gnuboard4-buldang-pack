@@ -288,7 +288,7 @@ $_SERVER['PHP_SELF'] = htmlentities($_SERVER['PHP_SELF']);
 @ini_set("session.use_trans_sid", 0);     // PHPSESSID를 자동으로 넘기지 않음
 @ini_set("url_rewriter.tags","");         // 링크에 PHPSESSID가 따라다니는것을 무력화함 (해뜰녘님께서 알려주셨습니다.)
 
-// 사용할 session 형태를 지정 합니다. db, memcache, redis, file - 4종 입니다
+// 사용할 session 형태를 지정 합니다. db, redis, file - 3종 입니다
 switch ($g4['session_type']) {
     case "db"       :
         include_once("$g4[path]/lib/dbsession.lib.php");
@@ -641,7 +641,7 @@ if ($gr_id && $bo_table)
         $stmt->bindParam(":board_visit", $board_visit);
         $result = pdo_query($stmt);
 
-        if ($qry) {
+        if ($result) {
             //$sql = " update $mw[board_visit_table] set bv_count = bv_count + 1 where bv_date = '$g4[time_ymd]' and gr_id = '$gr_id' and bo_table = '$bo_table' ";
             //$qry = sql_query($sql, false);
 
