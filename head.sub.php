@@ -30,15 +30,15 @@ header("X-Content-Type-Options: nosniff");
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1">
 <meta http-equiv="content-type" content="text/html; charset=<?=$g4['charset']?>">
-<? if ($config['cf_meta_author']) { ?><meta name="author" content="<?=$config['cf_meta_author']?>"><? } ?>
+<? if ($config['cf_meta_author']) { ?><meta name="author" content="<?=get_text(clean_xss_tags($config['cf_meta_author']))?>"><? } ?>
 <?
 // 비회원일때만 SEO를 생성합니다. 회원들은 이미 들어와 있는거라, 굳이 할 이유가 없겠죠?
 if ($member['mb_id'] == "" && $g4['keyword_seo'])
     seo_keyword();
 ?>
-<? if ($config['cf_meta_keywords']) { ?><meta name="keywords" content="<?=$config['cf_meta_keywords']?>"><? } ?>
-<? if ($config['cf_meta_description']) { ?><meta name="description" content="<?=$config['cf_meta_description']?>"><? } ?>
-<? if ($g4['ie_ua']) { ?><meta http-equiv="X-UA-Compatible" content="IE=<?=$g4[ie_ua]?>" /><? } ?>
+<? if ($config['cf_meta_keywords']) { ?><meta name="keywords" content="<?=get_text(clean_xss_tags($config['cf_meta_keywords']))?>"><? } ?>
+<? if ($config['cf_meta_description']) { ?><meta name="description" content="<?=get_text(clean_xss_tags($config['cf_meta_description']))?>"><? } ?>
+<? if ($g4['ie_ua']) { ?><meta http-equiv="X-UA-Compatible" content="IE=<?=get_text(clean_xss_tags($g4[ie_ua]))?>" /><? } ?>
 <meta http-equiv="Imagetoolbar" content="no">
 <meta http-equiv="X-Frame-Options" content="deny">
 

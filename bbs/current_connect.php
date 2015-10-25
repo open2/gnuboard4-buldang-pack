@@ -36,7 +36,7 @@ if ($g4['session_type'] == "redis") {
           }
           $list[$i]['lo_datetime'] = $rdat[2];
           $list[$i]['lo_location'] = $rdat[3];
-          $list[$i]['lo_url'] = $rdat[4];
+          $list[$i]['lo_url'] = get_text($rdat[4]);
           $list[$i]['lo_referer'] = $rdat[5];
           $list[$i]['lo_agent'] = $rdat[6];
           $i++;
@@ -58,6 +58,7 @@ if ($g4['session_type'] == "redis") {
     $result = sql_query($sql);
     for ($i=0; $row=sql_fetch_array($result); $i++) 
     {
+        $row['lo_url'] = get_text($row['lo_url']);
         $list[$i] = $row;
     }
 }
