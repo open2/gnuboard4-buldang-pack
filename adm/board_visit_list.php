@@ -31,7 +31,7 @@ function fvisit_submit(ymd, gr_id, bo_table)
 <input type=hidden name="gr_id" value="<?=$gr_id?>">
 <input type=hidden name="bo_table" value="<?=$bo_table?>">
 <div>
-        <a href="<?=$PHP_SELF?>?<?=$qstr?>&ymd=<?=$ymd?>">전체</a>
+        <a href="<?=$_SERVER[PHP_SELF]?>?<?=$qstr?>&ymd=<?=$ymd?>">전체</a>
         &nbsp;&nbsp;
         기간 : 
         <input type='text' name='fr_date' size=11 maxlength=10 value='<?=$fr_date?>' class=ed>
@@ -42,8 +42,8 @@ function fvisit_submit(ymd, gr_id, bo_table)
         <input type=button class=btn1 value=' 월 ' onclick="fvisit_submit('m', document.fvisit.gr_id.value, document.fvisit.bo_table.value);">
         <input type=button class=btn1 value=' 년 ' onclick="fvisit_submit('y', document.fvisit.gr_id.value, document.fvisit.bo_table.value);">
         &nbsp;&nbsp;
-        <? if ($gr_id) { ?> > <a href="<?=$PHP_SELF?>?gr_id=<?=$gr_id?>&ymd=<?=$ymd?>&<?=$qstr?>"><?=$group[gr_subject]?></a> <? } ?>
-        <? if ($bo_table) { ?> > <a href="<?=$PHP_SELF?>?gr_id=<?=$gr_id?>&bo_table=<?=$bo_table?>&ymd=<?=$ymd?>&<?=$qstr?>"><?=$board[bo_subject]?></a> <? } ?>
+        <? if ($gr_id) { ?> > <a href="<?=$_SERVER[PHP_SELF]?>?gr_id=<?=$gr_id?>&ymd=<?=$ymd?>&<?=$qstr?>"><?=$group[gr_subject]?></a> <? } ?>
+        <? if ($bo_table) { ?> > <a href="<?=$_SERVER[PHP_SELF]?>?gr_id=<?=$gr_id?>&bo_table=<?=$bo_table?>&ymd=<?=$ymd?>&<?=$qstr?>"><?=$board[bo_subject]?></a> <? } ?>
 </div>
 </form>
 
@@ -55,10 +55,10 @@ function fvisit_submit(ymd, gr_id, bo_table)
 <colgroup width=100>
 <colgroup width=''>
 <tr class="success">
-    <td><a href="<?=$PHP_SELF?>?stx=visit_date">년-월-일</a></td>
-    <td><a href="<?=$PHP_SELF?>?stx=gr_id">그룹</a></td>
-    <td><a href="<?=$PHP_SELF?>?stx=bo_table">게시판</a></td>
-    <td><a href="<?=$PHP_SELF?>?stx=cnt">방문자수</a></td>
+    <td><a href="<?=$_SERVER[PHP_SELF]?>?stx=visit_date">년-월-일</a></td>
+    <td><a href="<?=$_SERVER[PHP_SELF]?>?stx=gr_id">그룹</a></td>
+    <td><a href="<?=$_SERVER[PHP_SELF]?>?stx=bo_table">게시판</a></td>
+    <td><a href="<?=$_SERVER[PHP_SELF]?>?stx=cnt">방문자수</a></td>
     <td>비율(%)</td>
     <td>그래프</td>
 </tr>
@@ -130,13 +130,13 @@ foreach ($data as $row) {
     $date_link = "";
     switch ($ymd) {
         case "y":
-            $date_link = "$PHP_SELF?fr_date=$row[visit_date]-01-01&to_date=$row[visit_date]-12-31&ymd=m&gr_id=$gr_id&bo_table=$bo_table";
+            $date_link = "$_SERVER[PHP_SELF]?fr_date=$row[visit_date]-01-01&to_date=$row[visit_date]-12-31&ymd=m&gr_id=$gr_id&bo_table=$bo_table";
             break;
         case "m":
-            $date_link = "$PHP_SELF?fr_date=$row[visit_date]-01&to_date=$row[visit_date]-31&ymd=d&gr_id=$gr_id&bo_table=$bo_table";
+            $date_link = "$_SERVER[PHP_SELF]?fr_date=$row[visit_date]-01&to_date=$row[visit_date]-31&ymd=d&gr_id=$gr_id&bo_table=$bo_table";
             break;
         default:
-            $date_link = "$PHP_SELF?fr_date=$row[visit_date]&to_date=$row[visit_date]&ymd=d&gr_id=$gr_id&bo_table=$bo_table";
+            $date_link = "$_SERVER[PHP_SELF]?fr_date=$row[visit_date]&to_date=$row[visit_date]&ymd=d&gr_id=$gr_id&bo_table=$bo_table";
             break;
     }
 

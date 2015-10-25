@@ -62,7 +62,7 @@ if ( isset($_REQUEST['zsfimg']) ) {
 	// 함수 : 최소값 및 최대값 검증
 	function zsfVarChk ( $var, $min, $max ) { if ( $var > $min && $var < $max ) { return true; } else { return false; } }
 	// 세션쿠키가 없을 경우 다시 로드
-	if ( !defined('zsfSessId') ) { session_start(); header('Location:'.$PHP_SELF.'?zsfimg'); exit; }
+	if ( !defined('zsfSessId') ) { session_start(); header('Location:'.$_SERVER[PHP_SELF].'?zsfimg'); exit; }
 	// 환경설정 기본값
 	$thisZsfCfg = array (
 		'codeForm' => 6,

@@ -78,7 +78,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     $list[$i][wr_subject] = $wr_subject;
     $list[$i][wr_secret] = $wr_secret;
 
-    $list[$i][opener_href] = "$PHP_SELF?sfl=bo_table&stx=$row[bo_table]&$mstr";
+    $list[$i][opener_href] = "$_SERVER[PHP_SELF]?sfl=bo_table&stx=$row[bo_table]&$mstr";
     $list[$i][opener_href_wr_id] = "./board.php?bo_table=$row[bo_table]&wr_id=$row[wr_id]";
     $list[$i][del_href] = "./my_good_update.php?w=d&bg_id=$row[bg_id]&page=$page&head_on=$head_on&mnb=$mnb&snb=$snb&bg_good=$bg_good";
 

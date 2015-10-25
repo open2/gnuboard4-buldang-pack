@@ -2,7 +2,7 @@
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
 ?>
 <!--ui object -->
-<div class="well well-sm" style="margin-bottom:0px;"><strong><a href="<?=$PHP_SELF?>">현재접속자</a></strong></div>
+<div class="well well-sm" style="margin-bottom:0px;"><strong><a href="<?=$_SERVER[PHP_SELF]?>">현재접속자</a></strong></div>
 
 <table class="table table-hover" width=100%>
 <thead>
