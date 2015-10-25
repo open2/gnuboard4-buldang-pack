@@ -168,5 +168,6 @@ echo "</table>";
     </ul>
 </div>
 
+<?
 include_once("$g4[admin_path]/admin.tail.php");
 ?>
