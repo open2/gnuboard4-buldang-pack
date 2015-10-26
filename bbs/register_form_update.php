@@ -46,7 +46,34 @@ if ($config[cf_use_norobot]) {
     if ( !zsfCheck( $_POST['wr_key'], 'sms_admin' ) ) { alert ('스팸차단코드가 틀렸습니다.'); }    
 }
 
-//$mb_id = trim(strip_tags(mysql_real_escape_string($_POST[mb_id])));
+$mb_password    = trim($_POST['mb_password']);
+$mb_name        = trim($_POST['mb_name']);
+$mb_nick        = trim($_POST['mb_nick']);
+$mb_email       = trim($_POST['mb_email']);
+$mb_sex         = isset($_POST['mb_sex'])           ? trim($_POST['mb_sex'])         : "";
+$mb_birth       = isset($_POST['mb_birth'])         ? trim($_POST['mb_birth'])       : "";
+$mb_homepage    = isset($_POST['mb_homepage'])      ? trim($_POST['mb_homepage'])    : "";
+$mb_tel         = isset($_POST['mb_tel'])           ? trim($_POST['mb_tel'])         : "";
+$mb_hp          = isset($_POST['mb_hp'])            ? trim($_POST['mb_hp'])          : "";
+$mb_zip1        = isset($_POST['mb_zip'])           ? substr(trim($_POST['mb_zip']), 0, 3) : "";
+$mb_zip2        = isset($_POST['mb_zip'])           ? substr(trim($_POST['mb_zip']), 3)    : "";
+$mb_addr1       = isset($_POST['mb_addr1'])         ? trim($_POST['mb_addr1'])       : "";
+$mb_addr2       = isset($_POST['mb_addr2'])         ? trim($_POST['mb_addr2'])       : "";
+$mb_signature   = isset($_POST['mb_signature'])     ? trim($_POST['mb_signature'])   : "";
+$mb_profile     = isset($_POST['mb_profile'])       ? trim($_POST['mb_profile'])     : "";
+$mb_recommend   = isset($_POST['mb_recommend'])     ? trim($_POST['mb_recommend'])   : "";
+$mb_sms         = isset($_POST['mb_sms'])           ? trim($_POST['mb_sms'])         : "";
+$mb_1           = isset($_POST['mb_1'])             ? trim($_POST['mb_1'])           : "";
+$mb_2           = isset($_POST['mb_2'])             ? trim($_POST['mb_2'])           : "";
+$mb_3           = isset($_POST['mb_3'])             ? trim($_POST['mb_3'])           : "";
+$mb_4           = isset($_POST['mb_4'])             ? trim($_POST['mb_4'])           : "";
+$mb_5           = isset($_POST['mb_5'])             ? trim($_POST['mb_5'])           : "";
+$mb_6           = isset($_POST['mb_6'])             ? trim($_POST['mb_6'])           : "";
+$mb_7           = isset($_POST['mb_7'])             ? trim($_POST['mb_7'])           : "";
+$mb_8           = isset($_POST['mb_8'])             ? trim($_POST['mb_8'])           : "";
+$mb_9           = isset($_POST['mb_9'])             ? trim($_POST['mb_9'])           : "";
+$mb_10          = isset($_POST['mb_10'])            ? trim($_POST['mb_10'])          : "";
+
 if($w == 'u')
     $mb_id = isset($_SESSION['ss_mb_id']) ? trim($_SESSION['ss_mb_id']) : '';
 else if($w == '')
@@ -64,11 +91,20 @@ if ($g4['nick_reg_only'] !== 1) {
 } else {
     $mb_name = $mb_nick;
 }
+
 $mb_nick = trim(strip_tags(mysql_real_escape_string($_POST[mb_nick])));
-$mb_email = trim(strip_tags(mysql_real_escape_string($_POST[mb_email])));
+$mb_email = get_email_address(strip_tags($mb_email));
 $mb_homepage = trim(strip_tags(mysql_real_escape_string($_POST[mb_homepage])));
+
 $mb_email = str_replace('\\', '', $mb_email);
 $mb_homepage = str_replace('\\', '', $mb_homepage);
+
+$mb_tel         = clean_xss_tags($mb_tel);
+$mb_zip1        = preg_replace('/[^0-9]/', '', $mb_zip1);
+$mb_zip2        = preg_replace('/[^0-9]/', '', $mb_zip2);
+$mb_addr1       = clean_xss_tags($mb_addr1);
+$mb_addr2       = clean_xss_tags($mb_addr2);
+
 $ug_id = trim(strip_tags(mysql_real_escape_string($_POST[ug_id])));
 
 if ($w == '' || $w == 'u') 
