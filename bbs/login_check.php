@@ -207,7 +207,7 @@ if ($auto_login) {
     }
 
     // 불당팩 - unique한 값을 생성해 줍니다
-    $uid = md5(uniqid($mb['mb_no'] . $_SERVER['HTTP_USER_AGENT'], true));
+    $uid = md5($mb['mb_id'] . $_SERVER['HTTP_USER_AGENT'] . $mb['mb_no'] . $g4['server_time'], true);
 
     // cookie DB에서 key가 같은 경우를 모두 삭제해줍니다
     //$sql = " delete from $g4[cookie_table] where cookie_key='$key' ";
