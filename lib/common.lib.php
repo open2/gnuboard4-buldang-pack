@@ -1858,7 +1858,7 @@ function html_purifier($html)
     include_once($g4['path'].'/plugin/htmlpurifier/HTMLPurifier.standalone.php');
     $config = HTMLPurifier_Config::createDefault();
     // data/cache 디렉토리에 CSS, HTML, URI 디렉토리 등을 만든다.
-    $config->set('Cache.SerializerPath', $g4[data_path].'/cache');
+    $config->set('Cache.SerializerPath', $g4['htmlpurifier_cache']);
     $config->set('HTML.SafeEmbed', false);
     $config->set('HTML.SafeObject', false);
     $config->set('Output.FlashCompat', false);
