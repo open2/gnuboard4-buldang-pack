@@ -509,7 +509,7 @@ function bad130128($matches)
 }
 
 // 내용을 변환
-function conv_content($content, $html)
+function conv_content($content, $html, $filter=true)
 {
     global $config, $board;
 
@@ -521,16 +521,12 @@ function conv_content($content, $html)
         $source[] = "//";
         $target[] = "";
 
-        // 불당팩, ms의 xml 태그 삭제
-        $source[] = "/<\?xml:namespace prefix = o ns = \"urn:schemas-microsoft-com:office:office\" \/>/";
-        $target[] = "";
-
         if ($html == 2) { // 자동 줄바꿈
             $source[] = "/\n/";
             $target[] = "<br/>";
         }
 
-        // 테이블 태그의 갯수를 세어 테이블이 깨지지 않도록 한다.
+        // 테이블 태그의 개수를 세어 테이블이 깨지지 않도록 한다.
         $table_begin_count = substr_count(strtolower($content), "<table");
         $table_end_count = substr_count(strtolower($content), "</table");
         for ($i=$table_end_count; $i<$table_begin_count; $i++)
@@ -538,70 +534,10 @@ function conv_content($content, $html)
             $content .= "</table>";
         }
 
-        $content = preg_replace_callback("/<([^>]+)>/s", 'bad130128', $content); 
-
         $content = preg_replace($source, $target, $content);
 
-        // XSS (Cross Site Script) 막기
-        // 완벽한 XSS 방지는 없다.
-        
-        // 이런 경우를 방지함 <IMG STYLE="xss:expr/*XSS*/ession(alert('XSS'))">
-        //$content = preg_replace("#\/\*.*\*\/#iU", "", $content);
-        // 위의 정규식이 아래와 같은 내용을 통과시키므로 not greedy(비탐욕수량자?) 옵션을 제거함. ignore case 옵션도 필요 없으므로 제거
-        // <IMG STYLE="xss:ex//*XSS*/**/pression(alert('XSS'))"></IMG>
-        $content = preg_replace("#\/\*.*\*\/#", "", $content);
-
-        // object, embed 태그에서 javascript 코드 막기
-        $content = preg_replace_callback("#<(object|embed)([^>]+)>#i", "bad120422", $content);
-
-        $content = preg_replace("/(on)([a-z]+)([^a-z]*)(\=)/i", "&#111;&#110;$2$3$4", $content);
-        $content = preg_replace("/(dy)(nsrc)/i", "&#100;&#121;$2", $content);
-        $content = preg_replace("/(lo)(wsrc)/i", "&#108;&#111;$2", $content);
-        //$content = preg_replace("/(sc)(ript)/i", "&#115;&#99;$2", $content);
-        $content = preg_replace_callback("#<([^>]+)#", create_function('$m', 'return "<".str_replace("<", "&lt;", $m[1]);'), $content);
-        //$content = preg_replace("/\<(\w|\s|\?)*(xml)/i", "", $content);
-        $content = preg_replace("/\<(\w|\s|\?)*(xml)/i", "_$1$2_", $content);
-
-        // 플래시의 액션스크립트와 자바스크립트의 연동을 차단하여 악의적인 사이트로의 이동을 막는다.
-        // value="always" 를 value="never" 로, allowScriptaccess="always" 를 allowScriptaccess="never" 로 변환하는데 목적이 있다.
-        //$content = preg_replace("/((?<=\<param|\<embed)[^>]+)(\s*=\s*[\'\"]?)always([\'\"]?)([^>]+(?=\>))/i", "$1$2never$3$4", $content);
-        // allowscript 속성의 param 태그를 삭제한다.
-        //$content = preg_replace("#(<param.*?allowscript[^>]+>)(<\/param>)?#i", "", $content);
-        $content = preg_replace("#<param[^>]+AllowScriptAccess[^>]+>(<\/param>)?#i", "", $content);
-        // embed 태그의 allowscript 속성을 삭제한다.
-        //$content = preg_replace("#(<embed.*?)(allowscriptaccess[^\s\>]+)#i", "$1", $content);
-        $content = preg_replace("#(<embed[^>]+)(allowscriptaccess[^\s\>]+)#i", "$1", $content);
-        // object 태그에 allowscript 의 값을 never 로 하여 태그를 추가한다.
-        $content = preg_replace("#(<object[^>]+>)#i", "$1<param name=\"allowscriptaccess\" value=\"never\">", $content);
-        // embed 태그에 allowscrpt 값을 never 로 하여 속성을 추가한다.
-        $content = preg_replace("#(<embed[^>]+)#i", "$1 allowscriptaccess=\"never\"", $content);
-
-        // 이미지 태그의 src 속성에 삭제등의 링크가 있는 경우 게시물을 확인하는 것만으로도 데이터의 위변조가 가능하므로 이것을 막음
-        $content = preg_replace("/<(img[^>]+delete\.php[^>]+bo_table[^>]+)/i", "*** CSRF 감지 : &lt;$1", $content);
-        $content = preg_replace("/<(img[^>]+delete_comment\.php[^>]+bo_table[^>]+)/i", "*** CSRF 감지 : &lt;$1", $content);
-        $content = preg_replace("/<(img[^>]+logout\.php[^>]+)/i", "*** CSRF 감지 : &lt;$1", $content);
-        $content = preg_replace("/<(img[^>]+download\.php[^>]+bo_table[^>]+)/i", "*** CSRF 감지 : &lt;$1", $content);
-
-        $content = preg_replace_callback("#style\s*=\s*[\"\']?[^\"\']+[\"\']?#i",
-                    create_function('$matches', 'return str_replace("\\\\", "", stripslashes($matches[0]));'), $content);
-
-        $pattern = "";
-        $pattern .= "(e|&#(x65|101);?)";
-        $pattern .= "(x|&#(x78|120);?)";
-        $pattern .= "(p|&#(x70|112);?)";
-        $pattern .= "(r|&#(x72|114);?)";
-        $pattern .= "(e|&#(x65|101);?)";
-        $pattern .= "(s|&#(x73|115);?)";
-        $pattern .= "(s|&#(x73|115);?)";
-        //$pattern .= "(i|&#(x6a|105);?)";
-        $pattern .= "(i|&#(x69|105);?)";
-        $pattern .= "(o|&#(x6f|111);?)";
-        $pattern .= "(n|&#(x6e|110);?)";
-        //$content = preg_replace("/".$pattern."/i", "__EXPRESSION__", $content);
-        $content = preg_replace("/<[^>]*".$pattern."/i", "__EXPRESSION__", $content); 
-        // <IMG STYLE="xss:e\xpression(alert('XSS'))"></IMG> 와 같은 코드에 취약점이 있어 수정함. 121213
-        $content = preg_replace("/(?<=style)(\s*=\s*[\"\']?xss\:)/i", '="__XSS__', $content); 
-        $content = bad_tag_convert($content);
+        if($filter)
+            $content = html_purifier($content);
     }
     else // text 이면
     {
@@ -614,13 +550,11 @@ function conv_content($content, $html)
 		$content = str_replace("\n ", "\n&nbsp;", $content);
 
         $content = get_text($content, 1);
-
         $content = url_auto_link($content);
     }
 
     return $content;
 }
-
 
 // 검색 구문을 얻는다.
 function get_sql_search($search_ca_name, $search_field, $search_text, $search_operator='and', $bo_table='')
@@ -1897,6 +1831,55 @@ function conv_unescape_nl($str)
 
     return str_replace($search, $replace, $str);
 }
+
+// http://htmlpurifier.org/
+// Standards-Compliant HTML Filtering
+// Safe  : HTML Purifier defeats XSS with an audited whitelist
+// Clean : HTML Purifier ensures standards-compliant output
+// Open  : HTML Purifier is open-source and highly customizable
+function html_purifier($html)
+{
+    global $g4;
+
+    $f = file($g4['path'].'/plugin/htmlpurifier/safeiframe.txt');
+    $domains = array();
+    foreach($f as $domain){
+        // 첫행이 # 이면 주석 처리
+        if (!preg_match("/^#/", $domain)) {
+            $domain = trim($domain);
+            if ($domain)
+                array_push($domains, $domain);
+        }
+    }
+    // 내 도메인도 추가
+    array_push($domains, $_SERVER['HTTP_HOST'].'/');
+    $safeiframe = implode('|', $domains);
+
+    include_once($g4['path'].'/plugin/htmlpurifier/HTMLPurifier.standalone.php');
+    $config = HTMLPurifier_Config::createDefault();
+    // data/cache 디렉토리에 CSS, HTML, URI 디렉토리 등을 만든다.
+    $config->set('Cache.SerializerPath', $g4[data_path].'/cache');
+    $config->set('HTML.SafeEmbed', false);
+    $config->set('HTML.SafeObject', false);
+    $config->set('Output.FlashCompat', false);
+    $config->set('HTML.SafeIframe', true);
+    $config->set('URI.SafeIframeRegexp','%^(https?:)?//('.$safeiframe.')%');
+    $config->set('Attr.AllowedFrameTargets', array('_blank'));
+
+    // 불당팩 커스터마이징 -- 여기서부터
+    $config->set('Core.Encoding', $g4['charset']);
+
+    // 인터넷 주소를 자동으로 링크로 바꿔주는 기능 
+    $config->set('AutoFormat.Linkify', true); 
+
+    // 이미지 크기 제한 해제 (한국에서 많이 쓰는 웹툰이나 짤방과 호환성 유지를 위해) 
+    $config->set('HTML.MaxImgLength', null); 
+    $config->set('CSS.MaxImgLength', null); 
+
+    $purifier = new HTMLPurifier($config);
+    return $purifier->purify($html);
+}
+
 
 // 불당팩 라이브러리를 읽습니다
 include_once("$g4[path]/lib/b4.lib.php");
