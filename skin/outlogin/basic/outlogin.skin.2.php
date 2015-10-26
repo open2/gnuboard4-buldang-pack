@@ -11,12 +11,10 @@ if ($g4['whatson_unread'] > 0)
 <div class="panel panel-default">
     <div class="panel-heading">
         <strong><a href="#" onClick="javascript:win_profile('<?=$member[mb_id]?>');"><?=$nick?></a></strong>
-        <div class="pull-right">
-        <span class="badge pull-right"><small><?=$member[mb_level]?></small></span>
+        <span class="pull-right" style="margin-right:-10px;margin-left:5px;border:1px;"><kbd style="background-color:Gainsboro;color:black"><?=$member[mb_level]?></kbd></span>
         <? if ($config[cf_use_point]) { ?>
-        &nbsp;<a href="javascript:win_point();"><font color="#737373"><small><?=$point?></small></font></a>&nbsp;
+        <a href="javascript:win_point();"><span class="pull-right"><font color="#737373"><small><?=$point?></small></font></span></a>
         <? } ?>
-        </div>
     </div>
     <div class="btn-group btn-group-justified">
         <a class="btn btn-default btn-sm <?=$memo_status?>" style="border-color: #ffffff;" href="javascript:win_memo('', '<?=$member[mb_id]?>', '<?=$_SERVER[SERVER_NAME]?>');" onfocus="this.blur()" ?>Memo</a>
