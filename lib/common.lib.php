@@ -1867,7 +1867,13 @@ function html_purifier($html)
     $config->set('Attr.AllowedFrameTargets', array('_blank'));
 
     // 불당팩 커스터마이징 -- 여기서부터
+    
+    // 문자셋을 지정해 줍니다.
     $config->set('Core.Encoding', $g4['charset']);
+
+    // <p>&nbsp;</p> 같은 코드가 정상으로 출력되게 합니다.
+    // http://stackoverflow.com/questions/7104689/html-purifier-clears-p-tag
+    $config->set('Core.EscapeNonASCIICharacters', true);
 
     // 인터넷 주소를 자동으로 링크로 바꿔주는 기능 
     $config->set('AutoFormat.Linkify', true); 
