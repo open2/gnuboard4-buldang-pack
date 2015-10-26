@@ -1872,6 +1872,32 @@ function clean_xss_tags($str)
     return $str;
 }
 
+// 이메일 주소 추출
+function get_email_address($email)
+{
+    preg_match("/[0-9a-z._-]+@[a-z0-9._-]{4,}/i", $email, $matches);
+
+    return $matches[0];
+}
+
+// 파일명에서 특수문자 제거
+function get_safe_filename($name)
+{
+    $pattern = '/["\'<>=#&!%\\\\(\)\*\+\?]/';
+    $name = preg_replace($pattern, '', $name);
+
+    return $name;
+}
+
+// unescape nl 얻기
+function conv_unescape_nl($str)
+{
+    $search = array('\\r', '\r', '\\n', '\n');
+    $replace = array('', '', "\n", "\n");
+
+    return str_replace($search, $replace, $str);
+}
+
 // 불당팩 라이브러리를 읽습니다
 include_once("$g4[path]/lib/b4.lib.php");
 ?>
