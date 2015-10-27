@@ -274,27 +274,31 @@ if ($list[$i][is_notice])
 
 </form>
 
-<script type="text/javascript">
 <?
 // flip cookie를 가져와서 비교 합니다
 $ck_name = $bo_table . "_flip_datetime";
 $flip_datetime = $_COOKIE[$ck_name];
-
 if ($g4['last_notice_datetime'] > $flip_datetime) {
     // flip한 이후에 공지가 올라오면 flip cookie를 삭제해주고, flip이 되지 않게 합니다. 새로운 공지는 반드시 봐야 합니다.
 ?>
-    set_cookie( '<?=$ck_name?>', '', 86400 * 365, g4_cookie_domain);
+    <script type="text/javascript">
+    createCookie( '<?=$ck_name?>', '', 365);
     $('.is_notice').show();
+    </script>
 <?
 } else {
     // flip은 했고, 새로운 공지도 없으면 공지를 감춰줍니다
 ?>
+    <script type="text/javascript">
     $('.is_notice').hide();
     $('.notice_flip').addClass('active');   // 버튼이 눌러진 상태로 바꿔줍니다.
+    </script>
 <? } ?>
+
+<script type="text/javascript">
 $('.notice_flip').click(function() {
     $('.is_notice').toggle();
-    set_cookie( '<?=$ck_name?>', '<?=$g4[time_ymdhis]?>', 86400 * 365, g4_cookie_domain);
+    createCookie( '<?=$ck_name?>', '<?=$g4[time_ymdhis]?>', 365);
 });
 </script>
 
