@@ -142,6 +142,7 @@ function set_cookie($cookie_name, $value, $expire)
 // 쿠키변수값 얻음
 function get_cookie($cookie_name)
 {
+<<<<<<< HEAD
     global $g4;
 
     $cookie = md5($cookie_name);
@@ -155,6 +156,11 @@ function get_cookie($cookie_name)
         }
         return $ck;
     }
+=======
+    $cookie = md5($cookie_name);
+    if (array_key_exists($cookie, $_COOKIE))
+        return base64_decode($_COOKIE[$cookie]);
+>>>>>>> origin/master
     else
         return "";
 }
