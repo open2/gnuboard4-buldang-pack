@@ -1,7 +1,12 @@
 <?
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
 
-$sql = " select gr_id, gr_subject from $g4[group_table] order by gr_id ";
+if ($is_admin)
+    $where_sql = "";
+else
+    $where_sql = " where gr_use_search = 1 ";
+
+$sql = " select gr_id, gr_subject from $g4[group_table] $where_sql order by gr_id ";
 $result = sql_query($sql);
 
 $group_select = "<select class=\"form-control\" id='gr_id' name='gr_id' class=select><option value=''>전체 그룹";
