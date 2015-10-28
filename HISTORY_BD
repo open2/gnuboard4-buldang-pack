@@ -1,4 +1,65 @@
-2.0.1 (2010.10.25)
+20.02 (2015.10.27)
+
+php 5.1 이상 + PDO extension이 설치 안되면 동작하지 않습니다!!!
+호스팅을 사용하시는 경우 PDO 지원을 하는 곳(예. 스쿨호스팅)을 사용하시기 바랍니다.
+PDO 지원이 안되는 곳에서는 동작하지 않습니다.
+
+html purifier 적용
+http://htmlpurifier.org/
+
+
+config.php
+tail.sub.php
+
+bbs/login_check.php
+bbs/register_form_update.php
+
+install/install_db.php
+
+lib/common.lib.php
+
+plugin/htmlpurifier/*
+
+skin/board/boot/view.skin.php
+
+skin/outlogin/basic/outlogin.skin.2.php
+ 
+
+- PDO 코드 적용
+tail.sub.php
+
+- get_cookie 오류수정 (저장될 때 utf-8로 저장됨...)
+lib/common.lib.php
+
+- get_cookie 함수수정 (그누5 함수로)
+lib/common.lib.php
+
+- html purifier 적용
+config.php
+install/install_db.php
+lib/common.lib.php
+
+- html purifier 4.7 라이브러리 추가
+plugin/htmlpurifier/*
+
+- 그누5 - 5.1.4 보안패치
+https://github.com/gnuboard/gnuboard5/commit/0535b6d26abb94ca37327257d11651ade870362b
+bbs/register_form_update.php
+
+- 그누5 lib 추가
+lib/common.lib.php
+
+- boot skin style 변경
+skin/board/boot/view.skin.php
+
+- outlogin style 변경
+skin/outlogin/basic/outlogin.skin.2.php
+
+- cookie id 생성 로직변경
+bbs/login_check.php
+
+
+2.0.1 (2015.10.25)
 
 * memcache 코드삭제. 세션에서만 쓰는 것은 불합리 한거 같아서 삭제 했습니다. redis를 쓰샴!
 
