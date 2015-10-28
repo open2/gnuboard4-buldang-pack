@@ -1,6 +1,9 @@
 <?
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
+
+$notice_count = $global_notice_count + $arr_notice_count;
 ?>
+
 <!-- 분류 셀렉트 박스, 게시물 몇건, 관리자화면 링크 -->
 <div>
     <? if ($is_category) { ?>
@@ -51,7 +54,7 @@ for ($i=0; $i<30; $i++) {
 </form>
 
 <!-- 페이지 -->
-<div class="center-block col-sm-10">
+<div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>이전검색</a></li>"; } ?>
     <?
@@ -62,6 +65,20 @@ for ($i=0; $i<30; $i++) {
     $write_pages = str_replace("맨끝", "<i class='fa fa-angle-double-right'></i>", $write_pages);
     ?>
     <?=$write_pages?>
+    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>이후검색</a></li>"; } ?>
+    </ul>
+</div>
+<div class="center-block visible-xs">
+    <ul class="pagination">
+    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>이전검색</a></li>"; } ?>
+    <?
+    // 기본으로 넘어오는 페이지를 아래와 같이 변환하여 다양하게 출력할 수 있습니다.
+    $write_pages_xs = str_replace("이전", "<i class='fa fa-angle-left'></i>", $write_pages_xs);
+    $write_pages_xs = str_replace("다음", "<i class='fa fa-angle-right'></i>", $write_pages_xs);
+    $write_pages_xs = str_replace("처음", "<i class='fa fa-angle-double-left'></i>", $write_pages_xs);
+    $write_pages_xs = str_replace("맨끝", "<i class='fa fa-angle-double-right'></i>", $write_pages_xs);
+    ?>
+    <?=$write_pages_xs?>
     <? if ($next_part_href) { echo "<li><a href='$next_part_href'>이후검색</a></li>"; } ?>
     </ul>
 </div>
@@ -88,7 +105,7 @@ for ($i=0; $i<30; $i++) {
     <a href="javascript:select_copy('move');" class="btn btn-default">선택이동</a>
     <? if ($is_category) { ?>
     <a href="javascript:select_category();"  class="btn btn-default">카테고리변경</a>
-    <select name=sca2><?=$category_option?></select>
+    <select class="form-control input-sm" name=sca2><?=$category_option?></select>
     <? } ?>
 </div>
 </span>
@@ -129,18 +146,45 @@ for ($i=0; $i<30; $i++) {
 
 </form>
 
+<?
+// flip cookie를 가져와서 비교 합니다
+$ck_name = $bo_table . "_flip_datetime";
+$flip_datetime = $_COOKIE[$ck_name];
+if ($g4['last_notice_datetime'] > $flip_datetime) {
+    // flip한 이후에 공지가 올라오면 flip cookie를 삭제해주고, flip이 되지 않게 합니다. 새로운 공지는 반드시 봐야 합니다.
+?>
+    <script type="text/javascript">
+    createCookie( '<?=$ck_name?>', '', 365);
+    $('.is_notice').show();
+    </script>
+<?
+} else {
+    // flip은 했고, 새로운 공지도 없으면 공지를 감춰줍니다
+?>
+    <script type="text/javascript">
+    $('.is_notice').hide();
+    $('.notice_flip').addClass('active');   // 버튼이 눌러진 상태로 바꿔줍니다.
+    </script>
+<? } ?>
+
 <script type="text/javascript">
-if ("<?=$sca?>") document.fcategory.sca.value = "<?=$sca?>";
-if ("<?=$stx?>") {
-    document.fsearch.sfl.value = "<?=$sfl?>";
-    document.fsearch.sop.value = "<?=$sop?>";
+$('.notice_flip').click(function() {
+    $('.is_notice').toggle();
+    createCookie( '<?=$ck_name?>', '<?=$g4[time_ymdhis]?>', 365);
+});
+</script>
+
+<script type="text/javascript">
+if ('<?=$sca?>') document.fcategory.sca.value = '<?=$sca?>';
+if ('<?=$stx?>') {
+    document.fsearch.sfl.value = '<?=$sfl?>';
+    document.fsearch.sop.value = '<?=$sop?>';
 }
 </script>
 
 <? if ($is_checkbox) { ?>
 <script type="text/javascript">
-function all_checked(sw)
-{
+function all_checked(sw) {
     var f = document.fboardlist;
 
     for (var i=0; i<f.length; i++) {
@@ -149,8 +193,7 @@ function all_checked(sw)
     }
 }
 
-function check_confirm(str)
-{
+function check_confirm(str) {
     var f = document.fboardlist;
     var chk_count = 0;
 
@@ -167,8 +210,7 @@ function check_confirm(str)
 }
 
 // 선택한 게시물 삭제
-function select_delete()
-{
+function select_delete() {
     var f = document.fboardlist;
 
     str = "삭제";
@@ -183,8 +225,7 @@ function select_delete()
 }
 
 // 선택한 게시물 복사 및 이동
-function select_copy(sw)
-{
+function select_copy(sw) {
     var f = document.fboardlist;
 
     if (sw == "copy")
@@ -195,7 +236,7 @@ function select_copy(sw)
     if (!check_confirm(str))
         return;
 
-    var sub_win = window.open("", "move", "left=50, top=50, width=396, height=550, scrollbars=1");
+    var sub_win = window.open("", "move", "left=50, top=50, width=500, height=550, scrollbars=1");
 
     f.sw.value = sw;
     f.target = "move";

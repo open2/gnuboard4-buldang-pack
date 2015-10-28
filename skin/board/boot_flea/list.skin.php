@@ -1,5 +1,7 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
+if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
+
+$notice_count = $global_notice_count + $arr_notice_count;
 ?>
 
 <!-- 분류 셀렉트 박스, 게시물 몇건, 관리자화면 링크 -->
@@ -18,17 +20,21 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <? if ($rss_href) { ?><a href='<?=$rss_href?>' class="btn btn-default"><i class='fa fa-rss'></i></a><?}?>
     <? if ($admin_href) { ?><a href="<?=$admin_href?>" class="btn btn-default"><i class='fa fa-cog'></i></a><?}?>
 
+    <? if ($notice_count > 0) { ?>
     <a href="#" class="btn btn-default notice_flip" title="공지사항 Flip"><i class="fa fa-microphone"></i></a>
+    <? } ?>
 
     <? if ($is_category) { ?>
+    <div style="float:right;margin-left:10px;">
     <form name="fcategory" method="get" role="form" class="form-inline">
         <select class="form-control" name=sca onchange="location='<?=$category_location?>'+<?=strtolower($g4[charset])=='utf-8' ? "encodeURIComponent(this.value)" : "this.value"?>;">
         <option value=''>전체</option><?=$category_option?></select>
     </form>
+    </div>
     <? } ?>
 
-    <div class="pull-right">
-        Total <?=number_format($total_count)?>
+    <div class="hidden-xs" style="block:inline;float:right;margin-right:3px;">
+        <?=$page?>/<?=$total_page?>
     </div>
 </div>
 
@@ -42,13 +48,13 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <input type='hidden' name='sw'   value=''>
 <input type='hidden' name='sca'   value=''>
 
-<div class="table-responsive">
+<div class="table-responsive" id="list_<?=$bo_table?>" name="list_<?=$bo_table?>">
 <table width=100% class="table table-condensed table-hover" style="word-wrap:break-word;">
 <thead>
 <tr class="success">
     <th width=50px class="hidden-xs"><?=subject_sort_link('wr_id', $qstr2, 1)?>번호</a></th>
     <? if ($is_checkbox) { ?><th class="hidden-xs"><INPUT onclick="if (this.checked) all_checked(true); else all_checked(false);" type=checkbox></th><?}?>
-    <th>제목</th>
+    <th>제목<span class="visible-xs pull-right" style="font-weight: normal;color:#B8B8B8;">Page <?=$page?>/<?=$total_page?></span></th>
     <th width=120px class="hidden-xs">글쓴이</th>
     <th width=70px class="hidden-xs"><?=subject_sort_link('wr_datetime', $qstr2, 1)?>날짜</a></th>
     <th width=80px class="hidden-xs"><?=subject_sort_link('wr_hit', $qstr2, 1)?>조회</a></th>
@@ -70,9 +76,9 @@ if ($list[$i][is_notice])
         if ($list[$i][is_notice]) // 공지사항 
             echo "<i class=\"fa fa-microphone\" title='notice/공지사항'></i> ";
         else if ($wr_id == $list[$i][wr_id]) // 현재위치
-            echo "<span style='font:bold 11px tahoma; color:#E15916;'>{$list[$i][num]}</span>";
+            echo "<span style='font-weight:bold; color:#E15916;'>{$list[$i][num]}</span>";
         else
-            echo "<span style='font:normal 11px tahoma; color:#BABABA;'>{$list[$i][num]}</span>";
+            echo "<span style='color:#BABABA;'>{$list[$i][num]}</span>";
         ?>
     </td>
     <? if ($is_checkbox) { ?><td class="hidden-xs"><input type=checkbox name=chk_wr_id[] value="<?=$list[$i][wr_id]?>"></td><? } ?>
@@ -121,14 +127,16 @@ if ($list[$i][is_notice])
     xs 사이즈에서는 아래처럼 1개의 td만 출력 됩니다. 다른 것은 모두 hidden.
     더 좋은 방법에 대한 제안은 언제든 환영 합니다.
     -->
-    <td class="visible-xs" align=left style='word-break:break-all;'>
+</tr>
+<tr class="visible-xs">
+    <td align=left style='word-break:break-all;'>
         <div>
         <?
         if ($list[$i][is_notice]) // 공지사항 
             echo "<i class=\"fa fa-microphone\" title='notice/공지사항'></i> ";
 
 
-        if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply\" title='reply/답글'></i> ";
+        if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply fa-rotate-180\" title='reply/답글'></i> ";
         if ($is_category && $list[$i][ca_name]) { 
             echo "<font color=gray><a href='{$list[$i][ca_name_href]}'><small>({$list[$i][ca_name]})</small></a></font> ";
         }
@@ -142,7 +150,8 @@ if ($list[$i][is_notice])
         else
             $style = "";
 
-        echo "<a href='{$list[$i][href]}'>";
+        echo "<a href='" . $list[$i][href] . "'>";
+        // 검색을 하면 $list[$i][subject]에 tag가 들어 있으므로 tag를 제거후 글자수 줄이기를 해야 함...
         if ($sfl && $stx)
             echo "<span $style>" . cut_str(strip_tags($list[$i][subject]), 40) . "</span>";
         else
@@ -156,11 +165,12 @@ if ($list[$i][is_notice])
         echo $icon_images;
         ?>
         </div>
-        <span class="visible-xs pull-right"><small>
+        <span class="pull-right">
+        <font style="color:#BABABA;">
         <?=$list[$i][datetime2]?>&nbsp;&nbsp;
         <?=$list[$i][wr_hit]?>&nbsp;&nbsp;
+        </font>
         <?=$list[$i][name]?>
-        </small>
         </span>
     </td>
 </tr>
@@ -264,26 +274,31 @@ if ($list[$i][is_notice])
 
 </form>
 
-<script type="text/javascript">
 <?
 // flip cookie를 가져와서 비교 합니다
 $ck_name = $bo_table . "_flip_datetime";
 $flip_datetime = $_COOKIE[$ck_name];
-
 if ($g4['last_notice_datetime'] > $flip_datetime) {
     // flip한 이후에 공지가 올라오면 flip cookie를 삭제해주고, flip이 되지 않게 합니다. 새로운 공지는 반드시 봐야 합니다.
 ?>
-    set_cookie( '<?=$ck_name?>', '', 86400 * 365, g4_cookie_domain);
+    <script type="text/javascript">
+    createCookie( '<?=$ck_name?>', '', 365);
     $('.is_notice').show();
+    </script>
 <?
 } else {
     // flip은 했고, 새로운 공지도 없으면 공지를 감춰줍니다
 ?>
+    <script type="text/javascript">
     $('.is_notice').hide();
+    $('.notice_flip').addClass('active');   // 버튼이 눌러진 상태로 바꿔줍니다.
+    </script>
 <? } ?>
+
+<script type="text/javascript">
 $('.notice_flip').click(function() {
     $('.is_notice').toggle();
-    set_cookie( '<?=$ck_name?>', '<?=$g4[time_ymdhis]?>', 86400 * 365, g4_cookie_domain);
+    createCookie( '<?=$ck_name?>', '<?=$g4[time_ymdhis]?>', 365);
 });
 </script>
 
