@@ -24,8 +24,6 @@ else
 if (!$board[bo_page_rows])
     $board[bo_page_rows] = $config[cf_page_rows];
 
-// 불당팩 - select 할 필드를 지정 (속도를 더 높이고 싶으면 코멘트로 막힌 부분으로 바꿔줍니다)
-// $list_select = " mb_id, wr_id, wr_subject, wr_option, wr_content, wr_comment, wr_parent, wr_datetime, wr_last, wr_homepage, wr_name, wr_email, wr_reply, wr_link1, wr_link2, wr_link1_hit, wr_link2_hit, ca_name, wr_hit, wr_file_count, wr_good, wr_nogood, wr_1, wr_2, wr_3, wr_4, wr_5, wr_6, wr_7, wr_8, wr_9, wr_10, wr_singo ";
 $list_select = " * ";
 
 // 분류 사용 여부
@@ -69,31 +67,19 @@ if ($sca || $stx)
         $sql_search .= " and (wr_num between '".$spt."' and '".($spt + $config[cf_search_part])."') ";
 
     // 원글만 얻는다. (코멘트의 내용도 검색하기 위함)
-    // 불당팩 - tmp table을 만들고, 거기서 distinct를 하는게 더 빠르다
-    // 팀장처럼 create temporaty table의 권한을 안주는 경우, config.php에서 $g4['old_stype_search'] 설정값을 1로.
-    if ($g4['old_stype_search']) {
-        $sql = " select distinct wr_parent from $write_table where wr_is_comment = '0' and $sql_search ";
-        $result = sql_query($sql, false);
-        $total_count = @mysql_num_rows($result);
-    } else {
-        $sql = " select wr_parent, wr_is_comment from $write_table where $sql_search ";
-        $sql_tmp = " create TEMPORARY table list_tmp_count as $sql ";
-        $sql_ord = " select distinct wr_parent, wr_is_comment from list_tmp_count where wr_is_comment = '0' ";
-
-        @mysql_query($sql_tmp) or die("<p>$sql_tmp<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : $_SERVER[PHP_SELF]");
-        $result = @mysql_query($sql_ord) or die("<p>$sql_ord<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : $_SERVER[PHP_SELF]");
-        $total_count = mysql_num_rows($result);
-
-    }
+    // 라엘님 제안 코드로 대체 http://sir.co.kr/bbs/board.php?bo_table=g5_bug&wr_id=2922
+    $sql = " SELECT COUNT(DISTINCT `wr_parent`) AS `cnt` FROM {$write_table} WHERE {$sql_search} ";
+    $row = sql_fetch($sql);
+    $total_count = $row['cnt'];
 } 
 else 
 {
     $sql_search = "";
-
     $total_count = $board[bo_count_write];
 }
 
 $total_page = ceil($total_count / $board[bo_page_rows]);        // 전체 페이지 계산
+
 // 불당팩 - 홈이네 팁으로 수정, http://sir.co.kr/bbs/board.php?bo_table=g4_tiptech&wr_id=20870
 if ($wr_id && !$page)
 {
@@ -153,18 +139,8 @@ if ($sca || $stx)
         // filtering에 걸리는 경우 결과값을 비워버린다.
         $result = sql_query(" select * from $g4[filter_table] where pp_word='!@#$%^&DFVDSGF'");
     } else {
-        // 팀장처럼 create temporaty table의 권한을 안주는 경우, config.php에서 $g4['old_stype_search'] 설정값을 1로.
-        if ($g4['old_stype_search']) {
-            $sql = " select distinct wr_parent from $write_table where wr_is_comment = '0' and $sql_search $sql_order limit $from_record, $board[bo_page_rows] ";
-            $result = sql_query($sql);
-        } else {
-            $sql = " select wr_parent, wr_is_comment from $write_table where $sql_search $sql_order";
-            $sql_tmp = " create TEMPORARY table list_tmp as $sql ";
-            $sql_ord = " select distinct wr_parent from list_tmp where wr_is_comment = '0' limit $from_record, $board[bo_page_rows] ";
-
-            @mysql_query($sql_tmp) or die("<p>$sql_tmp<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : $_SERVER[PHP_SELF]");
-            $result = @mysql_query($sql_ord) or die("<p>$sql_ord<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : $_SERVER[PHP_SELF]");
-        }
+        $sql = " select distinct wr_parent from {$write_table} where {$sql_search} {$sql_order} limit {$from_record}, $board[bo_page_rows] ";
+        $result = sql_query($sql);
     }
 }
 else

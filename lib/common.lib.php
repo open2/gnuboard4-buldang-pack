@@ -607,7 +607,9 @@ function get_sql_search($search_ca_name, $search_field, $search_text, $search_op
     $tmp = array();
     $tmp = explode(",", trim($search_field));
     $field = explode("||", $tmp[0]);
-    $not_comment = (int) $tmp[1];
+    $not_comment = "";
+    if (!empty($tmp[1]))
+        $not_comment = $tmp[1];
 
     $str .= "(";
     for ($i=0; $i<count($s); $i++) {
@@ -726,10 +728,7 @@ function get_sql_search($search_ca_name, $search_field, $search_text, $search_op
     }
     $str .= " ) ";
     if ($not_comment)
-        ;
-    else
-        $str .= " and wr_is_comment = 1 ";
-        
+        $str .= " and wr_is_comment = 0 ";
 
     return $str;
 }
