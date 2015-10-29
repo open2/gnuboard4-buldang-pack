@@ -50,7 +50,7 @@ $row = sql_fetch($sql);
 $mb_reg_after = $row[days];
 
 $mb_homepage = set_http(get_text(clean_xss_tags($mb['mb_homepage']))); 
-$mb_profile = $mb[mb_profile] ? conv_content($mb[mb_profile],0) : "소개 내용이 없습니다.";
+$mb_profile = $mb[mb_profile] ? conv_content($mb[mb_profile],1) : "소개 내용이 없습니다.";
 
 $member_skin_path = "$g4[path]/skin/member/$config[cf_member_skin]";
 include_once("$member_skin_path/profile.skin.php");
