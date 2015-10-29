@@ -607,7 +607,7 @@ function get_sql_search($search_ca_name, $search_field, $search_text, $search_op
     $tmp = array();
     $tmp = explode(",", trim($search_field));
     $field = explode("||", $tmp[0]);
-    $not_comment = $tmp[1];
+    $not_comment = (int) $tmp[1];
 
     $str .= "(";
     for ($i=0; $i<count($s); $i++) {
@@ -726,7 +726,10 @@ function get_sql_search($search_ca_name, $search_field, $search_text, $search_op
     }
     $str .= " ) ";
     if ($not_comment)
-        $str .= " and wr_is_comment = '0' ";
+        ;
+    else
+        $str .= " and wr_is_comment = 1 ";
+        
 
     return $str;
 }
@@ -1810,6 +1813,95 @@ function sql_get_field_names($table_name)
     }
 
     return $arr;
+}
+
+// goo.gl 짧은주소 만들기
+function googl_short_url($longUrl)
+{
+    global $config;
+
+    // Get API key from : http://code.google.com/apis/console/
+    // URL Shortener API ON
+    $apiKey = $config['cf_googl_shorturl_apikey'];
+
+    $postData = array('longUrl' => $longUrl);
+    $jsonData = json_encode($postData);
+
+    $curlObj = curl_init();
+
+    curl_setopt($curlObj, CURLOPT_URL, 'https://www.googleapis.com/urlshortener/v1/url?key='.$apiKey);
+    curl_setopt($curlObj, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curlObj, CURLOPT_SSL_VERIFYPEER, 0);
+    curl_setopt($curlObj, CURLOPT_HEADER, 0);
+    curl_setopt($curlObj, CURLOPT_HTTPHEADER, array('Content-type:application/json'));
+    curl_setopt($curlObj, CURLOPT_POST, 1);
+    curl_setopt($curlObj, CURLOPT_POSTFIELDS, $jsonData);
+
+    $response = curl_exec($curlObj);
+
+    //change the response json string to object
+    $json = json_decode($response);
+
+    curl_close($curlObj);
+
+    return $json->id;
+}
+
+// input vars 체크
+function check_input_vars()
+{
+    $max_input_vars = ini_get('max_input_vars');
+
+    if($max_input_vars) {
+        $post_vars = count($_POST, COUNT_RECURSIVE);
+        $get_vars = count($_GET, COUNT_RECURSIVE);
+        $cookie_vars = count($_COOKIE, COUNT_RECURSIVE);
+
+        $input_vars = $post_vars + $get_vars + $cookie_vars;
+
+        if($input_vars > $max_input_vars) {
+            alert('폼에서 전송된 변수의 개수가 max_input_vars 값보다 큽니다.\\n전송된 값중 일부는 유실되어 DB에 기록될 수 있습니다.\\n\\n문제를 해결하기 위해서는 서버 php.ini의 max_input_vars 값을 변경하십시오.');
+        }
+    }
+}
+
+// HTML 특수문자 변환 htmlspecialchars
+function htmlspecialchars2($str)
+{
+    $trans = array("\"" => "&#034;", "'" => "&#039;", "<"=>"&#060;", ">"=>"&#062;");
+    $str = strtr($str, $trans);
+    return $str;
+}
+
+// date 형식 변환
+function conv_date_format($format, $date, $add='')
+{
+    if($add)
+        $timestamp = strtotime($add, strtotime($date));
+    else
+        $timestamp = strtotime($date);
+
+    return date($format, $timestamp);
+}
+
+// 검색어 특수문자 제거
+function get_search_string($stx)
+{
+    $stx_pattern = array();
+    $stx_pattern[] = '#\.*/+#';
+    $stx_pattern[] = '#\\\*#';
+    $stx_pattern[] = '#\.{2,}#';
+    $stx_pattern[] = '#[/\'\"%=*\#\(\)\|\+\&\!\$~\{\}\[\]`;:\?\^\,]+#';
+
+    $stx_replace = array();
+    $stx_replace[] = '';
+    $stx_replace[] = '';
+    $stx_replace[] = '.';
+    $stx_replace[] = '';
+
+    $stx = preg_replace($stx_pattern, $stx_replace, $stx);
+
+    return $stx;
 }
 
 // XSS 관련 태그 제거
