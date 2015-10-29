@@ -2235,9 +2235,18 @@ function get_member_nick($mb_nick, $fields='*')
 
     $sql = "select $fields from $g4[member_table] where mb_nick = '$mb_nick'";
     $row = sql_fetch($sql, FALSE);
+
+    // $row가 비어뜸? 그러면 nick이 없거나 바뀐 것이거나?
     if (!$row) {
-        $sql = "select * from $g4[member_table] where mb_nick = '$mb_nick'";
-        $row = sql_fetch($sql);
+        // mb_nick_table에서 과거의 nick으로 검색
+        $sql2 = "select * from $g4[mb_nick_table] where mb_nick = '$mb_nick'";
+        $row2 = sql_fetch($sql2);
+
+        // 과거에 nick이 있으면 그걸로 정보를 추출. 없으면 꽝인거구.
+        if ($row2) {
+            $sql = "select $fields from $g4[member_table] where mb_id = '$row2[mb_id]'";
+            $row = sql_fetch($sql, FALSE);
+        }
     }
 
     // 그룹명을 위해 한번 더 SQL을 - join보다는 2번 해주는게 캐슁 때문에 실제로는 더 빠를껄? ㅎㅎ
