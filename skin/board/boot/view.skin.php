@@ -55,9 +55,9 @@ ob_end_flush();
         <? if ($is_category) { echo ($category_name ? "[$view[ca_name]] " : ""); } ?>
         <strong><?=cut_hangul_last(get_text($view[wr_subject]))?></strong>
 		</p>
-		<p class="pull-left">
+		<p>
         <font style="color:#BABABA;">
-        <?=$view[name]?><? if ($is_ip_view) { echo "&nbsp;($ip)"; } ?>&nbsp;&nbsp;
+        <div class="pull-left"><?=$view[name]?>&nbsp;<? if ($is_ip_view) { echo "($ip)"; } ?>&nbsp;&nbsp;</div>
 	  		<div class="hidden-md hidden-lg pull-left"><?=get_datetime($view['wr_datetime'])?></div>
 	  		<div class="hidden-xs hidden-sm pull-left"><?=$view['wr_datetime']?></div>&nbsp;&nbsp;
         조회 <?=$view[wr_hit]?>&nbsp;&nbsp;
@@ -67,20 +67,6 @@ ob_end_flush();
     <!-- 게시글 주소를 복사하기 쉽게 하기 위해서 아랫 부분을 삽입 -->
     <span class="pull-right">
     <a href="javascript:clipboard_trackback('<?=$posting_url?>');" style="letter-spacing:0;" title='이 글을 소개할 때는 이 주소를 사용하세요'><i class="fa fa-link"></i></a>
-    <? if ($g4[use_bitly]) { ?>
-        <? if ($view[bitly_url]) { ?>
-        &nbsp;<span id="bitly_url"><a href=<?=$view[bitly_url]?> target=new><?=$view[bitly_url]?></a></span>
-        <? } else { ?>
-        &nbsp;<span id="bitly_url"></span>
-        <script type="text/javascript">
-        // encode 된 것을 넘겨주면, 알아서 decode해서 결과를 return 해준다.
-        // encode 하기 전의 url이 있어야 결과를 꺼낼 수 있기 때문에, 결국 2개를 넘겨준다.
-        // 왜? java script에서는 urlencode, urldecode가 없으니까. ㅎㅎ
-        // 글쿠 이거는 마지막에 해야 한다. 왜??? 그래야 정보를 html page에 업데이트 하쥐~!
-        get_bitly_g4('#bitly_url', '<?=$bo_table?>', '<?=$wr_id?>');
-        </script>
-        <?}?>
-    <?}?>
     </span>
     </p>
 
