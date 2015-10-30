@@ -1814,6 +1814,13 @@ function sql_get_field_names($table_name)
     return $arr;
 }
 
+// 휴대폰번호의 숫자만 취한 후 중간에 하이픈(-)을 넣는다.
+function hyphen_hp_number($hp)
+{
+    $hp = preg_replace("/[^0-9]/", "", $hp);
+    return preg_replace("/([0-9]{3})([0-9]{3,4})([0-9]{4})$/", "\\1-\\2-\\3", $hp);
+}
+
 // goo.gl 짧은주소 만들기
 function googl_short_url($longUrl)
 {
