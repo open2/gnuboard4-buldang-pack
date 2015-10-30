@@ -55,10 +55,11 @@ ob_end_flush();
         <? if ($is_category) { echo ($category_name ? "[$view[ca_name]] " : ""); } ?>
         <strong><?=cut_hangul_last(get_text($view[wr_subject]))?></strong>
 		</p>
-		<p>
+		<p class="pull-left">
         <font style="color:#BABABA;">
         <?=$view[name]?><? if ($is_ip_view) { echo "&nbsp;($ip)"; } ?>&nbsp;&nbsp;
-	  		<span class="visible-xs visible-sm"><?=get_datetime($view['wr_datetime'])?></span><span class="hidden-xs hidden-sm"><?=$view['wr_datetime']?></span>&nbsp;&nbsp;
+	  		<div class="hidden-md hidden-lg pull-left"><?=get_datetime($view['wr_datetime'])?></div>
+	  		<div class="hidden-xs hidden-sm pull-left"><?=$view['wr_datetime']?></div>&nbsp;&nbsp;
         조회 <?=$view[wr_hit]?>&nbsp;&nbsp;
         <? if ($is_good) { ?>추천  <?=$view[wr_good]?>&nbsp;&nbsp;&nbsp;&nbsp;<?}?>
         <? if ($is_nogood) { ?>비추천  <?=$view[wr_nogood]?>&nbsp;&nbsp;&nbsp;&nbsp;<?}?>
