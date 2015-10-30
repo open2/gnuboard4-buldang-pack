@@ -58,7 +58,7 @@ ob_end_flush();
 		<p>
         <font style="color:#BABABA;">
         <?=$view[name]?><? if ($is_ip_view) { echo "&nbsp;($ip)"; } ?>&nbsp;&nbsp;
-	  		<?=get_datetime($view['wr_datetime'])?>&nbsp;&nbsp;
+	  		<span class="visible-xs visible-sm"><?=get_datetime($view['wr_datetime'])?></span><span class="hidden-xs hidden-sm"><?=$view['wr_datetime']?></span>&nbsp;&nbsp;
         조회 <?=$view[wr_hit]?>&nbsp;&nbsp;
         <? if ($is_good) { ?>추천  <?=$view[wr_good]?>&nbsp;&nbsp;&nbsp;&nbsp;<?}?>
         <? if ($is_nogood) { ?>비추천  <?=$view[wr_nogood]?>&nbsp;&nbsp;&nbsp;&nbsp;<?}?>
