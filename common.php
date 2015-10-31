@@ -681,6 +681,9 @@ if (!$lo_location)
 $lo_url = $_SERVER['REQUEST_URI'];
 if (strstr($lo_url, "/$g4[admin]/") || $is_admin == "super") $lo_url = "";
 
+// 변수 필터링
+$bg_id = preg_match("/^[a-zA-Z0-9_]+$/", $bg_id) ? $bg_id : "";
+
 // 불당팩 - 추가적인 개별 변수설정을 위해
 include_once("$g4[path]/config.2.php");  // 설정 파일
 ?>
