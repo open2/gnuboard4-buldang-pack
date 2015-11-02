@@ -101,13 +101,13 @@ if ($member[mb_id] && ($is_admin == "super" || $group[gr_admin] == $member[mb_id
 // 정렬에 사용하는 QUERY_STRING
 $qstr2 = "bo_table=$bo_table&sop=$sop";
 
-if ($board[bo_gallery_cols]) 
+if ($board[bo_gallery_cols])
     $td_width = (int)(100 / $board[bo_gallery_cols]);
 
 // 정렬
 // 인덱스 필드가 아니면 정렬에 사용하지 않음
 //if (!$sst || ($sst && !(strstr($sst, 'wr_id') || strstr($sst, "wr_datetime")))) {
-if (!$sst) 
+if (!$sst)
 {
     if ($board[bo_sort_field])
         $sst = $board[bo_sort_field];
@@ -117,15 +117,18 @@ if (!$sst)
 }
 else {
     // 게시물 리스트의 정렬 대상 필드가 아니라면 공백으로 (nasca 님 09.06.16)
-    // 리스트에서 다른 필드로 정렬을 하려면 아래의 코드에 해당 필드를 추가하세요. 
+    // 리스트에서 다른 필드로 정렬을 하려면 아래의 코드에 해당 필드를 추가하세요.
     // $sst = preg_match("/^(wr_subject|wr_datetime|wr_hit|wr_good|wr_nogood)$/i", $sst) ? $sst : "";
     $sst = preg_match("/^(wr_datetime|wr_hit|wr_good|wr_nogood)$/i", $sst) ? $sst : "";
 }
 
+if(!$sst)
+    $sst = "wr_num, wr_reply";
+
 if ($sst)
     $sql_order = " order by $sst $sod ";
 
-if ($sca || $stx) 
+if ($sca || $stx)
 {
     // 검색어 필터링 (금칙 검색어는 검색할 수 없게)
     $search_filter = 0;
