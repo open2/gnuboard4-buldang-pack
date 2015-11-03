@@ -7,7 +7,7 @@ $notice_count = $global_notice_count + $arr_notice_count;
 <!-- 분류 셀렉트 박스, 게시물 몇건, 관리자화면 링크 -->
 <div>
     <div class="btn-group">
-        <a href="<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?>" class="btn btn-default"><?=$board[bo_subject]?></a>
+        <a href="<?=$g4[path]?>/<?=$bo_table?>" class="btn btn-default"><?=$board[bo_subject]?></a>
     </div>
 
     <? if ($write_href) { ?>

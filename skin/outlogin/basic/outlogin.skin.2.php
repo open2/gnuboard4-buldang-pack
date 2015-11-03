@@ -24,7 +24,7 @@ if ($g4['whatson_unread'] > 0)
     <div class="btn-group btn-group-justified">
         <a class="btn btn-default btn-sm" href="<?=$g4['bbs_path']?>/logout.php" >Logout</a>
         <a class="btn btn-default btn-sm" href="<?=$g4['bbs_path']?>/member_confirm.php?url=register_form.php" >Modify</a>
-        <? if ($is_admin == "super" || $is_auth) { ?><a class="btn btn-primary btn-sm" href="<?=$g4['admin_path']?>/"><i class="fa fa-cog"></i></a><? } ?>
+        <? if ($is_admin == "super" || $is_auth) { ?><a class="btn btn-primary btn-sm" href="<?=$g4['admin_path']?>/index.php"><i class="fa fa-cog"></i></a><? } ?>
     </div>
 </div>
 

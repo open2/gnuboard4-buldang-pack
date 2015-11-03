@@ -31,7 +31,7 @@ $is_category = false;
 if ($board[bo_use_category]) 
 {
     $is_category = true;
-    $category_location = "$g4[bbs_path]/board.php?bo_table=$bo_table&sca=";
+    $category_location = "$g4[path]/$bo_table?sca=";
     $category_option = get_category_option($bo_table); // SELECT OPTION 태그로 넘겨받음
 }
 
@@ -48,7 +48,7 @@ if ($sca || $stx)
         if ($board['bo_search_level'] == 0 )
             $board['bo_search_level'] = $board['bo_read_level'];
         if ($board['bo_search_level'] > $member['mb_level'])
-            alert("검색을 사용할 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.", "./login.php?$qstr&url=".urlencode("$_SERVER[PHP_SELF]?bo_table=$bo_table&sfl=$sfl&stx=$stx&sop=$sop"));
+            alert("검색을 사용할 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.", "$g4[bbs_path]/login.php?$qstr&url=".urlencode("$_SERVER[PHP_SELF]/$bo_table?sfl=$sfl&stx=$stx&sop=$sop"));
     }
     $sql_search = get_sql_search($sca, $sfl, $stx, $sop, $bo_table);
 
@@ -288,26 +288,26 @@ while ($row = sql_fetch_array($result))
     $k++;
 }
 
-$write_pages = get_paging($config[cf_write_pages], $page, $total_page, "$g4[bbs_path]/board.php?bo_table=$bo_table".$qstr."&page=");
-$write_pages_xs = get_paging($config[cf_write_pages_xs], $page, $total_page, "$g4[bbs_path]/board.php?bo_table=$bo_table".$qstr."&page=");
+$write_pages = get_paging($config[cf_write_pages], $page, $total_page, "$g4[path]/$bo_table?".$qstr."&page=");
+$write_pages_xs = get_paging($config[cf_write_pages_xs], $page, $total_page, "$g4[path]/$bo_table?".$qstr."&page=");
 
 $list_href = '';
 $prev_part_href = '';
 $next_part_href = '';
 if ($sca || $stx)  
 {
-    $list_href = "$g4[bbs_path]/board.php?bo_table=$bo_table" . $mstr;
+    $list_href = "$g4[path]/$bo_table?" . $mstr;
 
     //if ($prev_spt >= $min_spt) 
     $prev_spt = $spt - $config[cf_search_part];
     if (isset($min_spt) && $prev_spt >= $min_spt)
-        $prev_part_href = "$g4[bbs_path]/board.php?bo_table=$bo_table".$qstr."&spt=$prev_spt";
+        $prev_part_href = "$g4[path]/$bo_table?".$qstr."&spt=$prev_spt";
 
     $next_spt = $spt + $config[cf_search_part];
     if ($next_spt < 0) 
-        $next_part_href = "$g4[bbs_path]/board.php?bo_table=$bo_table".$qstr."&spt=$next_spt";
+        $next_part_href = "$g4[path]/$bo_table?".$qstr."&spt=$next_spt";
 } else {
-    $list_href = "$g4[bbs_path]/board.php?bo_table=$bo_table&page=$page" . $mstr;
+    $list_href = "$g4[path]/$bo_table?page=$page" . $mstr;
 }
 
 $write_href = "";
