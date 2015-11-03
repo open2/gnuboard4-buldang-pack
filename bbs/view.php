@@ -14,11 +14,11 @@ $sql_search = "";
 if ($sca || $stx) {
     // where 문을 얻음
     $sql_search = get_sql_search($sca, $sfl, $stx, $sop);
-    $search_href = "./board.php?bo_table=$bo_table&page=$page" . $qstr;
-    $list_href = "./board.php?bo_table=$bo_table" . $mstr;
+    $search_href = "$g4[bbs_path]/board.php?bo_table=$bo_table&page=$page" . $qstr;
+    $list_href = "$g4[bbs_path]/board.php?bo_table=$bo_table" . $mstr;
 } else {
     $search_href = "";
-    $list_href = "./board.php?bo_table=$bo_table&page=$page" . $mstr;
+    $list_href = "$g4[bbs_path]/board.php?bo_table=$bo_table&page=$page" . $mstr;
 }
 
 if (!$board['bo_use_list_view']) {
@@ -104,53 +104,53 @@ if (!$board['bo_use_list_view']) {
 $prev_href = "";
 if ($prev[wr_id]) {
     $prev_wr_subject = get_text(cut_str($prev[wr_subject], 255));
-    $prev_href = "./board.php?bo_table=$bo_table&wr_id=$prev[wr_id]&page=$page" . $qstr;
+    $prev_href = "$g4[bbs_path]/board.php?bo_table=$bo_table&wr_id=$prev[wr_id]&page=$page" . $qstr;
 }
 
 // 다음글 링크
 $next_href = "";
 if ($next[wr_id]) {
     $next_wr_subject = get_text(cut_str($next[wr_subject], 255));
-    $next_href = "./board.php?bo_table=$bo_table&wr_id=$next[wr_id]&page=$page" . $qstr;
+    $next_href = "$g4[bbs_path]/board.php?bo_table=$bo_table&wr_id=$next[wr_id]&page=$page" . $qstr;
 }
 
 // 쓰기 링크
 $write_href = "";
 //if ($member[mb_level] >= $board[bo_write_level])
-    $write_href = "./write.php?bo_table=$bo_table" . $mstr;
+    $write_href = "$g4[bbs_path]/write.php?bo_table=$bo_table" . $mstr;
 
 // 답변 링크
 $reply_href = "";
 if ($member[mb_level] >= $board[bo_reply_level])
-    $reply_href = "./write.php?w=r&bo_table=$bo_table&wr_id=$wr_id" . $qstr;
+    $reply_href = "$g4[bbs_path]/write.php?w=r&bo_table=$bo_table&wr_id=$wr_id" . $qstr;
 
 // 수정, 삭제 링크
 $update_href = $delete_href = "";
 // 로그인중이고 자신의 글이라면 또는 관리자라면 패스워드를 묻지 않고 바로 수정, 삭제 가능
 if (($member[mb_id] && ($member[mb_id] == $write[mb_id])) || $is_admin) {
-    $update_href = "./write.php?w=u&bo_table=$bo_table&wr_id=$wr_id&page=$page" . $qstr;
-    $delete_href = "javascript:del('./delete.php?bo_table=$bo_table&wr_id=$wr_id&page=$page".urldecode($qstr)."');";
+    $update_href = "$g4[bbs_path]/write.php?w=u&bo_table=$bo_table&wr_id=$wr_id&page=$page" . $qstr;
+    $delete_href = "javascript:del('$g4[bbs_path]/delete.php?bo_table=$bo_table&wr_id=$wr_id&page=$page".urldecode($qstr)."');";
     if ($is_admin) 
     {
         set_session("ss_delete_token", $token = uniqid(time()));
-        $delete_href = "javascript:del('./delete.php?bo_table=$bo_table&wr_id=$wr_id&token=$token&page=$page".urldecode($qstr)."');";
+        $delete_href = "javascript:del('$g4[bbs_path]/delete.php?bo_table=$bo_table&wr_id=$wr_id&token=$token&page=$page".urldecode($qstr)."');";
     }
 }
 else if (!$write[mb_id]) { // 회원이 쓴 글이 아니라면
-    $update_href = "./password.php?w=u&bo_table=$bo_table&wr_id=$wr_id&page=$page" . $qstr;
-    $delete_href = "./password.php?w=d&bo_table=$bo_table&wr_id=$wr_id&page=$page" . $qstr;
+    $update_href = "$g4[bbs_path]/password.php?w=u&bo_table=$bo_table&wr_id=$wr_id&page=$page" . $qstr;
+    $delete_href = "$g4[bbs_path]/password.php?w=d&bo_table=$bo_table&wr_id=$wr_id&page=$page" . $qstr;
 }
 
 // 최고, 그룹관리자라면 글 복사, 이동 가능
 $copy_href = $move_href = "";
 if ($write[wr_reply] == "" && ($is_admin == "super" || $is_admin == "group")) {
-    $copy_href = "javascript:win_open('./move.php?sw=copy&bo_table=$bo_table&wr_id=$wr_id&page=$page".$qstr."', 'boardcopy', 'left=50, top=50, width=500, height=550, scrollbars=1');";
-    $move_href = "javascript:win_open('./move.php?sw=move&bo_table=$bo_table&wr_id=$wr_id&page=$page".$qstr."', 'boardmove', 'left=50, top=50, width=500, height=550, scrollbars=1');";
+    $copy_href = "javascript:win_open('$g4[bbs_path]/move.php?sw=copy&bo_table=$bo_table&wr_id=$wr_id&page=$page".$qstr."', 'boardcopy', 'left=50, top=50, width=500, height=550, scrollbars=1');";
+    $move_href = "javascript:win_open('$g4[bbs_path]/move.php?sw=move&bo_table=$bo_table&wr_id=$wr_id&page=$page".$qstr."', 'boardmove', 'left=50, top=50, width=500, height=550, scrollbars=1');";
 }
 
 // 게시글 대피기능
 if ($board['bo_move_bo_table'] && $write['mb_id'] == $member['mb_id'] && $is_amin != 'super' && $is_admin != 'group') {
-    $move_href = "javascript:move('./move2_update.php?bo_table=$bo_table&wr_id=$wr_id&page=$page".$qstr."');";;
+    $move_href = "javascript:move('$g4[bbs_path]/move2_update.php?bo_table=$bo_table&wr_id=$wr_id&page=$page".$qstr."');";;
 }
 
 $scrap_href = "";
@@ -158,15 +158,15 @@ $good_href = "";
 $nogood_href = "";
 if ($member[mb_id]) {
     // 스크랩 링크
-    $scrap_href = "./scrap_popin.php?bo_table=$bo_table&wr_id=$wr_id";
+    $scrap_href = "$g4[bbs_path]/scrap_popin.php?bo_table=$bo_table&wr_id=$wr_id";
 
     // 추천 링크
     if ($board[bo_use_good])
-        $good_href = "./good.php?bo_table=$bo_table&wr_id=$wr_id&good=good" . $mstr;
+        $good_href = "$g4[bbs_path]/good.php?bo_table=$bo_table&wr_id=$wr_id&good=good" . $mstr;
 
     // 비추천 링크
     if ($board[bo_use_nogood])
-        $nogood_href = "./good.php?bo_table=$bo_table&wr_id=$wr_id&good=nogood" . $mstr;
+        $nogood_href = "$g4[bbs_path]/good.php?bo_table=$bo_table&wr_id=$wr_id&good=nogood" . $mstr;
 }
 
 $view = get_view($write, $board, $board_skin_path, 255);
@@ -175,27 +175,27 @@ $view = get_view($write, $board, $board_skin_path, 255);
 if ($is_admin || ($member["mb_id"] && $member["mb_id"] == $view["mb_id"])) { 
     if (strstr($view[wr_option], "secret")) { 
         // 잠금 해제 버튼
-        $nosecret_href = "javascript:post_submit('proc/mw.btn.secret.php?page=$page$qstr','$bo_table','$wr_id', '', 'no', '게시글 잠금해제')";
+        $nosecret_href = "javascript:post_submit('$g4[bbs_path]/proc/mw.btn.secret.php?page=$page$qstr','$bo_table','$wr_id', '', 'no', '게시글 잠금해제')";
     } else { 
         // 잠금 버튼
-        $secret_href = "javascript:post_submit('proc/mw.btn.secret.php?page=$page$qstr','$bo_table','$wr_id', '', '', '게시글 잠금')";
+        $secret_href = "javascript:post_submit('$g4[bbs_path]/proc/mw.btn.secret.php?page=$page$qstr','$bo_table','$wr_id', '', '', '게시글 잠금')";
     }
 }
 
 // 게시글 업데이트 날짜를 지금으로 - 불당팩 : 배추님의 팁 (관리자만 가능하게)
 if ($is_admin) {
-    $now_href = "javascript:post_submit('proc/mw.time.now.php?page=$page$qstr','$bo_table','$wr_id', '', '', '게시글 날짜 업데이트하기')";
+    $now_href = "javascript:post_submit('$g4[bbs_path]/proc/mw.time.now.php?page=$page$qstr','$bo_table','$wr_id', '', '', '게시글 날짜 업데이트하기')";
 }
   
 // 신고 링크 - 코멘트 쓰기 권한이 있는 사람에게만 보이게
 $singo_href = "";
 if ($board[bo_singo] && $write_href && $member[mb_id] != $write[mb_id] && $member['mb_level'] >= $board['bo_comment_level'])
-    $singo_href = "./singo_popin.php?bo_table=$bo_table&wr_id=$wr_id&wr_parent=$wr_id" . $mstr;
+    $singo_href = "$g4[bbs_path]/singo_popin.php?bo_table=$bo_table&wr_id=$wr_id&wr_parent=$wr_id" . $mstr;
 
 // 신고해지 링크
 $unsingo_href = "";
 if ($board[bo_singo] && $view[wr_singo] && $member[mb_id] != $write[mb_id] && $member['mb_level'] >= $board['bo_comment_level'])
-    $unsingo_href = "./unsingo_popin.php?bo_table=$bo_table&wr_id=$wr_id&wr_parent=$wr_id" . $mstr;
+    $unsingo_href = "$g4[bbs_path]/unsingo_popin.php?bo_table=$bo_table&wr_id=$wr_id&wr_parent=$wr_id" . $mstr;
 
 if (strstr($sfl, "subject"))
     $view[subject] = search_font($stx, $view[subject]);

@@ -31,7 +31,7 @@ $is_category = false;
 if ($board[bo_use_category]) 
 {
     $is_category = true;
-    $category_location = "./board.php?bo_table=$bo_table&sca=";
+    $category_location = "$g4[bbs_path]/board.php?bo_table=$bo_table&sca=";
     $category_option = get_category_option($bo_table); // SELECT OPTION 태그로 넘겨받음
 }
 
@@ -288,31 +288,31 @@ while ($row = sql_fetch_array($result))
     $k++;
 }
 
-$write_pages = get_paging($config[cf_write_pages], $page, $total_page, "./board.php?bo_table=$bo_table".$qstr."&page=");
-$write_pages_xs = get_paging($config[cf_write_pages_xs], $page, $total_page, "./board.php?bo_table=$bo_table".$qstr."&page=");
+$write_pages = get_paging($config[cf_write_pages], $page, $total_page, "$g4[bbs_path]/board.php?bo_table=$bo_table".$qstr."&page=");
+$write_pages_xs = get_paging($config[cf_write_pages_xs], $page, $total_page, "$g4[bbs_path]/board.php?bo_table=$bo_table".$qstr."&page=");
 
 $list_href = '';
 $prev_part_href = '';
 $next_part_href = '';
 if ($sca || $stx)  
 {
-    $list_href = "./board.php?bo_table=$bo_table" . $mstr;
+    $list_href = "$g4[bbs_path]/board.php?bo_table=$bo_table" . $mstr;
 
     //if ($prev_spt >= $min_spt) 
     $prev_spt = $spt - $config[cf_search_part];
     if (isset($min_spt) && $prev_spt >= $min_spt)
-        $prev_part_href = "./board.php?bo_table=$bo_table".$qstr."&spt=$prev_spt";
+        $prev_part_href = "$g4[bbs_path]/board.php?bo_table=$bo_table".$qstr."&spt=$prev_spt";
 
     $next_spt = $spt + $config[cf_search_part];
     if ($next_spt < 0) 
-        $next_part_href = "./board.php?bo_table=$bo_table".$qstr."&spt=$next_spt";
+        $next_part_href = "$g4[bbs_path]/board.php?bo_table=$bo_table".$qstr."&spt=$next_spt";
 } else {
-    $list_href = "./board.php?bo_table=$bo_table&page=$page" . $mstr;
+    $list_href = "$g4[bbs_path]/board.php?bo_table=$bo_table&page=$page" . $mstr;
 }
 
 $write_href = "";
 //if ($member[mb_level] >= $board[bo_write_level]) 
-    $write_href = "./write.php?bo_table=$bo_table" . $mstr;
+    $write_href = "$g4[bbs_path]/write.php?bo_table=$bo_table" . $mstr;
 
 $nobr_begin = $nobr_end = "";
 if (preg_match("/gecko|firefox/i", $_SERVER['HTTP_USER_AGENT'])) {
@@ -323,7 +323,7 @@ if (preg_match("/gecko|firefox/i", $_SERVER['HTTP_USER_AGENT'])) {
 // RSS 보기 사용에 체크가 되어 있어야 RSS 보기 가능 061106
 $rss_href = "";
 if ($board[bo_use_rss_view])
-    $rss_href = "./rss.php?bo_table=$bo_table";
+    $rss_href = "$g4[bbs_path]/rss.php?bo_table=$bo_table";
 
 // 불당팩 : 왜 href에 $qstr을 안넣었을까?
 if ($write_href) $write_href .= $qstr;

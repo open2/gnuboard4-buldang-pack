@@ -407,7 +407,12 @@ function get_list($write_row, $board, $skin_path, $subject_len=40, $gallery_view
     // 분류명 링크
     $list['ca_name_href'] = "$g4[bbs_path]/board.php?bo_table=$board[bo_table]&sca=".urlencode($list['ca_name']);
 
-    $list['href'] = "$g4[bbs_path]/board.php?bo_table=$board[bo_table]&wr_id=$list[wr_id]" . $qstr . $mstr;
+    // 단축주소 - href link뒤에 ?가 떨렁 나오면 이상해서. 수정을 해줍니다.
+    if ( trim($qstr . $mstr) == "")
+        $list['href'] = "$g4[path]/$board[bo_table]/$list[wr_id]";
+    else
+        $list['href'] = "$g4[path]/$board[bo_table]/$list[wr_id]?" . $qstr . $mstr;
+    //$list['href'] = "$g4[bbs_path]/board.php?bo_table=$board[bo_table]&wr_id=$list[wr_id]" . $qstr . $mstr;
     //$list['href'] = "$g4[bbs_path]/board.php?bo_table=$board[bo_table]&wr_id=$list[wr_id]";
     if ($board['bo_use_comment'])
         $list['comment_href'] = "javascript:win_comment('$g4[bbs_path]/board.php?bo_table=$board[bo_table]&wr_id=$list[wr_id]&cwin=1');";

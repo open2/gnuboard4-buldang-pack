@@ -34,22 +34,37 @@ else
 
 <header class="header-wrapper"><!-- 상단 header 시작 -->
 <div class="container">
-<div class="row hidden-xs">
-        <div class="pull-right">
-        <?
+
+<div class="row">
+<div class="hidden-xs hidden-sm col-md-2 col-lg-2">
+<?
         echo get_banner("top_github", "basic", "github");
         echo get_banner("top", "basic", "", 1);
-        ?>
-        </div>
+?>
 </div>
 
-<div class="navbar navbar-default" role="navigation" style="height:40px;margin-top:3px;">
+<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+구글광고...
+</div>
+
+</div>
+
+<div class="navbar navbar-default" role="navigation" style="margin-top:3px;margin-bottom:3px;">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header col-md-2 col-lg-2">
+
+        <? if ($member['mb_id']) { ?>
+        <!-- collapse 되었을 때, 우측에 나오는 개인메뉴 버튼 -->
+        <button type="button" class="btn btn-default navbar-toggle pull-right" data-toggle="collapse" data-target=".navbar-top-menu-collapse_my" style="border:none">
+            <i class="glyphicon glyphicon-check"></i>
+        </button>
+        <? } ?>
+
         <!-- collapse 되었을 때, 우측에 나오는 메뉴 버튼 -->
-        <button type="button" class="btn btn-default navbar-toggle" data-toggle="collapse" data-target=".navbar-top-menu-collapse" style="border:none">
+        <button type="button" class="btn btn-default navbar-toggle pull-right" data-toggle="collapse" data-target=".navbar-top-menu-collapse" style="border:none">
             <i class="glyphicon glyphicon-list"></i>
         </button>
+
         <? if ($member['mb_id'] == "") { 
         $login_url = "$g4[bbs_path]/login.php?url=".urlencode($lo_url);
         ?>
@@ -66,122 +81,157 @@ else
             <i class="glyphicon glyphicon-envelope"><sup style="margin-left:3px;"><?=$member[mb_memo_unread]?></sup></i>
         </a>
         <? } ?>
-        <button type="button" class="btn btn-default navbar-toggle" data-toggle="collapse" data-target=".navbar-search-top-collapse" style="border:none">
-            <i class="glyphicon glyphicon-search"></i>
-        </button>
         <!-- sm, md, lg에서 나오는 로고 -->
         <a class="navbar-brand hidden-xs hidden-sm" href="<?=$g4['path']?>/" style="border:none">
-        <img src="<?=$g4[path]?>/img/opencode_aaa.png" align=absmiddle alt="brand logo" style="height:38px">
+        <img src="<?=$g4[path]?>/images/opencode_aaa.png" align=absmiddle alt="brand logo" style="height:38px;border:none;margin-top:-10px;">
         </a>
         <!-- collapse 되었을 때 나오는 로고 -->
-        <a class="navbar-brand navbar-toggle pull-left" href="<?=$g4['path']?>/" style="margin-bottom:5px;border:none;">
-        <img src="<?=$g4[path]?>/img/opencode_aaa.png" alt="brand logo" style="height:30px">
+        <a class="navbar-brand navbar-toggle pull-left" href="<?=$g4['path']?>/" style="margin-bottom:0;border:none;">
+        <img src="<?=$g4[path]?>/images/opencode_aaa.png" alt="brand logo" style="height:30px">
         </a>
+
+        <!-- navbar toggle이 아니므로, 2번 넣어줘야 합니다 -->
+        <button type="button" class="btn btn-default navbar-toggle visible-sm visible-xs" data-toggle="collapse" data-target="#top_search" style="border:none;float:right">
+            <i class="glyphicon glyphicon-search"></i>
+        </button>
+    </div>
+
+    <?
+    $my_menu = array();
+    $sql = "select m.bo_table, b.bo_subject from $g4[my_menu_table] as m left join $g4[board_table] as b on m.bo_table = b.bo_table where mb_id = '$member[mb_id]'";
+    $qry = sql_query($sql);
+    while ($row = sql_fetch_array($qry)) {
+        $my_menu[] = $row;
+    }
+    ?>
+
+    <div class="collapse navbar-collapse navbar-top-menu-collapse_my pull-right">
+
+        <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#top_search" style="border:0px;float:right; background:none;">
+            <i class="glyphicon glyphicon-search"></i>
+        </button>
+
+    <ul class="nav navbar-nav hidden-lg hidden-md" id="gnb_my">
+        <? for ($i=0; $i<count($my_menu); $i++) { ?>
+            <li id="qna_my"><a href="<?=$g4[bbs_path]?>/board.php?bo_table=<?=$my_menu[$i][bo_table]?>"><?=$my_menu[$i][bo_subject]?></a></li>
+        <? } ?>
+        <li id="qna_my"><a href="<?=$g4[bbs_path]?>/my_menu_edit.php">바로가기편집</a></li>
+    </ul>
     </div>
 
     <div class="collapse navbar-collapse navbar-top-menu-collapse col-sm-9 col-md-7 col-lg-7">
     <ul class="nav navbar-nav" id="gnb">
-        <li id="qna"><a href="<?=$g4[bbs_path]?>/board.php?bo_table=qna">자유게시판</a></li>
-        <li id="test"><a href="<?=$g4[bbs_path]?>/board.php?bo_table=test">한줄이야기</a></li>
+        <li id="qna"><a href="<?=$g4[path]?>/qna">자유게시판</a></li>
+        <li id="test"><a href="<?=$g4[path]?>/test">한줄이야기</a></li>
         <li class="dropdown">
             <a class="dropdown-toggle" href="#" data-toggle="dropdown">토크 <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li id="notice"><a href="<?=$g4[bbs_path]?>/board.php?bo_table=notice">공지</a></li>
+                <li id="notice"><a href="<?=$g4[path]?>/notice">공지</a></li>
                 <li class="divider"></li>
-                <li id="g4_100"><a href="<?=$g4[bbs_path]?>/board.php?bo_table=g4_100">그누보드100일완성</a></li>
-                <li id="g4_books"><a href="<?=$g4[bbs_path]?>/board.php?bo_table=g4_books">그누보드참고서</a></li>
-                <li id="sitetips"><a href="<?=$g4[bbs_path]?>/board.php?bo_table=sitetips">사이트개발운영</a></li>
-                <li id="biz"><a href="<?=$g4[bbs_path]?>/board.php?bo_table=biz">비즈니스참고자료</a></li>
+                <li id="g4_100"><a href="<?=$g4[path]?>/g4_100">그누보드100일완성</a></li>
+                <li id="g4_books"><a href="<?=$g4[path]?>/g4_books">그누보드참고서</a></li>
+                <li id="sitetips"><a href="<?=$g4[path]?>/sitetips">사이트개발운영</a></li>
+                <li id="biz"><a href="<?=$g4[path]?>/biz">비즈니스참고자료</a></li>
                 <li class="divider"></li>
                 <li><a href="<?=$g4[bbs_path]?>/good_list.php">베스트글</a></li>
                 <li><a href="<?=$g4[bbs_path]?>/new.php">최근게시글</a></li>
                 <li class="divider"></li>
-                <li id="test"><a href="<?=$g4[bbs_path]?>/board.php?bo_table=test">테스트</a></li>
-                <li id="test2"><a href="<?=$g4[bbs_path]?>/board.php?bo_table=test2">테스트2</a></li>
+                <li id="test"><a href="<?=$g4[path]?>/test">테스트</a></li>
+                <li id="test2"><a href="<?=$g4[path]?>/test2">테스트2</a></li>
             </ul>
         </li>
         <li class="dropdown">
             <a class="dropdown-toggle" href="#" data-toggle="dropdown">개발팁 <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=linux_tips">Linux</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=virtual">가상화</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=apache_tips">Apache</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=mysql_tips">MySQL</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=mariadb_tips">Maria DB</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=nosql">NoSQL</a></li>
+                <li><a href="<?=$g4[path]?>/linux_tips">Linux</a></li>
+                <li><a href="<?=$g4[path]?>/virtual">가상화</a></li>
+                <li><a href="<?=$g4[path]?>/apache_tips">Apache</a></li>
+                <li><a href="<?=$g4[path]?>/mysql_tips">MySQL</a></li>
+                <li><a href="<?=$g4[path]?>/mariadb_tips">Maria DB</a></li>
+                <li><a href="<?=$g4[path]?>/nosql">NoSQL</a></li>
                 <li class="divider"></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=css">CSS/부트스트랩</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=php_tips">PHP</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=jquery_tips">jQuery</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=javascript_tips">Java Script</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=ajax">AJAX</a></li>
+                <li><a href="<?=$g4[path]?>/css">CSS/부트스트랩</a></li>
+                <li><a href="<?=$g4[path]?>/php_tips">PHP</a></li>
+                <li><a href="<?=$g4[path]?>/jquery_tips">jQuery</a></li>
+                <li><a href="<?=$g4[path]?>/javascript_tips">Java Script</a></li>
+                <li><a href="<?=$g4[path]?>/ajax">AJAX</a></li>
                 <li class="divider"></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=html_tips">HTML</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=html5_tips">HTML5</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=other_tips">기타 팁들</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=cheditor">cheditor(상용)</a></li>
+                <li><a href="<?=$g4[path]?>/html_tips">HTML</a></li>
+                <li><a href="<?=$g4[path]?>/html5_tips">HTML5</a></li>
+                <li><a href="<?=$g4[path]?>/other_tips">기타 팁들</a></li>
+                <li><a href="<?=$g4[path]?>/cheditor">cheditor(상용)</a></li>
             </ul>
         </li>
         <li class="dropdown">
             <a class="dropdown-toggle" href="#" data-toggle="dropdown">그누4 <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_turning">그누보드4 튜닝</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_turning2">그누보드4 튜닝(비공개)</a></li>
+                <li><a href="<?=$g4[path]?>/gnu4_turning">그누보드4 튜닝</a></li>
+                <li><a href="<?=$g4[path]?>/gnu4_turning2">그누보드4 튜닝(비공개)</a></li>
                 <li class="divider"></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=memo4">쪽지5</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=thumb">불당썸/Resize</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=layout">불당빌더(100%수동빌더)</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=g4_recycle">휴지통/Recycle</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_unicro">유니크로장터/게시판</a></li>
+                <li><a href="<?=$g4[path]?>/memo4">쪽지5</a></li>
+                <li><a href="<?=$g4[path]?>/thumb">불당썸/Resize</a></li>
+                <li><a href="<?=$g4[path]?>/layout">불당빌더(100%수동빌더)</a></li>
+                <li><a href="<?=$g4[path]?>/g4_recycle">휴지통/Recycle</a></li>
+                <li><a href="<?=$g4[path]?>/gnu4_unicro">유니크로장터/게시판</a></li>
                 <li class="divider"></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_skin">그누보드스킨</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_tips">그누보드팁</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_qna">그누보드 묻고 답하기</a></li>
+                <li><a href="<?=$g4[path]?>/gnu4_skin">그누보드스킨</a></li>
+                <li><a href="<?=$g4[path]?>/gnu4_tips">그누보드팁</a></li>
+                <li><a href="<?=$g4[path]?>/gnu4_qna">그누보드 묻고 답하기</a></li>
             </ul>
         </li>
         <li class="dropdown">
             <a class="dropdown-toggle" href="#" data-toggle="dropdown">App <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=and_talk">안드로이드 게시판</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=and_tip">안드로이드 팁</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=and_pds">안드로이드 자료실</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=webapp">웹앱</a></li>
+                <li><a href="<?=$g4[path]?>/and_talk">안드로이드 게시판</a></li>
+                <li><a href="<?=$g4[path]?>/and_tip">안드로이드 팁</a></li>
+                <li><a href="<?=$g4[path]?>/and_pds">안드로이드 자료실</a></li>
+                <li><a href="<?=$g4[path]?>/webapp">웹앱</a></li>
             </ul>
         </li>
 
         <li class="dropdown">
             <a class="dropdown-toggle" href="#" data-toggle="dropdown">불당팩 <b class="caret"></b></a>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack">불당팩다운로드</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_book">불당팩 매뉴얼</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_skin">불당팩 스킨</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_req">불당팩 버그 및 개선</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gnu4_pack_qna">불당팩 묻고답하기</a></li>
+                <li><a href="<?=$g4[path]?>/gnu4_pack">불당팩다운로드</a></li>
+                <li><a href="<?=$g4[path]?>/gnu4_pack_book">불당팩 매뉴얼</a></li>
+                <li><a href="<?=$g4[path]?>/gnu4_pack_skin">불당팩 스킨</a></li>
+                <li><a href="<?=$g4[path]?>/gnu4_pack_req">불당팩 버그 및 개선</a></li>
+                <li><a href="<?=$g4[path]?>/gnu4_pack_qna">불당팩 묻고답하기</a></li>
                 <li class="divider"></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=gblog">gblog 불당버젼</a></li>
+                <li><a href="<?=$g4[path]?>/gblog">gblog 불당버젼</a></li>
                 <li><a href="<?=$g4[path]?>/blog/" target=_blank>gblog 테스트</a></li>
                 <li class="divider"></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=club2">클럽2</a></li>
+                <li><a href="<?=$g4[path]?>/club2">클럽2</a></li>
                 <li><a href="$g4[path]?>/club/">클럽2 테스트</a></li>
             </ul>
         </li>
         <li class="dropdown">
             <a class="dropdown-toggle" href="#" data-toggle="dropdown">영카트5 <b class="caret"></b></a>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=yc4_pack_download">영카트5 불당팩</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=yc4_tips">영카트5 팁</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/board.php?bo_table=yc4_pack_qna">영카트5 묻고답하기</a></li>
+                <li><a href="<?=$g4[path]?>/yc4_pack_download">영카트5 불당팩</a></li>
+                <li><a href="<?=$g4[path]?>/yc4_tips">영카트5 팁</a></li>
+                <li><a href="<?=$g4[path]?>/yc4_pack_qna">영카트5 묻고답하기</a></li>
                 <li><a href="<?=$g4[path]?>/shop/index.php">영카트5 테스트</a></li>
             </ul>
         </li>
         <li><a href="<?=$g4[plugin_path]?>/attendance/attendance.php">출석</a></li>
+        <li class="dropdown">
+            <a class="dropdown-toggle hidden-xs hidden-sm" href="#" data-toggle="dropdown">바로가기 <b class="caret"></b></a>
+            <ul class="dropdown-menu" role="menu">
+                <? for ($i=0; $i<count($my_menu); $i++) { ?>
+                    <li id="my_$i_m"><a href="<?=$g4[path]?>/<?=$my_menu[$i][bo_table]?>"><?=$my_menu[$i][bo_subject]?></a></li>
+                <? } ?>
+                <li class="divider"></li>
+                <li id="qna_my"><a href="<?=$g4[bbs_path]?>/my_menu_edit.php">바로가기편집</a></li>
+            </ul>
+        </li>
     </ul>
     </div>
 
-    <form class="navbar-form collapse navbar-collapse navbar-search-top-collapse" role="search" method="get" onsubmit="return fsearchbox_submit(this);" >
+    <div class="col-sm-3 col-md-3 col-lg-3 pull-right collapse" id="top_search">
+    <form role="search" method="get" onsubmit="return fsearchbox_submit(this);">
     <input type="hidden" name="sfl" value="wr_subject||wr_content">
     <input type="hidden" name="sop" value="and">
-    <div class="col-sm-3 col-md-3 col-lg-3 pull-right">
     <div class="input-group" id="search-bar">
         <input type="text" class="form-control pull-right" placeholder="검색어는 2단어까지" name="stx" id="stx" maxlength="20" value="<?=$stx;?>">
         <label for="stx" class="sr-only">search</label>
@@ -189,8 +239,8 @@ else
             <button class="btn btn-default" type="submit" >검색 <i class="glyphicon glyphicon-search"></i></button>
         </span>
     </div><!-- /input-group -->
-    </div>
     </form>
+    </div>
 
 </div><!-- navbar의 끝 -->
 
@@ -210,15 +260,9 @@ include_once("$g4[path]/lib/outlogin.lib.php");
 echo outlogin("basic");
 ?>
 
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- 2CPU - 우측광고 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:200px;height:200px"
-     data-ad-client="ca-pub-2309139745261135"
-     data-ad-slot="1974345174"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<div style="overflow:hidden">
+구글광고...
+</div>
 
 <!-- 로그인박스와의 여백 -->
     <table><tr><td height="1px"></td></tr></table>

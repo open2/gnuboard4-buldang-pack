@@ -30,7 +30,7 @@ else if ($is_admin == "group") { // 그룹관리자
         alert("자신의 글이 아니므로 삭제할 수 없습니다.");
 } else {
     if ($write[mb_id])
-        alert("로그인 후 삭제하세요.", "./login.php?url=".urlencode("./board.php?bo_table=$bo_table&wr_id=$wr_id"));
+        alert("로그인 후 삭제하세요.", "$g4[bbs_path]/login.php?url=".urlencode("$g4[bbs_path]/board.php?bo_table=$bo_table&wr_id=$wr_id"));
     else if (sql_password($wr_password) !== $write[wr_password])
         alert("패스워드가 틀리므로 삭제할 수 없습니다."); 
 }
@@ -270,5 +270,5 @@ sql_query($sql);
 
 @include_once("$board_skin_path/delete.tail.skin.php");
 
-goto_url("./board.php?bo_table=$bo_table&page=$page" . $qstr);
+goto_url("$g4[bbs_path]/board.php?bo_table=$bo_table&page=$page" . $qstr);
 ?>

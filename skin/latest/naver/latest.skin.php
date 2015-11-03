@@ -2,9 +2,9 @@
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
 
 if (!$skin_title) {
-    if ($board[bo_subject]) {
-        $skin_title = $board[bo_subject];
-        $skin_title_link = "$g4[bbs_path]/board.php?bo_table=$bo_table";
+    if ($board['bo_subject']) {
+        $skin_title = $board['bo_subject'];
+        $skin_title_link = "$g4[path]/$bo_table";
     } else {
         $skin_title = "최신글";
     }

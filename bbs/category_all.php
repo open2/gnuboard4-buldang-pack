@@ -20,5 +20,5 @@ for ($i=count($tmp_array)-1; $i>=0; $i--)
     sql_query($sql);
 }
 
-goto_url("./board.php?bo_table=$bo_table&page=$page" . $qstr);
+goto_url("$g4[bbs_path]/board.php?bo_table=$bo_table&page=$page" . $qstr);
 ?>

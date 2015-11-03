@@ -409,7 +409,7 @@ else
 }
 
 include_once("$g4[path]/head.sub.php");
-include_once("./board_head.php");
+include_once("$g4[bbs_path]/board_head.php");
 
 //--------------------------------------------------------------------------
 // 가변 파일
@@ -464,7 +464,7 @@ if ($_SESSION[ss_tempsave] == "") {
 }
 
 // 불당팩 - $list_href를 만들어준다
-$list_href = "./board.php?bo_table=$bo_table&page=$page" . $qstr;
+$list_href = "$g4[bbs_path]/board.php?bo_table=$bo_table&page=$page" . $qstr;
 
 include_once ("$board_skin_path/write.skin.php");
 
@@ -490,7 +490,7 @@ if ($g4['write_escape']) { ?>
 <? 
 }
 
-include_once("./board_tail.php");
+include_once("$g4[bbs_path]/board_tail.php");
 include_once("$g4[path]/tail.sub.php");
 
 if (file_exists("$board_skin_path/write.tail.skin.php"))

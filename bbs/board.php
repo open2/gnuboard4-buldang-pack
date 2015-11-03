@@ -17,7 +17,7 @@ if ($write[wr_is_comment])
     else
         alert("코멘트는 상세보기 하실 수 없습니다.");
     */
-    goto_url("./board.php?bo_table=$bo_table&wr_id=$write[wr_parent]#c_{$wr_id}");
+    goto_url("$g4[bbs_path]/board.php?bo_table=$bo_table&wr_id=$write[wr_parent]#c_{$wr_id}");
 }
 
 if (!$bo_table)
@@ -39,7 +39,7 @@ if ($wr_id)
         if ($cwin)
             alert_close($msg);
         else
-            alert($msg, "./board.php?bo_table=$bo_table");
+            alert($msg, "$g4[bbs_path]/board.php?bo_table=$bo_table");
     }
 
     // 그룹접근 사용
@@ -50,7 +50,7 @@ if ($wr_id)
             if ($cwin)
                 alert_close($msg);
             else
-                alert($msg, "./login.php?wr_id=$wr_id{$qstr}&url=".urlencode("$_SERVER[PHP_SELF]?bo_table=$bo_table&wr_id=$wr_id"));
+                alert($msg, "$g4[bbs_path]/login.php?wr_id=$wr_id{$qstr}&url=".urlencode("$_SERVER[PHP_SELF]?bo_table=$bo_table&wr_id=$wr_id"));
         }
 
         // 그룹관리자 이상이라면 통과
@@ -248,22 +248,22 @@ if ($member[mb_id] && ($is_admin == 'super' || $group[gr_admin] == $member[mb_id
     $admin_href = "$g4[admin_path]/board_form.php?w=u&bo_table=$bo_table";
 
 if (!($board[bo_use_comment] && $cwin))
-    include_once("./board_head.php");
+    include_once("$g4[bbs_path]/board_head.php");
 
 if (!($board[bo_use_comment] && $cwin)) {
     // 게시물 아이디가 있다면 게시물 보기를 INCLUDE
     if ($wr_id)
-        include_once("./view.php");
+        include_once("$g4[bbs_path]/view.php");
 
     // 전체목록보이기 사용이 "예" 또는 wr_id 값이 없다면 목록을 보임
     //if ($board[bo_use_list_view] || empty($wr_id))
     if ($member[mb_level] >= $board[bo_list_level] && $board[bo_use_list_view] || empty($wr_id))
         include_once ("./list.php");
 
-    include_once("./board_tail.php");
+    include_once("$g4[bbs_path]/board_tail.php");
 }
 else
-    include_once("./view_comment.php");
+    include_once("$g4[bbs_path]/view_comment.php");
 
 echo "\n<!-- 사용스킨 : $board[bo_skin] -->\n";
 
@@ -273,7 +273,7 @@ include_once("$g4[path]/tail.sub.php");
 <?
 // 내가 방문한 게시판 정보를 db에 기록
 if ($member[mb_id]) {
-    sql_query(" update $g4[my_board_table] set my_datetime = '$g4[time_ymdhis]' where mb_id = '$member[mb_id]' and bo_table = '$bo_table' ", FALSE);
+    sql_query(" update $g4[my_board_table] set my_datetime = '$g4[time_ymdhis]' where mb_id = '$member[mb_id]' and bo_table = '$bo_table' ");
     if (mysql_affected_rows() == 0) 
         sql_query(" insert $g4[my_board_table] set mb_id = '$member[mb_id]', bo_table = '$bo_table', my_datetime = '$g4[time_ymdhis]' ", FALSE );
 }
