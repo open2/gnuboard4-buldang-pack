@@ -14,11 +14,11 @@ $sql_search = "";
 if ($sca || $stx) {
     // where 문을 얻음
     $sql_search = get_sql_search($sca, $sfl, $stx, $sop);
-    $search_href = "$g4[bbs_path]/board.php?bo_table=$bo_table&page=$page" . $qstr;
-    $list_href = "$g4[bbs_path]/board.php?bo_table=$bo_table" . $mstr;
+    $search_href = "$g4[path]/$bo_table?page=$page" . $qstr;
+    $list_href = "$g4[path]/$bo_table?" . $mstr;
 } else {
     $search_href = "";
-    $list_href = "$g4[bbs_path]/board.php?bo_table=$bo_table&page=$page" . $mstr;
+    $list_href = "$g4[path]/$bo_table?page=$page" . $mstr;
 }
 
 if (!$board['bo_use_list_view']) {
@@ -278,7 +278,7 @@ if ($board[bo_image_max_size] && $view[wr_imagesize] > 0 && $view[wr_imagesize] 
 
 
 // 불당팩 - 게시글주소
-$posting_url = "$g4[url]/$g4[bbs]/board.php?bo_table=$bo_table&wr_id=$wr_id";
+$posting_url = "$g4[url]/$bo_table/$wr_id";
 
 $is_signature = false;
 $signature = "";

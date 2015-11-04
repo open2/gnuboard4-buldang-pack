@@ -464,7 +464,7 @@ if ($_SESSION[ss_tempsave] == "") {
 }
 
 // 불당팩 - $list_href를 만들어준다
-$list_href = "$g4[bbs_path]/board.php?bo_table=$bo_table&page=$page" . $qstr;
+$list_href = "$g4[path]/$bo_table?page=$page" . $qstr;
 
 include_once ("$board_skin_path/write.skin.php");
 
