@@ -99,8 +99,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     $mb = get_member($row3[mb_id], "mb_id, mb_nick, mb_email, mb_homepage");
     
     $list[$i][num] = $num;
-    $list[$i][opener_href] = "./board.php?bo_table=$row[bo_table]";
-    $list[$i][opener_href_wr_id] = "./board.php?bo_table=$row[bo_table]&wr_id=$row[wr_id]";
+    $list[$i][opener_href] = "$g4[path]/$row[bo_table]";
+    $list[$i][opener_href_wr_id] = "$g4[path]/$row[bo_table]/$row[wr_id]";
     $list[$i][bo_subject] = $row2[bo_subject];
     $list[$i][subject] = $subject;
     $list[$i][secret] = $secret;
