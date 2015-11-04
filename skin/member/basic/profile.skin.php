@@ -14,7 +14,8 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     <ul>
         <li>닉네임 : <?=$mb_nick?>
             <?
-            $sql = "select * from $g4[mb_nick_table] where mb_id = '$member[mb_id]' and end_datetime != '0000-00-00 00:00:00' order by nick_no desc limit 5 ";
+            // History를 보여줍니다
+            $sql = "select * from $g4[mb_nick_table] where mb_id = '$mb[mb_id]' and end_datetime != '0000-00-00 00:00:00' order by nick_no desc limit 5 ";
             $result = sql_query($sql);
             for ($i=0; $row=sql_fetch_array($result); $i++) {
                 echo "&nbsp;<i class=\"fa fa-arrow-left\"></i>&nbsp;" . $row[mb_nick];
