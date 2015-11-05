@@ -121,7 +121,7 @@ if ($is_dhtml_editor) {
 
 <div id=comment_write style="display:none;">
 <table width=100% border=0 cellpadding=1 cellspacing=0 bgcolor="#dddddd"><tr><td>
-<form role="form" class="form-horizontal" name="fviewcomment" method="post" action="./write_comment_update.php" onsubmit="return fviewcomment_submit(this);" autocomplete="off" style="margin:0px;">
+<form role="form" class="form-horizontal" name="fviewcomment" method="post" action="<?=$g4[bbs_path]?>/write_comment_update.php" onsubmit="return fviewcomment_submit(this);" autocomplete="off" style="margin:0px;">
 <input type=hidden name=w           id=w value='c'>
 <input type=hidden name=bo_table    value='<?=$bo_table?>'>
 <input type=hidden name=wr_id       value='<?=$wr_id?>'>
@@ -364,7 +364,7 @@ comment_box('', 'c'); // 코멘트 입력폼이 보이도록 처리하기위해서 추가 (root님)
 
 <!-- 모바일에서는 로그인창이 안보입니다. 코멘트 입력을 위해 로그인창을 보여주는게 좋습니다 -->
 <? if ($member['mb_id'] == "" && $board['bo_comment_level'] > 1) {
-    $login_url = "./login.php?wr_id=$wr_id{$qstr}&url=".urlencode("$g4[bbs_path]/board.php?bo_table=$bo_table&wr_id=$wr_id#g4_comment");
+    $login_url = "<?=$g4[bbs_path]?>/login.php?wr_id=$wr_id{$qstr}&url=".urlencode("$g4[bbs_path]/board.php?bo_table=$bo_table&wr_id=$wr_id#g4_comment");
 ?>
 <div class="well"><a href="<?=$login_url?>" title="login">로그인 하시면 댓글을 남길 수 있습니다</a></div>
 <? } ?>
