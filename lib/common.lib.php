@@ -264,7 +264,7 @@ function get_file($bo_table, $wr_id)
     while ($row = sql_fetch_array($result))
     {
         $no = $row[bf_no];
-        $file[$no][href] = "./download.php?bo_table=$bo_table&wr_id=$wr_id&no=$no" . $qstr;
+        $file[$no][href] = "$g4[bbs_path]/download.php?bo_table=$bo_table&amp;wr_id=$wr_id&amp;no=$no" . $qstr;
         $file[$no][download] = $row[bf_download];
         // 4.00.11 - 파일 path 추가
         $file[$no][path] = "$g4[data_path]/file/$bo_table";
@@ -1052,7 +1052,7 @@ function get_sideview($mb_id, $name="", $email="", $homepage="")
         $title_mb_id = "[비회원]";
     }
 
-    $tmp_name = "<a class=\"sideview\" alt=\"$title_mb_id\" style=\"cursor:pointer;\" role=\"button\" data-placement="auto right" tabindex=\"0\" data-toggle=\"popover\" data-trigger=\"focus\">$tmp_name</a>";
+    $tmp_name = "<a class=\"sideview\" alt=\"$title_mb_id\" style=\"cursor:pointer;\" role=\"button\" data-placement=\"auto right\" tabindex=\"0\" data-toggle=\"popover\" data-trigger=\"focus\">$tmp_name</a>";
     return $tmp_name;
 
 }
