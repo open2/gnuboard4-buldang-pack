@@ -132,11 +132,11 @@ $g4['session_table'] = $g4['table_prefix'] . "session";                   // db�
 
 // www.sir.co.kr 과 sir.co.kr 도메인은 서로 다른 도메인으로 인식합니다. 쿠키를 공유하려면 .sir.co.kr 과 같이 입력하세요.
 // 이곳에 입력이 없다면 www 붙은 도메인과 그렇지 않은 도메인은 쿠키를 공유하지 않으므로 로그인이 풀릴 수 있습니다.
-$g4['cookie_domain'] = "";
+$g4['cookie_domain'] = ".diorcafe.co.kr";
 
 // DNS Round Robin, L4 Loading Balancing 등의 경우, 접속시마다 $_SERVER[SERVER_ADDR]이 바뀝니다.
 // 따라서, 사이트를 나타낼 수 있는 unique한 이름(예:도메인이름,사이트명,서버ip등)을 써줘야 자동로그인이 안풀립니다.
-$g4['load_balance'] = "";
+$g4['load_balance'] = ".diorcafe.co.kr";
 
 // 게시판에서 링크의 기본갯수를 말합니다.
 // 필드를 추가하면 이 숫자를 필드수에 맞게 늘려주십시오.
@@ -149,6 +149,7 @@ $g4['charset'] = "euc-kr";
 // 예) http://g4.sir.co.kr
 $g4['url'] = "";
 $g4['https_url'] = "";
+//$g4['https_url'] = "https://www.diorcafe.co.kr";
 // 입력예
 //$g4['url'] = "http://www.sir.co.kr";
 //$g4['https_url'] = "https://www.sir.co.kr";
@@ -157,25 +158,25 @@ $g4['https_url'] = "";
 $g4['encrypt_key'] = "opencode";
 
 // 추천+인증으로 가입을 하기 위해서
-$g4['member_suggest_join']  = 0;
+$g4['member_suggest_join']  = 1;
 
 // 추천+인증으로 가입할 때, 추천 코드의 유효기간 (기본 7일. 시간이 아니라 날짜다.)
-$g4['member_suggest_join_days']  = 7;
+$g4['member_suggest_join_days']  = 90;
 
 // 자동 레벨업을 사용할 것인가를 설정
-$g4['use_auto_levelup'] = 0;
+$g4['use_auto_levelup'] = 1;
 
 // 사용할 session 형태를 지정 합니다. 
-// db. redis. file - 4종 입니다
+// db. redis. file - 3종 입니다
 // redis를 사용하기 위해서는 PECL:redis와 phpredis를 설치해야지 합니다. redis 서버의 설치가 필요합니다.
-// 4종의 세션관리중 redis를 강력하게 추천 합니다.
+// 3종의 세션관리중 redis를 강력하게 추천 합니다.
 $g4['session_type'] = "db";
 
 // redis 사용할때의 설정
 $g4['rhost']    = "localhost";
 $g4['rport']    = "6379";
 $g4['rauth']    = "";             // redis-server password. default는 값이 없다. redis.conf에서 정의
-$g4['rdomain']  = "opencode";     // redis domain. 다른 redis instance와 충돌하지 않게 unique하게 잡아줍니다
+$g4['rdomain']  = "diorcafe";     // redis domain. 다른 redis instance와 충돌하지 않게 unique하게 잡아줍니다
 $g4['rdb']      = "0";            // redis DB space (0) - 세션관리에 사용
 $g4['rdb1']     = "1";            // redis DB space (1) - login 관리에 사용. 다른 것들과 안헷갈리게
 
@@ -260,7 +261,7 @@ $g4['ie_ua'] = "edge";
 $g4['search_level'] = 2;
 
 // 이메일인증시 지급할 포인트
-$g4['email_certify_point'] = 100;
+$g4['email_certify_point'] = 500;
 
 // 추천, 비추천 포인트 부여하기
 $g4['good_point'] = 20;
@@ -283,7 +284,7 @@ $g4['tempsave_time'] = 5;
 $g4['htmlpurifier_cache'] = $g4[data_path].'/cache';
 
 // 유니크로 - 유니크로 게시판을 쓰는 경우에만 아래의 주석을 풀어주세요.
-//$g4['unicro_item_table']    = $g4['table_prefix'] . "unicro_item"; // 유니크로 아이템 테이블 
-//$g4['unicro_url']           = "unicro" . $g4['cookie_domain'];
-//$g4['unicro_path']          = $g4['path'] . "/" . "unicro";
+$g4['unicro_item_table']    = $g4['table_prefix'] . "unicro_item"; // 유니크로 아이템 테이블 
+$g4['unicro_url']           = "unicro" . $g4['cookie_domain'];
+$g4['unicro_path']          = $g4['path'] . "/" . "unicro";
 ?>
