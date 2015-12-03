@@ -20,17 +20,9 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 </div>
 
 <div class="panel-body">
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Password</label>
-        <div>
-            <INPUT type="password" class="form-control" maxLength=20 size=15 name="wr_password" id="password_wr_password" itemname="패스워드" required placeholder="password">
-        </div>
-    </div>
-
-    <div>
+        <label class="control-label">Password</label>
+        <INPUT type="password" class="form-control" maxLength=20 size=15 name="wr_password" id="password_wr_password" itemname="패스워드" required placeholder="password">
         <button type="submit" class="btn btn-default">확인</button>
-    </div>
 </div>
 
 </div>
