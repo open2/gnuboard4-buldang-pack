@@ -186,11 +186,8 @@ if ($wr_id)
         set_session($ss_name, TRUE);
     }
 
-    // 불당팩 - SEO를 위해서 순서를 변경
-    if($cwin)
-        $g4[title] =  strip_tags(conv_subject($write[wr_subject], 255)) . " [코멘트] > $board[bo_subject] > $group[gr_subject]";
-    else
-        $g4[title] =  strip_tags(conv_subject($write[wr_subject], 255)) . " > $board[bo_subject] > $group[gr_subject]";
+    // 불당팩 - SEO + 네이버 웹마스터 도구를 위해서 변경.
+    $g4[title] =  strip_tags(conv_subject($write[wr_subject], 255)) . " :: " .   $config[cf_title];
 }
 else
 {
