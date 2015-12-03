@@ -126,7 +126,7 @@ if ($wr_id)
                 // 이 게시물이 저장된 게시물이 아니면서 관리자가 아니라면
                 //if ("$bo_table|$write[wr_num]" != get_session("ss_secret")) 
                 if (!get_session($ss_name)) 
-                    goto_url("./password.php?w=s&bo_table=$bo_table&wr_id=$wr_id{$qstr}");
+                    goto_url("$g4[bbs_path]/password.php?w=s&bo_table=$bo_table&wr_id=$wr_id{$qstr}");
             }
 
             // $write[wr_num] -> $wr_id... 답글의 권한이 댓글만 달면 모두 다 오는 오류 수정
