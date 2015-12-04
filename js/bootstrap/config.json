@@ -16,7 +16,7 @@
     "@link-color": "@text-color ",
     "@link-hover-color": "darken(@link-color, 15%)",
     "@link-hover-decoration": "underline",
-    "@font-family-sans-serif": "\"맑은고딕\",\"돋움\",Dotum,sans-serif",
+    "@font-family-sans-serif": "\"맑은 고딕\",\"돋움\",Dotum,sans-serif",
     "@font-family-serif": "Georgia, \"Times New Roman\", Times, serif",
     "@font-family-monospace": "Menlo, Monaco, Consolas, \"Courier New\", monospace",
     "@font-family-base": "@font-family-sans-serif",
@@ -431,5 +431,5 @@
     "scrollspy.js",
     "transition.js"
   ],
-  "customizerUrl": "http://getbootstrap.com/customize/?id=3d63e52fe29c4c0e1a3e"
+  "customizerUrl": "http://getbootstrap.com/customize/?id=562876b965603c46adca"
 }
