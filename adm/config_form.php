@@ -248,6 +248,13 @@ include_once ("./admin.head.php");
     </td>
 </tr>
 <tr>
+    <td>신고가능 레벨</td>
+    <td>
+    <? echo get_member_level_select('cf_singo_level', 2, 9, $config[cf_singo_level]) ?>
+        <?=help("게시글 신고를 할 수 있는 회원의 최소 레벨. 레벨이 미달하면 신고할 수 없습니다")?>
+    </td>
+</tr>
+<tr>
     <td>신고가능 포인트</td>
     <td>
     <input type=text  name='cf_singo_point' value='<?=$config[cf_singo_point]?>' size=5> 점
