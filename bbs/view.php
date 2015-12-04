@@ -189,7 +189,7 @@ if ($is_admin) {
   
 // 신고 링크 - 코멘트 쓰기 권한이 있는 사람에게만 보이게
 $singo_href = "";
-if ($board[bo_singo] && $write_href && $member[mb_id] != $write[mb_id] && $member['mb_level'] >= $board['bo_comment_level'])
+if ($board[bo_singo] && $write_href && $member[mb_id] != $write[mb_id] && $member['mb_level'] >= $config['cf_singo_level'])
     $singo_href = "$g4[bbs_path]/singo_popin.php?bo_table=$bo_table&wr_id=$wr_id&wr_parent=$wr_id" . $mstr;
 
 // 신고해지 링크
