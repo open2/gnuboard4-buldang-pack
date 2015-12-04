@@ -172,7 +172,9 @@ foreach($memo_list as $memo_recv_mb_id) {
     }
 }
 
-//------------------------------------------------------------------------------------
+// 사용자 코드 실행
+@include_once ("$g4[path]/skin/member/$config[cf_member_skin]/singo_popin_update.skin.php");
+
 ?>
 
 <?
