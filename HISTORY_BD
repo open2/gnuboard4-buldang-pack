@@ -1,4 +1,147 @@
-20.02 (2015.10.27)
+2.0.4 (2015.12.04)
+
+DB변경이 있습니다.
+ALTER TABLE g4_config ADD `cf_singo_level` TINYINT( 4 ) NOT NULL AFTER `cf_singo_intercept_count` ;
+
+adm/config_form.php
+adm/config_form_update.php
+adm_upgrade_bd.php
+
+bbs/board.php
+bbs/singo_popin_update.php
+bbs/view.php
+
+cheditor5/cheditor.js
+
+install/sql_opencode.sql
+
+js/bootstrap/*
+
+skin/member/basic/password.skin.php
+
+- 신고처리 확장 skin 추가 (사이트별 신고처리를 위한 것)
+bbs/singo_popin_update.php
+
+- 신고가능 레벨 설정 (현재는 코멘트 가능하면 신고가능한데, 이것을 레벨로 변경합니다)
+adm/config_form.php
+adm/config_form_update.php
+adm_upgrade_bd.php
+bbs/view.php
+install/sql_opencode.sql
+
+- cheditor 설정값 변경
+cheditor5/cheditor.js
+
+- 부트스트랩 3.3.6
+js/bootstrap/*
+
+- 비밀번호 스킨 오류 수정
+skin/member/basic/password.skin.php
+
+- 비밀번호 게시글 단축이동 오류 수정
+http://www.opencode.co.kr/gnu4_pack_req/1542
+bbs/board.php
+
+- 네이버 검색엔진 최적화 반영
+http://webmastertool.naver.com/guide/basic_markup.naver
+bbs/board.php
+
+2.0.3 (2015.10.30)
+불당팩 2.0.3에 한가지 더 반드시 있어야 하는 apache 기능이 추가되며
+mod_rewrite 모듈이 있어야지만 구동가능한 단축주소가 추가 됩니다.
+앱과 모바일에서 긴 주소는 말그대로 죽음 입니다.
+불편하고 짜증나는 것인데, 그부분을 손대야 할 것 같아서 2.0.3에 반영합니다.
+
+불당팩 구동은 PDO sql이 있어야 하며, apache의 mod_rewrite가 동작해야 합니다.
+설치전에 반드시 확인 바랍니다.
+
+.htaccess
+common.php
+head.sub.php
+tail.php
+
+adm/admin.tail.php
+
+bbs/download.php
+bbs/list.php
+bbs/view_comment.php
+
+js/b4.common.js
+
+lib/common.lib.php
+lib/moveup.php
+lib/view.skin.lib.php
+
+skin/board/boot/view.skin.php
+
+skin/latest/naver/latest.skin.php
+
+skin/member/basic/profile.skin.php
+
+bbs_shorten.php (삭제)
+
+
+ 
+
+- sideview 스맛폰에서 위치오류 수정
+lib/common.lib.php
+
+- download 코드수정
+bbs/download.php
+js/b4.common.js
+lib/common.lib.php
+lib/view.skin.lib.php
+
+- 단축주소
+.htaccess
+head.php
+bbs/board.php
+bbs/delete.php
+bbs/list.php
+bbs/scrap.php
+bbs/view.php
+bbs/write.php
+lib/common.lib.php
+lib/whatson.lib.php
+skin/board/boot/view_comment.skin.php
+skin/latest/naver/latest.skin.php
+skin/popular/board/popular.skin.php
+
+bbs_shorten.php (삭제)
+
+- profile 프로그램 오류수정
+skin/member/basic/profile.skin.php
+
+- pdo 적용
+bbs/view_comment.php
+
+- 그누보드 4.37.37
+bbs/list.php
+    : Time-based 블라인드 인젝션 취약점 해결 (한국인터넷진흥원에서 알려 주셨습니다.) 
+        bbs/list.php 에 아래의 코드가 추가 되었습니다. 
+        if(!$sst) 
+            $sst = "wr_num, wr_reply";
+http://sir.co.kr/g4_pds/9373
+
+- $bg_id 변수 필터링
+common.php
+
+- 코드정리
+tail.php
+adm/admin.tail.php
+lib/moveup.php
+
+- 그누5 lib의 hypen_hp_number 함수추가
+lib/common.lib.php
+
+- bootstrap 버젼 적용
+head.sub.php
+
+- style 수정
+skin/board/boot/view.skin.php
+
+
+2.0.2 (2015.10.27)
 
 php 5.1 이상 + PDO extension이 설치 안되면 동작하지 않습니다!!!
 호스팅을 사용하시는 경우 PDO 지원을 하는 곳(예. 스쿨호스팅)을 사용하시기 바랍니다.
