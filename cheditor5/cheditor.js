@@ -387,7 +387,7 @@ function setConfig () {
     var config = {
         editorWidth     : '100%',
         editorHeight    : '300px',
-        editorFontSize  : '12px',
+        editorFontSize  : '13px',
         editorFontName  : '¸¼Àº °íµñ, ±¼¸², Malgun Gothic, gulim',
         editorFontColor : '#000',
         editorBgColor   : '#fff',
