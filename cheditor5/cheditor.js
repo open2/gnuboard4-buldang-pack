@@ -400,7 +400,7 @@ function setConfig () {
         linkTarget      : '_blank',
         showTagPath     : false,
         colorToHex		: true,
-        imgMaxWidth     : 640,
+        imgMaxWidth     : 0,
         imgUploadNumber : 4,
         imgUploadSortName : false,
         imgSetAttrWidth : 1, // -1 = (width=100%, height=auto), 0 = 설정 안함, 1 = 원래대로
