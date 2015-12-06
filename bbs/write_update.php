@@ -11,6 +11,14 @@ if (substr_count($wr_content, "&#") > 50) {
 }
 */
 
+// 자동등록방지 검사 - 비회원의 경우만
+if (!$is_member) {
+    if ($w=='' || $w=='r') {
+        if (chk_recaptcha() == false)
+            alert ('스팸차단코드가 틀렸습니다.', $goto_url);
+    }
+}
+
 // 같은 글을 여기저기 게시판에 펌 하시는 분들을 위해서. 뒤에서 쓰기 끝낸후에 저장한 것과 비교
 if ($w == "" || $w == "r") {
     if ($is_admin == "") {
@@ -228,14 +236,6 @@ if ($w == "" || $w == "r")
     $curr_md5 = md5($_SERVER[REMOTE_ADDR].$wr_subject.$wr_content);
     if ($row[prev_md5] == $curr_md5 && !$is_admin)
         alert("동일한 내용을 연속해서 등록할 수 없습니다.", $goto_url);
-}
-
-// 자동등록방지 검사 - 비회원의 경우만
-if (!$is_member) {
-    if ($w=='' || $w=='r') {
-        include_once("$g4[path]/zmSpamFree/zmSpamFree.php");
-        if ( !zsfCheck( $_POST['wr_key'], $_GET['bo_table'] ) ) { alert ('스팸차단코드가 틀렸습니다.', $goto_url); }    
-    }
 }
 
 if (!isset($_POST[wr_subject]) || !trim($_POST[wr_subject])) 

@@ -2305,4 +2305,34 @@ function conv_latest ($str) {
 
     return $str;
 }
+
+// $_POST ·Î ³Ñ¾î¿Â Ä¸Ã­°ªÀ» Ã¼Å©
+function chk_recaptcha()
+{
+  	global $g4;
+
+    if (!isset($_POST['g-recaptcha-response'])) return false;
+
+    $gg_response = trim($_POST['g-recaptcha-response']);
+    if ($gg_response == "") return false;
+
+  	$url = 'https://www.google.com/recaptcha/api/siteverify';
+	  $data = array('secret' => $g4['recaptcha_secret_key'], 'response' => $gg_response, 'remoteip' => $_SERVER['REMOTE_ADDR']);
+
+    $ch = curl_init();
+  	curl_setopt($ch, CURLOPT_URL, $url);
+	  curl_setopt($ch, CURLOPT_POST, sizeof($data));
+  	curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+	  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  	$result = curl_exec($ch);
+	  curl_close($ch);
+
+  	$obj = json_decode($result);
+
+    if($obj->success == false) {
+        echo '<script>alert("Google Recaptcha Error!");history.go(-1);</script>';
+    }
+
+	  return true;
+}
 ?>

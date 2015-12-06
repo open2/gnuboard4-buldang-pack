@@ -283,8 +283,7 @@ $g4['tempsave_time'] = 5;
 // HTML Purifier Cache 디렉토리
 $g4['htmlpurifier_cache'] = $g4[data_path].'/cache';
 
-// 유니크로 - 유니크로 게시판을 쓰는 경우에만 아래의 주석을 풀어주세요.
-$g4['unicro_item_table']    = $g4['table_prefix'] . "unicro_item"; // 유니크로 아이템 테이블 
-$g4['unicro_url']           = "unicro" . $g4['cookie_domain'];
-$g4['unicro_path']          = $g4['path'] . "/" . "unicro";
+// 구글 리캡챠 : https://www.google.com/recaptcha/admin
+$g4['recaptcha_sitekey'] = "";
+$g4['recaptcha_secret_key'] = "";
 ?>
