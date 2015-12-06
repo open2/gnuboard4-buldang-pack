@@ -173,11 +173,8 @@ if ($is_dhtml_editor) {
         <? if ($is_guest) { ?>
             이름 <INPUT type=text maxLength=20 size=10 name="wr_name" itemname="이름" required class=ed>
             패스워드 <INPUT type=password maxLength=20 size=10 name="wr_password" itemname="패스워드" required class=ed>
-            <? if ($is_guest) { ?>
-            <img id="zsfImg">
-            <input class='ed' type=input size=10 name=wr_key id=wr_key itemname="자동등록방지" required >&nbsp;&nbsp;
-            <script type="text/javascript" src="<?="$g4[path]/zmSpamFree/zmspamfree.js"?>"></script>
-            <?}?>
+            <script src='https://www.google.com/recaptcha/api.js'></script>
+            <div id="grecaptcha" class="g-recaptcha" data-sitekey="<?=$g4['recaptcha_sitekey']?>" style="float:right"></div>
         <? } ?>
         <input type=checkbox id="wr_secret" name="wr_secret" value="secret">비밀글
         <? if ($comment_min || $comment_max) { ?><span id=char_count></span>글자<?}?>
@@ -232,18 +229,6 @@ function fviewcomment_submit(f)
     <? } else { ?>
         var save_html = f.wr_content.innerHTML;
     <? } ?>
-
-    /*
-    var s;
-    if (s = word_filter_check(f.wr_content.value))
-    {
-        alert("내용에 금지단어('"+s+"')가 포함되어있습니다");
-        <? if (!$is_dhtml_editor) { ?>
-        f.wr_content.focus();
-        <? } ?>
-        return false;
-    }
-    */
 
     var subject = "";
     var content = "";
@@ -320,9 +305,10 @@ function fviewcomment_submit(f)
         }
     }
 
-    if (typeof(f.wr_key) != 'undefined')
-    {
-        if (!checkFrm()) {
+    if (typeof(grecaptcha) != 'undefined') {
+        var v = grecaptcha.getResponse();
+        if(v.length == 0) {
+            alert("스팸방지코드(Captcha Code)가 틀렸습니다. 다시 입력해 주세요.");
             return false;
         }
     }
@@ -398,7 +384,14 @@ comment_box('', 'c'); // 코멘트 입력폼이 보이도록 처리하기위해서 추가 (root님)
 </script>
 <? } ?>
 
-<? if($cwin==1) { ?></td><tr></table><p align=center><a href="javascript:window.close();"><img src="<?=$board_skin_path?>/img/btn_close.gif" border="0"></a><br><br><?}?>
+<!-- 모바일에서는 로그인창이 안보입니다. 코멘트 입력을 위해 로그인창을 보여주는게 좋습니다 -->
+<? if ($member['mb_id'] == "" && $board['bo_comment_level'] > 1) {
+    $login_url = "<?=$g4[bbs_path]?>/login.php?wr_id=$wr_id{$qstr}&url=".urlencode("$g4[bbs_path]/board.php?bo_table=$bo_table&wr_id=$wr_id#g4_comment");
+?>
+<div class="well"><a href="<?=$login_url?>" title="login">로그인 하시면 댓글을 남길 수 있습니다</a></div>
+<? } ?>
+
+<? if($cwin==1) { ?></div><p align=center><a class="btn btn-default" href="javascript:window.close();">닫 기</a><?}?>
 
 <!-- post 방식으로 javascript submit을 수행 -->
 <script type="text/javascript">

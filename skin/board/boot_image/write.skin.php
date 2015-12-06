@@ -243,13 +243,8 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
         <? } ?>
 
         <? if ($is_guest) { ?>
-        <script type="text/javascript" src="<?="$g4[path]/zmSpamFree/zmspamfree.js"?>"></script>
-        <div class="form-group">
-            <div class="col-sm-1 hidden-xs"><img id="zsfImg"></div>
-            <div class="col-xs-12 col-sm-11">
-                <input class="form-control" type=input size=10 name=wr_key id=wr_key itemname="자동등록방지" placeholder="왼쪽의 Captcha 글자를 입력하세요." required>
-            </div>
-        </div>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+        <div id="grecaptcha" class="g-recaptcha" data-sitekey="<?=$g4['recaptcha_sitekey']?>" style="float:right"></div>
         <? } ?>
 
     </div>
@@ -361,9 +356,10 @@ function fwrite_submit(f)
         return false;
     }
 
-    if (typeof(f.wr_key) != 'undefined') {
-        if (!checkFrm()) {
-            alert ("스팸방지코드(Captcha Code)가 틀렸습니다. 다시 입력해 주세요.");
+    if (typeof(grecaptcha) != 'undefined') {
+        var v = grecaptcha.getResponse();
+        if(v.length == 0) {
+            alert("스팸방지코드(Captcha Code)가 틀렸습니다. 다시 입력해 주세요.");
             return false;
         }
     }

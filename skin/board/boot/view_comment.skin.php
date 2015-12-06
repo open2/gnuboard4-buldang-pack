@@ -146,11 +146,8 @@ if ($is_dhtml_editor) {
         <? if ($is_guest) { ?>
             이름 <INPUT type=text maxLength=20 size=10 name="wr_name" itemname="이름" required class=ed>
             패스워드 <INPUT type=password maxLength=20 size=10 name="wr_password" itemname="패스워드" required class=ed>
-            <? if ($is_guest) { ?>
-            <img id="zsfImg">
-            <input class='ed' type=input size=10 name=wr_key id=wr_key itemname="자동등록방지" required >&nbsp;&nbsp;
-            <script type="text/javascript" src="<?="$g4[path]/zmSpamFree/zmspamfree.js"?>"></script>
-            <?}?>
+            <script src='https://www.google.com/recaptcha/api.js'></script>
+            <div id="grecaptcha" class="g-recaptcha" data-sitekey="<?=$g4['recaptcha_sitekey']?>" style="float:right"></div>
         <? } ?>
         <label><input type=checkbox id="wr_secret" name="wr_secret" value="secret">비밀글</label>
         <? if ($comment_min || $comment_max) { ?><span id=char_count></span>글자<?}?>
@@ -284,9 +281,10 @@ function fviewcomment_submit(f)
         }
     }
 
-    if (typeof(f.wr_key) != 'undefined')
-    {
-        if (!checkFrm()) {
+    if (typeof(grecaptcha) != 'undefined') {
+        var v = grecaptcha.getResponse();
+        if(v.length == 0) {
+            alert("스팸방지코드(Captcha Code)가 틀렸습니다. 다시 입력해 주세요.");
             return false;
         }
     }

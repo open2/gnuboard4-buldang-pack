@@ -51,16 +51,12 @@ if (!$wr[wr_id])
     alert("글이 존재하지 않습니다.\\n\\n글이 삭제되었거나 이동하였을 수 있습니다."); 
 
 // 자동등록방지 검사 - 비회원의 경우만
-//if (!$is_member) 
-//    include_once ("./norobot_check.inc.php");
-
 if (!$is_member) {
     if ($w=='' || $w=='c') {
-        include_once("$g4[path]/zmSpamFree/zmSpamFree.php");
-        if ( !zsfCheck( $_POST['wr_key'], $_GET['bo_table'] ) ) { alert ('스팸차단코드가 틀렸습니다.'); }    
+        if (chk_recaptcha() == false)
+            alert ('스팸차단코드가 틀렸습니다.', $goto_url);
     }
 }
-
 
 // "인터넷옵션 > 보안 > 사용자정의수준 > 스크립팅 > Action 스크립팅 > 사용 안 함" 일 경우의 오류 처리
 // 이 옵션을 사용 안 함으로 설정할 경우 어떤 스크립트도 실행 되지 않습니다.
