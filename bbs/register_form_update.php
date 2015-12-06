@@ -42,8 +42,8 @@ if ($w == "u" && $is_admin == "super") {
 
 // 스팸차단을 쓸 경우에만
 if ($config[cf_use_norobot]) {
-    include_once("$g4[path]/zmSpamFree/zmSpamFree.php");
-    if ( !zsfCheck( $_POST['wr_key'], 'sms_admin' ) ) { alert ('스팸차단코드가 틀렸습니다.'); }    
+    if (chk_recaptcha() == false)
+        alert ('스팸차단코드가 틀렸습니다.', $g4[path]);
 }
 
 $mb_password    = trim($_POST['mb_password']);

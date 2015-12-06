@@ -355,13 +355,11 @@ var member_skin_path = "<?=$member_skin_path?>";
 
         <? if ($config[cf_use_norobot]) { ?>
         <div class="form-group">
-            <label for="wr_key" class="col-sm-2 control-label">
-                <script type="text/javascript" src="<?="$g4[path]/zmSpamFree/zmspamfree.js"?>"></script>
-                <img id="zsfImg">
-            </label>
-            <div class="col-sm-6">
-                <input class="form-control" type="input" size=10 name=wr_key id=wr_key itemname="자동등록방지" required placeholder="Captcha">
-                <p class="help-block">왼쪽의 글자를 입력하세요.</p>
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-6" style="margin-left:10px;">
+                <script src='https://www.google.com/recaptcha/api.js'></script> 
+                <div id="grecaptcha" class="g-recaptcha" data-sitekey="<?=$g4['recaptcha_sitekey']?>"></div> 
             </div>
         </div>        
         <? } ?>
@@ -524,11 +522,11 @@ function fregisterform_submit(f)
         }
     }
 
-    if (typeof(f.wr_key) != 'undefined') {
-        if (!checkFrm()) {
-            alert ("스팸방지코드(Captcha Code)가 틀렸습니다. 다시 입력해 주세요.");
-            return false;
-        }
+    if (typeof(grecaptcha) != 'undefined') { 
+        if(grecaptcha.getResponse() == "") { 
+            alert("스팸방지코드(Captcha Code)가 틀렸습니다. 다시 입력해 주세요."); 
+            return false; 
+        } 
     }
 
     <?
