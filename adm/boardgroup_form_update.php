@@ -5,6 +5,9 @@ include_once("./_common.php");
 if ($w == 'u')
     check_demo();
 
+if (chk_recaptcha() == false)
+    alert ('스팸차단코드가 틀렸습니다.');
+
 auth_check($auth[$sub_menu], "w");
 
 if ($is_admin != "super" && $w == "") alert("최고관리자만 접근 가능합니다.");

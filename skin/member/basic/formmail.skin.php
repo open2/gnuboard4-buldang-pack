@@ -58,10 +58,8 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
           <tr>
               <td class="col-sm-2" style="border:0px;"><img id="zsfImg"></td>
               <td style="border:0px;">
-                  <script type="text/javascript" src="<?="$g4[path]/zmSpamFree/zmspamfree.js"?>"></script>
-                  <div class="form-group">
-                  <input class="form-control" type=input size=10 name=wr_key id=wr_key itemname="자동등록방지" required >&nbsp;&nbsp;왼쪽의 글자를 입력하세요.
-                  </div>
+                  <script src='https://www.google.com/recaptcha/api.js'></script> 
+                  <div id="grecaptcha" class="g-recaptcha" data-sitekey="<?=$g4['recaptcha_sitekey']?>" style="float:right"></div> 
               </td>
           </tr>
           </table>
@@ -94,11 +92,11 @@ with (document.fformmail) {
 
 function fformmail_submit(f)
 {
-    if (typeof(f.wr_key) != 'undefined') {
-        if (!checkFrm()) {
-          alert ("스팸방지코드(Captcha Code)가 틀렸습니다. 다시 입력해 주세요.");
-            return false;
-        }
+    if (typeof(grecaptcha) != 'undefined') { 
+        if(grecaptcha.getResponse() == "") { 
+            alert("스팸방지코드(Captcha Code)가 틀렸습니다. 다시 입력해 주세요."); 
+            return false; 
+        } 
     }
 
     if (f.file1.value || f.file2.value) {

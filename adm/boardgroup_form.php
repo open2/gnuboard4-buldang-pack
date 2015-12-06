@@ -112,6 +112,14 @@ include_once("./admin.head.php");
 </tr>
 <? } ?>
 
+<tr>
+    <td></td>
+    <td colspan=3>
+        <script src='https://www.google.com/recaptcha/api.js'></script> 
+        <div id="grecaptcha" class="g-recaptcha" data-sitekey="<?=$g4['recaptcha_sitekey']?>"></div> 
+    </td>
+</tr>
+
 </table>
 
 <p align=center>
@@ -127,6 +135,13 @@ else
 
 function fboardgroup_check(f)
 {
+    if (typeof(grecaptcha) != 'undefined') { 
+        if(grecaptcha.getResponse() == "") { 
+            alert("스팸방지코드(Captcha Code)가 틀렸습니다. 다시 입력해 주세요."); 
+            return false; 
+        } 
+    }
+
     f.action = "./boardgroup_form_update.php";
     return true;
 }

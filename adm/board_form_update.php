@@ -11,6 +11,9 @@ if ($member[mb_password] !== sql_password($_POST['admin_password'])) {
     alert("패스워드가 다릅니다.");
 }
 
+if (chk_recaptcha() == false)
+    alert ('스팸차단코드가 틀렸습니다.');
+
 $gr_id = $_POST[gr_id];
 $bo_subject = $_POST[bo_subject];
 

@@ -64,11 +64,10 @@ if (!$member[mb_id]) {
 <td><textarea class=ed name='leave_reason' rows='3' style='width:99%;'></textarea></td>
 </tr>
 <tr class='ht'>
-    <td>
-    <img id="zsfImg">
-    </td>
+    <td></td>
     <td colspan=3>
-        <input class='ed' type=input size=10 name=wr_key id=wr_key itemname="자동등록방지" required >&nbsp;&nbsp;왼쪽의 글자를 입력하세요.
+        <script src='https://www.google.com/recaptcha/api.js'></script> 
+        <div id="grecaptcha" class="g-recaptcha" data-sitekey="<?=$g4['recaptcha_sitekey']?>" style="float:right"></div> 
     </td>
 </tr>
 </table>
@@ -78,15 +77,14 @@ if (!$member[mb_id]) {
 
 </form>
 
-<script type="text/javascript" src="<?="$g4[path]/zmSpamFree/zmspamfree.js"?>"></script>
-<script language="javascript">
+<script type="text/javascript">
 function fconfigform_submit(f)
 {
-    if (typeof(f.wr_key) != 'undefined') {
-        if (!checkFrm()) {
-            alert ("스팸방지코드(Captcha Code)가 틀렸습니다. 다시 입력해 주세요.");
-            return false;
-        }
+    if (typeof(grecaptcha) != 'undefined') { 
+        if(grecaptcha.getResponse() == "") { 
+            alert("스팸방지코드(Captcha Code)가 틀렸습니다. 다시 입력해 주세요."); 
+            return false; 
+        } 
     }
 
     f.action = "./mb_leave_update.php";

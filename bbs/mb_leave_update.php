@@ -2,8 +2,8 @@
 $g4[title] = "회원탈퇴";
 include_once("./_common.php");
 
-include_once("$g4[path]/zmSpamFree/zmSpamFree.php");
-if ( !zsfCheck( $_POST['wr_key'], 'sms_admin' ) ) { alert ('스팸차단코드가 틀렸습니다.'); }    
+if (chk_recaptcha() == false)
+    alert ('스팸차단코드가 틀렸습니다.');
 
 // 변수들을 setting 합니다
 $mb_id        = $_POST[mb_id];

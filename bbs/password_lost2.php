@@ -12,8 +12,8 @@ if ($member[mb_id])
     exit;
 }
 
-include_once("$g4[path]/zmSpamFree/zmSpamFree.php");
-if ( !zsfCheck( $_POST['wr_key'], 'password_lost' ) ) { alert ('스팸차단코드가 틀렸습니다.'); }
+if (chk_recaptcha() == false)
+    alert ('스팸차단코드가 틀렸습니다.');
 
 $email = trim($_POST['mb_email']);
 

@@ -847,6 +847,9 @@ if ($notice_wr_id[0] != '' && $notice_count) {
     <td>
         <input class='ed' type='password' name='admin_password' itemname="관리자 패스워드" required>
         <?=help("관리자 권한을 빼앗길 것에 대비하여 로그인한 관리자의 패스워드를 한번 더 묻는것 입니다.");?>
+
+        <script src='https://www.google.com/recaptcha/api.js'></script> 
+        <div id="grecaptcha" class="g-recaptcha" data-sitekey="<?=$g4['recaptcha_sitekey']?>"></div> 
     </td>
 </tr>
 </table>
@@ -924,7 +927,14 @@ function fboardform_submit(f) {
     for (i=0; i < notice_len; i++)
         f.elements['notice_list[]'].options[i].selected = true;
     <? } ?>
-    
+
+    if (typeof(grecaptcha) != 'undefined') { 
+        if(grecaptcha.getResponse() == "") { 
+            alert("스팸방지코드(Captcha Code)가 틀렸습니다. 다시 입력해 주세요."); 
+            return false; 
+        } 
+    }
+
     f.action = "./board_form_update.php";
     return true;
 }

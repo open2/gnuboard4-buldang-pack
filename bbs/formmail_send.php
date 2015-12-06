@@ -13,8 +13,8 @@ $to = base64_decode($to);
 if (substr_count($to, "@") > 1)
     alert_close('한번에 한사람에게만 메일을 발송할 수 있습니다.');
 
-include_once("$g4[path]/zmSpamFree/zmSpamFree.php");
-if ( !zsfCheck( $_POST['wr_key'], 'sms_admin' ) ) { alert ('스팸차단코드가 틀렸습니다.'); }    
+if (chk_recaptcha() == false)
+    alert ('스팸차단코드가 틀렸습니다.');
 
 for ($i=1; $i<=$attach; $i++) 
 {

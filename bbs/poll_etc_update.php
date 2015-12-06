@@ -13,8 +13,8 @@ if ($w == "")
 {
     // 자동등록방지 검사
     if (!$member[mb_id] && $config[cf_use_norobot]) {
-        include_once("$g4[path]/zmSpamFree/zmSpamFree.php");
-        if ( !zsfCheck( $_POST['wr_key'], 'sms_admin' ) ) { alert ('스팸차단코드가 틀렸습니다.'); }    
+        if (chk_recaptcha() == false)
+            alert ('스팸차단코드가 틀렸습니다.');
     }
 
     $po = sql_fetch(" select * from $g4[poll_table] where po_id = '$po_id' ");
