@@ -218,24 +218,54 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
       heightMax: 300,
 
         // Set the image upload parameter.
-        imageUploadParam: 'image_param',
+        imageUploadParam: 'file',
 
         // Set the image upload URL.
         imageUploadURL: '/froala/image_upload.php',
 
-        // Additional upload params.
-        imageUploadParams: {id: 'froala-editor'},
+        // Additional upload params (bo_table 값을 image_upload.php에 넘긴다)
+        imageUploadParams: {bo_table: '<?=$bo_table?>'},
 
         // Set request type.
         imageUploadMethod: 'POST',
 
-        // Set max image size to 5MB.
-        imageMaxSize: 5 * 1024 * 1024,
+        // Set max image size to 20MB.
+        imageMaxSize: 20 * 1024 * 1024,
 
         // Allow to upload PNG and JPG. GIF
-        imageAllowedTypes: ['jpeg', 'jpg', 'png', 'gif']
+        imageAllowedTypes: ['jpeg', 'jpg', 'png', 'gif'],
+
+        // image alignment
+        imageDefaultAlign: 'left',
+
+        // image width
+        imageDefaultWidth: 0
 
     })
+
+      // Catch image removal from the editor.
+      .on('froalaEditor.image.removed', function (e, editor, $img) {
+          $.ajax({
+  
+          // Request method.
+          method: "POST",
+
+          // Request URL.
+          url: "/froala/image_delete.php",
+
+          // Request params.
+          data: {
+            src: $img.attr('src')
+          }
+        })
+        .done (function (data) {
+          console.log ('image was deleted');
+        })
+        .fail (function () {
+          console.log ('image delete problem');
+        })
+        
+        });
   });
   </script>
 
