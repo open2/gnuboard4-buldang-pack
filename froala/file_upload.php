@@ -27,12 +27,12 @@ if ((($mime == "text/plain")
     && in_array(strtolower($extension), $allowedExts)) {
 
     // 디렉토리별로 분리해서 넣는다 (매번 만드는게 더 빠름)
-    @mkdir("$g4[data_path]/froala/$bo_table");
-    @mkdir("$g4[data_path]/froala/$bo_table/$ymd");
+    @mkdir("$g4[data_path]/froala_file/$bo_table");
+    @mkdir("$g4[data_path]/froala_file/$bo_table/$ymd");
 
     // Generate new random name.
     $name = $ymd . "_" . $bo_table . "_" . sha1(microtime()) . "." . strtolower($extension) . "-x";
-    $savefile = "$g4[data_path]/froala/$bo_table/$ymd/" . $name;
+    $savefile = "$g4[data_path]/froala_file/$bo_table/$ymd/" . $name;
 
     // Save file in the uploads folder.
     move_uploaded_file($_FILES["file"]["tmp_name"], $savefile);

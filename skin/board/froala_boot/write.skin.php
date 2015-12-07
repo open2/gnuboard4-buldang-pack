@@ -221,7 +221,7 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
         imageUploadParam: 'file',
 
         // Set the image upload URL.
-        imageUploadURL: '/froala/image_upload.php',
+        imageUploadURL: '<?=$g4[path]?>/froala/image_upload.php',
 
         // Additional upload params (bo_table 값을 image_upload.php에 넘긴다)
         imageUploadParams: {bo_table: '<?=$bo_table?>'},
@@ -239,7 +239,16 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
         imageDefaultAlign: 'left',
 
         // image width
-        imageDefaultWidth: 0
+        imageDefaultWidth: 0,
+
+      // Set the file upload URL.
+      fileUploadURL: '<?=$g4[path]?>/froala/file_upload.php',
+
+  fileAllowedTypes: ['application/pdf', 'application/msword'],
+
+      fileMaxSize: 1024 * 1024 * 10,
+
+      fileUploadParams: {bo_table: '<?=$bo_table?>'}
 
     })
 
