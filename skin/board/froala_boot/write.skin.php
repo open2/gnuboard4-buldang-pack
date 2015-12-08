@@ -163,7 +163,7 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
   <link rel="stylesheet" href="<?=$g4[path]?>/froala/css/plugins/table.css">
   <link rel="stylesheet" href="<?=$g4[path]?>/froala/css/plugins/video.css">
 
-                    <textarea id="froala-editor" name="froala-editor" style='display:none;'></textarea>
+                    <textarea id="wr_content" name="wr_content" style='display:none;'></textarea>
 
   <!-- Include JS files. -->
   <script src="<?=$g4[path]?>/froala/js/froala_editor.min.js"></script>
@@ -205,7 +205,7 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
   <!-- Initialize the editor. -->
   <script type="text/javascript">
   $(function() {
-    $('#froala-editor').froalaEditor({
+    $('#wr_content').froalaEditor({
       theme: 'gray',
       language: 'ko',     // https://www.froala.com/wysiwyg-editor/docs/examples/language
       fontFamily: {       // https://www.froala.com/wysiwyg-editor/docs/examples/font-family
