@@ -216,6 +216,10 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
       },
       heightMin: 200,     // https://www.froala.com/wysiwyg-editor/docs/examples/adjustable-height
       heightMax: 300,
+      toolbarButtons :  ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', 'insertHR', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html'],
+      toolbarButtonsMD: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', 'insertHR', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html'],
+      toolbarButtonsSM: ['fullscreen', 'bold', 'italic', 'underline', 'fontFamily', 'fontSize', 'color', 'emoticons', 'insertLink', 'insertImage', 'insertVideo', 'insertTable', 'clearFormatting', 'undo', 'redo'],
+      toolbarButtonsXS: ['bold', 'italic', 'fontFamily', 'fontSize', 'insertLink', 'insertImage', 'insertVideo','clearFormatting', 'undo', 'redo'],
 
         // Set the image upload parameter.
         imageUploadParam: 'file',
@@ -244,7 +248,7 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
       // Set the file upload URL.
       fileUploadURL: '<?=$g4[path]?>/froala/file_upload.php',
 
-  fileAllowedTypes: ['application/pdf', 'application/msword'],
+      fileAllowedTypes: ['application/pdf', 'application/msword', 'application/vnd.hancom.hwp'],
 
       fileMaxSize: 1024 * 1024 * 10,
 
