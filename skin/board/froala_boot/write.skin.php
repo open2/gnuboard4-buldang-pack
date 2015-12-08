@@ -216,50 +216,59 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
       },
       heightMin: 200,     // https://www.froala.com/wysiwyg-editor/docs/examples/adjustable-height
       heightMax: 300,
-      toolbarButtons :  ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', 'insertHR', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html'],
-      toolbarButtonsMD: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', 'insertHR', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html'],
+
+      toolbarButtons :  ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', 'insertHR', 'insertLink', 'insertImage', 'insertVideo', 'insertTable', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html'],
+      toolbarButtonsMD: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', 'insertHR', 'insertLink', 'insertImage', 'insertVideo', 'insertTable', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html'],
       toolbarButtonsSM: ['fullscreen', 'bold', 'italic', 'underline', 'fontFamily', 'fontSize', 'color', 'emoticons', 'insertLink', 'insertImage', 'insertVideo', 'insertTable', 'clearFormatting', 'undo', 'redo'],
       toolbarButtonsXS: ['bold', 'italic', 'fontFamily', 'fontSize', 'insertLink', 'insertImage', 'insertVideo','clearFormatting', 'undo', 'redo'],
 
-        // Set the image upload parameter.
-        imageUploadParam: 'file',
+      // Set the image upload parameter.
+      imageUploadParam: 'file',
 
-        // Set the image upload URL.
-        imageUploadURL: '<?=$g4[path]?>/froala/image_upload.php',
+      // Set the image upload URL.
+      imageUploadURL: '<?=$g4[path]?>/froala/image_upload.php',
 
-        // Additional upload params (bo_table 값을 image_upload.php에 넘긴다)
-        imageUploadParams: {bo_table: '<?=$bo_table?>'},
+      // Additional upload params (bo_table 값을 image_upload.php에 넘긴다)
+      imageUploadParams: {bo_table: '<?=$bo_table?>'},
 
-        // Set request type.
-        imageUploadMethod: 'POST',
+      // Set request type.
+      imageUploadMethod: 'POST',
 
-        // Set max image size to 20MB.
-        imageMaxSize: 20 * 1024 * 1024,
+      // Set max image size to 20MB.
+      imageMaxSize: 20 * 1024 * 1024,
 
-        // Allow to upload PNG and JPG. GIF
-        imageAllowedTypes: ['jpeg', 'jpg', 'png', 'gif'],
+      // Allow to upload PNG and JPG. GIF
+      imageAllowedTypes: ['jpeg', 'jpg', 'png', 'gif'],
 
-        // image alignment
-        imageDefaultAlign: 'left',
+      // image alignment
+      imageDefaultAlign: 'left',
 
-        // image width
-        imageDefaultWidth: 0,
+      // image width
+      imageDefaultWidth: 0,
 
       // Set the file upload URL.
       fileUploadURL: '<?=$g4[path]?>/froala/file_upload.php',
 
-      fileAllowedTypes: ['application/pdf', 'application/msword', 'application/vnd.hancom.hwp'],
+      fileAllowedTypes: ['text/plain', 'application/pdf', 'application/x-pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.openxmlformats-officedocument.presentationml.presentation', 'application/vnd.hancom.hwp', 'application/x-hwp', 'application/haansofthwp', 'application/vnd.ms-excel', 'application/vnd.ms-powerpoint'],
 
-      fileMaxSize: 1024 * 1024 * 10,
+      fileMaxSize: 10* 1024 * 1024,
 
       fileUploadParams: {bo_table: '<?=$bo_table?>'}
 
     })
 
-      // Catch image removal from the editor.
-      .on('froalaEditor.image.removed', function (e, editor, $img) {
-          $.ajax({
-  
+    .on('froalaEditor.image.error', function (e, editor, error, response) {
+        console.log(error.code);
+    })
+
+    .on('froalaEditor.file.error', function (e, editor, error, response) {
+        console.log(error.code);
+    })
+
+    // Catch image removal from the editor.
+    .on('froalaEditor.image.removed', function (e, editor, $img) {
+        $.ajax({
+
           // Request method.
           method: "POST",
 

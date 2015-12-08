@@ -18,11 +18,15 @@ $finfo = finfo_open(FILEINFO_MIME_TYPE);
 $mime = finfo_file($finfo, $_FILES["file"]["tmp_name"]);
 
 if ((($mime == "text/plain")
+    || ($mime == "application/pdf")
+    || ($mime == "application/x-pdf")
     || ($mime == "application/msword")
+    || ($mime == "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
     || ($mime == "application/vnd.ms-excel")
     || ($mime == "application/vnd.ms-powerpoint")
-    || ($mime == "application/x-pdf")
-    || ($mime == "application/pdf"))
+    || ($mime == "application/vnd.openxmlformats-officedocument.presentationml.presentation")
+    || ($mime == "application/haansofthwp")
+    || ($mime == "application/x-hwp")
     || ($mime == "application/vnd.hancom.hwp"))
     && in_array(strtolower($extension), $allowedExts)) {
 
@@ -31,7 +35,7 @@ if ((($mime == "text/plain")
     @mkdir("$g4[data_path]/froala_file/$bo_table/$ymd");
 
     // Generate new random name.
-    $name = $ymd . "_" . $bo_table . "_" . sha1(microtime()) . "." . strtolower($extension) . "-x";
+    $name = $ymd . "_" . $bo_table . "_" . sha1(microtime()) . "." . strtolower($extension);
     $savefile = "$g4[data_path]/froala_file/$bo_table/$ymd/" . $name;
 
     // Save file in the uploads folder.
