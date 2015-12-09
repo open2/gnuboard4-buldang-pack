@@ -286,4 +286,7 @@ $g4['htmlpurifier_cache'] = $g4[data_path].'/cache';
 // ±¸±Û ¸®Ä¸Ã­ : https://www.google.com/recaptcha/admin
 $g4['recaptcha_sitekey'] = "";
 $g4['recaptcha_secret_key'] = "";
+
+// froala key
+$g4['froala_key'] = "ljvbfjeoiA3md1C1zf1==";
 ?>

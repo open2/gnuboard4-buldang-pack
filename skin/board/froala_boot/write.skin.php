@@ -315,6 +315,11 @@ function fwrite_submit(f)
                 return false;
             }
         }
+    } else {
+        if ($("#wr_content").froalaEditor('core.isEmpty')) {
+            alert("내용을 입력하십시오.");
+            return false;
+        }
     }
 
     var subject = "";

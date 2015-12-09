@@ -2,7 +2,7 @@
   <script src="<?=$g4[path]?>/froala/js/froala_editor.min.js"></script>
 
   <script type="text/javascript">
-      $.FroalaEditor.DEFAULTS.key = 'ljvbfjeoiA3md1C1zf1==';
+      $.FroalaEditor.DEFAULTS.key = '<?=$g4[froala_key]?>';
   </script>
 
   <!-- Include Plugins. -->
