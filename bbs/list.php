@@ -132,13 +132,13 @@ if ($sca || $stx)
 {
     // 검색어 필터링 (금칙 검색어는 검색할 수 없게)
     $search_filter = 0;
-    if (!$is_admin) {
+    if (!$is_admin && $stx) {
         $result3 = sql_fetch(" select count(*) as cnt from $g4[filter_table] where pp_word like '%$stx%'");
         if ($result3['cnt'] > 0)
             $search_filter = 1;
     }
 
-    if ($search_filter) {
+    if ($search_filter ==1) {
         // filtering에 걸리는 경우 결과값을 비워버린다.
         $result = sql_query(" select * from $g4[filter_table] where pp_word='!@#$%^&DFVDSGF'");
     } else {
