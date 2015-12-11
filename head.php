@@ -33,7 +33,7 @@ else
 ?>
 
 <header class="header-wrapper"><!-- 상단 header 시작 -->
-<div class="container">
+<div class="container-fluid">
 
 <div class="row">
 <div class="hidden-xs hidden-sm col-md-2 col-lg-2">
@@ -249,7 +249,7 @@ else
 
 
 <!-- 중간의 메인부 시작 -->
-<div role="main" class="container">
+<div role="main" class="container-fluid">
 <div class="row">
 
 <!-- 왼쪽 side 시작 -->

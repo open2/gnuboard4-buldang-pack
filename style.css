@@ -14,6 +14,11 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
     border: 0 !important;
 }
 
+/* 최대 화면폭을 설정 */
+.container-fluid {
+   max-width:1270px;
+}
+
 /* panel bottom의 높이를 20px에서 10px로 */
 .panel {
     margin-bottom: 10px;

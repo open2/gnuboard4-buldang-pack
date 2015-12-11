@@ -14,7 +14,7 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
 <!-- 페이지 하단부 footer -->
 <footer class="footer-wrapper col-sm-offset-2" role="contentinfo" style="margin-top:20px;">
-<div class="container" id="footer">
+<div class="container-fluid" id="footer">
     <div class="panel panel-default hidden-sm hidden-md hidden-lg">
     <div class="panel-heading">
         <div>
