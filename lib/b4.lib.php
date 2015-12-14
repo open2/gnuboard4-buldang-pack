@@ -2353,6 +2353,11 @@ function link_view($link_href, $link, $link_hit, $link_len=70) {
         $video_id = strip_tags($match[1]);
         $result = '<iframe src="https://player.vimeo.com/video/' . $video_id . '?color=ffffff&title=0&byline=0&portrait=0" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></br>';
         return $result;
+    // naver tvcast (unfinished...)
+    } else if(preg_match('/tvcast.naver.com\/v\/([0-9]+)/', $link, $match)) {
+ 		    $video_id = $match[1];
+        $result = '<div class="trailer"><embed src="http://serviceapi.rmcnmv.naver.com/flash/getCommonPlayer.nhn" quality="high"  flashvars="vid=' . $video_id . '&amp;wmode=window&amp;wmode_outkey=transparent&amp;isAutoPlay=false&amp;callbackHandler=onPlayerStatusChangeFlash&amp;ext=outService&amp;cassiodServiceID=NAVER&amp;controlBarMovable=true&amp;autoLocale=false&amp;locale=ko&amp;showSocialPlugIn=false&amp;jsCallable=true&amp;showVendor=false&amp;showContentInfo=true" allowscriptaccess="always" allowfullscreen="true" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"></embed></div>';
+        return $result;
     } else {
         // 표시되는 링크의 길이가 너무 길면 줄여야 함
         $link = cut_str($link, $link_len);
