@@ -2353,6 +2353,12 @@ function link_view($link_href, $link, $link_hit, $link_len=70) {
         $video_id = strip_tags($match[1]);
         $result = '<iframe src="https://player.vimeo.com/video/' . $video_id . '?color=ffffff&title=0&byline=0&portrait=0" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></br>';
         return $result;
+    // 다음 tv팟
+    // http://tvpot.daum.net/v/s9e2733dJRX6fJGXuRjdJxR
+    } else if(preg_match('/tvpot.daum.net\/v\/([0-9a-zA-Z]+)/', $link, $match)) {
+ 		    $video_id = $match[1];
+ 		    $result = "<iframe width='640px' height='360px' src='http://videofarm.daum.net/controller/video/viewer/Video.html?vid=" . $video_id . "&play_loc=undefined' frameborder='0' scrolling='no' ></iframe>";
+        return $result;
     // sound could, embed wp를 눌러서 나오는 링크에서 아랫부분만 입력해야 합니다. 
     // https://api.soundcloud.com/tracks/173325390
     } else if(preg_match('/https:\/\/api.soundcloud\.com\/([a-z0-9-\/]+)\/([a-z0-9-\/]+)/', $link, $match)) {
