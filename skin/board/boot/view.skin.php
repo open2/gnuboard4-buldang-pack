@@ -86,8 +86,7 @@ ob_end_flush();
         for ($i=1; $i<=$g4[link_count]; $i++) {
             if ($view[link][$i]) {
                 $cnt++;
-                $link = cut_str($view[link][$i], 70);
-                echo "<a href='{$view[link_href][$i]}' target=_blank>{$link} ({$view[link_hit][$i]})</a></BR>";
+                echo link_view($view[link_href][$i], $view[link][$i], $view[link_hit][$i]);
             }
         }
     ?>

@@ -2335,4 +2335,28 @@ function chk_recaptcha()
 
 	  return true;
 }
+
+// link를 파싱하여 보여줍니다
+function link_view($link_href, $link, $link_hit, $link_len=70) {
+
+    global $g4;
+
+    // parse youtube video id using preg_match
+    // http://stackoverflow.com/questions/2936467/parse-youtube-video-id-using-preg-match
+    if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $link, $match)) {
+        $video_id = strip_tags($match[1]);
+        $result = "<iframe width='560' height='315' src='https://www.youtube.com/embed/". $video_id . "' frameborder='0' allowfullscreen></iframe></br>";
+        return $result;
+    // parse vimeo
+    // https://github.com/lingtalfi/video-ids-and-thumbnails/blob/master/function.video.php
+    } else if (preg_match('#(?:https?://)?(?:www.)?(?:player.)?vimeo.com/(?:[a-z]*/)*([0-9]{6,11})[?]?.*#', $link, $match)) {
+        $video_id = strip_tags($match[1]);
+        $result = '<iframe src="https://player.vimeo.com/video/' . $video_id . '?color=ffffff&title=0&byline=0&portrait=0" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></br>';
+        return $result;
+    } else {
+        // 표시되는 링크의 길이가 너무 길면 줄여야 함
+        $link = cut_str($link, $link_len);
+        return "<a href='$link_href' target=_blank>{$link} ($link_hit)</a></BR>";
+    }
+}
 ?>
