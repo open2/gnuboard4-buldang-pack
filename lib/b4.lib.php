@@ -2345,7 +2345,7 @@ function link_view($link_href, $link, $link_hit, $link_len=70) {
     // http://stackoverflow.com/questions/2936467/parse-youtube-video-id-using-preg-match
     if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $link, $match)) {
         $video_id = strip_tags($match[1]);
-        $result = "<iframe width='560' height='315' src='https://www.youtube.com/embed/". $video_id . "' frameborder='0' allowfullscreen></iframe></br>";
+        $result = "<div class='row'><div class='col-lg-12 col-md-12 col-sm-12 col-xs-12 embed-responsive embed-responsive-16by9'><iframe class='embed-responsive-item' src='https://www.youtube.com/embed/". $video_id . "' frameborder='0' allowfullscreen></iframe></div></div></br>";
         return $result;
     // parse vimeo
     // https://github.com/lingtalfi/video-ids-and-thumbnails/blob/master/function.video.php
@@ -2357,12 +2357,12 @@ function link_view($link_href, $link, $link_hit, $link_len=70) {
     // http://tvpot.daum.net/v/s9e2733dJRX6fJGXuRjdJxR
     } else if(preg_match('/tvpot.daum.net\/v\/([0-9a-zA-Z]+)/', $link, $match)) {
  		    $video_id = $match[1];
- 		    $result = "<iframe width='640px' height='360px' src='http://videofarm.daum.net/controller/video/viewer/Video.html?vid=" . $video_id . "&play_loc=undefined' frameborder='0' scrolling='no' ></iframe>";
+ 		    $result = "<div class='row'><div class='col-lg-12 col-md-12 col-sm-12 col-xs-12 embed-responsive embed-responsive-16by9'><iframe class='embed-responsive-item' src='http://videofarm.daum.net/controller/video/viewer/Video.html?vid=" . $video_id . "&play_loc=undefined' frameborder='0' scrolling='no' ></iframe></div></div></BR>";
         return $result;
     // sound could, embed wp를 눌러서 나오는 링크에서 아랫부분만 입력해야 합니다. 
     // https://api.soundcloud.com/tracks/173325390
     } else if(preg_match('/https:\/\/api.soundcloud\.com\/([a-z0-9-\/]+)\/([a-z0-9-\/]+)/', $link, $match)) {
-        $result = "<iframe width='100%' height='450' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/185361169&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true'></iframe>";
+        $result = "<iframe width='100%' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/185361169&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true'></iframe></BR>";
         return $result;
     } else {
         // 표시되는 링크의 길이가 너무 길면 줄여야 함
