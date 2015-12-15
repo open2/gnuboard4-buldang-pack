@@ -182,7 +182,7 @@ if ($is_dhtml_editor) {
 		<? } ?>
     </td>
     <td width=85 align=center>
-        <button type="submit" class="btn btn-default">Write</button>
+        <button type="submit" class="btn btn-success">Write</button>
     </td>
 </tr>
 </table>
