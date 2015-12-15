@@ -123,15 +123,9 @@ ob_end_flush();
     <!-- 내용 출력 -->
     <? if ($view_img_file == 0) { ?>
     <div style="float:right;margin-left:10px;margin-bottom:10px;" class="">
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- 2CPU-컨텐츠 내부배너 - 직사각형 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:125px;height:125px"
-     data-ad-client="ca-pub-2309139745261135"
-     data-ad-slot="4040356375"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+        <!--
+        125px * 125px의 adsense광고
+        -->
     </div>
     <? } ?>
 
@@ -161,6 +155,7 @@ if (!$board['bo_comment_read_level'])
 else if ($member['mb_level'] >= $board['bo_comment_read_level'])
   include_once("./view_comment.php");
 ?>
+<div style="height:10px;"></div>
 <?=$link_buttons?>
 <? include_once("$g4[path]/adsense/adsense_page_bottom.php"); ?>
 

@@ -161,6 +161,7 @@ if (!$board['bo_comment_read_level'])
 else if ($member['mb_level'] >= $board['bo_comment_read_level'])
   include_once("./view_comment.php");
 ?>
+<div style="height:10px;"></div>
 <?=$link_buttons?>
 <? include_once("$g4[path]/adsense/adsense_page_bottom.php"); ?>
 
