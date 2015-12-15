@@ -348,7 +348,7 @@ function select_delete() {
     if (!confirm("선택한 게시물을 정말 "+str+" 하시겠습니까?\n\n한번 "+str+"한 자료는 복구할 수 없습니다"))
         return;
 
-    f.action = "./delete_all.php";
+    f.action = "<?=$g4[bbs_path]?>/delete_all.php";
     f.submit();
 }
 
@@ -368,7 +368,7 @@ function select_copy(sw) {
 
     f.sw.value = sw;
     f.target = "move";
-    f.action = "./move.php";
+    f.action = "<?=$g4[bbs_path]?>/move.php";
     f.submit();
 }
 
