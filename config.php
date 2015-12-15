@@ -157,8 +157,8 @@ $g4['https_url'] = "";
 // 암호화를 위한 KEY
 $g4['encrypt_key'] = "opencode";
 
-// 추천+인증으로 가입을 하기 위해서
-$g4['member_suggest_join']  = 1;
+// 추천+인증으로 가입을 하기 위해서 (0: 그냥 가입, 1 : 추천+인증으로만 가입)
+$g4['member_suggest_join']  = 0;
 
 // 추천+인증으로 가입할 때, 추천 코드의 유효기간 (기본 7일. 시간이 아니라 날짜다.)
 $g4['member_suggest_join_days']  = 90;
