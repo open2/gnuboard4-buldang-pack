@@ -1,3 +1,137 @@
+2.1.1 (2015.12.17)
+
+- froala 웹편집기
+해외에서 개발한 frola 웹 편집기를 적용합니다. 모바일 적용을 우선화 하기 위해서 cheditor는 제외하려고 합니다.
+https://www.froala.com/blog
+
+
+config.php
+head.php
+style.css
+tail.php
+
+bbs/list.php
+bbs/view.php
+
+froala/*
+
+lib/b4.lib.php
+
+skin/board/*/list.skin.php
+skin/board/*/view.skin.php
+skin/board/*/view_comment.skin.php
+
+skin/board/boot/view.skin.php
+
+skin/board/froala_boot/*
+
+
+- view.skin.php가 없어도 오류 출력 않음
+bbs/view.php
+
+- 코멘트 쓰기 버튼의 style변경
+skin/board/*/view_comment.skin.php
+
+- 코멘트 밑의 버튼이 너무 딱 붙은 것을 띄워줌...
+skin/board/*/view.skin.php
+
+- 추천가입관련 기본설정 변경
+config.php
+
+- 선택 삭제/이동 오류 수정
+skin/board/*/list.skin.php
+
+- 게시판 링크 자동 보여주기 적용
+lib/b4.lib.php
+skin/board/boot/view.skin.php
+skin/board/froala_boot/view.skin.php
+
+- container 변경
+style.css
+head.php
+tail.php
+http://opencode.co.kr/css/245
+
+- 게시판 검색 오류 수정
+bbs/list.php
+
+- froala 웹 편집기 2.0.3 (froala_boot skin 1개만 시범적용)
+config.php
+froala/*
+skin/board/froala_boot/*
+
+
+2.1.0
+
+불당팩 2.1.0은 2.0 버젼에서 아래의 사항을 개선하는 것 입니다.
+
+- 구글 리캡챠 적용
+현재 사용중인 캡챠는 기계적인 것이라 노이즈를 넣던 뭘하던 차단율이 떨어집니다.
+구글 리캡챠는 구글의 BIG 데이터를 기반으로 하고 있기 때문에 차단율과 응징율이 높아서 쉽게 뚫지 못합니다.
+관리자단의 해킹을 막기 위해서, 구글 리캡챠를 적용했습니다. 구느님의 힘을 빌려서 방어력을 높여보렵니다.
+
+리캡챠가 적용되면서, 웹브라우져로 2개의 리캡챠를 동시에 loading할 수 없습니다.
+화면 여러개 열어서 작업하시던 해커님들이 쬐끔 어려워질 겁니다. 
+
+config.php
+robots.txt
+
+adm/board_form.php
+adm/board_form_update.php
+adm/boardgroup_form.php
+adm/boardgroup_form_update.php
+adm/config_form.php
+adm/config_form_update.php
+
+bbs/form_mail_send.php
+bbs/mb_leave.php
+bbs/mb_leave_update.php
+bbs/password_lost2.php
+bbs/register_form_update.php 
+bbs/write_update.php
+bbs/write_comment_update.php
+
+install/install_db.php
+
+lib/b4.lib.php
+
+skin/board/boot/write.skin.php
+
+skin/member/basic/form_mail.skin.php
+skin/member/basic/password_lost.skin.php
+skin/member/basic/register_form.skin.php
+
+skin/poll/basic/poll_result.skin.php
+
+zmSpamFree/* (삭제)
+
+
+- 구글 리캡차
+config.php
+robots.txt
+adm/board_form.php
+adm/board_form_update.php
+adm/boardgroup_form.php
+adm/boardgroup_form_update.php
+adm/config_form.php
+adm/config_form_update.php
+bbs/form_mail_send.php
+bbs/mb_leave.php
+bbs/mb_leave_update.php
+bbs/password_lost2.php
+bbs/register_form_update.php
+bbs/write_update.php
+bbs/write_comment_update.php
+install/install_db.php
+lib/b4.lib.php
+skin/board/boot/write.skin.php
+skin/member/basic/form_mail.skin.php
+skin/member/basic/password_lost.skin.php
+skin/member/basic/register_form.skin.php
+skin/poll/basic/poll_result.skin.php
+zmSpamFree/* (삭제)
+
+
 2.0.4 (2015.12.04)
 
 DB변경이 있습니다.
