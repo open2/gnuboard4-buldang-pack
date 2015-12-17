@@ -1,39 +1,39 @@
   <!-- Include JS files. -->
-  <script src="<?=$g4[path]?>/froala/js/froala_editor.min.js"></script>
+  <script src="<?=$g4[path]?>/froala/js/froala_editor.min.js?v=<?=$g4[froala_ver]?>"></script>
 
   <script type="text/javascript">
       $.FroalaEditor.DEFAULTS.key = '<?=$g4[froala_key]?>';
   </script>
 
   <!-- Include Plugins. -->
-  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/align.min.js"></script>
-  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/char_counter.min.js"></script>
-  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/code_view.min.js"></script>
-  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/colors.min.js"></script>
-  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/emoticons.min.js"></script>
-  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/entities.min.js"></script>
-  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/file.min.js"></script>
-  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/font_family.min.js"></script>
-  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/font_size.min.js"></script>
-  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/fullscreen.min.js"></script>
-  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/image.min.js"></script>
-  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/image_manager.min.js"></script>
-  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/inline_style.min.js"></script>
-  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/line_breaker.min.js"></script>
-  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/link.min.js"></script>
-  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/lists.min.js"></script>
-  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/paragraph_format.min.js"></script>
-  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/paragraph_style.min.js"></script>
-  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/quote.min.js"></script>
-  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/table.min.js"></script>
-  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/save.min.js"></script>
-  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/url.min.js"></script>
-  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/video.min.js"></script>
+  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/align.min.js?v=<?=$g4[froala_ver]?>"></script>
+  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/char_counter.min.js?v=<?=$g4[froala_ver]?>"></script>
+  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/code_view.min.js?v=<?=$g4[froala_ver]?>"></script>
+  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/colors.min.js?v=<?=$g4[froala_ver]?>"></script>
+  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/emoticons.min.js?v=<?=$g4[froala_ver]?>"></script>
+  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/entities.min.js?v=<?=$g4[froala_ver]?>"></script>
+  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/file.min.js?v=<?=$g4[froala_ver]?>"></script>
+  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/font_family.min.js?v=<?=$g4[froala_ver]?>"></script>
+  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/font_size.min.js?v=<?=$g4[froala_ver]?>"></script>
+  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/fullscreen.min.js?v=<?=$g4[froala_ver]?>"></script>
+  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/image.min.js?v=<?=$g4[froala_ver]?>"></script>
+  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/image_manager.min.js?v=<?=$g4[froala_ver]?>"></script>
+  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/inline_style.min.js?v=<?=$g4[froala_ver]?>"></script>
+  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/line_breaker.min.js?v=<?=$g4[froala_ver]?>"></script>
+  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/link.min.js?v=<?=$g4[froala_ver]?>"></script>
+  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/lists.min.js?v=<?=$g4[froala_ver]?>"></script>
+  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/paragraph_format.min.js?v=<?=$g4[froala_ver]?>"></script>
+  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/paragraph_style.min.js?v=<?=$g4[froala_ver]?>"></script>
+  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/quote.min.js?v=<?=$g4[froala_ver]?>"></script>
+  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/table.min.js?v=<?=$g4[froala_ver]?>"></script>
+  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/save.min.js?v=<?=$g4[froala_ver]?>"></script>
+  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/url.min.js?v=<?=$g4[froala_ver]?>"></script>
+  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/plugins/video.min.js?v=<?=$g4[froala_ver]?>"></script>
 
-  <link href="<?=$g4[path]?>/froala/css/themes/gray.min.css" rel="stylesheet" type="text/css" />
+  <link href="<?=$g4[path]?>/froala/css/themes/gray.min.css?v=<?=$g4[froala_ver]?>" rel="stylesheet" type="text/css" />
 
   <!-- Include Language file if we'll use it. -->
-  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/languages/ko.js"></script>
+  <script type="text/javascript" src="<?=$g4[path]?>/froala/js/languages/ko.js?v=<?=$g4[froala_ver]?>"></script>
 
   <!-- Initialize the editor. -->
   <script type="text/javascript">

@@ -288,5 +288,5 @@ $g4['recaptcha_sitekey'] = "";
 $g4['recaptcha_secret_key'] = "";
 
 // froala key
-$g4['froala_key'] = "ljvbfjeoiA3md1C1zf1==";
+$g4['froala_key'] = "VZSZGUSXYSMZe1JGZ==";
 ?>

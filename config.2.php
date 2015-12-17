@@ -6,6 +6,7 @@ $g4['bver']         = "3304";   // 부트스트랩 CSS 버젼
 $g4['aver']         = "4400";   // 폰트어썸 CSS 버젼
 $g4['sver']         = "1000";   // style.css CSS 버젼
 $g4['cheditor_ver'] = "1000";   // cheditor 버젼
+$g4['froala_ver']   = "205";    // froala editor 버젼
 
 // $qstr이 없는 상황에서 필요한 것을 넘기기 위해서 사용 (메뉴 변수 등...)
 $mstr = "";
