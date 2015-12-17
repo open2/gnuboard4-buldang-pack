@@ -1,0 +1,31 @@
+.fr-element,
+.fr-element:focus {
+  outline: 0px solid transparent;
+}
+
+.fr-element {
+  background: transparent;
+  color: @editor-text;
+  position: relative;
+  z-index: 2;
+  text-align: initial;
+
+  // CSS rule for iPad not being able to select sometimes.
+  -webkit-user-select: auto;
+
+  img {
+    max-width: calc(100% - (2 * @image-margin));
+  }
+
+  &.fr-disabled {
+    .user-select(none);
+  }
+
+  [contenteditable="false"] {
+    .user-select(none);
+  }
+}
+
+.fr-box.fr-basic .fr-element {
+  padding: @editor-padding;
+}
