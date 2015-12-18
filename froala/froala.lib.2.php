@@ -42,10 +42,10 @@
       theme: 'gray',
       language: 'ko',     // https://www.froala.com/wysiwyg-editor/docs/examples/language
       fontFamily: {       // https://www.froala.com/wysiwyg-editor/docs/examples/font-family
+        "µ¸¿ò": 'µ¸¿ò',
         "¸¼Àº °íµñ": '¸¼Àº °íµñ',
         "±¼¸²": '±¼¸²',
         "³ª´®°íµñ": '³ª´®°íµñ',
-        "µ¸¿ò": 'µ¸¿ò',
         "¹ÙÅÁ": '¹ÙÅÁ',
         "±Ã¼­": '±Ã¼­'
       },
