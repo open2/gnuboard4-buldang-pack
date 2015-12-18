@@ -316,8 +316,10 @@ function fwrite_submit(f)
             }
         }
     } else {
-        if ($("#wr_content").froalaEditor('core.isEmpty')) {
-            alert("내용을 입력하십시오.");
+        // https://www.froala.com/wysiwyg-editor/docs/methods#charCounter.count
+        var cnt = parseInt($("#wr_content").froalaEditor('charCounter.count'));
+        if (char_min > 0 && char_min > cnt) {
+            alert("내용은 "+char_min+"글자 이상 쓰셔야 합니다.");
             return false;
         }
     }
