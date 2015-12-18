@@ -44,11 +44,13 @@
       fontFamily: {       // https://www.froala.com/wysiwyg-editor/docs/examples/font-family
         "¸¼Àº °íµñ": '¸¼Àº °íµñ',
         "±¼¸²": '±¼¸²',
-        "Malgun Gothic": 'Malgun Gothic',
-        "gulim": 'gulim'
+        "³ª´®°íµñ": '³ª´®°íµñ',
+        "µ¸¿ò": 'µ¸¿ò',
+        "¹ÙÅÁ": '¹ÙÅÁ',
+        "±Ã¼­": '±Ã¼­'
       },
       heightMin: 200,     // https://www.froala.com/wysiwyg-editor/docs/examples/adjustable-height
-      heightMax: 300,
+      heightMax: 600,
 
       toolbarButtons :  ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', 'insertHR', 'insertLink', 'insertImage', 'insertVideo', 'insertTable', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html'],
       toolbarButtonsMD: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', 'insertHR', 'insertLink', 'insertImage', 'insertVideo', 'insertTable', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html'],
