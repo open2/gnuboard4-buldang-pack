@@ -93,14 +93,14 @@ function print_menu1($key, $no, $sub_menu)
         <button type="button" class="btn navbar-toggle  btn-primary" data-toggle="collapse" data-target=".navbar-top-menu-collapse">
             <i class="glyphicon glyphicon-list"></i>
         </button>
-        <a class="btn navbar-toggle" href="<?=$g4[admin_path]?>">Home</a>
+        <a class="btn navbar-toggle" href="<?=$g4[admin_path]?>/index.php">Home</a>
 
         <!-- sm, md, lg에서 나오는 로고 -->
-        <a class="navbar-brand hidden-xs" href="<?=$g4['admin_path']?>/">
+        <a class="navbar-brand hidden-xs" href="<?=$g4['admin_path']?>/index.php">
         <img src="<?=$g4[path]?>/img/opencode_aaa.png" align=absmiddle alt="brand logo">
         </a>
         <!-- collapse 되었을 때 나오는 로고 -->
-        <a class="navbar-brand navbar-toggle pull-left" href="<?=$g4['admin_path']?>/" style="border:0;margin-bottom:0;">
+        <a class="navbar-brand navbar-toggle pull-left" href="<?=$g4['admin_path']?>/index.php" style="border:0;margin-bottom:0;">
         <img src="<?=$g4[path]?>/img/opencode_aaa.png" alt="brand logo" style="width:120px;">
         </a>
     </div>
