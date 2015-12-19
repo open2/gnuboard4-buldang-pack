@@ -1,3 +1,45 @@
+2.1.2 (2015.12.19)
+
+잔잔한 버그 수정 입니다.
+
+[ 필독 *** 설치시 주의 사항 ]
+1. 반드시 root 디렉토리에 설치해야 합니다.
+opencode/a/public_html 이런 식의 설치는 동작하지 않습니다.
+단축주소 때문입니다.
+
+2. 구글 recaptcha에 사이트를 등록하고 key를 받아서 config.php에 넣어주세요.
+recaptcha key가 없으면 관리자 메뉴가 동작하지 않습니다 (로봇이라고 생각...)
+
+adm/admin.head.php
+adm/admin.menu300.php
+adm/upgrade_bd.sql
+
+froala/froala.lib.2.php
+
+install/sql_opencode.sql
+
+skin/board/froala_boot/write.skin.php
+
+- 안쓰는 관리자 메뉴 삭제
+adm/admin.menu300.php
+
+- 단축경로 오류
+
+adm/admin.head.php
+
+- 설치오류 수정
+adm/upgrade_bd.sql
+install/sql_opencode.sql
+
+- froala 글자수 세기 기능 추가 (2.0.5에 추가된 method)
+skin/board/froala_boot/write.skin.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/caf7e513c8659a869e8a59edac25965179ce6aa6
+
+- froala 편집기 폰트 추가, 돋움을 가장 앞에
+froala/froala.lib.2.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/253639d450b5fbf3975c05adc3e22ce5787834b8
+
+
 2.1.1 (2015.12.17)
 
 - froala 웹편집기
