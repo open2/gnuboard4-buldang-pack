@@ -1171,7 +1171,7 @@ CREATE TABLE IF NOT EXISTS `$g4[cookie_table]` (
 
 # 1.3.10
 ALTER TABLE `$g4[member_table]` ADD `mb_unlogin` DATETIME NOT NULL ;
-CREATE TABLE `$g4[unlogin_table] like `$g4[member_table]`;
+CREATE TABLE `$g4[unlogin_table]` like `$g4[member_table]`;
 
 # 2.0.0
 ALTER TABLE `$g4[my_board_table]` ADD INDEX `bo` ( `mb_id` , `bo_table` ) ;

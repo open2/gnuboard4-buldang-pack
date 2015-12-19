@@ -974,7 +974,7 @@ if ($config[cf_db_version] < 1310) {
 
     // 휴면회원 관리
     sql_query(" ALTER TABLE `$g4[member_table]` ADD `mb_unlogin` DATETIME NOT NULL ", FALSE);
-    sql_query(" CREATE TABLE `$g4[unlogin_table] like `$g4[member_table]` ", FALSE);
+    sql_query(" CREATE TABLE `$g4[unlogin_table]` like `$g4[member_table]` ", FALSE);
 }
 
 if ($config[cf_db_version] < 1310) {
