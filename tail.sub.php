@@ -21,7 +21,7 @@ $('.sideview').bind('click',function(e){
 
     var el=$(this);
     var popover_title = el.attr('alt');
-    var _data = "mb_nick="+escape(popover_title)+"&mb_nick2=<?=js_escape($member[mb_nick])?>&bo_table=<?=$bo_table?>&sfl=<?=$sfl?>";
+    var _data = "mb_nick="+encodeURI(popover_title)+"&mb_nick2="+encodeURI('<?=$member[mb_nick]?>')+"&bo_table="+encodeURI('<?=$bo_table?>')+"&sfl="+encodeURI('<?=urlencode($sfl)?>');
 
     e.isDefaultPrevented();
 

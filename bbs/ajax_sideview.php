@@ -1,19 +1,17 @@
 <?
 include_once("_common.php");
 
-header("Content-Type: text/html; charset=utf-8");
+if (strtolower($g4[charset]) == 'euc-kr') 
+{
+    $_POST['mb_nick'] = iconv("UTF-8", $g4['charset'], $_POST['mb_nick']);
+    $_POST['mb_nick2'] = iconv("UTF-8", $g4['charset'], $_POST['mb_nick2']);
+    $_POST['sca'] = iconv("UTF-8", $g4['charset'], $_POST['sca']);
+}
 
 $mb_nick = trim(get_text($_POST['mb_nick']));    // sideview의 대상
 $mb_nick2 = trim(get_text($_POST['mb_nick2']));  // sideview를 클릭한 사람
 $bo_table = trim($_POST['bo_table']);
 $sca = trim($_POST['sca']);
-
-if (strtolower($g4[charset]) == 'euc-kr') 
-{
-    $mb_nick = js_unescape($mb_nick);
-    $mb_nick2 = js_unescape($mb_nick2);
-    $sca = js_unescape($sca);
-}
 
 // 비회원의 sideview는 그냥 return
 if ($mb_nick == "[비회원]") {
@@ -77,7 +75,6 @@ if ($mb_id =='undefined' || $mb_id == "") {
         $res .= "</div>";
 
         echo iconv($g4['charset'], "UTF-8", $res);
-
     }
 }
 ?>
