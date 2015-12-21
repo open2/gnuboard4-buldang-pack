@@ -97,6 +97,17 @@ for ($i=0; $i<count($filters); $i++) {
 }
 */
 
+if($board['bo_use_category']) {
+    $ca_name = trim($_POST['ca_name']);
+    if(!$ca_name) {
+            alert("분류를 선택하세요");
+    } else {
+        $categories = array_map('trim', explode("|", $board['bo_category_list'].($is_admin ? '|공지' : '')));
+        if(!empty($categories) && !in_array($ca_name, $categories))
+            alert("분류를 올바르게 입력하세요");
+    }
+}
+
 $upload_max_filesize = ini_get('upload_max_filesize');
 
 if (empty($_POST))
