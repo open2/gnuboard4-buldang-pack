@@ -112,13 +112,6 @@ for ($i=0; $i<count($list); $i++) {
 <? if ($is_comment_write && $check_comment_allow ) { ?>
 <!-- 코멘트 입력 -->
 
-<?
-if ($is_dhtml_editor) {
-    include_once("$g4[path]/lib/cheditor4.lib.php");
-    echo "<script src='$g4[cheditor4_path]/cheditor.js?v=$g4[cheditor_ver]'></script>";
-}
-?>
-
 <div id=comment_write style="display:none;">
 <table width=100% border=0 cellpadding=1 cellspacing=0 bgcolor="#dddddd"><tr><td>
 <form role="form" class="form-horizontal" name="fviewcomment" method="post" action="<?=$g4[bbs_path]?>/write_comment_update.php" onsubmit="return fviewcomment_submit(this);" autocomplete="off" style="margin:0px;">
@@ -133,6 +126,9 @@ if ($is_dhtml_editor) {
 <input type=hidden name=page        value='<?=$page?>'>
 <input type=hidden name=cwin        value='<?=$cwin?>'>
 <input type=hidden name=is_good     value=''>
+<? if ($is_dhtml_editor) { ?>
+<input type=hidden name=html        value='html1'>
+<? } ?>
 
 <table role="table" width=100%>
 <tr>
@@ -161,19 +157,9 @@ if ($is_dhtml_editor) {
 		<!-- 에디터를 화면에 출력합니다. -->
 		<? if ($is_dhtml_editor) { ?>
 		
-    <!-- cheditor1 + chedito2를 한번에 하는 것 / 나창호님의 코드 -->
-		<textarea style="display:none" id="wr_content" name="wr_content" rows="10"></textarea>
-    <input type=hidden id="html" name="html" value="html1">
-		<script type="text/javascript">
-		var editor = new cheditor("editor");
-		// 4.3.x부터는 경로를 별도로 지정하지 않아도 됨
-		//editor.config.editorPath = "<?=$g4['cheditor4_path']?>";
-		editor.config.editorHeight = '100px';
-		editor.config.autoHeight = true;
-		editor.inputForm = 'wr_content';
-		editor.config.imgReSize = false;
-		editor.run();
-		</script>
+        <? include("$g4[path]/froala/froala.lib.1.php")?>
+        <textarea id="wr_content" name="wr_content" style='display:none;'></textarea>
+        <? include("$g4[path]/froala/froala.lib.2.php")?>
 
 		<? } else { ?>
         <textarea class="form-control" id="wr_content" name="wr_content" rows=8 itemname="내용" required
@@ -193,19 +179,9 @@ if ($is_dhtml_editor) {
 <script type="text/javascript">
 
 var save_before = '';
-<? if (!$is_dhtml_editor) { ?>
-var save_html = document.getElementById('wr_content').innerHTML;
-<? } ?>
 
 function fviewcomment_submit(f)
 {
-    var pattern = /(^\s*)|(\s*$)/g; // \s 공백 문자
-    <? if ($is_dhtml_editor) { ?>
-        f.wr_content.value = editor.outputBodyHTML();
-    <? } else { ?>
-        var save_html = f.wr_content.innerHTML;
-    <? } ?>
-
     var subject = "";
     var content = "";
     $.ajax({
@@ -250,13 +226,12 @@ function fviewcomment_submit(f)
     }
 
     <? if ($is_dhtml_editor) { ?>
-    if (f.wr_content) {
-        if (!editor.inputLength()) { 
-            alert('내용을 입력하십시오.'); 
-            editor.returnFalse();
+        // https://www.froala.com/wysiwyg-editor/docs/methods#charCounter.count
+        var cnt = parseInt($("#wr_content").froalaEditor('charCounter.count'));
+        if (cnt < 1) {
+            alert("내용을 입력하십시오.");
             return false;
         }
-    }
     <? } ?>
 
     if (typeof(f.wr_name) != 'undefined')
@@ -313,11 +288,9 @@ function comment_box(comment_id, work)
         if (work == 'cu')
         {
 			<? if ($is_dhtml_editor) { ?>
-			editor.resetEditArea('');
-			editor.replaceContents(document.getElementById('save_comment_'+comment_id).value);
-			editorReset();
+    		  $('#wr_content').froalaEditor('html.set', document.getElementById('save_comment_'+comment_id).value);
 			<? } else { ?>
-				document.getElementById('wr_content').value = document.getElementById('save_comment_'+comment_id).value
+				  document.getElementById('wr_content').value = document.getElementById('save_comment_'+comment_id).value
 			<? } ?>
           if (typeof char_count != 'undefined')
             check_byte('wr_content', 'char_count');
@@ -329,8 +302,7 @@ function comment_box(comment_id, work)
 
 		    } else if (work == 'c') {
       		  <? if ($is_dhtml_editor) { ?>
-		      	editor.resetEditArea('');
-    		  	editorReset();
+		      	$('#wr_content').froalaEditor('html.set', '');
   	    	  <? } ?>
     		}
 
