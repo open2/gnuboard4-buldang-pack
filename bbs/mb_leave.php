@@ -7,74 +7,48 @@ include_once ("./_head.php");
 // 비회원의 접근을 제한 합니다
 if (!$member[mb_id]) {
     $msg = "비회원은 접근할 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.";
-    alert($msg, "./login.php?url=".urlencode("./mb_leave.php"));
+    alert($msg, "$g4[bbs_path]/login.php?url=".urlencode("$g4[bbs_path]/mb_leave.php"));
 }
 ?>
-        
-<style type="text/css">
-<!--
-.col1 { color:#616161; }
-.col2 { color:#868686; }
-.pad1 { padding:5px 10px 5px 10px; }
-.pad2 { padding:5px 0px 5px 0px; }
-.bold { font-weight:bold; }
-.center { text-align:center; }
-.right { text-align:right; }
-.ht { height:30px; }
--->
-</style>
-
-<div style="width:620px">
-<p class='col1 pad1 bold'>회원탈퇴</p>
-</div>
-
-<div style="width:620px" class='pad1'>
-<p>1. 해당 아이디로 재가입 불가능</P>
-<p>회원탈퇴를 신청하시면 해당 아이디는 즉시 탈퇴처리되며 이후 해당 아이디는 영구적으로 사용이 중지되므로 해당 아이디로는 재가입이 불가능합니다. </P>
-
-<p>2. 회원정보 및 회원제 서비스의 정보 삭제 </P>
-<p>회원탈퇴시 해당 아이디로는 더이상 로그인 등을 할 수 없으며, 저장된 회원정보는 <?=$config[cf_leave_day]?>일 후에 삭제 됩니다. </P>
-
-<p>3. 불량이용 및 이용제한에 관한 기록 1년 동안 보관 </P>
-<p>개인정보취급방침에 따라 불량이용 및 이용제한에 관한 기록은 1년 동안 삭제되지 않고 보관됩니다.</P>
-</div>
-
-<BR>
 
 <form name='fconfigform' method='post' onsubmit="return fconfigform_submit(this);">
-<input type=hidden name=token value='<?=$token?>'>
+<input type=hidden name=mb_id value='<?=$member[mb_id]?>'>
+<div class="panel panel-default">
+  <div class="panel-heading">회원탈퇴</div>
 
-<table width=620 cellpadding=0 cellspacing=0 border=0>
-<colgroup width=120 class='col1 pad1 bold right'>
-<colgroup class='col2 pad2'>
-<tr class='ht'>
-<td>아 이 디</td>
-<td><input type=text class=ed name='mb_id' size='25' readonly value='<?=$member[mb_id]?>'></td>
-</tr>
-<tr class='ht'>
-<td>이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;름</td>
-<td><input type=text class=ed name='mb_name' size='25' itemname="이름" required></td>
-</tr>
-<tr class='ht'>
-<td>비밀번호</td>
-<td><input type=password class=ed name='mb_password' size='25' itemname="비밀번호" required></td>
-</tr>
-<tr class='ht'>
-<td>탈퇴사유</td>
-<td><textarea class=ed name='leave_reason' rows='3' style='width:99%;'></textarea></td>
-</tr>
-<tr class='ht'>
-    <td></td>
-    <td colspan=3>
-        <script src='https://www.google.com/recaptcha/api.js'></script> 
-        <div id="grecaptcha" class="g-recaptcha" data-sitekey="<?=$g4['recaptcha_sitekey']?>" style="float:right"></div> 
-    </td>
-</tr>
-</table>
+  <div class="panel-body">
+  회원탈퇴를 신청하시면 해당 아이디로는 재가입이 불가능합니다.
 
-<p align=center>
-    <input type=submit class=btn1 accesskey='s' value='  확  인  '>
-
+      <table class="table" style="margin-top:30px;">
+      <tr>
+          <td class="active col-md-1">아이디</td>
+          <td><?=$member[mb_id]?></td>
+      </tr>
+      <tr>
+          <td class="active col-md-1">닉네임</td>
+          <td><?=$member[mb_nick]?></td>
+      </tr>
+      <tr>
+          <td class="active col-md-1">비밀번호</td>
+          <td><input type=password name='mb_password' size='25' itemname="비밀번호" required></td>
+      </tr>
+      <tr>
+          <td class="col-md-1"></td>
+          <td>
+              <script src='https://www.google.com/recaptcha/api.js'></script> 
+              <div id="grecaptcha" class="g-recaptcha" data-sitekey="<?=$g4['recaptcha_sitekey']?>"></div>
+          </td>
+      </tr>
+      </table>
+  </div>
+      
+  <div class="panel-footer">
+      <span class="pull-right"> 
+      <input type="submit" class="btn btn-success" value='  탈  퇴  '>
+      </span>
+      </BR></BR>
+  </div>
+</div>
 </form>
 
 <script type="text/javascript">
