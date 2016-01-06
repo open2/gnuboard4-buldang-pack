@@ -263,10 +263,6 @@ $g4['search_level'] = 2;
 // 이메일인증시 지급할 포인트
 $g4['email_certify_point'] = 500;
 
-// 추천, 비추천 포인트 부여하기
-$g4['good_point'] = 20;
-$g4['nogood_point'] = -10;
-
 // 키워드 SEO 출력 지원여부
 $g4['keyword_seo'] = 1;
 

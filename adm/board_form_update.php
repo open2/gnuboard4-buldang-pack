@@ -96,6 +96,10 @@ $bo_read_point          = $_POST[bo_read_point];
 $bo_write_point         = $_POST[bo_write_point];
 $bo_comment_point       = $_POST[bo_comment_point];
 $bo_download_point      = $_POST[bo_download_point];
+$bo_good_point          = $_POST[bo_good_point];
+$bo_good_click_point    = $_POST[bo_good_click_point];
+$bo_nogood_point        = $_POST[bo_nogood_point];
+$bo_nogood_click_point  = $_POST[bo_nogood_click_point];
 $bo_use_category        = $_POST[bo_use_category];
 $bo_category_list       = $_POST[bo_category_list];
 $bo_disable_tags        = $_POST[bo_disable_tags];
@@ -212,6 +216,10 @@ $sql_common = " gr_id               = '$gr_id',
                 bo_write_point      = '$bo_write_point',
                 bo_comment_point    = '$bo_comment_point',
                 bo_download_point   = '$bo_download_point',
+                bo_good_point       = '$bo_good_point',
+                bo_good_click_point = '$bo_good_click_point',
+                bo_nogood_point     = '$bo_nogood_point',
+                bo_nogood_click_point = '$bo_nogood_click_point',
                 bo_use_category     = '$bo_use_category',
                 bo_category_list    = '$bo_category_list',
                 bo_disable_tags     = '$bo_disable_tags',
@@ -429,10 +437,16 @@ if ($chk_dhtml_editor_level) $s .= " , bo_dhtml_editor_level = '$bo_dhtml_editor
 if ($chk_dhtml_editor_level_comment) $s .= " , bo_dhtml_editor_level_comment = '$bo_dhtml_editor_level_comment' ";
 if ($chk_count_modify) $s .= " , bo_count_modify = '$bo_count_modify' ";
 if ($chk_count_delete) $s .= " , bo_count_delete = '$bo_count_delete' ";
+
 if ($chk_read_point) $s .= " , bo_read_point = '$bo_read_point' ";
 if ($chk_write_point) $s .= " , bo_write_point = '$bo_write_point' ";
 if ($chk_comment_point) $s .= " , bo_comment_point = '$bo_comment_point' ";
 if ($chk_download_point) $s .= " , bo_download_point = '$bo_download_point' ";
+if ($chk_good_point) $s .= " , bo_good_point = '$bo_good_point' ";
+if ($chk_good_click_point) $s .= " , bo_good_click_point = '$bo_good_click_point' ";
+if ($chk_nogood_point) $s .= " , bo_nogood_point = '$bo_nogood_point' ";
+if ($chk_nogood_click_point) $s .= " , bo_nogood_click_point = '$bo_nogood_click_point' ";
+
 if ($chk_category_list) {
     $s .= " , bo_category_list = '$bo_category_list' ";
     $s .= " , bo_use_category = '$bo_use_category' ";

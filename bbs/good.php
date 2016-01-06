@@ -89,16 +89,21 @@ if ($good == "good" || $good == "nogood")
         }
 
         // 포인트 넣어주기
-        if ($good == "good")
-            if ($board[bo_good_point] &&$board[bo_good_point] !== 0)
-                insert_point($member[mb_id], $board[bo_good_point], "$board[bo_subject] $wr_id 추천하기", $bo_table, $wr_id, '추천');
-            else if ($g4['good_point'] && $g4['good_point'] !== 0)
-                insert_point($member[mb_id], $g4['good_point'], "$board[bo_subject] $wr_id 추천하기", $bo_table, $wr_id, '추천');
-        else
-            if ($board[bo_nogood_point] && $board[bo_nogood_point] !== 0)
-                insert_point($member[mb_id], $board[bo_nogood_point], "$board[bo_subject] $wr_id 비추천하기", $bo_table, $wr_id, '추천');
-            else if ($g4['nogood_point'] && $g4['nogood_point'] !== 0)
-                insert_point($member[mb_id], $g4['nogood_point'], "$board[bo_subject] $wr_id 비추천하기", $bo_table, $wr_id, '추천');
+        if ($good == "good") {
+            // 게시글 작성자
+            if ($write[mb_id] !== "" && $board[bo_good_point] && $board[bo_good_point] !== 0)
+                insert_point($write[mb_id], $board[bo_good_point], "$board[bo_subject] $wr_id 추천하기", $bo_table, $wr_id, '추천됨');
+            // 클릭한 회원
+            if ($board[bo_good_click_point] &&$board[bo_good_click_point] !== 0)
+                insert_point($member[mb_id], $board[bo_good_click_point], "$board[bo_subject] $wr_id 추천하기", $bo_table, $wr_id, '추천');
+        } else {
+            // 게시글 작성자
+            if ($write[mb_id] !== "" && $board[bo_nogood_point] && $board[bo_nogood_point] !== 0)
+                insert_point($write[mb_id], $board[bo_nogood_point], "$board[bo_subject] $wr_id 비추천하기", $bo_table, $wr_id, '추천됨');
+            // 클릭한 회원
+            if ($board[bo_nogood_click_point] && $board[bo_nogood_click_point] !== 0)
+                insert_point($member[mb_id], $board[bo_nogood_click_point], "$board[bo_subject] $wr_id 비추천하기", $bo_table, $wr_id, '추천');
+        }
 
         if ($good == "good") 
             $status = "추천";

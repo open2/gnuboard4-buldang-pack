@@ -291,6 +291,26 @@ include_once ("./admin.head.php");
     <td>다운로드 포인트</td>
     <td><input type=text class=ed name=bo_download_point size=10 required itemname='다운로드 포인트' value='<?=$board[bo_download_point]?>'></td>
 </tr>
+<tr>
+    <td><input type=checkbox name=chk_good_point value=1></td>
+    <td>추천 포인트(추천인)</td>
+    <td><input type=text class=ed name=bo_good_point size=10 required itemname='추천 포인트(추천인)' value='<?=$board[bo_good_point]?>'> (게시글을 추천한 회원에게 부여하는 포인트)</td>
+</tr>
+<tr>
+    <td><input type=checkbox name=chk_good_click_point value=1> (추천된 게시글의 글쓴이에게 부여하는 포인트)</td>
+    <td>추천 포인트(글쓴이)</td>
+    <td><input type=text class=ed name=bo_good_click_point size=10 required itemname='추천 포인트(글쓴이)' value='<?=$board[bo_good_click_point]?>'></td>
+</tr>
+<tr>
+    <td><input type=checkbox name=chk_nogood_point value=1></td>
+    <td>비추천 포인트(추천인)</td>
+    <td><input type=text class=ed name=bo_nogood_point size=10 required itemname='비추천 포인트(추천인)' value='<?=$board[bo_nogood_point]?>'> (게시글을 비추천한 회원에게 부여하는 포인트)</td>
+</tr>
+<tr>
+    <td><input type=checkbox name=chk_nogood_click_point value=1></td>
+    <td>비추천 포인트(글쓴이)</td>
+    <td><input type=text class=ed name=bo_nogood_click_point size=10 required itemname='비추천 포인트(글쓴이)' value='<?=$board[bo_nogood_click_point]?>'>  (비추천된 게시글의 글쓴이에게 부여하는 포인트)</td>
+</tr>
 
 <tr>
     <td><input type=checkbox name=chk_category_list value=1></td>
