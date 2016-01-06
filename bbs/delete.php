@@ -199,6 +199,16 @@ while ($row = sql_fetch_array($result))
         if (!delete_point($row[mb_id], $bo_table, $row[wr_id], '쓰기'))
             insert_point($row[mb_id], $board[bo_write_point] * (-1), "$board[bo_subject] $row[wr_id] 글삭제");
 
+        // 원글 추천 포인트 삭제
+        delete_point($row[mb_id], $bo_table, $row[wr_id], '추천됨');
+
+        // 불당팩 - 추천한 사람들 포인트 삭제
+        $sql = " select * from $g4[point_table] where po_rel_table = '$bo_table' and po_rel_id = '$row[wr_id]' and po_rel_action = '추천' ";
+        $result4 = sql_query($sql);
+        while ($row4=sql_fetch_array($result4)) {
+            delete_point($row4[mb_id], $bo_table, $row[wr_id], '추천');
+        }
+
         // 업로드된 파일이 있다면 파일삭제
         $sql2 = " select * from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$row[wr_id]' ";
         $result2 = sql_query($sql2);
