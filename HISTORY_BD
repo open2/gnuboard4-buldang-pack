@@ -1,3 +1,44 @@
+2.1.3 (2016.01.05)
+
+DB 수정사항
+
+ALTER  TABLE  `g4_board`  ADD  `bo_good_click_point` INT( 11  )  NOT  NULL  AFTER  `bo_nogood_point` ,
+ADD  `bo_nogood_click_point` INT( 11  )  NOT  NULL  AFTER  `bo_good_click_point` 
+
+bo_good_point : 게시글 작성자에게 지급하는 포인트
+bo_good_click_point : 클릭한 사람에게 지급하는 포인트
+
+config.php
+
+adm/board_form.php
+adm/board_form_update.php
+adm/upgrade_bd.php
+
+bbs/delete.php
+bbs/good.php
+
+froala/froala.lib.2.php
+
+install/sql_opencode.sql
+
+- froala 편집기 메뉴 수정
+froala/froala.lib.2.php
+
+- 추천 받는 사람에게도 포인트를 지급하도록 코드 수정
+config.php
+adm/board_form.php
+adm/board_form_update.php
+adm/upgrade_bd.php
+bbs/delete.php
+bbs/good.php
+install/sql_opencode.sql
+
+config.php에서 아래의 추천 포인트 설정 삭제... 필요 없으니.
+// 추천, 비추천 포인트 부여하기
+$g4['good_point'] = 20;
+$g4['nogood_point'] = -10;
+
+
 2.1.2 (2015.12.19)
 
 [ 필독 *** 설치시 주의 사항 ]
