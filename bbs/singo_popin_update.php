@@ -128,6 +128,10 @@ if ($wr_id != $wr_parent) {
 foreach($memo_list as $memo_recv_mb_id) {
 
     $me_send_mb_id = $config['cf_admin']; // 사이트 관리자 명의로 쪽지를 발송
+    
+    // 수신자가 관리자일 경우에는, 발신자를 신고자로 변경
+    if ($memo_recv_mb_id == $config['cf_admin'])
+        $me_send_mb_id = $member['mb_id'];
 
     // 신고된 url
     if ($bo_table == 'hidden_comment') {
