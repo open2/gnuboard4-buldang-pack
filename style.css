@@ -3,6 +3,9 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
     display: block;    
 }
 
+/* 1줄로 된 nav 메뉴를 묶어서 보여줍니다 */
+.nav > li { display:inline-block }
+
 /* navbar안에서는 btn-info 속성이 안먹힙니다. 그때 btn-info 색을 바꿔주는 방법 */
 .btn-info-navbar {
     color: #fff;
