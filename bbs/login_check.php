@@ -207,7 +207,7 @@ if ($auto_login) {
     }
 
     // 불당팩 - unique한 값을 생성해 줍니다
-    $uid = md5($mb['mb_id'] . $_SERVER['HTTP_USER_AGENT'] . $mb['mb_no'] . $g4['server_time'], true);
+    $uid = md5($mb['mb_no'] . $g4['mb_open_date'], true);
 
     // cookie DB에서 key가 같은 경우를 모두 삭제해줍니다
     //$sql = " delete from $g4[cookie_table] where cookie_key='$key' ";
@@ -230,6 +230,7 @@ if ($auto_login) {
     $stmt->bindParam(":key", $key);
     $result = pdo_query($stmt, FALSE);
 
+    set_cookie('ck_mb_id', '', 0);
     set_cookie('ck_mb_id', $uid, 86400 * 31);
     // 자동로그인 end ---------------------------
 } else {
