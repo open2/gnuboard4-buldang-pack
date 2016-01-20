@@ -2,7 +2,7 @@
 //                       CHEditor 5
 // ----------------------------------------------------------------
 // Homepage: http://www.chcode.com
-// Copyright (c) 1997-2015 CHSOFT
+// Copyright (c) 1997-2014 CHSOFT
 // ================================================================
 var UploadScript = "";
 var DeleteScript = "";
@@ -620,7 +620,7 @@ function dragDropMove(e) {
 	leftPos = leftPos + eventDiff_x;
 	topPos = topPos + eventDiff_y;
 
-	if (e.button !== 1 && browser.msie) {
+	if (e.button !== 1 && browser.msie && browser.version < 11) {
         dragDropEnd();
     }
 
@@ -703,18 +703,28 @@ function doSubmit() {
 	var el = document.getElementById('imageListWrapper').getElementsByTagName('DIV');
 	var imageArray = [];
 	var num = 0;
-    var fm_elem = document.getElementById('fm_alignment');
-	var fm_align = fm_elem.alignment;
-	var img_align = 'top', i, imgBox;
-    var imgParagraph = fm_elem.para.checked;
-    var useSpacer = fm_elem.use_spacer.checked;
+    var elem = document.getElementById('id_alignment').elements;
+    var imgParagraph = false;
+    var useSpacer = false;
+	var imgAlign = 'top', i, imgBox;
+    var input;
 
-	for (i=0; i < fm_align.length; i++) {
-		if (fm_align[i].checked) {
-			img_align = fm_align[i].value;
-			break;
-		}
-	}
+	for (i=0; i < elem.length; i++) {
+        input = elem[i];
+        switch (input.name) {
+            case "alignment" :
+                if (input.checked) {
+                    imgAlign = input.value;
+                }
+                break;
+            case "para" :
+                imgParagraph = input.checked;
+                break;
+            case "use_spacer" :
+                useSpacer = input.checked;
+                break;
+        }
+    }
 
 	for (i=0; i < el.length; i++) {
 		imgBox = el[i];
@@ -725,12 +735,12 @@ function doSubmit() {
 		if (imgBox.firstChild !== null) {
 			imageArray[num] = imageCompletedList[imgBox.id];
 
-			if (img_align === 'break' ) {
+			if (imgAlign === 'break' ) {
 				imageArray[num]['alt'] = "break";
 			}
 			else {
 				imageArray[num]['alt'] = "";
-				imageArray[num]['align'] = img_align;
+				imageArray[num]['align'] = imgAlign;
 			}
 
 			num++;
@@ -822,7 +832,6 @@ function doUpload() {
                             if (imgBox.className !== 'imageBox_theImage') {
                                 continue;
                             }
-
                             if (!imgBox.firstChild || imgBox.firstChild.tagName.toLowerCase() !== 'img') {
                                 imgInfo = { "width":    this.width,
                                             "height":   this.height,
@@ -961,12 +970,17 @@ function init(dialog) {
     oEditor.addEvent(dropTarget, 'dragleave', dragOut);
     oEditor.addEvent(dropTarget, 'drop', fileSelectDrop);
 
-    var align = document.getElementById('fm_alignment');
-    var i;
-    for (i=0; i<align.length; i++) {
-        if (align[i].value === oEditor.config.imgDefaultAlign) {
-            align[i].checked = "checked";
+    var elem = document.getElementById('id_alignment').elements;
+    var i = 0;
+    for (; i<elem.length; i++) {
+        if (elem[i].name === "alignment" && elem[i].value === oEditor.config.imgDefaultAlign) {
+            elem[i].checked = "checked";
             break;
         }
+    }
+
+    if (browser.mobile) {
+        var input = document.getElementById('inputImageUpload');
+        input.setAttribute('capture', 'gallery');
     }
 }

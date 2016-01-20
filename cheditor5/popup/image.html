@@ -14,15 +14,13 @@
  			<div id="container">
                 <table style="border-spacing: 0;padding: 0;border:none; margin-bottom: 10px; border-collapse: collapse">
                     <tr>
-                        <td style="padding: 0px 0px 0px 3px">
-                           <div id="oFlashButton"></div>
-                           <!--
-                           <span style="vertical-align: middle">&nbsp;(사진을 드래그하여 순서를 바꿀 수 있습니다.)</span>
-                           -->
-                        </td>
                         <td style="width:93px;padding:0">
                             <img src="../icons/imageUpload/remove_all.gif" class="remove-button" style="vertical-align:middle" onclick="removeImages();" alt="" />
-                            <span><span id="imageCount">0</span>장/최대 <span id="maxImageNum"></span>장</span>
+                        </td>
+                        <td style="padding: 0px 0px 0px 3px">
+                           <div id="oFlashButton"></div>
+                           <span style="vertical-align: middle">&nbsp;(사진을 드래그하여 순서를 바꿀 수 있습니다.)</span>
+                           <span style="right: 0; top:5px; position:absolute; margin-left:10px;"><span id="imageCount">0</span>장 / 최대 <span id="maxImageNum"></span>장 사진</span>
                         </td>
                     </tr>
                 </table>
@@ -38,7 +36,7 @@
                     </div>
                     <div style="margin-top: 20px">
                         <div class="imageInfoTitle"><span>정렬</span></div>
-                        <form name="alignment" id="fm_alignment" style="display: inline;">
+                        <form name="fm_alignment" id="id_alignment" style="display: inline;">
                         <table style="margin:7px auto 10px auto;border:0;padding:0;border-spacing:0">
                             <tr>
                                 <td style="text-align: center">

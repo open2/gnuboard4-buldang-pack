@@ -12,7 +12,7 @@
 	background-color: #fff;
 	position: absolute;
     height: 295px;
-    width: 342px;
+    width: 522px;
     overflow-y: scroll;
     border-radius: 4px;
 }
@@ -27,6 +27,8 @@
     border:2px #ff3399 dashed;
 }
 #imageInfoBox {
+    position:absolute;
+	left:548px;
 }
 .imageInfoTitle {
     text-align: center;

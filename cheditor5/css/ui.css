@@ -23,9 +23,9 @@ a.cheditor-tag-path-elem:hover {
     display: block;
     background-color: #f0f0f0;
 }
-.cheditor-tb-wrapper div {
+/*.cheditor-tb-wrapper div {
     display: "";
-}
+}*/
 .cheditor-tb-wrapper-readonly {
     border-right:1px #ccc solid;
     border-left:1px #ccc solid;
@@ -76,14 +76,14 @@ a.cheditor-tag-path-elem:hover {
     border-right: 1px #ccc solid;
     border-bottom: 1px #ccc solid;
     border-left: 1px #ccc solid;
-    vertical-align: top;
+    overflow:hidden;
 }
 .cheditor-editarea {
-    width:100%;
+    width: 100%;
     overflow:auto;
-    background-color: #fff;
     margin: 0px;
     padding: 0px;
+    display: block;
 }
 .cheditor-modify-block .cheditor-ico {
     width: 16px;
@@ -141,7 +141,7 @@ a.cheditor-tag-path-elem:hover {
     margin-top: -2px;
     margin-left: 3px;
     height:20px;
-    width:64px;
+    width:64px;    
 }
 .cheditor-modify-block div .edit-table-ico {
     cursor: pointer;
@@ -226,6 +226,7 @@ a.cheditor-tag-path-elem:hover {
     cursor: default;
     background-color: #eee;
 }
+
 .cheditor_mode_icon { width: 24px; height: 16px; cursor: pointer; vertical-align:top }
 .cheditor-popup-title { font-size: 9pt; font-family:Malgun Gothic,gulim; font-weight:bold; color:#fff; }
 .cheditor-popup-cframe {
@@ -236,7 +237,7 @@ a.cheditor-tag-path-elem:hover {
 }
 .cheditor-popup-cframe iframe {
     margin: 0px;
-    padding: 0px;
+    padding: 0px;    
     overflow: hidden;
 }
 .cheditor-pulldown-container {
@@ -295,7 +296,7 @@ a.cheditor-tag-path-elem:hover {
     border:#aaa 1px solid;
     -moz-box-shadow: 0 0 5px #aaa;
     -webkit-box-shadow: 0 0 5px #aaa;
-    box-shadow: 1px 1px 10px #bbb;
+    box-shadow: 1px 1px 10px #bbb;    
     background-color:#fff;
     padding:2px;
 }
@@ -306,7 +307,7 @@ a.cheditor-tag-path-elem:hover {
     background-color: #f0f0f0;
     border: #e0e0e0 1px solid;
 }
-.cheditor-pulldown-frame {
+.cheditor-pulldown-frame {	
     position:absolute;
     visibility:hidden;
     z-index: -1;
@@ -383,11 +384,11 @@ a.cheditor-tag-path-elem:hover {
     text-align: left;
     background-color: #fff;
 }
-.cheditor-popupModalBackground {
+.cheditor-popupModalBackground { 	
 	background-color: #efefef;
     position: fixed;
     _position: absolute;
-	display: none;
+	display: none; 
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -434,13 +435,13 @@ a.cheditor-tag-path-elem:hover {
     overflow: hidden;
     filter: grayscale(100%);
     filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
-    filter: alpha(opacity=40) gray;
+    filter: alpha(opacity=40) gray;  
     -webkit-filter: grayscale(100%);
     -moz-filter: grayscale(100%);
     -ms-filter: grayscale(100%);
     -o-filter: grayscale(100%);
     opacity: 0.4;
-}
+}      
 .cheditor-tb-text {
     padding: 0px;
     margin: 0px;
@@ -457,7 +458,7 @@ a.cheditor-tag-path-elem:hover {
     overflow: hidden;
     filter: grayscale(100%);
     filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
-    filter: alpha(opacity=40) gray;
+    filter: alpha(opacity=40) gray;  
     -webkit-filter: grayscale(1);
     -moz-filter: grayscale(100%);
     -ms-filter: grayscale(100%);
@@ -488,7 +489,7 @@ a.cheditor-tag-path-elem:hover {
     overflow: hidden;
     filter: grayscale(100%);
     filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
-    filter: alpha(opacity=40) gray;
+    filter: alpha(opacity=40) gray;  
     -webkit-filter: grayscale(1);
     -moz-filter: grayscale(100%);
     -ms-filter: grayscale(100%);
@@ -506,7 +507,7 @@ a.cheditor-tag-path-elem:hover {
     overflow: hidden;
     filter: grayscale(100%);
     filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
-    filter: alpha(opacity=40) gray;
+    filter: alpha(opacity=40) gray;  
     -webkit-filter: grayscale(1);
     -moz-filter: grayscale(100%);
     -ms-filter: grayscale(100%);

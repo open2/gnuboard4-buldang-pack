@@ -2,7 +2,7 @@
 //                            CHEditor 5
 // ----------------------------------------------------------------
 // Homepage: http://www.chcode.com
-// Copyright (c) 1997-2015 CHSOFT
+// Copyright (c) 1997-2016 CHSOFT
 // ================================================================
 var AppWidth = "250";
 var AppHeight = "175";

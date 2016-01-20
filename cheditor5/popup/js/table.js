@@ -1,8 +1,8 @@
 // ================================================================
-//                            CHEditor 5
+//                       CHEditor 5
 // ----------------------------------------------------------------
 // Homepage: http://www.chcode.com
-// Copyright (c) 1997-2015 CHSOFT
+// Copyright (c) 1997-2016 CHSOFT
 // ================================================================
 var oEditor = null;
 var colour = ["ffffcc","ffcc66","ff9900","ffcc99","ff6633","ffcccc","cc9999","ff6699","ff99cc","ff66cc","ffccff","cc99cc","cc66ff","cc99ff","9966cc","ccccff","9999cc","3333ff","6699ff","0066ff","99ccff","66ccff","99cccc","ccffff","99ffcc","66cc99","66ff99","99ff99","ccffcc","33ff33","66ff00","ccff99","99ff00","ccff66","cccc66","ffffff",
@@ -84,13 +84,13 @@ function doSubmit()
     if (isNaN(cols)) {
     	cols = 0;
     }
-
+        
     border = document.getElementById("bordersize").value;
     border = parseInt(oEditor.trimSpace(border), 10);
     if (isNaN(border)) {
         border = 0;
     }
-
+    
     width = document.getElementById("width").value;
     width = parseInt(oEditor.trimSpace(width), 10);
     widthType = document.getElementById("widthtype").value;
@@ -110,30 +110,30 @@ function doSubmit()
     else {
     	height += document.getElementById("heighttype").value;
     }
-
+    
     cellpd = document.getElementById("cellpd").value;
     cellpd = parseInt(oEditor.trimSpace(cellpd), 10);
     if (isNaN(cellpd)) {
     	cellpd = 0;
     }
-
+    
     cellsp = document.getElementById("cellsp").value;
     cellsp = parseInt(oEditor.trimSpace(cellsp), 10);
     if (isNaN(cellsp)) {
     	cellsp = 0;
     }
-
+    
     bgcolor = document.getElementById("idbgcolor").value;
     bgcolor = oEditor.trimSpace(bgcolor);
     if (bgcolor === none || bgcolor === '') {
     	bgcolor = null;
     }
-
+    
     align = document.getElementById("talign").value;
     if (align === 'none') {
     	align = null;
     }
-
+    
     bordercolor = document.getElementById("idbordercolor").value;
     bordercolor = oEditor.trimSpace(bordercolor);
     if (bordercolor === '') {
@@ -145,18 +145,18 @@ function doSubmit()
     if (cssclass === '') {
         cssclass = null;
     }
-
+    
     cssid = document.getElementById("cssId").value;
     cssid = oEditor.trimSpace(cssid);
     if (cssid === '') {
         cssid = null;
     }
-
+    
     if (rows < 1 || cols < 1) {
     	alert('표의 줄 또는 칸 개수가 1개 이상 필요합니다.');
     	return;
     }
-
+    
     var caption = document.getElementById('tableCaption');
     var captionValue = oEditor.trimSpace(caption.value);
     var summary = document.getElementById('tableSummary');
@@ -169,7 +169,7 @@ function doSubmit()
         cell.setAttribute('scope', scope);
         return cell;
     };
-
+    
     var oHead = document.createElement('thead');
     var oBody = document.createElement('tbody');
 
@@ -180,9 +180,9 @@ function doSubmit()
         table.style.borderStyle = 'solid';
         table.style.borderWidth = border + 'px';
     }
-
+    
     table.style.borderCollapse = "collapse";
-
+    
     var i, row, tr, j, cell;
     for (i=0; i < rows; i++) {
         tr = document.createElement('tr');
@@ -220,7 +220,7 @@ function doSubmit()
                 cell.style.borderWidth = table.style.borderWidth;
                 cell.style.borderColor = table.style.borderColor;
             }
-            cell.setAttribute("width", cellWidth);
+//            cell.setAttribute("width", cellWidth);
             cell.appendChild(document.createTextNode('\u00a0'));
             row.appendChild(cell);
         }
@@ -229,9 +229,9 @@ function doSubmit()
     if (oHead.hasChildNodes()) {
         table.appendChild(oHead);
     }
-
+   
     table.appendChild(oBody);
-
+    
     if (summaryValue !== '') {
         table.setAttribute('summary', summaryValue);
     }
@@ -255,7 +255,7 @@ function doSubmit()
         var hideCaption, tableCaption;
         tableCaption = table.createCaption();
         tableCaption.appendChild(document.createTextNode(captionValue));
-
+        
         hideCaption = document.getElementById('hideCaption');
         if (hideCaption.checked === true) {
             tableCaption.style.visibility = 'hidden';
@@ -269,23 +269,20 @@ function doSubmit()
     table.id = oEditor.makeRandomString();
     oEditor.insertHtmlPopup(table.cloneNode(true));
     var newTable = oEditor.$(table.id);
-//    var br = document.createElement('br');
-//    newTable.parentNode.insertBefore(br, newTable);
-//    newTable.parentNode.insertBefore(newTable, br);
     newTable.removeAttribute('id');
-
+    
     if (cssclass) {
         newTable.className = cssclass;
     }
     if (cssid) {
         newTable.id = cssid;
     }
-
+    
     var focusCell = newTable.getElementsByTagName('th')[0];
     if (oEditor.undefined(focusCell)) {
         focusCell = newTable.getElementsByTagName('td')[0];
     }
-
+    
     if (oEditor.getBrowser().msie) {
         var cursor = oEditor.doc.body.createTextRange();
         cursor.moveToElementText(focusCell);

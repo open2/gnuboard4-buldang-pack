@@ -2,12 +2,12 @@
 //                            CHEditor 5
 // ----------------------------------------------------------------
 // Homepage: http://www.chcode.com
-// Copyright (c) 1997-2015 CHSOFT
+// Copyright (c) 1997-2016 CHSOFT
 // ================================================================
 var oEditor = null;
-var button = [ { alt : "", img : 'submit.gif', cmd : doSubmit },
+var button = [ { alt : "", img : 'submit.gif', cmd : doSubmit },              
                { alt : "", img : 'cancel.gif', cmd : popupClose } ];
-
+           
 var colour = ["ffffcc","ffcc66","ff9900","ffcc99","ff6633","ffcccc","cc9999","ff6699","ff99cc","ff66cc","ffccff","cc99cc","cc66ff","cc99ff","9966cc","ccccff","9999cc","3333ff","6699ff","0066ff","99ccff","66ccff","99cccc","ccffff","99ffcc","66cc99","66ff99","99ff99","ccffcc","33ff33","66ff00","ccff99","99ff00","ccff66","cccc66","ffffff",
               "ffff99","ffcc00","ff9933","ff9966","cc3300","ff9999","cc6666","ff3366","ff3399","ff00cc","ff99ff","cc66cc","cc33ff","9933cc","9966ff","9999ff","6666ff","3300ff","3366ff","0066cc","3399ff","33ccff","66cccc","99ffff","66ffcc","33cc99","33ff99","66ff66","99cc99","00ff33","66ff33","99ff66","99ff33","ccff00","cccc33","cccccc",
               "ffff66","ffcc33","cc9966","ff6600","ff3300","ff6666","cc3333","ff0066","ff0099","ff33cc","ff66ff","cc00cc","cc00ff","9933ff","6600cc","6633ff","6666cc","3300cc","0000ff","3366cc","0099ff","00ccff","339999","66ffff","33ffcc","00cc99","00ff99","33ff66","66cc66","00ff00","33ff00","66cc00","99cc66","ccff33","999966","999999",
@@ -32,7 +32,7 @@ function isError() {
 function init(dialog) {
 	oEditor = this;
 	oEditor.dialog = dialog;
-
+	
 	var dlg = new Dialog(oEditor);
 	dlg.showButton(button);
 	dlg.setDialogHeight();
@@ -52,7 +52,7 @@ function init(dialog) {
         while (pNode.nodeType === 3) {
             pNode = pNode.parentNode;
         }
-
+        
         if (pNode.nodeName !== 'TD' && pNode.nodeName !== 'TH' && pNode.nodeName !== 'CAPTION' && pNode.nodeName !== 'TABLE')
         {
             isError();
@@ -71,7 +71,7 @@ function init(dialog) {
   			pNode = rng.parentElement();
         }
   	}
-
+	
   	while (pNode && pNode.nodeName.toLowerCase() !== 'table') {
   		pNode = pNode.parentNode;
     }
@@ -84,7 +84,7 @@ function init(dialog) {
     modifyTable = pNode;
     var border, el_size, fm_size, el_type, fm_type, cellpd, cellsp, bgcolor, idbgcolor,
         bordercolor, idbordercolor, captionValue, summaryValue, caption, captionInput, summary;
-
+    
     border = modifyTable.getAttribute('border');
     if (!border || isNaN(border)) {
         border = parseInt(modifyTable.style.borderWidth, 10);
@@ -93,23 +93,23 @@ function init(dialog) {
         }
     }
     document.getElementById("bordersize").value = border;
-
+    
     if (modifyTable.className !== '') {
         document.getElementById('cssClass').value = modifyTable.className;
     }
     if (modifyTable.id !== '') {
         document.getElementById('cssId').value = modifyTable.id;
     }
-
+    
     el_size = modifyTable.getAttribute('width');
     if (!el_size) {
         el_size = modifyTable.style.width;
     }
-
+    
     fm_size = document.getElementById("width");
     el_type = 'px';
     fm_type = document.getElementById("widthtype");
-
+    
     if (el_size) {
     	el_type = (/%$/.test(el_size)) ? '%' : 'px';
     	el_size = parseInt(el_size, 10);
@@ -123,7 +123,7 @@ function init(dialog) {
 
     fm_size.value = el_size;
     fm_type.value = el_type;
-
+    
     el_size = modifyTable.getAttribute('height');
     if (!el_size) {
         el_size = modifyTable.style.height;
@@ -131,7 +131,7 @@ function init(dialog) {
     fm_size = document.getElementById("height");
     el_type = 'px';
     fm_type = document.getElementById("heighttype");
-
+    
     if (el_size) {
     	el_type = (/\%$/.test(el_size)) ? '%' : 'px';
     	el_size = parseInt(el_size, 10);
@@ -145,31 +145,31 @@ function init(dialog) {
 
     fm_size.value = el_size;
     fm_type.value = el_type;
-
+    
     fm_type = modifyTable.getAttribute('align');
     if (!fm_type) {
         fm_type = 'none';
     }
 	document.getElementById("talign").value = fm_type;
-
+	
     cellpd = modifyTable.getAttribute('cellpadding');
     if (isNaN(cellpd)) {
         cellpd = 0;
     }
     document.getElementById("cellpd").value = cellpd || 0;
-
+    
     cellsp = modifyTable.getAttribute('cellspacing');
     if (isNaN(cellsp)) {
         cellsp = 0;
     }
     document.getElementById("cellsp").value = cellsp || 0;
-
+    
     bgcolor = modifyTable.getAttribute('bgcolor');
     idbgcolor = document.getElementById("idbgcolor");
     if (bgcolor) {
         if (/rgb/.test(bgcolor)) {
             bgcolor = oEditor.colorConvert(bgcolor, 'hex');
-        }
+        }        
         idbgcolor.value = bgcolor.toLowerCase();
         idbgcolor.style.backgroundColor = idbgcolor.value;
     }
@@ -187,12 +187,12 @@ function init(dialog) {
             bordercolor = null;
         }
     }
-
+    
     idbordercolor = document.getElementById("idbordercolor");
     if (bordercolor) {
         if (/rgb/.test(bordercolor)) {
             bordercolor = oEditor.colorConvert(bordercolor, 'hex');
-        }
+        }        
     	idbordercolor.value = bordercolor.toLowerCase();
     	idbordercolor.style.backgroundColor = idbordercolor.value;
     }
@@ -206,13 +206,13 @@ function init(dialog) {
         if (captionValue !== '') {
             captionInput = document.getElementById('tableCaption');
             captionInput.value = captionValue;
-
+            
             if (caption.style.visibility === 'hidden') {
                 document.getElementById('hideCaption').checked = 'checked';
-            }
+            }            
         }
     }
-
+    
     summaryValue = modifyTable.getAttribute('summary');
     if (summaryValue) {
         summaryValue = oEditor.trimSpace(summaryValue);
@@ -221,17 +221,17 @@ function init(dialog) {
             summary.value = summaryValue;
         }
     }
-
+    
     var tableHeader, rows, i, j, cells, headCol, headRow, rowLength, rowCellLength, cellLength, header, headTagName;
     headCol = headRow = null;
     headTagName = 'th';
-
+    
     tableHeader = document.getElementById('tableHeader');
     rows = (modifyTable.rows && modifyTable.rows.length > 0) ? modifyTable.rows : modifyTable.getElementsByTagName('tr');
     rowLength = rows.length;
-
+    
     document.getElementById('numrows').appendChild(document.createTextNode(rowLength));
-
+    
     if (rowLength > 0) {
         cells = rows[0].cells;
         cellLength = cells.length;
@@ -246,7 +246,7 @@ function init(dialog) {
                 }
             }
         }
-
+        
         rowCellLength = 0;
         for (i=0; i < rowLength; i++) {
             headRow = (rows[i].cells[0] && rows[i].cells[0].tagName.toLowerCase() === headTagName) ? 'row' : null;
@@ -254,13 +254,13 @@ function init(dialog) {
                 rowCellLength = rows[i].cells.length;
             }
         }
-
+        
         if (headRow && headCol && cellLength === 1) {
             headCol = null;
         }
         document.getElementById('numcols').appendChild(document.createTextNode(rowCellLength));
     }
-
+    
     header = (headCol && headRow) ? 'all' : headCol || headRow || 'none';
     tableHeader.value = beforeHeaderType = header;
 }
@@ -381,7 +381,7 @@ function doSubmit()
         }
          modifyTable.setAttribute('cellspacing', cellspacingValue);
     }
-
+   
     var bgcolor, bgcolorValue;
     bgcolor = document.getElementById("idbgcolor");
     if (bgcolor) {
@@ -391,7 +391,7 @@ function doSubmit()
             modifyTable.bgColor = bgcolorValue;
         }
     }
-
+    
     var align, alignValue;
     align = document.getElementById("talign");
     if (align) {
@@ -411,7 +411,7 @@ function doSubmit()
     else {
         modifyTable.removeAttribute('class');
     }
-
+    
     cssid = document.getElementById('cssId');
     cssidValue = oEditor.trimSpace(cssid.value);
     if (cssidValue !== '') {
@@ -420,13 +420,13 @@ function doSubmit()
     else {
         modifyTable.removeAttribute('id');
     }
-
+    
     var caption = document.getElementById('tableCaption');
     var captionValue = oEditor.trimSpace(caption.value);
     var summary = document.getElementById('tableSummary');
     var summaryValue = oEditor.trimSpace(summary.value);
     var oCaption;
-
+    
     if (summaryValue !== '') {
         modifyTable.setAttribute('summary', summaryValue);
     }
@@ -434,7 +434,7 @@ function doSubmit()
         var hideCaption, tableCaption;
         tableCaption = modifyTable.createCaption();
         tableCaption.innerHTML = captionValue;
-
+        
         hideCaption = document.getElementById('hideCaption');
         if (hideCaption.checked === true) {
             tableCaption.style.visibility = 'hidden';
@@ -453,7 +453,7 @@ function doSubmit()
             modifyTable.removeChild(oCaption);
         }
     }
-
+ 
     var copyAttribute = function(target, source) {
         var attr, attrValue, nodeName;
         attr = source.attributes;
@@ -463,8 +463,8 @@ function doSubmit()
                 attrValue = source.getAttribute(nodeName);
                 target.style.cssText = oEditor.undefined(attrValue.cssText) ? attrValue : attrValue.cssText;
             }
-            else if (nodeName === 'class' || nodeName === 'id' || nodeName === 'nowrap' || nodeName === 'colspan' ||
-                      nodeName === 'rowspan' || nodeName === 'align')
+            else if (nodeName === 'class' || nodeName === 'id' || nodeName === 'nowrap' || nodeName === 'colspan' || 
+                      nodeName === 'rowspan' || nodeName === 'align') 
             {
                 attrValue = source.getAttribute(nodeName);
                 if (attrValue) {
@@ -473,35 +473,35 @@ function doSubmit()
             }
         }
     };
-
+    
     var copyChildNodes = function (target, source) {
         var child;
         child = source.firstChild;
         while (child) {
             target.appendChild(child);
             child = source.firstChild;
-        }
+        }        
     };
-
+    
     var tableHeader = document.getElementById('tableHeader').value;
     var replaceCol = function (rows, newTagName) {
         var cellLength, newCell, oldCell, newCells=[], oHead;
         row = rows[0];
         cellLength = row.cells.length;
-
+        
         for (i=0; i < cellLength; i++) {
             oldCell = row.cells[i];
             newCell = document.createElement(newTagName);
             copyAttribute(newCell, oldCell);
             copyChildNodes(newCell, oldCell);
-
+            
             if (newTagName === 'th') {
                 newCell.setAttribute('scope', 'col');
             }
             else {
                 newCell.removeAttribute('scope');
             }
-
+            
             newCells.push(newCell);
         }
 
@@ -532,7 +532,7 @@ function doSubmit()
             modifyTable.removeChild(oHead);
         }
     };
-
+    
     var replaceRow = function (rows, newTagName) {
         var len, newCell, sourceCell;
         len = rows.length;
@@ -540,29 +540,29 @@ function doSubmit()
             row = rows[i];
             sourceCell = row.cells[0];
             newCell = document.createElement(newTagName);
-
+            
             if (newTagName === 'th') {
                 newCell.setAttribute('scope', 'row');
             }
             else {
                 sourceCell.removeAttribute('scope');
             }
-
+            
             row.insertBefore(newCell, sourceCell);
             copyAttribute(newCell, sourceCell);
-            copyChildNodes(newCell, sourceCell);
+            copyChildNodes(newCell, sourceCell);            
             row.deleteCell(1);
         }
     };
-
+    
     var border, borderValue;
     if (beforeHeaderType !== tableHeader) {
-        rows = (modifyTable.rows && modifyTable.rows.length > 0) ?
-                    modifyTable.rows :
+        rows = (modifyTable.rows && modifyTable.rows.length > 0) ? 
+                    modifyTable.rows : 
                         modifyTable.getElementsByTagName('tr');
-
+        
         if (tableHeader === 'col') {
-            replaceRow(rows, 'td');
+            replaceRow(rows, 'td');            
             replaceCol(rows, 'th');
         }
         else if (tableHeader === 'row') {
@@ -577,7 +577,7 @@ function doSubmit()
             replaceCol(rows, 'td');
             replaceRow(rows, 'td');
         }
-
+        
         oCaption = modifyTable.getElementsByTagName('caption')[0];
         if (oCaption && oCaption !== modifyTable.firstChild) {
             modifyTable.insertBefore(oCaption, modifyTable.firstChild);
@@ -591,10 +591,10 @@ function doSubmit()
         if (isNaN(borderValue) === false) {
             var borderColor, borderColorValue;
             borderValue = parseInt(borderValue, 10);
-            rows = (modifyTable.rows && modifyTable.rows.length > 0) ?
-                        modifyTable.rows :
-                            modifyTable.getElementsByTagName('tr');
-
+            rows = (modifyTable.rows && modifyTable.rows.length > 0) ? 
+                        modifyTable.rows : 
+                            modifyTable.getElementsByTagName('tr');            
+                    
             if (borderValue) {
                 borderColor = document.getElementById("idbordercolor");
                 if (borderColor) {
@@ -603,13 +603,13 @@ function doSubmit()
                 if (!borderColorValue || borderColorValue === none) {
                     borderColorValue = '#000000';
                 }
-
+                    
                 borderColorValue = oEditor.colorConvert(borderColorValue, 'rgb');
-
+                
                 modifyTable.style.border = borderValue + 'px solid ' + borderColorValue;
                 modifyTable.style.borderCollapse = "collapse";
                 modifyTable.removeAttribute('border');
-
+                
                 for (i=0; i < rows.length; i++) {
                     row = rows[i];
                     for (j=0; j < row.cells.length; j++) {
@@ -628,11 +628,11 @@ function doSubmit()
                         cell = row.cells[j];
                         cell.style.border = '';
                     }
-                }
+                }                
             }
         }
     }
-
+    
     oEditor.editArea.focus();
     oEditor.backupRange(oEditor.restoreRange());
     oEditor.clearStoredSelections();
