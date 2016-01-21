@@ -1,3 +1,30 @@
+2.1.4 (2016.01.20)
+
+style.css
+
+bbs/login_check.php
+bbs/singo_popin_update.php
+
+cheditor5/*
+
+froala/froala.lib.2.php
+
+- CHEditor 5.1.6 버전 업데이트
+cheditor5/*
+
+- login_check의 uid 변경
+bbs/login_check.php
+
+- nav 스타일 수정
+style.css
+
+- 신고기능 수정 (관리자에게는 신고자 id로 쪽지 발송)
+bbs/singo_popin_update.php
+
+- froala 기본설정 변경
+froala/froala.lib.2.php
+
+
 2.1.3 (2016.01.05)
 
 DB 수정사항
