@@ -3,13 +3,16 @@ include_once("./_common.php");
 
 $g4[title] = "$config[cf_title] - MyOn";
 
-$head = (int) $head;
+if (isset($head))
+    $head = (int) $head;
+else
+    $head = 1;
 $rows = (int) $rows;
 
 if ($member[mb_id]) 
     ;
 else 
-    alert("MyOn은 회원을 위한 서비스 입니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.", "./login.php?url=".urlencode("myon.php?head=$head"));
+    alert("MyOn은 회원을 위한 서비스 입니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.", "./login.php?url=".urlencode("$g4[bbs_path]/myon.php?head=$head"));
 
 if ($head)
     include_once("./_head.php");
