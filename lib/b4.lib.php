@@ -2364,10 +2364,66 @@ function link_view($link_href, $link, $link_hit, $link_len=70) {
     } else if(preg_match('/https:\/\/api.soundcloud\.com\/([a-z0-9-\/]+)\/([a-z0-9-\/]+)/', $link, $match)) {
         $result = "<iframe width='100%' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/185361169&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true'></iframe></BR>";
         return $result;
+    // poll을 출력 합니다. poll.poll번호의 형식 입니다.
+    } else if(preg_match('/http:\/\/poll\-([0-9]+)/', $link, $match)) {
+        $po_id = (int) $match[1];
+
+        ob_start();
+        include_once("$g4[path]/lib/poll.lib.php");
+        echo poll($po_id);
+        $result = ob_get_contents();
+        ob_end_clean();
+
+        return $result;
     } else {
         // 표시되는 링크의 길이가 너무 길면 줄여야 함
         $link = cut_str($link, $link_len);
         return "<a href='$link_href' target=_blank>{$link} ($link_hit)</a></BR>";
     }
+}
+
+
+// 투표 했는지 여부를 확인 합니다
+function poll_check($po_id) {
+
+    global $g4, $is_member, $member;
+
+    // $po_id
+    $po_id = (int) $po_id;
+
+    // $po 정보를 가져 옵니다.
+    $po = sql_fetch(" select * from $g4[poll_table] where po_id = $po_id ");
+
+    // 투표했던 ip들 중에서 찾아본다
+    $search_ip = false;
+    $ips = explode("\n", trim($po[po_ips]));
+    for ($i=0; $i<count($ips); $i++) 
+    {
+        if ($_SERVER[REMOTE_ADDR] == trim($ips[$i])) 
+        {
+            $search_ip = true;
+            break;
+        }
+    }
+
+    // 투표했던 회원아이디들 중에서 찾아본다
+    $search_mb_id = false;
+    if ($is_member)
+    {
+        $ids = explode("\n", trim($po[mb_ids]));
+        for ($i=0; $i<count($ids); $i++) 
+        {
+            if ($member[mb_id] == trim($ids[$i])) 
+            {
+                $search_mb_id = true;
+                break;
+            }
+        }
+    }
+
+    if ($search_ip || $search_mb_id || get_cookie("ck_po_id") == $po[po_id])
+        return true;
+    else
+        return false;
 }
 ?>
