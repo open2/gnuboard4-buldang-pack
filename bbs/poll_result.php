@@ -10,7 +10,7 @@ $g4[title] = "설문조사 결과";
 $po_subject = $po[po_subject];
 
 // 요약정보
-$html-0;
+$html = 0;
 $po['po_summary'] = conv_content($po['po_summary'], $html);
 
 // 투표시작일, 종료일 설정
@@ -65,9 +65,9 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 
     $list2[$i][del] = "";
     if ($is_admin == "super" || ($row[mb_id] == $member[mb_id] && $row[mb_id])) 
-        $list2[$i][del] = "<a href=\"javascript:del('./poll_etc_update.php?w=d&pc_id=$row[pc_id]&po_id=$po_id');\">";
+        $list2[$i][del] = "<a href=\"javascript:del('$g4[bbs_path]/poll_etc_update.php?w=d&pc_id=$row[pc_id]&po_id=$po_id');\">";
     else if (!$row[mb_id])
-        $list2[$i][del] = "<a href=\"javascript:del('./password.php?w=p&pc_id=$row[pc_id]&po_id=$po_id');\">";
+        $list2[$i][del] = "<a href=\"javascript:del('$g4[bbs_path]/password.php?w=p&pc_id=$row[pc_id]&po_id=$po_id');\">";
 }
 
 // 기타의견 입력
