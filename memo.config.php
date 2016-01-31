@@ -57,7 +57,7 @@ if (function_exists('sql_fetch')) {
 $g4['memo_file_path'] = $g4['data_path'] . "/memo2/" . $member['mb_id']; 
 
 // memo skin
-$g4['memo_skin'] = "basic";
+$g4['memo_skin'] = "basic_boot";
 
 // 쪽지 스킨 경로 지정
 $g4['memo_skin_path'] = "$g4[path]/skin/memo/" . $g4['memo_skin'];
