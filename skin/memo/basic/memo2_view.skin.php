@@ -92,6 +92,15 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     if ($mb_send['mb_signature'])
         echo "<div style='; padding:25px 0;text-align:center;'>$mb_send[mb_signature]</div>";
     ?>
+
+    <div class="btn-group pull-right"">
+        <? if ($kind=="spam" && $is_admin == "super") { ?>
+            <a class="btn btn-default btn-xs" href="javascript:all_cancel_spam();">Cancel Spam</a>
+        <? } ?>
+        <? if ($kind=="recv" && $view[spam_href]) { ?>
+            <a class="btn btn-default btn-xs" href='<?=$view[spam_href]?>'>Spam</a>
+        <? } ?>
+    </div>
     </td>
 </tr>
 
@@ -103,15 +112,6 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 <div class="btn-group">
     <? if ($kind=="recv" or ($kind=="save" and $class=="view")) { ?>
         <a class="btn btn-default" href='<?=$memo_url?>?kind=write&me_recv_mb_id=<?=$view[me_send_mb_id]?>&me_id=<?=$me_id?>&me_box=<?=$kind?>'>Reply</a>&nbsp;
-    <? } ?>
-</div>
-
-<div class="btn-group" style="margin-left:100px;">
-    <? if ($kind=="spam" && $is_admin == "super") { ?>
-        <a class="btn btn-default" href="javascript:all_cancel_spam();">Cancel Spam</a>
-    <? } ?>
-    <? if ($kind=="recv" && $view[spam_href]) { ?>
-        <a class="btn btn-default" href='<?=$view[spam_href]?>'>Spam</a>
     <? } ?>
 </div>
 
