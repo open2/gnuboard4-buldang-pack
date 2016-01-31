@@ -20,7 +20,7 @@ if ($me_subject == '')
     alert("쪽지 제목이 입력되지 않았습니다.");
 
 // 쪽지의 내용을 변경
-$me_memo = addslashes($me_memo);
+$me_memo = addslashes($wr_content);
 
 $tmp_list = explode(",", $me_recv_mb_id);
 

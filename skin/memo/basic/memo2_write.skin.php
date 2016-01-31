@@ -52,32 +52,32 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
     // cheditor를 쓰기 위한 설정
     include_once("$g4[path]/lib/cheditor4.lib.php");
     echo "<script type='text/javascript' src='$g4[cheditor4_path]/cheditor.js?v=$g4[cheditor_ver]'></script>";
-    echo cheditor1('me_memo', '100%', '300px');
+    echo cheditor1('wr_content', '100%', '300px');
     // cheditor 편집기 메뉴의 일부를 disable
     ?>
     <script type='text/javascript'>
-    ed_me_memo.config.usePreview = false;
-    ed_me_memo.config.NewDocument = false;
-    ed_me_memo.config.usePasteFromWord = false;
-    ed_me_memo.config.useOrderedList = false;
-    ed_me_memo.config.useUnOrderedList = false;
-    ed_me_memo.config.useOrderedList = false;
-    ed_me_memo.config.useUnOrderedList = false;
-    ed_me_memo.config.useOutdent = false;
-    ed_me_memo.config.useIndent = false;
-    ed_me_memo.config.useJustifyRight = false;
-    ed_me_memo.config.useJustifyFull = false;
+    ed_wr_content.config.usePreview = false;
+    ed_wr_content.config.NewDocument = false;
+    ed_wr_content.config.usePasteFromWord = false;
+    ed_wr_content.config.useOrderedList = false;
+    ed_wr_content.config.useUnOrderedList = false;
+    ed_wr_content.config.useOrderedList = false;
+    ed_wr_content.config.useUnOrderedList = false;
+    ed_wr_content.config.useOutdent = false;
+    ed_wr_content.config.useIndent = false;
+    ed_wr_content.config.useJustifyRight = false;
+    ed_wr_content.config.useJustifyFull = false;
 
-    ed_me_memo.config.useLink = false;
-    ed_me_memo.config.useUnLink = false;
-    ed_me_memo.config.useFlash = false;
-    ed_me_memo.config.useMedia = false;
-    ed_me_memo.config.useImageUrl = false;
+    ed_wr_content.config.useLink = false;
+    ed_wr_content.config.useUnLink = false;
+    ed_wr_content.config.useFlash = false;
+    ed_wr_content.config.useMedia = false;
+    ed_wr_content.config.useImageUrl = false;
     </script>
     <?
-    echo cheditor2('me_memo', $content);
+    echo cheditor2('wr_content', $content);
 } else { ?>
-    <textarea class="form-control" name='me_memo' id='me_memo' rows=15 style='width:100%;' required itemname='내용' tabindex=1><?=$content?></textarea>
+    <textarea class="form-control" name='wr_content' id='wr_content' rows=15 style='width:100%;' required itemname='내용' tabindex=1><?=$content?></textarea>
 <? } ?>
 </div>
 
@@ -122,8 +122,8 @@ function fmemoform_submit(f) {
 
     <?
     if ($is_dhtml_editor) {
-        echo cheditor3('me_memo');
-        echo "if (!document.getElementById('tx_me_memo').value) { alert('내용을 입력하십시오.'); return; } ";
+        echo cheditor3('wr_content');
+        echo "if (!document.getElementById('tx_wr_content').value) { alert('내용을 입력하십시오.'); return; } ";
     }
     ?>
 
