@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.0.5 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms
- * Copyright 2014-2015 Froala Labs
+ * Copyright 2014-2016 Froala Labs
  */
 
 (function (factory) {
@@ -99,6 +99,7 @@
       editor.undo.saveStep();
 
       // Clean white tags but ignore selection.
+      editor.html.cleanEmptyTags();
       editor.html.cleanWhiteTags(true);
 
       // Blur the element.
@@ -120,7 +121,7 @@
         html = editor.codeBeautifier.run(html, {
           end_with_newline: true,
           indent_inner_html: true,
-          extra_liners: ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'pre', 'ul', 'ol', 'table'],
+          extra_liners: ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'pre', 'ul', 'ol', 'table', 'dl'],
           brace_style: 'expand',
           indent_char: '\t',
           indent_size: 1,
@@ -267,7 +268,8 @@
     forcedRefresh: true,
     callback: function () {
       this.codeView.toggle();
-    }
+    },
+    plugin: 'codeView'
   })
 
   $.FroalaEditor.DefineIcon('html', {

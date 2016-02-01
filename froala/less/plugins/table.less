@@ -1,26 +1,28 @@
 @import '../mixins.less';
 @import '../variables.less';
 
-table {
-  td.fr-selected-cell, th.fr-selected-cell {
-    border: 1px double @ui-color;
+.fr-element {
+  table {
+    td.fr-selected-cell, th.fr-selected-cell {
+      border: 1px double @ui-color;
+    }
+
+    // Prevent Firefox selection.
+    tr {
+      .user-select(none);
+    }
+
+    td, th {
+      .user-select(text);
+    }
   }
 
   // Prevent Firefox selection.
-  tr {
-    .user-select(none);
-  }
-
-  td, th {
-    .user-select(text);
-  }
-}
-
-// Prevent Firefox selection.
-.fr-no-selection {
-  table {
-    td, th {
-      .user-select(none);
+  .fr-no-selection {
+    table {
+      td, th {
+        .user-select(none);
+      }
     }
   }
 }
@@ -152,4 +154,14 @@ table {
 .fr-popup.fr-desktop .fr-table-size .fr-select-table-size > span > span {
   width: 12px;
   height: 12px;
+}
+
+.fr-insert-helper {
+  position: fixed;
+  z-index: 9999;
+  white-space: nowrap;
+
+  a.fr-floating-btn {
+    position: absolute;
+  }
 }

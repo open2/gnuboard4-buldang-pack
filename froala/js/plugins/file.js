@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.0.5 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms
- * Copyright 2014-2015 Froala Labs
+ * Copyright 2014-2016 Froala Labs
  */
 
 (function (factory) {
@@ -455,11 +455,12 @@
         var dt = e.originalEvent.dataTransfer;
         if (dt && dt.files && dt.files.length) {
           var file = dt.files[0];
-          if (file && file.type) {
+          if (file && typeof file.type != 'undefined') {
             // Dropped file is an file that we allow.
             if (editor.opts.fileAllowedTypes.indexOf(file.type) >= 0 || editor.opts.fileAllowedTypes.indexOf('*') >= 0) {
-              editor.markers.insertAtPoint(e.originalEvent);
               editor.markers.remove();
+              editor.markers.insertAtPoint(e.originalEvent);
+              editor.$el.find('.fr-marker').replaceWith($.FroalaEditor.MARKERS);
 
               // Hide popups.
               editor.popups.hideAll();
@@ -530,7 +531,8 @@
         }
         this.popups.hide('file.insert');
       }
-    }
+    },
+    plugin: 'file'
   });
 
   $.FroalaEditor.DefineIcon('fileBack', { NAME: 'arrow-left' });

@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.0.5 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms
- * Copyright 2014-2015 Froala Labs
+ * Copyright 2014-2016 Froala Labs
  */
 
 (function (factory) {
@@ -64,11 +64,15 @@
       'fr-alternate-rows': 'Alternate Rows'
     },
     tableCellMultipleStyles: true,
-    tableMultipleStyles: true
+    tableMultipleStyles: true,
+    tableInsertHelper: true,
+    tableInsertHelperOffset: 20
   });
 
   $.FroalaEditor.PLUGINS.table = function (editor) {
     var $resizer;
+    var $insert_helper;
+    var mouseDownCellFlag;
     var mouseDownFlag;
     var mouseDownCell;
     var mouseMoveTimer;
@@ -538,7 +542,9 @@
           $ref_row.before(tr);
 
           // Reposition table edit popup.
-          _showEditPopup();
+          if (editor.popups.isVisible('table.edit')) {
+            _showEditPopup();
+          }
         }
       }
     }
@@ -795,7 +801,9 @@
         });
 
         // Reposition table edit popup.
-        _showEditPopup();
+        if (editor.popups.isVisible('table.edit')) {
+          _showEditPopup();
+        }
       }
     }
 
@@ -1543,6 +1551,8 @@
 
       // On left click.
       if (e.which == 1) {
+        mouseDownFlag = true;
+
         var cell = _getCellUnder(e);
 
         // User clicked on a table cell.
@@ -1556,7 +1566,7 @@
           editor.events.trigger('video.hideResizer');
 
           // Keep record of left mouse click being down
-          mouseDownFlag = true;
+          mouseDownCellFlag = true;
 
           var tag_name = cell.tagName.toLowerCase();
 
@@ -1596,10 +1606,12 @@
     function _mouseUp (e) {
       // On left click.
       if (e.which == 1) {
+        mouseDownFlag = false;
+
         // Mouse down was in a table cell.
-        if (mouseDownFlag) {
+        if (mouseDownCellFlag) {
           // Left click is no longer pressed.
-          mouseDownFlag = false;
+          mouseDownCellFlag = false;
 
           var cell = _getCellUnder(e);
 
@@ -1642,10 +1654,6 @@
           editor.$el.removeClass('fr-no-selection');
           editor.edit.on();
 
-          // Hide resizer.
-          $resizer.find('div').css('opacity', 0);
-          $resizer.hide();
-
           // Set release Y coordinate.
           var left = parseFloat($resizer.css('left')) + editor.opts.tableResizerOffset;
           if (editor.opts.iframe) {
@@ -1659,6 +1667,9 @@
 
           // Resize.
           _resize(e);
+
+          // Hide resizer.
+          _hideResizer();
         }
       }
     }
@@ -1667,7 +1678,7 @@
      * User drags mouse over multiple cells to select them.
      */
     function _mouseEnter (e) {
-      if (mouseDownFlag === true) {
+      if (mouseDownCellFlag === true) {
         var $cell = $(e.currentTarget);
 
         // Cells should be in the same table.
@@ -1697,7 +1708,7 @@
     function _usingArrows (e) {
       if (e.which == 37 || e.which == 38 || e.which == 39 || e.which == 40) {
         if (editor.$el.find('.fr-selected-cell').length > 0) {
-          // Clear selection.
+          // Remove selection
           _removeSelection();
 
           // Hide table edit popup.
@@ -1738,14 +1749,23 @@
     }
 
     /*
+     * Also clears top and left values, so it doesn't interfer with the insert helper.
+     */
+    function _hideResizer () {
+      $resizer.find('div').css('opacity', 0);
+      $resizer.css('top', 0);
+      $resizer.css('left', 0);
+      $resizer.css('height', 0);
+      $resizer.find('div').css('height', 0);
+      $resizer.hide();
+    }
+
+    /*
      * Place the table resizer between the columns where the mouse is.
      */
-    function _placeResizer (e) {
-      mouseMoveTimer = null;
-
-      // The tag under the mouse cursor.
-      var tag_under = editor.document.elementFromPoint(e.pageX - editor.window.pageXOffset, e.pageY - editor.window.pageYOffset);
+    function _placeResizer (e, tag_under) {
       var $tag_under = $(tag_under);
+      var $table = $tag_under.closest('table');
 
       // We might have another tag inside the table cell.
       if (tag_under && (tag_under.tagName != 'TD' && tag_under.tagName != 'TH')) {
@@ -1772,8 +1792,9 @@
             Math.abs(tag_right - e.pageX) <= editor.opts.tableResizerOffset) {
 
           // Create a table map.
-          var map = _tableMap($tag_under.closest('table'));
+          var map = _tableMap($table);
           var tag_origin = _cellOrigin(tag_under, map);
+
           var tag_end = _cellEnds(tag_origin.row, tag_origin.col, map);
 
           // The column numbers from the map that have to be resized.
@@ -1781,7 +1802,6 @@
           var second;
 
           // Table resizer position and height.
-          var $table = $tag_under.closest('table');
           var resizer_top = $table.offset().top;
           var resizer_height = $table.outerHeight() - 1;
           var resizer_left;
@@ -1790,45 +1810,31 @@
           var max_left;
           var max_right;
 
-          // Mouse is near the cells's left margin.
-          if (e.pageX - tag_left <= editor.opts.tableResizerOffset) {
+          // Mouse is near the cells's left margin (skip left table border).
+          if (tag_origin.col > 0 && e.pageX - tag_left <= editor.opts.tableResizerOffset) {
             // Table resizer's left position.
             resizer_left = tag_left;
 
-            // Check for prev td.
-            if (tag_origin.col > 0 && map[tag_origin.row][tag_origin.col - 1]) {
-              // Previous table cell.
-              var $prev_tag = $(map[tag_origin.row][tag_origin.col - 1]);
+            // Previous table cell. (There's always a prev cell since we're skipping the left table border)
+            var $prev_tag = $(map[tag_origin.row][tag_origin.col - 1]);
 
-              // Left limit.
-              if ((parseInt($prev_tag.attr('colspan'), 10) || 1) == 1) {
-                max_left = $prev_tag.offset().left - 1 + editor.opts.tableResizingLimit;
-              } else {
-                max_left = tag_left - _columnWidth(tag_origin.col - 1, map) + editor.opts.tableResizingLimit;
-              }
-
-              // Right limit.
-              if ((parseInt($tag_under.attr('colspan'), 10) || 1) == 1) {
-                max_right = tag_left + $tag_under.outerWidth() - editor.opts.tableResizingLimit;
-              } else {
-                max_right = tag_left + _columnWidth(tag_origin.col, map) - editor.opts.tableResizingLimit;
-              }
-
-              // Columns to resize.
-              first = tag_origin.col - 1;
-              second = tag_origin.col;
+            // Left limit.
+            if ((parseInt($prev_tag.attr('colspan'), 10) || 1) == 1) {
+              max_left = $prev_tag.offset().left - 1 + editor.opts.tableResizingLimit;
+            } else {
+              max_left = tag_left - _columnWidth(tag_origin.col - 1, map) + editor.opts.tableResizingLimit;
             }
 
-            // Resize table.
-            else {
-              // Columns to resize.
-              first = null;
-              second = tag_origin.col;
-
-              // Resizer limits.
-              max_left = $table.parent().offset().left + parseFloat($table.parent().css('padding-left'));
-              max_right = $table.offset().left - 1 + $table.outerWidth() - map[0].length * editor.opts.tableResizingLimit;
+            // Right limit.
+            if ((parseInt($tag_under.attr('colspan'), 10) || 1) == 1) {
+              max_right = tag_left + $tag_under.outerWidth() - editor.opts.tableResizingLimit;
+            } else {
+              max_right = tag_left + _columnWidth(tag_origin.col, map) - editor.opts.tableResizingLimit;
             }
+
+            // Columns to resize.
+            first = tag_origin.col - 1;
+            second = tag_origin.col;
           }
 
           // Mouse is near the cell's right margin.
@@ -1914,8 +1920,180 @@
 
         // Hide resizer when the mouse moves away from the cell's border.
         else {
-          $resizer.hide();
+          _hideResizer();
         }
+      }
+
+      // Hide resizer if mouse is no longer over it.
+      else if ($tag_under.get(0) != $resizer.get(0) && $tag_under.parent().get(0) != $resizer.get(0)) {
+        _hideResizer();
+      }
+    }
+
+    /*
+     * Show the insert column helper button.
+     */
+    function _showInsertColHelper (e, table) {
+      if (editor.$box.find('.fr-line-breaker').is(':visible')) return false;
+
+      var $table = $(table);
+      var $row = $table.find('tr:first');
+
+      var mouseX = e.pageX;
+
+      var left = 0;
+      var top = 0;
+
+      if (editor.opts.iframe) {
+        left += editor.$iframe.offset().left - $(editor.original_window).scrollLeft();
+        top += editor.$iframe.offset().top - $(editor.original_window).scrollTop();
+      }
+
+      // Check where the column should be inserted.
+      var btn_width;
+      $row.find('th, td').each (function () {
+        var $td = $(this);
+
+        // Insert before this td.
+        if ($td.offset().left <= mouseX && mouseX < $td.offset().left + $td.outerWidth() / 2) {
+          $insert_helper.find('a').attr('title', editor.language.translate('Insert Column'));
+
+          btn_width = parseInt($insert_helper.find('a').css('width'), 10);
+
+          $insert_helper.css('top', top + $td.offset().top - editor.window.pageYOffset - btn_width - 5);
+          $insert_helper.css('left', left + $td.offset().left - editor.window.pageXOffset - btn_width / 2);
+          $insert_helper.data('selected-cell', $td);
+          $insert_helper.data('position', 'before');
+          $insert_helper.addClass('fr-visible');
+
+          return false;
+
+        // Insert after this td.
+        } else if ($td.offset().left + $td.outerWidth() / 2 <= mouseX && mouseX < $td.offset().left + $td.outerWidth()) {
+          $insert_helper.find('a').attr('title', editor.language.translate('Insert Column'));
+
+          btn_width = parseInt($insert_helper.find('a').css('width'), 10);
+
+          $insert_helper.css('top', top + $td.offset().top - editor.window.pageYOffset - btn_width - 5);
+          $insert_helper.css('left', left + $td.offset().left + $td.outerWidth() - editor.window.pageXOffset - btn_width / 2);
+          $insert_helper.data('selected-cell', $td);
+          $insert_helper.data('position', 'after');
+          $insert_helper.addClass('fr-visible');
+
+          return false;
+        }
+      });
+    }
+
+    /*
+     * Show the insert row helper button.
+     */
+    function _showInsertRowHelper (e, table) {
+      if (editor.$box.find('.fr-line-breaker').is(':visible')) return false;
+
+      var $table = $(table);
+      var mouseY = e.pageY;
+
+      var left = 0;
+      var top = 0;
+      if (editor.opts.iframe) {
+        left += editor.$iframe.offset().left - $(editor.original_window).scrollLeft();
+        top += editor.$iframe.offset().top - $(editor.original_window).scrollTop();
+      }
+
+      // Check where the row should be inserted.
+      var btn_width;
+      $table.find('tr').each (function () {
+        var $tr = $(this);
+
+        // Insert above this tr.
+        if ($tr.offset().top <= mouseY && mouseY < $tr.offset().top + $tr.outerHeight() / 2) {
+          $insert_helper.find('a').attr('title', editor.language.translate('Insert Row'));
+
+          btn_width = parseInt($insert_helper.find('a').css('width'), 10);
+
+          $insert_helper.css('top', top + $tr.offset().top - editor.window.pageYOffset - btn_width / 2);
+          $insert_helper.css('left', left + $tr.offset().left - editor.window.pageXOffset - btn_width - 5);
+          $insert_helper.data('selected-cell', $tr.find('td:first'));
+          $insert_helper.data('position', 'above');
+          $insert_helper.addClass('fr-visible');
+
+          return false;
+
+        // Insert below this tr.
+        } else if ($tr.offset().top + $tr.outerHeight() / 2 <= mouseY && mouseY < $tr.offset().top + $tr.outerHeight()) {
+          $insert_helper.find('a').attr('title', editor.language.translate('Insert Row'));
+
+          btn_width = parseInt($insert_helper.find('a').css('width'), 10);
+
+          $insert_helper.css('top', top + $tr.offset().top + $tr.outerHeight() - editor.window.pageYOffset - btn_width / 2);
+          $insert_helper.css('left', left + $tr.offset().left - editor.window.pageXOffset - btn_width - 5);
+          $insert_helper.data('selected-cell', $tr.find('td:first'));
+          $insert_helper.data('position', 'below');
+          $insert_helper.addClass('fr-visible');
+
+          return false;
+        }
+      });
+    }
+
+    /*
+     * Check if should show the insert column / row helper button.
+     */
+    function _insertHelper (e, tag_under) {
+      // Don't show the insert helper if there are table cells selected.
+      if (editor.$el.find('.fr-selected-cell').length === 0) {
+        var i;
+        var tag_below;
+        var tag_right;
+
+        // Hide insert helper.
+        $insert_helper.removeClass('fr-visible');
+
+        // Tag is the editor element or body (inline toolbar). Look for closest tag bellow and at the right.
+        if (tag_under && (tag_under.tagName == 'HTML' || tag_under.tagName == 'BODY' || editor.node.isElement(tag_under))) {
+          // Look 1px down until a table tag is found or the insert helper offset is reached.
+          for (i = 1; i <= editor.opts.tableInsertHelperOffset; i++) {
+            // Look for tag below.
+            tag_below = editor.document.elementFromPoint(e.pageX - editor.window.pageXOffset, e.pageY - editor.window.pageYOffset + i);
+            // We found a tag bellow.
+            if (tag_below && ((tag_below.tagName == 'TH' || tag_below.tagName == 'TD' || tag_below.tagName == 'TABLE') && $(tag_below).parents(editor.$wp).length)) {
+              // Show the insert column helper button.
+              _showInsertColHelper (e, tag_below.closest('table'));
+              break;
+            }
+
+            // Look for tag at the right.
+            tag_right = editor.document.elementFromPoint(e.pageX - editor.window.pageXOffset + i, e.pageY - editor.window.pageYOffset);
+
+            // We found a tag at the right.
+            if (tag_right && ((tag_right.tagName == 'TH' || tag_right.tagName == 'TD' || tag_right.tagName == 'TABLE') && $(tag_right).parents(editor.$wp).length)) {
+              // Show the insert row helper button.
+              _showInsertRowHelper (e, tag_right.closest('table'));
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    /*
+     * Check tag under the mouse on mouse move.
+     */
+    function _tagUnder (e) {
+      mouseMoveTimer = null;
+
+      // The tag under the mouse cursor.
+      var tag_under = editor.document.elementFromPoint(e.pageX - editor.window.pageXOffset, e.pageY - editor.window.pageYOffset);
+
+      // Place table resizer if necessary.
+      if (!editor.popups.areVisible() || (editor.popups.areVisible() && editor.popups.isVisible('table.edit'))) {
+        _placeResizer(e, tag_under);
+      }
+
+      // Show the insert column / row helper button.
+      if (!editor.popups.areVisible() && !(editor.$tb.hasClass('fr-inline') && editor.$tb.is(':visible'))) {
+        _insertHelper(e, tag_under);
       }
     }
 
@@ -2050,13 +2228,13 @@
      */
     function _mouseMove (e) {
       // Reset or set timer.
-      if (mouseDownFlag === false && resizingFlag === false) {
+      if (mouseDownFlag === false && mouseDownCellFlag === false && resizingFlag === false) {
         if (mouseMoveTimer) {
           clearTimeout(mouseMoveTimer);
         }
 
-        // Place the table resizer.
-        mouseMoveTimer = setTimeout(_placeResizer, 30, e);
+        // Check tag under in order to place the table resizer or insert helper button.
+        mouseMoveTimer = setTimeout(_tagUnder, 30, e);
 
       // Move table resizer.
       } else if (resizingFlag) {
@@ -2083,6 +2261,8 @@
         } else if (pos > right_limit && parseFloat($resizer.css('left'), 10) < right_limit - editor.opts.tableResizerOffset) {
           $resizer.css('left', right_limit - editor.opts.tableResizerOffset);
         }
+      } else if (mouseDownFlag) {
+        $insert_helper.removeClass('fr-visible');
       }
     }
 
@@ -2183,6 +2363,66 @@
     }
 
     /*
+     * Initilize insert helper.
+     */
+    function _initInsertHelper () {
+      // Append insert helper HTML to editor wrapper.
+      $insert_helper = $('<div class="fr-insert-helper"><a class="fr-floating-btn" role="button" tabindex="-1" title="' + editor.language.translate('Insert') + '"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M22,16.75 L16.75,16.75 L16.75,22 L15.25,22.000 L15.25,16.75 L10,16.75 L10,15.25 L15.25,15.25 L15.25,10 L16.75,10 L16.75,15.25 L22,15.25 L22,16.75 Z"/></svg></a></div>');
+      editor.$box.append($insert_helper);
+
+      // Editor destroy.
+      editor.events.on('destroy', function () {
+        $insert_helper.html('').removeData().remove();
+      }, true);
+
+      // Prevent the insert helper hide when mouse is over it.
+      $insert_helper.on('mousemove', function (e) {
+        e.stopPropagation();
+      });
+
+      // Hide the insert helper if the page is scrolled.
+      $(editor.window).on('scroll.table' + editor.id, function () {
+        $insert_helper.removeClass('fr-visible');
+      });
+
+      // Click on insert helper.
+      editor.events.bindClick($insert_helper, 'a', function () {
+        var $td = $insert_helper.data('selected-cell');
+        var position = $insert_helper.data('position');
+
+        if (position == 'before') {
+          $td.addClass('fr-selected-cell');
+          insertColumn(position);
+          $td.removeClass('fr-selected-cell');
+
+        } else if (position == 'after') {
+          $td.addClass('fr-selected-cell');
+          insertColumn(position);
+          $td.removeClass('fr-selected-cell');
+
+        } else if (position == 'above') {
+          $td.addClass('fr-selected-cell');
+          insertRow(position);
+          $td.removeClass('fr-selected-cell');
+
+        } else if (position == 'below') {
+          $td.addClass('fr-selected-cell');
+          insertRow(position);
+          $td.removeClass('fr-selected-cell');
+        }
+
+        // Hide the insert helper so it will reposition.
+        $insert_helper.removeClass('fr-visible');
+      });
+
+      // Editor destroy.
+      editor.events.on('destroy', function () {
+        $insert_helper.off('mousemove');
+        $(editor.window).off('scroll.table' + editor.id);
+      }, true);
+    }
+
+    /*
      * Init table.
      */
     function _init () {
@@ -2192,10 +2432,16 @@
       if (!editor.helpers.isMobile()) {
         // Remember if mouse is clicked.
         mouseDownFlag = false;
+        mouseDownCellFlag = false;
         resizingFlag = false;
 
         // Table resizer.
         _initResizer();
+
+        // Insert Helper.
+        if (editor.opts.tableInsertHelper) {
+          _initInsertHelper();
+        }
 
         // Mouse is down in a table cell or on the table resizer.
         editor.$el.on('mousedown.table' + editor.id, _mouseDown);
@@ -2204,12 +2450,14 @@
         editor.popups.onShow('image.edit', function () {
           _removeSelection();
           mouseDownFlag = false;
+          mouseDownCellFlag = false;
         });
 
         // Deselect table cells when user clicks on a link.
         editor.popups.onShow('link.edit', function () {
           _removeSelection();
           mouseDownFlag = false;
+          mouseDownCellFlag = false;
         });
 
         // Deselect table cells when a command is run.
@@ -2255,19 +2503,17 @@
         });
 
         // Prevent backspace from doing browser back.
-        $(editor.window).on('keydown.table' + editor.id, function (e) {
+        editor.events.on('keydown', function (e) {
           if (editor.$el.find('.fr-selected-cell').length > 0) {
             if (e.which == $.FroalaEditor.KEYCODE.ESC) {
-              _removeSelection();
-              e.preventDefault();
-              e.stopPropagation();
-              e.stopImmediatePropagation();
-              return false;
-            }
-
-            if (e.which == $.FroalaEditor.KEYCODE.BACKSPACE) {
-              e.preventDefault();
-              return false;
+              if (editor.popups.isVisible('table.edit')) {
+                _removeSelection();
+                editor.popups.hide('table.edit');
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                return false;
+              }
             }
 
             if (editor.$el.find('.fr-selected-cell').length > 1) {
@@ -2275,7 +2521,7 @@
               return false;
             }
           }
-        });
+        }, true);
 
         $(editor.window).on('keydown.table' + editor.id, _showEditPopup);
         $(editor.window).on('input.table' + editor.id, _showEditPopup);
@@ -2363,7 +2609,8 @@
         }
         this.popups.hide('table.insert');
       }
-    }
+    },
+    plugin: 'table'
   });
 
   $.FroalaEditor.RegisterCommand('tableInsert', {

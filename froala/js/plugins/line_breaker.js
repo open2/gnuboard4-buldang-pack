@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.0.5 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms
- * Copyright 2014-2015 Froala Labs
+ * Copyright 2014-2016 Froala Labs
  */
 
 (function (factory) {
@@ -121,7 +121,7 @@
 
     /*
      * Check tag siblings.
-     * The line breaker hould apper if there is no sibling or if the sibling is also in the line breaker tags list.
+     * The line breaker hould appear if there is no sibling or if the sibling is also in the line breaker tags list.
      */
     function _checkTagSiblings ($tag, mouseY) {
       // Tag's Y top and bottom coordinate.
@@ -348,8 +348,8 @@
      */
     function _initLineBreaker () {
       // Append line breaker HTML to editor wrapper.
-      $line_breaker = $('<div class="fr-line-breaker"><a role="button" tabindex="-1" title="' + editor.language.translate('Break') + '"><i class="fa fa-plus"></i></a></div>');
-      editor.$wp.append($line_breaker);
+      $line_breaker = $('<div class="fr-line-breaker fr-visible"><a class="fr-floating-btn" role="button" tabindex="-1" title="' + editor.language.translate('Break') + '"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect x="21" y="11" width="2" height="8"/><rect x="14" y="17" width="7" height="2"/><path d="M14.000,14.000 L14.000,22.013 L9.000,18.031 L14.000,14.000 Z"/></svg></a></div>');
+      editor.$box.append($line_breaker);
 
       // Editor destroy.
       editor.events.on('destroy', function () {

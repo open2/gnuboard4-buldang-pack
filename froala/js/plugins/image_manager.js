@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.0.5 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms
- * Copyright 2014-2015 Froala Labs
+ * Copyright 2014-2016 Froala Labs
  */
 
 (function (factory) {
@@ -232,7 +232,12 @@
           url: editor.opts.imageManagerLoadURL,
           method: editor.opts.imageManagerLoadMethod,
           data: editor.opts.imageManagerLoadParams,
-          dataType: 'json'
+          dataType: 'json',
+          crossDomain: editor.opts.requestWithCORS,
+          xhrFields: {
+            withCredentials: editor.opts.requestWithCORS
+          },
+          headers: editor.opts.requestHeaders
         })
         // On success start processing the response.
         .done(function (data, status, xhr) {
@@ -590,6 +595,7 @@
         }
       }
 
+      editor.undo.saveStep();
       editor.image.insert($img.data('url'), false, img_attributes, $current_image);
     }
 
@@ -615,7 +621,12 @@
             $.ajax({
               method: editor.opts.imageManagerDeleteMethod,
               url: editor.opts.imageManagerDeleteURL,
-              data: $.extend({ src: $img.attr('src') }, editor.opts.imageManagerDeleteParams)
+              data: $.extend({ src: $img.attr('src') }, editor.opts.imageManagerDeleteParams),
+              crossDomain: editor.opts.requestWithCORS,
+              xhrFields: {
+                withCredentials: editor.opts.requestWithCORS
+              },
+              headers: editor.opts.requestHeaders
             })
 
               // On success remove the image from the image manager.
@@ -863,12 +874,13 @@
     focus: false,
     callback: function () {
       this.imageManager.show();
-    }
+    },
+    plugin: 'imageManager'
   })
 
   // Add the font size icon.
   $.FroalaEditor.DefineIcon('imageManager', {
-    NAME: 'fa fa-folder'
+    NAME: 'folder'
   });
 
 }));

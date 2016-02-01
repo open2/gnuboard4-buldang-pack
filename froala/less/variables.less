@@ -97,12 +97,14 @@
 // Insert table grid.
 @insert-table-grid: @table-border;
 
-// Line breaker.
-@line-breaker-btn-bg: @ui-color;
-@line-breaker-btn-text: contrast(@ui-color, @black, @white, 50%);
-@line-breaker-btn-hover-bg: @ui-border-color;
-@line-breaker-btn-hover-text: contrast(@ui-border-color, @black, @white, 50%);
-@line-breaker-btn-size: 24px;
+// Quick insert.
+@floating-btn-bg: #FFF;
+@floating-btn-text: @ui-color;
+@floating-btn-hover-bg: @ui-hover-color;
+@floating-btn-hover-text: @ui-color;
+@floating-btn-size: 32px;
+@floating-btn-font-size: 18px;
+@floating-btn-border: none;
 
 // List menu.
 @dropdown-arrow-width: 4px;
@@ -126,7 +128,10 @@
 @input-border-color: mix(@white, #000, 74%);
 @input-label-color: mix(@white, #000, 50%);
 
-// Quote
+// Quote.
 @blockquote-level1-color: #5E35B1;
 @blockquote-level2-color: #00BCD4;
 @blockquote-level3-color: #43A047;
+
+// Char counter.
+@char-counter-border: solid 1px mix(@white, #999, 80%);

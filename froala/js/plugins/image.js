@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.0.5 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms
- * Copyright 2014-2015 Froala Labs
+ * Copyright 2014-2016 Froala Labs
  */
 
 (function (factory) {
@@ -282,8 +282,11 @@
       e.preventDefault();
       e.stopPropagation();
 
+      if (editor.$el.find('img.fr-error').left) return false;
+
       $handler = $(this);
       $handler.data('start-x', e.pageX || e.originalEvent.touches[0].pageX);
+      $handler.data('start-width', $current_image.width());
       $overlay.show();
       editor.popups.hideAll();
     }
@@ -292,8 +295,10 @@
      * Do resize.
      */
     function _handlerMousemove (e) {
-      if ($handler) {
+      if ($handler && $current_image) {
         e.preventDefault()
+
+        if (editor.$el.find('img.fr-error').left) return false;
 
         var c_x = e.pageX || (e.originalEvent.touches ? e.originalEvent.touches[0].pageX : null);
 
@@ -303,11 +308,9 @@
 
         var s_x = $handler.data('start-x');
 
-        $handler.data('start-x', c_x);
-
         var diff_x = c_x - s_x;
 
-        var width = $current_image.width();
+        var width = $handler.data('start-width');
         if ($handler.hasClass('fr-hnw') || $handler.hasClass('fr-hsw')) {
           diff_x = 0 - diff_x;
         }
@@ -333,10 +336,12 @@
      * Stop resize.
      */
     function _handlerMouseup (e) {
-      if ($handler) {
+      if ($handler && $current_image) {
         if (e) {
           e.stopPropagation();
         }
+
+        if (editor.$el.find('img.fr-error').left) return false;
 
         $handler = null;
         $overlay.hide();
@@ -354,6 +359,7 @@
      */
     function _throwError (code, response) {
       editor.edit.on();
+      if ($current_image) $current_image.addClass('fr-error');
       _showErrorMessage(editor.language.translate('Something went wrong. Please try again.'));
 
       editor.events.trigger('image.error', [{
@@ -421,8 +427,13 @@
         $popup.find('.fr-image-progress-bar-layer').removeClass('fr-active');
         $popup.find('.fr-buttons').show();
 
-        if (dismiss) {
-          editor.popups.show('image.insert', null, null);
+        // Dismiss error message.
+        if (dismiss || editor.$el.find('img.fr-error').length) {
+          editor.events.focus();
+          editor.$el.find('img.fr-error').remove();
+          editor.undo.saveStep();
+          editor.undo.run();
+          editor.undo.dropRedo();
         }
       }
     }
@@ -487,9 +498,18 @@
         var $img;
         var attr;
         if ($existing_img) {
-          $img = $existing_img.clone();
-          $existing_img.replaceWith($img);
-          $img.off('load');
+          var old_src = $existing_img.data('fr-old-src');
+
+          if (editor.$wp) {
+            $img = $existing_img.clone().removeData('fr-old-src');
+            if (old_src) $existing_img.attr('src', old_src);
+            $existing_img.removeClass('fr-uploading');
+            $existing_img.replaceWith($img);
+            $img.off('load');
+          }
+          else {
+            $img = $existing_img;
+          }
 
           // Remove old data.
           var atts = $img.get(0).attributes;
@@ -510,9 +530,15 @@
           }
 
           $img.on('load', function () {
-            editor.popups.hide('image.insert')
+            editor.popups.hide('image.insert');
+
+            $img.removeClass('fr-uploading');
 
             // Select the image.
+            if ($img.next().is('br')) {
+              $img.next().remove();
+            }
+
             $img.trigger('click').trigger('touchend');
 
             editor.events.trigger('image.loaded', [$img]);
@@ -524,7 +550,7 @@
 
           editor.undo.saveStep();
 
-          editor.events.trigger('image.replaced', [$img, response]);
+          editor.events.trigger(old_src ? 'image.replaced' : 'image.inserted', [$img, response]);
         }
         else {
           // Build image data string.
@@ -545,6 +571,10 @@
           // Create image object and set the load event.
           $img = $('<img class="fr-di' + (editor.opts.imageDefaultDisplay[0]) + (editor.opts.imageDefaultAlign != 'center' ? ' fr-fi' + editor.opts.imageDefaultAlign[0] : '') + '" src="' + link + '"' + data_str + (width ? ' style="width: ' + width + ';"' : '') + '>');
           $img.on('load', function () {
+            if ($img.next().is('br')) {
+              $img.next().remove();
+            }
+
             // Select the image.
             $img.trigger('click').trigger('touchend');
 
@@ -681,6 +711,96 @@
       }
     }
 
+    function _startUpload (xhr, form_data, image) {
+      var reader  = new FileReader();
+      var $img;
+      reader.addEventListener('load', function () {
+        // Convert image to local blob.
+        var binary = atob(reader.result.split(',')[1]);
+        var array = [];
+        for (var i = 0; i < binary.length; i++) {
+          array.push(binary.charCodeAt(i));
+        }
+
+        // Get local image link.
+        var link = window.URL.createObjectURL(new Blob([new Uint8Array(array)], { type: 'image/jpeg' }));
+
+        // Existing image.
+        if ($current_image) {
+          $img = $current_image;
+        }
+
+        // No image.
+        else {
+          // Do image insertion.
+          var width = editor.opts.imageDefaultWidth;
+          if (width && width != 'auto' && ('' + width).indexOf('px') < 0 && ('' + width).indexOf('%') < 0) {
+            width = width + 'px';
+          }
+
+          // Create image object and set the load event.
+          $img = $('<img class="fr-uploading fr-di' + (editor.opts.imageDefaultDisplay[0]) + (editor.opts.imageDefaultAlign != 'center' ? ' fr-fi' + editor.opts.imageDefaultAlign[0] : '') + '" src="' + link + '"' + (width ? ' style="width: ' + width + ';"' : '') + '>');
+        }
+
+        $img.on('load', function () {
+          if ($img.next().is('br')) {
+            $img.next().remove();
+          }
+
+          editor.placeholder.refresh();
+
+          // Select the image.
+          $img.trigger('click').trigger('touchend');
+
+          _repositionResizer();
+          _showEditPopup();
+          replace();
+          showProgressBar();
+          editor.edit.off();
+
+          // Set upload events.
+          xhr.onload = function () {
+            _imageUploaded.call(xhr, $img);
+          };
+          xhr.onerror = _imageUploadError;
+          xhr.upload.onprogress = _imageUploadProgress;
+
+          // Send data.
+          xhr.send(form_data);
+        });
+
+        // No image.
+        if (!$current_image) {
+          // Make sure we have focus.
+          // Call the event.
+          editor.edit.on();
+          editor.events.focus(true);
+          editor.selection.restore();
+
+          editor.undo.saveStep();
+
+          // Collapse selection.
+          if (!editor.selection.isCollapsed()) editor.selection.remove();
+
+          // Insert marker and then replace it with the image.
+          editor.markers.insert();
+          var $marker = editor.$el.find('.fr-marker');
+          $marker.replaceWith($img);
+
+          editor.selection.clear();
+        }
+        else {
+          editor.edit.on();
+          editor.undo.saveStep();
+          $current_image.data('fr-old-src', $current_image.attr('src'));
+          $current_image.attr('src', link);
+          $img.addClass('fr-uploading');
+        }
+      }, false);
+
+      reader.readAsDataURL(image);
+    }
+
     /**
      * Do image upload.
      */
@@ -743,20 +863,7 @@
           }
           var xhr = editor.core.getXHR(url, editor.opts.imageUploadMethod);
 
-          var $img = $current_image;
-
-          // Set upload events.
-          xhr.onload = function () {
-            _imageUploaded.call(xhr, $img);
-          };
-          xhr.onerror = _imageUploadError;
-          xhr.upload.onprogress = _imageUploadProgress;
-
-          showProgressBar();
-          editor.edit.off();
-
-          // Send data.
-          xhr.send(form_data);
+          _startUpload(xhr, form_data, image);
         }
       }
     }
@@ -842,6 +949,7 @@
       var cancelDrag = function (e) {
         var img = editor.$document.find('img.fr-img-move').get(0);
         if (img) {
+          if (editor.browser.msie) e.preventDefault();
           return typeof editor.browser.msie != 'undefined' || typeof editor.browser.edge != 'undefined';
         }
         else {
@@ -874,6 +982,10 @@
           e.preventDefault();
           e.stopPropagation();
 
+          // Insert image a the current position.
+          var ok = editor.markers.insertAtPoint(e.originalEvent);
+          if (ok === false) return false;
+
           // Close current edit.
           _exitEdit(true);
           if (inst != editor && inst.image) {
@@ -899,8 +1011,6 @@
               .on('load', _edit);
           }
 
-          // Insert image a the current position.
-          editor.markers.insertAtPoint(e.originalEvent);
           var $marker = editor.$el.find('.fr-marker');
           $marker.replaceWith($ref);
 
@@ -922,8 +1032,9 @@
             if (img && img.type) {
               // Dropped file is an image that we allow.
               if (editor.opts.imageAllowedTypes.indexOf(img.type.replace(/image\//g,'')) >= 0) {
-                editor.markers.insertAtPoint(e.originalEvent);
                 editor.markers.remove();
+                editor.markers.insertAtPoint(e.originalEvent);
+                editor.$el.find('.fr-marker').replaceWith($.FroalaEditor.MARKERS);
 
                 // Hide popups.
                 editor.popups.hideAll();
@@ -1372,7 +1483,7 @@
         });
       }
 
-      editor.events.on('keydown', function (e) {
+      editor.events.on('window.keydown', function (e) {
         var key_code = e.which;
         if ($current_image && (key_code == $.FroalaEditor.KEYCODE.BACKSPACE || key_code == $.FroalaEditor.KEYCODE.DELETE)) {
           e.preventDefault();
@@ -1392,12 +1503,27 @@
         }
       }, true);
 
+      // Do not leave page while uploading.
+      $(editor.original_window).on('keydown.' + editor.id, function (e) {
+        var key_code = e.which;
+        if ($current_image && key_code == $.FroalaEditor.KEYCODE.BACKSPACE) {
+          e.preventDefault();
+          return false;
+        }
+      })
+
       editor.events.on('paste.before', _clipboardPaste);
       editor.events.on('paste.beforeCleanup', _clipboardPasteCleanup);
       editor.events.on('paste.after', _uploadPastedImages);
 
       editor.events.on('html.set', _refreshImageList);
       _refreshImageList();
+
+      editor.events.on('html.get', function (html) {
+        html = html.replace(/<(img)((?:[\w\W]*?))class="([\w\W]*?)(fr-uploading|fr-error)([\w\W]*?)"((?:[\w\W]*?))>/g, '');
+
+        return html;
+      })
 
       if (editor.opts.iframe) {
         editor.events.on('image.loaded', editor.size.syncIframe);
@@ -1423,6 +1549,7 @@
         editor.$el.off('load', 'img.fr-img-dirty');
         editor.$el.off('error', 'img.fr-img-dirty');
         $(editor.original_window).off('orientationchange.image.' + editor.id);
+        $(editor.original_window).off('keydown.' + editor.id);
       }, true);
 
       editor.events.on('node.remove', function ($node) {
@@ -1500,7 +1627,13 @@
             reader.onload = function (e) {
               var result = e.target.result;
 
-              editor.html.insert('<img data-fr-image-pasted="true" src="' + result + '" />');
+              // Default width.
+              var width = editor.opts.imageDefaultWidth;
+              if (width && width != 'auto' && ('' + width).indexOf('px') < 0 && ('' + width).indexOf('%') < 0) {
+                width = width + 'px';
+              }
+
+              editor.html.insert('<img data-fr-image-pasted="true" class="fr-di' + (editor.opts.imageDefaultDisplay[0]) + (editor.opts.imageDefaultAlign != 'center' ? ' fr-fi' + editor.opts.imageDefaultAlign[0] : '') + '" src="' + result + '"' + (width ? ' style="width: ' + width + ';"' : '') + '>');
 
               editor.events.trigger('paste.after');
             };
@@ -1561,6 +1694,10 @@
         if ($.FroalaEditor.INSTANCES[i] != editor) {
           $.FroalaEditor.INSTANCES[i].events.trigger('image.hideResizer');
         }
+      }
+
+      if (editor.helpers.isIOS()) {
+        setTimeout(_showEditPopup, 100);
       }
     }
 
@@ -1698,6 +1835,10 @@
         $current_image.trigger('click').trigger('touchend');
       }
       else {
+        editor.events.disableBlur();
+        editor.selection.restore();
+        editor.events.enableBlur();
+
         editor.popups.hide('image.insert');
         editor.toolbar.showInline();
       }
@@ -1777,7 +1918,8 @@
         }
         this.popups.hide('image.insert');
       }
-    }
+    },
+    plugin: 'image'
   });
 
   // Image upload button inside the insert image popup.
@@ -1924,6 +2066,7 @@
 
   $.FroalaEditor.RegisterCommand('imageDismissError', {
     title: 'OK',
+    undo: false,
     callback: function () {
       this.image.hideProgressBar(true);
     }
@@ -1997,6 +2140,6 @@
     callback: function () {
       this.image.setSize();
     }
-  })
+  });
 
 }));

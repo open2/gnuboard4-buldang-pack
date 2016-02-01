@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.0.5 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms
- * Copyright 2014-2015 Froala Labs
+ * Copyright 2014-2016 Froala Labs
  */
 
 (function (factory) {
@@ -354,7 +354,8 @@
     },
     callback: function () {
       this.lists.format('UL');
-    }
+    },
+    plugin: 'lists'
   })
 
   // Register the font size command.
@@ -365,7 +366,8 @@
     },
     callback: function () {
       this.lists.format('OL');
-    }
+    },
+    plugin: 'lists'
   })
 
   // Add the list icons.

@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.0.5 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms
- * Copyright 2014-2015 Froala Labs
+ * Copyright 2014-2016 Froala Labs
  */
 
 (function (factory) {
@@ -151,7 +151,7 @@
 
       // Go through each block and apply style to it.
       for (var i = 0; i < blocks.length; i++) {
-        if (blocks[i].tagName != val) {
+        if (blocks[i].tagName != val && !editor.node.isList(blocks[i])) {
           var $blk = $(blocks[i]);
 
           // Style the content inside LI when there is selection right in LI.
@@ -160,7 +160,7 @@
           }
 
           // Style the content inside LI when we have other tag in LI.
-          else if (blocks[i].parentNode.tagName == 'LI') {
+          else if (blocks[i].parentNode.tagName == 'LI' && blocks[i]) {
             _styleLiWithBlocks($blk, val);
           }
 
@@ -264,7 +264,8 @@
     },
     refreshOnShow: function ($btn, $dropdown) {
       this.paragraphFormat.refreshOnShow($btn, $dropdown);
-    }
+    },
+    plugin: 'paragraphFormat'
   })
 
   // Add the font size icon.

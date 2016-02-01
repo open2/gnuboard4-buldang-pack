@@ -28,6 +28,37 @@
     }
   }
 
+  // Floating button.
+  a.fr-floating-btn {
+    .material-box-shadow (@editor-shadow-level);
+    height: @floating-btn-size;
+    width: @floating-btn-size;
+    background: @floating-btn-bg;
+    color: @floating-btn-text;
+    .transition(background @transition-timing, color @transition-timing, transform @transition-timing;);
+    line-height: (@floating-btn-size);
+    border: @floating-btn-border;
+
+    svg {
+      .transition(transform @transition-timing;);
+      fill: @floating-btn-text;
+    }
+
+    &:hover {
+      background: @floating-btn-hover-bg;
+
+      svg {
+        fill: @floating-btn-hover-text;
+      }
+    }
+  }
+
+  .fr-visible {
+    a.fr-floating-btn {
+      .transform(scale(1));
+    }
+  }
+
   img {
     &.fr-dib {
       margin-top: @image-margin;
@@ -63,7 +94,7 @@
   // ------------
   // tooltip.less
   // ------------
-  .fr-tooltip {
+  &.fr-tooltip {
     .border-radius(@border-radius);
     .material-box-shadow(((@editor-shadow-level + 1) * min(@editor-shadow-level, 1)));
     background: @tooltip-bg;
@@ -482,14 +513,14 @@
     .fr-counter {
       color: @gray;
       background: @editor-bg;
-      border-top: solid 1px @separator-color;
-      border-left: solid 1px @separator-color;
+      border-top: @char-counter-border;
+      border-left: @char-counter-border;
       .border-radius(@border-radius 0 0 0);
     }
 
     &.fr-rtl {
       .fr-counter {
-        border-right: solid 1px @separator-color;
+        border-right: @char-counter-border;
         .border-radius(0 @border-radius 0 0);
       }
     }
@@ -641,23 +672,9 @@
   .fr-line-breaker {
     border-top: 1px solid @ui-color;
 
-    a {
-      .material-box-shadow (@editor-shadow-level);
-      height: @line-breaker-btn-size;
-      width: @line-breaker-btn-size;
-      top: (-@line-breaker-btn-size / 2);
-      background: @ui-color;
-      color: @line-breaker-btn-text;
-      .transition(background @transition-timing, color @transition-timing;);
-
-      &:hover {
-        background: @line-breaker-btn-hover-bg;
-        color: @line-breaker-btn-hover-text;
-      }
-
-      i {
-        line-height: @line-breaker-btn-size;
-      }
+    a.fr-floating-btn {
+      left: calc(50% - (@floating-btn-size / 2));
+      top: (-@floating-btn-size / 2);
     }
   }
 

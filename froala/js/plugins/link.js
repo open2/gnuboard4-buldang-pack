@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.0.5 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms
- * Copyright 2014-2015 Froala Labs
+ * Copyright 2014-2016 Froala Labs
  */
 
 (function (factory) {
@@ -72,10 +72,6 @@
   });
 
   $.FroalaEditor.PLUGINS.link = function (editor) {
-    function callback () {
-
-    }
-
     function get () {
       var $current_image = editor.image ? editor.image.get() : null;
 
@@ -525,8 +521,8 @@
       var $current_image = editor.image ? editor.image.get() : null;
 
       if (!$current_image && editor.$el.get(0).tagName != 'A') {
-        editor.events.focus(true);
         editor.selection.restore();
+        editor.popups.hide('link.insert');
       }
       else if (editor.$el.get(0).tagName == 'A') {
         editor.$el.focus();
@@ -544,7 +540,7 @@
       }
 
       // Add autoprefix.
-      if (href.indexOf('tel:') !== 0 && href.indexOf('sms:') !== 0 && href.indexOf('mailto:') !== 0 && href.indexOf('data:image') !== 0 && editor.opts.linkAutoPrefix !== '' && !/^(https?:|ftps?:|)\/\//.test(href)) {
+      if (href.indexOf('tel:') !== 0 && href.indexOf('sms:') !== 0 && href.indexOf('mailto:') !== 0 && href.indexOf('notes:') !== 0 && href.indexOf('data:image') !== 0 && editor.opts.linkAutoPrefix !== '' && !/^(https?:|ftps?:|)\/\//.test(href)) {
         href = editor.opts.linkAutoPrefix + href;
       }
 
@@ -646,9 +642,6 @@
             .append($.FroalaEditor.END_MARKER);
 
           editor.selection.restore();
-        }
-        else {
-          editor.popups.hide('link.insert');
         }
       }
 
@@ -753,7 +746,6 @@
 
     return {
       _init: _init,
-      callback: callback,
       remove: remove,
       showInsertPopup: _showInsertPopup,
       usePredefined: usePredefined,
@@ -788,7 +780,8 @@
         }
         this.popups.hide('link.insert');
       }
-    }
+    },
+    plugin: 'link'
   })
 
   $.FroalaEditor.DefineIcon('linkOpen', { NAME: 'external-link' });
