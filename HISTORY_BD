@@ -1,3 +1,66 @@
+2.1.5 (2016.02.01)
+
+common.php
+memo.config.php
+
+bbs/memo2_form_update.php
+bbs/myon.php
+bbs/poll_list.php
+bbs/poll_result.php
+
+froala/*
+
+lib/b4.lib.php
+lib/poll.lib.php
+
+skin/memo/basic/memo2.head.skin.php
+skin/memo/basic/memo2_view.skin.php
+skin/memo/basic/memo2_write.skin.php
+
+skin/memo/basic_froala/*
+
+skin/poll/basic/poll.skin.php
+
+
+- froala 2.1.0 업데이트
+froala/*
+
+- memo2 froala skin 추가
+memo.config.php
+skin/memo/basic_froala/*
+
+- memo2 글쓰기 id 변경 (memo -> wr_write)
+bbs/memo2_form_update.php
+skin/memo/basic/memo2_write.skin.php
+
+- memo2 버그수정
+skin/memo/basic/memo2.head.skin.php
+
+- poll_list.php 부트화
+bbs/poll_list.php
+
+- 게시글내 투표기능
+lib/b4.lib.php
+lib/poll.lib.php
+skin/poll/basic/poll.skin.php
+
+- code 오류 (별 영향은 없지만...)
+bbs/poll_result.php
+
+- myon url redirect 오류
+bbs/myon.php
+
+- 그누보드 5.1.12 보안패치 적용
+common.php
+(그누보드)
+https://github.com/gnuboard/gnuboard5/blob/f5f4925d4eb28ba1af728e1065fc2bdd9ce1da58/common.php
+(불당팩)
+https://github.com/open2/gnuboard4-buldang-pack/commit/219c559edfb254f262a1a105115779b4015304d8
+
+- spam 버튼 위치변경
+skin/memo/basic/memo2_view.skin.php
+
+
 2.1.4 (2016.01.20)
 
 style.css
