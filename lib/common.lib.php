@@ -167,10 +167,6 @@ function alert($msg='', $url='')
 
     if (!$msg) $msg = '올바른 방법으로 이용해 주십시오.';
 
-    $url = clean_xss_tags($url); 
-    if (!$url) $url = clean_xss_tags($_SERVER['HTTP_REFERER']); 
-    $url = preg_replace("/[\<\>\'\"\\\'\\\"\(\)]/", "", $url); 
-
 	//header("Content-Type: text/html; charset=$g4[charset]");
 	echo "<meta http-equiv=\"content-type\" content=\"text/html; charset=$g4[charset]\">";
 	echo "<script type='text/javascript'>alert('$msg');";
