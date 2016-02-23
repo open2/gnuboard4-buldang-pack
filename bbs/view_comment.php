@@ -195,7 +195,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 
     // 신고 링크
     if ($board[bo_singo] && $is_comment_write && $member[mb_id] != $row[mb_id])
-        $list[$i][singo_href] = "./singo_popin.php?bo_table=$bo_table&wr_id=$row[wr_id]&wr_parent=$row[wr_parent]";
+        $list[$i][singo_href] = "$g4[bbs_path]/singo_popin.php?bo_table=$bo_table&wr_id=$row[wr_id]&wr_parent=$row[wr_parent]";
 
     $list[$i][is_reply] = false;
     $list[$i][is_edit] = false;
@@ -206,7 +206,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         {
             if ($row[mb_id] == $member[mb_id] || $is_admin) 
             {
-                $list[$i][del_link]  = "./delete_comment.php?bo_table=$bo_table&comment_id=$row[wr_id]&token=$token&cwin=$cwin&page=$page".$qstr;
+                $list[$i][del_link]  = "$g4[bbs_path]/delete_comment.php?bo_table=$bo_table&comment_id=$row[wr_id]&token=$token&cwin=$cwin&page=$page".$qstr;
                 $list[$i][is_edit]   = true;
                 $list[$i][is_del]    = true;
             }
@@ -214,7 +214,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         else 
         {
             if (!$row[mb_id]) {
-                $list[$i][del_link] = "./password.php?w=x&bo_table=$bo_table&comment_id=$row[wr_id]&cwin=$cwin&page=$page".$qstr;
+                $list[$i][del_link] = "$g4[bbs_path]/password.php?w=x&bo_table=$bo_table&comment_id=$row[wr_id]&cwin=$cwin&page=$page".$qstr;
                 $list[$i][is_del]   = true;
             }
         }
@@ -242,10 +242,10 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     if ($is_admin || ($member['mb_id'] && $member['mb_id'] == $list[$i][mb_id])) { 
         if (strstr($list[$i][wr_option], "secret")) { 
             // 잠금 해제 버튼
-            $list[$i][nosecret_href] = "javascript:post_submit('proc/mw.btn.secret.php','$bo_table','$wr_id', '{$list[$i][wr_id]}', 'no', '게시글 잠금해제')";
+            $list[$i][nosecret_href] = "javascript:post_submit('$g4[bbs_path]/proc/mw.btn.secret.php','$bo_table','$wr_id', '{$list[$i][wr_id]}', 'no', '게시글 잠금해제')";
         } else { 
             // 잠금 버튼
-            $list[$i][secret_href] = "javascript:post_submit('proc/mw.btn.secret.php','$bo_table','$wr_id', '{$list[$i][wr_id]}', '', '게시글 잠금')";
+            $list[$i][secret_href] = "javascript:post_submit('$g4[bbs_path]/proc/mw.btn.secret.php','$bo_table','$wr_id', '{$list[$i][wr_id]}', '', '게시글 잠금')";
         }
     }
 }
