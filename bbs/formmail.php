@@ -36,6 +36,12 @@ if ($sendmail_count > 3)
 $g4[title] = "메일 쓰기";
 include_once("$g4[path]/head.sub.php");
 
+$email = get_email_address(base64_decode($email));  
+if(!$email)  
+    alert_close('이메일이 올바르지 않습니다.');  
+
+$email = base64_encode($email);  
+
 if (!$name)
     $name = base64_decode($email);
 else  
