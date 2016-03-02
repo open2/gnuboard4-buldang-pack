@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.0.4 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms
- * Copyright 2014-2016 Froala Labs
+ * Copyright 2014-2015 Froala Labs
  */
 
 .clearfix::after {
@@ -96,17 +96,6 @@
   font-family: "Apple Color Emoji", "Segoe UI Emoji", "NotoColorEmoji", "Segoe UI Symbol", "Android Emoji", "EmojiSymbols";
   display: inline;
   line-height: 0;
-}
-.fr-view span.fr-emoticon.fr-emoticon-img {
-  font-size: inherit;
-  height: 1em;
-  width: 1em;
-  min-height: 20px;
-  min-width: 20px;
-  display: inline-block;
-  margin: -0.2em 0.15em 0.2em;
-  line-height: normal;
-  vertical-align: middle;
 }
 .fr-view .fr-text-gray {
   color: #AAA !important;
