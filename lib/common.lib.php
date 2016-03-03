@@ -886,7 +886,7 @@ function get_category_option($bo_table='')
     $str = "";
     for ($i=0; $i<count($arr); $i++)
         if (trim($arr[$i]))
-            $str .= "<option value='$arr[$i]'>$arr[$i]</option>\n";
+            $str .= "<option value='$arr[$i]'>" . trim($arr[$i]) . "</option>\n";
 
     return $str;
 }
