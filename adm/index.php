@@ -9,13 +9,13 @@ $new_point_rows = 5;
 $new_write_rows = 5;
 
 $sql_common = " from $g4[member_table] ";
-$sql_search = " where (1) ";
+$sql_search = " where 1 ";
 
 //if ($is_admin == 'group') $sql_search .= " and mb_level = '$member[mb_level]' ";
 if ($is_admin != 'super') 
     $sql_search .= " and mb_level <= '$member[mb_level]' ";
 
-if (!isset($sst)) {
+if (trim($sst) == "") {
     $sst = "mb_datetime";
     $sod = "desc";
 }
