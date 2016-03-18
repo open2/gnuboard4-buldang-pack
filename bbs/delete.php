@@ -290,5 +290,5 @@ sql_query($sql);
 
 @include_once("$board_skin_path/delete.tail.skin.php");
 
-goto_url("$g4[bbs_path]/board.php?bo_table=$bo_table&page=$page" . $qstr);
+goto_url("$g4[path]/$bo_table?page=$page" . $qstr);
 ?>
