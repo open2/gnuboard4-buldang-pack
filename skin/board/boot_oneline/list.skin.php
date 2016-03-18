@@ -100,7 +100,7 @@ function emoticon_html($str, $board_skin_path)
         ?>
             <div class="btn-group" style="margin-right:10px;">
             <a href="<?=$write_href?>&w=u&wr_id=<?=$list[$i][wr_id]?>&page=<?=$page?>&sca=<?=$ca_name?>" class="btn btn-default btn-sm">수정</a>
-            <a href="javascript:if (confirm('삭제하시겠습니까?')) { location='./delete.php?w=d&bo_table=<?=$bo_table?>&wr_id=<?=$list[$i][wr_id]?>&sca=<?=$sca?>&token=<?=$token?>&page=<?=$page?>';}" class="btn btn-default btn-sm">삭제</a>
+            <a href="javascript:if (confirm('삭제하시겠습니까?')) { location='<?=$g4[bbs_path]?>/delete.php?w=d&bo_table=<?=$bo_table?>&wr_id=<?=$list[$i][wr_id]?>&sca=<?=$sca?>&token=<?=$token?>&page=<?=$page?>';}" class="btn btn-default btn-sm">삭제</a>
     		    </div>
         <? } ?>
         </div>
