@@ -49,8 +49,8 @@
         "πŸ≈¡": 'πŸ≈¡',
         "±√º≠": '±√º≠'
       },
-      heightMin: 430,     // https://www.froala.com/wysiwyg-editor/docs/examples/adjustable-height
-      heightMax: 650,
+      heightMin: 400,     // https://www.froala.com/wysiwyg-editor/docs/examples/adjustable-height
+      heightMax: 800,
 
       toolbarButtons :  ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', '-', 'quote', 'insertHR', 'insertLink', 'insertImage', 'insertVideo', 'insertTable', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html'],
       toolbarButtonsMD: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', '-', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', 'insertHR', 'insertLink', 'insertImage', 'insertVideo', 'insertTable', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html'],
@@ -98,6 +98,10 @@
 
     .on('froalaEditor.file.error', function (e, editor, error, response) {
         console.log(error.code);
+    })
+
+    .on('froalaEditor.image.loaded', function (e, editor, $img) {
+        $img.after('</BR><P></P>');
     })
 
     // Catch image removal from the editor.
