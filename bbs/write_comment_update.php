@@ -459,5 +459,5 @@ if (file_exists("$board_skin_path/write_comment_update.skin.php"))
 if (file_exists("$board_skin_path/write_comment_update.tail.skin.php"))
     @include_once("$board_skin_path/write_comment_update.tail.skin.php");
 
-goto_url("./board.php?bo_table=$bo_table&wr_id=$wr[wr_parent]&page=$page" . $qstr . "&cwin=$cwin#c_{$comment_id}");
+goto_url("$g4[path]/$bo_table/$wr[wr_parent]?page=$page" . $qstr . "&cwin=$cwin#c_{$comment_id}");
 ?>

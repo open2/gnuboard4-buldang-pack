@@ -75,7 +75,7 @@ if ($wr_id)
             //alert("글을 읽을 권한이 없습니다.");
             alert("글을 읽을 권한이 없습니다.", $g4[path]);
         else
-            alert("글을 읽을 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.", "./login.php?wr_id=$wr_id{$qstr}&url=".urlencode("$_SERVER[PHP_SELF]?bo_table=$bo_table&wr_id=$wr_id"));
+            alert("글을 읽을 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.", "$g4[bbs_path]/login.php?wr_id=$wr_id{$qstr}&url=".urlencode("$g4[path]/$bo_table/$wr_id"));
     }
 
     // 자신의 글이거나 관리자라면 통과
@@ -196,7 +196,7 @@ else
         if ($member[mb_id])
             alert("목록을 볼 권한이 없습니다.", $g4[path]);
         else
-            alert("목록을 볼 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.", "$g4[bbs_path]/login.php?wr_id=$wr_id{$qstr}&url=".urlencode("$_SERVER[PHP_SELF]?bo_table=$bo_table&wr_id=$wr_id"));
+            alert("목록을 볼 권한이 없습니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.", "$g4[bbs_path]/login.php?wr_id=$wr_id{$qstr}&url=".urlencode("$_SERVER[PHP_SELF]/$bo_table/$wr_id"));
     }
 
     if (!$page) $page = 1;
