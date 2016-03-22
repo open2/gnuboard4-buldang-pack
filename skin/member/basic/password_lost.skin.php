@@ -14,13 +14,11 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 			</div>
 			<div class="form-group">
           <script src='https://www.google.com/recaptcha/api.js'></script> 
-          <div id="grecaptcha" class="g-recaptcha" data-sitekey="<?=$g4['recaptcha_sitekey']?>" style="float:right"></div> 
+          <div id="grecaptcha" class="g-recaptcha pull-left" data-sitekey="<?=$g4['recaptcha_sitekey']?>" style="float:right"></div> 
 			</div>
 			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
 					<input type="submit" accesskey="s" class="btn btn-success" value="다음">
 					<a href="javascript:window.close();" class="btn btn-default">닫기</a>
-				</div>
 			</div>
   </div>
 </div>
