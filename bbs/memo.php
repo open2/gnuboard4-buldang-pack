@@ -651,7 +651,7 @@ break;
                       break;
         }
         $result = sql_query($sql);
-    
+
         // 목록정보를 $list에 저장하기
         $list = array();
     
