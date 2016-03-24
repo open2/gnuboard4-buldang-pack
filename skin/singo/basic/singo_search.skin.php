@@ -1,5 +1,7 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
+if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
+
+include_once("$g4[path]/memo.config.php");
 ?>
 <form name=fsearch method=get role="form" class="form-inline">
 <a class="btn btn-default" href='<?=$_SERVER[PHP_SELF]?>'>처음</a>
@@ -50,19 +52,26 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     } else
         $sg_mb_nick = "<span style='color:#C15B27;'>비회원</a>";
 
-    $write_table = $g4['write_prefix'].$row[bo_table];
-    $sql = " select wr_subject, wr_ip, wr_is_comment, wr_parent, wr_datetime from $write_table where wr_id = '$row[wr_id]' ";
-    $write_row = sql_fetch($sql);
-    if ($write_row[wr_is_comment]) {
-        $sql = " select wr_subject, wr_ip, wr_datetime from $write_table where wr_id = '$write_row[wr_parent]' ";
-        $parent_row = sql_fetch($sql);
-        $wr_subject = "[코] ".$parent_row[wr_subject];
-        $wr_ip = $parent_row[wr_ip];
-        $wr_datetime = $parent_row[wr_datetime];
+    if ($row[bo_table] == "@memo") {
+        $sql = "select * from $g4[memo_spam_table] where me_id = '$row[wr_id]' ";
+        $write_row = sql_fetch($sql);
+        $wr_subject = $write_row[me_subject];
+        $wr_datetime = $write_row[me_send_datetime];
     } else {
-        $wr_subject = $write_row[wr_subject];
-        $wr_ip = $write_row[wr_ip];
-        $wr_datetime = $write_row[wr_datetime];
+        $write_table = $g4['write_prefix'].$row[bo_table];
+        $sql = " select wr_subject, wr_ip, wr_is_comment, wr_parent, wr_datetime from $write_table where wr_id = '$row[wr_id]' ";
+        $write_row = sql_fetch($sql);
+        if ($write_row[wr_is_comment]) {
+            $sql = " select wr_subject, wr_ip, wr_datetime from $write_table where wr_id = '$write_row[wr_parent]' ";
+            $parent_row = sql_fetch($sql);
+            $wr_subject = "[코] ".$parent_row[wr_subject];
+            $wr_ip = $parent_row[wr_ip];
+            $wr_datetime = $parent_row[wr_datetime];
+        } else {
+            $wr_subject = $write_row[wr_subject];
+            $wr_ip = $write_row[wr_ip];
+            $wr_datetime = $write_row[wr_datetime];
+        }
     }
 
     $wr_subject = get_text($wr_subject);

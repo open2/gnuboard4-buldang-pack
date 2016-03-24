@@ -6,7 +6,7 @@ if (!$is_member)
 {
     $href = "./login.php?$qstr&url=".urlencode("./singo_search.php");
 
-    echo "<script language='JavaScript'>alert('회원만 가능합니다.'); top.location.href = '$href';</script>";
+    echo "<script type='text/javascript'>alert('회원만 가능합니다.'); top.location.href = '$href';</script>";
     exit;
 }
 
