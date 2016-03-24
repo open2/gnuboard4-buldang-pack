@@ -40,6 +40,9 @@ $mb2 = get_member_nick($mb_nick2);
 
 $mb_id = $mb['mb_id'];
 
+// 출력할 변수를 앞에서 초기화...
+$res = "";
+
 if ($mb_id =='undefined' || $mb_id == "") {
     echo "Error: 110"; // 입력이 없습니다.
 } else {
@@ -48,6 +51,15 @@ if ($mb_id =='undefined' || $mb_id == "") {
         echo "Error: 130"; // 없는 아이디
     } else {
 
+        // mb_nick의 갯수를 세어 봅니다. mb_nick이 여러개인 경우가 있더라구요.
+        $sql = "select count(*) as cnt from $g4[member_table] where mb_nick = '$mb_nick' ";
+        $result = sql_fetch($sql);
+        if ($result['cnt'] > 1) {
+            $res = "<div>[Error] 닉네임 중복. 관리자에게 문의 하시기 바랍니다</div>";
+            echo iconv($g4['charset'], "UTF-8", $res);
+            die;
+        }
+
         $memo_url = "$g4[bbs_path]/memo.php?kind=write&me_recv_mb_id=$mb_id";
         $point_url = "$g4[admin_path]/point_list.php?sfl=mb_id&stx=$mb_id";
         $bo_url = "$g4[bbs_path]/board.php?bo_table=$bo_table&sca=$sca&sfl=mb_id,1&stx=$mb_id";
@@ -55,7 +67,7 @@ if ($mb_id =='undefined' || $mb_id == "") {
         $member_modify_url = "$g4[admin_path]//member_form.php?w=u&mb_id=$mb_id";
 
         // 결과값을 return
-        $res = "<div>";
+        $res .= "<div>";
         $res .= "<ul class='list-unstyled'>";
         $res .= "<li><a href=\"javascript:;\" onClick=\"win_memo('$memo_url', '$mb_id');\">쪽지보내기</a></li>";
         $res .= "<li><a href=\"javascript:;\" onClick=\"win_formmail('$mb_id','$mb_nick');\">메일보내기</a></li>";
