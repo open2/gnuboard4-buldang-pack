@@ -66,6 +66,11 @@ if ($w == "") {
     $board[bo_include_head] = './_head.php';    
     $board[bo_include_tail] = './_tail.php';    
 
+    $board[bo_good_point] = 0;
+    $board[bo_good_click_point] = 0;
+    $board[bo_nogood_point] = 0;
+    $board[bo_nogood_click_point] = 0;
+
 } else if ($w == "u") {
     $html_title .= " ¼öÁ¤";
 
