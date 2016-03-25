@@ -570,9 +570,9 @@ if (isset($_REQUEST['bo_table'])) {
     $stmt->bindParam(":bo_table", $bo_table);
     $board = pdo_fetch($stmt);
 
+    $write_table = $g4['write_prefix'] . $bo_table; // 게시판 테이블 전체이름
+    $gr_id = $board['gr_id'];
     if (isset($wr_id) && $wr_id) {
-        $gr_id = $board['gr_id'];
-        $write_table = $g4['write_prefix'] . $bo_table; // 게시판 테이블 전체이름
         $write = sql_fetch(" select * from $write_table where wr_id = '$wr_id' ");
     }
 } else {
