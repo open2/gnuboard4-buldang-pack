@@ -211,7 +211,7 @@ if (!$sca && !$stx)
         {
             if (trim($arr_notice[$k]) == '')
               continue;
-          
+
             $sql_case .= " when " . $arr_notice[$k] . " then " . $k ;
             if ($j == 0)
               $sql_where = " wr_id = " . $arr_notice[$k] . " ";
@@ -219,11 +219,11 @@ if (!$sca && !$stx)
               $sql_where .= " or wr_id = " . $arr_notice[$k] . " ";
             $j++;
         } // end of for
-    
+
         if ($j > 0) {
             $sql = " select {$list_select} , case wr_id $sql_case else 10000 end as fsort from $write_table where $sql_where order by fsort,wr_num, wr_reply ";
             $result_notice = sql_query($sql);
-    
+
             while ($row_notice = sql_fetch_array($result_notice)) 
             {
                 if (!$row_notice['wr_id']) continue;
