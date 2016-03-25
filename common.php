@@ -561,19 +561,22 @@ else
     $member['mb_dir'] = substr($member['mb_id'],0,2);
 
 $write_table = "";
-if (isset($bo_table)) {
-    $bo_table = preg_match("/^[a-zA-Z0-9_]+$/", $bo_table) ? $bo_table : "";
-    //$board = sql_fetch(" select * from {$g4['board_table']} where bo_table = '$bo_table' ");
 
+if (isset($_REQUEST['bo_table'])) {
+    $bo_table = preg_replace('/[^a-z0-9_]/i', '', trim($_REQUEST['bo_table']));
+
+    //$board = sql_fetch(" select * from {$g4['board_table']} where bo_table = '$bo_table' ");
     $stmt = $pdo_db->prepare(" select * from {$g4['board_table']} where bo_table = :bo_table ");
     $stmt->bindParam(":bo_table", $bo_table);
     $board = pdo_fetch($stmt);
 
-    if ($board['bo_table']) {
+    if (isset($wr_id) && $wr_id) {
         $gr_id = $board['gr_id'];
         $write_table = $g4['write_prefix'] . $bo_table; // 게시판 테이블 전체이름
         $write = sql_fetch(" select * from $write_table where wr_id = '$wr_id' ");
     }
+} else {
+    $bo_table = '';
 }
 
 // adm/board_list.php에서 gr_id를 배열로 쓰기 때문에, is_array를 체크해야 합니다. =..=...
