@@ -18,9 +18,13 @@ if ($stx)
     $stx = preg_replace("/\//", "\/", trim($stx));
     
     // 불당팩 - 단어필터링, 참조, write_update.php, http://sir.co.kr/bbs/board.php?bo_table=g4_tiptech&wr_id=20275
+    $config[cf_filter] = trim($config[cf_filter]);
     $filters = explode(",", $config[cf_filter]);
     for ($i=0; $i<count($filters); $i++) {
         $s = trim($filters[$i]); // 필터단어의 앞뒤 공백을 없앰
+        // 아주 가끔 comma 앞뒤에 빈칸만 넣으시는 분들이...
+        if ($s == "")
+            continue;
         if (stristr($stx, $s)) {
             alert("검색어에 금지단어(\'{$s}\')가 포함되어 있습니다.");
             exit;
