@@ -901,7 +901,7 @@ if ($w == "" || $w == "r")
 if ($g4[https_url])
     $https_url = "$g4[url]";
 else
-    $https_url = ".";
+    $https_url = "$g4[path]";
 
 if ($file_upload_msg)
     alert($file_upload_msg, "{$https_url}/board.php?bo_table=$bo_table&wr_id=$wr_id&page=$page" . $qstr);
