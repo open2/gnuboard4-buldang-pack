@@ -148,6 +148,11 @@ function get_cookie($cookie_name)
     if (array_key_exists($cookie, $_COOKIE)) {
 
         $ck = $_COOKIE[$cookie];
+
+        if (strtolower($g4['charset']) == "euc-kr") {
+            $ck = base64_decode($_COOKIE[$cookie]);
+            $ck = iconv("utf-8", "cpc949", $ck);
+        }
         return $ck;
     }
     else
