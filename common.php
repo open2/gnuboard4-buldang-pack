@@ -479,7 +479,6 @@ $user_agent  = mysql_real_escape_string($_SERVER['HTTP_USER_AGENT']);
 
 //===================================
 
-
 // 자동로그인 부분에서 첫로그인에 포인트 부여하던것을 로그인중일때로 변경하면서 코드도 대폭 수정하였습니다.
 if ($_SESSION['ss_mb_id']) // 로그인중이라면
 {
@@ -526,6 +525,7 @@ else
             } else {
                 $key = md5($_SERVER['SERVER_ADDR'] . $_SERVER['HTTP_USER_AGENT'] . $row['mb_password'] . $row['mb_no']);
             }
+
             // 쿠키에 저장된 키와 같다면
             if ($tmp_key == $key && $tmp_key)
             {
