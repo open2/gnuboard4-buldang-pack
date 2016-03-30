@@ -98,9 +98,15 @@ else
 
     <?
     $my_menu = array();
-    $sql = "select m.bo_table, b.bo_subject from $g4[my_menu_table] as m left join $g4[board_table] as b on m.bo_table = b.bo_table where mb_id = '$member[mb_id]'";
+    $sql = "select m.bo_table, b.bo_subject, b.bo_modify_datetime from $g4[my_menu_table] as m left join $g4[board_table] as b on m.bo_table = b.bo_table where mb_id = '$member[mb_id]'";
     $qry = sql_query($sql);
     while ($row = sql_fetch_array($qry)) {
+        // 최근 3일 이내에 글쓰임이 있으면 New 버튼을 추가
+        if (days_diff($row['bo_modify_datetime']) > 3)
+            $row['new'] = "";
+        else
+            $row['new'] = "&nbsp;<span class='glyphicon glyphicon-heart' aria-hidden='true'></span>";
+
         $my_menu[] = $row;
     }
     ?>
@@ -113,7 +119,7 @@ else
 
     <ul class="nav navbar-nav hidden-lg hidden-md" id="gnb_my">
         <? for ($i=0; $i<count($my_menu); $i++) { ?>
-            <li id="qna_my"><a href="<?=$g4[bbs_path]?>/board.php?bo_table=<?=$my_menu[$i][bo_table]?>"><?=$my_menu[$i][bo_subject]?></a></li>
+            <li id="qna_my"><a href="<?=$g4[bbs_path]?>/<?=$my_menu[$i][bo_table]?>">11<?=$my_menu[$i][bo_subject]?></a><? echo $my_menu[$i]['new']?></li>
         <? } ?>
         <li id="qna_my"><a href="<?=$g4[bbs_path]?>/my_menu_edit.php">바로가기편집</a></li>
     </ul>
@@ -219,7 +225,7 @@ else
             <a class="dropdown-toggle hidden-xs hidden-sm" href="#" data-toggle="dropdown">바로가기 <b class="caret"></b></a>
             <ul class="dropdown-menu" role="menu">
                 <? for ($i=0; $i<count($my_menu); $i++) { ?>
-                    <li id="my_$i_m"><a href="<?=$g4[path]?>/<?=$my_menu[$i][bo_table]?>"><?=$my_menu[$i][bo_subject]?></a></li>
+                    <li id="my_$i_m"><a href="<?=$g4[path]?>/<?=$my_menu[$i][bo_table]?>"><?=$my_menu[$i][bo_subject]?><? echo $my_menu[$i]['new']?></a></li>
                 <? } ?>
                 <li class="divider"></li>
                 <li id="qna_my"><a href="<?=$g4[bbs_path]?>/my_menu_edit.php">바로가기편집</a></li>
