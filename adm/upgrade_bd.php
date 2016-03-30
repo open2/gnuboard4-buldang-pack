@@ -993,7 +993,6 @@ if ($config[cf_db_version] < 2103) {
     sql_query(" ALTER  TABLE  `$g4[board_table]`  ADD  `bo_good_click_point` INT( 11  )  NOT  NULL  AFTER  `bo_nogood_point` , ADD  `bo_nogood_click_point` INT( 11  )  NOT  NULL  AFTER  `bo_good_click_point`  ", FALSE);
 }
 
-
 // db 버젼을 업데이트 - major version + mid version - patch version
 $max_version = "2103";
 sql_query(" update $g4[config_table] set cf_db_version = '$max_version' ");
