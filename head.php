@@ -119,7 +119,7 @@ else
 
     <ul class="nav navbar-nav hidden-lg hidden-md" id="gnb_my">
         <? for ($i=0; $i<count($my_menu); $i++) { ?>
-            <li id="qna_my"><a href="<?=$g4[bbs_path]?>/<?=$my_menu[$i][bo_table]?>">11<?=$my_menu[$i][bo_subject]?></a><? echo $my_menu[$i]['new']?></li>
+            <li id="qna_my"><a href="<?=$g4[bbs_path]?>/<?=$my_menu[$i][bo_table]?>"><?=$my_menu[$i][bo_subject]?></a><? echo $my_menu[$i]['new']?></li>
         <? } ?>
         <li id="qna_my"><a href="<?=$g4[bbs_path]?>/my_menu_edit.php">바로가기편집</a></li>
     </ul>
