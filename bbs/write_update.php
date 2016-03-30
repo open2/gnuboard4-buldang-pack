@@ -838,39 +838,6 @@ if ($insert_g_notice) {
 // 사용자 코드 실행
 @include_once ("$board_skin_path/write_update.skin.php");
 
-// ------------------------------------------------------------
-// 불당팩 - DHTML 이용시에 cheditor 정보 기록하기
-if($board['bo_use_dhtml_editor'])
-{
-    // 전달해줄 글로벌 변수를 설정
-    $g4['w'] = "u";
-    $g4['bo_table'] = $bo_table;
-    $g4['wr_id'] = $wr_id;
-    $g4['ip_addr'] = $remote_addr;
-
-    // $w == "u"이면, 현재 글의 db의 del 필드를 모두 1로 설정 합니다.
-    if ($w == "u") {
-        $sql = " update $g4[board_cheditor_table] set del = '1' where bo_table = '$bo_table' and wr_id = '$wr_id' ";
-        sql_query($sql, FALSE);
-    }
-
-    // 순수 html code로 바꿔서 callback을 불러 줍니다.
-    preg_replace_callback('/\<img[^\<\>]*\>/i', 'get_chimage', stripslashes($wr_content));
-    
-    // $w == "u"이면, 현재글의 db의 del 필드중 1인 것을 모두 삭제 합니다. 확실한 쓰레기 청소.
-    if ($w == "u") {
-        $sql = " select * from $g4[board_cheditor_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and del = '1' ";
-        $result3 = sql_query($sql);
-        while ($row=sql_fetch_array($result3)) {
-              $file_path = $row[bc_dir] . "/" . $row[bc_file];
-              $file_dir = $row[bc_dir];
-              @unlink($file_path);
-              $sql_d = " delete from $g4[board_cheditor_table] where bc_id = '$row[bc_id]' ";
-              sql_query($sql_d);
-        }
-    }
-}
-
 // 불당팩 - 임시저장된 것을 모두 지워주고 세션도 날립니다 (ss_tempsave 세션만 지우면 찌꺼기 남을 수 있슴...)
 $sql = " delete from $g4[tempsave_table] where bo_table='$bo_table' and mb_id = '$member[mb_id]' ";
 sql_query($sql);
