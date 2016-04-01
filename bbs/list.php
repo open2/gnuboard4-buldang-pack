@@ -7,12 +7,21 @@ if (file_exists("$board_skin_path/list.head.skin.php"))
 
 // 불당팩 : 공지글의 갯수 구하기, DB 작업이 아니라서 항상 해줘도 상관엄따.
 $notice = preg_split("/\n/i", trim($board[bo_notice]));
-$arr_notice = array();
+$arr_notice_1 = array();
 foreach ($notice as $row) {
     if (trim($row) !== "")
-        $arr_notice[] = $row;
+        $arr_notice_1[] = $row;
 }
-$arr_notice_count = count($arr_notice);
+$arr_notice_count = count($arr_notice_1);
+
+// 공지사항 max. 갯수를 조정해 줍니다. 
+// http://php.net/manual/en/function.array-slice.php
+if ($g4['bo_notice_max'] > 0 && $arr_notice_count > 0 && $arr_notice_count > $g4['bo_notice_max']) {
+    shuffle($arr_notice_1);
+    $arr_notice = array_slice($arr_notice_1, 0, $g4['bo_notice_max']);
+} else {
+    $arr_notice = $arr_notice_1;
+}
 
 // SQL에서 사용할 공지사항 목록을 만들어둔다. in으로 쓰면 되는거.
 if ($board[bo_notice_joongbok] && $arr_notice_count > 0)
@@ -166,7 +175,10 @@ if (!$sca && !$stx)
     // 불당팩 - 전체 공지를 가져 온다
     if ($board['bo_naver_notice']) {
 
-        $sql = " select * from $g4[notice_table] order by no_id desc ";
+        if ($g4[global_notice_max] > 0)
+            $sql = " select * from $g4[notice_table] order by rand() limit $g4[global_notice_max] ";
+        else
+            $sql = " select * from $g4[notice_table] order by no_id desc ";
         $global_notice = sql_query($sql);
         $global_notice_count = mysql_num_rows($global_notice);
 

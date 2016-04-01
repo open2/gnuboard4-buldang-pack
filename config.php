@@ -283,6 +283,10 @@ $g4['htmlpurifier_cache'] = $g4[data_path].'/cache';
 $g4['recaptcha_sitekey'] = "";
 $g4['recaptcha_secret_key'] = "";
 
-// froala key
+// froala license key (재배포 라이센스 입니다)
 $g4['froala_key'] = "VZSZGUSXYSMZe1JGZ==";
+
+// 공지사항 갯수제한, 0 = 제한없슴. 0 이상의 숫자 = 해당 갯수로 제한
+$g4['bo_notice_max'] = 0;       // 게시판 공지사항
+$g4['global_notice_max'] = 5;   // 전체 공지사항
 ?>
