@@ -1,3 +1,122 @@
+2.1.6 (2016.04.01)
+
+[ 필독 *** 설치시 주의 사항 ]
+
+1. 단축주소 기능 때문에, 반드시 root 디렉토리에 설치해야 합니다.
+opencode/a/public_html 이런 식의 설치는 동작하지 않습니다.
+
+2. 구글 recaptcha에 사이트를 등록하고 key를 받아서 config.php에 넣어주세요.
+recaptcha key가 없으면 관리자 메뉴가 동작하지 않습니다 (로봇이라고 생각...)
+
+3. 설치/사용의 기본 요구조건
+- php 5.1 이상 + PDO extension(반드시 필요)
+- apache mod_rewrite
+
+4. froala editor의 라이센스는 제한적인 것 입니다.
+불당팩의 사용자들만 사용가능하며, 다른 사이트는 froala를 별도 구입하시기 바랍니다.
+
+5. 부트스트랩 때문에, IE 8.0 이하에서는 정상동작 안합니다.
+
+===
+
+common.php
+config.php
+head.php
+
+adm/board_form.php
+adm/index.php
+
+bbs/ajax_sideview.php
+bbs/board.php
+bbs/delete.php
+bbs/formmail.php
+bbs/list.php
+bbs/login_check.php
+bbs/member_confirm.php
+bbs/search.php
+bbs/singo_search.php
+bbs/singo_search_delete.php
+bbs/view_comment.php
+bbs/write.php
+bbs/write_update.php
+bbs/write_comment_update.php
+
+froala/*
+
+lib/common.lib.php
+
+skin/board/boot_oneline/list.skin.php
+skin/board/boot_oneline/write_update.skin.php
+
+skin/member/basic/password_lost.skin.php
+
+skin/singo/basic/singo_search.skin.php
+
+
+
+- 최대 공지글 갯수 조정
+config.php
+bbs/list.php
+
+- 바로가기에 new 아이콘 추가 (bo_modify_datetime)
+head.php
+http://www.opencode.co.kr/gnu4_pack_book/113
+
+- cheditor 정보저장 코드 삭제
+bbs/write_update.php
+
+- 자동로그인 오류 수정
+bbs/login_check.php
+lib/common.lib.php
+
+- 게시판 초기값 미설정 수정
+adm/board_form.php
+
+- 보안관련 오류 수정
+common.php
+
+- filter에 값을 없을 때 예외처리
+bbs/search.php
+
+- nick ame 중복이 있는 경우, sideview 오류 출력
+bbs/ajax_sideview.php
+
+- 신고검색 오류 수정
+bbs/singo_search.php
+bbs/singo_search_delete.php
+skin/singo/basic/singo_search.skin.php
+
+- 캡차 위치오류 수정
+skin/member/basic/password_lost.skin.php
+
+- 단축주소 오류
+bbs/board.php
+bbs/delete.php
+bbs/write_update.php
+bbs/write_comment_update.php
+skin/board/boot_oneline/list.skin.php
+skin/board/boot_oneline/write_update.skin.php
+
+- $sst 변경으로 인한 오류 수정
+adm/index.php
+
+- 카테고리에 공백이 있는 경우의 오류 수정
+lib/common.lib.php
+
+- froala 2.2.1 
+froala/*
+
+- 그누보드 5.1.13 보안패치
+common.php
+bbs/formmail.php
+bbs/member_confirm.php
+bbs/write.php
+lib/common.lib.php
+
+- 단축주소 오류 (삭제 버튼 등의 url 오류)
+bbs/view_comment.php
+
+
 2.1.5 (2016.02.01)
 
 common.php
