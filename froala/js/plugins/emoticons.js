@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -34,12 +34,12 @@
 
   'use strict';
 
-  $.extend($.FroalaEditor.POPUP_TEMPLATES, {
+  $.extend($.FE.POPUP_TEMPLATES, {
     emoticons: '[_BUTTONS_][_EMOTICONS_]'
   })
 
   // Extend defaults.
-  $.extend($.FroalaEditor.DEFAULTS, {
+  $.extend($.FE.DEFAULTS, {
     emoticonsStep: 8,
     emoticonsSet: [
       { code: '1f600', desc: 'Grinning face' },
@@ -109,7 +109,7 @@
     emoticonsUseImage: true
   });
 
-  $.FroalaEditor.PLUGINS.emoticons = function (editor) {
+  $.FE.PLUGINS.emoticons = function (editor) {
     /*
      * Show the emoticons popup.
      */
@@ -194,7 +194,7 @@
      */
     function insert (emoticon, img) {
       // Insert emoticon.
-      editor.html.insert('<span class="fr-emoticon' + (img ? ' fr-emoticon-img' : '') + '"' + (img ? ' style="background: url(' + img + ')"' : '') + '>' + (img ? ' ' : emoticon) + '</span>' + $.FroalaEditor.MARKERS, true);
+      editor.html.insert('<span class="fr-emoticon' + (img ? ' fr-emoticon-img' : '') + '"' + (img ? ' style="background: url(' + img + ')"' : '') + '>' + (img ? '&nbsp;' : emoticon) + '</span>' + $.FE.MARKERS, true);
     }
 
     /*
@@ -249,10 +249,10 @@
           var el = inEmoticon();
           if (el) {
             if (range.startOffset === 0) {
-              $(el).before($.FroalaEditor.MARKERS + $.FroalaEditor.INVISIBLE_SPACE);
+              $(el).before($.FE.MARKERS + $.FE.INVISIBLE_SPACE);
             }
             else {
-              $(el).after($.FroalaEditor.INVISIBLE_SPACE + $.FroalaEditor.MARKERS);
+              $(el).after($.FE.INVISIBLE_SPACE + $.FE.MARKERS);
             }
             editor.selection.restore();
           }
@@ -280,8 +280,8 @@
   }
 
   // Toolbar emoticons button.
-  $.FroalaEditor.DefineIcon('emoticons', { NAME: 'smile-o' });
-  $.FroalaEditor.RegisterCommand('emoticons', {
+  $.FE.DefineIcon('emoticons', { NAME: 'smile-o' });
+  $.FE.RegisterCommand('emoticons', {
     title: 'Emoticons',
     undo: false,
     focus: true,
@@ -303,7 +303,7 @@
   });
 
   // Insert emoticon command.
-  $.FroalaEditor.RegisterCommand('insertEmoticon', {
+  $.FE.RegisterCommand('insertEmoticon', {
     callback: function (cmd, code) {
       // Insert emoticon.
       this.emoticons.insert('&#x' + code + ';', this.opts.emoticonsUseImage ? 'https://cdnjs.cloudflare.com/ajax/libs/emojione/2.0.1/assets/svg/' + code + '.svg' : null);
@@ -314,8 +314,8 @@
   });
 
   // Emoticons back.
-  $.FroalaEditor.DefineIcon('emoticonsBack', { NAME: 'arrow-left' });
-  $.FroalaEditor.RegisterCommand('emoticonsBack', {
+  $.FE.DefineIcon('emoticonsBack', { NAME: 'arrow-left' });
+  $.FE.RegisterCommand('emoticonsBack', {
     title: 'Back',
     undo: false,
     focus: false,

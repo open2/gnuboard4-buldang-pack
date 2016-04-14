@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -34,7 +34,7 @@
 
   'use strict';
 
-  $.FroalaEditor.PLUGINS.fullscreen = function (editor) {
+  $.FE.PLUGINS.fullscreen = function (editor) {
     var old_scroll;
 
     /**
@@ -48,12 +48,14 @@
      * Turn fullscreen on.
      */
     var $placeholder;
+    var height;
+    var max_height;
     function _on () {
-      old_scroll = $(editor.original_window).scrollTop();
+      old_scroll = $(editor.o_win).scrollTop();
       editor.$box.toggleClass('fr-fullscreen');
       $('body').toggleClass('fr-fullscreen');
       $placeholder = $('<div style="display: none;"></div>');
-      editor.$box.after($placeholder).appendTo($('body'));
+      editor.$box.after($placeholder);
 
       if (editor.helpers.isMobile()) {
         editor.$tb.data('parent', editor.$tb.parent());
@@ -63,20 +65,30 @@
         }
       }
 
-      editor.$wp.css('max-height', '');
-      editor.$wp.css('height', editor.original_window.innerHeight - (editor.opts.toolbarInline ? 0 : editor.$tb.outerHeight()));
+      height = editor.opts.height;
+      max_height = editor.opts.heightMax;
+
+      editor.opts.height = editor.o_win.innerHeight - (editor.opts.toolbarInline ? 0 : editor.$tb.outerHeight());
+      editor.size.refresh();
 
       if (editor.opts.toolbarInline) editor.toolbar.showInline();
 
+      var $parent_node = editor.$box.parent();
+      while (!$parent_node.is('body')) {
+        $parent_node
+          .data('z-index', $parent_node.css('z-index'))
+          .css('z-index', '9990');
+        $parent_node = $parent_node.parent();
+      }
+
       editor.events.trigger('charCounter.update');
-      editor.$window.trigger('scroll.sticky' + editor.id);
+      editor.$win.trigger('scroll');
     }
 
     /**
      * Turn fullscreen off.
      */
     function _off () {
-      $placeholder.replaceWith(editor.$box);
       editor.$box.toggleClass('fr-fullscreen');
       $('body').toggleClass('fr-fullscreen');
 
@@ -85,10 +97,11 @@
         editor.$tb.after(editor.$tb.data('sticky-dummy'));
       }
 
-      editor.$wp.css('height', '');
+      editor.opts.height = height;
+      editor.opts.heightMax = max_height;
       editor.size.refresh();
 
-      $(editor.original_window).scrollTop(old_scroll)
+      $(editor.o_win).scrollTop(old_scroll)
 
       if (editor.opts.toolbarInline) editor.toolbar.showInline();
 
@@ -109,7 +122,20 @@
         }
       }
 
-      editor.$window.trigger('scroll.sticky' + editor.id);
+      var $parent_node = editor.$box.parent();
+      while (!$parent_node.is('body')) {
+        if ($parent_node.data('z-index')) {
+          $parent_node.css('z-index', '');
+          if ($parent_node.css('z-index') != $parent_node.data('z-index')) {
+            $parent_node.css('z-index', $parent_node.data('z-index'));
+          }
+          $parent_node.removeData('z-index');
+        }
+
+        $parent_node = $parent_node.parent();
+      }
+
+      editor.$win.trigger('scroll');
     }
 
     /**
@@ -138,7 +164,7 @@
     function _init () {
       if (!editor.$wp) return false;
 
-      $(editor.original_window).on('resize.fullscreen' + editor.id, function () {
+      editor.events.$on($(editor.o_win), 'resize', function () {
         if (isActive()) {
           _off();
           _on();
@@ -148,10 +174,6 @@
       editor.events.on('toolbar.hide', function () {
         if (isActive() && editor.helpers.isMobile()) return false;
       })
-
-      editor.events.on('destroy', function () {
-        $(editor.original_window).off('resize.fullscreen' + editor.id);
-      });
     }
 
     return {
@@ -163,7 +185,7 @@
   }
 
   // Register the font size command.
-  $.FroalaEditor.RegisterCommand('fullscreen', {
+  $.FE.RegisterCommand('fullscreen', {
     title: 'Fullscreen',
     undo: false,
     focus: false,
@@ -178,7 +200,7 @@
   })
 
   // Add the font size icon.
-  $.FroalaEditor.DefineIcon('fullscreen', {
+  $.FE.DefineIcon('fullscreen', {
     NAME: 'expand'
   });
 

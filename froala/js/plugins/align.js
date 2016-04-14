@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -34,11 +34,11 @@
 
   'use strict';
 
-  $.FroalaEditor.PLUGINS.align = function (editor) {
+  $.FE.PLUGINS.align = function (editor) {
     function apply (val) {
       // Wrap.
       editor.selection.save();
-      editor.html.wrap(true, true, true);
+      editor.html.wrap(true, true, true, true);
       editor.selection.restore();
 
       var blocks = editor.selection.blocks();
@@ -78,12 +78,12 @@
     }
   }
 
-  $.FroalaEditor.DefineIcon('align', { NAME: 'align-left' });
-  $.FroalaEditor.DefineIcon('align-left', { NAME: 'align-left' });
-  $.FroalaEditor.DefineIcon('align-right', { NAME: 'align-right' });
-  $.FroalaEditor.DefineIcon('align-center', { NAME: 'align-center' });
-  $.FroalaEditor.DefineIcon('align-justify', { NAME: 'align-justify' });
-  $.FroalaEditor.RegisterCommand('align', {
+  $.FE.DefineIcon('align', { NAME: 'align-left' });
+  $.FE.DefineIcon('align-left', { NAME: 'align-left' });
+  $.FE.DefineIcon('align-right', { NAME: 'align-right' });
+  $.FE.DefineIcon('align-center', { NAME: 'align-center' });
+  $.FE.DefineIcon('align-justify', { NAME: 'align-justify' });
+  $.FE.RegisterCommand('align', {
     type: 'dropdown',
     title: 'Align',
     options: {
@@ -94,9 +94,11 @@
     },
     html: function () {
       var c = '<ul class="fr-dropdown-list">';
-      var options =  $.FroalaEditor.COMMANDS.align.options;
+      var options =  $.FE.COMMANDS.align.options;
       for (var val in options) {
-        c += '<li><a class="fr-command fr-title" data-cmd="align" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.icon.create('align-' + val) + '</a></li>';
+        if (options.hasOwnProperty(val)) {
+          c += '<li><a class="fr-command fr-title" data-cmd="align" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.icon.create('align-' + val) + '</a></li>';
+        }
       }
       c += '</ul>';
 

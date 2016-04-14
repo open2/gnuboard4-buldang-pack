@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -34,12 +34,13 @@
 
   'use strict';
 
-  $.extend($.FroalaEditor.DEFAULTS, {
+  $.extend($.FE.DEFAULTS, {
     fontSize: ['8', '9', '10', '11', '12', '14', '18', '24', '30', '36', '48', '60', '72', '96'],
-    fontSizeSelection: false
+    fontSizeSelection: false,
+    fontSizeDefaultSelection: '12'
   });
 
-  $.FroalaEditor.PLUGINS.fontSize = function (editor) {
+  $.FE.PLUGINS.fontSize = function (editor) {
     function apply (val) {
       editor.commands.applyProperty('font-size', val + 'px');
     }
@@ -60,8 +61,10 @@
     }
 
     function refresh ($btn) {
-      var val = editor.helpers.getPX($(editor.selection.element()).css('font-size'));
-      $btn.find('> span').text(val);
+      if (editor.opts.fontSizeSelection) {
+        var val = editor.helpers.getPX($(editor.selection.element()).css('font-size'));
+        $btn.find('> span').text(val);
+      }
     }
 
     return {
@@ -72,14 +75,16 @@
   }
 
   // Register the font size command.
-  $.FroalaEditor.RegisterCommand('fontSize', {
+  $.FE.RegisterCommand('fontSize', {
     type: 'dropdown',
     title: 'Font Size',
     displaySelection: function (editor) {
       return editor.opts.fontSizeSelection;
     },
     displaySelectionWidth: 30,
-    defaultSelection: '12',
+    defaultSelection: function (editor) {
+      return editor.opts.fontSizeDefaultSelection;
+    },
     html: function () {
       var c = '<ul class="fr-dropdown-list">';
       var options =  this.opts.fontSize;
@@ -104,7 +109,7 @@
   })
 
   // Add the font size icon.
-  $.FroalaEditor.DefineIcon('fontSize', {
+  $.FE.DefineIcon('fontSize', {
     NAME: 'text-height'
   });
 

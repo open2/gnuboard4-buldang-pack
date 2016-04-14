@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -34,20 +34,20 @@
 
   'use strict';
 
-  $.extend($.FroalaEditor.DEFAULTS, {
+  $.extend($.FE.DEFAULTS, {
     inlineStyles: {
       'Big Red': 'font-size: 20px; color: red;',
       'Small Blue': 'font-size: 14px; color: blue;'
     }
   })
 
-  $.FroalaEditor.PLUGINS.inlineStyle = function (editor) {
+  $.FE.PLUGINS.inlineStyle = function (editor) {
     function apply (val) {
       if (editor.selection.text() !== '') {
-        editor.html.insert($.FroalaEditor.START_MARKER + '<span style="' + val + '">' + editor.selection.text() + '</span>' + $.FroalaEditor.END_MARKER);
+        editor.html.insert($.FE.START_MARKER + '<span style="' + val + '">' + editor.selection.text() + '</span>' + $.FE.END_MARKER);
       }
       else {
-        editor.html.insert('<span style="' + val + '">' + $.FroalaEditor.INVISIBLE_SPACE + $.FroalaEditor.MARKERS + '</span>');
+        editor.html.insert('<span style="' + val + '">' + $.FE.INVISIBLE_SPACE + $.FE.MARKERS + '</span>');
       }
     }
 
@@ -57,13 +57,15 @@
   }
 
   // Register the inline style command.
-  $.FroalaEditor.RegisterCommand('inlineStyle', {
+  $.FE.RegisterCommand('inlineStyle', {
     type: 'dropdown',
     html: function () {
       var c = '<ul class="fr-dropdown-list">';
       var options =  this.opts.inlineStyles;
       for (var val in options) {
-        c += '<li><span style="' + options[val] + '"><a class="fr-command" data-cmd="inlineStyle" data-param1="' + options[val] + '" title="' + this.language.translate(val) + '">' + this.language.translate(val) + '</a></span></li>';
+        if (options.hasOwnProperty(val)) {
+          c += '<li><span style="' + options[val] + '"><a class="fr-command" data-cmd="inlineStyle" data-param1="' + options[val] + '" title="' + this.language.translate(val) + '">' + this.language.translate(val) + '</a></span></li>';
+        }
       }
       c += '</ul>';
 
@@ -77,7 +79,7 @@
   })
 
   // Add the font size icon.
-  $.FroalaEditor.DefineIcon('inlineStyle', {
+  $.FE.DefineIcon('inlineStyle', {
     NAME: 'paint-brush'
   });
 

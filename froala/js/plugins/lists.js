@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -34,7 +34,7 @@
 
   'use strict';
 
-  $.FroalaEditor.PLUGINS.lists = function (editor) {
+  $.FE.PLUGINS.lists = function (editor) {
     function _openFlag(tag_name) {
       return '<span class="fr-open-' + tag_name.toLowerCase() + '"></span>';
     }
@@ -311,7 +311,7 @@
 
       // TAB key in lists.
       editor.events.on('keydown', function (e) {
-        if (e.which == $.FroalaEditor.KEYCODE.TAB) {
+        if (e.which == $.FE.KEYCODE.TAB) {
           var do_indent;
           var blocks = editor.selection.blocks();
           var blks = [];
@@ -347,7 +347,7 @@
   }
 
   // Register the font size command.
-  $.FroalaEditor.RegisterCommand('formatUL', {
+  $.FE.RegisterCommand('formatUL', {
     title: 'Unordered List',
     refresh: function ($btn) {
       this.lists.refresh($btn, 'UL');
@@ -359,7 +359,7 @@
   })
 
   // Register the font size command.
-  $.FroalaEditor.RegisterCommand('formatOL', {
+  $.FE.RegisterCommand('formatOL', {
     title: 'Ordered List',
     refresh: function ($btn) {
       this.lists.refresh($btn, 'OL');
@@ -371,11 +371,11 @@
   })
 
   // Add the list icons.
-  $.FroalaEditor.DefineIcon('formatUL', {
+  $.FE.DefineIcon('formatUL', {
     NAME: 'list-ul'
   });
 
-  $.FroalaEditor.DefineIcon('formatOL', {
+  $.FE.DefineIcon('formatOL', {
     NAME: 'list-ol'
   });
 

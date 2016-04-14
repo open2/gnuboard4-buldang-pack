@@ -1,14 +1,14 @@
 /*!
- * froala_editor v2.0.4 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
- * Copyright 2014-2015 Froala Labs
+ * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
+ * Copyright 2014-2016 Froala Labs
  */
 
 /**
  * Simplified Chinese spoken in China.
  */
 
-$.FroalaEditor.LANGUAGE['zh_cn'] = {
+$.FE.LANGUAGE['zh_cn'] = {
   translation: {
     // Place holder
     "Type something": "\u8f93\u5165\u4e00\u4e9b\u5185\u5bb9",
@@ -221,7 +221,10 @@ $.FroalaEditor.LANGUAGE['zh_cn'] = {
     // Quote
     "Quote": "\u62a5\u4ef7",
     "Increase": "\u589e\u52a0",
-    "Decrease": "\u51cf\u5c11"
+    "Decrease": "\u51cf\u5c11",
+
+    // Quick Insert
+    "Quick Insert": "\u5feb\u63d2"
   },
   direction: "ltr"
 };

@@ -2,11 +2,12 @@
 @import '../variables.less';
 
 .fr-quick-insert {
-  position: fixed;
+  position: absolute;
   z-index: 9998;
   white-space: nowrap;
   padding-right: 5px;
   margin-left: -5px;
+  .box-sizing(content-box);
 
   &.fr-on {
     a.fr-floating-btn svg {
@@ -15,36 +16,22 @@
   }
 }
 
-.fr-element {
-  .fr-qi-helper {
-    a {
-      text-align: center;
-      background: @floating-btn-bg;
-      height: @btn-height;
-      width: @btn-width;
-      .transition(background @transition-timing, color @transition-timing, transform @transition-timing, opacity @transition-timing;);
-      outline: none;
-      display: inline-block;
-      text-align: center;
-      color: #777;
-      .opacity(0);
-      .transform(scale(0));
+.fr-qi-helper {
+  position: absolute;
+  z-index: 3;
+  padding-left: @editor-padding;
+  white-space: nowrap;
 
-      &:hover {
-        color: @floating-btn-text;
-        cursor: pointer;
-      }
+  a.fr-btn.fr-floating-btn {
+    text-align: center;
+    display: inline-block;
+    color: @ui-text;
+    .opacity(0);
+    .transform(scale(0));
 
-      &.fr-size-1 {
-        .opacity(1);
-        .transform(scale(1));
-      }
-
-      i {
-        font-size: @floating-btn-font-size;
-        margin: ((@btn-height - @btn-font-size) / 2) ((@btn-width - @btn-font-size) / 2) ((@btn-height - @btn-font-size) / 2) 0;
-        line-height: 1;
-      }
+    &.fr-size-1 {
+      .opacity(1);
+      .transform(scale(1));
     }
   }
 }

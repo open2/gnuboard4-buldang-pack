@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -35,13 +35,13 @@
   'use strict';
 
   // Extend defaults.
-  $.extend($.FroalaEditor.DEFAULTS, {
+  $.extend($.FE.DEFAULTS, {
 
   });
 
-  $.FroalaEditor.URLRegEx = /(\s|^|>)((http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+(\.[a-zA-Z]{2,3})?(:\d*)?(\/[^\s<]*)?)(\s|$|<)/gi;
+  $.FE.URLRegEx = /(\s|^|>)((http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+(\.[a-zA-Z]{2,3})?(:\d*)?(\/[^\s<]*)?)(\s|$|<)/gi;
 
-  $.FroalaEditor.PLUGINS.url = function (editor) {
+  $.FE.PLUGINS.url = function (editor) {
 
     function _convertURLS (contents) {
       // All content zones.
@@ -53,9 +53,9 @@
           var text = this.textContent.replace(/&nbsp;/gi, '');
 
           // Check if text is URL.
-          if ($.FroalaEditor.URLRegEx.test(text)) {
+          if ($.FE.URLRegEx.test(text)) {
             // Convert it to A.
-            $(this).before(text.replace($.FroalaEditor.URLRegEx, '$1<a href="$2">$2</a>$7'));
+            $(this).before(text.replace($.FE.URLRegEx, '$1<a href="$2">$2</a>$7'));
 
             $(this).remove();
           }
@@ -74,14 +74,14 @@
      */
     function _init () {
       editor.events.on('paste.afterCleanup', function (html) {
-        if ($.FroalaEditor.URLRegEx.test(html)) {
-          return html.replace($.FroalaEditor.URLRegEx, '$1<a href="$2">$2</a>$7')
+        if ($.FE.URLRegEx.test(html)) {
+          return html.replace($.FE.URLRegEx, '$1<a href="$2">$2</a>$7')
         }
       });
 
       editor.events.on('keyup', function (e) {
         var keycode = e.which;
-        if (keycode == $.FroalaEditor.KEYCODE.ENTER || keycode == $.FroalaEditor.KEYCODE.SPACE) {
+        if (keycode == $.FE.KEYCODE.ENTER || keycode == $.FE.KEYCODE.SPACE) {
           _convertURLS(editor.node.contents(editor.$el.get(0)));
         }
       });
@@ -89,14 +89,14 @@
       editor.events.on('keydown', function (e) {
         var keycode = e.which;
 
-        if (keycode == $.FroalaEditor.KEYCODE.ENTER) {
+        if (keycode == $.FE.KEYCODE.ENTER) {
           var el = editor.selection.element();
 
           if ((el.tagName == 'A' || $(el).parents('a').length) && editor.selection.info(el).atEnd) {
             e.stopImmediatePropagation();
 
             if (el.tagName !== 'A') el = $(el).parents('a')[0];
-            $(el).after('&nbsp;' + $.FroalaEditor.MARKERS);
+            $(el).after('&nbsp;' + $.FE.MARKERS);
             editor.selection.restore();
 
             return false;

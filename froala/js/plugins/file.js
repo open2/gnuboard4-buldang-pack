@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -34,12 +34,12 @@
 
   'use strict';
 
-  $.extend($.FroalaEditor.POPUP_TEMPLATES, {
+  $.extend($.FE.POPUP_TEMPLATES, {
     'file.insert': '[_BUTTONS_][_UPLOAD_LAYER_][_PROGRESS_BAR_]'
   })
 
   // Extend defaults.
-  $.extend($.FroalaEditor.DEFAULTS, {
+  $.extend($.FE.DEFAULTS, {
     fileUploadURL: 'http://i.froala.com/upload',
     fileUploadParam: 'file',
     fileUploadParams: {},
@@ -52,7 +52,7 @@
   });
 
 
-  $.FroalaEditor.PLUGINS.file = function (editor) {
+  $.FE.PLUGINS.file = function (editor) {
     var BAD_LINK = 1;
     var MISSING_LINK = 2;
     var ERROR_DURING_UPLOAD = 3;
@@ -328,13 +328,17 @@
             form_data.append('Content-Type', file.type);
 
             for (key in editor.opts.fileUploadToS3.params) {
-              form_data.append(key, editor.opts.fileUploadToS3.params[key]);
+              if (editor.opts.fileUploadToS3.params.hasOwnProperty(key)) {
+                form_data.append(key, editor.opts.fileUploadToS3.params[key]);
+              }
             }
           }
 
           // Add upload params.
           for (key in editor.opts.fileUploadParams) {
-            form_data.append(key, editor.opts.fileUploadParams[key]);
+            if (editor.opts.fileUploadParams.hasOwnProperty(key)) {
+              form_data.append(key, editor.opts.fileUploadParams[key]);
+            }
           }
 
           // Set the file in the request.
@@ -365,19 +369,19 @@
 
     function _bindInsertEvents ($popup) {
       // Drag over the dropable area.
-      $popup.on('dragover dragenter', '.fr-file-upload-layer', function () {
+      editor.events.$on($popup, 'dragover dragenter', '.fr-file-upload-layer', function () {
         $(this).addClass('fr-drop');
         return false;
-      });
+      }, true);
 
       // Drag end.
-      $popup.on('dragleave dragend', '.fr-file-upload-layer', function () {
+      editor.events.$on($popup, 'dragleave dragend', '.fr-file-upload-layer', function () {
         $(this).removeClass('fr-drop');
         return false;
-      });
+      }, true);
 
       // Drop.
-      $popup.on('drop', '.fr-file-upload-layer', function (e) {
+      editor.events.$on($popup, 'drop', '.fr-file-upload-layer', function (e) {
         e.preventDefault();
         e.stopPropagation();
 
@@ -387,9 +391,9 @@
         if (dt && dt.files) {
           upload(dt.files);
         }
-      });
+      }, true);
 
-      $popup.on('change', '.fr-file-upload-layer input[type="file"]', function () {
+      editor.events.$on($popup, 'change', '.fr-file-upload-layer input[type="file"]', function () {
         if (this.files) {
           upload(this.files);
         }
@@ -398,14 +402,20 @@
 
         // Chrome fix.
         $(this).val('');
-      });
+      }, true);
     }
 
     function _hideInsertPopup () {
       hideProgressBar();
     }
 
-    function _initInsertPopup () {
+    function _initInsertPopup (delayed) {
+      if (delayed) {
+        editor.popups.onHide('file.insert', _hideInsertPopup);
+
+        return true;
+      }
+
       // Image buttons.
       var file_buttons = '';
       file_buttons = '<div class="fr-buttons">' + editor.button.buildList(editor.opts.fileInsertButtons) + '</div>';
@@ -427,7 +437,6 @@
       // Set the template in the popup.
       var $popup = editor.popups.create('file.insert', template);
 
-      editor.popups.onHide('file.insert', _hideInsertPopup);
       _bindInsertEvents($popup);
 
       return $popup;
@@ -439,49 +448,44 @@
       }
     }
 
-    function _initEvents() {
-      var preventDefault = function (e) {
-        e.preventDefault();
-      }
+    function _drop (e) {
+      // Check if we are dropping files.
+      var dt = e.originalEvent.dataTransfer;
+      if (dt && dt.files && dt.files.length) {
+        var file = dt.files[0];
+        if (file && typeof file.type != 'undefined') {
+          // Dropped file is an file that we allow.
+          if (file.type.indexOf('image') < 0 && (editor.opts.fileAllowedTypes.indexOf(file.type) >= 0 || editor.opts.fileAllowedTypes.indexOf('*') >= 0)) {
+            editor.markers.remove();
+            editor.markers.insertAtPoint(e.originalEvent);
+            editor.$el.find('.fr-marker').replaceWith($.FE.MARKERS);
 
-      editor.events.on('dragenter', preventDefault);
-      editor.events.on('dragover', preventDefault);
+            // Hide popups.
+            editor.popups.hideAll();
 
-      // Drop inside the editor.
-      editor.events.on('drop', function (e) {
-        editor.popups.hideAll();
+            // Show the file insert popup.
+            var $popup = editor.popups.get('file.insert');
+            if (!$popup) $popup = _initInsertPopup();
+            editor.popups.setContainer('file.insert', $(editor.opts.scrollableContainer));
+            editor.popups.show('file.insert', e.originalEvent.pageX, e.originalEvent.pageY);
+            showProgressBar();
 
-        // Check if we are dropping files.
-        var dt = e.originalEvent.dataTransfer;
-        if (dt && dt.files && dt.files.length) {
-          var file = dt.files[0];
-          if (file && typeof file.type != 'undefined') {
-            // Dropped file is an file that we allow.
-            if (editor.opts.fileAllowedTypes.indexOf(file.type) >= 0 || editor.opts.fileAllowedTypes.indexOf('*') >= 0) {
-              editor.markers.remove();
-              editor.markers.insertAtPoint(e.originalEvent);
-              editor.$el.find('.fr-marker').replaceWith($.FroalaEditor.MARKERS);
+            // Upload files.
+            upload(dt.files);
 
-              // Hide popups.
-              editor.popups.hideAll();
+            // Cancel anything else.
+            e.preventDefault();
+            e.stopPropagation();
 
-              // Show the file insert popup.
-              var $popup = editor.popups.get('file.insert');
-              if (!$popup) $popup = _initInsertPopup();
-              editor.popups.setContainer('file.insert', $(editor.opts.scrollableContainer));
-              editor.popups.show('file.insert', e.originalEvent.pageX, e.originalEvent.pageY);
-              showProgressBar();
-
-              // Upload files.
-              upload(dt.files);
-
-              // Cancel anything else.
-              e.preventDefault();
-              e.stopPropagation();
-            }
+            return false;
           }
         }
-      });
+      }
+    }
+
+    function _initEvents() {
+      // Drop inside the editor.
+      editor.events.on('drop', _drop);
     }
 
     function back () {
@@ -500,6 +504,8 @@
       _initEvents();
 
       editor.events.on('link.beforeRemove', _onRemove);
+
+      _initInsertPopup(true);
     }
 
     return {
@@ -513,8 +519,8 @@
   }
 
   // Insert file button.
-  $.FroalaEditor.DefineIcon('insertFile', { NAME: 'file-o' });
-  $.FroalaEditor.RegisterCommand('insertFile', {
+  $.FE.DefineIcon('insertFile', { NAME: 'file-o' });
+  $.FE.RegisterCommand('insertFile', {
     title: 'Upload File',
     undo: false,
     focus: true,
@@ -535,8 +541,8 @@
     plugin: 'file'
   });
 
-  $.FroalaEditor.DefineIcon('fileBack', { NAME: 'arrow-left' });
-  $.FroalaEditor.RegisterCommand('fileBack', {
+  $.FE.DefineIcon('fileBack', { NAME: 'arrow-left' });
+  $.FE.RegisterCommand('fileBack', {
     title: 'Back',
     undo: false,
     focus: false,
@@ -557,7 +563,7 @@
     }
   });
 
-  $.FroalaEditor.RegisterCommand('fileDismissError', {
+  $.FE.RegisterCommand('fileDismissError', {
     title: 'OK',
     callback: function () {
       this.file.hideProgressBar(true);

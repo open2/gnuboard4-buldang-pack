@@ -1,20 +1,20 @@
 /*!
- * froala_editor v2.0.4 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
- * Copyright 2014-2015 Froala Labs
+ * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
+ * Copyright 2014-2016 Froala Labs
  */
 
 /**
  * Persian
  */
 
-$.FroalaEditor.LANGUAGE['fa'] = {
+$.FE.LANGUAGE['fa'] = {
   translation: {
     // Place holder
     "Type something": "\u0686\u06cc\u0632\u06cc \u0628\u0646\u0648\u06cc\u0633\u06cc\u062f",
 
     // Basic formatting
-    "Bold": "\u062f\u0631\u0634\u062a",
+    "Bold": "\u0636\u062e\u06cc\u0645",
     "Italic": "\u062e\u0637 \u06a9\u062c",
     "Underline": "\u062e\u0637 \u0632\u06cc\u0631",
     "Strikethrough": "\u062e\u0637 \u062e\u0648\u0631\u062f\u0647",
@@ -31,8 +31,8 @@ $.FroalaEditor.LANGUAGE['fa'] = {
     "Style": "\u0633\u0628\u06a9",
 
     // Font
-    "Font Family": "\u0641\u0648\u0646\u062a",
-    "Font Size": "\u0627\u0646\u062f\u0627\u0632\u0647 \u0641\u0648\u0646\u062a",
+    "Font Family": "\u0642\u0644\u0645",
+    "Font Size": "\u0627\u0646\u062f\u0627\u0632\u0647 \u0642\u0644\u0645",
 
     // Colors
     "Colors": "\u0631\u0646\u06af",
@@ -81,7 +81,7 @@ $.FroalaEditor.LANGUAGE['fa'] = {
     "Upload Image": "\u0622\u067e\u0644\u0648\u062f \u062a\u0635\u0648\u06cc\u0631",
     "By URL": "URL \u062a\u0648\u0633\u0637",
     "Browse": "\u0641\u0647\u0631\u0633\u062a",
-    "Drop image": "\u0642\u0637\u0631\u0647 \u062a\u0635\u0648\u06cc\u0631",
+    "Drop image": "\u062a\u0635\u0648\u06cc\u0631 \u0631\u0627 \u0627\u06cc\u0646\u062c\u0627 \u0628\u06cc\u0646\u062f\u0627\u0632\u06cc\u062f",
     "or click": "\u06cc\u0627 \u06a9\u0644\u06cc\u06a9 \u06a9\u0646\u06cc\u062f",
     "Manage Images": "\u0645\u062f\u06cc\u0631\u06cc\u062a \u062a\u0635\u0627\u0648\u06cc\u0631",
     "Loading": "\u0628\u0627\u0631\u06af\u06cc\u0631\u06cc",
@@ -221,7 +221,10 @@ $.FroalaEditor.LANGUAGE['fa'] = {
     // Quote
     "Quote": "\u0646\u0642\u0644 \u0642\u0648\u0644",
     "Increase": "\u0627\u0641\u0632\u0627\u06cc\u0634 \u062f\u0627\u062f\u0646",
-    "Decrease": "\u0646\u0632\u0648\u0644 \u06a9\u0631\u062f\u0646"
+    "Decrease": "\u0646\u0632\u0648\u0644 \u06a9\u0631\u062f\u0646",
+
+    // Quick Insert
+    "Quick Insert": "\u062f\u0631\u062c \u0633\u0631\u06cc\u0639"
   },
   direction: "rtl"
 };

@@ -1,14 +1,14 @@
 /*!
- * froala_editor v2.0.4 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
- * Copyright 2014-2015 Froala Labs
+ * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
+ * Copyright 2014-2016 Froala Labs
  */
 
 /**
  * English spoken in Canada
  */
 
-$.FroalaEditor.LANGUAGE['en_ca'] = {
+$.FE.LANGUAGE['en_ca'] = {
   translation: {
     // Place holder
     "Type something": "Type something",
@@ -165,7 +165,10 @@ $.FroalaEditor.LANGUAGE['en_ca'] = {
     // Quote
     "Quote": "Quote",
     "Increase": "Increase",
-    "Decrease": "Decrease"
+    "Decrease": "Decrease",
+
+    // Quick Insert
+    "Quick Insert": "Quick Insert"
   },
   direction: "ltr"
 };

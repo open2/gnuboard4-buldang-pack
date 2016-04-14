@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -34,7 +34,7 @@
 
   'use strict';
 
-  $.extend($.FroalaEditor.DEFAULTS, {
+  $.extend($.FE.DEFAULTS, {
     codeMirror: true,
     codeMirrorOptions: {
       lineNumbers: true,
@@ -46,7 +46,7 @@
     }
   })
 
-  $.FroalaEditor.PLUGINS.codeView = function (editor) {
+  $.FE.PLUGINS.codeView = function (editor) {
     var $html_area;
     var code_mirror;
 
@@ -91,6 +91,8 @@
      * Get to code mode.
      */
     function _showHTML ($btn, height) {
+      if (!$html_area) _initArea();
+
       // Enable code mirror.
       if (!code_mirror && editor.opts.codeMirror && typeof CodeMirror != 'undefined') {
         code_mirror = CodeMirror.fromTextArea($html_area.get(0), editor.opts.codeMirrorOptions);
@@ -104,9 +106,12 @@
 
       // Blur the element.
       if (editor.core.hasFocus()) {
-        editor.selection.save();
-        editor.$el.find('.fr-marker[data-type="true"]:first').replaceWith('<span class="fr-tmp fr-sm">F</span>');
-        editor.$el.find('.fr-marker[data-type="false"]:last').replaceWith('<span class="fr-tmp fr-em">F</span>');
+        if (!editor.core.isEmpty()) {
+          editor.selection.save();
+          editor.$el.find('.fr-marker[data-type="true"]:first').replaceWith('<span class="fr-tmp fr-sm">F</span>');
+          editor.$el.find('.fr-marker[data-type="false"]:last').replaceWith('<span class="fr-tmp fr-em">F</span>');
+        }
+
         editor.$el.blur();
       }
 
@@ -165,6 +170,11 @@
         e_index = html.indexOf('FROALA-EM') - 9;
 
         $html_area.css('height', height);
+
+        if (editor.opts.height || editor.opts.heightMax) {
+          $html_area.css('max-height', editor.opts.height || editor.opts.heightMax);
+        }
+
         $html_area.val(html.replace(/FROALA-SM/g, '').replace(/FROALA-EM/g, ''));
         $html_area.focus();
         $html_area.get(0).setSelectionRange(s_index, e_index);
@@ -182,10 +192,12 @@
     /**
      * Toggle the code view.
      */
-    function toggle () {
+    function toggle (val) {
+      if (typeof val == 'undefined') val = !isActive();
+
       var $btn = editor.$tb.find('.fr-command[data-cmd="html"]');
 
-      if (isActive()) {
+      if (!val) {
         editor.$box.toggleClass('fr-code-view', false);
         _showText($btn);
       } else {
@@ -208,22 +220,12 @@
       if ($back_button) $back_button.remove();
     }
 
-    /**
-     * Initialize.
-     */
-    var $back_button;
-    function _init () {
-      if (!editor.$wp) return false;
-
+    function _initArea () {
       // Add the coding textarea to the wrapper.
       $html_area = $('<textarea class="fr-code" tabindex="-1">');
       editor.$wp.append($html_area);
 
       $html_area.attr('dir', editor.opts.direction);
-
-      var cancel = function () {
-        return !isActive();
-      }
 
       // Exit code view button for inline toolbar.
       if (editor.opts.toolbarInline) {
@@ -231,8 +233,12 @@
         editor.$box.append($back_button);
 
         editor.events.bindClick(editor.$box, 'a.html-switch', function () {
-          toggle(editor.$tb.find('button[data-cmd="html"]'));
+          toggle(false);
         });
+      }
+
+      var cancel = function () {
+        return !isActive();
       }
 
       // Disable refresh of the buttons while enabled.
@@ -242,6 +248,10 @@
       editor.events.on('paste', cancel, true);
 
       editor.events.on('destroy', _destroy, true);
+
+      editor.events.on('html.set', function () {
+        if (isActive()) toggle(true);
+      });
 
       editor.events.on('form.submit', function () {
         if (isActive()) {
@@ -253,6 +263,14 @@
       }, true);
     }
 
+    /**
+     * Initialize.
+     */
+    var $back_button;
+    function _init () {
+      if (!editor.$wp) return false;
+    }
+
     return {
       _init: _init,
       toggle: toggle,
@@ -261,7 +279,7 @@
     }
   };
 
-  $.FroalaEditor.RegisterCommand('html', {
+  $.FE.RegisterCommand('html', {
     title: 'Code View',
     undo: false,
     focus: false,
@@ -272,7 +290,7 @@
     plugin: 'codeView'
   })
 
-  $.FroalaEditor.DefineIcon('html', {
+  $.FE.DefineIcon('html', {
     NAME: 'code'
   });
 

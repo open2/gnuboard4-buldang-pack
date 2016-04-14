@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -34,12 +34,12 @@
 
   'use strict';
 
-  $.extend($.FroalaEditor.POPUP_TEMPLATES, {
+  $.extend($.FE.POPUP_TEMPLATES, {
     'colors.picker': '[_BUTTONS_][_TEXT_COLORS_][_BACKGROUND_COLORS_]'
   })
 
   // Extend defaults.
-  $.extend($.FroalaEditor.DEFAULTS, {
+  $.extend($.FE.DEFAULTS, {
     colorsText: [
       '#61BD6D', '#1ABC9C', '#54ACD2', '#2C82C9', '#9365B8', '#475577', '#CCCCCC',
       '#41A85F', '#00A885', '#3D8EB9', '#2969B0', '#553982', '#28324E', '#000000',
@@ -57,7 +57,7 @@
     colorsButtons: ['colorsBack', '|', '-']
   });
 
-  $.FroalaEditor.PLUGINS.colors = function (editor) {
+  $.FE.PLUGINS.colors = function (editor) {
     /*
      * Show the colors popup.
      */
@@ -276,14 +276,7 @@
       editor.toolbar.showInline();
     }
 
-    /*
-     * Init color picker.
-     */
-    function _init () {
-    }
-
     return {
-      _init: _init,
       showColorsPopup: _showColorsPopup,
       hideColorsPopup: _hideColorsPopup,
       changeSet: _changeSet,
@@ -294,8 +287,8 @@
   }
 
   // Toolbar colors button.
-  $.FroalaEditor.DefineIcon('colors', { NAME: 'tint' });
-  $.FroalaEditor.RegisterCommand('color', {
+  $.FE.DefineIcon('colors', { NAME: 'tint' });
+  $.FE.RegisterCommand('color', {
     title: 'Colors',
     undo: false,
     focus: true,
@@ -317,7 +310,7 @@
   });
 
   // Select text color command.
-  $.FroalaEditor.RegisterCommand('textColor', {
+  $.FE.RegisterCommand('textColor', {
     undo: true,
     callback: function (cmd, val) {
       this.colors.text(val);
@@ -325,14 +318,14 @@
   });
 
   // Select background color command.
-  $.FroalaEditor.RegisterCommand('backgroundColor', {
+  $.FE.RegisterCommand('backgroundColor', {
     undo: true,
     callback: function (cmd, val) {
       this.colors.background(val);
     }
   });
 
-  $.FroalaEditor.RegisterCommand('colorChangeSet', {
+  $.FE.RegisterCommand('colorChangeSet', {
     undo: false,
     focus: false,
     callback: function (cmd, val) {
@@ -342,8 +335,8 @@
   });
 
   // Colors back.
-  $.FroalaEditor.DefineIcon('colorsBack', { NAME: 'arrow-left' });
-  $.FroalaEditor.RegisterCommand('colorsBack', {
+  $.FE.DefineIcon('colorsBack', { NAME: 'arrow-left' });
+  $.FE.RegisterCommand('colorsBack', {
     title: 'Back',
     undo: false,
     focus: false,

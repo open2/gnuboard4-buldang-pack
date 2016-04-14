@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -34,14 +34,14 @@
 
   'use strict';
 
-  $.extend($.FroalaEditor.POPUP_TEMPLATES, {
+  $.extend($.FE.POPUP_TEMPLATES, {
     'table.insert': '[_BUTTONS_][_ROWS_COLUMNS_]',
     'table.edit': '[_BUTTONS_]',
     'table.colors': '[_BUTTONS_][_COLORS_]'
   })
 
   // Extend defaults.
-  $.extend($.FroalaEditor.DEFAULTS, {
+  $.extend($.FE.DEFAULTS, {
     tableInsertMaxSize: 10,
     tableEditButtons: ['tableHeader', 'tableRemove', '|', 'tableRows', 'tableColumns', 'tableStyle', '-', 'tableCells', 'tableCellBackground', 'tableCellVerticalAlign', 'tableCellHorizontalAlign', 'tableCellStyle'],
     tableInsertButtons: ['tableBack', '|'],
@@ -66,10 +66,10 @@
     tableCellMultipleStyles: true,
     tableMultipleStyles: true,
     tableInsertHelper: true,
-    tableInsertHelperOffset: 20
+    tableInsertHelperOffset: 15
   });
 
-  $.FroalaEditor.PLUGINS.table = function (editor) {
+  $.FE.PLUGINS.table = function (editor) {
     var $resizer;
     var $insert_helper;
     var mouseDownCellFlag;
@@ -118,7 +118,7 @@
         editor.popups.show('table.edit', left, top, offset.bottom - offset.top);
 
         // Disable toolbar buttons only if there are more than one cells selected.
-        if (editor.$el.find('.fr-selected-cell').length > 1) {
+        if (selectedCells().length > 1) {
           // Disable toolbar.
           editor.toolbar.disable();
 
@@ -126,11 +126,8 @@
           editor.$el.removeClass('fr-no-selection');
           editor.edit.on();
 
-          var scroll_top = $(editor.original_window).scrollTop();
-          editor.$el.focus();
           editor.selection.setAtEnd(editor.$el.find('.fr-selected-cell:last').get(0));
           editor.selection.restore();
-          $(editor.original_window).scrollTop(scroll_top);
           editor.button.bulkRefresh();
         }
       }
@@ -159,11 +156,11 @@
     }
 
     /*
-     * Hide table edit popup.
+     * Called on table edit popup hide.
      */
     function _hideEditPopup () {
       // Enable toolbar.
-      if (editor.$el.get(0).querySelectorAll('.fr-selected-cell').length === 0) {
+      if (selectedCells().length === 0) {
         editor.toolbar.enable();
       }
     }
@@ -171,7 +168,16 @@
     /**
      * Init the insert table popup.
      */
-    function _initInsertPopup () {
+    function _initInsertPopup (delayed) {
+      if (delayed) {
+        editor.popups.onHide('table.insert', function () {
+          // Clear previous cell selection.
+          editor.popups.get('table.insert').find('.fr-table-size .fr-select-table-size > span[data-row="1"][data-col="1"]').trigger('mouseenter');
+        });
+
+        return true;
+      }
+
       // Table buttons.
       var table_buttons = '';
       if (editor.opts.tableInsertButtons.length > 0) {
@@ -185,13 +191,8 @@
 
       var $popup = editor.popups.create('table.insert', template);
 
-      editor.popups.onHide('table.insert', function () {
-        // Clear previous cell selection.
-        $popup.find('.fr-table-size .fr-select-table-size > span[data-row="1"][data-col="1"]').trigger('mouseenter');
-      });
-
       // Initialize insert table grid events.
-      $popup.on('mouseenter', '.fr-table-size .fr-select-table-size .fr-table-cell', function (e) {
+      editor.events.$on($popup, 'mouseenter', '.fr-table-size .fr-select-table-size .fr-table-cell', function (e) {
         var $table_cell = $(e.currentTarget);
         var row = $table_cell.data('row');
         var col = $table_cell.data('col');
@@ -217,11 +218,6 @@
             }
           }
         }
-      });
-
-      // Editor destroy.
-      editor.events.on('destroy', function () {
-        $popup.off('mouseenter', '.fr-table-size .fr-select-table-size .fr-table-cell');
       }, true);
 
       return $popup;
@@ -261,7 +257,13 @@
     /**
      * Init the table edit popup.
      */
-    function _initEditPopup () {
+    function _initEditPopup (delayed) {
+      if (delayed) {
+        editor.popups.onHide('table.edit', _hideEditPopup);
+
+        return true;
+      }
+
       // Table buttons.
       var table_buttons = '';
       if (editor.opts.tableEditButtons.length > 0) {
@@ -274,16 +276,10 @@
 
       var $popup = editor.popups.create('table.edit', template);
 
-      editor.popups.onHide('table.edit', _hideEditPopup);
-
-      editor.$wp.on('scroll.table-edit', function () {
+      editor.events.$on(editor.$wp, 'scroll.table-edit', function () {
         if (editor.popups.isVisible('table.edit')) {
           _showEditPopup();
         }
-      });
-
-      editor.events.on('destroy', function () {
-        editor.$wp.off('scroll.table-edit');
       });
 
       return $popup;
@@ -306,14 +302,10 @@
 
       var $popup = editor.popups.create('table.colors', template);
 
-      editor.$wp.on('scroll.table-colors', function () {
+      editor.events.$on(editor.$wp, 'scroll.table-colors', function () {
         if (editor.popups.isVisible('table.colors')) {
           _showColorsPopup();
         }
-      });
-
-      editor.events.on('destroy', function () {
-        editor.$wp.off('scroll.table-colors');
       });
 
       return $popup;
@@ -375,7 +367,7 @@
 
         for (j = 0; j < cols; j++) {
           table += '<td style="width: ' + cell_width.toFixed(4) + '%;">';
-          if (i === 0 && j === 0)table += $.FroalaEditor.MARKERS;
+          if (i === 0 && j === 0)table += $.FE.MARKERS;
           table += '<br></td>';
         }
         table += '</tr>';
@@ -392,8 +384,8 @@
      * Delete table method.
      */
     function remove () {
-      if (editor.$el.find('.fr-selected-cell').length > 0) {
-        var $current_table = editor.$el.find('.fr-selected-cell').closest('table');
+      if (selectedCells().length > 0) {
+        var $current_table = selectedTable();
 
         // Update cursor position.
         editor.selection.setBefore($current_table.get(0)) || editor.selection.setAfter($current_table.get(0));
@@ -411,7 +403,7 @@
      * Add table header.
      */
     function addHeader () {
-      var $table = editor.$el.find('.fr-selected-cell').closest('table')
+      var $table = selectedTable();
 
       // If there is a selection in the table and the table doesn't have a header already.
       if ($table.length > 0 && $table.find('th').length === 0) {
@@ -446,7 +438,7 @@
      * Remove table header.
      */
     function removeHeader () {
-      var $current_table = editor.$el.find('.fr-selected-cell').closest('table');
+      var $current_table = selectedTable();
       var $table_header = $current_table.find('thead');
 
       // Table has a header.
@@ -461,7 +453,7 @@
           $table_header.remove();
 
           // Reposition table edit popup if there any more selected celss.
-          if (editor.$el.find('.fr-selected-cell').length > 0) {
+          if (selectedCells().length > 0) {
             _showEditPopup();
           }
           else {
@@ -483,7 +475,7 @@
      * Insert row method.
      */
     function insertRow (position) {
-      var $table = editor.$el.find('.fr-selected-cell').closest('table');
+      var $table = selectedTable();
 
       // We have selection in a table.
       if ($table.length > 0) {
@@ -553,7 +545,7 @@
      * Delete row method.
      */
     function deleteRow () {
-      var $table = editor.$el.find('.fr-selected-cell').closest('table');
+      var $table = selectedTable();
 
       // We have selection in a table.
       if ($table.length > 0) {
@@ -647,7 +639,7 @@
      * Insert column method.
      */
     function insertColumn (position) {
-      var $table = editor.$el.find('.fr-selected-cell').closest('table');
+      var $table = selectedTable();
 
       // We have selection in a table.
       if ($table.length > 0) {
@@ -811,7 +803,7 @@
      * Delete column method.
      */
     function deleteColumn () {
-      var $table = editor.$el.find('.fr-selected-cell').closest('table');
+      var $table = selectedTable();
 
       // We have selection in a table.
       if ($table.length > 0) {
@@ -918,7 +910,7 @@
      */
     function mergeCells () {
       // We have more than one cell selected in a table. Cannot merge td and th.
-      if (editor.$el.find('.fr-selected-cell').length > 1 && (editor.$el.find('th.fr-selected-cell').length === 0 || editor.$el.find('td.fr-selected-cell').length === 0)) {
+      if (selectedCells().length > 1 && (editor.$el.find('th.fr-selected-cell').length === 0 || editor.$el.find('td.fr-selected-cell').length === 0)) {
         // Create a table map.
         var map = _tableMap();
 
@@ -997,7 +989,7 @@
      */
     function splitCellHorizontally () {
       // We have only one cell selected in a table.
-      if (editor.$el.find('.fr-selected-cell').length == 1) {
+      if (selectedCells().length == 1) {
         var $selected_cell = editor.$el.find('.fr-selected-cell');
         var $current_row = $selected_cell.parent();
         var $current_table = $selected_cell.closest('table');
@@ -1078,7 +1070,7 @@
      */
     function splitCellVertically () {
       // We have only one cell selected in a table.
-      if (editor.$el.find('.fr-selected-cell').length == 1) {
+      if (selectedCells().length == 1) {
         var $selected_cell = editor.$el.find('.fr-selected-cell');
         var current_colspan = parseInt($selected_cell.attr('colspan'), 10) || 1;
         var parent_width = $selected_cell.parent().outerWidth();
@@ -1207,8 +1199,8 @@
 
       var map = [];
 
-      if (table == null && editor.$el.find('.fr-selected-cell').length > 0) {
-        table = editor.$el.find('.fr-selected-cell').closest('table');
+      if (table == null && selectedCells().length > 0) {
+        table = selectedTable();
       }
 
       if (table) {
@@ -1536,29 +1528,37 @@
     }
 
     /*
+     * Stop table cell editing and allow text editing.
+     */
+    function _stopEdit () {
+      // Clear previous selection.
+      _removeSelection();
+
+      // Hide table edit popup.
+      editor.popups.hide('table.edit');
+    }
+
+    /*
      * Mark that mouse is down.
      */
     function _mouseDown (e) {
-      // We always have to clear previous selection except when using shift key to select multiple cells.
-      if (editor.$el.find('.fr-selected-cell').length > 0 && !e.shiftKey) {
-        // Clear previous selection.
-        _removeSelection();
+      var cell = _getCellUnder(e);
 
-        // Allow text selection.
-        editor.$el.removeClass('fr-no-selection');
-        editor.edit.on();
+      // Stop table editing if user clicks outside the table.
+      if (selectedCells().length > 0 && !cell) {
+        _stopEdit();
       }
 
       // On left click.
       if (e.which == 1) {
         mouseDownFlag = true;
 
-        var cell = _getCellUnder(e);
-
         // User clicked on a table cell.
         if (cell) {
-          // Hide table edit popup.
-          editor.popups.hide('table.edit');
+          // We always have to clear previous selection except when using shift key to select multiple cells.
+          if (selectedCells().length > 0 && !e.shiftKey) {
+            _stopEdit();
+          }
 
           e.stopPropagation();
 
@@ -1571,9 +1571,10 @@
           var tag_name = cell.tagName.toLowerCase();
 
           // Select multiple cells using Shift key
-          if (e.shiftKey && $(tag_name + '.fr-selected-cell').length > 0) {
+          if (e.shiftKey && editor.$el.find(tag_name + '.fr-selected-cell').length > 0) {
+
             // Cells must be in the same table.
-            if ($($(tag_name + '.fr-selected-cell').closest('table')).is($(cell).closest('table'))) {
+            if ($(editor.$el.find(tag_name + '.fr-selected-cell').closest('table')).is($(cell).closest('table'))) {
               // Select cells between.
               _selectCells(mouseDownCell, cell);
 
@@ -1598,6 +1599,12 @@
           }
         }
       }
+
+
+      // On right click stop table editing.
+      else if (e.which == 3 && cell) {
+        _stopEdit();
+      }
     }
 
     /*
@@ -1616,13 +1623,13 @@
           var cell = _getCellUnder(e);
 
           // If we have one selected cell and mouse is lifted somewhere else.
-          if (!cell && editor.$el.find('.fr-selected-cell').length == 1) {
+          if (!cell && selectedCells().length == 1) {
             // We have a text selection and not cell selection.
             _removeSelection();
           }
 
           // If there are selected cells then show table edit popup.
-          else if (editor.$el.find('.fr-selected-cell').length > 0) {
+          else if (selectedCells().length > 0) {
             if (editor.selection.isCollapsed()) {
               _showEditPopup();
             }
@@ -1682,7 +1689,7 @@
         var $cell = $(e.currentTarget);
 
         // Cells should be in the same table.
-        if ($cell.closest('table').is(editor.$el.find('.fr-selected-cell').closest('table'))) {
+        if ($cell.closest('table').is(selectedTable())) {
           // Don't select both ths and tds.
           if (e.currentTarget.tagName == 'TD' && editor.$el.find('th.fr-selected-cell').length === 0) {
             // Select cells between.
@@ -1707,12 +1714,8 @@
      */
     function _usingArrows (e) {
       if (e.which == 37 || e.which == 38 || e.which == 39 || e.which == 40) {
-        if (editor.$el.find('.fr-selected-cell').length > 0) {
-          // Remove selection
-          _removeSelection();
-
-          // Hide table edit popup.
-          editor.popups.hide('table.edit');
+        if (selectedCells().length > 0) {
+          _stopEdit();
         }
       }
     }
@@ -1722,29 +1725,56 @@
      */
     function _initResizer () {
       // Append resizer HTML to editor wrapper.
-      $resizer = $('<div class="fr-table-resizer"><div></div></div>');
-      editor.$wp.append($resizer);
+      if (!editor.shared.$table_resizer) editor.shared.$table_resizer = $('<div class="fr-table-resizer"><div></div></div>');
+      $resizer = editor.shared.$table_resizer;
 
-      // Resize table.
-      $resizer.on('mousedown', function () {
-        resizingFlag = true;
+      // Resize table. Mousedown.
+      editor.events.$on($resizer, 'mousedown', function (e) {
+        if (!editor.core.sameInstance($resizer)) return true;
 
-        $resizer.addClass('fr-moving');
+        // Stop table editing.
+        if (selectedCells().length > 0) {
+          _stopEdit();
+        }
 
-        // Clear previous cell selection.
-        _removeSelection();
+        // Resize table only using left click.
+        if (e.which == 1) {
+          resizingFlag = true;
 
-        // Prevent text selection while dragging the table resizer.
-        _clearSelection();
+          $resizer.addClass('fr-moving');
 
-        // Show resizer.
-        $resizer.find('div').css('opacity', 1);
+          // Prevent text selection while dragging the table resizer.
+          _clearSelection();
+
+          // Show resizer.
+          $resizer.find('div').css('opacity', 1);
+
+          // Prevent selecting text when doing resize.
+          return false;
+        }
       });
 
+      // Mousemove on table resizer.
+      editor.events.$on($resizer, 'mousemove', function (e) {
+        if (!editor.core.sameInstance($resizer)) return true;
+
+        if (resizingFlag) {
+          if (editor.opts.iframe) {
+            e.pageX -= editor.$iframe.offset().left;
+          }
+
+          _mouseMove(e);
+        }
+      })
+
       // Editor destroy.
-      editor.events.on('destroy', function () {
-        $resizer.off('mousedown');
+      editor.events.on('shared.destroy', function () {
         $resizer.html('').removeData().remove();
+      }, true);
+
+      editor.events.on('destroy', function () {
+        editor.$el.find('.fr-selected-cell').removeClass('fr-selected-cell');
+        $resizer.hide().appendTo($('body'));
       }, true);
     }
 
@@ -1752,12 +1782,21 @@
      * Also clears top and left values, so it doesn't interfer with the insert helper.
      */
     function _hideResizer () {
-      $resizer.find('div').css('opacity', 0);
-      $resizer.css('top', 0);
-      $resizer.css('left', 0);
-      $resizer.css('height', 0);
-      $resizer.find('div').css('height', 0);
-      $resizer.hide();
+      if ($resizer) {
+        $resizer.find('div').css('opacity', 0);
+        $resizer.css('top', 0);
+        $resizer.css('left', 0);
+        $resizer.css('height', 0);
+        $resizer.find('div').css('height', 0);
+        $resizer.hide();
+      }
+    }
+
+    /**
+     * Hide the insert helper.
+     */
+    function _hideInsertHelper () {
+      if ($insert_helper) $insert_helper.removeClass('fr-visible').css('left', '-9999px');
     }
 
     /*
@@ -1879,6 +1918,8 @@
             }
           }
 
+          if (!$resizer) _initResizer();
+
           // Save table.
           $resizer.data('table', $table);
 
@@ -1886,12 +1927,15 @@
           $resizer.data('first', first);
           $resizer.data('second', second);
 
-          var left = resizer_left - editor.window.pageXOffset - editor.opts.tableResizerOffset;
-          var top = resizer_top - editor.window.pageYOffset;
+          $resizer.data('instance', editor);
+          editor.$wp.append($resizer);
+
+          var left = resizer_left - editor.win.pageXOffset - editor.opts.tableResizerOffset;
+          var top = resizer_top - editor.win.pageYOffset;
 
           if (editor.opts.iframe) {
-            left += editor.$iframe.offset().left - $(editor.original_window).scrollLeft();
-            top += editor.$iframe.offset().top - $(editor.original_window).scrollTop();
+            left += editor.$iframe.offset().left - $(editor.o_win).scrollLeft();
+            top += editor.$iframe.offset().top - $(editor.o_win).scrollTop();
 
             max_left += editor.$iframe.offset().left;
             max_right += editor.$iframe.offset().left;
@@ -1902,7 +1946,7 @@
           $resizer.data('max-right', max_right);
 
           // Initial position of the resizer
-          $resizer.data('origin', resizer_left - editor.window.pageXOffset);
+          $resizer.data('origin', resizer_left - editor.win.pageXOffset);
 
           // Set table resizer's top, left and height.
           $resizer.css('top', top);
@@ -1920,13 +1964,13 @@
 
         // Hide resizer when the mouse moves away from the cell's border.
         else {
-          _hideResizer();
+          if (editor.core.sameInstance($resizer)) _hideResizer();
         }
       }
 
       // Hide resizer if mouse is no longer over it.
-      else if ($tag_under.get(0) != $resizer.get(0) && $tag_under.parent().get(0) != $resizer.get(0)) {
-        _hideResizer();
+      else if ($resizer && $tag_under.get(0) != $resizer.get(0) && $tag_under.parent().get(0) != $resizer.get(0)) {
+        if (editor.core.sameInstance($resizer))  _hideResizer();
       }
     }
 
@@ -1935,6 +1979,12 @@
      */
     function _showInsertColHelper (e, table) {
       if (editor.$box.find('.fr-line-breaker').is(':visible')) return false;
+
+      // Insert Helper.
+      if (!$insert_helper) _initInsertHelper();
+
+      editor.$box.append($insert_helper);
+      $insert_helper.data('instance', editor);
 
       var $table = $(table);
       var $row = $table.find('tr:first');
@@ -1945,8 +1995,8 @@
       var top = 0;
 
       if (editor.opts.iframe) {
-        left += editor.$iframe.offset().left - $(editor.original_window).scrollLeft();
-        top += editor.$iframe.offset().top - $(editor.original_window).scrollTop();
+        left += editor.$iframe.offset().left - $(editor.o_win).scrollLeft();
+        top += editor.$iframe.offset().top - $(editor.o_win).scrollTop();
       }
 
       // Check where the column should be inserted.
@@ -1956,12 +2006,10 @@
 
         // Insert before this td.
         if ($td.offset().left <= mouseX && mouseX < $td.offset().left + $td.outerWidth() / 2) {
-          $insert_helper.find('a').attr('title', editor.language.translate('Insert Column'));
-
           btn_width = parseInt($insert_helper.find('a').css('width'), 10);
 
-          $insert_helper.css('top', top + $td.offset().top - editor.window.pageYOffset - btn_width - 5);
-          $insert_helper.css('left', left + $td.offset().left - editor.window.pageXOffset - btn_width / 2);
+          $insert_helper.css('top', top + $td.offset().top - editor.win.pageYOffset - btn_width - 5);
+          $insert_helper.css('left', left + $td.offset().left - editor.win.pageXOffset - btn_width / 2);
           $insert_helper.data('selected-cell', $td);
           $insert_helper.data('position', 'before');
           $insert_helper.addClass('fr-visible');
@@ -1970,12 +2018,10 @@
 
         // Insert after this td.
         } else if ($td.offset().left + $td.outerWidth() / 2 <= mouseX && mouseX < $td.offset().left + $td.outerWidth()) {
-          $insert_helper.find('a').attr('title', editor.language.translate('Insert Column'));
-
           btn_width = parseInt($insert_helper.find('a').css('width'), 10);
 
-          $insert_helper.css('top', top + $td.offset().top - editor.window.pageYOffset - btn_width - 5);
-          $insert_helper.css('left', left + $td.offset().left + $td.outerWidth() - editor.window.pageXOffset - btn_width / 2);
+          $insert_helper.css('top', top + $td.offset().top - editor.win.pageYOffset - btn_width - 5);
+          $insert_helper.css('left', left + $td.offset().left + $td.outerWidth() - editor.win.pageXOffset - btn_width / 2);
           $insert_helper.data('selected-cell', $td);
           $insert_helper.data('position', 'after');
           $insert_helper.addClass('fr-visible');
@@ -1991,14 +2037,19 @@
     function _showInsertRowHelper (e, table) {
       if (editor.$box.find('.fr-line-breaker').is(':visible')) return false;
 
+      if (!$insert_helper) _initInsertHelper();
+
+      editor.$box.append($insert_helper);
+      $insert_helper.data('instance', editor);
+
       var $table = $(table);
       var mouseY = e.pageY;
 
       var left = 0;
       var top = 0;
       if (editor.opts.iframe) {
-        left += editor.$iframe.offset().left - $(editor.original_window).scrollLeft();
-        top += editor.$iframe.offset().top - $(editor.original_window).scrollTop();
+        left += editor.$iframe.offset().left - $(editor.o_win).scrollLeft();
+        top += editor.$iframe.offset().top - $(editor.o_win).scrollTop();
       }
 
       // Check where the row should be inserted.
@@ -2008,12 +2059,10 @@
 
         // Insert above this tr.
         if ($tr.offset().top <= mouseY && mouseY < $tr.offset().top + $tr.outerHeight() / 2) {
-          $insert_helper.find('a').attr('title', editor.language.translate('Insert Row'));
-
           btn_width = parseInt($insert_helper.find('a').css('width'), 10);
 
-          $insert_helper.css('top', top + $tr.offset().top - editor.window.pageYOffset - btn_width / 2);
-          $insert_helper.css('left', left + $tr.offset().left - editor.window.pageXOffset - btn_width - 5);
+          $insert_helper.css('top', top + $tr.offset().top - editor.win.pageYOffset - btn_width / 2);
+          $insert_helper.css('left', left + $tr.offset().left - editor.win.pageXOffset - btn_width - 5);
           $insert_helper.data('selected-cell', $tr.find('td:first'));
           $insert_helper.data('position', 'above');
           $insert_helper.addClass('fr-visible');
@@ -2022,12 +2071,10 @@
 
         // Insert below this tr.
         } else if ($tr.offset().top + $tr.outerHeight() / 2 <= mouseY && mouseY < $tr.offset().top + $tr.outerHeight()) {
-          $insert_helper.find('a').attr('title', editor.language.translate('Insert Row'));
-
           btn_width = parseInt($insert_helper.find('a').css('width'), 10);
 
-          $insert_helper.css('top', top + $tr.offset().top + $tr.outerHeight() - editor.window.pageYOffset - btn_width / 2);
-          $insert_helper.css('left', left + $tr.offset().left - editor.window.pageXOffset - btn_width - 5);
+          $insert_helper.css('top', top + $tr.offset().top + $tr.outerHeight() - editor.win.pageYOffset - btn_width / 2);
+          $insert_helper.css('left', left + $tr.offset().left - editor.win.pageXOffset - btn_width - 5);
           $insert_helper.data('selected-cell', $tr.find('td:first'));
           $insert_helper.data('position', 'below');
           $insert_helper.addClass('fr-visible');
@@ -2042,37 +2089,46 @@
      */
     function _insertHelper (e, tag_under) {
       // Don't show the insert helper if there are table cells selected.
-      if (editor.$el.find('.fr-selected-cell').length === 0) {
+      if (selectedCells().length === 0) {
         var i;
         var tag_below;
         var tag_right;
-
-        // Hide insert helper.
-        $insert_helper.removeClass('fr-visible');
 
         // Tag is the editor element or body (inline toolbar). Look for closest tag bellow and at the right.
         if (tag_under && (tag_under.tagName == 'HTML' || tag_under.tagName == 'BODY' || editor.node.isElement(tag_under))) {
           // Look 1px down until a table tag is found or the insert helper offset is reached.
           for (i = 1; i <= editor.opts.tableInsertHelperOffset; i++) {
             // Look for tag below.
-            tag_below = editor.document.elementFromPoint(e.pageX - editor.window.pageXOffset, e.pageY - editor.window.pageYOffset + i);
+            tag_below = editor.doc.elementFromPoint(e.pageX - editor.win.pageXOffset, e.pageY - editor.win.pageYOffset + i);
+
+            // We're on tooltip.
+            if ($(tag_below).hasClass('fr-tooltip')) return true;
+
             // We found a tag bellow.
-            if (tag_below && ((tag_below.tagName == 'TH' || tag_below.tagName == 'TD' || tag_below.tagName == 'TABLE') && $(tag_below).parents(editor.$wp).length)) {
+            if (tag_below && ((tag_below.tagName == 'TH' || tag_below.tagName == 'TD' || tag_below.tagName == 'TABLE') && ($(tag_below).parents('.fr-wrapper').length || editor.opts.iframe))) {
               // Show the insert column helper button.
               _showInsertColHelper (e, tag_below.closest('table'));
-              break;
+              return true;
             }
 
             // Look for tag at the right.
-            tag_right = editor.document.elementFromPoint(e.pageX - editor.window.pageXOffset + i, e.pageY - editor.window.pageYOffset);
+            tag_right = editor.doc.elementFromPoint(e.pageX - editor.win.pageXOffset + i, e.pageY - editor.win.pageYOffset);
+
+            // We're on tooltip.
+            if ($(tag_right).hasClass('fr-tooltip')) return true;
 
             // We found a tag at the right.
-            if (tag_right && ((tag_right.tagName == 'TH' || tag_right.tagName == 'TD' || tag_right.tagName == 'TABLE') && $(tag_right).parents(editor.$wp).length)) {
+            if (tag_right && ((tag_right.tagName == 'TH' || tag_right.tagName == 'TD' || tag_right.tagName == 'TABLE') && ($(tag_right).parents('.fr-wrapper').length || editor.opts.iframe))) {
               // Show the insert row helper button.
               _showInsertRowHelper (e, tag_right.closest('table'));
-              break;
+              return true;
             }
           }
+        }
+
+        // Hide insert helper.
+        if (editor.core.sameInstance($insert_helper)) {
+          _hideInsertHelper();
         }
       }
     }
@@ -2084,7 +2140,7 @@
       mouseMoveTimer = null;
 
       // The tag under the mouse cursor.
-      var tag_under = editor.document.elementFromPoint(e.pageX - editor.window.pageXOffset, e.pageY - editor.window.pageYOffset);
+      var tag_under = editor.doc.elementFromPoint(e.pageX - editor.win.pageXOffset, e.pageY - editor.win.pageYOffset);
 
       // Place table resizer if necessary.
       if (!editor.popups.areVisible() || (editor.popups.areVisible() && editor.popups.isVisible('table.edit'))) {
@@ -2103,8 +2159,13 @@
     function _repositionResizer () {
       if (resizingFlag) {
         var $table = $resizer.data('table');
+        var top = $table.offset().top - editor.win.pageYOffset;
 
-        $resizer.css('top', $table.offset().top - editor.window.pageYOffset);
+        if (editor.opts.iframe) {
+          top += editor.$iframe.offset().top - $(editor.o_win).scrollTop();
+        }
+
+        $resizer.css('top', top);
       }
     }
 
@@ -2227,6 +2288,11 @@
      * Set mouse timer to improve performance.
      */
     function _mouseMove (e) {
+      // Prevent selecting text when we have cells selected.
+      if (selectedCells().length > 1 && mouseDownFlag) {
+        _clearSelection();
+      }
+
       // Reset or set timer.
       if (mouseDownFlag === false && mouseDownCellFlag === false && resizingFlag === false) {
         if (mouseMoveTimer) {
@@ -2239,7 +2305,7 @@
       // Move table resizer.
       } else if (resizingFlag) {
         // Cursor position.
-        var pos = e.pageX - editor.window.pageXOffset;
+        var pos = e.pageX - editor.win.pageXOffset;
 
         if (editor.opts.iframe) {
           pos += editor.$iframe.offset().left;
@@ -2247,7 +2313,7 @@
 
         // Left and right limits.
         var left_limit = $resizer.data('max-left');
-        var right_limit = $resizer.data('max-right')
+        var right_limit = $resizer.data('max-right');
 
         // Cursor is between the left and right limits.
         if (pos >= left_limit && pos <= right_limit) {
@@ -2262,7 +2328,7 @@
           $resizer.css('left', right_limit - editor.opts.tableResizerOffset);
         }
       } else if (mouseDownFlag) {
-        $insert_helper.removeClass('fr-visible');
+        _hideInsertHelper();
       }
     }
 
@@ -2271,10 +2337,10 @@
      */
     function _addMarkersInCell ($cell) {
       if (editor.node.isEmpty($cell.get(0))) {
-        $cell.prepend($.FroalaEditor.MARKERS);
+        $cell.prepend($.FE.MARKERS);
       }
       else {
-        $cell.prepend($.FroalaEditor.START_MARKER).append($.FroalaEditor.END_MARKER);
+        $cell.prepend($.FE.START_MARKER).append($.FE.END_MARKER);
       }
     }
 
@@ -2284,11 +2350,11 @@
     function _useTab (e) {
       var key_code = e.which;
 
-      if (key_code == $.FroalaEditor.KEYCODE.TAB && editor.opts.tabSpaces === 0) {
+      if (key_code == $.FE.KEYCODE.TAB && editor.opts.tabSpaces === 0) {
         // Get starting cell.
         var $cell;
 
-        if (editor.$el.find('.fr-selected-cell').length > 0) {
+        if (selectedCells().length > 0) {
           $cell = editor.$el.find('.fr-selected-cell:last')
         }
         else {
@@ -2308,8 +2374,7 @@
         if ($cell) {
           e.preventDefault();
 
-          _removeSelection();
-          editor.popups.hide('table.edit');
+          _stopEdit();
 
           // Go backwards.
           if (e.shiftKey) {
@@ -2367,59 +2432,65 @@
      */
     function _initInsertHelper () {
       // Append insert helper HTML to editor wrapper.
-      $insert_helper = $('<div class="fr-insert-helper"><a class="fr-floating-btn" role="button" tabindex="-1" title="' + editor.language.translate('Insert') + '"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M22,16.75 L16.75,16.75 L16.75,22 L15.25,22.000 L15.25,16.75 L10,16.75 L10,15.25 L15.25,15.25 L15.25,10 L16.75,10 L16.75,15.25 L22,15.25 L22,16.75 Z"/></svg></a></div>');
-      editor.$box.append($insert_helper);
+      if (!editor.shared.$ti_helper) {
+        editor.shared.$ti_helper = $('<div class="fr-insert-helper"><a class="fr-floating-btn" role="button" tabindex="-1" title="' + editor.language.translate('Insert') + '"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M22,16.75 L16.75,16.75 L16.75,22 L15.25,22.000 L15.25,16.75 L10,16.75 L10,15.25 L15.25,15.25 L15.25,10 L16.75,10 L16.75,15.25 L22,15.25 L22,16.75 Z"/></svg></a></div>');
 
-      // Editor destroy.
-      editor.events.on('destroy', function () {
-        $insert_helper.html('').removeData().remove();
-      }, true);
+        // Click on insert helper.
+        editor.events.bindClick(editor.shared.$ti_helper, 'a', function () {
+          var $td = $insert_helper.data('selected-cell');
+          var position = $insert_helper.data('position');
 
-      // Prevent the insert helper hide when mouse is over it.
-      $insert_helper.on('mousemove', function (e) {
-        e.stopPropagation();
-      });
+          var inst = $insert_helper.data('instance') || editor;
 
-      // Hide the insert helper if the page is scrolled.
-      $(editor.window).on('scroll.table' + editor.id, function () {
-        $insert_helper.removeClass('fr-visible');
-      });
+          if (position == 'before') {
+            $td.addClass('fr-selected-cell');
+            inst.table.insertColumn(position);
+            $td.removeClass('fr-selected-cell');
 
-      // Click on insert helper.
-      editor.events.bindClick($insert_helper, 'a', function () {
-        var $td = $insert_helper.data('selected-cell');
-        var position = $insert_helper.data('position');
+          } else if (position == 'after') {
+            $td.addClass('fr-selected-cell');
+            inst.table.insertColumn(position);
+            $td.removeClass('fr-selected-cell');
 
-        if (position == 'before') {
-          $td.addClass('fr-selected-cell');
-          insertColumn(position);
-          $td.removeClass('fr-selected-cell');
+          } else if (position == 'above') {
+            $td.addClass('fr-selected-cell');
+            inst.table.insertRow(position);
+            $td.removeClass('fr-selected-cell');
 
-        } else if (position == 'after') {
-          $td.addClass('fr-selected-cell');
-          insertColumn(position);
-          $td.removeClass('fr-selected-cell');
+          } else if (position == 'below') {
+            $td.addClass('fr-selected-cell');
+            inst.table.insertRow(position);
+            $td.removeClass('fr-selected-cell');
+          }
 
-        } else if (position == 'above') {
-          $td.addClass('fr-selected-cell');
-          insertRow(position);
-          $td.removeClass('fr-selected-cell');
+          // Hide the insert helper so it will reposition.
+          _hideInsertHelper();
+        });
 
-        } else if (position == 'below') {
-          $td.addClass('fr-selected-cell');
-          insertRow(position);
-          $td.removeClass('fr-selected-cell');
-        }
+        // Editor destroy.
+        editor.events.on('shared.destroy', function () {
+          editor.shared.$ti_helper.html('').removeData().remove();
+        }, true);
 
-        // Hide the insert helper so it will reposition.
-        $insert_helper.removeClass('fr-visible');
-      });
+        // Prevent the insert helper hide when mouse is over it.
+        editor.events.$on(editor.shared.$ti_helper, 'mousemove', function (e) {
+          e.stopPropagation();
+        }, true);
 
-      // Editor destroy.
-      editor.events.on('destroy', function () {
-        $insert_helper.off('mousemove');
-        $(editor.window).off('scroll.table' + editor.id);
-      }, true);
+        // Hide the insert helper if the page is scrolled.
+        editor.events.$on($(editor.o_win), 'scroll', function () {
+          _hideInsertHelper();
+        }, true);
+
+        editor.events.$on(editor.$wp, 'scroll', function () {
+          _hideInsertHelper();
+        }, true);
+      }
+
+      $insert_helper = editor.shared.$ti_helper;
+
+      // Table insert helper tooltip.
+      editor.tooltip.bind(editor.$box, '.fr-insert-helper > a.fr-floating-btn');
     }
 
     /*
@@ -2435,16 +2506,8 @@
         mouseDownCellFlag = false;
         resizingFlag = false;
 
-        // Table resizer.
-        _initResizer();
-
-        // Insert Helper.
-        if (editor.opts.tableInsertHelper) {
-          _initInsertHelper();
-        }
-
-        // Mouse is down in a table cell or on the table resizer.
-        editor.$el.on('mousedown.table' + editor.id, _mouseDown);
+        // Mouse is down in a table cell.
+        editor.events.$on(editor.$el, 'mousedown', _mouseDown);
 
         // Deselect table cells when user clicks on an image.
         editor.popups.onShow('image.edit', function () {
@@ -2468,29 +2531,34 @@
         });
 
         // Mouse enter's a table cell.
-        editor.$el.on('mouseenter.table' + editor.id, 'th, td', _mouseEnter);
+        editor.events.$on(editor.$el, 'mouseenter', 'th, td', _mouseEnter);
 
         // Mouse is no longer pressed.
-        editor.$window.on('mouseup.table' + editor.id, _mouseUp);
+        editor.events.$on(editor.$win, 'mouseup', _mouseUp);
+
+        // Iframe mouseup.
+        if (editor.opts.iframe) {
+          editor.events.$on($(editor.o_win), 'mouseup', _mouseUp);
+        }
 
         // Moving cursor with arrow keys.
-        editor.$el.on('keydown.table' + editor.id, _usingArrows);
+        editor.events.$on(editor.$el, 'keydown', _usingArrows);
 
         // Check tags under the mouse to see if the resizer needs to be shown.
-        editor.$window.on('mousemove.table' + editor.id, _mouseMove);
+        editor.events.$on(editor.$win, 'mousemove', _mouseMove);
 
         // Update resizer's position on scroll.
-        $(editor.window).on('scroll.table' + editor.id, _repositionResizer);
+        editor.events.$on($(editor.o_win), 'scroll', _repositionResizer);
 
         // Reposition table edit popup when table cell content changes.
         editor.events.on('contentChanged', function () {
-          if (editor.$el.find('.fr-selected-cell').length > 0) {
+          if (selectedCells().length > 0) {
             _showEditPopup();
 
             // Make sure we reposition on image load.
             editor.$el.find('img').on('load.selected-cells', function () {
               $(this).off('load.selected-cells');
-              if (editor.$el.find('.fr-selected-cell').length > 0) {
+              if (selectedCells().length > 0) {
                 _showEditPopup();
               }
             });
@@ -2498,14 +2566,15 @@
         });
 
         // Reposition table edit popup on window resize.
-        $(editor.original_window).on('resize.table' + editor.id, function () {
+        editor.events.$on($(editor.o_win), 'resize', function () {
           _removeSelection();
         });
 
         // Prevent backspace from doing browser back.
         editor.events.on('keydown', function (e) {
-          if (editor.$el.find('.fr-selected-cell').length > 0) {
-            if (e.which == $.FroalaEditor.KEYCODE.ESC) {
+          var selected_cells = editor.$el.get(0).querySelectorAll('.fr-selected-cell');
+          if (selected_cells.length > 0) {
+            if (e.which == $.FE.KEYCODE.ESC) {
               if (editor.popups.isVisible('table.edit')) {
                 _removeSelection();
                 editor.popups.hide('table.edit');
@@ -2516,37 +2585,32 @@
               }
             }
 
-            if (editor.$el.find('.fr-selected-cell').length > 1) {
+            if (selected_cells.length > 1) {
               e.preventDefault();
               return false;
             }
           }
         }, true);
 
-        $(editor.window).on('keydown.table' + editor.id, _showEditPopup);
-        $(editor.window).on('input.table' + editor.id, _showEditPopup);
-        $(editor.window).on('keyup.table' + editor.id, _showEditPopup);
-
         // Clean selected cells.
+        var $selected_cells;
+        editor.events.on('html.beforeGet', function () {
+          $selected_cells = editor.$el.find('.fr-selected-cell');
+          $selected_cells.removeClass('fr-selected-cell');
+        });
+
         editor.events.on('html.get', function (html) {
-          html = html.replace(/<(td|th)((?:[\w\W]*?))class="([\w\W]*?)fr-selected-cell([\w\W]*?)"((?:[\w\W]*?))>((?:[\w\W]*?))<\/(td|th)>/g, '<$1$2class="$3$4"$5>$6</$7>');
           html = html.replace(/<(td|th)((?:[\w\W]*?)) class=""((?:[\w\W]*?))>((?:[\w\W]*?))<\/(td|th)>/g, '<$1$2$3>$4</$5>');
 
           return html;
         });
 
-        // Editor destroy.
-        editor.events.on('destroy', function () {
-          editor.$el.off('mousedown.table' + editor.id);
-          editor.$el.off('mouseenter.table' + editor.id, 'th, td');
-          editor.$window.off('mouseup.table' + editor.id);
-          editor.$el.off('keydown.table' + editor.id);
-          editor.$window.off('mousemove.table' + editor.id);
-          $(editor.window).off('scroll.table' + editor.id);
-          $(editor.window).off('keydown.table' + editor.id);
-          $(editor.window).off('input.table' + editor.id);
-          $(editor.window).off('keyup.table' + editor.id);
-        }, true);
+        editor.events.on('html.afterGet', function () {
+          $selected_cells.addClass('fr-selected-cell');
+        });
+
+        _initInsertPopup(true);
+        _initEditPopup(true);
       }
 
       // Tab in cell
@@ -2557,12 +2621,29 @@
      * Go back to the table edit popup.
      */
     function back () {
-      if (editor.$el.find('.fr-selected-cell').length > 0) {
+      if (selectedCells().length > 0) {
         _showEditPopup();
       }
       else {
         editor.popups.hide('table.insert');
         editor.toolbar.showInline();
+      }
+    }
+
+    function selectedCells () {
+      return editor.$el.get(0).querySelectorAll('.fr-selected-cell');
+    }
+
+    function selectedTable () {
+      var cells = selectedCells();
+      if (cells.length) {
+        var cell = cells[0];
+        while (cell && cell.tagName != 'TABLE' && cell.parentNode != editor.$el.get(0)) {
+          cell = cell.parentNode;
+        }
+
+        if (cell && cell.tagName == 'TABLE') return $(cell);
+        return $([]);
       }
     }
 
@@ -2586,13 +2667,15 @@
       back: back,
       verticalAlign: verticalAlign,
       horizontalAlign: horizontalAlign,
-      applyStyle: applyStyle
+      applyStyle: applyStyle,
+      selectedTable: selectedTable,
+      selectedCells: selectedCells
     }
   };
 
   // Insert table button.
-  $.FroalaEditor.DefineIcon('insertTable', { NAME: 'table' });
-  $.FroalaEditor.RegisterCommand('insertTable', {
+  $.FE.DefineIcon('insertTable', { NAME: 'table' });
+  $.FE.RegisterCommand('insertTable', {
     title: 'Insert Table',
     undo: false,
     focus: true,
@@ -2613,7 +2696,7 @@
     plugin: 'table'
   });
 
-  $.FroalaEditor.RegisterCommand('tableInsert', {
+  $.FE.RegisterCommand('tableInsert', {
     callback: function (cmd, rows, cols) {
       this.table.insert(rows, cols);
       this.popups.hide('table.insert');
@@ -2621,8 +2704,8 @@
   })
 
   // Table header button.
-  $.FroalaEditor.DefineIcon('tableHeader', { NAME: 'header' })
-  $.FroalaEditor.RegisterCommand('tableHeader', {
+  $.FE.DefineIcon('tableHeader', { NAME: 'header' })
+  $.FE.RegisterCommand('tableHeader', {
     title: 'Table Header',
     focus: false,
     callback: function () {
@@ -2639,7 +2722,7 @@
       }
     },
     refresh: function ($btn) {
-      var $table = this.$el.find('.fr-selected-cell').closest('table');
+      var $table = this.table.selectedTable();
 
       if ($table.length > 0) {
         // If table doesn't have a header.
@@ -2656,8 +2739,8 @@
   });
 
   // Table rows action dropdown.
-  $.FroalaEditor.DefineIcon('tableRows', { NAME: 'bars' })
-  $.FroalaEditor.RegisterCommand('tableRows', {
+  $.FE.DefineIcon('tableRows', { NAME: 'bars' })
+  $.FE.RegisterCommand('tableRows', {
     type: 'dropdown',
     focus: false,
     title: 'Row',
@@ -2668,9 +2751,11 @@
     },
     html: function () {
       var c = '<ul class="fr-dropdown-list">';
-      var options =  $.FroalaEditor.COMMANDS.tableRows.options;
+      var options =  $.FE.COMMANDS.tableRows.options;
       for (var val in options) {
-        c += '<li><a class="fr-command" data-cmd="tableRows" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(options[val]) + '</a></li>';
+        if (options.hasOwnProperty(val)) {
+          c += '<li><a class="fr-command" data-cmd="tableRows" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(options[val]) + '</a></li>';
+        }
       }
       c += '</ul>';
 
@@ -2686,8 +2771,8 @@
   });
 
   // Table columns action dropdown.
-  $.FroalaEditor.DefineIcon('tableColumns', { NAME: 'bars fa-rotate-90' })
-  $.FroalaEditor.RegisterCommand('tableColumns', {
+  $.FE.DefineIcon('tableColumns', { NAME: 'bars fa-rotate-90' })
+  $.FE.RegisterCommand('tableColumns', {
     type: 'dropdown',
     focus: false,
     title: 'Column',
@@ -2698,9 +2783,11 @@
     },
     html: function () {
       var c = '<ul class="fr-dropdown-list">';
-      var options =  $.FroalaEditor.COMMANDS.tableColumns.options;
+      var options =  $.FE.COMMANDS.tableColumns.options;
       for (var val in options) {
-        c += '<li><a class="fr-command" data-cmd="tableColumns" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(options[val]) + '</a></li>';
+        if (options.hasOwnProperty(val)) {
+          c += '<li><a class="fr-command" data-cmd="tableColumns" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(options[val]) + '</a></li>';
+        }
       }
       c += '</ul>';
 
@@ -2716,8 +2803,8 @@
   });
 
   // Table cells action dropdown.
-  $.FroalaEditor.DefineIcon('tableCells', { NAME: 'square-o' })
-  $.FroalaEditor.RegisterCommand('tableCells', {
+  $.FE.DefineIcon('tableCells', { NAME: 'square-o' })
+  $.FE.RegisterCommand('tableCells', {
     type: 'dropdown',
     focus: false,
     title: 'Cell',
@@ -2728,9 +2815,11 @@
     },
     html: function () {
       var c = '<ul class="fr-dropdown-list">';
-      var options =  $.FroalaEditor.COMMANDS.tableCells.options;
+      var options =  $.FE.COMMANDS.tableCells.options;
       for (var val in options) {
-        c += '<li><a class="fr-command" data-cmd="tableCells" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(options[val]) + '</a></li>';
+        if (options.hasOwnProperty(val)) {
+          c += '<li><a class="fr-command" data-cmd="tableCells" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(options[val]) + '</a></li>';
+        }
       }
       c += '</ul>';
 
@@ -2766,8 +2855,8 @@
   });
 
   // Remove table button.
-  $.FroalaEditor.DefineIcon('tableRemove', { NAME: 'trash' })
-  $.FroalaEditor.RegisterCommand('tableRemove', {
+  $.FE.DefineIcon('tableRemove', { NAME: 'trash' })
+  $.FE.RegisterCommand('tableRemove', {
     title: 'Remove Table',
     focus: false,
     callback: function () {
@@ -2776,8 +2865,8 @@
   });
 
   // Table styles.
-  $.FroalaEditor.DefineIcon('tableStyle', { NAME: 'paint-brush' })
-  $.FroalaEditor.RegisterCommand('tableStyle', {
+  $.FE.DefineIcon('tableStyle', { NAME: 'paint-brush' })
+  $.FE.RegisterCommand('tableStyle', {
     title: 'Table Style',
     type: 'dropdown',
     focus: false,
@@ -2785,7 +2874,9 @@
       var c = '<ul class="fr-dropdown-list">';
       var options =  this.opts.tableStyles;
       for (var val in options) {
-        c += '<li><a class="fr-command" data-cmd="tableStyle" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(options[val]) + '</a></li>';
+        if (options.hasOwnProperty(val)) {
+          c += '<li><a class="fr-command" data-cmd="tableStyle" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(options[val]) + '</a></li>';
+        }
       }
       c += '</ul>';
 
@@ -2807,8 +2898,8 @@
   });
 
   // Table cell background color button.
-  $.FroalaEditor.DefineIcon('tableCellBackground', { NAME: 'tint' })
-  $.FroalaEditor.RegisterCommand('tableCellBackground', {
+  $.FE.DefineIcon('tableCellBackground', { NAME: 'tint' })
+  $.FE.RegisterCommand('tableCellBackground', {
     title: 'Cell Background',
     focus: false,
     callback: function () {
@@ -2817,7 +2908,7 @@
   });
 
   // Select table cell background color command.
-  $.FroalaEditor.RegisterCommand('tableCellBackgroundColor', {
+  $.FE.RegisterCommand('tableCellBackgroundColor', {
     undo: true,
     focus: false,
     callback: function (cmd, val) {
@@ -2826,8 +2917,8 @@
   });
 
   // Table back.
-  $.FroalaEditor.DefineIcon('tableBack', { NAME: 'arrow-left' });
-  $.FroalaEditor.RegisterCommand('tableBack', {
+  $.FE.DefineIcon('tableBack', { NAME: 'arrow-left' });
+  $.FE.RegisterCommand('tableBack', {
     title: 'Back',
     undo: false,
     focus: false,
@@ -2836,7 +2927,7 @@
       this.table.back();
     },
     refresh: function ($btn) {
-      if (this.$el.find('.fr-selected-cell').length === 0 && !this.opts.toolbarInline) {
+      if (this.table.selectedCells().length === 0 && !this.opts.toolbarInline) {
         $btn.addClass('fr-hidden');
         $btn.next('.fr-separator').addClass('fr-hidden');
       }
@@ -2848,8 +2939,8 @@
   });
 
   // Table vertical align dropdown.
-  $.FroalaEditor.DefineIcon('tableCellVerticalAlign', { NAME: 'arrows-v' })
-  $.FroalaEditor.RegisterCommand('tableCellVerticalAlign', {
+  $.FE.DefineIcon('tableCellVerticalAlign', { NAME: 'arrows-v' })
+  $.FE.RegisterCommand('tableCellVerticalAlign', {
     type: 'dropdown',
     focus: false,
     title: 'Vertical Align',
@@ -2860,9 +2951,11 @@
     },
     html: function () {
       var c = '<ul class="fr-dropdown-list">';
-      var options =  $.FroalaEditor.COMMANDS.tableCellVerticalAlign.options;
+      var options =  $.FE.COMMANDS.tableCellVerticalAlign.options;
       for (var val in options) {
-        c += '<li><a class="fr-command" data-cmd="tableCellVerticalAlign" data-param1="' + val.toLowerCase() + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(val) + '</a></li>';
+        if (options.hasOwnProperty(val)) {
+          c += '<li><a class="fr-command" data-cmd="tableCellVerticalAlign" data-param1="' + val.toLowerCase() + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(val) + '</a></li>';
+        }
       }
       c += '</ul>';
 
@@ -2877,12 +2970,12 @@
   });
 
   // Table horizontal align dropdown.
-  $.FroalaEditor.DefineIcon('tableCellHorizontalAlign', { NAME: 'align-left' });
-  $.FroalaEditor.DefineIcon('align-left', { NAME: 'align-left' });
-  $.FroalaEditor.DefineIcon('align-right', { NAME: 'align-right' });
-  $.FroalaEditor.DefineIcon('align-center', { NAME: 'align-center' });
-  $.FroalaEditor.DefineIcon('align-justify', { NAME: 'align-justify' });
-  $.FroalaEditor.RegisterCommand('tableCellHorizontalAlign', {
+  $.FE.DefineIcon('tableCellHorizontalAlign', { NAME: 'align-left' });
+  $.FE.DefineIcon('align-left', { NAME: 'align-left' });
+  $.FE.DefineIcon('align-right', { NAME: 'align-right' });
+  $.FE.DefineIcon('align-center', { NAME: 'align-center' });
+  $.FE.DefineIcon('align-justify', { NAME: 'align-justify' });
+  $.FE.RegisterCommand('tableCellHorizontalAlign', {
     type: 'dropdown',
     focus: false,
     title: 'Horizontal Align',
@@ -2894,9 +2987,11 @@
     },
     html: function () {
       var c = '<ul class="fr-dropdown-list">';
-      var options =  $.FroalaEditor.COMMANDS.tableCellHorizontalAlign.options;
+      var options =  $.FE.COMMANDS.tableCellHorizontalAlign.options;
       for (var val in options) {
-        c += '<li><a class="fr-command fr-title" data-cmd="tableCellHorizontalAlign" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.icon.create('align-' + val) + '</a></li>';
+        if (options.hasOwnProperty(val)) {
+          c += '<li><a class="fr-command fr-title" data-cmd="tableCellHorizontalAlign" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.icon.create('align-' + val) + '</a></li>';
+        }
       }
       c += '</ul>';
 
@@ -2906,7 +3001,11 @@
       this.table.horizontalAlign(val);
     },
     refresh: function ($btn) {
-      $btn.find('> *:first').replaceWith(this.icon.create('align-' + this.helpers.getAlignment(this.$el.find('.fr-selected-cell:first'))));
+      var selected_cells = this.table.selectedCells();
+
+      if (selected_cells.length) {
+        $btn.find('> *:first').replaceWith(this.icon.create('align-' + this.helpers.getAlignment($(selected_cells[0]))));
+      }
     },
     refreshOnShow: function ($btn, $dropdown) {
       $dropdown.find('.fr-command[data-param1="' + this.helpers.getAlignment(this.$el.find('.fr-selected-cell:first')) + '"]').addClass('fr-active');
@@ -2914,8 +3013,8 @@
   });
 
   // Table cell styles.
-  $.FroalaEditor.DefineIcon('tableCellStyle', { NAME: 'magic' })
-  $.FroalaEditor.RegisterCommand('tableCellStyle', {
+  $.FE.DefineIcon('tableCellStyle', { NAME: 'magic' })
+  $.FE.RegisterCommand('tableCellStyle', {
     title: 'Cell Style',
     type: 'dropdown',
     focus: false,
@@ -2923,7 +3022,9 @@
       var c = '<ul class="fr-dropdown-list">';
       var options =  this.opts.tableCellStyles;
       for (var val in options) {
-        c += '<li><a class="fr-command" data-cmd="tableCellStyle" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(options[val]) + '</a></li>';
+        if (options.hasOwnProperty(val)) {
+          c += '<li><a class="fr-command" data-cmd="tableCellStyle" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(options[val]) + '</a></li>';
+        }
       }
       c += '</ul>';
 

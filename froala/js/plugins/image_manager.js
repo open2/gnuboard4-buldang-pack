@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -35,7 +35,7 @@
   'use strict';
 
   // Extend defaults.
-  $.extend($.FroalaEditor.DEFAULTS, {
+  $.extend($.FE.DEFAULTS, {
     imageManagerLoadURL: 'http://i.froala.com/load-files',
     imageManagerLoadMethod: 'get',
     imageManagerLoadParams: {},
@@ -48,7 +48,7 @@
     imageManagerToggleTags: true
   });
 
-  $.FroalaEditor.PLUGINS.imageManager = function (editor) {
+  $.FE.PLUGINS.imageManager = function (editor) {
     var $modal;
     var $preloader;
     var $media_files;
@@ -91,6 +91,9 @@
      * Show the media manager.
      */
     function show () {
+      // Build the media manager.
+      if (!$modal) _build();
+
       // Show modal.
       $modal.show();
       $overlay.show();
@@ -105,11 +108,11 @@
       _loadImages();
 
       // Prevent scrolling in page.
-      editor.$document.find('body').addClass('prevent-scroll');
+      editor.$doc.find('body').addClass('prevent-scroll');
 
       // Mobile device
       if (editor.helpers.isMobile()) {
-        editor.$document.find('body').addClass('fr-mobile');
+        editor.$doc.find('body').addClass('fr-mobile');
       }
     }
 
@@ -120,7 +123,7 @@
       editor.events.enableBlur();
       $modal.hide();
       $overlay.hide();
-      editor.$document.find('body').removeClass('prevent-scroll fr-mobile');
+      editor.$doc.find('body').removeClass('prevent-scroll fr-mobile');
     }
 
     /*
@@ -170,17 +173,17 @@
       var html = '<div class="fr-modal' + cls + '"><div class="fr-modal-wrapper">';
 
       // Modal title.
-      html += '<div class="fr-modal-title"><div class="fr-modal-title-line"><i class="fa fa-bars fr-modal-more fr-not-available" id="fr-modal-more-' + editor.id + '" title="' + editor.language.translate('Tags') + '"></i><h4 data-text="true">' + editor.language.translate('Manage Images') + '</h4><i title="' + editor.language.translate('Cancel') + '" class="fa fa-times fr-modal-close" id="fr-modal-close-' + editor.id + '"></i></div>';
+      html += '<div class="fr-modal-title"><div class="fr-modal-title-line"><i class="fa fa-bars fr-modal-more fr-not-available" id="fr-modal-more-' + editor.sid + '" title="' + editor.language.translate('Tags') + '"></i><h4 data-text="true">' + editor.language.translate('Manage Images') + '</h4><i title="' + editor.language.translate('Cancel') + '" class="fa fa-times fr-modal-close" id="fr-modal-close"></i></div>';
 
       // Tags
-      html += '<div class="fr-modal-tags" id="fr-modal-tags-' + editor.id + '"></div>';
+      html += '<div class="fr-modal-tags" id="fr-modal-tags"></div>';
       html += '</div>';
 
       // Preloader.
-      html += '<img class="fr-preloader" id="fr-preloader-' + editor.id + '" alt="' + editor.language.translate('Loading') + '.." src="' + editor.opts.imageManagerPreloader + '" style="display: none;">';
+      html += '<img class="fr-preloader" id="fr-preloader" alt="' + editor.language.translate('Loading') + '.." src="' + editor.opts.imageManagerPreloader + '" style="display: none;">';
 
       // Modal scroller.
-      html += '<div class="fr-scroller" id="fr-scroller-' + editor.id + '"><div class="fr-image-list" id="fr-image-list-' + editor.id + '"></div></div>';
+      html += '<div class="fr-scroller" id="fr-scroller"><div class="fr-image-list" id="fr-image-list"></div></div>';
 
       html += '</div></div>';
 
@@ -192,27 +195,36 @@
      */
     function _build () {
       // Build modal.
-      $modal = _modalHTML()
+      if (!editor.shared.$modal) {
+        editor.shared.$modal = _modalHTML();
 
-      // Desktop or mobile device.
-      if (!editor.helpers.isMobile()) {
-        $modal.addClass('fr-desktop');
+        $modal = editor.shared.$modal;
+
+        // Desktop or mobile device.
+        if (!editor.helpers.isMobile()) {
+          $modal.addClass('fr-desktop');
+        }
+
+        // Append modal to body.
+        $modal.appendTo('body');
+
+        editor.shared.$overlay = $('<div class="fr-overlay">').appendTo('body');
+        $overlay = editor.shared.$overlay;
+
+        if (editor.opts.theme) {
+          $overlay.addClass(editor.opts.theme + '-theme');
+        }
+
+        // Finished building the media manager.
+        hide();
       }
-
-      // Append modal to body.
-      $modal.appendTo('body');
-
-      $overlay = $('<div class="fr-overlay">').appendTo('body');
-
-      if (editor.opts.theme) {
-        $overlay.addClass(editor.opts.theme + '-theme');
+      else {
+        $modal = editor.shared.$modal;
+        $overlay = editor.shared.$overlay;
       }
-
-      // Finished building the media manager.
-      hide();
 
       // Editor destroy.
-      editor.events.on('destroy', function () {
+      editor.events.on('shared.destroy', function () {
         $modal.removeData().remove();
         $overlay.removeData().remove();
       }, true);
@@ -383,8 +395,10 @@
 
         // Set image additional data.
         for (var key in image) {
-          if (key != 'thumb' && key != 'url' && key != 'tag') {
-            $img.attr('data-' + key, image[key]);
+          if (image.hasOwnProperty(key)) {
+            if (key != 'thumb' && key != 'url' && key != 'tag') {
+              $img.attr('data-' + key, image[key]);
+            }
           }
         }
 
@@ -535,7 +549,7 @@
         _reorderImages(imgs);
       }
 
-      var height = editor.$window.height();
+      var height = editor.$win.height();
 
       // The wrapper and scroller objects.
       var $wrapper = $modal.find('.fr-modal-wrapper');
@@ -590,12 +604,13 @@
       var img_data = $img.data();
 
       for (var key in img_data) {
-        if (key != 'url' && key != 'tag') {
-          img_attributes[key] = img_data[key];
+        if (img_data.hasOwnProperty(key)) {
+          if (key != 'url' && key != 'tag') {
+            img_attributes[key] = img_data[key];
+          }
         }
       }
 
-      editor.undo.saveStep();
       editor.image.insert($img.data('url'), false, img_attributes, $current_image);
     }
 
@@ -778,10 +793,10 @@
     }
 
     function _delayedInit() {
-      $preloader = $modal.find('#fr-preloader-' + editor.id);
-      $media_files = $modal.find('#fr-image-list-' + editor.id);
-      $scroller = $modal.find('#fr-scroller-' + editor.id);
-      $image_tags = $modal.find('#fr-modal-tags-' + editor.id);
+      $preloader = $modal.find('#fr-preloader');
+      $media_files = $modal.find('#fr-image-list');
+      $scroller = $modal.find('#fr-scroller');
+      $image_tags = $modal.find('#fr-modal-tags');
       $modal_title = $image_tags.parent();
 
       // Columns.
@@ -794,10 +809,20 @@
       $scroller.css('margin-top', title_height);
 
       // Close button.
-      editor.events.bindClick($modal, 'i#fr-modal-close-' + editor.id, hide);
+      editor.events.bindClick($modal, 'i#fr-modal-close', hide);
 
       // Resize media manager modal on window resize.
-      $(window).on('resize.imagemanager' + editor.id, _resizeModal);
+      editor.events.$on($(editor.o_win), 'resize', function () {
+        // Window resize with image manager opened.
+        if (images) {
+          _resizeModal(true);
+        }
+
+        // iOS window resize is triggered when modal first opens (no images loaded).
+        else {
+          _resizeModal(false);
+        }
+      });
 
       // Delete and insert buttons for mobile.
       if (editor.helpers.isMobile()) {
@@ -833,15 +858,10 @@
       $scroller.on('scroll', _infiniteScroll);
 
       // Click on image tags button.
-      editor.events.bindClick($modal, 'i#fr-modal-more-' + editor.id, _toggleTags);
+      editor.events.bindClick($modal, 'i#fr-modal-more-' + editor.sid, _toggleTags);
 
       // Select an image tag.
       editor.events.bindClick($image_tags, 'a', _selectTag);
-
-      // Editor destroy.
-      editor.events.on('destroy', function () {
-        $(window).off('resize.imagemanager' + editor.id);
-      }, true);
     }
 
     /*
@@ -849,9 +869,6 @@
      */
     function _init () {
       if (!editor.$wp && editor.$el.get(0).tagName != 'IMG') return false;
-
-      // Build the media manager.
-      _build();
     }
 
     return {
@@ -862,13 +879,13 @@
     }
   };
 
-  if (!$.FroalaEditor.PLUGINS.image) {
+  if (!$.FE.PLUGINS.image) {
     throw new Error('Image manager plugin requires image plugin.');
   }
 
-  $.FroalaEditor.DEFAULTS.imageInsertButtons.push('imageManager');
+  $.FE.DEFAULTS.imageInsertButtons.push('imageManager');
 
-  $.FroalaEditor.RegisterCommand('imageManager', {
+  $.FE.RegisterCommand('imageManager', {
     title: 'Browse',
     undo: false,
     focus: false,
@@ -879,7 +896,7 @@
   })
 
   // Add the font size icon.
-  $.FroalaEditor.DefineIcon('imageManager', {
+  $.FE.DefineIcon('imageManager', {
     NAME: 'folder'
   });
 

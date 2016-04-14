@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -34,28 +34,27 @@
 
   'use strict';
 
-  $.extend($.FroalaEditor.DEFAULTS, {
+  $.extend($.FE.DEFAULTS, {
     fontFamily: {
       'Arial,Helvetica,sans-serif': 'Arial',
       'Georgia,serif': 'Georgia',
       'Impact,Charcoal,sans-serif': 'Impact',
       'Tahoma,Geneva,sans-serif': 'Tahoma',
-      '\'Times New Roman\',Times,serif': 'Times New Roman',
+      'Times New Roman,Times,serif': 'Times New Roman',
       'Verdana,Geneva,sans-serif': 'Verdana'
     },
     fontFamilySelection: false,
-    fontFamilyDefaultSelection: 'Time New Roman'
+    fontFamilyDefaultSelection: 'Font Family'
   })
 
-  $.FroalaEditor.PLUGINS.fontFamily = function (editor) {
+  $.FE.PLUGINS.fontFamily = function (editor) {
     function apply (val) {
       editor.commands.applyProperty('font-family', val);
     }
 
     function refreshOnShow($btn, $dropdown) {
-      var val = $(editor.selection.element()).css('font-family').replace(/"/g, '\'').replace(/, /g, ',');
       $dropdown.find('.fr-command.fr-active').removeClass('fr-active');
-      $dropdown.find('.fr-command[data-param1="' + val + '"]').addClass('fr-active');
+      $dropdown.find('.fr-command[data-param1="' + _getSelection() + '"]').addClass('fr-active');
 
       var $list = $dropdown.find('.fr-dropdown-list');
       var $active = $dropdown.find('.fr-active').parent();
@@ -67,10 +66,66 @@
       }
     }
 
-    function refresh($btn, $dropdown) {
-      var val = $(editor.selection.element()).css('font-family').replace(/"/g,'\'').replace(/, /g, ',');
+    function _getArray (val) {
+      var font_array = val.replace(/(sans-serif|serif|monospace|cursive|fantasy)/gi, '').replace(/"|'| /g, '').split(',');
 
-      $btn.find('> span').text($dropdown.find('.fr-command[data-param1="' + val + '"]').text() || editor.opts.fontFamilyDefaultSelection);
+      return $.grep(font_array, function (txt) { return txt.length > 0 });
+    }
+
+    /**
+     * Return first match position.
+     */
+    function _matches (array1, array2) {
+      for (var i = 0; i < array1.length; i++) {
+        for (var j = 0; j < array2.length; j++) {
+          if (array1[i] == array2[j]) {
+            return [i, j];
+          }
+        }
+      }
+
+      return null;
+    }
+
+    function _getSelection () {
+      var val = $(editor.selection.element()).css('font-family');
+      var font_array = _getArray(val);
+
+      var font_matches = [];
+      for (var key in editor.opts.fontFamily) {
+        if (editor.opts.fontFamily.hasOwnProperty(key)) {
+          var c_font_array = _getArray(key);
+
+          var match = _matches(font_array, c_font_array);
+          if (match) {
+            font_matches.push([key, match]);
+          }
+        }
+      }
+
+      if (font_matches.length === 0) return null;
+
+      // Sort matches by their position.
+      // Times,Arial should be detected as being Times, not Arial.
+      font_matches.sort(function (a, b) {
+        var f_diff = a[1][0] - b[1][0];
+        if (f_diff === 0) {
+          return a[1][1] - b[1][1];
+        }
+        else {
+          return f_diff;
+        }
+      });
+
+      return font_matches[0][0];
+    }
+
+    function refresh ($btn) {
+      if (editor.opts.fontFamilySelection) {
+        var val = $(editor.selection.element()).css('font-family').replace(/(sans-serif|serif|monospace|cursive|fantasy)/gi, '').replace(/"|'|/g, '').split(',');
+
+        $btn.find('> span').text(editor.opts.fontFamily[_getSelection()] || val[0] || editor.opts.fontFamilyDefaultSelection);
+      }
     }
 
     return {
@@ -81,7 +136,7 @@
   }
 
   // Register the font size command.
-  $.FroalaEditor.RegisterCommand('fontFamily', {
+  $.FE.RegisterCommand('fontFamily', {
     type: 'dropdown',
     displaySelection: function (editor) {
       return editor.opts.fontFamilySelection;
@@ -94,7 +149,9 @@
       var c = '<ul class="fr-dropdown-list">';
       var options = this.opts.fontFamily;
       for (var val in options) {
-        c += '<li><a class="fr-command" data-cmd="fontFamily" data-param1="' + val + '" style="font-family: ' + val + '" title="' + options[val] + '">' + options[val] + '</a></li>';
+        if (options.hasOwnProperty(val)) {
+          c += '<li><a class="fr-command" data-cmd="fontFamily" data-param1="' + val + '" style="font-family: ' + val + '" title="' + options[val] + '">' + options[val] + '</a></li>';
+        }
       }
       c += '</ul>';
 
@@ -104,8 +161,8 @@
     callback: function (cmd, val) {
       this.fontFamily.apply(val);
     },
-    refresh: function ($btn, $dropdown) {
-      this.fontFamily.refresh($btn, $dropdown);
+    refresh: function ($btn) {
+      this.fontFamily.refresh($btn);
     },
     refreshOnShow: function ($btn, $dropdown) {
       this.fontFamily.refreshOnShow($btn, $dropdown);
@@ -114,7 +171,7 @@
   })
 
   // Add the font size icon.
-  $.FroalaEditor.DefineIcon('fontFamily', {
+  $.FE.DefineIcon('fontFamily', {
     NAME: 'font'
   });
 

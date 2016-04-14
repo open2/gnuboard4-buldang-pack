@@ -1,14 +1,14 @@
 /*!
- * froala_editor v2.0.4 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
- * Copyright 2014-2015 Froala Labs
+ * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
+ * Copyright 2014-2016 Froala Labs
  */
 
 /**
  * Danish
  */
 
-$.FroalaEditor.LANGUAGE['da'] = {
+$.FE.LANGUAGE['da'] = {
   translation: {
     // Place holder
     "Type something": "Skriv noget",
@@ -221,7 +221,10 @@ $.FroalaEditor.LANGUAGE['da'] = {
     // Quote
     "Quote": "Citat",
     "Increase": "For\u00f8ge",
-    "Decrease": "Mindsk"
+    "Decrease": "Mindsk",
+
+    // Quick Insert
+    "Quick Insert": "Hurtig indsats"
   },
   direction: "ltr"
 };

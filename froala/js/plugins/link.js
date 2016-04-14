@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -34,12 +34,12 @@
 
   'use strict';
 
-  $.extend($.FroalaEditor.POPUP_TEMPLATES, {
+  $.extend($.FE.POPUP_TEMPLATES, {
     'link.edit': '[_BUTTONS_]',
     'link.insert': '[_BUTTONS_][_INPUT_LAYER_]'
   })
 
-  $.extend($.FroalaEditor.DEFAULTS, {
+  $.extend($.FE.DEFAULTS, {
     linkEditButtons: ['linkOpen', 'linkStyle', 'linkEdit', 'linkRemove'],
     linkInsertButtons: ['linkBack', '|', 'linkList'],
     linkAttributes: {},
@@ -71,7 +71,7 @@
     linkText: true
   });
 
-  $.FroalaEditor.PLUGINS.link = function (editor) {
+  $.FE.PLUGINS.link = function (editor) {
     function get () {
       var $current_image = editor.image ? editor.image.get() : null;
 
@@ -118,10 +118,10 @@
         var links;
         var linkRange;
 
-        if (editor.window.getSelection) {
-          var sel = editor.window.getSelection();
+        if (editor.win.getSelection) {
+          var sel = editor.win.getSelection();
           if (sel.getRangeAt && sel.rangeCount) {
-            linkRange = editor.document.createRange();
+            linkRange = editor.doc.createRange();
             for (var r = 0; r < sel.rangeCount; ++r) {
               range = sel.getRangeAt(r);
               containerEl = range.commonAncestorContainer;
@@ -144,14 +144,14 @@
             }
             // linkRange.detach();
           }
-        } else if (editor.document.selection && editor.document.selection.type != 'Control') {
-          range = editor.document.selection.createRange();
+        } else if (editor.doc.selection && editor.doc.selection.type != 'Control') {
+          range = editor.doc.selection.createRange();
           containerEl = range.parentElement();
           if (containerEl.nodeName.toLowerCase() == 'a') {
             selectedLinks.push(containerEl);
           } else {
             links = containerEl.getElementsByTagName('a');
-            linkRange = editor.document.body.createTextRange();
+            linkRange = editor.doc.body.createTextRange();
             for (var j = 0; j < links.length; ++j) {
               linkRange.moveToElementText(links[j]);
               if (linkRange.compareEndPoints('StartToEnd', range) > -1 && linkRange.compareEndPoints('EndToStart', range) < 1) {
@@ -166,6 +166,8 @@
     }
 
     function _edit (e) {
+      _hideEditPopup();
+
       setTimeout (function () {
         // No event passed.
         // Event passed and (left click or other event type).
@@ -176,8 +178,18 @@
           if (link && !$current_image) {
             if (editor.image) {
               var contents = editor.node.contents(link);
+
+              // https://github.com/froala/wysiwyg-editor/issues/1103
               if (contents.length == 1 && contents[0].tagName == 'IMG') {
-                $(contents[0]).trigger('click');
+                var range = editor.selection.ranges(0);
+                if (range.startOffset === 0 && range.endOffset === 0) {
+                  $(link).before($.FE.MARKERS);
+                }
+                else {
+                  $(link).after($.FE.MARKERS);
+                }
+
+                editor.selection.restore();
                 return false;
               }
             }
@@ -187,9 +199,6 @@
             }
 
             _showEditPopup(link);
-          }
-          else {
-            editor.popups.hide('link.edit');
           }
         }
       }, editor.helpers.isIOS() ? 100 : 0);
@@ -217,7 +226,7 @@
     }
 
     function _initEditPopup () {
-      // Image buttons.
+      // Link buttons.
       var link_buttons = '';
       if (editor.opts.linkEditButtons.length > 1) {
         if (editor.$el.get(0).tagName == 'A' && editor.opts.linkEditButtons.indexOf('linkRemove') >= 0) {
@@ -235,18 +244,12 @@
       var $popup = editor.popups.create('link.edit', template);
 
       if (editor.$wp) {
-        editor.$wp.on('scroll.link-edit', function () {
+        editor.events.$on(editor.$wp, 'scroll.link-edit', function () {
           if (get() && editor.popups.isVisible('link.edit')) {
             _showEditPopup(get());
           }
         });
       }
-
-      editor.events.on('destroy', function () {
-        if (editor.$wp) {
-          editor.$wp.off('scroll.link-edit');
-        }
-      });
 
       return $popup;
     }
@@ -323,7 +326,14 @@
       }
     }
 
-    function _initInsertPopup () {
+    function _initInsertPopup (delayed) {
+      if (delayed) {
+        editor.popups.onRefresh('link.insert', _refreshInsertPopup);
+        editor.popups.onHide('link.insert', _hideInsertPopup);
+
+        return true;
+      }
+
       // Image buttons.
       var link_buttons = '';
       if (editor.opts.linkInsertButtons.length >= 1) {
@@ -344,8 +354,10 @@
 
       // Add any additional fields.
       for (var attr in editor.opts.linkAttributes) {
-        var placeholder = editor.opts.linkAttributes[attr];
-        input_layer += '<div class="fr-input-line"><input name="' + attr + '" type="text" class="fr-link-attr" placeholder="' + editor.language.translate(placeholder) + '" tabIndex="' + (++tab_idx) + '"></div>';
+        if (editor.opts.linkAttributes.hasOwnProperty(attr)) {
+          var placeholder = editor.opts.linkAttributes[attr];
+          input_layer += '<div class="fr-input-line"><input name="' + attr + '" type="text" class="fr-link-attr" placeholder="' + editor.language.translate(placeholder) + '" tabIndex="' + (++tab_idx) + '"></div>';
+        }
       }
 
       if (!editor.opts.linkAlwaysBlank) {
@@ -362,11 +374,8 @@
       // Set the template in the popup.
       var $popup = editor.popups.create('link.insert', template);
 
-      editor.popups.onRefresh('link.insert', _refreshInsertPopup);
-      editor.popups.onHide('link.insert', _hideInsertPopup);
-
       if (editor.$wp) {
-        editor.$wp.on('scroll.link-insert', function () {
+        editor.events.$on(editor.$wp, 'scroll.link-insert', function () {
           var $current_image = editor.image ? editor.image.get() : null;
           if ($current_image && editor.popups.isVisible('link.insert')) {
             imageLink();
@@ -377,12 +386,6 @@
           }
         });
       }
-
-      editor.events.on('destroy', function () {
-        if (editor.$wp) {
-          editor.$wp.off('scroll.link-insert');
-        }
-      });
 
       return $popup;
     }
@@ -395,7 +398,7 @@
 
       if ($current_image && link) {
         $current_image.unwrap();
-        $current_image.trigger('click');
+        editor.image.edit($current_image);
       }
       else if (link) {
         editor.selection.save();
@@ -408,12 +411,23 @@
     function _init () {
       // Edit on keyup.
       editor.events.on('keyup', function (e) {
-        if (e.which != $.FroalaEditor.KEYCODE.ESC) {
+        if (e.which != $.FE.KEYCODE.ESC) {
           _edit(e);
         }
       });
 
       editor.events.on('window.mouseup', _edit);
+
+      if (editor.helpers.isMobile()) {
+        editor.events.$on(editor.$doc, 'selectionchange', _edit);
+      }
+
+      _initInsertPopup(true);
+
+      // Init on link.
+      if (editor.$el.get(0).tagName == 'A') {
+        editor.$el.addClass('fr-view');
+      }
     }
 
     function usePredefined (val) {
@@ -430,7 +444,7 @@
         if (link[$input.attr('name')]) {
           $input.val(link[$input.attr('name')]);
         }
-        else {
+        else if ($input.attr('name') != 'text') {
           $input.val('');
         }
       }
@@ -469,9 +483,9 @@
         }
       }
 
-      var t = $(editor.original_window).scrollTop();
+      var t = $(editor.o_win).scrollTop();
       insert(href, text, attrs);
-      $(editor.original_window).scrollTop(t);
+      $(editor.o_win).scrollTop(t);
     }
 
     function _split () {
@@ -532,7 +546,7 @@
 
       // Convert email address.
       if (editor.opts.linkConvertEmailAddress) {
-        var regex = /^[\w._]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/i;
+        var regex = /^[\w._]+@[a-zA-Z0-9_-]+?\.[a-zA-Z0-9]{2,3}$/i;
 
         if (regex.test(href) && href.indexOf('mailto:') !== 0) {
           href = 'mailto:' + href;
@@ -571,8 +585,10 @@
         // Clear attributes.
         var a_list = editor.node.rawAttributes(link);
         for (var attr in a_list) {
-          if (attr != 'class' && attr != 'style') {
-            $link.removeAttr(attr);
+          if (a_list.hasOwnProperty(attr)) {
+            if (attr != 'class' && attr != 'style') {
+              $link.removeAttr(attr);
+            }
           }
         }
 
@@ -585,8 +601,8 @@
 
         if (!$current_image) {
           $link
-            .prepend($.FroalaEditor.START_MARKER)
-            .append($.FroalaEditor.END_MARKER);
+            .prepend($.FE.START_MARKER)
+            .append($.FE.END_MARKER);
         }
 
         // Set attributes.
@@ -600,25 +616,25 @@
         // We don't have any image selected.
         if (!$current_image) {
           // Remove current links.
-          editor.document.execCommand('unlink', false, false);
+          editor.doc.execCommand('unlink', false, false);
 
           // Nothing is selected.
           if (editor.selection.isCollapsed()) {
             text = (text.length === 0 ? original_href : text);
-            editor.html.insert('<a href="' + href + '">' + $.FroalaEditor.START_MARKER + text + $.FroalaEditor.END_MARKER + '</a>');
+            editor.html.insert('<a href="' + href + '">' + $.FE.START_MARKER + text + $.FE.END_MARKER + '</a>');
             editor.selection.restore();
           }
           else {
             if (text.length > 0 && text != editor.selection.text()) {
               editor.selection.remove();
-              editor.html.insert('<a href="' + href + '">' + $.FroalaEditor.START_MARKER + text + $.FroalaEditor.END_MARKER + '</a>');
+              editor.html.insert('<a href="' + href + '">' + $.FE.START_MARKER + text + $.FE.END_MARKER + '</a>');
               editor.selection.restore();
             }
             else {
               _split();
 
               // Add link.
-              editor.document.execCommand('createLink', false, href);
+              editor.doc.execCommand('createLink', false, href);
             }
           }
         }
@@ -638,8 +654,8 @@
         // Show link edit if only one link.
         if (links.length == 1 && editor.$wp && !$current_image) {
           $(links[0])
-            .prepend($.FroalaEditor.START_MARKER)
-            .append($.FroalaEditor.END_MARKER);
+            .prepend($.FE.START_MARKER)
+            .append($.FE.END_MARKER);
 
           editor.selection.restore();
         }
@@ -647,12 +663,12 @@
 
       // Hide popup and try to edit.
       if (!$current_image) {
-        editor.popups.get('link.insert');
         _edit();
       }
       else {
-        $current_image.trigger('touchstart');
-        $current_image.trigger(editor.helpers.isMobile() ? 'touchend' : 'click');
+        var $pop = editor.popups.get('link.insert');
+        $pop.find('input:focus').blur();
+        editor.image.edit($current_image);
       }
     }
 
@@ -667,6 +683,7 @@
         if (!editor.popups.isVisible('link.insert')) {
           editor.popups.refresh('link.insert');
           editor.selection.save();
+
           if (editor.helpers.isMobile()) {
             editor.events.disableBlur();
             editor.$el.blur();
@@ -707,7 +724,7 @@
         }
       }
       else {
-        $current_image.trigger('click').trigger('touchend');
+        editor.image.back();
       }
     }
 
@@ -730,18 +747,23 @@
     /**
      * Apply specific style.
      */
-    function applyStyle (val) {
+    function applyStyle (val, linkStyles, multipleStyles) {
+      if (typeof multipleStyles == 'undefined') multipleStyles = editor.opts.linkMultipleStyles;
+      if (typeof linkStyles == 'undefined') linkStyles = editor.opts.linkStyles;
+
       var link = get();
       if (!link) return false;
 
       // Remove multiple styles.
-      if (!editor.opts.linkMultipleStyles) {
-        var styles = Object.keys(editor.opts.linkStyles);
+      if (!multipleStyles) {
+        var styles = Object.keys(linkStyles);
         styles.splice(styles.indexOf(val), 1);
         $(link).removeClass(styles.join(' '));
       }
 
       $(link).toggleClass(val);
+
+      _edit();
     }
 
     return {
@@ -761,9 +783,9 @@
   }
 
   // Register the link command.
-  $.FroalaEditor.DefineIcon('insertLink', { NAME: 'link' });
-  $.FroalaEditor.RegisterShortcut(75, 'insertLink');
-  $.FroalaEditor.RegisterCommand('insertLink', {
+  $.FE.DefineIcon('insertLink', { NAME: 'link' });
+  $.FE.RegisterShortcut(75, 'insertLink');
+  $.FE.RegisterCommand('insertLink', {
     title: 'Insert Link',
     undo: false,
     focus: true,
@@ -784,8 +806,8 @@
     plugin: 'link'
   })
 
-  $.FroalaEditor.DefineIcon('linkOpen', { NAME: 'external-link' });
-  $.FroalaEditor.RegisterCommand('linkOpen', {
+  $.FE.DefineIcon('linkOpen', { NAME: 'external-link' });
+  $.FE.RegisterCommand('linkOpen', {
     title: 'Open Link',
     undo: false,
     refresh: function ($btn) {
@@ -800,13 +822,13 @@
     callback: function () {
       var link = this.link.get();
       if (link) {
-        this.original_window.open(link.href);
+        this.o_win.open(link.href);
       }
     }
   })
 
-  $.FroalaEditor.DefineIcon('linkEdit', { NAME: 'edit' });
-  $.FroalaEditor.RegisterCommand('linkEdit', {
+  $.FE.DefineIcon('linkEdit', { NAME: 'edit' });
+  $.FE.RegisterCommand('linkEdit', {
     title: 'Edit Link',
     undo: false,
     refreshAfterCallback: false,
@@ -824,8 +846,8 @@
     }
   })
 
-  $.FroalaEditor.DefineIcon('linkRemove', { NAME: 'unlink' });
-  $.FroalaEditor.RegisterCommand('linkRemove', {
+  $.FE.DefineIcon('linkRemove', { NAME: 'unlink' });
+  $.FE.RegisterCommand('linkRemove', {
     title: 'Unlink',
     callback: function () {
       this.link.remove();
@@ -841,8 +863,8 @@
     }
   })
 
-  $.FroalaEditor.DefineIcon('linkBack', { NAME: 'arrow-left' });
-  $.FroalaEditor.RegisterCommand('linkBack', {
+  $.FE.DefineIcon('linkBack', { NAME: 'arrow-left' });
+  $.FE.RegisterCommand('linkBack', {
     title: 'Back',
     undo: false,
     focus: false,
@@ -865,8 +887,8 @@
     }
   });
 
-  $.FroalaEditor.DefineIcon('linkList', { NAME: 'search' });
-  $.FroalaEditor.RegisterCommand('linkList', {
+  $.FE.DefineIcon('linkList', { NAME: 'search' });
+  $.FE.RegisterCommand('linkList', {
     title: 'Choose Link',
     type: 'dropdown',
     focus: false,
@@ -887,7 +909,7 @@
     }
   })
 
-  $.FroalaEditor.RegisterCommand('linkInsert', {
+  $.FE.RegisterCommand('linkInsert', {
     focus: false,
     refreshAfterCallback: false,
     callback: function () {
@@ -905,8 +927,8 @@
   })
 
   // Image link.
-  $.FroalaEditor.DefineIcon('imageLink', { NAME: 'link' })
-  $.FroalaEditor.RegisterCommand('imageLink', {
+  $.FE.DefineIcon('imageLink', { NAME: 'link' })
+  $.FE.RegisterCommand('imageLink', {
     title: 'Insert Link',
     undo: false,
     focus: false,
@@ -937,15 +959,17 @@
   })
 
   // Link styles.
-  $.FroalaEditor.DefineIcon('linkStyle', { NAME: 'magic' })
-  $.FroalaEditor.RegisterCommand('linkStyle', {
+  $.FE.DefineIcon('linkStyle', { NAME: 'magic' })
+  $.FE.RegisterCommand('linkStyle', {
     title: 'Style',
     type: 'dropdown',
     html: function () {
       var c = '<ul class="fr-dropdown-list">';
       var options =  this.opts.linkStyles;
       for (var cls in options) {
-        c += '<li><a class="fr-command" data-cmd="linkStyle" data-param1="' + cls + '">' + this.language.translate(options[cls]) + '</a></li>';
+        if (options.hasOwnProperty(cls)) {
+          c += '<li><a class="fr-command" data-cmd="linkStyle" data-param1="' + cls + '">' + this.language.translate(options[cls]) + '</a></li>';
+        }
       }
       c += '</ul>';
 

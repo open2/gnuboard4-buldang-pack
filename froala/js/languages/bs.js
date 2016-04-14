@@ -1,14 +1,14 @@
 /*!
- * froala_editor v2.0.4 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
- * Copyright 2014-2015 Froala Labs
+ * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
+ * Copyright 2014-2016 Froala Labs
  */
 
 /**
  * Bosnian
  */
 
-$.FroalaEditor.LANGUAGE['bs'] = {
+$.FE.LANGUAGE['bs'] = {
   translation: {
     // Place holder
     "Type something": "Ukucajte ne\u0161tp",
@@ -221,7 +221,10 @@ $.FroalaEditor.LANGUAGE['bs'] = {
     // Quote
     "Quote": "Citat",
     "Increase": "Pove\u0107ati",
-    "Decrease": "Smanjenje"
+    "Decrease": "Smanjenje",
+
+    // Quick Insert
+    "Quick Insert": "Brzo umetak"
   },
   direction: "ltr"
 };

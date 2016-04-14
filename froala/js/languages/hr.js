@@ -1,14 +1,14 @@
 /*!
- * froala_editor v2.0.4 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
- * Copyright 2014-2015 Froala Labs
+ * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
+ * Copyright 2014-2016 Froala Labs
  */
 
 /**
  * Croatian
  */
 
-$.FroalaEditor.LANGUAGE['hr'] = {
+$.FE.LANGUAGE['hr'] = {
   translation: {
     // Place holder
     "Type something": "Napi\u0161i ne\u0161to",
@@ -223,7 +223,10 @@ $.FroalaEditor.LANGUAGE['hr'] = {
     // Quote
     "Quote": "Citat",
     "Increase": "Pove\u0107aj",
-    "Decrease": "Smanji"
+    "Decrease": "Smanji",
+
+    // Quick Insert
+    "Quick Insert": "Brzo umetak"
   },
   direction: "ltr"
 };

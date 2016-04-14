@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -34,7 +34,7 @@
 
   'use strict';
 
-  $.extend($.FroalaEditor.DEFAULTS, {
+  $.extend($.FE.DEFAULTS, {
     paragraphStyles: {
       'fr-text-gray': 'Gray',
       'fr-text-bordered': 'Bordered',
@@ -44,21 +44,24 @@
     paragraphMultipleStyles: true
   });
 
-  $.FroalaEditor.PLUGINS.paragraphStyle = function (editor) {
+  $.FE.PLUGINS.paragraphStyle = function (editor) {
     /**
      * Apply style.
      */
-    function apply (val) {
+    function apply (val, paragraphStyles, paragraphMultipleStyles) {
+      if (typeof paragraphStyles == 'undefined') paragraphStyles = editor.opts.paragraphStyles;
+      if (typeof paragraphMultipleStyles == 'undefined') paragraphMultipleStyles = editor.opts.paragraphMultipleStyles;
+
       var styles = '';
       // Remove multiple styles.
-      if (!editor.opts.paragraphMultipleStyles) {
-        styles = Object.keys(editor.opts.paragraphStyles);
+      if (!paragraphMultipleStyles) {
+        styles = Object.keys(paragraphStyles);
         styles.splice(styles.indexOf(val), 1);
         styles = styles.join(' ');
       }
 
       editor.selection.save();
-      editor.html.wrap(true, true, true);
+      editor.html.wrap(true, true, true, true);
       editor.selection.restore();
 
       var blocks = editor.selection.blocks();
@@ -66,8 +69,9 @@
       // Save selection to restore it later.
       editor.selection.save();
 
+      var hasClass = $(blocks[0]).hasClass(val);
       for (var i = 0; i < blocks.length; i++) {
-        $(blocks[i]).removeClass(styles).toggleClass(val);
+        $(blocks[i]).removeClass(styles).toggleClass(val, !hasClass);
 
         if ($(blocks[i]).hasClass('fr-temp-div')) $(blocks[i]).removeClass('fr-temp-div');
         if ($(blocks[i]).attr('class') === '') $(blocks[i]).removeAttr('class');
@@ -103,13 +107,15 @@
   }
 
   // Register the font size command.
-  $.FroalaEditor.RegisterCommand('paragraphStyle', {
+  $.FE.RegisterCommand('paragraphStyle', {
     type: 'dropdown',
     html: function () {
       var c = '<ul class="fr-dropdown-list">';
       var options =  this.opts.paragraphStyles;
       for (var val in options) {
-        c += '<li><a class="fr-command ' + val + '" data-cmd="paragraphStyle" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(options[val]) + '</a></li>';
+        if (options.hasOwnProperty(val)) {
+          c += '<li><a class="fr-command ' + val + '" data-cmd="paragraphStyle" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(options[val]) + '</a></li>';
+        }
       }
       c += '</ul>';
 
@@ -126,7 +132,7 @@
   })
 
   // Add the font size icon.
-  $.FroalaEditor.DefineIcon('paragraphStyle', {
+  $.FE.DefineIcon('paragraphStyle', {
     NAME: 'magic'
   });
 
