@@ -1181,3 +1181,6 @@ ALTER TABLE `$g4[config_table]` ADD `cf_singo_level` TINYINT( 4 ) NOT NULL AFTER
 
 # 2.1.03
 ALTER  TABLE  `$g4[board_table]`  ADD  `bo_good_click_point` INT( 11  )  NOT  NULL  AFTER  `bo_nogood_point` , ADD  `bo_nogood_click_point` INT( 11  )  NOT  NULL  AFTER  `bo_good_click_point`  ;
+
+# 2.1.09
+ALTER TABLE `$g4[seo_tag_table]` ADD INDEX `index2` ( `bo_table` , `wr_id` ) ;

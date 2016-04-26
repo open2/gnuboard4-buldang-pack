@@ -993,8 +993,12 @@ if ($config[cf_db_version] < 2103) {
     sql_query(" ALTER  TABLE  `$g4[board_table]`  ADD  `bo_good_click_point` INT( 11  )  NOT  NULL  AFTER  `bo_nogood_point` , ADD  `bo_nogood_click_point` INT( 11  )  NOT  NULL  AFTER  `bo_good_click_point`  ", FALSE);
 }
 
+if ($config[cf_db_version] < 2107) {
+    sql_query(" ALTER TABLE `$g4[seo_tag_table]` ADD INDEX `index2` ( `bo_table` , `wr_id` ) ", FALSE);
+}
+
 // db 버젼을 업데이트 - major version + mid version - patch version
-$max_version = "2103";
+$max_version = "2107";
 sql_query(" update $g4[config_table] set cf_db_version = '$max_version' ");
 
 echo "불당팩 $max_version - UPGRADE 완료.";
