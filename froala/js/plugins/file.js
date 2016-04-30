@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.2.1 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
@@ -328,17 +328,13 @@
             form_data.append('Content-Type', file.type);
 
             for (key in editor.opts.fileUploadToS3.params) {
-              if (editor.opts.fileUploadToS3.params.hasOwnProperty(key)) {
-                form_data.append(key, editor.opts.fileUploadToS3.params[key]);
-              }
+              form_data.append(key, editor.opts.fileUploadToS3.params[key]);
             }
           }
 
           // Add upload params.
           for (key in editor.opts.fileUploadParams) {
-            if (editor.opts.fileUploadParams.hasOwnProperty(key)) {
-              form_data.append(key, editor.opts.fileUploadParams[key]);
-            }
+            form_data.append(key, editor.opts.fileUploadParams[key]);
           }
 
           // Set the file in the request.

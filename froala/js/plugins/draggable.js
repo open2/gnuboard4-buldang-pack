@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.2.1 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
@@ -94,7 +94,7 @@
           top_offset++;
           top_tag = editor.doc.elementFromPoint(e.originalEvent.pageX - editor.win.pageXOffset, e.originalEvent.pageY - editor.win.pageYOffset - top_offset);
         }
-        if (!_tagOK(top_tag) || ($draggable_helper && editor.$el.find(top_tag).length === 0 && top_tag != $draggable_helper.get(0))) { top_tag = null; }
+        if (!_tagOK(top_tag) || (editor.$el.find(top_tag).length === 0 && top_tag != $draggable_helper.get(0))) { top_tag = null; }
 
         // Look below for the closest tag.
         var bottom_offset = 0;
@@ -104,7 +104,7 @@
           bottom_tag = editor.doc.elementFromPoint(e.originalEvent.pageX - editor.win.pageXOffset, e.originalEvent.pageY - editor.win.pageYOffset + bottom_offset);
         }
 
-        if (!_tagOK(bottom_tag) || ($draggable_helper &&  editor.$el.find(bottom_tag).length === 0  && bottom_tag != $draggable_helper.get(0))) { bottom_tag = null; }
+        if (!_tagOK(bottom_tag) || (editor.$el.find(bottom_tag).length === 0  && bottom_tag != $draggable_helper.get(0))) { bottom_tag = null; }
 
         if (bottom_tag == null && top_tag) tag_under = top_tag;
         else if (bottom_tag && top_tag == null) tag_under = bottom_tag;
@@ -209,10 +209,6 @@
 
         _positionHelper(e);
       }
-
-      else if (!_getDraggedEl() && (editor.browser.msie || editor.browser.edge)) {
-        e.preventDefault();
-      }
     }
 
     function _dragEnter (e) {
@@ -236,22 +232,6 @@
 
         if ($draggable_helper && !$draggable_helper.hasClass('fr-visible')) {
           $draggedEl.removeClass('fr-dragging');
-        }
-      }
-
-      if ($draggable_helper && editor.$box.find($draggable_helper).length) {
-        $draggable_helper.removeClass('fr-visible');
-      }
-    }
-
-    function _getDraggedEl () {
-      var $draggedEl = null;
-
-      // Search of the instance we're dragging from.
-      for (var i = 0; i < $.FE.INSTANCES.length; i++) {
-        $draggedEl = $.FE.INSTANCES[i].$el.find('.fr-dragging');
-        if ($draggedEl.length) {
-          return $draggedEl.get(0);
         }
       }
     }

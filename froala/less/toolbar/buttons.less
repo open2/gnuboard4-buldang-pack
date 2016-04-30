@@ -19,11 +19,8 @@
     .user-select(none);
     float: left;
     padding: 0;
-    width: @btn-width;
-    height: @btn-height;
 
     i {
-      display: block;
       font-size: @btn-font-size;
       width: @btn-font-size;
       margin: ((@btn-height - @btn-font-size) / 2) ((@btn-width - @btn-font-size) / 2);
@@ -35,13 +32,13 @@
       font-size: @ui-font-size;
       display: block;
       line-height:  @ui-font-size;
-      min-width: @btn-width;
+      margin: ((@btn-height - @btn-font-size) / 2) ((@btn-width - @btn-font-size) / 2);
+      min-width: (@btn-width - (@btn-width - @btn-font-size));
       float: left;
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
       height: @btn-font-size;
-      font-weight: bold;
     }
 
     img {
@@ -56,13 +53,7 @@
     }
 
     &.fr-dropdown {
-      &.fr-selection {
-        width: auto;
-
-        span {
-          font-weight: normal;
-        }
-      }
+      width: auto;
 
       i, span, img {
         margin-left: (((@btn-width - @btn-font-size) / 2) - @dropdown-arrow-width);

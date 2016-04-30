@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.2.1 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
@@ -67,19 +67,25 @@
   margin-top: 5px;
   margin-bottom: 5px;
 }
+.royal-theme img.fr-dib.fr-fil {
+  margin: 5px auto 5px 0;
+  left: 5px;
+}
+.royal-theme img.fr-dib.fr-fir {
+  margin: 5px 0 5px auto;
+  right: 5px;
+}
 .royal-theme img.fr-dii {
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 .royal-theme img.fr-dii.fr-fil {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-right: 5px;
+  margin: 5px 10px 5px 0;
+  left: 5px;
 }
 .royal-theme img.fr-dii.fr-fir {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-left: 5px;
+  margin: 5px 0 5px 10px;
+  right: 5px;
 }
 .royal-theme.fr-tooltip {
   border-radius: 2px;
@@ -104,7 +110,6 @@
 .royal-theme.fr-box.fr-basic .fr-element {
   padding: 10px;
   color: #000000;
-  min-height: 40px;
 }
 .royal-theme .fr-wrapper .fr-placeholder {
   font-size: 12px;

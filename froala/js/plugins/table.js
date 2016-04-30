@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.2.1 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
@@ -118,7 +118,7 @@
         editor.popups.show('table.edit', left, top, offset.bottom - offset.top);
 
         // Disable toolbar buttons only if there are more than one cells selected.
-        if (selectedCells().length > 1) {
+        if (editor.$el.find('.fr-selected-cell').length > 1) {
           // Disable toolbar.
           editor.toolbar.disable();
 
@@ -126,8 +126,11 @@
           editor.$el.removeClass('fr-no-selection');
           editor.edit.on();
 
+          var scroll_top = $(editor.o_win).scrollTop();
+          editor.$el.focus();
           editor.selection.setAtEnd(editor.$el.find('.fr-selected-cell:last').get(0));
           editor.selection.restore();
+          $(editor.o_win).scrollTop(scroll_top);
           editor.button.bulkRefresh();
         }
       }
@@ -156,11 +159,11 @@
     }
 
     /*
-     * Called on table edit popup hide.
+     * Hide table edit popup.
      */
     function _hideEditPopup () {
       // Enable toolbar.
-      if (selectedCells().length === 0) {
+      if (editor.$el.get(0).querySelectorAll('.fr-selected-cell').length === 0) {
         editor.toolbar.enable();
       }
     }
@@ -384,8 +387,8 @@
      * Delete table method.
      */
     function remove () {
-      if (selectedCells().length > 0) {
-        var $current_table = selectedTable();
+      if (editor.$el.find('.fr-selected-cell').length > 0) {
+        var $current_table = editor.$el.find('.fr-selected-cell').closest('table');
 
         // Update cursor position.
         editor.selection.setBefore($current_table.get(0)) || editor.selection.setAfter($current_table.get(0));
@@ -403,7 +406,7 @@
      * Add table header.
      */
     function addHeader () {
-      var $table = selectedTable();
+      var $table = editor.$el.find('.fr-selected-cell').closest('table')
 
       // If there is a selection in the table and the table doesn't have a header already.
       if ($table.length > 0 && $table.find('th').length === 0) {
@@ -438,7 +441,7 @@
      * Remove table header.
      */
     function removeHeader () {
-      var $current_table = selectedTable();
+      var $current_table = editor.$el.find('.fr-selected-cell').closest('table');
       var $table_header = $current_table.find('thead');
 
       // Table has a header.
@@ -453,7 +456,7 @@
           $table_header.remove();
 
           // Reposition table edit popup if there any more selected celss.
-          if (selectedCells().length > 0) {
+          if (editor.$el.find('.fr-selected-cell').length > 0) {
             _showEditPopup();
           }
           else {
@@ -475,7 +478,7 @@
      * Insert row method.
      */
     function insertRow (position) {
-      var $table = selectedTable();
+      var $table = editor.$el.find('.fr-selected-cell').closest('table');
 
       // We have selection in a table.
       if ($table.length > 0) {
@@ -545,7 +548,7 @@
      * Delete row method.
      */
     function deleteRow () {
-      var $table = selectedTable();
+      var $table = editor.$el.find('.fr-selected-cell').closest('table');
 
       // We have selection in a table.
       if ($table.length > 0) {
@@ -639,7 +642,7 @@
      * Insert column method.
      */
     function insertColumn (position) {
-      var $table = selectedTable();
+      var $table = editor.$el.find('.fr-selected-cell').closest('table');
 
       // We have selection in a table.
       if ($table.length > 0) {
@@ -803,7 +806,7 @@
      * Delete column method.
      */
     function deleteColumn () {
-      var $table = selectedTable();
+      var $table = editor.$el.find('.fr-selected-cell').closest('table');
 
       // We have selection in a table.
       if ($table.length > 0) {
@@ -910,7 +913,7 @@
      */
     function mergeCells () {
       // We have more than one cell selected in a table. Cannot merge td and th.
-      if (selectedCells().length > 1 && (editor.$el.find('th.fr-selected-cell').length === 0 || editor.$el.find('td.fr-selected-cell').length === 0)) {
+      if (editor.$el.find('.fr-selected-cell').length > 1 && (editor.$el.find('th.fr-selected-cell').length === 0 || editor.$el.find('td.fr-selected-cell').length === 0)) {
         // Create a table map.
         var map = _tableMap();
 
@@ -989,7 +992,7 @@
      */
     function splitCellHorizontally () {
       // We have only one cell selected in a table.
-      if (selectedCells().length == 1) {
+      if (editor.$el.find('.fr-selected-cell').length == 1) {
         var $selected_cell = editor.$el.find('.fr-selected-cell');
         var $current_row = $selected_cell.parent();
         var $current_table = $selected_cell.closest('table');
@@ -1070,7 +1073,7 @@
      */
     function splitCellVertically () {
       // We have only one cell selected in a table.
-      if (selectedCells().length == 1) {
+      if (editor.$el.find('.fr-selected-cell').length == 1) {
         var $selected_cell = editor.$el.find('.fr-selected-cell');
         var current_colspan = parseInt($selected_cell.attr('colspan'), 10) || 1;
         var parent_width = $selected_cell.parent().outerWidth();
@@ -1199,8 +1202,8 @@
 
       var map = [];
 
-      if (table == null && selectedCells().length > 0) {
-        table = selectedTable();
+      if (table == null && editor.$el.find('.fr-selected-cell').length > 0) {
+        table = editor.$el.find('.fr-selected-cell').closest('table');
       }
 
       if (table) {
@@ -1528,37 +1531,29 @@
     }
 
     /*
-     * Stop table cell editing and allow text editing.
-     */
-    function _stopEdit () {
-      // Clear previous selection.
-      _removeSelection();
-
-      // Hide table edit popup.
-      editor.popups.hide('table.edit');
-    }
-
-    /*
      * Mark that mouse is down.
      */
     function _mouseDown (e) {
-      var cell = _getCellUnder(e);
+      // We always have to clear previous selection except when using shift key to select multiple cells.
+      if (editor.$el.find('.fr-selected-cell').length > 0 && !e.shiftKey) {
+        // Clear previous selection.
+        _removeSelection();
 
-      // Stop table editing if user clicks outside the table.
-      if (selectedCells().length > 0 && !cell) {
-        _stopEdit();
+        // Allow text selection.
+        editor.$el.removeClass('fr-no-selection');
+        editor.edit.on();
       }
 
       // On left click.
       if (e.which == 1) {
         mouseDownFlag = true;
 
+        var cell = _getCellUnder(e);
+
         // User clicked on a table cell.
         if (cell) {
-          // We always have to clear previous selection except when using shift key to select multiple cells.
-          if (selectedCells().length > 0 && !e.shiftKey) {
-            _stopEdit();
-          }
+          // Hide table edit popup.
+          editor.popups.hide('table.edit');
 
           e.stopPropagation();
 
@@ -1599,12 +1594,6 @@
           }
         }
       }
-
-
-      // On right click stop table editing.
-      else if (e.which == 3 && cell) {
-        _stopEdit();
-      }
     }
 
     /*
@@ -1623,13 +1612,13 @@
           var cell = _getCellUnder(e);
 
           // If we have one selected cell and mouse is lifted somewhere else.
-          if (!cell && selectedCells().length == 1) {
+          if (!cell && editor.$el.find('.fr-selected-cell').length == 1) {
             // We have a text selection and not cell selection.
             _removeSelection();
           }
 
           // If there are selected cells then show table edit popup.
-          else if (selectedCells().length > 0) {
+          else if (editor.$el.find('.fr-selected-cell').length > 0) {
             if (editor.selection.isCollapsed()) {
               _showEditPopup();
             }
@@ -1689,7 +1678,7 @@
         var $cell = $(e.currentTarget);
 
         // Cells should be in the same table.
-        if ($cell.closest('table').is(selectedTable())) {
+        if ($cell.closest('table').is(editor.$el.find('.fr-selected-cell').closest('table'))) {
           // Don't select both ths and tds.
           if (e.currentTarget.tagName == 'TD' && editor.$el.find('th.fr-selected-cell').length === 0) {
             // Select cells between.
@@ -1714,8 +1703,12 @@
      */
     function _usingArrows (e) {
       if (e.which == 37 || e.which == 38 || e.which == 39 || e.which == 40) {
-        if (selectedCells().length > 0) {
-          _stopEdit();
+        if (editor.$el.find('.fr-selected-cell').length > 0) {
+          // Remove selection
+          _removeSelection();
+
+          // Hide table edit popup.
+          editor.popups.hide('table.edit');
         }
       }
     }
@@ -1729,29 +1722,24 @@
       $resizer = editor.shared.$table_resizer;
 
       // Resize table. Mousedown.
-      editor.events.$on($resizer, 'mousedown', function (e) {
+      editor.events.$on($resizer, 'mousedown', function () {
         if (!editor.core.sameInstance($resizer)) return true;
 
-        // Stop table editing.
-        if (selectedCells().length > 0) {
-          _stopEdit();
-        }
+        resizingFlag = true;
 
-        // Resize table only using left click.
-        if (e.which == 1) {
-          resizingFlag = true;
+        $resizer.addClass('fr-moving');
 
-          $resizer.addClass('fr-moving');
+        // Clear previous cell selection.
+        _removeSelection();
 
-          // Prevent text selection while dragging the table resizer.
-          _clearSelection();
+        // Prevent text selection while dragging the table resizer.
+        _clearSelection();
 
-          // Show resizer.
-          $resizer.find('div').css('opacity', 1);
+        // Show resizer.
+        $resizer.find('div').css('opacity', 1);
 
-          // Prevent selecting text when doing resize.
-          return false;
-        }
+        // Prevent selecting text when doing resize.
+        return false;
       });
 
       // Mousemove on table resizer.
@@ -2089,7 +2077,7 @@
      */
     function _insertHelper (e, tag_under) {
       // Don't show the insert helper if there are table cells selected.
-      if (selectedCells().length === 0) {
+      if (editor.$el.find('.fr-selected-cell').length === 0) {
         var i;
         var tag_below;
         var tag_right;
@@ -2105,7 +2093,7 @@
             if ($(tag_below).hasClass('fr-tooltip')) return true;
 
             // We found a tag bellow.
-            if (tag_below && ((tag_below.tagName == 'TH' || tag_below.tagName == 'TD' || tag_below.tagName == 'TABLE') && ($(tag_below).parents('.fr-wrapper').length || editor.opts.iframe))) {
+            if (tag_below && ((tag_below.tagName == 'TH' || tag_below.tagName == 'TD' || tag_below.tagName == 'TABLE') && $(tag_below).parents(editor.$wp).length)) {
               // Show the insert column helper button.
               _showInsertColHelper (e, tag_below.closest('table'));
               return true;
@@ -2118,7 +2106,7 @@
             if ($(tag_right).hasClass('fr-tooltip')) return true;
 
             // We found a tag at the right.
-            if (tag_right && ((tag_right.tagName == 'TH' || tag_right.tagName == 'TD' || tag_right.tagName == 'TABLE') && ($(tag_right).parents('.fr-wrapper').length || editor.opts.iframe))) {
+            if (tag_right && ((tag_right.tagName == 'TH' || tag_right.tagName == 'TD' || tag_right.tagName == 'TABLE') && $(tag_right).parents(editor.$wp).length)) {
               // Show the insert row helper button.
               _showInsertRowHelper (e, tag_right.closest('table'));
               return true;
@@ -2289,7 +2277,7 @@
      */
     function _mouseMove (e) {
       // Prevent selecting text when we have cells selected.
-      if (selectedCells().length > 1 && mouseDownFlag) {
+      if (editor.$el.find('.fr-selected-cell').length > 1 && mouseDownFlag) {
         _clearSelection();
       }
 
@@ -2354,7 +2342,7 @@
         // Get starting cell.
         var $cell;
 
-        if (selectedCells().length > 0) {
+        if (editor.$el.find('.fr-selected-cell').length > 0) {
           $cell = editor.$el.find('.fr-selected-cell:last')
         }
         else {
@@ -2374,7 +2362,8 @@
         if ($cell) {
           e.preventDefault();
 
-          _stopEdit();
+          _removeSelection();
+          editor.popups.hide('table.edit');
 
           // Go backwards.
           if (e.shiftKey) {
@@ -2466,31 +2455,27 @@
           // Hide the insert helper so it will reposition.
           _hideInsertHelper();
         });
-
-        // Editor destroy.
-        editor.events.on('shared.destroy', function () {
-          editor.shared.$ti_helper.html('').removeData().remove();
-        }, true);
-
-        // Prevent the insert helper hide when mouse is over it.
-        editor.events.$on(editor.shared.$ti_helper, 'mousemove', function (e) {
-          e.stopPropagation();
-        }, true);
-
-        // Hide the insert helper if the page is scrolled.
-        editor.events.$on($(editor.o_win), 'scroll', function () {
-          _hideInsertHelper();
-        }, true);
-
-        editor.events.$on(editor.$wp, 'scroll', function () {
-          _hideInsertHelper();
-        }, true);
       }
 
       $insert_helper = editor.shared.$ti_helper;
 
       // Table insert helper tooltip.
       editor.tooltip.bind(editor.$box, '.fr-insert-helper > a.fr-floating-btn');
+
+      // Editor destroy.
+      editor.events.on('shared.destroy', function () {
+        $insert_helper.html('').removeData().remove();
+      }, true);
+
+      // Prevent the insert helper hide when mouse is over it.
+      editor.events.$on($insert_helper, 'mousemove', function (e) {
+        e.stopPropagation();
+      }, true);
+
+      // Hide the insert helper if the page is scrolled.
+      editor.events.$on($(editor.win), 'scroll', function () {
+        _hideInsertHelper();
+      }, true);
     }
 
     /*
@@ -2552,13 +2537,13 @@
 
         // Reposition table edit popup when table cell content changes.
         editor.events.on('contentChanged', function () {
-          if (selectedCells().length > 0) {
+          if (editor.$el.find('.fr-selected-cell').length > 0) {
             _showEditPopup();
 
             // Make sure we reposition on image load.
             editor.$el.find('img').on('load.selected-cells', function () {
               $(this).off('load.selected-cells');
-              if (selectedCells().length > 0) {
+              if (editor.$el.find('.fr-selected-cell').length > 0) {
                 _showEditPopup();
               }
             });
@@ -2572,8 +2557,7 @@
 
         // Prevent backspace from doing browser back.
         editor.events.on('keydown', function (e) {
-          var selected_cells = editor.$el.get(0).querySelectorAll('.fr-selected-cell');
-          if (selected_cells.length > 0) {
+          if (editor.$el.find('.fr-selected-cell').length > 0) {
             if (e.which == $.FE.KEYCODE.ESC) {
               if (editor.popups.isVisible('table.edit')) {
                 _removeSelection();
@@ -2585,12 +2569,14 @@
               }
             }
 
-            if (selected_cells.length > 1) {
+            if (editor.$el.find('.fr-selected-cell').length > 1) {
               e.preventDefault();
               return false;
             }
           }
         }, true);
+
+        editor.events.$on($(editor.win), 'keydown input keyup', _showEditPopup);
 
         // Clean selected cells.
         var $selected_cells;
@@ -2621,29 +2607,12 @@
      * Go back to the table edit popup.
      */
     function back () {
-      if (selectedCells().length > 0) {
+      if (editor.$el.find('.fr-selected-cell').length > 0) {
         _showEditPopup();
       }
       else {
         editor.popups.hide('table.insert');
         editor.toolbar.showInline();
-      }
-    }
-
-    function selectedCells () {
-      return editor.$el.get(0).querySelectorAll('.fr-selected-cell');
-    }
-
-    function selectedTable () {
-      var cells = selectedCells();
-      if (cells.length) {
-        var cell = cells[0];
-        while (cell && cell.tagName != 'TABLE' && cell.parentNode != editor.$el.get(0)) {
-          cell = cell.parentNode;
-        }
-
-        if (cell && cell.tagName == 'TABLE') return $(cell);
-        return $([]);
       }
     }
 
@@ -2667,9 +2636,7 @@
       back: back,
       verticalAlign: verticalAlign,
       horizontalAlign: horizontalAlign,
-      applyStyle: applyStyle,
-      selectedTable: selectedTable,
-      selectedCells: selectedCells
+      applyStyle: applyStyle
     }
   };
 
@@ -2722,7 +2689,7 @@
       }
     },
     refresh: function ($btn) {
-      var $table = this.table.selectedTable();
+      var $table = this.$el.find('.fr-selected-cell').closest('table');
 
       if ($table.length > 0) {
         // If table doesn't have a header.
@@ -2753,9 +2720,7 @@
       var c = '<ul class="fr-dropdown-list">';
       var options =  $.FE.COMMANDS.tableRows.options;
       for (var val in options) {
-        if (options.hasOwnProperty(val)) {
-          c += '<li><a class="fr-command" data-cmd="tableRows" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(options[val]) + '</a></li>';
-        }
+        c += '<li><a class="fr-command" data-cmd="tableRows" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(options[val]) + '</a></li>';
       }
       c += '</ul>';
 
@@ -2785,9 +2750,7 @@
       var c = '<ul class="fr-dropdown-list">';
       var options =  $.FE.COMMANDS.tableColumns.options;
       for (var val in options) {
-        if (options.hasOwnProperty(val)) {
-          c += '<li><a class="fr-command" data-cmd="tableColumns" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(options[val]) + '</a></li>';
-        }
+        c += '<li><a class="fr-command" data-cmd="tableColumns" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(options[val]) + '</a></li>';
       }
       c += '</ul>';
 
@@ -2817,9 +2780,7 @@
       var c = '<ul class="fr-dropdown-list">';
       var options =  $.FE.COMMANDS.tableCells.options;
       for (var val in options) {
-        if (options.hasOwnProperty(val)) {
-          c += '<li><a class="fr-command" data-cmd="tableCells" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(options[val]) + '</a></li>';
-        }
+        c += '<li><a class="fr-command" data-cmd="tableCells" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(options[val]) + '</a></li>';
       }
       c += '</ul>';
 
@@ -2874,9 +2835,7 @@
       var c = '<ul class="fr-dropdown-list">';
       var options =  this.opts.tableStyles;
       for (var val in options) {
-        if (options.hasOwnProperty(val)) {
-          c += '<li><a class="fr-command" data-cmd="tableStyle" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(options[val]) + '</a></li>';
-        }
+        c += '<li><a class="fr-command" data-cmd="tableStyle" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(options[val]) + '</a></li>';
       }
       c += '</ul>';
 
@@ -2927,7 +2886,7 @@
       this.table.back();
     },
     refresh: function ($btn) {
-      if (this.table.selectedCells().length === 0 && !this.opts.toolbarInline) {
+      if (this.$el.find('.fr-selected-cell').length === 0 && !this.opts.toolbarInline) {
         $btn.addClass('fr-hidden');
         $btn.next('.fr-separator').addClass('fr-hidden');
       }
@@ -2953,9 +2912,7 @@
       var c = '<ul class="fr-dropdown-list">';
       var options =  $.FE.COMMANDS.tableCellVerticalAlign.options;
       for (var val in options) {
-        if (options.hasOwnProperty(val)) {
-          c += '<li><a class="fr-command" data-cmd="tableCellVerticalAlign" data-param1="' + val.toLowerCase() + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(val) + '</a></li>';
-        }
+        c += '<li><a class="fr-command" data-cmd="tableCellVerticalAlign" data-param1="' + val.toLowerCase() + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(val) + '</a></li>';
       }
       c += '</ul>';
 
@@ -2989,9 +2946,7 @@
       var c = '<ul class="fr-dropdown-list">';
       var options =  $.FE.COMMANDS.tableCellHorizontalAlign.options;
       for (var val in options) {
-        if (options.hasOwnProperty(val)) {
-          c += '<li><a class="fr-command fr-title" data-cmd="tableCellHorizontalAlign" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.icon.create('align-' + val) + '</a></li>';
-        }
+        c += '<li><a class="fr-command fr-title" data-cmd="tableCellHorizontalAlign" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.icon.create('align-' + val) + '</a></li>';
       }
       c += '</ul>';
 
@@ -3001,11 +2956,7 @@
       this.table.horizontalAlign(val);
     },
     refresh: function ($btn) {
-      var selected_cells = this.table.selectedCells();
-
-      if (selected_cells.length) {
-        $btn.find('> *:first').replaceWith(this.icon.create('align-' + this.helpers.getAlignment($(selected_cells[0]))));
-      }
+      $btn.find('> *:first').replaceWith(this.icon.create('align-' + this.helpers.getAlignment(this.$el.find('.fr-selected-cell:first'))));
     },
     refreshOnShow: function ($btn, $dropdown) {
       $dropdown.find('.fr-command[data-param1="' + this.helpers.getAlignment(this.$el.find('.fr-selected-cell:first')) + '"]').addClass('fr-active');
@@ -3022,9 +2973,7 @@
       var c = '<ul class="fr-dropdown-list">';
       var options =  this.opts.tableCellStyles;
       for (var val in options) {
-        if (options.hasOwnProperty(val)) {
-          c += '<li><a class="fr-command" data-cmd="tableCellStyle" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(options[val]) + '</a></li>';
-        }
+        c += '<li><a class="fr-command" data-cmd="tableCellStyle" data-param1="' + val + '" title="' + this.language.translate(options[val]) + '">' + this.language.translate(options[val]) + '</a></li>';
       }
       c += '</ul>';
 

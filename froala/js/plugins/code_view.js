@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.2.1 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
@@ -192,12 +192,10 @@
     /**
      * Toggle the code view.
      */
-    function toggle (val) {
-      if (typeof val == 'undefined') val = !isActive();
-
+    function toggle () {
       var $btn = editor.$tb.find('.fr-command[data-cmd="html"]');
 
-      if (!val) {
+      if (isActive()) {
         editor.$box.toggleClass('fr-code-view', false);
         _showText($btn);
       } else {
@@ -233,7 +231,7 @@
         editor.$box.append($back_button);
 
         editor.events.bindClick(editor.$box, 'a.html-switch', function () {
-          toggle(false);
+          toggle(editor.$tb.find('button[data-cmd="html"]'));
         });
       }
 
@@ -248,10 +246,6 @@
       editor.events.on('paste', cancel, true);
 
       editor.events.on('destroy', _destroy, true);
-
-      editor.events.on('html.set', function () {
-        if (isActive()) toggle(true);
-      });
 
       editor.events.on('form.submit', function () {
         if (isActive()) {

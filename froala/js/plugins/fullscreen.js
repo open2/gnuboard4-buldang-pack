@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.2.1 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
@@ -77,7 +77,7 @@
       while (!$parent_node.is('body')) {
         $parent_node
           .data('z-index', $parent_node.css('z-index'))
-          .css('z-index', '9990');
+          .css('z-index', 'auto');
         $parent_node = $parent_node.parent();
       }
 
@@ -131,7 +131,6 @@
           }
           $parent_node.removeData('z-index');
         }
-
         $parent_node = $parent_node.parent();
       }
 

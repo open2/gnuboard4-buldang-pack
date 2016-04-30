@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.2.3 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.2.1 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
@@ -173,7 +173,7 @@
       var html = '<div class="fr-modal' + cls + '"><div class="fr-modal-wrapper">';
 
       // Modal title.
-      html += '<div class="fr-modal-title"><div class="fr-modal-title-line"><i class="fa fa-bars fr-modal-more fr-not-available" id="fr-modal-more-' + editor.sid + '" title="' + editor.language.translate('Tags') + '"></i><h4 data-text="true">' + editor.language.translate('Manage Images') + '</h4><i title="' + editor.language.translate('Cancel') + '" class="fa fa-times fr-modal-close" id="fr-modal-close"></i></div>';
+      html += '<div class="fr-modal-title"><div class="fr-modal-title-line"><i class="fa fa-bars fr-modal-more fr-not-available" id="fr-modal-more" title="' + editor.language.translate('Tags') + '"></i><h4 data-text="true">' + editor.language.translate('Manage Images') + '</h4><i title="' + editor.language.translate('Cancel') + '" class="fa fa-times fr-modal-close" id="fr-modal-close"></i></div>';
 
       // Tags
       html += '<div class="fr-modal-tags" id="fr-modal-tags"></div>';
@@ -395,10 +395,8 @@
 
         // Set image additional data.
         for (var key in image) {
-          if (image.hasOwnProperty(key)) {
-            if (key != 'thumb' && key != 'url' && key != 'tag') {
-              $img.attr('data-' + key, image[key]);
-            }
+          if (key != 'thumb' && key != 'url' && key != 'tag') {
+            $img.attr('data-' + key, image[key]);
           }
         }
 
@@ -604,13 +602,12 @@
       var img_data = $img.data();
 
       for (var key in img_data) {
-        if (img_data.hasOwnProperty(key)) {
-          if (key != 'url' && key != 'tag') {
-            img_attributes[key] = img_data[key];
-          }
+        if (key != 'url' && key != 'tag') {
+          img_attributes[key] = img_data[key];
         }
       }
 
+      editor.undo.saveStep();
       editor.image.insert($img.data('url'), false, img_attributes, $current_image);
     }
 
@@ -812,17 +809,7 @@
       editor.events.bindClick($modal, 'i#fr-modal-close', hide);
 
       // Resize media manager modal on window resize.
-      editor.events.$on($(editor.o_win), 'resize', function () {
-        // Window resize with image manager opened.
-        if (images) {
-          _resizeModal(true);
-        }
-
-        // iOS window resize is triggered when modal first opens (no images loaded).
-        else {
-          _resizeModal(false);
-        }
-      });
+      editor.events.$on($(editor.o_win), 'resize', _resizeModal);
 
       // Delete and insert buttons for mobile.
       if (editor.helpers.isMobile()) {
@@ -858,7 +845,7 @@
       $scroller.on('scroll', _infiniteScroll);
 
       // Click on image tags button.
-      editor.events.bindClick($modal, 'i#fr-modal-more-' + editor.sid, _toggleTags);
+      editor.events.bindClick($modal, 'i#fr-modal-more-' + editor.id, _toggleTags);
 
       // Select an image tag.
       editor.events.bindClick($image_tags, 'a', _selectTag);

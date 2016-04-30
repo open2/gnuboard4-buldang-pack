@@ -68,22 +68,30 @@
     &.fr-dib {
       margin-top: @image-margin;
       margin-bottom: @image-margin;
-    }
-
-    &.fr-dii {
-      margin-left: @image-margin;
-      margin-right: @image-margin;
 
       &.fr-fil {
-        margin-top: @image-margin;
-        margin-bottom: @image-margin;
-        margin-right: @image-margin;
+        margin: @image-margin auto @image-margin 0;
+        left: @image-margin;
       }
 
       &.fr-fir {
-        margin-top: @image-margin;
-        margin-bottom: @image-margin;
-        margin-left: @image-margin;
+        margin: @image-margin 0 @image-margin auto;
+        right: @image-margin;
+      }
+    }
+
+    &.fr-dii {
+      margin-top: @image-margin;
+      margin-bottom: @image-margin;
+
+      &.fr-fil {
+        margin: @image-margin (2 * @image-margin) @image-margin 0;
+        left: @image-margin;
+      }
+
+      &.fr-fir {
+        margin: @image-margin 0 @image-margin (2 * @image-margin);
+        right: @image-margin;
       }
     }
   }
@@ -109,7 +117,6 @@
   &.fr-box.fr-basic .fr-element {
     padding: @editor-padding;
     color: @editor-text;
-    min-height: (20px + (2 * @editor-padding));
   }
 
   // ------------------
