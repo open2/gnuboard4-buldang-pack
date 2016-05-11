@@ -978,7 +978,7 @@ if ($config[cf_db_version] < 1310) {
 }
 
 if ($config[cf_db_version] < 1310) {
-    sql_query(" ALTER TABLE `$g4[my_board_table]` ADD INDEX `bo` ( `mb_id` , `bo_table` ) ", FALSE);
+    //sql_query(" ALTER TABLE `$g4[my_board_table]` ADD INDEX `bo` ( `mb_id` , `bo_table` ) ", FALSE);
 }
 
 if ($config[cf_db_version] < 2000) {
@@ -995,6 +995,11 @@ if ($config[cf_db_version] < 2103) {
 
 if ($config[cf_db_version] < 2107) {
     sql_query(" ALTER TABLE `$g4[seo_tag_table]` ADD INDEX `index2` ( `bo_table` , `wr_id` ) ", FALSE);
+}
+
+if ($config[cf_db_version] < 2107) {
+    sql_query(" ALTER TABLE `$g4[my_board_table]` DROP INDEX `bo` ", FALSE);
+    sql_query(" ALTER TABLE `$g4[my_board_table]` ADD UNIQUE `bo` ( `mb_id` , `bo_table` ) ", FALSE);
 }
 
 // db 버젼을 업데이트 - major version + mid version - patch version

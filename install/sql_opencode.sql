@@ -1174,7 +1174,7 @@ ALTER TABLE `$g4[member_table]` ADD `mb_unlogin` DATETIME NOT NULL ;
 CREATE TABLE `$g4[unlogin_table]` like `$g4[member_table]`;
 
 # 2.0.0
-ALTER TABLE `$g4[my_board_table]` ADD INDEX `bo` ( `mb_id` , `bo_table` ) ;
+ALTER TABLE `$g4[my_board_table]` ADD UNIQUE `bo` ( `mb_id` , `bo_table` ) ;
 
 # 2.0.4
 ALTER TABLE `$g4[config_table]` ADD `cf_singo_level` TINYINT( 4 ) NOT NULL AFTER `cf_singo_intercept_count` ;
