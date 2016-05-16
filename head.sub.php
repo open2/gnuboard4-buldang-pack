@@ -59,7 +59,7 @@ if(stristr($_SERVER[PHP_SELF], "/bbs/board.php") == true && $bo_table) {
         echo "<link rel=\"canonical\" href=\"$_SERVER[PHP_SELF]?bo_table=$bo_table\" />";
 }
 ?>
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="<?=$g4['path']?>/js/bootstrap/js/bootstrap.min.js?bver=<?=$g4[bver]?>"></script>
 
 <!--[if lt IE 9]>
