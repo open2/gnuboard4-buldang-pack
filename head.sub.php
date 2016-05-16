@@ -88,6 +88,8 @@ var g4_is_ie     = navigator.userAgent.toLowerCase().indexOf("msie") != -1;
 <? if ($is_test || $is_admin || ($member['mb_id'] && $write['mb_id'] && $member['mb_id'] == $write['mb_id'])) {} else { ?>
 <script type="text/javascript" src="<?=$g4['path']?>/js/desktop.js"></script>
 <? } ?>
+
+<link href="<?=$g4[path]?>/img/favicon.ico" rel="shortcut icon">
 </head>
 
 <body>
