@@ -192,7 +192,7 @@ function dd($var, $title = '')
  */
 function is_ajax()
 {
-    return 'XMLHttpRequest' === $_SERVER['X-Requested-With'];
+    return 'XMLHttpRequest' === $_SERVER['HTTP_X_REQUESTED_WITH'];
 }
 
 /**
@@ -202,7 +202,7 @@ function is_ajax()
  */
 function is_mobile()
 {
-    return (boolean)preg_match('/iPhone|iPad|Android|Mobile Safari/', $_SERVER['HTTP_USER_AGENT']);
+    return (boolean)preg_match('/iPhone|Android|Mobile Safari/', $_SERVER['HTTP_USER_AGENT']);
 }
 
 /**
@@ -356,6 +356,13 @@ function app_title($title)
         switch ($_SERVER['PHP_SELF']) {
             case '/bbs/my_menu_edit.php';
                 $title = '게시판 바로가기';
+                break;
+            case '/bbs/myon.php';
+                $title = 'MyOn';
+                break;
+            case '/bbs/whatson.php';
+                $title = 'Whats On';
+                break;
         }
     }
 

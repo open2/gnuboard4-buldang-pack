@@ -57,8 +57,8 @@ function push_redis_save($value)
     global $g4;
 
     $redis = new Redis();
-    $redis->connect($g4["rhost"], $g4["rport"]);
-    $redis->select($g4["rdb"]);
+    $redis->connect($g4["push_rhost"], $g4["push_rport"]);
+    $redis->select($g4["push_rdb"]);
     $redis->rPush('queues:default', $value);
     $redis->close();
 }

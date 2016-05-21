@@ -84,3 +84,53 @@ function device_set_user(array $attributes, $member)
         );
     }
 }
+
+/**
+ * 기기 정보
+ *
+ * @param $uuid
+ * @param $member
+ *
+ * @return mixed
+ */
+function device_info($uuid, $member)
+{
+    global $g4;
+
+    return pdo(
+        "select * from {$g4['php79_devices_table']} where mb_id=? and uuid=?",
+        array(
+            $member[mb_id],
+            $uuid
+        )
+    )->fetch();
+}
+
+/**
+ * 기기 알림 설정 변경
+ *
+ * @param array $attributes
+ * @param array $device
+ */
+function device_push_update(array $attributes, $device)
+{
+    global $g4;
+
+    pdo(
+        "update {$g4['php79_devices_table']} set " .
+        "push=:push, " .
+        "push_sleep=:push_sleep, " .
+        "push_sleep_start=:push_sleep_start, " .
+        "push_sleep_end=:push_sleep_end, " .
+        "push_update=SYSDATE(), " .
+        "updated_at=SYSDATE() " .
+        "where id=:id",
+        array(
+            ':push'             => $attributes['push'],
+            ':push_sleep'       => $attributes['push_sleep'],
+            ':push_sleep_start' => $attributes['push_sleep_start'],
+            ':push_sleep_end'   => $attributes['push_sleep_end'],
+            ':id'               => $device['id'],
+        )
+    );
+}

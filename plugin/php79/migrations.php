@@ -48,9 +48,9 @@ $q = "CREATE TABLE `{$g4['php79_devices_table']}` (
   `push_sleep` tinyint(1) NOT NULL DEFAULT '1' COMMENT '수면 설정',
   `push_sleep_start` time NOT NULL DEFAULT '23:00:00' COMMENT '수면 시작 시간',
   `push_sleep_end` time NOT NULL DEFAULT '08:00:00' COMMENT '수면 종료 시간',
-  `push_update` timestamp NOT NULL CURRENT_TIMESTAMP COMMENT '푸시 설정일',
-  `created_at` timestamp NOT NULL CURRENT_TIMESTAMP COMMENT '등록일',
-  `updated_at` timestamp NOT NULL CURRENT_TIMESTAMP COMMENT '수정일',
+  `push_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '푸시 설정일',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '등록일',
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '수정일',
   PRIMARY KEY (`id`),
   KEY `{$g4['php79_devices_table']}_mb_id` (`mb_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='디바이스'";
