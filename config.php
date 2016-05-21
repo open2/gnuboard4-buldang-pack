@@ -132,11 +132,11 @@ $g4['session_table'] = $g4['table_prefix'] . "session";                   // db�
 
 // www.sir.co.kr 과 sir.co.kr 도메인은 서로 다른 도메인으로 인식합니다. 쿠키를 공유하려면 .sir.co.kr 과 같이 입력하세요.
 // 이곳에 입력이 없다면 www 붙은 도메인과 그렇지 않은 도메인은 쿠키를 공유하지 않으므로 로그인이 풀릴 수 있습니다.
-$g4['cookie_domain'] = ".diorcafe.co.kr";
+$g4['cookie_domain'] = ".opencode.co.kr";
 
 // DNS Round Robin, L4 Loading Balancing 등의 경우, 접속시마다 $_SERVER[SERVER_ADDR]이 바뀝니다.
 // 따라서, 사이트를 나타낼 수 있는 unique한 이름(예:도메인이름,사이트명,서버ip등)을 써줘야 자동로그인이 안풀립니다.
-$g4['load_balance'] = ".diorcafe.co.kr";
+$g4['load_balance'] = ".opencode.co.kr";
 
 // 게시판에서 링크의 기본갯수를 말합니다.
 // 필드를 추가하면 이 숫자를 필드수에 맞게 늘려주십시오.
@@ -149,7 +149,7 @@ $g4['charset'] = "euc-kr";
 // 예) http://g4.sir.co.kr
 $g4['url'] = "";
 $g4['https_url'] = "";
-//$g4['https_url'] = "https://www.diorcafe.co.kr";
+//$g4['https_url'] = "https://www.opencode.co.kr";
 // 입력예
 //$g4['url'] = "http://www.sir.co.kr";
 //$g4['https_url'] = "https://www.sir.co.kr";
@@ -176,9 +176,14 @@ $g4['session_type'] = "db";
 $g4['rhost']    = "localhost";
 $g4['rport']    = "6379";
 $g4['rauth']    = "";             // redis-server password. default는 값이 없다. redis.conf에서 정의
-$g4['rdomain']  = "diorcafe";     // redis domain. 다른 redis instance와 충돌하지 않게 unique하게 잡아줍니다
+$g4['rdomain']  = "opencode";     // redis domain. 다른 redis instance와 충돌하지 않게 unique하게 잡아줍니다
 $g4['rdb']      = "0";            // redis DB space (0) - 세션관리에 사용
 $g4['rdb1']     = "1";            // redis DB space (1) - login 관리에 사용. 다른 것들과 안헷갈리게
+
+// push redis
+$g4['push_rhost']    = "192.168.0.3";   // push server ip
+$g4['push_rport']    = "6381";          // push server port
+$g4['push_rdb']      = "0";
 
 // redis 세션 path
 $g4['rpath']    = "tcp://$g4[rhost]:$g4[rport]?weight=1&auth=$g4[rauth]&database=$g4[rdb]";    
@@ -280,8 +285,8 @@ $g4['tempsave_time'] = 5;
 $g4['htmlpurifier_cache'] = $g4[data_path].'/cache';
 
 // 구글 리캡챠 : https://www.google.com/recaptcha/admin
-$g4['recaptcha_sitekey'] = "";
-$g4['recaptcha_secret_key'] = "";
+$g4['recaptcha_sitekey'] = "6Lc7SxMTAAAAABg7FNHjkATlEX1zksIQ5EHK2DC0";
+$g4['recaptcha_secret_key'] = "6Lc7SxMTAAAAAMZyrM2RPsdzC2zfVojAQPHuy_vi";
 
 // froala license key (재배포 라이센스 입니다)
 $g4['froala_key'] = "VZSZGUSXYSMZe1JGZ==";
@@ -289,4 +294,9 @@ $g4['froala_key'] = "VZSZGUSXYSMZe1JGZ==";
 // 공지사항 갯수제한, 0 = 제한없슴. 0 이상의 숫자 = 해당 갯수로 제한
 $g4['bo_notice_max'] = 0;       // 게시판 공지사항
 $g4['global_notice_max'] = 5;   // 전체 공지사항
+
+// 개발 장비에서의 환경 설정.  운영 서버에는 아래 파일이 존재하지 않음.
+if (file_exists(__DIR__ . '/config.dev.php')) {
+    include_once(__DIR__ . '/config.dev.php');
+}
 ?>
