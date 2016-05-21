@@ -4,6 +4,12 @@ if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
 // session lock을 막기 위해서 쓴 다음에 항상 닫아준다
 session_write_close();
+
+if (is_mobile()) {
+    require($g4['path'] . '/m/tail.sub.php');
+
+    return;
+}
 ?>
 
 <script type="text/javascript" src="<?=$g4['path']?>/js/wrest.js"></script>
