@@ -579,6 +579,13 @@ function memo4_send($me_recv_mb_id, $me_send_mb_id, $me_memo, $me_subject, $me_o
             sql_query($sql);
         }
 
+        require_once("$g4[path]/lib/whatson.lib.php");
+        $sender_nick = pdo(
+            "select mb_nick from {$g4['member_table']} where mb_id=?",
+            array($me_send_mb_id)
+        )->fetchColumn(0);
+        whatson_send_memo($me_recv_mb_id, $me_subject, 'recv', $me_id, $sender_nick);
+
         // 자동응답 기능
         $mb = get_member($me_recv_mb_id, "mb_nick, mb_memo_no_reply, mb_memo_no_reply_text");
         if ($config[cf_memo_no_reply] && $mb[mb_memo_no_reply]) {
