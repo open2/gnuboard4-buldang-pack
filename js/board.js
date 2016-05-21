@@ -1,30 +1,67 @@
 // HTML 로 넘어온 <img ... > 태그의 폭이 테이블폭보다 크다면 테이블폭을 적용한다.
 function resizeBoardImage(imageWidth, borderColor) {
-    var target = document.getElementsByName('target_resize_image[]');
-    var imageHeight = 0;
+    if (imageWidth > 0) {
+        var target = document.getElementsByName('target_resize_image[]');
+        var imageHeight = 0;
 
-    if (target) {
-        for(i=0; i<target.length; i++) { 
-            // 원래 사이즈를 저장해 놓는다
-            target[i].tmp_width  = target[i].width;
-            target[i].tmp_height = target[i].height;
-            // 이미지 폭이 테이블 폭보다 크다면 테이블폭에 맞춘다
-            if(target[i].width >= imageWidth) {
-                imageHeight = parseFloat(target[i].width / target[i].height)
-                target[i].width = imageWidth;
-                target[i].height = parseInt(imageWidth / imageHeight);
-                target[i].style.cursor = 'pointer';
+        if (target) {
+            for (i = 0; i < target.length; i++) {
+                // 원래 사이즈를 저장해 놓는다
+                target[i].tmp_width = target[i].width;
+                target[i].tmp_height = target[i].height;
+                // 이미지 폭이 테이블 폭보다 크다면 테이블폭에 맞춘다
+                //console.log('resizeBoardImage: ' + target[i].width + ' >= ' + imageWidth);
+                if (target[i].width >= imageWidth) {
+                    imageHeight = parseFloat(target[i].width / target[i].height)
+                    target[i].width = imageWidth;
+                    target[i].height = parseInt(imageWidth / imageHeight);
+                    target[i].style.cursor = 'pointer';
 
-                // 스타일에 적용된 이미지의 폭과 높이를 삭제한다
-                target[i].style.width = '';
-                target[i].style.height = '';
+                    // 스타일에 적용된 이미지의 폭과 높이를 삭제한다
+                    target[i].style.width = '';
+                    target[i].style.height = '';
+                }
+
+                if (borderColor) {
+                    target[i].style.borderWidth = '1px';
+                    target[i].style.borderStyle = 'solid';
+                    target[i].style.borderColor = borderColor;
+                }
             }
+        }
+    }
+}
 
-            if (borderColor) {
-                target[i].style.borderWidth = '1px';
-                target[i].style.borderStyle = 'solid';
-                target[i].style.borderColor = borderColor;
-            }
+/**
+ * 1개 게시판 이미지의 리사이즈 실행
+ *   - SPA 를 지원하고, 랜덤하게 리사이징 안되는 문제 해결을 위해, 문서 로딩이 아닌 이미지 로딩 이벤트에서 실행해야 함.
+ *   - 화면 가로폭을 못 가져올 경우를 대비하여, 제한할 크기가 0보다 큰 경우만 실행.
+ *
+ * @param $image
+ * @param imageWidth
+ * @param borderColor
+ */
+function resizeBoardImageOne($image, imageWidth, borderColor) {
+    if (imageWidth > 0) {
+        var imageHeight = 0;
+
+        // 원래 사이즈를 저장해 놓는다
+        $image.tmp_width = $image.width();
+        $image.tmp_height = $image.height();
+
+        // 이미지 폭이 테이블 폭보다 크다면 테이블폭에 맞춘다
+        //console.log('resizeBoardImageOne: ' + $image.width() + ' >= ' + imageWidth);
+        if ($image.width() >= imageWidth) {
+            imageHeight = parseFloat($image.width() / $image.height);
+            $image.width(imageWidth);
+            $image.height(parseInt(imageWidth / imageHeight));
+            $image.css('cursor', 'pointer');
+        }
+
+        if (borderColor) {
+            $image.css('borderWidth', '1px');
+            $image.css('borderStyle', 'solid');
+            $image.css('borderColor', borderColor);
         }
     }
 }

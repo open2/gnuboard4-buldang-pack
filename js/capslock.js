@@ -66,5 +66,11 @@ if (typeof(CAPSLOCK_JS) == 'undefined') // 한번만 실행
         return obj.offsetTop + obj.clientTop + get_real_top(obj.offsetParent);
     }
 
-    document.write("<div id='capslock_info' style='display:none; position:absolute;'><img src='"+g4_path+"/img/capslock.gif'></div>");
+    // SPA 지원하도록 HTML 출력 방식 개선
+    //document.write("<div id='capslock_info' style='display:none; position:absolute;'><img src='"+g4_path+"/img/capslock.gif'></div>");
+    var capslockDiv = document.createElement('div');
+    capslockDiv.id = 'capslock_info';
+    capslockDiv.style = 'display:none; position:absolute;';
+    document.body.appendChild(capslockDiv);
+    document.getElementById('capslock_info').innerHTML = "<img src='" + g4_path + "/img/capslock.gif'>";
 }
