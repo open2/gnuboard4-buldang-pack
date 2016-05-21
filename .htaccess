@@ -7,7 +7,12 @@ deny from all
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f 
+RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([a-zA-Z0-9_]+)(/?)$ /bbs/board.php?bo_table=$1 [QSA]
 RewriteRule ^([a-zA-Z0-9_]+)/([0-9]+)$ /bbs/board.php?bo_table=$1&wr_id=$2 [QSA]
 </IfModule>
+
+# issue 13
+<FilesMatch "\.(js)$">
+ForceType 'application/javascript; charset=euc-kr'
+</FilesMatch>
