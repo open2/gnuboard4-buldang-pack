@@ -1,6 +1,12 @@
 <?
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
+if (is_mobile()) {
+    include_once($g4['path'] . '/m/head.sub.php');
+    include_once($g4['path'] . '/m/head.php');
+    return;
+}
+
 include_once("$g4[path]/head.sub.php");
 
 // 배너관리 lib
@@ -300,10 +306,6 @@ echo outlogin("basic");
     <center>
     <a href="http://idc.gabia.com/colo/" target=_blank><img src="<?=$g4[path]?>/img/banner/gabia.gif" alt=""></a>
     <a href="http://idc.kinx.net/" target=_blank><img src="<?=$g4[path]?>/img/banner/kinx.gif" alt=""></a>
-    <a href="http://worknet.co.kr" target=_blank><img src="<?=$g4[path]?>/img/banner/worknet.gif" alt=""></a>
-    <a href="http://jobnet.co.kr" target=_blank><img src="<?=$g4[path]?>/img/banner/jobnet.gif" alt=""></a>
-    <a href="http://bugsboard.co.kr" target=_blank><img src="<?=$g4[path]?>/img/banner/bugs4_logo.gif" alt=""></a>
-    <a href="http://peoplenjob.com" target=_blank><img src="<?=$g4[path]?>/img/banner/peoplenjob.gif" alt=""></a>
     </center>
 
 </div><!-- 왼쪽 side 끝 -->
