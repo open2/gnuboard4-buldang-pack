@@ -9,11 +9,21 @@ if (!$g4['title'])
 // DB injection을 방어하기 위해서 tag를 strip한다
 $g4['title'] = strip_tags($g4['title']);
 
-// 쪽지를 받았나?
-if (trim($member['mb_memo_call'])) {
-    $mb_memo_nick = check_memo_call();
-    if ($mb_memo_nick !== "")
-        alert($mb_memo_nick."님으로부터 쪽지가 전달되었습니다.", $_SERVER[REQUEST_URI]);
+// 앱에서는 푸시 알림이 보여지므로, 쪽지 안내창 생략해야 함.
+if ( ! in_app()) {
+    // 쪽지를 받았나?
+    if (trim($member['mb_memo_call'])) {
+        $mb_memo_nick = check_memo_call();
+        if ($mb_memo_nick !== "") {
+            alert($mb_memo_nick . "님으로부터 쪽지가 전달되었습니다.", $_SERVER[REQUEST_URI]);
+        }
+    }
+}
+
+if (is_mobile()) {
+    require($g4['path'] . '/m/head.sub.php');
+
+    return;
 }
 
 header("Content-Type: text/html; charset=$g4[charset]");
