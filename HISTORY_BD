@@ -1,3 +1,50 @@
+2.1.7 (2016.05.16)
+
+불당팩 2.1.7 이후 버젼은 app+push 연동을 위한 수정 입니다.
+app과 push 관련 소스는 저작권이 없기 때문에 오픈하지 않습니다.
+app이 필요하시면 개발자분 ( http://php79.net )에게 개발의뢰 하시기 바랍니다.
+
+DB변경사항
+ALTER TABLE `g4_seo_tag` ADD INDEX `index2` ( `bo_table` , `wr_id` ) 
+ALTER TABLE `g4_my_board` DROP INDEX `bo` , ADD UNIQUE `bo` ( `mb_id` , `bo_table` ) 
+* 데이터가 있는 상황에서 g4_my_board 테이블의 index 변경은 불가능 합니다.
+  데이터를 모두 trunk 하고 (중요하지만 없어도 상관없슴) index 변경해야 합니다.
+  속도에 영향이 크므로 반드시 해야 합니다.
+
+config.2.php
+head.sub.php
+
+adm/upgrade_bd.php
+
+froala/*
+
+install/sql_opencode.sql
+
+
+- jquery가 https에서도 가능하게 수정
+http://www.opencode.co.kr/jquery_tips/117
+head.sub.php
+
+- my_board 테이블의 bo index를 unique으로 변경
+adm/upgrade_bd.php
+install/install_opencode_sql.php
+
+- 서버에서 존재하지 않는 디렉토리/파일일 경우에만 게시판 단축 주소 적용
+.htaccess
+
+- froala 2.2.4 update
+config.2.php
+froala/* 
+
+- tag_seo 테이블 index 수정
+adm/upgrade_bd.php
+install/install_opencode_sql.php
+
+- froala 2.2.3
+config.2.php
+froala/*
+
+
 2.1.6 (2016.04.01)
 
 [ 필독 *** 설치시 주의 사항 ]
