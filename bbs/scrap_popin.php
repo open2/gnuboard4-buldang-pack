@@ -15,7 +15,8 @@ HEREDOC;
     exit;
 }
 
-echo <<<HEREDOC
+if ( ! in_app()) {
+    echo <<<HEREDOC
 <script language="JavaScript">
     if (window.name != "scrap") {
         alert("올바른 방법으로 사용해 주십시오.");
@@ -23,6 +24,7 @@ echo <<<HEREDOC
     }
 </script>
 HEREDOC;
+}
 
 if ($write[wr_is_comment])
     alert_close("코멘트는 스크랩 할 수 없습니다.");

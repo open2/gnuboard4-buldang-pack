@@ -373,41 +373,9 @@ if ($w == "" || $w == "r")
     // 불당팩 - 왔~숑~ : 답글의 왔숑 통보, 원글이 회원의 글이고, 원글의 회원아이디와 지금 글쓰는 아이디가 다를 경우에만
     if ($w == 'r' && $wr[mb_id] && $wr[mb_id] !== $member[mb_id]) 
     {
-        /*
-        $tsql = " UPDATE $g4[whatson_table] 
-                      SET wr_subject = '" . get_text(stripslashes($wr[wr_subject])) . "',
-                          wo_count = wo_count+1,
-                          wo_datetime = '$g4[time_ymdhis]' 
-                    where bo_table = '$bo_table' and wr_id='$wr[wr_id]' and mb_id='$wr[mb_id]' and wo_type='write_reply' ";
-        sql_query($tsql);
-        */
-        $tsql = " UPDATE $g4[whatson_table] 
-                      SET wr_subject = :wr_subject,
-                          wo_count = wo_count+1,
-                          wo_datetime = '$g4[time_ymdhis]' 
-                    where bo_table = :bo_table and wr_id='$wr[wr_id]' and mb_id='$wr[mb_id]' and wo_type='write_reply' ";
-
-        $stmt = $pdo_db->prepare($tsql);
-        $stmt->bindParam(":wr_subject", get_text(stripslashes($wr[wr_subject])));
-        $stmt->bindParam(":bo_table", $bo_table);
-        $result = pdo_query($stmt, false);
-
-        // update가 안되는 경우에는 insert를 합니다.
-        //if (!mysql_affected_rows()) {
-        if ($stmt->rowCount() < 1) {
-            /*
-            $tsql = " insert into $g4[whatson_table] ( mb_id, wr_subject, wo_type, wo_count, wo_datetime, bo_table, wr_id ) 
-                      values ('$wr[mb_id]', '" . get_text(stripslashes($wr[wr_subject])) . "','write_reply','1','$g4[time_ymdhis]','$bo_table','$wr[wr_id]') ";
-            sql_query($tsql);
-            */
-            $tsql = " insert into $g4[whatson_table] ( mb_id, wr_subject, wo_type, wo_count, wo_datetime, bo_table, wr_id ) 
-                      values ('$wr[mb_id]', :wr_subject,'write_reply','1','$g4[time_ymdhis]', :bo_table,'$wr[wr_id]') ";
-
-            $stmt = $pdo_db->prepare($tsql);
-            $stmt->bindParam(":wr_subject", get_text(stripslashes($wr[wr_subject])));
-            $stmt->bindParam(":bo_table", $bo_table);
-            $result = pdo_query($stmt, false);
-        }
+        require_once("$g4[path]/lib/whatson.lib.php");
+        whatson_send_reply($wr[mb_id], $wr[wr_subject], $bo_table, $wr[wr_id],
+            $member['mb_nick']);
     }
 } 
 else if ($w == "u") 

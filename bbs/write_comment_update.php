@@ -231,87 +231,17 @@ if ($w == "c") // 코멘트 입력
     // 불당팩 - 왔~숑~ : 코멘트의 왔숑 통보 (원글에, mb_id가 있고, 현재 글쓴이와 다를 경우에만.)
     if ($wr[mb_id] && $wr[mb_id] !== $member[mb_id])
     {
-        /*
-        $tsql = " UPDATE $g4[whatson_table] 
-                      SET wr_subject = '" . mysql_real_escape_string(get_text(strip_tags($wr[wr_subject]))) . "',
-                          wo_count = wo_count+1,
-                          wo_datetime = '$g4[time_ymdhis]' 
-                    where bo_table = '$bo_table' and wr_id='$wr[wr_id]' and mb_id='$wr[mb_id]' and wo_type='write_comment' ";
-        sql_query($tsql);
-        */
-
-        $tsql = " UPDATE $g4[whatson_table] 
-                      SET wr_subject = :wr_subject, wo_count = wo_count+1, wo_datetime = '$g4[time_ymdhis]' 
-                    where bo_table = :bo_table and wr_id=:wr_id and mb_id=:wr_mb_id and wo_type='write_comment' ";
-        $stmt = $pdo_db->prepare($tsql);
-        $stmt->bindParam(":wr_subject", get_text(strip_tags($wr[wr_subject])));
-        $stmt->bindParam(":bo_table", $bo_table);
-        $stmt->bindParam(":wr_id", $wr[wr_id]);
-        $stmt->bindParam(":wr_mb_id", $wr[mb_id]);
-        $result = pdo_query($stmt);
-
-        // update가 안되는 경우에는 insert를 합니다.
-        if ($stmt->rowCount() == 0) {
-            /*
-            $tsql = " insert into $g4[whatson_table] ( mb_id, wr_subject, wo_type, wo_count, wo_datetime, bo_table, wr_id, comment_id ) 
-                      values ('$wr[mb_id]', '" . mysql_real_escape_string(get_text(strip_tags($wr[wr_subject]))) . "','write_comment','1','$g4[time_ymdhis]','$bo_table','$wr_id', '$comment_id') ";
-            sql_query($tsql, FALSE);
-            */
-            $tsql = " insert into $g4[whatson_table] ( mb_id, wr_subject, wo_type, wo_count, wo_datetime, bo_table, wr_id, comment_id ) 
-                      values (:wr_mb_id, :wr_subject, 'write_comment', '1', '$g4[time_ymdhis]', :bo_table, :wr_id, :comment_id) ";
-
-            $stmt = $pdo_db->prepare($tsql);
-            $stmt->bindParam(":wr_subject", get_text(strip_tags($wr[wr_subject])));
-            $stmt->bindParam(":bo_table", $bo_table);
-            $stmt->bindParam(":wr_id", $wr[wr_id]);
-            $stmt->bindParam(":wr_mb_id", $wr[mb_id]);
-            $stmt->bindParam(":comment_id", $comment_id);
-            $result = pdo_query($stmt);
-        }
+        require_once("$g4[path]/lib/whatson.lib.php");
+        whatson_send_comment($wr[mb_id], $wr[wr_subject], $bo_table, $wr[wr_id], $comment_id,
+            $member['mb_nick']);
     }
 
     // 불당팩 - 왔~숑~ : 코멘트의 왔숑 통보 (원래 코멘트에, mb_id가 있을 때만)
     if ($comment_id && $reply_array[mb_id] && $reply_array[mb_id] !== $member[mb_id]) {
-        /*
-        $tsql = " UPDATE $g4[whatson_table] 
-                      SET wr_subject = '" . mysql_real_escape_string(get_text(strip_tags($wr[wr_subject]))) . "',
-                          wo_count = wo_count+1,
-                          wo_datetime = '$g4[time_ymdhis]' 
-                    where bo_table = '$bo_table' and wr_id='$wr_id' and comment_id='$comment_id' and mb_id='$reply_array[mb_id]' and wo_type='write_comment' ";
-        sql_query($tsql);
-        */
-
-        $tsql = " UPDATE $g4[whatson_table] 
-                      SET wr_subject = :wr_subject, wo_count = wo_count+1, wo_datetime = '$g4[time_ymdhis]' 
-                    where bo_table = :bo_table and wr_id=:wr_id and comment_id=:comment_id and mb_id=:wr_mb_id and wo_type='write_comment' ";
-
-        $stmt = $pdo_db->prepare($tsql);
-        $stmt->bindParam(":wr_subject", get_text(strip_tags($wr[wr_subject])));
-        $stmt->bindParam(":bo_table", $bo_table);
-        $stmt->bindParam(":wr_id", $wr[wr_id]);
-        $stmt->bindParam(":comment_id", $comment_id);
-        $stmt->bindParam(":wr_mb_id", $reply_array[mb_id]);
-        $result = pdo_query($stmt);
-
-        // update가 안되는 경우에는 insert를 합니다.
-        if ($stmt->rowCount() == 0) {
-            /*
-            $tsql = " insert into $g4[whatson_table] ( mb_id, wr_subject, wo_type, wo_count, wo_datetime, bo_table, wr_id, comment_id ) 
-                      values ('$reply_array[mb_id]', '" . mysql_real_escape_string(get_text(strip_tags($wr[wr_subject]))) . "','write_comment','1','$g4[time_ymdhis]','$bo_table', '$wr_id', '$comment_id') ";
-            sql_query($tsql, FALSE);
-            */
-
-            $tsql = " insert into $g4[whatson_table] ( mb_id, wr_subject, wo_type, wo_count, wo_datetime, bo_table, wr_id, comment_id ) 
-                      values (:wr_mb_id, :wr_subject, 'write_comment', '1', '$g4[time_ymdhis]', :bo_table, :wr_id, :comment_id) ";
-
-            $stmt = $pdo_db->prepare($tsql);
-            $stmt->bindParam(":wr_subject", get_text(strip_tags($wr[wr_subject])));
-            $stmt->bindParam(":bo_table", $bo_table);
-            $stmt->bindParam(":wr_id", $wr[wr_id]);
-            $stmt->bindParam(":wr_mb_id", $reply_array[mb_id]);
-            $stmt->bindParam(":comment_id", $comment_id);
-            $result = pdo_query($stmt);
-        }
+        require_once("$g4[path]/lib/whatson.lib.php");
+        whatson_send_comment($reply_array[mb_id], $wr[wr_subject], $bo_table, $wr[wr_id],
+            $comment_id,
+            $member['mb_nick'], true);
     }
 
     // 메일발송 사용

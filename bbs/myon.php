@@ -12,7 +12,7 @@ $rows = (int) $rows;
 if ($member[mb_id]) 
     ;
 else 
-    alert("MyOn은 회원을 위한 서비스 입니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.", "./login.php?url=".urlencode("$g4[bbs_path]/myon.php?head=$head"));
+    alert("MyOn은 회원을 위한 서비스 입니다.\\n\\n회원이시라면 로그인 후 이용해 보십시오.", "$g4[bbs_path]/login.php?url=".urlencode("$g4[bbs_path]/myon.php?head=$head"));
 
 if ($head)
     include_once("./_head.php");
@@ -37,7 +37,7 @@ else
 
 $myon_skin_path = "$g4[path]/skin/myon/$skin";
 
-include_once("$myon_skin_path/myon.skin.php");
+include_once(g4_path($myon_skin_path) . "/myon.skin.php");
 
 if ($head)
     include_once("./_tail.php");

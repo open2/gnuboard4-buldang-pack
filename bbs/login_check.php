@@ -341,5 +341,8 @@ if ($mb['mb_unlogin'] !== "0000-00-00 00:00:00") {
     $link = "$g4[bbs_path]/password_change_request.php?url=$url";
 }
 
+// 로그인시 이벤트 실행
+on_member_login($mb);
+
 goto_url($link);
 ?>

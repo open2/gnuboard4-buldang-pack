@@ -342,7 +342,13 @@ if ($write_href) $write_href .= $qstr;
 if ($rss_href) $rss_href .= $qstr;
 
 $stx = get_text(stripslashes($stx));
-include_once("$board_skin_path/list.skin.php");
+
+// 한줄게시판은 일반 게시판과 달라 예외 처리. 모바일 분기 불필요.
+if ($bo_table === 'oneline') {
+    include_once($board_skin_path . "/list.skin.php");
+} else {
+    include_once(g4_path($board_skin_path) . "/list.skin.php");
+}
 
 // 불당팩 - 확장
 if (file_exists("$board_skin_path/list.tail.skin.php"))

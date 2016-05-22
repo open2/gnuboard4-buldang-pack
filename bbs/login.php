@@ -25,7 +25,7 @@ else
 
 $member_skin_path = "$g4[path]/skin/member/$config[cf_member_skin]";
 
-include_once("$member_skin_path/login.skin.php");
+include_once(g4_path($member_skin_path) . "/login.skin.php");
 
 include_once("./_tail.php");
 ?>
