@@ -33,7 +33,7 @@ if ($g4['https_url']) {
                 <input type="text" name="mb_id" id="mb_id" class="form-control" maxLength=20 minlength="2" size=15
                        itemname="아이디" placeholder="user id">
             </div>
-            <span class="form-control-feedback"><i class="material-icons">account_circle</i></span>
+            <span class="form-control-feedback"><i class="material-icons">&#xE853;</i></span>
         </div>
         <div class="form-group-lg has-feedback">
             <label for="mb_password" class="col-sm-2 control-label">패스워드</label>
@@ -41,7 +41,7 @@ if ($g4['https_url']) {
                 <input type="password" name="mb_password" id="mb_password" class="form-control" maxLength=20 size=15
                        itemname="패스워드" placeholder="password">
             </div>
-            <span class="form-control-feedback"><i class="material-icons">https</i></span>
+            <span class="form-control-feedback"><i class="material-icons">&#xE88D;</i></span>
         </div>
         <div class="form-group-lg">
             <div class="col-sm-4">

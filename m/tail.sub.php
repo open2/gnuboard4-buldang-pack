@@ -67,17 +67,22 @@ if (defined('_G4_TAIL')) {
     <!-- 새창 대신 사용하는 iframe -->
     <iframe width=0 height=0 name='hiddenframe' style='display:none;' title='hidden frame'></iframe>
 
+    <!-- 기존 불당팩 함수를 오버라이드하므로 SPA 에서 요청시에도 포함되어야 함 -->
+    <script src="/m/js/common.js?v=<?= app_version() ?>"></script>
+
+<?php if ( ! is_ajax()) { ?>
 <script src="/m/js/app.js?v=<?= app_version() ?>"></script>
 <script src="/m/vendor/admin-lte/js/app.min.js?v=<?= app_version() ?>"></script>
 <script src="/m/vendor/slide-push-menus/menu.js?v=<?= app_version() ?>"></script>
-<script src="/m/js/common.js?v=<?= app_version() ?>"></script>
 
 <?php if (in_app()) { ?>
     <script src="/m/js/android.js?v=<?= app_version() ?>"></script>
 <?php } ?>
 </body>
 </html>
+<?php } ?>
 <?
+
 // TODO: tail.sub.php 내용 복사해옴.  별도 공통 파일로 분리?
 if ($g4['session_type'] == "redis") {
     // redis일때만 redis login 관리를 쓴다.

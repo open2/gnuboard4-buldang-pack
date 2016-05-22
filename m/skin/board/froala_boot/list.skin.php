@@ -36,6 +36,7 @@ $notice_count = $global_notice_count + $arr_notice_count;
     <div class="hidden-xs" style="block:inline;float:right;margin-right:3px;">
         <?=$page?>/<?=$total_page?>
     </div>
+    <div class="clearfix"></div>
 </div>
 
 <!-- Á¦¸ñ -->

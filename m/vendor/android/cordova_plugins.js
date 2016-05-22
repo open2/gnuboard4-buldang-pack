@@ -84,13 +84,13 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
                 "window.FileError"
             ]
         },
-        {
-            "file": "plugins/cordova-plugin-file/www/FileReader.js",
-            "id": "cordova-plugin-file.FileReader",
-            "clobbers": [
-                "window.FileReader"
-            ]
-        },
+        // {
+        //     "file": "plugins/cordova-plugin-file/www/FileReader.js",
+        //     "id": "cordova-plugin-file.FileReader",
+        //     "clobbers": [
+        //         "window.FileReader"
+        //     ]
+        // },
         {
             "file": "plugins/cordova-plugin-file/www/FileSystem.js",
             "id": "cordova-plugin-file.FileSystem",

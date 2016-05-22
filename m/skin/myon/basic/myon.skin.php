@@ -26,6 +26,9 @@ $whatson_url = "$g4[bbs_path]/whatson.php?check=1&rows=30";
                 </a>
                 <a class="btn btn-default" href="<?=$g4['bbs_path']?>/scrap.php?head_on=1&snb=scrap" >Scrap</a>
             </div>
+            <?php if ( ! empty($_COOKIE['device-uuid'])) { ?>
+                <a class="btn btn-default" href="/m/device.php">알림 설정</a>
+            <?php } ?>
             <?
             // 추천으로 회원가입
             if ($g4['member_suggest_join']) { ?>

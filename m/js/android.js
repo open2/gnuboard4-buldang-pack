@@ -26,7 +26,7 @@ var app = {
     // Update DOM on a Received Event
     receivedEvent: function (id) {
         //console.log('Received Event: ' + id);
-        document.addEventListener("backbutton", app.back, false);
+        //document.addEventListener("backbutton", app.back, false);
         document.addEventListener("online", app.toggleCon, false);
         document.addEventListener("offline", app.toggleCon, false);
 
@@ -36,30 +36,6 @@ var app = {
             // 첫 실행시
             app.startApp();
         }
-    },
-    back: function (e) {
-        e.preventDefault();
-        // 메인 페이지에서는 뒤로가기 두번 누르면 앱 종료
-        if (window.location.pathname === "/") {
-            if (app.exitApp) {
-                clearInterval(app.interVal);
-                navigator.app.exitApp();
-            } else {
-                app.exitApp = true;
-                app.backInterval();
-                window.plugins.toast.showShortBottom("'뒤로'버튼 한번 더 누르시면 종료됩니다.");
-            }
-        } else {
-            window.history.back(1);
-        }
-    },
-    backInterval: function () {
-        if (app.interval !== null) {
-            clearInterval(app.interval);
-        }
-        app.interval = setInterval(function () {
-            app.exitApp = false;
-        }, 2000);
     },
     toggleCon: function (e) {
         //console.log('toggleCon: ' + e.type);
@@ -72,9 +48,12 @@ var app = {
     startApp: function () {
         if (app.app_started === false) {
             // 알림수 배지에 적용
-            cordova.plugins.notification.badge.set(
-                Number(document.getElementById('notification_count').innerHTML)
-            );
+            var notification_count = document.getElementById('notification_count');
+            if (notification_count) {
+                cordova.plugins.notification.badge.set(
+                    Number(notification_count.innerHTML)
+                );
+            }
 
             // 푸시 -  앱 자체에서 보여주므로 웹단에선 생략
             /*

@@ -11,12 +11,14 @@ if (defined('_G4_HEAD')) {
 }
 header("Content-Type: text/html; charset=$g4[charset]");
 $gmnow = gmdate("D, d M Y H:i:s") . " GMT";
-header("Expires: 0"); // rfc2616 - Section 14.21
+header("Expires: Thu, 19 Nov 1981 08:52:00 GMT"); // rfc2616 - Section 14.21
 header("Last-Modified: " . $gmnow);
 header("Cache-Control: no-store, no-cache, must-revalidate"); // HTTP/1.1
 header("Cache-Control: pre-check=0, post-check=0, max-age=0"); // HTTP/1.1
 header("Pragma: no-cache"); // HTTP/1.0
 header("X-Content-Type-Options: nosniff");
+
+if ( ! is_ajax()) {
 ?><!doctype html>
 <html lang="ko">
 <head>
@@ -57,54 +59,72 @@ header("X-Content-Type-Options: nosniff");
 
     <?php if (in_app()) { ?>
         <meta http-equiv="Content-Security-Policy"
-              content="default-src *; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'; img-src * data:;">
+              content="default-src *; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'; img-src * data: blob:;">
         <script src="/m/vendor/android/cordova.js?v=<?= app_version() ?>"></script>
     <?php } ?>
 
     <script src="/js/jquery.min.js?v=<?= app_version() ?>"></script>
     <script src="/js/bootstrap/js/bootstrap.min.js?v=<?= app_version() ?>"></script>
 
-    <script type="text/javascript">
-        // 자바스크립트에서 사용하는 전역변수 선언
-        var g4_path = "<?=$g4['path']?>";
-        var g4_bbs = "<?=$g4['bbs']?>";
-        var g4_bbs_img = "<?=$g4['bbs_img']?>";
-        var g4_url = "<?=$g4['url']?>";
-        var g4_is_member = "<?=$is_member?>";
-        var g4_is_admin = "<?=$is_admin?>";
-        var g4_bo_table = "<?=isset($bo_table) ? $bo_table : '';?>";
-        var g4_sca = "<?=isset($sca) ? $sca : '';?>";
-        var g4_charset = "<?=$g4['charset']?>";
-        var g4_cookie_domain = "<?=$g4['cookie_domain']?>";
-        var g4_is_gecko = navigator.userAgent.toLowerCase().indexOf("gecko") != -1;
-        var g4_is_ie = navigator.userAgent.toLowerCase().indexOf("msie") != -1;
-        <? if ($is_admin) {
-            echo "var g4_admin = \"{$g4['admin']}\";";
-        } ?>
-    </script>
     <script type="text/javascript" src="<?= $g4['path'] ?>/js/common.js"></script>
     <script type="text/javascript" src="<?= $g4['path'] ?>/js/b4.common.js"></script>
 </head>
 <body>
+<?php
+}
+?>
+<script type="text/javascript">
+    // 자바스크립트에서 사용하는 전역변수 선언
+    var g4_path = "<?=$g4['path']?>";
+    var g4_bbs = "<?=$g4['bbs']?>";
+    var g4_bbs_img = "<?=$g4['bbs_img']?>";
+    var g4_url = "<?=$g4['url']?>";
+    var g4_is_member = "<?=$is_member?>";
+    var g4_is_admin = "<?=$is_admin?>";
+    var g4_bo_table = "<?=isset($bo_table) ? $bo_table : '';?>";
+    var g4_sca = "<?=isset($sca) ? $sca : '';?>";
+    var g4_charset = "<?=$g4['charset']?>";
+    var g4_cookie_domain = "<?=$g4['cookie_domain']?>";
+    var g4_is_gecko = navigator.userAgent.toLowerCase().indexOf("gecko") != -1;
+    var g4_is_ie = navigator.userAgent.toLowerCase().indexOf("msie") != -1;
+    <? if ($is_admin) {
+        echo "var g4_admin = \"{$g4['admin']}\";";
+    } ?>
+    <? if (isset($board['bo_download_point'])) {
+        echo "var g4_bo_download_point = Number(" . $board['bo_download_point'] . ");";
+    } ?>
+</script>
 <?php if (is_popover()) { ?>
     <header class="header-popover">
         <h1><?= e(app_title($g4['title'])) ?></h1>
 
-        <div class="header-right"><a href="/"><i class="material-icons">close</i></a></div>
+        <div class="header-right"><a href="/"><i class="material-icons">&#xE5CD;</i></a></div>
     </header>
 <?php } else { ?>
     <header id="top">
         <div class="header-left first">
             <a href="javascript:" id="c-button--slide-left"><i class="material-icons">&#xE5D2;</i></a>
         </div>
+        <!-- Home 버튼은 항상 노출 -->
+        <div class="header-left second"><a href="/"><i class="material-icons">&#xE88A;</i></a></div>
         <?php if ($_SERVER['PHP_SELF'] === '/index.php') { ?>
-            <h1>2CPU</h1>
+            <h1><a href="javascript:windowReload();">2CPU</a></h1>
         <?php } else { ?>
-            <div class="header-left"><a href="javascript:windowBack();"><i class="material-icons">&#xE5C4;</i></a></div>
-            <h1><?= e(app_title($g4['title'])) ?></h1>
+            <?php if (empty($_GET['bo_table'])) { ?>
+                <h1><a href="javascript:windowReload();"><?= e(app_title($g4['title'])) ?></a></h1>
+            <?php } else { ?>
+                <h1><a href="/<?= $_GET['bo_table'] ?>"><?= e(app_title($g4['title'])) ?></a></h1>
+            <?php } ?>
         <?php } ?>
+        <div class="header-right first">
+            <a href="/bbs/memo.php" id="memo-link"><i class="material-icons md-32">&#xE0E1;</i>
+                <?php if ($member['mb_id']) { ?>
+                    <span class="label label-primary"><?= $member['mb_memo_unread'] ?></span>
+                <?php } ?>
+            </a>
+        </div>
         <div class="header-right">
-            <a href="/bbs/myon.php"><i class="material-icons md-32">&#xE7F5;</i>
+            <a href="/bbs/myon.php" id="notification-link"><i class="material-icons md-32">&#xE7F5;</i>
                 <?php if ($member['mb_id']) { ?>
                     <span class="label label-primary" id="notification_count"><?php
                         include_once("$g4[path]/lib/whatson.lib.php");
@@ -112,7 +132,6 @@ header("X-Content-Type-Options: nosniff");
                         ?></span>
                 <?php } ?>
             </a>
-            <a href="javascript:windowReload();"><i class="material-icons md-32">&#xE5D5;</i></a>
         </div>
     </header>
     <?php require(__DIR__ . '/sidebar.php') ?>

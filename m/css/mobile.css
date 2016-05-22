@@ -370,9 +370,8 @@ header h1 {
     display: block;
     height: 53px;
     margin: 0;
-    z-index: -100;
-    background: #fff;
-    padding-left: 19px;
+    padding: 0 75px 0 91px;
+    overflow: hidden;
 }
 
 header > h1 > img {
@@ -397,10 +396,16 @@ header .header-right i.material-icons {
 
 header .header-right i.material-icons.md-32 {
     color: #333333;
+    z-index: 2;
 }
 
 header .header-left > a {
     text-align: center;
+    display: inline-block;
+    width: 100%;
+}
+
+.header-right > a {
     display: inline-block;
     width: 100%;
 }
@@ -410,7 +415,10 @@ header .header-left > a {
 }
 
 .header-left {
-    float: left;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
     width: 46px;
 }
 
@@ -418,21 +426,44 @@ header .header-left > a {
     border-right: 1px solid #E5E5E5;
 }
 
+.header-left.second {
+    left: 46px;
+}
+
 .header-right {
-    float: right;
-    text-align: right;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
     margin-right: 5px;
 }
 
-.header-right .label {
+.header-right.first {
+    right: 32px;
+}
+
+#notification-link .label {
     position: absolute;
     top: 5px;
-    right: 42px;
+    right: 0;
     text-align: center;
     font-size: 11px;
     padding: 6px 6px 5px 6px;
     line-height: .9;
     border-radius: 50%;
+    z-index: 3;
+}
+
+#memo-link .label {
+    position: absolute;
+    top: 5px;
+    right: -4px;
+    text-align: center;
+    font-size: 11px;
+    padding: 6px 6px 5px 6px;
+    line-height: .9;
+    border-radius: 50%;
+    z-index: 3;
 }
 
 /* 헤더 - 팝오버(이메일 주소로 로그인, ...) */

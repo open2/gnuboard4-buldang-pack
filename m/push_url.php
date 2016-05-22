@@ -12,8 +12,8 @@ if ( ! $member['mb_id']) {
     redirect("$g4[bbs_path]/login.php?url=" . urlencode($_SERVER['REQUEST_URI']));
 }
 
-// TODO: Whats on 읽음 처리?
-
+// Whats on 읽음 처리
+whatson_read($member['mb_id'], $_GET['wo_id']);
 
 // 이동할 주소 가져오기
 $whatson = pdo(
