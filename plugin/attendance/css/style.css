@@ -1,0 +1,71 @@
+.attendance_title {padding: 0; margin-bottom: 10px;  border-bottom: 1px solid #cccccc;}
+.top-list h5 {display: inline-block;
+    margin-bottom: -1px;
+    border-bottom: 2px solid #cc0000;}
+.top-list li {padding:5px 0;}
+.top-list .user a{color:#000;}
+
+.attendance-info h5 {display: inline-block;
+    margin-bottom: -1px;
+    border-bottom: 2px solid #cc0000;}
+ul.notice {    margin: 0;
+    list-style: none;
+    padding: 0px 5px;}
+ul.notice li{
+    padding: 2px 0px;}
+#huddakP-attendance-wrap {padding:20px 0; text-align:left;}
+#huddakP-attendance-wrap table {border-collapse:collapse; border-spacing:0;}
+#huddakP-attendance-wrap ul {margin:0; padding:0;}
+#huddakP-attendance-wrap li {list-style:none;}
+.huddakP-attendance-header {width:100%; overflow:hidden; margin-bottom:20px; font-size:12px;}
+.huddakP-attendance-header div.calendar-wrap {float:left; width:30%;}
+.huddakP-attendance-header div.attendance-info {float:left; width:30%; padding:0 0 0 20px;}
+.huddakP-attendance-header div.top-list {float:right; width:30%; padding:10px; border:3px solid #e5e5e5;}
+.huddakP-attendance-header div.attendance-info h3 {margin-bottom:10px;}
+.huddakP-attendance-header div.attendance-info ul {line-height:160%; color:#666;}
+.huddakP-attendance-header div.attendance-info ul strong {color:#df0808;}
+.huddakP-attendance-header div.attendance-info ul {margin-bottom:10px; padding-bottom:10px;}
+.huddakP-attendance-header div.attendance-info ul li {padding:0 0 0 7px; background:url(../img/bu_sq-2px-gray.gif) no-repeat 0 7px;}
+.huddakP-attendance-header div.attendance-info ul li ul {margin:0; padding:0;}
+.huddakP-attendance-header div.attendance-info ul li li {padding-left:0; background:none;}
+.huddakP-attendance-header div.top-list h3 {padding-bottom:5px; margin-bottom:5px; border-bottom:1px solid #e5e5e5;}
+.huddakP-attendance-header div.top-list li {height:22px; padding-top:3px; line-height:100%;}
+.huddakP-attendance-header div.top-list li * {vertical-align:middle;}
+.huddakP-attendance-header div.top-list li em {display:inline-block; width:16px; height:16px; line-height:16px; text-align:center; font-size:11px; font-family:'arial'; font-weight:bold; background:url(../img/bg_num.gif) no-repeat;}
+.huddakP-attendance-header div.top-list li span {display:inline-block;}
+.huddakP-attendance-header div.top-list li span.victory {font-size:11px; color:#777;}
+
+.huddakP-calendar-month-select {position:relative; padding-bottom:15px; line-height:100%; text-align:center;}
+.huddakP-calendar-month-select * {vertical-align:middle;}
+.huddakP-calendar-month-select strong {padding:0 10px; font-size:20px; font-family:'arial';}
+.huddakP-calendar-month-select a.this-month {position:absolute; top:15px; *top:20px; right:0;}
+
+.huddakP-attendance-calendar {width:100%; margin-bottom:15px; font-size:11px;}
+.huddakP-attendance-calendar thead th {width:14%; height:22px; text-align:center; font-weight:bold; border:1px solid #ccc; border-bottom:1px solid #999; background:#f0f0f0 url(../img/bg_list-thead.gif) repeat-x left bottom;}
+.huddakP-attendance-calendar td {height:20px; padding:5px; text-align:center; vertical-align:top; border:1px solid #e5e5e5; white-space:wrap; word-break:break-all;}
+.huddakP-attendance-calendar td a {color:#777;}
+.huddakP-attendance-calendar thead th.sun,
+.huddakP-attendance-calendar td a.sun {color:#e30909;}
+.huddakP-attendance-calendar thead th.sat,
+.huddakP-attendance-calendar td a.sat {color:#2e87db;}
+.huddakP-attendance-calendar td a.current {color:#ff5500; font-weight:bold;}
+.huddakP-attendance-calendar td.today {background:#fffddb;}
+
+.huddakP-attendance-form {position:relative; width:100%; overflow:hidden; margin-bottom:20px;}
+.huddakP-attendance-form .type-select li {float:left;}
+.huddakP-attendance-form ul {list-style:none; width: 340px; margin: 0 auto;}
+.huddakP-attendance-form ul li{list-style:none; padding:0 5px; }
+.huddakP-attendance-form .type-select .selected a.n1 {color:#117896;}
+.huddakP-attendance-form .type-select .selected a.n2 {color:#D2FFBF;}
+.huddakP-attendance-form .type-select .selected a.n3 {color:#FFADAB;}
+span.att_btn button{padding:19px 36px;     margin-bottom: -12px;}
+.huddakP-attendance-form input.btn {float:right;}
+.huddakP-attendance-form .char-check {position:absolute; top:0; left:340px; padding:0; margin:0; color:#777; font-size:12px;}
+
+.huddakP-attendance-list {width:100%; margin-bottom:15px; font-size:12px;}
+.huddakP-attendance-list th,
+.huddakP-attendance-list td {text-align:center;}
+.huddakP-attendance-list thead th {height:33px; font-weight:bold; border:1px solid #ddd; border-left:0; border-right:0; background:url(../img/bg_list-thead.gif) repeat-x;}
+.huddakP-attendance-list tbody td {padding:10px 5px; border-bottom:1px solid #e5e5e5;}
+.huddakP-attendance-list td.user {text-align:left;}
+.huddakP-attendance-list td.comment {text-align:left;}
