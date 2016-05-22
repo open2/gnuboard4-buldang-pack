@@ -2,12 +2,12 @@
 if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
 
 // head - 좌측 메뉴
-include_once("$g4[memo_skin_path]/memo2.head.skin.php");
+include_once(g4_path($g4[memo_skin_path]) . "/memo2.head.skin.php");
 
 // 메인에 출력될 내용들이 있는 곳----
 if ($class == "view") {
     // 쪽지 보기
-    include_once("$g4[memo_skin_path]/memo2_view.skin.php");
+include_once(g4_path($g4[memo_skin_path]) . "/memo2.head.skin.php");
 } else { 
     // 쪽지 보기가 아닌경우
     switch ($kind) {

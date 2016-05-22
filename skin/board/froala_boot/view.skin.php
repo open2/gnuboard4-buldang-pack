@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
+if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가
 
 // 스킨에서 사용하는 lib 읽어들이기
 include_once("$g4[path]/lib/view.skin.lib.php");
@@ -161,11 +161,53 @@ else if ($member['mb_level'] >= $board['bo_comment_read_level'])
 
 </div>
 
-<script type="text/javascript"  src="<?="$g4[path]/js/board.js"?>"></script>
+<script type="text/javascript"  src="<?="$g4[path]/js/board.js"?>?v=<?= app_version() ?>"></script>
 <script type="text/javascript">
-window.onload=function() {
-    resizeBoardImage($(view_main).width()-20);
-    OnclickCheck(document.getElementById("writeContents"), '<?=$config[cf_link_target]?>'); 
-}
+    $(function () {
+        // SPA 지원 및 랜덤하게 리사이징 되지 않는 문제 해결을 위해, 이미지 로딩 이벤트에서 개별 실행
+        //resizeBoardImage($(view_main).width()-20);
+        var imageWidth = $('#view_main').width() - 20;
+        $('img[name^=target_resize_image]').one('load', function () {
+            resizeBoardImageOne($(this), imageWidth);
+        }).each(function () {
+            // for cache
+            if (this.complete) {
+                resizeBoardImageOne($(this), imageWidth);
+            }
+        });
+        OnclickCheck(document.getElementById("writeContents"), '<?=$config[cf_link_target]?>');
+    });
 </script>
+
+<?php if (in_app()) { ?>
+    <div id="fullImage" style="position: fixed; width: 100%; height: 100%; top: 0; left: 0; overflow: auto; z-index: 999; background-color: #000; display: none;" _onclick="fullImageHide();">
+        <div style="position: absolute; right: 10px; top: 10px; z-index: 10;">
+            <a href="javascript:fullImageHide();"><i class="material-icons md-48" style="color: #fff; text-shadow: 1px 1px #000;">&#xE5CD;</i></a>
+        </div>
+        <div id="fullImageView" style="width:100%; height: 100%;"></div>
+    </div>
+
+    <script src="/m/vendor/jquery.panzoom/jquery.panzoom.min.js?v=<?= app_version() ?>"></script>
+    <script type="text/javascript">
+        var $fullImage = $('#fullImage'),
+            $fullImageView = $('#fullImageView');
+
+        function fullImageHide()
+        {
+            $fullImage.hide();
+        }
+
+        function image_window(img)
+        {
+            image_window3(img.src);
+        }
+
+        function image_window3(img_src, w, h)
+        {
+            $fullImage.show();
+            $fullImageView.html('<img src="' + img_src + '">');
+            $fullImageView.find('img').panzoom();
+        }
+    </script>
+<? } ?>
 <!-- 게시글 보기 끝 -->
