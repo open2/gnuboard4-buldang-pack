@@ -1413,8 +1413,8 @@ function check_bo_from_date()
 function check_bo_sex()
 {
     global $g4, $board, $member, $is_admin;
-    
-    if($board[bo_sex]) {
+
+    if($board[bo_sex] && !$is_admin) {
         if ($member[mb_sex]) { 
           if (($board[bo_sex] == $member[mb_sex]) || $is_admin)
               {;} 
