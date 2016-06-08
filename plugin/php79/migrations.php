@@ -112,6 +112,14 @@ if (php79_db_migrate($q, 'php79_failed_jobs_table')) {
 //    $migrate_count++;
 //}
 
+/**
+ * 기기 중복 등록 방지 #22
+ */
+$q = "ALTER TABLE `{$g4['php79_devices_table']}` ADD UNIQUE `php79_devices_mb_id_token` ( `mb_id` ,  `token` )";
+if (php79_db_migrate($q, 'php79_devices_mb_id_token')) {
+    $migrate_count++;
+}
+
 if ($migrate_count) {
     echo "<h1>" . $migrate_count . "건의 디비 마이그레이션이 완료되었습니다. " . date('Y-m-d H:i:s') . "</h1>";
 } else {
