@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.3.0 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.3.1 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
@@ -127,7 +127,7 @@
 
   FE.PLUGINS = {};
 
-  FE.VERSION = '2.3.0';
+  FE.VERSION = '2.3.1';
 
   FE.INSTANCES = [];
 
@@ -272,9 +272,12 @@
     if (this.shared.count === 0) {
       for (var k in this.shared) {
         if (this.shared.hasOwnProperty(k)) {
-          delete this.shared[k];
+          this.shared[k] == null;
+          $.FE.SHARED[this.sid][k] = null;
         }
       }
+
+      $.FE.SHARED[this.sid] = {};
     }
 
     this.$oel.parents('form').off('.' + this.id);
@@ -817,6 +820,9 @@
     }
 
     function _node (node) {
+      // Skip when we're dealing with markers.
+      if (node.tagName == 'SPAN' && (node.className || '').indexOf('fr-marker') >=0) return false;
+
       if (node.tagName == 'PRE') _cleanPre(node);
 
       if (node.nodeType == Node.ELEMENT_NODE) {
@@ -1059,7 +1065,7 @@
       var sibling_lists = editor.$el.get(0).querySelectorAll('ol + ol, ul + ul');
       for (var k = 0; k < sibling_lists.length; k++) {
         var list = sibling_lists[k];
-        if (editor.node.attributes(list) == editor.node.attributes(list.previousSibling)) {
+        if (editor.node.isList(list.previousSibling) && editor.node.openTagString(list) == editor.node.openTagString(list.previousSibling)) {
           var childs = editor.node.contents(list);
           for (var i = 0; i < childs.length; i++) {
             list.previousSibling.appendChild(childs[i]);
@@ -1168,6 +1174,28 @@
       }
     }
 
+    function _listsFindMissplacedText () {
+      var lists = editor.$el.get(0).querySelectorAll('ul, ol');
+      for (var i = 0; i < lists.length; i++) {
+        var contents = editor.node.contents(lists[i]);
+
+        var $li = null;
+        for (var j = contents.length - 1; j >=0 ; j--) {
+          if (contents[j].tagName != 'LI') {
+            if (!$li) {
+              $li = $('<li>');
+              $li.insertBefore(contents[j]);
+            }
+
+            $li.append(contents[j]);
+          }
+          else {
+            $li = null;
+          }
+        }
+      }
+    }
+
     /**
      * Clean lists.
      */
@@ -1183,6 +1211,8 @@
       _listsNoTagAfterNested();
 
       _listsTypeInNested();
+
+      _listsFindMissplacedText();
 
       _listsRemoveEmptyLI();
     }
@@ -3305,7 +3335,7 @@
 
     // Adaptation of MIT https://github.com/lucthev/collapse-whitespace.
     function collapse (elem) {
-      if (!elem.firstChild || elem.nodeName === 'PRE') return;
+      if (!elem.firstChild || elem.nodeName === 'PRE' || ['STYLE', 'SCRIPT'].indexOf(elem.tagName) >= 0) return;
 
       var prevText = null;
 
@@ -3313,7 +3343,7 @@
       var node = _next(prev, elem);
 
       // Go deep while current node is not elem.
-      while (node !== elem) {
+      while (node !== elem && node.nodeName !== 'PRE' && ['STYLE', 'SCRIPT'].indexOf(node.tagName) < 0) {
         // Current node is text node.
         if (node.nodeType === Node.TEXT_NODE) {
           // Collapse spaces.
@@ -3411,7 +3441,7 @@
         }
 
         // Ending spaces should be NBSP or spaces before block tags.
-        if (!node.nextSibling || editor.node.isBlock(node.nextSibling) || (node.nextSibling.nodeType == Node.ELEMENT_NODE && editor.win.getComputedStyle(node.nextSibling).display == 'block')) {
+        if (!node.nextSibling || editor.node.isBlock(node.nextSibling) || (node.nextSibling.nodeType == Node.ELEMENT_NODE && editor.win.getComputedStyle(node.nextSibling) && editor.win.getComputedStyle(node.nextSibling).display == 'block')) {
           new_text = new_text.replace(/ $/, $.FE.UNICODE_NBSP);
         }
 
@@ -4248,7 +4278,7 @@
      */
     function getSelected () {
       var wrapSelection = function (container, node) {
-        while (node && (node.nodeType == Node.TEXT_NODE || !editor.node.isBlock(node))) {
+        while (node && (node.nodeType == Node.TEXT_NODE || !editor.node.isBlock(node)) && !editor.node.isElement(node)) {
           if (node && node.nodeType != Node.TEXT_NODE) {
             $(container).wrapInner(editor.node.openTagString(node) + editor.node.closeTagString(node));
           }
@@ -4592,11 +4622,21 @@
 
       // Determine the placeholder position based on the first element inside editor.
       var margin_top = 0;
+      var margin_left = 0;
+      var padding_top = 0;
+      var padding_left = 0;
       var contents = editor.node.contents(editor.$el.get(0));
       if (contents.length && contents[0].nodeType == Node.ELEMENT_NODE) {
-        if (!editor.opts.toolbarInline) margin_top = editor.helpers.getPX($(contents[0]).css('margin-top'));
-        editor.$placeholder.css('font-size', $(contents[0]).css('font-size'));
-        editor.$placeholder.css('line-height', $(contents[0]).css('line-height'));
+        var $first_node = $(contents[0]);
+        if (!editor.opts.toolbarInline) {
+          margin_top = editor.helpers.getPX($first_node.css('margin-top'));
+          padding_top = editor.helpers.getPX($first_node.css('padding-top'));
+          margin_left = editor.helpers.getPX($first_node.css('margin-left'));
+          padding_left = editor.helpers.getPX($first_node.css('padding-left'));
+        }
+
+        editor.$placeholder.css('font-size', $first_node.css('font-size'));
+        editor.$placeholder.css('line-height', $first_node.css('line-height'));
       }
       else {
         editor.$placeholder.css('font-size', editor.$el.css('font-size'));
@@ -4605,8 +4645,16 @@
 
       editor.$wp.addClass('show-placeholder');
       editor.$placeholder
-        .css('margin-top', Math.max(editor.helpers.getPX(editor.$el.css('margin-top')), margin_top))
-        .text(editor.language.translate(editor.opts.placeholderText || editor.$oel.attr('placeholder') || ''));
+        .css({
+            marginTop: Math.max(editor.helpers.getPX(editor.$el.css('margin-top')), margin_top),
+            paddingTop: Math.max(editor.helpers.getPX(editor.$el.css('padding-top')), padding_top),
+            paddingLeft: Math.max(editor.helpers.getPX(editor.$el.css('padding-left')), padding_left),
+            marginLeft: Math.max(editor.helpers.getPX(editor.$el.css('margin-left')), margin_left)
+          })
+        .text(editor.language.translate(editor.opts.placeholderText || editor.$oel.attr('placeholder') || ''))
+        .css('width', editor.$el.width())
+
+      editor.$placeholder.html(editor.$placeholder.text().replace(/\n/g, '<br>'));
     }
 
     /* Hide placeholder. */
@@ -5148,12 +5196,12 @@
         for (var i = 0; i < markers.length; i++) {
           var $mk = $(markers[i]);
           if ($mk.data('type') == true) {
-            if (_matches($mk.next().get(0), _query(tag, attrs))) {
+            if (_matches($mk.get(0).nextSibling, _query(tag, attrs))) {
               $mk.next().prepend($mk);
             }
           }
           else {
-            if (_matches($mk.prev().get(0), _query(tag, attrs))) {
+            if (_matches($mk.get(0).previousSibling, _query(tag, attrs))) {
               $mk.prev().append($mk);
             }
           }
@@ -5420,13 +5468,15 @@
           }
         });
 
+        editor.$el.get(0).normalize();
+
         // Join current spans together if they are one next to each other.
         var just_spans = editor.$el.find('span[style] + span[style]');
         for (i = 0; i < just_spans.length; i++) {
           var $x = $(just_spans[i]);
           var $p = $(just_spans[i]).prev();
 
-          if (editor.node.openTagString($x.get(0)) == editor.node.openTagString($p.get(0))) {
+          if ($x.get(0).previousSibling == $p.get(0) && editor.node.openTagString($x.get(0)) == editor.node.openTagString($p.get(0))) {
             $x.prepend($p.html());
             $p.remove();
           }
@@ -5726,8 +5776,39 @@
       }
     }
 
+    function _init () {
+      // Prevent typing in HR.
+      editor.events.on('keydown', function (e) {
+        var el = editor.selection.element();
+        if (el && el.tagName == 'HR') {
+          e.preventDefault();
+          return false;
+        }
+      });
+
+      // Do not allow mousedown on HR.
+      editor.events.on('mousedown', function (e) {
+        if (e.target && e.target.tagName == 'HR') {
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
+        }
+      });
+
+      // If somehow focus gets in HR remove it.
+      editor.events.on('mouseup', function (e) {
+        var s_el = editor.selection.element();
+        var e_el = editor.selection.endElement();
+
+        if (s_el == e_el && s_el && s_el.tagName == 'HR') {
+          editor.selection.clear();
+        }
+      })
+    }
+
     return $.extend(resp, {
-      exec: exec
+      exec: exec,
+      _init: _init
     });
   };
 
@@ -8161,8 +8242,6 @@ $.FE.MODULES.data=function(a){function b(a){return a}function c(a){if(!a)return 
 
         clipboard_html = $tmp.html();
 
-        console.log (clipboard_html)
-
         // Insert HTML.
         editor.html.insert(clipboard_html, true);
       }
@@ -8199,13 +8278,13 @@ $.FE.MODULES.data=function(a){function b(a){return a}function c(a){if(!a)return 
 
       // Workaround for Nodepad paste.
       var divs = $div.find('> div:not([style]), td > div, th > div, li > div');
-      while (divs.length) {
+      while (divs.length && i++ < 100) {
         var $dv = $(divs[divs.length - 1]);
 
-        if (editor.html.defaultTag() && editor.html.defaultTag() != 'DIV') {
+        if (editor.html.defaultTag() && editor.html.defaultTag() != 'div') {
           $dv.replaceWith('<' + editor.html.defaultTag() + '>' + $dv.html() + '</' + editor.html.defaultTag() + '>' );
         }
-        else if (!editor.html.defaultTag()) {
+        else {
           if (!$dv.find('*:last').is('br')) {
             $dv.replaceWith($dv.html() + '<br>');
           }
@@ -10647,6 +10726,11 @@ $.FE.MODULES.data=function(a){function b(a){return a}function c(a){if(!a)return 
     }
 
     function hide (e) {
+      // Prevent hiding when dropdown is active and we scoll in it.
+      // https://github.com/froala/wysiwyg-editor/issues/1290
+      var $active_dropdowns = $('.fr-dropdown.fr-active');
+      if ($active_dropdowns.next().find(editor.o_doc.activeElement).length) return true;
+
       // Check if we should actually hide the toolbar.
       if (editor.events.trigger('toolbar.hide') == false) return false;
 
@@ -10850,6 +10934,14 @@ $.FE.MODULES.data=function(a){function b(a){return a}function c(a){if(!a)return 
           editor.$tb = editor.shared.$tb;
 
           if (editor.opts.toolbarInline) _initInlineBehavior();
+        }
+
+        if (editor.opts.toolbarInline) {
+          // Update box.
+          editor.$box.addClass('fr-inline');
+        }
+        else {
+          editor.$box.addClass('fr-basic');
         }
 
         // On focus set the current instance.
@@ -14504,7 +14596,11 @@ $.FE.MODULES.data=function(a){function b(a){return a}function c(a){if(!a)return 
           $html_area.css('min-height', editor.opts.heightMin);
         }
 
-        if (editor.opts.height || editor.opts.heightMax) {
+        if (editor.opts.height) {
+          $html_area.css('height', editor.opts.height);
+        }
+
+        if (editor.opts.heightMax) {
           $html_area.css('max-height', editor.opts.height || editor.opts.heightMax);
         }
 
@@ -14566,7 +14662,7 @@ $.FE.MODULES.data=function(a){function b(a){return a}function c(a){if(!a)return 
       $html_area.attr('dir', editor.opts.direction);
 
       // Exit code view button for inline toolbar.
-      if (editor.opts.toolbarInline) {
+      if (!editor.$el.hasClass('fr-basic')) {
         $back_button = $('<a data-cmd="html" title="Code View" class="fr-command fr-btn html-switch' + (editor.helpers.isMobile() ? '' : ' fr-desktop') + '" role="button" tabindex="-1"><i class="fa fa-code"></i></button>');
         editor.$box.append($back_button);
 
@@ -15442,7 +15538,7 @@ $.FE.MODULES.data=function(a){function b(a){return a}function c(a){if(!a)return 
      */
     function insert (emoticon, img) {
       // Insert emoticon.
-      editor.html.insert('<span class="fr-emoticon fr-deletable' + (img ? ' fr-emoticon-img' : '') + '"' + (img ? ' style="background: url(' + img + ')' : '') + '">' + (img ? '&nbsp;' : emoticon) + '</span>' + '&nbsp;' + $.FE.MARKERS, true);
+      editor.html.insert('<span class="fr-emoticon fr-deletable' + (img ? ' fr-emoticon-img' : '') + '"' + (img ? ' style="background: url(' + img + ');"' : '') + '>' + (img ? '&nbsp;' : emoticon) + '</span>' + '&nbsp;' + $.FE.MARKERS, true);
     }
 
     /*
@@ -16200,7 +16296,7 @@ $.FE.MODULES.data=function(a){function b(a){return a}function c(a){if(!a)return 
     title: 'Upload File',
     undo: false,
     focus: true,
-    refershAfterCallback: false,
+    refreshAfterCallback: false,
     popup: true,
     callback: function () {
       if (!this.popups.isVisible('file.insert')) {
@@ -17042,7 +17138,7 @@ $.FE.MODULES.data=function(a){function b(a){return a}function c(a){if(!a)return 
     imageEditButtons: ['imageReplace', 'imageAlign', 'imageRemove', '|', 'imageLink', 'linkOpen', 'linkEdit', 'linkRemove', '-', 'imageDisplay', 'imageStyle', 'imageAlt', 'imageSize'],
     imageAltButtons: ['imageBack', '|'],
     imageSizeButtons: ['imageBack', '|'],
-    imageUploadURL: 'http://i.froala.com/upload',
+    imageUploadURL: 'https://i.froala.com/upload',
     imageUploadParam: 'file',
     imageUploadParams: {},
     imageUploadToS3: false,
@@ -17467,7 +17563,7 @@ $.FE.MODULES.data=function(a){function b(a){return a}function c(a){if(!a)return 
 
       // Image buttons.
       var image_buttons = '';
-      if (editor.opts.imageEditButtons.length > 1) {
+      if (editor.opts.imageEditButtons.length > 0) {
         image_buttons += '<div class="fr-buttons">';
         image_buttons += editor.button.buildList(editor.opts.imageEditButtons);
         image_buttons += '</div>';
@@ -18230,7 +18326,7 @@ $.FE.MODULES.data=function(a){function b(a){return a}function c(a){if(!a)return 
           active = '';
         }
 
-        upload_layer = '<div class="fr-image-upload-layer' + active + ' fr-layer" id="fr-image-upload-layer-' + editor.id + '"><strong>' + editor.language.translate('Drop image') + '</strong><br>(' + editor.language.translate('or click') + ')<div class="fr-form"><input type="file" accept="image/*" tabIndex="-1"></div></div>'
+        upload_layer = '<div class="fr-image-upload-layer' + active + ' fr-layer" id="fr-image-upload-layer-' + editor.id + '"><strong>' + editor.language.translate('Drop image') + '</strong><br>(' + editor.language.translate('or click') + ')<div class="fr-form"><input type="file" accept="image/' + editor.opts.imageAllowedTypes.join(', image/').toLowerCase() + '" tabIndex="-1"></div></div>'
       }
 
       // Image by url layer.
@@ -19109,12 +19205,12 @@ $.FE.MODULES.data=function(a){function b(a){return a}function c(a){if(!a)return 
   $.FE.DefineIcon('insertImage', {
     NAME: 'image'
   });
-  $.FE.RegisterShortcut($.FE.KEYCODE.P, 'insertImage', null, 'I');
+  $.FE.RegisterShortcut($.FE.KEYCODE.P, 'insertImage', null, 'P');
   $.FE.RegisterCommand('insertImage', {
     title: 'Insert Image',
     undo: false,
     focus: true,
-    refershAfterCallback: false,
+    refreshAfterCallback: false,
     popup: true,
     callback: function () {
       if (!this.popups.isVisible('image.insert')) {
@@ -19379,7 +19475,7 @@ $.FE.MODULES.data=function(a){function b(a){return a}function c(a){if(!a)return 
 
   // Extend defaults.
   $.extend($.FE.DEFAULTS, {
-    imageManagerLoadURL: 'http://i.froala.com/load-files',
+    imageManagerLoadURL: 'https://i.froala.com/load-files',
     imageManagerLoadMethod: 'get',
     imageManagerLoadParams: {},
     imageManagerPreloader: '',
@@ -21237,7 +21333,7 @@ $.FE.MODULES.data=function(a){function b(a){return a}function c(a){if(!a)return 
       }
 
       // Add autoprefix.
-      if (editor.opts.linkAutoPrefix !== '' && !/^(mailto|tel|sms|notes|data):.*/i.test(href) && !/^data:image.*/i.test(href) && !/^(https?:|ftps?:|)\/\//i.test(href)) {
+      if (editor.opts.linkAutoPrefix !== '' && !/^(mailto|tel|sms|notes|data):.*/i.test(href) && !/^data:image.*/i.test(href) && !/^(https?:|ftps?:|file:|)\/\//i.test(href)) {
         // Do prefix only if starting character is not absolute.
         if (['/', '{', '[', '#', '('].indexOf((href || '')[0]) < 0) {
           href = editor.opts.linkAutoPrefix + href;
@@ -22221,7 +22317,7 @@ $.FE.MODULES.data=function(a){function b(a){return a}function c(a){if(!a)return 
           $btn.find('> span').text(editor.opts.paragraphFormat[tag]);
         }
         else {
-          $btn.find('> span').text(edior.opts.paragraphFormat.N);
+          $btn.find('> span').text(editor.opts.paragraphFormat.N);
         }
       }
     }
@@ -25546,7 +25642,9 @@ $.FE.MODULES.data=function(a){function b(a){return a}function c(a){if(!a)return 
         // Prevent backspace from doing browser back.
         editor.events.on('keydown', function (e) {
           var selected_cells = selectedCells();
+
           if (selected_cells.length > 0) {
+            // ESC clear table cell selection.
             if (e.which == $.FE.KEYCODE.ESC) {
               if (editor.popups.isVisible('table.edit')) {
                 _removeSelection();
@@ -25559,7 +25657,21 @@ $.FE.MODULES.data=function(a){function b(a){return a}function c(a){if(!a)return 
               }
             }
 
-            if (selected_cells.length > 1) {
+            // Backspace clears selected cells content.
+            if (e.which == $.FE.KEYCODE.BACKSPACE) {
+              editor.undo.saveStep();
+
+              for (var i = 0; i < selected_cells.length; i++) {
+                $(selected_cells[i]).html('');
+              }
+
+              editor.undo.saveStep();
+              selected_cells = [];
+              return false;
+            }
+
+            // Prevent typing if cells are selected. (Allow browser refresh using keyboard)
+            if (selected_cells.length > 1 && !editor.keys.ctrlKey(e)) {
               e.preventDefault();
               selected_cells = [];
               return false;

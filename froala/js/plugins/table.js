@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.3.0 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.3.1 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
@@ -2634,7 +2634,9 @@
         // Prevent backspace from doing browser back.
         editor.events.on('keydown', function (e) {
           var selected_cells = selectedCells();
+
           if (selected_cells.length > 0) {
+            // ESC clear table cell selection.
             if (e.which == $.FE.KEYCODE.ESC) {
               if (editor.popups.isVisible('table.edit')) {
                 _removeSelection();
@@ -2647,7 +2649,21 @@
               }
             }
 
-            if (selected_cells.length > 1) {
+            // Backspace clears selected cells content.
+            if (e.which == $.FE.KEYCODE.BACKSPACE) {
+              editor.undo.saveStep();
+
+              for (var i = 0; i < selected_cells.length; i++) {
+                $(selected_cells[i]).html('');
+              }
+
+              editor.undo.saveStep();
+              selected_cells = [];
+              return false;
+            }
+
+            // Prevent typing if cells are selected. (Allow browser refresh using keyboard)
+            if (selected_cells.length > 1 && !editor.keys.ctrlKey(e)) {
               e.preventDefault();
               selected_cells = [];
               return false;

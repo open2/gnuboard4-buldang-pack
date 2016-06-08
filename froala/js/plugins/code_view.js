@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.3.0 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.3.1 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
@@ -176,7 +176,11 @@
           $html_area.css('min-height', editor.opts.heightMin);
         }
 
-        if (editor.opts.height || editor.opts.heightMax) {
+        if (editor.opts.height) {
+          $html_area.css('height', editor.opts.height);
+        }
+
+        if (editor.opts.heightMax) {
           $html_area.css('max-height', editor.opts.height || editor.opts.heightMax);
         }
 
@@ -238,7 +242,7 @@
       $html_area.attr('dir', editor.opts.direction);
 
       // Exit code view button for inline toolbar.
-      if (editor.opts.toolbarInline) {
+      if (!editor.$el.hasClass('fr-basic')) {
         $back_button = $('<a data-cmd="html" title="Code View" class="fr-command fr-btn html-switch' + (editor.helpers.isMobile() ? '' : ' fr-desktop') + '" role="button" tabindex="-1"><i class="fa fa-code"></i></button>');
         editor.$box.append($back_button);
 

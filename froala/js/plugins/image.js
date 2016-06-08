@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.3.0 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.3.1 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
@@ -46,7 +46,7 @@
     imageEditButtons: ['imageReplace', 'imageAlign', 'imageRemove', '|', 'imageLink', 'linkOpen', 'linkEdit', 'linkRemove', '-', 'imageDisplay', 'imageStyle', 'imageAlt', 'imageSize'],
     imageAltButtons: ['imageBack', '|'],
     imageSizeButtons: ['imageBack', '|'],
-    imageUploadURL: 'http://i.froala.com/upload',
+    imageUploadURL: 'https://i.froala.com/upload',
     imageUploadParam: 'file',
     imageUploadParams: {},
     imageUploadToS3: false,
@@ -471,7 +471,7 @@
 
       // Image buttons.
       var image_buttons = '';
-      if (editor.opts.imageEditButtons.length > 1) {
+      if (editor.opts.imageEditButtons.length > 0) {
         image_buttons += '<div class="fr-buttons">';
         image_buttons += editor.button.buildList(editor.opts.imageEditButtons);
         image_buttons += '</div>';
@@ -1234,7 +1234,7 @@
           active = '';
         }
 
-        upload_layer = '<div class="fr-image-upload-layer' + active + ' fr-layer" id="fr-image-upload-layer-' + editor.id + '"><strong>' + editor.language.translate('Drop image') + '</strong><br>(' + editor.language.translate('or click') + ')<div class="fr-form"><input type="file" accept="image/*" tabIndex="-1"></div></div>'
+        upload_layer = '<div class="fr-image-upload-layer' + active + ' fr-layer" id="fr-image-upload-layer-' + editor.id + '"><strong>' + editor.language.translate('Drop image') + '</strong><br>(' + editor.language.translate('or click') + ')<div class="fr-form"><input type="file" accept="image/' + editor.opts.imageAllowedTypes.join(', image/').toLowerCase() + '" tabIndex="-1"></div></div>'
       }
 
       // Image by url layer.
@@ -2113,12 +2113,12 @@
   $.FE.DefineIcon('insertImage', {
     NAME: 'image'
   });
-  $.FE.RegisterShortcut($.FE.KEYCODE.P, 'insertImage', null, 'I');
+  $.FE.RegisterShortcut($.FE.KEYCODE.P, 'insertImage', null, 'P');
   $.FE.RegisterCommand('insertImage', {
     title: 'Insert Image',
     undo: false,
     focus: true,
-    refershAfterCallback: false,
+    refreshAfterCallback: false,
     popup: true,
     callback: function () {
       if (!this.popups.isVisible('image.insert')) {

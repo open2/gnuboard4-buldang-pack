@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.3.0 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.3.1 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
@@ -227,7 +227,7 @@
           $btn.find('> span').text(editor.opts.paragraphFormat[tag]);
         }
         else {
-          $btn.find('> span').text(edior.opts.paragraphFormat.N);
+          $btn.find('> span').text(editor.opts.paragraphFormat.N);
         }
       }
     }

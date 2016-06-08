@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.3.0 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.3.1 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
@@ -560,7 +560,7 @@
     title: 'Upload File',
     undo: false,
     focus: true,
-    refershAfterCallback: false,
+    refreshAfterCallback: false,
     popup: true,
     callback: function () {
       if (!this.popups.isVisible('file.insert')) {

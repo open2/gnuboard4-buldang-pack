@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.3.0 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.3.1 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
@@ -36,7 +36,7 @@
 
   // Extend defaults.
   $.extend($.FE.DEFAULTS, {
-    imageManagerLoadURL: 'http://i.froala.com/load-files',
+    imageManagerLoadURL: 'https://i.froala.com/load-files',
     imageManagerLoadMethod: 'get',
     imageManagerLoadParams: {},
     imageManagerPreloader: '',
