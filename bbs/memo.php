@@ -100,17 +100,6 @@ if ($kind == "write") {
             $i++;
        }
     }
-
-    // 스패머를 위한 장치를 합니다
-    $delay = $_SESSION['sm_datetime2'] - $g4['server_time'] + $g4['memo_delay_sec'];
-    if ($delay > 0 && !$is_admin) 
-        alert("너무 빠른 시간내에 쪽지를 연속해서 보낼 수 없습니다.");
-    set_session("sm_datetime2", $g4['server_time']);
-
-    // 하나의 아이디로 세션을 다르게 하는 넘들을 위해서 쿠키도 같이 씁니다.
-    if (get_cookie("cm_datetime2") >= ($g4['server_time'] - $g4['memo_delay_sec']) && !$is_admin) 
-        alert("너무 빠른 시간내에 쪽지를 연속해서 보낼 수 없습니다.");
-    @set_cookie("cm_datetime2", "$g4[server_time]", 86400) ;
 }
 
 // kind에 따라서 action~!!!
