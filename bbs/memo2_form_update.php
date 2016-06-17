@@ -2,7 +2,7 @@
 include_once("./_common.php");
 include_once("$g4[path]/memo.config.php");
 
-if ($_SESSION["sm_datetime"] >= ($g4['server_time'] - $config['memo_delay_sec']) && !$is_admin) 
+if ($_SESSION["sm_datetime"] >= ($g4['server_time'] - $g4['memo_delay_sec']) && !$is_admin) 
     alert("너무 빠른 시간내에 쪽지를 연속해서 발신할 수 없습니다.");
 set_session("sm_datetime", $g4['server_time']);
 
