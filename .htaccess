@@ -1,5 +1,5 @@
 # to protect config.php
-<Files config.php>
+<Files config.php dbconfig.php>
 order allow,deny
 deny from all
 </Files>
