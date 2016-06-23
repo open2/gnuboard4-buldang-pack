@@ -284,7 +284,10 @@ with (document.fwrite) {
         if (w.value == "u")
             ca_name.value = "<?=$write[ca_name]?>";
         if (w.value == "r")
-            ca_name.value = "<?=$write[ca_name]?>"; 
+            ca_name.value = "<?=$write[ca_name]?>";
+        // 글쓰기를 할 때, 첫번째 category를 default로 선택해줍니다.
+        if (w.value == "")
+            ca_name.value = "<?php $arr=explode('|', $board[bo_category_list]); echo trim($arr[0]);?>";
     }
 }
 
