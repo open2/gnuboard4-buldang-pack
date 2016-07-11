@@ -1,3 +1,125 @@
+2.1.8 (2016.07.11)
+
+5.24일자 소스 첨부해 둡니다.
+push 관리자 쪽이 없으며, 2.1.9에서 push 관련 변경이 이어 집니다.
+
+==
+app 적용을 위한 소스변경이며, app 연동에 대한 안드로이드+push 서버는 open 되지 않으며
+개발에 대해서 의뢰를 하셔야 합니다 ( 개발자 : http://php79.net )
+
+
+불당팩과 같이 동작하는 부분이지만 저작권은 안드로이드앱과 push서버 개발자가 가지고 있고
+push서버는 laravel framework+ redis로 동작하기 때문에 설치를 하는 것이 아주 많이 어렵습니다.
+laravel, composer, bower ... 배우시는데 빨라야 반년이 걸립니다.
+
+
+.htaccess
+common.php
+config.php
+config.2.php
+head.php
+head.sub.php
+statcounter.php
+tail.php
+tail.sub.php
+
+bbs/ajax_whatson.php
+bbs/list.php
+bbs/login.php
+bbs/login_check.php
+bbs/login_session.php (신규파일)
+bbs/memo.php
+bbs/myon.php
+bbs/scrap_popin.php
+bbs/write_comment_update.php
+bbs/write_update.php
+
+froala/*
+
+js/board.js
+js/capslock.js
+
+lib/b4.lib.php
+lib/whatson.lib.php
+
+m/*
+
+plugin/php79/*
+
+skin/board/froala_boot/view.skin.php
+skin/board/froala_boot/write.skin.php
+
+skin/member/blue/*
+
+skin/memo/basic_froala/memo2.skin.php
+
+- 글쓰기를 할 때, 첫번째 카테고리를 무조건 선택하게 (선택을 귀챦아 하는 분을 위해서)
+skin/board/froala_boot/write.skin.php
+
+- 보안패치 (dbconfig.php 파일을 못 건드리게)
+.htaccess
+
+- typo 오류 수정 (프로그램에 typo 오류 = 버그)
+bbs/memo2_form_update.php
+https://github.com/open2/gnuboard4-buldang-pack/commit/3262ec70328f129c788c06dec049b10e456a74e6
+
+- 안쓰는 코드 삭제
+bbs/memo.php
+
+- 안쓰는 파일 삭제
+lib/class.twitter.lib.php
+lib/latest.gblog.lib.php
+lib/me2do.lib.php
+lib/sitemap.lib.php
+lib/tree.lib.php
+
+- froala 2.3.1 업데이트
+config.2.php
+froala/*
+
+- check_bo_sex 함수 관리자 pass하게
+lib/b4.lib.php
+
+- froala 2.3.0
+froala/*
+
+- 그누보드 5.1.16
+common.php
+https://github.com/gnuboard/gnuboard5/commit/52db203ecd9feb8964e28f890a1f0c6608efa543
+https://github.com/gnuboard/gnuboard5/commit/6e05353f31179a3082d0308bf868b9061e5e252c
+
+- 로그인세션/통계를 별도 파일로 분리
+statcounter.php
+tail.sub.php
+bbs/login_session.php
+m/tail.sub.php
+
+- app 연동 (수정/보완)
+.htaccess
+config.php
+head.php
+head.sub.php
+tail.php
+tail.sub.php
+bbs/ajax_whatson.php
+bbs/list.php
+bbs/login.php
+bbs/login_check.php
+bbs/myon.php
+bbs/scrap_popin.php
+bbs/write_comment_update.php
+bbs/write_update.php
+js/board.js
+js/capslock.js
+lib/b4.lib.php
+lib/whatson.lib.php
+m/*
+plugin/php79/*
+skin/board/froala_boot/view.skin.php
+skin/member/blue/*
+skin/memo/basic_froala/memo2.skin.php
+
+
 2.1.7 (2016.05.16)
 
 불당팩 2.1.7 이후 버젼은 app+push 연동을 위한 수정 입니다.
