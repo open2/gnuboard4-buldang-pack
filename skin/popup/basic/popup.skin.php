@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 ?>
 
 <? if (count($list)) { ?>
@@ -21,13 +21,13 @@ function hideMe(popupid, days){
   	document.getElementById('divpop_'+popupid).style.visibility="hidden";
 }
 
-// ÀÌ¹ÌÁö¸Ê À§·Î ¸¶¿ì½º°¡ ÀÌµ¿ÇÒ ¶§ ¸¶¿ì½º Ä¿¼­¸¦ ¹Ù²ãÁÖ±â
+// ì´ë¯¸ì§€ë§µ ìœ„ë¡œ ë§ˆìš°ìŠ¤ê°€ ì´ë™í•  ë•Œ ë§ˆìš°ìŠ¤ ì»¤ì„œë¥¼ ë°”ê¿”ì£¼ê¸°
 function over(id, cursorVal) 
 { 
     document.getElementById(id).style.cursor = cursorVal; 
 } 
 
-// ÀÌ¹ÌÁö¸Ê ¹ÛÀ¸·Î ¸¶¿ì½º°¡ ÀÌµ¿ÇÒ ¶§ ¸¶¿ì½º Ä¿¼­¸¦ ¹Ù²ãÁÖ±â
+// ì´ë¯¸ì§€ë§µ ë°–ìœ¼ë¡œ ë§ˆìš°ìŠ¤ê°€ ì´ë™í•  ë•Œ ë§ˆìš°ìŠ¤ ì»¤ì„œë¥¼ ë°”ê¿”ì£¼ê¸°
 function out(id) 
 { 
     document.getElementById(id).style.cursor = 'move'; 
@@ -39,9 +39,9 @@ function out(id)
 <?
 for ($i=0; $i<count($list); $i++) {
 
-// cookie Á¤º¸¸¦ ÀĞ¾î¼­, doneÀÎ °æ¿ì¿¡´Â Ãâ·ÂÀ» ÇÏÁö ¾Ê°í Åë°úÇÕ´Ï´Ù. ºÒÇÊ¿äÇÑ Ã¢À» ¿©´Â °ÍÀº ³¶ºñÀÔ´Ï´Ù.
+// cookie ì •ë³´ë¥¼ ì½ì–´ì„œ, doneì¸ ê²½ìš°ì—ëŠ” ì¶œë ¥ì„ í•˜ì§€ ì•Šê³  í†µê³¼í•©ë‹ˆë‹¤. ë¶ˆí•„ìš”í•œ ì°½ì„ ì—¬ëŠ” ê²ƒì€ ë‚­ë¹„ì…ë‹ˆë‹¤.
 if (!$cate) 
-    $cate = "popup2143_"; // $cate°¡ ¾ø´Â °æ¿ì html ÆäÀÌÁöÀÇ ÀÌ¸§°ú °ãÄ¡´Â °æ¿ì°¡ ¹ß»ıÇØ¼­ ÀÓÀÇ·Î °ªÀ» ³Ö¾îÁİ´Ï´Ù.
+    $cate = "popup2143_"; // $cateê°€ ì—†ëŠ” ê²½ìš° html í˜ì´ì§€ì˜ ì´ë¦„ê³¼ ê²¹ì¹˜ëŠ” ê²½ìš°ê°€ ë°œìƒí•´ì„œ ì„ì˜ë¡œ ê°’ì„ ë„£ì–´ì¤ë‹ˆë‹¤.
 $popup_id = $cate . $list[$i]['wr_id'];
 $cookie_name = "divpop_" . $popup_id;
 $chkbox_id = "chkbox_" . $popup_id;
@@ -50,24 +50,24 @@ $writeContents_id = "writeContents_" . $popup_id;
 if ($_COOKIE[$cookie_name] == "done")
     continue;
 
-// ÆË¾÷°ü¸® - ÆÄÀÏ Ãâ·Â (/board/cheditor_popup/view.skin.php¿¡µµ °°Àº/¼öÁ¤µÈ ÄÚµå¸¦ ³Ö¾î¾ß ÇÕ´Ï´Ù.)
+// íŒì—…ê´€ë¦¬ - íŒŒì¼ ì¶œë ¥ (/board/cheditor_popup/view.skin.phpì—ë„ ê°™ì€/ìˆ˜ì •ëœ ì½”ë“œë¥¼ ë„£ì–´ì•¼ í•©ë‹ˆë‹¤.)
 $back_img = "";
 if ($list[$i][file][0][view]) {
     $img_url = $list[$i][file][0][path]."/".$list[$i][file][0][file];
-    if ($list[$i][wr_9]) { // ¸ÊÀ» »ç¿ëÇÏ´Â °æ¿ì
-        // ±âº»°ª Á¤ÀÇ
+    if ($list[$i][wr_9]) { // ë§µì„ ì‚¬ìš©í•˜ëŠ” ê²½ìš°
+        // ê¸°ë³¸ê°’ ì •ì˜
         $popup_padding = "0px";
         $popup_offset_x = 0;
-    } else if ($list[$i][link][1]) { // ¸ÊÀ» ¾È¾²¸é¼­ - ¸µÅ©1¿¡ °ªÀÌ ÀÖ´Â °æ¿ì - ÀÌ¹ÌÁö·Î
-        // ±âº»°ª Á¤ÀÇ
+    } else if ($list[$i][link][1]) { // ë§µì„ ì•ˆì“°ë©´ì„œ - ë§í¬1ì— ê°’ì´ ìˆëŠ” ê²½ìš° - ì´ë¯¸ì§€ë¡œ
+        // ê¸°ë³¸ê°’ ì •ì˜
         $popup_padding = "0px";
         $popup_offset_x = 0;
-    } else { //  ¸ÊÀ» ¾È¾²¸é¼­ - ¸µÅ©1¿¡ °ªÀÌ ¾ø´Â °æ¿ì - ¹è°æÀÌ¹ÌÁö·Î
-        // ±âº»°ª Á¤ÀÇ
+    } else { //  ë§µì„ ì•ˆì“°ë©´ì„œ - ë§í¬1ì— ê°’ì´ ì—†ëŠ” ê²½ìš° - ë°°ê²½ì´ë¯¸ì§€ë¡œ
+        // ê¸°ë³¸ê°’ ì •ì˜
         $popup_padding = "20px";
         $popup_offset_x = 12;
         
-        // ¹è°æÀÌ¹ÌÁö ¹İº¹
+        // ë°°ê²½ì´ë¯¸ì§€ ë°˜ë³µ
         if ($list[$i][wr_10])
             $back_img_repeat = "background-repeat:repeat";
         else
@@ -75,15 +75,15 @@ if ($list[$i][file][0][view]) {
         $back_img = "style=\"background-image:url('$img_url');{$back_img_repeat};width:{$list[$i][wr_5]}\"";
     }
 } else {
-        // ±âº»°ª Á¤ÀÇ
+        // ê¸°ë³¸ê°’ ì •ì˜
         $popup_padding = "20px";
         $popup_offset_x = 12;
 }
 
-// ÆË¾÷Ã¢ ³ĞÀÌ
+// íŒì—…ì°½ ë„“ì´
 $popup_width = $list[$i]['wr_5'];
 
-// ÆË¾÷Ã¢ÀÇ title »óÇÏ´Ü ³ôÀÌ
+// íŒì—…ì°½ì˜ title ìƒí•˜ë‹¨ ë†’ì´
 $popup_t = 25;
 ?>
 
@@ -92,11 +92,11 @@ $popup_t = 25;
 <div style="background-color:#888888;height:<?=$popup_t?>px;padding-left:<?=$popup_padding?>;padding-top:5px;">
 
     <span style="float:left">
-    <!-- Á¦¸ñÀÇ ÆùÆ® ½ºÅ¸ÀÏ°ú Å¸ÀÔÀ» Á¤ÀÇ -->
+    <!-- ì œëª©ì˜ í°íŠ¸ ìŠ¤íƒ€ì¼ê³¼ íƒ€ì…ì„ ì •ì˜ -->
     <font face="Arial" color="#FFFFFF">&nbsp;<?=$list[$i]['subject']?></font>
     </span>
 
-    <!-- Ã¢À» ´İ¾ÆÁÖ´Â x¸¦ Á¤ÀÇ -->
+    <!-- ì°½ì„ ë‹«ì•„ì£¼ëŠ” xë¥¼ ì •ì˜ -->
     <span style="float:right;width=<?=$popup_t?>px;">
     <a href="#" onclick="hideMe('<?=$popup_id?>', <?=$list[$i]['wr_7'];?>);"><font color=#ffffff size=2 face=arial style="text-decoration:none">X</font></a>&nbsp;
     </span>
@@ -104,12 +104,12 @@ $popup_t = 25;
 </div>
 
 <div style="background-color:#FFFFFF;height:<?=$list[$i]['wr_6']?>px;padding-left:<?=$popup_padding?>;padding-top:<?=$popup_padding?>;padding-right:<?=$popup_padding?>;">
-		<!-- ³»¿ë Ãâ·Â -->
-		<? if ($list[$i][wr_9]) { // ¸ÊÀ» ¾²´Â °æ¿ì ?>
+		<!-- ë‚´ìš© ì¶œë ¥ -->
+		<? if ($list[$i][wr_9]) { // ë§µì„ ì“°ëŠ” ê²½ìš° ?>
         <span id="<?=$writeContents_id?>" style="overflow:hidden;width:<?=$list[$i][wr_5]?>;height:<?=$list[$i][wr_6]?>;"><img src="<?=$img_url;?>" usemap="#<?=$list[$i][wr_9]?>"><?=conv_content_rev($list[$i][wr_content], $writeContents_id, $list[$i][wr_option]);?></span>
     <? } else if ($list[$i][link][1]) {
       
-    		// wr_link1ÀÌ ÀÖ´Â °æ¿ì¿¡´Â wr_link1À¸·Î ³»¿ëÀÇ link¸¦ °É¾îÁİ´Ï´Ù.
+    		// wr_link1ì´ ìˆëŠ” ê²½ìš°ì—ëŠ” wr_link1ìœ¼ë¡œ ë‚´ìš©ì˜ linkë¥¼ ê±¸ì–´ì¤ë‹ˆë‹¤.
         $popup_link = $list[$i][link][1];
   	    if ($list[$i][link][2])
 	          $target_link = " target='new' ";

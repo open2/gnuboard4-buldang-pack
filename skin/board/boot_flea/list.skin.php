@@ -1,10 +1,10 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
 $notice_count = $global_notice_count + $arr_notice_count;
 ?>
 
-<!-- ºĞ·ù ¼¿·ºÆ® ¹Ú½º, °Ô½Ã¹° ¸î°Ç, °ü¸®ÀÚÈ­¸é ¸µÅ© -->
+<!-- ë¶„ë¥˜ ì…€ë ‰íŠ¸ ë°•ìŠ¤, ê²Œì‹œë¬¼ ëª‡ê±´, ê´€ë¦¬ìí™”ë©´ ë§í¬ -->
 <div>
     <div class="btn-group">
         <a href="<?=$g4[bbs_path]?>/board.php?bo_table=<?=$bo_table?>" class="btn btn-default"><?=$board[bo_subject]?></a>
@@ -12,7 +12,7 @@ $notice_count = $global_notice_count + $arr_notice_count;
 
     <? if ($write_href) { ?>
     <div class="btn-group">
-        <a href="<?=$write_href?>" class="btn btn-default"><i class='fa fa-edit'></i> ¾²±â</a>
+        <a href="<?=$write_href?>" class="btn btn-default"><i class='fa fa-edit'></i> ì“°ê¸°</a>
     </div>
     <? } ?>
 
@@ -21,14 +21,14 @@ $notice_count = $global_notice_count + $arr_notice_count;
     <? if ($admin_href) { ?><a href="<?=$admin_href?>" class="btn btn-default"><i class='fa fa-cog'></i></a><?}?>
 
     <? if ($notice_count > 0) { ?>
-    <a href="#" class="btn btn-default notice_flip" title="°øÁö»çÇ× Flip"><i class="fa fa-microphone"></i></a>
+    <a href="#" class="btn btn-default notice_flip" title="ê³µì§€ì‚¬í•­ Flip"><i class="fa fa-microphone"></i></a>
     <? } ?>
 
     <? if ($is_category) { ?>
     <div style="float:right;margin-left:10px;">
     <form name="fcategory" method="get" role="form" class="form-inline">
         <select class="form-control" name=sca onchange="location='<?=$category_location?>'+<?=strtolower($g4[charset])=='utf-8' ? "encodeURIComponent(this.value)" : "this.value"?>;">
-        <option value=''>ÀüÃ¼</option><?=$category_option?></select>
+        <option value=''>ì „ì²´</option><?=$category_option?></select>
     </form>
     </div>
     <? } ?>
@@ -38,7 +38,7 @@ $notice_count = $global_notice_count + $arr_notice_count;
     </div>
 </div>
 
-<!-- Á¦¸ñ -->
+<!-- ì œëª© -->
 <form name="fboardlist" method="post" role="form" class="form-inline">
 <input type='hidden' name='bo_table' value='<?=$bo_table?>'>
 <input type='hidden' name='sfl'  value='<?=$sfl?>'>
@@ -52,18 +52,18 @@ $notice_count = $global_notice_count + $arr_notice_count;
 <table width=100% class="table table-condensed table-hover" style="word-wrap:break-word;">
 <thead>
 <tr class="success">
-    <th width=50px class="hidden-xs"><?=subject_sort_link('wr_id', $qstr2, 1)?>¹øÈ£</a></th>
+    <th width=50px class="hidden-xs"><?=subject_sort_link('wr_id', $qstr2, 1)?>ë²ˆí˜¸</a></th>
     <? if ($is_checkbox) { ?><th class="hidden-xs"><INPUT onclick="if (this.checked) all_checked(true); else all_checked(false);" type=checkbox></th><?}?>
-    <th>Á¦¸ñ<span class="visible-xs pull-right" style="font-weight: normal;color:#B8B8B8;">Page <?=$page?>/<?=$total_page?></span></th>
-    <th width=120px class="hidden-xs">±Û¾´ÀÌ</th>
-    <th width=70px class="hidden-xs"><?=subject_sort_link('wr_datetime', $qstr2, 1)?>³¯Â¥</a></th>
-    <th width=80px class="hidden-xs"><?=subject_sort_link('wr_hit', $qstr2, 1)?>Á¶È¸</a></th>
-    <? if ($is_good) { ?><th width=60px class="hidden-xs"><?=subject_sort_link('wr_good', $qstr2, 1)?>ÃßÃµ</a></th><?}?>
-    <? if ($is_nogood) { ?><th width=60px class="hidden-xs"><?=subject_sort_link('wr_nogood', $qstr2, 1)?>ºñÃß</a></th><?}?>
+    <th>ì œëª©<span class="visible-xs pull-right" style="font-weight: normal;color:#B8B8B8;">Page <?=$page?>/<?=$total_page?></span></th>
+    <th width=120px class="hidden-xs">ê¸€ì“´ì´</th>
+    <th width=70px class="hidden-xs"><?=subject_sort_link('wr_datetime', $qstr2, 1)?>ë‚ ì§œ</a></th>
+    <th width=80px class="hidden-xs"><?=subject_sort_link('wr_hit', $qstr2, 1)?>ì¡°íšŒ</a></th>
+    <? if ($is_good) { ?><th width=60px class="hidden-xs"><?=subject_sort_link('wr_good', $qstr2, 1)?>ì¶”ì²œ</a></th><?}?>
+    <? if ($is_nogood) { ?><th width=60px class="hidden-xs"><?=subject_sort_link('wr_nogood', $qstr2, 1)?>ë¹„ì¶”</a></th><?}?>
 </tr>
 </thead>
 
-<!-- ¸ñ·Ï -->
+<!-- ëª©ë¡ -->
 <? for ($i=0; $i<count($list); $i++) { ?>
 <?
 $is_notice = "";
@@ -73,9 +73,9 @@ if ($list[$i][is_notice])
 <tr class="<?=$is_notice?>"> 
     <td class="hidden-xs">
         <? 
-        if ($list[$i][is_notice]) // °øÁö»çÇ× 
-            echo "<i class=\"fa fa-microphone\" title='notice/°øÁö»çÇ×'></i> ";
-        else if ($wr_id == $list[$i][wr_id]) // ÇöÀçÀ§Ä¡
+        if ($list[$i][is_notice]) // ê³µì§€ì‚¬í•­ 
+            echo "<i class=\"fa fa-microphone\" title='notice/ê³µì§€ì‚¬í•­'></i> ";
+        else if ($wr_id == $list[$i][wr_id]) // í˜„ì¬ìœ„ì¹˜
             echo "<span style='font-weight:bold; color:#E15916;'>{$list[$i][num]}</span>";
         else
             echo "<span style='color:#BABABA;'>{$list[$i][num]}</span>";
@@ -85,7 +85,7 @@ if ($list[$i][is_notice])
     <td class="hidden-xs" align=left style='word-break:break-all;'>
         <?
         echo $list[$i][reply];
-        if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply fa-rotate-180\" title='reply/´ä±Û'></i> ";
+        if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply fa-rotate-180\" title='reply/ë‹µê¸€'></i> ";
         if ($is_category && $list[$i][ca_name]) {
             echo "<font color=gray><a href='{$list[$i][ca_name_href]}'><small>({$list[$i][ca_name]})</small></a></font> ";
         }
@@ -106,13 +106,13 @@ if ($list[$i][is_notice])
         if ($list[$i][comment_cnt]) 
             echo " <a href=\"{$list[$i][comment_href]}\"><span style='color:#EE5A00;'><small>{$list[$i][comment_cnt]}</small></span></a>";
 
-        // ¹Ø¿¡¼­ ÇÑ¹ø ´õ ½á¾ß ÇÏ±â ¶§¹®¿¡ ¹è¿­¿¡ ´ã¾Æ µÓ´Ï´Ù.
+        // ë°‘ì—ì„œ í•œë²ˆ ë” ì¨ì•¼ í•˜ê¸° ë•Œë¬¸ì— ë°°ì—´ì— ë‹´ì•„ ë‘¡ë‹ˆë‹¤.
         $icon_images = "";
-        if ($list[$i][icon_new]) $icon_images .= " <i class=\"fa fa-pagelines\" title='new articla/»õ±Û'></i>";
-        if ($list[$i][icon_file]) $icon_images .=  " <i class=\"fa fa-file-o\" title='attached file/Ã·ºÎÆÄÀÏ'></i>";
-        if ($list[$i][icon_link]) $icon_images .=  " <i class=\"fa fa-link\" title='link/¸µÅ©'></i>";
-        if ($list[$i][icon_hot]) $icon_images .= " <i class=\"fa fa-fire\" title='hot article/Á¶È½¼ö ¸¹Àº ±Û'></i>";
-        if ($list[$i][icon_secret]) $icon_images .= " <i class=\"fa fa-lock\" title='secret/ºñ¹Ğ±Û'></i>";
+        if ($list[$i][icon_new]) $icon_images .= " <i class=\"fa fa-pagelines\" title='new articla/ìƒˆê¸€'></i>";
+        if ($list[$i][icon_file]) $icon_images .=  " <i class=\"fa fa-file-o\" title='attached file/ì²¨ë¶€íŒŒì¼'></i>";
+        if ($list[$i][icon_link]) $icon_images .=  " <i class=\"fa fa-link\" title='link/ë§í¬'></i>";
+        if ($list[$i][icon_hot]) $icon_images .= " <i class=\"fa fa-fire\" title='hot article/ì¡°íšŸìˆ˜ ë§ì€ ê¸€'></i>";
+        if ($list[$i][icon_secret]) $icon_images .= " <i class=\"fa fa-lock\" title='secret/ë¹„ë°€ê¸€'></i>";
         echo $icon_images;
         ?>
         </td>
@@ -122,21 +122,21 @@ if ($list[$i][is_notice])
     <? if ($is_good) { ?><td class="hidden-xs" align="center"><?=$list[$i][wr_good]?></td><? } ?>
     <? if ($is_nogood) { ?><td class="hidden-xs" align="center"><?=$list[$i][wr_nogood]?></td><? } ?>
     <!-- 
-    xs »çÀÌÁî¿¡¼­ 40±ÛÀÚ ÀÌ»óÀÌ¸é table width¸¦ ³Ñ¾î¼­ ¼öÆò ½ºÅ©·ÑÀÌ »ı±é´Ï´Ù 
-    ±×·¡¼­, µû·Î Ãâ·ÂÇÏ´Â row¸¦ ¸¸µé¾î Áá½À´Ï´Ù.
-    xs »çÀÌÁî¿¡¼­´Â ¾Æ·¡Ã³·³ 1°³ÀÇ td¸¸ Ãâ·Â µË´Ï´Ù. ´Ù¸¥ °ÍÀº ¸ğµÎ hidden.
-    ´õ ÁÁÀº ¹æ¹ı¿¡ ´ëÇÑ Á¦¾ÈÀº ¾ğÁ¦µç È¯¿µ ÇÕ´Ï´Ù.
+    xs ì‚¬ì´ì¦ˆì—ì„œ 40ê¸€ì ì´ìƒì´ë©´ table widthë¥¼ ë„˜ì–´ì„œ ìˆ˜í‰ ìŠ¤í¬ë¡¤ì´ ìƒê¹ë‹ˆë‹¤ 
+    ê·¸ë˜ì„œ, ë”°ë¡œ ì¶œë ¥í•˜ëŠ” rowë¥¼ ë§Œë“¤ì–´ ì¤¬ìŠµë‹ˆë‹¤.
+    xs ì‚¬ì´ì¦ˆì—ì„œëŠ” ì•„ë˜ì²˜ëŸ¼ 1ê°œì˜ tdë§Œ ì¶œë ¥ ë©ë‹ˆë‹¤. ë‹¤ë¥¸ ê²ƒì€ ëª¨ë‘ hidden.
+    ë” ì¢‹ì€ ë°©ë²•ì— ëŒ€í•œ ì œì•ˆì€ ì–¸ì œë“  í™˜ì˜ í•©ë‹ˆë‹¤.
     -->
 </tr>
 <tr class="visible-xs">
     <td align=left style='word-break:break-all;'>
         <div>
         <?
-        if ($list[$i][is_notice]) // °øÁö»çÇ× 
-            echo "<i class=\"fa fa-microphone\" title='notice/°øÁö»çÇ×'></i> ";
+        if ($list[$i][is_notice]) // ê³µì§€ì‚¬í•­ 
+            echo "<i class=\"fa fa-microphone\" title='notice/ê³µì§€ì‚¬í•­'></i> ";
 
 
-        if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply fa-rotate-180\" title='reply/´ä±Û'></i> ";
+        if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply fa-rotate-180\" title='reply/ë‹µê¸€'></i> ";
         if ($is_category && $list[$i][ca_name]) { 
             echo "<font color=gray><a href='{$list[$i][ca_name_href]}'><small>({$list[$i][ca_name]})</small></a></font> ";
         }
@@ -151,7 +151,7 @@ if ($list[$i][is_notice])
             $style = "";
 
         echo "<a href='" . $list[$i][href] . "'>";
-        // °Ë»öÀ» ÇÏ¸é $list[$i][subject]¿¡ tag°¡ µé¾î ÀÖÀ¸¹Ç·Î tag¸¦ Á¦°ÅÈÄ ±ÛÀÚ¼ö ÁÙÀÌ±â¸¦ ÇØ¾ß ÇÔ...
+        // ê²€ìƒ‰ì„ í•˜ë©´ $list[$i][subject]ì— tagê°€ ë“¤ì–´ ìˆìœ¼ë¯€ë¡œ tagë¥¼ ì œê±°í›„ ê¸€ììˆ˜ ì¤„ì´ê¸°ë¥¼ í•´ì•¼ í•¨...
         if ($sfl && $stx)
             echo "<span $style>" . cut_str(strip_tags($list[$i][subject]), 40) . "</span>";
         else
@@ -161,7 +161,7 @@ if ($list[$i][is_notice])
         if ($list[$i][comment_cnt]) 
             echo " <a href=\"{$list[$i][comment_href]}\"><span style='color:#EE5A00;'><small>{$list[$i][comment_cnt]}</small></span></a>";
 
-        // À§¿¡¼­ ÀúÀåÇÑ $icon_images Ãâ·Â
+        // ìœ„ì—ì„œ ì €ì¥í•œ $icon_images ì¶œë ¥
         echo $icon_images;
         ?>
         </div>
@@ -176,63 +176,63 @@ if ($list[$i][is_notice])
 </tr>
 <?}?>
 
-<? if (count($list) == 0) { echo "<tr><td colspan=6 height=100 align=center>°Ô½Ã¹°ÀÌ ¾ø½À´Ï´Ù.</td></tr>"; } ?>
+<? if (count($list) == 0) { echo "<tr><td colspan=6 height=100 align=center>ê²Œì‹œë¬¼ì´ ì—†ìŠµë‹ˆë‹¤.</td></tr>"; } ?>
 </table>
 </div>
 </form>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
-    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ÀÌÀü°Ë»ö</a></li>"; } ?>
+    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ì´ì „ê²€ìƒ‰</a></li>"; } ?>
     <?
-    // ±âº»À¸·Î ³Ñ¾î¿À´Â ÆäÀÌÁö¸¦ ¾Æ·¡¿Í °°ÀÌ º¯È¯ÇÏ¿© ´Ù¾çÇÏ°Ô Ãâ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.
-    $write_pages = str_replace("ÀÌÀü", "<i class='fa fa-angle-left'></i>", $write_pages);
-    $write_pages = str_replace("´ÙÀ½", "<i class='fa fa-angle-right'></i>", $write_pages);
-    $write_pages = str_replace("Ã³À½", "<i class='fa fa-angle-double-left'></i>", $write_pages);
-    $write_pages = str_replace("¸Ç³¡", "<i class='fa fa-angle-double-right'></i>", $write_pages);
+    // ê¸°ë³¸ìœ¼ë¡œ ë„˜ì–´ì˜¤ëŠ” í˜ì´ì§€ë¥¼ ì•„ë˜ì™€ ê°™ì´ ë³€í™˜í•˜ì—¬ ë‹¤ì–‘í•˜ê²Œ ì¶œë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+    $write_pages = str_replace("ì´ì „", "<i class='fa fa-angle-left'></i>", $write_pages);
+    $write_pages = str_replace("ë‹¤ìŒ", "<i class='fa fa-angle-right'></i>", $write_pages);
+    $write_pages = str_replace("ì²˜ìŒ", "<i class='fa fa-angle-double-left'></i>", $write_pages);
+    $write_pages = str_replace("ë§¨ë", "<i class='fa fa-angle-double-right'></i>", $write_pages);
     ?>
     <?=$write_pages?>
-    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ÀÌÈÄ°Ë»ö</a></li>"; } ?>
+    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ì´í›„ê²€ìƒ‰</a></li>"; } ?>
     </ul>
 </div>
 <div class="center-block visible-xs">
     <ul class="pagination">
-    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ÀÌÀü°Ë»ö</a></li>"; } ?>
+    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ì´ì „ê²€ìƒ‰</a></li>"; } ?>
     <?
-    // ±âº»À¸·Î ³Ñ¾î¿À´Â ÆäÀÌÁö¸¦ ¾Æ·¡¿Í °°ÀÌ º¯È¯ÇÏ¿© ´Ù¾çÇÏ°Ô Ãâ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.
-    $write_pages_xs = str_replace("ÀÌÀü", "<i class='fa fa-angle-left'></i>", $write_pages_xs);
-    $write_pages_xs = str_replace("´ÙÀ½", "<i class='fa fa-angle-right'></i>", $write_pages_xs);
-    $write_pages_xs = str_replace("Ã³À½", "<i class='fa fa-angle-double-left'></i>", $write_pages_xs);
-    $write_pages_xs = str_replace("¸Ç³¡", "<i class='fa fa-angle-double-right'></i>", $write_pages_xs);
+    // ê¸°ë³¸ìœ¼ë¡œ ë„˜ì–´ì˜¤ëŠ” í˜ì´ì§€ë¥¼ ì•„ë˜ì™€ ê°™ì´ ë³€í™˜í•˜ì—¬ ë‹¤ì–‘í•˜ê²Œ ì¶œë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+    $write_pages_xs = str_replace("ì´ì „", "<i class='fa fa-angle-left'></i>", $write_pages_xs);
+    $write_pages_xs = str_replace("ë‹¤ìŒ", "<i class='fa fa-angle-right'></i>", $write_pages_xs);
+    $write_pages_xs = str_replace("ì²˜ìŒ", "<i class='fa fa-angle-double-left'></i>", $write_pages_xs);
+    $write_pages_xs = str_replace("ë§¨ë", "<i class='fa fa-angle-double-right'></i>", $write_pages_xs);
     ?>
     <?=$write_pages_xs?>
-    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ÀÌÈÄ°Ë»ö</a></li>"; } ?>
+    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ì´í›„ê²€ìƒ‰</a></li>"; } ?>
     </ul>
 </div>
 
-<!-- ¸µÅ© ¹öÆ°, °Ë»ö -->
+<!-- ë§í¬ ë²„íŠ¼, ê²€ìƒ‰ -->
 <form name=fsearch method=get role="form" class="form-inline">
 <input type=hidden name=bo_table value="<?=$bo_table?>">
 <input type=hidden name=sca      value="<?=$sca?>">
 <? if ($list_href) { ?>
 <div class="btn-group">
-    <a href="<?=$list_href?>" class="btn btn-default"><i class='fa fa-list'></i> ¸ñ·Ï</a>
+    <a href="<?=$list_href?>" class="btn btn-default"><i class='fa fa-list'></i> ëª©ë¡</a>
 </div>
 <? } ?>
 <? if ($write_href) { ?>
 <div class="btn-group">
-    <a href="<?=$write_href?>" class="btn btn-default"><i class='fa fa-edit'></i> ¾²±â</a>
+    <a href="<?=$write_href?>" class="btn btn-default"><i class='fa fa-edit'></i> ì“°ê¸°</a>
 </div>
 <? } ?>
 <? if ($is_checkbox) { ?>
 <span style='display:inline-block!important;vertical-align:bottom;'>
 <div class="btn-group hidden-sm hidden-xs">
-    <a href="javascript:select_delete();" class="btn btn-default">¼±ÅÃ»èÁ¦</a>
-    <a href="javascript:select_copy('copy');" class="btn btn-default">¼±ÅÃº¹»ç</a>
-    <a href="javascript:select_copy('move');" class="btn btn-default">¼±ÅÃÀÌµ¿</a>
+    <a href="javascript:select_delete();" class="btn btn-default">ì„ íƒì‚­ì œ</a>
+    <a href="javascript:select_copy('copy');" class="btn btn-default">ì„ íƒë³µì‚¬</a>
+    <a href="javascript:select_copy('move');" class="btn btn-default">ì„ íƒì´ë™</a>
     <? if ($is_category) { ?>
-    <a href="javascript:select_category();"  class="btn btn-default">Ä«Å×°í¸®º¯°æ</a>
+    <a href="javascript:select_category();"  class="btn btn-default">ì¹´í…Œê³ ë¦¬ë³€ê²½</a>
     <select class="form-control input-sm" name=sca2><?=$category_option?></select>
     <? } ?>
 </div>
@@ -247,18 +247,18 @@ if ($list[$i][is_notice])
     <div class="form-group">
         <label class="sr-only" for="sfl">sfl</label>
         <select name=sfl class="form-control">
-        <option value='wr_subject'>Á¦¸ñ</option>
-        <option value='wr_content'>³»¿ë</option>
-        <option value='wr_subject||wr_content'>Á¦¸ñ+³»¿ë</option>
-        <option value='mb_id,1'>È¸¿ø¾ÆÀÌµğ</option>
-        <option value='mb_id,0'>È¸¿ø¾ÆÀÌµğ(ÄÚ)</option>
-        <option value='wr_name,1'>ÀÌ¸§</option>
-        <option value='wr_name,0'>ÀÌ¸§(ÄÚ)</option>
+        <option value='wr_subject'>ì œëª©</option>
+        <option value='wr_content'>ë‚´ìš©</option>
+        <option value='wr_subject||wr_content'>ì œëª©+ë‚´ìš©</option>
+        <option value='mb_id,1'>íšŒì›ì•„ì´ë””</option>
+        <option value='mb_id,0'>íšŒì›ì•„ì´ë””(ì½”)</option>
+        <option value='wr_name,1'>ì´ë¦„</option>
+        <option value='wr_name,0'>ì´ë¦„(ì½”)</option>
         </select>
     </div>
     <div class="form-group">
         <label class="sr-only" for="stx">stx</label>
-        <input name=stx maxlength=15 size=10 itemname="°Ë»ö¾î" required value='<?=stripslashes($stx)?>' class="form-control">
+        <input name=stx maxlength=15 size=10 itemname="ê²€ìƒ‰ì–´" required value='<?=stripslashes($stx)?>' class="form-control">
     </div>
     <div class="form-group">
         <label class="sr-only" for="sop">sop</label>
@@ -268,18 +268,18 @@ if ($list[$i][is_notice])
         </select>
     </div>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 
 </form>
 
 <?
-// flip cookie¸¦ °¡Á®¿Í¼­ ºñ±³ ÇÕ´Ï´Ù
+// flip cookieë¥¼ ê°€ì ¸ì™€ì„œ ë¹„êµ í•©ë‹ˆë‹¤
 $ck_name = $bo_table . "_flip_datetime";
 $flip_datetime = $_COOKIE[$ck_name];
 if ($g4['last_notice_datetime'] > $flip_datetime) {
-    // flipÇÑ ÀÌÈÄ¿¡ °øÁö°¡ ¿Ã¶ó¿À¸é flip cookie¸¦ »èÁ¦ÇØÁÖ°í, flipÀÌ µÇÁö ¾Ê°Ô ÇÕ´Ï´Ù. »õ·Î¿î °øÁö´Â ¹İµå½Ã ºÁ¾ß ÇÕ´Ï´Ù.
+    // flipí•œ ì´í›„ì— ê³µì§€ê°€ ì˜¬ë¼ì˜¤ë©´ flip cookieë¥¼ ì‚­ì œí•´ì£¼ê³ , flipì´ ë˜ì§€ ì•Šê²Œ í•©ë‹ˆë‹¤. ìƒˆë¡œìš´ ê³µì§€ëŠ” ë°˜ë“œì‹œ ë´ì•¼ í•©ë‹ˆë‹¤.
 ?>
     <script type="text/javascript">
     createCookie( '<?=$ck_name?>', '', 365);
@@ -287,11 +287,11 @@ if ($g4['last_notice_datetime'] > $flip_datetime) {
     </script>
 <?
 } else {
-    // flipÀº Çß°í, »õ·Î¿î °øÁöµµ ¾øÀ¸¸é °øÁö¸¦ °¨ÃçÁİ´Ï´Ù
+    // flipì€ í–ˆê³ , ìƒˆë¡œìš´ ê³µì§€ë„ ì—†ìœ¼ë©´ ê³µì§€ë¥¼ ê°ì¶°ì¤ë‹ˆë‹¤
 ?>
     <script type="text/javascript">
     $('.is_notice').hide();
-    $('.notice_flip').addClass('active');   // ¹öÆ°ÀÌ ´­·¯Áø »óÅÂ·Î ¹Ù²ãÁİ´Ï´Ù.
+    $('.notice_flip').addClass('active');   // ë²„íŠ¼ì´ ëˆŒëŸ¬ì§„ ìƒíƒœë¡œ ë°”ê¿”ì¤ë‹ˆë‹¤.
     </script>
 <? } ?>
 
@@ -331,35 +331,35 @@ function check_confirm(str) {
     }
 
     if (!chk_count) {
-        alert(str + "ÇÒ °Ô½Ã¹°À» ÇÏ³ª ÀÌ»ó ¼±ÅÃÇÏ¼¼¿ä.");
+        alert(str + "í•  ê²Œì‹œë¬¼ì„ í•˜ë‚˜ ì´ìƒ ì„ íƒí•˜ì„¸ìš”.");
         return false;
     }
     return true;
 }
 
-// ¼±ÅÃÇÑ °Ô½Ã¹° »èÁ¦
+// ì„ íƒí•œ ê²Œì‹œë¬¼ ì‚­ì œ
 function select_delete() {
     var f = document.fboardlist;
 
-    str = "»èÁ¦";
+    str = "ì‚­ì œ";
     if (!check_confirm(str))
         return;
 
-    if (!confirm("¼±ÅÃÇÑ °Ô½Ã¹°À» Á¤¸» "+str+" ÇÏ½Ã°Ú½À´Ï±î?\n\nÇÑ¹ø "+str+"ÇÑ ÀÚ·á´Â º¹±¸ÇÒ ¼ö ¾ø½À´Ï´Ù"))
+    if (!confirm("ì„ íƒí•œ ê²Œì‹œë¬¼ì„ ì •ë§ "+str+" í•˜ì‹œê² ìŠµë‹ˆê¹Œ?\n\ní•œë²ˆ "+str+"í•œ ìë£ŒëŠ” ë³µêµ¬í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤"))
         return;
 
     f.action = "<?=$g4[bbs_path]?>/delete_all.php";
     f.submit();
 }
 
-// ¼±ÅÃÇÑ °Ô½Ã¹° º¹»ç ¹× ÀÌµ¿
+// ì„ íƒí•œ ê²Œì‹œë¬¼ ë³µì‚¬ ë° ì´ë™
 function select_copy(sw) {
     var f = document.fboardlist;
 
     if (sw == "copy")
-        str = "º¹»ç";
+        str = "ë³µì‚¬";
     else
-        str = "ÀÌµ¿";
+        str = "ì´ë™";
                        
     if (!check_confirm(str))
         return;
@@ -372,20 +372,20 @@ function select_copy(sw) {
     f.submit();
 }
 
-// ¼±ÅÃÇÑ °Ô½Ã¹° Ä«Å×°í¸®¸¦ º¯°æ
+// ì„ íƒí•œ ê²Œì‹œë¬¼ ì¹´í…Œê³ ë¦¬ë¥¼ ë³€ê²½
 function select_category() {
     var f = document.fboardlist;
     var f2 = document.fsearch;
 
-    str = "Ä«Å×°í¸®º¯°æ";
+    str = "ì¹´í…Œê³ ë¦¬ë³€ê²½";
     if (!check_confirm(str))
         return;
 
     str = f2.sca2.value;
-    if (!confirm("¼±ÅÃÇÑ °Ô½Ã¹°ÀÇ Ä«Å×°í¸®¸¦ "+str+" À¸·Î º¯°æ ÇÏ½Ã°Ú½À´Ï±î?"))
+    if (!confirm("ì„ íƒí•œ ê²Œì‹œë¬¼ì˜ ì¹´í…Œê³ ë¦¬ë¥¼ "+str+" ìœ¼ë¡œ ë³€ê²½ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?"))
         return;
 
-    // sca¿¡ °ªÀ» ³Ö¾îÁà¾ßÁÒ.
+    // scaì— ê°’ì„ ë„£ì–´ì¤˜ì•¼ì£ .
     f.sca.value = str;
 
     f.action = "./category_all.php";
@@ -393,4 +393,4 @@ function select_category() {
 }
 </script>
 <? } ?>
-<!-- °Ô½ÃÆÇ ¸ñ·Ï ³¡ -->
+<!-- ê²Œì‹œíŒ ëª©ë¡ ë -->

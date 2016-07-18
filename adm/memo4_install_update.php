@@ -6,12 +6,12 @@ include_once("$g4[path]/memo.config.php");
 check_demo();
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4[path]);
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4[path]);
 
 if (!($mb_password && sql_password($mb_password)===$member[mb_password]))
-    alert("ÃÖ°í°ü¸®ÀÚ ÆĞ½º¿öµå°¡ Æ²¸³´Ï´Ù.");
+    alert("ìµœê³ ê´€ë¦¬ì íŒ¨ìŠ¤ì›Œë“œê°€ í‹€ë¦½ë‹ˆë‹¤.");
 
-// Å×ÀÌºí »ı¼º ------------------------------------
+// í…Œì´ë¸” ìƒì„± ------------------------------------
 $file = implode("", file("memo4.sql"));
 eval("\$file = \"$file\";");
 
@@ -20,7 +20,7 @@ for ($i=0; $i<count($f); $i++) {
     if (trim($f[$i]) == "") continue;
     mysql_query($f[$i]) or die(mysql_error());
 }
-// Å×ÀÌºí »ı¼º ------------------------------------
+// í…Œì´ë¸” ìƒì„± ------------------------------------
 $sql = " INSERT INTO `$g4[memo_config_table]` 
             set `cf_memo_page_rows` = 20, 
                 `cf_memo_del_unread` = 180, 
@@ -33,14 +33,14 @@ $sql = " INSERT INTO `$g4[memo_config_table]`
                 `cf_memo_before_after` = 0 ";
 sql_query($sql, true);
 
-// µğ·ºÅä¸® »ı¼º
+// ë””ë ‰í† ë¦¬ ìƒì„±
 $dir_arr = array ("../data/memo2", "../data/memo2_deleted");
 for ($i=0; $i<count($dir_arr); $i++) 
 {
     @mkdir($dir_arr[$i], 0707);
     @chmod($dir_arr[$i], 0707);
 
-    // µğ·ºÅä¸®¿¡ ÀÖ´Â ÆÄÀÏÀÇ ¸ñ·ÏÀ» º¸ÀÌÁö ¾Ê°Ô ÇÑ´Ù.
+    // ë””ë ‰í† ë¦¬ì— ìˆëŠ” íŒŒì¼ì˜ ëª©ë¡ì„ ë³´ì´ì§€ ì•Šê²Œ í•œë‹¤.
     $file = $dir_arr[$i] . "/index.php";
     $f = @fopen($file, "w");
     @fwrite($f, "");
@@ -48,5 +48,5 @@ for ($i=0; $i<count($dir_arr); $i++)
     @chmod($file, 0606);
 }
 
-alert("¼³Ä¡¸¦ Á¤»óÀûÀ¸·Î ¿Ï·á ÇÏ¿´½À´Ï´Ù.", "memo4_install.php");
+alert("ì„¤ì¹˜ë¥¼ ì •ìƒì ìœ¼ë¡œ ì™„ë£Œ í•˜ì˜€ìŠµë‹ˆë‹¤.", "memo4_install.php");
 ?>

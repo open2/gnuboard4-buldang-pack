@@ -1,15 +1,15 @@
 <?
-// proxy ¼­¹öÀÎÁö È®ÀÎÇÏ±â
+// proxy ì„œë²„ì¸ì§€ í™•ì¸í•˜ê¸°
 function check_proxy($ip_addr) 
 {
     global $g4;
 
-    // ip ÁÖ¼Ò°¡ ¾øÀ¸¸é return
+    // ip ì£¼ì†Œê°€ ì—†ìœ¼ë©´ return
     $ip_addr = trim($ip_addr);
     if (!$ip_addr)
         return true;
     
-    // ip ÁÖ¼Ò Çü½ÄÀÌ ¹Ù¸£Áö ¾ÊÀ¸¸é retnrn
+    // ip ì£¼ì†Œ í˜•ì‹ì´ ë°”ë¥´ì§€ ì•Šìœ¼ë©´ retnrn
     if (!ip2long($ip_addr))
         return true;
 
@@ -17,8 +17,8 @@ function check_proxy($ip_addr)
     $result = sql_fetch($sql);
     
     if ($result[cnt] > 0)
-        return true;    // proxy ¼­¹ö
+        return true;    // proxy ì„œë²„
     else
-        return false;   // proxy ¼­¹ö°¡ ¾Æ´Ô
+        return false;   // proxy ì„œë²„ê°€ ì•„ë‹˜
 } 
 ?>

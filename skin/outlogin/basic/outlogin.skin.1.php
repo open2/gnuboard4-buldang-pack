@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
 if ($g4['https_url']) {
     $outlogin_url = $_GET['url'];
@@ -25,20 +25,20 @@ else {
 }
 ?>
 
-<!-- ·Î±×ÀÎ Àü ¿ÜºÎ·Î±×ÀÎ ½ÃÀÛ -->
+<!-- ë¡œê·¸ì¸ ì „ ì™¸ë¶€ë¡œê·¸ì¸ ì‹œì‘ -->
 <form name="fhead" method="post" onsubmit="return fhead_submit(this);" autocomplete="off" role="form" class="form-inline">
 <input type="hidden" name="url" value="<?=$outlogin_url?>">
 
-<input type="text" class="form-control" style="width:100%" name="mb_id" id="mb_id" maxlength="20" itemname="¾ÆÀÌµğ" placeholder="login id">
+<input type="text" class="form-control" style="width:100%" name="mb_id" id="mb_id" maxlength="20" itemname="ì•„ì´ë””" placeholder="login id">
 <label for="mb_id" class="sr-only">member_id</label>
-<input type="password" class="form-control" style="width:100%;margin-top:-1px;" name="mb_password" id="outlogin_mb_password" maxlength="20" itemname="ÆĞ½º¿öµå" placeholder="password">
+<input type="password" class="form-control" style="width:100%;margin-top:-1px;" name="mb_password" id="outlogin_mb_password" maxlength="20" itemname="íŒ¨ìŠ¤ì›Œë“œ" placeholder="password">
 <label for="outlogin_mb_password" class="sr-only">password</label>
 
 <div class="input-group" style="margin-top:-1px;width:100%">
     <span class="input-group-addon">
         <div class="checkbox custom">
         <label>
-        <input type="checkbox" name="auto_login" title="ÀÚµ¿·Î±×ÀÎ" value="1" onclick="if (this.checked) { if (confirm('ÀÚµ¿·Î±×ÀÎÀ» »ç¿ëÇÏ½Ã¸é ´ÙÀ½ºÎÅÍ È¸¿ø¾ÆÀÌµğ¿Í ÆĞ½º¿öµå¸¦ ÀÔ·ÂÇÏ½Ç ÇÊ¿ä°¡ ¾ø½À´Ï´Ù.\n\n\°ø°øÀå¼Ò¿¡¼­´Â °³ÀÎÁ¤º¸°¡ À¯ÃâµÉ ¼ö ÀÖÀ¸´Ï »ç¿ëÀ» ÀÚÁ¦ÇÏ¿© ÁÖ½Ê½Ã¿À.\n\nÀÚµ¿·Î±×ÀÎÀ» »ç¿ëÇÏ½Ã°Ú½À´Ï±î?')) { this.checked = true; } else { this.checked = false; } }">
+        <input type="checkbox" name="auto_login" title="ìë™ë¡œê·¸ì¸" value="1" onclick="if (this.checked) { if (confirm('ìë™ë¡œê·¸ì¸ì„ ì‚¬ìš©í•˜ì‹œë©´ ë‹¤ìŒë¶€í„° íšŒì›ì•„ì´ë””ì™€ íŒ¨ìŠ¤ì›Œë“œë¥¼ ì…ë ¥í•˜ì‹¤ í•„ìš”ê°€ ì—†ìŠµë‹ˆë‹¤.\n\n\ê³µê³µì¥ì†Œì—ì„œëŠ” ê°œì¸ì •ë³´ê°€ ìœ ì¶œë  ìˆ˜ ìˆìœ¼ë‹ˆ ì‚¬ìš©ì„ ìì œí•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.\n\nìë™ë¡œê·¸ì¸ì„ ì‚¬ìš©í•˜ì‹œê² ìŠµë‹ˆê¹Œ?')) { this.checked = true; } else { this.checked = false; } }">
         Auto
         </label>
         </div>
@@ -47,8 +47,8 @@ else {
 </div>
     
 <div class="btn-group btn-group-justified" style="margin-bottom:3px;">
-    <a class="btn btn-default" style="border-color: #ffffff;" title="È¸¿ø°¡ÀÔ" href="<?=$g4[bbs_path]?>/register.php">È¸¿ø°¡ÀÔ</a>
-    <a class="btn btn-default" style="border-color: #ffffff;" title="È¸¿ø id, password Ã£±â" href="javascript:win_password_lost();">¾ÆÀÌµğÃ£±â</a>
+    <a class="btn btn-default" style="border-color: #ffffff;" title="íšŒì›ê°€ì…" href="<?=$g4[bbs_path]?>/register.php">íšŒì›ê°€ì…</a>
+    <a class="btn btn-default" style="border-color: #ffffff;" title="íšŒì› id, password ì°¾ê¸°" href="javascript:win_password_lost();">ì•„ì´ë””ì°¾ê¸°</a>
 </div>
 
 </form>
@@ -58,14 +58,14 @@ function fhead_submit(f)
 {
     if (!f.mb_id.value)
     {
-        alert("È¸¿ø¾ÆÀÌµğ¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À.");
+        alert("íšŒì›ì•„ì´ë””ë¥¼ ì…ë ¥í•˜ì‹­ì‹œì˜¤.");
         f.mb_id.focus();
         return false;
     }
 
     if (!f.mb_password.value)
     {
-        alert("ÆĞ½º¿öµå¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À.");
+        alert("íŒ¨ìŠ¤ì›Œë“œë¥¼ ì…ë ¥í•˜ì‹­ì‹œì˜¤.");
         f.mb_password.focus();
         return false;
     }
@@ -80,4 +80,4 @@ function fhead_submit(f)
     return true;
 }
 </script>
-<!-- ·Î±×ÀÎ Àü ¿ÜºÎ·Î±×ÀÎ ³¡ -->
+<!-- ë¡œê·¸ì¸ ì „ ì™¸ë¶€ë¡œê·¸ì¸ ë -->

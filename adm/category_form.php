@@ -6,27 +6,27 @@ auth_check($auth[$sub_menu], "w");
 
 $token = get_token();
 
-$html_title = "Ä«Å×°í¸®";
+$html_title = "ì¹´í…Œê³ ë¦¬";
 if ($w == "") {
-    $html_title .= " »ı¼º";
+    $html_title .= " ìƒì„±";
 
     $len = strlen($ca_id);
     if ($len >= 20) 
-        alert("Ä«Å×°í¸®¸¦ ´õ ÀÌ»ó Ãß°¡ÇÒ ¼ö ¾ø½À´Ï´Ù.\\n\\n5´Ü°è ºĞ·ù±îÁö¸¸ °¡´ÉÇÕ´Ï´Ù.");
+        alert("ì¹´í…Œê³ ë¦¬ë¥¼ ë” ì´ìƒ ì¶”ê°€í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\\n\\n5ë‹¨ê³„ ë¶„ë¥˜ê¹Œì§€ë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
-    // 4ÀÚ¸®ÀÇ °¡Àå Å« subid¸¦ Ã£±â
+    // 4ìë¦¬ì˜ ê°€ì¥ í° subidë¥¼ ì°¾ê¸°
     $len2 = $len + 1;
     $sql = " select MAX(SUBSTRING(ca_id,$len2,4)) as max_caid from $g4[category_table]
               where SUBSTRING(ca_id,1,$len) = '$ca_id' ";
     $row = sql_fetch($sql);
 
-    if ($ca_id) // 2´Ü°èÀÌ»ó
+    if ($ca_id) // 2ë‹¨ê³„ì´ìƒ
     { 
         $sql = " select * from $g4[category_table] where ca_id = '$ca_id' ";
         $ca = sql_fetch($sql);
         $ca[ca_subject] = "";
     } 
-    else // 1´Ü°è
+    else // 1ë‹¨ê³„
     {
         $ca['ca_use'] = 1;
     }
@@ -34,12 +34,12 @@ if ($w == "") {
     $sub_id = getNextAlphaNumeric($row[max_caid]);
 
 } else if ($w == "u") {
-    $html_title .= " ¼öÁ¤";
+    $html_title .= " ìˆ˜ì •";
 
     $sql = " select * from $g4[category_table] where ca_id = '$ca_id' ";
     $ca = sql_fetch($sql);
     if (!$ca[ca_id])
-        alert("Á¸ÀçÇÏÁö ¾Ê´Â Ä«Å×°í¸® ÀÔ´Ï´Ù.");
+        alert("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì¹´í…Œê³ ë¦¬ ì…ë‹ˆë‹¤.");
 
     $ca_table_attr = "readonly style='background-color:#dddddd'";
 }
@@ -67,39 +67,39 @@ include_once ("./admin.head.php");
 <tr><td colspan=3 class='line1'></td></tr>
 <tr class='ht'>
     <td></td>
-    <td>Ä«Å×°í¸®ID</td>
+    <td>ì¹´í…Œê³ ë¦¬ID</td>
     <td>
         <? 
         if ($w == "") {
         ?>
-        <?=$ca[ca_id]?> <input type=text class=ed id=ca_id name=ca_id size='<?=$sublen?>' maxlength='<?=$sublen?>' minlength='<?=$sublen?>' <?=$ca_table_attr?> required nospace alphanumeric itemname='Ä«Å×°í¸®ID' value='<?=$sub_id?>'>
-        ¿µ¹®ÀÚ, ¼ıÀÚ¸¸ °¡´É (°ø¹é¾øÀÌ 4ÀÚ)
-        <?=help("ÀÚµ¿À¸·Î º¸¿©Áö´Â ID¸¦ »ç¿ëÇÏ½Ã±æ ±ÇÇØµå¸®Áö¸¸ Á÷Á¢ ÀÔ·ÂÇÑ °ªÀ¸·Îµµ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.\nÄ«Å×°í¸®ID´Â ³ªÁß¿¡ ¼öÁ¤ÀÌ µÇÁö ¾ÊÀ¸¹Ç·Î ½ÅÁßÇÏ°Ô °áÁ¤ÇÏ¿© »ç¿ëÇÏ½Ê½Ã¿À.");?>
+        <?=$ca[ca_id]?> <input type=text class=ed id=ca_id name=ca_id size='<?=$sublen?>' maxlength='<?=$sublen?>' minlength='<?=$sublen?>' <?=$ca_table_attr?> required nospace alphanumeric itemname='ì¹´í…Œê³ ë¦¬ID' value='<?=$sub_id?>'>
+        ì˜ë¬¸ì, ìˆ«ìë§Œ ê°€ëŠ¥ (ê³µë°±ì—†ì´ 4ì)
+        <?=help("ìë™ìœ¼ë¡œ ë³´ì—¬ì§€ëŠ” IDë¥¼ ì‚¬ìš©í•˜ì‹œê¸¸ ê¶Œí•´ë“œë¦¬ì§€ë§Œ ì§ì ‘ ì…ë ¥í•œ ê°’ìœ¼ë¡œë„ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.\nì¹´í…Œê³ ë¦¬IDëŠ” ë‚˜ì¤‘ì— ìˆ˜ì •ì´ ë˜ì§€ ì•Šìœ¼ë¯€ë¡œ ì‹ ì¤‘í•˜ê²Œ ê²°ì •í•˜ì—¬ ì‚¬ìš©í•˜ì‹­ì‹œì˜¤.");?>
     <? } else { ?>
         <input type=hidden name=ca_id value='<?=$ca[ca_id]?>'><?=$ca[ca_id]?>
-        <? echo "<a href='./category_form.php?ca_id=$ca_id&$qstr' title='ÇÏÀ§Ä«Å×°í¸® Ãß°¡'><img src='$g4[admin_path]/img/icon_insert.gif' border=0 align=absmiddle></a>"; ?>
+        <? echo "<a href='./category_form.php?ca_id=$ca_id&$qstr' title='í•˜ìœ„ì¹´í…Œê³ ë¦¬ ì¶”ê°€'><img src='$g4[admin_path]/img/icon_insert.gif' border=0 align=absmiddle></a>"; ?>
     <? } ?>
     </td>
 </tr>
 
 <tr class='ht'>
     <td></td>
-    <td>Ä«Å×°í¸® Á¦¸ñ</td>
+    <td>ì¹´í…Œê³ ë¦¬ ì œëª©</td>
     <td>
-        <input type=text class=ed name=ca_subject size=60 maxlength=120 required itemname='Ä«Å×°í¸® Á¦¸ñ' value='<?=get_text($ca[ca_subject])?>'>
+        <input type=text class=ed name=ca_subject size=60 maxlength=120 required itemname='ì¹´í…Œê³ ë¦¬ ì œëª©' value='<?=get_text($ca[ca_subject])?>'>
     </td>
 </tr>
 
 <tr><td colspan=3 class='line2'></td></tr>
 <tr class='ht'>
     <td></td>
-    <td>Ä«Å×°í¸®»ç¿ë</td>
-    <td><input type=checkbox name=ca_use value='1' <?=$ca[ca_use]?'checked':'';?>>»ç¿ë</td>
+    <td>ì¹´í…Œê³ ë¦¬ì‚¬ìš©</td>
+    <td><input type=checkbox name=ca_use value='1' <?=$ca[ca_use]?'checked':'';?>>ì‚¬ìš©</td>
 </tr>
 <tr class='ht'>
     <td></td>
-    <td>Ä«Å×°í¸® ¼ø¼­</td>
-    <td><input type=text class=ed name=ca_order size=5 value='<?=$ca[ca_order]?>'> ¼ıÀÚ°¡ ³·Àº Ä«Å×°í¸® ºÎÅÍ Ãâ·Â</td>
+    <td>ì¹´í…Œê³ ë¦¬ ìˆœì„œ</td>
+    <td><input type=text class=ed name=ca_order size=5 value='<?=$ca[ca_order]?>'> ìˆ«ìê°€ ë‚®ì€ ì¹´í…Œê³ ë¦¬ ë¶€í„° ì¶œë ¥</td>
 </tr>
 
 <tr><td colspan=3 class='line2'></td></tr>
@@ -107,22 +107,22 @@ include_once ("./admin.head.php");
 <? for ($i=1; $i<=3; $i++) { ?>
 <tr class='ht'>
     <td></td>
-    <td><input type=text class=ed name='ca_<?=$i?>_subj' value='<?=get_text($ca["ca_{$i}_subj"])?>' title='¿©ºĞÇÊµå <?=$i?> Á¦¸ñ' style='text-align:right;font-weight:bold;'></td>
-    <td><input type=text class=ed style='width:80%;' name='ca_<?=$i?>' value='<?=get_text($ca["ca_$i"])?>' title='¿©ºĞÇÊµå <?=$i?> ¼³Á¤°ª'></td>
+    <td><input type=text class=ed name='ca_<?=$i?>_subj' value='<?=get_text($ca["ca_{$i}_subj"])?>' title='ì—¬ë¶„í•„ë“œ <?=$i?> ì œëª©' style='text-align:right;font-weight:bold;'></td>
+    <td><input type=text class=ed style='width:80%;' name='ca_<?=$i?>' value='<?=get_text($ca["ca_$i"])?>' title='ì—¬ë¶„í•„ë“œ <?=$i?> ì„¤ì •ê°’'></td>
 </tr>
 <? } ?>
 
 <tr class='ht'>
     <td></td>
-    <td>Ä«Å×°í¸® ¼öÁ¤ÀÏ</td>
+    <td>ì¹´í…Œê³ ë¦¬ ìˆ˜ì •ì¼</td>
     <td><?=$ca['ca_datetime']?></td>
 </tr>
 
 </table>
 
 <p align=center>
-    <input type=submit class=btn1 accesskey='s' value='  È®  ÀÎ  '>&nbsp;
-    <input type=button class=btn1 value='  ¸ñ  ·Ï  ' onclick="document.location.href='./category_list.php?<?=$qstr?>';">&nbsp;
+    <input type=submit class=btn1 accesskey='s' value='  í™•  ì¸  '>&nbsp;
+    <input type=button class=btn1 value='  ëª©  ë¡  ' onclick="document.location.href='./category_list.php?<?=$qstr?>';">&nbsp;
 </form>
 
 <script type="text/javascript">

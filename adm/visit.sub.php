@@ -15,21 +15,21 @@ $member_skin_path = "$g4[path]/skin/member/$config[cf_member_skin]";
 <form name=fvisit method=get>
 <tr>
     <td>
-        ±â°£ : 
-        <input type='text' name='fr_date' id='fr_date' size=11 maxlength=10 value='<?=$fr_date?>' class=ed><a href="javascript:win_calendar('fr_date', document.getElementById('fr_date').value, '-');"><img src='<?=$member_skin_path?>/img/calendar.gif' border=0 align=absmiddle title='´Þ·Â - ³¯Â¥¸¦ ¼±ÅÃÇÏ¼¼¿ä'></a>
+        ê¸°ê°„ : 
+        <input type='text' name='fr_date' id='fr_date' size=11 maxlength=10 value='<?=$fr_date?>' class=ed><a href="javascript:win_calendar('fr_date', document.getElementById('fr_date').value, '-');"><img src='<?=$member_skin_path?>/img/calendar.gif' border=0 align=absmiddle title='ë‹¬ë ¥ - ë‚ ì§œë¥¼ ì„ íƒí•˜ì„¸ìš”'></a>
         -
-        <input type='text' name='to_date' id='to_date' size=11 maxlength=10 value='<?=$to_date?>' class=ed><a href="javascript:win_calendar('to_date', document.getElementById('to_date').value, '-');"><img src='<?=$member_skin_path?>/img/calendar.gif' border=0 align=absmiddle title='´Þ·Â - ³¯Â¥¸¦ ¼±ÅÃÇÏ¼¼¿ä'></a>
+        <input type='text' name='to_date' id='to_date' size=11 maxlength=10 value='<?=$to_date?>' class=ed><a href="javascript:win_calendar('to_date', document.getElementById('to_date').value, '-');"><img src='<?=$member_skin_path?>/img/calendar.gif' border=0 align=absmiddle title='ë‹¬ë ¥ - ë‚ ì§œë¥¼ ì„ íƒí•˜ì„¸ìš”'></a>
         &nbsp;
-        <input type=button class=btn1 value=' Á¢¼ÓÀÚ '   onclick="fvisit_submit('visit_list.php');">
-        <input type=button class=btn1 value=' µµ¸ÞÀÎ '   onclick="fvisit_submit('visit_domain.php');">
+        <input type=button class=btn1 value=' ì ‘ì†ìž '   onclick="fvisit_submit('visit_list.php');">
+        <input type=button class=btn1 value=' ë„ë©”ì¸ '   onclick="fvisit_submit('visit_domain.php');">
         <input type=button class=btn1 value=' i p '   onclick="fvisit_submit('visit_ip.php');">
-        <input type=button class=btn1 value=' ºê¶ó¿ìÀú ' onclick="fvisit_submit('visit_browser.php');">
+        <input type=button class=btn1 value=' ë¸Œë¼ìš°ì € ' onclick="fvisit_submit('visit_browser.php');">
         <input type=button class=btn1 value=' OS '       onclick="fvisit_submit('visit_os.php');">
-        <input type=button class=btn1 value=' ½Ã°£ '     onclick="fvisit_submit('visit_hour.php');">
-        <input type=button class=btn1 value=' ¿äÀÏ '     onclick="fvisit_submit('visit_week.php');">
-        <input type=button class=btn1 value=' ÀÏ '       onclick="fvisit_submit('visit_date.php');">
-        <input type=button class=btn1 value=' ¿ù '       onclick="fvisit_submit('visit_month.php');">
-        <input type=button class=btn1 value=' ³â '       onclick="fvisit_submit('visit_year.php');">
+        <input type=button class=btn1 value=' ì‹œê°„ '     onclick="fvisit_submit('visit_hour.php');">
+        <input type=button class=btn1 value=' ìš”ì¼ '     onclick="fvisit_submit('visit_week.php');">
+        <input type=button class=btn1 value=' ì¼ '       onclick="fvisit_submit('visit_date.php');">
+        <input type=button class=btn1 value=' ì›” '       onclick="fvisit_submit('visit_month.php');">
+        <input type=button class=btn1 value=' ë…„ '       onclick="fvisit_submit('visit_year.php');">
     </td>
 </tr>
 </form>

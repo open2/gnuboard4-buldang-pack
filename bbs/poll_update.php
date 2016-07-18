@@ -3,32 +3,32 @@ include_once("./_common.php");
 
 $po = sql_fetch(" select a.*, b.gl_name from $g4[poll_table] a left join $g4[member_group_table] b on a.po_level = b.gl_id where a.po_id = '$_POST[po_id]' ");
 if (!$po[po_id]) 
-    alert_close("po_id °ªÀÌ Á¦´ë·Î ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.");
+    alert_close("po_id ê°’ì´ ì œëŒ€ë¡œ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
-// ÅõÇ¥ÀÌÈÄ ÀÌµ¿ÇÒ url
+// íˆ¬í‘œì´í›„ ì´ë™í•  url
 $poll_url = "./poll_result.php?po_id=$po_id&skin_dir=$skin_dir";
 
-// ÅõÇ¥½ÃÀÛÀÏ check 
+// íˆ¬í‘œì‹œì‘ì¼ check 
 $tm1 = explode("-", $po[po_date]);
 $start_stamp = mktime(0,0,0, $tm1[1], $tm1[2], $tm1[0]);
 if ($start_stamp > $g4['server_time'])
-    alert("ÅõÇ¥½ÃÀÛÀÏÀº $po[po_date] ÀÔ´Ï´Ù.", $poll_url);
+    alert("íˆ¬í‘œì‹œì‘ì¼ì€ $po[po_date] ì…ë‹ˆë‹¤.", $poll_url);
    
-// ÅõÇ¥¸¶°¨ÀÏ check
+// íˆ¬í‘œë§ˆê°ì¼ check
 if ($po[po_end_date] != "0000-00-00") {
     $tm2 = explode("-", $po[po_end_date]);
     $end_stamp = mktime(0,0,0, $tm2[1], $tm2[2], $tm2[0]);
     if ($end_stamp < $g4['server_time'])
-        alert("ÀÌ¹Ì $po[po_date]ÀÏ Á¾·áµÈ ÅõÇ¥ÀÔ´Ï´Ù.", $poll_url);
+        alert("ì´ë¯¸ $po[po_date]ì¼ ì¢…ë£Œëœ íˆ¬í‘œì…ë‹ˆë‹¤.", $poll_url);
 }
 
 if ($member[mb_level] < $po[po_level]) 
-    alert("$po[gl_name] ÀÌ»ó È¸¿ø¸¸ ÅõÇ¥¿¡ Âü¿©ÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+    alert("$po[gl_name] ì´ìƒ íšŒì›ë§Œ íˆ¬í‘œì— ì°¸ì—¬í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
-// ÄíÅ°¿¡ ÀúÀåµÈ ÅõÇ¥¹øÈ£°¡ ¾ø´Ù¸é
+// ì¿ í‚¤ì— ì €ì¥ëœ íˆ¬í‘œë²ˆí˜¸ê°€ ì—†ë‹¤ë©´
 if (get_cookie("ck_po_id") != $po[po_id]) 
 {
-    // ÅõÇ¥Çß´ø ipµé Áß¿¡¼­ Ã£¾Æº»´Ù
+    // íˆ¬í‘œí–ˆë˜ ipë“¤ ì¤‘ì—ì„œ ì°¾ì•„ë³¸ë‹¤
     $search_ip = false;
     $ips = explode("\n", trim($po[po_ips]));
     for ($i=0; $i<count($ips); $i++) 
@@ -40,7 +40,7 @@ if (get_cookie("ck_po_id") != $po[po_id])
         }
     }
 
-    // ÅõÇ¥Çß´ø È¸¿ø¾ÆÀÌµğµé Áß¿¡¼­ Ã£¾Æº»´Ù
+    // íˆ¬í‘œí–ˆë˜ íšŒì›ì•„ì´ë””ë“¤ ì¤‘ì—ì„œ ì°¾ì•„ë³¸ë‹¤
     $search_mb_id = false;
     if ($is_member)
     {
@@ -55,7 +55,7 @@ if (get_cookie("ck_po_id") != $po[po_id])
         }
     }
 
-    // ¾ø´Ù¸é ¼±ÅÃÇÑ ÅõÇ¥Ç×¸ñÀ» 1Áõ°¡ ½ÃÅ°°í ip, id¸¦ ÀúÀå
+    // ì—†ë‹¤ë©´ ì„ íƒí•œ íˆ¬í‘œí•­ëª©ì„ 1ì¦ê°€ ì‹œí‚¤ê³  ip, idë¥¼ ì €ì¥
     if (!($search_ip || $search_mb_id)) 
     {
         $po_ips = $po[po_ips] . $remote_addr . "\n";
@@ -65,23 +65,23 @@ if (get_cookie("ck_po_id") != $po[po_id])
 
         $gb_poll = (int)$_POST[gb_poll];
         if ($gb_poll<1 || $gb_poll>9) {
-            alert_close("ÅõÇ¥ Ç×¸ñÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+            alert_close("íˆ¬í‘œ í•­ëª©ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
         }
 
         sql_query(" update $g4[poll_table] set po_cnt{$gb_poll} = po_cnt{$gb_poll} + 1, po_ips = '$po_ips', mb_ids = '$mb_ids' where po_id = '$po_id' ");
         $msg = "";
     } else 
     {
-        $msg = "ÀÌ¹Ì ÅõÇ¥¿¡ Âü¿© ÇÏ¼Ì½À´Ï´Ù.";
+        $msg = "ì´ë¯¸ íˆ¬í‘œì— ì°¸ì—¬ í•˜ì…¨ìŠµë‹ˆë‹¤.";
     }
 
     if (!$search_mb_id)
-        insert_point($member[mb_id], $po[po_point], $po[po_id] . ". " . cut_str($po[po_subject],20) . " ÅõÇ¥ Âü¿© ", "@poll", $po[po_id], "ÅõÇ¥");
+        insert_point($member[mb_id], $po[po_point], $po[po_id] . ". " . cut_str($po[po_subject],20) . " íˆ¬í‘œ ì°¸ì—¬ ", "@poll", $po[po_id], "íˆ¬í‘œ");
 } else {
-    $msg = "ÀÌ¹Ì ÅõÇ¥¿¡ Âü¿© ÇÏ¼Ì½À´Ï´Ù.";
+    $msg = "ì´ë¯¸ íˆ¬í‘œì— ì°¸ì—¬ í•˜ì…¨ìŠµë‹ˆë‹¤.";
 }
 
-set_cookie("ck_po_id", $po[po_id], 86400 * 15); // ÅõÇ¥ ÄíÅ° º¸¸§°£ ÀúÀå
+set_cookie("ck_po_id", $po[po_id], 86400 * 15); // íˆ¬í‘œ ì¿ í‚¤ ë³´ë¦„ê°„ ì €ì¥
 
 if ($msg)
     alert("$msg", $poll_url);

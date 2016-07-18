@@ -1,11 +1,11 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-if ($board[bo_4]) { // bo_4¿¡ °ªÀÌ ÀÖ´Â °æ¿ì exit¸¦ Àû¿ë
+if ($board[bo_4]) { // bo_4ì— ê°’ì´ ìžˆëŠ” ê²½ìš° exitë¥¼ ì ìš©
 if ($_FILES[bf_file][name][0]) {
     $exif = @exif_read_data($_FILES[bf_file][tmp_name][0]);
     if (!$exif[Make]) {
-        alert("EXIF Á¤º¸°¡ ¾ø´Â ÀÌ¹ÌÁö´Â µî·ÏÀÌ ºÒ°¡ÇÕ´Ï´Ù.");
+        alert("EXIF ì •ë³´ê°€ ì—†ëŠ” ì´ë¯¸ì§€ëŠ” ë“±ë¡ì´ ë¶ˆê°€í•©ë‹ˆë‹¤.");
         exit;
     }
 }

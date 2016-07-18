@@ -65,7 +65,7 @@ function cheditor4($id)
         var content_length = ed_{$id}.inputLength();
         var img_length = ed_{$id}.getImages();
         if (content_length < 1 &&  img_length < 1) { 
-            alert('³»¿ëÀ» ÀÔ·ÂÇÏ½Ê½Ã¿À.'); 
+            alert('ë‚´ìš©ì„ ìž…ë ¥í•˜ì‹­ì‹œì˜¤.'); 
             ed_{$id}.returnFalse();
             return false;
         }

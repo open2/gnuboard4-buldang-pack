@@ -5,12 +5,12 @@ include_once("./_common.php");
 check_demo();
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4[path]);
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4[path]);
 
-$g4[title] = "¾÷±×·¹ÀÌµå";
+$g4[title] = "ì—…ê·¸ë ˆì´ë“œ";
 if (!$g4[b4_upgrade]) include_once("./admin.head.php");
 
-// ½Å°í
+// ì‹ ê³ 
 $sql = "
 CREATE TABLE IF NOT EXISTS `$g4[singo_table]` (
 `sg_id` int( 11 ) NOT NULL AUTO_INCREMENT ,
@@ -29,20 +29,20 @@ KEY `fk2` ( `bo_table` , `wr_parent` )
 ";
 sql_query($sql, false);
 
-// ½Å°í - °Ô½ÃÆÇ¿¡ ½Å°í ÇÊµå Ãß°¡
+// ì‹ ê³  - ê²Œì‹œíŒì— ì‹ ê³  í•„ë“œ ì¶”ê°€
 $sql = " select bo_table from $g4[board_table] ";
 $res = sql_query($sql);
 for($i=0;$row=sql_fetch_array($res);$i++) {
     sql_query(" ALTER TABLE `{$g4['write_prefix']}{$row[bo_table]}` ADD `wr_singo` TINYINT NOT NULL AFTER `wr_datetime` ", FALSE);
 };
 
-// ½Å°í - °Ô½ÃÆÇº° Àû¿ë ¼³Á¤ÇÏ±â
+// ì‹ ê³  - ê²Œì‹œíŒë³„ ì ìš© ì„¤ì •í•˜ê¸°
 sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_singo` TINYINT NOT NULL ", FALSE);
 
-// ½Å°íÃ³¸® °Ç¼ö ¼³Á¤ÇÏ±â
+// ì‹ ê³ ì²˜ë¦¬ ê±´ìˆ˜ ì„¤ì •í•˜ê¸°
 sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_singo_intercept_count` INT( 11 ) NOT NULL, ADD `cf_singo_point` INT( 11 ) NOT NULL , ADD `cf_singo_today_count` INT( 11 ) NOT NULL ", FALSE);
 
-echo "<br>½Å°í±â´É UPGRADE ¿Ï·á.";
+echo "<br>ì‹ ê³ ê¸°ëŠ¥ UPGRADE ì™„ë£Œ.";
 
 if (!$g4[b4_upgrade]) include_once("./admin.tail.php");
 ?>

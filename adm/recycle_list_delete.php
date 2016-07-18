@@ -11,7 +11,7 @@ check_token();
 $msg = "";
 for ($i=0; $i<count($chk); $i++) 
 {
-    // ½ÇÁ¦ ¹øÈ£¸¦ ³Ñ±è
+    // ì‹¤ì œ ë²ˆí˜¸ë¥¼ ë„˜ê¹€
     $k = $_POST['chk'][$i];
     $rc_no = $_POST['rc_no'][$k];
     $sql = " update $g4[recycle_table] set rc_delete='1' where rc_no = '$rc_no' ";

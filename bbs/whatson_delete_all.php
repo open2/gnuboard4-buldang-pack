@@ -9,7 +9,7 @@ $rows = (int) $_POST[rows];
 
 for ($i=0; $i<count($chk); $i++) 
 {
-    // ½ÇÁ¦ ¹øÈ£¸¦ ³Ñ±è
+    // ì‹¤ì œ ë²ˆí˜¸ë¥¼ ë„˜ê¹€
     $k = $_POST['chk'][$i];  
 
     $wo_id = $_POST['wo_id'][$k];

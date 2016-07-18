@@ -4,62 +4,62 @@ include_once("./_common.php");
 $at_type = strip_tags($_POST['at_type']);
 $at_memo = strip_tags($_POST['at_memo']);
 
-if (!$is_member) alert("È¸¿ø¸¸ ÀÌ¿ëÇÏ½Ç¼ö ÀÖ½À´Ï´Ù.","{$g4[bbs_path]}/login.php?url=".urlencode("{$g4[attendance_path]}/attendance.php?s_date=$s_date" . $qstr));
+if (!$is_member) alert("íšŒì›ë§Œ ì´ìš©í•˜ì‹¤ìˆ˜ ìˆìŠµë‹ˆë‹¤.","{$g4[bbs_path]}/login.php?url=".urlencode("{$g4[attendance_path]}/attendance.php?s_date=$s_date" . $qstr));
 
 if($att['attendance_gnu'])
 	$levelname = $att[attendance_level];
 else
 	$levelname = sql_value("select ln_name{$att[attendance_level]} from $g4[levelname_table] where ln_level{$att[attendance_level]} = '$att[attendance_level]'");
 
-if ($member[mb_level] < $att[attendance_level]) alert($levelname.' ·¹º§ ÀÌ»ó È¸¿ø¸¸ ÀÌ¿ëÇÏ½Ç¼ö ÀÖ½À´Ï´Ù.');
-if (!$at_type) alert('°¡À§¹ÙÀ§º¸°¡ ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.');
-if (!$at_memo) alert('³»¿ëÀÌ ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.');
+if ($member[mb_level] < $att[attendance_level]) alert($levelname.' ë ˆë²¨ ì´ìƒ íšŒì›ë§Œ ì´ìš©í•˜ì‹¤ìˆ˜ ìˆìŠµë‹ˆë‹¤.');
+if (!$at_type) alert('ê°€ìœ„ë°”ìœ„ë³´ê°€ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.');
+if (!$at_memo) alert('ë‚´ìš©ì´ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.');
 
-// Ãâ¼® ½Ã°£ Ã¼Å©
+// ì¶œì„ ì‹œê°„ ì²´í¬
 if (date("H:i:s") < $att['attendance_start_time'] || date("H:i:s") > $att['attendance_end_time']) {
-    alert("Ãâ¼® ½Ã°£ÀÌ ¾Æ´Õ´Ï´Ù.");
+    alert("ì¶œì„ ì‹œê°„ì´ ì•„ë‹™ë‹ˆë‹¤.");
 }
 
 $ip_cnt = sql_value("select count(at_id) as cnt from $g4[attendance_plugin_table] where at_ip = '$_SERVER[REMOTE_ADDR]' and at_date = '$g4[time_ymd]'");
 $mb_cnt = sql_value("select count(at_id) as cnt from $g4[attendance_plugin_table] where mb_id = '$member[mb_id]' and at_date = '$g4[time_ymd]'");
 
-if($ip_cnt >= $att[attendance_ip]) alert("ÇØ´ç ¾ÆÀÌÇÇ·Î {$ip_cnt}È¸ ÀÌ¹Ì Ãâ¼®ÇÏ¼Ì½À´Ï´Ù.");
-if($mb_cnt >= $att[attendance_number]) alert("ÇØ´ç ¾ÆÀÌµğ·Î {$mb_cnt}È¸ ÀÌ¹Ì Ãâ¼®ÇÏ¼Ì½À´Ï´Ù.");
+if($ip_cnt >= $att[attendance_ip]) alert("í•´ë‹¹ ì•„ì´í”¼ë¡œ {$ip_cnt}íšŒ ì´ë¯¸ ì¶œì„í•˜ì…¨ìŠµë‹ˆë‹¤.");
+if($mb_cnt >= $att[attendance_number]) alert("í•´ë‹¹ ì•„ì´ë””ë¡œ {$mb_cnt}íšŒ ì´ë¯¸ ì¶œì„í•˜ì…¨ìŠµë‹ˆë‹¤.");
 
-$default_type = rand(1,3); // ÃÖ¼Ò ÃÖ´ëÀÇ ¼ıÀÚ
-$attendance_win_point = rand($att['attendance_win_start_point'],$att['attendance_win_end_point']); // ÃÖ¼Ò ÃÖ´ëÀÇ ½Â Æ÷ÀÎÆ®
-$attendance_tie_point = rand($att['attendance_tie_start_point'],$att['attendance_tie_end_point']); // ÃÖ¼Ò ÃÖ´ëÀÇ ¹«½ÂºÎ Æ÷ÀÎÆ®
-$attendance_loss_point = rand($att['attendance_loss_start_point'],$att['attendance_loss_end_point']); // ÃÖ¼Ò ÃÖ´ëÀÇ ÆĞ Æ÷ÀÎÆ®
+$default_type = rand(1,3); // ìµœì†Œ ìµœëŒ€ì˜ ìˆ«ì
+$attendance_win_point = rand($att['attendance_win_start_point'],$att['attendance_win_end_point']); // ìµœì†Œ ìµœëŒ€ì˜ ìŠ¹ í¬ì¸íŠ¸
+$attendance_tie_point = rand($att['attendance_tie_start_point'],$att['attendance_tie_end_point']); // ìµœì†Œ ìµœëŒ€ì˜ ë¬´ìŠ¹ë¶€ í¬ì¸íŠ¸
+$attendance_loss_point = rand($att['attendance_loss_start_point'],$att['attendance_loss_end_point']); // ìµœì†Œ ìµœëŒ€ì˜ íŒ¨ í¬ì¸íŠ¸
 
-// ÆĞ
+// íŒ¨
 if ( ($at_type =='1' && $default_type =='3') || ($at_type =='2' && $default_type =='1') || ($at_type =='3' && $default_type =='2')) {
 	$point = $attendance_loss_point;
 	$victory = 1;
-	$victory_str = "ÆĞÇÏ¼Ì½À´Ï´Ù.";
+	$victory_str = "íŒ¨í•˜ì…¨ìŠµë‹ˆë‹¤.";
 }
 
-// ¹«½ÂºÎ
+// ë¬´ìŠ¹ë¶€
 if ( ($at_type =='1' && $default_type =='1') || ($at_type =='2' && $default_type =='2') || ($at_type =='3' && $default_type =='3')) {
 	$point = $attendance_tie_point;
 	$victory = 2;
-	$victory_str = "¹«½ÂºÎÀÔ´Ï´Ù.";
+	$victory_str = "ë¬´ìŠ¹ë¶€ì…ë‹ˆë‹¤.";
 }
 
-//  ½Â
+//  ìŠ¹
 if ( ($at_type =='1' && $default_type =='2') || ($at_type =='2' && $default_type =='3') || ($at_type =='3' && $default_type =='1')) {
 	$point = $attendance_win_point;
 	$victory = 3;
-	$victory_str = "½Â¸®ÇÏ¼Ì½À´Ï´Ù.";
+	$victory_str = "ìŠ¹ë¦¬í•˜ì…¨ìŠµë‹ˆë‹¤.";
 }
 
-// Àú¹ø °á°ú °¡Á®¿À±â
+// ì €ë²ˆ ê²°ê³¼ ê°€ì ¸ì˜¤ê¸°
 $yesterday = date("Y-m-d", $g4['server_time'] - (1 * 86400));
 $sql = " select at_victory,at_successive from $g4[attendance_plugin_table] where mb_id = '$member[mb_id]' order by at_datetime desc";
 $row = sql_fetch($sql);
 
-// ¾îÁ¦ Ãâ¼®Çß´Ù¸é
+// ì–´ì œ ì¶œì„í–ˆë‹¤ë©´
 if($row[at_victory]){
-	// ¾îÁ¦ÀÇ °á°ú¿Í ¿À´ÃÀÇ °á°ú°¡ °°´Ù¸é
+	// ì–´ì œì˜ ê²°ê³¼ì™€ ì˜¤ëŠ˜ì˜ ê²°ê³¼ê°€ ê°™ë‹¤ë©´
 	if($row[at_victory] == $victory)
 		$successive = $row['at_successive'] + 1;
 	else
@@ -68,29 +68,29 @@ if($row[at_victory]){
 	$successive = 1;
 }
 
-// ¿¬½Â, ¿¬ÆĞ, ¿¬¹« µî Æ÷ÀÎÆ®¸¦ °è»êÇÔ
+// ì—°ìŠ¹, ì—°íŒ¨, ì—°ë¬´ ë“± í¬ì¸íŠ¸ë¥¼ ê³„ì‚°í•¨
 $tmp_point = attendance_get_successive($point,$successive);
 if ($point != $tmp_point){
 	$point = $tmp_point;
-	$victory_str = "¿¬¼Ó ".$victory_str;
+	$victory_str = "ì—°ì† ".$victory_str;
 }
 
 if (substr_count($at_memo, "&#") > 50) {
-    alert("³»¿ë¿¡ ¿Ã¹Ù¸£Áö ¾ÊÀº ÄÚµå°¡ ´Ù¼ö Æ÷ÇÔµÇ¾î ÀÖ½À´Ï´Ù.", "{$g4[attendance_path]}/attendance.php?s_date=$s_date" . $qstr);
+    alert("ë‚´ìš©ì— ì˜¬ë°”ë¥´ì§€ ì•Šì€ ì½”ë“œê°€ ë‹¤ìˆ˜ í¬í•¨ë˜ì–´ ìˆìŠµë‹ˆë‹¤.", "{$g4[attendance_path]}/attendance.php?s_date=$s_date" . $qstr);
     exit;
 }
 
 
-// ´Ü¾î ÇÊÅÍ¸µ
+// ë‹¨ì–´ í•„í„°ë§
 $filters = explode(",", $config['cf_filter']);
 for ($i=0; $i<count($filters); $i++) {
-    $s = trim($filters[$i]); // ÇÊÅÍ´Ü¾îÀÇ ¾ÕµÚ °ø¹éÀ» ¾ø¾Ú
+    $s = trim($filters[$i]); // í•„í„°ë‹¨ì–´ì˜ ì•ë’¤ ê³µë°±ì„ ì—†ì•°
     if (stristr($at_memo, $s)) {
-        alert("Á¦¸ñ¿¡ ±İÁö´Ü¾î(\'{$s}\')°¡ Æ÷ÇÔµÇ¾î ÀÖ½À´Ï´Ù.", "{$g4[attendance_path]}/attendance.php?s_date=$s_date" . $qstr);
+        alert("ì œëª©ì— ê¸ˆì§€ë‹¨ì–´(\'{$s}\')ê°€ í¬í•¨ë˜ì–´ ìˆìŠµë‹ˆë‹¤.", "{$g4[attendance_path]}/attendance.php?s_date=$s_date" . $qstr);
         exit;
     }
     if (stristr($at_memo, $s)) {
-        alert("³»¿ë¿¡ ±İÁö´Ü¾î(\'{$s}\')°¡ Æ÷ÇÔµÇ¾î ÀÖ½À´Ï´Ù.", "{$g4[attendance_path]}/attendance.php?s_date=$s_date" . $qstr);
+        alert("ë‚´ìš©ì— ê¸ˆì§€ë‹¨ì–´(\'{$s}\')ê°€ í¬í•¨ë˜ì–´ ìˆìŠµë‹ˆë‹¤.", "{$g4[attendance_path]}/attendance.php?s_date=$s_date" . $qstr);
         exit;
     }
 }
@@ -119,8 +119,8 @@ if(!$row_successive[mb_id])
 else
 	sql_query(" update $g4[attendance_successive_plugin_table] set as_victory='$victory', as_successive='$successive', as_datetime='$g4[time_ymdhis]' where mb_id='$row_successive[mb_id]' ");
 
-insert_point($member[mb_id], $point, "$g4[time_ymd] ".attendance_get_type($at_type)."À¸·Î {$victory_str}", "@attendance", $member['mb_id'], "{$at_id}-".uniqid(""));
+insert_point($member[mb_id], $point, "$g4[time_ymd] ".attendance_get_type($at_type)."ìœ¼ë¡œ {$victory_str}", "@attendance", $member['mb_id'], "{$at_id}-".uniqid(""));
 
-alert("»ó´ë´Â \"".attendance_get_type($default_type)."\" ³ª´Â \"".attendance_get_type($at_type)."\" ·Î $victory_str \\n\\n{$point}Æ÷ÀÎÆ® È¹µæ", "{$g4[attendance_path]}/attendance.php?s_date=$s_date" . $qstr);
+alert("ìƒëŒ€ëŠ” \"".attendance_get_type($default_type)."\" ë‚˜ëŠ” \"".attendance_get_type($at_type)."\" ë¡œ $victory_str \\n\\n{$point}í¬ì¸íŠ¸ íšë“", "{$g4[attendance_path]}/attendance.php?s_date=$s_date" . $qstr);
 
 ?>

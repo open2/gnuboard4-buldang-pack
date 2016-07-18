@@ -8,12 +8,12 @@ include_once ("../config.php");
 include_once ("../config.2.php");
 include_once("../memo.config.php");
 
-// ÆÄÀÏÀÌ Á¸ÀçÇÑ´Ù¸é ¼³Ä¡ÇÒ ¼ö ¾ø´Ù.
+// íŒŒì¼ì´ ì¡´ì¬í•œë‹¤ë©´ ì„¤ì¹˜í•  ìˆ˜ ì—†ë‹¤.
 if (file_exists("../dbconfig.php")) {
     echo "<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'>";
     echo <<<HEREDOC
     <script language="JavaScript">
-    alert("¼³Ä¡ÇÏ½Ç ¼ö ¾ø½À´Ï´Ù.");
+    alert("ì„¤ì¹˜í•˜ì‹¤ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
     location.href="../";
     </script>
 HEREDOC;
@@ -41,7 +41,7 @@ else if (strtolower($g4['charset']) == 'euc-kr') @mysql_query("set names euckr")
 $dblink = mysql_connect($mysql_host, $mysql_user, $mysql_pass);
 if (!$dblink) {
     echo "<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'>";
-    echo "<script language='JavaScript'>alert('MySQL Host, User, Password ¸¦ È®ÀÎÇØ ÁÖ½Ê½Ã¿À.');history.back();</script>"; 
+    echo "<script language='JavaScript'>alert('MySQL Host, User, Password ë¥¼ í™•ì¸í•´ ì£¼ì‹­ì‹œì˜¤.');history.back();</script>"; 
     exit;
 }
 
@@ -50,7 +50,7 @@ else if (strtolower($g4[charset]) == 'euc-kr') @mysql_query("set names euckr");
 $select_db = @mysql_select_db($mysql_db, $dblink);
 if (!$select_db) {
     echo "<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'>";
-    echo "<script language='JavaScript'>alert('MySQL DB ¸¦ È®ÀÎÇØ ÁÖ½Ê½Ã¿À.');history.back();</script>"; 
+    echo "<script language='JavaScript'>alert('MySQL DB ë¥¼ í™•ì¸í•´ ì£¼ì‹­ì‹œì˜¤.');history.back();</script>"; 
     exit;
 }
 ?>
@@ -58,7 +58,7 @@ if (!$select_db) {
 <html lang="ko">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=<?=$g4['charset']?>">
-<title>±×´©º¸µå4 ¼³Ä¡ (3/3) - ¶óÀÌ¼¾½º(License)</title>
+<title>ê·¸ëˆ„ë³´ë“œ4 ì„¤ì¹˜ (3/3) - ë¼ì´ì„¼ìŠ¤(License)</title>
 
 <link rel="stylesheet" href="<?=$g4['path']?>/js/bootstrap/css/bootstrap.min.css?bver=<?=$g4[bver]?>" type="text/css" media="screen" title="no title" charset="<?=$g4[charset]?>">
 <link rel="stylesheet" href="<?=$g4['path']?>/js/font-awesome/css/font-awesome.min.css?aver=<?=$g4[aver]?>" type="text/css" media="screen" title="no title" charset="<?=$g4[charset]?>">
@@ -81,13 +81,13 @@ if (!$select_db) {
 
 <div class="panel panel-primary">
 <div class="panel-heading">
-    <strong>±×´©º¸µå4 ¼³Ä¡ (3/3)</strong>
+    <strong>ê·¸ëˆ„ë³´ë“œ4 ì„¤ì¹˜ (3/3)</strong>
 </div>
 <div class="panel-body">
     <form name=frminstall2>
 
     <p>
-    ¼³Ä¡¸¦ ½ÃÀÛÇÕ´Ï´Ù. <font color="#CC0000">¼³Ä¡Áß ÀÛ¾÷À» Áß´ÜÇÏÁö ¸¶½Ê½Ã¿À. </font>
+    ì„¤ì¹˜ë¥¼ ì‹œì‘í•©ë‹ˆë‹¤. <font color="#CC0000">ì„¤ì¹˜ì¤‘ ì‘ì—…ì„ ì¤‘ë‹¨í•˜ì§€ ë§ˆì‹­ì‹œì˜¤. </font>
     </p>
     <input name="status_bar" style="height:50px;border:0px;">
 
@@ -100,7 +100,7 @@ if (!$select_db) {
     <p style="height:30px;"></p>
 
     <div class="pull-right">
-        <input type="button" name="btn_next" disabled value="¸ŞÀÎÈ­¸é" onclick="location.href='../';">
+        <input type="button" name="btn_next" disabled value="ë©”ì¸í™”ë©´" onclick="location.href='../';">
     </div>
 
     </form>
@@ -115,7 +115,7 @@ if (!$select_db) {
 <?
 flush(); usleep(500); 
 
-// Å×ÀÌºí »ı¼º ------------------------------------
+// í…Œì´ë¸” ìƒì„± ------------------------------------
 $file = implode("", file("./sql_gnuboard4.sql"));
 eval("\$file = \"$file\";");
 
@@ -124,10 +124,10 @@ for ($i=0; $i<count($f); $i++) {
     if (trim($f[$i]) == "") continue;
     mysql_query($f[$i]) or die(mysql_error());
 }
-// Å×ÀÌºí »ı¼º ------------------------------------
+// í…Œì´ë¸” ìƒì„± ------------------------------------
 
 
-// Å×ÀÌºí »ı¼º (ºÒ´çÆÑ) ----------------------------
+// í…Œì´ë¸” ìƒì„± (ë¶ˆë‹¹íŒ©) ----------------------------
 $file = implode("", file("./sql_opencode.sql"));
 eval("\$file = \"$file\";");
 
@@ -136,19 +136,19 @@ for ($i=0; $i<count($f); $i++) {
     if (trim($f[$i]) == "") continue;
     mysql_query($f[$i]) or die(mysql_error());
 }
-// Å×ÀÌºí »ı¼º (ºÒ´çÆÑ) -----------------------------
+// í…Œì´ë¸” ìƒì„± (ë¶ˆë‹¹íŒ©) -----------------------------
 
-echo "<script>document.frminstall2.job1.value='ÀüÃ¼ Å×ÀÌºí »ı¼ºÁß';</script>";
+echo "<script>document.frminstall2.job1.value='ì „ì²´ í…Œì´ë¸” ìƒì„±ì¤‘';</script>";
 flush(); usleep(50000); 
 
 for ($i=0; $i<45; $i++)
 {
-    echo "<script language='JavaScript'>document.frminstall2.status_bar.value += '¡á';</script>\n";
+    echo "<script language='JavaScript'>document.frminstall2.status_bar.value += 'â– ';</script>\n";
     flush();
     usleep(500); 
 }
 
-echo "<script>document.frminstall2.job1.value='ÀüÃ¼ Å×ÀÌºí »ı¼º ¿Ï·á';</script>";
+echo "<script>document.frminstall2.job1.value='ì „ì²´ í…Œì´ë¸” ìƒì„± ì™„ë£Œ';</script>";
 flush(); usleep(50000); 
 
 $read_point = 10;
@@ -157,9 +157,9 @@ $comment_point = 10;
 $download_point = -10;
 
 //-------------------------------------------------------------------------------------------------
-// config Å×ÀÌºí ¼³Á¤
+// config í…Œì´ë¸” ì„¤ì •
 $sql = " insert into $g4[config_table]
-            set cf_title = '±×´©º¸µå4 - ºÒ´çÆÑ',
+            set cf_title = 'ê·¸ëˆ„ë³´ë“œ4 - ë¶ˆë‹¹íŒ©',
                 cf_admin = '$admin_id',
                 cf_admin_email = 'admin_email',
                 cf_use_point = '1',
@@ -185,7 +185,7 @@ $sql = " insert into $g4[config_table]
                 cf_delay_sec = '30',
                 cf_delay_level = '9',
                 cf_delay_point = '5000',
-                cf_filter = '18¾Æ,18³ğ,18»õ³¢,18³â,18´¤,18³ë,18°Í,18³Ñ,°³³â,°³³ğ,°³´¤,°³»õ,°³»ö³¢,°³¼¼³¢,°³¼¼ÀÌ,°³½¦ÀÌ,°³½§,°³½±,°³½ÃÅ°,°³ÀÚ½Ä,°³Á¿,°Ô»ö±â,°Ô»ö³¢,±¤´¤,´¤,´«±ò,´µ¹Ì·²,´Ï±Í¹Ì,´Ï±â¹Ì,´Ï¹Ì,µµÃÔ,µÇÁú·¡,µØÁ®¶ó,µØÁø´Ù,µğÁ®¶ó,µğÁø´Ù,µğÁú·¡,º´½®,º´½Å,»µÅ¥,»¶Å¥,»ÈÅ¥,»ß¸®³İ,»õ²¥,½¬¹ß,½¬¹ë,½¬ÆÈ,½±¾Ë,½ºÆĞÅ·,½ºÆØ,½Ã¹ú,½ÃºÎ¶ö,½ÃºÎ·²,½ÃºÎ¸®,½ÃºÒ,½Ãºê¶ö,½ÃÆÅ,½ÃÆÈ,½ÃÆŞ,½Ç¹ë,½Ê8,½Ê½Ø,½ÊÃ¢,½Í¾Ë,½Ô³â,½à³ğ,½Ø³¢,½ß¾¤,½à,½á¹ú,½âÀ»³â,½ê²¥,½ê¿¢,¾²¹Ù,¾²¹ß,¾²¹ú,¾²ÆÈ,¾¾8,¾¾´ó,¾¾¹Ù,¾¾¹ß,¾¾¹ğ,¾¾ºÀ¾Ë,¾¾ºÎ¶ö,¾¾ºÎ·²,¾¾ºÎ··,¾¾ºÎ¸®,¾¾ºÒ,¾¾ºê¶ö,¾¾ºü,¾¾»¡,¾¾»Ç¶ö,¾¾ÆÅ,¾¾ÆÈ,¾¾ÆŞ,¾Ã,¾Æ°¡¸®,¾Æ°¥ÀÌ,¾öÃ¢,Á¢³â,Àâ³ğ,Àç¶ö,ÀúÁÖ±Û,Á¶±î,Á¶ºü,Á¶ÀïÀÌ,Á¶Áö³Ä,Á¶Áø´Ù,Á¶Áú·¡,Á¸³ª,Á¸´Ï,Á»¹°,Á¼³â,Á½,Á¿,ÁÀ,Áã¶ö,Áã·Ñ,Áêµğ,Áö¶ö,Áö·²,Áö·Ñ,Áö¹Ì¶ö,ÂÎ»¤,ôÈ,ÆÜÅ¥,»¶Å¥,ºüÅ¥,¤µ¤²¤©¤±',
+                cf_filter = '18ì•„,18ë†ˆ,18ìƒˆë¼,18ë…„,18ë‡¬,18ë…¸,18ê²ƒ,18ë„˜,ê°œë…„,ê°œë†ˆ,ê°œë‡¬,ê°œìƒˆ,ê°œìƒ‰ë¼,ê°œì„¸ë¼,ê°œì„¸ì´,ê°œì‰ì´,ê°œì‰‘,ê°œì‰½,ê°œì‹œí‚¤,ê°œìì‹,ê°œì¢†,ê²Œìƒ‰ê¸°,ê²Œìƒ‰ë¼,ê´‘ë‡¬,ë‡¬,ëˆˆê¹”,ë‰˜ë¯¸ëŸ´,ë‹ˆê·€ë¯¸,ë‹ˆê¸°ë¯¸,ë‹ˆë¯¸,ë„ì´¬,ë˜ì§ˆë˜,ë’ˆì ¸ë¼,ë’ˆì§„ë‹¤,ë””ì ¸ë¼,ë””ì§„ë‹¤,ë””ì§ˆë˜,ë³‘ì‰°,ë³‘ì‹ ,ë»í,ë»‘í,ë½í,ì‚ë¦¬ë„·,ìƒˆêº„,ì‰¬ë°œ,ì‰¬ë°¸,ì‰¬íŒ”,ì‰½ì•Œ,ìŠ¤íŒ¨í‚¹,ìŠ¤íŒ½,ì‹œë²Œ,ì‹œë¶€ë„,ì‹œë¶€ëŸ´,ì‹œë¶€ë¦¬,ì‹œë¶ˆ,ì‹œë¸Œë„,ì‹œíŒ,ì‹œíŒ”,ì‹œí„,ì‹¤ë°¸,ì‹­8,ì‹­ìŒ”,ì‹­ì°½,ì‹¶ì•Œ,ìŒ‰ë…„,ì…ë†ˆ,ìŒ”ë¼,ìŒ©ì‘ˆ,ì…,ì¨ë²Œ,ì©ì„ë…„,ì„êº„,ì„ì—‘,ì“°ë°”,ì“°ë°œ,ì“°ë²Œ,ì“°íŒ”,ì”¨8,ì”¨ëŒ•,ì”¨ë°”,ì”¨ë°œ,ì”¨ë±…,ì”¨ë´‰ì•Œ,ì”¨ë¶€ë„,ì”¨ë¶€ëŸ´,ì”¨ë¶€ë ,ì”¨ë¶€ë¦¬,ì”¨ë¶ˆ,ì”¨ë¸Œë„,ì”¨ë¹ ,ì”¨ë¹¨,ì”¨ë½€ë„,ì”¨íŒ,ì”¨íŒ”,ì”¨í„,ì”¹,ì•„ê°€ë¦¬,ì•„ê°ˆì´,ì—„ì°½,ì ‘ë…„,ì¡ë†ˆ,ì¬ë„,ì €ì£¼ê¸€,ì¡°ê¹Œ,ì¡°ë¹ ,ì¡°ìŸì´,ì¡°ì§€ëƒ,ì¡°ì§„ë‹¤,ì¡°ì§ˆë˜,ì¡´ë‚˜,ì¡´ë‹ˆ,ì¢€ë¬¼,ì¢ë…„,ì¢ƒ,ì¢†,ì¢‡,ì¥ë„,ì¥ë¡¤,ì¥¬ë””,ì§€ë„,ì§€ëŸ´,ì§€ë¡¤,ì§€ë¯¸ë„,ì«ë¹±,å‡¸,í½í,ë»‘í,ë¹ í,ã……ã…‚ã„¹ã…',
                 cf_possible_ip = '',
                 cf_intercept_ip = '',
                 cf_member_skin = 'basic',
@@ -195,7 +195,7 @@ $sql = " insert into $g4[config_table]
                 cf_leave_day = '30',
                 cf_search_part = '10000',
                 cf_email_use = '1',
-                cf_prohibit_id = 'admin,administrator,°ü¸®ÀÚ,¿î¿µÀÚ,¾îµå¹Î,ÁÖÀÎÀå,webmaster,À¥¸¶½ºÅÍ,sysop,½Ã»ğ,½Ã¼¥,manager,¸Å´ÏÀú,¸Ş´ÏÀú,root,·çÆ®,su,guest,¹æ¹®°´',
+                cf_prohibit_id = 'admin,administrator,ê´€ë¦¬ì,ìš´ì˜ì,ì–´ë“œë¯¼,ì£¼ì¸ì¥,webmaster,ì›¹ë§ˆìŠ¤í„°,sysop,ì‹œì‚½,ì‹œìƒµ,manager,ë§¤ë‹ˆì €,ë©”ë‹ˆì €,root,ë£¨íŠ¸,su,guest,ë°©ë¬¸ê°',
                 cf_prohibit_email = '',
                 cf_new_del = '30',
                 cf_memo_del = '180',
@@ -217,11 +217,11 @@ $sql = " insert into $g4[config_table]
                 ";
 mysql_query($sql) or die(mysql_error() . "<p>" . $sql);
 
-//                cf_stipulation = 'ÇØ´ç È¨ÆäÀÌÁö¿¡ ¸Â´Â È¸¿ø°¡ÀÔ¾à°üÀ» ÀÔ·ÂÇÕ´Ï´Ù.',
-//                cf_privacy = 'ÇØ´ç È¨ÆäÀÌÁö¿¡ ¸Â´Â °³ÀÎÁ¤º¸Ãë±Ş¹æÄ§À» ÀÔ·ÂÇÕ´Ï´Ù.'
+//                cf_stipulation = 'í•´ë‹¹ í™ˆí˜ì´ì§€ì— ë§ëŠ” íšŒì›ê°€ì…ì•½ê´€ì„ ì…ë ¥í•©ë‹ˆë‹¤.',
+//                cf_privacy = 'í•´ë‹¹ í™ˆí˜ì´ì§€ì— ë§ëŠ” ê°œì¸ì •ë³´ì·¨ê¸‰ë°©ì¹¨ì„ ì…ë ¥í•©ë‹ˆë‹¤.'
 
 //-------------------------------------------------------------------------------------------------
-// ¾à°ü, °³ÀÎÁ¤º¸ ÆÄÀÏ¿¡¼­ ÀĞ¾î¿À±â
+// ì•½ê´€, ê°œì¸ì •ë³´ íŒŒì¼ì—ì„œ ì½ì–´ì˜¤ê¸°
 $service=addslashes(implode("", file("./service.html")));
 $priv=addslashes(implode("", file("./privacy.html")));
 
@@ -241,7 +241,7 @@ $sql = " insert into $g4[config_reg_table]
                 ";
 mysql_query($sql) or die(mysql_error() . "<p>" . $sql);
 
-// ¿î¿µÀÚ È¸¿ø°¡ÀÔ
+// ìš´ì˜ì íšŒì›ê°€ì…
 $sql = " insert into $g4[member_table] 
             set mb_id = '$admin_id',
                 mb_password = PASSWORD('$admin_pass'),
@@ -258,26 +258,26 @@ $sql = " insert into $g4[member_table]
                 ";
 @mysql_query($sql);
 
-// ¸î°¡Áö Ãß°¡ÀûÀÎ ¼³Á¤ ----------------
+// ëª‡ê°€ì§€ ì¶”ê°€ì ì¸ ì„¤ì • ----------------
 $sql = " UPDATE `$g4[config_table]` SET `cf_open_modify` = '7' ";
 @mysql_query($sql);
 
-// Ç×»ó ¸¶Áö¸·¿¡ - ¹öÁ¯À» ¾÷µ¥ÀÌÆ®
+// í•­ìƒ ë§ˆì§€ë§‰ì— - ë²„ì ¼ì„ ì—…ë°ì´íŠ¸
 $sql = " UPDATE `$g4[config_table]` SET `cf_db_version` = '1207' ";
 @mysql_query($sql);
 
 
-echo "<script>document.frminstall2.job2.value='DB¼³Á¤ ¿Ï·á';</script>";
+echo "<script>document.frminstall2.job2.value='DBì„¤ì • ì™„ë£Œ';</script>";
 flush(); usleep(50000); 
 //-------------------------------------------------------------------------------------------------
 
-// DB ¼³Á¤ ÆÄÀÏ »ı¼º
+// DB ì„¤ì • íŒŒì¼ ìƒì„±
 $file = "../dbconfig.php";
 $f = @fopen($file, "w");
 
 fwrite($f, "<?\n");
-//fwrite($f, "if (!preg_match('/^'.str_replace('/', '\/', dirname(__FILE__)).'/', \$_SERVER['SCRIPT_FILENAME'])) die('Á¤»óÀûÀÎ Á¢±ÙÀÌ ¾Æ´Ô.');\n");
-//fwrite($f, "if (\$dbconfig_file != str_replace(\$dirname, '', __FILE__)) die('Á¤»óÀûÀÎ Á¢±ÙÀÌ ¾Æ´Ô');\n");
+//fwrite($f, "if (!preg_match('/^'.str_replace('/', '\/', dirname(__FILE__)).'/', \$_SERVER['SCRIPT_FILENAME'])) die('ì •ìƒì ì¸ ì ‘ê·¼ì´ ì•„ë‹˜.');\n");
+//fwrite($f, "if (\$dbconfig_file != str_replace(\$dirname, '', __FILE__)) die('ì •ìƒì ì¸ ì ‘ê·¼ì´ ì•„ë‹˜');\n");
 fwrite($f, "\$mysql_host = '$mysql_host';\n");
 fwrite($f, "\$mysql_user = '$mysql_user';\n");
 fwrite($f, "\$mysql_password = '$mysql_pass';\n");
@@ -286,7 +286,7 @@ fwrite($f, "?>");
 
 fclose($f);
 @chmod($file, 0606);
-echo "<script>document.frminstall2.job3.value='DB¼³Á¤ ÆÄÀÏ »ı¼º ¿Ï·á';</script>";
+echo "<script>document.frminstall2.job3.value='DBì„¤ì • íŒŒì¼ ìƒì„± ì™„ë£Œ';</script>";
 
 /*
 $str = implode("", file("../common.php"));
@@ -297,14 +297,14 @@ $str = str_replace("__MYSQL_DB__",   $mysql_db,   $str);
 $f = fopen("../common.php", "w");
 fputs($f, $str);
 fclose($f);
-echo "<script>document.frminstall2.job3.value='DB¼³Á¤°ª º¯È¯ ¿Ï·á';</script>";
+echo "<script>document.frminstall2.job3.value='DBì„¤ì •ê°’ ë³€í™˜ ì™„ë£Œ';</script>";
 */
 
 flush(); usleep(50000); 
 
 
-// 1.00.09 - data/log »ğÀÔ
-// µğ·ºÅä¸® »ı¼º
+// 1.00.09 - data/log ì‚½ì…
+// ë””ë ‰í† ë¦¬ ìƒì„±
 $dir_arr = array ("../$g4[data]",
                   "../$g4[data]/file",
                   "../$g4[data]/kcb",
@@ -321,7 +321,7 @@ for ($i=0; $i<count($dir_arr); $i++)
     @mkdir($dir_arr[$i], 0707);
     @chmod($dir_arr[$i], 0707);
 
-    // µğ·ºÅä¸®¿¡ ÀÖ´Â ÆÄÀÏÀÇ ¸ñ·ÏÀ» º¸ÀÌÁö ¾Ê°Ô ÇÑ´Ù.
+    // ë””ë ‰í† ë¦¬ì— ìˆëŠ” íŒŒì¼ì˜ ëª©ë¡ì„ ë³´ì´ì§€ ì•Šê²Œ í•œë‹¤.
     $file = $dir_arr[$i] . "/index.php";
     $f = @fopen($file, "w");
     @fwrite($f, "");
@@ -329,7 +329,7 @@ for ($i=0; $i<count($dir_arr); $i++)
     @chmod($file, 0604);
 }
 
-// data µğ·ºÅä¸® ¹× ÇÏÀ§ µğ·ºÅä¸®¿¡¼­´Â .htaccess .htpasswd .php .phtml .html .htm .inc .cgi .pl ÆÄÀÏÀ» ½ÇÇàÇÒ¼ö ¾ø°ÔÇÔ.
+// data ë””ë ‰í† ë¦¬ ë° í•˜ìœ„ ë””ë ‰í† ë¦¬ì—ì„œëŠ” .htaccess .htpasswd .php .phtml .html .htm .inc .cgi .pl íŒŒì¼ì„ ì‹¤í–‰í• ìˆ˜ ì—†ê²Œí•¨.
 $f = fopen("../data/.htaccess", "w");
 $str = <<<EOD
 <FilesMatch "\.(htaccess|htpasswd|[Pp][Hh][Pp]|[Pp]?[Hh][Tt][Mm][Ll]?|[Ii][Nn][Cc]|[Cc][Gg][Ii]|[Pp][Ll])">
@@ -343,7 +343,7 @@ EOD;
 fwrite($f, $str);
 fclose($f);
 
-// session µğ·ºÅä¸®´Â À¥¿¡¼­ ÀÏÀı Á¢±ÙÇÏÁö ¸øÇÏµµ·Ï ÇÔ 
+// session ë””ë ‰í† ë¦¬ëŠ” ì›¹ì—ì„œ ì¼ì ˆ ì ‘ê·¼í•˜ì§€ ëª»í•˜ë„ë¡ í•¨ 
 $f = fopen("../data/session/.htaccess", "w");
 $str = "Deny from all";
 fwrite($f, $str);
@@ -352,12 +352,12 @@ fclose($f);
 @rename("../install", "../install.bak");
 //-------------------------------------------------------------------------------------------------
 
-echo "<script language='JavaScript'>document.frminstall2.status_bar.value += '¡á';</script>\n";
+echo "<script language='JavaScript'>document.frminstall2.status_bar.value += 'â– ';</script>\n";
 flush();
 sleep(1);
 
-echo "<script>document.frminstall2.job4.value='ÇÊ¿äÇÑ Table, File, µğ·ºÅä¸® »ı¼ºÀ» ¸ğµÎ ¿Ï·á ÇÏ¿´½À´Ï´Ù.';</script>";
-echo "<script>document.frminstall2.job5.value='* ¸ŞÀÎÈ­¸é¿¡¼­ ¿î¿µÀÚ ·Î±×ÀÎÀ» ÇÑ ÈÄ ¿î¿µÀÚ È­¸éÀ¸·Î ÀÌµ¿ÇÏ¿© È¯°æ¼³Á¤À» º¯°æÇØ ÁÖ½Ê½Ã¿À.';</script>";
+echo "<script>document.frminstall2.job4.value='í•„ìš”í•œ Table, File, ë””ë ‰í† ë¦¬ ìƒì„±ì„ ëª¨ë‘ ì™„ë£Œ í•˜ì˜€ìŠµë‹ˆë‹¤.';</script>";
+echo "<script>document.frminstall2.job5.value='* ë©”ì¸í™”ë©´ì—ì„œ ìš´ì˜ì ë¡œê·¸ì¸ì„ í•œ í›„ ìš´ì˜ì í™”ë©´ìœ¼ë¡œ ì´ë™í•˜ì—¬ í™˜ê²½ì„¤ì •ì„ ë³€ê²½í•´ ì£¼ì‹­ì‹œì˜¤.';</script>";
 flush(); usleep(50000); 
 ?>
 

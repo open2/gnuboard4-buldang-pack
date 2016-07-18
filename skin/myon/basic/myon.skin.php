@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
 $subject_len = 60;
 
@@ -27,24 +27,24 @@ $whatson_url = "$g4[bbs_path]/whatson.php?check=1&rows=30";
                 <a class="btn btn-default" href="<?=$g4['bbs_path']?>/scrap.php?head_on=1&snb=scrap" >Scrap</a>
             </div>
             <?
-            // ÃßÃµÀ¸·Î È¸¿ø°¡ÀÔ
+            // ì¶”ì²œìœ¼ë¡œ íšŒì›ê°€ì…
             if ($g4['member_suggest_join']) { ?>
-                <a class="btn btn-default" href="<?=$g4['path']?>/plugin/recommend/index.php" >°¡ÀÔÃßÃµ</a>
+                <a class="btn btn-default" href="<?=$g4['path']?>/plugin/recommend/index.php" >ê°€ì…ì¶”ì²œ</a>
             <? } ?>
-            <a class="btn btn-default" href="<?=$g4['bbs_path']?>/member_confirm.php?url=register_form.php">Á¤º¸¼öÁ¤</a>
+            <a class="btn btn-default" href="<?=$g4['bbs_path']?>/member_confirm.php?url=register_form.php">ì •ë³´ìˆ˜ì •</a>
             <a class="btn btn-default pull-right" href="<?=$g4['bbs_path']?>/logout.php">Logout</a>
         </div>
         <div style="margin-top:5px;">
             <div class="btn-group">
                 <a class="btn btn-default" href="<?=$whatson_url?>" >What's On</a>
-                <a class="btn btn-default" href="<?=$g4[bbs_path]?>/new.php?gr_id=&mb_id=<?=$member[mb_id]?>">³ªÀÇ°Ô½Ã±Û</a>
-                <a class="btn btn-default" href="<?=$g4[bbs_path]?>/new.php?gr_id=&view_type=c&mb_id=<?=$member[mb_id]?>">³ªÀÇÄÚ¸àÆ®</a>
-                <a class="btn btn-default" href="<?=$g4[bbs_path]?>/my_good.php?w=good&head_on=1">ÃßÃµÇÑ±Û</a>
-                <a class="btn btn-default" href="<?=$g4[bbs_path]?>/my_good.php?w=nogood&head_on=1">ºñÃßÃµÇÑ±Û</a>
+                <a class="btn btn-default" href="<?=$g4[bbs_path]?>/new.php?gr_id=&mb_id=<?=$member[mb_id]?>">ë‚˜ì˜ê²Œì‹œê¸€</a>
+                <a class="btn btn-default" href="<?=$g4[bbs_path]?>/new.php?gr_id=&view_type=c&mb_id=<?=$member[mb_id]?>">ë‚˜ì˜ì½”ë©˜íŠ¸</a>
+                <a class="btn btn-default" href="<?=$g4[bbs_path]?>/my_good.php?w=good&head_on=1">ì¶”ì²œí•œê¸€</a>
+                <a class="btn btn-default" href="<?=$g4[bbs_path]?>/my_good.php?w=nogood&head_on=1">ë¹„ì¶”ì²œí•œê¸€</a>
             </div>
             <div class="btn-group">
-                <a class="btn btn-default" href="<?=$g4[bbs_path]?>/singo_search.php">½Å°íÇÑ ³»¿ª</a>
-                <a class="btn btn-default" href="<?=$g4[bbs_path]?>/recycle_list.php">ÈŞÁöÅë</a>
+                <a class="btn btn-default" href="<?=$g4[bbs_path]?>/singo_search.php">ì‹ ê³ í•œ ë‚´ì—­</a>
+                <a class="btn btn-default" href="<?=$g4[bbs_path]?>/recycle_list.php">íœ´ì§€í†µ</a>
             </div>
             <div class="col-sm-2">
                 <? include_once("$g4[bbs_path]/my_menu_outlogin_script.php")?>
@@ -60,6 +60,6 @@ $whatson_url = "$g4[bbs_path]/whatson.php?check=1&rows=30";
     include_once("$g4[path]/lib/latest.my.lib.php");
     ?>
     <?=whatson('basic')?>
-    <?=latest_my('basic','³ªÀÇ °Ô½Ã±Û',80,10,25);?>
-    <?=latest_my('basic','³ªÀÇ ÄÚ¸àÆ®',80,10,25,'comment');?>
+    <?=latest_my('basic','ë‚˜ì˜ ê²Œì‹œê¸€',80,10,25);?>
+    <?=latest_my('basic','ë‚˜ì˜ ì½”ë©˜íŠ¸',80,10,25,'comment');?>
 </div>

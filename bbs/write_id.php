@@ -3,23 +3,23 @@ include_once("./_common.php");
 include_once("$g4[path]/memo.config.php");
 
 if (!$is_member) 
-    alert_close("È¸¿ø¸¸ Á¢¼Ó°¡´ÉÇÑ È­¸é ÀÔ´Ï´Ù");
+    alert_close("íšŒì›ë§Œ ì ‘ì†ê°€ëŠ¥í•œ í™”ë©´ ì…ë‹ˆë‹¤");
 
-// ¿¬¼Ó°Ë»ö ¹æÁö
+// ì—°ì†ê²€ìƒ‰ ë°©ì§€
 $delay = $_SESSION['ss_friend'] - $g4['server_time'] + $g4['memo_delay_friend'];
 if ($delay > 0 && !$is_admin)
-    alert("³Ê¹« ºü¸¥ ½Ã°£³»¿¡ Ä£±¸Ã£±â¸¦ ¿¬¼ÓÇØ¼­ ÇÒ ¼ö ¾ø½À´Ï´Ù.");
+    alert("ë„ˆë¬´ ë¹ ë¥¸ ì‹œê°„ë‚´ì— ì¹œêµ¬ì°¾ê¸°ë¥¼ ì—°ì†í•´ì„œ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 set_session("ss_friend", $g4['server_time']);
 
 $sname = preg_replace('/\%/', '', strip_tags($sname));
 
 if ($sname) {
 
-    // È¸¿ø°Ë»öÀº Áß¿äÇÑ »ç¾ÈÀÌ¹Ç·Î stamp¸¦ ³²°ÜµÓ´Ï´Ù.
+    // íšŒì›ê²€ìƒ‰ì€ ì¤‘ìš”í•œ ì‚¬ì•ˆì´ë¯€ë¡œ stampë¥¼ ë‚¨ê²¨ë‘¡ë‹ˆë‹¤.
     $tmp_point = ($member['mb_point'] > 0) ? $member['mb_point'] : 0;
     if ($tmp_point + $g4['memo_friend_point'] < 0 && !$is_admin)
-        alert("º¸À¯ÇÏ½Å Æ÷ÀÎÆ®(".number_format($member['mb_point']).")°¡ ¾ø°Å³ª ¸ğÀÚ¶ó¼­ È¸¿ø°Ë»ö(".number_format($g4['memo_friend_point']).")°¡ ºÒ°¡ÇÕ´Ï´Ù.\\n\\nÆ÷ÀÎÆ®¸¦ Àû¸³ÇÏ½Å ÈÄ ´Ù½Ã ÇØ ÁÖ½Ê½Ã¿À.");
-    insert_point($member['mb_id'], $g4['memo_friend_point'], "ÂÊÁö5 Ä£±¸Ã£±â - $sname", 'Ä£±¸Ã£±â', $g4['time_ymdhis'], 'ÂÊÁö5');
+        alert("ë³´ìœ í•˜ì‹  í¬ì¸íŠ¸(".number_format($member['mb_point']).")ê°€ ì—†ê±°ë‚˜ ëª¨ìë¼ì„œ íšŒì›ê²€ìƒ‰(".number_format($g4['memo_friend_point']).")ê°€ ë¶ˆê°€í•©ë‹ˆë‹¤.\\n\\ní¬ì¸íŠ¸ë¥¼ ì ë¦½í•˜ì‹  í›„ ë‹¤ì‹œ í•´ ì£¼ì‹­ì‹œì˜¤.");
+    insert_point($member['mb_id'], $g4['memo_friend_point'], "ìª½ì§€5 ì¹œêµ¬ì°¾ê¸° - $sname", 'ì¹œêµ¬ì°¾ê¸°', $g4['time_ymdhis'], 'ìª½ì§€5');
   
     switch ($sfl) {
       case "mb_nick" : $search_sql = " mb_nick like '%$sname%' "; 
@@ -34,21 +34,21 @@ if ($sname) {
                        $order_sql = " order by mb_id"; break;
     }
 
-    $sql = " select count(*) as cnt from $g4[member_table] where ( mb_leave_date = '' and mb_nick != '[»èÁ¦µÊ]' ) and ( $search_sql ) ";
+    $sql = " select count(*) as cnt from $g4[member_table] where ( mb_leave_date = '' and mb_nick != '[ì‚­ì œë¨]' ) and ( $search_sql ) ";
     $result = sql_fetch($sql);
     $total_count = $result['cnt'];
 
-    // guess workÀ» ¸·±â À§ÇØ¼­ ÃÖ´ë °á°ú°ª °¹¼ö¸¦ - È¸¿ø¼ö ¸¹Àº »çÀÌÆ®¿¡¼­´Â º¸¾È ¶§¹®¿¡ ÇÊ¼ö
+    // guess workì„ ë§‰ê¸° ìœ„í•´ì„œ ìµœëŒ€ ê²°ê³¼ê°’ ê°¯ìˆ˜ë¥¼ - íšŒì›ìˆ˜ ë§ì€ ì‚¬ì´íŠ¸ì—ì„œëŠ” ë³´ì•ˆ ë•Œë¬¸ì— í•„ìˆ˜
     if ($total_count > $g4['memo_max_friend'] && $is_admin !== "super")
         $total_count = $g4['memo_max_friend'];
 
-    $one_rows = 10; // ÇÑÆäÀÌÁöÀÇ ¶óÀÎ¼ö
-    $total_page  = ceil($total_count / $one_rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê 
-    if ($page == "") { $page = 1; } // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö) 
-    $from_record = ($page - 1) * $one_rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+    $one_rows = 10; // í•œí˜ì´ì§€ì˜ ë¼ì¸ìˆ˜
+    $total_page  = ceil($total_count / $one_rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚° 
+    if ($page == "") { $page = 1; } // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€) 
+    $from_record = ($page - 1) * $one_rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
     $to_record = $from_record + $one_rows ;
 
-    $sql = " select * from $g4[member_table] where ( mb_leave_date = '' and mb_nick != '[»èÁ¦µÊ]' )and ( $search_sql ) $order_sql limit $from_record, $one_rows";
+    $sql = " select * from $g4[member_table] where ( mb_leave_date = '' and mb_nick != '[ì‚­ì œë¨]' )and ( $search_sql ) $order_sql limit $from_record, $one_rows";
     $result = sql_query($sql);
     $search_count = mysql_num_rows($result);
     if ($search_count > 0) {
@@ -59,18 +59,18 @@ if ($sname) {
             $list[$i]->mb_open = $row['mb_open'];
         }
     } else {
-        alert("Ã£À¸½Ã´Â È¸¿øÁ¤º¸°¡ ¾ø½À´Ï´Ù.");
+        alert("ì°¾ìœ¼ì‹œëŠ” íšŒì›ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤.");
     }
     mysql_free_result($result);
 }
 
-// °ü¸®ÀÚ´Â ÃÖ¼Ò 1±ÛÀÚºÎÅÍ °Ë»ö °¡´ÉÇÏ°Ô
+// ê´€ë¦¬ìëŠ” ìµœì†Œ 1ê¸€ìë¶€í„° ê²€ìƒ‰ ê°€ëŠ¥í•˜ê²Œ
 if ($is_admin == "super")
     $minlength=1;
 else
     $minlength=3;
 
-$g4[title] = "»ç¿ëÀÚID °Ë»ö";
+$g4[title] = "ì‚¬ìš©ìID ê²€ìƒ‰";
 include_once("$g4[path]/head.sub.php");
 ?>
 
@@ -83,7 +83,7 @@ include_once("$g4[path]/head.sub.php");
   <td height=30 colspan=2 valign=bottom bgcolor="eeeeee"><table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
     <tr>
       <td width="25"><img src="<?=$g4[bbs_img_path]?>/memo_icon07.gif" width="19" height="19" /></td>
-      <td><span style="color: #333333;font-weight: bold;">Ä£±¸Ã£±â</span>&nbsp;&nbsp;&nbsp;(<?=number_format($g4[memo_friend_point])?> Æ÷ÀÎÆ®¸¦ »ç¿ëÇÕ´Ï´Ù)</td>
+      <td><span style="color: #333333;font-weight: bold;">ì¹œêµ¬ì°¾ê¸°</span>&nbsp;&nbsp;&nbsp;(<?=number_format($g4[memo_friend_point])?> í¬ì¸íŠ¸ë¥¼ ì‚¬ìš©í•©ë‹ˆë‹¤)</td>
     </tr>
   </table></td>
 </tr>
@@ -95,7 +95,7 @@ include_once("$g4[path]/head.sub.php");
   </tr>
 <tr>
     <td></td>
-    <td height=20 colspan=2 valign=bottom>È¸¿øÁ¤º¸¸¦ ÀÔ·ÂÇÏ¼¼¿ä <? if ($is_admin !== "super") { ?>(3ÀÚ ÀÌ»ó)<? } ?></td>
+    <td height=20 colspan=2 valign=bottom>íšŒì›ì •ë³´ë¥¼ ì…ë ¥í•˜ì„¸ìš” <? if ($is_admin !== "super") { ?>(3ì ì´ìƒ)<? } ?></td>
 </tr>
 
 <tr>
@@ -106,19 +106,19 @@ include_once("$g4[path]/head.sub.php");
     <td width=1></td>
     <td>
     <select name=sfl>
-      <option value='mb_all'>´Ğ+ÀÌ¸§+¾ÆÀÌµğ</option>
-      <option value='mb_nick'>´Ğ³×ÀÓ</option>
-      <option value='mb_name'>ÀÌ¸§</option>
-      <option value='mb_id'>¾ÆÀÌµğ</option>
+      <option value='mb_all'>ë‹‰+ì´ë¦„+ì•„ì´ë””</option>
+      <option value='mb_nick'>ë‹‰ë„¤ì„</option>
+      <option value='mb_name'>ì´ë¦„</option>
+      <option value='mb_id'>ì•„ì´ë””</option>
     </select>
-    <input type=text name=sname value='<?=$sname?>' required <?=$min_length?> itemname='È¸¿øÀÌ¸§' size=14> <input type=image src='<?=$g4[bbs_img_path]?>/search.gif' border=0 align=absmiddle></td>
+    <input type=text name=sname value='<?=$sname?>' required <?=$min_length?> itemname='íšŒì›ì´ë¦„' size=14> <input type=image src='<?=$g4[bbs_img_path]?>/search.gif' border=0 align=absmiddle></td>
 </tr>
 <tr>
   <td height=10 colspan=3></td>
 </tr>
 </table>
 
-<!-- °Ë»ö°á°ú ¿©±â¼­ºÎÅÍ -->
+<!-- ê²€ìƒ‰ê²°ê³¼ ì—¬ê¸°ì„œë¶€í„° -->
 <script type="text/javascript">
     document.frmid.sname.focus();
 </script>
@@ -130,7 +130,7 @@ include_once("$g4[path]/head.sub.php");
     <td>
         <table width=100% cellpadding=0 cellspacing=0>
         <tr>
-            <td height=23 valign=top colspan=2><b>ÃÑ <?=$total_count?>¸í</b> (¾ÆÀÌµğ/´Ğ³×ÀÓÀ» ´©¸£¸é ¼±ÅÃµË´Ï´Ù)</td>
+            <td height=23 valign=top colspan=2><b>ì´ <?=$total_count?>ëª…</b> (ì•„ì´ë””/ë‹‰ë„¤ì„ì„ ëˆ„ë¥´ë©´ ì„ íƒë©ë‹ˆë‹¤)</td>
         </tr>
         </table>
         <table width=100% cellpadding=0 cellspacing=0>
@@ -144,7 +144,7 @@ include_once("$g4[path]/head.sub.php");
           <td height=2 align="center" bgcolor="d9d9d9"  colspan=3></td>
         </tr>
         <tr>
-            <td height=23 >¾ÆÀÌµğ</td><td>´Ğ³×ÀÓ</td><td>Á¤º¸º¸±â</td>
+            <td height=23 >ì•„ì´ë””</td><td>ë‹‰ë„¤ì„</td><td>ì •ë³´ë³´ê¸°</td>
         </tr>        
         <tr>
           <td height=2 align="center" bgcolor="d9d9d9"  colspan=3></td>
@@ -161,9 +161,9 @@ include_once("$g4[path]/head.sub.php");
             <a href=javascript:setid('{$list[$i]->name}','{$list[$i]->id}')>{$list[$i]->nick}</a>
             </td>";
             if ($list[$i]->mb_open == 1 || $is_admin == "super") 
-                $msg = "<a href=\"javascript:;\" onclick=\"win_profile('" . $list[$i]->id . "')\">Á¤º¸º¸±â</a>";
+                $msg = "<a href=\"javascript:;\" onclick=\"win_profile('" . $list[$i]->id . "')\">ì •ë³´ë³´ê¸°</a>";
             else 
-                $msg = "ºñ°ø°³";
+                $msg = "ë¹„ê³µê°œ";
             echo "
             <td>{$msg}</td>";
             echo "

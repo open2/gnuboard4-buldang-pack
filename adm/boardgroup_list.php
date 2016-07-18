@@ -39,9 +39,9 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if (!$page) $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if (!$page) $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
 $sql = " select * 
           $sql_common 
@@ -50,9 +50,9 @@ $sql = " select *
           limit $from_record, $rows ";
 $result = sql_query($sql);
 
-$listall = "<a href='$_SERVER[PHP_SELF]'>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]'>ì²˜ìŒ</a>";
 
-$g4[title] = "°Ô½ÃÆÇ±×·ì¼³Á¤";
+$g4[title] = "ê²Œì‹œíŒê·¸ë£¹ì„¤ì •";
 include_once("./admin.head.php");
 ?>
 
@@ -62,17 +62,17 @@ var list_update_php = "./boardgroup_list_update.php";
 
 <form name=fsearch method=get role="form" class="form-inline">
 <div class="btn-group">
-    <?=$listall?> (±×·ì¼ö : <?=number_format($total_count)?>°³)
+    <?=$listall?> (ê·¸ë£¹ìˆ˜ : <?=number_format($total_count)?>ê°œ)
 </div>
 <div class="pull-right">
     <select name=sfl class="form-control">
-        <option value="gr_subject">Á¦¸ñ</option>
+        <option value="gr_subject">ì œëª©</option>
         <option value="gr_id">ID</option>
-        <option value="gr_admin">±×·ì°ü¸®ÀÚ</option>
+        <option value="gr_admin">ê·¸ë£¹ê´€ë¦¬ì</option>
     </select>
-    <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<?=$stx?>'>
+    <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<?=$stx?>'>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 </form>
@@ -87,31 +87,31 @@ var list_update_php = "./boardgroup_list_update.php";
 <table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <tr class="success">
     <td width=30><input type=checkbox name=chkall value="1" onclick="check_all(this.form)"></td>
-    <td width=45><? if ($is_admin == "super") { echo "<a href='./boardgroup_form.php'><i class='fa fa-plus-square fa-2x' title='»ı¼º'></i></a>"; } ?></td>
-    <td width=120><?=subject_sort_link("gr_id")?>±×·ì¾ÆÀÌµğ</a></td>
-    <td><?=subject_sort_link("gr_subject")?>Á¦¸ñ</a></td>
-    <td width=80><?=subject_sort_link("gr_admin")?>±×·ì°ü¸®ÀÚ</a></td>
-    <td width=80>°Ô½ÃÆÇ</td>
-    <td width=80>Á¢±Ù»ç¿ë</td>
-    <td width=80>Á¢±ÙÈ¸¿ø¼ö</td>
-    <td width=35>°Ë»ö<br />»ç¿ë</td>
-    <td width=35>°Ë»ö<br />¼ø¼­</td>    
+    <td width=45><? if ($is_admin == "super") { echo "<a href='./boardgroup_form.php'><i class='fa fa-plus-square fa-2x' title='ìƒì„±'></i></a>"; } ?></td>
+    <td width=120><?=subject_sort_link("gr_id")?>ê·¸ë£¹ì•„ì´ë””</a></td>
+    <td><?=subject_sort_link("gr_subject")?>ì œëª©</a></td>
+    <td width=80><?=subject_sort_link("gr_admin")?>ê·¸ë£¹ê´€ë¦¬ì</a></td>
+    <td width=80>ê²Œì‹œíŒ</td>
+    <td width=80>ì ‘ê·¼ì‚¬ìš©</td>
+    <td width=80>ì ‘ê·¼íšŒì›ìˆ˜</td>
+    <td width=35>ê²€ìƒ‰<br />ì‚¬ìš©</td>
+    <td width=35>ê²€ìƒ‰<br />ìˆœì„œ</td>    
 </tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++)
 {
-    // Á¢±ÙÈ¸¿ø¼ö
+    // ì ‘ê·¼íšŒì›ìˆ˜
     $sql1 = " select count(*) as cnt from $g4[group_member_table] where gr_id = '$row[gr_id]' ";
     $row1 = sql_fetch($sql1);
 
-    // °Ô½ÃÆÇ¼ö
+    // ê²Œì‹œíŒìˆ˜
     $sql2 = " select count(*) as cnt from $g4[board_table] where gr_id = '$row[gr_id]' ";
     $row2 = sql_fetch($sql2);
 
-    $s_upd = "<a href='./boardgroup_form.php?$qstr&w=u&gr_id=$row[gr_id]'><i class='fa fa-pencil' title='¼öÁ¤'></i></a>";
+    $s_upd = "<a href='./boardgroup_form.php?$qstr&w=u&gr_id=$row[gr_id]'><i class='fa fa-pencil' title='ìˆ˜ì •'></i></a>";
     $s_del = "";
     if ($is_admin == "super") {
-        $s_del = "&nbsp;<a href=\"javascript:post_delete('boardgroup_delete.php', '$row[gr_id]');\"><i class='fa fa-trash-o' title='»èÁ¦'></i></a>";
+        $s_del = "&nbsp;<a href=\"javascript:post_delete('boardgroup_delete.php', '$row[gr_id]');\"><i class='fa fa-trash-o' title='ì‚­ì œ'></i></a>";
     }
 
     $list = $i%2;
@@ -130,18 +130,18 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     echo "<td><a href='./board_list.php?sfl=a.gr_id&stx=$row[gr_id]'>$row2[cnt]</a></td>";
     echo "<td><input type=checkbox name=gr_use_access[$i] ".($row[gr_use_access]?'checked':'')." value='1'></td>";
     echo "<td><a href='./boardgroupmember_list.php?gr_id=$row[gr_id]'>$row1[cnt]</a></td>";
-    echo "<td title='°Ë»ö»ç¿ë'><input type=checkbox name=gr_use_search[$i] ".($row[gr_use_search]?'checked':'')." value='1'></td>";
-    echo "<td title='°Ë»ö¼ø¼­'><input type=text class=ed name=gr_order_search[$i] value='$row[gr_order_search]' size=2></td>";
+    echo "<td title='ê²€ìƒ‰ì‚¬ìš©'><input type=checkbox name=gr_use_search[$i] ".($row[gr_use_search]?'checked':'')." value='1'></td>";
+    echo "<td title='ê²€ìƒ‰ìˆœì„œ'><input type=text class=ed name=gr_order_search[$i] value='$row[gr_order_search]' size=2></td>";
     echo "</tr>\n";
 } 
 
 if ($i == 0)
-    echo "<tr><td colspan='10' align=center height=100 bgcolor=#ffffff>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>"; 
+    echo "<tr><td colspan='10' align=center height=100 bgcolor=#ffffff>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>"; 
 
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
@@ -149,7 +149,7 @@ echo "</table>";
 </div>
 
 <div class="btn-group">
-    <input type=button class='btn btn-default' value='¼±ÅÃ¼öÁ¤' onclick="btn_check(this.form, 'update')">
+    <input type=button class='btn btn-default' value='ì„ íƒìˆ˜ì •' onclick="btn_check(this.form, 'update')">
 </div>
 
 <?
@@ -159,12 +159,12 @@ if ($stx)
 </form>
 
 <script type="text/javascript">
-// POST ¹æ½ÄÀ¸·Î »èÁ¦
+// POST ë°©ì‹ìœ¼ë¡œ ì‚­ì œ
 function post_delete(action_url, val)
 {
 	var f = document.fpost;
 
-	if(confirm("ÇÑ¹ø »èÁ¦ÇÑ ÀÚ·á´Â º¹±¸ÇÒ ¹æ¹ıÀÌ ¾ø½À´Ï´Ù.\n\nÁ¤¸» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?")) {
+	if(confirm("í•œë²ˆ ì‚­ì œí•œ ìë£ŒëŠ” ë³µêµ¬í•  ë°©ë²•ì´ ì—†ìŠµë‹ˆë‹¤.\n\nì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
         f.gr_id.value = val;
 		f.action      = action_url;
 		f.submit();

@@ -2,22 +2,22 @@
 include_once("./_common.php");
 
 if (!$member[mb_id]) 
-    alert_close("È¸¿ø¸¸ Á¶È¸ÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+    alert_close("íšŒì›ë§Œ ì¡°íšŒí•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
 $bg_id = (int) $bg_id;
 
 $result = sql_fetch(" select * from $g4[board_good_table] where bg_id = '$bg_id' and mb_id = '$member[mb_id]' ");
-$tmp_write_table = $g4['write_prefix'] . $result[bo_table]; // °Ô½ÃÆÇ Å×ÀÌºí ÀüÃ¼ÀÌ¸§
+$tmp_write_table = $g4['write_prefix'] . $result[bo_table]; // ê²Œì‹œíŒ í…Œì´ë¸” ì „ì²´ì´ë¦„
 
-// ´ç»çÀÚ°¡ ¾Æ´Ï¸é Æ¨°ÜÁØ´Ù
+// ë‹¹ì‚¬ìê°€ ì•„ë‹ˆë©´ íŠ•ê²¨ì¤€ë‹¤
 if ($result['mb_id'] !== $member[mb_id])
-    alert(" Å¸ÀÎÀÇ ±ÛÀ» ÇÔºÎ·Î ÇÏ¸é ¾ÈµË´Ï´Ù.");
+    alert(" íƒ€ì¸ì˜ ê¸€ì„ í•¨ë¶€ë¡œ í•˜ë©´ ì•ˆë©ë‹ˆë‹¤.");
 
-// Áö¿öÁØ´Ù
+// ì§€ì›Œì¤€ë‹¤
 $sql = " delete from $g4[board_good_table] where bg_id = '$bg_id' and mb_id = '$member[mb_id]' ";
 sql_query($sql);
 
-// °Ô½Ã±ÛÀÇ coount Á¶Á¤
+// ê²Œì‹œê¸€ì˜ coount ì¡°ì •
 if ($result['bg_flag'] == "nogood")
     $sql = " update $tmp_write_table set wr_nogood = wr_nogood - 1 where wr_id = '$result[wr_id]' ";
 else

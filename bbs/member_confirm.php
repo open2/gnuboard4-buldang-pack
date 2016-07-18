@@ -2,7 +2,7 @@
 include_once("./_common.php");
 
 if (!$member[mb_id]) 
-    alert("·Î±×ÀÎ ÇÑ È¸¿ø¸¸ Á¢±ÙÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+    alert("ë¡œê·¸ì¸ í•œ íšŒì›ë§Œ ì ‘ê·¼í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
 /*
 if ($url)
@@ -11,7 +11,7 @@ else
     $urlencode = urlencode($_SERVER[REQUEST_URI]);
 */
 
-$g4[title] = "È¸¿ø ÆĞ½º¿öµå È®ÀÎ";
+$g4[title] = "íšŒì› íŒ¨ìŠ¤ì›Œë“œ í™•ì¸";
 include_once("./_head.php");
 
 $url = clean_xss_tags($_GET['url']); 

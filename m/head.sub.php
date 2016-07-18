@@ -1,9 +1,9 @@
 <?php
 if ( ! defined("_GNUBOARD_")) {
     exit;
-} // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+} // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
-// °Ô½ÃÆÇ¿¡¼­ Áßº¹ include ¿¹¹æ
+// ê²Œì‹œíŒì—ì„œ ì¤‘ë³µ include ì˜ˆë°©
 if (defined('_G4_HEAD')) {
     return;
 } else {
@@ -74,7 +74,7 @@ if ( ! is_ajax()) {
 }
 ?>
 <script type="text/javascript">
-    // ÀÚ¹Ù½ºÅ©¸³Æ®¿¡¼­ »ç¿ëÇÏ´Â Àü¿ªº¯¼ö ¼±¾ğ
+    // ìë°”ìŠ¤í¬ë¦½íŠ¸ì—ì„œ ì‚¬ìš©í•˜ëŠ” ì „ì—­ë³€ìˆ˜ ì„ ì–¸
     var g4_path = "<?=$g4['path']?>";
     var g4_bbs = "<?=$g4['bbs']?>";
     var g4_bbs_img = "<?=$g4['bbs_img']?>";
@@ -105,7 +105,7 @@ if ( ! is_ajax()) {
         <div class="header-left first">
             <a href="javascript:" id="c-button--slide-left"><i class="material-icons">&#xE5D2;</i></a>
         </div>
-        <!-- Home ¹öÆ°Àº Ç×»ó ³ëÃâ -->
+        <!-- Home ë²„íŠ¼ì€ í•­ìƒ ë…¸ì¶œ -->
         <div class="header-left second"><a href="/"><i class="material-icons">&#xE88A;</i></a></div>
         <?php if ($_SERVER['PHP_SELF'] === '/index.php') { ?>
             <h1><a href="javascript:windowReload();">2CPU</a></h1>

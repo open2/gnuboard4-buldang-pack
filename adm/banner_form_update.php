@@ -11,31 +11,31 @@ $bn_id = $_POST[bn_id];
 $bg_id = $_POST[bg_id];
 $bn_subject = $_POST[bn_subject];
 
-if (!bg_id) { alert("±×·ì ID´Â ¹İµå½Ã ¼±ÅÃÇÏ¼¼¿ä."); }
-if (!$bn_id) { alert("¹è³Ê ID´Â ¹İµå½Ã ÀÔ·ÂÇÏ¼¼¿ä."); }
-if (!preg_match("/^([A-Za-z0-9_]{1,20})$/", $bn_id)) { alert("¹è³Ê ID¸íÀº °ø¹é¾øÀÌ ¿µ¹®ÀÚ, ¼ıÀÚ, _ ¸¸ »ç¿ë °¡´ÉÇÕ´Ï´Ù. (20ÀÚ ÀÌ³»)"); }
-if (!$bn_subject) { alert("°Ô½ÃÆÇ Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä."); }
+if (!bg_id) { alert("ê·¸ë£¹ IDëŠ” ë°˜ë“œì‹œ ì„ íƒí•˜ì„¸ìš”."); }
+if (!$bn_id) { alert("ë°°ë„ˆ IDëŠ” ë°˜ë“œì‹œ ì…ë ¥í•˜ì„¸ìš”."); }
+if (!preg_match("/^([A-Za-z0-9_]{1,20})$/", $bn_id)) { alert("ë°°ë„ˆ IDëª…ì€ ê³µë°±ì—†ì´ ì˜ë¬¸ì, ìˆ«ì, _ ë§Œ ì‚¬ìš© ê°€ëŠ¥í•©ë‹ˆë‹¤. (20ì ì´ë‚´)"); }
+if (!$bn_subject) { alert("ê²Œì‹œíŒ ì œëª©ì„ ì…ë ¥í•˜ì„¸ìš”."); }
 
 if ($img = $_FILES[bn_image][name]) {
     if (!preg_match("/\.(gif|jpg|png)$/i", $img)) {
-        alert("¹è³Ê ÀÌ¹ÌÁö°¡ gif, jpg, png ÆÄÀÏÀÌ ¾Æ´Õ´Ï´Ù.");
+        alert("ë°°ë„ˆ ì´ë¯¸ì§€ê°€ gif, jpg, png íŒŒì¼ì´ ì•„ë‹™ë‹ˆë‹¤.");
     }
 }
 
 check_token();
 
-// º£³Ê ÀúÀåÇÒ °÷À» »ı¼º
+// ë² ë„ˆ ì €ì¥í•  ê³³ì„ ìƒì„±
 @mkdir("$g4[data_path]/banner", 0707);
 @chmod("$g4[data_path]/banner", 0707);
 
 $banner_path = "$g4[data_path]/banner/$bg_id";
 $bn_filename  = $_FILES[bn_image][name];
 
-// ¹è³Ê µğ·ºÅä¸® »ı¼º - ¹è³Ê ±×·ìº°·Î ±¸ºĞ
+// ë°°ë„ˆ ë””ë ‰í† ë¦¬ ìƒì„± - ë°°ë„ˆ ê·¸ë£¹ë³„ë¡œ êµ¬ë¶„
 @mkdir($banner_path, 0707);
 @chmod($banner_path, 0707);
 
-// µğ·ºÅä¸®¿¡ ÀÖ´Â ÆÄÀÏÀÇ ¸ñ·ÏÀ» º¸ÀÌÁö ¾Ê°Ô ÇÑ´Ù.
+// ë””ë ‰í† ë¦¬ì— ìˆëŠ” íŒŒì¼ì˜ ëª©ë¡ì„ ë³´ì´ì§€ ì•Šê²Œ í•œë‹¤.
 $file = $banner_path . "/index.php";
 $f = @fopen($file, "w");
 @fwrite($f, "");
@@ -49,10 +49,10 @@ $bn_order               = $_POST[bn_order];
 $bn_start_datetime      = $_POST[bn_start_datetime];
 $bn_end_datetime        = $_POST[bn_end_datetime];
 $bn_text                = $_POST[bn_text];
-// ³¯Â¥°¡ ºñ¾î ÀÖÀ¸¸é ¿À´ÃÀ» ³Ö¾îÁØ´Ù
+// ë‚ ì§œê°€ ë¹„ì–´ ìˆìœ¼ë©´ ì˜¤ëŠ˜ì„ ë„£ì–´ì¤€ë‹¤
 if ($bn_start_datetime == "0000-00-00 00:00:00" || $bn_end_datetime == "0000-00-00 00:00:00")
     $bn_start_datetime = $bn_end_datetime = $g4['time_ymdhis'];
-// ³¯Â¥¸¸ ÀÖÀ¸¸é µÚ¿¡ ½Ã.ºĞ.ÃÊ¸¦ ºÙ¿©ÁØ´Ù
+// ë‚ ì§œë§Œ ìˆìœ¼ë©´ ë’¤ì— ì‹œ.ë¶„.ì´ˆë¥¼ ë¶™ì—¬ì¤€ë‹¤
 if (strlen(trim($bn_end_datetime)) == 10)
     $bn_end_datetime .= " 23:59:59";
 $bn_1_subj              = $_POST[bn_1_subj];
@@ -93,7 +93,7 @@ if ($bn_image_del) {
 if ($w == "") {
     $row = sql_fetch(" select count(*) as cnt from $g4[banner_table] where bn_id = '$bn_id' ");
     if ($row[cnt])
-        alert("{$bn_id} Àº(´Â) ÀÌ¹Ì Á¸ÀçÇÏ´Â ¹è³Ê ID ÀÔ´Ï´Ù.");
+        alert("{$bn_id} ì€(ëŠ”) ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ë°°ë„ˆ ID ì…ë‹ˆë‹¤.");
 
     $sql = " insert into $g4[banner_table]
                 set bn_id = '$bn_id',
@@ -103,7 +103,7 @@ if ($w == "") {
 
 } else if ($w == "u") {
 
-    // ¾÷µ¥ÀÌÆ®¸¦ ÇÏ´Âµ¥, ±×·ìÀÌ ´Ş¶óÁö¸é??? ÀÌ¹ÌÁö °æ·Î°¡ ´Ş¶óÁø´Ù...¤Ğ¤Ğ...
+    // ì—…ë°ì´íŠ¸ë¥¼ í•˜ëŠ”ë°, ê·¸ë£¹ì´ ë‹¬ë¼ì§€ë©´??? ì´ë¯¸ì§€ ê²½ë¡œê°€ ë‹¬ë¼ì§„ë‹¤...ã… ã… ...
     $result = sql_fetch(" select * from $g4[banner_table] where bn_id = '$bn_id' ");
     if ($bg_id !== $result['bg_id']) {
         $from_image = "$g4[data_path]/banner/$result[bg_id]/$result[bn_image]";
@@ -119,7 +119,7 @@ if ($w == "") {
     $result = sql_query($sql);
 }
 
-// °°Àº ±×·ì³» °Ô½ÃÆÇ µ¿ÀÏ ¿É¼Ç Àû¿ë
+// ê°™ì€ ê·¸ë£¹ë‚´ ê²Œì‹œíŒ ë™ì¼ ì˜µì…˜ ì ìš©
 $s = "";
 if ($chk_use) $s .= " , bn_use = '$bn_use' ";
 if ($chk_target) $s .= " , bn_target = '$bb_target' ";

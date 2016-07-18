@@ -1,12 +1,12 @@
 <?
 include_once("./_common.php");
 
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
 if (!$member[mb_id]) 
-  alert("È¸¿ø¸¸ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù");
+  alert("íšŒì›ë§Œ ì‚¬ìš©í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤");
 
-$tmp_write_table = $g4[write_prefix] . $bo_table; // °Ô½ÃÆÇ Å×ÀÌºí ÀüÃ¼ÀÌ¸§
+$tmp_write_table = $g4[write_prefix] . $bo_table; // ê²Œì‹œíŒ í…Œì´ë¸” ì „ì²´ì´ë¦„
 if ($is_admin)
   $sql = " update $tmp_write_table set wr_10 = '$wr_10' where wr_id='$wr_id' ";
 else

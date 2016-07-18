@@ -17,13 +17,13 @@ if (! isset($_GET['code'])) {
     $client->authenticate($_GET['code']);
     $_SESSION['access_token'] = $client->getAccessToken();
 
-    // °èÁ¤ÀÇ email Á¤º¸¸¦ ÀĞ¾î ³À´Ï´Ù.
+    // ê³„ì •ì˜ email ì •ë³´ë¥¼ ì½ì–´ ëƒ…ë‹ˆë‹¤.
     $oauth = new Google_Service_Oauth2($client);
     $mb_email = $oauth->userinfo->get()->email;
 
-    // ·Î±×ÀÎÀ» ¼öÇà ÇÕ´Ï´Ù.
+    // ë¡œê·¸ì¸ì„ ìˆ˜í–‰ í•©ë‹ˆë‹¤.
 
-    // ÀÎÁõµÈ ÈÄ¿¡ ÀÌµ¿ÇÏ´Â ÆäÀÌÁö
+    // ì¸ì¦ëœ í›„ì— ì´ë™í•˜ëŠ” í˜ì´ì§€
     $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . '/bbs/login.php';
     header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
 }

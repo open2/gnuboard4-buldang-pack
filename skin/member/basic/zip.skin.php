@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 
 <table width="600" border="0" cellspacing="0" cellpadding="0">
@@ -32,13 +32,13 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
 </tr>
 <tr> 
     <td width=130><img src="<?=$g4[bbs_img_path]?>/zip_img_02.gif" width="125" height="14"></td>
-    <td><input type=text name=addr1 value='<?=$addr1?>' required minlength=2 itemname='µ¿(À¾/¸é/¸®)' size=35> <input type=image src='<?=$g4[bbs_img_path]?>/btn_post_search.gif' border=0 align=absmiddle style="ime-mode:active;" ></td>
+    <td><input type=text name=addr1 value='<?=$addr1?>' required minlength=2 itemname='ë™(ì/ë©´/ë¦¬)' size=35> <input type=image src='<?=$g4[bbs_img_path]?>/btn_post_search.gif' border=0 align=absmiddle style="ime-mode:active;" ></td>
 </tr>
 <tr> 
     <td height="20" colspan="2"></td>
 </tr>
 </table>
-<!-- °Ë»ö°á°ú ¿©±â¼­ºÎÅÍ -->
+<!-- ê²€ìƒ‰ê²°ê³¼ ì—¬ê¸°ì„œë¶€í„° -->
 
 <script language='javascript'>
 document.fzip.addr1.focus();
@@ -58,7 +58,7 @@ document.fzip.addr1.focus();
     <td width="90%">
         <table width=100% cellpadding=0 cellspacing=0>
         <tr>
-            <td height=23 valign=top>ÃÑ <?=$search_count?>°Ç °¡³ª´Ù¼ø</td>
+            <td height=23 valign=top>ì´ <?=$search_count?>ê±´ ê°€ë‚˜ë‹¤ìˆœ</td>
         </tr>
         <?
         for ($i=0; $i<count($list); $i++) 
@@ -67,7 +67,7 @@ document.fzip.addr1.focus();
         }
         ?>
         <tr>
-            <td height=23>[³¡]</td>
+            <td height=23>[ë]</td>
         </tr>
         </table>
 </tr>

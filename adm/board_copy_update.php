@@ -9,35 +9,35 @@ $target_subject = mysql_real_escape_string(trim($_POST['target_subject']));
 
 if (!preg_match("/[A-Za-z0-9_]{1,20}/", $target_table)) 
 { 
-    alert("°Ô½ÃÆÇ TABLE¸íÀº °ø¹é¾øÀÌ ¿µ¹®ÀÚ, ¼ıÀÚ, _ ¸¸ »ç¿ë °¡´ÉÇÕ´Ï´Ù. (20ÀÚ ÀÌ³»)"); 
+    alert("ê²Œì‹œíŒ TABLEëª…ì€ ê³µë°±ì—†ì´ ì˜ë¬¸ì, ìˆ«ì, _ ë§Œ ì‚¬ìš© ê°€ëŠ¥í•©ë‹ˆë‹¤. (20ì ì´ë‚´)"); 
 }
 
 $row = sql_fetch(" select count(*) as cnt from $g4[board_table] where bo_table = '$target_table' ");
 if ($row[cnt])
-    alert("{$target_table}Àº(´Â) ÀÌ¹Ì Á¸ÀçÇÏ´Â °Ô½ÃÆÇ TABLE ÀÔ´Ï´Ù.\\n\\nº¹»çÇÒ TABLE·Î »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.");
+    alert("{$target_table}ì€(ëŠ”) ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ê²Œì‹œíŒ TABLE ì…ë‹ˆë‹¤.\\n\\në³µì‚¬í•  TABLEë¡œ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 
 $sql = " SHOW TABLES LIKE '$g4[write_prefix]$target_table' ";
 $row2 = sql_fetch($sql);
 if ($row2)
-    alert("{$target_table}Àº(´Â) ÀÌ¹Ì °Ô½ÃÆÇ TABLEÀÌ ÀÖ½À´Ï´Ù.\\n\\nphpMyAdmin¿¡¼­ ÇØ´ç Å×ÀÌºíÀ» Á¤¸®ÈÄ¿¡ º¹»çÇØÁÖ¼¼¿ä.");
+    alert("{$target_table}ì€(ëŠ”) ì´ë¯¸ ê²Œì‹œíŒ TABLEì´ ìˆìŠµë‹ˆë‹¤.\\n\\nphpMyAdminì—ì„œ í•´ë‹¹ í…Œì´ë¸”ì„ ì •ë¦¬í›„ì— ë³µì‚¬í•´ì£¼ì„¸ìš”.");
 
 check_token();
 
 
-// °Ô½ÃÆÇ Å×ÀÌºí »ı¼º
+// ê²Œì‹œíŒ í…Œì´ë¸” ìƒì„±
 $sql = get_table_define($g4[write_prefix] . $bo_table);
 $sql = str_replace($g4[write_prefix] . $bo_table, $g4[write_prefix] . $target_table, $sql);
 sql_query($sql);
 
 $file_copy = array();
 
-// °Ô½ÃÆÇ Á¤º¸
+// ê²Œì‹œíŒ ì •ë³´
 $xp = array("bo_table");
 $sql_list = except_sql_statement($g4[board_table], $xp); 
 $sql = " insert into $g4[board_table] select '$target_table', $sql_list from $g4[board_table] where bo_table = '$bo_table' ";
 sql_query($sql);
 
-// °Ô½ÃÆÇ Á¤º¸ - Á¦¸ñÀº µû·Î ¾÷µ¥ÀÌÆ®, À§¿¡¼­ ÇÏ·Á¸é Á» ±×·¸³×¿ä. ÇÊµåÀÇ ¼ø¼­ ¶§¹®¿¡
+// ê²Œì‹œíŒ ì •ë³´ - ì œëª©ì€ ë”°ë¡œ ì—…ë°ì´íŠ¸, ìœ„ì—ì„œ í•˜ë ¤ë©´ ì¢€ ê·¸ë ‡ë„¤ìš”. í•„ë“œì˜ ìˆœì„œ ë•Œë¬¸ì—
 sql_query(" update $g4[board_table] set bo_subject='$target_subject', bo_count_write='', bo_count_comment='' where bo_table = '$target_table' ");
 
 /*
@@ -118,11 +118,11 @@ $sql = " insert into $g4[board_table]
 sql_query($sql);
 */
 
-// °Ô½ÃÆÇ Æú´õ »ı¼º
+// ê²Œì‹œíŒ í´ë” ìƒì„±
 @mkdir("$g4[data_path]/file/$target_table", 0707);
 @chmod("$g4[data_path]/file/$target_table", 0707);
 
-// µğ·ºÅä¸®¿¡ ÀÖ´Â ÆÄÀÏÀÇ ¸ñ·ÏÀ» º¸ÀÌÁö ¾Ê°Ô ÇÑ´Ù.
+// ë””ë ‰í† ë¦¬ì— ìˆëŠ” íŒŒì¼ì˜ ëª©ë¡ì„ ë³´ì´ì§€ ì•Šê²Œ í•œë‹¤.
 $board_path = "$g4[data_path]/file/$target_table";
 $file = $board_path . "/index.php";
 $f = @fopen($file, "w");
@@ -145,7 +145,7 @@ if ($copy_case == "schema_data_both")
         $copy_file++;
         */
 
-        // ±è¼±¿ë 201007 :
+        // ê¹€ì„ ìš© 201007 :
         if(is_dir("$g4[data_path]/file/$bo_table/$entry")){
             $dd = dir("$g4[data_path]/file/$bo_table/$entry");
             @mkdir("$g4[data_path]/file/$target_table/$entry", 0707);
@@ -166,29 +166,29 @@ if ($copy_case == "schema_data_both")
     }
     $d->close();
 
-    // ±Ûº¹»ç
+    // ê¸€ë³µì‚¬
     $sql = " insert into $g4[write_prefix]$target_table select * from $g4[write_prefix]$bo_table ";
     sql_query($sql);
 
-    // °Ô½Ã±Û¼ö ÀúÀå
+    // ê²Œì‹œê¸€ìˆ˜ ì €ì¥
     $sql = " select bo_count_write, bo_count_comment from $g4[board_table] where bo_table = '$bo_table' ";
     $row = sql_fetch($sql);
     $sql = " update $g4[board_table] set bo_count_write = '$row[bo_count_write]', bo_count_comment = '$row[bo_count_comment]' where bo_table = '$target_table' ";
     sql_query($sql);
 
     // 05.05.24
-    // ÆÄÀÏÅ×ÀÌºí º¹»ç
+    // íŒŒì¼í…Œì´ë¸” ë³µì‚¬
     //$sql = " insert into $g4[board_file_table] select '$target_table', wr_id, bf_no, bf_source, bf_file, bf_download, bf_content from $g4[board_file_table] where bo_table = '$bo_table' ";
     //sql_query($sql);
 
     // 4.00.01
-    // À§ÀÇ ÄÚµå´Â °°Àº Å×ÀÌºí¸íÀ» »ç¿ëÇÏ¿´´Ù´Â ¿À·ù°¡ ¹ß»ıÇÔ. (ÈñÇÑÇÏ³× ¤Ñ¤Ñ;)
+    // ìœ„ì˜ ì½”ë“œëŠ” ê°™ì€ í…Œì´ë¸”ëª…ì„ ì‚¬ìš©í•˜ì˜€ë‹¤ëŠ” ì˜¤ë¥˜ê°€ ë°œìƒí•¨. (í¬í•œí•˜ë„¤ ã…¡ã…¡;)
     $sql = " select * from $g4[board_file_table] where bo_table = '$bo_table' ";
     $result = sql_query($sql);
     for ($i=0; $row=sql_fetch_array($result); $i++) 
         $file_copy[$i] = $row;
     
-    // °Ô½ÃÆÇ °øÁö±Û º¹»ç
+    // ê²Œì‹œíŒ ê³µì§€ê¸€ ë³µì‚¬
     $sql = " update $g4[board_table] set bo_notice = '$board[bo_notice]' where bo_table = '$target_table' ";
     sql_query($sql);    
 }   
@@ -216,9 +216,9 @@ if (count($file_copy))
 
 echo "<meta http-equiv='content-type' content='text/html; charset={$g4['charset']}'>";
 echo "<script language='javascript'>";
-echo "alert(\"°Ô½ÃÆÇ º¹»ç : {$bo_table} -> {$target_table}";
+echo "alert(\"ê²Œì‹œíŒ ë³µì‚¬ : {$bo_table} -> {$target_table}";
 if ($copy_file)
-    echo "\\n\\nº¹»çÇÑ ÆÄÀÏ : ÃÑ {$copy_file}°³";
+    echo "\\n\\në³µì‚¬í•œ íŒŒì¼ : ì´ {$copy_file}ê°œ";
 echo "\");";
 echo "opener.document.location.reload();";
 echo "</script>";

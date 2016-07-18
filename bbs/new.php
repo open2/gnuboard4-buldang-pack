@@ -1,10 +1,10 @@
 <?
 include_once("./_common.php");
 
-$g4[title] = "ÃÖ±Ù °Ô½Ã¹°";
+$g4[title] = "ìµœê·¼ ê²Œì‹œë¬¼";
 include_once("./_head.php");
 
-// °ü¸®ÀÚ¿¡°Ô´Â ¸ðµÎ °Ë»öÀÌ °¡´ÉÇÏ°Ô ¼öÁ¤
+// ê´€ë¦¬ìžì—ê²ŒëŠ” ëª¨ë‘ ê²€ìƒ‰ì´ ê°€ëŠ¥í•˜ê²Œ ìˆ˜ì •
 if ($is_admin)
     $search_sql = "";
 else
@@ -19,15 +19,15 @@ if ($gr_id)
 if ($bo_table_search)
     $sql_common .= " and a.bo_table = '$bo_table_search' ";
   
-// Á¶È¸ ¹üÀ§ ÁöÁ¤
+// ì¡°íšŒ ë²”ìœ„ ì§€ì •
 if ($view_type == "a")
-    // ¸ðµç ±Û + ÄÚ¸àÆ®
+    // ëª¨ë“  ê¸€ + ì½”ë©˜íŠ¸
     ;
 else if ($view_type == "c")
-    // ÄÚ¸àÆ®
+    // ì½”ë©˜íŠ¸
     $sql_common .= " and a.wr_is_comment = '1' ";
 else 
-    // ¿ø±Û
+    // ì›ê¸€
     $sql_common .= " and a.wr_is_comment = '0' ";
 
 $mb_id = isset($_GET['mb_id']) ? ($_GET['mb_id']) : '';
@@ -47,9 +47,9 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_new_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if (!$page) $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ íŽ˜ì´ì§€ ê³„ì‚°
+if (!$page) $page = 1; // íŽ˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« íŽ˜ì´ì§€ (1 íŽ˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œìž‘ ì—´ì„ êµ¬í•¨
 
 $sql = " select gr_id, gr_subject from $g4[group_table] where gr_use_search = 1 order by gr_id ";
 $result = sql_query($sql);
@@ -68,7 +68,7 @@ $sql = " select $sql_select
 $result = sql_query($sql);
 for ($i=0; $row=sql_fetch_array($result); $i++) 
 {
-    // °Ô½ÃÆÇÀº ¾ø¾îÁö°í, ÃÖ½Å±Û¸¸ ³²Àº °æ¿ì?
+    // ê²Œì‹œíŒì€ ì—†ì–´ì§€ê³ , ìµœì‹ ê¸€ë§Œ ë‚¨ì€ ê²½ìš°?
     if (trim($row[bo_table]) == "") {
         $sql = " delete from $g4[board_new_table] where bn_id = '$row[bn_id]' ";
         sql_query($sql);
@@ -77,18 +77,18 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 
     $tmp_write_table = $g4[write_prefix] . $row[bo_table];
 
-    // group °ü·Ã Á¤º¸¸¦ °¡Á®¿Â´Ù
+    // group ê´€ë ¨ ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤
     $gr_info = get_group($row[gr_id], "gr_subject");
     $row[gr_subject] = $gr_info[gr_subject];
 
-    if ($row[wr_id] == $row[wr_parent]) // ¿ø±Û
+    if ($row[wr_id] == $row[wr_parent]) // ì›ê¸€
     {
         $comment = "";
         $comment_link = "";
         $comment_id = "";
         $row2 = sql_fetch(" select wr_id, wr_subject, mb_id, wr_name, wr_email, wr_homepage, wr_datetime, wr_comment, wr_hit from $tmp_write_table where wr_id = '$row[wr_id]' ");
 
-        // °¡²û ÃÖ±Ù±Û record¸¸ ÀÖ´Â °æ¿ì°¡ ÀÖ´Ù. ±×·¸´Ù¸é ±×°É Áö¿ö¾ßÁö...
+        // ê°€ë” ìµœê·¼ê¸€ recordë§Œ ìžˆëŠ” ê²½ìš°ê°€ ìžˆë‹¤. ê·¸ë ‡ë‹¤ë©´ ê·¸ê±¸ ì§€ì›Œì•¼ì§€...
         if (!$row2) {
             $sql = " delete from $g4[board_new_table] where bn_id = '$row[bn_id]' ";
             sql_query($sql);
@@ -98,7 +98,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         $list[$i] = $row2;
 
         $name = get_sideview($row2[mb_id], cut_str($row2[wr_name], $config[cf_cut_name]), $row2[wr_email], $row2[wr_homepage]);
-        // ´çÀÏÀÎ °æ¿ì ½Ã°£À¸·Î Ç¥½ÃÇÔ
+        // ë‹¹ì¼ì¸ ê²½ìš° ì‹œê°„ìœ¼ë¡œ í‘œì‹œí•¨
         $datetime = substr($row2[wr_datetime],0,10);
         $datetime2 = $row2[wr_datetime];
         if ($datetime == $g4[time_ymd])
@@ -107,15 +107,15 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
             $datetime2 = substr($datetime2,5,5);
 
     }
-    else // ÄÚ¸àÆ®
+    else // ì½”ë©˜íŠ¸
     {
-        $comment = "[ÄÚ] ";
+        $comment = "[ì½”] ";
         $comment_link = "#c_{$row[wr_id]}";
         $comment_id = $row[wr_id];
         $row2 = sql_fetch(" select wr_id, wr_subject from $tmp_write_table where wr_id = '$row[wr_parent]' ");
         $row3 = sql_fetch(" select mb_id, wr_name, wr_email, wr_homepage, wr_datetime from $tmp_write_table where wr_id = '$row[wr_id]' ");
 
-        // °¡²û ÃÖ±Ù±Û record¸¸ ÀÖ´Â °æ¿ì°¡ ÀÖ´Ù. ±×·¸´Ù¸é ±×°É Áö¿ö¾ßÁö...
+        // ê°€ë” ìµœê·¼ê¸€ recordë§Œ ìžˆëŠ” ê²½ìš°ê°€ ìžˆë‹¤. ê·¸ë ‡ë‹¤ë©´ ê·¸ê±¸ ì§€ì›Œì•¼ì§€...
         if (!$row2) {
             $sql = " delete from $g4[board_new_table] where bn_id = '$row[bn_id]' ";
             sql_query($sql);
@@ -129,7 +129,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         $list[$i][wr_homepage] = $row3[wr_homepage];
 
         $name = get_sideview($row3[mb_id], cut_str($row3[wr_name], $config[cf_cut_name]), $row3[wr_email], $row3[wr_homepage]);
-        // ´çÀÏÀÎ °æ¿ì ½Ã°£À¸·Î Ç¥½ÃÇÔ
+        // ë‹¹ì¼ì¸ ê²½ìš° ì‹œê°„ìœ¼ë¡œ í‘œì‹œí•¨
         $datetime = substr($row3[wr_datetime],0,10);
         $datetime2 = $row3[wr_datetime];
         if ($datetime == $g4[time_ymd])

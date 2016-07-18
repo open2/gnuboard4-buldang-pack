@@ -1,14 +1,14 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
-// ½ºÅ²¿¡¼­ »ç¿ëÇÏ´Â lib ÀĞ¾îµéÀÌ±â
+// ìŠ¤í‚¨ì—ì„œ ì‚¬ìš©í•˜ëŠ” lib ì½ì–´ë“¤ì´ê¸°
 include_once("$g4[path]/lib/write.skin.lib.php");
 ?>
 
 <script type="text/javascript">
-// ±ÛÀÚ¼ö Á¦ÇÑ
-var char_min = parseInt(<?=$write_min?>); // ÃÖ¼Ò
-var char_max = parseInt(<?=$write_max?>); // ÃÖ´ë
+// ê¸€ììˆ˜ ì œí•œ
+var char_min = parseInt(<?=$write_min?>); // ìµœì†Œ
+var char_max = parseInt(<?=$write_max?>); // ìµœëŒ€
 </script>
 
 <form role="form" class="form-horizontal" name="fwrite" method="post" onsubmit="return fwrite_submit(this);" enctype="multipart/form-data">
@@ -33,14 +33,14 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
     $option = "";
     if ($is_notice) {
         $option .= '<label class="checkbox-inline">';
-        $option .= "<input type=checkbox name=notice value='1' $notice_checked>°øÁö";
+        $option .= "<input type=checkbox name=notice value='1' $notice_checked>ê³µì§€";
         $option .= '</label>';
     }
 
-    // ºÒ´çÆÑ - ÀüÃ¼ °øÁö
+    // ë¶ˆë‹¹íŒ© - ì „ì²´ ê³µì§€
     if ($is_g_notice) {
         $option .= '<label class="checkbox-inline">';
-        $option .= "<input type=checkbox name=g_notice value='1' $g_notice_checked>ÀüÃ¼°øÁö";
+        $option .= "<input type=checkbox name=g_notice value='1' $g_notice_checked>ì „ì²´ê³µì§€";
         $option .= '</label>';
     }
 
@@ -57,7 +57,7 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
     if ($is_secret) {
         if ($is_admin || $is_secret==1) {
             $option .= '<label class="checkbox-inline">';
-            $option .= "<input type=checkbox value='secret' name='secret' $secret_checked>ºñ¹Ğ±Û";
+            $option .= "<input type=checkbox value='secret' name='secret' $secret_checked>ë¹„ë°€ê¸€";
             $option .= '</label>';
         } else {
             $option_hidden .= "<input type=hidden value='secret' name='secret'>";
@@ -66,11 +66,11 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
     
     if ($is_mail) {
         $option .= '<label class="checkbox-inline">';
-        $option .= "<input type=checkbox value='mail' name='mail' $recv_email_checked>´äº¯¸ŞÀÏ¹Ş±â";
+        $option .= "<input type=checkbox value='mail' name='mail' $recv_email_checked>ë‹µë³€ë©”ì¼ë°›ê¸°";
         $option .= '</label>';
     }
 
-      // hiddenÀ¸·Î ³Ñ°Ü¾ß ÇÏ´Â ¿É¼ÇÀ» Ãâ·Â ÇÕ´Ï´Ù.
+      // hiddenìœ¼ë¡œ ë„˜ê²¨ì•¼ í•˜ëŠ” ì˜µì…˜ì„ ì¶œë ¥ í•©ë‹ˆë‹¤.
 			echo $option_hidden;
 }
 ?>
@@ -93,7 +93,7 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
         <div class="form-group">
             <label for="wr_name" class="col-sm-1 hidden-xs">Name</label>
             <div class="col-xs-12 col-sm-11">
-            <input class="form-control" maxlength=20 size=15 name=wr_name id=wr_name itemname="ÀÌ¸§" placeholder="ÀÌ¸§" required value="<?=$name?>">
+            <input class="form-control" maxlength=20 size=15 name=wr_name id=wr_name itemname="ì´ë¦„" placeholder="ì´ë¦„" required value="<?=$name?>">
             </div>
         </div>
         <? } ?>
@@ -102,7 +102,7 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
         <div class="form-group">
             <label for="" class="col-sm-1 hidden-xs">Password</label>
             <div class="col-xs-12 col-sm-11">
-            <input class="form-control" type=password maxlength=20 size=15 name=wr_password id=wr_password itemname="ÆĞ½º¿öµå" placeholder="ÆĞ½º¿öµå" <?=$password_required?>>
+            <input class="form-control" type=password maxlength=20 size=15 name=wr_password id=wr_password itemname="íŒ¨ìŠ¤ì›Œë“œ" placeholder="íŒ¨ìŠ¤ì›Œë“œ" <?=$password_required?>>
             </div>
         </div>
         <? } ?>
@@ -111,7 +111,7 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
         <div class="form-group">
             <label for="wr_email" class="col-sm-1 hidden-xs">E-mail</label>
             <div class="col-xs-12 col-sm-11">
-            <input class="form-control" type="email" maxlength=100 size=50 name=wr_email id=wr_email email itemname="ÀÌ¸ŞÀÏ" placeholder="ÀÌ¸ŞÀÏ" value="<?=$email?>">
+            <input class="form-control" type="email" maxlength=100 size=50 name=wr_email id=wr_email email itemname="ì´ë©”ì¼" placeholder="ì´ë©”ì¼" value="<?=$email?>">
             </div>
         </div>
         <? } ?>            
@@ -120,7 +120,7 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
         <div class="form-group">
             <label for="wr_homepage" class="col-sm-1 hidden-xs">Homepage URL</label>
             <div class="col-xs-12 col-sm-11">
-            <input class="form-control" type="url" size=50 name=wr_homepage id=wr_homepage itemname="È¨ÆäÀÌÁö" placeholder="È¨ÆäÀÌÁö" value="<?=$homepage?>">
+            <input class="form-control" type="url" size=50 name=wr_homepage id=wr_homepage itemname="í™ˆí˜ì´ì§€" placeholder="í™ˆí˜ì´ì§€" value="<?=$homepage?>">
             </div>
         </div>
         <? } ?>            
@@ -128,7 +128,7 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
         <div class="form-group">
             <label for="wr_subject" class="col-sm-1 hidden-xs">Subject</label>
             <div class="col-xs-12 col-sm-11">
-            <input class="form-control" name=wr_subject id="wr_subject" itemname="Á¦¸ñ" required value="<?=$subject?>" placeholder="Subject">
+            <input class="form-control" name=wr_subject id="wr_subject" itemname="ì œëª©" required value="<?=$subject?>" placeholder="Subject">
             </div>
         </div>
 
@@ -136,7 +136,7 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
         <div class="form-group">
             <label for="ca_name" class="col-sm-1 hidden-xs">Category</label>
             <div class="col-xs-12 col-sm-11">
-            <select class="form-control" name=ca_name id="ca_name" required itemname="ºĞ·ù"><option value="">¼±ÅÃÇÏ¼¼¿ä<?=$category_option?></select>
+            <select class="form-control" name=ca_name id="ca_name" required itemname="ë¶„ë¥˜"><option value="">ì„ íƒí•˜ì„¸ìš”<?=$category_option?></select>
             </div>
         </div>
         <? } ?>            
@@ -154,8 +154,8 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
                     <span style="cursor: pointer;" onclick="textarea_decrease('wr_content', 5);"> <i class="fa fa-minus-square"></i> </span>
                     <span style="cursor: pointer;" onclick="textarea_original('wr_content', 15);"> <i class="fa fa-circle-o"></i> </span>
                     <span style="cursor: pointer;" onclick="textarea_increase('wr_content', 5);"> <i class="fa fa-plus-square"></i> </span>
-                    <? if ($write_min || $write_max) { ?><div class="pull-right"><span id=char_count></span>±ÛÀÚ</div><?}?>
-                    <textarea class="form-control" id="wr_content" name="wr_content" style='width:100%; word-break:break-all;' rows=15 itemname="³»¿ë" required 
+                    <? if ($write_min || $write_max) { ?><div class="pull-right"><span id=char_count></span>ê¸€ì</div><?}?>
+                    <textarea class="form-control" id="wr_content" name="wr_content" style='width:100%; word-break:break-all;' rows=15 itemname="ë‚´ìš©" required 
                     <? if ($write_min || $write_max) { ?>onkeyup="check_byte('wr_content', 'char_count');"<?}?>><?=$content?></textarea>
                     <? if ($write_min || $write_max) { ?><script language="javascript"> check_byte('wr_content', 'char_count'); </script><?}?>
                 <? } ?>
@@ -166,7 +166,7 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
         <div class="form-group">
             <label class="col-sm-1 hidden-xs">Keyword</label>
             <div class="col-xs-12 col-sm-11">
-            <input class="form-control" type="text" size=50 name="wr_related" itemname="°ü·Ã±Û Å°¿öµå" placeholder="°ü·Ã±Û Å°¿öµå, ÄŞ¸¶·Î ±¸ºĞ ÇÕ´Ï´Ù. ¿¹) Å°¿öµå1, Å°¿öµå2" value="<?=$write[wr_related]?>">
+            <input class="form-control" type="text" size=50 name="wr_related" itemname="ê´€ë ¨ê¸€ í‚¤ì›Œë“œ" placeholder="ê´€ë ¨ê¸€ í‚¤ì›Œë“œ, ì½¤ë§ˆë¡œ êµ¬ë¶„ í•©ë‹ˆë‹¤. ì˜ˆ) í‚¤ì›Œë“œ1, í‚¤ì›Œë“œ2" value="<?=$write[wr_related]?>">
             </div>
         </div>
         <? } ?>
@@ -176,7 +176,7 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
         <div class="form-group">
             <label class="col-sm-1 hidden-xs">Link #<?=$i?></label>
             <div class="col-xs-12 col-sm-11">
-            <input class="form-control" type='text' class='field_pub_01' size=50 name='wr_link<?=$i?>' itemname='¸µÅ© #<?=$i?>' placeholder="¸µÅ© #<?=$i?>" value='<?=$write["wr_link{$i}"]?>'>
+            <input class="form-control" type='text' class='field_pub_01' size=50 name='wr_link<?=$i?>' itemname='ë§í¬ #<?=$i?>' placeholder="ë§í¬ #<?=$i?>" value='<?=$write["wr_link{$i}"]?>'>
             </div>
         </div>
         <? } ?>
@@ -187,8 +187,8 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
             <label class="col-xs-1 hidden-xs">File
             </label>
             <div class="col-xs-12 col-sm-11">
-                <a class="btn btn-default btn-xs" onclick="add_file();" style="cursor:pointer;" title="add file/Ã·ºÎÆÄÀÏ ÀÔ·ÂÃ¢ 1°³ Ãß°¡"><i class="fa fa-plus"></i></a>&nbsp;&nbsp;
-                <a class="btn btn-default btn-xs" onclick="del_file();" style="cursor:pointer;" title="delete file/Ã·ºÎÆÄÀÏ ÀÔ·ÂÃ¢ 1°³ »èÁ¦"><i class="fa fa-minus"></i></a>
+                <a class="btn btn-default btn-xs" onclick="add_file();" style="cursor:pointer;" title="add file/ì²¨ë¶€íŒŒì¼ ì…ë ¥ì°½ 1ê°œ ì¶”ê°€"><i class="fa fa-plus"></i></a>&nbsp;&nbsp;
+                <a class="btn btn-default btn-xs" onclick="del_file();" style="cursor:pointer;" title="delete file/ì²¨ë¶€íŒŒì¼ ì…ë ¥ì°½ 1ê°œ ì‚­ì œ"><i class="fa fa-minus"></i></a>
                 <br>
                 <table id="variableFiles" class="table table-condensed" style="word-break:break-all;overflow:hidden;table-layout:fixed"></table>
                 <script type="text/javascript">
@@ -196,7 +196,7 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
                 function add_file(delete_code) {
                     var upload_count = <?=(int)$board[bo_upload_count]?>;
                     if (upload_count && flen >= upload_count) {
-                        alert("ÀÌ °Ô½ÃÆÇÀº "+upload_count+"°³ ±îÁö¸¸ ÆÄÀÏ ¾÷·Îµå°¡ °¡´ÉÇÕ´Ï´Ù.");
+                        alert("ì´ ê²Œì‹œíŒì€ "+upload_count+"ê°œ ê¹Œì§€ë§Œ íŒŒì¼ ì—…ë¡œë“œê°€ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
                         return;
                     }
     
@@ -211,12 +211,12 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
                     objRow = objTbl.insertRow(objTbl.rows.length);
                     objCell = objRow.insertCell(0);
     
-                    objCell.innerHTML = "<input type='file' name='bf_file[]' style='margin-top:5px;margin-bottom:5px;' title='ÆÄÀÏ ¿ë·® <?=$upload_max_filesize?> ÀÌÇÏ¸¸ ¾÷·Îµå °¡´É'>";
+                    objCell.innerHTML = "<input type='file' name='bf_file[]' style='margin-top:5px;margin-bottom:5px;' title='íŒŒì¼ ìš©ëŸ‰ <?=$upload_max_filesize?> ì´í•˜ë§Œ ì—…ë¡œë“œ ê°€ëŠ¥'>";
                     if (delete_code)
                         objCell.innerHTML += delete_code;
                     else {
                         <? if ($is_file_content) { ?>
-                        objCell.innerHTML += "<input type='text' class='form-control' name='bf_content[]' placeholder='¾÷·Îµå ÀÌ¹ÌÁö ÆÄÀÏ¿¡ ÇØ´ç µÇ´Â ³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä.'>";
+                        objCell.innerHTML += "<input type='text' class='form-control' name='bf_content[]' placeholder='ì—…ë¡œë“œ ì´ë¯¸ì§€ íŒŒì¼ì— í•´ë‹¹ ë˜ëŠ” ë‚´ìš©ì„ ì…ë ¥í•˜ì„¸ìš”.'>";
                         <? } ?>
                         ;
                     }
@@ -224,10 +224,10 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
                     flen++;
                 }
     
-                <?=$file_script; //¼öÁ¤½Ã¿¡ ÇÊ¿äÇÑ ½ºÅ©¸³Æ®?>
+                <?=$file_script; //ìˆ˜ì •ì‹œì— í•„ìš”í•œ ìŠ¤í¬ë¦½íŠ¸?>
 
                 function del_file() {
-                    // file_length ÀÌÇÏ·Î´Â ÇÊµå°¡ »èÁ¦µÇÁö ¾Ê¾Æ¾ß ÇÕ´Ï´Ù.
+                    // file_length ì´í•˜ë¡œëŠ” í•„ë“œê°€ ì‚­ì œë˜ì§€ ì•Šì•„ì•¼ í•©ë‹ˆë‹¤.
                     var file_length = <?=(int)$file_length?>;
                     var objTbl = document.getElementById("variableFiles");
                     if (objTbl.rows.length - 1 > file_length) {
@@ -259,15 +259,15 @@ if ($is_notice || $is_html || $is_secret || $is_mail) {
 
 <script type="text/javascript">
 <?
-// °ü¸®ÀÚ¶ó¸é ºĞ·ù ¼±ÅÃ¿¡ '°øÁö' ¿É¼ÇÀ» Ãß°¡ÇÔ
+// ê´€ë¦¬ìë¼ë©´ ë¶„ë¥˜ ì„ íƒì— 'ê³µì§€' ì˜µì…˜ì„ ì¶”ê°€í•¨
 if ($is_admin) 
 {
     echo "
     if (typeof(document.fwrite.ca_name) != 'undefined')
     {
         document.fwrite.ca_name.options.length += 1;
-        document.fwrite.ca_name.options[document.fwrite.ca_name.options.length-1].value = '°øÁö';
-        document.fwrite.ca_name.options[document.fwrite.ca_name.options.length-1].text = '°øÁö';
+        document.fwrite.ca_name.options[document.fwrite.ca_name.options.length-1].value = 'ê³µì§€';
+        document.fwrite.ca_name.options[document.fwrite.ca_name.options.length-1].text = 'ê³µì§€';
     }";
 } 
 ?>
@@ -285,7 +285,7 @@ with (document.fwrite) {
             ca_name.value = "<?=$write[ca_name]?>";
         if (w.value == "r")
             ca_name.value = "<?=$write[ca_name]?>";
-        // ±Û¾²±â¸¦ ÇÒ ¶§, Ã¹¹øÂ° category¸¦ default·Î ¼±ÅÃÇØÁİ´Ï´Ù.
+        // ê¸€ì“°ê¸°ë¥¼ í•  ë•Œ, ì²«ë²ˆì§¸ categoryë¥¼ defaultë¡œ ì„ íƒí•´ì¤ë‹ˆë‹¤.
         if (w.value == "")
             ca_name.value = "<?php $arr=explode('|', $board[bo_category_list]); echo trim($arr[0]);?>";
     }
@@ -294,7 +294,7 @@ with (document.fwrite) {
 function html_auto_br(obj) 
 {
     if (obj.checked) {
-        result = confirm("ÀÚµ¿ ÁÙ¹Ù²ŞÀ» ÇÏ½Ã°Ú½À´Ï±î?\n\nÀÚµ¿ ÁÙ¹Ù²ŞÀº °Ô½Ã¹° ³»¿ëÁß ÁÙ¹Ù²ï °÷À»<br>ÅÂ±×·Î º¯È¯ÇÏ´Â ±â´ÉÀÔ´Ï´Ù.");
+        result = confirm("ìë™ ì¤„ë°”ê¿ˆì„ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?\n\nìë™ ì¤„ë°”ê¿ˆì€ ê²Œì‹œë¬¼ ë‚´ìš©ì¤‘ ì¤„ë°”ë€ ê³³ì„<br>íƒœê·¸ë¡œ ë³€í™˜í•˜ëŠ” ê¸°ëŠ¥ì…ë‹ˆë‹¤.");
         if (result)
             obj.value = "html2";
         else
@@ -310,11 +310,11 @@ function fwrite_submit(f)
         if (char_min > 0 || char_max > 0) {
             var cnt = parseInt(document.getElementById('char_count').innerHTML);
             if (char_min > 0 && char_min > cnt) {
-                alert("³»¿ëÀº "+char_min+"±ÛÀÚ ÀÌ»ó ¾²¼Å¾ß ÇÕ´Ï´Ù.");
+                alert("ë‚´ìš©ì€ "+char_min+"ê¸€ì ì´ìƒ ì“°ì…”ì•¼ í•©ë‹ˆë‹¤.");
                 return false;
             } 
             else if (char_max > 0 && char_max < cnt) {
-                alert("³»¿ëÀº "+char_max+"±ÛÀÚ ÀÌÇÏ·Î ¾²¼Å¾ß ÇÕ´Ï´Ù.");
+                alert("ë‚´ìš©ì€ "+char_max+"ê¸€ì ì´í•˜ë¡œ ì“°ì…”ì•¼ í•©ë‹ˆë‹¤.");
                 return false;
             }
         }
@@ -322,7 +322,7 @@ function fwrite_submit(f)
         // https://www.froala.com/wysiwyg-editor/docs/methods#charCounter.count
         var cnt = parseInt($("#wr_content").froalaEditor('charCounter.count'));
         if (char_min > 0 && char_min > cnt) {
-            alert("³»¿ëÀº "+char_min+"±ÛÀÚ ÀÌ»ó ¾²¼Å¾ß ÇÕ´Ï´Ù.");
+            alert("ë‚´ìš©ì€ "+char_min+"ê¸€ì ì´ìƒ ì“°ì…”ì•¼ í•©ë‹ˆë‹¤.");
             return false;
         }
     }
@@ -346,13 +346,13 @@ function fwrite_submit(f)
     });
 
     if (subject) {
-        alert("Á¦¸ñ¿¡ ±İÁö´Ü¾î('"+subject+"')°¡ Æ÷ÇÔµÇ¾îÀÖ½À´Ï´Ù");
+        alert("ì œëª©ì— ê¸ˆì§€ë‹¨ì–´('"+subject+"')ê°€ í¬í•¨ë˜ì–´ìˆìŠµë‹ˆë‹¤");
         f.wr_subject.focus();
         return false;
     }
 
     if (content) {
-        alert("³»¿ë¿¡ ±İÁö´Ü¾î('"+content+"')°¡ Æ÷ÇÔµÇ¾îÀÖ½À´Ï´Ù");
+        alert("ë‚´ìš©ì— ê¸ˆì§€ë‹¨ì–´('"+content+"')ê°€ í¬í•¨ë˜ì–´ìˆìŠµë‹ˆë‹¤");
         if (typeof(ed_wr_content) != "undefined") 
             ed_wr_content.returnFalse();
         else 
@@ -363,7 +363,7 @@ function fwrite_submit(f)
     if (typeof(grecaptcha) != 'undefined') {
         var v = grecaptcha.getResponse();
         if(v.length == 0) {
-            alert("½ºÆÔ¹æÁöÄÚµå(Captcha Code)°¡ Æ²·È½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØ ÁÖ¼¼¿ä.");
+            alert("ìŠ¤íŒ¸ë°©ì§€ì½”ë“œ(Captcha Code)ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ ì£¼ì„¸ìš”.");
             return false;
         }
     }
@@ -380,7 +380,7 @@ function fwrite_submit(f)
 </script>
 
 <script type="text/javascript">
-// ¾÷·ÎµåÇÑ ÀÌ¹ÌÁö Á¤º¸¸¦ ¸®ÅÏ ¹Ş´Â ¿¹Á¦ÀÔ´Ï´Ù.
+// ì—…ë¡œë“œí•œ ì´ë¯¸ì§€ ì •ë³´ë¥¼ ë¦¬í„´ ë°›ëŠ” ì˜ˆì œì…ë‹ˆë‹¤.
 function showImageInfo() {
     var data = ed_wr_content.getImages();
     if (data == null) {

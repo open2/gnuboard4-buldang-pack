@@ -1,28 +1,28 @@
 <?
 include_once("./_common.php");
 
-$g4['title'] = "ÂÊÁö5";
+$g4['title'] = "ìª½ì§€5";
 
 include_once("$g4[path]/head.sub.php");
 include_once("$g4[path]/memo.config.php");
 
 if (!$member['mb_id'])
-    alert("È¸¿ø¸¸ ÀÌ¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.\\n\\nÈ¸¿øÀÌ½Ã¶ó¸é ·Î±×ÀÎ ÈÄ ÀÌ¿ëÇØ º¸½Ê½Ã¿À.", "./login.php?$qstr&url=".urlencode("$_SERVER[PHP_SELF]?kind=$kind"));
+    alert("íšŒì›ë§Œ ì´ìš©í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.\\n\\níšŒì›ì´ì‹œë¼ë©´ ë¡œê·¸ì¸ í›„ ì´ìš©í•´ ë³´ì‹­ì‹œì˜¤.", "./login.php?$qstr&url=".urlencode("$_SERVER[PHP_SELF]?kind=$kind"));
 
-// ÀÚµ¿ÀÀ´äÀ¸·Î ¼³Á¤µÇ¾î ÀÖ´Â °æ¿ì¿¡´Â ÂÊÁö¸¦ »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.
+// ìë™ì‘ë‹µìœ¼ë¡œ ì„¤ì •ë˜ì–´ ìˆëŠ” ê²½ìš°ì—ëŠ” ìª½ì§€ë¥¼ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.
 if (!$is_admin && $member['mb_memo_no_reply'] && $kind != "memo_config")
-    alert("ºÎÀçÁß ¼³Á¤À» ÇØÁ¦ÇØ¾ß ÂÊÁö¸¦ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù", "./memo.php?kind=memo_config");
+    alert("ë¶€ì¬ì¤‘ ì„¤ì •ì„ í•´ì œí•´ì•¼ ìª½ì§€ë¥¼ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤", "./memo.php?kind=memo_config");
 
-// ¹ŞÀº ÂÊÁöÇÔÀÇ ÀĞÁö ¾ÊÀº ÂÊÁöÀÇ Ä«¿îÅÍ¸¦ ±¸ÇÏ±â´Â ½Ã½ºÅÛ¿¡ ¾öÃ»³­ ºÎ´ãÀÌ °¡¹Ç·Î Á¦ÇÑÀûÀ¸·Î ÇÕ´Ï´Ù.
-// ½Å±Ô·Î ¼ö½ÅÇÑ ÂÊÁö°¡ ÀÖÀ» ¶§, ¾ÈÀĞÀº ÂÊÁö °¹¼ö¸¦ ±¸ÇÕ´Ï´Ù.
-// ÀÌ¿Ü¿¡´Â ÂÊÁö¸¦ »èÁ¦ÇÒ ¶§, ¾ÈÀĞÀº ÂÊÁö Ä«¿îÅÍ¸¦ ´©¸¦ ¶§, ¾ÈÀĞÀº ÂÊÁö °¹¼ö¸¦ ±¸ÇÏ±¸¿ä.
+// ë°›ì€ ìª½ì§€í•¨ì˜ ì½ì§€ ì•Šì€ ìª½ì§€ì˜ ì¹´ìš´í„°ë¥¼ êµ¬í•˜ê¸°ëŠ” ì‹œìŠ¤í…œì— ì—„ì²­ë‚œ ë¶€ë‹´ì´ ê°€ë¯€ë¡œ ì œí•œì ìœ¼ë¡œ í•©ë‹ˆë‹¤.
+// ì‹ ê·œë¡œ ìˆ˜ì‹ í•œ ìª½ì§€ê°€ ìˆì„ ë•Œ, ì•ˆì½ì€ ìª½ì§€ ê°¯ìˆ˜ë¥¼ êµ¬í•©ë‹ˆë‹¤.
+// ì´ì™¸ì—ëŠ” ìª½ì§€ë¥¼ ì‚­ì œí•  ë•Œ, ì•ˆì½ì€ ìª½ì§€ ì¹´ìš´í„°ë¥¼ ëˆ„ë¥¼ ë•Œ, ì•ˆì½ì€ ìª½ì§€ ê°¯ìˆ˜ë¥¼ êµ¬í•˜êµ¬ìš”.
 if ($g4['mb_memo_call_datetime'] == "0000-00-00 00:00:00" || $member['mb_memo_unread'] < 0) {
     $sql = " select count(*) as cnt from $g4[memo_recv_table] 
               where me_recv_mb_id = '$member[mb_id]' and me_read_datetime = '0000-00-00 00:00:00' ";
     $row = sql_fetch($sql);
     $total_count_recv_unread = $row['cnt'];
     
-    // ±×¸®°í ¾ÈÀĞÀº ÂÊÁö °¹¼ö¸¦ g4_member db¿¡ ¾÷µ¥ÀÌÆ®
+    // ê·¸ë¦¬ê³  ì•ˆì½ì€ ìª½ì§€ ê°¯ìˆ˜ë¥¼ g4_member dbì— ì—…ë°ì´íŠ¸
     $sql = " update $g4[member_table] 
                 set mb_memo_unread = '$total_count_recv_unread', mb_memo_call_datetime='0000-00-00 00:00:00' 
               where mb_id = '$member[mb_id]' ";
@@ -31,61 +31,61 @@ if ($g4['mb_memo_call_datetime'] == "0000-00-00 00:00:00" || $member['mb_memo_un
     $total_count_recv_unread = $member['mb_memo_unread'];
 }
 
-// ÂÊÁö title ¼³Á¤ÇÏ±â
+// ìª½ì§€ title ì„¤ì •í•˜ê¸°
 switch ($kind) 
 { 
-    case 'friend' : // Ä£±¸°ü¸®
-                  $memo_title = "Ä£±¸°ü¸®";
+    case 'friend' : // ì¹œêµ¬ê´€ë¦¬
+                  $memo_title = "ì¹œêµ¬ê´€ë¦¬";
                   break;
-    case 'online' : // ÇöÀçÁ¢¼ÓÀÚ
-                  $memo_title = "ÇöÀçÁ¢¼ÓÀÚ";
+    case 'online' : // í˜„ì¬ì ‘ì†ì
+                  $memo_title = "í˜„ì¬ì ‘ì†ì";
                   break;
-    case 'memo_group' : // ¸Ş¸ğ±×·ì
-                  $memo_title = "¸Ş¸ğ±×·ì";
+    case 'memo_group' : // ë©”ëª¨ê·¸ë£¹
+                  $memo_title = "ë©”ëª¨ê·¸ë£¹";
                   break;
-    case 'memo_group_admin' : // ¸Ş¸ğ±×·ì °ü¸®
-                  $memo_title = "¸Ş¸ğ±×·ì°ü¸®";
+    case 'memo_group_admin' : // ë©”ëª¨ê·¸ë£¹ ê´€ë¦¬
+                  $memo_title = "ë©”ëª¨ê·¸ë£¹ê´€ë¦¬";
                   break;        
-    case 'memo_config' : // ¼³Á¤ °ü¸®
-                  $memo_title = "¼³Á¤°ü¸®";
+    case 'memo_config' : // ì„¤ì • ê´€ë¦¬
+                  $memo_title = "ì„¤ì •ê´€ë¦¬";
                   break;
-    case 'memo_address_book' : // ÁÖ¼Ò·Ï °ü¸®
-                  $memo_title = "ÁÖ¼Ò·Ï°ü¸®";
+    case 'memo_address_book' : // ì£¼ì†Œë¡ ê´€ë¦¬
+                  $memo_title = "ì£¼ì†Œë¡ê´€ë¦¬";
                   break;
-    case 'write' : // ÂÊÁöº¸³»±â
-                  $memo_title = "ÂÊÁöº¸³»±â";
+    case 'write' : // ìª½ì§€ë³´ë‚´ê¸°
+                  $memo_title = "ìª½ì§€ë³´ë‚´ê¸°";
                   break;                  
-    case 'send' : // ¹ß½ÅÇÔ
-                  $memo_title = "º¸³½ÂÊÁöÇÔ";
+    case 'send' : // ë°œì‹ í•¨
+                  $memo_title = "ë³´ë‚¸ìª½ì§€í•¨";
                   break;
-    case 'save' : // ÀúÀåÇÔ (¼ö½Å/¹ß½Å ¸ğµÎ ÂÊÁö ÀúÀåÀÌ °¡´É)
-                  $memo_title = "º¸°üÇÑÂÊÁöÇÔ";
+    case 'save' : // ì €ì¥í•¨ (ìˆ˜ì‹ /ë°œì‹  ëª¨ë‘ ìª½ì§€ ì €ì¥ì´ ê°€ëŠ¥)
+                  $memo_title = "ë³´ê´€í•œìª½ì§€í•¨";
                   break;
-    case 'trash': // ÈŞÁöÅë 
-                  $memo_title = "»èÁ¦ÇÑÂÊÁöÇÔ";
+    case 'trash': // íœ´ì§€í†µ 
+                  $memo_title = "ì‚­ì œí•œìª½ì§€í•¨";
                   break;
-    case 'notice' : // °øÁöÂÊÁöÇÔ
-                  $memo_title = "°øÁöÂÊÁöÇÔ";
+    case 'notice' : // ê³µì§€ìª½ì§€í•¨
+                  $memo_title = "ê³µì§€ìª½ì§€í•¨";
                   break; 
-    case 'spam' : // ½ºÆÔÇÔ (¼ö½ÅÇÑ °Í¸¸ ½ºÆÔÇÔÀ¸·Î)
-                  $memo_title = "½ºÆÔÂÊÁöÇÔ";
+    case 'spam' : // ìŠ¤íŒ¸í•¨ (ìˆ˜ì‹ í•œ ê²ƒë§Œ ìŠ¤íŒ¸í•¨ìœ¼ë¡œ)
+                  $memo_title = "ìŠ¤íŒ¸ìª½ì§€í•¨";
                   break;
-    case 'recv' : // ¼ö½ÅÇÔ
-                  $memo_title = "¹ŞÀºÂÊÁöÇÔ";
+    case 'recv' : // ìˆ˜ì‹ í•¨
+                  $memo_title = "ë°›ì€ìª½ì§€í•¨";
                   break;
-    default     : // ¾Æ¹«·± ÁöÁ¤ÀÌ ¾øÀ» ¶§´Â ¼ö½ÅÇÔÀ¸·Î ¼³Á¤
-                  $memo_title = "¹ŞÀºÂÊÁöÇÔ";
+    default     : // ì•„ë¬´ëŸ° ì§€ì •ì´ ì—†ì„ ë•ŒëŠ” ìˆ˜ì‹ í•¨ìœ¼ë¡œ ì„¤ì •
+                  $memo_title = "ë°›ì€ìª½ì§€í•¨";
                   $kind=recv;
                   break;
 }
 
-// ±Û¾²±â ÇÒ¶§
+// ê¸€ì“°ê¸° í• ë•Œ
 if ($kind == "write") {
 
-    // Ä£±¸°ü¸® ±â´ÉÀ» »ç¿ëÇÏ·Á¸é
+    // ì¹œêµ¬ê´€ë¦¬ ê¸°ëŠ¥ì„ ì‚¬ìš©í•˜ë ¤ë©´
     if ($config['cf_friend_management'] == true) {
 
-        // joinÀ» ÇÏÁö ¾Ê°í, loop¸¦ µ¹¸°´Ù. ±×°Ô °¡Àå ºü¸£´Ù.
+        // joinì„ í•˜ì§€ ì•Šê³ , loopë¥¼ ëŒë¦°ë‹¤. ê·¸ê²Œ ê°€ì¥ ë¹ ë¥´ë‹¤.
         $sql = " select fr_id from $g4[friend_table] where mb_id = '$member[mb_id]' ";
         $qry = sql_query($sql);
 
@@ -102,16 +102,16 @@ if ($kind == "write") {
     }
 }
 
-// kind¿¡ µû¶ó¼­ action~!!!
+// kindì— ë”°ë¼ì„œ action~!!!
 switch ($kind) {
 
-    case 'memo_config'      : // ¼³Á¤ °ü¸®
+    case 'memo_config'      : // ì„¤ì • ê´€ë¦¬
 
-        // ÂÊÁö »èÁ¦ÀÏÀÌ 1º¸´Ù ÀÛÀ¸¸é ÀçÁ¶Á¤
+        // ìª½ì§€ ì‚­ì œì¼ì´ 1ë³´ë‹¤ ì‘ìœ¼ë©´ ì¬ì¡°ì •
         if ($config[cf_memo_del] < 1)
            $config[cf_memo_del] = 180;
 
-        // ¾ÈÀĞÀº ÂÊÁö »èÁ¦ÀÏÀÌ 1º¸´Ù ÀÛ°Å³ª ÂÊÁö»èÁ¦ÀÏº¸´Ù ÀÛÀ¸¸é ÀçÁ¶Á¤
+        // ì•ˆì½ì€ ìª½ì§€ ì‚­ì œì¼ì´ 1ë³´ë‹¤ ì‘ê±°ë‚˜ ìª½ì§€ì‚­ì œì¼ë³´ë‹¤ ì‘ìœ¼ë©´ ì¬ì¡°ì •
         if ($config[cf_memo_del_unread] < 1 or $config[cf_memo_del_unread] < $config[cf_memo_del])
             $config[cf_memo_del_unread] = $config[cf_memo_del];
 
@@ -120,7 +120,7 @@ switch ($kind) {
         if (!$config[cf_memo_del_trash])    $config[cf_memo_del_trash] = $config[cf_memo_del];
         if (!$config[cf_memo_no_reply])     $config[cf_memo_no_reply] = 0;
 
-        // ÃÖ´ë ¾÷·Îµå ÆÄÀÏ »çÀÌÁî (m·Î ÁöÁ¤µÇ¾úÀ» ¶§)
+        // ìµœëŒ€ ì—…ë¡œë“œ íŒŒì¼ ì‚¬ì´ì¦ˆ (më¡œ ì§€ì •ë˜ì—ˆì„ ë•Œ)
         if (!$config[cf_memo_file_size]) {
             $max_upload_size = intval(substr(ini_get("upload_max_filesize"), 0, -1));
             if ($max_upload_size > 4)
@@ -134,15 +134,15 @@ switch ($kind) {
         }
         break;
 
-    case 'friend'           : // Ä£±¸°ü¸®
-    case 'online'           : // ÇöÀçÁ¢¼ÓÀÚ
-    case 'memo_group'       : // ¸Ş¸ğ±×·ì
-    case 'memo_group_admin' : // ¸Ş¸ğ±×·ì °ü¸®
+    case 'friend'           : // ì¹œêµ¬ê´€ë¦¬
+    case 'online'           : // í˜„ì¬ì ‘ì†ì
+    case 'memo_group'       : // ë©”ëª¨ê·¸ë£¹
+    case 'memo_group_admin' : // ë©”ëª¨ê·¸ë£¹ ê´€ë¦¬
         break;
         
-    case 'memo_address_book' : // ÁÖ¼Ò·Ï °ü¸®
+    case 'memo_address_book' : // ì£¼ì†Œë¡ ê´€ë¦¬
 
-        // mysql 4.0.x¿¡¼­ union allÀ» Áö¿øÇÏÁö ¾Ê¾Æ¼­ ¹«½ÄÇÏ°Ô query¸¦ 4¹ø ¼öÇà ÇÕ´Ï´Ù. ¾ÆÈå~
+        // mysql 4.0.xì—ì„œ union allì„ ì§€ì›í•˜ì§€ ì•Šì•„ì„œ ë¬´ì‹í•˜ê²Œ queryë¥¼ 4ë²ˆ ìˆ˜í–‰ í•©ë‹ˆë‹¤. ì•„í~
         $addr = array();
         $sql = " select 'recv' as type, a.me_send_mb_id as mb_id, count(*) as cnt, b.mb_name, b.mb_nick, b.mb_email, b.mb_homepage from $g4[memo_recv_table] a left join $g4[member_table] b on a.me_send_mb_id = b.mb_id where a.me_recv_mb_id = '$member[mb_id]' group by a.me_send_mb_id ";
         $res1 = sql_query($sql);
@@ -188,20 +188,20 @@ switch ($kind) {
                 else
                     $mb_nick = $row['mb_nick'];
             else
-                $mb_nick = "<font color=silver>Á¤º¸¾øÀ½</font>";
+                $mb_nick = "<font color=silver>ì •ë³´ì—†ìŒ</font>";
             $name = get_sideview($row['mb_id'], $row['mb_nick'], $row['mb_email'], $row['mb_homepage']);
 
             $list[$row['mb_id']]['name'] = $name;
         }
 
-        // ÁÖ¼Ò·Ï ÀüÃ¼ °¹¼ö
+        // ì£¼ì†Œë¡ ì „ì²´ ê°¯ìˆ˜
         $tot_cnt = count($list);
 
         break;
         
-    case 'write'  : // ÂÊÁöº¸³»±â
+    case 'write'  : // ìª½ì§€ë³´ë‚´ê¸°
 
-        // ±×·ì¹ß¼ÛÀÎ °æ¿ì ...
+        // ê·¸ë£¹ë°œì†¡ì¸ ê²½ìš° ...
         if ($gr_id) { 
             $sql = " select * from $g4[memo_group_table] where gr_id = '$gr_id' ";
             $result = sql_fetch($sql);
@@ -210,7 +210,7 @@ switch ($kind) {
             $result2 = sql_fetch($sql2);
             $gr_member_count = $result2[cnt];
             
-            if ($gr_member_count > 0) {} else alert("±×·ì ±¸¼º¿øÀÌ ¾Æ¹«µµ ¾ø½À´Ï´Ù.");
+            if ($gr_member_count > 0) {} else alert("ê·¸ë£¹ êµ¬ì„±ì›ì´ ì•„ë¬´ë„ ì—†ìŠµë‹ˆë‹¤.");
             
             $sql3 = " select * from $g4[memo_group_member_table] where gr_id = '$gr_id' ";
             $result3 = sql_query($sql3);
@@ -224,42 +224,42 @@ switch ($kind) {
                   $me_recv_mb_id .= $row[gr_mb_id];
             }
         
-            $write_header_msg = "( ±×·ìÂÊÁö :: " . cut_str($result[gr_name], 30) . " :: $gr_member_count ¸í)";
+            $write_header_msg = "( ê·¸ë£¹ìª½ì§€ :: " . cut_str($result[gr_name], 30) . " :: $gr_member_count ëª…)";
             
         }
 
-        // Ã·ºÎÆÄÀÏ º¸³»±âÀÇ °æ¿ì
+        // ì²¨ë¶€íŒŒì¼ ë³´ë‚´ê¸°ì˜ ê²½ìš°
         if ($config[cf_memo_use_file]) {
-            // »ç¿ëÀÚº° ÇÒ´ç °¡´ÉÇÑ disk ¿ë·® Á¦ÇÑÀÌ ÀÖÀ» °æ¿ì, ÀÌ°ÍÀº ½Ã½ºÅÛ¿¡¼­ exec ¸í·ÉÀ» Áö¿øÇØ¾ß °¡´É
+            // ì‚¬ìš©ìë³„ í• ë‹¹ ê°€ëŠ¥í•œ disk ìš©ëŸ‰ ì œí•œì´ ìˆì„ ê²½ìš°, ì´ê²ƒì€ ì‹œìŠ¤í…œì—ì„œ exec ëª…ë ¹ì„ ì§€ì›í•´ì•¼ ê°€ëŠ¥
             if ($config[cf_max_memo_file_size]) {
                 $memo_dir_size = get_dir_size($memo_file_path);
-                // exec ¿À·ù°¡ ÀÖ´Â °æ¿ì¿¡´Â, ÃÖ´ë ¸Ş¸ğ Ã·ºÎ ÆÄÀÏ ¿ë·®ÀÇ 20¹è·Î ¼³Á¤
+                // exec ì˜¤ë¥˜ê°€ ìˆëŠ” ê²½ìš°ì—ëŠ”, ìµœëŒ€ ë©”ëª¨ ì²¨ë¶€ íŒŒì¼ ìš©ëŸ‰ì˜ 20ë°°ë¡œ ì„¤ì •
                 if ($memo_dir_size == "error")
-                    $memo_dir_msg = "½Ã½ºÅÛ¿¡¼­ µğ·ºÅä¸® »ç¿ë·® Á¤º¸¸¦ Çã¿ëÇÏÁö ¾Ê½À´Ï´Ù.<BR>°ü¸®ÀÚÀÇ ÂÊÁö¼³Á¤¿¡¼­ °³ÀÎº°Ã·ºÎÆÄÀÏ ÃÖ´ëÇÑµµ¸¦ 0À¸·Î ¼³Á¤ÇÏ±â ¹Ù¶ø´Ï´Ù.";
+                    $memo_dir_msg = "ì‹œìŠ¤í…œì—ì„œ ë””ë ‰í† ë¦¬ ì‚¬ìš©ëŸ‰ ì •ë³´ë¥¼ í—ˆìš©í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.<BR>ê´€ë¦¬ìì˜ ìª½ì§€ì„¤ì •ì—ì„œ ê°œì¸ë³„ì²¨ë¶€íŒŒì¼ ìµœëŒ€í•œë„ë¥¼ 0ìœ¼ë¡œ ì„¤ì •í•˜ê¸° ë°”ëë‹ˆë‹¤.";
                 else {
                      $memo_dir = (int) $memo_dir_size / 1000;
                      if ($memo_dir > $config[cf_max_memo_file_size])
-                        $memo_dir_msg = "ÀüÃ¼Ã·ºÎÆÄÀÏ ¿ë·® <?=$config[cf_max_memo_file_size]?> M(¸Ş°¡)¸¦ ÃÊ°úÇØ¼­ ÆÄÀÏÀ» Ã·ºÎÇÒ ¼ö ¾ø½À´Ï´Ù.<BR>Ã·ºÎÆÄÀÏÀÌ ÀÖ´Â ¹ß½ÅÂÊÁö¸¦ »èÁ¦ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.";
+                        $memo_dir_msg = "ì „ì²´ì²¨ë¶€íŒŒì¼ ìš©ëŸ‰ <?=$config[cf_max_memo_file_size]?> M(ë©”ê°€)ë¥¼ ì´ˆê³¼í•´ì„œ íŒŒì¼ì„ ì²¨ë¶€í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.<BR>ì²¨ë¶€íŒŒì¼ì´ ìˆëŠ” ë°œì‹ ìª½ì§€ë¥¼ ì‚­ì œí•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.";
                 }
             }
         }
 
-        // °øÁöÂÊÁö º¸³»±âÀÇ °æ¿ì
+        // ê³µì§€ìª½ì§€ ë³´ë‚´ê¸°ì˜ ê²½ìš°
         if ($option == 'notice') {
             if ($is_admin)
-                $write_header_msg = "( <font color='red'><b>°øÁöÂÊÁö´Â Ãë¼ÒÇÒ ¼ö ¾ø½À´Ï´Ù. ½ÅÁßÇÏ°Ô ÀÛ¼ºÇØ ÁÖ¼¼¿ä</b></font> )";
+                $write_header_msg = "( <font color='red'><b>ê³µì§€ìª½ì§€ëŠ” ì·¨ì†Œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ì‹ ì¤‘í•˜ê²Œ ì‘ì„±í•´ ì£¼ì„¸ìš”</b></font> )";
             else {
                 $me_recv_mb_id = 'notice';
-                alert("°øÁöÂÊÁö´Â °ü¸®ÀÚ¸¸ ¹ß¼ÛÇÒ ¼ö ÀÖ½À´Ï´Ù");
+                alert("ê³µì§€ìª½ì§€ëŠ” ê´€ë¦¬ìë§Œ ë°œì†¡í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤");
             }
         }
 
-        // ´äÇÏ´Â ÂÊÁöÀÇ °æ¿ì ¿øº»ÀÇ ±ÛÀ» ÂüÁ¶·Î ... 
+        // ë‹µí•˜ëŠ” ìª½ì§€ì˜ ê²½ìš° ì›ë³¸ì˜ ê¸€ì„ ì°¸ì¡°ë¡œ ... 
           if ($me_id) {
           switch ($me_box) {
               case 'recv' : $from_table = $g4[memo_recv_table]; break;
               case 'save' : $from_table = $g4[memo_save_table]; break;
-              default     : alert("me_box ¿À·ù ÀÔ´Ï´Ù");
+              default     : alert("me_box ì˜¤ë¥˜ ì…ë‹ˆë‹¤");
           }
           $sql = " select me_memo, me_subject, me_send_mb_id, me_option from $from_table where me_id = '$me_id' ";
           $view = sql_fetch($sql);
@@ -294,23 +294,23 @@ switch ($kind) {
 
 break;
 
-    case 'recv'   : // ¼ö½ÅÇÔ
-    case 'send'   : // ¹ß½ÅÇÔ
-    case 'save'   : // ÀúÀåÇÔ (¼ö½Å/¹ß½Å ¸ğµÎ ÂÊÁö ÀúÀåÀÌ °¡´É)
-    case 'trash'  : // ÈŞÁöÅë
-    case 'notice' : // °øÁöÂÊÁöÇÔ
-    case 'spam'   : // ½ºÆÔÇÔ (¼ö½ÅÇÑ °Í¸¸ ½ºÆÔÇÔÀ¸·Î)
+    case 'recv'   : // ìˆ˜ì‹ í•¨
+    case 'send'   : // ë°œì‹ í•¨
+    case 'save'   : // ì €ì¥í•¨ (ìˆ˜ì‹ /ë°œì‹  ëª¨ë‘ ìª½ì§€ ì €ì¥ì´ ê°€ëŠ¥)
+    case 'trash'  : // íœ´ì§€í†µ
+    case 'notice' : // ê³µì§€ìª½ì§€í•¨
+    case 'spam'   : // ìŠ¤íŒ¸í•¨ (ìˆ˜ì‹ í•œ ê²ƒë§Œ ìŠ¤íŒ¸í•¨ìœ¼ë¡œ)
 
-    if ($class == 'view') { // ÂÊÁö ÀĞ±â
+    if ($class == 'view') { // ìª½ì§€ ì½ê¸°
 
-        // $me_id°¡ ¾ø´Â °æ¿ì
+        // $me_idê°€ ì—†ëŠ” ê²½ìš°
         if (!$me_id)
-            alert("ÀĞÀ» ÂÊÁö°¡ ¾ø½À´Ï´Ù.");
+            alert("ì½ì„ ìª½ì§€ê°€ ì—†ìŠµë‹ˆë‹¤.");
 
-        // Æ©´×À» À§ÇØ¼­ selectÇÒ ÇÊµå¸¦ ÁöÁ¤
+        // íŠœë‹ì„ ìœ„í•´ì„œ selectí•  í•„ë“œë¥¼ ì§€ì •
         $memo_select = " me_id, me_recv_mb_id, me_send_mb_id, me_send_datetime, me_read_datetime, me_memo, me_file_local, me_file_server, me_subject, memo_type, memo_owner, me_option";
 
-        switch ($kind) { // ÂÊÁöÀĞ±â
+        switch ($kind) { // ìª½ì§€ì½ê¸°
         case 'send' : 
             $sql = " select $memo_select from $g4[memo_send_table] where me_send_mb_id = '$member[mb_id]' and me_id = '$me_id' "; 
             if ($config[cf_memo_before_after]) {
@@ -367,9 +367,9 @@ break;
         }
         $view = sql_fetch($sql);
 
-        // sql °Ë»ö°á°ú°¡ 0 ÀÏ¶§ - ÂÊÁö°¡ ¾ø°Å³ª ±ÇÇÑÀÌ ¾ø´Â ÂÊÁöÀÇ °æ¿ì
+        // sql ê²€ìƒ‰ê²°ê³¼ê°€ 0 ì¼ë•Œ - ìª½ì§€ê°€ ì—†ê±°ë‚˜ ê¶Œí•œì´ ì—†ëŠ” ìª½ì§€ì˜ ê²½ìš°
         if (count($view) == 1) 
-            alert("¹Ù¸£Áö ¸øÇÑ Á¢±ÙÀÌ°Å³ª ÀĞÀ» ÂÊÁö°¡ ¾ø½À´Ï´Ù.");
+            alert("ë°”ë¥´ì§€ ëª»í•œ ì ‘ê·¼ì´ê±°ë‚˜ ì½ì„ ìª½ì§€ê°€ ì—†ìŠµë‹ˆë‹¤.");
 
         $before_id = "";
         if ($sql_before) {
@@ -383,30 +383,30 @@ break;
             $after_id = $result_after['after_id'];
         }
 
-        // html ¿É¼Ç
-        $html = 2; // ±âº»À¸·Î \nÀ» <br>·Î ¹Ù²ãÁİ´Ï´Ù. ÂÊÁö5¿¡¼­´Â $html = 0Àº »ç¿ëÇÏÁö ¾Ê½À´Ï´Ù. $html¿¡ °ªÀÌ ¾øÀ¸¸é ¹«Á¶°Ç $html=2·Î ÀÎ½Ä ÇÕ´Ï´Ù.
+        // html ì˜µì…˜
+        $html = 2; // ê¸°ë³¸ìœ¼ë¡œ \nì„ <br>ë¡œ ë°”ê¿”ì¤ë‹ˆë‹¤. ìª½ì§€5ì—ì„œëŠ” $html = 0ì€ ì‚¬ìš©í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤. $htmlì— ê°’ì´ ì—†ìœ¼ë©´ ë¬´ì¡°ê±´ $html=2ë¡œ ì¸ì‹ í•©ë‹ˆë‹¤.
         if (strstr($view[me_option], "html1"))
             $html = 1;
         $view[me_memo] = stripslashes($view[me_memo]);
         $view[memo] = conv_content($view[me_memo], $html);
 
-        // ÀÌ¹ÌÁö resize¸¦ À§ÇØ¼­ (bbs/view.php¿¡¼­ ÄÚµå ¹ßÃé)
+        // ì´ë¯¸ì§€ resizeë¥¼ ìœ„í•´ì„œ (bbs/view.phpì—ì„œ ì½”ë“œ ë°œì·Œ)
         $view[memo] = preg_replace("/(\<img )([^\>]*)(\>)/i", "\\1 name='target_resize_image[]' onclick='image_window(this)' style='cursor:pointer;' \\2 \\3", $view[memo]);
 
-        // ¹ß½ÅÀÚ sideview
+        // ë°œì‹ ì sideview
         $mb_send = get_member($view[me_send_mb_id], "mb_id, mb_name, mb_nick, mb_email, mb_homepage, mb_signature");
         if ($config[cf_memo_mb_name]) $mb_send[mb_nick] = $mb_send[mb_name];
         $view[me_send_mb_id_nick] = get_sideview($mb_send[mb_id], $mb_send[mb_nick], $mb_send[mb_email], $mb_send[mb_homepage]);
 
-        // ¼ö½ÅÀÚ sideview
+        // ìˆ˜ì‹ ì sideview
         $mb_recv = get_member($view[me_recv_mb_id], "mb_id, mb_name, mb_nick, mb_email, mb_homepage, mb_today_login");
         if ($config[cf_memo_mb_name]) $mb_recv[mb_nick] = $mb_recv[mb_name];
         $view[me_recv_mb_id_nick] = get_sideview($mb_recv[mb_id], $mb_recv[mb_nick], $mb_recv[mb_email], $mb_recv[mb_homepage]);
 
-         // ÂÊÁö¸¦ ÀĞÀº ³¯Â¥¸¦ update
-        if (substr($view[me_read_datetime],0,1) == '0') { // ÂÊÁö¸¦ ÀĞÁö ¾Ê¾ÒÀ» ¶§
+         // ìª½ì§€ë¥¼ ì½ì€ ë‚ ì§œë¥¼ update
+        if (substr($view[me_read_datetime],0,1) == '0') { // ìª½ì§€ë¥¼ ì½ì§€ ì•Šì•˜ì„ ë•Œ
 
-            if ($kind == "recv") { // ¼ö½ÅÇÔÀÇ ÀĞÁö ¾ÊÀº ÂÊÁö´Â ÀĞÀº ³¯Â¥¸¦ ¾÷µ¥ÀÌÆ®
+            if ($kind == "recv") { // ìˆ˜ì‹ í•¨ì˜ ì½ì§€ ì•Šì€ ìª½ì§€ëŠ” ì½ì€ ë‚ ì§œë¥¼ ì—…ë°ì´íŠ¸
               $sql = " update $g4[memo_recv_table] set me_read_datetime = '$g4[time_ymdhis]' where me_id = '$me_id' "; 
               sql_query($sql);
               $sql = " update $g4[memo_send_table] set me_read_datetime = '$g4[time_ymdhis]' where me_id = '$me_id' "; 
@@ -415,23 +415,23 @@ break;
               sql_query($sql);
               $view[me_read_datetime] = $g4[time_ymdhis];
               
-              // ¾ÈÀĞÀº ÂÊÁö °¹¼ö¸¦ ¾÷µ¥ÀÌÆ® (Ã³À½ ÂÊÁö5¸¦ ¿­ ¶§, ¾ÈÀĞÀº °¹¼ö¸¦ ¾÷µ¥ÀÌÆ® ÇßÀ¸´Ï, Â÷°¨¸¸ ÇÏ¸é µË´Ï´Ù.
+              // ì•ˆì½ì€ ìª½ì§€ ê°¯ìˆ˜ë¥¼ ì—…ë°ì´íŠ¸ (ì²˜ìŒ ìª½ì§€5ë¥¼ ì—´ ë•Œ, ì•ˆì½ì€ ê°¯ìˆ˜ë¥¼ ì—…ë°ì´íŠ¸ í–ˆìœ¼ë‹ˆ, ì°¨ê°ë§Œ í•˜ë©´ ë©ë‹ˆë‹¤.
               sql_query(" update $g4[member_table] set mb_memo_unread = mb_memo_unread - 1 where mb_id = '$member[mb_id]' ");
               
-              // ÂÊÁö ÇÁ·Î±×·¥¿¡¼­ º¸¿©Áö´Â ÀĞÁö ¾ÊÀº ÂÊÁö countµµ ¾÷µ¥ÀÌÆ®
+              // ìª½ì§€ í”„ë¡œê·¸ë¨ì—ì„œ ë³´ì—¬ì§€ëŠ” ì½ì§€ ì•Šì€ ìª½ì§€ countë„ ì—…ë°ì´íŠ¸
               $total_count_recv_unread = $member['mb_memo_unread'] - 1;
 
             } else {
               $time_diff = strtotime($mb_recv['mb_today_login']) - strtotime($view['me_send_datetime']);
               if ($kind=='send' && $time_diff <= 0)
-                  $view[me_read_datetime] = '¼ö½Å ¾ÊÀ½';       
+                  $view[me_read_datetime] = 'ìˆ˜ì‹  ì•ŠìŒ';       
               else
-                  $view[me_read_datetime] = 'ÀĞÁö ¾ÊÀ½';
+                  $view[me_read_datetime] = 'ì½ì§€ ì•ŠìŒ';
             }
 
         }
 
-        // Ã·ºÎÆÄÀÏÀÇ image ¿©ºÎ¸¦ È®ÀÎ
+        // ì²¨ë¶€íŒŒì¼ì˜ image ì—¬ë¶€ë¥¼ í™•ì¸
         $view[imagesize] = @getimagesize("{$g4[data_path]}/memo2/{$view[me_file_server]}");
         $img_type = $view[imagesize][2];
         if ($img_type >= 1 && $img_type <= 18)
@@ -442,7 +442,7 @@ break;
         // href 
         $view[save_href] = "./memo2_form_save.php?me_id=$me_id&kind=$kind";
         
-        // ³»²¨, °ü¸®ÀÚ²¨´Â ½Å°íÇÒ ¼ö ¾ø°Ô ÇÏ±â
+        // ë‚´êº¼, ê´€ë¦¬ìêº¼ëŠ” ì‹ ê³ í•  ìˆ˜ ì—†ê²Œ í•˜ê¸°
         if ($view[me_send_mb_id] == $member[mb_id] || is_admin($view[me_send_mb_id]))
         {
             $view[spam_href] = "";
@@ -467,17 +467,17 @@ break;
     
         break;
 
-    } else { // view°¡ ¾Æ´Ñ °æ¿ì? ±×·¯¸é ¸ñ·Ïº¸±âÂ¡. ¤¾¤¾
+    } else { // viewê°€ ì•„ë‹Œ ê²½ìš°? ê·¸ëŸ¬ë©´ ëª©ë¡ë³´ê¸°ì§•. ã…ã…
 
         $sql_search = "";
     
-        // ¾È ÀĞÀº ÂÊÁö¸¸ °ñ¶óº¸´Â°Å ¶§¹®¿¡
+        // ì•ˆ ì½ì€ ìª½ì§€ë§Œ ê³¨ë¼ë³´ëŠ”ê±° ë•Œë¬¸ì—
         if ($kind == "recv" && $unread == "only")
             $sql_search_unread = " and me_read_datetime = '0000-00-00 00:00:00' ";
         else
             $sql_search_unread = "";
     
-        if ($stx && $sfl) { // °Ë»öÀ» ÇÏ´Â °æ¿ì
+        if ($stx && $sfl) { // ê²€ìƒ‰ì„ í•˜ëŠ” ê²½ìš°
           switch ($sfl) {
             case 'me_send_mb_nick'  : 
                 if ($config['cf_memo_mb_name'])
@@ -485,7 +485,7 @@ break;
                 else
                     $resm = sql_fetch(" select mb_id from $g4[member_table] where mb_nick = '$stx' ");
                 if (!$resm)
-                    alert("ÀÔ·ÂÇÏ½Å mb_nick/mb_nameÀÌ ¾ø½À´Ï´Ù.");
+                    alert("ì…ë ¥í•˜ì‹  mb_nick/mb_nameì´ ì—†ìŠµë‹ˆë‹¤.");
                 else
                     $sql_search = " and me_send_mb_id = '$resm[mb_id]' ";
                 break;
@@ -498,7 +498,7 @@ break;
                 else
                     $resm = sql_fetch(" select mb_id from $g4[member_table] where mb_nick = '$stx' ");
                 if (!$resm)
-                    alert("ÀÔ·ÂÇÏ½Å mb_nick/mb_nameÀÌ ¾ø½À´Ï´Ù.");
+                    alert("ì…ë ¥í•˜ì‹  mb_nick/mb_nameì´ ì—†ìŠµë‹ˆë‹¤.");
                 else
                     $sql_search = " and me_recv_mb_id = '$resm[mb_id]' ";
                 break;
@@ -522,28 +522,28 @@ break;
         }
     
         switch ($kind) {
-        case 'send' : // ¹ß½ÅÇÔ
+        case 'send' : // ë°œì‹ í•¨
                       $sql = " select count(*) as cnt 
                                   from  $g4[memo_send_table]
                                   where me_send_mb_id = '$member[mb_id]' $sql_search ";
     
                       break;
-        case 'save' : // ÀúÀåÇÔ (¼ö½Å/¹ß½Å ¸ğµÎ ÂÊÁö ÀúÀåÀÌ °¡´É)
+        case 'save' : // ì €ì¥í•¨ (ìˆ˜ì‹ /ë°œì‹  ëª¨ë‘ ìª½ì§€ ì €ì¥ì´ ê°€ëŠ¥)
                       $sql = " select count(*) as cnt 
                                   from $g4[memo_save_table]
                                   where memo_owner = '$member[mb_id]' $sql_search  ";
                       break;
-        case 'trash': // ÈŞÁöÅë
+        case 'trash': // íœ´ì§€í†µ
                       $sql = " select count(*) as cnt 
                                   from $g4[memo_trash_table]
                                   where memo_owner = '$member[mb_id]' $sql_search ";
                       break;
-        case 'notice' : // ÀüÃ¼ÂÊÁöÇÔ
+        case 'notice' : // ì „ì²´ìª½ì§€í•¨
                       $sql = " select count(*) as cnt 
                                   from $g4[memo_notice_table] 
                             where memo_owner = '$member[mb_id]' ";
                       break;
-        case 'spam' : // ½ºÆÔÇÔ (¼ö½ÅÇÑ °Í¸¸ ½ºÆÔÇÔÀ¸·Î)
+        case 'spam' : // ìŠ¤íŒ¸í•¨ (ìˆ˜ì‹ í•œ ê²ƒë§Œ ìŠ¤íŒ¸í•¨ìœ¼ë¡œ)
                       if ($is_admin)
                           $sql = " select count(*) as cnt 
                                       from $g4[memo_spam_table]
@@ -553,63 +553,63 @@ break;
                                       from $g4[memo_spam_table]
                                       where me_recv_mb_id = '$member[mb_id]' $sql_search ";
                       break;
-        case 'recv' : // ¼ö½ÅÇÔ
+        case 'recv' : // ìˆ˜ì‹ í•¨
                       $sql = " select count(*) as cnt 
                                   from $g4[memo_recv_table]
                                   where me_recv_mb_id = '$member[mb_id]' $sql_search $sql_search_unread ";
                       break;
         }
     
-        // ¼±ÅÃÇÑ ¸ŞÀÏ¹Ú½ºÀÇ ÀüÃ¼ ¸ŞÀÏ °¹¼ö
+        // ì„ íƒí•œ ë©”ì¼ë°•ìŠ¤ì˜ ì „ì²´ ë©”ì¼ ê°¯ìˆ˜
         $row = sql_fetch($sql);
         $total_count = $row['cnt'];
     
-        // ¾ÈÀĞÀº ¸ŞÀÏÀÏ °æ¿ì¿¡´Â ÀüÃ¼ ¸ŞÀÏ °¹¼ö¸¦ ¾÷µ¥ÀÌÆ® - ±»ÀÌ ¾ÈÇØµµ µÉ°Å °°Áö¸¸, ÀÖ´Â Á¤º¸´Ï±î ½áº¸´Â°Å¾ß.
+        // ì•ˆì½ì€ ë©”ì¼ì¼ ê²½ìš°ì—ëŠ” ì „ì²´ ë©”ì¼ ê°¯ìˆ˜ë¥¼ ì—…ë°ì´íŠ¸ - êµ³ì´ ì•ˆí•´ë„ ë ê±° ê°™ì§€ë§Œ, ìˆëŠ” ì •ë³´ë‹ˆê¹Œ ì¨ë³´ëŠ”ê±°ì•¼.
         if ($kind == "recv" && $unread == "only") {
             sql_query(" update $g4[member_table] set mb_memo_unread = '$row[cnt]' where mb_id = '$member[mb_id]' ");
         }
     
-        // ÆäÀÌÂ¡
+        // í˜ì´ì§•
         if (!$config['cf_memo_page_rows'] || $config['cf_memo_page_rows'] < 0)
             $one_rows = 20;
         else
             $one_rows = $config['cf_memo_page_rows'];
-        $total_page  = ceil($total_count / $one_rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê 
-        if ($page == "") { $page = 1; } // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö) 
-        $from_record = ($page - 1) * $one_rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ 
+        $total_page  = ceil($total_count / $one_rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚° 
+        if ($page == "") { $page = 1; } // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€) 
+        $from_record = ($page - 1) * $one_rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨ 
     
-        // ¸ŞÀÏ¸ñ·Ï °¡Á®¿À±â
+        // ë©”ì¼ëª©ë¡ ê°€ì ¸ì˜¤ê¸°
         $order_by = " order by me_id desc ";
         $select_sql = " me_recv_mb_id, me_send_mb_id, me_read_datetime, me_send_datetime, me_subject, me_id, me_file_local ";
     
-        // ÈŞÁöÅëÀÇ °æ¿ì¿¡´Â ÃâÃ³Á¤º¸µµ °°ÀÌ ÀĞ¾î¾ßÁö ÇÔ
+        // íœ´ì§€í†µì˜ ê²½ìš°ì—ëŠ” ì¶œì²˜ì •ë³´ë„ ê°™ì´ ì½ì–´ì•¼ì§€ í•¨
         if ($kind == "trash")
             $select_sql = $select_sql . ", me_from_kind";
     
-        // ÀÌÁ¦ ¸ñ·ÏÁ¤º¸ °¡Á®¿Í¾ßÁÒ?
+        // ì´ì œ ëª©ë¡ì •ë³´ ê°€ì ¸ì™€ì•¼ì£ ?
         switch ($kind) {
-        case 'send' : // ¹ß½ÅÇÔ
+        case 'send' : // ë°œì‹ í•¨
                       $sql = " select $select_sql 
                                  from $g4[memo_send_table]
                                  where me_send_mb_id = '$member[mb_id]' $sql_search 
                                  $order_by 
                                  limit $from_record, $one_rows";
                       break;
-        case 'save' : // ÀúÀåÇÔ (¼ö½Å/¹ß½Å ¸ğµÎ ÂÊÁö ÀúÀåÀÌ °¡´É)
+        case 'save' : // ì €ì¥í•¨ (ìˆ˜ì‹ /ë°œì‹  ëª¨ë‘ ìª½ì§€ ì €ì¥ì´ ê°€ëŠ¥)
                       $sql = " select $select_sql, memo_type
                                  from $g4[memo_save_table]
                                  where memo_owner = '$member[mb_id]' $sql_search
                                  $order_by 
                                  limit $from_record, $one_rows";
                       break;
-        case 'trash': // ÈŞÁöÅë
+        case 'trash': // íœ´ì§€í†µ
                       $sql = " select $select_sql, memo_type
                                  from $g4[memo_trash_table]
                                  where memo_owner = '$member[mb_id]' $sql_search 
                                  $order_by 
                                  limit $from_record, $one_rows";
                       break;
-        case 'notice' : // ÀüÃ¼ÂÊÁöÇÔ
+        case 'notice' : // ì „ì²´ìª½ì§€í•¨
                       $sql = " select $select_sql
                                  from $g4[memo_notice_table] a left join $g4[member_table] b on ( a.me_send_mb_id = b.mb_id )
                                 where memo_owner = '$member[mb_id]'
@@ -617,7 +617,7 @@ break;
                                  order by me_id desc 
                                  limit $from_record, $one_rows";
                       break;
-        case 'spam' : // ½ºÆÔÇÔ (¼ö½ÅÇÑ °Í¸¸ ½ºÆÔÇÔÀ¸·Î
+        case 'spam' : // ìŠ¤íŒ¸í•¨ (ìˆ˜ì‹ í•œ ê²ƒë§Œ ìŠ¤íŒ¸í•¨ìœ¼ë¡œ
                       if ($is_admin)
                       $sql = " select $select_sql
                                  from $g4[memo_spam_table]
@@ -631,7 +631,7 @@ break;
                                  $order_by 
                                  limit $from_record, $one_rows";                  
                       break;
-        case 'recv' : // ¼ö½ÅÇÔ
+        case 'recv' : // ìˆ˜ì‹ í•¨
                       $sql = " select $select_sql 
                                  from $g4[memo_recv_table]
                                  where me_recv_mb_id = '$member[mb_id]' $sql_search $sql_search_unread 
@@ -641,21 +641,21 @@ break;
         }
         $result = sql_query($sql);
 
-        // ¸ñ·ÏÁ¤º¸¸¦ $list¿¡ ÀúÀåÇÏ±â
+        // ëª©ë¡ì •ë³´ë¥¼ $listì— ì €ì¥í•˜ê¸°
         $list = array();
     
         for ($i=0; $row=sql_fetch_array($result); $i++)
         {
             $list[$i] = $row;
         
-            switch ($kind) { // ÂÊÁö ¸ñ·Ï¿¡ º¸ÀÌ´Â ¾ÆÀÌµğ¸¦ ÁöÁ¤
-                case 'send' : // ¹ß½ÅÇÔ
+            switch ($kind) { // ìª½ì§€ ëª©ë¡ì— ë³´ì´ëŠ” ì•„ì´ë””ë¥¼ ì§€ì •
+                case 'send' : // ë°œì‹ í•¨
                               $kind_mb_id = get_member($row['me_recv_mb_id'], "mb_id, mb_name, mb_nick, mb_email, mb_homepage");
-                              $list_title = "¹Ş´Â»ç¶÷";
+                              $list_title = "ë°›ëŠ”ì‚¬ëŒ";
                               break;
                 default : 
                               $kind_mb_id = get_member($row['me_send_mb_id'], "mb_id, mb_name, mb_nick, mb_email, mb_homepage");
-                              $list_title = "º¸³½»ç¶÷";
+                              $list_title = "ë³´ë‚¸ì‚¬ëŒ";
             }
         
              if ($config['cf_memo_mb_name']) $kind_mb_id['mb_nick'] = $kind_mb_id['mb_name'];
@@ -666,18 +666,18 @@ break;
             
             $name = get_sideview($row['mb_id'], $row['mb_nick'], $row['mb_email'], $row['mb_homepage']);
         
-            // ´çÀÏÀÎ °æ¿ì ½Ã°£À¸·Î Ç¥½ÃÇÔ (ÀĞÀº½Ã°£)
+            // ë‹¹ì¼ì¸ ê²½ìš° ì‹œê°„ìœ¼ë¡œ í‘œì‹œí•¨ (ì½ì€ì‹œê°„)
             if (substr($row['me_read_datetime'],0,1) == '0') {
-                // ¹ß½ÅÇÔÀÇ ¾ÈÀĞÀº ±ÛÀÇ °æ¿ì ¼ö½Å¾ÊÀ½(¼ö½ÅÈÄ ·Î±×ÀÎ ±â·Ï ÀÖ´ÂÁö ¿©ºÎ)¸¦ À§ÇØ È¸¿ø Á¤º¸ ´õ °¡Á®¿Í¾ßÇÔ
+                // ë°œì‹ í•¨ì˜ ì•ˆì½ì€ ê¸€ì˜ ê²½ìš° ìˆ˜ì‹ ì•ŠìŒ(ìˆ˜ì‹ í›„ ë¡œê·¸ì¸ ê¸°ë¡ ìˆëŠ”ì§€ ì—¬ë¶€)ë¥¼ ìœ„í•´ íšŒì› ì •ë³´ ë” ê°€ì ¸ì™€ì•¼í•¨
                 if ($kind == "send") {
                     $mb = get_member($row[me_recv_mb_id], "mb_today_login");
                     $time_diff = strtotime($mb['mb_today_login']) - strtotime($row['me_send_datetime']);
                     if ($time_diff <= 0)
-                        $read_datetime = '¼ö½Å ¾ÊÀ½';       
+                        $read_datetime = 'ìˆ˜ì‹  ì•ŠìŒ';       
                     else
-                        $read_datetime = 'ÀĞÁö ¾ÊÀ½';
+                        $read_datetime = 'ì½ì§€ ì•ŠìŒ';
                 } else {
-                    $read_datetime = 'ÀĞÁö ¾ÊÀ½';
+                    $read_datetime = 'ì½ì§€ ì•ŠìŒ';
                 }
                 
                 $mb = get_member($row[mb_recv_mb_id], "mb_today_login");
@@ -689,19 +689,19 @@ break;
                     $read_datetime = substr($row[me_read_datetime],5,5);
             }
         
-            // ´çÀÏÀÎ °æ¿ì ½Ã°£À¸·Î Ç¥½ÃÇÔ (º¸³½½Ã°£)
+            // ë‹¹ì¼ì¸ ê²½ìš° ì‹œê°„ìœ¼ë¡œ í‘œì‹œí•¨ (ë³´ë‚¸ì‹œê°„)
             if (substr($row[me_send_datetime],0,10) == $g4['time_ymd'])
                 $send_datetime = substr($row[me_send_datetime],11,5);
             else
                 $send_datetime = substr($row[me_send_datetime],5,5);
         
             $list[$i][name] = $name;
-            if (strlen($row[me_subject]) ==0) // Åõ¸í±ÛÀÇ °æ¿ì¿¡ Á¦¸ñ¾øÀ½À¸·Î Ç¥½Ã
-                $list[$i][subject] = "Á¦¸ñÀÌ ¾ø½À´Ï´Ù";
+            if (strlen($row[me_subject]) ==0) // íˆ¬ëª…ê¸€ì˜ ê²½ìš°ì— ì œëª©ì—†ìŒìœ¼ë¡œ í‘œì‹œ
+                $list[$i][subject] = "ì œëª©ì´ ì—†ìŠµë‹ˆë‹¤";
             else
                 $list[$i][subject] = strip_tags($row[me_subject]);
             
-            // ÈŞÁöÅëÀÇ °æ¿ì¿¡´Â °Ô½Ã±ÛÀÇ ÃâÃ³¸¦ Ç¥½Ã
+            // íœ´ì§€í†µì˜ ê²½ìš°ì—ëŠ” ê²Œì‹œê¸€ì˜ ì¶œì²˜ë¥¼ í‘œì‹œ
             if ($kind == "trash") {
                 if ($row[me_from_kind])
                     $list[$i][subject] = "[" . $row[me_from_kind] . "] " . $list[$i][subject];
@@ -713,7 +713,7 @@ break;
             $list[$i][send_datetime] = $send_datetime;
 
             $list[$i][view_href] = "./memo.php?me_id=$row[me_id]&kind=$kind&class=view";
-            // ÈŞÁöÅëÀÇ °æ¿ì¿¡´Â °Ô½Ã±ÛÀÇ ÃâÃ³¸¦ Ç¥½Ã
+            // íœ´ì§€í†µì˜ ê²½ìš°ì—ëŠ” ê²Œì‹œê¸€ì˜ ì¶œì²˜ë¥¼ í‘œì‹œ
             if ($kind == "trash")
                 $list[$i][view_href] = $list[$i][view_href] . "&me_from_kind=$row[me_from_kind]";
 
@@ -723,7 +723,7 @@ break;
     } // end of if ($class)
 } // end of switch($kind)
 
-// ÂÊÁö5 ½ºÅ²À» ÀĞ¾îµéÀÔ´Ï´Ù.
+// ìª½ì§€5 ìŠ¤í‚¨ì„ ì½ì–´ë“¤ì…ë‹ˆë‹¤.
 include_once("$g4[memo_skin_path]/memo2.skin.php");
 
 include_once("$g4[path]/tail.sub.php");

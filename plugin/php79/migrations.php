@@ -2,15 +2,15 @@
 include_once("./_common.php");
 
 if ($is_admin != "super") {
-    alert("ÃÖ°í°ü¸®ÀÚ ¶Ç´Â °ü¸®±ÇÇÑÀÌ ÀÖ´Â È¸¿ø¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4['path']);
+    alert("ìµœê³ ê´€ë¦¬ì ë˜ëŠ” ê´€ë¦¬ê¶Œí•œì´ ìˆëŠ” íšŒì›ë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4['path']);
 }
 
-echo response("<h1>µğºñ ¸¶ÀÌ±×·¹ÀÌ¼ÇÀ» ½ÃÀÛÇÕ´Ï´Ù. " . date('Y-m-d H:i:s') . "</h1>");
+echo response("<h1>ë””ë¹„ ë§ˆì´ê·¸ë ˆì´ì…˜ì„ ì‹œì‘í•©ë‹ˆë‹¤. " . date('Y-m-d H:i:s') . "</h1>");
 
 /**
- * ¸¶ÀÌ±×·¹ÀÌ¼Ç Å×ÀÌºí
- *   - Áßº¹ ½ÇÇà ¹æÁö¿ë
- *   - ÃÖÃÊ 1È¸¸¸ »ı¼º
+ * ë§ˆì´ê·¸ë ˆì´ì…˜ í…Œì´ë¸”
+ *   - ì¤‘ë³µ ì‹¤í–‰ ë°©ì§€ìš©
+ *   - ìµœì´ˆ 1íšŒë§Œ ìƒì„±
  */
 $g4['php79_init_lock'] = $g4['path'] . '/data/php79-init.lock';
 if ( ! file_exists($g4['php79_init_lock'])) {
@@ -21,7 +21,7 @@ if ( ! file_exists($g4['php79_init_lock'])) {
   `query` mediumtext,
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='µğºñ ¸¶ÀÌ±×·¹ÀÌ¼Ç'";
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='ë””ë¹„ ë§ˆì´ê·¸ë ˆì´ì…˜'";
     sql_query($q, true);
 
     touch($g4['php79_init_lock']);
@@ -30,90 +30,90 @@ if ( ! file_exists($g4['php79_init_lock'])) {
 $migrate_count = 0;
 
 /**
- * µğ¹ÙÀÌ½º Å×ÀÌºí
- *   - ºñÈ¸¿ø ±â±âµµ µî·ÏµÇ¸ç, 1¸íÀÇ È¸¿øÀÌ 2´ë ÀÌ»óÀÇ ±â±â µî·Ï °¡´É.
+ * ë””ë°”ì´ìŠ¤ í…Œì´ë¸”
+ *   - ë¹„íšŒì› ê¸°ê¸°ë„ ë“±ë¡ë˜ë©°, 1ëª…ì˜ íšŒì›ì´ 2ëŒ€ ì´ìƒì˜ ê¸°ê¸° ë“±ë¡ ê°€ëŠ¥.
  */
 $q = "CREATE TABLE `{$g4['php79_devices_table']}` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `mb_id` varchar(20) DEFAULT NULL COMMENT 'È¸¿ø ID',
+  `mb_id` varchar(20) DEFAULT NULL COMMENT 'íšŒì› ID',
   `uuid` varchar(255) COLLATE utf8_general_ci NOT NULL COMMENT 'UUID',
-  `token` varchar(255) COLLATE utf8_general_ci NOT NULL COMMENT 'ÅäÅ«',
-  `app_version` varchar(255) COLLATE utf8_general_ci NOT NULL COMMENT '¾Û ¹öÀü',
-  `version` varchar(255) COLLATE utf8_general_ci DEFAULT NULL COMMENT '¹öÀü',
-  `platform` varchar(255) COLLATE utf8_general_ci NOT NULL COMMENT 'ÇÃ·§Æû',
-  `model` varchar(255) COLLATE utf8_general_ci DEFAULT NULL COMMENT '¸ğµ¨',
-  `manufacturer` varchar(255) COLLATE utf8_general_ci DEFAULT NULL COMMENT 'Á¦Á¶»ç',
-  `serial` varchar(255) COLLATE utf8_general_ci DEFAULT NULL COMMENT 'ÀÏ·Ã¹øÈ£',
-  `push` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'Çª½Ã ¹Ş±â',
-  `push_sleep` tinyint(1) NOT NULL DEFAULT '1' COMMENT '¼ö¸é ¼³Á¤',
-  `push_sleep_start` time NOT NULL DEFAULT '23:00:00' COMMENT '¼ö¸é ½ÃÀÛ ½Ã°£',
-  `push_sleep_end` time NOT NULL DEFAULT '08:00:00' COMMENT '¼ö¸é Á¾·á ½Ã°£',
-  `push_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Çª½Ã ¼³Á¤ÀÏ',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'µî·ÏÀÏ',
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '¼öÁ¤ÀÏ',
+  `token` varchar(255) COLLATE utf8_general_ci NOT NULL COMMENT 'í† í°',
+  `app_version` varchar(255) COLLATE utf8_general_ci NOT NULL COMMENT 'ì•± ë²„ì „',
+  `version` varchar(255) COLLATE utf8_general_ci DEFAULT NULL COMMENT 'ë²„ì „',
+  `platform` varchar(255) COLLATE utf8_general_ci NOT NULL COMMENT 'í”Œë«í¼',
+  `model` varchar(255) COLLATE utf8_general_ci DEFAULT NULL COMMENT 'ëª¨ë¸',
+  `manufacturer` varchar(255) COLLATE utf8_general_ci DEFAULT NULL COMMENT 'ì œì¡°ì‚¬',
+  `serial` varchar(255) COLLATE utf8_general_ci DEFAULT NULL COMMENT 'ì¼ë ¨ë²ˆí˜¸',
+  `push` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'í‘¸ì‹œ ë°›ê¸°',
+  `push_sleep` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'ìˆ˜ë©´ ì„¤ì •',
+  `push_sleep_start` time NOT NULL DEFAULT '23:00:00' COMMENT 'ìˆ˜ë©´ ì‹œì‘ ì‹œê°„',
+  `push_sleep_end` time NOT NULL DEFAULT '08:00:00' COMMENT 'ìˆ˜ë©´ ì¢…ë£Œ ì‹œê°„',
+  `push_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'í‘¸ì‹œ ì„¤ì •ì¼',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'ë“±ë¡ì¼',
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'ìˆ˜ì •ì¼',
   PRIMARY KEY (`id`),
   KEY `{$g4['php79_devices_table']}_mb_id` (`mb_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='µğ¹ÙÀÌ½º'";
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='ë””ë°”ì´ìŠ¤'";
 if (php79_db_migrate($q, 'php79_devices_table')) {
     $migrate_count++;
 }
 
 /**
- * Çª½Ã Å×ÀÌºí
- *   - Çª½Ã ¹ß¼Û °á°ú¸¦ ÀúÀå
- *   - Whats on °ú ¿¬µ¿µÇ¾î ¹ß¼Û.  (ÂüÁ¶Å° wo_id)
- *   - error ´Â Çª½Ã ¹ß¼Û½Ã ¿¡·¯°¡ ¹ß»ıÇÑ °æ¿ì¸¸ ±â·Ï
+ * í‘¸ì‹œ í…Œì´ë¸”
+ *   - í‘¸ì‹œ ë°œì†¡ ê²°ê³¼ë¥¼ ì €ì¥
+ *   - Whats on ê³¼ ì—°ë™ë˜ì–´ ë°œì†¡.  (ì°¸ì¡°í‚¤ wo_id)
+ *   - error ëŠ” í‘¸ì‹œ ë°œì†¡ì‹œ ì—ëŸ¬ê°€ ë°œìƒí•œ ê²½ìš°ë§Œ ê¸°ë¡
  */
 $q = "CREATE TABLE `{$g4['php79_pushes_table']}` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `device_id` int(10) UNSIGNED NOT NULL COMMENT '±â±â',
+  `device_id` int(10) UNSIGNED NOT NULL COMMENT 'ê¸°ê¸°',
   `wo_id` int(10) UNSIGNED DEFAULT NULL COMMENT 'Whats on',
-  `title` varchar(255) COLLATE utf8_general_ci NOT NULL COMMENT 'Á¦¸ñ',
-  `content` varchar(255) COLLATE utf8_general_ci NOT NULL COMMENT '³»¿ë',
-  `error` varchar(255) COLLATE utf8_general_ci DEFAULT NULL COMMENT '¿¡·¯',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '¹ß¼ÛÀÏ',
+  `title` varchar(255) COLLATE utf8_general_ci NOT NULL COMMENT 'ì œëª©',
+  `content` varchar(255) COLLATE utf8_general_ci NOT NULL COMMENT 'ë‚´ìš©',
+  `error` varchar(255) COLLATE utf8_general_ci DEFAULT NULL COMMENT 'ì—ëŸ¬',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'ë°œì†¡ì¼',
   PRIMARY KEY (`id`),
   KEY `{$g4['php79_pushes_table']}_device_id` (`device_id`),
   KEY `{$g4['php79_pushes_table']}_wo_id` (`wo_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='Çª½Ã °á°ú'";
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='í‘¸ì‹œ ê²°ê³¼'";
 if (php79_db_migrate($q, 'php79_pushes_table')) {
     $migrate_count++;
 }
 
 /**
- * Å¥ ÀÛ¾÷ ½ÇÆĞ Å×ÀÌºí
- *   - ¹é±×¶ó¿îµåÀÇ Laravel Å¥ ¿öÄ¿¿¡¼­ ½ÇÆĞÇÑ ÀÛ¾÷ º¸°ü¿ë
- *   - ½ÇÆĞµÈ ÀÛ¾÷À» Àç½ÇÇàÇÏ´Â ¹æ¹ı: https://laravel.com/docs/5.1/queues#retrying-failed-jobs
+ * í ì‘ì—… ì‹¤íŒ¨ í…Œì´ë¸”
+ *   - ë°±ê·¸ë¼ìš´ë“œì˜ Laravel í ì›Œì»¤ì—ì„œ ì‹¤íŒ¨í•œ ì‘ì—… ë³´ê´€ìš©
+ *   - ì‹¤íŒ¨ëœ ì‘ì—…ì„ ì¬ì‹¤í–‰í•˜ëŠ” ë°©ë²•: https://laravel.com/docs/5.1/queues#retrying-failed-jobs
  */
 $q = "CREATE TABLE `{$g4['php79_failed_jobs_table']}`(
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `connection` TEXT NOT NULL COMMENT 'Å¥ µå¶óÀÌ¹ö',
-  `queue` TEXT NOT NULL COMMENT 'Å¥ ÀÌ¸§',
-  `payload` LONGTEXT NOT NULL COMMENT 'ÀÛ¾÷ ³»¿ë',
-  `failed_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '½ÇÆĞÀÏ'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='Å¥ ÀÛ¾÷ ½ÇÆĞ'";
+  `connection` TEXT NOT NULL COMMENT 'í ë“œë¼ì´ë²„',
+  `queue` TEXT NOT NULL COMMENT 'í ì´ë¦„',
+  `payload` LONGTEXT NOT NULL COMMENT 'ì‘ì—… ë‚´ìš©',
+  `failed_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT 'ì‹¤íŒ¨ì¼'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='í ì‘ì—… ì‹¤íŒ¨'";
 if (php79_db_migrate($q, 'php79_failed_jobs_table')) {
     $migrate_count++;
 }
 
 /**
- * ÀĞÁö ¾ÊÀº ¾Ë¸²¼ö Å×ÀÌºí
- *   - Whats On Å×ÀÌºíÀÇ ÀĞÁö ¾ÊÀº °¹¼ö(wo_status = 0)
- *   - ÆäÀÌÁö¸¶´Ù ³ëÃâµÇ¹Ç·Î, ºü¸¥ Ã³¸®¸¦ À§ÇØ ÀÎµ¦½º Å×ÀÌºí »ı¼º
- *   - TODO: ÀÏ´Ü ¹Ì»ç¿ë, whatson_table UPDATE/DELETE Äõ¸®°¡ ¸¹Àº ¼Ò½º¿¡ »ç¿ëµÇ°í ÀÖ¾î ÇùÀÇÈÄ ¼öÁ¤ ÁøÇà.
- *   - TODO: Å×ÀÌºíº¸´Ù redis ¼­¹ö¿¡¼­ whatson Ã¤³Î¿¡ È¸¿ø id -> count °ª ÀúÀåÀÌ À¯¸®ÇÒ µí!
+ * ì½ì§€ ì•Šì€ ì•Œë¦¼ìˆ˜ í…Œì´ë¸”
+ *   - Whats On í…Œì´ë¸”ì˜ ì½ì§€ ì•Šì€ ê°¯ìˆ˜(wo_status = 0)
+ *   - í˜ì´ì§€ë§ˆë‹¤ ë…¸ì¶œë˜ë¯€ë¡œ, ë¹ ë¥¸ ì²˜ë¦¬ë¥¼ ìœ„í•´ ì¸ë±ìŠ¤ í…Œì´ë¸” ìƒì„±
+ *   - TODO: ì¼ë‹¨ ë¯¸ì‚¬ìš©, whatson_table UPDATE/DELETE ì¿¼ë¦¬ê°€ ë§ì€ ì†ŒìŠ¤ì— ì‚¬ìš©ë˜ê³  ìˆì–´ í˜‘ì˜í›„ ìˆ˜ì • ì§„í–‰.
+ *   - TODO: í…Œì´ë¸”ë³´ë‹¤ redis ì„œë²„ì—ì„œ whatson ì±„ë„ì— íšŒì› id -> count ê°’ ì €ì¥ì´ ìœ ë¦¬í•  ë“¯!
  */
 //$q = "CREATE TABLE `{$g4['php79_member_whatson_table']}` (
-//  `mb_id` varchar(20) DEFAULT NULL COMMENT 'È¸¿ø ID',
-//  `count` int(10) UNSIGNED NOT NULL COMMENT 'ÀĞÁö ¾ÊÀº ¾Ë¸²¼ö',
+//  `mb_id` varchar(20) DEFAULT NULL COMMENT 'íšŒì› ID',
+//  `count` int(10) UNSIGNED NOT NULL COMMENT 'ì½ì§€ ì•Šì€ ì•Œë¦¼ìˆ˜',
 //  UNIQUE KEY `{$g4['php79_member_whatson_table']}_mb_id` (`mb_id`)
-//) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='ÀĞÁö ¾ÊÀ½ ¾Ë¸²¼ö'";
+//) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='ì½ì§€ ì•ŠìŒ ì•Œë¦¼ìˆ˜'";
 //if (php79_db_migrate($q, 'php79_member_whatson_table')) {
 //    $migrate_count++;
 //}
 
 /**
- * ±â±â Áßº¹ µî·Ï ¹æÁö #22
+ * ê¸°ê¸° ì¤‘ë³µ ë“±ë¡ ë°©ì§€ #22
  */
 $q = "ALTER TABLE `{$g4['php79_devices_table']}` ADD UNIQUE `php79_devices_mb_id_token` ( `mb_id` ,  `token` )";
 if (php79_db_migrate($q, 'php79_devices_mb_id_token')) {
@@ -121,7 +121,7 @@ if (php79_db_migrate($q, 'php79_devices_mb_id_token')) {
 }
 
 if ($migrate_count) {
-    echo "<h1>" . $migrate_count . "°ÇÀÇ µğºñ ¸¶ÀÌ±×·¹ÀÌ¼ÇÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù. " . date('Y-m-d H:i:s') . "</h1>";
+    echo "<h1>" . $migrate_count . "ê±´ì˜ ë””ë¹„ ë§ˆì´ê·¸ë ˆì´ì…˜ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤. " . date('Y-m-d H:i:s') . "</h1>";
 } else {
-    echo "<h1>»õ·Î¿î µğºñ ¸¶ÀÌ±×·¹ÀÌ¼ÇÀÌ ¾ø½À´Ï´Ù.</h1>";
+    echo "<h1>ìƒˆë¡œìš´ ë””ë¹„ ë§ˆì´ê·¸ë ˆì´ì…˜ì´ ì—†ìŠµë‹ˆë‹¤.</h1>";
 }

@@ -4,7 +4,7 @@ include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "r");
 
-$g4[title] = "°Ô½ÃÆÇº° Á¢¼ÓÀÚÇöÈ²";
+$g4[title] = "ê²Œì‹œíŒë³„ ì ‘ì†ìí˜„í™©";
 include_once("$g4[admin_path]/admin.head.php");
 include_once("$g4[path]/lib/visit.lib.php");
 
@@ -31,16 +31,16 @@ function fvisit_submit(ymd, gr_id, bo_table)
 <input type=hidden name="gr_id" value="<?=$gr_id?>">
 <input type=hidden name="bo_table" value="<?=$bo_table?>">
 <div>
-        <a href="<?=$_SERVER[PHP_SELF]?>?<?=$qstr?>&ymd=<?=$ymd?>">ÀüÃ¼</a>
+        <a href="<?=$_SERVER[PHP_SELF]?>?<?=$qstr?>&ymd=<?=$ymd?>">ì „ì²´</a>
         &nbsp;&nbsp;
-        ±â°£ : 
+        ê¸°ê°„ : 
         <input type='text' name='fr_date' size=11 maxlength=10 value='<?=$fr_date?>' class=ed>
         -
         <input type='text' name='to_date' size=11 maxlength=10 value='<?=$to_date?>' class=ed>
         &nbsp;
-        <input type=button class=btn1 value=' ÀÏ ' onclick="fvisit_submit('d', document.fvisit.gr_id.value, document.fvisit.bo_table.value);">
-        <input type=button class=btn1 value=' ¿ù ' onclick="fvisit_submit('m', document.fvisit.gr_id.value, document.fvisit.bo_table.value);">
-        <input type=button class=btn1 value=' ³â ' onclick="fvisit_submit('y', document.fvisit.gr_id.value, document.fvisit.bo_table.value);">
+        <input type=button class=btn1 value=' ì¼ ' onclick="fvisit_submit('d', document.fvisit.gr_id.value, document.fvisit.bo_table.value);">
+        <input type=button class=btn1 value=' ì›” ' onclick="fvisit_submit('m', document.fvisit.gr_id.value, document.fvisit.bo_table.value);">
+        <input type=button class=btn1 value=' ë…„ ' onclick="fvisit_submit('y', document.fvisit.gr_id.value, document.fvisit.bo_table.value);">
         &nbsp;&nbsp;
         <? if ($gr_id) { ?> > <a href="<?=$_SERVER[PHP_SELF]?>?gr_id=<?=$gr_id?>&ymd=<?=$ymd?>&<?=$qstr?>"><?=$group[gr_subject]?></a> <? } ?>
         <? if ($bo_table) { ?> > <a href="<?=$_SERVER[PHP_SELF]?>?gr_id=<?=$gr_id?>&bo_table=<?=$bo_table?>&ymd=<?=$ymd?>&<?=$qstr?>"><?=$board[bo_subject]?></a> <? } ?>
@@ -55,12 +55,12 @@ function fvisit_submit(ymd, gr_id, bo_table)
 <colgroup width=100>
 <colgroup width=''>
 <tr class="success">
-    <td><a href="<?=$_SERVER[PHP_SELF]?>?stx=visit_date">³â-¿ù-ÀÏ</a></td>
-    <td><a href="<?=$_SERVER[PHP_SELF]?>?stx=gr_id">±×·ì</a></td>
-    <td><a href="<?=$_SERVER[PHP_SELF]?>?stx=bo_table">°Ô½ÃÆÇ</a></td>
-    <td><a href="<?=$_SERVER[PHP_SELF]?>?stx=cnt">¹æ¹®ÀÚ¼ö</a></td>
-    <td>ºñÀ²(%)</td>
-    <td>±×·¡ÇÁ</td>
+    <td><a href="<?=$_SERVER[PHP_SELF]?>?stx=visit_date">ë…„-ì›”-ì¼</a></td>
+    <td><a href="<?=$_SERVER[PHP_SELF]?>?stx=gr_id">ê·¸ë£¹</a></td>
+    <td><a href="<?=$_SERVER[PHP_SELF]?>?stx=bo_table">ê²Œì‹œíŒ</a></td>
+    <td><a href="<?=$_SERVER[PHP_SELF]?>?stx=cnt">ë°©ë¬¸ììˆ˜</a></td>
+    <td>ë¹„ìœ¨(%)</td>
+    <td>ê·¸ë˜í”„</td>
 </tr>
 <?
 $sql_select = " gr_id, bo_table, sum(bv_count) as cnt ";
@@ -156,12 +156,12 @@ foreach ($data as $row) {
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='6' height=100 align=center>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>"; 
+    echo "<tr><td colspan='6' height=100 align=center>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>"; 
 
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>

@@ -1,76 +1,76 @@
 <?
 include_once("./_common.php");
 
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
-$g4[title] = "È¸¿ø °¡ÀÔÃßÃµÇÏ±â";
+$g4[title] = "íšŒì› ê°€ì…ì¶”ì²œí•˜ê¸°";
 include_once("$g4[path]/_head.php");
 
-// ºñÈ¸¿ø Á¢¼ÓÀÇ °æ¿ì EXIT
+// ë¹„íšŒì› ì ‘ì†ì˜ ê²½ìš° EXIT
 if (!$is_member) {
-    echo "È¸¿ø¸¸ »ç¿ë°¡´ÉÇÑ ¸Ş´º ÀÔ´Ï´Ù";
+    echo "íšŒì›ë§Œ ì‚¬ìš©ê°€ëŠ¥í•œ ë©”ë‰´ ì…ë‹ˆë‹¤";
     exit;
 }
 
-// ºÒ¹ıÁ¢±ÙÀ» ¸·µµ·Ï ÅäÅ«»ı¼º
+// ë¶ˆë²•ì ‘ê·¼ì„ ë§‰ë„ë¡ í† í°ìƒì„±
 $token = md5(uniqid(rand(), true));
 set_session("ss_token", $token);
 
-// ÀüÃ¼ ÃßÃµÈ½¼ö
+// ì „ì²´ ì¶”ì²œíšŸìˆ˜
 $sql = " select count(*) as cnt from $g4[member_suggest_table] where mb_id = '$member[mb_id]' ";
 $mb_tot_recommend = sql_fetch($sql);
         
-// ³»°¡ ÃßÃµÇÏ¿© °¡ÀÔÇÑ È¸¿ø¼ö, ¼ıÀÚÀÇ mismatch°¡ »ı±æ ¼ö ÀÖ´Ù...°ú°Å ÇÁ·Î±×·¥ÀÇ ¿À·ù ¶§¹®¿¡...¤Ğ.¤Ğ...
+// ë‚´ê°€ ì¶”ì²œí•˜ì—¬ ê°€ì…í•œ íšŒì›ìˆ˜, ìˆ«ìì˜ mismatchê°€ ìƒê¸¸ ìˆ˜ ìˆë‹¤...ê³¼ê±° í”„ë¡œê·¸ë¨ì˜ ì˜¤ë¥˜ ë•Œë¬¸ì—...ã… .ã… ...
 $sql = " select count(*) as cnt from $g4[member_table] where mb_recommend = '$member[mb_id]' ";
 $mb_recommend = sql_fetch($sql);
 
-// ¹üÀ§³»ÀÇ ÃßÃµ È¸¿ø¼ö
+// ë²”ìœ„ë‚´ì˜ ì¶”ì²œ íšŒì›ìˆ˜
 $wtime = date("Y-m-d H:i:s", $g4[server_time] - ($g4[member_suggest_days] * 86400)); 
 $sql = " select count(*) as cnt from $g4[member_suggest_table] where mb_id = '$member[mb_id]' and suggest_datetime > '$wtime' ";
 $mb_suggest = sql_fetch($sql);
 
-// ÃßÃµ °¡´ÉÇÑ È¸¿ø¼ö
+// ì¶”ì²œ ê°€ëŠ¥í•œ íšŒì›ìˆ˜
 $mb_suggest_cnt = $g4['member_suggest_count'] - $mb_suggest['cnt'];
 
-// ½Å°íÈ½¼ö
+// ì‹ ê³ íšŸìˆ˜
 $singo_count = 0;
 if ($g4[singo_table] && $g4['member_suggest_singo']) {
     $sql = " select count(*) as cnt 
                from $g4[singo_table] 
-              where mb_id = '$member[mb_id]' and sg_reason <> '°Ô½ÃÆÇ¸ñÀû°ú ¹«°üÇÑ °Ô½Ã±Û' ";
+              where mb_id = '$member[mb_id]' and sg_reason <> 'ê²Œì‹œíŒëª©ì ê³¼ ë¬´ê´€í•œ ê²Œì‹œê¸€' ";
     $row1 = sql_fetch($sql);
     $singo_count = $row1['cnt'];
     if ($singo_count)
         $mb_suggest_cnt = 0;
     }
 
-// ¾îÂ¼´Ù ÃßÃµ °Ç¼ö°¡ ¸¶ÀÌ³Ê½º°¡ ³ª¸é 0À¸·Î setting
+// ì–´ì©Œë‹¤ ì¶”ì²œ ê±´ìˆ˜ê°€ ë§ˆì´ë„ˆìŠ¤ê°€ ë‚˜ë©´ 0ìœ¼ë¡œ setting
 if ($mb_suggest_cnt < 0)
     $mb_suggest_cnt = 0;
 ?>
 <link rel="stylesheet" href="<?=$g4['path']?>/plugin/recommend/style.css" type="text/css">
 <div class="section1">
-    <h2 class="hx">È¸¿ø ÃßÃµ °¡ÀÌµå</h2>
+    <h2 class="hx">íšŒì› ì¶”ì²œ ê°€ì´ë“œ</h2>
     <div class="tx">
     <? echo $g4['member_suggest_intro'] ?>
     <ul>
-    <li>ÀüÃ¼ ÃßÃµ°Ç¼ö : <?=number_format($mb_tot_recommend[cnt])?></li>
-    <li>ÃßÃµÀ» ¹Ş°í °¡ÀÔÇÑ È¸¿ø¼ö : <?=number_format($mb_recommend[cnt])?></li>
-    <li>ÃßÃµÀ» ¹Ş°í ¹Ì°¡ÀÔ È¸¿ø¼ö : <?=number_format($mb_tot_recommend[cnt] - $mb_recommend[cnt])?></li>
-    <li>ÃßÃµ °¡´É È¸¿ø¼ö : <?=number_format($mb_suggest_cnt)?></li>
+    <li>ì „ì²´ ì¶”ì²œê±´ìˆ˜ : <?=number_format($mb_tot_recommend[cnt])?></li>
+    <li>ì¶”ì²œì„ ë°›ê³  ê°€ì…í•œ íšŒì›ìˆ˜ : <?=number_format($mb_recommend[cnt])?></li>
+    <li>ì¶”ì²œì„ ë°›ê³  ë¯¸ê°€ì… íšŒì›ìˆ˜ : <?=number_format($mb_tot_recommend[cnt] - $mb_recommend[cnt])?></li>
+    <li>ì¶”ì²œ ê°€ëŠ¥ íšŒì›ìˆ˜ : <?=number_format($mb_suggest_cnt)?></li>
     </ul>
     <?
     if ($singo_count) {
-        echo "<b>½Å°í°Ç¼ö°¡ $singo_count °Ç ÀÖ¾î¼­, ÃßÃµÀ» ÇÒ ¼ö ¾ø½À´Ï´Ù. ¿î¿µ°Ô½ÃÆÇ¿¡ ¹®ÀÇ ¹Ù¶ø´Ï´Ù.</b>";
+        echo "<b>ì‹ ê³ ê±´ìˆ˜ê°€ $singo_count ê±´ ìˆì–´ì„œ, ì¶”ì²œì„ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìš´ì˜ê²Œì‹œíŒì— ë¬¸ì˜ ë°”ëë‹ˆë‹¤.</b>";
     } else if ($member['mb_email_certify'] == '0000-00-00 00:00:00' && $member['mb_hp_certify_datetime'] == '0000-00-00 00:00:00') {
-        echo "<b>ÀÌ¸ŞÀÏÀÎÁõ ¶Ç´Â SMS ÀÎÁõÀ» ¹ŞÀº È¸¿ø¸¸ °¡ÀÔÃßÃµÀ» ÇÒ ¼ö ÀÖ½À´Ï´Ù. <a href='$g4[bbs_path]/member_confirm.php?url=register_form.php'>SMS,ÀÌ¸ŞÀÏ ÀÎÁõÇÏ·¯ °¡±â</a></b>";
+        echo "<b>ì´ë©”ì¼ì¸ì¦ ë˜ëŠ” SMS ì¸ì¦ì„ ë°›ì€ íšŒì›ë§Œ ê°€ì…ì¶”ì²œì„ í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤. <a href='$g4[bbs_path]/member_confirm.php?url=register_form.php'>SMS,ì´ë©”ì¼ ì¸ì¦í•˜ëŸ¬ ê°€ê¸°</a></b>";
     } else if ($mb_suggest_cnt == 0) {
-        // ´ÙÀ½ ÃßÃµÀÏÀ» °è»ê
+        // ë‹¤ìŒ ì¶”ì²œì¼ì„ ê³„ì‚°
         $sql = " select * from $g4[member_suggest_table] where mb_id = '$member[mb_id]' order by join_no desc limit 1 ";
         $result = sql_fetch($sql);
         $sql = " select DATE_ADD('$result[suggest_datetime]', INTERVAL ($g4[member_suggest_days]+1) DAY) as datetime ";
         $result = sql_fetch($sql);
-        echo "<b>´ÙÀ½ ÃßÃµ°¡´ÉÀÏÀº " . substr($result[datetime], 0, 10) . "ÀÏ ÀÔ´Ï´Ù.</b>";
+        echo "<b>ë‹¤ìŒ ì¶”ì²œê°€ëŠ¥ì¼ì€ " . substr($result[datetime], 0, 10) . "ì¼ ì…ë‹ˆë‹¤.</b>";
     }
     ?>
     </div>
@@ -80,8 +80,8 @@ if ($mb_suggest_cnt < 0)
 <br>
 <form name=fregisterform method=post action="" enctype="multipart/form-data" autocomplete="off">
 <input type=hidden name=token value="<?=$token?>">
-<table class="tbl_type1" border="1" cellspacing="0" summary="È¸¿ø °¡ÀÔ ÃßÃµ">
-<caption>È¸¿ø°¡ÀÔÃßÃµ</caption>
+<table class="tbl_type1" border="1" cellspacing="0" summary="íšŒì› ê°€ì… ì¶”ì²œ">
+<caption>íšŒì›ê°€ì…ì¶”ì²œ</caption>
 <colgroup>
 <col width="10%">
 <col width="30%">
@@ -90,29 +90,29 @@ if ($mb_suggest_cnt < 0)
 <tbody>
 <? if ($g4['member_suggest_phone']) { ?>
 <tr>
-  <td class="ranking" scope="row">SMS ÃßÃµ</td>
-  <td><input class=m_text type=text name='mb_hp' size=35 maxlength=20 required itemname='ÇÚµåÆù¹øÈ£' value=''></td>
+  <td class="ranking" scope="row">SMS ì¶”ì²œ</td>
+  <td><input class=m_text type=text name='mb_hp' size=35 maxlength=20 required itemname='í•¸ë“œí°ë²ˆí˜¸' value=''></td>
   <td align=left>
   &nbsp;&nbsp;
   <span class="btn_pack1 small icon">
-  <input type=button value='Ãß Ãµ  ' class='medium' onclick="hp_certify(this.form);">
+  <input type=button value='ì¶” ì²œ  ' class='medium' onclick="hp_certify(this.form);">
   </span>
   &nbsp;&nbsp;
-  ÃßÃµÇÒ ºĞÀÇ ÇÚµåÆù ¹øÈ£¸¦ ÀÔ·ÂÇÏ°í ÃßÃµ ¹öÆ°À» ´­·¯ÁÖ¼¼¿ä
+  ì¶”ì²œí•  ë¶„ì˜ í•¸ë“œí° ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ê³  ì¶”ì²œ ë²„íŠ¼ì„ ëˆŒëŸ¬ì£¼ì„¸ìš”
   </td>
 </tr>
 <? } ?>
 <? if ($g4['member_suggest_email']) { ?>
 <tr>
-  <td class="ranking" scope="row">ÀÌ¸ŞÀÏ ÃßÃµ</td>
-  <td><input class=m_text type=text name='mb_email' size=35 maxlength=35 required style="ime-mode:disabled" itemname='ÀÌ¸ŞÀÏÁÖ¼Ò' value=''></td>
+  <td class="ranking" scope="row">ì´ë©”ì¼ ì¶”ì²œ</td>
+  <td><input class=m_text type=text name='mb_email' size=35 maxlength=35 required style="ime-mode:disabled" itemname='ì´ë©”ì¼ì£¼ì†Œ' value=''></td>
   <td align=left>
   &nbsp;&nbsp;
   <span class="btn_pack1 small icon">
-  <input type=button value='Ãß Ãµ  ' class='medium' onclick="email_certify(this.form);">
+  <input type=button value='ì¶” ì²œ  ' class='medium' onclick="email_certify(this.form);">
   </span>
   &nbsp;&nbsp;
-  ÃßÃµÇÒ ºĞÀÇ ÀÌ¸ŞÀÏ ÁÖ¼Ò¸¦ ÀÔ·ÂÇÏ°í ÃßÃµ ¹öÆ°À» ´­·¯ÁÖ¼¼¿ä
+  ì¶”ì²œí•  ë¶„ì˜ ì´ë©”ì¼ ì£¼ì†Œë¥¼ ì…ë ¥í•˜ê³  ì¶”ì²œ ë²„íŠ¼ì„ ëˆŒëŸ¬ì£¼ì„¸ìš”
   </td>
 </tr>
 <? } ?>
@@ -125,7 +125,7 @@ if ($mb_suggest_cnt < 0)
 function hp_certify(f) { 
     var pattern = /^(0(?:10|11|16|17|18|19|70))[-]{0,1}[0-9]{3,4}[-]{0,1}[0-9]{4}$/; 
     if(!pattern.test(f.mb_hp.value)){  
-        alert("ÇÚµåÆù ¹øÈ£°¡ ÀÔ·ÂµÇÁö ¾Ê¾Ò°Å³ª ¹øÈ£°¡ Æ²¸³´Ï´Ù.\n\nÇÚµåÆù ¹øÈ£¸¦ 010-123-4567 ¶Ç´Â 01012345678 °ú °°ÀÌ ÀÔ·ÂÇØ ÁÖ½Ê½Ã¿À."); 
+        alert("í•¸ë“œí° ë²ˆí˜¸ê°€ ì…ë ¥ë˜ì§€ ì•Šì•˜ê±°ë‚˜ ë²ˆí˜¸ê°€ í‹€ë¦½ë‹ˆë‹¤.\n\ní•¸ë“œí° ë²ˆí˜¸ë¥¼ 010-123-4567 ë˜ëŠ” 01012345678 ê³¼ ê°™ì´ ì…ë ¥í•´ ì£¼ì‹­ì‹œì˜¤."); 
         f.mb_hp.select(); 
         f.mb_hp.focus(); 
         return; 
@@ -139,7 +139,7 @@ function hp_certify(f) {
 function email_certify(f) { 
     var pattern = /([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)\.([0-9a-zA-Z_-]+)/;
     if(!pattern.test(f.mb_email.value)){  
-        alert("ÀÌ¸ŞÀÏ ÁÖ¼Ò°¡ ÀÔ·ÂµÇÁö ¾Ê¾Ò°Å³ª ¹øÈ£°¡ Æ²¸³´Ï´Ù.\n\nÀÌ¸ŞÀÏ ÁÖ¼Ò¸¦ Çü½Ä¿¡ ¸Â°Ô ÀÔ·ÂÇØ ÁÖ½Ê½Ã¿À."); 
+        alert("ì´ë©”ì¼ ì£¼ì†Œê°€ ì…ë ¥ë˜ì§€ ì•Šì•˜ê±°ë‚˜ ë²ˆí˜¸ê°€ í‹€ë¦½ë‹ˆë‹¤.\n\nì´ë©”ì¼ ì£¼ì†Œë¥¼ í˜•ì‹ì— ë§ê²Œ ì…ë ¥í•´ ì£¼ì‹­ì‹œì˜¤."); 
         f.mb_email.select(); 
         f.mb_email.focus(); 
         return; 
@@ -166,23 +166,23 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     else
         $list[$i][join_code] = $row[join_code];
     if ($row[join_datetime] == '0000-00-00 00:00:00') 
-        $list[$i][join_datetime] = '¹Ì°¡ÀÔ';
+        $list[$i][join_datetime] = 'ë¯¸ê°€ì…';
     else
         $list[$i][join_datetime] = cut_str($row[join_datetime], 10, '');
-    // ¹Ì°¡ÀÔÀÎ °æ¿ì´Â Ãë¼Ò ¶Ç´Â ÀçÈ®ÀÎÀÇ ±âÈ¸¸¦ ÁØ´Ù
+    // ë¯¸ê°€ì…ì¸ ê²½ìš°ëŠ” ì·¨ì†Œ ë˜ëŠ” ì¬í™•ì¸ì˜ ê¸°íšŒë¥¼ ì¤€ë‹¤
     if ($row[join_mb_id] || $row[join_datetime] !== '0000-00-00 00:00:00')
         $list[$i][join_mb_id] = $row[join_mb_id];
     else {
-        // ¹Ì°¡ÀÔÀÌ¸é Ãë¼ÒÀÇ ¹öÆ°À» ³Ö¾îÁØ´Ù.
-        $list[$i][join_cancel] = "<a href='./join_suggest_re.php?w=d&join_no=$row[join_no]'>ÃßÃµÃë¼Ò</a>&nbsp;&nbsp;
-                                  <a href='./join_suggest_re.php?w=r&join_no=$row[join_no]'>ÃßÃµÀÏ°»½Å</a>";
+        // ë¯¸ê°€ì…ì´ë©´ ì·¨ì†Œì˜ ë²„íŠ¼ì„ ë„£ì–´ì¤€ë‹¤.
+        $list[$i][join_cancel] = "<a href='./join_suggest_re.php?w=d&join_no=$row[join_no]'>ì¶”ì²œì·¨ì†Œ</a>&nbsp;&nbsp;
+                                  <a href='./join_suggest_re.php?w=r&join_no=$row[join_no]'>ì¶”ì²œì¼ê°±ì‹ </a>";
     }
 }
 ?>
 
 <br>
-<table class="tbl_type1" border="1" cellspacing="0" summary="È¸¿ø °¡ÀÔ ÃßÃµ ³»¿ª">
-<caption>È¸¿ø°¡ÀÔÃßÃµ ³»¿ª</caption>
+<table class="tbl_type1" border="1" cellspacing="0" summary="íšŒì› ê°€ì… ì¶”ì²œ ë‚´ì—­">
+<caption>íšŒì›ê°€ì…ì¶”ì²œ ë‚´ì—­</caption>
 <colgroup>
 <col width="10%">
 <col width="15%">
@@ -194,11 +194,11 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 <thead>
 <tr>
 <th abbr="No." scope="col">No.</th>
-<th scope="col">ÃßÃµÀÏÀÚ</th>
-<th scope="col">ÃßÃµÀüÈ­¹øÈ£/ÀÌ¸ŞÀÏ</th>
-<th scope="col">°¡ÀÔÀÎÁõ¹øÈ£</th>
-<th scope="col">°¡ÀÔÀÏÀÚ</th>
-<th scope="col">°¡ÀÔÈ¸¿ø</th>
+<th scope="col">ì¶”ì²œì¼ì</th>
+<th scope="col">ì¶”ì²œì „í™”ë²ˆí˜¸/ì´ë©”ì¼</th>
+<th scope="col">ê°€ì…ì¸ì¦ë²ˆí˜¸</th>
+<th scope="col">ê°€ì…ì¼ì</th>
+<th scope="col">ê°€ì…íšŒì›</th>
 </tr>
 </thead>
 <tbody>

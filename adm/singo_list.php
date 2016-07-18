@@ -24,7 +24,7 @@ if ($stx) {
             if ($wr[1] && is_integer($wr[1]))
                 ;
             else
-                alert("°Ô½Ã±ÛÀÇ wr_id¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
+                alert("ê²Œì‹œê¸€ì˜ wr_idë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”");
             $sql_search .= " (bo_table = '$wr[0]' and wr_id = $wr[1]) ";
             break;
         case "sg_reason" :
@@ -52,13 +52,13 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if (!$page) $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if (!$page) $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
-$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>ì²˜ìŒ</a>";
 
-$g4[title] = "°Ô½Ã¹°½Å°í°ü¸®";
+$g4[title] = "ê²Œì‹œë¬¼ì‹ ê³ ê´€ë¦¬";
 include_once("./admin.head.php");
 
 $sql = " select * 
@@ -76,23 +76,23 @@ var list_delete_php = "singo_list_delete.php";
 
 <form name=fsearch method=get role="form" class="form-inline">
 <div class="btn-group">
-    <?=$listall?> (½Å°íµÈ °Ô½Ã¹° : <?=number_format($total_count)?>)
+    <?=$listall?> (ì‹ ê³ ëœ ê²Œì‹œë¬¼ : <?=number_format($total_count)?>)
 </div>
 <div class="pull-right">
     <select name=sfl class="form-control">
-        <option value='mb_id'>½Å°íµÈ È¸¿ø¾ÆÀÌµğ</option>
-        <option value='sg_mb_id'>½Å°íÇÑ È¸¿ø¾ÆÀÌµğ</option>
-        <option value='sg_ip'>½Å°íÇÑ IP</option>
-        <option value='sg_reason'>½Å°íÇÑ ÀÌÀ¯</option>
-        <option value='wr_subject'>°Ô½Ã±ÛÁ¦¸ñ</option>
-        <option value='wr_content'>°Ô½Ã±Û³»¿ë</option>
-        <option value='wr_content2'>°Ô½Ã±ÛÁ¦¸ñ,³»¿ë</option>
+        <option value='mb_id'>ì‹ ê³ ëœ íšŒì›ì•„ì´ë””</option>
+        <option value='sg_mb_id'>ì‹ ê³ í•œ íšŒì›ì•„ì´ë””</option>
+        <option value='sg_ip'>ì‹ ê³ í•œ IP</option>
+        <option value='sg_reason'>ì‹ ê³ í•œ ì´ìœ </option>
+        <option value='wr_subject'>ê²Œì‹œê¸€ì œëª©</option>
+        <option value='wr_content'>ê²Œì‹œê¸€ë‚´ìš©</option>
+        <option value='wr_content2'>ê²Œì‹œê¸€ì œëª©,ë‚´ìš©</option>
         <option value='bo_table'>bo_table</option>
         <option value='wr_id'>bo_table,wr_id</option>
     </select>
-    <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<?=$stx?>'>
+    <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<?=$stx?>'>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 </form>
@@ -107,17 +107,17 @@ var list_delete_php = "singo_list_delete.php";
 <table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <tr class="success">
     <td width=30 rowspan=2><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
-    <td width=110 align='left'><?=subject_sort_link('mb_id')?>½Å°íµÈ È¸¿ø</a></td>
-    <td>°Ô½ÃÆÇ - °Ô½Ã¹° - ½Å°íÇØÁ¦</td>
-    <td width=110>°Ô½Ã¹° µî·ÏÀÏ½Ã</td>
-    <td width=100>°Ô½Ã¹° IP</td>
-	  <td width=60 rowspan=2>(È¸¿øÁ¢±Ù<br>IPÂ÷´Ü)</td>
+    <td width=110 align='left'><?=subject_sort_link('mb_id')?>ì‹ ê³ ëœ íšŒì›</a></td>
+    <td>ê²Œì‹œíŒ - ê²Œì‹œë¬¼ - ì‹ ê³ í•´ì œ</td>
+    <td width=110>ê²Œì‹œë¬¼ ë“±ë¡ì¼ì‹œ</td>
+    <td width=100>ê²Œì‹œë¬¼ IP</td>
+	  <td width=60 rowspan=2>(íšŒì›ì ‘ê·¼<br>IPì°¨ë‹¨)</td>
 </tr>
 <tr class="success">
-    <td><?=subject_sort_link('sg_mb_id')?>½Å°íÇÑ È¸¿ø</a></td>
-    <td>½Å°íÇÑ ÀÌÀ¯</td>
-    <td>½Å°íÇÑ ÀÏ½Ã</td>
-    <td>½Å°íÇÑ IP</td>
+    <td><?=subject_sort_link('sg_mb_id')?>ì‹ ê³ í•œ íšŒì›</a></td>
+    <td>ì‹ ê³ í•œ ì´ìœ </td>
+    <td>ì‹ ê³ í•œ ì¼ì‹œ</td>
+    <td>ì‹ ê³ í•œ IP</td>
 </tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) {
@@ -129,8 +129,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         $mb_nick = $mb[mb_nick];
         $mb_id = $mb[mb_id];
     } else {
-        $mb_nick = "ºñÈ¸¿ø";
-        $mb_id = "ºñÈ¸¿ø";
+        $mb_nick = "ë¹„íšŒì›";
+        $mb_id = "ë¹„íšŒì›";
     }
 
     if ($row[sg_mb_id]) {
@@ -138,8 +138,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         $sg_mb_nick = $sg_mb[mb_nick];
         $sg_mb_id = $sg_mb[mb_id];
     } else {
-        $sg_mb_nick = "ºñÈ¸¿ø";
-        $sg_mb_id = "ºñÈ¸¿ø";
+        $sg_mb_nick = "ë¹„íšŒì›";
+        $sg_mb_id = "ë¹„íšŒì›";
     }
 
     $hidden_comment = "";
@@ -153,42 +153,42 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     if ($row['sg_notes']) {
         $wr_subject = $row['sg_notes'];
     } else if ($row['bo_table'] == "@memo") {
-        // ÂÊÁö ½Å°í
-        $wr_subject = "ÂÊÁö ½ºÆÔ";
+        // ìª½ì§€ ì‹ ê³ 
+        $wr_subject = "ìª½ì§€ ìŠ¤íŒ¸";
         $singo_href = "<a href='$g4[bbs_path]/memo.php?me_id=$row[wr_id]&kind=spam&class=view' target='_blank'>";
 
-        // °Ô½ÃÆÇ Á¦¸ñ
+        // ê²Œì‹œíŒ ì œëª©
         $bo_subject = "<a href='./singo_list.php?sfl=bo_table&stx=@memo'>" . cut_str($bo[bo_subject],30) . "</a>";
     } else if ($row['bo_table'] == "@user") {
-        // »ç¿ëÀÚ ½Å°í
-        $wr_subject = "È¸¿ø ½Å°í";
+        // ì‚¬ìš©ì ì‹ ê³ 
+        $wr_subject = "íšŒì› ì‹ ê³ ";
         $row['sg_reason'] = "";
         $singo_href = "<a href='$g4[bbs_path]/singo_member_view.php?sg_id=$row[sg_id]' target='_blank'>";
 
-        // °Ô½ÃÆÇ Á¦¸ñ
+        // ê²Œì‹œíŒ ì œëª©
         $bo_subject = "<a href='./singo_list.php?sfl=bo_table&stx=@user'>" . cut_str($bo[bo_subject],30) . "</a>";
     } else if ($row['bo_table'] == "@hidden_comment") {
-        // µıÁö°É±â ½Å°í
+        // ë”´ì§€ê±¸ê¸° ì‹ ê³ 
         $hidden_comment = sql_fetch(" select bo_table, wr_id, co_content, co_id, wr_ip, co_datetime from $g4[hidden_comment_table] where co_id = '$row[wr_id]' ");
-        $wr_subject = "µıÁö°É±â ½Å°í - $hidden_comment[co_content]";
+        $wr_subject = "ë”´ì§€ê±¸ê¸° ì‹ ê³  - $hidden_comment[co_content]";
         $wr_ip = $hidden_comment['wr_ip'];
         $wr_datetime = $hidden_comment['co_datetime'];
         $bo = get_board($hidden_comment[bo_table], "bo_subject");
 
-        // °Ô½ÃÆÇ Á¦¸ñ
+        // ê²Œì‹œíŒ ì œëª©
         $bo_subject = "<a href='./singo_list.php?sfl=bo_table&stx=$row[bo_table]'>" . cut_str($bo[bo_subject],30) . "</a>";
 
-        // °Ô½Ã±Û ¹Ù·Î°¡±â ¸µÅ©µµ ÇÑ¹æ
+        // ê²Œì‹œê¸€ ë°”ë¡œê°€ê¸° ë§í¬ë„ í•œë°©
 
         $singo_href = "<a href='$g4[bbs_path]/board.php?bo_table=$hidden_comment[bo_table]&wr_id=$hidden_comment[wr_id]&h_id=$hidden_comment[co_id]' target='_blank'>";
     } else {
-        // °Ô½Ã±Û ½Å°í
+        // ê²Œì‹œê¸€ ì‹ ê³ 
         $write_table = $g4['write_prefix'].$row[bo_table];
         $bo = get_board($row[bo_table], "bo_subject");
         $sql = " select wr_subject, wr_content, wr_ip, wr_is_comment, wr_parent, wr_datetime, wr_singo from $write_table where wr_id = '$row[wr_id]' ";
         $write_row = sql_fetch($sql);
 
-        // ¿¾³¯ ½Å°í´Â Á¦¸ñÀÌ ¾øÀ¸´Ï... ÇöÀçÀÇ Á¦¸ñÀÌ¶óµµ ³Ö¾îÁØ´Ù. Á¦¸ñÀ» ¹Ù²åÀ¸¸é... ¤§¤§¤§
+        // ì˜›ë‚  ì‹ ê³ ëŠ” ì œëª©ì´ ì—†ìœ¼ë‹ˆ... í˜„ì¬ì˜ ì œëª©ì´ë¼ë„ ë„£ì–´ì¤€ë‹¤. ì œëª©ì„ ë°”ê¿¨ìœ¼ë©´... ã„·ã„·ã„·
         if ($row[wr_subject] == "")
             $row[wr_subject] = $write_row[wr_subject];
 
@@ -199,7 +199,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
             
             $title = $row[wr_content];
         } else {
-            // wr_singo == 0, ½Å°íÇØÁ¦°¡ µÇ¾î ¹«È¿°¡ µÈ ½Å°í¶ó´Â°Å. ½Å°íÇØÁ¦´Â ¿ø±Û¿¡¸¸ ÇØ´ç.
+            // wr_singo == 0, ì‹ ê³ í•´ì œê°€ ë˜ì–´ ë¬´íš¨ê°€ ëœ ì‹ ê³ ë¼ëŠ”ê±°. ì‹ ê³ í•´ì œëŠ” ì›ê¸€ì—ë§Œ í•´ë‹¹.
             if ($write_row[wr_singo] == 0)
                 $wr_subject = "<del>" . $row[wr_subject] . "</del>";
             else
@@ -210,11 +210,11 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
             $wr_ip = $row[wr_ip];
             $wr_datetime = $row[wr_datetime];
 
-            // ½Å°íÇØÁ¦ °Ç¼ö¸¦ °è»ê
+            // ì‹ ê³ í•´ì œ ê±´ìˆ˜ë¥¼ ê³„ì‚°
             $sql3 = " select count(*) as cnt from $g4[unsingo_table] where bo_table='$row[bo_table]' and wr_id = '$row[wr_id]' ";
             $result3 = sql_fetch($sql3);
             if ($result3[cnt] > 0) {
-                // ½Å°í ÇØÁ¦°Ç¼ö¿¡ ¸µÅ©¸¦ °É¾îÁà¾ßÁÒ
+                // ì‹ ê³  í•´ì œê±´ìˆ˜ì— ë§í¬ë¥¼ ê±¸ì–´ì¤˜ì•¼ì£ 
                 $unsingo = " - <b><a href=./unsingo_list.php?sfl=wr_id&stx=$row[bo_table],$row[wr_id] target=new>$result3[cnt]<a></b>";
             }
             else
@@ -222,11 +222,11 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         }
         $singo_href = "<a href='$g4[bbs_path]/board.php?bo_table=$row[bo_table]&wr_id=$row[wr_id]' target='_blank'>";
 
-        // °Ô½ÃÆÇ Á¦¸ñ
+        // ê²Œì‹œíŒ ì œëª©
         $bo_subject = "<a href='./singo_list.php?sfl=bo_table&stx=$row[bo_table]' title='$title'>" . cut_str($bo[bo_subject],30) . "</a>";
     } 
 
-    // ´ĞÀ» ´©¸£¸é, ÇØ´ç ´ĞÀÇ ¸ğµç°Ô °Ë»öµÇ°Ô ¼öÁ¤ÇØ ÁÖ½Ã°í
+    // ë‹‰ì„ ëˆ„ë¥´ë©´, í•´ë‹¹ ë‹‰ì˜ ëª¨ë“ ê²Œ ê²€ìƒ‰ë˜ê²Œ ìˆ˜ì •í•´ ì£¼ì‹œê³ 
     $mb_nick = "<a href=./singo_list.php?sfl=mb_id&stx=$mb_id>$mb_nick</a>";
     $sg_mb_nick = "<a href=./singo_list.php?sfl=sg_mb_id&stx=$sg_mb_id>$sg_mb_nick</a>";
 
@@ -259,7 +259,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         <td>".get_datetime($wr_datetime)."</td>
         <td>$wr_ip $wr_ip_intercept</td>
         <td>
-        <a href=\"javascript:singo_intercept('$row[mb_id]', '$wr_ip');\">Â÷´Ü</a>
+        <a href=\"javascript:singo_intercept('$row[mb_id]', '$wr_ip');\">ì°¨ë‹¨</a>
         </td>
     </tr>
     <tr>
@@ -267,18 +267,18 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         <td>".get_text($row[sg_reason])."</td>
         <td>".get_datetime($row[sg_datetime])."</td>
         <td>$sg_ip $sg_ip_intercept</td>
-        <td><a href=\"javascript:singo_intercept('$row[sg_mb_id]', '$row[sg_ip]');\">Â÷´Ü</a></td>
+        <td><a href=\"javascript:singo_intercept('$row[sg_mb_id]', '$row[sg_ip]');\">ì°¨ë‹¨</a></td>
     </tr>
     ";
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='6' align=center height=100>³»¿ªÀÌ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='6' align=center height=100>ë‚´ì—­ì´ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
@@ -287,7 +287,7 @@ echo "</table>";
 
 <div class="btn-group">
     <? if ($is_admin == "super") { ?>
-        <input type=button class='btn btn-default' value='¼±ÅÃ»èÁ¦' onclick="btn_check(this.form, 'delete')">
+        <input type=button class='btn btn-default' value='ì„ íƒì‚­ì œ' onclick="btn_check(this.form, 'delete')">
     <? } ?>
 </div>
 
@@ -298,10 +298,10 @@ if ($stx)
 </form>
 
 <p>
-* »èÁ¦½Ã ½Å°íµÈ ³»¿ª¸¸À» »èÁ¦ÇÏ¸ç °Ô½Ã¹°ÀÇ »èÁ¦´Â ÇÏÁö ¾Ê½À´Ï´Ù.<br>
-* ½Å°íÈ¸¿ø°ú ½Å°í´ë»óÈ¸¿øÀ¸·Î ³ª´©¾îÁ® ÀÖÀ¸¸ç °¢°¢ Â÷´Ü ÇÒ ¼ö ÀÖ½À´Ï´Ù. (Á¤»óÀûÀÎ ±ÛÀ» ½Å°íÇÏ´Â È¸¿ø Â÷´Ü ±â´É)<br>
-* Â÷´ÜÇÏ´Â °æ¿ì ±âº»È¯°æ¼³Á¤ÀÇ Á¢±ÙÂ÷´ÜIP¿Í È¸¿øÁ¤º¸ÀÇ Á¢±ÙÂ÷´Ü¿¡ ¸ğµÎ µî·ÏµË´Ï´Ù.<br>
-* È¸¿øº°¸í ¿·ÀÇ <font color='#ff0000'>*</font> Ç¥½Ã´Â Â÷´ÜµÈ È¸¿øÀÓÀ» ³ªÅ¸³À´Ï´Ù. ¸¶¿ì½º ¿À¹ö½Ã Â÷´ÜÀÏÀÚ°¡ Ç¥½ÃµË´Ï´Ù.
+* ì‚­ì œì‹œ ì‹ ê³ ëœ ë‚´ì—­ë§Œì„ ì‚­ì œí•˜ë©° ê²Œì‹œë¬¼ì˜ ì‚­ì œëŠ” í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.<br>
+* ì‹ ê³ íšŒì›ê³¼ ì‹ ê³ ëŒ€ìƒíšŒì›ìœ¼ë¡œ ë‚˜ëˆ„ì–´ì ¸ ìˆìœ¼ë©° ê°ê° ì°¨ë‹¨ í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤. (ì •ìƒì ì¸ ê¸€ì„ ì‹ ê³ í•˜ëŠ” íšŒì› ì°¨ë‹¨ ê¸°ëŠ¥)<br>
+* ì°¨ë‹¨í•˜ëŠ” ê²½ìš° ê¸°ë³¸í™˜ê²½ì„¤ì •ì˜ ì ‘ê·¼ì°¨ë‹¨IPì™€ íšŒì›ì •ë³´ì˜ ì ‘ê·¼ì°¨ë‹¨ì— ëª¨ë‘ ë“±ë¡ë©ë‹ˆë‹¤.<br>
+* íšŒì›ë³„ëª… ì˜†ì˜ <font color='#ff0000'>*</font> í‘œì‹œëŠ” ì°¨ë‹¨ëœ íšŒì›ì„ì„ ë‚˜íƒ€ëƒ…ë‹ˆë‹¤. ë§ˆìš°ìŠ¤ ì˜¤ë²„ì‹œ ì°¨ë‹¨ì¼ìê°€ í‘œì‹œë©ë‹ˆë‹¤.
 </p>
 
 <form name="fsingo" method="post" action="" style="margin:0px;">
@@ -314,7 +314,7 @@ if ($stx)
 function singo_intercept(mb_id, ip) 
 {
     var f = document.fsingo;
-    if (confirm(ip+" : IP¸¦ Á¤¸» Â÷´Ü ÇÏ½Ã°Ú½À´Ï±î?")) {
+    if (confirm(ip+" : IPë¥¼ ì •ë§ ì°¨ë‹¨ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
         f.mb_id.value = mb_id;
         f.ip.value = ip;
         f.action = "singo_intercept.php";

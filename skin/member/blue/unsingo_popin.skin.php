@@ -1,10 +1,10 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 <div class="container">
 <div class="panel panel-default">
     <div class="panel-heading">
-    <strong>½Å°íÇØÁ¦</strong>
+    <strong>ì‹ ê³ í•´ì œ</strong>
     </div>
     <div class="panel-body">
         <form name="fsingo" method="post" action="unsingo_popin_update.php" role="form" class="form-inline">
@@ -14,29 +14,29 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
 
         <table class="table table-hover" width=100%>
         <tr class="success">
-            <td class="col-sm-2">Á¦¸ñ</td>
+            <td class="col-sm-2">ì œëª©</td>
             <td><?=get_text(cut_str($wr_subject, 255))?></td>
         </tr>
         <tr>
-            <td>ÇØÁ¦»çÀ¯</td>
+            <td>í•´ì œì‚¬ìœ </td>
             <td>
-                <input class="form-control" type="text" name="unsg_reason" required itemname='½Å°íÇØÁ¦ÀÌÀ¯' placeholder="½Å°íÇØÁ¦ ¿äÃ» »çÀ¯">
+                <input class="form-control" type="text" name="unsg_reason" required itemname='ì‹ ê³ í•´ì œì´ìœ ' placeholder="ì‹ ê³ í•´ì œ ìš”ì²­ ì‚¬ìœ ">
             </td>
         </tr>
         </table>
         
         <div class="well">
-           ½Å°í°¡ »çÀ¯°¡ ºÎ´çÇÏ´Ù°í ÆÇ´ÜµÇ´Â °æ¿ì ½Å°íÇØÁ¦¸¦ ÇÒ ¼ö ÀÖ½À´Ï´Ù.<br>
-           ½Å°í¸¦ ÇØÁ¦ÇÏ°Ô µÈ ÀÌÀ¯¸¦ ÀÚ¼¼È÷ ½áÁÖ½Ã¸é ¿î¿µÀÚÀÇ °ü·Ã °áÁ¤¿¡ µµ¿òÀÌ µË´Ï´Ù.<br>
+           ì‹ ê³ ê°€ ì‚¬ìœ ê°€ ë¶€ë‹¹í•˜ë‹¤ê³  íŒë‹¨ë˜ëŠ” ê²½ìš° ì‹ ê³ í•´ì œë¥¼ í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.<br>
+           ì‹ ê³ ë¥¼ í•´ì œí•˜ê²Œ ëœ ì´ìœ ë¥¼ ìžì„¸ížˆ ì¨ì£¼ì‹œë©´ ìš´ì˜ìžì˜ ê´€ë ¨ ê²°ì •ì— ë„ì›€ì´ ë©ë‹ˆë‹¤.<br>
            <? if ($config[cf_singo_point_send]) { ?>
-           <BR>½Å°íÇØÁ¦¸¦ ½ÅÃ»ÇÏ´Â È¸¿øÀº <?=$config[cf_singo_point_send]?> Æ÷ÀÎÆ®°¡ Â÷°¨µË´Ï´Ù.
+           <BR>ì‹ ê³ í•´ì œë¥¼ ì‹ ì²­í•˜ëŠ” íšŒì›ì€ <?=$config[cf_singo_point_send]?> í¬ì¸íŠ¸ê°€ ì°¨ê°ë©ë‹ˆë‹¤.
            <? } ?>
         </div>
 
         <div class="container pull-right" style="display:inline-block;text-align:center;">
-            <button type="submit" class="btn btn-default">È®ÀÎ</button>
+            <button type="submit" class="btn btn-default">í™•ì¸</button>
             &nbsp;&nbsp;
-            <a class="btn btn-default" href="javascript:window.close();" >´Ý±â</a>
+            <a class="btn btn-default" href="javascript:window.close();" >ë‹«ê¸°</a>
         </div>
 
         </form>

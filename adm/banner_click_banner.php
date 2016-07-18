@@ -4,7 +4,7 @@ include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "r");
 
-$g4[title] = "¹è³Êº° ¹è³ÊÅ¬¸¯ÇöÈ²";
+$g4[title] = "ë°°ë„ˆë³„ ë°°ë„ˆí´ë¦­í˜„í™©";
 include_once("./admin.head.php");
 include_once("./banner.sub.php");
 
@@ -21,11 +21,11 @@ else
 <colgroup width=100>
 <colgroup width=''>
 <tr class="success">
-    <td>¼øÀ§</td>
-    <td>¹è³ÊID</td>
-    <td>Å¬¸¯¼ö</td>
-    <td>ºñÀ²(%)</td>
-    <td>±×·¡ÇÁ</td>
+    <td>ìˆœìœ„</td>
+    <td>ë°°ë„ˆID</td>
+    <td>í´ë¦­ìˆ˜</td>
+    <td>ë¹„ìœ¨(%)</td>
+    <td>ê·¸ë˜í”„</td>
 </tr>
 <?
 $max = 0;
@@ -77,12 +77,12 @@ if (count($arr)) {
 
     echo "
     <tr>
-        <td colspan=2>ÇÕ°è</td>
+        <td colspan=2>í•©ê³„</td>
         <td>$sum_count</td>
         <td colspan=2>&nbsp;</td>
     </tr>";
 } else {
-    echo "<tr><td colspan='5' height=100 align=center>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='5' height=100 align=center>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 }
 ?>
 </table>

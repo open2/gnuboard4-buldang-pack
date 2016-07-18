@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // ∞≥∫∞ ∆‰¿Ã¡ˆ ¡¢±Ÿ ∫“∞° 
+if (!defined("_GNUBOARD_")) exit; // Í∞úÎ≥Ñ ÌéòÏù¥ÏßÄ Ï†ëÍ∑º Î∂àÍ∞Ä 
 ?>
 
 <table border=0 cellpadding=4 align=center width=100%>
@@ -68,17 +68,17 @@ if (!defined("_GNUBOARD_")) exit; // ∞≥∫∞ ∆‰¿Ã¡ˆ ¡¢±Ÿ ∫“∞°
                                 echo "<script language='JavaScript'>document.getElementById('id$i$k').style.color='$sunday_color';</script>";
                         }
                         
-                        // ø¿¥√¿Ã∂Û∏È
+                        // Ïò§ÎäòÏù¥ÎùºÎ©¥
                         if ($today[year] == $yyyy && $today[mon] == $mm && $today[mday] == $day)
                         {
                             echo "<script language='JavaScript'>document.getElementById('id$i$k').style.backgroundColor='$today_bgcolor';</script>";
-                            echo "<script language='JavaScript'>document.getElementById('id$i$k').title+='[ø¿¥√]';</script>";
+                            echo "<script language='JavaScript'>document.getElementById('id$i$k').title+='[Ïò§Îäò]';</script>";
                         }
-                        // º±≈√¿œ(≥—æÓø¬ ∞™) ¿Ã∂Û∏È
+                        // ÏÑ†ÌÉùÏùº(ÎÑòÏñ¥Ïò® Í∞í) Ïù¥ÎùºÎ©¥
                         else if ($tmp_date == $cur_date)
                         {
                             echo "<script language='JavaScript'>document.getElementById('id$i$k').style.backgroundColor='$select_bgcolor';</script>";
-                            echo "<script language='JavaScript'>document.getElementById('id$i$k').title+='[º±≈√¿œ]';</script>";
+                            echo "<script language='JavaScript'>document.getElementById('id$i$k').title+='[ÏÑ†ÌÉùÏùº]';</script>";
                         }
                     } else
                         echo "&nbsp;";
@@ -98,7 +98,7 @@ if (!defined("_GNUBOARD_")) exit; // ∞≥∫∞ ∆‰¿Ã¡ˆ ¡¢±Ÿ ∫“∞°
     <td align=center height=30>
         <span style='background-color:<?=$today_bgcolor?>;'>
         <?="<a href=\"javascript:date_send('{$today[year]}', '{$mon}', '{$mday}', '{$today[wday]}', '{$yoil[$today[wday]]}');\">";?>
-        ø¿¥√ : <?="{$today[year]}≥‚ {$today[mon]}ø˘ {$today[mday]}¿œ ({$yoil[$today[wday]]})";?></a>
+        Ïò§Îäò : <?="{$today[year]}ÎÖÑ {$today[mon]}Ïõî {$today[mday]}Ïùº ({$yoil[$today[wday]]})";?></a>
         </span></td>
 </tr>
 </form>

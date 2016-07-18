@@ -1,7 +1,7 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-// °Ô½ÃÆÇ¿¡¼­ µÎ´Ü¾î ÀÌ»ó °Ë»ö ÈÄ °Ë»öµÈ °Ô½Ã¹°¿¡ ÄÚ¸àÆ®¸¦ ³²±â¸é ³ª¿À´ø ¿À·ù ¼öÁ¤
+// ê²Œì‹œíŒì—ì„œ ë‘ë‹¨ì–´ ì´ìƒ ê²€ìƒ‰ í›„ ê²€ìƒ‰ëœ ê²Œì‹œë¬¼ì— ì½”ë©˜íŠ¸ë¥¼ ë‚¨ê¸°ë©´ ë‚˜ì˜¤ë˜ ì˜¤ë¥˜ ìˆ˜ì •
 $sop = strtolower($sop);
 if ($sop != "and" && $sop != "or")
     $sop = "and";
@@ -10,9 +10,9 @@ if (file_exists("$board_skin_path/view.head.skin.php"))
     @include_once("$board_skin_path/view.head.skin.php");
 
 $sql_search = "";
-// °Ë»öÀÌ¸é
+// ê²€ìƒ‰ì´ë©´
 if ($sca || $stx) {
-    // where ¹®À» ¾òÀ½
+    // where ë¬¸ì„ ì–»ìŒ
     $sql_search = get_sql_search($sca, $sfl, $stx, $sop);
     $search_href = "$g4[path]/$bo_table?page=$page" . $qstr;
     $list_href = "$g4[path]/$bo_table?" . $mstr;
@@ -25,23 +25,23 @@ if (!$board['bo_use_list_view']) {
     if ($sql_search)
         $sql_search = " and " . $sql_search;
 
-    // À­±ÛÀ» ¾òÀ½
-    // ºÒ´çÆÑ - tmp tableÀ» ¸¸µé°í, °Å±â¼­ ÇÑÆÇ ´õ µ¹¸®´Â°Ô ºü¸£´Ù. $sql_search´Â index¸¦ ¾ÈÅ¸´Ï±î...
-    // ÆÀÀåÃ³·³ create temporaty tableÀÇ ±ÇÇÑÀ» ¾ÈÁÖ´Â °æ¿ì, config.php¿¡¼­ $g4['old_stype_search'] ¼³Á¤°ªÀ» 1·Î.
+    // ìœ—ê¸€ì„ ì–»ìŒ
+    // ë¶ˆë‹¹íŒ© - tmp tableì„ ë§Œë“¤ê³ , ê±°ê¸°ì„œ í•œíŒ ë” ëŒë¦¬ëŠ”ê²Œ ë¹ ë¥´ë‹¤. $sql_searchëŠ” indexë¥¼ ì•ˆíƒ€ë‹ˆê¹Œ...
+    // íŒ€ì¥ì²˜ëŸ¼ create temporaty tableì˜ ê¶Œí•œì„ ì•ˆì£¼ëŠ” ê²½ìš°, config.phpì—ì„œ $g4['old_stype_search'] ì„¤ì •ê°’ì„ 1ë¡œ.
     if ($g4['old_stype_search']) {
         if ($write['wr_reply']) {
-            // ´ä±ÛÀÏ ¶§. ´ä±ÛÀÌ ¾Æ´Ò ¶§´Â µ¹·ÁºÁ¾ß ´äÀÌ ¾ø½À´Ï´Ù.
+            // ë‹µê¸€ì¼ ë•Œ. ë‹µê¸€ì´ ì•„ë‹ ë•ŒëŠ” ëŒë ¤ë´ì•¼ ë‹µì´ ì—†ìŠµë‹ˆë‹¤.
             $sql = " select wr_id, wr_subject from $write_table where wr_is_comment = 0 and wr_num = '$write[wr_num]' and wr_reply < '$write[wr_reply]' $sql_search order by wr_num desc, wr_reply desc limit 1 ";
             $prev = sql_fetch($sql);
         }
-        // À§ÀÇ Äõ¸®¹®À¸·Î °ªÀ» ¾òÁö ¸øÇß´Ù¸é
+        // ìœ„ì˜ ì¿¼ë¦¬ë¬¸ìœ¼ë¡œ ê°’ì„ ì–»ì§€ ëª»í–ˆë‹¤ë©´
         if (!$prev['wr_id'])     {
             $sql = " select wr_id, wr_subject from $write_table where wr_is_comment = 0 and wr_num < '$write[wr_num]' $sql_search order by wr_num desc, wr_reply desc limit 1 ";
             $prev = sql_fetch($sql);
         }
     } else {
         if ($write['wr_reply']) {
-            // ´ä±ÛÀÏ ¶§. ´ä±ÛÀÌ ¾Æ´Ò ¶§´Â µ¹·ÁºÁ¾ß ´äÀÌ ¾ø½À´Ï´Ù.
+            // ë‹µê¸€ì¼ ë•Œ. ë‹µê¸€ì´ ì•„ë‹ ë•ŒëŠ” ëŒë ¤ë´ì•¼ ë‹µì´ ì—†ìŠµë‹ˆë‹¤.
             $sql = " select * from $write_table where wr_is_comment = 0 and wr_num = '$write[wr_num]' and wr_reply < '$write[wr_reply]' ";
             $sql_tmp = " create TEMPORARY table view_tmp_prev as $sql ";
             $sql_ord = " select wr_id, wr_subject from view_tmp_prev where 1 $sql_search order by wr_num desc, wr_reply desc limit 1 ";
@@ -50,7 +50,7 @@ if (!$board['bo_use_list_view']) {
             $result = @mysql_query($sql_ord) or die("<p>$sql_ord<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : $_SERVER[PHP_SELF]");
             $prev = @mysql_fetch_assoc($result);
         }
-        // À§ÀÇ Äõ¸®¹®À¸·Î °ªÀ» ¾òÁö ¸øÇß´Ù¸é
+        // ìœ„ì˜ ì¿¼ë¦¬ë¬¸ìœ¼ë¡œ ê°’ì„ ì–»ì§€ ëª»í–ˆë‹¤ë©´
         if (!$prev['wr_id'])     {
             $sql = " select * from $write_table where wr_is_comment = 0 and wr_num < '$write[wr_num]' ";
             $sql_tmp = " create TEMPORARY table view_tmp_prev1 as $sql ";
@@ -62,23 +62,23 @@ if (!$board['bo_use_list_view']) {
         }
     }
 
-    // ¾Æ·¡±ÛÀ» ¾òÀ½
-    // ºÒ´çÆÑ - tmp tableÀ» ¸¸µé°í, °Å±â¼­ ÇÑÆÇ ´õ µ¹¸®´Â°Ô ºü¸£´Ù. $sql_search´Â index¸¦ ¾ÈÅ¸´Ï±î...
-    // ÆÀÀåÃ³·³ create temporaty tableÀÇ ±ÇÇÑÀ» ¾ÈÁÖ´Â °æ¿ì, config.php¿¡¼­ $g4['old_stype_search'] ¼³Á¤°ªÀ» 1·Î.
+    // ì•„ë˜ê¸€ì„ ì–»ìŒ
+    // ë¶ˆë‹¹íŒ© - tmp tableì„ ë§Œë“¤ê³ , ê±°ê¸°ì„œ í•œíŒ ë” ëŒë¦¬ëŠ”ê²Œ ë¹ ë¥´ë‹¤. $sql_searchëŠ” indexë¥¼ ì•ˆíƒ€ë‹ˆê¹Œ...
+    // íŒ€ì¥ì²˜ëŸ¼ create temporaty tableì˜ ê¶Œí•œì„ ì•ˆì£¼ëŠ” ê²½ìš°, config.phpì—ì„œ $g4['old_stype_search'] ì„¤ì •ê°’ì„ 1ë¡œ.
     if ($g4['old_stype_search']) {
         if ($write['wr_reply']) {
-            // ´ä±ÛÀÏ ¶§. ´ä±ÛÀÌ ¾Æ´Ò ¶§´Â µ¹·ÁºÁ¾ß ´äÀÌ ¾ø½À´Ï´Ù.
+            // ë‹µê¸€ì¼ ë•Œ. ë‹µê¸€ì´ ì•„ë‹ ë•ŒëŠ” ëŒë ¤ë´ì•¼ ë‹µì´ ì—†ìŠµë‹ˆë‹¤.
             $sql = " select wr_id, wr_subject from $write_table where wr_is_comment = 0 and wr_num = '$write[wr_num]' and wr_reply > '$write[wr_reply]' $sql_search order by wr_num, wr_reply limit 1 ";
             $next = sql_fetch($sql);
         }
-        // À§ÀÇ Äõ¸®¹®À¸·Î °ªÀ» ¾òÁö ¸øÇß´Ù¸é
+        // ìœ„ì˜ ì¿¼ë¦¬ë¬¸ìœ¼ë¡œ ê°’ì„ ì–»ì§€ ëª»í–ˆë‹¤ë©´
         if (!$next['wr_id']) {
             $sql = " select wr_id, wr_subject from $write_table where wr_is_comment = 0 and wr_num > '$write[wr_num]' $sql_search order by wr_num, wr_reply limit 1 ";
             $next = sql_fetch($sql);
         }
     } else {
         if ($write['wr_reply']) {
-            // ´ä±ÛÀÏ ¶§. ´ä±ÛÀÌ ¾Æ´Ò ¶§´Â µ¹·ÁºÁ¾ß ´äÀÌ ¾ø½À´Ï´Ù.
+            // ë‹µê¸€ì¼ ë•Œ. ë‹µê¸€ì´ ì•„ë‹ ë•ŒëŠ” ëŒë ¤ë´ì•¼ ë‹µì´ ì—†ìŠµë‹ˆë‹¤.
             $sql = " select * from $write_table where wr_is_comment = 0 and wr_num = '$write[wr_num]' and wr_reply > '$write[wr_reply]' ";
             $sql_tmp = " create TEMPORARY table view_tmp_next as $sql ";
             $sql_ord = " select wr_id, wr_subject from view_tmp_next where 1 $sql_search order by wr_num, wr_reply limit 1 ";
@@ -87,7 +87,7 @@ if (!$board['bo_use_list_view']) {
             $result = @mysql_query($sql_ord) or die("<p>$sql_ord<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : $_SERVER[PHP_SELF]");
             $next = @mysql_fetch_assoc($result);
         }
-        // À§ÀÇ Äõ¸®¹®À¸·Î °ªÀ» ¾òÁö ¸øÇß´Ù¸é
+        // ìœ„ì˜ ì¿¼ë¦¬ë¬¸ìœ¼ë¡œ ê°’ì„ ì–»ì§€ ëª»í–ˆë‹¤ë©´
         if (!$next['wr_id'])     {
             $sql = " select * from $write_table where wr_is_comment = 0 and wr_num > '$write[wr_num]' ";
             $sql_tmp = " create TEMPORARY table view_tmp_next1 as $sql ";
@@ -100,33 +100,33 @@ if (!$board['bo_use_list_view']) {
     }
 }
 
-// ÀÌÀü±Û ¸µÅ©
+// ì´ì „ê¸€ ë§í¬
 $prev_href = "";
 if ($prev[wr_id]) {
     $prev_wr_subject = get_text(cut_str($prev[wr_subject], 255));
     $prev_href = "$g4[bbs_path]/board.php?bo_table=$bo_table&wr_id=$prev[wr_id]&page=$page" . $qstr;
 }
 
-// ´ÙÀ½±Û ¸µÅ©
+// ë‹¤ìŒê¸€ ë§í¬
 $next_href = "";
 if ($next[wr_id]) {
     $next_wr_subject = get_text(cut_str($next[wr_subject], 255));
     $next_href = "$g4[bbs_path]/board.php?bo_table=$bo_table&wr_id=$next[wr_id]&page=$page" . $qstr;
 }
 
-// ¾²±â ¸µÅ©
+// ì“°ê¸° ë§í¬
 $write_href = "";
 //if ($member[mb_level] >= $board[bo_write_level])
     $write_href = "$g4[bbs_path]/write.php?bo_table=$bo_table" . $mstr;
 
-// ´äº¯ ¸µÅ©
+// ë‹µë³€ ë§í¬
 $reply_href = "";
 if ($member[mb_level] >= $board[bo_reply_level])
     $reply_href = "$g4[bbs_path]/write.php?w=r&bo_table=$bo_table&wr_id=$wr_id" . $qstr;
 
-// ¼öÁ¤, »èÁ¦ ¸µÅ©
+// ìˆ˜ì •, ì‚­ì œ ë§í¬
 $update_href = $delete_href = "";
-// ·Î±×ÀÎÁßÀÌ°í ÀÚ½ÅÀÇ ±ÛÀÌ¶ó¸é ¶Ç´Â °ü¸®ÀÚ¶ó¸é ÆĞ½º¿öµå¸¦ ¹¯Áö ¾Ê°í ¹Ù·Î ¼öÁ¤, »èÁ¦ °¡´É
+// ë¡œê·¸ì¸ì¤‘ì´ê³  ìì‹ ì˜ ê¸€ì´ë¼ë©´ ë˜ëŠ” ê´€ë¦¬ìë¼ë©´ íŒ¨ìŠ¤ì›Œë“œë¥¼ ë¬»ì§€ ì•Šê³  ë°”ë¡œ ìˆ˜ì •, ì‚­ì œ ê°€ëŠ¥
 if (($member[mb_id] && ($member[mb_id] == $write[mb_id])) || $is_admin) {
     $update_href = "$g4[bbs_path]/write.php?w=u&bo_table=$bo_table&wr_id=$wr_id&page=$page" . $qstr;
     $delete_href = "javascript:del('$g4[bbs_path]/delete.php?bo_table=$bo_table&wr_id=$wr_id&page=$page".urldecode($qstr)."');";
@@ -136,19 +136,19 @@ if (($member[mb_id] && ($member[mb_id] == $write[mb_id])) || $is_admin) {
         $delete_href = "javascript:del('$g4[bbs_path]/delete.php?bo_table=$bo_table&wr_id=$wr_id&token=$token&page=$page".urldecode($qstr)."');";
     }
 }
-else if (!$write[mb_id]) { // È¸¿øÀÌ ¾´ ±ÛÀÌ ¾Æ´Ï¶ó¸é
+else if (!$write[mb_id]) { // íšŒì›ì´ ì“´ ê¸€ì´ ì•„ë‹ˆë¼ë©´
     $update_href = "$g4[bbs_path]/password.php?w=u&bo_table=$bo_table&wr_id=$wr_id&page=$page" . $qstr;
     $delete_href = "$g4[bbs_path]/password.php?w=d&bo_table=$bo_table&wr_id=$wr_id&page=$page" . $qstr;
 }
 
-// ÃÖ°í, ±×·ì°ü¸®ÀÚ¶ó¸é ±Û º¹»ç, ÀÌµ¿ °¡´É
+// ìµœê³ , ê·¸ë£¹ê´€ë¦¬ìë¼ë©´ ê¸€ ë³µì‚¬, ì´ë™ ê°€ëŠ¥
 $copy_href = $move_href = "";
 if ($write[wr_reply] == "" && ($is_admin == "super" || $is_admin == "group")) {
     $copy_href = "javascript:win_open('$g4[bbs_path]/move.php?sw=copy&bo_table=$bo_table&wr_id=$wr_id&page=$page".$qstr."', 'boardcopy', 'left=50, top=50, width=500, height=550, scrollbars=1');";
     $move_href = "javascript:win_open('$g4[bbs_path]/move.php?sw=move&bo_table=$bo_table&wr_id=$wr_id&page=$page".$qstr."', 'boardmove', 'left=50, top=50, width=500, height=550, scrollbars=1');";
 }
 
-// °Ô½Ã±Û ´ëÇÇ±â´É
+// ê²Œì‹œê¸€ ëŒ€í”¼ê¸°ëŠ¥
 if ($board['bo_move_bo_table'] && $write['mb_id'] == $member['mb_id'] && $is_amin != 'super' && $is_admin != 'group') {
     $move_href = "javascript:move('$g4[bbs_path]/move2_update.php?bo_table=$bo_table&wr_id=$wr_id&page=$page".$qstr."');";;
 }
@@ -157,42 +157,42 @@ $scrap_href = "";
 $good_href = "";
 $nogood_href = "";
 if ($member[mb_id]) {
-    // ½ºÅ©·¦ ¸µÅ©
+    // ìŠ¤í¬ë© ë§í¬
     $scrap_href = "$g4[bbs_path]/scrap_popin.php?bo_table=$bo_table&wr_id=$wr_id";
 
-    // ÃßÃµ ¸µÅ©
+    // ì¶”ì²œ ë§í¬
     if ($board[bo_use_good])
         $good_href = "$g4[bbs_path]/good.php?bo_table=$bo_table&wr_id=$wr_id&good=good" . $mstr;
 
-    // ºñÃßÃµ ¸µÅ©
+    // ë¹„ì¶”ì²œ ë§í¬
     if ($board[bo_use_nogood])
         $nogood_href = "$g4[bbs_path]/good.php?bo_table=$bo_table&wr_id=$wr_id&good=nogood" . $mstr;
 }
 
 $view = get_view($write, $board, $board_skin_path, 255);
 
-// °Ô½Ã±Û Àá±İ °¡´ÉÇÏ°Ô - ºÒ´çÆÑ : ¹èÃß´ÔÀÇ ÆÁ (°ü¸®ÀÚ ¶Ç´Â °Ô½Ã±Û ÀÛ¼ºÀÚ¸¸ °¡´ÉÇÏ°Ô)
+// ê²Œì‹œê¸€ ì ê¸ˆ ê°€ëŠ¥í•˜ê²Œ - ë¶ˆë‹¹íŒ© : ë°°ì¶”ë‹˜ì˜ íŒ (ê´€ë¦¬ì ë˜ëŠ” ê²Œì‹œê¸€ ì‘ì„±ìë§Œ ê°€ëŠ¥í•˜ê²Œ)
 if ($is_admin || ($member["mb_id"] && $member["mb_id"] == $view["mb_id"])) { 
     if (strstr($view[wr_option], "secret")) { 
-        // Àá±İ ÇØÁ¦ ¹öÆ°
-        $nosecret_href = "javascript:post_submit('$g4[bbs_path]/proc/mw.btn.secret.php?page=$page$qstr','$bo_table','$wr_id', '', 'no', '°Ô½Ã±Û Àá±İÇØÁ¦')";
+        // ì ê¸ˆ í•´ì œ ë²„íŠ¼
+        $nosecret_href = "javascript:post_submit('$g4[bbs_path]/proc/mw.btn.secret.php?page=$page$qstr','$bo_table','$wr_id', '', 'no', 'ê²Œì‹œê¸€ ì ê¸ˆí•´ì œ')";
     } else { 
-        // Àá±İ ¹öÆ°
-        $secret_href = "javascript:post_submit('$g4[bbs_path]/proc/mw.btn.secret.php?page=$page$qstr','$bo_table','$wr_id', '', '', '°Ô½Ã±Û Àá±İ')";
+        // ì ê¸ˆ ë²„íŠ¼
+        $secret_href = "javascript:post_submit('$g4[bbs_path]/proc/mw.btn.secret.php?page=$page$qstr','$bo_table','$wr_id', '', '', 'ê²Œì‹œê¸€ ì ê¸ˆ')";
     }
 }
 
-// °Ô½Ã±Û ¾÷µ¥ÀÌÆ® ³¯Â¥¸¦ Áö±İÀ¸·Î - ºÒ´çÆÑ : ¹èÃß´ÔÀÇ ÆÁ (°ü¸®ÀÚ¸¸ °¡´ÉÇÏ°Ô)
+// ê²Œì‹œê¸€ ì—…ë°ì´íŠ¸ ë‚ ì§œë¥¼ ì§€ê¸ˆìœ¼ë¡œ - ë¶ˆë‹¹íŒ© : ë°°ì¶”ë‹˜ì˜ íŒ (ê´€ë¦¬ìë§Œ ê°€ëŠ¥í•˜ê²Œ)
 if ($is_admin) {
-    $now_href = "javascript:post_submit('$g4[bbs_path]/proc/mw.time.now.php?page=$page$qstr','$bo_table','$wr_id', '', '', '°Ô½Ã±Û ³¯Â¥ ¾÷µ¥ÀÌÆ®ÇÏ±â')";
+    $now_href = "javascript:post_submit('$g4[bbs_path]/proc/mw.time.now.php?page=$page$qstr','$bo_table','$wr_id', '', '', 'ê²Œì‹œê¸€ ë‚ ì§œ ì—…ë°ì´íŠ¸í•˜ê¸°')";
 }
   
-// ½Å°í ¸µÅ© - ÄÚ¸àÆ® ¾²±â ±ÇÇÑÀÌ ÀÖ´Â »ç¶÷¿¡°Ô¸¸ º¸ÀÌ°Ô
+// ì‹ ê³  ë§í¬ - ì½”ë©˜íŠ¸ ì“°ê¸° ê¶Œí•œì´ ìˆëŠ” ì‚¬ëŒì—ê²Œë§Œ ë³´ì´ê²Œ
 $singo_href = "";
 if ($board[bo_singo] && $write_href && $member[mb_id] != $write[mb_id] && $member['mb_level'] >= $config['cf_singo_level'])
     $singo_href = "$g4[bbs_path]/singo_popin.php?bo_table=$bo_table&wr_id=$wr_id&wr_parent=$wr_id" . $mstr;
 
-// ½Å°íÇØÁö ¸µÅ©
+// ì‹ ê³ í•´ì§€ ë§í¬
 $unsingo_href = "";
 if ($board[bo_singo] && $view[wr_singo] && $member[mb_id] != $write[mb_id] && $member['mb_level'] >= $board['bo_comment_level'])
     $unsingo_href = "$g4[bbs_path]/unsingo_popin.php?bo_table=$bo_table&wr_id=$wr_id&wr_parent=$wr_id" . $mstr;
@@ -206,13 +206,13 @@ if (strstr($view[wr_option], "html1"))
 else if (strstr($view[wr_option], "html2"))
     $html = 2;
 
-// ºñ¹Ğ±Û - ³²ÀÌ ¾´ ºñ¹Ğ±Û¿¡ ³» ÄÚ¸àÆ®°¡ ÀÖÀ» ¶§  
+// ë¹„ë°€ê¸€ - ë‚¨ì´ ì“´ ë¹„ë°€ê¸€ì— ë‚´ ì½”ë©˜íŠ¸ê°€ ìˆì„ ë•Œ  
 if ($is_unlock_secret && strstr($view[wr_option], "secret") && $view['mb_id'] !== $member['mb_id']) {
-    // ³»¿ëÀÌ º¸ÀÌÁö ¾Ê°Ô
-    $view[rich_content] = $view[content] = $view[content1] = "<font color=red><b>Å¸ÀÎÀÌ ÀÛ¼ºÇÑ ºñ¹Ğ±Û ÀÔ´Ï´Ù.</b></font>";
-    // Ã·ºÎÆÄÀÏÀÌ º¸ÀÌÁö ¾Ê°Ô
+    // ë‚´ìš©ì´ ë³´ì´ì§€ ì•Šê²Œ
+    $view[rich_content] = $view[content] = $view[content1] = "<font color=red><b>íƒ€ì¸ì´ ì‘ì„±í•œ ë¹„ë°€ê¸€ ì…ë‹ˆë‹¤.</b></font>";
+    // ì²¨ë¶€íŒŒì¼ì´ ë³´ì´ì§€ ì•Šê²Œ
     $view[file] = array();
-    // ¸µÅ©°¡ º¸ÀÌÁö ¾Ê°Ô
+    // ë§í¬ê°€ ë³´ì´ì§€ ì•Šê²Œ
     $view[link] = array();
 } else {
 
@@ -222,32 +222,32 @@ if (strstr($sfl, "content"))
 $view[content] = preg_replace("/(\<img )([^\>]*)(\>)/i", "\\1 name='target_resize_image[]' onclick='image_window(this)' class='pointer' alt='' \\2 \\3", $view[content]);
 
 //$view[rich_content] = preg_replace("/{img\:([0-9]+)[:]?([^}]*)}/ie", "view_image(\$view, '\\1', '\\2')", $view[content]);
-$view[rich_content] = preg_replace("/{ÀÌ¹ÌÁö\:([0-9]+)[:]?([^}]*)}/ie", "view_image(\$view, '\\1', '\\2')", $view[content]);
+$view[rich_content] = preg_replace("/{ì´ë¯¸ì§€\:([0-9]+)[:]?([^}]*)}/ie", "view_image(\$view, '\\1', '\\2')", $view[content]);
 
 $singo = "";
 if ($write[wr_singo] and $board[bo_singo_action] > 0 and $write[wr_singo] >= $board[bo_singo_action])
 {
-    $singo .= "<div id='singo_title{$view[wr_id]}' class='singo_title'><font color=gray>½Å°í°¡ Á¢¼öµÈ °Ô½Ã¹°ÀÔ´Ï´Ù. ";
+    $singo .= "<div id='singo_title{$view[wr_id]}' class='singo_title'><font color=gray>ì‹ ê³ ê°€ ì ‘ìˆ˜ëœ ê²Œì‹œë¬¼ì…ë‹ˆë‹¤. ";
     //$singo .= "<a href='javascript:;' onclick=\"document.getElementById('singo_contents{$view[wr_id]}').style.display=(document.getElementById('singo_contents{$view[wr_id]}').style.display=='none'?'':'none');\">";
-    //$singo .= "<span class='singo_here'>¿©±â</span></a>¸¦ Å¬¸¯ÇÏ½Ã¸é ³»¿ëÀ» º¼ ¼ö ÀÖ½À´Ï´Ù.</div>";
-    $singo .= "<span class='singo_here' style='cursor:pointer;font-weight:bold;' onclick=\"document.getElementById('singo_contents{$view[wr_id]}').style.display=(document.getElementById('singo_contents{$view[wr_id]}').style.display=='none'?'':'none');\"><font color=red>¿©±â</font></span>¸¦ Å¬¸¯ÇÏ½Ã¸é ³»¿ëÀ» º¼ ¼ö ÀÖ½À´Ï´Ù.</font></div>";
+    //$singo .= "<span class='singo_here'>ì—¬ê¸°</span></a>ë¥¼ í´ë¦­í•˜ì‹œë©´ ë‚´ìš©ì„ ë³¼ ìˆ˜ ìˆìŠµë‹ˆë‹¤.</div>";
+    $singo .= "<span class='singo_here' style='cursor:pointer;font-weight:bold;' onclick=\"document.getElementById('singo_contents{$view[wr_id]}').style.display=(document.getElementById('singo_contents{$view[wr_id]}').style.display=='none'?'':'none');\"><font color=red>ì—¬ê¸°</font></span>ë¥¼ í´ë¦­í•˜ì‹œë©´ ë‚´ìš©ì„ ë³¼ ìˆ˜ ìˆìŠµë‹ˆë‹¤.</font></div>";
 
-    // ½Å°íÀÌÀ¯ÀÇ Ãâ·Â ¿©ºÎ¸¦ °áÁ¤ (singo_popin.skin.php¿¡¼­ Ãâ·Â¿©ºÎ¸¦ ÆÇ´ÜÇÏ¸é »ç¿ëÀÚ°¡ ¼±ÅÃÈÄ °ªÀ» º¯°æÇÒ ¼ö ÀÖ±â ¶§¹®ÀÓ)
-    // Ç¥ÁØ ½Å°íÀÌÀ¯¸¸ Ãâ·ÂÇÏ´Â °ÍÀÌ ¿øÄ¢. ±×·¸Áö ¾ÊÀº °æ¿ì ½Å°í±â´ÉÀ» Å¸ÀÎÀÇ ºñ¹æ¿¡ »ç¿ëÇÒ ¼ö ÀÖ±â ¶§¹®ÀÔ´Ï´Ù.
-    // Ç¥ÁØ ½Å°íÀÌ´õ¶óµµ. sg_print = 1ÀÎ °æ¿ì¸¸ Ãâ·Â ÇÕ´Ï´Ù.
+    // ì‹ ê³ ì´ìœ ì˜ ì¶œë ¥ ì—¬ë¶€ë¥¼ ê²°ì • (singo_popin.skin.phpì—ì„œ ì¶œë ¥ì—¬ë¶€ë¥¼ íŒë‹¨í•˜ë©´ ì‚¬ìš©ìê°€ ì„ íƒí›„ ê°’ì„ ë³€ê²½í•  ìˆ˜ ìˆê¸° ë•Œë¬¸ì„)
+    // í‘œì¤€ ì‹ ê³ ì´ìœ ë§Œ ì¶œë ¥í•˜ëŠ” ê²ƒì´ ì›ì¹™. ê·¸ë ‡ì§€ ì•Šì€ ê²½ìš° ì‹ ê³ ê¸°ëŠ¥ì„ íƒ€ì¸ì˜ ë¹„ë°©ì— ì‚¬ìš©í•  ìˆ˜ ìˆê¸° ë•Œë¬¸ì…ë‹ˆë‹¤.
+    // í‘œì¤€ ì‹ ê³ ì´ë”ë¼ë„. sg_print = 1ì¸ ê²½ìš°ë§Œ ì¶œë ¥ í•©ë‹ˆë‹¤.
     $sql = " select distinct a.sg_reason, b.sg_print from $g4[singo_table] a, $g4[singo_reason_table] b where a.bo_table = '$bo_table' and a.wr_id = '$wr_id' and a.sg_reason = b.sg_reason order by a.sg_id ";
     $sg_result = sql_query($sql);
         
     $sg_reason = "";
     for ($i=0; $sg_row = sql_fetch_array($sg_result); $i++) {
 
-        // sg_print = 1 : »çÀ¯¸¦ Ãâ·Â
+        // sg_print = 1 : ì‚¬ìœ ë¥¼ ì¶œë ¥
         if ($sg_row['sg_print'] > 0)
             $sg_reason .= $sg_row['sg_reason'] . "/" ;
     }
             
     if ($sg_reason)
-        $singo .= "<font color=gray>½Å°íÀÌÀ¯´Â \" $sg_reason \" ÀÔ´Ï´Ù</font>";
+        $singo .= "<font color=gray>ì‹ ê³ ì´ìœ ëŠ” \" $sg_reason \" ì…ë‹ˆë‹¤</font>";
 
     $singo .= "<div id='singo_contents{$view[wr_id]}' style='display:none;'><p>";
     $singo .= $view[content];
@@ -256,28 +256,28 @@ if ($write[wr_singo] and $board[bo_singo_action] > 0 and $write[wr_singo] >= $bo
     $view[content] = $singo;
 }
 
-} // ºñ¹Ğ±Û - ³²ÀÌ ¾´ ºñ¹Ğ±Û¿¡ ³» ÄÚ¸àÆ®°¡ ÀÖÀ» ¶§ 
+} // ë¹„ë°€ê¸€ - ë‚¨ì´ ì“´ ë¹„ë°€ê¸€ì— ë‚´ ì½”ë©˜íŠ¸ê°€ ìˆì„ ë•Œ 
 
-// ºÒ´çÆÑ : °Ô½Ã±Û¾È¿¡ ÃßÃµ±â´É ½ºÅ©¸³Æ®¸¦ ³Ö´Â°Å ¹æÁö 
+// ë¶ˆë‹¹íŒ© : ê²Œì‹œê¸€ì•ˆì— ì¶”ì²œê¸°ëŠ¥ ìŠ¤í¬ë¦½íŠ¸ë¥¼ ë„£ëŠ”ê±° ë°©ì§€ 
 $view[content] = preg_replace("/good\=good/i", "good=nogood", $view[content]); 
 
-// ºÒ´çÆÑ : °úµµÇÑ ÀÌ¹ÌÁö size·Î ÀÎÇÑ Ãâ·ÂÁ¦ÇÑ - ¸¶Áö¸·¿¡ µĞ´Ù. À§¿¡ ÇÁ·Î¼¼½º´Â ÀÏ´Ü ¹«Á¶°Ç Á¤»ó. ÀÌ°Å´Â fortranÀÌ ¾Æ´Ï´Ï±î.
+// ë¶ˆë‹¹íŒ© : ê³¼ë„í•œ ì´ë¯¸ì§€ sizeë¡œ ì¸í•œ ì¶œë ¥ì œí•œ - ë§ˆì§€ë§‰ì— ë‘”ë‹¤. ìœ„ì— í”„ë¡œì„¸ìŠ¤ëŠ” ì¼ë‹¨ ë¬´ì¡°ê±´ ì •ìƒ. ì´ê±°ëŠ” fortranì´ ì•„ë‹ˆë‹ˆê¹Œ.
 if ($board[bo_image_max_size] && $view[wr_imagesize] > 0 && $view[wr_imagesize] > $board[bo_image_max_size]) {
-    $msg = "<font color=red><b>Ã·ºÎÆÄÀÏ°ú À¥ÆíÁı±â·Î ¿Ã¸° ÀÌ¹ÌÁöÀÇ ÇÕ°è°¡ " . number_format($board[bo_image_max_size]) . " kb¸¦ ÃÊ°úÇÑ " . number_format($view[wr_imagesize]) . " kb ÀÌ¹Ç·Î Ãâ·ÂÇÒ ¼ö ¾ø½À´Ï´Ù.<br>ÀÌ¹ÌÁö¸¦ ÁÙ¿©ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.<br></b></font>";
+    $msg = "<font color=red><b>ì²¨ë¶€íŒŒì¼ê³¼ ì›¹í¸ì§‘ê¸°ë¡œ ì˜¬ë¦° ì´ë¯¸ì§€ì˜ í•©ê³„ê°€ " . number_format($board[bo_image_max_size]) . " kbë¥¼ ì´ˆê³¼í•œ " . number_format($view[wr_imagesize]) . " kb ì´ë¯€ë¡œ ì¶œë ¥í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.<br>ì´ë¯¸ì§€ë¥¼ ì¤„ì—¬ì£¼ì‹œê¸° ë°”ëë‹ˆë‹¤.<br></b></font>";
     if (($member[mb_id] && ($member[mb_id] == $view[mb_id]) || $is_admin))
         $view[content] = $msg . $view[content];
     else  {
-        // count°¡ 0ÀÌ¸é for loop°¡ ¼öÇàµÈ´Ù.
+        // countê°€ 0ì´ë©´ for loopê°€ ìˆ˜í–‰ëœë‹¤.
         $view[file][count] = -1;
-        // ½Å°í ÀÌ¹ÌÁöÁ¤º¸µµ ¾È³ª¿À°Ô Â÷´Ü
+        // ì‹ ê³  ì´ë¯¸ì§€ì •ë³´ë„ ì•ˆë‚˜ì˜¤ê²Œ ì°¨ë‹¨
         $view['wr_singo'] = false;
-        // ³»¿ë¿¡´Â °æ°í¹®¸¸
+        // ë‚´ìš©ì—ëŠ” ê²½ê³ ë¬¸ë§Œ
         $view[content] = $msg;
     }
 }
 
 
-// ºÒ´çÆÑ - °Ô½Ã±ÛÁÖ¼Ò
+// ë¶ˆë‹¹íŒ© - ê²Œì‹œê¸€ì£¼ì†Œ
 $posting_url = "$g4[url]/$bo_table/$wr_id";
 
 $is_signature = false;
@@ -293,7 +293,7 @@ if ($board[bo_use_signature] && $view[mb_id])
     }
 
     //$signature = bad_tag_convert($signature);
-    // 081022 : CSRF º¸¾È °áÇÔÀ¸·Î ÀÎÇÑ ÄÚµå ¼öÁ¤
+    // 081022 : CSRF ë³´ì•ˆ ê²°í•¨ìœ¼ë¡œ ì¸í•œ ì½”ë“œ ìˆ˜ì •
     $signature = conv_content($signature, 1);
 }
 

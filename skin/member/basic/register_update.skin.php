@@ -1,19 +1,19 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-// ÇÚµåÆù ¹øÈ£¿Í ÀÎÁõ¹øÈ£°¡ °°ÀÌ ³Ñ¾î ¿Ô´Ù¸é 
+// í•¸ë“œí° ë²ˆí˜¸ì™€ ì¸ì¦ë²ˆí˜¸ê°€ ê°™ì´ ë„˜ì–´ ì™”ë‹¤ë©´ 
 $mb_hp_certify_datetime = "0000-00-00 00:00:00"; 
 if ($mb_hp && $mb_hp_certify) { 
-    // ÀÎÁõ¹øÈ£°¡ °°´Ù¸é 
+    // ì¸ì¦ë²ˆí˜¸ê°€ ê°™ë‹¤ë©´ 
     if (get_session("ss_hp_certify_number") == $mb_hp_certify) { 
-        $mb_hp_certify_datetime = $g4['time_ymdhis']; // ÇöÀç½Ã°£ 
+        $mb_hp_certify_datetime = $g4['time_ymdhis']; // í˜„ìž¬ì‹œê°„ 
     } 
     sql_query(" update $g4[member_table] set mb_hp_certify_datetime = '$mb_hp_certify_datetime' where mb_id = '$mb_id' "); 
 } else if ($mb_hp_old && $mb_hp != $mb_hp_old) { 
     sql_query(" update $g4[member_table] set mb_hp_certify_datetime = '$mb_hp_certify_datetime' where mb_id = '$mb_id' "); 
 }
 
-// ÃßÃµ¿¡ ÀÇÇÑ È¸¿ø °¡ÀÔ½Ã member_join_table º¯°æÇÏ±â
+// ì¶”ì²œì— ì˜í•œ íšŒì› ê°€ìž…ì‹œ member_join_table ë³€ê²½í•˜ê¸°
 if ($w == "" && $g4[member_suggest_join]) 
 {
     $sql = "update $g4[member_suggest_table] 

@@ -7,16 +7,16 @@ if ($w == "s") {
     $wr = get_write($write_table, $wr_id);
 
     if (sql_password($wr_password) !== $wr[wr_password]) 
-        alert("ÆÐ½º¿öµå°¡ Æ²¸³´Ï´Ù.");
+        alert("íŒ¨ìŠ¤ì›Œë“œê°€ í‹€ë¦½ë‹ˆë‹¤.");
 
-    // ¼¼¼Ç¿¡ ¾Æ·¡ Á¤º¸¸¦ ÀúÀå. ÇÏÀ§¹øÈ£´Â ÆÐ½º¿öµå¾øÀÌ º¸¾Æ¾ß ÇÏ±â ¶§¹®ÀÓ.
+    // ì„¸ì…˜ì— ì•„ëž˜ ì •ë³´ë¥¼ ì €ìž¥. í•˜ìœ„ë²ˆí˜¸ëŠ” íŒ¨ìŠ¤ì›Œë“œì—†ì´ ë³´ì•„ì•¼ í•˜ê¸° ë•Œë¬¸ìž„.
     //$ss_name = "ss_secret_{$bo_table}_{$wr_id}";
     $ss_name = "ss_secret_{$bo_table}_{$wr[wr_num]}";
     //set_session("ss_secret", "$bo_table|$wr[wr_num]");
     set_session($ss_name, TRUE);
 
 } else
-    alert("w °ªÀÌ Á¦´ë·Î ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.");
+    alert("w ê°’ì´ ì œëŒ€ë¡œ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
 goto_url("./board.php?$qstr");
 ?>

@@ -2,18 +2,18 @@
 include_once("./_common.php");
 
 if (!$member[mb_id]) 
-    alert_close("È¸¿ø¸¸ ÀÌ¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+    alert_close("íšŒì›ë§Œ ì´ìš©í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
 if (!$member[mb_open] && $is_admin != "super" && $member[mb_id] != $mb_id) 
-    alert_close("ÀÚ½ÅÀÇ Á¤º¸¸¦ °ø°³ÇÏÁö ¾ÊÀ¸¸é ´Ù¸¥ºĞÀÇ Á¤º¸¸¦ Á¶È¸ÇÒ ¼ö ¾ø½À´Ï´Ù.\\n\\nÁ¤º¸°ø°³ ¼³Á¤Àº È¸¿øÁ¤º¸¼öÁ¤¿¡¼­ ÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+    alert_close("ìì‹ ì˜ ì •ë³´ë¥¼ ê³µê°œí•˜ì§€ ì•Šìœ¼ë©´ ë‹¤ë¥¸ë¶„ì˜ ì •ë³´ë¥¼ ì¡°íšŒí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\\n\\nì •ë³´ê³µê°œ ì„¤ì •ì€ íšŒì›ì •ë³´ìˆ˜ì •ì—ì„œ í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
 //$mb = get_member($mb_id);
 $mb = get_member($mb_id, "mb_id, mb_level, mb_point, mb_homepage, mb_open, mb_nick, mb_datetime, mb_today_login, mb_profile, mb_memo, mb_signature");
 
 if (!$mb['mb_id'])
-    alert_close("È¸¿øÁ¤º¸°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.\\n\\nÅ»ÅğÇÏ¿´À» ¼ö ÀÖ½À´Ï´Ù.");
+    alert_close("íšŒì›ì •ë³´ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.\\n\\níƒˆí‡´í•˜ì˜€ì„ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
-// ºñ°ø°³ È¸¿øÀÇ Á¤º¸´Â º¸¿©ÁÖ±â ¾Ê±â
+// ë¹„ê³µê°œ íšŒì›ì˜ ì •ë³´ëŠ” ë³´ì—¬ì£¼ê¸° ì•Šê¸°
 if (!$mb['mb_open'] && $is_admin != "super" && $member['mb_id'] != $mb_id) {
     //$mb['mb_level'] = "";
     //$mb['mb_point'] = "";
@@ -23,14 +23,14 @@ if (!$mb['mb_open'] && $is_admin != "super" && $member['mb_id'] != $mb_id) {
     $mb['mb_today_login'] = "";
 }
 
-// ÃßÃµ Á¤º¸¸¦ º¸¿©ÁÖ±â (Ç×»ó...)
+// ì¶”ì²œ ì •ë³´ë¥¼ ë³´ì—¬ì£¼ê¸° (í•­ìƒ...)
 $mb['mb_good'] = 0;
 $sql = " select count(*) as cnt from $g4[board_good_table] where wr_mb_id = '$mb_id' and bg_flag = 'good' ";
 $result = sql_fetch($sql);
 if ($result['cnt'] > 0)
     $mb['mb_good'] = $result['cnt'];
 
-// ºñÃßÃµ Á¤º¸¸¦ º¸¿©ÁÖ±â (º»ÀÎ°ú °ü¸®ÀÚ¸¸...)
+// ë¹„ì¶”ì²œ ì •ë³´ë¥¼ ë³´ì—¬ì£¼ê¸° (ë³¸ì¸ê³¼ ê´€ë¦¬ìë§Œ...)
 $mb['mb_nogood'] = 0;
 if ($is_member && ( $member['mb_id'] == '$mb_id' || $is_admin == 'super')) {
     $sql = " select count(*) as cnt from $g4[board_good_table] where wr_mb_id = '$mb_id' and bg_flag = 'nogood' ";
@@ -39,18 +39,18 @@ if ($is_member && ( $member['mb_id'] == '$mb_id' || $is_admin == 'super')) {
         $mb['mb_nogood'] = $result['cnt'];
 }
 
-$g4[title] = $mb[mb_nick] . "´ÔÀÇ ÀÚ±â¼Ò°³";
+$g4[title] = $mb[mb_nick] . "ë‹˜ì˜ ìê¸°ì†Œê°œ";
 include_once("$g4[path]/head.sub.php");
 
 $mb_nick = get_sideview($mb[mb_id], get_text($mb[mb_nick]), $mb[mb_email], $mb[mb_homepage], $mb[mb_open]);
 
-// È¸¿ø°¡ÀÔÈÄ ¸îÀÏÂ°ÀÎÁö? + 1 Àº ´çÀÏÀ» Æ÷ÇÔÇÑ´Ù´Â ¶æ
+// íšŒì›ê°€ì…í›„ ëª‡ì¼ì§¸ì¸ì§€? + 1 ì€ ë‹¹ì¼ì„ í¬í•¨í•œë‹¤ëŠ” ëœ»
 $sql = " select (TO_DAYS('$g4[time_ymdhis]') - TO_DAYS('$mb[mb_datetime]') + 1) as days ";
 $row = sql_fetch($sql);
 $mb_reg_after = $row[days];
 
 $mb_homepage = set_http(get_text(clean_xss_tags($mb['mb_homepage']))); 
-$mb_profile = $mb[mb_profile] ? conv_content($mb[mb_profile],1) : "¼Ò°³ ³»¿ëÀÌ ¾ø½À´Ï´Ù.";
+$mb_profile = $mb[mb_profile] ? conv_content($mb[mb_profile],1) : "ì†Œê°œ ë‚´ìš©ì´ ì—†ìŠµë‹ˆë‹¤.";
 
 $member_skin_path = "$g4[path]/skin/member/$config[cf_member_skin]";
 include_once("$member_skin_path/profile.skin.php");

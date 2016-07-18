@@ -1,7 +1,7 @@
 <?
 include_once("./_common.php");
 
-$g4[title] = "ÅõÇ¥ ¸ñ·Ï";
+$g4[title] = "íˆ¬í‘œ ëª©ë¡";
 include_once("./_head.php");
 
 $sql_common = " from $g4[poll_table] ";
@@ -31,9 +31,9 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if ($page == "") $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if ($page == "") $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
 $write_pages = get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");
 
@@ -44,22 +44,22 @@ $sql = " select *
           limit $from_record, $rows ";
 $result = sql_query($sql);
 
-$listall = "<a href='$_SERVER[PHP_SELF]'>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]'>ì²˜ìŒ</a>";
 
 $colspan = 7;
 ?>
 
 <form name=fsearch method=get role="form" class="form-inline">
 <div class="btn-group">
-    <?=$listall?> (ÅõÇ¥¼ö : <?=number_format($total_count)?>°³)
+    <?=$listall?> (íˆ¬í‘œìˆ˜ : <?=number_format($total_count)?>ê°œ)
 </div>
 <div class="pull-right">
     <select name=sfl class="form-control">
-        <option value='po_subject'>Á¦¸ñ</option>
+        <option value='po_subject'>ì œëª©</option>
     </select>
-    <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<?=$stx?>'>
+    <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<?=$stx?>'>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 </form>
@@ -67,11 +67,11 @@ $colspan = 7;
 <table width=100% class="table table-condensed table-hover" style="word-wrap:break-word;">
 <thead>
 <tr class="success">
-    <th width=50px class="hidden-xs"><?=subject_sort_link('po_id', $qstr, 1)?>¹øÈ£</a></th>
+    <th width=50px class="hidden-xs"><?=subject_sort_link('po_id', $qstr, 1)?>ë²ˆí˜¸</a></th>
     <? if ($is_checkbox) { ?><th class="hidden-xs"><INPUT onclick="if (this.checked) all_checked(true); else all_checked(false);" type=checkbox></th><?}?>
-    <th>Á¦¸ñ<span class="visible-xs pull-right" style="font-weight: normal;color:#B8B8B8;">Page <?=$page?>/<?=$total_page?></span></th>
-    <th width=160px class="hidden-xs">±â °£</th>
-    <th width=70px class="hidden-xs">ÅõÇ¥¼ö</th>
+    <th>ì œëª©<span class="visible-xs pull-right" style="font-weight: normal;color:#B8B8B8;">Page <?=$page?>/<?=$total_page?></span></th>
+    <th width=160px class="hidden-xs">ê¸° ê°„</th>
+    <th width=70px class="hidden-xs">íˆ¬í‘œìˆ˜</th>
     <th width=70px class="hidden-xs"><?=subject_sort_link('wr_hit', $qstr, 1)?></a>
         <a href="./poll_form.php"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
     </th>
@@ -84,10 +84,10 @@ $colspan = 7;
     $sql2 = " select sum(po_cnt1+po_cnt2+po_cnt3+po_cnt4+po_cnt5+po_cnt6+po_cnt7+po_cnt8+po_cnt9) as sum_po_cnt from $g4[poll_table] where po_id = '$row[po_id]' ";
     $row2 = sql_fetch($sql2);
     
-    $s_mod = "<a href='./poll_form.php?$qstr&w=u&po_id=$row[po_id]'><img src='$g4[admin_path]/img/icon_modify.gif' align=absmiddle border=0 title='¼öÁ¤'></a>";
-    $s_del = "<a href=\"javascript:post_delete('poll_form_update.php', '$row[po_id]');\"><img src='$g4[admin_path]/img/icon_delete.gif' align=absmiddle border=0 title='»èÁ¦'></a>";
+    $s_mod = "<a href='./poll_form.php?$qstr&w=u&po_id=$row[po_id]'><img src='$g4[admin_path]/img/icon_modify.gif' align=absmiddle border=0 title='ìˆ˜ì •'></a>";
+    $s_del = "<a href=\"javascript:post_delete('poll_form_update.php', '$row[po_id]');\"><img src='$g4[admin_path]/img/icon_delete.gif' align=absmiddle border=0 title='ì‚­ì œ'></a>";
     if ($row[po_end_date] == '0000-00-00')
-        $row[po_end_date] = "ÁøÇàÁß";
+        $row[po_end_date] = "ì§„í–‰ì¤‘";
     ?>
     <td class="hidden-xs"><?=$row[po_id]?>
     </td>
@@ -109,37 +109,37 @@ $colspan = 7;
 <?}?>
 <?
 if ($i==0) 
-    echo "<tr><td colspan='$colspan' height=100 align=center>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='$colspan' height=100 align=center>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 ?>
 </table>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
-    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ÀÌÀü°Ë»ö</a></li>"; } ?>
+    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ì´ì „ê²€ìƒ‰</a></li>"; } ?>
     <?
-    // ±âº»À¸·Î ³Ñ¾î¿À´Â ÆäÀÌÁö¸¦ ¾Æ·¡¿Í °°ÀÌ º¯È¯ÇÏ¿© ´Ù¾çÇÏ°Ô Ãâ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.
-    $write_pages = str_replace("ÀÌÀü", "<i class='fa fa-angle-left'></i>", $write_pages);
-    $write_pages = str_replace("´ÙÀ½", "<i class='fa fa-angle-right'></i>", $write_pages);
-    $write_pages = str_replace("Ã³À½", "<i class='fa fa-angle-double-left'></i>", $write_pages);
-    $write_pages = str_replace("¸Ç³¡", "<i class='fa fa-angle-double-right'></i>", $write_pages);
+    // ê¸°ë³¸ìœ¼ë¡œ ë„˜ì–´ì˜¤ëŠ” í˜ì´ì§€ë¥¼ ì•„ë˜ì™€ ê°™ì´ ë³€í™˜í•˜ì—¬ ë‹¤ì–‘í•˜ê²Œ ì¶œë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+    $write_pages = str_replace("ì´ì „", "<i class='fa fa-angle-left'></i>", $write_pages);
+    $write_pages = str_replace("ë‹¤ìŒ", "<i class='fa fa-angle-right'></i>", $write_pages);
+    $write_pages = str_replace("ì²˜ìŒ", "<i class='fa fa-angle-double-left'></i>", $write_pages);
+    $write_pages = str_replace("ë§¨ë", "<i class='fa fa-angle-double-right'></i>", $write_pages);
     ?>
     <?=$write_pages?>
-    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ÀÌÈÄ°Ë»ö</a></li>"; } ?>
+    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ì´í›„ê²€ìƒ‰</a></li>"; } ?>
     </ul>
 </div>
 <div class="center-block visible-xs">
     <ul class="pagination">
-    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ÀÌÀü°Ë»ö</a></li>"; } ?>
+    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ì´ì „ê²€ìƒ‰</a></li>"; } ?>
     <?
-    // ±âº»À¸·Î ³Ñ¾î¿À´Â ÆäÀÌÁö¸¦ ¾Æ·¡¿Í °°ÀÌ º¯È¯ÇÏ¿© ´Ù¾çÇÏ°Ô Ãâ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.
-    $write_pages_xs = str_replace("ÀÌÀü", "<i class='fa fa-angle-left'></i>", $write_pages_xs);
-    $write_pages_xs = str_replace("´ÙÀ½", "<i class='fa fa-angle-right'></i>", $write_pages_xs);
-    $write_pages_xs = str_replace("Ã³À½", "<i class='fa fa-angle-double-left'></i>", $write_pages_xs);
-    $write_pages_xs = str_replace("¸Ç³¡", "<i class='fa fa-angle-double-right'></i>", $write_pages_xs);
+    // ê¸°ë³¸ìœ¼ë¡œ ë„˜ì–´ì˜¤ëŠ” í˜ì´ì§€ë¥¼ ì•„ë˜ì™€ ê°™ì´ ë³€í™˜í•˜ì—¬ ë‹¤ì–‘í•˜ê²Œ ì¶œë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+    $write_pages_xs = str_replace("ì´ì „", "<i class='fa fa-angle-left'></i>", $write_pages_xs);
+    $write_pages_xs = str_replace("ë‹¤ìŒ", "<i class='fa fa-angle-right'></i>", $write_pages_xs);
+    $write_pages_xs = str_replace("ì²˜ìŒ", "<i class='fa fa-angle-double-left'></i>", $write_pages_xs);
+    $write_pages_xs = str_replace("ë§¨ë", "<i class='fa fa-angle-double-right'></i>", $write_pages_xs);
     ?>
     <?=$write_pages_xs?>
-    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ÀÌÈÄ°Ë»ö</a></li>"; } ?>
+    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ì´í›„ê²€ìƒ‰</a></li>"; } ?>
     </ul>
 </div>
 

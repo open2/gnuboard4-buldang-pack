@@ -4,28 +4,28 @@ include_once("_common.php");
 $reg_mb_email = $_POST['reg_mb_email'];
 
 if (trim($reg_mb_email)=='') {
-    echo "110"; // ÀÔ·ÂÀÌ ¾ø½À´Ï´Ù.
+    echo "110"; // ì…ë ¥ì´ ì—†ìŠµë‹ˆë‹¤.
 
 } else if (!preg_match("/^([0-9a-zA-Z_-]+)@([0-9a-zA-Z_-]+)\.([0-9a-zA-Z_-]+)$/", $reg_mb_email)) {
-    echo "120"; // E-mail ÁÖ¼Ò Çü½Ä¿¡ ¸ÂÁö ¾ÊÀ½
+    echo "120"; // E-mail ì£¼ì†Œ í˜•ì‹ì— ë§ì§€ ì•ŠìŒ
 } else {
     $sql = " select count(*) as cnt from $g4[member_table] where mb_id <> '$reg_mb_id' and mb_email = '$reg_mb_email' ";
     $row = sql_fetch($sql);
     if ($row[cnt]) {
-        echo "130"; // ÀÌ¹Ì Á¸ÀçÇÏ´Â ÀÌ¸ŞÀÏ
+        echo "130"; // ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ì´ë©”ì¼
     } else {
         //if (preg_match("/[\,]?{$reg_mb_email}\,/i", $config[cf_prohibit_id].","))
         if (preg_match("/[\,]?{$reg_mb_email}/i", $config[cf_prohibit_id]))
-            echo "140"; // ¿¹¾à¾î·Î ±İÁöµÈ È¸¿ø¾ÆÀÌµğ
+            echo "140"; // ì˜ˆì•½ì–´ë¡œ ê¸ˆì§€ëœ íšŒì›ì•„ì´ë””
         else {
-            // ±İÁö ¸ŞÀÏ µµ¸ŞÀÎ °Ë»ç (register_form skin.phpÀÇ java script¸¦ ¼öÁ¤)
+            // ê¸ˆì§€ ë©”ì¼ ë„ë©”ì¸ ê²€ì‚¬ (register_form skin.phpì˜ java scriptë¥¼ ìˆ˜ì •)
             $prohibit_email = explode(",", trim(strtolower(preg_replace("/(\r\n|\r|\n)/", ",", $config[cf_prohibit_email]))));
             $email_domain_arr = explode("@", strtolower($reg_mb_email));
             $email_domain = $email_domain_arr[1];
             if (in_array($email_domain, $prohibit_email))
-                echo "150"; // »ç¿ëÀÌ ±İÁöµÈ µµ¸ŞÀÎ
+                echo "150"; // ì‚¬ìš©ì´ ê¸ˆì§€ëœ ë„ë©”ì¸
             else 
-                echo "000"; // Á¤»ó
+                echo "000"; // ì •ìƒ
         }
     }
 }

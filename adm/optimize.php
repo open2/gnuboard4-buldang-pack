@@ -3,11 +3,11 @@ $sub_menu = "100710";
 include_once("./_common.php");
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4[path]);
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4[path]);
 
-$g4[title] = "Å×ÀÌºí ÃÖÀûÈ­";
+$g4[title] = "í…Œì´ë¸” ìµœì í™”";
 include_once("./admin.head.php");
-echo "'¿Ï·á' ¸Ş¼¼Áö°¡ ³ª¿À±â Àü¿¡ ÇÁ·Î±×·¥ÀÇ ½ÇÇàÀ» ÁßÁöÇÏÁö ¸¶½Ê½Ã¿À.<br>";
+echo "'ì™„ë£Œ' ë©”ì„¸ì§€ê°€ ë‚˜ì˜¤ê¸° ì „ì— í”„ë¡œê·¸ë¨ì˜ ì‹¤í–‰ì„ ì¤‘ì§€í•˜ì§€ ë§ˆì‹­ì‹œì˜¤.<br>";
 echo "<span id='ct'></span>";
 include_once("./admin.tail.php");
 flush();
@@ -22,7 +22,7 @@ while($row = sql_fetch_array($result))
 
     if($row['Data_free'] == 0) continue;
 
-    // Å×ÀÌºí ÃÖÀûÈ­
+    // í…Œì´ë¸” ìµœì í™”
     $sql3 = " OPTIMIZE TABLE `$tbl` ";
     sql_query($sql3);
     $str .= $sql3 . "<br/>";
@@ -37,5 +37,5 @@ while($row = sql_fetch_array($result))
         echo $row['Data_free']." OPTIMIZED\n";
     */
 }
-echo "<script>document.getElementById('ct').innerHTML += '<br><br>Å×ÀÌºí º¹±¸ ¹× ÃÖÀûÈ­ ¿Ï·á.<br><br>ÇÁ·Î±×·¥ÀÇ ½ÇÇàÀ» ³¡¸¶Ä¡¼Åµµ ÁÁ½À´Ï´Ù.';</script>\n";
+echo "<script>document.getElementById('ct').innerHTML += '<br><br>í…Œì´ë¸” ë³µêµ¬ ë° ìµœì í™” ì™„ë£Œ.<br><br>í”„ë¡œê·¸ë¨ì˜ ì‹¤í–‰ì„ ëë§ˆì¹˜ì…”ë„ ì¢‹ìŠµë‹ˆë‹¤.';</script>\n";
 ?>

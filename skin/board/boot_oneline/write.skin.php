@@ -1,16 +1,16 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
-// ÀÌ¸ğÆ¼ÄÜÀÌ ¼öÁ¤ÇÒ ¶§ »ç¶óÁöÁö ¾Ê°Ô...
+// ì´ëª¨í‹°ì½˜ì´ ìˆ˜ì •í•  ë•Œ ì‚¬ë¼ì§€ì§€ ì•Šê²Œ...
 if ($w == "u")
     $wr_subject = $write['wr_subject'];
 else
     $wr_subject = "no-image";
 ?>
 <script type="text/javascript">
-// ±ÛÀÚ¼ö Á¦ÇÑ
-var char_min = parseInt(<?=$write_min?>); // ÃÖ¼Ò
-var char_max = parseInt(<?=$write_max?>); // ÃÖ´ë
+// ê¸€ììˆ˜ ì œí•œ
+var char_min = parseInt(<?=$write_min?>); // ìµœì†Œ
+var char_max = parseInt(<?=$write_max?>); // ìµœëŒ€
 </script>
 
 <form role="form" class="form-horizontal" name="fwrite" method="post" onsubmit="return fwrite_submit(this);" enctype="multipart/form-data">
@@ -31,11 +31,11 @@ var char_max = parseInt(<?=$write_max?>); // ÃÖ´ë
 <input type=hidden name=wr_subject id=wr_subject value="<?=$wr_subject?>">
 
 <?
-// replyÀÏ ¶§´Â $content¸¦ ºñ¿ö¹ö¸³´Ï´Ù
+// replyì¼ ë•ŒëŠ” $contentë¥¼ ë¹„ì›Œë²„ë¦½ë‹ˆë‹¤
 if ($w == "r")
     $content = "";
 
-// list.skin.php¿¡¼­ ÀĞ¾îµéÀÏ ¶§ write.phpÀÇ Èä³»¸¦ ³»±â À§ÇØ¼­ bbs/write.php¿¡¼­ ÂüÁ¶Çß½À´Ï´Ù
+// list.skin.phpì—ì„œ ì½ì–´ë“¤ì¼ ë•Œ write.phpì˜ í‰ë‚´ë¥¼ ë‚´ê¸° ìœ„í•´ì„œ bbs/write.phpì—ì„œ ì°¸ì¡°í–ˆìŠµë‹ˆë‹¤
 if ($w == "") {
     $is_notice = false;
 
@@ -54,14 +54,14 @@ if ($is_notice || $is_secret || $is_mail) {
     $option = "";
     if ($is_notice) {
         $option .= '<label class="checkbox-inline">';
-        $option .= "<input type=checkbox name=notice value='1' $notice_checked>°øÁö";
+        $option .= "<input type=checkbox name=notice value='1' $notice_checked>ê³µì§€";
         $option .= '</label>';
     }
 
     if ($is_secret) {
         if ($is_admin || $is_secret==1) {
             $option .= '<label class="checkbox-inline">';
-            $option .= "<input type=checkbox value='secret' name='secret' $secret_checked>ºñ¹Ğ±Û";
+            $option .= "<input type=checkbox value='secret' name='secret' $secret_checked>ë¹„ë°€ê¸€";
             $option .= '</label>';
         } else {
             $option_hidden .= "<input type=hidden value='secret' name='secret'>";
@@ -70,25 +70,25 @@ if ($is_notice || $is_secret || $is_mail) {
     
     if ($is_mail) {
         $option .= '<label class="checkbox-inline">';
-        $option .= "<input type=checkbox value='mail' name='mail' $recv_email_checked>´äº¯¸ŞÀÏ¹Ş±â";
+        $option .= "<input type=checkbox value='mail' name='mail' $recv_email_checked>ë‹µë³€ë©”ì¼ë°›ê¸°";
         $option .= '</label>';
     }
 
-      // hiddenÀ¸·Î ³Ñ°Ü¾ß ÇÏ´Â ¿É¼ÇÀ» Ãâ·Â ÇÕ´Ï´Ù.
+      // hiddenìœ¼ë¡œ ë„˜ê²¨ì•¼ í•˜ëŠ” ì˜µì…˜ì„ ì¶œë ¥ í•©ë‹ˆë‹¤.
 			echo $option_hidden;
 }
 ?>
 <? if ($member[mb_level] > 1) { ?>
     <div>
-        <textarea class="form-control" id="wr_content" name="wr_content" style='word-break:break-all;' rows=4 itemname="³»¿ë" required 
+        <textarea class="form-control" id="wr_content" name="wr_content" style='word-break:break-all;' rows=4 itemname="ë‚´ìš©" required 
         <? if ($write_min || $write_max) { ?>onkeyup="check_byte('wr_content', 'char_count');"<?}?>><?=$content?></textarea>
         <? if ($write_min || $write_max) { ?><script type="text/javascript"> check_byte('wr_content', 'char_count'); </script><?}?>
     
-        <a class="btn btn-default" style="cursor: pointer;" data-toggle="collapse" href="#collapseOne">ÀÌ¹ÌÁö</a>
+        <a class="btn btn-default" style="cursor: pointer;" data-toggle="collapse" href="#collapseOne">ì´ë¯¸ì§€</a>
         <img id="smiley">
         <div class="btn-group" style="margin-top:5px;margin-bottom:5px;">
             &nbsp;<span class="btn btn-default" style="cursor: pointer;" onclick="textarea_decrease('wr_content', 5);"> <i class="fa fa-minus-square"></i> </span>
-            <!-- ÀÌ°Ô ÀÖÀ¸¸é Æù¿¡¼­ ÁÙ¹Ù²ŞÀÌ ÀÏ¾î³ª±âµµ... -..-...
+            <!-- ì´ê²Œ ìˆìœ¼ë©´ í°ì—ì„œ ì¤„ë°”ê¿ˆì´ ì¼ì–´ë‚˜ê¸°ë„... -..-...
             &nbsp;<span class="btn btn-default" style="cursor: pointer;" onclick="textarea_original('wr_content', 5);"> <i class="fa fa-circle-o"></i> </span>
             -->
             &nbsp;<span class="btn btn-default" style="cursor: pointer;" onclick="textarea_increase('wr_content', 5);"> <i class="fa fa-plus-square"></i> </span>
@@ -101,7 +101,7 @@ if ($is_notice || $is_secret || $is_mail) {
                     echo "<li><img class='emoticon' id='$i' src='$board_skin_path/emoticons/$i.png' style='cursor:pointer'></li>";
                 }
                 ?>
-                <li><a href='#' onclick="$('#collapseOne').collapse('hide');$('#smiley').attr('src','');$('#wr_subject').val('no-image')" class="btn btn-default btn-sm" style="margin-top:5px;">ÀÌ¸ğÆ¼ÄÜ¾ø¾Ö±â</a></li>
+                <li><a href='#' onclick="$('#collapseOne').collapse('hide');$('#smiley').attr('src','');$('#wr_subject').val('no-image')" class="btn btn-default btn-sm" style="margin-top:5px;">ì´ëª¨í‹°ì½˜ì—†ì• ê¸°</a></li>
             </ul>
         </div>
         
@@ -117,7 +117,7 @@ if ($is_notice || $is_secret || $is_mail) {
             <? } ?>
         </script>
     
-        <? if ($write_min || $write_max) { ?><span id=char_count></span>±ÛÀÚ<?}?>
+        <? if ($write_min || $write_max) { ?><span id=char_count></span>ê¸€ì<?}?>
     
         <span class="pull-right" style="margin-top:5px;margin-bottom:5px;">
         <? if ($member[mb_level] > 1) { ?>
@@ -135,7 +135,7 @@ if ($is_notice || $is_secret || $is_mail) {
     <?
     $login_url = "./login.php?url=".urlencode("board.php?bo_table=$bo_table");
     ?>
-    <a href="<?=$login_url?>">·Î±×ÀÎ ÇÏ½Ã¸é ´ñ±ÛÀ» ³²±æ ¼ö ÀÖ½À´Ï´Ù</a>
+    <a href="<?=$login_url?>">ë¡œê·¸ì¸ í•˜ì‹œë©´ ëŒ“ê¸€ì„ ë‚¨ê¸¸ ìˆ˜ ìˆìŠµë‹ˆë‹¤</a>
 </div>
 <? } ?>
 </form>
@@ -147,11 +147,11 @@ function fwrite_submit(f)
         if (char_min > 0 || char_max > 0) {
             var cnt = parseInt(document.getElementById('char_count').innerHTML);
             if (char_min > 0 && char_min > cnt) {
-                alert("³»¿ëÀº "+char_min+"±ÛÀÚ ÀÌ»ó ¾²¼Å¾ß ÇÕ´Ï´Ù.");
+                alert("ë‚´ìš©ì€ "+char_min+"ê¸€ì ì´ìƒ ì“°ì…”ì•¼ í•©ë‹ˆë‹¤.");
                 return false;
             } 
             else if (char_max > 0 && char_max < cnt) {
-                alert("³»¿ëÀº "+char_max+"±ÛÀÚ ÀÌÇÏ·Î ¾²¼Å¾ß ÇÕ´Ï´Ù.");
+                alert("ë‚´ìš©ì€ "+char_max+"ê¸€ì ì´í•˜ë¡œ ì“°ì…”ì•¼ í•©ë‹ˆë‹¤.");
                 return false;
             }
         }
@@ -176,13 +176,13 @@ function fwrite_submit(f)
     });
 
     if (subject) {
-        alert("Á¦¸ñ¿¡ ±İÁö´Ü¾î('"+subject+"')°¡ Æ÷ÇÔµÇ¾îÀÖ½À´Ï´Ù");
+        alert("ì œëª©ì— ê¸ˆì§€ë‹¨ì–´('"+subject+"')ê°€ í¬í•¨ë˜ì–´ìˆìŠµë‹ˆë‹¤");
         f.wr_subject.focus();
         return false;
     }
 
     if (content) {
-        alert("³»¿ë¿¡ ±İÁö´Ü¾î('"+content+"')°¡ Æ÷ÇÔµÇ¾îÀÖ½À´Ï´Ù");
+        alert("ë‚´ìš©ì— ê¸ˆì§€ë‹¨ì–´('"+content+"')ê°€ í¬í•¨ë˜ì–´ìˆìŠµë‹ˆë‹¤");
         if (typeof(ed_wr_content) != "undefined") 
             ed_wr_content.returnFalse();
         else 

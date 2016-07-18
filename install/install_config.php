@@ -2,12 +2,12 @@
 $g4['path'] = "..";
 include_once ("../config.php");
 
-// ÆÄÀÏÀÌ Á¸ÀçÇÑ´Ù¸é ¼³Ä¡ÇÒ ¼ö ¾ø´Ù.
+// íŒŒì¼ì´ ì¡´ì¬í•œë‹¤ë©´ ì„¤ì¹˜í•  ìˆ˜ ì—†ë‹¤.
 if (file_exists("../dbconfig.php")) {
     echo "<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'>";
     echo <<<HEREDOC
     <script language="JavaScript">
-    alert("¼³Ä¡ÇÏ½Ç ¼ö ¾ø½À´Ï´Ù.");
+    alert("ì„¤ì¹˜í•˜ì‹¤ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
     location.href="../";
     </script>
 HEREDOC;
@@ -21,11 +21,11 @@ header("Cache-Control: no-store, no-cache, must-revalidate"); // HTTP/1.1
 header("Cache-Control: pre-check=0, post-check=0, max-age=0"); // HTTP/1.1
 header("Pragma: no-cache"); // HTTP/1.0
 
-if ($_POST["agree"] != "µ¿ÀÇÇÔ") {
+if ($_POST["agree"] != "ë™ì˜í•¨") {
     echo "<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'>";
     echo <<<HEREDOC
     <script language="JavaScript">
-    alert("¶óÀÌ¼¾½º(License) ³»¿ë¿¡ µ¿ÀÇÇÏ¼Å¾ß ¼³Ä¡¸¦ °è¼ÓÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+    alert("ë¼ì´ì„¼ìŠ¤(License) ë‚´ìš©ì— ë™ì˜í•˜ì…”ì•¼ ì„¤ì¹˜ë¥¼ ê³„ì†í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
     history.back();
     </script>
 HEREDOC;
@@ -36,7 +36,7 @@ HEREDOC;
 <html lang="ko">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=<?=$g4['charset']?>">
-<title>±×´©º¸µå4 ¼³Ä¡ (2/3) - ¶óÀÌ¼¾½º(License)</title>
+<title>ê·¸ëˆ„ë³´ë“œ4 ì„¤ì¹˜ (2/3) - ë¼ì´ì„¼ìŠ¤(License)</title>
 
 <link rel="stylesheet" href="<?=$g4['path']?>/js/bootstrap/css/bootstrap.min.css?bver=<?=$g4[bver]?>" type="text/css" media="screen" title="no title" charset="<?=$g4[charset]?>">
 <link rel="stylesheet" href="<?=$g4['path']?>/js/font-awesome/css/font-awesome.min.css?aver=<?=$g4[aver]?>" type="text/css" media="screen" title="no title" charset="<?=$g4[charset]?>">
@@ -61,17 +61,17 @@ HEREDOC;
 
 <div class="panel panel-primary">
 <div class="panel-heading">
-    <strong>±×´©º¸µå4 ¼³Ä¡ (2/3)</strong>
+    <strong>ê·¸ëˆ„ë³´ë“œ4 ì„¤ì¹˜ (2/3)</strong>
 </div>
 <div class="panel-body">
 
     <table width=100% class="table table-condensed table-hover table-borderless" style="word-wrap:break-word;">
     <tr>
         <td width=45%>
-            <!-- TAB ¼ø¼­ ¶§¹®¿¡ Å×ÀÌºíÀ» 2°³·Î -->
+            <!-- TAB ìˆœì„œ ë•Œë¬¸ì— í…Œì´ë¸”ì„ 2ê°œë¡œ -->
             <table width=100% class="table table-condensed table-hover table-borderless" style="word-wrap:break-word;">
             <tr>
-                <td colspan=2><strong>MySQL Á¤º¸ÀÔ·Â</strong></td>
+                <td colspan=2><strong>MySQL ì •ë³´ì…ë ¥</strong></td>
             </tr>
             <tr>
                 <td width=80>Host :</td>
@@ -82,19 +82,19 @@ HEREDOC;
             <tr>
                 <td>User :</td>
                 <td>
-                    <input name="mysql_user" type="text" class="form-control" placeholder="MySQL »ç¿ëÀÚ¸í">
+                    <input name="mysql_user" type="text" class="form-control" placeholder="MySQL ì‚¬ìš©ìëª…">
                 </td>
             </tr>
             <tr>
                 <td>Password :</td>
                 <td>
-                    <input name="mysql_pass" type="text" class="form-control" placeholder="MySQL Á¢¼Ó ÆĞ½º¿öµå">
+                    <input name="mysql_pass" type="text" class="form-control" placeholder="MySQL ì ‘ì† íŒ¨ìŠ¤ì›Œë“œ">
                 </td>
             </tr>
             <tr>
                 <td>DB :</td>
                 <td>
-                    <input name="mysql_db" type="text" class="form-control" placeholder="MySQL DB ÀÌ¸§">
+                    <input name="mysql_db" type="text" class="form-control" placeholder="MySQL DB ì´ë¦„">
                 </td>
             </tr>
             </table>
@@ -105,7 +105,7 @@ HEREDOC;
 
             <table width=100% class="table table-condensed table-hover table-borderless" style="word-wrap:break-word;">
             <tr>
-                <td colspan=2><strong>ÃÖ°í°ü¸®ÀÚ Á¤º¸ÀÔ·Â</strong></td>
+                <td colspan=2><strong>ìµœê³ ê´€ë¦¬ì ì •ë³´ì…ë ¥</strong></td>
             </tr>
             <tr>
                 <td width=80>ID :</td>
@@ -116,13 +116,13 @@ HEREDOC;
             <tr>
                 <td>Password :</td>
                 <td>
-                    <input name="admin_pass" type="text" class="form-control" placeholder="°ü¸®ÀÚ ÆĞ½º¿öµå">
+                    <input name="admin_pass" type="text" class="form-control" placeholder="ê´€ë¦¬ì íŒ¨ìŠ¤ì›Œë“œ">
                 </td>
             </tr>
             <tr>
                 <td>Name :</td>
                 <td>
-                    <input name="admin_name" type="text" class="form-control" value="ÃÖ°í°ü¸®ÀÚ" placeholder="ÃÖ°í°ü¸®ÀÚ ÀÌ¸§">
+                    <input name="admin_name" type="text" class="form-control" value="ìµœê³ ê´€ë¦¬ì" placeholder="ìµœê³ ê´€ë¦¬ì ì´ë¦„">
                 </td>
             </tr>
             <tr>
@@ -139,11 +139,11 @@ HEREDOC;
     </table>
 
     <p class="text-danger">
-    ÀÌ¹Ì ±×´©º¸µå4°¡ Á¸ÀçÇÑ´Ù¸é DB ÀÚ·á°¡ ¸Á½ÇµÇ¹Ç·Î ÁÖÀÇÇÏ½Ê½Ã¿À.
+    ì´ë¯¸ ê·¸ëˆ„ë³´ë“œ4ê°€ ì¡´ì¬í•œë‹¤ë©´ DB ìë£Œê°€ ë§ì‹¤ë˜ë¯€ë¡œ ì£¼ì˜í•˜ì‹­ì‹œì˜¤.
     </p>
 
     <div class="pull-right" style="margin-bottom:10px;">
-        <input type="submit" name="submit2" class="btn btn-default" value=" ´Ù   À½ ">
+        <input type="submit" name="submit2" class="btn btn-default" value=" ë‹¤   ìŒ ">
     </div>
 </div>
 <div class="panel-footer">
@@ -159,35 +159,35 @@ function frm_submit(f)
 {
     if (f.mysql_host.value == "")
     {   
-        alert("MySQL Host ¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À."); f.mysql_host.focus(); return; 
+        alert("MySQL Host ë¥¼ ì…ë ¥í•˜ì‹­ì‹œì˜¤."); f.mysql_host.focus(); return; 
     }
     else if (f.mysql_user.value == "")
     {
-        alert("MySQL User ¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À."); f.mysql_user.focus(); return; 
+        alert("MySQL User ë¥¼ ì…ë ¥í•˜ì‹­ì‹œì˜¤."); f.mysql_user.focus(); return; 
     }
     else if (f.mysql_db.value == "")
     {
-        alert("MySQL DB ¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À."); f.mysql_db.focus(); return; 
+        alert("MySQL DB ë¥¼ ì…ë ¥í•˜ì‹­ì‹œì˜¤."); f.mysql_db.focus(); return; 
     }
     else if (f.admin_id.value == "")
     {
-        alert("ÃÖ°í°ü¸®ÀÚ ID ¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À."); f.admin_id.focus(); return; 
+        alert("ìµœê³ ê´€ë¦¬ì ID ë¥¼ ì…ë ¥í•˜ì‹­ì‹œì˜¤."); f.admin_id.focus(); return; 
     }
     else if (f.admin_pass.value == "")
     {
-        alert("ÃÖ°í°ü¸®ÀÚ ÆĞ½º¿öµå¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À."); f.admin_pass.focus(); return; 
+        alert("ìµœê³ ê´€ë¦¬ì íŒ¨ìŠ¤ì›Œë“œë¥¼ ì…ë ¥í•˜ì‹­ì‹œì˜¤."); f.admin_pass.focus(); return; 
     }
     else if (f.admin_name.value == "")
     {
-        alert("ÃÖ°í°ü¸®ÀÚ ÀÌ¸§À» ÀÔ·ÂÇÏ½Ê½Ã¿À."); f.admin_name.focus(); return; 
+        alert("ìµœê³ ê´€ë¦¬ì ì´ë¦„ì„ ì…ë ¥í•˜ì‹­ì‹œì˜¤."); f.admin_name.focus(); return; 
     }
     else if (f.admin_email.value == "")
     {
-        alert("ÃÖ°í°ü¸®ÀÚ E-mail À» ÀÔ·ÂÇÏ½Ê½Ã¿À."); f.admin_email.focus(); return; 
+        alert("ìµœê³ ê´€ë¦¬ì E-mail ì„ ì…ë ¥í•˜ì‹­ì‹œì˜¤."); f.admin_email.focus(); return; 
     }
 
     if(/[^a-zA-Z0-9]/g.test(f.admin_id.value)) {
-        alert("ÃÖ°í°ü¸®ÀÚ ID °¡ ¿µ¹®ÀÚ ¹× ¼ıÀÚ°¡ ¾Æ´Õ´Ï´Ù.");
+        alert("ìµœê³ ê´€ë¦¬ì ID ê°€ ì˜ë¬¸ì ë° ìˆ«ìê°€ ì•„ë‹™ë‹ˆë‹¤.");
         f.admin_id.focus();
     }
 
@@ -197,7 +197,7 @@ function frm_submit(f)
     return true;
 }
 
-// ¿µ¹®ÀÚ¸¸ ÀÔ·Â °¡´É   
+// ì˜ë¬¸ìë§Œ ì…ë ¥ ê°€ëŠ¥   
 function only_alpha() 
 {
     var c = event.keyCode;
@@ -206,7 +206,7 @@ function only_alpha()
     }
 }
 
-// ¿µ¹®ÀÚ¿Í ¼ıÀÚ¸¸ ÀÔ·Â °¡´É   
+// ì˜ë¬¸ìì™€ ìˆ«ìë§Œ ì…ë ¥ ê°€ëŠ¥   
 function only_alpha_numeric() 
 {
     var c = event.keyCode;

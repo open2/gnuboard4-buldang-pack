@@ -1,12 +1,12 @@
 <?
 if (!defined('_GNUBOARD_')) exit;
 
-// ¹è³Ê¸¦ °¡Á®¿Â´Ù
-// bg_id : ¹è³Ê±×·ì id
-// bn_id : ¹è³Ê id (bn_id°¡ ÁöÁ¤µÇ¸é µü 1°³¸¸ Ãâ·Â µË´Ï´Ù. ¹è³ÊÁöÁ¤ Ãâ·ÂÀÇ ¸ñÀû)
-// rows : Ãâ·ÂÇÒ ¹è³ÊÀÇ ¼ö 
-// sst : Á¤·Ä¹æ¹ı, 0: ·£´ı, 1 : ±âº»Á¤·Ä(¼ø¼­, ¹è³Ê id ³»¸²Â÷¼ø)
-//       Åë»óÀûÀÎ °æ¿ì¿¡´Â ·£´ıÀ¸·Î, ¸ŞÀÎ¿¡ ÀÇ¹Ì ÀÖ°Ô Ãâ·ÂÇÒ ¶§´Â ¼ø¼­´ë·Î ÇÏ´Â °ÍÀÌ ÁÁ½À´Ï´Ù.
+// ë°°ë„ˆë¥¼ ê°€ì ¸ì˜¨ë‹¤
+// bg_id : ë°°ë„ˆê·¸ë£¹ id
+// bn_id : ë°°ë„ˆ id (bn_idê°€ ì§€ì •ë˜ë©´ ë”± 1ê°œë§Œ ì¶œë ¥ ë©ë‹ˆë‹¤. ë°°ë„ˆì§€ì • ì¶œë ¥ì˜ ëª©ì )
+// rows : ì¶œë ¥í•  ë°°ë„ˆì˜ ìˆ˜ 
+// sst : ì •ë ¬ë°©ë²•, 0: ëœë¤, 1 : ê¸°ë³¸ì •ë ¬(ìˆœì„œ, ë°°ë„ˆ id ë‚´ë¦¼ì°¨ìˆœ)
+//       í†µìƒì ì¸ ê²½ìš°ì—ëŠ” ëœë¤ìœ¼ë¡œ, ë©”ì¸ì— ì˜ë¯¸ ìˆê²Œ ì¶œë ¥í•  ë•ŒëŠ” ìˆœì„œëŒ€ë¡œ í•˜ëŠ” ê²ƒì´ ì¢‹ìŠµë‹ˆë‹¤.
 function get_banner($bg_id, $skin="basic", $bn_id="", $rows=0, $sst=0, $opt="")
 {
     global $g4;
@@ -16,10 +16,10 @@ function get_banner($bg_id, $skin="basic", $bn_id="", $rows=0, $sst=0, $opt="")
     else
         $sst_sql = " rand() ";
 
-    // ³¯Â¥¸¦ ÁöÁ¤ÇØ Áİ´Ï´Ù.
+    // ë‚ ì§œë¥¼ ì§€ì •í•´ ì¤ë‹ˆë‹¤.
     $sql_datetime = " and '$g4[time_ymdhis]' > bn_start_datetime and bn_end_datetime > '$g4[time_ymdhis]' ";
 
-    // bc_id°¡ ÁöÁ¤µÇ¸é bc_id¸¸ °¡Á® ¿É´Ï´Ù. ¾Æ´Ï¸é n°³¸¦ °¡Á® ¿É´Ï´Ù. °¡Á®¿À´Â ¹æ½ÄÀº rand ÀÔ´Ï´Ù.
+    // bc_idê°€ ì§€ì •ë˜ë©´ bc_idë§Œ ê°€ì ¸ ì˜µë‹ˆë‹¤. ì•„ë‹ˆë©´ nê°œë¥¼ ê°€ì ¸ ì˜µë‹ˆë‹¤. ê°€ì ¸ì˜¤ëŠ” ë°©ì‹ì€ rand ì…ë‹ˆë‹¤.
     if ($bn_id) {
         $sql = " select * from $g4[banner_table] where bg_id='$bg_id' and bn_id='$bn_id' and bn_use = '1' $sql_datetime ";
     } else {
@@ -29,7 +29,7 @@ function get_banner($bg_id, $skin="basic", $bn_id="", $rows=0, $sst=0, $opt="")
     }
     $result = sql_query($sql);
 
-    // ¹è³Ê±×·ì Á¤º¸µµ °¡Á® ¿É´Ï´Ù.
+    // ë°°ë„ˆê·¸ë£¹ ì •ë³´ë„ ê°€ì ¸ ì˜µë‹ˆë‹¤.
     $sql = " select * from $g4[banner_group_table] where bg_id = '$bg_id' ";
     $bg = sql_fetch($sql);
 
@@ -56,7 +56,7 @@ function get_banner($bg_id, $skin="basic", $bn_id="", $rows=0, $sst=0, $opt="")
     return $content;
 }
 
-// ¹è³Ê ±×·ìÀ» SELECT Çü½ÄÀ¸·Î ¾òÀ½
+// ë°°ë„ˆ ê·¸ë£¹ì„ SELECT í˜•ì‹ìœ¼ë¡œ ì–»ìŒ
 function get_banner_group_select($name, $selected='', $event='')
 {
     global $g4, $is_admin, $member;
@@ -80,7 +80,7 @@ function get_banner_group_select($name, $selected='', $event='')
     return $str;
 }
 
-// ¹è³Ê¸¦ SELECT Çü½ÄÀ¸·Î ¾òÀ½
+// ë°°ë„ˆë¥¼ SELECT í˜•ì‹ìœ¼ë¡œ ì–»ìŒ
 function get_banner_select($name, $selected='', $event='')
 {
     global $g4, $is_admin, $member;
@@ -97,9 +97,9 @@ function get_banner_select($name, $selected='', $event='')
         $str .= ">$row[bn_subject] ($row[bn_id])</option>";
     }
     if ($selected == '')
-        $str .= "<option value ='' selected>ÀüÃ¼</option>";
+        $str .= "<option value ='' selected>ì „ì²´</option>";
     else
-        $str .= "<option value =''>ÀüÃ¼</option>";
+        $str .= "<option value =''>ì „ì²´</option>";
     $str .= "</select>";
     return $str;
 }

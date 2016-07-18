@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 
 <table width="100%" cellpadding="0" cellspacing="0" border="0" style='border-width:1; border-color:#DDDDDD; border-style:solid;'><tr><td>
@@ -7,7 +7,7 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
     <td colspan=3 height="5"></td>
 </tr>
 <? if (count($list) == 0) { ?>
-    <tr><td colspan=3 align=center height=30>³»¿ë ¾øÀ½</td></tr>
+    <tr><td colspan=3 align=center height=30>ë‚´ìš© ì—†ìŒ</td></tr>
 <? } else { ?>
 <? for ($i=0; $i<count($list); $i++) { 
     if ($list[$i][ca_name] !== $member[mb_id])
@@ -28,13 +28,13 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
         echo $list[$i][icon_reply] . " ";
         echo "<a href='{$list[$i][href]}' onfocus='this.blur()' title='{$list_title}' {$target_link}>";
         if ($list[$i][is_notice])
-            echo "<font style='font-family:µ¸¿ò; font-size:9pt; color:#2C88B9;'><strong>" . $list[$i][subject] . "</strong></font>";
+            echo "<font style='font-family:ë‹ì›€; font-size:9pt; color:#2C88B9;'><strong>" . $list[$i][subject] . "</strong></font>";
         else
-            echo "<font style='font-family:µ¸¿ò; font-size:9pt; color:#6A6A6A;'>" . $list[$i][subject] . "</font>";
+            echo "<font style='font-family:ë‹ì›€; font-size:9pt; color:#6A6A6A;'>" . $list[$i][subject] . "</font>";
         echo "</a>";
 
         if ($list[$i][comment_cnt]) 
-            echo " <a href=\"{$list[$i][comment_href]}\" onfocus=\"this.blur()\"><span style='font-family:µ¸¿ò; font-size:8pt; color:#9A9A9A;'>{$list[$i][comment_cnt]}</span></a> ";
+            echo " <a href=\"{$list[$i][comment_href]}\" onfocus=\"this.blur()\"><span style='font-family:ë‹ì›€; font-size:8pt; color:#9A9A9A;'>{$list[$i][comment_cnt]}</span></a> ";
 
         ?>
     </td>

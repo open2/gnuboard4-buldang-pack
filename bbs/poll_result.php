@@ -3,19 +3,19 @@ include_once("./_common.php");
 
 $po = sql_fetch(" select * from $g4[poll_table] where po_id = '$po_id' ");
 if (!$po[po_id]) 
-    alert_close('¼³¹®Á¶»ç Á¤º¸°¡ ¾ø½À´Ï´Ù.');
+    alert_close('ì„¤ë¬¸ì¡°ì‚¬ ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤.');
 
-$g4[title] = "¼³¹®Á¶»ç °á°ú";
+$g4[title] = "ì„¤ë¬¸ì¡°ì‚¬ ê²°ê³¼";
 
 $po_subject = $po[po_subject];
 
-// ¿ä¾àÁ¤º¸
+// ìš”ì•½ì •ë³´
 $html = 0;
 $po['po_summary'] = conv_content($po['po_summary'], $html);
 
-// ÅõÇ¥½ÃÀÛÀÏ, Á¾·áÀÏ ¼³Á¤
+// íˆ¬í‘œì‹œì‘ì¼, ì¢…ë£Œì¼ ì„¤ì •
 if ($po[po_end_date] == "0000-00-00")
-    $po_end_date = "ÇöÀç";
+    $po_end_date = "í˜„ì¬";
 
 $max = 1;
 $total_po_cnt = 0;
@@ -50,7 +50,7 @@ for ($i=1; $i<=9; $i++)
 
 $list2 = array();
 
-// ±âÅ¸ÀÇ°ß ¸®½ºÆ®
+// ê¸°íƒ€ì˜ê²¬ ë¦¬ìŠ¤íŠ¸
 $sql = " select a.pc_id, a.mb_id, a.pc_idea, a.pc_datetime, a.pc_name, b.mb_open, b.mb_nick
            from $g4[poll_etc_table] a
            left join $g4[member_table] b on (a.mb_id = b.mb_id)
@@ -70,7 +70,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         $list2[$i][del] = "<a href=\"javascript:del('$g4[bbs_path]/password.php?w=p&pc_id=$row[pc_id]&po_id=$po_id');\">";
 }
 
-// ±âÅ¸ÀÇ°ß ÀÔ·Â
+// ê¸°íƒ€ì˜ê²¬ ì…ë ¥
 $is_etc = false;
 if ($po[po_etc]) 
 {
@@ -79,19 +79,19 @@ if ($po[po_etc])
     if ($member[mb_id]) 
         $name = "<b>$member[mb_nick]</b> <input type='hidden' name='pc_name' value='$member[mb_nick]'>";
     else 
-        $name = "<input type='text' name='pc_name' size=10 class=input required itemname='ÀÌ¸§'>";
+        $name = "<input type='text' name='pc_name' size=10 class=input required itemname='ì´ë¦„'>";
 }
 
 $list3 = array();
 
-// ´Ù¸¥ÅõÇ¥
+// ë‹¤ë¥¸íˆ¬í‘œ
 $sql = " select po_id, po_subject, po_date from $g4[poll_table] where po_use_access = 0 order by po_id desc ";
 $result = sql_query($sql);
 for ($i=0; $row2=sql_fetch_array($result); $i++) 
 {
     $list3[$i][po_id]   = $row2[po_id];
     $list3[$i][date]    = substr($row2[po_date],2,8);
-    $list3[$i][subject] = cut_str($row2[po_subject],60,"¡¦");
+    $list3[$i][subject] = cut_str($row2[po_subject],60,"â€¦");
 }
 
 include_once("$g4[path]/head.sub.php");

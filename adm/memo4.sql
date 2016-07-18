@@ -1,6 +1,6 @@
-# ÂÊÁö 5 ¼³Ä¡ ÆÄÀÏ
+# ìª½ì§€ 5 ì„¤ì¹˜ íŒŒì¼
 
-# ¸Ş¸ğ2
+# ë©”ëª¨2
 DROP TABLE IF EXISTS `$g4[memo_group_table]`;
 CREATE TABLE `$g4[memo_group_table]` (
   `gr_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -19,7 +19,7 @@ CREATE TABLE `$g4[memo_group_member_table]` (
   PRIMARY KEY (`gr_mb_no`)
 );
 
-# ÂÊÁö2 - °øÁöÅ×ÀÌºí
+# ìª½ì§€2 - ê³µì§€í…Œì´ë¸”
 DROP TABLE IF EXISTS `$g4[memo_notice_table]`;
 CREATE TABLE `$g4[memo_notice_table]` (
   `me_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -39,7 +39,7 @@ CREATE TABLE `$g4[memo_notice_table]` (
   KEY `me_send_mb_id_idx` (`me_send_mb_id`)
 );
 
-# ÂÊÁö2 - ¼ö½ÅÅ×ÀÌºí
+# ìª½ì§€2 - ìˆ˜ì‹ í…Œì´ë¸”
 DROP TABLE IF EXISTS `$g4[memo_recv_table]`;
 CREATE TABLE `$g4[memo_recv_table]` (
   `me_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -61,7 +61,7 @@ CREATE TABLE `$g4[memo_recv_table]` (
   KEY `me_file_local` (`me_file_local`)
 );
 
-# ÂÊÁö2 - ÀúÀåÅ×ÀÌºí
+# ìª½ì§€2 - ì €ì¥í…Œì´ë¸”
 DROP TABLE IF EXISTS `$g4[memo_save_table]`;
 CREATE TABLE `$g4[memo_save_table]` (
   `me_id` int(11) NOT NULL,
@@ -82,7 +82,7 @@ CREATE TABLE `$g4[memo_save_table]` (
   KEY `memo_owner` (`memo_owner`)
 );
 
-# ÂÊÁö2 - ¹ß½ÅÅ×ÀÌºí
+# ìª½ì§€2 - ë°œì‹ í…Œì´ë¸”
 DROP TABLE IF EXISTS `$g4[memo_send_table]`;
 CREATE TABLE `$g4[memo_send_table]` (
   `me_id` int(11) NOT NULL,
@@ -104,7 +104,7 @@ CREATE TABLE `$g4[memo_send_table]` (
   KEY `me_file_local` (`me_file_local`)
 );
 
-# ÂÊÁö2 - ½ºÆÔÅ×ÀÌºí
+# ìª½ì§€2 - ìŠ¤íŒ¸í…Œì´ë¸”
 DROP TABLE IF EXISTS `$g4[memo_spam_table]`;
 CREATE TABLE `$g4[memo_spam_table]` (
   `me_id` int(11) NOT NULL,
@@ -125,7 +125,7 @@ CREATE TABLE `$g4[memo_spam_table]` (
   KEY `memo_owner` (`memo_owner`)
 );
 
-# ÂÊÁö2 - Ä£±¸Å×ÀÌºí
+# ìª½ì§€2 - ì¹œêµ¬í…Œì´ë¸”
 DROP TABLE IF EXISTS `$g4[friend_table]`;
 CREATE TABLE `$g4[friend_table]` (
   `fr_no` int(11) NOT NULL AUTO_INCREMENT,
@@ -139,7 +139,7 @@ CREATE TABLE `$g4[friend_table]` (
   KEY `fr_relation` (`fr_type`)
 );
 
-# ÂÊÁö4 - ½Å±ÔÅ×ÀÌºí (ÈŞÁöÅë)
+# ìª½ì§€4 - ì‹ ê·œí…Œì´ë¸” (íœ´ì§€í†µ)
 DROP TABLE IF EXISTS `$g4[memo_trash_table]`;
 CREATE TABLE `$g4[memo_trash_table]` (
   `me_id` int(11) NOT NULL,
@@ -162,7 +162,7 @@ CREATE TABLE `$g4[memo_trash_table]` (
   KEY `me_file_local` (`me_file_local`)
 );
 
-# ÂÊÁö4 - ½Å±Ô Å×ÀÌºí (¼³Á¤)
+# ìª½ì§€4 - ì‹ ê·œ í…Œì´ë¸” (ì„¤ì •)
 DROP TABLE IF EXISTS `$g4[memo_config_table]`;
 CREATE TABLE `$g4[memo_config_table]` (
   `cf_memo_page_rows` int(11) NOT NULL,
@@ -185,18 +185,18 @@ CREATE TABLE `$g4[memo_config_table]` (
   `cf_memo_del_file` tinyint(4) NOT NULL
 ) ;
 
-# ½Ç½Ã°£ ¸Ş¸ğ
+# ì‹¤ì‹œê°„ ë©”ëª¨
 ALTER TABLE `$g4[member_table]` ADD `mb_realmemo` TINYINT( 4 ) NOT NULL , ADD `mb_realmemo_sound` TINYINT( 4 ) NOT NULL ;
 
-# ¸Ş¸ğ call
+# ë©”ëª¨ call
 ALTER TABLE `$g4[member_table]` CHANGE `mb_memo_call` `mb_memo_call` TEXT NOT NULL ;
 
-# ÂÊÁö4 ÀÚµ¿ÀÀ´ä±â´É
+# ìª½ì§€4 ìë™ì‘ë‹µê¸°ëŠ¥
 ALTER TABLE `$g4[member_table]` ADD `mb_memo_no_reply` TINYINT( 4 ) NOT NULL ;
 ALTER TABLE `$g4[member_table]` ADD `mb_memo_no_reply_text` text NOT NULL ;
 
-# ¾ÈÀĞÀº ÂÊÁö°¹¼ö Ãß°¡
+# ì•ˆì½ì€ ìª½ì§€ê°¯ìˆ˜ ì¶”ê°€
 ALTER TABLE `$g4[member_table]` ADD `mb_memo_unread` INT( 11 ) NOT NULL ;
 
-# 5.0.0 - ¾ÈÀĞÀº ÂÊÁö³¯Â¥ Ãß°¡
+# 5.0.0 - ì•ˆì½ì€ ìª½ì§€ë‚ ì§œ ì¶”ê°€
 ALTER TABLE `$g4[member_table]` ADD `mb_memo_call_datetime` DATETIME NOT NULL ;

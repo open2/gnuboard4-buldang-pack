@@ -1,26 +1,26 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-// wr_1 : °æ¸Å½ÃÀÛÀÏ½Ã
-// wr_2 : °æ¸ÅÁ¾·áÀÏ½Ã
-// wr_3 : Âü¿© Æ÷ÀÎÆ®
-// wr_4 : ÀÔÂû ÃÖ¼Ò Æ÷ÀÎÆ®
-// wr_5 : ÀÔÂû ÃÖ°í Æ÷ÀÎÆ®
-// wr_6 : ÇÏ·ç Âü¿© È½¼ö 
-// wr_7 : ÀÔÂû¼ö
-// wr_8 : °æ¸Å»óÅÂ (0: °æ¸ÅÀü, 1:ÁøÇàÁß, 2:³«Âû, 3:À¯Âû)
-// wr_9 : ³«Âû Æ÷ÀÎÆ®
-// wr_10 : ³«ÂûÈ¸¿ø¾ÆÀÌµğ
+// wr_1 : ê²½ë§¤ì‹œì‘ì¼ì‹œ
+// wr_2 : ê²½ë§¤ì¢…ë£Œì¼ì‹œ
+// wr_3 : ì°¸ì—¬ í¬ì¸íŠ¸
+// wr_4 : ì…ì°° ìµœì†Œ í¬ì¸íŠ¸
+// wr_5 : ì…ì°° ìµœê³  í¬ì¸íŠ¸
+// wr_6 : í•˜ë£¨ ì°¸ì—¬ íšŸìˆ˜ 
+// wr_7 : ì…ì°°ìˆ˜
+// wr_8 : ê²½ë§¤ìƒíƒœ (0: ê²½ë§¤ì „, 1:ì§„í–‰ì¤‘, 2:ë‚™ì°°, 3:ìœ ì°°)
+// wr_9 : ë‚™ì°° í¬ì¸íŠ¸
+// wr_10 : ë‚™ì°°íšŒì›ì•„ì´ë””
 
 $tender_table = "{$write_table}_tender";
 
 if (!$board[bo_1]) 
 {
     $sql = " update $g4[board_table] set ";
-    $sql.= "  bo_1_subj = 'Âü¿© Æ÷ÀÎÆ® ±âº»°ª' ";
-    $sql.= " ,bo_2_subj = 'ÀÔÂû ÃÖ¼Ò Æ÷ÀÎÆ® ±âº»°ª' ";
-    $sql.= " ,bo_3_subj = 'ÀÔÂû ÃÖ´ë Æ÷ÀÎÆ® ±âº»°ª' ";
-    $sql.= " ,bo_4_subj = 'ÇÏ·ç Âü¿© È½¼ö ±âº»°ª' ";
+    $sql.= "  bo_1_subj = 'ì°¸ì—¬ í¬ì¸íŠ¸ ê¸°ë³¸ê°’' ";
+    $sql.= " ,bo_2_subj = 'ì…ì°° ìµœì†Œ í¬ì¸íŠ¸ ê¸°ë³¸ê°’' ";
+    $sql.= " ,bo_3_subj = 'ì…ì°° ìµœëŒ€ í¬ì¸íŠ¸ ê¸°ë³¸ê°’' ";
+    $sql.= " ,bo_4_subj = 'í•˜ë£¨ ì°¸ì—¬ íšŸìˆ˜ ê¸°ë³¸ê°’' ";
     $sql.= " where bo_table = '$bo_table' ";
     sql_query($sql, false);
 
@@ -51,20 +51,20 @@ $sql.= " INDEX ( `wr_id` ) ";
 $sql.= " ); ";
 sql_query($sql, false);
 
-// °æ¸Å »óÅÂ Ãâ·Â
+// ê²½ë§¤ ìƒíƒœ ì¶œë ¥
 function auction_status($status)
 {
     switch ($status)
     {
-        case "0": $status = "°æ¸ÅÀü"; break;
-        case "1": $status = "ÁøÇàÁß"; break;
-        case "2": $status = "³«Âû"; break;
-        case "3": $status = "À¯Âû"; break;
+        case "0": $status = "ê²½ë§¤ì „"; break;
+        case "1": $status = "ì§„í–‰ì¤‘"; break;
+        case "2": $status = "ë‚™ì°°"; break;
+        case "3": $status = "ìœ ì°°"; break;
     }
     return $status;
 }
 
-// °æ¸ÅÁ¤º¸(Ãß°¡ÇÊµå)¸¦ °¡Á®¿Â´Ù.
+// ê²½ë§¤ì •ë³´(ì¶”ê°€í•„ë“œ)ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 function get_info_auction($wr_id, $row=null)
 {
     global $write, $write_table;
@@ -94,72 +94,72 @@ function get_info_auction($wr_id, $row=null)
     return $res;
 }
 
-// °æ¸Å ÀÔÂû ÁøÇà
+// ê²½ë§¤ ì…ì°° ì§„í–‰
 function tender_send($wr_id, $point)
 {
     global $g4, $board, $member, $tender_table, $write_table, $write, $bo_table;
 
     if (!$member[mb_id])
-        alert_only("·Î±×ÀÎ ÇØÁÖ¼¼¿ä.");
+        alert_only("ë¡œê·¸ì¸ í•´ì£¼ì„¸ìš”.");
 
     if ($board[bo_5] > 0 && (($g4[server_time] - strtotime($member[mb_datetime])) < ($board[bo_5]*86400)))
-        alert_only("È¸¿ø°¡ÀÔ ÈÄ $board[bo_5] ÀÏÀÌ Áö³ª¾ß Âü¿© °¡´ÉÇÕ´Ï´Ù.");
+        alert_only("íšŒì›ê°€ì… í›„ $board[bo_5] ì¼ì´ ì§€ë‚˜ì•¼ ì°¸ì—¬ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
     $auction = get_info_auction($wr_id);
 
     if ($g4[time_ymdhis] < $auction[start_datetime])
-        alert_only("°æ¸Å ½ÃÀÛ ÀüÀÔ´Ï´Ù.");
+        alert_only("ê²½ë§¤ ì‹œì‘ ì „ì…ë‹ˆë‹¤.");
 
     if ($g4[time_ymdhis] > $auction[end_datetime]) 
-        alert_only("°æ¸Å°¡ Á¾·áµÇ¾ú½À´Ï´Ù.");
+        alert_only("ê²½ë§¤ê°€ ì¢…ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
 
     $row2 = sql_fetch(" select count(mb_id) as cnt from $tender_table where td_datetime like '$g4[time_ymd]%' and mb_id = '$member[mb_id]' and wr_id = '$wr_id' ");
     $tender_count = $row2[cnt];
 
     if ($tender_count >= $auction[day_limit])
-        alert_only("ÇÏ·ç¿¡ $auction[day_limit] ¹ø Âü¿© °¡´ÉÇÕ´Ï´Ù.");
+        alert_only("í•˜ë£¨ì— $auction[day_limit] ë²ˆ ì°¸ì—¬ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
     if ($point < $auction[tender_lower] || $point > $auction[tender_higher])
-        alert_only("ÀÔÂû Æ÷ÀÎÆ®´Â ".number_format($auction[tender_lower])."~".number_format($auction[tender_higher])." »çÀÌ·Î ¼³Á¤ÇØÁÖ¼¼¿ä.");
+        alert_only("ì…ì°° í¬ì¸íŠ¸ëŠ” ".number_format($auction[tender_lower])."~".number_format($auction[tender_higher])." ì‚¬ì´ë¡œ ì„¤ì •í•´ì£¼ì„¸ìš”.");
 
     $total_point = (int)$auction[inter_point] + (int)$point;
 
     if ($member[mb_point] - $total_point < 0)
-        alert_only("°¡Áö°í °è½Å Æ÷ÀÎÆ®(".number_format($member[mb_point]).") °¡ Âü¿© Æ÷ÀÎÆ®+ÀÔÂû Æ÷ÀÎÆ®(".number_format($total_point).") º¸´Ù ºÎÁ·ÇÕ´Ï´Ù.");
+        alert_only("ê°€ì§€ê³  ê³„ì‹  í¬ì¸íŠ¸(".number_format($member[mb_point]).") ê°€ ì°¸ì—¬ í¬ì¸íŠ¸+ì…ì°° í¬ì¸íŠ¸(".number_format($total_point).") ë³´ë‹¤ ë¶€ì¡±í•©ë‹ˆë‹¤.");
 
     $row = sql_fetch(" select * from $tender_table where wr_id = '$wr_id' and mb_id = '$member[mb_id]' and td_tender_point = '$point' ");
     if ($row)
-        alert_only("ÀÌ¹Ì °°Àº Æ÷ÀÎÆ®·Î ÀÔÂû ÇÏ¼Ì½À´Ï´Ù.");
+        alert_only("ì´ë¯¸ ê°™ì€ í¬ì¸íŠ¸ë¡œ ì…ì°° í•˜ì…¨ìŠµë‹ˆë‹¤.");
 
     //////////////////////////////////////////////////////////////////////
-    // ¿¬¼Ó¹øÈ£ ºÒ°¡ 
+    // ì—°ì†ë²ˆí˜¸ ë¶ˆê°€ 
     //////////////////////////////////////////////////////////////////////
     /*
     $series = 4;
     $half = floor($series/2);
-    $msg = "¿¬¼ÓµÈ ¹øÈ£·Î ".($series-1)."¹ø ÀÌ»ó ÀÔÂûÇÏ½Ç ¼ö ¾ø½À´Ï´Ù.";
+    $msg = "ì—°ì†ëœ ë²ˆí˜¸ë¡œ ".($series-1)."ë²ˆ ì´ìƒ ì…ì°°í•˜ì‹¤ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.";
 
-    // ¾Æ·¡·Î 
+    // ì•„ë˜ë¡œ 
     $row = sql_fetch(" select count(*) as cnt from {$tender_table} where wr_id = '$wr_id' and mb_id = '$member[mb_id]' and td_tender_point < {$point} and td_tender_point > {$point}-{$series} ");
     if ($row[cnt] >= $series-1)
         alert_only($msg);
 
-    // À§·Î
+    // ìœ„ë¡œ
     $row = sql_fetch(" select count(*) as cnt from {$tender_table} where wr_id = '$wr_id' and mb_id = '$member[mb_id]' and td_tender_point > {$point} and td_tender_point < {$point}+{$series} ");
     if ($row[cnt] >= $series-1)
         alert_only($msg);
 
-    // »çÀÌ¿¡
+    // ì‚¬ì´ì—
     $row = sql_fetch(" select count(*) as cnt from {$tender_table} where wr_id = '$wr_id' and mb_id = '$member[mb_id]' and td_tender_point >= {$point}-{$half} and td_tender_point <= {$point}+{$half} ");
     if ($row[cnt] >= $series+1)
         alert_only($msg);
     */
 
     //////////////////////////////////////////////////////////////////////
-    // ¹üÀ§ ÀÔÂû Á¦ÇÑ 
+    // ë²”ìœ„ ì…ì°° ì œí•œ 
     //////////////////////////////////////////////////////////////////////
-    $sec = 10; // ¹üÀ§ 10°³
-    $cnt = 5; // Çã¿ë°¹¼ö 5°³
+    $sec = 10; // ë²”ìœ„ 10ê°œ
+    $cnt = 5; // í—ˆìš©ê°¯ìˆ˜ 5ê°œ
 
     if ($point % $sec)
         $tmp = $point;
@@ -171,7 +171,7 @@ function tender_send($wr_id, $point)
 
     $row = sql_fetch(" select count(*) as cnt from {$tender_table} where wr_id = '$wr_id' and mb_id = '$member[mb_id]' and td_tender_point >= {$min} and td_tender_point <= {$max} ");
     if ($row[cnt] >= $cnt)
-        alert_only("ÀÌ¹Ì $min °ú $max »çÀÌ¿¡ $cnt ¹ø ÀÔÂûÇÏ¼Ì½À´Ï´Ù.");
+        alert_only("ì´ë¯¸ $min ê³¼ $max ì‚¬ì´ì— $cnt ë²ˆ ì…ì°°í•˜ì…¨ìŠµë‹ˆë‹¤.");
     //////////////////////////////////////////////////////////////////////
 
     $sql = "insert into {$tender_table} set ";
@@ -191,13 +191,13 @@ function tender_send($wr_id, $point)
     sql_query(" update $write_table set wr_7 = wr_7 + 1 where wr_id = '$wr_id' ");
 
     if ($auction[inter_point])
-        insert_point($member[mb_id], $auction[inter_point]*-1, "$wr_id °æ¸Å Âü¿©", $bo_table, $wr_id, "Âü¿© : $g4[time_ymdhis]");
+        insert_point($member[mb_id], $auction[inter_point]*-1, "$wr_id ê²½ë§¤ ì°¸ì—¬", $bo_table, $wr_id, "ì°¸ì—¬ : $g4[time_ymdhis]");
 
     if ($point)
-        insert_point($member[mb_id], $point*-1, "$wr_id °æ¸Å ÀÔÂû", $bo_table, $wr_id, "ÀÔÂû : $g4[time_ymdhis]");
+        insert_point($member[mb_id], $point*-1, "$wr_id ê²½ë§¤ ì…ì°°", $bo_table, $wr_id, "ì…ì°° : $g4[time_ymdhis]");
 }
 
-// °æ¸ÅÀÇ ³«Âû ¿©ºÎ °Ë»ç ¹× ¾÷µ¥ÀÌÆ®
+// ê²½ë§¤ì˜ ë‚™ì°° ì—¬ë¶€ ê²€ì‚¬ ë° ì—…ë°ì´íŠ¸
 function auction_successful($wr_id)
 {
     global $g4, $write_table, $tender_table, $auction, $write, $bo_table;
@@ -205,19 +205,19 @@ function auction_successful($wr_id)
     if (!$auction)
         $auction = get_info_auction($wr_id);
 
-    // °æ¸Å»óÅÂ Á¶È¸ - ÀÌ¹Ì Á¾·áµÇ¾úÀ¸¸é return
+    // ê²½ë§¤ìƒíƒœ ì¡°íšŒ - ì´ë¯¸ ì¢…ë£Œë˜ì—ˆìœ¼ë©´ return
     if ($auction[status] > 1) return false;
 
-    // °æ¸Å°¡ ½ÃÀÛÀüÀÌ¸é return
+    // ê²½ë§¤ê°€ ì‹œì‘ì „ì´ë©´ return
     if ($auction[start_datetime] > $g4[time_ymdhis]) return false;
 
-    // °æ¸Å³¯Â¥¸¦ ºñ±³ÇÏ¿© ÁøÇàÁßÀÏ°æ¿ì return
+    // ê²½ë§¤ë‚ ì§œë¥¼ ë¹„êµí•˜ì—¬ ì§„í–‰ì¤‘ì¼ê²½ìš° return
     if ($auction[start_datetime] < $g4[time_ymdhis] && $auction[end_datetime] > $g4[time_ymdhis]) return false;
 
-    // ÃÖÀú·Î ÀÔÂûµÈ ³»¿ªÀ» Á¶È¸
+    // ìµœì €ë¡œ ì…ì°°ëœ ë‚´ì—­ì„ ì¡°íšŒ
     $row = sql_fetch(" select td_tender_point as point, count(td_tender_point) as cnt from $tender_table where wr_id = '$wr_id' group by td_tender_point order by cnt, td_tender_point limit 1 ");
 
-    // Áßº¹µÇ¾ú°Å³ª ÀÔÂû³»¿ªÀÌ ¾øÀ» °æ¿ì À¯Âû
+    // ì¤‘ë³µë˜ì—ˆê±°ë‚˜ ì…ì°°ë‚´ì—­ì´ ì—†ì„ ê²½ìš° ìœ ì°°
     if ($row[cnt] > 1 || !$row)
     {
         sql_query(" update $write_table set wr_8 = '3' where wr_id = '$wr_id' ");
@@ -225,7 +225,7 @@ function auction_successful($wr_id)
         $qry = sql_query(" select * from $tender_table where wr_id = '$wr_id' ");
         while ($row = sql_fetch_array($qry))
         {
-            insert_point($row[mb_id], $row[td_tender_point], "$wr_id °æ¸Å À¯Âû, ÀÔÂû Æ÷ÀÎÆ® È¯±Ş", $bo_table, $wr_id, "ÀÔÂû $row[td_tender_point] Æ÷ÀÎÆ® È¯±Ş");
+            insert_point($row[mb_id], $row[td_tender_point], "$wr_id ê²½ë§¤ ìœ ì°°, ì…ì°° í¬ì¸íŠ¸ í™˜ê¸‰", $bo_table, $wr_id, "ì…ì°° $row[td_tender_point] í¬ì¸íŠ¸ í™˜ê¸‰");
         }
 
         $res = sql_fetch(" select wr_7, wr_8, wr_9, wr_10 from $write_table where wr_id = '$wr_id' ");
@@ -233,14 +233,14 @@ function auction_successful($wr_id)
     }
     else
     {
-        // ³«ÂûµÈ ÀÔÂûÁ¤º¸ °¡Á®¿À±â
+        // ë‚™ì°°ëœ ì…ì°°ì •ë³´ ê°€ì ¸ì˜¤ê¸°
         $row = sql_fetch(" select * from $tender_table where td_tender_point = '$row[point]' and wr_id = '$wr_id' ");
         sql_query(" update $write_table set wr_8 = '2', wr_9 = '$row[td_tender_point]', wr_10 = '$row[mb_id]' where wr_id = '$wr_id' ");
 
         $qry = sql_query(" select * from $tender_table where td_tender_point <> '$row[td_tender_point]' and wr_id = '$wr_id' ");
         while ($row = sql_fetch_array($qry))
         {
-            insert_point($row[mb_id], $row[td_tender_point], "$wr_id °æ¸Å ³«Âû¾ÈµÊ, ÀÔÂû Æ÷ÀÎÆ® È¯±Ş", $bo_table, $wr_id, "ÀÔÂû $row[td_tender_point] Æ÷ÀÎÆ® È¯±Ş");
+            insert_point($row[mb_id], $row[td_tender_point], "$wr_id ê²½ë§¤ ë‚™ì°°ì•ˆë¨, ì…ì°° í¬ì¸íŠ¸ í™˜ê¸‰", $bo_table, $wr_id, "ì…ì°° $row[td_tender_point] í¬ì¸íŠ¸ í™˜ê¸‰");
         }
 
         $res = sql_fetch(" select wr_7, wr_8, wr_9, wr_10 from $write_table where wr_id = '$wr_id' ");

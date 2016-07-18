@@ -36,13 +36,13 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if (!$page) $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if (!$page) $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
-$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>ì²˜ìŒ</a>";
 
-$g4[title] = "ÇÊÅÍ°ü¸®";
+$g4[title] = "í•„í„°ê´€ë¦¬";
 include_once("./admin.head.php");
 
 $sql = " select * 
@@ -60,16 +60,16 @@ var list_update_php = "filter_update.php";
 
 <form name=fsearch method=get role="form" class="form-inline">
 <div class="btn-group">
-    <?=$listall?> (ÇÊÅÍ°¹¼ö : <?=number_format($total_count)?>)
+    <?=$listall?> (í•„í„°ê°¯ìˆ˜ : <?=number_format($total_count)?>)
 </div>
 <div class="pull-right">
     <select name=sfl class="form-control">
-        <option value='pp_word'>ÇÊÅÍ</option>
-        <option value='pp_level'>ÇÊÅÍ·¹º§</option>
+        <option value='pp_word'>í•„í„°</option>
+        <option value='pp_level'>í•„í„°ë ˆë²¨</option>
     </select>
-    <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<?=$stx?>'>
+    <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<?=$stx?>'>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 </form>
@@ -85,15 +85,15 @@ var list_update_php = "filter_update.php";
 <tr class="success">
     <td width=30><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
     <td width=110><?=subject_sort_link('pp_id')?>pp_id</a></td>
-    <td><?=subject_sort_link('pp_word')?>ÇÊÅÍ</td>
-    <td width=100><?=subject_sort_link('pp_level')?>ÇÊÅÍ ·¹º§</a></td>
-	  <td width=100>ÇÊÅÍµÈ °¹¼ö</td>
-    <td width=110>ÇÊÅÍÀÏ½Ã</td>
+    <td><?=subject_sort_link('pp_word')?>í•„í„°</td>
+    <td width=100><?=subject_sort_link('pp_level')?>í•„í„° ë ˆë²¨</a></td>
+	  <td width=100>í•„í„°ëœ ê°¯ìˆ˜</td>
+    <td width=110>í•„í„°ì¼ì‹œ</td>
 </tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) {
 
-    // ÇÊÅÍµÈ °¹¼ö ±¸ÇÏ±â
+    // í•„í„°ëœ ê°¯ìˆ˜ êµ¬í•˜ê¸°
     $sql2 = " select count(*) as cnt from $g4[popular_table] where pp_word = '$row[pp_word]' ";
     $result2 = sql_fetch($sql2);
 
@@ -111,12 +111,12 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='6' align=center height=100>³»¿ªÀÌ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='6' align=center height=100>ë‚´ì—­ì´ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
@@ -124,10 +124,10 @@ echo "</table>";
 </div>
 
 <div class="btn-group">
-    <input type=button class='btn btn-default' value='¼±ÅÃ¼öÁ¤' onclick="btn_check(this.form, 'update')">
+    <input type=button class='btn btn-default' value='ì„ íƒìˆ˜ì •' onclick="btn_check(this.form, 'update')">
     <? if ($is_admin == "super") { ?>
         <input type=hidden name=act value='delete'>
-        <input type=button class='btn btn-default' value='¼±ÅÃ»èÁ¦' onclick="btn_check(this.form, 'delete')">
+        <input type=button class='btn btn-default' value='ì„ íƒì‚­ì œ' onclick="btn_check(this.form, 'delete')">
     <? } ?>
 </div>
 
@@ -151,15 +151,15 @@ if ($stx)
 <colgroup width=100>
 <colgroup width=''>
 <tr>
-    <td>ÇÊÅÍ</td>
-    <td>ÇÊÅÍ·¹º§</td>
+    <td>í•„í„°</td>
+    <td>í•„í„°ë ˆë²¨</td>
     <td></td>
     <td></td>
 </tr>
 <tr>
-    <td><input type=text class=ed name=pp_word required itemname='ÇÊÅÍ' value=''></td>
+    <td><input type=text class=ed name=pp_word required itemname='í•„í„°' value=''></td>
     <td><?=get_member_level_select('pp_level', 1, 10, 5) ?></td>
-    <td><input type=submit class="btn btn-default" value='  È®  ÀÎ  '></td>
+    <td><input type=submit class="btn btn-default" value='  í™•  ì¸  '></td>
     <td></td>
 </tr>
 </table>

@@ -10,15 +10,15 @@ check_token();
 
 for ($i=0; $i<count($chk); $i++) 
 {
-    // ½ÇÁ¦ ¹øÈ£¸¦ ³Ñ±è
+    // ì‹¤ì œ ë²ˆí˜¸ë¥¼ ë„˜ê¹€
     $k = $_POST[chk][$i];
     $pp_level = $_POST[pp_level][$i];
 
-    // ÇÊÅÍ¸¦ ¾÷µ¥ÀÌÆ® ÇÏ°í
+    // í•„í„°ë¥¼ ì—…ë°ì´íŠ¸ í•˜ê³ 
     $sql = " update $g4[filter_table] set pp_level='$pp_level' where pp_id = '$k' ";
     sql_query($sql);
 
-    // ÇÊÅÍ sumÀÇ ·¹º§µµ ¾÷µ¥ÀÌÆ® ÇÏ°í
+    // í•„í„° sumì˜ ë ˆë²¨ë„ ì—…ë°ì´íŠ¸ í•˜ê³ 
     $pp = sql_fetch(" select pp_word from $g4[filter_table] where pp_id = '$k' ");
     $sql = " update $g4[popular_sum_table] set pp_level='$pp_level' where pp_word = '$pp[pp_word]' ";
     sql_query($sql);

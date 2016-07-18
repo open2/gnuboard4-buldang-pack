@@ -20,7 +20,7 @@ if (strstr($sfl, "content"))
     $view[content] = search_font($stx, $view[content]);
 $view[content] = preg_replace("/(\<img )([^\>]*)(\>)/i", "\\1 name='target_resize_image[]' onclick='image_window(this)' style='cursor:pointer;' \\2 \\3", $view[content]);
 
-$view[rich_content] = preg_replace("/{ÀÌ¹ÌÁö\:([0-9]+)[:]?([^}]*)}/ie", "view_image(\$view, '\\1', '\\2')", $view[content]);
+$view[rich_content] = preg_replace("/{ì´ë¯¸ì§€\:([0-9]+)[:]?([^}]*)}/ie", "view_image(\$view, '\\1', '\\2')", $view[content]);
 
 include_once("$board_skin_path/print.skin.php");
 */

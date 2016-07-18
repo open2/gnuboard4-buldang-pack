@@ -5,12 +5,12 @@ include_once("./_common.php");
 check_demo();
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4[path]);
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4[path]);
 
-$g4[title] = "¾÷±×·¹ÀÌµå";
+$g4[title] = "ì—…ê·¸ë ˆì´ë“œ";
 if (!$g4[b4_upgrade]) include_once("./admin.head.php");
 
-// °úÀ× index¸¦ Á¦°Å ÇÕ´Ï´Ù.
+// ê³¼ì‰ indexë¥¼ ì œê±° í•©ë‹ˆë‹¤.
 sql_query(" ALTER TABLE `$g4[board_file_table]` DROP INDEX `bf_datetime`  ", FALSE);
 sql_query(" ALTER TABLE `$g4[board_file_download_table]` DROP INDEX `dn_datetime`  ", FALSE);
 sql_query(" ALTER TABLE `$g4[board_new_table]` DROP INDEX `my_datetime` ", FALSE);
@@ -26,13 +26,13 @@ sql_query(" ALTER TABLE `$g4[session_table]` DROP INDEX `sd_datetime` ", FALSE);
 sql_query(" ALTER TABLE `$g4]my_board_table]` DROP INDEX `mb_id`, ADD INDEX `mb_id` (`mb_id`) ", FALSE);
 sql_query(" ALTER TABLE `$g4[session_table]` DROP INDEX `se_datetime` ", FALSE);
 
-// °Ô½ÃÆÇÀÇ wr_hit, wr_datetime ÀÎµ¦½º¸¦ Á¦°Å. °Ç¼ö°¡ ¸¹À¸¸é º¸Æ²³ØÀÌ µË´Ï´Ù.
+// ê²Œì‹œíŒì˜ wr_hit, wr_datetime ì¸ë±ìŠ¤ë¥¼ ì œê±°. ê±´ìˆ˜ê°€ ë§ìœ¼ë©´ ë³´í‹€ë„¥ì´ ë©ë‹ˆë‹¤.
 $sql = " select * from $g4[board_table] ";
 $result = sql_query($sql);
 
 for ($i=0; $row=sql_fetch_array($result); $i++) {
 
-    $tmp_write_table = $g4['write_prefix'] . $row[bo_table]; // °Ô½ÃÆÇ Å×ÀÌºí ÀüÃ¼ÀÌ¸§
+    $tmp_write_table = $g4['write_prefix'] . $row[bo_table]; // ê²Œì‹œíŒ í…Œì´ë¸” ì „ì²´ì´ë¦„
 
     $sql1 = " ALTER TABLE $tmp_write_table DROP INDEX `wr_hit` ";
     sql_query($sql1, FALSE);
@@ -40,10 +40,10 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     $sql2 = " ALTER TABLE $tmp_write_table DROP INDEX `wr_datetime` ";
     sql_query($sql2, FALSE);
 
-    echo "<BR>" . $i . " : " . $row[bo_table] . "ÀÇ ÀÎµ¦½º¸¦ ¾÷µ¥ÀÌÆ® Çß½À´Ï´Ù <br>";
+    echo "<BR>" . $i . " : " . $row[bo_table] . "ì˜ ì¸ë±ìŠ¤ë¥¼ ì—…ë°ì´íŠ¸ í–ˆìŠµë‹ˆë‹¤ <br>";
 }
 
-echo "<br>ÀÎµ¦½º Á¶Á¤ UPGRADE ¿Ï·á.";
+echo "<br>ì¸ë±ìŠ¤ ì¡°ì • UPGRADE ì™„ë£Œ.";
 
 if (!$g4[b4_upgrade]) include_once("./admin.tail.php");
 ?>

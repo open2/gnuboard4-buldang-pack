@@ -9,31 +9,31 @@ if (!$is_member)
 {
     $href = "./login.php?$qstr&url=".urlencode("./board.php?bo_table=$bo_table&wr_id=$wr_id");
 
-    echo "<script type='text/javascript'>alert('È¸¿ø¸¸ °¡´ÉÇÕ´Ï´Ù.'); top.location.href = '$href';</script>";
+    echo "<script type='text/javascript'>alert('íšŒì›ë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.'); top.location.href = '$href';</script>";
     exit;
 }
 
 if (!($bo_table && $wr_id)) 
-    alert_close("°ªÀÌ Á¦´ë·Î ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.");
+    alert_close("ê°’ì´ ì œëŒ€ë¡œ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
 $ss_name = "ss_view_{$bo_table}_{$wr_id}";
 if (!get_session($ss_name))
-    alert_close("ÇØ´ç °Ô½Ã¹°¿¡¼­¸¸ ÃßÃµ ¶Ç´Â ºñÃßÃµ ÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+    alert_close("í•´ë‹¹ ê²Œì‹œë¬¼ì—ì„œë§Œ ì¶”ì²œ ë˜ëŠ” ë¹„ì¶”ì²œ í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
 $row = sql_fetch(" select count(*) as cnt from $g4[board_table] where bo_table = '$bo_table' ", FALSE);
 if (!$row['cnt'])
-    alert_close("Á¸ÀçÇÏ´Â °Ô½ÃÆÇÀÌ ¾Æ´Õ´Ï´Ù.");
+    alert_close("ì¡´ì¬í•˜ëŠ” ê²Œì‹œíŒì´ ì•„ë‹™ë‹ˆë‹¤.");
 
 if ($good == "good" || $good == "nogood") 
 {
     if($is_admin == "" && $write[mb_id] == $member[mb_id])
-        alert_close("ÀÚ½ÅÀÇ ±Û¿¡´Â ÃßÃµ ¶Ç´Â ºñÃßÃµ ÇÏ½Ç ¼ö ¾ø½À´Ï´Ù.");
+        alert_close("ìì‹ ì˜ ê¸€ì—ëŠ” ì¶”ì²œ ë˜ëŠ” ë¹„ì¶”ì²œ í•˜ì‹¤ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 
     if (!$board[bo_use_good] && $good == "good")
-        alert_close("ÀÌ °Ô½ÃÆÇÀº ÃßÃµ ±â´ÉÀ» »ç¿ëÇÏÁö ¾Ê½À´Ï´Ù.");
+        alert_close("ì´ ê²Œì‹œíŒì€ ì¶”ì²œ ê¸°ëŠ¥ì„ ì‚¬ìš©í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 
     if (!$board[bo_use_nogood] && $good == "nogood")
-        alert_close("ÀÌ °Ô½ÃÆÇÀº ºñÃßÃµ ±â´ÉÀ» »ç¿ëÇÏÁö ¾Ê½À´Ï´Ù.");
+        alert_close("ì´ ê²Œì‹œíŒì€ ë¹„ì¶”ì²œ ê¸°ëŠ¥ì„ ì‚¬ìš©í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 
     $sql = " select bg_flag from $g4[board_good_table]
               where bo_table = '$bo_table'
@@ -44,28 +44,28 @@ if ($good == "good" || $good == "nogood")
     if ($row[bg_flag])
     {
         if ($row[bg_flag] == "good")
-            $status = "ÃßÃµ";
+            $status = "ì¶”ì²œ";
         else 
-            $status = "ºñÃßÃµ";
+            $status = "ë¹„ì¶”ì²œ";
         
-        echo "<script type='text/javascript'>alert('ÀÌ¹Ì \'$status\' ÇÏ½Å ±Û ÀÔ´Ï´Ù.');</script>";
+        echo "<script type='text/javascript'>alert('ì´ë¯¸ \'$status\' í•˜ì‹  ê¸€ ì…ë‹ˆë‹¤.');</script>";
     }
     else
     {
-        // ÃßÃµ(Âù¼º), ºñÃßÃµ(¹İ´ë) Ä«¿îÆ® Áõ°¡
+        // ì¶”ì²œ(ì°¬ì„±), ë¹„ì¶”ì²œ(ë°˜ëŒ€) ì¹´ìš´íŠ¸ ì¦ê°€
         sql_query(" update {$g4[write_prefix]}{$bo_table} set wr_{$good} = wr_{$good} + 1 where wr_id = '$wr_id' ");
-        // ³»¿ª »ı¼º
+        // ë‚´ì—­ ìƒì„±
         sql_query(" insert $g4[board_good_table] set bo_table = '$bo_table', wr_id = '$wr_id', mb_id = '$member[mb_id]', bg_flag = '$good', bg_datetime = '$g4[time_ymdhis]' ");
-        // È¸¿øÁ¤º¸¿¡µµ ¹İ¿µ
+        // íšŒì›ì •ë³´ì—ë„ ë°˜ì˜
         if ($is_member)
             sql_query(" update $g4[member_table] set mb_{$good} = mb_{$good} + 1 where mb_id = '$write[mb_id]' ");
 
-        // ºÒ´çÆÑ - ÃßÃµ¼ö¿¡ µû¶ó¼­ º£½ºÆ®±Û µî·Ï - ÃßÃµµÚ¿¡ ÀÖ¾î¾ß °¹¼ö¸¦ Á¦´ë·Î ¹İ¿µ
+        // ë¶ˆë‹¹íŒ© - ì¶”ì²œìˆ˜ì— ë”°ë¼ì„œ ë² ìŠ¤íŠ¸ê¸€ ë“±ë¡ - ì¶”ì²œë’¤ì— ìˆì–´ì•¼ ê°¯ìˆ˜ë¥¼ ì œëŒ€ë¡œ ë°˜ì˜
         if ($board[bo_list_good] > 0) {
             $sql = " select count(*) as cnt from $g4[board_good_table] where bo_table='$bo_table' and wr_id='$wr_id' and bg_flag = 'good' ";
             $list_good = sql_fetch($sql);
             if ($list_good[cnt] >= $board[bo_list_good]) {
-                // UPDATE¸¦ ¸ÕÀúÇÏ°í ¿À·ù°¡ ¹ß»ı½Ã insert¸¦ ½ÇÇà
+                // UPDATEë¥¼ ë¨¼ì €í•˜ê³  ì˜¤ë¥˜ê°€ ë°œìƒì‹œ insertë¥¼ ì‹¤í–‰
                 $sql = " update $g4[good_list_table] set good = good + 1 where bo_table='$bo_table' and wr_id='$wr_id' ";
                 $result = sql_query($sql, FALSE);
                 if ( mysql_affected_rows() == 0 ) {
@@ -78,7 +78,7 @@ if ($good == "good" || $good == "nogood")
             $sql = " select count(*) as cnt from $g4[board_good_table] where bo_table='$bo_table' and wr_id='$wr_id' and bg_flag = 'nogood' ";
             $list_nogood = sql_fetch($sql);
             if ($list_nogood[cnt] >= $board[bo_list_nogood]) {
-                // UPDATE¸¦ ¸ÕÀúÇÏ°í ¿À·ù°¡ ¹ß»ı½Ã insert¸¦ ½ÇÇà
+                // UPDATEë¥¼ ë¨¼ì €í•˜ê³  ì˜¤ë¥˜ê°€ ë°œìƒì‹œ insertë¥¼ ì‹¤í–‰
                 $sql = " update $g4[good_list_table] set nogood = nogood + 1 where bo_table='$bo_table' and wr_id='$wr_id' ";
                 $result = sql_query($sql, FALSE);
                 if ( mysql_affected_rows() == 0 ) {
@@ -88,32 +88,32 @@ if ($good == "good" || $good == "nogood")
             }
         }
 
-        // Æ÷ÀÎÆ® ³Ö¾îÁÖ±â
+        // í¬ì¸íŠ¸ ë„£ì–´ì£¼ê¸°
         if ($good == "good") {
-            // °Ô½Ã±Û ÀÛ¼ºÀÚ
+            // ê²Œì‹œê¸€ ì‘ì„±ì
             if ($write[mb_id] !== "" && $board[bo_good_point] && $board[bo_good_point] !== 0)
-                insert_point($write[mb_id], $board[bo_good_point], "$board[bo_subject] $wr_id ÃßÃµÇÏ±â", $bo_table, $wr_id, 'ÃßÃµµÊ');
-            // Å¬¸¯ÇÑ È¸¿ø
+                insert_point($write[mb_id], $board[bo_good_point], "$board[bo_subject] $wr_id ì¶”ì²œí•˜ê¸°", $bo_table, $wr_id, 'ì¶”ì²œë¨');
+            // í´ë¦­í•œ íšŒì›
             if ($board[bo_good_click_point] &&$board[bo_good_click_point] !== 0)
-                insert_point($member[mb_id], $board[bo_good_click_point], "$board[bo_subject] $wr_id ÃßÃµÇÏ±â", $bo_table, $wr_id, 'ÃßÃµ');
+                insert_point($member[mb_id], $board[bo_good_click_point], "$board[bo_subject] $wr_id ì¶”ì²œí•˜ê¸°", $bo_table, $wr_id, 'ì¶”ì²œ');
         } else {
-            // °Ô½Ã±Û ÀÛ¼ºÀÚ
+            // ê²Œì‹œê¸€ ì‘ì„±ì
             if ($write[mb_id] !== "" && $board[bo_nogood_point] && $board[bo_nogood_point] !== 0)
-                insert_point($write[mb_id], $board[bo_nogood_point], "$board[bo_subject] $wr_id ºñÃßÃµÇÏ±â", $bo_table, $wr_id, 'ÃßÃµµÊ');
-            // Å¬¸¯ÇÑ È¸¿ø
+                insert_point($write[mb_id], $board[bo_nogood_point], "$board[bo_subject] $wr_id ë¹„ì¶”ì²œí•˜ê¸°", $bo_table, $wr_id, 'ì¶”ì²œë¨');
+            // í´ë¦­í•œ íšŒì›
             if ($board[bo_nogood_click_point] && $board[bo_nogood_click_point] !== 0)
-                insert_point($member[mb_id], $board[bo_nogood_click_point], "$board[bo_subject] $wr_id ºñÃßÃµÇÏ±â", $bo_table, $wr_id, 'ÃßÃµ');
+                insert_point($member[mb_id], $board[bo_nogood_click_point], "$board[bo_subject] $wr_id ë¹„ì¶”ì²œí•˜ê¸°", $bo_table, $wr_id, 'ì¶”ì²œ');
         }
 
         if ($good == "good") 
-            $status = "ÃßÃµ";
+            $status = "ì¶”ì²œ";
         else 
-            $status = "ºñÃßÃµ";
+            $status = "ë¹„ì¶”ì²œ";
 
-        // ºÒ´çÆÑ - ÃßÃµÀÌ ¼º°øÀûÀÏ ¶§ È®Àå ÇÁ·Î±×·¥ ¼öÇà
+        // ë¶ˆë‹¹íŒ© - ì¶”ì²œì´ ì„±ê³µì ì¼ ë•Œ í™•ì¥ í”„ë¡œê·¸ë¨ ìˆ˜í–‰
         @include_once("$board_skin_path/good.tail.skin.php");
 
-        echo "<script type='text/javascript'> alert('ÀÌ ±ÛÀ» \'$status\' ÇÏ¼Ì½À´Ï´Ù.');</script>";
+        echo "<script type='text/javascript'> alert('ì´ ê¸€ì„ \'$status\' í•˜ì…¨ìŠµë‹ˆë‹¤.');</script>";
     }
 }
 ?>

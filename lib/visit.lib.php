@@ -1,18 +1,18 @@
 <?
 if (!defined('_GNUBOARD_')) exit;
 
-// ¹æ¹®ÀÚ¼ö Ãâ·Â
+// ë°©ë¬¸ìžìˆ˜ ì¶œë ¥
 function visit($skin_dir="basic")
 {
     global $config, $g4, $is_admin;
 
-    // visit ¹è¿­º¯¼ö¿¡ 
-    // $visit[1] = ¿À´Ã
-    // $visit[2] = ¾îÁ¦
-    // $visit[3] = ÃÖ´ë
-    // $visit[4] = ÀüÃ¼
-    // ¼ýÀÚ°¡ µé¾î°¨
-    preg_match("/¿À´Ã:(.*),¾îÁ¦:(.*),ÃÖ´ë:(.*),ÀüÃ¼:(.*)/", $config['cf_visit'], $visit);
+    // visit ë°°ì—´ë³€ìˆ˜ì— 
+    // $visit[1] = ì˜¤ëŠ˜
+    // $visit[2] = ì–´ì œ
+    // $visit[3] = ìµœëŒ€
+    // $visit[4] = ì „ì²´
+    // ìˆ«ìžê°€ ë“¤ì–´ê°
+    preg_match("/ì˜¤ëŠ˜:(.*),ì–´ì œ:(.*),ìµœëŒ€:(.*),ì „ì²´:(.*)/", $config['cf_visit'], $visit);
     settype($visit[0], "integer");
     settype($visit[1], "integer");
     settype($visit[2], "integer");
@@ -28,7 +28,7 @@ function visit($skin_dir="basic")
     return $content;
 }
 
-// get_browser() ÇÔ¼ö´Â ÀÌ¹Ì ÀÖÀ½
+// get_browser() í•¨ìˆ˜ëŠ” ì´ë¯¸ ìžˆìŒ
 function get_brow($agent)
 {
     $agent = strtolower($agent);
@@ -45,7 +45,7 @@ function get_brow($agent)
     else if(preg_match("/internet explorer/", $agent))  { $s = "IE"; }
     else if(preg_match("/mozilla/", $agent))            { $s = "Mozilla"; }
     else if(preg_match("/safari/", $agent))             { $s = "Safari"; }
-    else { $s = "±âÅ¸"; }
+    else { $s = "ê¸°íƒ€"; }
 
     return $s;
 }
@@ -77,7 +77,7 @@ function get_os($agent)
     else if(preg_match("/mozilla/", $agent))                { $s = "Mozilla"; }
     else if(preg_match("/iphone/", $agent))                 { $s = "iPhone"; }
     else if(preg_match("/iPod/", $agent))                   { $s = "iPod"; }
-    else { $s = "±âÅ¸"; }
+    else { $s = "ê¸°íƒ€"; }
 
     return $s;
 }

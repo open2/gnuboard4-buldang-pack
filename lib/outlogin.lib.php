@@ -1,7 +1,7 @@
 <?
 if (!defined('_GNUBOARD_')) exit;
 
-// ¿ÜºÎ·Î±×ÀÎ
+// ì™¸ë¶€ë¡œê·¸ì¸
 function outlogin($skin_dir="basic")
 {
     global $config, $member, $g4, $urlencode, $is_admin;
@@ -11,14 +11,14 @@ function outlogin($skin_dir="basic")
 
     $outlogin_skin_path = "$g4[path]/skin/outlogin/$skin_dir";
 
-    // ÀÐÁö ¾ÊÀº ÂÊÁö°¡ ÀÖ´Ù¸é
+    // ì½ì§€ ì•Šì€ ìª½ì§€ê°€ ìžˆë‹¤ë©´
     if ($member['mb_id']) {
         /*
         $sql = " select count(*) as cnt from {$g4['memo_table']} where me_recv_mb_id = '{$member['mb_id']}' and me_read_datetime = '0000-00-00 00:00:00' ";
         $row = sql_fetch($sql);
         $memo_not_read = $row['cnt'];
         */
-        // ÂÊÁö4¿¡¼­ °è»êÀ» ÇÏ¹Ç·Î
+        // ìª½ì§€4ì—ì„œ ê³„ì‚°ì„ í•˜ë¯€ë¡œ
         $memo_not_read = $member[mb_memo_unread];
         
         $is_auth = false;
@@ -32,7 +32,7 @@ function outlogin($skin_dir="basic")
     ob_start();
     if ($member['mb_id'])
         include_once ("$outlogin_skin_path/outlogin.skin.2.php");
-    else // ·Î±×ÀÎ ÀüÀÌ¶ó¸é
+    else // ë¡œê·¸ì¸ ì „ì´ë¼ë©´
         include_once ("$outlogin_skin_path/outlogin.skin.1.php");
     $content = ob_get_contents();
     ob_end_clean();

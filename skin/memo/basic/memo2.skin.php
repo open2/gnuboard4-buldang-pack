@@ -1,15 +1,15 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-// head - ÁÂÃø ¸Þ´º
+// head - ì¢Œì¸¡ ë©”ë‰´
 include_once("$g4[memo_skin_path]/memo2.head.skin.php");
 
-// ¸ÞÀÎ¿¡ Ãâ·ÂµÉ ³»¿ëµéÀÌ ÀÖ´Â °÷----
+// ë©”ì¸ì— ì¶œë ¥ë  ë‚´ìš©ë“¤ì´ ìžˆëŠ” ê³³----
 if ($class == "view") {
-    // ÂÊÁö º¸±â
+    // ìª½ì§€ ë³´ê¸°
     include_once("$g4[memo_skin_path]/memo2_view.skin.php");
 } else { 
-    // ÂÊÁö º¸±â°¡ ¾Æ´Ñ°æ¿ì
+    // ìª½ì§€ ë³´ê¸°ê°€ ì•„ë‹Œê²½ìš°
     switch ($kind) {
       case 'write' : 
             include_once("$g4[memo_skin_path]/memo2_write.skin.php"); 
@@ -33,8 +33,8 @@ if ($class == "view") {
             include_once("$g4[memo_skin_path]/memo2_list.skin.php"); 
     }
 } 
-// ¸ÞÀÎ¿¡ Ãâ·ÂµÉ ³»¿ëµéÀÇ ³¡----
+// ë©”ì¸ì— ì¶œë ¥ë  ë‚´ìš©ë“¤ì˜ ë----
 
-// tail - ÇÏ´ÜºÎ ¿µ¿ª
+// tail - í•˜ë‹¨ë¶€ ì˜ì—­
 include_once("$g4[memo_skin_path]/memo2.tail.skin.php"); 
 ?>

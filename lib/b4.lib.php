@@ -1,29 +1,29 @@
 <?
-// ÇÁ·Î±×·¥ : ±×´©º¸µå ºÒ´çÆÑ ¶óÀÌºê·¯¸® 
-// °³ ¹ß ÀÚ : ¾ÆºüºÒ´ç (echo4me@gmail.com)
+// í”„ë¡œê·¸ë¨ : ê·¸ëˆ„ë³´ë“œ ë¶ˆë‹¹íŒ© ë¼ì´ë¸ŒëŸ¬ë¦¬ 
+// ê°œ ë°œ ì : ì•„ë¹ ë¶ˆë‹¹ (echo4me@gmail.com)
 //
-// Àú ÀÛ ±Ç : GPL2
+// ì € ì‘ ê¶Œ : GPL2
 
-// ´çÀÏÀÎ °æ¿ì ½Ã°£ µîÀ¸·Î ÀÌ»Ú°Ô Ç¥½ÃÇÔ (ÀÌ°Å ¼öÁ¤ÇÏ¸é common.lib.phpÀÇ get_listÀÇ ³¯Â¥ Ç¥Çöµµ ¼öÁ¤ÇØ¾ß ÇÔ)
+// ë‹¹ì¼ì¸ ê²½ìš° ì‹œê°„ ë“±ìœ¼ë¡œ ì´ì˜ê²Œ í‘œì‹œí•¨ (ì´ê±° ìˆ˜ì •í•˜ë©´ common.lib.phpì˜ get_listì˜ ë‚ ì§œ í‘œí˜„ë„ ìˆ˜ì •í•´ì•¼ í•¨)
 function get_datetime($datetime)
 {
     global $g4;
     
-    // ¿À´ÃÀÌ¸é ½Ã°£À¸·Î Ç¥½Ã
+    // ì˜¤ëŠ˜ì´ë©´ ì‹œê°„ìœ¼ë¡œ í‘œì‹œ
     if (substr($datetime,0,10) == $g4['time_ymd'])
         return substr($datetime,11,5);
-    // °°Àº ³âµµÀÌ¸é ¿ù-ÀÏ·ÎÇ¥½Ã
+    // ê°™ì€ ë…„ë„ì´ë©´ ì›”-ì¼ë¡œí‘œì‹œ
     else if (substr($datetime,0,4) == substr($g4['time_ymd'],0,4))
         return substr($datetime,5,5);
-    // ¿¬µµ´Â ´Ù¸£´õ¶óµµ 60ÀÏ ÀÌ³»ÀÌ¸é, Çò°¥¸®Áö ¾Ê°Ô ¿ù-ÀÏ·Î Ç¥½Ã
+    // ì—°ë„ëŠ” ë‹¤ë¥´ë”ë¼ë„ 60ì¼ ì´ë‚´ì´ë©´, í—·ê°ˆë¦¬ì§€ ì•Šê²Œ ì›”-ì¼ë¡œ í‘œì‹œ
     else if (days_diff($datetime) <= 60)
         return substr($datetime,5,5);
-    // ÀÌÁ¦´Â ¿¬/¿ù·Î Ç¥½Ã
+    // ì´ì œëŠ” ì—°/ì›”ë¡œ í‘œì‹œ
     else
         return substr($datetime,0,7);
 }
 
-// ³¯Â¥·Î Ç¥½ÃÇÔ
+// ë‚ ì§œë¡œ í‘œì‹œí•¨
 function get_date($datetime)
 {
     global $g4;
@@ -31,7 +31,7 @@ function get_date($datetime)
     return substr($datetime,5,5);
 }
 
-// mysql ¸í·ÉÀ» ¼öÇàÈÄ º¯°æµÈ ¶óÀÎ¼ö¸¦ return (updateÀÇ °æ¿ì matched°¡ ÀÖÀ¸¸é ±×°ÍÀ» return)
+// mysql ëª…ë ¹ì„ ìˆ˜í–‰í›„ ë³€ê²½ëœ ë¼ì¸ìˆ˜ë¥¼ return (updateì˜ ê²½ìš° matchedê°€ ìˆìœ¼ë©´ ê·¸ê²ƒì„ return)
 // http://kr.php.net/manual/kr/function.mysql-info.php
 function mysql_modified_rows() {
     $info_str = mysql_info();
@@ -40,7 +40,7 @@ function mysql_modified_rows() {
     return ($a_rows < 1)?($r_matched[1]?$r_matched[1]:0):$a_rows;
 }
 
-// ºÒ´çÆÑ : ¼³Á¤°ªÀ» ÀĞ¾î¿À±â
+// ë¶ˆë‹¹íŒ© : ì„¤ì •ê°’ì„ ì½ì–´ì˜¤ê¸°
 function get_config($config_type='', $fields='*') 
 { 
     global $g4, $config, $board; 
@@ -58,14 +58,14 @@ function get_config($config_type='', $fields='*')
 }
 
 
-// ºÒ´çÆÑ : ÀÌ¹ÌÁö resize (Ã»ÃáºÒ¾ÈÁ¤ : http://www.sir.co.kr/bbs/board.php?bo_table=cm_free&wr_id=306629)
+// ë¶ˆë‹¹íŒ© : ì´ë¯¸ì§€ resize (ì²­ì¶˜ë¶ˆì•ˆì • : http://www.sir.co.kr/bbs/board.php?bo_table=cm_free&wr_id=306629)
 function resize($string)
 { 
     global $g4, $board;
 
     //print_r($board);
 
-    // Àü¿ªº¯¼ö¸¦ ¹Ş¾ÆµéÀÌ±â ¶§¹®¿¡ ¼³Á¤°ªÀÌ ¾øÀ¸¸é, ±âº»À¸·Î °Ô½ÃÆÇÀÇ ÆøÀ» ÁöÁ¤. °Ô½ÃÆÇ Æøµµ ¾øÀ¸¸é ±âº»À¸·Î 500
+    // ì „ì—­ë³€ìˆ˜ë¥¼ ë°›ì•„ë“¤ì´ê¸° ë•Œë¬¸ì— ì„¤ì •ê°’ì´ ì—†ìœ¼ë©´, ê¸°ë³¸ìœ¼ë¡œ ê²Œì‹œíŒì˜ í­ì„ ì§€ì •. ê²Œì‹œíŒ í­ë„ ì—†ìœ¼ë©´ ê¸°ë³¸ìœ¼ë¡œ 500
     $max_img_width = (int) $board['resize_img_width'];
     if ($max_img_width <= 0) {
         if ((int)$board['bo_image_width'] > 0)
@@ -74,28 +74,28 @@ function resize($string)
             $max_img_width = 500;
     }
     
-    // max_img_height¿¡ °ªÀÌ ÀÖ´Â °æ¿ì´Â cropÀ» Çã¿ë ÇÕ´Ï´Ù.
+    // max_img_heightì— ê°’ì´ ìˆëŠ” ê²½ìš°ëŠ” cropì„ í—ˆìš© í•©ë‹ˆë‹¤.
     $max_img_height = (int) $board['resize_img_height'];
     $is_crop = false;
     if ($max_img_height > 0)
         $is_crop = true;
 
-    // ½ÇÇàÇÒ ¶§¸¶´Ù image¸¦ createÇÒÁö ¼³Á¤ (¹«Á¶°Ç false)
+    // ì‹¤í–‰í•  ë•Œë§ˆë‹¤ imageë¥¼ createí• ì§€ ì„¤ì • (ë¬´ì¡°ê±´ false)
     $is_create = false;
     
-    // ÀÌ¹ÌÁöÀÇ quality °ªÀ» ¼³Á¤ (¾øÀ¸¸é, thumbÀÇ ±âº»°ªÀ¸·Î 90ÀÌ Àû¿ëµÊ)
+    // ì´ë¯¸ì§€ì˜ quality ê°’ì„ ì„¤ì • (ì—†ìœ¼ë©´, thumbì˜ ê¸°ë³¸ê°’ìœ¼ë¡œ 90ì´ ì ìš©ë¨)
     $quality = (int) $board['resize_img_quality'];
     if ($quality <= 0)
         $quality = 90;
 
-    // $water_mark º¯¼ö¸¦ Àü´Ş ¹Ş½À´Ï´Ù
+    // $water_mark ë³€ìˆ˜ë¥¼ ì „ë‹¬ ë°›ìŠµë‹ˆë‹¤
     $water_mark = $board['water_mark'];
 
-    // $board[thumb_create]¿¡ °ªÀÌ ÀÖÀ¸¸é ¹«Á¶°Ç ½æ³×ÀÏÀ» »ı¼º ÇÕ´Ï´Ù.
+    // $board[thumb_create]ì— ê°’ì´ ìˆìœ¼ë©´ ë¬´ì¡°ê±´ ì¸ë„¤ì¼ì„ ìƒì„± í•©ë‹ˆë‹¤.
     if ($board[thumb_create])
         $thumb_create = 1;
 
-    // ÀÌ¹ÌÁö ÇÊÅÍ - ±âº»À¸·Î UnSharpMask
+    // ì´ë¯¸ì§€ í•„í„° - ê¸°ë³¸ìœ¼ë¡œ UnSharpMask
     if ($board[image_filter]) {
         $filter[type] = $board[image_filter][type];
         $filter[arg1] = $board[image_filter][arg1];
@@ -109,7 +109,7 @@ function resize($string)
         $filter[arg3] = 2;
     }
 
-    // º¯¼ö¸¦ setting
+    // ë³€ìˆ˜ë¥¼ setting
     $return = $string['0']; 
     preg_match_all('@(?P<attribute>[^\s\'\"]+)\s*=\s*(\'|\")?(?P<value>[^\s\'\"]+)(\'|\")?@i', $return, $match);
     if (function_exists('array_combine')) {
@@ -119,16 +119,16 @@ function resize($string)
         $img = array_change_key_case(array_combine4($match['attribute'], $match['value']));
     }
 
-    // ½ÇÁ¦ µğ·ºÅä¸® ÀÌ¸§À» ±¸ÇÏ°í Àı´ë°æ·Î¿¡¼­ Àß¶ó³¾ ±ÛÀÚ¼ö¸¦ °è»ê
+    // ì‹¤ì œ ë””ë ‰í† ë¦¬ ì´ë¦„ì„ êµ¬í•˜ê³  ì ˆëŒ€ê²½ë¡œì—ì„œ ì˜ë¼ë‚¼ ê¸€ììˆ˜ë¥¼ ê³„ì‚°
     $real_dir = dirname($_SERVER['DOCUMENT_ROOT'] . "/nothing");
     $cut_len = strlen($real_dir);
 
-    // °¡²û¾¿ imgÀÇ ÆÄÀÏÀÌ¸§ÀÌ ±ú¾îÁö´Â °æ¿ì°¡ ÀÖ¾î¼­ decoding ÇØÁİ´Ï´Ù (¿¹: &#111;&#110; = on)
+    // ê°€ë”ì”© imgì˜ íŒŒì¼ì´ë¦„ì´ ê¹¨ì–´ì§€ëŠ” ê²½ìš°ê°€ ìˆì–´ì„œ decoding í•´ì¤ë‹ˆë‹¤ (ì˜ˆ: &#111;&#110; = on)
     $img['src'] = html_entity_decode($img[src]); 
 
-    // ÀÌ¹ÌÁö ÆÄÀÏÀÇ °æ·Î¸¦ ¼³Á¤ (¿ÜºÎ? ³»ºÎ? ³»ºÎÀÎ°æ¿ì Àı´ë°æ·Î? »ó´ë°æ·Î?)
+    // ì´ë¯¸ì§€ íŒŒì¼ì˜ ê²½ë¡œë¥¼ ì„¤ì • (ì™¸ë¶€? ë‚´ë¶€? ë‚´ë¶€ì¸ê²½ìš° ì ˆëŒ€ê²½ë¡œ? ìƒëŒ€ê²½ë¡œ?)
     if (preg_match("/^(http|https|ftp|telnet|news|mms)\:\/\//i", $img['src'])) {
-        // ³» ¼­¹ö¿¡ ÀÖ´Â ÀÌ¹ÌÁö?
+        // ë‚´ ì„œë²„ì— ìˆëŠ” ì´ë¯¸ì§€?
         if (preg_match("/" . $_SERVER[HTTP_HOST] . "/", $img[src], $matches)) {
             $url = parse_url($img[src]);
             $img[src] = $url[path];
@@ -144,37 +144,37 @@ function resize($string)
         $dir = dirname(file_path($img['src']));
         $file = basename($img['src']);
         $img_path = $dir . "/" . $file;
-        // Ã·ºÎÆÄÀÏÀÇ ÀÌ¸§Àº urlencode·Î µé¾î°¡°Ô µË´Ï´Ù. µû¶ó¼­, decodeÇØÁà¾ß ÇÕ´Ï´Ù. (/bbs/write_update.php ÂüÁ¶)
+        // ì²¨ë¶€íŒŒì¼ì˜ ì´ë¦„ì€ urlencodeë¡œ ë“¤ì–´ê°€ê²Œ ë©ë‹ˆë‹¤. ë”°ë¼ì„œ, decodeí•´ì¤˜ì•¼ í•©ë‹ˆë‹¤. (/bbs/write_update.php ì°¸ì¡°)
         $img_path = urldecode($img_path);
         $img_src = @getimagesize($img_path);
-        // ÀØ¾î¹ö¸®Áö¸»°í ¿©±âµµ urldecode ÇØÁà¾ßÁÒ?
+        // ìŠì–´ë²„ë¦¬ì§€ë§ê³  ì—¬ê¸°ë„ urldecode í•´ì¤˜ì•¼ì£ ?
         $thumb_path = urldecode($img['src']);
     }
 
-    // ÀÌ¹ÌÁöÆÄÀÏÀÇ Á¤º¸¸¦ ¾òÁö ¸øÇßÀ» ¶§
+    // ì´ë¯¸ì§€íŒŒì¼ì˜ ì •ë³´ë¥¼ ì–»ì§€ ëª»í–ˆì„ ë•Œ
     if (!$img_src) {
         return $return;
     }
 
-    // ÀÌ¹ÌÁö»ı¼ºÀÇ ÃÖ¼Ò ³ĞÀÌ°¡ ÀÖÀ¸¸é, ÀÌ¹ÌÁö°¡ ±× Å©±â ÀÌ»óÀÏ¶§¸¸, ½æÀ» ¸¸µé¾î¾ßÂ¡.
-    // ÀÌ°Å´Â ÀÛÀº ¾ÆÀÌÄÜ °°Àº °ÍÀÇ ½æÀ» ¸¸µéÁö ¾Ê°Ô ÇÏ·Á°í ÇÏ´Â°ÅÀÓ
+    // ì´ë¯¸ì§€ìƒì„±ì˜ ìµœì†Œ ë„“ì´ê°€ ìˆìœ¼ë©´, ì´ë¯¸ì§€ê°€ ê·¸ í¬ê¸° ì´ìƒì¼ë•Œë§Œ, ì¸ì„ ë§Œë“¤ì–´ì•¼ì§•.
+    // ì´ê±°ëŠ” ì‘ì€ ì•„ì´ì½˜ ê°™ì€ ê²ƒì˜ ì¸ì„ ë§Œë“¤ì§€ ì•Šê²Œ í•˜ë ¤ê³  í•˜ëŠ”ê±°ì„
     if ($board[image_min] && $img_src[0] < $board[image_min])
         return $return;
 
-    // ÀÌ¹ÌÁö ÆÄÀÏÀÇ Å©±â¸¦ ±¸ÇØ¼­
+    // ì´ë¯¸ì§€ íŒŒì¼ì˜ í¬ê¸°ë¥¼ êµ¬í•´ì„œ
     $fsize = filesize2bytes(filesize($img_path));
 
-    // ÀÌ¹ÌÁö ÆÄÀÏÀÇ ÀüÃ¼ Å©±â¿Í °¹¼ö ÀúÀå
+    // ì´ë¯¸ì§€ íŒŒì¼ì˜ ì „ì²´ í¬ê¸°ì™€ ê°¯ìˆ˜ ì €ì¥
     if ($board['bo_image_info']) {
         $g4['resize']['image_size'] = $g4['resize']['image_size'] + $fsize/1000;
         $g4['resize']['image_count'] = $g4['resize']['image_count'] + 1;
         $g4['resize']['image_file'][] = $img_path;
     }
 
-    // ÀÌ¹ÌÁö»ı¼ºÀÇ ÃÖ¼Ò ÆÄÀÏ¿ë·®ÀÌ ÀÖÀ¸¸é, ÀÌ¹ÌÁö°¡ ±× ÆÄÀÏÅ©±â ÀÌ»óÀÏ¶§¸¸, ½æÀ» ¸¸µé¾î¾ßÂ¡.
-    // ÀÌ°Å´Â ÀÛÀº ¾ÆÀÌÄÜ °°Àº °ÍÀÌ³ª È¿À²ÀûÀ¸·Î ÁÙ¾îµç ÀÌ¹ÌÁöÀÇ ½æÀ» ¸¸µéÁö ¾Ê°Ô ÇÏ·Á°í ÇÏ´Â°ÅÀÓ
+    // ì´ë¯¸ì§€ìƒì„±ì˜ ìµœì†Œ íŒŒì¼ìš©ëŸ‰ì´ ìˆìœ¼ë©´, ì´ë¯¸ì§€ê°€ ê·¸ íŒŒì¼í¬ê¸° ì´ìƒì¼ë•Œë§Œ, ì¸ì„ ë§Œë“¤ì–´ì•¼ì§•.
+    // ì´ê±°ëŠ” ì‘ì€ ì•„ì´ì½˜ ê°™ì€ ê²ƒì´ë‚˜ íš¨ìœ¨ì ìœ¼ë¡œ ì¤„ì–´ë“  ì´ë¯¸ì§€ì˜ ì¸ì„ ë§Œë“¤ì§€ ì•Šê²Œ í•˜ë ¤ê³  í•˜ëŠ”ê±°ì„
     if ($board[image_min_kb]) {
-        // ¿ë·®Àº kb¿¡¼­ byte·Î ¹Ù²ã¼­
+        // ìš©ëŸ‰ì€ kbì—ì„œ byteë¡œ ë°”ê¿”ì„œ
         $min_kb = $board[image_min_kb]*1024;
         if ($fsize < $min_kb) {
             return $return;
@@ -191,29 +191,29 @@ function resize($string)
 
     if((int)$img_width > $max_img_width) 
     {
-        // width¸¦ Á¶Á¤
+        // widthë¥¼ ì¡°ì •
         if (isset($img['width']) == true)
             $return = preg_replace('/width\=(\'|\")?[^\s\'\"]+(\'|\")?/i', 'width="' . $max_img_width . '"', $return); 
         else
             $return = preg_replace("/(\<img )([^\>]*)(\>)/i", "\\1 width='" . $max_img_width . "' \\2 \\3", $return);
 
-        // height¸¦ »èÁ¦
+        // heightë¥¼ ì‚­ì œ
         $return = preg_replace('/height\=(\'|\")?[^\s\'\"]+(\'|\")?/i', null, $return); 
 
-        // ÀÌ¸§µµ ±×´©ÀÇ javascript resizeÇÒ ¼ö ÀÖ°Ô ¼öÁ¤
+        // ì´ë¦„ë„ ê·¸ëˆ„ì˜ javascript resizeí•  ìˆ˜ ìˆê²Œ ìˆ˜ì •
         if (isset($img[name]) == true)
             $return = preg_replace('/name\=(\'|\")?[^\s\'\"]+(\'|\")?/i', ' name="target_resize_image[]" ', $return);
         else
             $return = preg_replace("/(\<img )([^\>]*)(\>)/i", "\\1 name='target_resize_image[]' \\2 \\3", $return);
 
-        // thumbnailÀ» »ı¼º
+        // thumbnailì„ ìƒì„±
         if ($thumb_path) {
             include_once("$g4[path]/lib/thumb.lib.php");
             $thumb_path=thumbnail($thumb_path, $max_img_width,$max_img_height,$is_create,$is_crop,$quality, "", $water_mark, $filter);
             $return = preg_replace('/src\=(\'|\")?[^\s\'\"]+(\'|\")?/i', 'src="' . $thumb_path . '"', $return); 
         }
 
-        // onclickÀ» ÇßÀ» ¶§, ¿ø·¡ÀÇ ÀÌ¹ÌÁö Å©±â·Î popupÀÌ µÇµµ·Ï º¯°æ
+        // onclickì„ í–ˆì„ ë•Œ, ì›ë˜ì˜ ì´ë¯¸ì§€ í¬ê¸°ë¡œ popupì´ ë˜ë„ë¡ ë³€ê²½
         if ($board[image_window]) {
             if (isset($img[onclick]) == true)
                 $return = preg_replace('/onclick\=(\'|\")?[^\s\'\"]+(\'|\")?/i', 'onClick="image_window3(\'' . $img['src'] . '\',' . (int)$img_width . ',' . (int)$img_height . ')" ', $return);
@@ -228,22 +228,22 @@ function resize($string)
     }
     else
     { 
-        // width¸¦ Á¶Á¤
+        // widthë¥¼ ì¡°ì •
         if (isset($img['width']) == true)
             $return = preg_replace('/width\=(\'|\")?[^\s\'\"]+(\'|\")?/i', 'width="' . $img_width . '"', $return); 
         else
             $return = preg_replace("/(\<img )([^\>]*)(\>)/i", "\\1 width='" . $img_width . "' \\2 \\3", $return);
 
-        // height¸¦ »èÁ¦
+        // heightë¥¼ ì‚­ì œ
         $return = preg_replace('/height\=(\'|\")?[^\s\'\"]+(\'|\")?/i', null, $return); 
 
-        // ÀÌ¸§µµ ±×´©ÀÇ javascript resizeÇÒ ¼ö ÀÖ°Ô ¼öÁ¤
+        // ì´ë¦„ë„ ê·¸ëˆ„ì˜ javascript resizeí•  ìˆ˜ ìˆê²Œ ìˆ˜ì •
         if (isset($img[name]) == true)
             $return = preg_replace('/name\=(\'|\")?[^\s\'\"]+(\'|\")?/i', ' name="target_resize_image[]" ', $return);
         else
             $return = preg_replace("/(\<img )([^\>]*)(\>)/i", "\\1 name='target_resize_image[]' \\2 \\3", $return);
 
-        // $thumb_create°¡ trueÀÌ¸é, ÀÌ¹ÌÁö Å©±â°¡ $max_img_widthº¸´Ù ÀÛÁö¸¸, ±×·¡µµ thumb¸¦ »ı¼º
+        // $thumb_createê°€ trueì´ë©´, ì´ë¯¸ì§€ í¬ê¸°ê°€ $max_img_widthë³´ë‹¤ ì‘ì§€ë§Œ, ê·¸ë˜ë„ thumbë¥¼ ìƒì„±
 
         if ($thumb_create && $thumb_path) {
             include_once("$g4[path]/lib/thumb.lib.php");
@@ -251,7 +251,7 @@ function resize($string)
             $return = preg_replace('/src\=(\'|\")?[^\s\'\"]+(\'|\")?/i', 'src="' . $thumb_path . '"', $return); 
         }
 
-        // onclickÀ» ÇßÀ» ¶§, ¿ø·¡ÀÇ ÀÌ¹ÌÁö Å©±â·Î popupÀÌ µÇµµ·Ï º¯°æ
+        // onclickì„ í–ˆì„ ë•Œ, ì›ë˜ì˜ ì´ë¯¸ì§€ í¬ê¸°ë¡œ popupì´ ë˜ë„ë¡ ë³€ê²½
         if ($board[image_window]) {
             if (isset($img[onclick]) == true)
                 $return = preg_replace('/onClick\=(\'|\")?[^\s\'\"]+(\'|\")?/i', 'onClick="image_window3(\'' . $img['src'] . '\',' . (int)$img_width . ',' . (int)$img_height . ')" ', $return);
@@ -268,16 +268,16 @@ function resize($string)
     return $return; 
 }
 
-// $content                                   : resizeÇÒ img ÅÂ±×°¡ ÀÖ´Â html
-// $width         = $board[resize_img_width]  : ÃÖ´ë ÀÌ¹ÌÁöÀÇ Æø (°ªÀÌ ¾øÀ¸¸é $board[bo_img_width] °ªÀ» ¾¹´Ï´Ù
-// $height        = $board[resize_img_height] : ÃÖ´ë ÀÌ¹ÌÁöÀÇ ³ôÀÌ (ÀÌ°ÍÀÌ ÁöÁ¤µÇ¸é $is_crop = true°¡ µË´Ï´Ù) °ªÀÌ ¾øÀ¸¸é, ºñÀ²´ë·Î ÁÙÀÌ°í crop ÇÏÁö ¾Ê½À´Ï´Ù.
-// $quality       = $board[resize_img_quality]: ½æ³×ÀÏ ÀÌ¹ÌÁöÀÇ quality (¾øÀ¸¸é ±âº»°ª, 70%¸¦ »ç¿ë)
-// $thumb_create  = $board[thumb_create]      : ÀÌ¹ÌÁöÀÇ ÆøÀÌ ÁöÁ¤º¸´Ù ÀÛÀº°æ¿ì¿¡µµ ½æ³×ÀÏÀ» »ı¼ºÇÒÁö¸¦ ÁöÁ¤
-// $image_window  = $board[image_window]      : ÀÌ¹ÌÁö¸¦ ´©¸¦¶§ ÆË¾÷Ã¢À» ¶ç¿ï °ÍÀÎÁö¸¦ ¼±ÅÃ (1: ÆË¾÷)
-// $water_mark    = $board[water_mark]        : ¿öÅÍ¸¶Å©
-// $image_filter  = $board[image_filter]      : ÀÌ¹ÌÁöÇÊÅÍ
-// $image_min     = $board[image_min]         : °ªÀÌ ÀÖÀ¸¸é, $thumb_create=1ÀÌ´õ¶óµµ image_min ÀÌ»óÀÇ ÆøÀÇ ÀÌ¹ÌÁö¿¡ ´ëÇØ¼­¸¸, ½æÀ» ¸¸µç´Ù
-// $image_min_kb  = $board[image_min_kb]      : °ªÀÌ ÀÖÀ¸¸é, $thumb_create=1ÀÌ´õ¶óµµ image_kb ÀÌ»óÀÇ ÀÌ¹ÌÁö ¿ë·®¿¡ ´ëÇØ¼­¸¸, ½æÀ» ¸¸µç´Ù
+// $content                                   : resizeí•  img íƒœê·¸ê°€ ìˆëŠ” html
+// $width         = $board[resize_img_width]  : ìµœëŒ€ ì´ë¯¸ì§€ì˜ í­ (ê°’ì´ ì—†ìœ¼ë©´ $board[bo_img_width] ê°’ì„ ì”ë‹ˆë‹¤
+// $height        = $board[resize_img_height] : ìµœëŒ€ ì´ë¯¸ì§€ì˜ ë†’ì´ (ì´ê²ƒì´ ì§€ì •ë˜ë©´ $is_crop = trueê°€ ë©ë‹ˆë‹¤) ê°’ì´ ì—†ìœ¼ë©´, ë¹„ìœ¨ëŒ€ë¡œ ì¤„ì´ê³  crop í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
+// $quality       = $board[resize_img_quality]: ì¸ë„¤ì¼ ì´ë¯¸ì§€ì˜ quality (ì—†ìœ¼ë©´ ê¸°ë³¸ê°’, 70%ë¥¼ ì‚¬ìš©)
+// $thumb_create  = $board[thumb_create]      : ì´ë¯¸ì§€ì˜ í­ì´ ì§€ì •ë³´ë‹¤ ì‘ì€ê²½ìš°ì—ë„ ì¸ë„¤ì¼ì„ ìƒì„±í• ì§€ë¥¼ ì§€ì •
+// $image_window  = $board[image_window]      : ì´ë¯¸ì§€ë¥¼ ëˆ„ë¥¼ë•Œ íŒì—…ì°½ì„ ë„ìš¸ ê²ƒì¸ì§€ë¥¼ ì„ íƒ (1: íŒì—…)
+// $water_mark    = $board[water_mark]        : ì›Œí„°ë§ˆí¬
+// $image_filter  = $board[image_filter]      : ì´ë¯¸ì§€í•„í„°
+// $image_min     = $board[image_min]         : ê°’ì´ ìˆìœ¼ë©´, $thumb_create=1ì´ë”ë¼ë„ image_min ì´ìƒì˜ í­ì˜ ì´ë¯¸ì§€ì— ëŒ€í•´ì„œë§Œ, ì¸ì„ ë§Œë“ ë‹¤
+// $image_min_kb  = $board[image_min_kb]      : ê°’ì´ ìˆìœ¼ë©´, $thumb_create=1ì´ë”ë¼ë„ image_kb ì´ìƒì˜ ì´ë¯¸ì§€ ìš©ëŸ‰ì— ëŒ€í•´ì„œë§Œ, ì¸ì„ ë§Œë“ ë‹¤
 function resize_content($content, $width=0, $height=0, $quality=0, $thumb_create=0, $image_window=1, $water_mark='', $image_filter='', $image_min=0, $image_min_kb=0)
 {
     global $board;
@@ -322,11 +322,11 @@ function resize_content($content, $width=0, $height=0, $quality=0, $thumb_create
     return preg_replace_callback('/\<img[^\<\>]*\>/i', 'resize', $content);
 }
 
-// $content                                   : resizeÇÒ img ÅÂ±×°¡ ÀÖ´Â html
-// $image_min     = $board[image_min]         : °ªÀÌ ÀÖÀ¸¸é, $thumb_create=1ÀÌ´õ¶óµµ image_min ÀÌ»óÀÇ ÆøÀÇ ÀÌ¹ÌÁö¿¡ ´ëÇØ¼­¸¸, ½æÀ» ¸¸µç´Ù
-// $image_min_kb  = $board[image_min_kb]      : °ªÀÌ ÀÖÀ¸¸é, $thumb_create=1ÀÌ´õ¶óµµ image_kb ÀÌ»óÀÇ ÀÌ¹ÌÁö ¿ë·®¿¡ ´ëÇØ¼­¸¸, ½æÀ» ¸¸µç´Ù
-// $quality       = $board[resize_img_quality]: ½æ³×ÀÏ ÀÌ¹ÌÁöÀÇ quality (¾øÀ¸¸é ±âº»°ª, 70%¸¦ »ç¿ë)
-// $image_window  = $board[image_window]      : ÀÌ¹ÌÁö¸¦ ´©¸¦¶§ ÆË¾÷Ã¢À» ¶ç¿ï °ÍÀÎÁö¸¦ ¼±ÅÃ (1: ÆË¾÷)
+// $content                                   : resizeí•  img íƒœê·¸ê°€ ìˆëŠ” html
+// $image_min     = $board[image_min]         : ê°’ì´ ìˆìœ¼ë©´, $thumb_create=1ì´ë”ë¼ë„ image_min ì´ìƒì˜ í­ì˜ ì´ë¯¸ì§€ì— ëŒ€í•´ì„œë§Œ, ì¸ì„ ë§Œë“ ë‹¤
+// $image_min_kb  = $board[image_min_kb]      : ê°’ì´ ìˆìœ¼ë©´, $thumb_create=1ì´ë”ë¼ë„ image_kb ì´ìƒì˜ ì´ë¯¸ì§€ ìš©ëŸ‰ì— ëŒ€í•´ì„œë§Œ, ì¸ì„ ë§Œë“ ë‹¤
+// $quality       = $board[resize_img_quality]: ì¸ë„¤ì¼ ì´ë¯¸ì§€ì˜ quality (ì—†ìœ¼ë©´ ê¸°ë³¸ê°’, 70%ë¥¼ ì‚¬ìš©)
+// $image_window  = $board[image_window]      : ì´ë¯¸ì§€ë¥¼ ëˆ„ë¥¼ë•Œ íŒì—…ì°½ì„ ë„ìš¸ ê²ƒì¸ì§€ë¥¼ ì„ íƒ (1: íŒì—…)
 function resize_dica($content, $image_min=0, $image_min_kb=0, $quality=90, $image_window=1)
 {
     global $board;
@@ -342,7 +342,7 @@ function resize_dica($content, $image_min=0, $image_min_kb=0, $quality=90, $imag
     return preg_replace_callback('/\<img[^\<\>]*\>/i', 'resize', $content);
 }
 
-// php4¸¦ À§ÇÑ array_combine ÇÔ¼öÁ¤ÀÇ, http://kr2.php.net/manual/kr/function.array-combine.php
+// php4ë¥¼ ìœ„í•œ array_combine í•¨ìˆ˜ì •ì˜, http://kr2.php.net/manual/kr/function.array-combine.php
 function array_combine4($arr1, $arr2) {
     $out = array();
     
@@ -356,7 +356,7 @@ function array_combine4($arr1, $arr2) {
     return $out;
 }
 
-// È¸¿ø±ÇÇÑ ÀÌ¹ÌÁö º¸¿©ÁÖ±â
+// íšŒì›ê¶Œí•œ ì´ë¯¸ì§€ ë³´ì—¬ì£¼ê¸°
 function role_img () {
     global $bo_table, $board, $member, $board_skin_path;
     
@@ -391,7 +391,7 @@ function role_img () {
 
 
 // http://kr2.php.net/manual/kr/function.realpath.php
-// ¼­ºêµğ·ºÅä¸®¿¡¼­ get_absolute_path¸¦ È£ÃâÇÒ ¶§, ÇØ´ç ¼­ºêµğ·ºÅä¸®±îÁöÀÇ °æ·Î´Â ´©¶ôµË´Ï´Ù
+// ì„œë¸Œë””ë ‰í† ë¦¬ì—ì„œ get_absolute_pathë¥¼ í˜¸ì¶œí•  ë•Œ, í•´ë‹¹ ì„œë¸Œë””ë ‰í† ë¦¬ê¹Œì§€ì˜ ê²½ë¡œëŠ” ëˆ„ë½ë©ë‹ˆë‹¤
 function get_absolute_path($path) {
     $path = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $path);
     $parts = array_filter(explode(DIRECTORY_SEPARATOR, $path), 'strlen');
@@ -411,7 +411,7 @@ function get_absolute_path($path) {
 
 // http://kr2.php.net/manual/kr/function.realpath.php + http://kr2.php.net/dirname
 function get_absolute_path_my($path) {
-    // ¿øº» path µ¥ÀÌÅÍ´Â ÀúÀå
+    // ì›ë³¸ path ë°ì´í„°ëŠ” ì €ì¥
     $path_org = $path;
     
     $path = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $path);
@@ -447,7 +447,7 @@ function my_dir(){
 }
 
 
-// ÆÄÀÏÀÇ °æ·Î¸¦ °¡Áö°í ¿É´Ï´Ù (ºÒ´çÆÑ, /lib/common.lib.php¿¡ Á¤ÀÇµÈ ÇÔ¼ö)
+// íŒŒì¼ì˜ ê²½ë¡œë¥¼ ê°€ì§€ê³  ì˜µë‹ˆë‹¤ (ë¶ˆë‹¹íŒ©, /lib/common.lib.phpì— ì •ì˜ëœ í•¨ìˆ˜)
 if(!function_exists('file_path')){
 function file_path($path) {
 
@@ -464,7 +464,7 @@ function file_path($path) {
 }
 
 
-// ½ÇÁ¦ Á¸ÀçÇÏ´Â »çÀÌÆ®ÀÇ °æ¿ì¿¡¸¸ urlÀ» ÁöÁ¤ÇØÁİ´Ï´Ù
+// ì‹¤ì œ ì¡´ì¬í•˜ëŠ” ì‚¬ì´íŠ¸ì˜ ê²½ìš°ì—ë§Œ urlì„ ì§€ì •í•´ì¤ë‹ˆë‹¤
 // http://scriptplayground.com/tutorials/php/Simple-Way-to-Validate-Links/
 function set_http2($url, $mb_id="") {
 
@@ -483,7 +483,7 @@ function set_http2($url, $mb_id="") {
     $fp = @fsockopen($uhost, 80, $errno, $errstr, 1);
 
     if ($fp) {
-        // È¸¿ø id°¡ ÀÖ´Â °æ¿ì È¸¿øÁ¤º¸ÀÇ °ü·Ã ÇÊµåµéÀ» ÀÎÁõ ÇÑ´Ù
+        // íšŒì› idê°€ ìˆëŠ” ê²½ìš° íšŒì›ì •ë³´ì˜ ê´€ë ¨ í•„ë“œë“¤ì„ ì¸ì¦ í•œë‹¤
         if ($mb_id) {
             $sql = " update $g4[member_table] set mb_homepage_certify='$g4[time_ymdhis]' where mb_id = '$mb_id' ";
             sql_query($sql);
@@ -491,7 +491,7 @@ function set_http2($url, $mb_id="") {
     }
     else 
     {
-        // È¸¿ø id°¡ ÀÖ´Â °æ¿ì È¸¿øÁ¤º¸ÀÇ °ü·Ã ÇÊµåµéÀ» clear ÇÑ´Ù
+        // íšŒì› idê°€ ìˆëŠ” ê²½ìš° íšŒì›ì •ë³´ì˜ ê´€ë ¨ í•„ë“œë“¤ì„ clear í•œë‹¤
         if ($mb_id) {
             $sql = " update $g4[member_table] set mb_homepage='', mb_homepage_certify='0000-00-00 00:00:00' where mb_id = '$mb_id' ";
             sql_query($sql);
@@ -503,7 +503,7 @@ function set_http2($url, $mb_id="") {
 }
 
 
-// µğ·ºÅä¸®ÀÇ ¿ë·® (KB)
+// ë””ë ‰í† ë¦¬ì˜ ìš©ëŸ‰ (KB)
 // http://kr.php.net/manual/kr/function.filesize.php   
 function get_dir_size($path)                           
 {                       
@@ -512,8 +512,8 @@ function get_dir_size($path)
 }
 
 
-// ipÀÇ Æ¯Á¤ºÎºĞÀ» °¨Ãç¹ö¸³´Ï´Ù
-function str_rev_ip($str, $pos=2, $mask='¢½') 
+// ipì˜ íŠ¹ì •ë¶€ë¶„ì„ ê°ì¶°ë²„ë¦½ë‹ˆë‹¤
+function str_rev_ip($str, $pos=2, $mask='â™¡') 
 { 
     global $is_admin;
 
@@ -523,54 +523,54 @@ function str_rev_ip($str, $pos=2, $mask='¢½')
 }
 
 
-// memo4_send - ºÒ´çÇ¥ ÂÊÁö4 º¸³»±â
+// memo4_send - ë¶ˆë‹¹í‘œ ìª½ì§€4 ë³´ë‚´ê¸°
 function memo4_send($me_recv_mb_id, $me_send_mb_id, $me_memo, $me_subject, $me_option="", $mb_memo_call="1", $file_name0="", $file_name3="") 
 { 
         global $g4, $config;
         
-        // ÂÊÁö INSERT (¼ö½ÅÇÔ)
+        // ìª½ì§€ INSERT (ìˆ˜ì‹ í•¨)
         $sql = " insert into $g4[memo_recv_table]
                         ( me_recv_mb_id, me_send_mb_id, me_send_datetime, me_memo, me_subject, memo_type, memo_owner, me_file_local, me_file_server, me_option )
                  values ('$me_recv_mb_id', '$me_send_mb_id', '$g4[time_ymdhis]', '$me_memo', '$me_subject', 'recv', '$me_recv_mb_id', '', '', '$me_option' ) ";
         sql_query($sql);
         $me_id = mysql_insert_id();
 
-        // ÂÊÁö INSERT (¹ß½ÅÇÔ - me_id´Â ¹ß½ÅÇÔÀÇ me_id¿Í µ¿ÀÏÇÏ°Ô À¯Áö)
+        // ìª½ì§€ INSERT (ë°œì‹ í•¨ - me_idëŠ” ë°œì‹ í•¨ì˜ me_idì™€ ë™ì¼í•˜ê²Œ ìœ ì§€)
         $sql = " insert into $g4[memo_send_table]
                         ( me_id,  me_recv_mb_id, me_send_mb_id, me_send_datetime, me_memo, me_subject, memo_type, memo_owner, me_file_local, me_file_server, me_option )
                  values ( $me_id,  '$me_recv_mb_id', '$me_send_mb_id', '$g4[time_ymdhis]', '$me_memo', '$me_subject', 'send', '$me_send_mb_id', '', '', '$me_option' ) ";
         $result = @sql_query($sql);
 
-        // Áßº¹ ¿À·ù°¡³ª¿À¸é? - index¸¦ +10 ½ÃÄÑÁØ´Ù. ±×Á¤µµ¸é ÃæºĞ.
+        // ì¤‘ë³µ ì˜¤ë¥˜ê°€ë‚˜ì˜¤ë©´? - indexë¥¼ +10 ì‹œì¼œì¤€ë‹¤. ê·¸ì •ë„ë©´ ì¶©ë¶„.
         if ( !$result ) {
             $sql = " update $g4[memo_recv_table] set me_id = me_id + 10 where me_id = '$me_id' ";
             sql_query($sql);
 
-            // ÂÊÁö INSERT (¹ß½ÅÇÔ - me_id´Â ¹ß½ÅÇÔÀÇ me_id¿Í µ¿ÀÏÇÏ°Ô À¯Áö)
+            // ìª½ì§€ INSERT (ë°œì‹ í•¨ - me_idëŠ” ë°œì‹ í•¨ì˜ me_idì™€ ë™ì¼í•˜ê²Œ ìœ ì§€)
             $sql = " insert into $g4[memo_send_table]
                             ( me_id,  me_recv_mb_id, me_send_mb_id, me_send_datetime, me_memo, me_subject, memo_type, memo_owner, me_file_local, me_file_server, me_option )
                      values ( $me_id,  '$me_recv_mb_id', '$me_send_mb_id', '$g4[time_ymdhis]', '$me_memo', '$me_subject', 'send', '$me_send_mb_id', '', '', '$me_option' ) ";
             $result = @sql_query($sql);
         }
 
-        // Ã·ºÎÆÄÀÏ Á¤º¸ ¾÷µ¥ÀÌÆ®
+        // ì²¨ë¶€íŒŒì¼ ì •ë³´ ì—…ë°ì´íŠ¸
         $sql = " update $g4[memo_recv_table]
                       set me_file_local = '$file_name0', me_file_server = '$file_name3' 
                       where me_id = $me_id ";
         sql_query($sql);
-        // Ã·ºÎÆÄÀÏ Á¤º¸ ¾÷µ¥ÀÌÆ®
+        // ì²¨ë¶€íŒŒì¼ ì •ë³´ ì—…ë°ì´íŠ¸
         $sql = " update $g4[memo_send_table]
                       set me_file_local = '$file_name0', me_file_server = '$file_name3' 
                       where me_id = $me_id ";
         sql_query($sql);
 
-        // ¾ÈÀĞÀº ÂÊÁö °¹¼ö, ÂÊÁö ¼ö½Å ³¯Â¥¸¦ ¾÷µ¥ÀÌÆ®
+        // ì•ˆì½ì€ ìª½ì§€ ê°¯ìˆ˜, ìª½ì§€ ìˆ˜ì‹  ë‚ ì§œë¥¼ ì—…ë°ì´íŠ¸
         $sql = " update $g4[member_table]
                     set mb_memo_unread=mb_memo_unread+1, mb_memo_call_datetime='$g4[time_ymdhis]' 
                   where mb_id = '$me_recv_mb_id' ";
         sql_query($sql);
 
-        // ÂÊÁö ¼ö½Å ¾Ë¸² ±â´É
+        // ìª½ì§€ ìˆ˜ì‹  ì•Œë¦¼ ê¸°ëŠ¥
         if ($mb_memo_call)
         {
             $sql = " update $g4[member_table]
@@ -586,20 +586,20 @@ function memo4_send($me_recv_mb_id, $me_send_mb_id, $me_memo, $me_subject, $me_o
         )->fetchColumn(0);
         whatson_send_memo($me_recv_mb_id, $me_subject, 'recv', $me_id, $sender_nick);
 
-        // ÀÚµ¿ÀÀ´ä ±â´É
+        // ìë™ì‘ë‹µ ê¸°ëŠ¥
         $mb = get_member($me_recv_mb_id, "mb_nick, mb_memo_no_reply, mb_memo_no_reply_text");
         if ($config[cf_memo_no_reply] && $mb[mb_memo_no_reply]) {
-            $me_subject = "$mb[mb_nick]´ÔÀÇ [ÀÚµ¿ÀÀ´ä] ¸Ş½ÃÁö ÀÔ´Ï´Ù.";
-            $me_memo = "´çºĞ°£ ÂÊÁö¸¦ ¼ö½ÅÇÒ ¼ö ¾ø½À´Ï´Ù. È®ÀÎÈÄ ¿¬¶ôµå¸®°Ú½À´Ï´Ù.<BR><BR>$mb[mb_memo_no_reply_text]";
+            $me_subject = "$mb[mb_nick]ë‹˜ì˜ [ìë™ì‘ë‹µ] ë©”ì‹œì§€ ì…ë‹ˆë‹¤.";
+            $me_memo = "ë‹¹ë¶„ê°„ ìª½ì§€ë¥¼ ìˆ˜ì‹ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. í™•ì¸í›„ ì—°ë½ë“œë¦¬ê² ìŠµë‹ˆë‹¤.<BR><BR>$mb[mb_memo_no_reply_text]";
 
-            // ÂÊÁö INSERT (¼ö½ÅÇÔ)
+            // ìª½ì§€ INSERT (ìˆ˜ì‹ í•¨)
             $sql = " insert into $g4[memo_recv_table]
                             ( me_recv_mb_id, me_send_mb_id, me_send_datetime, me_memo, me_subject, memo_type, memo_owner, me_file_local, me_file_server, me_option )
                      values ('$me_recv_mb_id', '$me_send_mb_id', '$g4[time_ymdhis]', '$me_memo', '$me_subject', 'recv', '$me_recv_mb_id', '', '', '$me_option' ) ";
             sql_query($sql);
             $me_id = mysql_insert_id();
                 
-            // ÂÊÁö INSERT (¹ß½ÅÇÔ - me_id´Â ¹ß½ÅÇÔÀÇ me_id¿Í µ¿ÀÏÇÏ°Ô À¯Áö)
+            // ìª½ì§€ INSERT (ë°œì‹ í•¨ - me_idëŠ” ë°œì‹ í•¨ì˜ me_idì™€ ë™ì¼í•˜ê²Œ ìœ ì§€)
             $sql = " insert into $g4[memo_send_table]
                             ( me_id,  me_recv_mb_id, me_send_mb_id, me_send_datetime, me_memo, me_subject, memo_type, memo_owner, me_file_local, me_file_server, me_option )
                      values ( $me_id,  '$me_recv_mb_id', '$me_send_mb_id', '$g4[time_ymdhis]', '$me_memo', '$me_subject', 'send', '$me_send_mb_id', '', '', '$me_option' ) ";
@@ -608,26 +608,26 @@ function memo4_send($me_recv_mb_id, $me_send_mb_id, $me_memo, $me_subject, $me_o
         }
 }
 
-// ÂÊÁö5 - cancel / delete
+// ìª½ì§€5 - cancel / delete
 function memo4_cancel($me_id) {
 
     global $g4, $member;
 
-    // $g4['memo_delete'] == 1, ¹«Á¶°Ç Áö¿î´Ù.
+    // $g4['memo_delete'] == 1, ë¬´ì¡°ê±´ ì§€ìš´ë‹¤.
     $memo_delete = "";
     if ($g4['memo_delete']) {
         $memo_delete = " and memo_owner='$member[mb_id]' ";
     }
 
-    // ¹ß½Å Å×ÀÌºí¿¡¼­, Á¤º¸¸¦ °¡Á® ¿É´Ï´Ù.
+    // ë°œì‹  í…Œì´ë¸”ì—ì„œ, ì •ë³´ë¥¼ ê°€ì ¸ ì˜µë‹ˆë‹¤.
     $sql = " select * from $g4[memo_send_table] where me_id = '$me_id' ";
     $result = sql_fetch($sql);
 
-    // ¹ß½ÅÀÚ¿Í »èÁ¦ÇÏ·Á´Â »ç¶÷ÀÌ ´Ù¸£¸é ¾ÈµÇ°ÚÁÒ?
+    // ë°œì‹ ìì™€ ì‚­ì œí•˜ë ¤ëŠ” ì‚¬ëŒì´ ë‹¤ë¥´ë©´ ì•ˆë˜ê² ì£ ?
     if ($result[me_send_mb_id] !== $member[mb_id]) 
-        alert("¹Ù¸£Áö ¸øÇÑ »ç¿ëÀÔ´Ï´Ù");
+        alert("ë°”ë¥´ì§€ ëª»í•œ ì‚¬ìš©ì…ë‹ˆë‹¤");
 
-    // trash¿¡ ÂÊÁö¸¦ ³Ö¾îµÎ±â - ±×³É Áö¿ö¹ö¸®±â À§ÇØ¼­.
+    // trashì— ìª½ì§€ë¥¼ ë„£ì–´ë‘ê¸° - ê·¸ëƒ¥ ì§€ì›Œë²„ë¦¬ê¸° ìœ„í•´ì„œ.
     //$sql = "insert into $g4[memo_trash_table] select *, 'send' from $g4[memo_send_table] where me_id = '$me_id' and me_send_mb_id='$member[mb_id]' $memo_delete ";
     $me = sql_fetch("select * from $g4[memo_send_table] where me_id = '$me_id' and me_send_mb_id='$member[mb_id]' $memo_delete ");
     $sql = " insert into $g4[memo_trash_table]
@@ -646,19 +646,19 @@ function memo4_cancel($me_id) {
                     me_from_kind = 'send' ";
     sql_query($sql, FALSE);
 
-    // ¹ß½ÅÇÔÀ» »èÁ¦ ÇÕ´Ï´Ù.
+    // ë°œì‹ í•¨ì„ ì‚­ì œ í•©ë‹ˆë‹¤.
     $sql = " delete from $g4[memo_send_table] where me_id = '$me_id' and me_send_mb_id = '$member[mb_id]' $memo_delete ";
     sql_query($sql);
 
-    // ¼ö½ÅÇÔÀÇ ÂÊÁö¸¦ ÀĞÁö ¾ÊÀº °æ¿ì¿¡´Â »èÁ¦ÇØ¹ö¸³´Ï´Ù - È¸¼öÀÇ °³³ä ÀÔ´Ï´Ù. Á» È²´çÀº ÇÏÁö¸¸.
+    // ìˆ˜ì‹ í•¨ì˜ ìª½ì§€ë¥¼ ì½ì§€ ì•Šì€ ê²½ìš°ì—ëŠ” ì‚­ì œí•´ë²„ë¦½ë‹ˆë‹¤ - íšŒìˆ˜ì˜ ê°œë… ì…ë‹ˆë‹¤. ì¢€ í™©ë‹¹ì€ í•˜ì§€ë§Œ.
     if ($result[me_read_datetime] == '0000-00-00 00:00:00') {
         $sql = " delete from $g4[memo_recv_table] where me_id = '$me_id' and me_send_mb_id = '$member[mb_id]' ";
         sql_query($sql);
 
-        // ÂÊÁö ¼ö½ÅÀÚÀÇ ÂÊÁöÇÔ¿¡¼­ ÀĞÁö ¾ÊÀº ÂÊÁö °¹¼ö¸¦ ¾÷µ¥ÀÌÆ®
+        // ìª½ì§€ ìˆ˜ì‹ ìì˜ ìª½ì§€í•¨ì—ì„œ ì½ì§€ ì•Šì€ ìª½ì§€ ê°¯ìˆ˜ë¥¼ ì—…ë°ì´íŠ¸
         sql_query(" update $g4[member_table] set mb_memo_unread = mb_memo_unread - 1 where mb_id = '$result[me_recv_mb_id]' ");
 
-        // ÂÊÁö ¾Ë¸²¿¡¼­ ÇÏ³ª¸¦ Â÷°¨
+        // ìª½ì§€ ì•Œë¦¼ì—ì„œ í•˜ë‚˜ë¥¼ ì°¨ê°
         $mb = get_member($result[me_recv_mb_id], "mb_memo_call"); 
 
         $memo_call = preg_replace("/$member[mb_nick]/" , '', $mb[mb_memo_call], 1);
@@ -667,7 +667,7 @@ function memo4_cancel($me_id) {
 }
 
 
-// ÀÌ¸ŞÀÏ ¾ÏÈ£È­ - http://davidwalsh.name/php-email-encode-prevent-spam
+// ì´ë©”ì¼ ì•”í˜¸í™” - http://davidwalsh.name/php-email-encode-prevent-spam
 function encode_email($e)
 {
     for ($i = 0; $i < strlen($e); $i++) { $output .= '&#'.ord($e[$i]).';'; }
@@ -675,7 +675,7 @@ function encode_email($e)
 }
 
 
-// ³¯Â¥ºñ±³
+// ë‚ ì§œë¹„êµ
 function days_diff($date2)
 {
     global $g4;
@@ -693,29 +693,29 @@ function days_diff($date2)
 }
 
 
-// ½Ã°£ºñ±³
+// ì‹œê°„ë¹„êµ
 function hours_diff($date2)
 {
     global $g4;
 
-    // ÇöÀç½Ã°£
+    // í˜„ì¬ì‹œê°„
     $_date1 = $g4[server_time];
 
-    // ºñ±³ÇÒ ½Ã°£
+    // ë¹„êµí•  ì‹œê°„
     $_date2 = strtotime($date2);
 
     return (int) ($_date1 - $_date2) / 3600; 
 }
 
 
-// ip ÇÔÈ£È­ - http://sir.co.kr/bbs/board.php?bo_table=g4_tiptech&wr_id=20523
+// ip í•¨í˜¸í™” - http://sir.co.kr/bbs/board.php?bo_table=g4_tiptech&wr_id=20523
 function encode_ip($ip)
 {
     return crc32($ip);
 }
 
 
-// °Ô½ÃÆÇ ¼³Á¤ Å×ÀÌºí¿¡¼­ ÇÏ³ªÀÇ ÇàÀ» ÀĞÀ½
+// ê²Œì‹œíŒ ì„¤ì • í…Œì´ë¸”ì—ì„œ í•˜ë‚˜ì˜ í–‰ì„ ì½ìŒ
 function get_board($bo_table, $fields='*')
 {
     global $g4;
@@ -723,7 +723,7 @@ function get_board($bo_table, $fields='*')
     return sql_fetch(" select $fields from $g4[board_table] where bo_table = '$bo_table' ");
 }
 
-// °Ô½ÃÀÇ °Ô½Ã±Û ÇÏ³ª¸¦ ÀĞÀ½
+// ê²Œì‹œì˜ ê²Œì‹œê¸€ í•˜ë‚˜ë¥¼ ì½ìŒ
 function get_write2($bo_table, $wr_id, $fields='*')
 {
     global $g4;
@@ -734,7 +734,7 @@ function get_write2($bo_table, $wr_id, $fields='*')
 }
 
 
-// email ÁÖ¼Ò ÀÏºÎ ¾ÏÈ£È­ (°¡¿µ¾Æºü´Ô)
+// email ì£¼ì†Œ ì¼ë¶€ ì•”í˜¸í™” (ê°€ì˜ì•„ë¹ ë‹˜)
 function encode_mail_form($email, $encode_count=2, $fields='*')
 {
     $mail=explode("@",$email); 
@@ -744,7 +744,7 @@ function encode_mail_form($email, $encode_count=2, $fields='*')
 }
 
 
-// ÁöÁ¤µÈ tag¸¦ »èÁ¦
+// ì§€ì •ëœ tagë¥¼ ì‚­ì œ
 // http://kr.php.net/manual/kr/function.strip-tags.php
 function strip_only($str, $tags) {
     if(!is_array($tags)) {
@@ -756,7 +756,7 @@ function strip_only($str, $tags) {
 }
 
 
-// ÃÖ½Å±Û ÇÔ¼ö¸¦ Ã£¾Æ¼­ ±× °ªÀ» replace (ÃÖ½Å±ÛÀÌ µé¾î°¡´Â ÅÛÇÃ¸´ ÇÁ·Î¼¼½Ì)
+// ìµœì‹ ê¸€ í•¨ìˆ˜ë¥¼ ì°¾ì•„ì„œ ê·¸ ê°’ì„ replace (ìµœì‹ ê¸€ì´ ë“¤ì–´ê°€ëŠ” í…œí”Œë¦¿ í”„ë¡œì„¸ì‹±)
 function latest_replace($matches) {
     global $g4;
 
@@ -770,7 +770,7 @@ function latest_replace($matches) {
 }
 
 
-// ÇÑÁÙÀÇ °øÁö±Û - °øÁö»çÇ×ÀÌ ÀÖÀ¸¸é °øÁö»çÇ×À» Ãâ·Â, ¾øÀ¸¸é °Ô½Ã±ÛÀ» randomÇÏ°Ô Ãâ·Â
+// í•œì¤„ì˜ ê³µì§€ê¸€ - ê³µì§€ì‚¬í•­ì´ ìˆìœ¼ë©´ ê³µì§€ì‚¬í•­ì„ ì¶œë ¥, ì—†ìœ¼ë©´ ê²Œì‹œê¸€ì„ randomí•˜ê²Œ ì¶œë ¥
 function one_line_notice($bo_table, $title_len= "60", $class="") {
     global $g4;
 
@@ -832,14 +832,14 @@ function filesize2bytes($str) {
 }
 
 
-// ÆÄÀÏÄ³½¬¸¦ DB·Î ´ë½ÅÇÏ´Â °Í, $c_code = "latest(simple, gnu4_pack)"
+// íŒŒì¼ìºì‰¬ë¥¼ DBë¡œ ëŒ€ì‹ í•˜ëŠ” ê²ƒ, $c_code = "latest(simple, gnu4_pack)"
 function db_cache($c_name, $seconds=300, $c_code) {
 
     global $g4;
 
     $result = sql_fetch(" select c_name, c_text, c_datetime from $g4[cache_table] where c_name = '$c_name' ");
     if (!$result) {
-        // ½Ã°£À» offset ÇØ¼­ ÀÔ·Â (-1À» ÇØÁà¾ß Ã³À½ call¿¡ Ä³½¬¸¦ ¸¸µì´Ï´Ù)
+        // ì‹œê°„ì„ offset í•´ì„œ ì…ë ¥ (-1ì„ í•´ì¤˜ì•¼ ì²˜ìŒ callì— ìºì‰¬ë¥¼ ë§Œë“­ë‹ˆë‹¤)
         $new_time = date("Y-m-d H:i:s", $g4['server_time'] - $seconds - 1);
         $result['c_datetime'] = $new_time;
         sql_query(" insert into $g4[cache_table] set c_name='$c_name', c_datetime='$new_time' ");
@@ -848,14 +848,14 @@ function db_cache($c_name, $seconds=300, $c_code) {
     $sec_diff = $g4['server_time'] - strtotime($result['c_datetime']);
     if ($sec_diff > $seconds) {
 
-        // $c_code () ¾È¿¡ ³»¿ë¸¸ »ì¸² 
+        // $c_code () ì•ˆì— ë‚´ìš©ë§Œ ì‚´ë¦¼ 
         $pattern = "/[()]/";
         $tmp_c_code = preg_split($pattern, $c_code);
         
-        // ¼öÇàÇÒ ÇÔ¼öÀÇ ÀÌ¸§
+        // ìˆ˜í–‰í•  í•¨ìˆ˜ì˜ ì´ë¦„
         $func_name = $tmp_c_code[0];
 
-        // ¼öÇàÇÒ ÇÔ¼öÀÇ ÀÎÀÚ
+        // ìˆ˜í–‰í•  í•¨ìˆ˜ì˜ ì¸ì
         $tmp_array = str_getcsv($tmp_c_code[1]);
 
         if ($func_name == "include_once" || $func_name == "include") {
@@ -867,38 +867,38 @@ function db_cache($c_name, $seconds=300, $c_code) {
 
         } else {
         
-            // ¼öÇàÇÒ ÇÔ¼öÀÇ ÀÎÀÚ¸¦ ´ã¾ÆµÑ º¯¼ö
+            // ìˆ˜í–‰í•  í•¨ìˆ˜ì˜ ì¸ìë¥¼ ë‹´ì•„ë‘˜ ë³€ìˆ˜
             $func_args = array();
 
             for($i=0;$i < count($tmp_array); $i++) {
-                // ±âº» trimÀº ¿©¹é µîÀ» ¾ø¾Ø´Ù. $charlist = " \t\n\r\0\x0B"
+                // ê¸°ë³¸ trimì€ ì—¬ë°± ë“±ì„ ì—†ì•¤ë‹¤. $charlist = " \t\n\r\0\x0B"
                 $tmp_args = trim($tmp_array[$i]);
-                // Ãß°¡ trimÀ¸·Î ÀÎÀÚ¸¦ ³Ñ±æ ¶§ ¾²´Â '¸¦ ¾ø¾Ø´Ù
+                // ì¶”ê°€ trimìœ¼ë¡œ ì¸ìë¥¼ ë„˜ê¸¸ ë•Œ ì“°ëŠ” 'ë¥¼ ì—†ì•¤ë‹¤
                 $tmp_args = trim($tmp_args, "'");
-                // Ãß°¡ trimÀ¸·Î ÀÎÀÚ¸¦ ³Ñ±æ ¶§ ¾²´Â "¸¦ ¾ø¾Ø´Ù
+                // ì¶”ê°€ trimìœ¼ë¡œ ì¸ìë¥¼ ë„˜ê¸¸ ë•Œ ì“°ëŠ” "ë¥¼ ì—†ì•¤ë‹¤
                 $func_args[$i] = trim($tmp_args, '"');
             }
 
-            // »õ·Î¿î Ä³½¬°ªÀ» ¸¸µé°í
+            // ìƒˆë¡œìš´ ìºì‰¬ê°’ì„ ë§Œë“¤ê³ 
             $c_text = call_user_func_array($func_name, $func_args);
         }
 
-        // °ªÀÌ ¾øÀ¸¸é ±×³É return
+        // ê°’ì´ ì—†ìœ¼ë©´ ê·¸ëƒ¥ return
         if (trim($c_text) == "")
             return;
 
-        // db¿¡ ³Ö±âÀü¿¡ slashesµéÀ» ¾Õ¿¡ ½Ï ºÙ¿© ÁÖ½Ã°í
+        // dbì— ë„£ê¸°ì „ì— slashesë“¤ì„ ì•ì— ì‹¹ ë¶™ì—¬ ì£¼ì‹œê³ 
         $c_text1 = addslashes($c_text);
         
-        // »õ·Î¿î Ä³½¬°ªÀ» ¾÷µ¥ÀÌÆ® ÇÏ°í
+        // ìƒˆë¡œìš´ ìºì‰¬ê°’ì„ ì—…ë°ì´íŠ¸ í•˜ê³ 
         sql_query(" update $g4[cache_table] set c_text = '$c_text1', c_datetime='$g4[time_ymdhis]' where c_name = '$c_name' ");
 
-        // »õ·Î¿î Ä³½¬°ªÀ» return (slashes°¡ ¾ø´Â°Å¸¦ return ÇØ¾ßÇÕ´Ï´Ù)
+        // ìƒˆë¡œìš´ ìºì‰¬ê°’ì„ return (slashesê°€ ì—†ëŠ”ê±°ë¥¼ return í•´ì•¼í•©ë‹ˆë‹¤)
         return $c_text;
 
     } else {
 
-        // Ä³½¬ÇÑ µ¥ÀÌÅÍ¸¦ ±×´ë·Î return
+        // ìºì‰¬í•œ ë°ì´í„°ë¥¼ ê·¸ëŒ€ë¡œ return
         return $result['c_text'];
 
     }
@@ -935,7 +935,7 @@ function br2nl($string, $line_break=PHP_EOL) {
     return $string;
 }
 
-//  <BR>À» nl·Î º¯È¯ - http://us.php.net/manual/en/function.nl2br.php
+//  <BR>ì„ nlë¡œ ë³€í™˜ - http://us.php.net/manual/en/function.nl2br.php
 /*
 function br2nl($string)
 {
@@ -963,7 +963,7 @@ function implode_wrapped($before, $after, $glue, $array){
 
 
 // http://blog.naver.com/xitem?Redirect=Log&logNo=140113457912
-// PHP¾ÏÈ£È­ ÇÔ¼ö
+// PHPì•”í˜¸í™” í•¨ìˆ˜
 function encrypt($data,$k) { 
   $encrypt_these_chars = "1234567890ABCDEFGHIJKLMNOPQRTSUVWXYZabcdefghijklmnopqrstuvwxyz.,/?!$@^*()_+-=:;~{}";
   $t = $data;
@@ -1032,26 +1032,26 @@ function decrypt($key2,$secret) {
 }
 
 
-// ºÒ´çÆÑ - Á¦¸ñ¿¡¼­ Æ¯¼ö¹®ÀÚ¸¦ ½Ï~ ³¯·Á¹ö¸±²¨¾ß~!
-// ÇÑ¹ø¿¡ ³¯¸®´Ï±î Àß ¾È³¯¶ó°¡¼­ ÇÑ°³¾¿ ³¯¸³´Ï´Ù.
+// ë¶ˆë‹¹íŒ© - ì œëª©ì—ì„œ íŠ¹ìˆ˜ë¬¸ìë¥¼ ì‹¹~ ë‚ ë ¤ë²„ë¦´êº¼ì•¼~!
+// í•œë²ˆì— ë‚ ë¦¬ë‹ˆê¹Œ ì˜ ì•ˆë‚ ë¼ê°€ì„œ í•œê°œì”© ë‚ ë¦½ë‹ˆë‹¤.
 function remove_special_chars($subject) {
 
     global $g4;
 
-    // ¾ø¾Ö°í ½ÍÀº ¹®ÀÚ¿­Àº config.php¿¡¼­ Á¤ÀÇ ÇÕ´Ï´Ù.
+    // ì—†ì• ê³  ì‹¶ì€ ë¬¸ìì—´ì€ config.phpì—ì„œ ì •ì˜ í•©ë‹ˆë‹¤.
     $change = $g4['special_chars_change'];
 
-    // euc-kr ÀÏ °æ¿ì utf-8·Î º¯È¯ÇÑ´Ù.
+    // euc-kr ì¼ ê²½ìš° utf-8ë¡œ ë³€í™˜í•œë‹¤.
     if (strtolower($g4[charset]) == 'euc-kr') {
         $subject = iconv('EUC-KR','UTF-8',$subject);
 
         $change = iconv("EUC-KR", "UTF-8", $change);
     }
 
-    // ¹®ÀÚ¿­À» Ä¡È¯ ÇÕ´Ï´Ù.
+    // ë¬¸ìì—´ì„ ì¹˜í™˜ í•©ë‹ˆë‹¤.
     $subject = preg_replace("/[$change]/u", "_", $subject);
 
-    // euc-kr ÀÏ °æ¿ì utf-8À» ´Ù½Ã euc-kr º¯È¯ÇÑ´Ù.
+    // euc-kr ì¼ ê²½ìš° utf-8ì„ ë‹¤ì‹œ euc-kr ë³€í™˜í•œë‹¤.
     if (strtolower($g4[charset]) == 'euc-kr') {
         $subject = iconv('UTF-8','EUC-KR',$subject);
     }
@@ -1060,7 +1060,7 @@ function remove_special_chars($subject) {
 }
 
 
-// ip ÁÖ¼Ò¸¦ unit 32 ¼ıÀÚ·Î
+// ip ì£¼ì†Œë¥¼ unit 32 ìˆ«ìë¡œ
 // http://www.zedwood.com/article/144/php-mysql-geoip-lookup
 function ipaddress_to_uint32($ip) {
     list($v4,$v3,$v2,$v1) = explode(".", $ip);
@@ -1068,7 +1068,7 @@ function ipaddress_to_uint32($ip) {
 }
 
 
-// ipÀÇ ±¹°¡¸íÀ» return
+// ipì˜ êµ­ê°€ëª…ì„ return
 // http://www.zedwood.com/article/144/php-mysql-geoip-lookup
 function ipaddress_to_country_code($ip) {
     global $g4;
@@ -1082,7 +1082,7 @@ function ipaddress_to_country_code($ip) {
 }
 
 
-// Æ¯Á¤ Å×ÀÌºíÀÇ ÄÃ·³ ÀÌ¸§À» ¾ò±â - http://www.codediesel.com/mysql/selecting-all-except-some-columns-in-mysql/
+// íŠ¹ì • í…Œì´ë¸”ì˜ ì»¬ëŸ¼ ì´ë¦„ì„ ì–»ê¸° - http://www.codediesel.com/mysql/selecting-all-except-some-columns-in-mysql/
 function get_column_names($table_name) {
     global $g4;
 
@@ -1102,7 +1102,7 @@ function get_column_names($table_name) {
 }
 
 
-// Æ¯Á¤ Å×ÀÌºíÀÇ ÄÃ·³ ÀÌ¸§ÀÌ ºüÁø SQL select ¸ñ·Ï ¾ò±â - http://www.codediesel.com/mysql/selecting-all-except-some-columns-in-mysql/
+// íŠ¹ì • í…Œì´ë¸”ì˜ ì»¬ëŸ¼ ì´ë¦„ì´ ë¹ ì§„ SQL select ëª©ë¡ ì–»ê¸° - http://www.codediesel.com/mysql/selecting-all-except-some-columns-in-mysql/
 function except_sql_statement($table_name, $exclude) {
     global $g4;
 
@@ -1122,7 +1122,7 @@ function except_sql_statement($table_name, $exclude) {
 }
 
 
-// Æ÷ÀÎÆ® °æ¸Å auction.lib.php ¿¡¼­ °¡Á®¿È
+// í¬ì¸íŠ¸ ê²½ë§¤ auction.lib.php ì—ì„œ ê°€ì ¸ì˜´
 function alert_only($msg='')
 {
 	global $g4;
@@ -1133,14 +1133,14 @@ function alert_only($msg='')
 }
 
 
-// À¯´ÏÅ©·Î ·Î±× ±â·ÏÇÏ±â
+// ìœ ë‹ˆí¬ë¡œ ë¡œê·¸ ê¸°ë¡í•˜ê¸°
 function insert_unicro_log($mb_id, $log_message='', $log_url='')
 {
     global $config;
     global $g4;
     global $is_admin;
 
-    // À¯´ÏÅ©·Î ·Î±×¸¦ ±â·Ï
+    // ìœ ë‹ˆí¬ë¡œ ë¡œê·¸ë¥¼ ê¸°ë¡
     $sql = " insert into $g4[unicro_log_table]
                 set mb_id = '$mb_id',
                     log_datetime = '$g4[time_ymdhis]',
@@ -1151,7 +1151,7 @@ function insert_unicro_log($mb_id, $log_message='', $log_url='')
 }
 
 
-// °Ô½ÃÆÇº° ÀÎ±â±Û Å°¿öµå È®ÀÎ
+// ê²Œì‹œíŒë³„ ì¸ê¸°ê¸€ í‚¤ì›Œë“œ í™•ì¸
 function popular_list($pop_cnt=7, $date_cnt=7, $bo_table='') 
 {
     global $config, $g4;
@@ -1168,7 +1168,7 @@ function popular_list($pop_cnt=7, $date_cnt=7, $bo_table='')
     $result = sql_query($sql);
     for ($i=0; $row=sql_fetch_array($result); $i++) 
     {
-        // ½ºÅ©¸³Æ®µîÀÇ ½ÇÇà±İÁö
+        // ìŠ¤í¬ë¦½íŠ¸ë“±ì˜ ì‹¤í–‰ê¸ˆì§€
         $list[$i][pp_word] = get_text($row[pp_word]);
         $list[$i][cnt] = $row[cnt];
         $list[$i][sfl] = $row[sfl];
@@ -1177,12 +1177,12 @@ function popular_list($pop_cnt=7, $date_cnt=7, $bo_table='')
     return $list;
 }
 
-// ½Å°í - °Ô½ÃÆÇ ¾²±â Á¦ÇÑ
+// ì‹ ê³  - ê²Œì‹œíŒ ì“°ê¸° ì œí•œ
 function check_singo_nowrite($bo_singo_nowrite, $bo_table='')
 {
     global $g4, $board, $member;
 
-    // $bo_singo_nowrite¸¦ explode ÇÕ´Ï´Ù.
+    // $bo_singo_nowriteë¥¼ explode í•©ë‹ˆë‹¤.
     $singo_array = explode("|", trim($bo_singo_nowrite));
     foreach ($singo_array as $key => $val) {
         $res = explode(",", trim($val));
@@ -1191,39 +1191,39 @@ function check_singo_nowrite($bo_singo_nowrite, $bo_table='')
             $singo2_count[$res[1]] = $res[1];
         }
     }
-    // ÀÔ·ÂµÈ ¹è¿­ÀÇ °¹¼ö
+    // ì…ë ¥ëœ ë°°ì—´ì˜ ê°¯ìˆ˜
     $singo_array_count = count($singo2_count);
-    // ¹è¿­À» Á¤·ÄÇÏ±â (days °ª ±âÁØÀ¸·Î)
+    // ë°°ì—´ì„ ì •ë ¬í•˜ê¸° (days ê°’ ê¸°ì¤€ìœ¼ë¡œ)
     array_multisort($singo2_days, $singo2_count);
-    // ÃÖ´ë ½Å°í È®ÀÎÀÏ
+    // ìµœëŒ€ ì‹ ê³  í™•ì¸ì¼
     $max_singo_days = $singo2_days[$singo_array_count-1];
 
-    // sortµÇ¸é¼­ ÈåÆ®·¯Áø key °ªÀ» ´Ù½Ã ÁöÁ¤ÇØÁÖ±â
+    // sortë˜ë©´ì„œ ííŠ¸ëŸ¬ì§„ key ê°’ì„ ë‹¤ì‹œ ì§€ì •í•´ì£¼ê¸°
     for ($i=0; $i < count($singo2_days); $i++) {
         $singo2_days2[$singo2_days[$i]-1] = $singo2_days[$i];
         //$singo2_count2[$singo2_days[$i]-1] = $singo2_count[$i];
 
-        // º»ÀÎÀÎÁõ È¸¿øÀÇ °æ¿ì, ½Å°í Ä«¿îÅÍ¿¡¼­ 1°³¸¦ »©Áİ´Ï´Ù.
+        // ë³¸ì¸ì¸ì¦ íšŒì›ì˜ ê²½ìš°, ì‹ ê³  ì¹´ìš´í„°ì—ì„œ 1ê°œë¥¼ ë¹¼ì¤ë‹ˆë‹¤.
         if ($member[mb_realcheck] == "0000-00-00 00:00:00")
             $singo2_count2[$singo2_days[$i]-1] = $singo2_count[$i];
         else
             $singo2_count2[$singo2_days[$i]-1] = $singo2_count[$i] - 1;
     }
 
-    // »ç¿ëÀÚ ¾ÆÀÌµğ
+    // ì‚¬ìš©ì ì•„ì´ë””
     $mb_id = $member[mb_id];
     
-    // $bo_tableÀÌ ÀÖ´Â °æ¿ì¿¡´Â ÇØ´ç °Ô½ÃÆÇ¿¡ ´ëÇØ¼­¸¸
+    // $bo_tableì´ ìˆëŠ” ê²½ìš°ì—ëŠ” í•´ë‹¹ ê²Œì‹œíŒì— ëŒ€í•´ì„œë§Œ
     if ($bo_table)
         $sql_bo_table = " AND bo_table = '$bo_table' ";
     else
         $sql_bo_table = "";
 
-    // ´©ÀûµÈ ½Å°í°Ç¼ö°¡ ¾øÀ¸¸é, ±×³É return ÇØ¹ö¸³´Ï´Ù.
+    // ëˆ„ì ëœ ì‹ ê³ ê±´ìˆ˜ê°€ ì—†ìœ¼ë©´, ê·¸ëƒ¥ return í•´ë²„ë¦½ë‹ˆë‹¤.
     if ($member[mb_singo] == 0)
         return false;
 
-    // ´ëºÎºĞÀÇ »ç¿ëÀÚ´Â ½Å°í°Ç¼ö°¡ ¾ø±â ¶§¹®¿¡, ½Å°í°Ç¼ö°¡ ÀÖ´Â »ç¶÷¸¸ cost°¡ ¸¹ÀÌ µé¾î°¡´Â sqlÀ» ¼öÇàÇÏ°Ô ÇÕ´Ï´Ù.
+    // ëŒ€ë¶€ë¶„ì˜ ì‚¬ìš©ìëŠ” ì‹ ê³ ê±´ìˆ˜ê°€ ì—†ê¸° ë•Œë¬¸ì—, ì‹ ê³ ê±´ìˆ˜ê°€ ìˆëŠ” ì‚¬ëŒë§Œ costê°€ ë§ì´ ë“¤ì–´ê°€ëŠ” sqlì„ ìˆ˜í–‰í•˜ê²Œ í•©ë‹ˆë‹¤.
     $sql = " SELECT count(*) as cnt from $g4[singo_table] 
               WHERE mb_id = '$mb_id' $sql_bo_table
                 AND sg_datetime > '" . date("Y-m-d H:i:s", $g4[server_time] - $max_singo_days * 86400) ."' ";
@@ -1231,7 +1231,7 @@ function check_singo_nowrite($bo_singo_nowrite, $bo_table='')
     if ($result[cnt] == 0)
         return false;
 
-    // ½Å°íÁ¦ÇÑ¿¡ °É¸®´ÂÁö È®ÀÎÇØ º¾´Ï´Ù.
+    // ì‹ ê³ ì œí•œì— ê±¸ë¦¬ëŠ”ì§€ í™•ì¸í•´ ë´…ë‹ˆë‹¤.
     $sql = " SELECT to_days(now())-to_days(sg_datetime) AS t_diff, count( * ) AS cnt, date_format( sg_datetime, '%Y-%m-%d' ) 
                FROM `$g4[singo_table]` 
               WHERE mb_id = '$mb_id' $sql_bo_table
@@ -1240,7 +1240,7 @@ function check_singo_nowrite($bo_singo_nowrite, $bo_table='')
           ";
     $result = sql_query($sql);
 
-    // °á°ú°ªÀ» ¹è¿­¿¡ ³Ö½À´Ï´Ù
+    // ê²°ê³¼ê°’ì„ ë°°ì—´ì— ë„£ìŠµë‹ˆë‹¤
     for($i=0; $row = sql_fetch_array($result); $i++) {
         $singo_result[$row[t_diff]] = $row[cnt];
     }
@@ -1249,7 +1249,7 @@ function check_singo_nowrite($bo_singo_nowrite, $bo_table='')
     for($i=0; $i < $max_singo_days; $i++) {
         $sum += $singo_result[$i];
         if ($singo2_days2[$i] && $singo2_count2[$i] && $singo2_days2[$i] == ($i+1) && $sum >= $singo2_count2[$i]) {
-            echo "$singo2_days2[$i]ÀÏ µ¿¾È ½Å°íµÈ °Ç¼ö°¡ $singo2_count2[$i]°ÇÀ» ÃÊ°úÇÏ¿´½À´Ï´Ù.";
+            echo "$singo2_days2[$i]ì¼ ë™ì•ˆ ì‹ ê³ ëœ ê±´ìˆ˜ê°€ $singo2_count2[$i]ê±´ì„ ì´ˆê³¼í•˜ì˜€ìŠµë‹ˆë‹¤.";
             return true;
         }
     }
@@ -1258,7 +1258,7 @@ function check_singo_nowrite($bo_singo_nowrite, $bo_table='')
 }
 
 
-// È¸¿ø ·¹º§(±ÇÇÑ)¸í ¾ò±â
+// íšŒì› ë ˆë²¨(ê¶Œí•œ)ëª… ì–»ê¸°
 function get_gl_name($mb_level)
 {
     global $g4;
@@ -1274,13 +1274,13 @@ function get_gl_name($mb_level)
     return $gl_name;
 }
 
-// ÀÌ¹ÌÁö Á¤º¸¸¦ ÀĞ¾î¼­ DB¿¡ ÀúÀå
-// ÀÌ¹ÌÁö Á¤º¸¸¦ ÀĞ¾î¼­ db¿¡ ³Ö¾î Áİ´Ï´Ù.
+// ì´ë¯¸ì§€ ì •ë³´ë¥¼ ì½ì–´ì„œ DBì— ì €ì¥
+// ì´ë¯¸ì§€ ì •ë³´ë¥¼ ì½ì–´ì„œ dbì— ë„£ì–´ ì¤ë‹ˆë‹¤.
 function get_chimage($string)
 { 
     global $g4, $board, $member, $_SESSION;
 
-    // º¯¼ö¸¦ setting
+    // ë³€ìˆ˜ë¥¼ setting
     $return = $string['0']; 
     preg_match_all('@(?P<attribute>[^\s\'\"]+)\s*=\s*(\'|\")?(?P<value>[^\s\'\"]+)(\'|\")?@i', $return, $match);
     if (function_exists('array_combine')) {
@@ -1290,12 +1290,12 @@ function get_chimage($string)
         $img = array_change_key_case(array_combine4($match['attribute'], $match['value']));
     }
 
-    // °¡²û¾¿ imgÀÇ ÆÄÀÏÀÌ¸§ÀÌ ±ú¾îÁö´Â °æ¿ì°¡ ÀÖ¾î¼­ decoding ÇØÁİ´Ï´Ù (¿¹: &#111;&#110; = on)
+    // ê°€ë”ì”© imgì˜ íŒŒì¼ì´ë¦„ì´ ê¹¨ì–´ì§€ëŠ” ê²½ìš°ê°€ ìˆì–´ì„œ decoding í•´ì¤ë‹ˆë‹¤ (ì˜ˆ: &#111;&#110; = on)
     $img['src'] = html_entity_decode($img[src]); 
 
-    // ÀÌ¹ÌÁö ÆÄÀÏÀÇ °æ·Î¸¦ ¼³Á¤ (¿ÜºÎ? ³»ºÎ? ³»ºÎÀÎ°æ¿ì Àı´ë°æ·Î? »ó´ë°æ·Î?)
+    // ì´ë¯¸ì§€ íŒŒì¼ì˜ ê²½ë¡œë¥¼ ì„¤ì • (ì™¸ë¶€? ë‚´ë¶€? ë‚´ë¶€ì¸ê²½ìš° ì ˆëŒ€ê²½ë¡œ? ìƒëŒ€ê²½ë¡œ?)
     if (preg_match("/^(http|https|ftp|telnet|news|mms)\:\/\//i", $img['src'])) {
-        // ³» ¼­¹ö¿¡ ÀÖ´Â ÀÌ¹ÌÁö?
+        // ë‚´ ì„œë²„ì— ìˆëŠ” ì´ë¯¸ì§€?
         $img_src = @getimagesize($img['src']);
         if (preg_match("/" . $_SERVER[HTTP_HOST] . "/", $img[src], $matches)) {
             $url = parse_url($img[src]);
@@ -1305,12 +1305,12 @@ function get_chimage($string)
         }
     }
 
-    // update ¸ğµåÀÏ ¶§, ¾÷·Îµå Á¤º¸¸¦ DB¿¡ ÀúÀå ÇÕ´Ï´Ù.
+    // update ëª¨ë“œì¼ ë•Œ, ì—…ë¡œë“œ ì •ë³´ë¥¼ DBì— ì €ì¥ í•©ë‹ˆë‹¤.
     if ($g4[w] == "u") {
         $sql = " select bc_id from $g4[board_cheditor_table] where bo_table='$g4[bo_table]' and wr_id='$g4[wr_id]' and bc_url like '%" . $img[src] . "' and del = '1' ";
         $result = sql_fetch($sql);
 
-        // ÀÌ¹Ì ¿Ã¶ó°£ ÆÄÀÏÀÌ¸é »ç¿ëÁßÀÌ¶ó°í del field¸¦ ¾÷µ¥ÀÌÆ® ÇÏ°í return
+        // ì´ë¯¸ ì˜¬ë¼ê°„ íŒŒì¼ì´ë©´ ì‚¬ìš©ì¤‘ì´ë¼ê³  del fieldë¥¼ ì—…ë°ì´íŠ¸ í•˜ê³  return
         if ($result[bc_id]) {
             $sql = "update $g4[board_cheditor_table] set del = '0' where bc_id = '$result[bc_id]' ";
             sql_query($sql);
@@ -1319,29 +1319,29 @@ function get_chimage($string)
         }
     }
 
-    // $img[src] À¥ »óÀÇ Àı´ë°æ·Î ÀÌ¹Ç·Î ÀÌ¹ÌÁö ÆÄÀÏÀÇ »ó´ë°æ·Î¸¦ ±¸ÇÕ´Ï´Ù.
-    // ÀÌ·¸°Ô Àß¶óÁà¾ß Á¦´ë·Î µÈ °æ·Î°¡ ³ª¿Â´Ù.
+    // $img[src] ì›¹ ìƒì˜ ì ˆëŒ€ê²½ë¡œ ì´ë¯€ë¡œ ì´ë¯¸ì§€ íŒŒì¼ì˜ ìƒëŒ€ê²½ë¡œë¥¼ êµ¬í•©ë‹ˆë‹¤.
+    // ì´ë ‡ê²Œ ì˜ë¼ì¤˜ì•¼ ì œëŒ€ë¡œ ëœ ê²½ë¡œê°€ ë‚˜ì˜¨ë‹¤.
     $fl = explode("/$g4[data]/",$img[src]);
     $rel_path = "../" . $g4[data] . "/" . $fl[1];
     $path = pathinfo($rel_path);
     $bc_dir = $path['dirname'];
     $bc_file = $path['basename'];
 
-    // ÀÌ¹ÌÁö Á¤º¸¸¦ ±¸ÇÕ´Ï´Ù
+    // ì´ë¯¸ì§€ ì •ë³´ë¥¼ êµ¬í•©ë‹ˆë‹¤
     $im = getimagesize($rel_path);
     
-    // filesize´Â KB ´ÜÀ§·Î ÀúÀå
+    // filesizeëŠ” KB ë‹¨ìœ„ë¡œ ì €ì¥
     $fs = filesize2bytes(filesize($rel_path))/1000;
 
-    // sub µğ·ºÅä¸®¿¡ ¼³Ä¡µÈ °æ¿ì...À¸... ¸Ó¸®¾ÆÆÛ
+    // sub ë””ë ‰í† ë¦¬ì— ì„¤ì¹˜ëœ ê²½ìš°...ìœ¼... ë¨¸ë¦¬ì•„í¼
     $bc_path = $g4[data] . "/" . $fl[1];
 
-    // source file ÀÌ¸§À» °¡Á® ¿Â´Ù
+    // source file ì´ë¦„ì„ ê°€ì ¸ ì˜¨ë‹¤
     $sql = " select * from $g4[board_cheditor_table] where bo_table='$g4[bo_table]' and wr_id is null and bc_file = '$bc_file' and bc_url like '%$bc_path' ";
     $sc = sql_fetch($sql);
 
     if ($sc[bc_id]) {
-        // ÀÖÀ¸¸é ¾÷µ¥ÀÌÆ® ÇØÁØ´Ù
+        // ìˆìœ¼ë©´ ì—…ë°ì´íŠ¸ í•´ì¤€ë‹¤
         $sql = " UPDATE $g4[board_cheditor_table]
                 SET 
                     bc_url = '".$img[src]."',
@@ -1360,7 +1360,7 @@ function get_chimage($string)
                      ";
         sql_query($sql);
     } else {
-        // ¾øÀ¸¸é »õ·Î ³Ö¾îÁØ´Ù
+        // ì—†ìœ¼ë©´ ìƒˆë¡œ ë„£ì–´ì¤€ë‹¤
         $sql = " INSERT INTO $g4[board_cheditor_table]
                 SET 
                     bc_url = '".$img[src]."',
@@ -1383,7 +1383,7 @@ function get_chimage($string)
 }
 
 
-// ÁöÁ¤µÈ ³¯Â¥ ÀÌÀüÀÇ ±ÛÀº º¼ ¼ö ¾ø°Ô ÇÏ±â
+// ì§€ì •ëœ ë‚ ì§œ ì´ì „ì˜ ê¸€ì€ ë³¼ ìˆ˜ ì—†ê²Œ í•˜ê¸°
 function check_bo_from_date()
 {
     global $is_admin, $view, $board;
@@ -1403,13 +1403,13 @@ function check_bo_from_date()
     $date_diff = ($tm1 - $tm2) / 86400; 
     if ($board[bo_from_date] and  $date_diff > $board[bo_from_date] and !$is_admin) 
     {
-        alert("½Ã½ºÅÛ¿¡¼­ Á¶È¸¸¦ Çã¿ëÇÏÁö ¾Ê´Â ¿À·¡µÈ ±Û ÀÔ´Ï´Ù. °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.");
+        alert("ì‹œìŠ¤í…œì—ì„œ ì¡°íšŒë¥¼ í—ˆìš©í•˜ì§€ ì•ŠëŠ” ì˜¤ë˜ëœ ê¸€ ì…ë‹ˆë‹¤. ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.");
     }
     
     return true;
 }
 
-// ³²¼º/¿©¼ºÀÌ bo_sex ÇÊµå¿¡ M/F·Î µî·ÏµÈ °æ¿ì¿¡¸¸ °Ô½ÃÆÇÀ» Á¢±ÙÀ» Çã¿ë 
+// ë‚¨ì„±/ì—¬ì„±ì´ bo_sex í•„ë“œì— M/Fë¡œ ë“±ë¡ëœ ê²½ìš°ì—ë§Œ ê²Œì‹œíŒì„ ì ‘ê·¼ì„ í—ˆìš© 
 function check_bo_sex()
 {
     global $g4, $board, $member, $is_admin;
@@ -1420,10 +1420,10 @@ function check_bo_sex()
               {;} 
           else 
           { 
-              alert("¾ö¸¶/ÀÌ¸ğ´Â ¾ö¸¶¹æ¿¡¸¸, ¾Æºü/»ïÃÌÀº ¾Æºü¹æ¿¡¸¸ Á¢±ÙÇÒ ¼ö ÀÖ½À´Ï´Ù"); 
+              alert("ì—„ë§ˆ/ì´ëª¨ëŠ” ì—„ë§ˆë°©ì—ë§Œ, ì•„ë¹ /ì‚¼ì´Œì€ ì•„ë¹ ë°©ì—ë§Œ ì ‘ê·¼í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤"); 
           } 
         } else {
-            alert("¼ºº°À» µî·ÏÇÑ È¸¿ø¸¸ ¾ö¸¶/ÀÌ¸ğ, ¾Æºü/»ïÃÌ °Ô½ÃÆÇÀ» ÀÌ¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù. °³ÀÎÁ¤º¸¸¦ ¼öÁ¤ÇØÁÖ¼¼¿ä.",  "$g4[bbs_path]/member_confirm.php?url=register_form.php");
+            alert("ì„±ë³„ì„ ë“±ë¡í•œ íšŒì›ë§Œ ì—„ë§ˆ/ì´ëª¨, ì•„ë¹ /ì‚¼ì´Œ ê²Œì‹œíŒì„ ì´ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤. ê°œì¸ì •ë³´ë¥¼ ìˆ˜ì •í•´ì£¼ì„¸ìš”.",  "$g4[bbs_path]/member_confirm.php?url=register_form.php");
         }
     }
     
@@ -1441,49 +1441,49 @@ function mw_get_ccl_info($ccl)
             $info[by] = "by";
             $info[nc] = "";
             $info[nd] = "";
-            $info[kr] = "ÀúÀÛÀÚÇ¥½Ã";
+            $info[kr] = "ì €ì‘ìí‘œì‹œ";
             break;
         case "by-nc":
             $info[by] = "by";
             $info[nc] = "nc";
             $info[nd] = "";
-            $info[kr] = "ÀúÀÛÀÚÇ¥½Ã-ºñ¿µ¸®";
+            $info[kr] = "ì €ì‘ìí‘œì‹œ-ë¹„ì˜ë¦¬";
             break;
         case "by-sa":
             $info[by] = "by";
             $info[nc] = "";
             $info[nd] = "sa";
-            $info[kr] = "ÀúÀÛÀÚÇ¥½Ã-µ¿ÀÏÁ¶°Çº¯°æÇã¶ô";
+            $info[kr] = "ì €ì‘ìí‘œì‹œ-ë™ì¼ì¡°ê±´ë³€ê²½í—ˆë½";
             break;
         case "by-nd":
             $info[by] = "by";
             $info[nc] = "";
             $info[nd] = "nd";
-            $info[kr] = "ÀúÀÛÀÚÇ¥½Ã-º¯°æ±İÁö";
+            $info[kr] = "ì €ì‘ìí‘œì‹œ-ë³€ê²½ê¸ˆì§€";
             break;
         case "by-nc-sa":
             $info[by] = "by";
             $info[nc] = "nc";
             $info[nd] = "sa";
-            $info[kr] = "ÀúÀÛÀÚÇ¥½Ã-ºñ¿µ¸®-µ¿ÀÏÁ¶°Çº¯°æÇã¶ô";
+            $info[kr] = "ì €ì‘ìí‘œì‹œ-ë¹„ì˜ë¦¬-ë™ì¼ì¡°ê±´ë³€ê²½í—ˆë½";
             break;
         case "by-nc-nd":
         default :
             $info[by] = "by";
             $info[nc] = "nc";
             $info[nd] = "nd";
-            $info[kr] = "ÀúÀÛÀÚÇ¥½Ã-ºñ¿µ¸®-º¯°æ±İÁö";
+            $info[kr] = "ì €ì‘ìí‘œì‹œ-ë¹„ì˜ë¦¬-ë³€ê²½ê¸ˆì§€";
             break;
     }
     $info[ccl] = $ccl;
-    $info[msg] = "Å©¸®¿¡ÀÌÆ¼ºê Ä¿¸ÕÁî ÄÚ¸®¾Æ $info[kr] 2.0 ´ëÇÑ¹Î±¹ ¶óÀÌ¼¾½º¿¡ µû¶ó ÀÌ¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.";
+    $info[msg] = "í¬ë¦¬ì—ì´í‹°ë¸Œ ì»¤ë¨¼ì¦ˆ ì½”ë¦¬ì•„ $info[kr] 2.0 ëŒ€í•œë¯¼êµ­ ë¼ì´ì„¼ìŠ¤ì— ë”°ë¼ ì´ìš©í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.";
     //$info[link] = "http://creativecommons.org/licenses/{$ccl}/2.0/kr/";
     $info[link] = "http://www.creativecommons.or.kr/xe/?mid=licenses";
     
     return $info;
 }
 
-// °ü·Ã±Û ¾ò±â.. 080429, curlychoi
+// ê´€ë ¨ê¸€ ì–»ê¸°.. 080429, curlychoi
 function mw_related($related, $count, $field="wr_id, wr_subject, wr_content")
 {
     global $bo_table, $write_table, $g4, $view;
@@ -1511,7 +1511,7 @@ function mw_related($related, $count, $field="wr_id, wr_subject, wr_content")
         $sql = "select $field from $write_table where wr_is_comment = 0 and FIND_IN_SET('secret',wr_option) = 0 {$sql_wr_id} and ($sql_where) order by wr_num limit 0, $count ";
         $result = sql_query($sql);
     } else {
-        // tmp Å×ÀÌºíÀ» ¸¸µé°í, ±×°÷¿¡¼­ order by¿Í limit¸¦ ÇÑ´Ù.
+        // tmp í…Œì´ë¸”ì„ ë§Œë“¤ê³ , ê·¸ê³³ì—ì„œ order byì™€ limitë¥¼ í•œë‹¤.
         $sql = "select $field, wr_num from $write_table where wr_is_comment = 0 and FIND_IN_SET('secret',wr_option) = 0 {$sql_wr_id} and ($sql_where) ";
         $sql_tmp = " create TEMPORARY table related_tmp_table as $sql ";
         $sql_ord = " select * from related_tmp_table order by wr_num limit 0, $count ";
@@ -1536,14 +1536,14 @@ function mw_related($related, $count, $field="wr_id, wr_subject, wr_content")
 }
 
 
-// µğ·ºÅä¸®ÀÇ ³¡¿¡ ½½·¡½¬ ÇÑ°³¸¦ ºÙÀÎ´Ù
+// ë””ë ‰í† ë¦¬ì˜ ëì— ìŠ¬ë˜ì‰¬ í•œê°œë¥¼ ë¶™ì¸ë‹¤
 function rslash($dpath)
 {
     return rtrim($dpath, "/") . "/";
 }
 
 
-// È¸¿ø ·¹º§À» ¾÷/´Ù¿î ÇÕ´Ï´Ù.
+// íšŒì› ë ˆë²¨ì„ ì—…/ë‹¤ìš´ í•©ë‹ˆë‹¤.
 function member_level_up($mb_id)
 {
     global $g4;
@@ -1560,34 +1560,34 @@ function member_level_up($mb_id)
                where member_level = '$mb[mb_level]' and (use_levelup = 1 or use_leveldown = 1)";
     $result = sql_fetch($sql);
 
-    // ·¹º§¾÷
+    // ë ˆë²¨ì—…
     if ($result && $result['use_levelup'] && $result['sum_up'] > 0) {
 
-        // °¡ÀÔÀÏÀ» È®ÀÎÇØ¼­ Ã¼·ù±â°£ÀÌ ¾ÈµÇ¾úÀ¸¸é pass. Ã¼·ù±â°£Àº levelup ÇÒ ¶§¸¸ È®ÀÎ
+        // ê°€ì…ì¼ì„ í™•ì¸í•´ì„œ ì²´ë¥˜ê¸°ê°„ì´ ì•ˆë˜ì—ˆìœ¼ë©´ pass. ì²´ë¥˜ê¸°ê°„ì€ levelup í•  ë•Œë§Œ í™•ì¸
         $wtime = date("Y-m-d", $g4[server_time] - ($result[up_days] * 86400)); 
         if ($mb[mb_level_datetime] != "0000-00-00 00:00:00")
             $jtime = substr($mb[mb_level_datetime],0,10);
         else
             $jtime = substr($mb[mb_datetime],0,10);
 
-        // time formatÀ¸·Î º¯°æ
+        // time formatìœ¼ë¡œ ë³€ê²½
         $wtime = strtotime($wtime ." 00:00:00");
         $jtime = strtotime($jtime ." 00:00:00");
 
         if ($wtime >= $jtime) {
-            // Æ÷ÀÎÆ®
+            // í¬ì¸íŠ¸
             if ($result['up_point'] && $mb['mb_point'] >= $result['up_point']) 
                 $up_check = $up_check + 1;
             else
                 $up_check = -1000;
 
-            //°ËÁõÀÏ¼ö°¡ ÀÖÀ¸¸é ÇØ´ç ÀÏ¼ö ¸¸Å­¸¸ ÃÖ½Å±ÛÀ» È®ÀÎ
+            //ê²€ì¦ì¼ìˆ˜ê°€ ìˆìœ¼ë©´ í•´ë‹¹ ì¼ìˆ˜ ë§Œí¼ë§Œ ìµœì‹ ê¸€ì„ í™•ì¸
             if ($result['up_audit_days'])
                 $sql_audit = " and bn_datetime > '".date("Y-m-d H:i:s", $g4[server_time] - (86400 * $result[up_audit_days]))."' ";
             else
                 $sql_audit = "";
 
-            // °Ô½Ã±Û ¼ö (°Ô½Ã±Û È®ÀÎÀº ÀüÃ¼ ÃÖ±Ù±Û ±¸°£¿¡ ´ëÇØ¼­ ½Ç½Ã)
+            // ê²Œì‹œê¸€ ìˆ˜ (ê²Œì‹œê¸€ í™•ì¸ì€ ì „ì²´ ìµœê·¼ê¸€ êµ¬ê°„ì— ëŒ€í•´ì„œ ì‹¤ì‹œ)
             if ($result['up_post']) {
                 $sql = " select count(*) as cnt from $g4[board_new_table] where mb_id = '$mb[mb_id]' and wr_id = wr_parent $sql_audit ";
                 $chk = sql_fetch($sql);
@@ -1597,7 +1597,7 @@ function member_level_up($mb_id)
                     $up_check = -1000;
             }
 
-            // ÀüÃ¼ °Ô½Ã±Û ¼ö (ÄÚ¸àÆ® Æ÷ÇÔ)
+            // ì „ì²´ ê²Œì‹œê¸€ ìˆ˜ (ì½”ë©˜íŠ¸ í¬í•¨)
             if ($result['up_post_all']) {
                 $sql = " select count(*) as cnt from $g4[board_new_table] where mb_id = '$mb[mb_id]' $sql_audit ";
                 $chk = sql_fetch($sql);
@@ -1607,13 +1607,13 @@ function member_level_up($mb_id)
                     $up_check = -1000;
             }
 
-            //°ËÁõÀÏ¼ö°¡ ÀÖÀ¸¸é ÃßÃµ¼ö¸¦ ÇØ´ç ³¯Â¥¸¸Å­¸¸ È®ÀÎ
+            //ê²€ì¦ì¼ìˆ˜ê°€ ìˆìœ¼ë©´ ì¶”ì²œìˆ˜ë¥¼ í•´ë‹¹ ë‚ ì§œë§Œí¼ë§Œ í™•ì¸
             if ($result['up_audit_days'])
                 $sql_audit = " and bg_datetime > '".date("Y-m-d H:i:s", $g4[server_time] - (86400 * $result[up_audit_days]))."' ";
             else
                 $sql_audit = "";
                 
-            // ÃßÃµ¼ö (ºñÃßÃµ¼ö¸¦ Â÷°¨)
+            // ì¶”ì²œìˆ˜ (ë¹„ì¶”ì²œìˆ˜ë¥¼ ì°¨ê°)
             if ($result['good']) {
                 $sql = " select count(*) as cnt from $g4[board_good_table] where mb_id = '$mb[mb_id]' and bg_flag = 'good' $sql_audit ";
                 $chk = sql_fetch($sql);
@@ -1629,10 +1629,10 @@ function member_level_up($mb_id)
             }
 
             if ($up_check > 0) {
-                // È¸¿øÁ¤º¸ db¸¦ ¾÷µ¥ÀÌÆ®
+                // íšŒì›ì •ë³´ dbë¥¼ ì—…ë°ì´íŠ¸
                 $sql = " update $g4[member_table] set mb_level = mb_level+1, mb_level_datetime = '$g4[time_ymdhis]' where mb_id = '$mb[mb_id]' ";
                 sql_query($sql);
-                // È¸¿ø·¹º§ history¿¡ insert
+                // íšŒì›ë ˆë²¨ historyì— insert
                 $sql = " insert 
                            into $g4[member_level_history_table] 
                             set mb_id           = '$mb[mb_id]',
@@ -1641,23 +1641,23 @@ function member_level_up($mb_id)
                                 level_datetime  = '$g4[time_ymdhis]' ";
                 sql_query($sql);
                 
-                $rstr = "$mb[mb_id] È¸¿øÀÌ ·¹º§¾÷ µÇ¾ú½À´Ï´Ù";
+                $rstr = "$mb[mb_id] íšŒì›ì´ ë ˆë²¨ì—… ë˜ì—ˆìŠµë‹ˆë‹¤";
             }
             
-            // ·¹º§¾÷ÀÌ ÀÌ·ç¾îÁø °æ¿ì¿¡´Â ·¹º§´Ù¿îÀ» ¼öÇàÇÏÁö ¾Ê°Ô ÄÚµå¸¦ ÆĞ¾²~!
+            // ë ˆë²¨ì—…ì´ ì´ë£¨ì–´ì§„ ê²½ìš°ì—ëŠ” ë ˆë²¨ë‹¤ìš´ì„ ìˆ˜í–‰í•˜ì§€ ì•Šê²Œ ì½”ë“œë¥¼ íŒ¨ì“°~!
             $result['sum_down'] = "";
         }
     } 
     else 
-    if ($mb['mb_level'] >= 2 && $up_check != 0 && $result && $result['use_leveldown'] && $result['sum_down'] > 0) {  // ·¹º§´Ù¿î
+    if ($mb['mb_level'] >= 2 && $up_check != 0 && $result && $result['use_leveldown'] && $result['sum_down'] > 0) {  // ë ˆë²¨ë‹¤ìš´
 
-        // Æ÷ÀÎÆ®
+        // í¬ì¸íŠ¸
         if ($result['down_point'] > 0 && $result['down_point'] < $mb['mb_point']) 
             $down_check = $down_check + 1;
         else
             $down_check = -1000;
 
-        // °Ô½Ã±Û ¼ö (°Ô½Ã±Û È®ÀÎÀº ÀüÃ¼ ÃÖ±Ù±Û ±¸°£¿¡ ´ëÇØ¼­ ½Ç½Ã)
+        // ê²Œì‹œê¸€ ìˆ˜ (ê²Œì‹œê¸€ í™•ì¸ì€ ì „ì²´ ìµœê·¼ê¸€ êµ¬ê°„ì— ëŒ€í•´ì„œ ì‹¤ì‹œ)
         if ($result['down_post'] > 0) {
             $sql = " select count(*) as cnt from $g4[board_new_table] where mb_id = '$mb[mb_id]' and wr_id = wr_parent ";
             $chk = sql_fetch($sql);
@@ -1666,7 +1666,7 @@ function member_level_up($mb_id)
             else
                 $down_check = -1000;
         }
-        // ÀüÃ¼ °Ô½Ã±Û ¼ö (ÄÚ¸àÆ® Æ÷ÇÔ)
+        // ì „ì²´ ê²Œì‹œê¸€ ìˆ˜ (ì½”ë©˜íŠ¸ í¬í•¨)
         if ($result['down_post_all'] > 0) {
             $sql = " select count(*) as cnt from $g4[board_new_table] where mb_id = '$mb[mb_id]' ";
             $chk = sql_fetch($sql);
@@ -1676,13 +1676,13 @@ function member_level_up($mb_id)
                 $down_check = -1000;
         }
 
-        //°ËÁõÀÏ¼ö°¡ ÀÖÀ¸¸é ÃßÃµ¼ö¸¦ ÇØ´ç ³¯Â¥¸¸Å­¸¸ È®ÀÎ
+        //ê²€ì¦ì¼ìˆ˜ê°€ ìˆìœ¼ë©´ ì¶”ì²œìˆ˜ë¥¼ í•´ë‹¹ ë‚ ì§œë§Œí¼ë§Œ í™•ì¸
         if ($result['down_audit_days'])
             $sql_audit = " and bg_datetime > '".date("Y-m-d H:i:s", $g4[server_time] - (86400 * $result[down_audit_days]))."' ";
         else
             $sql_audit = "";
 
-        // ºñÃßÃµ¼ö (ÃßÃµ¼ö¸¦ Â÷°¨ÇÏÁö ¾ÊÀ½)
+        // ë¹„ì¶”ì²œìˆ˜ (ì¶”ì²œìˆ˜ë¥¼ ì°¨ê°í•˜ì§€ ì•ŠìŒ)
         if ($result['nogood'] > 0) {
             $sql = " select count(*) as cnt from $g4[board_good_table] where mb_id = '$mb[mb_id]' and bg_flag = 'nogood' $sql_audit ";
             $chk = sql_fetch($sql);
@@ -1692,7 +1692,7 @@ function member_level_up($mb_id)
                 $down_check = -1000;
         }
 
-        // ½Å°í
+        // ì‹ ê³ 
         if ($result['singo'] > 0) {
             $sql = " select count(*) as cnt from $g4[singo_table] where mb_id = '$mb[mb_id]' $sql_audit ";
             $chk = sql_fetch($sql);
@@ -1703,10 +1703,10 @@ function member_level_up($mb_id)
         }
         
         if ($down_check > 0) {
-            // È¸¿øÁ¤º¸ db¸¦ ¾÷µ¥ÀÌÆ®
+            // íšŒì›ì •ë³´ dbë¥¼ ì—…ë°ì´íŠ¸
             $sql = " update $g4[member_table] set mb_level = mb_level-1, mb_level_datetime = '$g4[time_ymdhis]' where mb_id = '$mb[mb_id]' ";
             sql_query($sql);
-            // È¸¿ø·¹º§ history¿¡ insert
+            // íšŒì›ë ˆë²¨ historyì— insert
             $sql = " insert 
                        into $g4[member_level_history_table] 
                         set mb_id           = '$mb[mb_id]',
@@ -1715,32 +1715,32 @@ function member_level_up($mb_id)
                             level_datetime  = '$g4[time_ymdhis]' ";
             sql_query($sql);
 
-            $rstr = "$mb[mb_id] È¸¿øÀÌ ·¹º§´Ù¿î µÇ¾ú½À´Ï´Ù";
+            $rstr = "$mb[mb_id] íšŒì›ì´ ë ˆë²¨ë‹¤ìš´ ë˜ì—ˆìŠµë‹ˆë‹¤";
         }
     }
 
     return $rstr;
 }
 
-// sideview¸¦ Ãâ·Â
+// sideviewë¥¼ ì¶œë ¥
 function print_sideview($mb_id, $board) {
     global $config, $g4;
 
     $subject_mb = get_member($mb_id, "mb_id, mb_nick, mb_name, mb_email, mb_email_certify, mb_homepage, mb_homepage_certify");
 
-    // °Ô½ÃÆÇ¿¡ Ãâ·ÂÇÒ ±Û¾´ÀÌÀÇ ÀÌ¸§/´Ğ³×ÀÓÀÌ ¹Ù²î¾úÀ» ¶§ ¾î¶»°Ô µÉ±î¿ä? ¸ô·¡ ´Ğ³×ÀÓ ¹Ù²Ù°í Àå³­Ä¡¸é ¾îÂî µÉ±î¿ä?
+    // ê²Œì‹œíŒì— ì¶œë ¥í•  ê¸€ì“´ì´ì˜ ì´ë¦„/ë‹‰ë„¤ì„ì´ ë°”ë€Œì—ˆì„ ë•Œ ì–´ë–»ê²Œ ë ê¹Œìš”? ëª°ë˜ ë‹‰ë„¤ì„ ë°”ê¾¸ê³  ì¥ë‚œì¹˜ë©´ ì–´ì°Œ ë ê¹Œìš”?
     if ($board[bo_use_name])
         $tmp_name = $subject_mb[mb_name];
     else
         $tmp_name = $subject_mb[mb_nick];
 
-    $tmp_name = get_text(cut_str($tmp_name, $config['cf_cut_name'])); // ¼³Á¤µÈ ÀÚ¸®¼ö ¸¸Å­¸¸ ÀÌ¸§ Ãâ·Â
+    $tmp_name = get_text(cut_str($tmp_name, $config['cf_cut_name'])); // ì„¤ì •ëœ ìë¦¬ìˆ˜ ë§Œí¼ë§Œ ì´ë¦„ ì¶œë ¥
     $subject_sideview = get_sideview($subject_mb['mb_id'], $tmp_name, $subject_mb['wr_email'], $subject_mb['wr_homepage']);
 
     return $subject_sideview;
 }
 
-// °Ô½ÃÆÇ¿¡ °Ô½Ã±ÛÀ» ½Å±Ô·Î insert ÇÕ´Ï´Ù.
+// ê²Œì‹œíŒì— ê²Œì‹œê¸€ì„ ì‹ ê·œë¡œ insert í•©ë‹ˆë‹¤.
 function board_write($bo_table, $mb_id)
 {
     global $g4;
@@ -1748,15 +1748,15 @@ function board_write($bo_table, $mb_id)
     global $bf_file, $bf_source, $bf_type, $bf_width, $bf_height;
     global $wr_1, $wr_2, $wr_3, $wr_4, $wr_5, $wr_6, $wr_7, $wr_8, $wr_9, $wr_10;
 
-    // °Ô½ÃÆÇ Á¤º¸
+    // ê²Œì‹œíŒ ì •ë³´
     $board = get_board($bo_table);
 
-    // È¸¿ø Á¤º¸
+    // íšŒì› ì •ë³´
     $member = get_member($mb_id);
 
-    // °Ô½ÃÆÇ Á¤º¸¸¦ ¾ò½À´Ï´Ù - ½Å±Ô insert ±âÁØ
+    // ê²Œì‹œíŒ ì •ë³´ë¥¼ ì–»ìŠµë‹ˆë‹¤ - ì‹ ê·œ insert ê¸°ì¤€
     $g4_id = $board[gr_id];
-    $write_table = $g4['write_prefix'] . $bo_table; // °Ô½ÃÆÇ Å×ÀÌºí ÀüÃ¼ÀÌ¸§
+    $write_table = $g4['write_prefix'] . $bo_table; // ê²Œì‹œíŒ í…Œì´ë¸” ì „ì²´ì´ë¦„
     $wr_num = get_next_num($write_table);
     $wr_reply = "";
     $wr_name = $board[bo_use_name] ? $member[mb_name] : $member[mb_nick];
@@ -1802,22 +1802,22 @@ function board_write($bo_table, $mb_id)
     sql_query($sql);
     $wr_id = mysql_insert_id();
 
-    // ºÎ¸ğ ¾ÆÀÌµğ¿¡ UPDATE
+    // ë¶€ëª¨ ì•„ì´ë””ì— UPDATE
     sql_query(" update $write_table set wr_parent = '$wr_id' where wr_id = '$wr_id' ");
 
-    // »õ±Û INSERT
+    // ìƒˆê¸€ INSERT
     sql_query(" insert into $g4[board_new_table] ( bo_table, wr_id, wr_parent, bn_datetime, mb_id, wr_is_comment, gr_id, wr_option, parent_mb_id) 
                 values ( '$bo_table', '$wr_id', '$wr_id', '$g4[time_ymdhis]', '$member[mb_id]', '0', '$gr_id', '$secret', '$parent_mb_id[mb_id]') "); 
     
-    // °Ô½Ã±Û 1 Áõ°¡
+    // ê²Œì‹œê¸€ 1 ì¦ê°€
     sql_query("update $g4[board_table] set bo_count_write = bo_count_write + 1, bo_modify_datetime = '$g4[time_ymdhis]' where bo_table = '$bo_table'");
 
-    // ºÒ´çÆÑ - min_wr_num ¾÷µ¥ÀÌÆ®
+    // ë¶ˆë‹¹íŒ© - min_wr_num ì—…ë°ì´íŠ¸
     $result = sql_fetch(" select MIN(wr_num) as min_wr_num from $write_table ");
     $sql = " update $g4[board_table] set min_wr_num = '$result[min_wr_num]' where bo_table = '$bo_table' ";
     sql_query($sql);
 
-    // Ã·ºÎÆÄÀÏ insert
+    // ì²¨ë¶€íŒŒì¼ insert
     if ($bf_file) {
         $sql = " insert into $g4[board_file_table]
                     set bo_table = '$bo_table',
@@ -1835,15 +1835,15 @@ function board_write($bo_table, $mb_id)
         sql_query($sql);
     }
 
-    // ºÒ´çÆÑ - Ã·ºÎÆÄÀÏÀÇ °¹¼ö ÆÄ¾Ç
+    // ë¶ˆë‹¹íŒ© - ì²¨ë¶€íŒŒì¼ì˜ ê°¯ìˆ˜ íŒŒì•…
     $sql = " select count(*) as cnt from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_source <> '' ";
     $result = sql_fetch($sql);
 
-    // ºÒ´çÆÑ - Ã·ºÎÆÄÀÏ °¹¼ö ¾÷µ¥ÀÌÆ®
+    // ë¶ˆë‹¹íŒ© - ì²¨ë¶€íŒŒì¼ ê°¯ìˆ˜ ì—…ë°ì´íŠ¸
     $sql = " update $write_table set wr_file_count = '$result[cnt]' where wr_id = '$wr_id' ";
     sql_query($sql);
 
-    // ºÒ´çÆÑ - CCL Á¤º¸ ¾÷µ¥ÀÌÆ®
+    // ë¶ˆë‹¹íŒ© - CCL ì •ë³´ ì—…ë°ì´íŠ¸
     if ($board[bo_ccl]) {
         $wr_ccl = "";
         if ($wr_ccl_by == "by") { $wr_ccl .= "by"; }
@@ -1855,7 +1855,7 @@ function board_write($bo_table, $mb_id)
     }
 }
 
-// ÁÙ¹Ù²Ş ¾ø¾Ö±â, http://huddak.net/bbs/board.php?bo_table=cm_free&wr_id=3629
+// ì¤„ë°”ê¿ˆ ì—†ì• ê¸°, http://huddak.net/bbs/board.php?bo_table=cm_free&wr_id=3629
 function remove_nr($str) {
     $reg_e = array('/\n/', '/\r/', '/\"/', "/<\/script>/i"); 
     $reg_p = array(' ', ' ', '\\"', "<\/SCRIPT>"); 
@@ -1863,35 +1863,35 @@ function remove_nr($str) {
     return preg_replace($reg_e, $reg_p, $str);
 }
 
-// °³ÀÎÁ¤º¸ÁöÅ´ÀÌ - http://opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=913
+// ê°œì¸ì •ë³´ì§€í‚´ì´ - http://opencode.co.kr/bbs/board.php?bo_table=gnu4_tips&wr_id=913
 function save_me($content) {
 
-    // ÁÖ¹Î¹øÈ£
+    // ì£¼ë¯¼ë²ˆí˜¸
     $content1 = preg_replace_callback("/(?<![\d+_%])\d{2}[0-1]\d[0-3]\d[-\s]?[1-8]\d{6}/", 'save_jumin', $content);
 
-    // ÇÚµåÆù¹øÈ£
+    // í•¸ë“œí°ë²ˆí˜¸
     $content2 = preg_replace_callback("/(?<![\d+_%])(010|011|016|017|018|019)[-\s]\d{3,4}[-\s]\d{4}/", 'save_mobile', $content1);
 
-    // ÀüÈ­¹øÈ£
+    // ì „í™”ë²ˆí˜¸
     $content3 = preg_replace_callback("/(?<![\d+_%])(070|02|031|032|033|041|042|043|051|052|053|054|055|061|062|063|064)[-\s]\d{3,4}[-\s]\d{4}/", 'save_phone', $content2);
 
-    // ÀÌ¸ŞÀÏ
+    // ì´ë©”ì¼
     $content4 = preg_replace_callback("/(?<![\d+_%])[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/", 'save_email', $content3);
 
     return $content4;
 }
 
-// ÀÌ¸ŞÀÏÀ» mask
+// ì´ë©”ì¼ì„ mask
 function save_email($string)
 {
-    // @¸¦ ±âÁØÀ¸·Î ¹®ÀÚ¿­À» ÀÚ¸¥ ÈÄ
+    // @ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ë¬¸ìì—´ì„ ìë¥¸ í›„
     $str = explode("@", $string[0]);
 
-    // ¾ÕºÎºĞÀº ¸ğµÎ mask
+    // ì•ë¶€ë¶„ì€ ëª¨ë‘ mask
     $mask1 = strlen($str[0]);
     $str1 = substr_replace($str[0], str_repeat("*", $mask1), 0, $mask1);
 
-    // µŞºÎºĞÀº Ã¹¹øÂ°¸¦ ¸ğµÎ mask
+    // ë’·ë¶€ë¶„ì€ ì²«ë²ˆì§¸ë¥¼ ëª¨ë‘ mask
     $tmp = explode(".", $str[1]);
     $mask2 = strlen($tmp[0]);
     $tmp[0] = substr_replace($tmp[0], str_repeat("*", $mask2), 0, $mask2);
@@ -1902,19 +1902,19 @@ function save_email($string)
     return $return; 
 }
 
-// ÁÖ¹Î¹øÈ£¸¦ mask, ÁÖ¹Î¹øÈ£¸¦ ¸î°³ÀÇ key¸¸ »ì¸®°í ¸ğµÎ mix + str_shuffle
+// ì£¼ë¯¼ë²ˆí˜¸ë¥¼ mask, ì£¼ë¯¼ë²ˆí˜¸ë¥¼ ëª‡ê°œì˜ keyë§Œ ì‚´ë¦¬ê³  ëª¨ë‘ mix + str_shuffle
 function save_jumin($string)
 { 
-    // "-" ¶Ç´Â SPACE·Î explode
+    // "-" ë˜ëŠ” SPACEë¡œ explode
     $str = preg_split("/-|\s/", $string[0]);
     
-    // 3ÀÚ¸®¸¦ *·Î ¹Ù²Ù°í str_shuffle. *·Î ¹Ù²Ù´Â ½ÃÀÛ À§Ä¡´Â ÃßÁ¤À» ¸·±â À§ÇØ¼­ ·£´ı
+    // 3ìë¦¬ë¥¼ *ë¡œ ë°”ê¾¸ê³  str_shuffle. *ë¡œ ë°”ê¾¸ëŠ” ì‹œì‘ ìœ„ì¹˜ëŠ” ì¶”ì •ì„ ë§‰ê¸° ìœ„í•´ì„œ ëœë¤
     if (count($str) == 2) {
         $str1 = str_shuffle(substr_replace($str[0], "***", rand(0,2), 3));
         $str2 = str_shuffle(substr_replace($str[1], "***", rand(0,3), 3));
         $return = $str1 . "-" . $str2;
     } else {
-        // °ø¹éÀÌ ¾øÀÌ ¼ıÀÚ°¡ ºÙ¾î ÀÖ´Â °æ¿ì
+        // ê³µë°±ì´ ì—†ì´ ìˆ«ìê°€ ë¶™ì–´ ìˆëŠ” ê²½ìš°
         $str1 = str_shuffle(substr_replace($str[0], "******", rand(0,2), 6));
         $return = $str1;
     }
@@ -1922,27 +1922,27 @@ function save_jumin($string)
     return $return;
 }
 
-// ÇÚµåÆù ¹øÈ£¸¦ mask, 01* - *** - ****, ÆùÀÇ ÀÚ¸´¼ö¸¸ ±×´ë·Î ³ª¿Â´Ù.
+// í•¸ë“œí° ë²ˆí˜¸ë¥¼ mask, 01* - *** - ****, í°ì˜ ìë¦¿ìˆ˜ë§Œ ê·¸ëŒ€ë¡œ ë‚˜ì˜¨ë‹¤.
 function save_mobile($string)
 { 
-    // "-" ¶Ç´Â SPACE·Î explode
+    // "-" ë˜ëŠ” SPACEë¡œ explode
     $str = preg_split("/-|\s/", $string[0]);
     $return = substr_replace($str[0], "*", 2) . "-" . str_repeat("*", strlen($str[1])) . "-" . str_repeat("*", strlen($str[2]));
 
     return $return;
 }
 
-// ÀüÈ­¹øÈ£¸¦ mask, ±¹¹ø ÃßÁ¤À» ¸øÇÏ°Ô ±¹¹øÀº ¹«Á¶°Ç 3°³·Î mask
+// ì „í™”ë²ˆí˜¸ë¥¼ mask, êµ­ë²ˆ ì¶”ì •ì„ ëª»í•˜ê²Œ êµ­ë²ˆì€ ë¬´ì¡°ê±´ 3ê°œë¡œ mask
 function save_phone($string)
 { 
-    // "-" ¶Ç´Â SPACE·Î explode
+    // "-" ë˜ëŠ” SPACEë¡œ explode
     $str = preg_split("/-|\s/", $string[0]);
     $return = substr_replace($str[0], "**", 1, 2) . "-" . str_repeat("*", strlen($str[1])) . "-" . str_repeat("*", strlen($str[2]));
 
     return $return;
 }
 
-// Á¤ÇØÁø ÀÚ¸´¼öÀÇ ¾ËÆÄ´º¸Ş¸¯ ¼ø¼­¸¦ »ı¼º
+// ì •í•´ì§„ ìë¦¿ìˆ˜ì˜ ì•ŒíŒŒë‰´ë©”ë¦­ ìˆœì„œë¥¼ ìƒì„±
 // http://stackoverflow.com/questions/12000979/alphanumeric-increment-a-string-in-php-to-a-certain-length
 function getNextAlphaNumeric($code, $digit=4) {
     $base_ten = base_convert($code,36,10);
@@ -1952,7 +1952,7 @@ function getNextAlphaNumeric($code, $digit=4) {
     return $result;
 }
 
-// ¹ÙÀÌÆ®¸¦ º¸±â ÁÁÀº Çü½ÄÀ¸·Î Ãâ·Â
+// ë°”ì´íŠ¸ë¥¼ ë³´ê¸° ì¢‹ì€ í˜•ì‹ìœ¼ë¡œ ì¶œë ¥
 // http://stackoverflow.com/questions/2510434/php-format-bytes-to-kilobytes-megabytes-gigabytes
 function formatBytes($size, $precision = 2)
 {
@@ -1966,7 +1966,7 @@ function redis_cache($c_name, $seconds=300, $c_code) {
 
     global $g4;
 
-    // redis instanceÀÇ Ãæµ¹À» ¹æÁö
+    // redis instanceì˜ ì¶©ëŒì„ ë°©ì§€
     $c_name = $g4["rdomain"] . $c_name;
 
     $redis = new Redis();
@@ -1976,14 +1976,14 @@ function redis_cache($c_name, $seconds=300, $c_code) {
         return $redis->get($c_name);
     else {
 
-        // $c_code () ¾È¿¡ ³»¿ë¸¸ »ì¸² 
+        // $c_code () ì•ˆì— ë‚´ìš©ë§Œ ì‚´ë¦¼ 
         $pattern = "/[()]/";
         $tmp_c_code = preg_split($pattern, $c_code);
         
-        // ¼öÇàÇÒ ÇÔ¼öÀÇ ÀÌ¸§
+        // ìˆ˜í–‰í•  í•¨ìˆ˜ì˜ ì´ë¦„
         $func_name = $tmp_c_code[0];
 
-        // ¼öÇàÇÒ ÇÔ¼öÀÇ ÀÎÀÚ
+        // ìˆ˜í–‰í•  í•¨ìˆ˜ì˜ ì¸ì
         $tmp_array = str_getcsv($tmp_c_code[1]);
         
         if ($func_name == "include_once" || $func_name == "include") {
@@ -1995,33 +1995,33 @@ function redis_cache($c_name, $seconds=300, $c_code) {
 
         } else {
         
-            // ¼öÇàÇÒ ÇÔ¼öÀÇ ÀÎÀÚ¸¦ ´ã¾ÆµÑ º¯¼ö
+            // ìˆ˜í–‰í•  í•¨ìˆ˜ì˜ ì¸ìë¥¼ ë‹´ì•„ë‘˜ ë³€ìˆ˜
             $func_args = array();
 
             for($i=0;$i < count($tmp_array); $i++) {
-                // ±âº» trimÀº ¿©¹é µîÀ» ¾ø¾Ø´Ù. $charlist = " \t\n\r\0\x0B"
+                // ê¸°ë³¸ trimì€ ì—¬ë°± ë“±ì„ ì—†ì•¤ë‹¤. $charlist = " \t\n\r\0\x0B"
                 $tmp_args = trim($tmp_array[$i]);
-                // Ãß°¡ trimÀ¸·Î ÀÎÀÚ¸¦ ³Ñ±æ ¶§ ¾²´Â '¸¦ ¾ø¾Ø´Ù
+                // ì¶”ê°€ trimìœ¼ë¡œ ì¸ìë¥¼ ë„˜ê¸¸ ë•Œ ì“°ëŠ” 'ë¥¼ ì—†ì•¤ë‹¤
                 $tmp_args = trim($tmp_args, "'");
-                // Ãß°¡ trimÀ¸·Î ÀÎÀÚ¸¦ ³Ñ±æ ¶§ ¾²´Â "¸¦ ¾ø¾Ø´Ù
+                // ì¶”ê°€ trimìœ¼ë¡œ ì¸ìë¥¼ ë„˜ê¸¸ ë•Œ ì“°ëŠ” "ë¥¼ ì—†ì•¤ë‹¤
                 $func_args[$i] = trim($tmp_args, '"');
             }
 
-            // »õ·Î¿î Ä³½¬°ªÀ» ¸¸µé°í
+            // ìƒˆë¡œìš´ ìºì‰¬ê°’ì„ ë§Œë“¤ê³ 
             $c_text = call_user_func_array($func_name, $func_args);
         }
 
-        // °ªÀÌ ¾øÀ¸¸é ±×³É return
+        // ê°’ì´ ì—†ìœ¼ë©´ ê·¸ëƒ¥ return
         if (trim($c_text) == "")
             return;
 
-        // redisÀÇ cache °ªÀ» ¾÷µ¥ÀÌÆ®
+        // redisì˜ cache ê°’ì„ ì—…ë°ì´íŠ¸
         $redis->setex($c_name, $seconds, $c_text);
 
-        // redis¸¦ close
+        // redisë¥¼ close
         $redis->close();
 
-        // »õ·Î¿î Ä³½¬°ªÀ» return (slashes°¡ ¾ø´Â°Å¸¦ return ÇØ¾ßÇÕ´Ï´Ù)
+        // ìƒˆë¡œìš´ ìºì‰¬ê°’ì„ return (slashesê°€ ì—†ëŠ”ê±°ë¥¼ return í•´ì•¼í•©ë‹ˆë‹¤)
         return $c_text;
     }
 }
@@ -2030,23 +2030,23 @@ function redis_login($opt="") {
 
     global $g4;
 
-    // redisÀÏ¶§¸¸ redis login °ü¸®¸¦ ¾´´Ù.
+    // redisì¼ë•Œë§Œ redis login ê´€ë¦¬ë¥¼ ì“´ë‹¤.
     $redis_login = new Redis();
     $redis_login->connect($g4["rhost"], $g4["rport"]);
     $redis_login->select($g4["rdb1"]);
 
-    // g4_login Å×ÀÌºíÀÇ ³»¿ëÀ» ¸ğµÎ »èÁ¦
+    // g4_login í…Œì´ë¸”ì˜ ë‚´ìš©ì„ ëª¨ë‘ ì‚­ì œ
     $sql = " delete from $g4[login_table] ";
     sql_query($sql);
 
-    // ¸ğµç key¸¦ °¡Á®¿Í¼­ g4_login DB¿¡ ³Ö¾îÁİ´Ï´Ù.
+    // ëª¨ë“  keyë¥¼ ê°€ì ¸ì™€ì„œ g4_login DBì— ë„£ì–´ì¤ë‹ˆë‹¤.
     $allKeys = $redis_login->keys($g4["rdomain"] . "_login_*");   // all keys will match this.
     foreach ($allKeys as $rkey) {
 
         $rdat = explode ( "|", $redis_login->get($rkey) );
         if ($redis_login->ttl($rkey) > 0) {
 
-            // $opt == "mb_id" : È¸¿øÁ¤º¸¸¸ ±â·Ï
+            // $opt == "mb_id" : íšŒì›ì •ë³´ë§Œ ê¸°ë¡
             if ($opt == "mb_id" && $rdat['1'] == "")
                 continue;
 
@@ -2062,43 +2062,43 @@ function redis_login($opt="") {
                               ";
             	sql_query($tmp_sql, FALSE);
         } else  {
-            // expireµÈ key´Â »èÁ¦
+            // expireëœ keyëŠ” ì‚­ì œ
             $redis_login->delete($rkey);
         }
     }
 
-    // redis instance connectionÀ» ´İ¾ÆÁİ´Ï´Ù.
+    // redis instance connectionì„ ë‹«ì•„ì¤ë‹ˆë‹¤.
     $redis_login->close();
 }
 
-// redis keyÀÇ °¹¼ö¸¦ ¼¼¾îÁØ´Ù
+// redis keyì˜ ê°¯ìˆ˜ë¥¼ ì„¸ì–´ì¤€ë‹¤
 function redis_key_count($keys, $rdb) {
 
     global $g4;
 
-    // redis¿¡ Á¢¼Ó
+    // redisì— ì ‘ì†
     $redis_con = new Redis();
     $redis_con->connect($g4["rhost"], $g4["rport"]);
     $redis_con->select($rdb);
 
-    // key °¹¼ö¸¦ ¼¼¾î Áİ´Ï´Ù. ¼ıÀÚ°¡ ¸¹À¸¸é... ¾û¶×ÇÏ°Ô Æ¥¼öµµ???
+    // key ê°¯ìˆ˜ë¥¼ ì„¸ì–´ ì¤ë‹ˆë‹¤. ìˆ«ìê°€ ë§ìœ¼ë©´... ì—‰ëš±í•˜ê²Œ íŠˆìˆ˜ë„???
     $allKeys = $redis_con->keys($g4["rdomain"] . $keys);   // all keys will match this.
     $total_cnt = count($allKeys);
 
-    // redis instance connectionÀ» ´İ¾ÆÁİ´Ï´Ù.
+    // redis instance connectionì„ ë‹«ì•„ì¤ë‹ˆë‹¤.
     $redis_con->close();
 
     return $total_cnt;
 }
 
-// ÂÊÁö ¼ö½Å¿©ºÎ¸¦ Ã¼Å©ÇØ Áİ´Ï´Ù
+// ìª½ì§€ ìˆ˜ì‹ ì—¬ë¶€ë¥¼ ì²´í¬í•´ ì¤ë‹ˆë‹¤
 function check_memo_call() {
 
     global $g4, $config, $member;
 
     $memo_call = explode(' ' ,trim($member['mb_memo_call']));
 
-    // Áßº¹ ¹è¿­À» Á¦°Å
+    // ì¤‘ë³µ ë°°ì—´ì„ ì œê±°
     $memo_call = array_unique($memo_call);
 
     $memo_sql = "";
@@ -2109,7 +2109,7 @@ function check_memo_call() {
             $memo_sql .= " or mb_id = '$memo_call[$i]' ";
     }
 
-    // ÀÌ¸§À¸·Î »ç¿ëµÇ´Â ½Ã½ºÅÛÀÇ °æ¿ì
+    // ì´ë¦„ìœ¼ë¡œ ì‚¬ìš©ë˜ëŠ” ì‹œìŠ¤í…œì˜ ê²½ìš°
     if ($config['cf_memo_mb_name'])
         $sql = " select mb_name as mb_nick from $g4[member_table] where $memo_sql ";
     else
@@ -2125,15 +2125,15 @@ function check_memo_call() {
     return $mb_memo_nick;
 }
 
-// head.sub.php¿¡¼­ ºĞ¸®µÈ SEO¸¦ À§ÇÑ Å°¿ö¼­ »ı¼º ÇÔ¼ö
+// head.sub.phpì—ì„œ ë¶„ë¦¬ëœ SEOë¥¼ ìœ„í•œ í‚¤ì›Œì„œ ìƒì„± í•¨ìˆ˜
 function seo_keyword() {
 
     global $g4, $config, $bo_table, $wr_id, $write;
 
-    // ±×´© SEO Å°¿öµå - »çÀÌÆ®¿¡ À¯ÀÔµÇ´Â Å¾ °Ë»ö¾î¸¦ Å°¿öµå·Î ºĞ¸®
+    // ê·¸ëˆ„ SEO í‚¤ì›Œë“œ - ì‚¬ì´íŠ¸ì— ìœ ì…ë˜ëŠ” íƒ‘ ê²€ìƒ‰ì–´ë¥¼ í‚¤ì›Œë“œë¡œ ë¶„ë¦¬
     $seo_tag = "";
 
-    // °Ô½Ã±Û¿¡ ºÙ¾î ÀÖ´Â Å¾Å°¿öµå 5°³¸¦ ³Ö¾îÁÖ°í 
+    // ê²Œì‹œê¸€ì— ë¶™ì–´ ìˆëŠ” íƒ‘í‚¤ì›Œë“œ 5ê°œë¥¼ ë„£ì–´ì£¼ê³  
     if ($bo_table && $wr_id) {
         $sql = " select tag_name, count from $g4[seo_tag_table] where bo_table = '$bo_table' and wr_id = '$wr_id' order by count desc limit 0, 5";
         $result_s = sql_query($sql);
@@ -2146,7 +2146,7 @@ function seo_keyword() {
         }
     }
 
-    // »çÀÌÆ®¿¡ ºÙ¾î ÀÖ´Â Å°¿öµå 5°³¸¦ ³Ö¾îÁİ´Ï´Ù
+    // ì‚¬ì´íŠ¸ì— ë¶™ì–´ ìˆëŠ” í‚¤ì›Œë“œ 5ê°œë¥¼ ë„£ì–´ì¤ë‹ˆë‹¤
     $sql = " select tag_name, count from $g4[seo_tag_table] where bo_table = '' and tag_name <> '' order by count desc limit 0, 5";
     $result_s = sql_query($sql);
     for ($i=0; $row = sql_fetch_array($result_s); $i++) {
@@ -2159,62 +2159,62 @@ function seo_keyword() {
         }
     }
 
-    $seo_tag = preg_replace('/\s+/', ' ', $seo_tag);  // ¿©·¯°³ÀÇ ºóÄ­Àº 1°³ÀÇ °ø¹éÀ¸·Î
+    $seo_tag = preg_replace('/\s+/', ' ', $seo_tag);  // ì—¬ëŸ¬ê°œì˜ ë¹ˆì¹¸ì€ 1ê°œì˜ ê³µë°±ìœ¼ë¡œ
     $seo_tag = trim($seo_tag);
     if ($seo_tag !== "")
         $config['cf_meta_keywords'] = "$bo_table " . $seo_tag;
 
    if ($write['wr_content']) {
-      $g4_description = save_me($write[wr_content]);                // °³ÀÎÁ¤º¸º¸È£
-      $g4_description = nl2br($g4_description);                     // ÁÙ¹Ù²ŞÀ» <br>·Î
-      $g4_description = preg_replace('/\<br(\s*)?\/?\>/i', " ", $g4_description); // <br>À» ¿©¹éÀ¸·Î
-      $g4_description = strip_tags($g4_description);  // ¸ğµç tag¸¦ Áö¿ö ¹ö¸®°í
+      $g4_description = save_me($write[wr_content]);                // ê°œì¸ì •ë³´ë³´í˜¸
+      $g4_description = nl2br($g4_description);                     // ì¤„ë°”ê¿ˆì„ <br>ë¡œ
+      $g4_description = preg_replace('/\<br(\s*)?\/?\>/i', " ", $g4_description); // <br>ì„ ì—¬ë°±ìœ¼ë¡œ
+      $g4_description = strip_tags($g4_description);  // ëª¨ë“  tagë¥¼ ì§€ì›Œ ë²„ë¦¬ê³ 
       $g4_description = preg_replace("/<(.*?)\>/"," ", $g4_description);
-      $g4_description = preg_replace("/&nbsp;/"," ",$g4_description);   // &nbsp;´Â °ø¹éÀ¸·Î
-      $g4_description = str_replace("&amp;", "&", $g4_description); // &amp;´Â &·Î
-      $g4_description = str_replace("&lt;", "<", $g4_description);  // &lt;´Â <·Î
-      $g4_description = str_replace("&gt;", "<", $g4_description);  // &gt;´Â >·Î
-      $g4_description = str_replace("\"", " ", $g4_description);    // "´Â °ø¹éÀ¸·Î
-      $g4_description = str_replace("\'", " ", $g4_description);    // "´Â °ø¹éÀ¸·Î
-      $g4_description = str_replace("\`", " ", $g4_description);    // `´Â °ø¹éÀ¸·Î
-      $g4_description = str_replace(",", " ", $g4_description);     // ,´Â °ø¹éÀ¸·Î
-      $g4_description = str_replace(".", " ", $g4_description);     // .´Â °ø¹éÀ¸·Î
-      $g4_description = str_replace("=", " ", $g4_description);     // =´Â °ø¹éÀ¸·Î
+      $g4_description = preg_replace("/&nbsp;/"," ",$g4_description);   // &nbsp;ëŠ” ê³µë°±ìœ¼ë¡œ
+      $g4_description = str_replace("&amp;", "&", $g4_description); // &amp;ëŠ” &ë¡œ
+      $g4_description = str_replace("&lt;", "<", $g4_description);  // &lt;ëŠ” <ë¡œ
+      $g4_description = str_replace("&gt;", "<", $g4_description);  // &gt;ëŠ” >ë¡œ
+      $g4_description = str_replace("\"", " ", $g4_description);    // "ëŠ” ê³µë°±ìœ¼ë¡œ
+      $g4_description = str_replace("\'", " ", $g4_description);    // "ëŠ” ê³µë°±ìœ¼ë¡œ
+      $g4_description = str_replace("\`", " ", $g4_description);    // `ëŠ” ê³µë°±ìœ¼ë¡œ
+      $g4_description = str_replace(",", " ", $g4_description);     // ,ëŠ” ê³µë°±ìœ¼ë¡œ
+      $g4_description = str_replace(".", " ", $g4_description);     // .ëŠ” ê³µë°±ìœ¼ë¡œ
+      $g4_description = str_replace("=", " ", $g4_description);     // =ëŠ” ê³µë°±ìœ¼ë¡œ
       $g4_description = str_replace("!", " ", $g4_description);
-      $g4_description = str_replace("¤Ì", " ", $g4_description);
-      $g4_description = str_replace("¤Ğ", " ", $g4_description);
-      $g4_description = str_replace("¤¾", " ", $g4_description);
-      $g4_description = str_replace("¤»", " ", $g4_description);
+      $g4_description = str_replace("ã…œ", " ", $g4_description);
+      $g4_description = str_replace("ã… ", " ", $g4_description);
+      $g4_description = str_replace("ã…", " ", $g4_description);
+      $g4_description = str_replace("ã…‹", " ", $g4_description);
       $g4_description = str_replace("//##", " ", $g4_description); 
-      $g4_description = preg_replace('/\s+/', ' ', $g4_description);  // ¿©·¯°³ÀÇ ºóÄ­Àº 1°³ÀÇ °ø¹éÀ¸·Î
-      $g4_description = cut_str($g4_description, 250, '');  // 250±ÛÀÚ¸¸
+      $g4_description = preg_replace('/\s+/', ' ', $g4_description);  // ì—¬ëŸ¬ê°œì˜ ë¹ˆì¹¸ì€ 1ê°œì˜ ê³µë°±ìœ¼ë¡œ
+      $g4_description = cut_str($g4_description, 250, '');  // 250ê¸€ìë§Œ
 
       $config['cf_meta_description'] = $g4_description;
   }
 }
 
-// db¸¦ µÚÁ®¼­ °ü¸®ÀÚÀÎ°¡? ¾Æ´Ñ°¡¸¦ Ã¼Å©.
+// dbë¥¼ ë’¤ì ¸ì„œ ê´€ë¦¬ìì¸ê°€? ì•„ë‹Œê°€ë¥¼ ì²´í¬.
 function is_admin_check($mb_id)
 {
     global $g4, $config;
 
     if (!$mb_id) return;
 
-    // super °ü¸®ÀÚÀÎÁö È®ÀÎ - super´Â 1¸í»Ó.
+    // super ê´€ë¦¬ìì¸ì§€ í™•ì¸ - superëŠ” 1ëª…ë¿.
     if ($config['cf_admin'] == $mb_id) return 'super';
 
-    // ±×·ì °ü¸®ÀÚÀÎÁö È®ÀÎ
+    // ê·¸ë£¹ ê´€ë¦¬ìì¸ì§€ í™•ì¸
     $mb = sql_fetch("select gr_id from $g4[group_table] where gr_admin = '$mb_id' limit 1 ");
     if ($mb) return 'group';
     
-    // °Ô½ÃÆÇ °ü¸®ÀÚÀÎÁö È®ÀÎ
+    // ê²Œì‹œíŒ ê´€ë¦¬ìì¸ì§€ í™•ì¸
     $mb = sql_fetch("select bo_table from $g4[board_table] where bo_admin = '$mb_id' limit 1 ");
     if ($mb) return 'board';
     
     return '';
 }
 
-// wr_contentÀÇ ³»¿ëÀ» ¿ªÀ¸·Î Ç®¾îÁİ´Ï´Ù - ÆË¾÷°ü¸®ÀÚ¿¡¼­ ÀÌ¹ÌÁö¸Ê Ã³¸®¿¡ ²À ÇÊ¿äÇÕ´Ï´Ù.
+// wr_contentì˜ ë‚´ìš©ì„ ì—­ìœ¼ë¡œ í’€ì–´ì¤ë‹ˆë‹¤ - íŒì—…ê´€ë¦¬ìì—ì„œ ì´ë¯¸ì§€ë§µ ì²˜ë¦¬ì— ê¼­ í•„ìš”í•©ë‹ˆë‹¤.
 function conv_content_rev($content, $writeContents_id, $wr_option)
 {
     $content = preg_replace("/\&lt\;/", "<", $content);
@@ -2226,13 +2226,13 @@ function conv_content_rev($content, $writeContents_id, $wr_option)
         $content = conv_content($content, $html);
     }
 
-    // map°ú area ÅÂ±×¸¦ ³²±â°í ¸ğµç ÅÂ±×¸¦ ¾ø¾Ø´Ù - http://kr.php.net/manual/kr/function.strip-tags.php
+    // mapê³¼ area íƒœê·¸ë¥¼ ë‚¨ê¸°ê³  ëª¨ë“  íƒœê·¸ë¥¼ ì—†ì•¤ë‹¤ - http://kr.php.net/manual/kr/function.strip-tags.php
     $content = strip_tags($content, "<map>,<area>"); 
 
     return $content;
 }
 
-// mb_nickÀ¸·Î »ç¿ëÀÚÁ¤º¸¸¦ Á¶È¸ - °³ÀÎÁ¤º¸ º¸È£¸¦ À§ÇØ
+// mb_nickìœ¼ë¡œ ì‚¬ìš©ìì •ë³´ë¥¼ ì¡°íšŒ - ê°œì¸ì •ë³´ ë³´í˜¸ë¥¼ ìœ„í•´
 function get_member_nick($mb_nick, $fields='*') 
 { 
     global $g4; 
@@ -2243,23 +2243,23 @@ function get_member_nick($mb_nick, $fields='*')
     $sql = "select $fields from $g4[member_table] where mb_nick = '$mb_nick'";
     $row = sql_fetch($sql, FALSE);
 
-    // $row°¡ ºñ¾î¶ä? ±×·¯¸é nickÀÌ ¾ø°Å³ª ¹Ù²ï °ÍÀÌ°Å³ª?
+    // $rowê°€ ë¹„ì–´ëœ¸? ê·¸ëŸ¬ë©´ nickì´ ì—†ê±°ë‚˜ ë°”ë€ ê²ƒì´ê±°ë‚˜?
     if (!$row) {
-        // mb_nick_table¿¡¼­ °ú°ÅÀÇ nickÀ¸·Î °Ë»ö
+        // mb_nick_tableì—ì„œ ê³¼ê±°ì˜ nickìœ¼ë¡œ ê²€ìƒ‰
         $sql2 = "select * from $g4[mb_nick_table] where mb_nick = '$mb_nick'";
         $row2 = sql_fetch($sql2);
 
-        // °ú°Å¿¡ nickÀÌ ÀÖÀ¸¸é ±×°É·Î Á¤º¸¸¦ ÃßÃâ. ¾øÀ¸¸é ²ÎÀÎ°Å±¸.
+        // ê³¼ê±°ì— nickì´ ìˆìœ¼ë©´ ê·¸ê±¸ë¡œ ì •ë³´ë¥¼ ì¶”ì¶œ. ì—†ìœ¼ë©´ ê½ì¸ê±°êµ¬.
         if ($row2) {
             $sql = "select $fields from $g4[member_table] where mb_id = '$row2[mb_id]'";
             $row = sql_fetch($sql, FALSE);
         }
     }
 
-    // ±×·ì¸íÀ» À§ÇØ ÇÑ¹ø ´õ SQLÀ» - joinº¸´Ù´Â 2¹ø ÇØÁÖ´Â°Ô Ä³½³ ¶§¹®¿¡ ½ÇÁ¦·Î´Â ´õ ºü¸¦²¬? ¤¾¤¾
-    // ±×³ªÀú³ª, member°¡ ¾ø´Âµ¥, ±×·ìÁ¤º¸¸¦ °¡Á®¿Ã ÀÌÀ¯´Â ¾øÁ®
+    // ê·¸ë£¹ëª…ì„ ìœ„í•´ í•œë²ˆ ë” SQLì„ - joinë³´ë‹¤ëŠ” 2ë²ˆ í•´ì£¼ëŠ”ê²Œ ìºìŠ ë•Œë¬¸ì— ì‹¤ì œë¡œëŠ” ë” ë¹ ë¥¼ê»„? ã…ã…
+    // ê·¸ë‚˜ì €ë‚˜, memberê°€ ì—†ëŠ”ë°, ê·¸ë£¹ì •ë³´ë¥¼ ê°€ì ¸ì˜¬ ì´ìœ ëŠ” ì—†ì ¸
     if ($row) {
-        // ¸ğµÎ ´Ù ¶Ç´Â gl_nameÀÌ ÀÖÀ» ¶§¸¸
+        // ëª¨ë‘ ë‹¤ ë˜ëŠ” gl_nameì´ ìˆì„ ë•Œë§Œ
         if ($fields=="*" || preg_match("/gl_name/",$fields)) {
             $row['gl_name'] = get_gl_name($row[mb_level]);
         }
@@ -2269,7 +2269,7 @@ function get_member_nick($mb_nick, $fields='*')
 }
 
 // http://www.phpschool.com/gnuboard4/bbs/board.php?bo_table=tipntech&wr_id=65180
-// javascriptÀÇ escape/unescape¸¦ php¿¡¼­ °¡´ÉÇÏ°Ô
+// javascriptì˜ escape/unescapeë¥¼ phpì—ì„œ ê°€ëŠ¥í•˜ê²Œ
 function js_unescape($str, $chr_set='CP949') { 
 	  $callback_function = create_function('$matches, $chr_set="'.$chr_set.'"', 'return iconv("UTF-16BE", $chr_set, pack("n*", hexdec($matches[1])));'); 
   	return rawurldecode(preg_replace_callback('/%u([[:alnum:]]{4})/', $callback_function, $str)); 
@@ -2282,7 +2282,7 @@ function js_escape($str, $chr_set='CP949') {
 	  return implode($arr_hexcode); 
 }
 
-// ºÎÆ®½ºÆ®·¦ tooltipÀ» Ãâ·Â
+// ë¶€íŠ¸ìŠ¤íŠ¸ë© tooltipì„ ì¶œë ¥
 function help($msg, $gly='') {
 
     if ($gly == "")
@@ -2295,15 +2295,15 @@ function help($msg, $gly='') {
     return $str;
 }
 
-// url¿¡¼­ page¸¦ Á¦°ÅÇÏ±â
+// urlì—ì„œ pageë¥¼ ì œê±°í•˜ê¸°
 function strip_page($qstr) {
     $qstr = preg_replace('/&?page=[0-9]/i', '', $qstr);
     return $qstr;
 }
 
-// Æ¯º°ÇÑ ¹®ÀÚ¸¦ º¯È¯ÇÏ±â
-// lastest µî¿¡¼­ ³ª¿Â °Í¿¡ { ( °°Àº ¹®Á¦°¡ 1°³¸¸ ÀÖÀ¸¸é Ä³½¬¿¡ ¹®Á¦°¡ µË´Ï´Ù.
-// ±×·± ¹®ÀÚ´Â ¸ğµÎ break ÇØ¾ß ÇÕ´Ï´Ù.
+// íŠ¹ë³„í•œ ë¬¸ìë¥¼ ë³€í™˜í•˜ê¸°
+// lastest ë“±ì—ì„œ ë‚˜ì˜¨ ê²ƒì— { ( ê°™ì€ ë¬¸ì œê°€ 1ê°œë§Œ ìˆìœ¼ë©´ ìºì‰¬ì— ë¬¸ì œê°€ ë©ë‹ˆë‹¤.
+// ê·¸ëŸ° ë¬¸ìëŠ” ëª¨ë‘ break í•´ì•¼ í•©ë‹ˆë‹¤.
 function conv_latest ($str) {
     $str = str_replace('(', '&#40;', $str);    // (
     $str = str_replace(')', '&#41;', $str);    // )
@@ -2313,7 +2313,7 @@ function conv_latest ($str) {
     return $str;
 }
 
-// $_POST ·Î ³Ñ¾î¿Â Ä¸Ã­°ªÀ» Ã¼Å©
+// $_POST ë¡œ ë„˜ì–´ì˜¨ ìº¡ì± ê°’ì„ ì²´í¬
 function chk_recaptcha()
 {
   	global $g4;
@@ -2343,7 +2343,7 @@ function chk_recaptcha()
 	  return true;
 }
 
-// link¸¦ ÆÄ½ÌÇÏ¿© º¸¿©Áİ´Ï´Ù
+// linkë¥¼ íŒŒì‹±í•˜ì—¬ ë³´ì—¬ì¤ë‹ˆë‹¤
 function link_view($link_href, $link, $link_hit, $link_len=70) {
 
     global $g4;
@@ -2360,18 +2360,18 @@ function link_view($link_href, $link, $link_hit, $link_len=70) {
         $video_id = strip_tags($match[1]);
         $result = '<iframe src="https://player.vimeo.com/video/' . $video_id . '?color=ffffff&title=0&byline=0&portrait=0" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></br>';
         return $result;
-    // ´ÙÀ½ tvÆÌ
+    // ë‹¤ìŒ tvíŒŸ
     // http://tvpot.daum.net/v/s9e2733dJRX6fJGXuRjdJxR
     } else if(preg_match('/tvpot.daum.net\/v\/([0-9a-zA-Z]+)/', $link, $match)) {
  		    $video_id = $match[1];
  		    $result = "<div class='row'><div class='col-lg-12 col-md-12 col-sm-12 col-xs-12 embed-responsive embed-responsive-16by9'><iframe class='embed-responsive-item' src='http://videofarm.daum.net/controller/video/viewer/Video.html?vid=" . $video_id . "&play_loc=undefined' frameborder='0' scrolling='no' ></iframe></div></div></BR>";
         return $result;
-    // sound could, embed wp¸¦ ´­·¯¼­ ³ª¿À´Â ¸µÅ©¿¡¼­ ¾Æ·§ºÎºĞ¸¸ ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù. 
+    // sound could, embed wpë¥¼ ëˆŒëŸ¬ì„œ ë‚˜ì˜¤ëŠ” ë§í¬ì—ì„œ ì•„ë«ë¶€ë¶„ë§Œ ì…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤. 
     // https://api.soundcloud.com/tracks/173325390
     } else if(preg_match('/https:\/\/api.soundcloud\.com\/([a-z0-9-\/]+)\/([a-z0-9-\/]+)/', $link, $match)) {
         $result = "<iframe width='100%' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/185361169&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true'></iframe></BR>";
         return $result;
-    // pollÀ» Ãâ·Â ÇÕ´Ï´Ù. poll.poll¹øÈ£ÀÇ Çü½Ä ÀÔ´Ï´Ù.
+    // pollì„ ì¶œë ¥ í•©ë‹ˆë‹¤. poll.pollë²ˆí˜¸ì˜ í˜•ì‹ ì…ë‹ˆë‹¤.
     } else if(preg_match('/http:\/\/poll\-([0-9]+)/', $link, $match)) {
         $po_id = (int) $match[1];
 
@@ -2383,14 +2383,14 @@ function link_view($link_href, $link, $link_hit, $link_len=70) {
 
         return $result;
     } else {
-        // Ç¥½ÃµÇ´Â ¸µÅ©ÀÇ ±æÀÌ°¡ ³Ê¹« ±æ¸é ÁÙ¿©¾ß ÇÔ
+        // í‘œì‹œë˜ëŠ” ë§í¬ì˜ ê¸¸ì´ê°€ ë„ˆë¬´ ê¸¸ë©´ ì¤„ì—¬ì•¼ í•¨
         $link = cut_str($link, $link_len);
         return "<a href='$link_href' target=_blank>{$link} ($link_hit)</a></BR>";
     }
 }
 
 
-// ÅõÇ¥ Çß´ÂÁö ¿©ºÎ¸¦ È®ÀÎ ÇÕ´Ï´Ù
+// íˆ¬í‘œ í–ˆëŠ”ì§€ ì—¬ë¶€ë¥¼ í™•ì¸ í•©ë‹ˆë‹¤
 function poll_check($po_id) {
 
     global $g4, $is_member, $member;
@@ -2398,10 +2398,10 @@ function poll_check($po_id) {
     // $po_id
     $po_id = (int) $po_id;
 
-    // $po Á¤º¸¸¦ °¡Á® ¿É´Ï´Ù.
+    // $po ì •ë³´ë¥¼ ê°€ì ¸ ì˜µë‹ˆë‹¤.
     $po = sql_fetch(" select * from $g4[poll_table] where po_id = $po_id ");
 
-    // ÅõÇ¥Çß´ø ipµé Áß¿¡¼­ Ã£¾Æº»´Ù
+    // íˆ¬í‘œí–ˆë˜ ipë“¤ ì¤‘ì—ì„œ ì°¾ì•„ë³¸ë‹¤
     $search_ip = false;
     $ips = explode("\n", trim($po[po_ips]));
     for ($i=0; $i<count($ips); $i++) 
@@ -2413,7 +2413,7 @@ function poll_check($po_id) {
         }
     }
 
-    // ÅõÇ¥Çß´ø È¸¿ø¾ÆÀÌµğµé Áß¿¡¼­ Ã£¾Æº»´Ù
+    // íˆ¬í‘œí–ˆë˜ íšŒì›ì•„ì´ë””ë“¤ ì¤‘ì—ì„œ ì°¾ì•„ë³¸ë‹¤
     $search_mb_id = false;
     if ($is_member)
     {

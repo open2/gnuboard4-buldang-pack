@@ -1,15 +1,15 @@
 <?
-// E-mail ¼öÁ¤½Ã ÀÎÁõ ¸ŞÀÏ (È¸¿ø´Ô²² ¹ß¼Û)
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+// E-mail ìˆ˜ì •ì‹œ ì¸ì¦ ë©”ì¼ (íšŒì›ë‹˜ê»˜ ë°œì†¡)
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=<?=$g4[charset]?>">
-<title>ÀÎÁõ ¸ŞÀÏ</title>
+<title>ì¸ì¦ ë©”ì¼</title>
 </head>
 
 <style>
-body, th, td, form, input, select, text, textarea, caption { font-size: 12px; font-family:±¼¸²;}
+body, th, td, form, input, select, text, textarea, caption { font-size: 12px; font-family:êµ´ë¦¼;}
 .line {border: 1px solid #868F98;}
 </style>
 
@@ -30,20 +30,20 @@ body, th, td, form, input, select, text, textarea, caption { font-size: 12px; fo
             <td>
                 <table width="500" border="0" cellspacing="0" cellpadding="4">
                 <tr> 
-                    <td width="100%" height="25" bgcolor=#F7F1D8>ÀÎÁõ ¸ŞÀÏÀÔ´Ï´Ù.</td>
+                    <td width="100%" height="25" bgcolor=#F7F1D8>ì¸ì¦ ë©”ì¼ì…ë‹ˆë‹¤.</td>
                 </tr>
                 </table>
                 <p>
 
                 <table width="500" border="0" align="center" cellpadding="4" cellspacing="0">
                 <tr><td height="150">
-                    <b><?=$mb_name?></b> ´ÔÀÇ E-mail ÁÖ¼Ò°¡ º¯°æµÇ¾ú½À´Ï´Ù.
+                    <b><?=$mb_name?></b> ë‹˜ì˜ E-mail ì£¼ì†Œê°€ ë³€ê²½ë˜ì—ˆìŠµë‹ˆë‹¤.
 
-                    <p>¾Æ·¡ÀÇ ÁÖ¼Ò¸¦ Å¬¸¯ÇÏ½Ã¸é ÀÎÁõÀÌ ¿Ï·áµË´Ï´Ù.
+                    <p>ì•„ë˜ì˜ ì£¼ì†Œë¥¼ í´ë¦­í•˜ì‹œë©´ ì¸ì¦ì´ ì™„ë£Œë©ë‹ˆë‹¤.
                     <p><a href='<?=$certify_href?>'><b><?=$certify_href?></b></a>
 
-                    <p>È¸¿ø´ÔÀÇ ¼º¿ø¿¡ º¸´äÇÏ°íÀÚ ´õ¿í ´õ ¿­½ÉÈ÷ ÇÏ°Ú½À´Ï´Ù.
-                    <p>°¨»çÇÕ´Ï´Ù.
+                    <p>íšŒì›ë‹˜ì˜ ì„±ì›ì— ë³´ë‹µí•˜ê³ ì ë”ìš± ë” ì—´ì‹¬íˆ í•˜ê² ìŠµë‹ˆë‹¤.
+                    <p>ê°ì‚¬í•©ë‹ˆë‹¤.
                     </td></tr>
                 </table>
                 <p>
@@ -53,7 +53,7 @@ body, th, td, form, input, select, text, textarea, caption { font-size: 12px; fo
                     <td height="2" bgcolor="#E0E0E0" align="center"></td>
                 </tr>
                 <tr> 
-                    <td height="25" bgcolor="#EDEDED" align="center">·Î±×ÀÎ ÈÄ ¸ğµç Á¤º¸¸¦ ÀÌ¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.[<a href="<?=$g4[url]?>/<?=$g4[bbs]?>/login.php">¹Ù·Î°¡±â</a>]</td>
+                    <td height="25" bgcolor="#EDEDED" align="center">ë¡œê·¸ì¸ í›„ ëª¨ë“  ì •ë³´ë¥¼ ì´ìš©í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.[<a href="<?=$g4[url]?>/<?=$g4[bbs]?>/login.php">ë°”ë¡œê°€ê¸°</a>]</td>
                 </tr>
                 </table>
             </td>

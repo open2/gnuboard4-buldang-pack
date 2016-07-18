@@ -1,38 +1,38 @@
 <?php
-// tail.sub.php¿¡¼­ ºĞ¸®ÇÑ Á¢¼ÓÀÚ Ã³¸®
+// tail.sub.phpì—ì„œ ë¶„ë¦¬í•œ ì ‘ì†ì ì²˜ë¦¬
 
 if ($g4['session_type'] == "redis") {
-    // redisÀÏ¶§¸¸ redis login °ü¸®¸¦ ¾´´Ù.
+    // redisì¼ë•Œë§Œ redis login ê´€ë¦¬ë¥¼ ì“´ë‹¤.
     $redis_login = new Redis();
     $redis_login->connect($g4["rhost"], $g4["rport"]);
     $redis_login->select($g4["rdb1"]);
 
-    // redis key¸¦ Á¤ÀÇ (where¿¡ ÀÖ´Â °ÍÀ» ¹­¾î¼­ key¸¦ ¸¸µé¾î Áİ´Ï´Ù)
+    // redis keyë¥¼ ì •ì˜ (whereì— ìˆëŠ” ê²ƒì„ ë¬¶ì–´ì„œ keyë¥¼ ë§Œë“¤ì–´ ì¤ë‹ˆë‹¤)
     $rkey   = $g4["rdomain"] . "_login_" . "$remote_addr";
     $rvalue = $remote_addr . "|" . $member[mb_id] . "|" . $g4[time_ymdhis] . "|" . $lo_location . "|" . $lo_url . "|" . $lo_referer . "|" . $user_agent;
 
-    // key°¡ ÀÖÀ¸¸é °ªÀ» °¡Á®¿Í¾ßÁÒ?
+    // keyê°€ ìˆìœ¼ë©´ ê°’ì„ ê°€ì ¸ì™€ì•¼ì£ ?
     if ($redis_login->exists($rkey) && $redis_login->get($rkey)) {
 
-        // key°¡ ÀÖ´Â °æ¿ì ttl (key°¡ expire µÇ¾ú´ÂÁö¸¦ Ã¼Å©)
+        // keyê°€ ìˆëŠ” ê²½ìš° ttl (keyê°€ expire ë˜ì—ˆëŠ”ì§€ë¥¼ ì²´í¬)
         if ($redis_login->ttl($rkey) > 0) {
 
-            // ·Î±×ÀÎÁ¤º¸¸¦ ¾÷µ¥ÀÌÆ®
-            $redis_login->setex($rkey, 60 * $config['cf_login_minutes'], "$rvalue"); // sets key ¡æ value
+            // ë¡œê·¸ì¸ì •ë³´ë¥¼ ì—…ë°ì´íŠ¸
+            $redis_login->setex($rkey, 60 * $config['cf_login_minutes'], "$rvalue"); // sets key â†’ value
         } else {
-            // expireµÈ key´Â »èÁ¦
+            // expireëœ keyëŠ” ì‚­ì œ
             $redis_login->delete($rkey);
         }
     } else {
-        // key°¡ ¾ø°Å³ª °ªÀÌ ¾øÀ¸¸é key¸¦ ³Ö¾îÁİ´Ï´Ù.
+        // keyê°€ ì—†ê±°ë‚˜ ê°’ì´ ì—†ìœ¼ë©´ keyë¥¼ ë„£ì–´ì¤ë‹ˆë‹¤.
         $redis_login->setex($rkey, 60 * $config['cf_login_minutes'], "$rvalue"); // sets key
     }
 
-    // redis instance connectionÀ» ´İ¾ÆÁİ´Ï´Ù.
+    // redis instance connectionì„ ë‹«ì•„ì¤ë‹ˆë‹¤.
     $redis_login->close();
 
 } else {
-    // »çÀÌÆ®¸¦ ¹æ¹®ÇÏ°Ô µÇ¸é Ã³À½ ÇÑ¹ø insert°¡ µÇ°í, ÀÌÈÄ¿¡´Â °è¼Ó update°¡ ÀÌ·ç¾î Áı´Ï´Ù. µû¶ó¼­ ¹«Á¶°Ç update¸¦ ¸ÕÀúÇÏ°Ô ÇÏ´Â°Ô ¼Óµµ¸¦ ´õ ºü¸£°Ô ÇÕ´Ï´Ù.
+    // ì‚¬ì´íŠ¸ë¥¼ ë°©ë¬¸í•˜ê²Œ ë˜ë©´ ì²˜ìŒ í•œë²ˆ insertê°€ ë˜ê³ , ì´í›„ì—ëŠ” ê³„ì† updateê°€ ì´ë£¨ì–´ ì§‘ë‹ˆë‹¤. ë”°ë¼ì„œ ë¬´ì¡°ê±´ updateë¥¼ ë¨¼ì €í•˜ê²Œ í•˜ëŠ”ê²Œ ì†ë„ë¥¼ ë” ë¹ ë¥´ê²Œ í•©ë‹ˆë‹¤.
     //$tmp_sql = " update $g4[login_table] set mb_id = '$member[mb_id]', lo_datetime = '$g4[time_ymdhis]', lo_location = '$lo_location', lo_url = '$lo_url', lo_referer='$referer', lo_agent='$user_agent' where lo_ip = '$remote_addr' ";
     //sql_query($tmp_sql, FALSE);
 
@@ -45,7 +45,7 @@ if ($g4['session_type'] == "redis") {
     $stmt->bindParam(":lo_ip", $remote_addr);
     $result = pdo_query($stmt);
 
-    // update°¡ ¾ÈµÇ´Â °æ¿ì¿¡´Â insert¸¦ ÇÕ´Ï´Ù.
+    // updateê°€ ì•ˆë˜ëŠ” ê²½ìš°ì—ëŠ” insertë¥¼ í•©ë‹ˆë‹¤.
     if ($stmt->rowCount() == 0) {
         /*
       	$tmp_sql = " insert into $g4[login_table]
@@ -70,7 +70,7 @@ if ($g4['session_type'] == "redis") {
         $stmt->bindParam(":lo_agent", $user_agent);
         $result = pdo_query($stmt, false);
 
-        // ½Ã°£ÀÌ Áö³­ Á¢¼ÓÀº »èÁ¦ÇÑ´Ù
+        // ì‹œê°„ì´ ì§€ë‚œ ì ‘ì†ì€ ì‚­ì œí•œë‹¤
         sql_query(" delete from $g4[login_table] where lo_datetime < '" . date("Y-m-d H:i:s",
                 $g4[server_time] - (60 * $config[cf_login_minutes])) . "' ");
     }

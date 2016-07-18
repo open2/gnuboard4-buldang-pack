@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 
 <form class="form-inline" role="form" name="fboardpassword" method=post onsubmit="return fboardpassword_submit(this);" autocomplete="off">
@@ -16,13 +16,13 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
 <div class="panel panel-default">
 
 <div class="panel-heading">
-    <strong>ÀÌ °Ô½Ã¹°ÀÇ ÆÐ½º¿öµå¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À.</strong>
+    <strong>ì´ ê²Œì‹œë¬¼ì˜ íŒ¨ìŠ¤ì›Œë“œë¥¼ ìž…ë ¥í•˜ì‹­ì‹œì˜¤.</strong>
 </div>
 
 <div class="panel-body">
         <label class="control-label">Password</label>
-        <INPUT type="password" class="form-control" maxLength=20 size=15 name="wr_password" id="password_wr_password" itemname="ÆÐ½º¿öµå" required placeholder="password">
-        <button type="submit" class="btn btn-default">È®ÀÎ</button>
+        <INPUT type="password" class="form-control" maxLength=20 size=15 name="wr_password" id="password_wr_password" itemname="íŒ¨ìŠ¤ì›Œë“œ" required placeholder="password">
+        <button type="submit" class="btn btn-default">í™•ì¸</button>
 </div>
 
 </div>

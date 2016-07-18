@@ -2,7 +2,7 @@
 include_once("./_common.php");
 include_once("$g4[path]/lib/mailer.lib.php");
 
-// ¸®ÆÛ·¯ Ã¼Å©
+// ë¦¬í¼ëŸ¬ ì²´í¬
 referer_check();
 
 $po_id   = (int) $_POST['po_id'];
@@ -11,15 +11,15 @@ $pc_idea = strip_tags($_POST['pc_idea']);
 
 if ($w == "") 
 {
-    // ÀÚµ¿µî·Ï¹æÁö °Ë»ç
+    // ìë™ë“±ë¡ë°©ì§€ ê²€ì‚¬
     if (!$member[mb_id] && $config[cf_use_norobot]) {
         if (chk_recaptcha() == false)
-            alert ('½ºÆÔÂ÷´ÜÄÚµå°¡ Æ²·È½À´Ï´Ù.');
+            alert ('ìŠ¤íŒ¸ì°¨ë‹¨ì½”ë“œê°€ í‹€ë ¸ìŠµë‹ˆë‹¤.');
     }
 
     $po = sql_fetch(" select * from $g4[poll_table] where po_id = '$po_id' ");
     if (!$po[po_id])
-        alert("po_id °ªÀÌ Á¦´ë·Î ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.");
+        alert("po_id ê°’ì´ ì œëŒ€ë¡œ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
     $tmp_row = sql_fetch(" select max(pc_id) as max_pc_id from $g4[poll_etc_table] ");
     $pc_id = $tmp_row[max_pc_id] + 1;
@@ -51,7 +51,7 @@ if ($w == "")
     if ($member[mb_id])
         $mb_id = "($member[mb_id])";
 
-    // È¯°æ¼³Á¤ÀÇ ÅõÇ¥ ±âÅ¸ÀÇ°ß ÀÛ¼º½Ã ÃÖ°í°ü¸®ÀÚ¿¡°Ô ¸ŞÀÏ¹ß¼Û »ç¿ë¿¡ Ã¼Å©µÇ¾î ÀÖÀ» °æ¿ì
+    // í™˜ê²½ì„¤ì •ì˜ íˆ¬í‘œ ê¸°íƒ€ì˜ê²¬ ì‘ì„±ì‹œ ìµœê³ ê´€ë¦¬ìì—ê²Œ ë©”ì¼ë°œì†¡ ì‚¬ìš©ì— ì²´í¬ë˜ì–´ ìˆì„ ê²½ìš°
     if ($config[cf_email_po_super_admin])
     {
         $subject = $po[po_subject];
@@ -62,9 +62,9 @@ if ($w == "")
         $content = ob_get_contents();
         ob_end_clean();
 
-        // °ü¸®ÀÚ¿¡°Ô º¸³»´Â ¸ŞÀÏ
+        // ê´€ë¦¬ìì—ê²Œ ë³´ë‚´ëŠ” ë©”ì¼
         $admin = get_admin("super");
-        mailer($name, "", $admin[mb_email], "¼³¹®Á¶»ç ±âÅ¸ÀÇ°ß ¸ŞÀÏ", $content, 1);
+        mailer($name, "", $admin[mb_email], "ì„¤ë¬¸ì¡°ì‚¬ ê¸°íƒ€ì˜ê²¬ ë©”ì¼", $content, 1);
     }
 } 
 else if ($w == "d" or $w == "p") 
@@ -78,7 +78,7 @@ else if ($w == "d" or $w == "p")
     } else if (!$member[mb_id]) {
         $result = sql_fetch(" select pc_password from $g4[poll_etc_table] where pc_id = '$pc_id' and po_id = '$po_id' ");
         if (sql_password($wr_password) !== $result['pc_password'])
-            alert("ÆĞ½º¿öµå°¡ Æ²¸³´Ï´Ù.");
+            alert("íŒ¨ìŠ¤ì›Œë“œê°€ í‹€ë¦½ë‹ˆë‹¤.");
             
         $sql = " delete from $g4[poll_etc_table] where pc_id = '$pc_id' and po_id = '$po_id' and pc_password = '" . sql_password($wr_password) . "'";
     }

@@ -1,7 +1,7 @@
 <?
 include_once("_common.php");
 
-// post·Î µé¾î¿Â °ªÀ» º¯¼ö·Î
+// postë¡œ ë“¤ì–´ì˜¨ ê°’ì„ ë³€ìˆ˜ë¡œ
 $sst        = strip_tags($_POST[sst]);
 $sod        = strip_tags($_POST[sod]);
 $sfl        = strip_tags($_POST[sfl]);
@@ -14,20 +14,20 @@ $wr_id      = strip_tags($_POST[wr_id]);
 $comment_id = strip_tags($_POST[comment_id]);
 $flag       = strip_tags($_POST[flag]);
 
-// ÇÊ¿äÇÑ Á¤º¸°¡ ¾ø°Å³ª, È¸¿øÀÌ ¾Æ´Ï°Å³ª, °ü¸®ÀÚ ¶Ç´Â°Ô½Ã±Û ÀÛ¼ºÀÚ°¡ ¾Æ´Ñ °æ¿ì
+// í•„ìš”í•œ ì •ë³´ê°€ ì—†ê±°ë‚˜, íšŒì›ì´ ì•„ë‹ˆê±°ë‚˜, ê´€ë¦¬ìž ë˜ëŠ”ê²Œì‹œê¸€ ìž‘ì„±ìžê°€ ì•„ë‹Œ ê²½ìš°
 if (!$bo_table || !$wr_id || !$member[mb_id] || !($is_admin || $mb_id == $member['mb_id']))
-    alert("ºÎÀûÀýÇÑ Á¢±Ù ÀÔ´Ï´Ù.");
+    alert("ë¶€ì ì ˆí•œ ì ‘ê·¼ ìž…ë‹ˆë‹¤.");
 
 $url = "../board.php?bo_table=$bo_table&wr_id=$wr_id&page=$page&mnb=$mnb&snb=$snb";
 
-// °Ô½Ã±ÛÀ» ¾÷µ¥ÀÌÆ®
+// ê²Œì‹œê¸€ì„ ì—…ë°ì´íŠ¸
 sql_query(" update $write_table set wr_datetime='$g4[time_ymdhis]' where wr_id='$wr_id'");
 
-// ÃÖ±Ù±ÛÀ» ¾÷µ¥ÀÌÆ®
+// ìµœê·¼ê¸€ì„ ì—…ë°ì´íŠ¸
 $sql = " select * from $g4[board_new_table] where bo_table='$bo_table' and wr_id='$wr_id'";
 $result = sql_fetch($sql);
 
-// ÀÏ´Ü »õ·Î¿î°Å ¸ÕÀú insert ÇÏ°í,
+// ì¼ë‹¨ ìƒˆë¡œìš´ê±° ë¨¼ì € insert í•˜ê³ ,
 $sql = "insert into $g4[board_new_table] 
                 set bo_table        = '$bo_table',
                     wr_id           = '$wr_id',
@@ -42,13 +42,13 @@ $sql = "insert into $g4[board_new_table]
                     ";
 sql_query($sql);
 
-// ÃÖ½Å±Û Á¤º¸°¡ ÀÖ´Â °æ¿ì¿¡¸¸ ¿¾³¯²¨¸¦ »èÁ¦ ÇØ¾ßÇÏÁÒ? ¤»¤»
+// ìµœì‹ ê¸€ ì •ë³´ê°€ ìžˆëŠ” ê²½ìš°ì—ë§Œ ì˜›ë‚ êº¼ë¥¼ ì‚­ì œ í•´ì•¼í•˜ì£ ? ã…‹ã…‹
 if ($result) {
     $sql = " delete from $g4[board_new_table] where bn_id = '$result[bn_id]' ";
     sql_query($sql);
 }
 
-$msg = "°Ô½Ã±Û ¹× ÃÖ½Å±Û Á¤º¸¸¦ ÇöÀç½Ã°£À¸·Î ¾÷µ¥ÀÌÆ® ÇÏ¿´½À´Ï´Ù";
+$msg = "ê²Œì‹œê¸€ ë° ìµœì‹ ê¸€ ì •ë³´ë¥¼ í˜„ìž¬ì‹œê°„ìœ¼ë¡œ ì—…ë°ì´íŠ¸ í•˜ì˜€ìŠµë‹ˆë‹¤";
 
 alert($msg, $url);
 ?>

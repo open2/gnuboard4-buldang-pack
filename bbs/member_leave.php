@@ -2,24 +2,24 @@
 include_once("./_common.php");
 
 if (!$member[mb_id]) 
-    alert("È¸¿ø¸¸ Á¢±ÙÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+    alert("íšŒì›ë§Œ ì ‘ê·¼í•˜ì‹¤ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.");
 
 if ($is_admin == "super") 
-    alert("ÃÖ°í °ü¸®ÀÚ´Â Å»ÅðÇÒ ¼ö ¾ø½À´Ï´Ù"); 
+    alert("ìµœê³  ê´€ë¦¬ìžëŠ” íƒˆí‡´í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤"); 
 
 if (!($_POST[mb_password] && $member[mb_password] === sql_password($_POST[mb_password])))
-    alert("ÆÐ½º¿öµå°¡ Æ²¸³´Ï´Ù.");
+    alert("íŒ¨ìŠ¤ì›Œë“œê°€ í‹€ë¦½ë‹ˆë‹¤.");
 
-// È¸¿øÅ»ÅðÀÏÀ» ÀúÀå
+// íšŒì›íƒˆí‡´ì¼ì„ ì €ìž¥
 $date = date("Ymd");
 $sql = " update $g4[member_table] set mb_leave_date = '$date' where mb_id = '$member[mb_id]' ";
 sql_query($sql);
 
-// 3.09 ¼öÁ¤ (·Î±×¾Æ¿ô)
+// 3.09 ìˆ˜ì • (ë¡œê·¸ì•„ì›ƒ)
 unset($_SESSION['ss_mb_id']);
 
 if (!$url) 
     $url = $g4[path]; 
 
-alert("{$member[mb_nick]}´Ô²²¼­´Â " . date("Y³â m¿ù dÀÏ") . "¿¡ È¸¿ø¿¡¼­ Å»Åð ÇÏ¼Ì½À´Ï´Ù.", $url);
+alert("{$member[mb_nick]}ë‹˜ê»˜ì„œëŠ” " . date("Yë…„ mì›” dì¼") . "ì— íšŒì›ì—ì„œ íƒˆí‡´ í•˜ì…¨ìŠµë‹ˆë‹¤.", $url);
 ?>

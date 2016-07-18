@@ -54,7 +54,7 @@ function returnSelected()
     	text = document.getElementById("fm_link_value").value;
   	}
   	else {
-    	alert("¸µÅ© URLÀ» ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À.");
+    	alert("ë§í¬ URLì„ ì…ë ¥í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
     	return false;
   	}
 

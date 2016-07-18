@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
 if ($is_admin)
     $where_sql = "";
@@ -9,7 +9,7 @@ else
 $sql = " select gr_id, gr_subject from $g4[group_table] $where_sql order by gr_id ";
 $result = sql_query($sql);
 
-$group_select = "<select class=\"form-control\" id='gr_id' name='gr_id' class=select><option value=''>ÀüÃ¼ ±×·ì";
+$group_select = "<select class=\"form-control\" id='gr_id' name='gr_id' class=select><option value=''>ì „ì²´ ê·¸ë£¹";
 for ($i=0; $row=sql_fetch_array($result); $i++)
     $group_select .= "<option value='$row[gr_id]'>$row[gr_subject]";
 $group_select .= "</select>";
@@ -20,34 +20,34 @@ $group_select .= "</select>";
         <script type="text/javascript">document.getElementById("gr_id").value = "<?=$gr_id?>";</script>
 
         <select class="form-control" name=sfl class=select>
-            <option value="wr_subject||wr_content">Á¦¸ñ+³»¿ë</option>
-            <option value="wr_subject">Á¦¸ñ</option>
-            <option value="wr_content">³»¿ë</option>
-            <option value="mb_id">È¸¿ø¾ÆÀÌµğ</option>
-            <option value="wr_name">ÀÌ¸§</option>
+            <option value="wr_subject||wr_content">ì œëª©+ë‚´ìš©</option>
+            <option value="wr_subject">ì œëª©</option>
+            <option value="wr_content">ë‚´ìš©</option>
+            <option value="mb_id">íšŒì›ì•„ì´ë””</option>
+            <option value="wr_name">ì´ë¦„</option>
         </select>
     		<select class="form-control">
-            <option name="sop" value="and" checked>±×¸®°í</option>
-            <option name="sop" value="or" >¶Ç´Â</option>
+            <option name="sop" value="and" checked>ê·¸ë¦¬ê³ </option>
+            <option name="sop" value="or" >ë˜ëŠ”</option>
         </select>
         <div class="form-group">
-            <input class="form-control" type="text" name=stx maxlength=20 required itemname="°Ë»ö¾î" value='<?=$text_stx?>'> 
+            <input class="form-control" type="text" name=stx maxlength=20 required itemname="ê²€ìƒ‰ì–´" value='<?=$text_stx?>'> 
         </div>
 
-        <input class="btn btn-default" type=submit value=" °Ë »ö ">
+        <input class="btn btn-default" type=submit value=" ê²€ ìƒ‰ ">
 
         <script type="text/javascript">
         document.fsearch.sfl.value = "<?=$sfl?>";
 
         function fsearch_submit(f) {
             if (f.stx.value.length < 2) {
-                alert("°Ë»ö¾î´Â µÎ±ÛÀÚ ÀÌ»ó ÀÔ·ÂÇÏ½Ê½Ã¿À.");
+                alert("ê²€ìƒ‰ì–´ëŠ” ë‘ê¸€ì ì´ìƒ ì…ë ¥í•˜ì‹­ì‹œì˜¤.");
                 f.stx.select();
                 f.stx.focus();
                 return false;
             }
 
-            // °Ë»ö¿¡ ¸¹Àº ºÎÇÏ°¡ °É¸®´Â °æ¿ì ÀÌ ÁÖ¼®À» Á¦°ÅÇÏ¼¼¿ä.
+            // ê²€ìƒ‰ì— ë§ì€ ë¶€í•˜ê°€ ê±¸ë¦¬ëŠ” ê²½ìš° ì´ ì£¼ì„ì„ ì œê±°í•˜ì„¸ìš”.
             var cnt = 0;
             for (var i=0; i<f.stx.value.length; i++) {
                 if (f.stx.value.charAt(i) == ' ')
@@ -55,7 +55,7 @@ $group_select .= "</select>";
             }
 
             if (cnt > 1) {
-                alert("ºü¸¥ °Ë»öÀ» À§ÇÏ¿© °Ë»ö¾î¿¡ °ø¹éÀº ÇÑ°³¸¸ ÀÔ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+                alert("ë¹ ë¥¸ ê²€ìƒ‰ì„ ìœ„í•˜ì—¬ ê²€ìƒ‰ì–´ì— ê³µë°±ì€ í•œê°œë§Œ ì…ë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
                 f.stx.select();
                 f.stx.focus();
                 return false;
@@ -69,7 +69,7 @@ $group_select .= "</select>";
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <strong>°Ô½ÃÆÇ : <?=$board_count ?> °Ô½Ã±Û : <?=number_format($total_count)?></strong>
+        <strong>ê²Œì‹œíŒ : <?=$board_count ?> ê²Œì‹œê¸€ : <?=number_format($total_count)?></strong>
         <div class="pull-right hidden-lg hidden-md hidden-sm">
             <a class="btn btn-default btn-sm" data-toggle="collapse" data-target=".search-board-collapse"><i class='fa fa-align-justify'></i></a>
         </div>
@@ -78,10 +78,10 @@ $group_select .= "</select>";
 
     <div class="collapse navbar-collapse search-board-collapse" style="margin-bottom:15px;">
     <? if ($board_count == 0) { ?>
-        °Ë»öµÈ ÀÚ·á°¡ ÇÏ³ªµµ ¾ø½À´Ï´Ù.
+        ê²€ìƒ‰ëœ ìë£Œê°€ í•˜ë‚˜ë„ ì—†ìŠµë‹ˆë‹¤.
     <? } else {
         if ($onetable)
-            echo "<a class=\"btn btn-default btn-success\" href='?$search_query&gr_id=$gr_id'>ÀüÃ¼°Ô½ÃÆÇ °Ë»ö</a>";
+            echo "<a class=\"btn btn-default btn-success\" href='?$search_query&gr_id=$gr_id'>ì „ì²´ê²Œì‹œíŒ ê²€ìƒ‰</a>";
 
         for ($i=0; $i<count($search_table); $i++) { ?>
             <a class="btn btn-default" href="<?=$_SERVER[PHP_SELF]?>?<?=$search_query?>&gr_id=<?=$gr_id?>&onetable=<?=$search_table[$i]?>"><?=$search_table_subject[$i]?> <sup><?=$search_table_result_count[$i]?></sup></a>
@@ -93,7 +93,7 @@ $group_select .= "</select>";
     $k=0;
     for ($idx=$table_index, $k=0; $idx<count($search_table) && $k<$rows; $idx++) 
     { 
-        echo "<a href='./board.php?bo_table={$search_table[$idx]}&{$search_query}'><strong>{$bo_subject[$idx]}</strong></a>¿¡¼­ÀÇ °Ë»ö°á°ú";
+        echo "<a href='./board.php?bo_table={$search_table[$idx]}&{$search_query}'><strong>{$bo_subject[$idx]}</strong></a>ì—ì„œì˜ ê²€ìƒ‰ê²°ê³¼";
         $comment_href = "";
         echo "<ul style='margin-bottom:15px;margin-top:5px;'>";
         for ($i=0; $i<count($list[$idx]) && $k<$rows; $i++, $k++) 
@@ -101,13 +101,13 @@ $group_select .= "</select>";
             echo "<li>";
             if ($list[$idx][$i][wr_is_comment]) 
             {
-                echo "<font color=999999>[ÄÚ¸àÆ®]</font> ";
+                echo "<font color=999999>[ì½”ë©˜íŠ¸]</font> ";
                 $comment_href = "#c_".$list[$idx][$i][wr_id];
             }
             echo "<a href='{$list[$idx][$i][href]}{$comment_href}'>";
             echo $list[$idx][$i][subject];
             echo "</a>";
-            echo "&nbsp;<a class=\"btn btn-default btn-xs\" href='{$list[$idx][$i][href]}{$comment_href}' target=_blank>»õÃ¢</a>&nbsp;";
+            echo "&nbsp;<a class=\"btn btn-default btn-xs\" href='{$list[$idx][$i][href]}{$comment_href}' target=_blank>ìƒˆì°½</a>&nbsp;";
             echo "<font color=#999999>{$list[$idx][$i][wr_datetime]}</font>&nbsp;";
             echo $list[$idx][$i][name];
             echo "<p>";
@@ -123,15 +123,15 @@ $group_select .= "</select>";
 
 <div class="center-block">
     <ul class="pagination">
-    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ÀÌÀü°Ë»ö</a></li>"; } ?>
+    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ì´ì „ê²€ìƒ‰</a></li>"; } ?>
     <?
-    // ±âº»À¸·Î ³Ñ¾î¿À´Â ÆäÀÌÁö¸¦ ¾Æ·¡¿Í °°ÀÌ º¯È¯ÇÏ¿© ´Ù¾çÇÏ°Ô Ãâ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.
-    $write_pages = str_replace("ÀÌÀü", "<i class='fa fa-angle-left'></i>", $write_pages);
-    $write_pages = str_replace("´ÙÀ½", "<i class='fa fa-angle-right'></i>", $write_pages);
-    $write_pages = str_replace("Ã³À½", "<i class='fa fa-angle-double-left'></i>", $write_pages);
-    $write_pages = str_replace("¸Ç³¡", "<i class='fa fa-angle-double-right'></i>", $write_pages);
+    // ê¸°ë³¸ìœ¼ë¡œ ë„˜ì–´ì˜¤ëŠ” í˜ì´ì§€ë¥¼ ì•„ë˜ì™€ ê°™ì´ ë³€í™˜í•˜ì—¬ ë‹¤ì–‘í•˜ê²Œ ì¶œë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+    $write_pages = str_replace("ì´ì „", "<i class='fa fa-angle-left'></i>", $write_pages);
+    $write_pages = str_replace("ë‹¤ìŒ", "<i class='fa fa-angle-right'></i>", $write_pages);
+    $write_pages = str_replace("ì²˜ìŒ", "<i class='fa fa-angle-double-left'></i>", $write_pages);
+    $write_pages = str_replace("ë§¨ë", "<i class='fa fa-angle-double-right'></i>", $write_pages);
     ?>
     <?=$write_pages?>
-    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ÀÌÈÄ°Ë»ö</a></li>"; } ?>
+    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ì´í›„ê²€ìƒ‰</a></li>"; } ?>
     </ul>
 </div>

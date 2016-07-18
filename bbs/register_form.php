@@ -1,21 +1,21 @@
 <?
 include_once("./_common.php");
 
-// ºÒ¹ýÁ¢±ÙÀ» ¸·µµ·Ï ÅäÅ«»ý¼º
+// ë¶ˆë²•ì ‘ê·¼ì„ ë§‰ë„ë¡ í† í°ìƒì„±
 $token = md5(uniqid(rand(), true));
 set_session("ss_token", $token);
 
 if ($w == "") {
-    // È¸¿ø ·Î±×ÀÎÀ» ÇÑ °æ¿ì È¸¿ø°¡ÀÔ ÇÒ ¼ö ¾ø´Ù
-    // °æ°íÃ¢ÀÌ ¶ß´Â°ÍÀ» ¸·±âÀ§ÇØ ¾Æ·¡ÀÇ ÄÚµå·Î ´ëÃ¼
-    // alert("ÀÌ¹Ì ·Î±×ÀÎÁßÀÌ¹Ç·Î È¸¿ø °¡ÀÔ ÇÏ½Ç ¼ö ¾ø½À´Ï´Ù.", "./");
+    // íšŒì› ë¡œê·¸ì¸ì„ í•œ ê²½ìš° íšŒì›ê°€ìž… í•  ìˆ˜ ì—†ë‹¤
+    // ê²½ê³ ì°½ì´ ëœ¨ëŠ”ê²ƒì„ ë§‰ê¸°ìœ„í•´ ì•„ëž˜ì˜ ì½”ë“œë¡œ ëŒ€ì²´
+    // alert("ì´ë¯¸ ë¡œê·¸ì¸ì¤‘ì´ë¯€ë¡œ íšŒì› ê°€ìž… í•˜ì‹¤ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", "./");
     if ($member[mb_id])
         goto_url($g4[path]);
 
-    // ¸®ÆÛ·¯ Ã¼Å©
+    // ë¦¬í¼ëŸ¬ ì²´í¬
     referer_check();
 
-    // ºÒ´çÆÑ - Â÷´Ü ip ¸ñ·Ï
+    // ë¶ˆë‹¹íŒ© - ì°¨ë‹¨ ip ëª©ë¡
     if (file_exists("./spam_ip.db")) {
         $spam_ip_file = file("./spam_ip.db");
         $myip = $_SERVER[REMOTE_ADDR];
@@ -29,7 +29,7 @@ if ($w == "") {
         }
     }
 
-    // ÃßÃµ¿¡ ÀÇÇØ¼­¸¸ È¸¿ø °¡ÀÔÀÌ °¡´ÉÇÏ°Ô ¼öÁ¤ - ÃßÃµÄÚµåÀÇ À¯È¿±â°£À» Ãß°¡
+    // ì¶”ì²œì— ì˜í•´ì„œë§Œ íšŒì› ê°€ìž…ì´ ê°€ëŠ¥í•˜ê²Œ ìˆ˜ì • - ì¶”ì²œì½”ë“œì˜ ìœ íš¨ê¸°ê°„ì„ ì¶”ê°€
     if ($g4['member_suggest_join']) {
 
         $sql = " select count(*) as cnt 
@@ -38,20 +38,20 @@ if ($w == "") {
         $result = sql_fetch($sql);
 
         if ($result['cnt'] == 0)
-            alert("Àß¸øµÈ ÃßÃµÀÎ¾ÆÀÌµð/°¡ÀÔÀÎÁõ¹øÈ£ÀÌ°Å³ª ÀÌ¹Ì »ç¿ëÇÏ°Å³ª À¯È¿±â°£ÀÌ Áö³­ ÀÎÁõÄÚµå ÀÔ´Ï´Ù.", "./register.php");
+            alert("ìž˜ëª»ëœ ì¶”ì²œì¸ì•„ì´ë””/ê°€ìž…ì¸ì¦ë²ˆí˜¸ì´ê±°ë‚˜ ì´ë¯¸ ì‚¬ìš©í•˜ê±°ë‚˜ ìœ íš¨ê¸°ê°„ì´ ì§€ë‚œ ì¸ì¦ì½”ë“œ ìž…ë‹ˆë‹¤.", "./register.php");
     }
 
     if (!$_POST[agree])
-        alert("È¸¿ø°¡ÀÔ¾à°üÀÇ ³»¿ë¿¡ µ¿ÀÇÇÏ¼Å¾ß È¸¿ø°¡ÀÔ ÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.", "./register.php");
+        alert("íšŒì›ê°€ìž…ì•½ê´€ì˜ ë‚´ìš©ì— ë™ì˜í•˜ì…”ì•¼ íšŒì›ê°€ìž… í•˜ì‹¤ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.", "./register.php");
 
     if (!$_POST[agree2])
-        alert("°³ÀÎÁ¤º¸Ãë±Þ¹æÄ§ÀÇ ³»¿ë¿¡ µ¿ÀÇÇÏ¼Å¾ß È¸¿ø°¡ÀÔ ÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.", "./register.php");
+        alert("ê°œì¸ì •ë³´ì·¨ê¸‰ë°©ì¹¨ì˜ ë‚´ìš©ì— ë™ì˜í•˜ì…”ì•¼ íšŒì›ê°€ìž… í•˜ì‹¤ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.", "./register.php");
 
-    // ºÒ´çÆÑ - È¸¿ø±×·ìÀÌ ÀÖ´Â °æ¿ì È¸¿ø±×·ìÀÇ À¯È¿¼º °Ë»ç
+    // ë¶ˆë‹¹íŒ© - íšŒì›ê·¸ë£¹ì´ ìžˆëŠ” ê²½ìš° íšŒì›ê·¸ë£¹ì˜ ìœ íš¨ì„± ê²€ì‚¬
     if ($ug_id) {
         $ug = sql_fetch(" select * from $g4[user_group_table] where ug_id = '$ug_id' ");
         if (!ug)
-            alert("»ç¿ëÀÚ ±×·ìÀÌ ¹Ù¸£Áö ¾Ê½À´Ï´Ù. °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ½Ã±â ¹Ù¶ø´Ï´Ù");
+            alert("ì‚¬ìš©ìž ê·¸ë£¹ì´ ë°”ë¥´ì§€ ì•ŠìŠµë‹ˆë‹¤. ê´€ë¦¬ìžì—ê²Œ ë¬¸ì˜í•˜ì‹œê¸° ë°”ëžë‹ˆë‹¤");
     }
 
     $agree  = preg_replace('#[^0-9]#', '', $_POST['agree']);  
@@ -61,31 +61,31 @@ if ($w == "") {
     $member[mb_sex] = $sex;
     $member[mb_name] = $mb_name;
 
-    $g4[title] = "È¸¿ø °¡ÀÔ";
+    $g4[title] = "íšŒì› ê°€ìž…";
 } 
 else if ($w == "u") 
 {
     if ($is_admin) 
-        alert("°ü¸®ÀÚÀÇ È¸¿øÁ¤º¸´Â °ü¸®ÀÚ È­¸é¿¡¼­ ¼öÁ¤ÇØ ÁÖ½Ê½Ã¿À.", $g4[path]);
+        alert("ê´€ë¦¬ìžì˜ íšŒì›ì •ë³´ëŠ” ê´€ë¦¬ìž í™”ë©´ì—ì„œ ìˆ˜ì •í•´ ì£¼ì‹­ì‹œì˜¤.", $g4[path]);
 
     if (!$member[mb_id])
-        alert("·Î±×ÀÎ ÈÄ ÀÌ¿ëÇÏ¿© ÁÖ½Ê½Ã¿À.", $g4[path]);
+        alert("ë¡œê·¸ì¸ í›„ ì´ìš©í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.", $g4[path]);
 
     if ($member[mb_id] != $mb_id)
-        alert("·Î±×ÀÎµÈ È¸¿ø°ú ³Ñ¾î¿Â Á¤º¸°¡ ¼­·Î ´Ù¸¨´Ï´Ù.");
+        alert("ë¡œê·¸ì¸ëœ íšŒì›ê³¼ ë„˜ì–´ì˜¨ ì •ë³´ê°€ ì„œë¡œ ë‹¤ë¦…ë‹ˆë‹¤.");
 
     //if (!($member[mb_password] === sql_password($_POST[mb_password]) && $_POST[mb_password]))
     /*
     if (!($member[mb_password] === sql_password($_POST[mb_password]) && $_POST[mb_password]) && !($member[mb_password] == sql_old_password($_POST[mb_password]) && $_POST[mb_password])) 
-        alert("ÆÐ½º¿öµå°¡ Æ²¸³´Ï´Ù.");
+        alert("íŒ¨ìŠ¤ì›Œë“œê°€ í‹€ë¦½ë‹ˆë‹¤.");
 
-    // ¼öÁ¤ ÈÄ ´Ù½Ã ÀÌ ÆûÀ¸·Î µ¹¾Æ¿À±â À§ÇØ ÀÓ½Ã·Î ÀúÀåÇØ ³õÀ½
+    // ìˆ˜ì • í›„ ë‹¤ì‹œ ì´ í¼ìœ¼ë¡œ ëŒì•„ì˜¤ê¸° ìœ„í•´ ìž„ì‹œë¡œ ì €ìž¥í•´ ë†“ìŒ
     set_session("ss_tmp_password", $_POST[mb_password]);
     */
 
     //if ($_POST['mb_password']) 
     {
-        // ¼öÁ¤µÈ Á¤º¸¸¦ ¾÷µ¥ÀÌÆ®ÈÄ µÇµ¹¾Æ ¿Â°ÍÀÌ¶ó¸é ÆÐ½º¿öµå°¡ ¾ÏÈ£È­ µÈÃ¤·Î ³Ñ¾î¿Â°ÍÀÓ
+        // ìˆ˜ì •ëœ ì •ë³´ë¥¼ ì—…ë°ì´íŠ¸í›„ ë˜ëŒì•„ ì˜¨ê²ƒì´ë¼ë©´ íŒ¨ìŠ¤ì›Œë“œê°€ ì•”í˜¸í™” ëœì±„ë¡œ ë„˜ì–´ì˜¨ê²ƒìž„
         if ($_POST['is_update'])
             $tmp_password = $_POST['mb_password'];
         else {
@@ -96,14 +96,14 @@ else if ($w == "u")
         //if (!($member[mb_password] === sql_password($_POST[mb_password]) && $_POST[mb_password]) && !($member[mb_password] == sql_old_password($_POST[mb_password]) && $_POST[mb_password])) 
         if ($_POST['is_update']) {
             if ($member['mb_password'] != $tmp_password)
-                alert("ÆÐ½º¿öµå°¡ Æ²¸³´Ï´Ù.");
+                alert("íŒ¨ìŠ¤ì›Œë“œê°€ í‹€ë¦½ë‹ˆë‹¤.");
         } else {
             if (!($member['mb_password'] == $tmp_password) && !($member['mb_password'] == $tmp_old_password))
-                alert("ÆÐ½º¿öµå°¡ Æ²¸³´Ï´Ù.");
+                alert("íŒ¨ìŠ¤ì›Œë“œê°€ í‹€ë¦½ë‹ˆë‹¤.");
         }
     }
 
-    $g4[title] = "È¸¿ø Á¤º¸ ¼öÁ¤";
+    $g4[title] = "íšŒì› ì •ë³´ ìˆ˜ì •";
 
     $member[mb_email]       = get_text($member[mb_email]);
     $member[mb_homepage]    = get_text($member[mb_homepage]);
@@ -126,9 +126,9 @@ else if ($w == "u")
     $member[mb_9]           = get_text($member[mb_9]);
     $member[mb_10]          = get_text($member[mb_10]);
 } else
-    alert("w °ªÀÌ Á¦´ë·Î ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.");
+    alert("w ê°’ì´ ì œëŒ€ë¡œ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
-// È¸¿ø¾ÆÀÌÄÜ °æ·Î
+// íšŒì›ì•„ì´ì½˜ ê²½ë¡œ
 $mb_icon = "$g4[data_path]/member/".substr($member[mb_id],0,2)."/$member[mb_id].gif";
 $member_skin_path = "$g4[path]/skin/member/$config[cf_member_skin]";
 

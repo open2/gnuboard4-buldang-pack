@@ -1,30 +1,30 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-// ÂÊÁö Å×ÀÌºí
-$g4['memo_config_table']          = $g4['table_prefix'] . "memo_config";          // ¸Þ¸ð ¼³Á¤Å×ÀÌºí
+// ìª½ì§€ í…Œì´ë¸”
+$g4['memo_config_table']          = $g4['table_prefix'] . "memo_config";          // ë©”ëª¨ ì„¤ì •í…Œì´ë¸”
 
-$g4['memo_recv_table']            = $g4['table_prefix'] . "memo_recv";            // ¸Þ¸ð Å×ÀÌºí (¼ö½Å)
-$g4['memo_send_table']            = $g4['table_prefix'] . "memo_send";            // ¸Þ¸ð Å×ÀÌºí (¹ß½Å)
-$g4['memo_save_table']            = $g4['table_prefix'] . "memo_save";            // ¸Þ¸ð Å×ÀÌºí (ÀúÀå)
-$g4['memo_spam_table']            = $g4['table_prefix'] . "memo_spam";            // ¸Þ¸ð Å×ÀÌºí (½ºÆÔ)
-$g4['memo_notice_table']          = $g4['table_prefix'] . "memo_notice";          // ¸Þ¸ð Å×ÀÌºí (°øÁö)
-$g4['memo_trash_table']           = $g4['table_prefix'] . "memo_trash";           // ¸Þ¸ð Å×ÀÌºí (ÈÞÁöÅë)
+$g4['memo_recv_table']            = $g4['table_prefix'] . "memo_recv";            // ë©”ëª¨ í…Œì´ë¸” (ìˆ˜ì‹ )
+$g4['memo_send_table']            = $g4['table_prefix'] . "memo_send";            // ë©”ëª¨ í…Œì´ë¸” (ë°œì‹ )
+$g4['memo_save_table']            = $g4['table_prefix'] . "memo_save";            // ë©”ëª¨ í…Œì´ë¸” (ì €ìž¥)
+$g4['memo_spam_table']            = $g4['table_prefix'] . "memo_spam";            // ë©”ëª¨ í…Œì´ë¸” (ìŠ¤íŒ¸)
+$g4['memo_notice_table']          = $g4['table_prefix'] . "memo_notice";          // ë©”ëª¨ í…Œì´ë¸” (ê³µì§€)
+$g4['memo_trash_table']           = $g4['table_prefix'] . "memo_trash";           // ë©”ëª¨ í…Œì´ë¸” (íœ´ì§€í†µ)
 
-$g4['memo_group_table']           = $g4['table_prefix'] . "memo_group";           // ¸Þ¸ð Å×ÀÌºí (±×·ì)
-$g4['memo_group_member_table']    = $g4['table_prefix'] . "memo_group_member";    // ¸Þ¸ð Å×ÀÌºí (±×·ì¸â¹ö)
-$g4['friend_table']               = $g4['table_prefix'] . "friend";               // Ä£±¸ Å×ÀÌºí 
+$g4['memo_group_table']           = $g4['table_prefix'] . "memo_group";           // ë©”ëª¨ í…Œì´ë¸” (ê·¸ë£¹)
+$g4['memo_group_member_table']    = $g4['table_prefix'] . "memo_group_member";    // ë©”ëª¨ í…Œì´ë¸” (ê·¸ë£¹ë©¤ë²„)
+$g4['friend_table']               = $g4['table_prefix'] . "friend";               // ì¹œêµ¬ í…Œì´ë¸” 
 
-// data_path°¡ ¼³Á¤µÇÁö ¾ÊÀº°æ¿ì ¼³Á¤, $g4[data_path]´Â ºÒ´çÆÑ¿¡¼­ ¾²´Â data °æ·Î ÀÔ´Ï´Ù.
+// data_pathê°€ ì„¤ì •ë˜ì§€ ì•Šì€ê²½ìš° ì„¤ì •, $g4[data_path]ëŠ” ë¶ˆë‹¹íŒ©ì—ì„œ ì“°ëŠ” data ê²½ë¡œ ìž…ë‹ˆë‹¤.
 if (!$g4['data_path']) {
     $g4['data']          = "data";
     $g4['data_path']     = $g4['path'] . "/" . $g4['data'];
 }
 
-// ¼³Á¤ - $config Å×ÀÌºí·Î ÅëÇÕ
+// ì„¤ì • - $config í…Œì´ë¸”ë¡œ í†µí•©
 if (function_exists('sql_fetch')) {
 
-    // ÇÊµåº°·Î select ÇÏ´Â °ÍÀº mysql db¿¡ cacheµÇ°Ô ÇÏ·Á±¸ ±×·± °ÍÀÓ
+    // í•„ë“œë³„ë¡œ select í•˜ëŠ” ê²ƒì€ mysql dbì— cacheë˜ê²Œ í•˜ë ¤êµ¬ ê·¸ëŸ° ê²ƒìž„
     $memo_config_select = " cf_memo_page_rows, cf_memo_del_unread, cf_memo_del_trash, cf_memo_delete_datetime, cf_memo_user_dhtml, ";
     $memo_config_select .= "cf_memo_use_file, cf_memo_file_size, cf_max_memo_file_size, cf_friend_management, cf_memo_no_reply, ";
     $memo_config_select .= "cf_memo_notice_board, cf_memo_notice_memo, cf_memo_before_after, cf_memo_print, cf_memo_b4_resize, cf_memo_realtime, cf_memo_mb_name ";
@@ -32,47 +32,47 @@ if (function_exists('sql_fetch')) {
 
     if ($memo_config) {
 
-        // array_merge°¡ ÀÌ»óÇÏ°Ô µ¿ÀÛÇÏ´Â À¥¼­¹ö°¡ ÀÖ¾î¼­, ¼³Á¤°ªÀ» ÇÑ°³¾¿ ³Ö°Ô ¼öÁ¤ÇÔ
-        $config['cf_memo_page_rows']        = $memo_config['cf_memo_page_rows'];        // ÂÊÁöÀÇ ÆäÀÌÁöº° Ãâ·Â°¹¼ö
-        $config['cf_memo_del_unread']       = $memo_config['cf_memo_del_unread'];       // OOÀÏÀÌ Áö³­ ¾ÈÀÐÀº ÂÊÁö »èÁ¦
-        $config['cf_memo_del_trash']        = $memo_config['cf_memo_del_trash'];        // OOÀÏÀÌ Áö³­ ÈÞÁöÅë ÂÊÁö »èÁ¦
+        // array_mergeê°€ ì´ìƒí•˜ê²Œ ë™ìž‘í•˜ëŠ” ì›¹ì„œë²„ê°€ ìžˆì–´ì„œ, ì„¤ì •ê°’ì„ í•œê°œì”© ë„£ê²Œ ìˆ˜ì •í•¨
+        $config['cf_memo_page_rows']        = $memo_config['cf_memo_page_rows'];        // ìª½ì§€ì˜ íŽ˜ì´ì§€ë³„ ì¶œë ¥ê°¯ìˆ˜
+        $config['cf_memo_del_unread']       = $memo_config['cf_memo_del_unread'];       // OOì¼ì´ ì§€ë‚œ ì•ˆì½ì€ ìª½ì§€ ì‚­ì œ
+        $config['cf_memo_del_trash']        = $memo_config['cf_memo_del_trash'];        // OOì¼ì´ ì§€ë‚œ íœ´ì§€í†µ ìª½ì§€ ì‚­ì œ
         $config['cf_memo_delete_datetime']  = $memo_config['cf_memo_delete_datetime'];  //
-        $config['cf_memo_user_dhtml']       = $memo_config['cf_memo_user_dhtml'];       // dhtml ÆíÁý±â »ç¿ë¿©ºÎ
-        $config['cf_memo_use_file']         = $memo_config['cf_memo_use_file'];         // Ã·ºÎÆÄÀÏ »ç¿ë¿©ºÎ
-        $config['cf_memo_file_size']        = $memo_config['cf_memo_file_size'];        // Ã·ºÎÆÄÀÏ Çã¿ë »çÀÌÁî
-        $config['cf_max_memo_file_size']    = $memo_config['cf_max_memo_file_size'];    // ÃÖ´ë Ã·ºÎ ÆÄÀÏ ¿ë·®
-        $config['cf_friend_management']     = $memo_config['cf_friend_management'];     // Ä£±¸°ü¸®±â´É »ç¿ë¿©ºÎ
-        $config['cf_memo_no_reply']         = $memo_config['cf_memo_no_reply'];         // ºÎÀçÁß ¼³Á¤ º¯°æÀÏÀÚ
-        $config['cf_memo_notice_memo']      = $memo_config['cf_memo_notice_memo'];      // °øÁö¸Þ¸ð
-        $config['cf_memo_before_after']     = $memo_config['cf_memo_before_after'];     // ÀÌÀü/ÀÌÈÄ ÂÊÁö º¸±â
-        $config['cf_memo_print']            = $memo_config['cf_memo_print'];            // ÂÊÁö Ãâ·Â ±â´É »ç¿ë ¿©ºÎ
-        $config['cf_memo_b4_resize']        = $memo_config['cf_memo_b4_resize'];        // ºÒ´ç½æ »ç¿ë¿©ºÎ
-        $config['cf_memo_realtime']         = $memo_config['cf_memo_realtime'];         // ½Ç½Ã°£ ¸Þ¸ð
-        $config['cf_memo_mb_name']          = $memo_config['cf_memo_mb_name'];          // ½Ç¸í »ç¿ë
+        $config['cf_memo_user_dhtml']       = $memo_config['cf_memo_user_dhtml'];       // dhtml íŽ¸ì§‘ê¸° ì‚¬ìš©ì—¬ë¶€
+        $config['cf_memo_use_file']         = $memo_config['cf_memo_use_file'];         // ì²¨ë¶€íŒŒì¼ ì‚¬ìš©ì—¬ë¶€
+        $config['cf_memo_file_size']        = $memo_config['cf_memo_file_size'];        // ì²¨ë¶€íŒŒì¼ í—ˆìš© ì‚¬ì´ì¦ˆ
+        $config['cf_max_memo_file_size']    = $memo_config['cf_max_memo_file_size'];    // ìµœëŒ€ ì²¨ë¶€ íŒŒì¼ ìš©ëŸ‰
+        $config['cf_friend_management']     = $memo_config['cf_friend_management'];     // ì¹œêµ¬ê´€ë¦¬ê¸°ëŠ¥ ì‚¬ìš©ì—¬ë¶€
+        $config['cf_memo_no_reply']         = $memo_config['cf_memo_no_reply'];         // ë¶€ìž¬ì¤‘ ì„¤ì • ë³€ê²½ì¼ìž
+        $config['cf_memo_notice_memo']      = $memo_config['cf_memo_notice_memo'];      // ê³µì§€ë©”ëª¨
+        $config['cf_memo_before_after']     = $memo_config['cf_memo_before_after'];     // ì´ì „/ì´í›„ ìª½ì§€ ë³´ê¸°
+        $config['cf_memo_print']            = $memo_config['cf_memo_print'];            // ìª½ì§€ ì¶œë ¥ ê¸°ëŠ¥ ì‚¬ìš© ì—¬ë¶€
+        $config['cf_memo_b4_resize']        = $memo_config['cf_memo_b4_resize'];        // ë¶ˆë‹¹ì¸ ì‚¬ìš©ì—¬ë¶€
+        $config['cf_memo_realtime']         = $memo_config['cf_memo_realtime'];         // ì‹¤ì‹œê°„ ë©”ëª¨
+        $config['cf_memo_mb_name']          = $memo_config['cf_memo_mb_name'];          // ì‹¤ëª… ì‚¬ìš©
 
     }
 }
 
-// ÂÊÁö Ã·ºÎÆÄÀÏ °æ·Î
+// ìª½ì§€ ì²¨ë¶€íŒŒì¼ ê²½ë¡œ
 $g4['memo_file_path'] = $g4['data_path'] . "/memo2/" . $member['mb_id']; 
 
 // memo skin
 $g4['memo_skin'] = "basic_froala";
 
-// ÂÊÁö ½ºÅ² °æ·Î ÁöÁ¤
+// ìª½ì§€ ìŠ¤í‚¨ ê²½ë¡œ ì§€ì •
 $g4['memo_skin_path'] = "$g4[path]/skin/memo/" . $g4['memo_skin'];
 
-// ÂÊÁö ÇÁ·Î±×·¥ÀÇ locationÀ» Á¤ÀÇ, $_SERVER[PHP_SELF]¸¦ ¾È¾²±â À§ÇØ¼­
+// ìª½ì§€ í”„ë¡œê·¸ëž¨ì˜ locationì„ ì •ì˜, $_SERVER[PHP_SELF]ë¥¼ ì•ˆì“°ê¸° ìœ„í•´ì„œ
 $g4['memo_url'] = $g4[bbs_path] . "/memo.php";
 
-// »ç¿ëÀÚÀÇ È¯°æ¼³Á¤Àº ½Ç½Ã°£ÂÊÁö, ºÎÀçÁß ÀÀ´äÀÌ °¡´ÉÇÒ ¶§¸¸
+// ì‚¬ìš©ìžì˜ í™˜ê²½ì„¤ì •ì€ ì‹¤ì‹œê°„ìª½ì§€, ë¶€ìž¬ì¤‘ ì‘ë‹µì´ ê°€ëŠ¥í•  ë•Œë§Œ
 if ($config['cf_memo_realtime'] || $config['cf_memo_no_reply'])
     $config['cf_memo_user_config'] = 1;
 
-// ÂÊÁö4¿¡¼­ÀÇ dhtml ÆíÁý±â »ç¿ë ¼³Á¤
+// ìª½ì§€4ì—ì„œì˜ dhtml íŽ¸ì§‘ê¸° ì‚¬ìš© ì„¤ì •
 $is_dhtml_editor = $config['cf_memo_user_dhtml']; 
 
-// ºÒ´çÆÑÀÇ ±âº» ¶óÀÌºê·¯¸®¸¦ ¾÷·Îµå
+// ë¶ˆë‹¹íŒ©ì˜ ê¸°ë³¸ ë¼ì´ë¸ŒëŸ¬ë¦¬ë¥¼ ì—…ë¡œë“œ
 if (!$g4['b4_version']) {
     include_once("$g4[path]/lib/b4.lib.php");
     ?>
@@ -80,7 +80,7 @@ if (!$g4['b4_version']) {
     <?
 }
 
-// º¯¼ö ÃÊ±âÈ­ 
+// ë³€ìˆ˜ ì´ˆê¸°í™” 
 if (isset($me_id)) {
     $me_id = (int) $me_id;
 }
@@ -89,28 +89,28 @@ if (isset($kind)) {
     $kind = preg_match("/^[a-zA-Z0-9_]+$/", $kind) ? $kind : "";
 }
 
-// ºÒ´çÆÑ¿¡¼­ È®ÀåÇÑ g4_member Å×ÀÌºíÀÇ º¯¼ö
-// mb_memo_call               : ³ª¿¡°Ô ÂÊÁö º¸³½ »ç¶÷µé ¸ñ·Ï (mediumtext·Î type º¯°æ)
-// mb_memo_call_datetime      : ½Å±Ô ÂÊÁö¸¦ ¼ö½ÅÇÑ ³¯Â¥ (¿©±â¿¡ ³¯Â¥°¡ ÀÖÀ¸¸é, ¾ÈÀÐÀº ÂÊÁö °¹¼ö¸¦ Ä«¿îÆ®)
-// mb_real_memo               : ½Ç½Ã°£ ÂÊÁö¸¦ ¾µ °ÍÀÎ°¡ ¿©ºÎ 
-// mb_realmemo_sound          : ½Ç½Ã°£ ÂÊÁö¿¡¼­ ¼Ò¸®¸¦ ³ª°Ô ÇÒ °ÍÀÌ°¡ ¿©ºÎ
-// mb_memo_no_reply           : ºÎÀçÁß ÂÊÁö »ç¿ë¿©ºÎ
-// mb_memo_no_reply_text      : ºÎÀçÁß ÂÊÁöÀÇ ´ä ¸Þ½ÃÁö
-// mb_memo_no_reply_datetime  : ºÎÀçÁß ÂÊÁö ¼ö½Å ³¯Â¥
-// mb_memo_unread             : ¾ÈÀÐÀº ¸Þ½ÃÁö °¹¼ö
+// ë¶ˆë‹¹íŒ©ì—ì„œ í™•ìž¥í•œ g4_member í…Œì´ë¸”ì˜ ë³€ìˆ˜
+// mb_memo_call               : ë‚˜ì—ê²Œ ìª½ì§€ ë³´ë‚¸ ì‚¬ëžŒë“¤ ëª©ë¡ (mediumtextë¡œ type ë³€ê²½)
+// mb_memo_call_datetime      : ì‹ ê·œ ìª½ì§€ë¥¼ ìˆ˜ì‹ í•œ ë‚ ì§œ (ì—¬ê¸°ì— ë‚ ì§œê°€ ìžˆìœ¼ë©´, ì•ˆì½ì€ ìª½ì§€ ê°¯ìˆ˜ë¥¼ ì¹´ìš´íŠ¸)
+// mb_real_memo               : ì‹¤ì‹œê°„ ìª½ì§€ë¥¼ ì“¸ ê²ƒì¸ê°€ ì—¬ë¶€ 
+// mb_realmemo_sound          : ì‹¤ì‹œê°„ ìª½ì§€ì—ì„œ ì†Œë¦¬ë¥¼ ë‚˜ê²Œ í•  ê²ƒì´ê°€ ì—¬ë¶€
+// mb_memo_no_reply           : ë¶€ìž¬ì¤‘ ìª½ì§€ ì‚¬ìš©ì—¬ë¶€
+// mb_memo_no_reply_text      : ë¶€ìž¬ì¤‘ ìª½ì§€ì˜ ë‹µ ë©”ì‹œì§€
+// mb_memo_no_reply_datetime  : ë¶€ìž¬ì¤‘ ìª½ì§€ ìˆ˜ì‹  ë‚ ì§œ
+// mb_memo_unread             : ì•ˆì½ì€ ë©”ì‹œì§€ ê°¯ìˆ˜
 
-// ¸Þ¸ð¸¦ ÁöÁ¤µÈ ½Ã°£ÀÌ Áö³ª¾ß º¸³¾ ¼ö ÀÖ°Ô ¼³Á¤ (½ºÆÔÂÊÁö¸¦ ¸·±â À§ÇØ¼­...)
+// ë©”ëª¨ë¥¼ ì§€ì •ëœ ì‹œê°„ì´ ì§€ë‚˜ì•¼ ë³´ë‚¼ ìˆ˜ ìžˆê²Œ ì„¤ì • (ìŠ¤íŒ¸ìª½ì§€ë¥¼ ë§‰ê¸° ìœ„í•´ì„œ...)
 $g4['memo_delay_sec'] = 1;
 
-// Ä£±¸Ã£±â guess-workÀ» ¸·±â À§ÇØ¼­
+// ì¹œêµ¬ì°¾ê¸° guess-workì„ ë§‰ê¸° ìœ„í•´ì„œ
 $g4['memo_max_friend'] = 100;
 
-// Ä£±¸°ü¸®¸¦ ºó¹øÇÏ°Ô ¼öÇàÇÏ´Â °ÍÀ» ¸·±â À§ÇØ¼­
+// ì¹œêµ¬ê´€ë¦¬ë¥¼ ë¹ˆë²ˆí•˜ê²Œ ìˆ˜í–‰í•˜ëŠ” ê²ƒì„ ë§‰ê¸° ìœ„í•´ì„œ
 $g4['memo_delay_friend'] = 2;
 
-// Ä£±¸°ü¸® °Ë»öÀ» ÇÒ ¶§ Â÷°¨ÇÏ´Â Æ÷ÀÎÆ®
+// ì¹œêµ¬ê´€ë¦¬ ê²€ìƒ‰ì„ í•  ë•Œ ì°¨ê°í•˜ëŠ” í¬ì¸íŠ¸
 $g4['memo_friend_point'] = -1;
 
-// delete anyway - ´Ù¸¥ ÂÊÁö ¶§¹®¿¡ »èÁ¦°¡ ¾ÈµÉ ¶§´Â false ¶Ç´Â 0À¸·Î ¹Ù²Ù¸é µË´Ï´Ù.
+// delete anyway - ë‹¤ë¥¸ ìª½ì§€ ë•Œë¬¸ì— ì‚­ì œê°€ ì•ˆë  ë•ŒëŠ” false ë˜ëŠ” 0ìœ¼ë¡œ ë°”ê¾¸ë©´ ë©ë‹ˆë‹¤.
 $g4['memo_delete'] = 1;
 ?>

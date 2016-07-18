@@ -1,4 +1,4 @@
-// HTML ·Î ³Ñ¾î¿Â <img ... > ÅÂ±×ÀÇ ÆøÀÌ Å×ÀÌºíÆøº¸´Ù Å©´Ù¸é Å×ÀÌºíÆøÀ» Àû¿ëÇÑ´Ù.
+// HTML ë¡œ ë„˜ì–´ì˜¨ <img ... > íƒœê·¸ì˜ í­ì´ í…Œì´ë¸”í­ë³´ë‹¤ í¬ë‹¤ë©´ í…Œì´ë¸”í­ì„ ì ìš©í•œë‹¤.
 function resizeBoardImage(imageWidth, borderColor) {
     if (imageWidth > 0) {
         var target = document.getElementsByName('target_resize_image[]');
@@ -6,10 +6,10 @@ function resizeBoardImage(imageWidth, borderColor) {
 
         if (target) {
             for (i = 0; i < target.length; i++) {
-                // ¿ø·¡ »çÀÌÁî¸¦ ÀúÀåÇØ ³õ´Â´Ù
+                // ì›ë˜ ì‚¬ì´ì¦ˆë¥¼ ì €ì¥í•´ ë†“ëŠ”ë‹¤
                 target[i].tmp_width = target[i].width;
                 target[i].tmp_height = target[i].height;
-                // ÀÌ¹ÌÁö ÆøÀÌ Å×ÀÌºí Æøº¸´Ù Å©´Ù¸é Å×ÀÌºíÆø¿¡ ¸ÂÃá´Ù
+                // ì´ë¯¸ì§€ í­ì´ í…Œì´ë¸” í­ë³´ë‹¤ í¬ë‹¤ë©´ í…Œì´ë¸”í­ì— ë§ì¶˜ë‹¤
                 //console.log('resizeBoardImage: ' + target[i].width + ' >= ' + imageWidth);
                 if (target[i].width >= imageWidth) {
                     imageHeight = parseFloat(target[i].width / target[i].height)
@@ -17,7 +17,7 @@ function resizeBoardImage(imageWidth, borderColor) {
                     target[i].height = parseInt(imageWidth / imageHeight);
                     target[i].style.cursor = 'pointer';
 
-                    // ½ºÅ¸ÀÏ¿¡ Àû¿ëµÈ ÀÌ¹ÌÁöÀÇ Æø°ú ³ôÀÌ¸¦ »èÁ¦ÇÑ´Ù
+                    // ìŠ¤íƒ€ì¼ì— ì ìš©ëœ ì´ë¯¸ì§€ì˜ í­ê³¼ ë†’ì´ë¥¼ ì‚­ì œí•œë‹¤
                     target[i].style.width = '';
                     target[i].style.height = '';
                 }
@@ -33,9 +33,9 @@ function resizeBoardImage(imageWidth, borderColor) {
 }
 
 /**
- * 1°³ °Ô½ÃÆÇ ÀÌ¹ÌÁöÀÇ ¸®»çÀÌÁî ½ÇÇà
- *   - SPA ¸¦ Áö¿øÇÏ°í, ·£´ıÇÏ°Ô ¸®»çÀÌÂ¡ ¾ÈµÇ´Â ¹®Á¦ ÇØ°áÀ» À§ÇØ, ¹®¼­ ·ÎµùÀÌ ¾Æ´Ñ ÀÌ¹ÌÁö ·Îµù ÀÌº¥Æ®¿¡¼­ ½ÇÇàÇØ¾ß ÇÔ.
- *   - È­¸é °¡·ÎÆøÀ» ¸ø °¡Á®¿Ã °æ¿ì¸¦ ´ëºñÇÏ¿©, Á¦ÇÑÇÒ Å©±â°¡ 0º¸´Ù Å« °æ¿ì¸¸ ½ÇÇà.
+ * 1ê°œ ê²Œì‹œíŒ ì´ë¯¸ì§€ì˜ ë¦¬ì‚¬ì´ì¦ˆ ì‹¤í–‰
+ *   - SPA ë¥¼ ì§€ì›í•˜ê³ , ëœë¤í•˜ê²Œ ë¦¬ì‚¬ì´ì§• ì•ˆë˜ëŠ” ë¬¸ì œ í•´ê²°ì„ ìœ„í•´, ë¬¸ì„œ ë¡œë”©ì´ ì•„ë‹Œ ì´ë¯¸ì§€ ë¡œë”© ì´ë²¤íŠ¸ì—ì„œ ì‹¤í–‰í•´ì•¼ í•¨.
+ *   - í™”ë©´ ê°€ë¡œí­ì„ ëª» ê°€ì ¸ì˜¬ ê²½ìš°ë¥¼ ëŒ€ë¹„í•˜ì—¬, ì œí•œí•  í¬ê¸°ê°€ 0ë³´ë‹¤ í° ê²½ìš°ë§Œ ì‹¤í–‰.
  *
  * @param $image
  * @param imageWidth
@@ -45,11 +45,11 @@ function resizeBoardImageOne($image, imageWidth, borderColor) {
     if (imageWidth > 0) {
         var imageHeight = 0;
 
-        // ¿ø·¡ »çÀÌÁî¸¦ ÀúÀåÇØ ³õ´Â´Ù
+        // ì›ë˜ ì‚¬ì´ì¦ˆë¥¼ ì €ì¥í•´ ë†“ëŠ”ë‹¤
         $image.tmp_width = $image.width();
         $image.tmp_height = $image.height();
 
-        // ÀÌ¹ÌÁö ÆøÀÌ Å×ÀÌºí Æøº¸´Ù Å©´Ù¸é Å×ÀÌºíÆø¿¡ ¸ÂÃá´Ù
+        // ì´ë¯¸ì§€ í­ì´ í…Œì´ë¸” í­ë³´ë‹¤ í¬ë‹¤ë©´ í…Œì´ë¸”í­ì— ë§ì¶˜ë‹¤
         //console.log('resizeBoardImageOne: ' + $image.width() + ' >= ' + imageWidth);
         if ($image.width() >= imageWidth) {
             imageHeight = parseFloat($image.width() / $image.height);
@@ -67,7 +67,7 @@ function resizeBoardImageOne($image, imageWidth, borderColor) {
 }
 
 function getFontSize() {
-    var fontSize = parseInt(get_cookie("ck_fontsize")); // ÆùÆ®Å©±â Á¶Àı
+    var fontSize = parseInt(get_cookie("ck_fontsize")); // í°íŠ¸í¬ê¸° ì¡°ì ˆ
     if (isNaN(fontSize)) { fontSize = 12; }
     return fontSize;
 }
@@ -133,32 +133,32 @@ jQuery.resimg = function(element, options){
     var imageWindow = setting.imageWindow;
     
     if(!imageWidth){
-        // ÀÌ¹ÌÁö°¡ ·ÎµùµÇ¸é ºÎ¸ğÀÇ »çÀÌÁîµµ º¯°æµÊÀ¸·Î Àá½Ã ¶ç¿î´Ù.
+        // ì´ë¯¸ì§€ê°€ ë¡œë”©ë˜ë©´ ë¶€ëª¨ì˜ ì‚¬ì´ì¦ˆë„ ë³€ê²½ë¨ìœ¼ë¡œ ì ì‹œ ë„ìš´ë‹¤.
         $(element).css("position", "absolute");
-        // ÀÌ¹ÌÁö ±³Á¤ °ªÀÌ ¾ø´Ù¸é ºÎ¸ğÀÇ Æø Å©±â¸¦ ±¸ÇÑ´Ù ÀÌ¶§ Æäµù°ªÀ» Á¦¿Ü ÇÑ´Ù.
+        // ì´ë¯¸ì§€ êµì • ê°’ì´ ì—†ë‹¤ë©´ ë¶€ëª¨ì˜ í­ í¬ê¸°ë¥¼ êµ¬í•œë‹¤ ì´ë•Œ í˜ë”©ê°’ì„ ì œì™¸ í•œë‹¤.
         var pw = $(element).parent().innerWidth();
         var plp = parseInt($(element).parent().css("padding-left").replace("px", ""));
         var prp = parseInt($(element).parent().css("padding-right").replace("px", ""));
         var tp = plp + prp;
-        // ÁÙ¾îµé »çÀÌÁî º¸´Ù Æäµù°ªÀÌ Å©°Å³ª °°´Ù¸é ÁÙ¾îµé »çÀÌÁî¸¦ Æäµù°ªÀ¸·Î ±³Á¤ÇÏ¿© ¿¤¸®¸ÕÆ®°¡ Æ®·¯Áö´Â°ÍÀ» ¹æÁöÇÑ´Ù.
+        // ì¤„ì–´ë“¤ ì‚¬ì´ì¦ˆ ë³´ë‹¤ í˜ë”©ê°’ì´ í¬ê±°ë‚˜ ê°™ë‹¤ë©´ ì¤„ì–´ë“¤ ì‚¬ì´ì¦ˆë¥¼ í˜ë”©ê°’ìœ¼ë¡œ êµì •í•˜ì—¬ ì—˜ë¦¬ë¨¼íŠ¸ê°€ íŠ¸ëŸ¬ì§€ëŠ”ê²ƒì„ ë°©ì§€í•œë‹¤.
         if(minusSize <= tp) minusSize = tp;
-        // ÀÌ¹ÌÁö »çÀÌÁî¸¦ ¿¤¸®¸ÕÆ® »çÀÌÁî¿¡¼­ minusSize °ªÀ» »«°ª
+        // ì´ë¯¸ì§€ ì‚¬ì´ì¦ˆë¥¼ ì—˜ë¦¬ë¨¼íŠ¸ ì‚¬ì´ì¦ˆì—ì„œ minusSize ê°’ì„ ëº€ê°’
         imageWidth = pw - minusSize;
         $(element).css("position", "");
     }
 
-    // ¿¤¸®¸ÕÆ®ÀÇ ÀÚ½ÄÁß img ¸¦ ¼±ÅÃÇÑ´Ù.
+    // ì—˜ë¦¬ë¨¼íŠ¸ì˜ ìì‹ì¤‘ img ë¥¼ ì„ íƒí•œë‹¤.
     var element = element + " img";
     $(element).each(function(){
         var img_width = $(this).outerWidth(); 
         var img_height = $(this).outerHeight(); 
 
-        //¿ø·¡ »çÀÌÁî¸¦ ÀúÀåÇÑ´Ù. 
+        //ì›ë˜ ì‚¬ì´ì¦ˆë¥¼ ì €ì¥í•œë‹¤. 
         var i = $(element).index($(this));
         $(element)[i].tmp_width = img_width; 
         $(element)[i].tmp_height = img_height; 
  
-        // ÀÌ¹ÌÁö ÆøÀÌ Å×ÀÌºí Æøº¸´Ù Å©´Ù¸é Å×ÀÌºíÆø¿¡ ¸ÂÃá´Ù 
+        // ì´ë¯¸ì§€ í­ì´ í…Œì´ë¸” í­ë³´ë‹¤ í¬ë‹¤ë©´ í…Œì´ë¸”í­ì— ë§ì¶˜ë‹¤ 
         if(img_width > imageWidth) { 
             imageHeight = parseFloat(img_width/ img_height); 
             $(this).width(imageWidth).height(parseInt(imageWidth / imageHeight)).css("cursor", "pointer");
@@ -168,7 +168,7 @@ jQuery.resimg = function(element, options){
  
         if (!imageWindow) {
             $(this).bind("contextmenu",function(e){
-                alert("±×¸²¿¡´Â ¿À¸¥ÂÊ¸¶¿ì½º¹öÆ°À» »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù."); 
+                alert("ê·¸ë¦¼ì—ëŠ” ì˜¤ë¥¸ìª½ë§ˆìš°ìŠ¤ë²„íŠ¼ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."); 
                 return false; 
             })
             .bind("selectstart",function(e){
@@ -177,14 +177,14 @@ jQuery.resimg = function(element, options){
         }
 
     }).click(function(){
-        if (imageWindow) { // °ü¸®ÀÚÀÇ °æ¿ì
+        if (imageWindow) { // ê´€ë¦¬ìì˜ ê²½ìš°
             if (!$(this).parents("a").attr("href"))
                 image_window(this);
         }
     });
 }
 
-// ÄÁÅÙÃ÷ÀÇ target ¹Ù²Ù±â - http://sir.co.kr/bbs/board.php?bo_table=g4_qa&wr_id=146854
+// ì»¨í…ì¸ ì˜ target ë°”ê¾¸ê¸° - http://sir.co.kr/bbs/board.php?bo_table=g4_qa&wr_id=146854
 function OnclickCheck(Contents, Target) 
 { 
     var A_tags = Contents.getElementsByTagName("A"); 
@@ -215,19 +215,19 @@ function OnclickCheck(Contents, Target)
         { 
             IMG_tag = A_tag.getElementsByTagName("IMG")[0]; 
 
-            // ÀÌ¹ÌÁö ¸ÊÀÌ ÀÖ´Ù¸é 
+            // ì´ë¯¸ì§€ ë§µì´ ìˆë‹¤ë©´ 
             if (IMG_tag.getAttribute("USEMAP")) 
             { 
                 IMG_MapName = IMG_tag.getAttribute("USEMAP").replace(/#/, ""); 
 
                 for (var k=0; k<MAP_tags.length; k++) 
                 { 
-                    // ÀÌ¹ÌÁöÀÇ USEMAP ¼Ó¼º°ú ÀÏÄ¡ ÇÑ´Ù¸é 
+                    // ì´ë¯¸ì§€ì˜ USEMAP ì†ì„±ê³¼ ì¼ì¹˜ í•œë‹¤ë©´ 
                     if (MAP_tags[i].getAttribute("NAME") == IMG_MapName) 
                     { 
                         AREA_tags = MAP_tags[i].getElementsByTagName("AREA"); 
 
-                        // A ÅÂ±×¿¡¼­ HREF ¼Ó¼º »èÁ¦ 
+                        // A íƒœê·¸ì—ì„œ HREF ì†ì„± ì‚­ì œ 
                         A_tag.removeAttribute("href"); 
                         A_tag.removeAttribute("HREF"); 
 

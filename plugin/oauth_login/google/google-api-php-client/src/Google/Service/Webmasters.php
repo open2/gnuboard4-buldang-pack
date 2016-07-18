@@ -543,8 +543,8 @@ class Google_Service_Webmasters_Urlcrawlerrorssamples_Resource extends Google_Se
    * http://www.example.com/
    * @param string $url The relative path (without the site) of the sample URL. It
    * must be one of the URLs returned by list(). For example, for the URL
-   * https://www.example.com/pagename on the site https://www.example.com/, the
-   * url value is pagename
+   * https://www.example.com/pagename혻on the site https://www.example.com/, the
+   * url value is혻pagename
    * @param string $category The crawl error category. For example:
    * authPermissions
    * @param string $platform The user agent type (platform) that made the request.
@@ -587,8 +587,8 @@ class Google_Service_Webmasters_Urlcrawlerrorssamples_Resource extends Google_Se
    * http://www.example.com/
    * @param string $url The relative path (without the site) of the sample URL. It
    * must be one of the URLs returned by list(). For example, for the URL
-   * https://www.example.com/pagename on the site https://www.example.com/, the
-   * url value is pagename
+   * https://www.example.com/pagename혻on the site https://www.example.com/, the
+   * url value is혻pagename
    * @param string $category The crawl error category. For example:
    * authPermissions
    * @param string $platform The user agent type (platform) that made the request.

@@ -2,14 +2,14 @@
 if (!defined("_GNUBOARD_")) exit;
 
 /*
-// 081022 : CSRF ¹æÁö¸¦ À§ÇØ ÄÚµå¸¦ ÀÛ¼ºÇßÀ¸³ª È¿°ú°¡ ¾ø¾î ÁÖ¼®Ã³¸® ÇÔ
+// 081022 : CSRF ë°©ì§€ë¥¼ ìœ„í•´ ì½”ë“œë¥¼ ì‘ì„±í–ˆìœ¼ë‚˜ íš¨ê³¼ê°€ ì—†ì–´ ì£¼ì„ì²˜ë¦¬ í•¨
 if (!get_session("ss_admin")) {
     set_session("ss_admin", true);
     goto_url(".");
 }
 */
 
-// ½ºÅ²°æ·Î¸¦ ¾ò´Â´Ù
+// ìŠ¤í‚¨ê²½ë¡œë¥¼ ì–»ëŠ”ë‹¤
 function get_skin_dir($skin, $len='')
 {
     global $g4;
@@ -30,7 +30,7 @@ function get_skin_dir($skin, $len='')
     return $result_array;
 }
 
-// È¸¿ø »èÁ¦
+// íšŒì› ì‚­ì œ
 function member_delete($mb_id)
 {
     global $config;
@@ -41,11 +41,11 @@ function member_delete($mb_id)
     if ($mb[mb_recommend]) {
         $row = sql_fetch(" select count(*) as cnt from $g4[member_table] where mb_id = '".addslashes($mb[mb_recommend])."' ");
         if ($row[cnt])
-            insert_point($mb[mb_recommend], $config[cf_recommend_point] * (-1), "{$mb_id}´ÔÀÇ È¸¿øÀÚ·á »èÁ¦·Î ÀÎÇÑ ÃßÃµÀÎ Æ÷ÀÎÆ® ¹İÈ¯", '@member', $mb[mb_recommend], "{$mb_id} ÃßÃµÀÎ »èÁ¦");
+            insert_point($mb[mb_recommend], $config[cf_recommend_point] * (-1), "{$mb_id}ë‹˜ì˜ íšŒì›ìë£Œ ì‚­ì œë¡œ ì¸í•œ ì¶”ì²œì¸ í¬ì¸íŠ¸ ë°˜í™˜", '@member', $mb[mb_recommend], "{$mb_id} ì¶”ì²œì¸ ì‚­ì œ");
     }
 
-    // È¸¿øÀÚ·á´Â Á¤º¸¸¸ ¾ø¾Ø ÈÄ ¾ÆÀÌµğ´Â º¸°üÇÏ¿© ´Ù¸¥ »ç¶÷ÀÌ »ç¿ëÇÏÁö ¸øÇÏµµ·Ï ÇÔ : 061025
-    // ÈŞ¸éÈ­ µÇ¸é¼­ ´ëºÎºĞÀÇ Á¤º¸´Â clear µÇÁö¸¸, ÇÑ¹ø ´õ È®½ÇÇÏ°Ô...
+    // íšŒì›ìë£ŒëŠ” ì •ë³´ë§Œ ì—†ì•¤ í›„ ì•„ì´ë””ëŠ” ë³´ê´€í•˜ì—¬ ë‹¤ë¥¸ ì‚¬ëŒì´ ì‚¬ìš©í•˜ì§€ ëª»í•˜ë„ë¡ í•¨ : 061025
+    // íœ´ë©´í™” ë˜ë©´ì„œ ëŒ€ë¶€ë¶„ì˜ ì •ë³´ëŠ” clear ë˜ì§€ë§Œ, í•œë²ˆ ë” í™•ì‹¤í•˜ê²Œ...
     if ($mb[mb_level] >= 1) {
         $sql = " update $g4[member_table] 
                     set
@@ -64,7 +64,7 @@ function member_delete($mb_id)
                         mb_birth = '',
                         mb_sex = '',
                         mb_signature = '',
-                        mb_memo = '".date("Ymd",$g4['server_time'])." »èÁ¦ÇÔ\n\n$mb[mb_memo]',
+                        mb_memo = '".date("Ymd",$g4['server_time'])." ì‚­ì œí•¨\n\n$mb[mb_memo]',
                         mb_leave_date = '".date("Ymd",$g4['server_time'])."',
                         mb_profile='',
                         mb_memo_call='',
@@ -82,7 +82,7 @@ function member_delete($mb_id)
                   where mb_id = '$mb_id' ";
         sql_query($sql);
 
-        // ÈŞ¸é Å×ÀÌºí¿¡¼­´Â mb_name, mb_nickÀº clear ÇÏÁö ¾Ê½À´Ï´Ù.
+        // íœ´ë©´ í…Œì´ë¸”ì—ì„œëŠ” mb_name, mb_nickì€ clear í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
         $sql = " update $g4[unlogin_table] 
                     set 
                         mb_password = '',
@@ -98,7 +98,7 @@ function member_delete($mb_id)
                         mb_birth = '',
                         mb_sex = '',
                         mb_signature = '',
-                        mb_memo = '".date("Ymd",$g4['server_time'])." »èÁ¦ÇÔ\n\n$mb[mb_memo]',
+                        mb_memo = '".date("Ymd",$g4['server_time'])." ì‚­ì œí•¨\n\n$mb[mb_memo]',
                         mb_leave_date = '".date("Ymd",$g4['server_time'])."',
                         mb_profile='',
                         mb_memo_call='',
@@ -118,75 +118,75 @@ function member_delete($mb_id)
     }
     
     /*
-    // È¸¿ø ÀÚ·á »èÁ¦
+    // íšŒì› ìë£Œ ì‚­ì œ
     sql_query(" delete from $g4[member_table] where mb_id = '$mb_id' ");
 
-    // »èÁ¦µÈ ÀÚ·á¸¦ ¶Ç »èÁ¦ÇÏ¸é ¿ÏÀü »èÁ¦ÇÔ
-    if ($mb[mb_nick] != '[»èÁ¦µÊ]')
+    // ì‚­ì œëœ ìë£Œë¥¼ ë˜ ì‚­ì œí•˜ë©´ ì™„ì „ ì‚­ì œí•¨
+    if ($mb[mb_nick] != '[ì‚­ì œë¨]')
     {
-        // ´Ù¸¥ »ç¶÷ÀÌ ÀÌ È¸¿ø¾ÆÀÌµğ¸¦ »ç¿ëÇÏÁö ¸øÇÏµµ·Ï ¾ÆÀÌµğ¸¸ »ı¼ºÇØ ³õ½À´Ï´Ù.
-        // °Ô½ÃÆÇ¿¡¼­ È¸¿ø¾ÆÀÌµğ´Â »èÁ¦ÇÏÁö ¾Ê±â ¶§¹®ÀÔ´Ï´Ù.
-        sql_query(" insert into $g4[member_table] set mb_id = '$mb_id', mb_name='$mb[mb_name]', mb_nick='[»èÁ¦µÊ]', mb_ip='$mb[mb_ip]', mb_datetime = '$g4[time_ymdhis]' ");
+        // ë‹¤ë¥¸ ì‚¬ëŒì´ ì´ íšŒì›ì•„ì´ë””ë¥¼ ì‚¬ìš©í•˜ì§€ ëª»í•˜ë„ë¡ ì•„ì´ë””ë§Œ ìƒì„±í•´ ë†“ìŠµë‹ˆë‹¤.
+        // ê²Œì‹œíŒì—ì„œ íšŒì›ì•„ì´ë””ëŠ” ì‚­ì œí•˜ì§€ ì•Šê¸° ë•Œë¬¸ì…ë‹ˆë‹¤.
+        sql_query(" insert into $g4[member_table] set mb_id = '$mb_id', mb_name='$mb[mb_name]', mb_nick='[ì‚­ì œë¨]', mb_ip='$mb[mb_ip]', mb_datetime = '$g4[time_ymdhis]' ");
     }
     
-    // Æ÷ÀÎÆ® Å×ÀÌºí¿¡¼­ »èÁ¦
+    // í¬ì¸íŠ¸ í…Œì´ë¸”ì—ì„œ ì‚­ì œ
     sql_query(" delete from $g4[point_table] where mb_id = '$mb_id' ");
     
-    // ±×·ìÁ¢±Ù°¡´É »èÁ¦
+    // ê·¸ë£¹ì ‘ê·¼ê°€ëŠ¥ ì‚­ì œ
     sql_query(" delete from $g4[group_member_table] where mb_id = '$mb_id' ");
     
-    // ÂÊÁö »èÁ¦
+    // ìª½ì§€ ì‚­ì œ
     sql_query(" delete from $g4[memo_table] where me_recv_mb_id = '$mb_id' or me_send_mb_id = '$mb_id' ");
     
-    // ½ºÅ©·¦ »èÁ¦
+    // ìŠ¤í¬ë© ì‚­ì œ
     sql_query(" delete from $g4[scrap_table] where mb_id = '$mb_id' ");
     
-    // °ü¸®±ÇÇÑ »èÁ¦
+    // ê´€ë¦¬ê¶Œí•œ ì‚­ì œ
     sql_query(" delete from $g4[auth_table] where mb_id = '$mb_id' ");
 
-    // ±×·ì°ü¸®ÀÚÀÎ °æ¿ì ±×·ì°ü¸®ÀÚ¸¦ °ø¹éÀ¸·Î 
+    // ê·¸ë£¹ê´€ë¦¬ìì¸ ê²½ìš° ê·¸ë£¹ê´€ë¦¬ìë¥¼ ê³µë°±ìœ¼ë¡œ 
     sql_query(" update $g4[group_table] set gr_admin = '' where gr_admin = '$mb_id' ");
 
-    // °Ô½ÃÆÇ°ü¸®ÀÚÀÎ °æ¿ì °Ô½ÃÆÇ°ü¸®ÀÚ¸¦ °ø¹éÀ¸·Î
+    // ê²Œì‹œíŒê´€ë¦¬ìì¸ ê²½ìš° ê²Œì‹œíŒê´€ë¦¬ìë¥¼ ê³µë°±ìœ¼ë¡œ
     sql_query(" update $g4[board_table] set bo_admin = '' where bo_admin = '$mb_id' ");
 
-    // È¸¿ø ´Ğ³×ÀÓ »èÁ¦
+    // íšŒì› ë‹‰ë„¤ì„ ì‚­ì œ
     sql_query(" delete from $g4[mb_nick_table] where mb_id = '$mb_id' ");
 
-    // ³ªÀÇ °Ô½ÃÆÇ »èÁ¦
+    // ë‚˜ì˜ ê²Œì‹œíŒ ì‚­ì œ
     sql_query(" delete from $g4[my_board_table] where mb_id = '$mb_id' ");
 
-    // ³ªÀÇ ¸Ş´º »èÁ¦
+    // ë‚˜ì˜ ë©”ë‰´ ì‚­ì œ
     sql_query(" delete from $g4[my_menu_table] where mb_id = '$mb_id' ");
 
-    // ÈŞÁöÅë »èÁ¦
+    // íœ´ì§€í†µ ì‚­ì œ
     sql_query(" delete from $g4[recycle_table] where rc_mb_id = '$mb_id' ");
 
-    // È¸¿ø·¹º§È÷½ºÅä¸® »èÁ¦
+    // íšŒì›ë ˆë²¨íˆìŠ¤í† ë¦¬ ì‚­ì œ
     sql_query(" delete from $g4[member_level_history_table] where mb_id = '$mb_id' ");
 
-    // È¸¿ø°¡ÀÔ°æ·ÎÁ¤º¸ »èÁ¦
+    // íšŒì›ê°€ì…ê²½ë¡œì •ë³´ ì‚­ì œ
     sql_query(" delete from $g4[member_register_table] where mb_id = '$mb_id' ");
 
-    // ÆÄÀÏ´Ù¿î·Îµå ³»¿ª »èÁ¦
+    // íŒŒì¼ë‹¤ìš´ë¡œë“œ ë‚´ì—­ ì‚­ì œ
     sql_query(" delete from $g4[board_file_download_table] where mb_id = '$mb_id' ");
 
-    // ·Î±×ÀÎ¿À·ù ³»¿ª »èÁ¦
+    // ë¡œê·¸ì¸ì˜¤ë¥˜ ë‚´ì—­ ì‚­ì œ
     sql_query(" delete from $g4[login_fail_log_table] where mb_id = '$mb_id' ");
 
-    // hidden comment ³»¿ª »èÁ¦
+    // hidden comment ë‚´ì—­ ì‚­ì œ
     sql_query(" delete from $g4[hidden_comment_table] where mb_id = '$mb_id' ");
 
-    // ½Å°í³»¿ª »èÁ¦
+    // ì‹ ê³ ë‚´ì—­ ì‚­ì œ
     sql_query(" delete from $g4[singo_table] where mb_id = '$mb_id' ");
 
-    // ¾ÆÀÌÄÜ »èÁ¦
+    // ì•„ì´ì½˜ ì‚­ì œ
     @unlink("$g4[data_path]/member/".substr($mb_id,0,2)."/$mb_id.gif");
     */
 }
 
 
-// È¸¿ø±ÇÇÑÀ» SELECT Çü½ÄÀ¸·Î ¾òÀ½
+// íšŒì›ê¶Œí•œì„ SELECT í˜•ì‹ìœ¼ë¡œ ì–»ìŒ
 function get_member_level_select($name, $start_id=0, $end_id=10, $selected='', $event='')
 {
     global $g4;
@@ -204,7 +204,7 @@ function get_member_level_select($name, $start_id=0, $end_id=10, $selected='', $
 }
 
 
-// È¸¿ø¾ÆÀÌµğ¸¦ SELECT Çü½ÄÀ¸·Î ¾òÀ½
+// íšŒì›ì•„ì´ë””ë¥¼ SELECT í˜•ì‹ìœ¼ë¡œ ì–»ìŒ
 function get_member_id_select($name, $level, $selected='', $event='')
 {
     global $g4;
@@ -213,7 +213,7 @@ function get_member_id_select($name, $level, $selected='', $event='')
 
     $sql = " select mb_id from $g4[member_table] where mb_level >= '$level' ";
     $result = sql_query($sql);
-    $str = "<select name='$name' $event><option value=''>¼±ÅÃ¾ÈÇÔ";
+    $str = "<select name='$name' $event><option value=''>ì„ íƒì•ˆí•¨";
     for ($i=0; $row=sql_fetch_array($result); $i++) 
     {
         $str .= "<option value='$row[mb_id]'";
@@ -224,7 +224,7 @@ function get_member_id_select($name, $level, $selected='', $event='')
     return $str;
 }
 
-// ±ÇÇÑ °Ë»ç
+// ê¶Œí•œ ê²€ì‚¬
 function auth_check($auth, $attr)
 {
     global $is_admin;
@@ -232,25 +232,25 @@ function auth_check($auth, $attr)
     if ($is_admin == "super") return;
 
     if (!trim($auth))
-        alert("ÀÌ ¸Ş´º¿¡´Â Á¢±Ù ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.\\n\\nÁ¢±Ù ±ÇÇÑÀº ÃÖ°í°ü¸®ÀÚ¸¸ ºÎ¿©ÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+        alert("ì´ ë©”ë‰´ì—ëŠ” ì ‘ê·¼ ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.\\n\\nì ‘ê·¼ ê¶Œí•œì€ ìµœê³ ê´€ë¦¬ìë§Œ ë¶€ì—¬í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
     $attr = strtolower($attr);
 
     if (!strstr($auth, $attr)) {
         if ($attr == "r")
-            alert("ÀĞÀ» ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.");
+            alert("ì½ì„ ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.");
         else if ($attr == "w")
-            alert("ÀÔ·Â, Ãß°¡, »ı¼º, ¼öÁ¤ ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.");
+            alert("ì…ë ¥, ì¶”ê°€, ìƒì„±, ìˆ˜ì • ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.");
         else if ($attr == "d")
-            alert("»èÁ¦ ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.");
+            alert("ì‚­ì œ ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.");
         else 
-            alert("¼Ó¼ºÀÌ Àß¸ø µÇ¾ú½À´Ï´Ù.");
+            alert("ì†ì„±ì´ ì˜ëª» ë˜ì—ˆìŠµë‹ˆë‹¤.");
     }
 }
 
 
-// rm -rf ¿É¼Ç : exec(), system() ÇÔ¼ö¸¦ »ç¿ëÇÒ ¼ö ¾ø´Â ¼­¹ö ¶Ç´Â win32¿ë ´ëÃ¼
-// www.php.net Âü°í : pal at degerstrom dot com
+// rm -rf ì˜µì…˜ : exec(), system() í•¨ìˆ˜ë¥¼ ì‚¬ìš©í•  ìˆ˜ ì—†ëŠ” ì„œë²„ ë˜ëŠ” win32ìš© ëŒ€ì²´
+// www.php.net ì°¸ê³  : pal at degerstrom dot com
 function rm_rf($file) 
 {
     if (file_exists($file)) {
@@ -268,7 +268,7 @@ function rm_rf($file)
     }
 }
 
-// Ãâ·Â¼ø¼­
+// ì¶œë ¥ìˆœì„œ
 function order_select($fld, $sel="") 
 {
     $s = "<select name='$fld'>";
@@ -290,10 +290,10 @@ function order_select($fld, $sel="")
     return $s;
 }
 
-// Á¢±Ù ±ÇÇÑ °Ë»ç
+// ì ‘ê·¼ ê¶Œí•œ ê²€ì‚¬
 if (!$member['mb_id'])
 {
-    alert("·Î±×ÀÎ ÇÏ½Ê½Ã¿À.", "$g4[bbs_path]/login.php?url=" . urlencode("$g4[admin_path]"));
+    alert("ë¡œê·¸ì¸ í•˜ì‹­ì‹œì˜¤.", "$g4[bbs_path]/login.php?url=" . urlencode("$g4[admin_path]"));
 }
 else if ($is_admin != "super") 
 {
@@ -307,27 +307,27 @@ else if ($is_admin != "super")
 
     if (!$i)
     {
-        alert("ÃÖ°í°ü¸®ÀÚ ¶Ç´Â °ü¸®±ÇÇÑÀÌ ÀÖ´Â È¸¿ø¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4[path]);
+        alert("ìµœê³ ê´€ë¦¬ì ë˜ëŠ” ê´€ë¦¬ê¶Œí•œì´ ìˆëŠ” íšŒì›ë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4[path]);
     }
 }
 
-// °ü¸®ÀÚÀÇ ¾ÆÀÌÇÇ, ºê¶ó¿ìÀú¿Í ´Ù¸£´Ù¸é ¼¼¼ÇÀ» ²÷°í °ü¸®ÀÚ¿¡°Ô ¸ŞÀÏÀ» º¸³½´Ù.
-// ss_mb_key ¼¼¼ÇÀº bbs/login_check.php¿¡¼­ »ı¼ºµÈ´Ù.
+// ê´€ë¦¬ìì˜ ì•„ì´í”¼, ë¸Œë¼ìš°ì €ì™€ ë‹¤ë¥´ë‹¤ë©´ ì„¸ì…˜ì„ ëŠê³  ê´€ë¦¬ìì—ê²Œ ë©”ì¼ì„ ë³´ë‚¸ë‹¤.
+// ss_mb_key ì„¸ì…˜ì€ bbs/login_check.phpì—ì„œ ìƒì„±ëœë‹¤.
 $admin_key = md5($member[mb_datetime] . $_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
 if (get_session("ss_mb_key") !== $admin_key) {
 
     session_destroy();
 
     include_once("$g4[path]/lib/mailer.lib.php");
-    // ¸ŞÀÏ ¾Ë¸²
-    mailer($member['mb_nick'], $member['mb_email'], $member['mb_email'], "XSS °ø°İ ¾Ë¸²", "{$_SERVER['REMOTE_ADDR']} ¾ÆÀÌÇÇ·Î XSS °ø°İÀÌ ÀÖ¾ú½À´Ï´Ù.\n\n°ü¸®ÀÚ ±ÇÇÑÀ» Å»ÃëÇÏ·Á´Â Á¢±ÙÀÌ¹Ç·Î ÁÖÀÇÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.\n\nÇØ´ç ¾ÆÀÌÇÇ´Â Â÷´ÜÇÏ½Ã°í ÀÇ½ÉµÇ´Â °Ô½Ã¹°ÀÌ ÀÖ´ÂÁö È®ÀÎÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.\n\n$g4[url]", 0);
+    // ë©”ì¼ ì•Œë¦¼
+    mailer($member['mb_nick'], $member['mb_email'], $member['mb_email'], "XSS ê³µê²© ì•Œë¦¼", "{$_SERVER['REMOTE_ADDR']} ì•„ì´í”¼ë¡œ XSS ê³µê²©ì´ ìˆì—ˆìŠµë‹ˆë‹¤.\n\nê´€ë¦¬ì ê¶Œí•œì„ íƒˆì·¨í•˜ë ¤ëŠ” ì ‘ê·¼ì´ë¯€ë¡œ ì£¼ì˜í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.\n\ní•´ë‹¹ ì•„ì´í”¼ëŠ” ì°¨ë‹¨í•˜ì‹œê³  ì˜ì‹¬ë˜ëŠ” ê²Œì‹œë¬¼ì´ ìˆëŠ”ì§€ í™•ì¸í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.\n\n$g4[url]", 0);
 
-    alert("Á¤»óÀûÀ¸·Î ·Î±×ÀÎÇÏ¿© Á¢±ÙÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.");
+    alert("ì •ìƒì ìœ¼ë¡œ ë¡œê·¸ì¸í•˜ì—¬ ì ‘ê·¼í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.");
 }
 
 @ksort($auth);
 
-// °¡º¯ ¸Ş´º
+// ê°€ë³€ ë©”ë‰´
 unset($auth_menu);
 unset($menu);
 unset($amenu);
@@ -335,7 +335,7 @@ $tmp = dir($g4['admin_path']);
 while ($entry = $tmp->read()) 
 {
     if (!preg_match("/^admin.menu([0-9]{3}).*\.php/", $entry, $m)) 
-        continue;  // ÆÄÀÏ¸íÀÌ menu À¸·Î ½ÃÀÛÇÏÁö ¾ÊÀ¸¸é ¹«½ÃÇÑ´Ù. 
+        continue;  // íŒŒì¼ëª…ì´ menu ìœ¼ë¡œ ì‹œì‘í•˜ì§€ ì•Šìœ¼ë©´ ë¬´ì‹œí•œë‹¤. 
 
     $amenu[$m[1]] = $entry;
     include_once($g4['admin_path']."/".$entry);

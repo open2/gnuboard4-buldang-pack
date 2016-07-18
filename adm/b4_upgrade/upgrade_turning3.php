@@ -5,9 +5,9 @@ include_once("./_common.php");
 check_demo();
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4[path]);
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4[path]);
 
-$g4[title] = "¾÷±×·¹ÀÌµå";
+$g4[title] = "ì—…ê·¸ë ˆì´ë“œ";
 if (!$g4[b4_upgrade]) include_once("./admin.head.php");
 
 $sql = " ALTER TABLE `$g4[member_table]` ADD `mb_auth_count` TINYINT( 4 ) NOT NULL ";
@@ -21,10 +21,10 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     $sql4 = " update $g4[member_table] set mb_auth_count = '$row[cnt]' where mb_id = '$row[mb_id]' ";
     sql_query($sql4);
 
-    echo "<BR>" . $i . " : " . $row[mb_id] . "´ÔÀÇ mb_auth_count¸¦ ¾÷µ¥ÀÌÆ® Çß½À´Ï´Ù <br>";
+    echo "<BR>" . $i . " : " . $row[mb_id] . "ë‹˜ì˜ mb_auth_countë¥¼ ì—…ë°ì´íŠ¸ í–ˆìŠµë‹ˆë‹¤ <br>";
 }
 
-echo "<br>mb_auth_count Ãß°¡ UPGRADE ¿Ï·á.";
+echo "<br>mb_auth_count ì¶”ê°€ UPGRADE ì™„ë£Œ.";
 
 if (!$g4[b4_upgrade]) include_once("./admin.tail.php");
 ?>

@@ -6,13 +6,13 @@ include_once("$g4[path]/memo.config.php");
 check_demo();
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4[path]);
+    alert("ìµœê³ ê´€ë¦¬ìžë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4[path]);
 
-$g4[title] = "¾÷±×·¹ÀÌµå";
+$g4[title] = "ì—…ê·¸ë ˆì´ë“œ";
 include_once("./admin.head.php");
 
 
-// ÂÊÁö4 - ½Å±Ô Å×ÀÌºí (¼³Á¤)
+// ìª½ì§€4 - ì‹ ê·œ í…Œì´ë¸” (ì„¤ì •)
 $sql = "
 CREATE TABLE `$g4[memo_config_table]` (
   `cf_memo_page_rows` int(11) NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE `$g4[memo_config_table]` (
 ) ";
 sql_query($sql, FALSE);
 
-//ÂÊÁö4- ½Å±Ô Å×ÀÌºí (ÀÓ½ÃÀúÀå)
+//ìª½ì§€4- ì‹ ê·œ í…Œì´ë¸” (ìž„ì‹œì €ìž¥)
 $sql = "
 CREATE TABLE `$g4[memo_temp_table]` (
   `me_id` int(11) NOT NULL auto_increment,
@@ -51,7 +51,7 @@ CREATE TABLE `$g4[memo_temp_table]` (
 ) ";
 sql_query($sql, FALSE);
 
-// ÂÊÁö4 - ½Å±ÔÅ×ÀÌºí (ÈÞÁöÅë)
+// ìª½ì§€4 - ì‹ ê·œí…Œì´ë¸” (íœ´ì§€í†µ)
 $sql = "
 CREATE TABLE `$g4[memo_trash_table]` (
   `me_id` int(11) NOT NULL auto_increment,
@@ -74,7 +74,7 @@ CREATE TABLE `$g4[memo_trash_table]` (
 )";
 sql_query($sql, FALSE);
 
-// ÂÊÁö4 - ¿É¼ÇÇÊµå Ãß°¡
+// ìª½ì§€4 - ì˜µì…˜í•„ë“œ ì¶”ê°€
 sql_query(" ALTER TABLE `$g4[memo_recv_table]` ADD `me_option` SET( 'html1', 'html2', 'secret', 'mail' ) NOT NULL", FALSE);
 sql_query(" ALTER TABLE `$g4[memo_send_table]` ADD `me_option` SET( 'html1', 'html2', 'secret', 'mail' ) NOT NULL", FALSE) ;
 sql_query(" ALTER TABLE `$g4[memo_save_table]` ADD `me_option` SET( 'html1', 'html2', 'secret', 'mail' ) NOT NULL", FALSE) ;
@@ -83,26 +83,26 @@ sql_query(" ALTER TABLE `$g4[memo_notice_table]` ADD `me_option` SET( 'html1', '
 sql_query(" ALTER TABLE `$g4[memo_spam_table]` ADD `me_option` SET( 'html1', 'html2', 'secret', 'mail' ) NOT NULL", FALSE) ;
 sql_query(" ALTER TABLE `$g4[memo_trash_table]` ADD `me_option` SET( 'html1', 'html2', 'secret', 'mail' ) NOT NULL", FALSE) ;
 
-// 1.0.24 - ÂÊÁö4 temp, trash Å×ÀÌºí key Ãß°¡
+// 1.0.24 - ìª½ì§€4 temp, trash í…Œì´ë¸” key ì¶”ê°€
 sql_query(" ALTER TABLE `$g4[memo_temp_table]` ADD `me_from_kind` VARCHAR( 255 ) NOT NULL", FALSE) ;
 sql_query(" ALTER TABLE `$g4[memo_trash_table]` ADD `me_from_kind` VARCHAR( 255 ) NOT NULL", FALSE) ;
 
 sql_query(" ALTER TABLE `$g4[memo_temp_table]` DROP PRIMARY KEY , ADD PRIMARY KEY ( `me_id` , `me_from_kind` )", FALSE) ;
 sql_query(" ALTER TABLE `$g4[memo_trash_table]` DROP PRIMARY KEY , ADD PRIMARY KEY ( `me_id` , `me_from_kind` )", FALSE) ;
 
-// 1.0.26 - ÂÊÁö4 ¼³Á¤Ãß°¡ (½Ç½Ã°£¸Þ¸ð)
+// 1.0.26 - ìª½ì§€4 ì„¤ì •ì¶”ê°€ (ì‹¤ì‹œê°„ë©”ëª¨)
 sql_query(" ALTER TABLE `$g4[memo_config_table]` ADD `cf_memo_realtime` TINYINT( 4 ) NOT NULL", FALSE)  ;
 
-// 1.0.26 - ÂÊÁö4 ¼³Á¤Ãß°¡ (½Ç¸í »ç¿ë)
+// 1.0.26 - ìª½ì§€4 ì„¤ì •ì¶”ê°€ (ì‹¤ëª… ì‚¬ìš©)
 sql_query(" ALTER TABLE `$g4[memo_config_table]` ADD `cf_memo_mb_name` TINYINT( 4 ) NOT NULL", FALSE)  ;
 
-// 1.0.31 - ÂÊÁö4 ¼³Á¤Ãß°¡ (¾÷·Îµå ÆÄÀÏ¿ë·®)
+// 1.0.31 - ìª½ì§€4 ì„¤ì •ì¶”ê°€ (ì—…ë¡œë“œ íŒŒì¼ìš©ëŸ‰)
 sql_query(" ALTER TABLE `$g4[memo_config_table]` ADD `cf_memo_file_size` VARCHAR( 20 ) NOT NULL ", FALSE) ;
 
-// 1.0.32 - ÂÊÁö4 save ¿À·ù ¼öÁ¤
+// 1.0.32 - ìª½ì§€4 save ì˜¤ë¥˜ ìˆ˜ì •
 sql_query(" ALTER TABLE `$g4[memo_save_table]` DROP PRIMARY KEY , ADD PRIMARY KEY ( `me_id` , `memo_type` ) ", FALSE) ;
 
-// ¼³Á¤°ª ¿Å±â±â
+// ì„¤ì •ê°’ ì˜®ê¸°ê¸°
 $sql = "
 UPDATE `$g4[memo_config_table]` 
     set cf_memo_del_unread      = '$config[cf_memo_del_unread]',
@@ -115,7 +115,7 @@ UPDATE `$g4[memo_config_table]`
 ";        
 sql_query($sql, FALSE);
 
-// html code ¼³Á¤ÇÏ±â
+// html code ì„¤ì •í•˜ê¸°
 if ($config[cf_memo_user_dhtml]) {
     $html = "html1";
     sql_query(" UPDATE $g4[memo_recv_table] set me_option = '$html.$secret,$mail' ", FALSE);
@@ -124,7 +124,7 @@ if ($config[cf_memo_user_dhtml]) {
     sql_query(" UPDATE $g4[memo_spam_table] set me_option = '$html.$secret,$mail' ", FALSE);
 }
 
-// config Å×ÀÌºíÀÇ memo2 ¼³Á¤À» »èÁ¦ ÇÕ´Ï´Ù.
+// config í…Œì´ë¸”ì˜ memo2 ì„¤ì •ì„ ì‚­ì œ í•©ë‹ˆë‹¤.
 $sql = "
 ALTER TABLE `$g4[config_table]` DROP `cf_memo_delete_datetime` ,
                                 DROP `cf_memo_del_unread` ,
@@ -134,7 +134,7 @@ sql_query($sql, FALSE);
 
 
 
-echo "UPGRADE ¿Ï·á.";
+echo "UPGRADE ì™„ë£Œ.";
 
 include_once("./admin.tail.php");
 ?>

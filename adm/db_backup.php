@@ -7,14 +7,14 @@ auth_check($auth[$sub_menu], "r");
 $token = get_token();
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.");
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
-$g4[title] = "db ¹é¾÷";
+$g4[title] = "db ë°±ì—…";
 
-// ¹é¾÷¹ŞÀ» ÆÄÀÏ ÀÌ¸§, ³¯Â¥·Î ÇØÁİ´Ï´Ù.
+// ë°±ì—…ë°›ì„ íŒŒì¼ ì´ë¦„, ë‚ ì§œë¡œ í•´ì¤ë‹ˆë‹¤.
 $filename = $_SERVER['HTTP_HOST']."_".$g4[table_prefix]."_".date("Ymd").".sql";
 
-// === ÇÁ·Î±×·¥ ¼Ò½º, http://davidwalsh.name/backup-mysql-database-php
+// === í”„ë¡œê·¸ë¨ ì†ŒìŠ¤, http://davidwalsh.name/backup-mysql-database-php
 function backup_tables($table_prefix) {
 
     global $g4;
@@ -24,24 +24,24 @@ function backup_tables($table_prefix) {
 
     $tables = array();
     while($row = sql_fetch_array($result)) {
-        // Å×ÀÌºí ÄÃ·³ÀÇ ÀÌ¸§ÀÌ ÀÓÀÇ·Î ¹Ù²î¾î¼­, ¹è¿­À» implodeÇØ¾ß °ªÀÌ ³ª¿Â´Ù. 
-        // ¹è¿­ÀÇ ÄÃ·³ÀÌ 1°³ÀÏ ¶§´Â implode, 2°³ ÀÌ»óÀº array_values¸¦ ¾²´Â°Ô ÁÁ´Ù.
+        // í…Œì´ë¸” ì»¬ëŸ¼ì˜ ì´ë¦„ì´ ì„ì˜ë¡œ ë°”ë€Œì–´ì„œ, ë°°ì—´ì„ implodeí•´ì•¼ ê°’ì´ ë‚˜ì˜¨ë‹¤. 
+        // ë°°ì—´ì˜ ì»¬ëŸ¼ì´ 1ê°œì¼ ë•ŒëŠ” implode, 2ê°œ ì´ìƒì€ array_valuesë¥¼ ì“°ëŠ”ê²Œ ì¢‹ë‹¤.
         $tables[] = implode($row);
     }
 
     //cycle through
     foreach($tables as $table) {
 
-        // Å×ÀÌºíÀÇ Á¤ÀÇ¸¦ Ãâ·Â
-        // È¤½Ã ½Ç¼öÇÒ ¼ö ÀÖ±â ¶§¹®¿¡, DROP TABLE ¸í·ÉÀ» ÄÚ¸àÆ®·Î ¸·¾ÆµÓ´Ï´Ù.
-        // ÀÖ´Âµ¥, Å×ÀÌºí ºÎ¼ö°í ¿¾³¯²¨ ¿Ã¸®´Â °æ¿ì °¡²û ÀÖ°Åµç¿ä.
+        // í…Œì´ë¸”ì˜ ì •ì˜ë¥¼ ì¶œë ¥
+        // í˜¹ì‹œ ì‹¤ìˆ˜í•  ìˆ˜ ìˆê¸° ë•Œë¬¸ì—, DROP TABLE ëª…ë ¹ì„ ì½”ë©˜íŠ¸ë¡œ ë§‰ì•„ë‘¡ë‹ˆë‹¤.
+        // ìˆëŠ”ë°, í…Œì´ë¸” ë¶€ìˆ˜ê³  ì˜›ë‚ êº¼ ì˜¬ë¦¬ëŠ” ê²½ìš° ê°€ë” ìˆê±°ë“ ìš”.
         //$return.= 'DROP TABLE IF EXISTS '.$table.';';
         $sql = " SHOW CREATE TABLE $table ";
         $row2 = sql_fetch($sql);
         $row2 = array_values($row2);
         echo "\n\n".$row2[1].";\n\n";
 
-        // Å×ÀÌºíÀÇ ÇÊµå¸¦ Ãâ·Â.
+        // í…Œì´ë¸”ì˜ í•„ë“œë¥¼ ì¶œë ¥.
         $result = sql_query('SELECT * FROM '.$table);
         $num_fields = mysql_num_fields($result);
 
@@ -58,7 +58,7 @@ function backup_tables($table_prefix) {
                 }
                 $return.= ");\n";
 
-                // ÇÑ¹ø¿¡ echo¸¦ ÇÏ¸é ¹öÆÛ ¹®Á¦°¡ ÀÖ¾î¼­, Âñ²ûÂñ²û ÇØÁà¾ß ÇÕ´Ï´Ù.
+                // í•œë²ˆì— echoë¥¼ í•˜ë©´ ë²„í¼ ë¬¸ì œê°€ ìˆì–´ì„œ, ì°”ë”ì°”ë” í•´ì¤˜ì•¼ í•©ë‹ˆë‹¤.
                 echo $return;
             }
         }
@@ -66,7 +66,7 @@ function backup_tables($table_prefix) {
     }
 }
 
-// Á¦·Îº¸µå admin_setup.php¿¡¼­ °¡Á®¿Í¼­ º¯ÇüÇÑ ÄÚµå
+// ì œë¡œë³´ë“œ admin_setup.phpì—ì„œ ê°€ì ¸ì™€ì„œ ë³€í˜•í•œ ì½”ë“œ
 function zbDB_Header($filename) {
 		global $HTTP_USER_AGENT;
 		//if(eregi("msie",$HTTP_USER_AGENT)) $browser="1"; else $browser="0";

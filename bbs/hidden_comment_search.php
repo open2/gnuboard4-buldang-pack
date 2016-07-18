@@ -1,12 +1,12 @@
 <?
 include_once("./_common.php");
 
-// È¸¿ø¸¸ »ç¿ëÀÌ °¡´ÉÇÏ°Ô
+// íšŒì›ë§Œ ì‚¬ìš©ì´ ê°€ëŠ¥í•˜ê²Œ
 if (!$is_member) 
 {
     $href = "./login.php?$qstr&url=".urlencode("./singo_search.php");
 
-    echo "<script language='JavaScript'>alert('È¸¿ø¸¸ °¡´ÉÇÕ´Ï´Ù.'); top.location.href = '$href';</script>";
+    echo "<script language='JavaScript'>alert('íšŒì›ë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.'); top.location.href = '$href';</script>";
     exit;
 }
 
@@ -41,13 +41,13 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if (!$page) $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if (!$page) $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
-$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>ì²˜ìŒ</a>";
 
-$g4[title] = "µıÁö°É±â°ü¸®";
+$g4[title] = "ë”´ì§€ê±¸ê¸°ê´€ë¦¬";
 include_once("./_head.php");
 
 $sql = " select * 
@@ -81,15 +81,15 @@ $colspan = 5;
 <table width=100%>
 <tr>
     <td width=50% align=left><?=$listall?>
-        (µıÁö°É¸° °Ô½Ã¹° : <?=number_format($total_count)?>)
+        (ë”´ì§€ê±¸ë¦° ê²Œì‹œë¬¼ : <?=number_format($total_count)?>)
     </td>
     <td width=50% align=right>
         <select name=sfl class=cssfl>
-            <option value='co_content'>µıÁöÇÏ´Â ÀÌÀ¯</option>
-            <option value='co_mb_id'>°Ô½ÃÀÚ id</option>
-            <option value='bo_table'>°Ô½ÃÆÇ</option>
+            <option value='co_content'>ë”´ì§€í•˜ëŠ” ì´ìœ </option>
+            <option value='co_mb_id'>ê²Œì‹œì id</option>
+            <option value='bo_table'>ê²Œì‹œíŒ</option>
         </select>
-        <input type=text name=stx required itemname='°Ë»ö¾î' value='<? echo $stx ?>'>
+        <input type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<? echo $stx ?>'>
         <input type=image src='<?=$g4[bbs_path]?>/img/btn_post_search.gif' align=absmiddle></td>
 </tr>
 </table>
@@ -111,20 +111,20 @@ $colspan = 5;
 <tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
 <tr class='bgcol1 bold col1 center'>
     <td align='center'><?=subject_sort_link('co_id')?>no.</a></td>
-    <td><?=subject_sort_link('bo_table')?>°Ô½ÃÆÇ</a></td>
-    <td><?=subject_sort_link('mb_id')?>°Ô½ÃÀÚ</a></td>
-    <td align='left'>µı&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Áö</td>
-    <td><?=subject_sort_link('co_datetime')?>³¯Â¥</a></td>
+    <td><?=subject_sort_link('bo_table')?>ê²Œì‹œíŒ</a></td>
+    <td><?=subject_sort_link('mb_id')?>ê²Œì‹œì</a></td>
+    <td align='left'>ë”´&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ì§€</td>
+    <td><?=subject_sort_link('co_datetime')?>ë‚ ì§œ</a></td>
 </tr>
 <tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) {
 
-    // È¸¿ø´Ğ³×ÀÓ
+    // íšŒì›ë‹‰ë„¤ì„
     $sql = " select mb_id from $g4[board_prefix]$g4[write_prefix]$row[bo_table] where wr_id = '$row[wr_id]' ";
     $res2 = sql_fetch($sql);
     $mb = get_member($res2[mb_id], "mb_nick");
-    // ¿ø±ÛÀÚ mb_id¸¦ db¿¡ ¾÷µ¥ÀÌÆ® (º°µµÀÇ db ¾÷±Û ÇÁ·Î±×·¥À» ¾È¸¸µé·Á°í Ãß°¡ÇÑ ±â´É)
+    // ì›ê¸€ì mb_idë¥¼ dbì— ì—…ë°ì´íŠ¸ (ë³„ë„ì˜ db ì—…ê¸€ í”„ë¡œê·¸ë¨ì„ ì•ˆë§Œë“¤ë ¤ê³  ì¶”ê°€í•œ ê¸°ëŠ¥)
     if ($mb[mb_nick]) {
         if (!$row[co_mb_id])
             sql_query(" update $g4[hidden_comment_table] set co_mb_id = '$mb[mb_nick]' where co_id = '$row[co_id]' ");
@@ -157,7 +157,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='$colspan' align=center height=100 class=contentbg>³»¿ªÀÌ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='$colspan' align=center height=100 class=contentbg>ë‚´ì—­ì´ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 
 echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
 echo "</table>";

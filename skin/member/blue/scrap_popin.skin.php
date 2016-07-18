@@ -1,11 +1,11 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-// ½ºÅ©·¦ ¸Þ¸ðº°·Î Á¤·ÄÇÏ±â
+// ìŠ¤í¬ëž© ë©”ëª¨ë³„ë¡œ ì •ë ¬í•˜ê¸°
 $sql = " select distinct ms_memo from $g4[scrap_table] where mb_id = '$member[mb_id]' and ms_memo != '' ";
 $result = sql_query($sql);
 $memo_str = "<select class='form-control' name='ms_memo' onchange=\"javascript:document.getElementById('wr_content').value=this.value;\">";
-$memo_str .= "<option value=''>³»°¡ »ç¿ëÇÏ´Â Âü°í¸Þ¸ð ¼±ÅÃÇÏ±â</option>";
+$memo_str .= "<option value=''>ë‚´ê°€ ì‚¬ìš©í•˜ëŠ” ì°¸ê³ ë©”ëª¨ ì„ íƒí•˜ê¸°</option>";
     for ($i=0; $row=sql_fetch_array($result); $i++)
     {
         $memo_str .= "<option value='$row[ms_memo]'";
@@ -16,7 +16,7 @@ $memo_str .= "<option value=''>³»°¡ »ç¿ëÇÏ´Â Âü°í¸Þ¸ð ¼±ÅÃÇÏ±â</option>";
 <div class="container">
 <div class="panel panel-default">
     <div class="panel-heading">
-    <strong>½ºÅ©·¦ÇÏ±â</strong>
+    <strong>ìŠ¤í¬ëž©í•˜ê¸°</strong>
     </div>
     <div class="panel-body">
         <form name=f_scrap_popin method=post action="./scrap_popin_update.php" role="form" class="form-inline">
@@ -27,11 +27,11 @@ $memo_str .= "<option value=''>³»°¡ »ç¿ëÇÏ´Â Âü°í¸Þ¸ð ¼±ÅÃÇÏ±â</option>";
 
         <table class="table table-hover" width=100%>
         <tr class="success">
-            <td class="col-sm-2">Á¦¸ñ</td>
+            <td class="col-sm-2">ì œëª©</td>
             <td><?=get_text(cut_str($write[wr_subject], 255))?></td>
         </tr>
         <tr>
-            <td>Âü°í¸Þ¸ð</td>
+            <td>ì°¸ê³ ë©”ëª¨</td>
             <td>
                 <?=$memo_str?>
                 <textarea class="form-control" name="wr_content" id="wr_content" rows="3" style="width:90%;"></textarea>
@@ -40,18 +40,18 @@ $memo_str .= "<option value=''>³»°¡ »ç¿ëÇÏ´Â Âü°í¸Þ¸ð ¼±ÅÃÇÏ±â</option>";
         <tr>
             <td colspan=2>
             <ul>
-                <li>Âü°í¸Þ¸ð´Â ½ºÅ©·¦À» ºÐ·ù ¹× °Ë»öÇÒ ¶§ ¾²´Â Å°¿öµå ÀÔ´Ï´Ù (¿¹: ½ºÅ©·¦).</li>
-                <li>»õ·Î¿î Âü°í¸Þ¸ð´Â Á÷Á¢ ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù.</li>
-                <li>Âü°í¸Þ¸ð¸¦ ÀÔ·ÂÇÏÁö ¾Ê¾Æµµ µÇÁö¸¸, ÆíÇÑ »ç¿ëÀ» À§ÇØ¼­ ÀÔ·ÂÇÏ¸é ÁÁ½À´Ï´Ù.</li>
+                <li>ì°¸ê³ ë©”ëª¨ëŠ” ìŠ¤í¬ëž©ì„ ë¶„ë¥˜ ë° ê²€ìƒ‰í•  ë•Œ ì“°ëŠ” í‚¤ì›Œë“œ ìž…ë‹ˆë‹¤ (ì˜ˆ: ìŠ¤í¬ëž©).</li>
+                <li>ìƒˆë¡œìš´ ì°¸ê³ ë©”ëª¨ëŠ” ì§ì ‘ ìž…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤.</li>
+                <li>ì°¸ê³ ë©”ëª¨ë¥¼ ìž…ë ¥í•˜ì§€ ì•Šì•„ë„ ë˜ì§€ë§Œ, íŽ¸í•œ ì‚¬ìš©ì„ ìœ„í•´ì„œ ìž…ë ¥í•˜ë©´ ì¢‹ìŠµë‹ˆë‹¤.</li>
             </ul>
             </td>
         </tr>
         </table>
 
         <div class="container"  style="display: inline-block;text-align: center;">
-            <button type="submit" class="btn btn-default">È®ÀÎ</button>
+            <button type="submit" class="btn btn-default">í™•ì¸</button>
             &nbsp;&nbsp;
-            <a class="btn btn-default" href="javascript:window.close();" >´Ý±â</a>
+            <a class="btn btn-default" href="javascript:window.close();" >ë‹«ê¸°</a>
         </div>
         </form>
     </div>

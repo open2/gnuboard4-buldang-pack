@@ -3,95 +3,95 @@ include_once("./_common.php");
 
 if (!$board[bo_table])
 {
-    if ($cwin) // ÄÚ¸àÆ® º¸±â
-       alert_close("Á¸ÀçÇÏÁö ¾Ê´Â °Ô½ÃÆÇÀÔ´Ï´Ù.", $g4[path]);
+    if ($cwin) // ì½”ë©˜íŠ¸ ë³´ê¸°
+       alert_close("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ê²Œì‹œíŒì…ë‹ˆë‹¤.", $g4[path]);
     else
-       alert("Á¸ÀçÇÏÁö ¾Ê´Â °Ô½ÃÆÇÀÔ´Ï´Ù.", $g4[path]);
+       alert("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ê²Œì‹œíŒì…ë‹ˆë‹¤.", $g4[path]);
 }
 
 if ($write[wr_is_comment])
 {
     /*
-    if ($cwin) // ÄÚ¸àÆ® º¸±â
-        alert_close("ÄÚ¸àÆ®´Â »ó¼¼º¸±â ÇÏ½Ç ¼ö ¾ø½À´Ï´Ù.");
+    if ($cwin) // ì½”ë©˜íŠ¸ ë³´ê¸°
+        alert_close("ì½”ë©˜íŠ¸ëŠ” ìƒì„¸ë³´ê¸° í•˜ì‹¤ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
     else
-        alert("ÄÚ¸àÆ®´Â »ó¼¼º¸±â ÇÏ½Ç ¼ö ¾ø½À´Ï´Ù.");
+        alert("ì½”ë©˜íŠ¸ëŠ” ìƒì„¸ë³´ê¸° í•˜ì‹¤ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
     */
     goto_url("$g4[bbs_path]/board.php?bo_table=$bo_table&wr_id=$write[wr_parent]#c_{$wr_id}");
 }
 
 if (!$bo_table)
 {
-    $msg = "bo_table °ªÀÌ ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.\\n\\nboard.php?bo_table=code ¿Í °°Àº ¹æ½ÄÀ¸·Î ³Ñ°Ü ÁÖ¼¼¿ä.";
-    if ($cwin) // ÄÚ¸àÆ® º¸±â
+    $msg = "bo_table ê°’ì´ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.\\n\\nboard.php?bo_table=code ì™€ ê°™ì€ ë°©ì‹ìœ¼ë¡œ ë„˜ê²¨ ì£¼ì„¸ìš”.";
+    if ($cwin) // ì½”ë©˜íŠ¸ ë³´ê¸°
         alert_close($msg);
     else
         alert($msg);
 }
 
-// wr_id °ªÀÌ ÀÖÀ¸¸é ±ÛÀĞ±â
+// wr_id ê°’ì´ ìˆìœ¼ë©´ ê¸€ì½ê¸°
 if ($wr_id)
 {
-    // ±ÛÀÌ ¾øÀ» °æ¿ì ÇØ´ç °Ô½ÃÆÇ ¸ñ·ÏÀ¸·Î ÀÌµ¿
+    // ê¸€ì´ ì—†ì„ ê²½ìš° í•´ë‹¹ ê²Œì‹œíŒ ëª©ë¡ìœ¼ë¡œ ì´ë™
     if (!$write[wr_id])
     {
-        $msg = "±ÛÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.\\n\\n±ÛÀÌ »èÁ¦µÇ¾ú°Å³ª ÀÌµ¿µÈ °æ¿ìÀÔ´Ï´Ù.";
+        $msg = "ê¸€ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.\\n\\nê¸€ì´ ì‚­ì œë˜ì—ˆê±°ë‚˜ ì´ë™ëœ ê²½ìš°ì…ë‹ˆë‹¤.";
         if ($cwin)
             alert_close($msg);
         else
             alert($msg, "$g4[bbs_path]/board.php?bo_table=$bo_table");
     }
 
-    // ±×·ìÁ¢±Ù »ç¿ë
+    // ê·¸ë£¹ì ‘ê·¼ ì‚¬ìš©
     if ($group[gr_use_access])
     {
         if (!$member[mb_id]) {
-            $msg = "ºñÈ¸¿øÀº ÀÌ °Ô½ÃÆÇ¿¡ Á¢±ÙÇÒ ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.\\n\\nÈ¸¿øÀÌ½Ã¶ó¸é ·Î±×ÀÎ ÈÄ ÀÌ¿ëÇØ º¸½Ê½Ã¿À.";
+            $msg = "ë¹„íšŒì›ì€ ì´ ê²Œì‹œíŒì— ì ‘ê·¼í•  ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.\\n\\níšŒì›ì´ì‹œë¼ë©´ ë¡œê·¸ì¸ í›„ ì´ìš©í•´ ë³´ì‹­ì‹œì˜¤.";
             if ($cwin)
                 alert_close($msg);
             else
                 alert($msg, "$g4[bbs_path]/login.php?wr_id=$wr_id{$qstr}&url=".urlencode("$_SERVER[PHP_SELF]?bo_table=$bo_table&wr_id=$wr_id"));
         }
 
-        // ±×·ì°ü¸®ÀÚ ÀÌ»óÀÌ¶ó¸é Åë°ú
+        // ê·¸ë£¹ê´€ë¦¬ì ì´ìƒì´ë¼ë©´ í†µê³¼
         if ($is_admin == "super" || $is_admin == "group")
             ;
         else
         {
-            // ±×·ìÁ¢±Ù
+            // ê·¸ë£¹ì ‘ê·¼
             $sql = " select count(*) as cnt
                        from $g4[group_member_table]
                       where gr_id = '$board[gr_id]' and mb_id = '$member[mb_id]' ";
             $row = sql_fetch($sql);
             if (!$row[cnt])
-                alert("Á¢±Ù ±ÇÇÑÀÌ ¾øÀ¸¹Ç·Î ±ÛÀĞ±â°¡ ºÒ°¡ÇÕ´Ï´Ù.\\n\\n±Ã±İÇÏ½Å »çÇ×Àº °ü¸®ÀÚ¿¡°Ô ¹®ÀÇ ¹Ù¶ø´Ï´Ù.", $g4[path]);
+                alert("ì ‘ê·¼ ê¶Œí•œì´ ì—†ìœ¼ë¯€ë¡œ ê¸€ì½ê¸°ê°€ ë¶ˆê°€í•©ë‹ˆë‹¤.\\n\\nê¶ê¸ˆí•˜ì‹  ì‚¬í•­ì€ ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜ ë°”ëë‹ˆë‹¤.", $g4[path]);
         }
     }
 
-    // ·Î±×ÀÎµÈ È¸¿øÀÇ ±ÇÇÑÀÌ ¼³Á¤µÈ ÀĞ±â ±ÇÇÑº¸´Ù ÀÛ´Ù¸é
+    // ë¡œê·¸ì¸ëœ íšŒì›ì˜ ê¶Œí•œì´ ì„¤ì •ëœ ì½ê¸° ê¶Œí•œë³´ë‹¤ ì‘ë‹¤ë©´
     if ($member[mb_level] < $board[bo_read_level])
     {
         if ($member[mb_id])
-            //alert("±ÛÀ» ÀĞÀ» ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.");
-            alert("±ÛÀ» ÀĞÀ» ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.", $g4[path]);
+            //alert("ê¸€ì„ ì½ì„ ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.");
+            alert("ê¸€ì„ ì½ì„ ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.", $g4[path]);
         else
-            alert("±ÛÀ» ÀĞÀ» ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.\\n\\nÈ¸¿øÀÌ½Ã¶ó¸é ·Î±×ÀÎ ÈÄ ÀÌ¿ëÇØ º¸½Ê½Ã¿À.", "$g4[bbs_path]/login.php?wr_id=$wr_id{$qstr}&url=".urlencode("$g4[path]/$bo_table/$wr_id"));
+            alert("ê¸€ì„ ì½ì„ ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.\\n\\níšŒì›ì´ì‹œë¼ë©´ ë¡œê·¸ì¸ í›„ ì´ìš©í•´ ë³´ì‹­ì‹œì˜¤.", "$g4[bbs_path]/login.php?wr_id=$wr_id{$qstr}&url=".urlencode("$g4[path]/$bo_table/$wr_id"));
     }
 
-    // ÀÚ½ÅÀÇ ±ÛÀÌ°Å³ª °ü¸®ÀÚ¶ó¸é Åë°ú
+    // ìì‹ ì˜ ê¸€ì´ê±°ë‚˜ ê´€ë¦¬ìë¼ë©´ í†µê³¼
     if (($write[mb_id] && $write[mb_id] == $member[mb_id]) || $is_admin)
         ;
     else
     {
-        // ºñ¹Ğ±ÛÀÌ¶ó¸é
+        // ë¹„ë°€ê¸€ì´ë¼ë©´
         if (strstr($write[wr_option], "secret"))
         {
-            // ±âº»À¸·Î´Â ºñ¹Ğ±ÛÀº º¼ ¼ö ¾ø´Ù.
+            // ê¸°ë³¸ìœ¼ë¡œëŠ” ë¹„ë°€ê¸€ì€ ë³¼ ìˆ˜ ì—†ë‹¤.
             $is_unlock_secret = 0;
             $is_owner = false;
 
-            // È¸¿øÀÌ ºñ¹Ğ±ÛÀ» ¿Ã¸®°í °ü¸®ÀÚ°¡ ´äº¯±ÛÀ» ¿Ã·ÈÀ» °æ¿ì
-            // È¸¿øÀÌ °ü¸®ÀÚ°¡ ¿Ã¸° ´äº¯±ÛÀ» ¹Ù·Î º¼ ¼ö ¾ø´ø ¿À·ù¸¦ ¼öÁ¤
+            // íšŒì›ì´ ë¹„ë°€ê¸€ì„ ì˜¬ë¦¬ê³  ê´€ë¦¬ìê°€ ë‹µë³€ê¸€ì„ ì˜¬ë ¸ì„ ê²½ìš°
+            // íšŒì›ì´ ê´€ë¦¬ìê°€ ì˜¬ë¦° ë‹µë³€ê¸€ì„ ë°”ë¡œ ë³¼ ìˆ˜ ì—†ë˜ ì˜¤ë¥˜ë¥¼ ìˆ˜ì •
             if ($write[wr_reply] && $member[mb_id])
             {
                 $sql = " select mb_id from $write_table
@@ -103,8 +103,8 @@ if ($wr_id)
                     $is_owner = true;
             }
             
-            // ´ñ±ÛÀ» ´Ş¾ÒÀ» °æ¿ì¿¡ ¿ø±ÛÀ» Àá±×´Â °ÍÀº ´ñ±ÛÀ» ´Ü È¸¿øÀÇ ÁÖ±ÇÀ» ¹ÚÅ»ÇÏ´Â °ÍÀÓ
-            // ºñÈ¸¿øÀÇ °æ¿ì±îÁö È®´ëÇÏ´Â °ÍÀº ÆĞ½º¿öµå ÀÔ·ÂÀ¸·Î ÀÎÇÑ º¸¾È »ç°íÀÇ risk°¡ Ä¿Áö¹Ç·Î È¸¿øÀÇ °æ¿ì¿¡ ´ëÇØ¼­¸¸ °í·Á
+            // ëŒ“ê¸€ì„ ë‹¬ì•˜ì„ ê²½ìš°ì— ì›ê¸€ì„ ì ê·¸ëŠ” ê²ƒì€ ëŒ“ê¸€ì„ ë‹¨ íšŒì›ì˜ ì£¼ê¶Œì„ ë°•íƒˆí•˜ëŠ” ê²ƒì„
+            // ë¹„íšŒì›ì˜ ê²½ìš°ê¹Œì§€ í™•ëŒ€í•˜ëŠ” ê²ƒì€ íŒ¨ìŠ¤ì›Œë“œ ì…ë ¥ìœ¼ë¡œ ì¸í•œ ë³´ì•ˆ ì‚¬ê³ ì˜ riskê°€ ì»¤ì§€ë¯€ë¡œ íšŒì›ì˜ ê²½ìš°ì— ëŒ€í•´ì„œë§Œ ê³ ë ¤
             if ($member['mb_id']) {
                 $sql = " select count(*) as cnt from $write_table 
                           where wr_parent = '$wr_id'
@@ -122,60 +122,60 @@ if ($wr_id)
             if (!$is_owner)
             {
                 //$ss_name = "ss_secret_{$bo_table}_{$wr_id}";
-                // ÇÑ¹ø ÀĞÀº °Ô½Ã¹°ÀÇ ¹øÈ£´Â ¼¼¼Ç¿¡ ÀúÀåµÇ¾î ÀÖ°í °°Àº °Ô½Ã¹°À» ÀĞÀ» °æ¿ì´Â ´Ù½Ã ÆĞ½º¿öµå¸¦ ¹¯Áö ¾Ê½À´Ï´Ù.
-                // ÀÌ °Ô½Ã¹°ÀÌ ÀúÀåµÈ °Ô½Ã¹°ÀÌ ¾Æ´Ï¸é¼­ °ü¸®ÀÚ°¡ ¾Æ´Ï¶ó¸é
+                // í•œë²ˆ ì½ì€ ê²Œì‹œë¬¼ì˜ ë²ˆí˜¸ëŠ” ì„¸ì…˜ì— ì €ì¥ë˜ì–´ ìˆê³  ê°™ì€ ê²Œì‹œë¬¼ì„ ì½ì„ ê²½ìš°ëŠ” ë‹¤ì‹œ íŒ¨ìŠ¤ì›Œë“œë¥¼ ë¬»ì§€ ì•ŠìŠµë‹ˆë‹¤.
+                // ì´ ê²Œì‹œë¬¼ì´ ì €ì¥ëœ ê²Œì‹œë¬¼ì´ ì•„ë‹ˆë©´ì„œ ê´€ë¦¬ìê°€ ì•„ë‹ˆë¼ë©´
                 //if ("$bo_table|$write[wr_num]" != get_session("ss_secret")) 
                 if (!get_session($ss_name)) 
                     goto_url("$g4[bbs_path]/password.php?w=s&bo_table=$bo_table&wr_id=$wr_id{$qstr}");
             }
 
-            // $write[wr_num] -> $wr_id... ´ä±ÛÀÇ ±ÇÇÑÀÌ ´ñ±Û¸¸ ´Ş¸é ¸ğµÎ ´Ù ¿À´Â ¿À·ù ¼öÁ¤
+            // $write[wr_num] -> $wr_id... ë‹µê¸€ì˜ ê¶Œí•œì´ ëŒ“ê¸€ë§Œ ë‹¬ë©´ ëª¨ë‘ ë‹¤ ì˜¤ëŠ” ì˜¤ë¥˜ ìˆ˜ì •
             $ss_name = "ss_secret_{$bo_table}_{$wr_id}";
             set_session($ss_name, TRUE);
         }
     }
 
-    // ÇÑ¹ø ÀĞÀº±ÛÀº ºê¶ó¿ìÀú¸¦ ´İ±âÀü±îÁö´Â Ä«¿îÆ®¸¦ Áõ°¡½ÃÅ°Áö ¾ÊÀ½
+    // í•œë²ˆ ì½ì€ê¸€ì€ ë¸Œë¼ìš°ì €ë¥¼ ë‹«ê¸°ì „ê¹Œì§€ëŠ” ì¹´ìš´íŠ¸ë¥¼ ì¦ê°€ì‹œí‚¤ì§€ ì•ŠìŒ
     $ss_name = "ss_view_{$bo_table}_{$wr_id}";
     if (!get_session($ss_name))
     {
         sql_query(" update $write_table set wr_hit = wr_hit + 1 where wr_id = '$wr_id' ");
 
-        // ÀÚ½ÅÀÇ ±ÛÀÌ¸é Åë°ú
+        // ìì‹ ì˜ ê¸€ì´ë©´ í†µê³¼
         if ($write[mb_id] && $write[mb_id] == $member[mb_id]) {
             ;
         } else if ($is_guest && $board[bo_read_level] == 1 && $write[wr_ip] == $_SERVER['REMOTE_ADDR']) {
-            // ºñÈ¸¿øÀÌ¸é¼­ ÀĞ±â·¹º§ÀÌ 1ÀÌ°í µî·ÏµÈ ¾ÆÀÌÇÇ°¡ °°´Ù¸é ÀÚ½ÅÀÇ ±ÛÀÌ¹Ç·Î Åë°ú
+            // ë¹„íšŒì›ì´ë©´ì„œ ì½ê¸°ë ˆë²¨ì´ 1ì´ê³  ë“±ë¡ëœ ì•„ì´í”¼ê°€ ê°™ë‹¤ë©´ ìì‹ ì˜ ê¸€ì´ë¯€ë¡œ í†µê³¼
             ;
         } else {
             /*
-            // È¸¿øÀÌ»ó ±ÛÀĞ±â°¡ °¡´ÉÇÏ´Ù¸é
+            // íšŒì›ì´ìƒ ê¸€ì½ê¸°ê°€ ê°€ëŠ¥í•˜ë‹¤ë©´
             if ($board[bo_read_level] > 1) {
                 if ($member[mb_point] + $board[bo_read_point] < 0)
-                    alert("º¸À¯ÇÏ½Å Æ÷ÀÎÆ®(".number_format($member[mb_point]).")°¡ ¾ø°Å³ª ¸ğÀÚ¶ó¼­ ±ÛÀĞ±â(".number_format($board[bo_read_point]).")°¡ ºÒ°¡ÇÕ´Ï´Ù.\\n\\nÆ÷ÀÎÆ®¸¦ ¸ğÀ¸½Å ÈÄ ´Ù½Ã ±ÛÀĞ±â ÇØ ÁÖ½Ê½Ã¿À.");
+                    alert("ë³´ìœ í•˜ì‹  í¬ì¸íŠ¸(".number_format($member[mb_point]).")ê°€ ì—†ê±°ë‚˜ ëª¨ìë¼ì„œ ê¸€ì½ê¸°(".number_format($board[bo_read_point]).")ê°€ ë¶ˆê°€í•©ë‹ˆë‹¤.\\n\\ní¬ì¸íŠ¸ë¥¼ ëª¨ìœ¼ì‹  í›„ ë‹¤ì‹œ ê¸€ì½ê¸° í•´ ì£¼ì‹­ì‹œì˜¤.");
             }
             
-            // È¸¿ø¿¡°Ô¸¸ Æ÷ÀÎÆ®¸¦ insert
+            // íšŒì›ì—ê²Œë§Œ í¬ì¸íŠ¸ë¥¼ insert
             if ($member[mb_id])
-                insert_point($member[mb_id], $board[bo_read_point], "$board[bo_subject] $wr_id ±ÛÀĞ±â", $bo_table, $wr_id, 'ÀĞ±â');
+                insert_point($member[mb_id], $board[bo_read_point], "$board[bo_subject] $wr_id ê¸€ì½ê¸°", $bo_table, $wr_id, 'ì½ê¸°');
             */
-            // ±ÛÀĞ±â Æ÷ÀÎÆ®°¡ ¼³Á¤µÇ¾î ÀÖ´Ù¸é
+            // ê¸€ì½ê¸° í¬ì¸íŠ¸ê°€ ì„¤ì •ë˜ì–´ ìˆë‹¤ë©´
             if ($board[bo_read_point_lock] && $board[bo_read_point] && $member[mb_point] + $board[bo_read_point] < 0)
-                alert("º¸À¯ÇÏ½Å Æ÷ÀÎÆ®(".number_format($member[mb_point]).")°¡ ¾ø°Å³ª ¸ğÀÚ¶ó¼­ ±ÛÀĞ±â(".number_format($board[bo_read_point]).")°¡ ºÒ°¡ÇÕ´Ï´Ù.\\n\\nÆ÷ÀÎÆ®¸¦ ¸ğÀ¸½Å ÈÄ ´Ù½Ã ±ÛÀĞ±â ÇØ ÁÖ½Ê½Ã¿À.");
+                alert("ë³´ìœ í•˜ì‹  í¬ì¸íŠ¸(".number_format($member[mb_point]).")ê°€ ì—†ê±°ë‚˜ ëª¨ìë¼ì„œ ê¸€ì½ê¸°(".number_format($board[bo_read_point]).")ê°€ ë¶ˆê°€í•©ë‹ˆë‹¤.\\n\\ní¬ì¸íŠ¸ë¥¼ ëª¨ìœ¼ì‹  í›„ ë‹¤ì‹œ ê¸€ì½ê¸° í•´ ì£¼ì‹­ì‹œì˜¤.");
 
-            // È¸¿ø¿¡°Ô¸¸ Æ÷ÀÎÆ®¸¦ insert
+            // íšŒì›ì—ê²Œë§Œ í¬ì¸íŠ¸ë¥¼ insert
             if ($member[mb_id])
-                insert_point($member[mb_id], $board[bo_read_point], "$board[bo_subject] $wr_id ±ÛÀĞ±â", $bo_table, $wr_id, 'ÀĞ±â');
+                insert_point($member[mb_id], $board[bo_read_point], "$board[bo_subject] $wr_id ê¸€ì½ê¸°", $bo_table, $wr_id, 'ì½ê¸°');
             
-            // ºÒ´çÆÑ - Á¶È¸¼ö°¡ ÀÏÁ¤¼ıÀÚ ÀÌ»óÀÌ¸é ÀÎ±â±Û·Î »Ç·Î·Õ~ ±×·±µ¥, $write[wr_view]¸¦ ¾²±â ¶§¹®¿¡, ¼ıÀÚÀÇ Â÷ÀÌ°¡ 1 ³¯ ¼ö ÀÖ´Ù.
+            // ë¶ˆë‹¹íŒ© - ì¡°íšŒìˆ˜ê°€ ì¼ì •ìˆ«ì ì´ìƒì´ë©´ ì¸ê¸°ê¸€ë¡œ ë½€ë¡œë¡±~ ê·¸ëŸ°ë°, $write[wr_view]ë¥¼ ì“°ê¸° ë•Œë¬¸ì—, ìˆ«ìì˜ ì°¨ì´ê°€ 1 ë‚  ìˆ˜ ìˆë‹¤.
             $write['wr_hit2'] = $write['wr_hit'] + 1;
             if ($board[bo_list_view] > 0) {
                 if ($write[wr_hit2] > 0 && $write[wr_hit2] >= $board[bo_list_view]) {
-                    // UPDATE¸¦ ¸ÕÀúÇÏ°í ¿À·ù°¡ ¹ß»ı½Ã insert¸¦ ½ÇÇà
+                    // UPDATEë¥¼ ë¨¼ì €í•˜ê³  ì˜¤ë¥˜ê°€ ë°œìƒì‹œ insertë¥¼ ì‹¤í–‰
                     $sql = " update $g4[good_list_table] set hit = '$write[wr_hit2]' where bo_table='$bo_table' and wr_id='$wr_id' ";
                     $result = sql_query($sql, FALSE);
                     if ( mysql_affected_rows() == 0 ) {
-                        // select¸¦ ÇØ¼­ ÀÖÀ¸¸é, ÆĞ½º, ¾øÀ¸¸é insert
+                        // selectë¥¼ í•´ì„œ ìˆìœ¼ë©´, íŒ¨ìŠ¤, ì—†ìœ¼ë©´ insert
                         $sql = " insert $g4[good_list_table] ( mb_id, gr_id, bo_table, wr_id, gl_datetime, hit, wr_datetime) values ( '$write[mb_id]', '$board[gr_id]', '$bo_table', '$wr_id', '$g4[time_ymdhis]', '$write[wr_hit2]',  '$write[wr_datetime]') ";
                         $result = sql_query($sql, FALSE);
                     }
@@ -186,7 +186,7 @@ if ($wr_id)
         set_session($ss_name, TRUE);
     }
 
-    // ºÒ´çÆÑ - SEO + ³×ÀÌ¹ö À¥¸¶½ºÅÍ µµ±¸¸¦ À§ÇØ¼­ º¯°æ.
+    // ë¶ˆë‹¹íŒ© - SEO + ë„¤ì´ë²„ ì›¹ë§ˆìŠ¤í„° ë„êµ¬ë¥¼ ìœ„í•´ì„œ ë³€ê²½.
     $g4[title] =  strip_tags(conv_subject($write[wr_subject], 255)) . " :: " .   $config[cf_title];
 }
 else
@@ -194,14 +194,14 @@ else
     if ($member[mb_level] < $board[bo_list_level])
     {
         if ($member[mb_id])
-            alert("¸ñ·ÏÀ» º¼ ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.", $g4[path]);
+            alert("ëª©ë¡ì„ ë³¼ ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.", $g4[path]);
         else
-            alert("¸ñ·ÏÀ» º¼ ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.\\n\\nÈ¸¿øÀÌ½Ã¶ó¸é ·Î±×ÀÎ ÈÄ ÀÌ¿ëÇØ º¸½Ê½Ã¿À.", "$g4[bbs_path]/login.php?wr_id=$wr_id{$qstr}&url=".urlencode("$_SERVER[PHP_SELF]/$bo_table/$wr_id"));
+            alert("ëª©ë¡ì„ ë³¼ ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.\\n\\níšŒì›ì´ì‹œë¼ë©´ ë¡œê·¸ì¸ í›„ ì´ìš©í•´ ë³´ì‹­ì‹œì˜¤.", "$g4[bbs_path]/login.php?wr_id=$wr_id{$qstr}&url=".urlencode("$_SERVER[PHP_SELF]/$bo_table/$wr_id"));
     }
 
     if (!$page) $page = 1;
 
-    $g4[title] = "$group[gr_subject] > $board[bo_subject] $page ÆäÀÌÁö";
+    $g4[title] = "$group[gr_subject] > $board[bo_subject] $page í˜ì´ì§€";
 }
 
 include_once("$g4[path]/head.sub.php");
@@ -212,35 +212,35 @@ if ($width <= 100)
 else
     $width .= 'px'; 
 
-// IPº¸ÀÌ±â »ç¿ë ¿©ºÎ
+// IPë³´ì´ê¸° ì‚¬ìš© ì—¬ë¶€
 $ip = "";
 $is_ip_view = $board[bo_use_ip_view];
 if ($is_admin) {
     $is_ip_view = true;
     $ip = $write[wr_ip];
-} else // °ü¸®ÀÚ°¡ ¾Æ´Ï¶ó¸é IP ÁÖ¼Ò¸¦ °¨ÃáÈÄ º¸¿©Áİ´Ï´Ù.
-    $ip = preg_replace("/([0-9]+).([0-9]+).([0-9]+).([0-9]+)/", "\\1.¢½.\\3.\\4", $write[wr_ip]);
+} else // ê´€ë¦¬ìê°€ ì•„ë‹ˆë¼ë©´ IP ì£¼ì†Œë¥¼ ê°ì¶˜í›„ ë³´ì—¬ì¤ë‹ˆë‹¤.
+    $ip = preg_replace("/([0-9]+).([0-9]+).([0-9]+).([0-9]+)/", "\\1.â™¡.\\3.\\4", $write[wr_ip]);
 
-// ºĞ·ù »ç¿ë
+// ë¶„ë¥˜ ì‚¬ìš©
 $is_category = false;
 $category_name = "";
 if ($board[bo_use_category]) {
     $is_category = true;
-    $category_name = $write[ca_name]; // ºĞ·ù¸í
+    $category_name = $write[ca_name]; // ë¶„ë¥˜ëª…
 }
 
-// ÃßÃµ »ç¿ë
+// ì¶”ì²œ ì‚¬ìš©
 $is_good = false;
 if ($board[bo_use_good])
     $is_good = true;
 
-// ºñÃßÃµ »ç¿ë
+// ë¹„ì¶”ì²œ ì‚¬ìš©
 $is_nogood = false;
 if ($board[bo_use_nogood])
     $is_nogood = true;
 
 $admin_href = "";
-// ÃÖ°í°ü¸®ÀÚ ¶Ç´Â ±×·ì°ü¸®ÀÚ¶ó¸é
+// ìµœê³ ê´€ë¦¬ì ë˜ëŠ” ê·¸ë£¹ê´€ë¦¬ìë¼ë©´
 if ($member[mb_id] && ($is_admin == 'super' || $group[gr_admin] == $member[mb_id]))
     $admin_href = "$g4[admin_path]/board_form.php?w=u&bo_table=$bo_table";
 
@@ -248,11 +248,11 @@ if (!($board[bo_use_comment] && $cwin))
     include_once("$g4[bbs_path]/board_head.php");
 
 if (!($board[bo_use_comment] && $cwin)) {
-    // °Ô½Ã¹° ¾ÆÀÌµğ°¡ ÀÖ´Ù¸é °Ô½Ã¹° º¸±â¸¦ INCLUDE
+    // ê²Œì‹œë¬¼ ì•„ì´ë””ê°€ ìˆë‹¤ë©´ ê²Œì‹œë¬¼ ë³´ê¸°ë¥¼ INCLUDE
     if ($wr_id)
         include_once("$g4[bbs_path]/view.php");
 
-    // ÀüÃ¼¸ñ·Ïº¸ÀÌ±â »ç¿ëÀÌ "¿¹" ¶Ç´Â wr_id °ªÀÌ ¾ø´Ù¸é ¸ñ·ÏÀ» º¸ÀÓ
+    // ì „ì²´ëª©ë¡ë³´ì´ê¸° ì‚¬ìš©ì´ "ì˜ˆ" ë˜ëŠ” wr_id ê°’ì´ ì—†ë‹¤ë©´ ëª©ë¡ì„ ë³´ì„
     //if ($board[bo_use_list_view] || empty($wr_id))
     if ($member[mb_level] >= $board[bo_list_level] && $board[bo_use_list_view] || empty($wr_id))
         include_once ("./list.php");
@@ -262,13 +262,13 @@ if (!($board[bo_use_comment] && $cwin)) {
 else
     include_once("$g4[bbs_path]/view_comment.php");
 
-echo "\n<!-- »ç¿ë½ºÅ² : $board[bo_skin] -->\n";
+echo "\n<!-- ì‚¬ìš©ìŠ¤í‚¨ : $board[bo_skin] -->\n";
 
 include_once("$g4[path]/tail.sub.php");
 ?>
 
 <?
-// ³»°¡ ¹æ¹®ÇÑ °Ô½ÃÆÇ Á¤º¸¸¦ db¿¡ ±â·Ï
+// ë‚´ê°€ ë°©ë¬¸í•œ ê²Œì‹œíŒ ì •ë³´ë¥¼ dbì— ê¸°ë¡
 if ($member[mb_id]) {
     sql_query(" update $g4[my_board_table] set my_datetime = '$g4[time_ymdhis]' where mb_id = '$member[mb_id]' and bo_table = '$bo_table' ");
     if (mysql_affected_rows() == 0) 

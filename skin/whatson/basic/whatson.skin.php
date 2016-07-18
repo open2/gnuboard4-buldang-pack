@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
 $whatson_url = "$g4[bbs_path]/whatson.php?check=1&rows=30";
 ?>
@@ -24,7 +24,7 @@ var list_delete_php = "whatson_delete_all.php";
         <ul class="list-unstyled">
         <?
         if (count($list) == 0) {
-            echo "<li>³»¿ë¾ø½¿</li>";
+            echo "<li>ë‚´ìš©ì—†ìŠ´</li>";
         } else {
 
             for ($i=0; $i<count($list); $i++) {
@@ -36,13 +36,13 @@ var list_delete_php = "whatson_delete_all.php";
                     echo "<input type=checkbox name=chk[] value='$i' style='margin-top:5px;'>&nbsp;";
                 }
 
-                // ÀÌ¹Ì ÀĞÀº ±ÛÀº ¹Ù·Î »õÃ¢, ¾Æ´Ï¸é, ajax·Î ÀĞÀº°Å mark ÇÑ ÈÄ¿¡ »õÃ¢
+                // ì´ë¯¸ ì½ì€ ê¸€ì€ ë°”ë¡œ ìƒˆì°½, ì•„ë‹ˆë©´, ajaxë¡œ ì½ì€ê±° mark í•œ í›„ì— ìƒˆì°½
                 if ($list[$i][wo_status])
                     echo "<a href='" . $list[$i][url]  . "' $target_link >";
                 else
                     echo "<a href='javascript: void(0)' onclick='javascript:whatson_read(\"" . $list[$i][url] . "\", " . $list[$i][wo_id] . ");return false;'>";
 
-                // ÀÌ¹Ì ÀĞÀº ±ÛÀº È¸»öÀ¸·Î Ç¥½Ã
+                // ì´ë¯¸ ì½ì€ ê¸€ì€ íšŒìƒ‰ìœ¼ë¡œ í‘œì‹œ
                 if ($list[$i][wo_status])
                     echo "<span class='text-muted'>";
 
@@ -66,42 +66,42 @@ var list_delete_php = "whatson_delete_all.php";
   	</ul>
 
     <? if ($check == 1 && $i>0) { ?>
-        <label for=chkall><input type="checkbox" name=chkall id=chkall value='1' onclick='check_all(this.form)'>&nbsp;ÀüÃ¼¼±ÅÃ</label>&nbsp;&nbsp;
-        <input type="button" class="btn btn-default" value='¼±ÅÃ»èÁ¦' onclick="btn_check(this.form, 'delete')">
+        <label for=chkall><input type="checkbox" name=chkall id=chkall value='1' onclick='check_all(this.form)'>&nbsp;ì „ì²´ì„ íƒ</label>&nbsp;&nbsp;
+        <input type="button" class="btn btn-default" value='ì„ íƒì‚­ì œ' onclick="btn_check(this.form, 'delete')">
     <? } ?>
 
     </div>
 </div>
 </form>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <? if ($write_pages) { ?>
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
-    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ÀÌÀü°Ë»ö</a></li>"; } ?>
+    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ì´ì „ê²€ìƒ‰</a></li>"; } ?>
     <?
-    // ±âº»À¸·Î ³Ñ¾î¿À´Â ÆäÀÌÁö¸¦ ¾Æ·¡¿Í °°ÀÌ º¯È¯ÇÏ¿© ´Ù¾çÇÏ°Ô Ãâ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.
-    $write_pages = str_replace("ÀÌÀü", "<i class='fa fa-angle-left'></i>", $write_pages);
-    $write_pages = str_replace("´ÙÀ½", "<i class='fa fa-angle-right'></i>", $write_pages);
-    $write_pages = str_replace("Ã³À½", "<i class='fa fa-angle-double-left'></i>", $write_pages);
-    $write_pages = str_replace("¸Ç³¡", "<i class='fa fa-angle-double-right'></i>", $write_pages);
+    // ê¸°ë³¸ìœ¼ë¡œ ë„˜ì–´ì˜¤ëŠ” í˜ì´ì§€ë¥¼ ì•„ë˜ì™€ ê°™ì´ ë³€í™˜í•˜ì—¬ ë‹¤ì–‘í•˜ê²Œ ì¶œë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+    $write_pages = str_replace("ì´ì „", "<i class='fa fa-angle-left'></i>", $write_pages);
+    $write_pages = str_replace("ë‹¤ìŒ", "<i class='fa fa-angle-right'></i>", $write_pages);
+    $write_pages = str_replace("ì²˜ìŒ", "<i class='fa fa-angle-double-left'></i>", $write_pages);
+    $write_pages = str_replace("ë§¨ë", "<i class='fa fa-angle-double-right'></i>", $write_pages);
     ?>
     <?=$write_pages?>
-    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ÀÌÈÄ°Ë»ö</a></li>"; } ?>
+    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ì´í›„ê²€ìƒ‰</a></li>"; } ?>
     </ul>
 </div>
 <div class="center-block visible-xs">
     <ul class="pagination">
-    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ÀÌÀü°Ë»ö</a></li>"; } ?>
+    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ì´ì „ê²€ìƒ‰</a></li>"; } ?>
     <?
-    // ±âº»À¸·Î ³Ñ¾î¿À´Â ÆäÀÌÁö¸¦ ¾Æ·¡¿Í °°ÀÌ º¯È¯ÇÏ¿© ´Ù¾çÇÏ°Ô Ãâ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.
-    $write_pages_xs = str_replace("ÀÌÀü", "<i class='fa fa-angle-left'></i>", $write_pages_xs);
-    $write_pages_xs = str_replace("´ÙÀ½", "<i class='fa fa-angle-right'></i>", $write_pages_xs);
-    $write_pages_xs = str_replace("Ã³À½", "<i class='fa fa-angle-double-left'></i>", $write_pages_xs);
-    $write_pages_xs = str_replace("¸Ç³¡", "<i class='fa fa-angle-double-right'></i>", $write_pages_xs);
+    // ê¸°ë³¸ìœ¼ë¡œ ë„˜ì–´ì˜¤ëŠ” í˜ì´ì§€ë¥¼ ì•„ë˜ì™€ ê°™ì´ ë³€í™˜í•˜ì—¬ ë‹¤ì–‘í•˜ê²Œ ì¶œë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+    $write_pages_xs = str_replace("ì´ì „", "<i class='fa fa-angle-left'></i>", $write_pages_xs);
+    $write_pages_xs = str_replace("ë‹¤ìŒ", "<i class='fa fa-angle-right'></i>", $write_pages_xs);
+    $write_pages_xs = str_replace("ì²˜ìŒ", "<i class='fa fa-angle-double-left'></i>", $write_pages_xs);
+    $write_pages_xs = str_replace("ë§¨ë", "<i class='fa fa-angle-double-right'></i>", $write_pages_xs);
     ?>
     <?=$write_pages_xs?>
-    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ÀÌÈÄ°Ë»ö</a></li>"; } ?>
+    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ì´í›„ê²€ìƒ‰</a></li>"; } ?>
     </ul>
 </div>
 <? } ?>

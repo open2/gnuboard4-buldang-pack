@@ -1,15 +1,15 @@
 <?
-// ¼³¹®Á¶»ç ±âÅ¸ÀÇ°ß ÀÔ·Â½Ã °ü¸®ÀÚ²² º¸³»´Â ¸ŞÀÏÀ» ¼öÁ¤ÇÏ°í ½ÍÀ¸½Ã´Ù¸é ÀÌ ÆÄÀÏÀ» ¼öÁ¤ÇÏ½Ê½Ã¿À. 
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+// ì„¤ë¬¸ì¡°ì‚¬ ê¸°íƒ€ì˜ê²¬ ì…ë ¥ì‹œ ê´€ë¦¬ìê»˜ ë³´ë‚´ëŠ” ë©”ì¼ì„ ìˆ˜ì •í•˜ê³  ì‹¶ìœ¼ì‹œë‹¤ë©´ ì´ íŒŒì¼ì„ ìˆ˜ì •í•˜ì‹­ì‹œì˜¤. 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=<?=$g4[charset]?>">
-<title>¼³¹®Á¶»ç ±âÅ¸ÀÇ°ß ¸ŞÀÏ</title>
+<title>ì„¤ë¬¸ì¡°ì‚¬ ê¸°íƒ€ì˜ê²¬ ë©”ì¼</title>
 </head>
 
 <style>
-body, th, td, form, input, select, text, textarea, caption { font-size: 12px; font-family:±¼¸²;}
+body, th, td, form, input, select, text, textarea, caption { font-size: 12px; font-family:êµ´ë¦¼;}
 .line {border: 1px solid #868F98;}
 </style>
 
@@ -30,10 +30,10 @@ body, th, td, form, input, select, text, textarea, caption { font-size: 12px; fo
             <td>
                 <table width="500" border="0" cellspacing="0" cellpadding="4">
                 <tr> 
-                    <td height="25" bgcolor=#F7F1D8>Á¦¸ñ : <?=$subject?></td>
+                    <td height="25" bgcolor=#F7F1D8>ì œëª© : <?=$subject?></td>
                 </tr>
                 <tr> 
-                    <td height="25" bgcolor=#F7F1D8>°Ô½ÃÀÚ : <?=$name?> <?=$mb_id?></td>
+                    <td height="25" bgcolor=#F7F1D8>ê²Œì‹œì : <?=$name?> <?=$mb_id?></td>
                 </tr>
                 </table>
                 <p>

@@ -1,15 +1,15 @@
 <?
-// °Ô½Ã¹° ÀÔ·Â½Ã °Ô½ÃÀÚ, °ü¸®ÀÚ¿¡°Ô µå¸®´Â ¸ŞÀÏÀ» ¼öÁ¤ÇÏ°í ½ÍÀ¸½Ã´Ù¸é ÀÌ ÆÄÀÏÀ» ¼öÁ¤ÇÏ½Ê½Ã¿À.
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+// ê²Œì‹œë¬¼ ì…ë ¥ì‹œ ê²Œì‹œì, ê´€ë¦¬ìì—ê²Œ ë“œë¦¬ëŠ” ë©”ì¼ì„ ìˆ˜ì •í•˜ê³  ì‹¶ìœ¼ì‹œë‹¤ë©´ ì´ íŒŒì¼ì„ ìˆ˜ì •í•˜ì‹­ì‹œì˜¤.
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=<?=$g4[charset]?>">
-<title><?=$wr_subject?> ¸ŞÀÏ</title>
+<title><?=$wr_subject?> ë©”ì¼</title>
 </head>
 
 <style>
-body, th, td, form, input, select, text, textarea, caption { font-size: 12px; font-family:±¼¸²;}
+body, th, td, form, input, select, text, textarea, caption { font-size: 12px; font-family:êµ´ë¦¼;}
 .line {border: 1px solid #868F98;}
 </style>
 
@@ -30,14 +30,14 @@ body, th, td, form, input, select, text, textarea, caption { font-size: 12px; fo
             <td>
                 <table width="500" border="0" cellspacing="0" cellpadding="4">
                             <tr> 
-                                <td width="10%" height="25" bgcolor=#F7F1D8>Á¦¸ñ</td>
+                                <td width="10%" height="25" bgcolor=#F7F1D8>ì œëª©</td>
                                 <td width="90%" bgcolor=#FBF7E7><?=$wr_subject?></td>
                             </tr>
                             <tr bgcolor="#FFFFFF"> 
                                 <td height="2" colspan="2"></td>
                             </tr>
                             <tr> 
-                                <td height="25" bgcolor=#F7F1D8>°Ô½ÃÀÚ</td>
+                                <td height="25" bgcolor=#F7F1D8>ê²Œì‹œì</td>
                                 <td bgcolor=#FBF7E7><?=$wr_name?></td>
                             </tr>
                         </table>
@@ -53,7 +53,7 @@ body, th, td, form, input, select, text, textarea, caption { font-size: 12px; fo
                                 <td height="2" bgcolor="#E0E0E0" align="center"></td>
                             </tr>
                             <tr> 
-                                <td height="25" bgcolor="#EDEDED" align="center">È¨ÆäÀÌÁö¿¡¼­µµ °Ô½Ã¹°À» È®ÀÎÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.[<a href='<?=$link_url?>'>¹Ù·Î°¡±â</a>]</td>
+                                <td height="25" bgcolor="#EDEDED" align="center">í™ˆí˜ì´ì§€ì—ì„œë„ ê²Œì‹œë¬¼ì„ í™•ì¸í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.[<a href='<?=$link_url?>'>ë°”ë¡œê°€ê¸°</a>]</td>
                             </tr>
                         </table>
             </td>

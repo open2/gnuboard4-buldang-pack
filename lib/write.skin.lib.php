@@ -1,21 +1,21 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-// ³²¼º/¿©¼ºÀÌ bo_sex ÇÊµå¿¡ M/F·Î µî·ÏµÈ °æ¿ì¿¡¸¸ °Ô½ÃÆÇÀ» Á¢±ÙÀ» Çã¿ë
+// ë‚¨ì„±/ì—¬ì„±ì´ bo_sex í•„ë“œì— M/Fë¡œ ë“±ë¡ëœ ê²½ìš°ì—ë§Œ ê²Œì‹œíŒì„ ì ‘ê·¼ì„ í—ˆìš©
 check_bo_sex();
 
-// ÀÏº° ±Û¾²±â Á¦ÇÑ - aÀÏµ¿¾È bÈ¸ ÀÌ»ó ±Û¾²±â¸¦ ±İÁöÇÕ´Ï´Ù. a,b|c,d ¿Í °°ÀÌ ÀÔ·ÂÇØÁÖ¼¼¿ä
+// ì¼ë³„ ê¸€ì“°ê¸° ì œí•œ - aì¼ë™ì•ˆ bíšŒ ì´ìƒ ê¸€ì“°ê¸°ë¥¼ ê¸ˆì§€í•©ë‹ˆë‹¤. a,b|c,d ì™€ ê°™ì´ ì…ë ¥í•´ì£¼ì„¸ìš”
 $bo_day_nowrite = $board[bo_day_nowrite];
 
 if ($w=="" && !$is_admin && $bo_day_nowrite) {
 
-     // °Ô½ÃÆÇ Å×ÀÌºí ÀüÃ¼ÀÌ¸§
+     // ê²Œì‹œíŒ í…Œì´ë¸” ì „ì²´ì´ë¦„
     $tmp_write_table = $g4['write_prefix'] . $bo_table;
 
-    // »ç¿ëÀÚ ¾ÆÀÌµğ
+    // ì‚¬ìš©ì ì•„ì´ë””
     $mb_id = $member[mb_id];
 
-    // $bo_day_nowrite¸¦ explode ÇÕ´Ï´Ù.
+    // $bo_day_nowriteë¥¼ explode í•©ë‹ˆë‹¤.
     $day_array = explode("|", trim($bo_day_nowrite));
     foreach ($day_array as $key => $val) {
         $res = explode(",", trim($val));
@@ -25,22 +25,22 @@ if ($w=="" && !$is_admin && $bo_day_nowrite) {
         }
     }
 
-    // ¹è¿­À» Á¤·ÄÇÏ±â (days °ª ±âÁØÀ¸·Î)
+    // ë°°ì—´ì„ ì •ë ¬í•˜ê¸° (days ê°’ ê¸°ì¤€ìœ¼ë¡œ)
     array_multisort($day2_days, $day2_count);
 
-    // ÀÔ·ÂµÈ ¹è¿­ÀÇ °¹¼ö
+    // ì…ë ¥ëœ ë°°ì—´ì˜ ê°¯ìˆ˜
     $day_array_count = count($day2_count);
 
-    // ÃÖ´ë³¯Â¥
+    // ìµœëŒ€ë‚ ì§œ
     $max_days = $day2_days[$day_array_count-1];
 
-    // sortµÇ¸é¼­ ÈåÆ®·¯Áø key °ªÀ» ´Ù½Ã ÁöÁ¤ÇØÁÖ±â
+    // sortë˜ë©´ì„œ ííŠ¸ëŸ¬ì§„ key ê°’ì„ ë‹¤ì‹œ ì§€ì •í•´ì£¼ê¸°
     for ($i=0; $i < $day_array_count; $i++) {
         $day2_days2[$day2_days[$i]] = $day2_days[$i];
         $day2_count2[$day2_days[$i]] = $day2_count[$i];
     }
 
-    // ±Û¾²±â Á¦ÇÑ¿¡ °É¸®´ÂÁö È®ÀÎÇØ º¾´Ï´Ù.
+    // ê¸€ì“°ê¸° ì œí•œì— ê±¸ë¦¬ëŠ”ì§€ í™•ì¸í•´ ë´…ë‹ˆë‹¤.
     $sql = " SELECT to_days(now())-to_days(wr_datetime) AS t_diff, count( * ) AS cnt, date_format( wr_datetime, '%Y-%m-%d' ) 
                FROM `$tmp_write_table` 
               WHERE mb_id = '$mb_id' 
@@ -52,17 +52,17 @@ if ($w=="" && !$is_admin && $bo_day_nowrite) {
     $result = sql_query($sql);
 
     if ($result && mysql_num_rows($result)) {
-        // °á°ú°ªÀ» ¹è¿­¿¡ ³Ö½À´Ï´Ù
+        // ê²°ê³¼ê°’ì„ ë°°ì—´ì— ë„£ìŠµë‹ˆë‹¤
         for($i=0; $row = sql_fetch_array($result); $i++) {
             $day_result[$row[t_diff]] = $row[cnt];
         }
     
-        // Á¶°ÇÀ» ÃæÁ·ÇÏ´ÂÁö check
+        // ì¡°ê±´ì„ ì¶©ì¡±í•˜ëŠ”ì§€ check
         $sum = 0;
         for($i=0; $i <= $max_days; $i++) {
             $sum += $day_result[$i];
             if ($day2_days2[$i] && $day2_count2[$i] && $sum >= $day2_count2[$i]) {
-                alert("{$i}ÀÏ¿¡ $day2_count2[$i]°³ ÀÌ»óÀÇ ±ÛÀ» ÀÛ¼ºÇÒ ¼ö ¾ø½À´Ï´Ù. ¿î¿µÀÚ¿¡°Ô ¹®ÀÇ ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.");
+                alert("{$i}ì¼ì— $day2_count2[$i]ê°œ ì´ìƒì˜ ê¸€ì„ ì‘ì„±í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìš´ì˜ìì—ê²Œ ë¬¸ì˜ í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.");
             }
         }
     }

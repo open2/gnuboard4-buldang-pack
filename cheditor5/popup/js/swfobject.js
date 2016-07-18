@@ -685,8 +685,8 @@ var swfobject = function() {
 						callbackObj.ref = obj;
 					}
 					else if (xiSwfUrlStr) { // show Adobe Express Install
-						if (confirm("Adobe Flash Player "+swfVersionStr+" ÀÌ»ó ¹öÀüÀÌ ÇÊ¿äÇÕ´Ï´Ù.\nCHEditor´Â ÀÚµ¿À¸·Î Flash Player¸¦ ¼³Ä¡ÇÏÁö ¾Ê½À´Ï´Ù.\n" +
-							"Adobe Flash Player ´Ù¿î·Îµå À¥»çÀÌÆ®¸¦ ¹æ¹®ÇÏ½Ã°Ú½À´Ï±î?")) {
+						if (confirm("Adobe Flash Player "+swfVersionStr+" ì´ìƒ ë²„ì „ì´ í•„ìš”í•©ë‹ˆë‹¤.\nCHEditorëŠ” ìë™ìœ¼ë¡œ Flash Playerë¥¼ ì„¤ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.\n" +
+							"Adobe Flash Player ë‹¤ìš´ë¡œë“œ ì›¹ì‚¬ì´íŠ¸ë¥¼ ë°©ë¬¸í•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
 								window.open(xiSwfUrlStr);
 						}
 						return;

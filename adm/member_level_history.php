@@ -43,11 +43,11 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if (!$page) $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if (!$page) $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
-// ·¹º§¾÷ È½¼ö
+// ë ˆë²¨ì—… íšŸìˆ˜
 $sql = " select count(*) as cnt
           $sql_common
           $sql_search
@@ -55,9 +55,9 @@ $sql = " select count(*) as cnt
 $result = sql_fetch($sql);
 $levelup_count = $result['cnt'];
 
-$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>ì²˜ìŒ</a>";
 
-$g4[title] = "È¸¿øµî¾÷°ü¸®";
+$g4[title] = "íšŒì›ë“±ì—…ê´€ë¦¬";
 include_once("./admin.head.php");
 
 $sql = " select *
@@ -74,17 +74,17 @@ $colspan = 6;
 <form name=fsearch method=get>
 <tr>
     <td width=50% align=left><?=$listall?> 
-        (ÃÑ·¹º§¾÷°Ç¼ö : <?=number_format($total_count)?>,
-        <a href='?sst=id&sod=desc&sfl=from_level&stx=' title='·¹º§¾÷µÈ È¸¿ø'><font color=orange>·¹º§¾÷ : <?=number_format($levelup_count)?></font></a>, 
-        <a href='?sst=id&sod=desc&sfl=to_level&stx=' title='·¹º§´Ù¿îµÈ È¸¿ø'><font color=crimson>·¹º§´Ù¿î : <?=number_format($total_count - $levelup_count)?></font></a>)
+        (ì´ë ˆë²¨ì—…ê±´ìˆ˜ : <?=number_format($total_count)?>,
+        <a href='?sst=id&sod=desc&sfl=from_level&stx=' title='ë ˆë²¨ì—…ëœ íšŒì›'><font color=orange>ë ˆë²¨ì—… : <?=number_format($levelup_count)?></font></a>, 
+        <a href='?sst=id&sod=desc&sfl=to_level&stx=' title='ë ˆë²¨ë‹¤ìš´ëœ íšŒì›'><font color=crimson>ë ˆë²¨ë‹¤ìš´ : <?=number_format($total_count - $levelup_count)?></font></a>)
     </td>
     <td width=50% align=right>
         <select name=sfl class=cssfl>
             <option value='from_level'>From Level</option>
             <option value='to_level'>To Level</option>
-            <option value='mb_id'>È¸¿ø¾ÆÀÌµğ</option>
+            <option value='mb_id'>íšŒì›ì•„ì´ë””</option>
         </select>
-        <input type=text name=stx class=ed required itemname='°Ë»ö¾î' value='<? echo $stx ?>'>
+        <input type=text name=stx class=ed required itemname='ê²€ìƒ‰ì–´' value='<? echo $stx ?>'>
         <input type=image src='<?=$g4[admin_path]?>/img/btn_search.gif' align=absmiddle></td>
 </tr>
 </form>
@@ -108,10 +108,10 @@ $colspan = 6;
 <tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
 <tr class='bgcol1 bold col1 ht center'>
     <td></td>
-    <td><?=subject_sort_link('mb_id')?>È¸¿ø¾ÆÀÌµğ</a></td>
-    <td><?=subject_sort_link('from_level')?>From ·¹º§</a></td>
-    <td><?=subject_sort_link('to_level')?>To ·¹º§</a></td>
-    <td><?=subject_sort_link('level_datetime', '', 'desc')?>³¯Â¥</a></td>
+    <td><?=subject_sort_link('mb_id')?>íšŒì›ì•„ì´ë””</a></td>
+    <td><?=subject_sort_link('from_level')?>From ë ˆë²¨</a></td>
+    <td><?=subject_sort_link('to_level')?>To ë ˆë²¨</a></td>
+    <td><?=subject_sort_link('level_datetime', '', 'desc')?>ë‚ ì§œ</a></td>
     <td></td>
 </tr>
 <tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
@@ -132,7 +132,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='$colspan' align=center height=100 class=contentbg>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='$colspan' align=center height=100 class=contentbg>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 
 echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
 echo "</table>";

@@ -6,7 +6,7 @@ auth_check($auth[$sub_menu], "r");
 
 $token = get_token();
 
-$g4[title] = "È¸¿ø±ÇÇÑ¸í°ü¸®";
+$g4[title] = "íšŒì›ê¶Œí•œëª…ê´€ë¦¬";
 include_once("./admin.head.php");
 
 $sql = " select * from $g4[member_group_table] order by gl_id asc";
@@ -17,7 +17,7 @@ var list_update_php = "memberGroup_list_update.php";
 </script>
 
 <div>
-    È¸¿ø ·¹º§(±ÇÇÑ)¸íÀ» ¼³Á¤ÇÕ´Ï´Ù.
+    íšŒì› ë ˆë²¨(ê¶Œí•œ)ëª…ì„ ì„¤ì •í•©ë‹ˆë‹¤.
 </div>
 
 <form name=fmemberG_list method=post role="form" class="form-inline">
@@ -28,8 +28,8 @@ var list_update_php = "memberGroup_list_update.php";
 <colgroup width="">
 <tr class='success'>
     <td><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
-    <td>È¸¿ø·¹º§</td>
-    <td>·¹º§¸í</td>
+    <td>íšŒì›ë ˆë²¨</td>
+    <td>ë ˆë²¨ëª…</td>
 </tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) {
@@ -41,7 +41,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         <td title='<?=$row[gl_id]?>'><?=$row[gl_id]?></td>
         <td>
             <input class="form-control" type='text' name='groupName_[<?=$i?>]' value='<?=$row[gl_name]?>'>
-            <a class="btn btn-default" href="#" onclick="member_group_update('<?=$row[gl_name]?>' , '<?=$row[gl_id]?>' ,'<?=$i?>');">¼öÁ¤</a>
+            <a class="btn btn-default" href="#" onclick="member_group_update('<?=$row[gl_name]?>' , '<?=$row[gl_id]?>' ,'<?=$i?>');">ìˆ˜ì •</a>
         </td>
     </tr>
 <?
@@ -50,7 +50,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 </table>
 
 <div>
-    <input type=button class='btn btn-default' value='¼±ÅÃ¼öÁ¤' onclick="btn_check(this.form, 'update')">
+    <input type=button class='btn btn-default' value='ì„ íƒìˆ˜ì •' onclick="btn_check(this.form, 'update')">
 </div>
 
 </form>

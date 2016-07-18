@@ -2,17 +2,17 @@
 include_once("./_common.php");
 
 if (!$is_member)
-    alert_only("·Î±×ÀÎ ÈÄ ÀÌ¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+    alert_only("ë¡œê·¸ì¸ í›„ ì´ìš©í•˜ì‹¤ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.");
 
 if (!$bo_table)
-    alert_only("bo_table ÀÌ ¾ø½À´Ï´Ù.");
+    alert_only("bo_table ì´ ì—†ìŠµë‹ˆë‹¤.");
 
 $row = sql_fetch("select * from $g4[my_menu_table] where bo_table = '$bo_table' and mb_id = '$member[mb_id]'");
 if ($row)
-    alert_only("ÀÌ¹Ì µî·ÏµÇ¾î ÀÖ½À´Ï´Ù.");
+    alert_only("ì´ë¯¸ ë“±ë¡ë˜ì–´ ìžˆìŠµë‹ˆë‹¤.");
 
 sql_query("insert into $g4[my_menu_table] set mb_id = '$member[mb_id]', bo_table = '$bo_table'");
 
-alert_only("\'$board[bo_subject]\'¸¦ µî·ÏÇÏ¿´½À´Ï´Ù.");
+alert_only("\'$board[bo_subject]\'ë¥¼ ë“±ë¡í•˜ì˜€ìŠµë‹ˆë‹¤.");
 
 ?>

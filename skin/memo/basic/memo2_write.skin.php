@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 
 <div class="container">
@@ -8,12 +8,12 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
 <?if ($write_header_msg) echo "&nbsp;/&nbsp;<strong>$write_header_msg</strong>"?>
 </span>
 <div class="btn-group pull-right">
-    <a class="btn btn-default" href="javascript:popup_id('fmemoform','<?=$ss_id?>',200,500);">È¸¿ø°Ë»ö</a>
+    <a class="btn btn-default" href="javascript:popup_id('fmemoform','<?=$ss_id?>',200,500);">íšŒì›ê²€ìƒ‰</a>
 </div>
 <div class="pull-right">
     <? if (count($my_friend) > 0) { ?>
     <select class="form-control pull-right" class=quick_move onchange="friend_add(this.value)" >
-        <option value="">³ªÀÇ Ä£±¸µé</option>
+        <option value="">ë‚˜ì˜ ì¹œêµ¬ë“¤</option>
         <option value="">-------------------------</option>
         <? for ($i=0; $i<count($my_friend); $i++) {?>
             <option value="<?=$my_friend[$i][fr_id]?>"><?=$my_friend[$i][fr_id]?>-<?=cut_str($my_friend[$i][mb_nick],10)?></option>
@@ -28,20 +28,20 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
 <div class="container">
 
 <? $ss_id = 'me_recv_mb_id' ?>
-<? if ($option == 'notice') { // °øÁöÂÊÁöÀÎ °æ¿ì ?>
+<? if ($option == 'notice') { // ê³µì§€ìª½ì§€ì¸ ê²½ìš° ?>
     <? include_once("$g4[admin_path]/admin.lib.php")?>
-    <input type="hidden" name="<?=$ss_id?>" id="<?=$ss_id?>" required="required" itemname="¹Ş´Â È¸¿ø¾ÆÀÌµğ" value="<?=$me_recv_mb_id?>" placeholder="receive member id"/>
-    È¸¿ø·¹º§
+    <input type="hidden" name="<?=$ss_id?>" id="<?=$ss_id?>" required="required" itemname="ë°›ëŠ” íšŒì›ì•„ì´ë””" value="<?=$me_recv_mb_id?>" placeholder="receive member id"/>
+    íšŒì›ë ˆë²¨
     <?=get_member_level_select('notice_level_1', 2, 10, 2) ?> - <?=get_member_level_select('notice_level_2', 2, 10, 10) ?>
 <? } else { ?>
     <div class="input-group">
-        <span class="input-group-addon">¼ö½Å</span>
-        <input class="form-control" type="text" name="<?=$ss_id?>" id="<?=$ss_id?>" required="required" itemname="¹Ş´Â È¸¿ø¾ÆÀÌµğ" value="<?=$me_recv_mb_id?>" placeholder="receive member id"/>
+        <span class="input-group-addon">ìˆ˜ì‹ </span>
+        <input class="form-control" type="text" name="<?=$ss_id?>" id="<?=$ss_id?>" required="required" itemname="ë°›ëŠ” íšŒì›ì•„ì´ë””" value="<?=$me_recv_mb_id?>" placeholder="receive member id"/>
     </div>
 <? } ?>
 
 <div class="input-group">
-    <span class="input-group-addon">Á¦¸ñ</span>
+    <span class="input-group-addon">ì œëª©</span>
     <input class="form-control" type="text" name="me_subject" id="me_subject" required="required" value='<?=$subject?>' placeholder="subject">
 </div>
 
@@ -49,11 +49,11 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
 <? if ($is_dhtml_editor) { ?>
     <input type=hidden value="html1" name="html">
     <?
-    // cheditor¸¦ ¾²±â À§ÇÑ ¼³Á¤
+    // cheditorë¥¼ ì“°ê¸° ìœ„í•œ ì„¤ì •
     include_once("$g4[path]/lib/cheditor4.lib.php");
     echo "<script type='text/javascript' src='$g4[cheditor4_path]/cheditor.js?v=$g4[cheditor_ver]'></script>";
     echo cheditor1('wr_content', '100%', '300px');
-    // cheditor ÆíÁı±â ¸Ş´ºÀÇ ÀÏºÎ¸¦ disable
+    // cheditor í¸ì§‘ê¸° ë©”ë‰´ì˜ ì¼ë¶€ë¥¼ disable
     ?>
     <script type='text/javascript'>
     ed_wr_content.config.usePreview = false;
@@ -77,11 +77,11 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
     <?
     echo cheditor2('wr_content', $content);
 } else { ?>
-    <textarea class="form-control" name='wr_content' id='wr_content' rows=15 style='width:100%;' required itemname='³»¿ë' tabindex=1><?=$content?></textarea>
+    <textarea class="form-control" name='wr_content' id='wr_content' rows=15 style='width:100%;' required itemname='ë‚´ìš©' tabindex=1><?=$content?></textarea>
 <? } ?>
 </div>
 
-<!-- ÆÄÀÏÃ·ºÎÇÏ±â-->
+<!-- íŒŒì¼ì²¨ë¶€í•˜ê¸°-->
 <? if ($config['cf_memo_use_file']) { ?>
 <div>
     <? if ($memo_dir_msg) {
@@ -123,7 +123,7 @@ function fmemoform_submit(f) {
     <?
     if ($is_dhtml_editor) {
         echo cheditor3('wr_content');
-        echo "if (!document.getElementById('tx_wr_content').value) { alert('³»¿ëÀ» ÀÔ·ÂÇÏ½Ê½Ã¿À.'); return; } ";
+        echo "if (!document.getElementById('tx_wr_content').value) { alert('ë‚´ìš©ì„ ì…ë ¥í•˜ì‹­ì‹œì˜¤.'); return; } ";
     }
     ?>
 
@@ -140,7 +140,7 @@ function fmemoform_submit(f) {
 
 function friend_add(fr_id)
 {
-  if (fr_id == "") // fr_id °ªÀÌ ¾øÀ¸¸é return
+  if (fr_id == "") // fr_id ê°’ì´ ì—†ìœ¼ë©´ return
     return;
     
   if (document.fmemoform.<?=$ss_id?>.value.length > 0) {

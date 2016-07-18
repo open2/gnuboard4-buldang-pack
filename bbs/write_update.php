@@ -1,34 +1,34 @@
 <?
 include_once("./_common.php");
 
-$g4[title] = $wr_subject . "±ÛÀÔ·Â";
+$g4[title] = $wr_subject . "ê¸€ì…ë ¥";
 
 // 090710
 /*
 if (substr_count($wr_content, "&#") > 50) {
-    alert("³»¿ë¿¡ ¿Ã¹Ù¸£Áö ¾ÊÀº ÄÚµå°¡ ´Ù¼ö Æ÷ÇÔµÇ¾î ÀÖ½À´Ï´Ù.");
+    alert("ë‚´ìš©ì— ì˜¬ë°”ë¥´ì§€ ì•Šì€ ì½”ë“œê°€ ë‹¤ìˆ˜ í¬í•¨ë˜ì–´ ìˆìŠµë‹ˆë‹¤.");
     exit;
 }
 */
 
-// ÀÚµ¿µî·Ï¹æÁö °Ë»ç - ºñÈ¸¿øÀÇ °æ¿ì¸¸
+// ìë™ë“±ë¡ë°©ì§€ ê²€ì‚¬ - ë¹„íšŒì›ì˜ ê²½ìš°ë§Œ
 if (!$is_member) {
     if ($w=='' || $w=='r') {
         if (chk_recaptcha() == false)
-            alert ('½ºÆÔÂ÷´ÜÄÚµå°¡ Æ²·È½À´Ï´Ù.', $goto_url);
+            alert ('ìŠ¤íŒ¸ì°¨ë‹¨ì½”ë“œê°€ í‹€ë ¸ìŠµë‹ˆë‹¤.', $goto_url);
     }
 }
 
-// °°Àº ±ÛÀ» ¿©±âÀú±â °Ô½ÃÆÇ¿¡ Æß ÇÏ½Ã´Â ºĞµéÀ» À§ÇØ¼­. µÚ¿¡¼­ ¾²±â ³¡³½ÈÄ¿¡ ÀúÀåÇÑ °Í°ú ºñ±³
+// ê°™ì€ ê¸€ì„ ì—¬ê¸°ì €ê¸° ê²Œì‹œíŒì— íŒ í•˜ì‹œëŠ” ë¶„ë“¤ì„ ìœ„í•´ì„œ. ë’¤ì—ì„œ ì“°ê¸° ëë‚¸í›„ì— ì €ì¥í•œ ê²ƒê³¼ ë¹„êµ
 if ($w == "" || $w == "r") {
     if ($is_admin == "") {
         $tmp_subject = md5($_SERVER[REMOTE_ADDR].$wr_subject);
         if ($tmp_subject == $_SESSION['ss_wr_subject'])
-            alert("³»¿ë¿¡ ¿Ã¹Ù¸£Áö ¾ÊÀº ÄÚµå°¡ ´Ù¼ö Æ÷ÇÔµÇ¾î ÀÖ½À´Ï´Ù.");
+            alert("ë‚´ìš©ì— ì˜¬ë°”ë¥´ì§€ ì•Šì€ ì½”ë“œê°€ ë‹¤ìˆ˜ í¬í•¨ë˜ì–´ ìˆìŠµë‹ˆë‹¤.");
     }
 }
 
-// ºÒ´çÆÑ - ÀÌÀü¿¡ ÀúÀåµÈ °ÍÀº ½Ï~ Áö¿ì°í, ÀÓ½ÃÀúÀå DB¿¡ ÀúÀåÀ» ÇØÁİ´Ï´Ù.
+// ë¶ˆë‹¹íŒ© - ì´ì „ì— ì €ì¥ëœ ê²ƒì€ ì‹¹~ ì§€ìš°ê³ , ì„ì‹œì €ì¥ DBì— ì €ì¥ì„ í•´ì¤ë‹ˆë‹¤.
 $ss_tempsave = $_SESSION[ss_tempsave];
 if ($ss_tempsave) {
     //$sql = " delete from $g4[tempsave_table] where wr_session='$ss_tempsave' ";
@@ -71,7 +71,7 @@ $stmt->bindParam(":ss_tempsave", $ss_tempsave);
 $result = pdo_query($stmt, false);
 
 
-// ÀÓ½Ã DB º¹±¸¸¦ À§ÇØ¼­ µ¹¾Æ°¥ urlÀ» Á¤ÀÇÇØ Áİ´Ï´Ù.
+// ì„ì‹œ DB ë³µêµ¬ë¥¼ ìœ„í•´ì„œ ëŒì•„ê°ˆ urlì„ ì •ì˜í•´ ì¤ë‹ˆë‹¤.
 if ($w == "r")
     $goto_url = "$g4[bbs_path]/write.php?bo_table=$bo_table&w=r&wr_id=$wr_id";
 else if ($w == "u")
@@ -85,13 +85,13 @@ if (file_exists("$board_skin_path/write_update.head.skin.php"))
 /*
 $filters = explode(",", $config[cf_filter]);
 for ($i=0; $i<count($filters); $i++) {
-    $s = trim($filters[$i]); // ÇÊÅÍ´Ü¾îÀÇ ¾ÕµÚ °ø¹éÀ» ¾ø¾Ú
+    $s = trim($filters[$i]); // í•„í„°ë‹¨ì–´ì˜ ì•ë’¤ ê³µë°±ì„ ì—†ì•°
     if (stristr($wr_subject, $s)) {
-        alert("Á¦¸ñ¿¡ ±İÁö´Ü¾î(\'{$s}\')°¡ Æ÷ÇÔµÇ¾î ÀÖ½À´Ï´Ù.");
+        alert("ì œëª©ì— ê¸ˆì§€ë‹¨ì–´(\'{$s}\')ê°€ í¬í•¨ë˜ì–´ ìˆìŠµë‹ˆë‹¤.");
         exit;
     }
     if (stristr($wr_content, $s)) {
-        alert("³»¿ë¿¡ ±İÁö´Ü¾î(\'{$s}\')°¡ Æ÷ÇÔµÇ¾î ÀÖ½À´Ï´Ù.");
+        alert("ë‚´ìš©ì— ê¸ˆì§€ë‹¨ì–´(\'{$s}\')ê°€ í¬í•¨ë˜ì–´ ìˆìŠµë‹ˆë‹¤.");
         exit;
     }
 }
@@ -100,20 +100,20 @@ for ($i=0; $i<count($filters); $i++) {
 if($board['bo_use_category']) {
     $ca_name = trim($_POST['ca_name']);
     if(!$ca_name) {
-            alert("ºĞ·ù¸¦ ¼±ÅÃÇÏ¼¼¿ä");
+            alert("ë¶„ë¥˜ë¥¼ ì„ íƒí•˜ì„¸ìš”");
     } else {
-        $categories = array_map('trim', explode("|", $board['bo_category_list'].($is_admin ? '|°øÁö' : '')));
+        $categories = array_map('trim', explode("|", $board['bo_category_list'].($is_admin ? '|ê³µì§€' : '')));
         if(!empty($categories) && !in_array($ca_name, $categories))
-            alert("ºĞ·ù¸¦ ¿Ã¹Ù¸£°Ô ÀÔ·ÂÇÏ¼¼¿ä");
+            alert("ë¶„ë¥˜ë¥¼ ì˜¬ë°”ë¥´ê²Œ ì…ë ¥í•˜ì„¸ìš”");
     }
 }
 
 $upload_max_filesize = ini_get('upload_max_filesize');
 
 if (empty($_POST))
-    alert("ÆÄÀÏ ¶Ç´Â ±Û³»¿ëÀÇ Å©±â°¡ ¼­¹ö¿¡¼­ ¼³Á¤ÇÑ °ªÀ» ³Ñ¾î ¿À·ù°¡ ¹ß»ıÇÏ¿´½À´Ï´Ù.\\n\\npost_max_size=".ini_get('post_max_size')." , upload_max_filesize=$upload_max_filesize\\n\\n°Ô½ÃÆÇ°ü¸®ÀÚ ¶Ç´Â ¼­¹ö°ü¸®ÀÚ¿¡°Ô ¹®ÀÇ ¹Ù¶ø´Ï´Ù.");
+    alert("íŒŒì¼ ë˜ëŠ” ê¸€ë‚´ìš©ì˜ í¬ê¸°ê°€ ì„œë²„ì—ì„œ ì„¤ì •í•œ ê°’ì„ ë„˜ì–´ ì˜¤ë¥˜ê°€ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤.\\n\\npost_max_size=".ini_get('post_max_size')." , upload_max_filesize=$upload_max_filesize\\n\\nê²Œì‹œíŒê´€ë¦¬ì ë˜ëŠ” ì„œë²„ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜ ë°”ëë‹ˆë‹¤.");
 
-// ¸®ÆÛ·¯ Ã¼Å©
+// ë¦¬í¼ëŸ¬ ì²´í¬
 //referer_check();
 
 $w = $_POST['w'];
@@ -126,34 +126,34 @@ $notice_array = explode("\n", trim($board[bo_notice]));
 if ($w == "u" || $w == "r") {
     $wr = get_write($write_table, $wr_id);
     if (!$wr[wr_id])
-        alert("±ÛÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.\\n\\n±ÛÀÌ »èÁ¦µÇ¾ú°Å³ª ÀÌµ¿ÇÏ¿´À» ¼ö ÀÖ½À´Ï´Ù.", $goto_url); 
+        alert("ê¸€ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.\\n\\nê¸€ì´ ì‚­ì œë˜ì—ˆê±°ë‚˜ ì´ë™í•˜ì˜€ì„ ìˆ˜ ìˆìŠµë‹ˆë‹¤.", $goto_url); 
 }
 
-// ¿ÜºÎ¿¡¼­ ±ÛÀ» µî·ÏÇÒ ¼ö ÀÖ´Â ¹ö±×°¡ Á¸ÀçÇÏ¹Ç·Î ºñ¹Ğ±ÛÀº »ç¿ëÀÏ °æ¿ì¿¡¸¸ °¡´ÉÇØ¾ß ÇÔ
+// ì™¸ë¶€ì—ì„œ ê¸€ì„ ë“±ë¡í•  ìˆ˜ ìˆëŠ” ë²„ê·¸ê°€ ì¡´ì¬í•˜ë¯€ë¡œ ë¹„ë°€ê¸€ì€ ì‚¬ìš©ì¼ ê²½ìš°ì—ë§Œ ê°€ëŠ¥í•´ì•¼ í•¨
 if (!$is_admin && !$board[bo_use_secret] && $secret)
-	alert("ºñ¹Ğ±Û ¹Ì»ç¿ë °Ô½ÃÆÇ ÀÌ¹Ç·Î ºñ¹Ğ±Û·Î µî·ÏÇÒ ¼ö ¾ø½À´Ï´Ù.", $goto_url);
+	alert("ë¹„ë°€ê¸€ ë¯¸ì‚¬ìš© ê²Œì‹œíŒ ì´ë¯€ë¡œ ë¹„ë°€ê¸€ë¡œ ë“±ë¡í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", $goto_url);
 
-// ¿ÜºÎ¿¡¼­ ±ÛÀ» µî·ÏÇÒ ¼ö ÀÖ´Â ¹ö±×°¡ Á¸ÀçÇÏ¹Ç·Î ºñ¹Ğ±Û ¹«Á¶°Ç »ç¿ëÀÏ¶§´Â °ü¸®ÀÚ¸¦ Á¦¿Ü(°øÁö)ÇÏ°í ¹«Á¶°Ç ºñ¹Ğ±Û·Î µî·Ï
+// ì™¸ë¶€ì—ì„œ ê¸€ì„ ë“±ë¡í•  ìˆ˜ ìˆëŠ” ë²„ê·¸ê°€ ì¡´ì¬í•˜ë¯€ë¡œ ë¹„ë°€ê¸€ ë¬´ì¡°ê±´ ì‚¬ìš©ì¼ë•ŒëŠ” ê´€ë¦¬ìë¥¼ ì œì™¸(ê³µì§€)í•˜ê³  ë¬´ì¡°ê±´ ë¹„ë°€ê¸€ë¡œ ë“±ë¡
 if (!$is_admin && $board[bo_use_secret] == 2) {
     $secret = "secret";
 }
 
-// ºÒ´çÆÑ - ÀüÃ¼°øÁö (ÃÖ°í °ü¸®ÀÚÀÏ¶§¸¸..._
-// À§¿¡¼­´Â ÀüÃ¼°øÁö¸¦ ÇÒ°ÇÁö¸¸ check, 
-// ½ÇÁ¦ insert´Â °¡Àå ¾Æ·¡¿¡¼­. ½Å±ÔÀÇ °æ¿ì wr_id°¡ ¾øÀ¸´Ï±î)
+// ë¶ˆë‹¹íŒ© - ì „ì²´ê³µì§€ (ìµœê³  ê´€ë¦¬ìì¼ë•Œë§Œ..._
+// ìœ„ì—ì„œëŠ” ì „ì²´ê³µì§€ë¥¼ í• ê±´ì§€ë§Œ check, 
+// ì‹¤ì œ insertëŠ” ê°€ì¥ ì•„ë˜ì—ì„œ. ì‹ ê·œì˜ ê²½ìš° wr_idê°€ ì—†ìœ¼ë‹ˆê¹Œ)
 $insert_g_notice = 0;
 if ($is_admin == "super") {
 
     if ($w == "") {
         if ($g_notice) {
-            // ÀüÃ¼°øÁöÀÎ °æ¿ì¿¡´Â, ÀÚµ¿À¸·Î °øÁö °Ô½Ã±Û·Î Ã¼Å©ÇØ Áİ´Ï´Ù.
+            // ì „ì²´ê³µì§€ì¸ ê²½ìš°ì—ëŠ”, ìë™ìœ¼ë¡œ ê³µì§€ ê²Œì‹œê¸€ë¡œ ì²´í¬í•´ ì¤ë‹ˆë‹¤.
             $notice = 1;
             $insert_g_notice = 1;
         }
     } 
     else 
     if ($w == "u") {
-        // ÀüÃ¼°øÁö°¡ ÀÖ´ÂÁö È®ÀÎ
+        // ì „ì²´ê³µì§€ê°€ ìˆëŠ”ì§€ í™•ì¸
         $sql = " SELECT count(*) as cnt from $g4[notice_table] where bo_table = '$bo_table' and wr_id = '$wr_id' ";
         $cnt = sql_fetch($sql);
 
@@ -161,13 +161,13 @@ if ($is_admin == "super") {
             if ($cnt[cnt] > 0)
                 ;
             else {
-                // ÀüÃ¼°øÁöÀÎ °æ¿ì¿¡´Â, ÀÚµ¿À¸·Î °øÁö °Ô½Ã±Û·Î Ã¼Å©ÇØ Áİ´Ï´Ù.
+                // ì „ì²´ê³µì§€ì¸ ê²½ìš°ì—ëŠ”, ìë™ìœ¼ë¡œ ê³µì§€ ê²Œì‹œê¸€ë¡œ ì²´í¬í•´ ì¤ë‹ˆë‹¤.
                 $notice = 1;
                 $insert_g_notice = 1;
             }
         } else {
             if ($cnt[cnt] > 0) {
-                // ÀüÃ¼°øÁö°¡ ¾ø¾îÁ³À¸¸é »èÁ¦ÇÏÁö¸¸, ÀÏ¹İ°øÁöÀÇ ¿©ºÎ´Â ±×³É ³ÀµĞ´Ù
+                // ì „ì²´ê³µì§€ê°€ ì—†ì–´ì¡Œìœ¼ë©´ ì‚­ì œí•˜ì§€ë§Œ, ì¼ë°˜ê³µì§€ì˜ ì—¬ë¶€ëŠ” ê·¸ëƒ¥ ëƒ…ë‘”ë‹¤
                 $sql = " DELETE FROM $g4[notice_table] where bo_table = '$bo_table' and wr_id = '$wr_id' ";
                 sql_query($sql);
             }
@@ -175,7 +175,7 @@ if ($is_admin == "super") {
     }
 }
 
-// ºÒ´çÆÑ - bbs/write.php¿¡¼­ °¡Á®¿Â ÄÚµå
+// ë¶ˆë‹¹íŒ© - bbs/write.phpì—ì„œ ê°€ì ¸ì˜¨ ì½”ë“œ
 // 090713
 if ($board[bo_use_dhtml_editor] && $member[mb_level] >= $board[bo_html_level])
     $is_dhtml_editor = true;
@@ -183,30 +183,30 @@ else
     $is_dhtml_editor = false;
 
 if ($w == "" || $w == "u") {
-    // ±è¼±¿ë 1.00 : ±Û¾²±â ±ÇÇÑ°ú ¼öÁ¤Àº º°µµ·Î Ã³¸®µÇ¾î¾ß ÇÔ
+    // ê¹€ì„ ìš© 1.00 : ê¸€ì“°ê¸° ê¶Œí•œê³¼ ìˆ˜ì •ì€ ë³„ë„ë¡œ ì²˜ë¦¬ë˜ì–´ì•¼ í•¨
     if($w =="u" && $member['mb_id'] && $wr['mb_id'] == $member['mb_id'])
         ;
     else if ($member[mb_level] < $board[bo_write_level]) 
-        alert("±ÛÀ» ¾µ ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.", $goto_url);
+        alert("ê¸€ì„ ì“¸ ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.", $goto_url);
 
-	// ¿ÜºÎ¿¡¼­ ±ÛÀ» µî·ÏÇÒ ¼ö ÀÖ´Â ¹ö±×°¡ Á¸ÀçÇÏ¹Ç·Î °øÁö´Â °ü¸®ÀÚ¸¸ µî·ÏÀÌ °¡´ÉÇØ¾ß ÇÔ
+	// ì™¸ë¶€ì—ì„œ ê¸€ì„ ë“±ë¡í•  ìˆ˜ ìˆëŠ” ë²„ê·¸ê°€ ì¡´ì¬í•˜ë¯€ë¡œ ê³µì§€ëŠ” ê´€ë¦¬ìë§Œ ë“±ë¡ì´ ê°€ëŠ¥í•´ì•¼ í•¨
 	if (!$is_admin && $notice)
-		alert("°ü¸®ÀÚ¸¸ °øÁöÇÒ ¼ö ÀÖ½À´Ï´Ù.", $goto_url);
+		alert("ê´€ë¦¬ìë§Œ ê³µì§€í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.", $goto_url);
 } 
 else if ($w == "r") 
 {
     if (in_array((int)$wr_id, $notice_array))
-        alert("°øÁö¿¡´Â ´äº¯ ÇÒ ¼ö ¾ø½À´Ï´Ù.", $goto_url);
+        alert("ê³µì§€ì—ëŠ” ë‹µë³€ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", $goto_url);
 
     if ($member[mb_level] < $board[bo_reply_level]) 
-        alert("±ÛÀ» ´äº¯ÇÒ ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.", $goto_url);
+        alert("ê¸€ì„ ë‹µë³€í•  ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.", $goto_url);
 
-    // °Ô½Ã±Û ¹è¿­ ÂüÁ¶
+    // ê²Œì‹œê¸€ ë°°ì—´ ì°¸ì¡°
     $reply_array = &$wr;
 
-    // ÃÖ´ë ´äº¯Àº Å×ÀÌºí¿¡ Àâ¾Æ³õÀº wr_reply »çÀÌÁî¸¸Å­¸¸ °¡´ÉÇÕ´Ï´Ù.
+    // ìµœëŒ€ ë‹µë³€ì€ í…Œì´ë¸”ì— ì¡ì•„ë†“ì€ wr_reply ì‚¬ì´ì¦ˆë§Œí¼ë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.
     if (strlen($reply_array[wr_reply]) == 10)
-        alert("´õ ÀÌ»ó ´äº¯ÇÏ½Ç ¼ö ¾ø½À´Ï´Ù.\\n\\n´äº¯Àº 10´Ü°è ±îÁö¸¸ °¡´ÉÇÕ´Ï´Ù.", $goto_url);
+        alert("ë” ì´ìƒ ë‹µë³€í•˜ì‹¤ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\\n\\në‹µë³€ì€ 10ë‹¨ê³„ ê¹Œì§€ë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $goto_url);
 
     $reply_len = strlen($reply_array[wr_reply]) + 1;
     if ($board[bo_reply_order]) {
@@ -225,32 +225,32 @@ else if ($w == "r")
 
     if (!$row[reply])
         $reply_char = $begin_reply_char;
-    else if ($row[reply] == $end_reply_char) // A~ZÀº 26 ÀÔ´Ï´Ù.
-        alert("´õ ÀÌ»ó ´äº¯ÇÏ½Ç ¼ö ¾ø½À´Ï´Ù.\\n\\n´äº¯Àº 26°³ ±îÁö¸¸ °¡´ÉÇÕ´Ï´Ù.", $goto_url);
+    else if ($row[reply] == $end_reply_char) // A~Zì€ 26 ì…ë‹ˆë‹¤.
+        alert("ë” ì´ìƒ ë‹µë³€í•˜ì‹¤ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\\n\\në‹µë³€ì€ 26ê°œ ê¹Œì§€ë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $goto_url);
     else
         $reply_char = chr(ord($row[reply]) + $reply_number);
 
     $reply = $reply_array[wr_reply] . $reply_char;
 } else 
-    alert("w °ªÀÌ Á¦´ë·Î ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.", $goto_url); 
+    alert("w ê°’ì´ ì œëŒ€ë¡œ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.", $goto_url); 
 
 
 if ($w == "" || $w == "r") 
 {
     if ($_SESSION["ss_datetime"] >= ($g4[server_time] - $config[cf_delay_sec]) && !$is_delay) 
-        alert("³Ê¹« ºü¸¥ ½Ã°£³»¿¡ °Ô½Ã¹°À» ¿¬¼ÓÇØ¼­ ¿Ã¸± ¼ö ¾ø½À´Ï´Ù.", $goto_url);
+        alert("ë„ˆë¬´ ë¹ ë¥¸ ì‹œê°„ë‚´ì— ê²Œì‹œë¬¼ì„ ì—°ì†í•´ì„œ ì˜¬ë¦´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", $goto_url);
 
     set_session("ss_datetime", $g4[server_time]);
 
-    // µ¿ÀÏ³»¿ë ¿¬¼Ó µî·Ï ºÒ°¡
+    // ë™ì¼ë‚´ìš© ì—°ì† ë“±ë¡ ë¶ˆê°€
     $row = sql_fetch(" select MD5(CONCAT(wr_ip, wr_subject, wr_content)) as prev_md5 from $write_table order by wr_id desc limit 1 ");
     $curr_md5 = md5($_SERVER[REMOTE_ADDR].$wr_subject.$wr_content);
     if ($row[prev_md5] == $curr_md5 && !$is_admin)
-        alert("µ¿ÀÏÇÑ ³»¿ëÀ» ¿¬¼ÓÇØ¼­ µî·ÏÇÒ ¼ö ¾ø½À´Ï´Ù.", $goto_url);
+        alert("ë™ì¼í•œ ë‚´ìš©ì„ ì—°ì†í•´ì„œ ë“±ë¡í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", $goto_url);
 }
 
 if (!isset($_POST[wr_subject]) || !trim($_POST[wr_subject])) 
-    alert("Á¦¸ñÀ» ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À.", $goto_url); 
+    alert("ì œëª©ì„ ì…ë ¥í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.", $goto_url); 
 
 if ($w == "" || $w == "r") 
 {
@@ -265,27 +265,27 @@ if ($w == "" || $w == "r")
     else 
     {
         $mb_id = "";
-        // ºñÈ¸¿øÀÇ °æ¿ì ÀÌ¸§ÀÌ ´©¶ôµÇ´Â °æ¿ì°¡ ÀÖÀ½
+        // ë¹„íšŒì›ì˜ ê²½ìš° ì´ë¦„ì´ ëˆ„ë½ë˜ëŠ” ê²½ìš°ê°€ ìˆìŒ
         $wr_name = strip_tags(mysql_real_escape_string($_POST['wr_name']));
         if (!trim($wr_name))
-            alert("ÀÌ¸§Àº ÇÊÈ÷ ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù.", $goto_url);
+            alert("ì´ë¦„ì€ í•„íˆ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.", $goto_url);
         $wr_password = sql_password($wr_password);
     }
 
     if ($w == "r") 
     {
-        // ´äº¯ÀÇ ¿ø±ÛÀÌ ºñ¹Ğ±ÛÀÌ¶ó¸é ÆĞ½º¿öµå´Â ¿ø±Û°ú µ¿ÀÏÇÏ°Ô ³Ö´Â´Ù.
+        // ë‹µë³€ì˜ ì›ê¸€ì´ ë¹„ë°€ê¸€ì´ë¼ë©´ íŒ¨ìŠ¤ì›Œë“œëŠ” ì›ê¸€ê³¼ ë™ì¼í•˜ê²Œ ë„£ëŠ”ë‹¤.
         if ($secret)
             $wr_password = $wr[wr_password];
 
-        //ºÒ´çÆÑ - ´ä±ÛÀÎ °æ¿ì ¿ø±ÛÀÇ mb_id¸¦ ÀÔ·Â
+        //ë¶ˆë‹¹íŒ© - ë‹µê¸€ì¸ ê²½ìš° ì›ê¸€ì˜ mb_idë¥¼ ì…ë ¥
         $parent_mb_id = sql_fetch(" select mb_id from $write_table where wr_id = '$wr_id' ");
         
         $wr_id = $wr_id . $reply;
         $wr_num = $write[wr_num];
         $wr_reply = $reply;
         
-        // ºÒ´çÆÑ - ³»±ÛÀÇ ¹İÀÀ (´ä±ÛÀÎ °æ¿ì+¿ø±ÛÀÚ¿Í ´ä±ÛÀÚ°¡ ´Ù¸¥ °æ¿ì)
+        // ë¶ˆë‹¹íŒ© - ë‚´ê¸€ì˜ ë°˜ì‘ (ë‹µê¸€ì¸ ê²½ìš°+ì›ê¸€ìì™€ ë‹µê¸€ìê°€ ë‹¤ë¥¸ ê²½ìš°)
         if ($parent_mb_id != $member[mb_id])
             sql_query(" update $g4[board_new_table] set my_datetime = '$g4[time_ymdhis]' where bo_table = '$bo_table' and wr_id = '$wr_id' ");
     }
@@ -333,10 +333,10 @@ if ($w == "" || $w == "r")
 
     $wr_id = mysql_insert_id();
 
-    // ºÎ¸ğ ¾ÆÀÌµğ¿¡ UPDATE
+    // ë¶€ëª¨ ì•„ì´ë””ì— UPDATE
     sql_query(" update $write_table set wr_parent = '$wr_id' where wr_id = '$wr_id' ");
 
-    // »õ±Û INSERT
+    // ìƒˆê¸€ INSERT
     //sql_query(" insert into $g4[board_new_table] ( bo_table, wr_id, wr_parent, bn_datetime, mb_id, wr_is_comment, gr_id, wr_option, parent_mb_id) 
     //            values ( '$bo_table', '$wr_id', '$wr_id', '$g4[time_ymdhis]', '$member[mb_id]', '0', '$gr_id', '$secret', '$parent_mb_id[mb_id]') "); 
 
@@ -345,14 +345,14 @@ if ($w == "" || $w == "r")
     $stmt->bindParam(":bo_table", $bo_table);
     $result = pdo_query($stmt, false);
     
-    // °Ô½Ã±Û 1 Áõ°¡
+    // ê²Œì‹œê¸€ 1 ì¦ê°€
     //sql_query(" update $g4[board_table] set bo_count_write = bo_count_write + 1, bo_modify_datetime = '$g4[time_ymdhis]' where bo_table = '$bo_table' ");
 
     $stmt = $pdo_db->prepare(" update $g4[board_table] set bo_count_write = bo_count_write + 1, bo_modify_datetime = '$g4[time_ymdhis]' where bo_table = :bo_table ");
     $stmt->bindParam(":bo_table", $bo_table);
     $result = pdo_query($stmt, false);
 
-    // ¾²±â Æ÷ÀÎÆ® ºÎ¿©
+    // ì“°ê¸° í¬ì¸íŠ¸ ë¶€ì—¬
     if ($w == '') 
     {
         if ($notice)
@@ -361,16 +361,16 @@ if ($w == "" || $w == "r")
             sql_query(" update $g4[board_table] set bo_notice = '$bo_notice' where bo_table = '$bo_table' ");
         }
 
-        insert_point($member[mb_id], $board[bo_write_point], "$board[bo_subject] $wr_id ±Û¾²±â", $bo_table, $wr_id, '¾²±â');
+        insert_point($member[mb_id], $board[bo_write_point], "$board[bo_subject] $wr_id ê¸€ì“°ê¸°", $bo_table, $wr_id, 'ì“°ê¸°');
     }
     else 
     {
-        // ´äº¯Àº ÄÚ¸àÆ® Æ÷ÀÎÆ®¸¦ ºÎ¿©ÇÔ
-        // ´äº¯ Æ÷ÀÎÆ®°¡ ¸¹Àº °æ¿ì ÄÚ¸àÆ® ´ë½Å ´äº¯À» ÇÏ´Â °æ¿ì°¡ ¸¹À½
-        insert_point($member[mb_id], $board[bo_comment_point], "$board[bo_subject] $wr_id ±Û´äº¯", $bo_table, $wr_id, '¾²±â');
+        // ë‹µë³€ì€ ì½”ë©˜íŠ¸ í¬ì¸íŠ¸ë¥¼ ë¶€ì—¬í•¨
+        // ë‹µë³€ í¬ì¸íŠ¸ê°€ ë§ì€ ê²½ìš° ì½”ë©˜íŠ¸ ëŒ€ì‹  ë‹µë³€ì„ í•˜ëŠ” ê²½ìš°ê°€ ë§ìŒ
+        insert_point($member[mb_id], $board[bo_comment_point], "$board[bo_subject] $wr_id ê¸€ë‹µë³€", $bo_table, $wr_id, 'ì“°ê¸°');
     }
 
-    // ºÒ´çÆÑ - ¿Ô~¼õ~ : ´ä±ÛÀÇ ¿Ô¼õ Åëº¸, ¿ø±ÛÀÌ È¸¿øÀÇ ±ÛÀÌ°í, ¿ø±ÛÀÇ È¸¿ø¾ÆÀÌµğ¿Í Áö±İ ±Û¾²´Â ¾ÆÀÌµğ°¡ ´Ù¸¦ °æ¿ì¿¡¸¸
+    // ë¶ˆë‹¹íŒ© - ì™”~ìˆ‘~ : ë‹µê¸€ì˜ ì™”ìˆ‘ í†µë³´, ì›ê¸€ì´ íšŒì›ì˜ ê¸€ì´ê³ , ì›ê¸€ì˜ íšŒì›ì•„ì´ë””ì™€ ì§€ê¸ˆ ê¸€ì“°ëŠ” ì•„ì´ë””ê°€ ë‹¤ë¥¼ ê²½ìš°ì—ë§Œ
     if ($w == 'r' && $wr[mb_id] && $wr[mb_id] !== $member[mb_id]) 
     {
         require_once("$g4[path]/lib/whatson.lib.php");
@@ -381,35 +381,35 @@ if ($w == "" || $w == "r")
 else if ($w == "u") 
 {
     if (get_session('ss_bo_table') != $_POST['bo_table'] || get_session('ss_wr_id') != $_POST['wr_id']) {
-        alert('¿Ã¹Ù¸¥ ¹æ¹ıÀ¸·Î ¼öÁ¤ÇÏ¿© ÁÖ½Ê½Ã¿À.');
+        alert('ì˜¬ë°”ë¥¸ ë°©ë²•ìœ¼ë¡œ ìˆ˜ì •í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.');
     }
 
-    if ($is_admin == "super") // ÃÖ°í°ü¸®ÀÚ Åë°ú
+    if ($is_admin == "super") // ìµœê³ ê´€ë¦¬ì í†µê³¼
         ;
-    else if ($is_admin == "group") { // ±×·ì°ü¸®ÀÚ
+    else if ($is_admin == "group") { // ê·¸ë£¹ê´€ë¦¬ì
         $mb = get_member($write[mb_id]);
-        if ($member[mb_id] != $group[gr_admin]) // ÀÚ½ÅÀÌ °ü¸®ÇÏ´Â ±×·ìÀÎ°¡?
-            alert("ÀÚ½ÅÀÌ °ü¸®ÇÏ´Â ±×·ìÀÇ °Ô½ÃÆÇÀÌ ¾Æ´Ï¹Ç·Î ¼öÁ¤ÇÒ ¼ö ¾ø½À´Ï´Ù.", $goto_url);
-        else if ($member[mb_level] < $mb[mb_level]) // ÀÚ½ÅÀÇ ·¹º§ÀÌ Å©°Å³ª °°´Ù¸é Åë°ú
-            alert("ÀÚ½ÅÀÇ ±ÇÇÑº¸´Ù ³ôÀº ±ÇÇÑÀÇ È¸¿øÀÌ ÀÛ¼ºÇÑ ±ÛÀº ¼öÁ¤ÇÒ ¼ö ¾ø½À´Ï´Ù.", $goto_url);
-    } else if ($is_admin == "board") { // °Ô½ÃÆÇ°ü¸®ÀÚÀÌ¸é
+        if ($member[mb_id] != $group[gr_admin]) // ìì‹ ì´ ê´€ë¦¬í•˜ëŠ” ê·¸ë£¹ì¸ê°€?
+            alert("ìì‹ ì´ ê´€ë¦¬í•˜ëŠ” ê·¸ë£¹ì˜ ê²Œì‹œíŒì´ ì•„ë‹ˆë¯€ë¡œ ìˆ˜ì •í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", $goto_url);
+        else if ($member[mb_level] < $mb[mb_level]) // ìì‹ ì˜ ë ˆë²¨ì´ í¬ê±°ë‚˜ ê°™ë‹¤ë©´ í†µê³¼
+            alert("ìì‹ ì˜ ê¶Œí•œë³´ë‹¤ ë†’ì€ ê¶Œí•œì˜ íšŒì›ì´ ì‘ì„±í•œ ê¸€ì€ ìˆ˜ì •í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", $goto_url);
+    } else if ($is_admin == "board") { // ê²Œì‹œíŒê´€ë¦¬ìì´ë©´
         $mb = get_member($write[mb_id]);
-        if ($member[mb_id] != $board[bo_admin]) // ÀÚ½ÅÀÌ °ü¸®ÇÏ´Â °Ô½ÃÆÇÀÎ°¡?
-            alert("ÀÚ½ÅÀÌ °ü¸®ÇÏ´Â °Ô½ÃÆÇÀÌ ¾Æ´Ï¹Ç·Î ¼öÁ¤ÇÒ ¼ö ¾ø½À´Ï´Ù.", $goto_url);
-        else if ($member[mb_level] < $mb[mb_level]) // ÀÚ½ÅÀÇ ·¹º§ÀÌ Å©°Å³ª °°´Ù¸é Åë°ú
-            alert("ÀÚ½ÅÀÇ ±ÇÇÑº¸´Ù ³ôÀº ±ÇÇÑÀÇ È¸¿øÀÌ ÀÛ¼ºÇÑ ±ÛÀº ¼öÁ¤ÇÒ ¼ö ¾ø½À´Ï´Ù.", $goto_url);
+        if ($member[mb_id] != $board[bo_admin]) // ìì‹ ì´ ê´€ë¦¬í•˜ëŠ” ê²Œì‹œíŒì¸ê°€?
+            alert("ìì‹ ì´ ê´€ë¦¬í•˜ëŠ” ê²Œì‹œíŒì´ ì•„ë‹ˆë¯€ë¡œ ìˆ˜ì •í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", $goto_url);
+        else if ($member[mb_level] < $mb[mb_level]) // ìì‹ ì˜ ë ˆë²¨ì´ í¬ê±°ë‚˜ ê°™ë‹¤ë©´ í†µê³¼
+            alert("ìì‹ ì˜ ê¶Œí•œë³´ë‹¤ ë†’ì€ ê¶Œí•œì˜ íšŒì›ì´ ì‘ì„±í•œ ê¸€ì€ ìˆ˜ì •í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", $goto_url);
     } else if ($member[mb_id]) {
         if ($member[mb_id] != $write[mb_id])
-            alert("ÀÚ½ÅÀÇ ±ÛÀÌ ¾Æ´Ï¹Ç·Î ¼öÁ¤ÇÒ ¼ö ¾ø½À´Ï´Ù.", $goto_url);
+            alert("ìì‹ ì˜ ê¸€ì´ ì•„ë‹ˆë¯€ë¡œ ìˆ˜ì •í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", $goto_url);
     } else {
         if ($write[mb_id]) {
-            alert("·Î±×ÀÎ ÈÄ ¼öÁ¤ÇÏ¼¼¿ä.", "./login.php?url=".urlencode("./board.php?bo_table=$bo_table&wr_id=$wr_id"));
+            alert("ë¡œê·¸ì¸ í›„ ìˆ˜ì •í•˜ì„¸ìš”.", "./login.php?url=".urlencode("./board.php?bo_table=$bo_table&wr_id=$wr_id"));
         }
     }
 
     if ($member[mb_id]) 
     {
-        // ÀÚ½ÅÀÇ ±ÛÀÌ¶ó¸é
+        // ìì‹ ì˜ ê¸€ì´ë¼ë©´
         if ($member[mb_id] == $wr[mb_id]) 
         {
             $mb_id = $member[mb_id];
@@ -428,8 +428,8 @@ else if ($w == "u")
     else 
     {
         $mb_id = "";
-        // ºñÈ¸¿øÀÇ °æ¿ì ÀÌ¸§ÀÌ ´©¶ôµÇ´Â °æ¿ì°¡ ÀÖÀ½
-        //if (!trim($wr_name)) alert("ÀÌ¸§Àº ÇÊÈ÷ ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù.");
+        // ë¹„íšŒì›ì˜ ê²½ìš° ì´ë¦„ì´ ëˆ„ë½ë˜ëŠ” ê²½ìš°ê°€ ìˆìŒ
+        //if (!trim($wr_name)) alert("ì´ë¦„ì€ í•„íˆ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.");
     }
 
     $sql_password = $wr_password ? " , wr_password = '".sql_password($wr_password)."' " : "";
@@ -465,12 +465,12 @@ else if ($w == "u")
               where wr_id = '$wr[wr_id]' ";
     sql_query($sql);
 
-    // ºĞ·ù°¡ ¼öÁ¤µÇ´Â °æ¿ì ÇØ´çµÇ´Â ÄÚ¸àÆ®ÀÇ ºĞ·ù¸íµµ ¸ğµÎ ¼öÁ¤ÇÔ
-    // ÄÚ¸àÆ®ÀÇ ºĞ·ù¸¦ ¼öÁ¤ÇÏÁö ¾ÊÀ¸¸é °Ë»öÀÌ Á¦´ë·Î µÇÁö ¾ÊÀ½
+    // ë¶„ë¥˜ê°€ ìˆ˜ì •ë˜ëŠ” ê²½ìš° í•´ë‹¹ë˜ëŠ” ì½”ë©˜íŠ¸ì˜ ë¶„ë¥˜ëª…ë„ ëª¨ë‘ ìˆ˜ì •í•¨
+    // ì½”ë©˜íŠ¸ì˜ ë¶„ë¥˜ë¥¼ ìˆ˜ì •í•˜ì§€ ì•Šìœ¼ë©´ ê²€ìƒ‰ì´ ì œëŒ€ë¡œ ë˜ì§€ ì•ŠìŒ
     $sql = " update $write_table set ca_name = '$ca_name' where wr_parent = '$wr[wr_id]' ";
     sql_query($sql);
 
-    // ¼öÁ¤ÇÑ ±Û¿¡ wr_option UPDATE
+    // ìˆ˜ì •í•œ ê¸€ì— wr_option UPDATE
     sql_query(" update $g4[board_new_table] set wr_option = '$secret' where bo_table = '$bo_table' and wr_id = '$wr[wr_id]' ");
                 
     if ($notice) 
@@ -502,29 +502,29 @@ else if ($w == "u")
     }
 }
 
-// µğ·ºÅä¸®°¡ ¾ø´Ù¸é »ı¼ºÇÕ´Ï´Ù. (ÆÛ¹Ì¼Çµµ º¯°æÇÏ±¸¿ä.)
+// ë””ë ‰í† ë¦¬ê°€ ì—†ë‹¤ë©´ ìƒì„±í•©ë‹ˆë‹¤. (í¼ë¯¸ì…˜ë„ ë³€ê²½í•˜êµ¬ìš”.)
 @mkdir("$g4[data_path]/file/$bo_table", 0707);
 @chmod("$g4[data_path]/file/$bo_table", 0707);
 
-// ³â¿ùº°·Î µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ°Ô, $ymÀ» ±¸ÇÑ´Ù - ºÒ´çÆÑ
+// ë…„ì›”ë³„ë¡œ ë°ì´í„°ë¥¼ ì €ì¥í•˜ê²Œ, $ymì„ êµ¬í•œë‹¤ - ë¶ˆë‹¹íŒ©
 $data_dir = dirname($g4[data_path] . "/nothing");
 $ym = date("ym", $g4[server_time]);
 @mkdir("$g4[data_path]/file/$bo_table/$ym", 0707);
 @chmod("$g4[data_path]/file/$bo_table/$ym", 0707);
 
-// "ÀÎÅÍ³İ¿É¼Ç > º¸¾È > »ç¿ëÀÚÁ¤ÀÇ¼öÁØ > ½ºÅ©¸³ÆÃ > Action ½ºÅ©¸³ÆÃ > »ç¿ë ¾È ÇÔ" ÀÏ °æ¿ìÀÇ ¿À·ù Ã³¸®
-// ÀÌ ¿É¼ÇÀ» »ç¿ë ¾È ÇÔÀ¸·Î ¼³Á¤ÇÒ °æ¿ì ¾î¶² ½ºÅ©¸³Æ®µµ ½ÇÇà µÇÁö ¾Ê½À´Ï´Ù.
-//if (!$_POST[wr_content]) die ("³»¿ëÀ» ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À.");
+// "ì¸í„°ë„·ì˜µì…˜ > ë³´ì•ˆ > ì‚¬ìš©ìì •ì˜ìˆ˜ì¤€ > ìŠ¤í¬ë¦½íŒ… > Action ìŠ¤í¬ë¦½íŒ… > ì‚¬ìš© ì•ˆ í•¨" ì¼ ê²½ìš°ì˜ ì˜¤ë¥˜ ì²˜ë¦¬
+// ì´ ì˜µì…˜ì„ ì‚¬ìš© ì•ˆ í•¨ìœ¼ë¡œ ì„¤ì •í•  ê²½ìš° ì–´ë–¤ ìŠ¤í¬ë¦½íŠ¸ë„ ì‹¤í–‰ ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
+//if (!$_POST[wr_content]) die ("ë‚´ìš©ì„ ì…ë ¥í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
 
 $chars_array = array_merge(range(0,9), range('a','z'), range('A','Z'));
 //print_r2($chars_array); exit;
 
-// °¡º¯ ÆÄÀÏ ¾÷·Îµå
+// ê°€ë³€ íŒŒì¼ ì—…ë¡œë“œ
 $file_upload_msg = "";
 $upload = array();
 for ($i=0; $i<count($_FILES[bf_file][name]); $i++) 
 {
-    // »èÁ¦¿¡ Ã¼Å©°¡ µÇ¾îÀÖ´Ù¸é ÆÄÀÏÀ» »èÁ¦ÇÕ´Ï´Ù.
+    // ì‚­ì œì— ì²´í¬ê°€ ë˜ì–´ìˆë‹¤ë©´ íŒŒì¼ì„ ì‚­ì œí•©ë‹ˆë‹¤.
     if ($_POST[bf_file_del][$i]) 
     {
         $upload[$i][del_check] = true;
@@ -540,34 +540,34 @@ for ($i=0; $i<count($_FILES[bf_file][name]); $i++)
     $filename  = $_FILES[bf_file][name][$i];
     $filename  = preg_replace('/(\s|\<|\>|\=|\(|\))/', '_', $filename);
 
-    // ¼­¹ö¿¡ ¼³Á¤µÈ °ªº¸´Ù Å«ÆÄÀÏÀ» ¾÷·Îµå ÇÑ´Ù¸é
+    // ì„œë²„ì— ì„¤ì •ëœ ê°’ë³´ë‹¤ í°íŒŒì¼ì„ ì—…ë¡œë“œ í•œë‹¤ë©´
     if ($filename)
     {
         if ($_FILES[bf_file][error][$i] == 1)
         {
-            $file_upload_msg .= "\'{$filename}\' ÆÄÀÏÀÇ ¿ë·®ÀÌ ¼­¹ö¿¡ ¼³Á¤($upload_max_filesize)µÈ °ªº¸´Ù Å©¹Ç·Î ¾÷·Îµå ÇÒ ¼ö ¾ø½À´Ï´Ù.\\n";
+            $file_upload_msg .= "\'{$filename}\' íŒŒì¼ì˜ ìš©ëŸ‰ì´ ì„œë²„ì— ì„¤ì •($upload_max_filesize)ëœ ê°’ë³´ë‹¤ í¬ë¯€ë¡œ ì—…ë¡œë“œ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\\n";
             continue;
         }
         else if ($_FILES[bf_file][error][$i] != 0)
         {
-            $file_upload_msg .= "\'{$filename}\' ÆÄÀÏÀÌ Á¤»óÀûÀ¸·Î ¾÷·Îµå µÇÁö ¾Ê¾Ò½À´Ï´Ù.\\n";
+            $file_upload_msg .= "\'{$filename}\' íŒŒì¼ì´ ì •ìƒì ìœ¼ë¡œ ì—…ë¡œë“œ ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.\\n";
             continue;
         }
     }
 
     if (is_uploaded_file($tmp_file)) 
     {
-        // °ü¸®ÀÚ°¡ ¾Æ´Ï¸é¼­ ¼³Á¤ÇÑ ¾÷·Îµå »çÀÌÁîº¸´Ù Å©´Ù¸é °Ç³Ê¶Ü
+        // ê´€ë¦¬ìê°€ ì•„ë‹ˆë©´ì„œ ì„¤ì •í•œ ì—…ë¡œë“œ ì‚¬ì´ì¦ˆë³´ë‹¤ í¬ë‹¤ë©´ ê±´ë„ˆëœ€
         if (!$is_admin && $filesize > $board[bo_upload_size]) 
         {
-            $file_upload_msg .= "\'{$filename}\' ÆÄÀÏÀÇ ¿ë·®(".number_format($filesize)." ¹ÙÀÌÆ®)ÀÌ °Ô½ÃÆÇ¿¡ ¼³Á¤(".number_format($board[bo_upload_size])." ¹ÙÀÌÆ®)µÈ °ªº¸´Ù Å©¹Ç·Î ¾÷·Îµå ÇÏÁö ¾Ê½À´Ï´Ù.\\n";
+            $file_upload_msg .= "\'{$filename}\' íŒŒì¼ì˜ ìš©ëŸ‰(".number_format($filesize)." ë°”ì´íŠ¸)ì´ ê²Œì‹œíŒì— ì„¤ì •(".number_format($board[bo_upload_size])." ë°”ì´íŠ¸)ëœ ê°’ë³´ë‹¤ í¬ë¯€ë¡œ ì—…ë¡œë“œ í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.\\n";
             continue;
         }
 
         //=================================================================\
         // 090714
-        // ÀÌ¹ÌÁö³ª ÇÃ·¡½Ã ÆÄÀÏ¿¡ ¾Ç¼ºÄÚµå¸¦ ½É¾î ¾÷·Îµå ÇÏ´Â °æ¿ì¸¦ ¹æÁö
-        // ¿¡·¯¸Ş¼¼Áö´Â Ãâ·ÂÇÏÁö ¾Ê´Â´Ù.
+        // ì´ë¯¸ì§€ë‚˜ í”Œë˜ì‹œ íŒŒì¼ì— ì•…ì„±ì½”ë“œë¥¼ ì‹¬ì–´ ì—…ë¡œë“œ í•˜ëŠ” ê²½ìš°ë¥¼ ë°©ì§€
+        // ì—ëŸ¬ë©”ì„¸ì§€ëŠ” ì¶œë ¥í•˜ì§€ ì•ŠëŠ”ë‹¤.
         //-----------------------------------------------------------------
         $timg = @getimagesize($tmp_file);
         // image type
@@ -576,7 +576,7 @@ for ($i=0; $i<count($_FILES[bf_file][name]); $i++)
         {
             if ($timg[2] < 1 || $timg[2] > 16)
             {
-                //$file_upload_msg .= "\'{$filename}\' ÆÄÀÏÀÌ ÀÌ¹ÌÁö³ª ÇÃ·¡½Ã ÆÄÀÏÀÌ ¾Æ´Õ´Ï´Ù.\\n";
+                //$file_upload_msg .= "\'{$filename}\' íŒŒì¼ì´ ì´ë¯¸ì§€ë‚˜ í”Œë˜ì‹œ íŒŒì¼ì´ ì•„ë‹™ë‹ˆë‹¤.\\n";
                 continue;
             }
         }
@@ -584,47 +584,47 @@ for ($i=0; $i<count($_FILES[bf_file][name]); $i++)
 
         $upload[$i][image] = $timg;
 
-        // 4.00.11 - ±Û´äº¯¿¡¼­ ÆÄÀÏ ¾÷·Îµå½Ã ¿ø±ÛÀÇ ÆÄÀÏÀÌ »èÁ¦µÇ´Â ¿À·ù¸¦ ¼öÁ¤
+        // 4.00.11 - ê¸€ë‹µë³€ì—ì„œ íŒŒì¼ ì—…ë¡œë“œì‹œ ì›ê¸€ì˜ íŒŒì¼ì´ ì‚­ì œë˜ëŠ” ì˜¤ë¥˜ë¥¼ ìˆ˜ì •
         if ($w == 'u')
         {
-            // Á¸ÀçÇÏ´Â ÆÄÀÏÀÌ ÀÖ´Ù¸é »èÁ¦ÇÕ´Ï´Ù.
+            // ì¡´ì¬í•˜ëŠ” íŒŒì¼ì´ ìˆë‹¤ë©´ ì‚­ì œí•©ë‹ˆë‹¤.
             $row = sql_fetch(" select bf_file from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_no = '$i' ");
             @unlink("$g4[data_path]/file/$bo_table/$row[bf_file]");
         }
 
-        // ÇÁ·Î±×·¥ ¿ø·¡ ÆÄÀÏ¸í
+        // í”„ë¡œê·¸ë¨ ì›ë˜ íŒŒì¼ëª…
         $upload[$i][source] = $filename;
         $upload[$i][filesize] = $filesize;
 
-        // ¾Æ·¡ÀÇ ¹®ÀÚ¿­ÀÌ µé¾î°£ ÆÄÀÏÀº -x ¸¦ ºÙ¿©¼­ À¥°æ·Î¸¦ ¾Ë´õ¶óµµ ½ÇÇàÀ» ÇÏÁö ¸øÇÏµµ·Ï ÇÔ
+        // ì•„ë˜ì˜ ë¬¸ìì—´ì´ ë“¤ì–´ê°„ íŒŒì¼ì€ -x ë¥¼ ë¶™ì—¬ì„œ ì›¹ê²½ë¡œë¥¼ ì•Œë”ë¼ë„ ì‹¤í–‰ì„ í•˜ì§€ ëª»í•˜ë„ë¡ í•¨
         $filename = preg_replace("/\.(php|phtm|htm|cgi|pl|exe|jsp|asp|inc)/i", "$0-x", $filename);
 
-        // Á¢¹Ì»ç¸¦ ºÙÀÎ ÆÄÀÏ¸í
+        // ì ‘ë¯¸ì‚¬ë¥¼ ë¶™ì¸ íŒŒì¼ëª…
         //$upload[$i][file] = abs(ip2long($_SERVER[REMOTE_ADDR])).'_'.substr(md5(uniqid($g4[server_time])),0,8).'_'.urlencode($filename);
-        // ´Şºû¿Âµµ´Ô ¼öÁ¤ : ÇÑ±ÛÆÄÀÏÀº urlencode($filename) Ã³¸®¸¦ ÇÒ°æ¿ì '%'¸¦ ºÙ¿©ÁÖ°Ô µÇ´Âµ¥ '%'Ç¥½Ã´Â ¹Ìµğ¾îÇÃ·¹ÀÌ¾î°¡ ÀÎ½ÄÀ» ¸øÇÏ±â ¶§¹®¿¡ Àç»ıÀÌ ¾ÈµË´Ï´Ù. ±×·¡¼­ º¯°æÇÑ ÆÄÀÏ¸í¿¡¼­ '%'ºÎºĞÀ» »©ÁÖ¸é ÇØ°áµË´Ï´Ù. 
+        // ë‹¬ë¹›ì˜¨ë„ë‹˜ ìˆ˜ì • : í•œê¸€íŒŒì¼ì€ urlencode($filename) ì²˜ë¦¬ë¥¼ í• ê²½ìš° '%'ë¥¼ ë¶™ì—¬ì£¼ê²Œ ë˜ëŠ”ë° '%'í‘œì‹œëŠ” ë¯¸ë””ì–´í”Œë ˆì´ì–´ê°€ ì¸ì‹ì„ ëª»í•˜ê¸° ë•Œë¬¸ì— ì¬ìƒì´ ì•ˆë©ë‹ˆë‹¤. ê·¸ë˜ì„œ ë³€ê²½í•œ íŒŒì¼ëª…ì—ì„œ '%'ë¶€ë¶„ì„ ë¹¼ì£¼ë©´ í•´ê²°ë©ë‹ˆë‹¤. 
         //$upload[$i][file] = abs(ip2long($_SERVER[REMOTE_ADDR])).'_'.substr(md5(uniqid($g4[server_time])),0,8).'_'.str_replace('%', '', urlencode($filename)); 
         shuffle($chars_array);
         $shuffle = implode("", $chars_array);
-        // ºÒ´çÆÑ - ipÁÖ¼Ò¸¦ ±×´ë·Î ³ëÃâÇÏ´Â °ÍÀÌ¶ó timestamp·Î º¯°æ
+        // ë¶ˆë‹¹íŒ© - ipì£¼ì†Œë¥¼ ê·¸ëŒ€ë¡œ ë…¸ì¶œí•˜ëŠ” ê²ƒì´ë¼ timestampë¡œ ë³€ê²½
         //$upload[$i][file] = abs(ip2long($_SERVER[REMOTE_ADDR])).'_'.substr($shuffle,0,8).'_'.str_replace('%', '', urlencode($filename)); 
-        // Ã·ºÎÆÄÀÏ Ã·ºÎ½Ã Ã·ºÎÆÄÀÏ¸í¿¡ °ø¹éÀÌ Æ÷ÇÔµÇ¾î ÀÖÀ¸¸é ÀÏºÎ PC¿¡¼­ º¸ÀÌÁö ¾Ê°Å³ª ´Ù¿î·Îµå µÇÁö ¾Ê´Â Çö»óÀÌ ÀÖ½À´Ï´Ù. (±æ»ó¿©ÀÇ ´Ô 090925)
+        // ì²¨ë¶€íŒŒì¼ ì²¨ë¶€ì‹œ ì²¨ë¶€íŒŒì¼ëª…ì— ê³µë°±ì´ í¬í•¨ë˜ì–´ ìˆìœ¼ë©´ ì¼ë¶€ PCì—ì„œ ë³´ì´ì§€ ì•Šê±°ë‚˜ ë‹¤ìš´ë¡œë“œ ë˜ì§€ ì•ŠëŠ” í˜„ìƒì´ ìˆìŠµë‹ˆë‹¤. (ê¸¸ìƒì—¬ì˜ ë‹˜ 090925)
         //$upload[$i][file] = time().'_'.substr($shuffle,0,8).'_'.str_replace('%', '', urlencode($filename));
         
-        // ÆÄÀÏÀÌ¸§ÀÌ 255±ÛÀÚ¸¦ ³ÑÀ¸¸é ¹®Á¦°¡ »ı±æ ¼ö ÀÖ¾î¼­, ÀÓÀÇÀÇ ÀÌ¸§À¸·Î ¹Ù²ã¹ö¸³´Ï´Ù. ¾îÂ¿ ¼ö ¾ø½À´Ï´Ù.
+        // íŒŒì¼ì´ë¦„ì´ 255ê¸€ìë¥¼ ë„˜ìœ¼ë©´ ë¬¸ì œê°€ ìƒê¸¸ ìˆ˜ ìˆì–´ì„œ, ì„ì˜ì˜ ì´ë¦„ìœ¼ë¡œ ë°”ê¿”ë²„ë¦½ë‹ˆë‹¤. ì–´ì©” ìˆ˜ ì—†ìŠµë‹ˆë‹¤.
         if (strlen(str_replace('%', '', urlencode(str_replace(' ', '_', $filename)))) > 200)
             $upload[$i][file] = time().'_'.substr($shuffle,0,8).'_'.md5(uniqid($g4[server_time]));
         else
             $upload[$i][file] = time().'_'.substr($shuffle,0,8).'_'.str_replace('%', '', urlencode(str_replace(' ', '_', $filename)));
 
-        // ¿¬¿ù($ym)º°·Î Ã·ºÎÆÄÀÏÀ» ºĞ¸®ÇÏ¿© ¾÷·Îµå - ºÒ´çÆÑ
+        // ì—°ì›”($ym)ë³„ë¡œ ì²¨ë¶€íŒŒì¼ì„ ë¶„ë¦¬í•˜ì—¬ ì—…ë¡œë“œ - ë¶ˆë‹¹íŒ©
         $upload[$i][file] = $ym . "/" . $upload[$i][file];
 
         $dest_file = "$g4[data_path]/file/$bo_table/" . $upload[$i][file];
 
-        // ¾÷·Îµå°¡ ¾ÈµÈ´Ù¸é ¿¡·¯¸Ş¼¼Áö Ãâ·ÂÇÏ°í Á×¾î¹ö¸³´Ï´Ù.
+        // ì—…ë¡œë“œê°€ ì•ˆëœë‹¤ë©´ ì—ëŸ¬ë©”ì„¸ì§€ ì¶œë ¥í•˜ê³  ì£½ì–´ë²„ë¦½ë‹ˆë‹¤.
         $error_code = move_uploaded_file($tmp_file, $dest_file) or die($_FILES[bf_file][error][$i]);
 
-        // ¿Ã¶ó°£ ÆÄÀÏÀÇ ÆÛ¹Ì¼ÇÀ» º¯°æÇÕ´Ï´Ù.
+        // ì˜¬ë¼ê°„ íŒŒì¼ì˜ í¼ë¯¸ì…˜ì„ ë³€ê²½í•©ë‹ˆë‹¤.
         chmod($dest_file, 0606);
 
         //$upload[$i][image] = @getimagesize($dest_file);
@@ -633,8 +633,8 @@ for ($i=0; $i<count($_FILES[bf_file][name]); $i++)
 }
 
 //------------------------------------------------------------------------------
-// °¡º¯ ÆÄÀÏ ¾÷·Îµå
-// ³ªÁß¿¡ Å×ÀÌºí¿¡ ÀúÀåÇÏ´Â ÀÌÀ¯´Â $wr_id °ªÀ» ÀúÀåÇØ¾ß ÇÏ±â ¶§¹®ÀÔ´Ï´Ù.
+// ê°€ë³€ íŒŒì¼ ì—…ë¡œë“œ
+// ë‚˜ì¤‘ì— í…Œì´ë¸”ì— ì €ì¥í•˜ëŠ” ì´ìœ ëŠ” $wr_id ê°’ì„ ì €ì¥í•´ì•¼ í•˜ê¸° ë•Œë¬¸ì…ë‹ˆë‹¤.
 for ($i=0; $i<count($upload); $i++) 
 {
     if (!get_magic_quotes_gpc()) {
@@ -644,8 +644,8 @@ for ($i=0; $i<count($upload); $i++)
     $row = sql_fetch(" select count(*) as cnt from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_no = '$i' ");
     if ($row[cnt]) 
     {
-        // »èÁ¦¿¡ Ã¼Å©°¡ ÀÖ°Å³ª ÆÄÀÏÀÌ ÀÖ´Ù¸é ¾÷µ¥ÀÌÆ®¸¦ ÇÕ´Ï´Ù.
-        // ±×·¸Áö ¾Ê´Ù¸é ³»¿ë¸¸ ¾÷µ¥ÀÌÆ® ÇÕ´Ï´Ù.
+        // ì‚­ì œì— ì²´í¬ê°€ ìˆê±°ë‚˜ íŒŒì¼ì´ ìˆë‹¤ë©´ ì—…ë°ì´íŠ¸ë¥¼ í•©ë‹ˆë‹¤.
+        // ê·¸ë ‡ì§€ ì•Šë‹¤ë©´ ë‚´ìš©ë§Œ ì—…ë°ì´íŠ¸ í•©ë‹ˆë‹¤.
         if ($upload[$i][del_check] || $upload[$i][file]) 
         {
             $sql = " update $g4[board_file_table]
@@ -691,29 +691,29 @@ for ($i=0; $i<count($upload); $i++)
     }
 }
 
-// ¾÷·ÎµåµÈ ÆÄÀÏ ³»¿ë¿¡¼­ °¡Àå Å« ¹øÈ£¸¦ ¾ò¾î °Å²Ù·Î È®ÀÎÇØ °¡¸é¼­
-// ÆÄÀÏ Á¤º¸°¡ ¾ø´Ù¸é Å×ÀÌºíÀÇ ³»¿ëÀ» »èÁ¦ÇÕ´Ï´Ù.
+// ì—…ë¡œë“œëœ íŒŒì¼ ë‚´ìš©ì—ì„œ ê°€ì¥ í° ë²ˆí˜¸ë¥¼ ì–»ì–´ ê±°ê¾¸ë¡œ í™•ì¸í•´ ê°€ë©´ì„œ
+// íŒŒì¼ ì •ë³´ê°€ ì—†ë‹¤ë©´ í…Œì´ë¸”ì˜ ë‚´ìš©ì„ ì‚­ì œí•©ë‹ˆë‹¤.
 $row = sql_fetch(" select max(bf_no) as max_bf_no from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' ");
 for ($i=(int)$row[max_bf_no]; $i>=0; $i--) 
 {
     $row2 = sql_fetch(" select bf_file from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_no = '$i' ");
 
-    // Á¤º¸°¡ ÀÖ´Ù¸é ºüÁı´Ï´Ù.
+    // ì •ë³´ê°€ ìˆë‹¤ë©´ ë¹ ì§‘ë‹ˆë‹¤.
     if ($row2[bf_file]) break;
 
-    // ±×·¸Áö ¾Ê´Ù¸é Á¤º¸¸¦ »èÁ¦ÇÕ´Ï´Ù.
+    // ê·¸ë ‡ì§€ ì•Šë‹¤ë©´ ì •ë³´ë¥¼ ì‚­ì œí•©ë‹ˆë‹¤.
     sql_query(" delete from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_no = '$i' ");
 }
 //------------------------------------------------------------------------------
 
-// ºñ¹Ğ±ÛÀÌ¶ó¸é ¼¼¼Ç¿¡ ºñ¹Ğ±ÛÀÇ ¾ÆÀÌµğ¸¦ ÀúÀåÇÑ´Ù. ÀÚ½ÅÀÇ ±ÛÀº ´Ù½Ã ÆĞ½º¿öµå¸¦ ¹¯Áö ¾Ê±â À§ÇÔ
+// ë¹„ë°€ê¸€ì´ë¼ë©´ ì„¸ì…˜ì— ë¹„ë°€ê¸€ì˜ ì•„ì´ë””ë¥¼ ì €ì¥í•œë‹¤. ìì‹ ì˜ ê¸€ì€ ë‹¤ì‹œ íŒ¨ìŠ¤ì›Œë“œë¥¼ ë¬»ì§€ ì•Šê¸° ìœ„í•¨
 if ($secret) 
     set_session("ss_secret_{$bo_table}_{$wr_num}", TRUE);
 
-// ¸ŞÀÏ¹ß¼Û »ç¿ë (¼öÁ¤±ÛÀº ¹ß¼ÛÇÏÁö ¾ÊÀ½)
+// ë©”ì¼ë°œì†¡ ì‚¬ìš© (ìˆ˜ì •ê¸€ì€ ë°œì†¡í•˜ì§€ ì•ŠìŒ)
 if (!($w == "u" || $w == "cu") && $config[cf_email_use] && $board[bo_use_email]) 
 {
-    // °ü¸®ÀÚÀÇ Á¤º¸¸¦ ¾ò°í
+    // ê´€ë¦¬ìì˜ ì •ë³´ë¥¼ ì–»ê³ 
     $super_admin = get_admin("super");
     $group_admin = get_admin("group");
     $board_admin = get_admin("board");
@@ -728,10 +728,10 @@ if (!($w == "u" || $w == "cu") && $config[cf_email_use] && $board[bo_use_email])
 
     $wr_content = conv_content(stripslashes($wr_content), $tmp_html);
 
-    $warr = array( ""=>"ÀÔ·Â", "u"=>"¼öÁ¤", "r"=>"´äº¯", "c"=>"ÄÚ¸àÆ®", "cu"=>"ÄÚ¸àÆ® ¼öÁ¤" );
+    $warr = array( ""=>"ì…ë ¥", "u"=>"ìˆ˜ì •", "r"=>"ë‹µë³€", "c"=>"ì½”ë©˜íŠ¸", "cu"=>"ì½”ë©˜íŠ¸ ìˆ˜ì •" );
     $str = $warr[$w];
 
-    $subject = "'{$board[bo_subject]}' °Ô½ÃÆÇ¿¡ {$str}±ÛÀÌ ¿Ã¶ó¿Ô½À´Ï´Ù.";
+    $subject = "'{$board[bo_subject]}' ê²Œì‹œíŒì— {$str}ê¸€ì´ ì˜¬ë¼ì™”ìŠµë‹ˆë‹¤.";
     $link_url = "$g4[url]/$g4[bbs]/board.php?bo_table=$bo_table&wr_id=$wr_id&$qstr";
 
     include_once("$g4[path]/lib/mailer.lib.php");
@@ -742,19 +742,19 @@ if (!($w == "u" || $w == "cu") && $config[cf_email_use] && $board[bo_use_email])
     ob_end_clean();
 
     $array_email = array();
-    // °Ô½ÃÆÇ°ü¸®ÀÚ¿¡°Ô º¸³»´Â ¸ŞÀÏ
+    // ê²Œì‹œíŒê´€ë¦¬ìì—ê²Œ ë³´ë‚´ëŠ” ë©”ì¼
     if ($config[cf_email_wr_board_admin]) $array_email[] = $board_admin[mb_email];
-    // °Ô½ÃÆÇ±×·ì°ü¸®ÀÚ¿¡°Ô º¸³»´Â ¸ŞÀÏ
+    // ê²Œì‹œíŒê·¸ë£¹ê´€ë¦¬ìì—ê²Œ ë³´ë‚´ëŠ” ë©”ì¼
     if ($config[cf_email_wr_group_admin]) $array_email[] = $group_admin[mb_email];
-    // ÃÖ°í°ü¸®ÀÚ¿¡°Ô º¸³»´Â ¸ŞÀÏ
+    // ìµœê³ ê´€ë¦¬ìì—ê²Œ ë³´ë‚´ëŠ” ë©”ì¼
     if ($config[cf_email_wr_super_admin]) $array_email[] = $super_admin[mb_email];
 
-    // ¿É¼Ç¿¡ ¸ŞÀÏ¹Ş±â°¡ Ã¼Å©µÇ¾î ÀÖ°í, °Ô½ÃÀÚÀÇ ¸ŞÀÏÀÌ ÀÖ´Ù¸é
+    // ì˜µì…˜ì— ë©”ì¼ë°›ê¸°ê°€ ì²´í¬ë˜ì–´ ìˆê³ , ê²Œì‹œìì˜ ë©”ì¼ì´ ìˆë‹¤ë©´
     if (strstr($wr[wr_option], "mail") && $wr[wr_email]) {
-        // ¿ø±Û ¸ŞÀÏ¹ß¼Û¿¡ Ã¼Å©°¡ µÇ¾î ÀÖ´Ù¸é
+        // ì›ê¸€ ë©”ì¼ë°œì†¡ì— ì²´í¬ê°€ ë˜ì–´ ìˆë‹¤ë©´
         if ($config[cf_email_wr_write]) $array_email[] = $wr[wr_email];
 
-        // ÄÚ¸àÆ® ¾´ ¸ğµçÀÌ¿¡°Ô ¸ŞÀÏ ¹ß¼ÛÀÌ µÇ¾î ÀÖ´Ù¸é (ÀÚ½Å¿¡°Ô´Â ¹ß¼ÛÇÏÁö ¾Ê´Â´Ù)
+        // ì½”ë©˜íŠ¸ ì“´ ëª¨ë“ ì´ì—ê²Œ ë©”ì¼ ë°œì†¡ì´ ë˜ì–´ ìˆë‹¤ë©´ (ìì‹ ì—ê²ŒëŠ” ë°œì†¡í•˜ì§€ ì•ŠëŠ”ë‹¤)
         if ($config[cf_email_wr_comment_all]) {
             $sql = " select distinct wr_email from $write_table
                       where wr_email not in ( '$wr[wr_email]', '$member[mb_email]', '' )
@@ -765,7 +765,7 @@ if (!($w == "u" || $w == "cu") && $config[cf_email_use] && $board[bo_use_email])
         }
     }
 
-    // Áßº¹µÈ ¸ŞÀÏ ÁÖ¼Ò´Â Á¦°Å
+    // ì¤‘ë³µëœ ë©”ì¼ ì£¼ì†ŒëŠ” ì œê±°
     $unique_email = array_unique($array_email);
     $unique_email = array_values($unique_email);
     for ($i=0; $i<count($unique_email); $i++) {
@@ -773,20 +773,20 @@ if (!($w == "u" || $w == "cu") && $config[cf_email_use] && $board[bo_use_email])
     }
 }
 
-// ºÒ´çÆÑ - min_wr_num ¾÷µ¥ÀÌÆ®
+// ë¶ˆë‹¹íŒ© - min_wr_num ì—…ë°ì´íŠ¸
 $result = sql_fetch(" select MIN(wr_num) as min_wr_num from $write_table ");
 $sql = " update $g4[board_table] set min_wr_num = '$result[min_wr_num]' where bo_table = '$bo_table' ";
 sql_query($sql);
     
-// ºÒ´çÆÑ - Ã·ºÎÆÄÀÏÀÇ °¹¼ö ÆÄ¾Ç
+// ë¶ˆë‹¹íŒ© - ì²¨ë¶€íŒŒì¼ì˜ ê°¯ìˆ˜ íŒŒì•…
 $sql = " select count(*) as cnt from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_source <> '' ";
 $result = sql_fetch($sql);
 
-// ºÒ´çÆÑ - Ã·ºÎÆÄÀÏ °¹¼ö ¾÷µ¥ÀÌÆ®
+// ë¶ˆë‹¹íŒ© - ì²¨ë¶€íŒŒì¼ ê°¯ìˆ˜ ì—…ë°ì´íŠ¸
 $sql = " update $write_table set wr_file_count = '$result[cnt]' where wr_id = '$wr_id' ";
 sql_query($sql);
 
-// ºÒ´çÆÑ - CCL Á¤º¸ ¾÷µ¥ÀÌÆ®
+// ë¶ˆë‹¹íŒ© - CCL ì •ë³´ ì—…ë°ì´íŠ¸
 if ($board[bo_ccl]) {
     $wr_ccl = "";
     if ($wr_ccl_by == "by") { $wr_ccl .= "by"; }
@@ -797,21 +797,21 @@ if ($board[bo_ccl]) {
     sql_query("update $write_table set wr_ccl = '$wr_ccl' where wr_id = '$wr_id'");
 }
 
-// ºÒ´çÆÑ - ÀüÃ¼°øÁö
+// ë¶ˆë‹¹íŒ© - ì „ì²´ê³µì§€
 if ($insert_g_notice) {
     $sql = " INSERT INTO $g4[notice_table] SET bo_table = '$bo_table', wr_id='$wr_id', no_datetime='$g4[time_ymdhis]' ";
     sql_query($sql);
 }
 
-// »ç¿ëÀÚ ÄÚµå ½ÇÇà
+// ì‚¬ìš©ì ì½”ë“œ ì‹¤í–‰
 @include_once ("$board_skin_path/write_update.skin.php");
 
-// ºÒ´çÆÑ - ÀÓ½ÃÀúÀåµÈ °ÍÀ» ¸ğµÎ Áö¿öÁÖ°í ¼¼¼Çµµ ³¯¸³´Ï´Ù (ss_tempsave ¼¼¼Ç¸¸ Áö¿ì¸é Âî²¨±â ³²À» ¼ö ÀÖ½¿...)
+// ë¶ˆë‹¹íŒ© - ì„ì‹œì €ì¥ëœ ê²ƒì„ ëª¨ë‘ ì§€ì›Œì£¼ê³  ì„¸ì…˜ë„ ë‚ ë¦½ë‹ˆë‹¤ (ss_tempsave ì„¸ì…˜ë§Œ ì§€ìš°ë©´ ì°Œêº¼ê¸° ë‚¨ì„ ìˆ˜ ìˆìŠ´...)
 $sql = " delete from $g4[tempsave_table] where bo_table='$bo_table' and mb_id = '$member[mb_id]' ";
 sql_query($sql);
 set_session("ss_tempsave", "");
 
-// ºÒ´çÆÑ - ÀÌ¹ÌÁö ¿ë·®À» °è»êÇØ¼­ wr_imagesize ÇÊµå¸¦ ¾÷µ¥ÀÌÆ® ÇØÁİ´Ï´Ù.
+// ë¶ˆë‹¹íŒ© - ì´ë¯¸ì§€ ìš©ëŸ‰ì„ ê³„ì‚°í•´ì„œ wr_imagesize í•„ë“œë¥¼ ì—…ë°ì´íŠ¸ í•´ì¤ë‹ˆë‹¤.
 if($board['bo_use_dhtml_editor'] && $board['bo_chimage']) {
     $sql = " select sum(bc_filesize) as imagesum from $g4[board_cheditor_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and del = 0 ";
     $chsum = sql_fetch($sql);
@@ -825,7 +825,7 @@ if($board['bo_use_dhtml_editor'] && $board['bo_chimage']) {
 if (file_exists("$board_skin_path/write_update.tail.skin.php"))
     @include_once("$board_skin_path/write_update.tail.skin.php");
 
-// °°Àº ±ÛÀ» ¿©±âÀú±â °Ô½ÃÆÇ¿¡ Æß ÇÏ½Ã´Â ºĞµéÀ» À§ÇØ¼­. Ã¼Å©´Â ¾Õ¿¡¼­.
+// ê°™ì€ ê¸€ì„ ì—¬ê¸°ì €ê¸° ê²Œì‹œíŒì— íŒ í•˜ì‹œëŠ” ë¶„ë“¤ì„ ìœ„í•´ì„œ. ì²´í¬ëŠ” ì•ì—ì„œ.
 if ($w == "" || $w == "r")
 {
     if ($is_admin == "") {

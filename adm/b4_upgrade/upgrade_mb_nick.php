@@ -5,9 +5,9 @@ include_once("./_common.php");
 check_demo();
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4[path]);
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4[path]);
 
-$g4[title] = "¾÷±×·¹ÀÌµå";
+$g4[title] = "ì—…ê·¸ë ˆì´ë“œ";
 if (!$g4[b4_upgrade]) include_once("./admin.head.php");
 
 $sql = " 
@@ -37,7 +37,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     sql_query($sql);
 }
 
-echo "<br>mb_nick È÷½ºÅä¸® Ãß°¡ UPGRADE ¿Ï·á.";
+echo "<br>mb_nick íˆìŠ¤í† ë¦¬ ì¶”ê°€ UPGRADE ì™„ë£Œ.";
 
 if (!$g4[b4_upgrade]) include_once("./admin.tail.php");
 ?>

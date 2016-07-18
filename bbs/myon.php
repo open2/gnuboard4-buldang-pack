@@ -12,14 +12,14 @@ $rows = (int) $rows;
 if ($member[mb_id]) 
     ;
 else 
-    alert("MyOnÀº È¸¿øÀ» À§ÇÑ ¼­ºñ½º ÀÔ´Ï´Ù.\\n\\nÈ¸¿øÀÌ½Ã¶ó¸é ·Î±×ÀÎ ÈÄ ÀÌ¿ëÇØ º¸½Ê½Ã¿À.", "$g4[bbs_path]/login.php?url=".urlencode("$g4[bbs_path]/myon.php?head=$head"));
+    alert("MyOnì€ íšŒì›ì„ ìœ„í•œ ì„œë¹„ìŠ¤ ì…ë‹ˆë‹¤.\\n\\níšŒì›ì´ì‹œë¼ë©´ ë¡œê·¸ì¸ í›„ ì´ìš©í•´ ë³´ì‹­ì‹œì˜¤.", "$g4[bbs_path]/login.php?url=".urlencode("$g4[bbs_path]/myon.php?head=$head"));
 
 if ($head)
     include_once("./_head.php");
 else
     include_once("../head.sub.php");
 
-// ½ºÅ²À» $_GETÀ¸·Î °ªÀ» ³Ñ°ÜÁØ´Ù
+// ìŠ¤í‚¨ì„ $_GETìœ¼ë¡œ ê°’ì„ ë„˜ê²¨ì¤€ë‹¤
 $myon_skin = strip_tags($myon_skin);
 if ($myon_skin)
     $skin = $myon_skin;
@@ -33,7 +33,7 @@ if ($rows > 0) {
 else
     $rows = 20;
 
-/* ºÒ´çÆÑ 1.2¿¡¼­ ¸ğµÎ ÇÔ¼ö·Î ÀÌµ¿Çß½À´Ï´Ù */
+/* ë¶ˆë‹¹íŒ© 1.2ì—ì„œ ëª¨ë‘ í•¨ìˆ˜ë¡œ ì´ë™í–ˆìŠµë‹ˆë‹¤ */
 
 $myon_skin_path = "$g4[path]/skin/myon/$skin";
 

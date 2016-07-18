@@ -1,8 +1,8 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 <div class="panel panel-default">
   <div class="panel-body">
-    <a href='<?=$g4['bbs_path']?>/current_connect.php'>ÇöÀçÁ¢¼ÓÀÚ : <?=$row['total_cnt']?> (È¸¿ø <?=$row['mb_cnt']?>)</a>
+    <a href='<?=$g4['bbs_path']?>/current_connect.php'>í˜„ìž¬ì ‘ì†ìž : <?=$row['total_cnt']?> (íšŒì› <?=$row['mb_cnt']?>)</a>
   </div>
 </div>

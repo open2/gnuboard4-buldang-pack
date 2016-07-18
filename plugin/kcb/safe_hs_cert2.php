@@ -1,27 +1,27 @@
 <?php
 /**************************************************************************
- * ÆÄÀÏ¸í : safe_hs_cert2.php
+ * íŒŒì¼ëª… : safe_hs_cert2.php
  *
- * »ı³â¿ùÀÏ º»ÀÎ È®ÀÎ¼­ºñ½º °³ÀÎ Á¤º¸ ÀÔ·Â È­¸é
- *    (°í°´ ÀÎÁõÁ¤º¸ KCBÆË¾÷Ã¢¿¡¼­ ÀÔ·Â¿ë)
+ * ìƒë…„ì›”ì¼ ë³¸ì¸ í™•ì¸ì„œë¹„ìŠ¤ ê°œì¸ ì •ë³´ ì…ë ¥ í™”ë©´
+ *    (ê³ ê° ì¸ì¦ì •ë³´ KCBíŒì—…ì°½ì—ì„œ ì…ë ¥ìš©)
  *
- * ¡ØÁÖÀÇ
- * 	½ÇÁ¦ ¿î¿µ½Ã¿¡´Â 
- * 	response.write¸¦ »ç¿ëÇÏ¿© È­¸é¿¡ º¸¿©Áö´Â µ¥ÀÌÅÍ¸¦ 
- * 	»èÁ¦ÇÏ¿© ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù. ¹æ¹®ÀÚ¿¡°Ô »çÀÌÆ®µ¥ÀÌÅÍ°¡ ³ëÃâµÉ ¼ö ÀÖ½À´Ï´Ù.
+ * â€»ì£¼ì˜
+ * 	ì‹¤ì œ ìš´ì˜ì‹œì—ëŠ” 
+ * 	response.writeë¥¼ ì‚¬ìš©í•˜ì—¬ í™”ë©´ì— ë³´ì—¬ì§€ëŠ” ë°ì´í„°ë¥¼ 
+ * 	ì‚­ì œí•˜ì—¬ ì£¼ì‹œê¸° ë°”ëë‹ˆë‹¤. ë°©ë¬¸ìì—ê²Œ ì‚¬ì´íŠ¸ë°ì´í„°ê°€ ë…¸ì¶œë  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
 **************************************************************************/
  
 include_once("./_common.php");
 
-// ºñÈ¸¿ø Á¢¼ÓºÒ°¡
+// ë¹„íšŒì› ì ‘ì†ë¶ˆê°€
 if ($member['mb_id'] == "")
     die;
 
-$g4[title] = "KCB(ÄÚ¸®¾ÆÅ©·¹µ÷ºä·Î) - okname º»ÀÎÈ®ÀÎ";
+$g4[title] = "KCB(ì½”ë¦¬ì•„í¬ë ˆë”§ë·°ë¡œ) - okname ë³¸ì¸í™•ì¸";
 
 include_once("./nc.config.php");
 
-// ¸ğµâÈ£Ãâ¸í·É¾î
+// ëª¨ë“ˆí˜¸ì¶œëª…ë ¹ì–´
 $cmd = array($svcTxSeqno, $name, $birthday, $gender, $ntvFrnrTpCd, $mblTelCmmCd, $mbphnNo, $rsv1, $rsv2, $rsv3, $returnMsg, $returnUrl, $inTpBit, $hsCertMsrCd, $hsCertRqstCausCd, $memid, $qryIP, $qryDomain, $EndPointURL, $logPath, $option2);
 
 if ($kcb_test) {
@@ -29,7 +29,7 @@ if ($kcb_test) {
     //exit;
 }
 
-//cmd ½ÇÇà
+//cmd ì‹¤í–‰
 $output = NULL;
 $ret = okname($cmd, $output);
 
@@ -37,13 +37,13 @@ if ($kcb_test)
     echo "ret=".$ret."<br>";
 
 /**************************************************************************
- okname ÀÀ´ä Á¤º¸
+ okname ì‘ë‹µ ì •ë³´
 **************************************************************************/
-$retcode = "";			// °á°úÄÚµå
-$retmsg = "";				// °á°ú¸Ş½ÃÁö
-$e_rqstData = "";		// ¾ÏÈ£È­µÈ¿äÃ»µ¥ÀÌÅÍ
+$retcode = "";			// ê²°ê³¼ì½”ë“œ
+$retmsg = "";				// ê²°ê³¼ë©”ì‹œì§€
+$e_rqstData = "";		// ì•”í˜¸í™”ëœìš”ì²­ë°ì´í„°
 	
-if ($ret == 0) {//¼º°øÀÏ °æ¿ì º¯¼ö¸¦ °á°ú¿¡¼­ ¾òÀ½
+if ($ret == 0) {//ì„±ê³µì¼ ê²½ìš° ë³€ìˆ˜ë¥¼ ê²°ê³¼ì—ì„œ ì–»ìŒ
     $out = explode("\n", $output);
 		$retcode = $out[0];
 		$retmsg  = $out[1];
@@ -56,21 +56,21 @@ if ($ret == 0) {//¼º°øÀÏ °æ¿ì º¯¼ö¸¦ °á°ú¿¡¼­ ¾òÀ½
 }
 	
 /**************************************************************************
- * safe_hs_cert3.php ½ÇÇà Á¤º¸
+ * safe_hs_cert3.php ì‹¤í–‰ ì •ë³´
  **************************************************************************/
-$targetId = "";				// Å¸°ÙID (ÆË¾÷¿ÀÇÂ ½ºÅ©¸³Æ®ÀÇ window.name °ú µ¿ÀÏÇÏ°Ô ¼³Á¤
+$targetId = "";				// íƒ€ê²ŸID (íŒì—…ì˜¤í”ˆ ìŠ¤í¬ë¦½íŠ¸ì˜ window.name ê³¼ ë™ì¼í•˜ê²Œ ì„¤ì •
 
 // ########################################################################
-// # ¿î¿µÀüÈ¯½Ã º¯°æ ÇÊ¿ä
+// # ìš´ì˜ì „í™˜ì‹œ ë³€ê²½ í•„ìš”
 // ########################################################################
 if ($kcb_test)
-    $commonSvlUrl = "https://tsafe.ok-name.co.kr:2443/CommonSvl";	// Å×½ºÆ® URL
+    $commonSvlUrl = "https://tsafe.ok-name.co.kr:2443/CommonSvl";	// í…ŒìŠ¤íŠ¸ URL
 else
-    $commonSvlUrl = "https://safe.ok-name.co.kr/CommonSvl";	      // ¿î¿µ URL
+    $commonSvlUrl = "https://safe.ok-name.co.kr/CommonSvl";	      // ìš´ì˜ URL
 ?>
 <html>
 	<head>
-	<title>KCB »ı³â¿ùÀÏ º»ÀÎ È®ÀÎ¼­ºñ½º »ùÇÃ</title>
+	<title>KCB ìƒë…„ì›”ì¼ ë³¸ì¸ í™•ì¸ì„œë¹„ìŠ¤ ìƒ˜í”Œ</title>
 	<script>
 		function request(){
 		window.name = "<?=$targetId?>";
@@ -85,12 +85,12 @@ else
 
  <body>
 	<form name="form1">
-	<!-- ÀÎÁõ ¿äÃ» Á¤º¸ -->
-	<!--// ÇÊ¼ö Ç×¸ñ -->
-	<input type="hidden" name="tc" value="kcb.oknm.online.safehscert.popup.cmd.P901_CertChoiceCmd">				<!-- º¯°æºÒ°¡-->
-	<input type="hidden" name="rqst_data"				value="<?=$e_rqstData?>">		<!-- ¿äÃ»µ¥ÀÌÅÍ -->
-	<input type="hidden" name="target_id"				value="<?=$targetId?>">			<!-- Å¸°ÙID --> 
-	<!-- ÇÊ¼ö Ç×¸ñ //-->	
+	<!-- ì¸ì¦ ìš”ì²­ ì •ë³´ -->
+	<!--// í•„ìˆ˜ í•­ëª© -->
+	<input type="hidden" name="tc" value="kcb.oknm.online.safehscert.popup.cmd.P901_CertChoiceCmd">				<!-- ë³€ê²½ë¶ˆê°€-->
+	<input type="hidden" name="rqst_data"				value="<?=$e_rqstData?>">		<!-- ìš”ì²­ë°ì´í„° -->
+	<input type="hidden" name="target_id"				value="<?=$targetId?>">			<!-- íƒ€ê²ŸID --> 
+	<!-- í•„ìˆ˜ í•­ëª© //-->	
 	</form>
   <form name="kcbResultForm" method="post" >
         <input type="hidden" name="idcf_mbr_com_cd" 		value="" 	/>
@@ -102,10 +102,10 @@ else
   </form>  
 <?php
  	if ($retcode == "B000") {
-		//ÀÎÁõ¿äÃ»
+		//ì¸ì¦ìš”ì²­
 		echo ("<script>request();</script>");
 	} else {
-		//¿äÃ» ½ÇÆĞ ÆäÀÌÁö·Î ¸®ÅÏ
+		//ìš”ì²­ ì‹¤íŒ¨ í˜ì´ì§€ë¡œ ë¦¬í„´
 		echo ("<script>alert(\"$retcode\"); self.close();</script>");
 	}
 ?>

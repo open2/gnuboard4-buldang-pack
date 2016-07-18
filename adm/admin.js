@@ -8,15 +8,15 @@ function check_all(f)
 
 function btn_check(f, act)
 {
-    if (act == "update") // ¼±ÅÃ¼öÁ¤
+    if (act == "update") // ì„ íƒìˆ˜ì •
     { 
         f.action = list_update_php;
-        str = "¼öÁ¤";
+        str = "ìˆ˜ì •";
     } 
-    else if (act == "delete") // ¼±ÅÃ»èÁ¦
+    else if (act == "delete") // ì„ íƒì‚­ì œ
     { 
         f.action = list_delete_php;
-        str = "»èÁ¦";
+        str = "ì‚­ì œ";
     } 
     else
         return;
@@ -32,13 +32,13 @@ function btn_check(f, act)
 
     if (!bchk) 
     {
-        alert(str + "ÇÒ ÀÚ·á¸¦ ÇÏ³ª ÀÌ»ó ¼±ÅÃÇÏ¼¼¿ä.");
+        alert(str + "í•  ìë£Œë¥¼ í•˜ë‚˜ ì´ìƒ ì„ íƒí•˜ì„¸ìš”.");
         return;
     }
 
     if (act == "delete")
     {
-        if (!confirm("¼±ÅÃÇÑ ÀÚ·á¸¦ Á¤¸» »èÁ¦ ÇÏ½Ã°Ú½À´Ï±î?"))
+        if (!confirm("ì„ íƒí•œ ìë£Œë¥¼ ì •ë§ ì‚­ì œ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?"))
             return;
     }
 
@@ -53,13 +53,13 @@ var orign_group = f.elements["groupName_["+type+"]"].value;
 
 if (orign_group != str) 
 { 
-if (!confirm('\nÀÌ¹Ì È¸¿øÀÌ °¡ÀÔµÈ ±×·ìÀÇ ¸íÄªÀ» ÀÓÀÇ·Î º¯°æÇÒ °æ¿ì\n\nÇØ´ç±×·ìÀÇ È¸¿øµé¿¡°Ô È¥¶õÀ» ÁÙ ¼ö ÀÖ½À´Ï´Ù.\n\n±×·¡µµ ±×·ì¸íÄªÀ» º¯°æÇÏ½Ã°Ú½À´Ï±î?              \n')) 
+if (!confirm('\nì´ë¯¸ íšŒì›ì´ ê°€ì…ëœ ê·¸ë£¹ì˜ ëª…ì¹­ì„ ì„ì˜ë¡œ ë³€ê²½í•  ê²½ìš°\n\ní•´ë‹¹ê·¸ë£¹ì˜ íšŒì›ë“¤ì—ê²Œ í˜¼ë€ì„ ì¤„ ìˆ˜ ìˆìŠµë‹ˆë‹¤.\n\nê·¸ë˜ë„ ê·¸ë£¹ëª…ì¹­ì„ ë³€ê²½í•˜ì‹œê² ìŠµë‹ˆê¹Œ?              \n')) 
 { 
 return false; 
 } 
 } 
 else { 
-if (!confirm('Á¤¸»·Î º¯°æ º¯°æÇÏ½Ã°Ú½À´Ï±î? \n')) 
+if (!confirm('ì •ë§ë¡œ ë³€ê²½ ë³€ê²½í•˜ì‹œê² ìŠµë‹ˆê¹Œ? \n')) 
 { 
 return false; 
 } 

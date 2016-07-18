@@ -41,13 +41,13 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if (!$page) $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ íŽ˜ì´ì§€ ê³„ì‚°
+if (!$page) $page = 1; // íŽ˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« íŽ˜ì´ì§€ (1 íŽ˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œìž‘ ì—´ì„ êµ¬í•¨
 
-$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>ì²˜ìŒ</a>";
 
-$g4[title] = "°Ô½Ã¹°½Å°íÇØÁ¦°ü¸®";
+$g4[title] = "ê²Œì‹œë¬¼ì‹ ê³ í•´ì œê´€ë¦¬";
 include_once("./admin.head.php");
 
 $sql = " select * 
@@ -64,20 +64,20 @@ var list_delete_php = "unsingo_list_delete.php";
 
 <form name=fsearch method=get role="form" class="form-inline">
 <div class="btn-group">
-    <?=$listall?> (½Å°íÇØÁ¦ °Ô½Ã¹° : <?=number_format($total_count)?>)
+    <?=$listall?> (ì‹ ê³ í•´ì œ ê²Œì‹œë¬¼ : <?=number_format($total_count)?>)
 </div>
 <div class="pull-right">
     <select name=sfl class="form-control">
-        <option value='mb_id'>½Å°íµÈ È¸¿ø¾ÆÀÌµð</option>
-        <option value='unsg_mb_id'>½Å°íÇØÁ¦ÇÑ È¸¿ø¾ÆÀÌµð</option>
-        <option value='unsg_ip'>½Å°íÇØÁ¦ÇÑ IP</option>
-        <option value='unsg_reason'>½Å°íÇØÁ¦ÇÑ ÀÌÀ¯</option>
-        <option value='bo_table'>°Ô½ÃÆÇ</option>
-        <option value='wr_id'>°Ô½ÃÆÇ,°Ô½Ã±Û</option>
+        <option value='mb_id'>ì‹ ê³ ëœ íšŒì›ì•„ì´ë””</option>
+        <option value='unsg_mb_id'>ì‹ ê³ í•´ì œí•œ íšŒì›ì•„ì´ë””</option>
+        <option value='unsg_ip'>ì‹ ê³ í•´ì œí•œ IP</option>
+        <option value='unsg_reason'>ì‹ ê³ í•´ì œí•œ ì´ìœ </option>
+        <option value='bo_table'>ê²Œì‹œíŒ</option>
+        <option value='wr_id'>ê²Œì‹œíŒ,ê²Œì‹œê¸€</option>
     </select>
-    <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<?=$stx?>'>
+    <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<?=$stx?>'>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 </form>
@@ -92,16 +92,16 @@ var list_delete_php = "unsingo_list_delete.php";
 <table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <tr class="success">
     <td width=30 rowspan=2><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
-    <td width=110 align='left'><?=subject_sort_link('mb_id')?>½Å°íµÈ È¸¿ø</a></td>
-    <td align='left'>°Ô½ÃÆÇ - °Ô½Ã¹° - ½Å°í</td>
-    <td width=110>°Ô½Ã¹° µî·ÏÀÏ½Ã</td>
-    <td width=100>°Ô½Ã¹° IP</td>
+    <td width=110 align='left'><?=subject_sort_link('mb_id')?>ì‹ ê³ ëœ íšŒì›</a></td>
+    <td align='left'>ê²Œì‹œíŒ - ê²Œì‹œë¬¼ - ì‹ ê³ </td>
+    <td width=110>ê²Œì‹œë¬¼ ë“±ë¡ì¼ì‹œ</td>
+    <td width=100>ê²Œì‹œë¬¼ IP</td>
 </tr>
 <tr class="success">
-    <td align='left'><?=subject_sort_link('unsg_mb_id')?>½Å°íÇØÁ¦ÇÑ È¸¿ø</a></td>
-    <td align='left'>½Å°íÇØÁ¦ÇÑ ÀÌÀ¯</td>
-    <td>½Å°íÇØÁ¦ÇÑ ÀÏ½Ã</td>
-    <td>½Å°íÇØÁ¦ÇÑ IP</td>
+    <td align='left'><?=subject_sort_link('unsg_mb_id')?>ì‹ ê³ í•´ì œí•œ íšŒì›</a></td>
+    <td align='left'>ì‹ ê³ í•´ì œí•œ ì´ìœ </td>
+    <td>ì‹ ê³ í•´ì œí•œ ì¼ì‹œ</td>
+    <td>ì‹ ê³ í•´ì œí•œ IP</td>
 </tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) {
@@ -113,8 +113,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         $mb_nick = $mb[mb_nick];
         $mb_id = $mb[mb_id];
     } else {
-        $mb_nick = "ºñÈ¸¿ø";
-        $mb_id = "ºñÈ¸¿ø";
+        $mb_nick = "ë¹„íšŒì›";
+        $mb_id = "ë¹„íšŒì›";
     }
 
     if ($row[unsg_mb_id]) {
@@ -122,8 +122,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         $unsg_mb_nick = $unsg_mb[mb_nick];
         $unsg_mb_id = $unsg_mb[mb_id];
     } else {
-        $unsg_mb_nick = "ºñÈ¸¿ø";
-        $unsg_mb_id = "ºñÈ¸¿ø";
+        $unsg_mb_nick = "ë¹„íšŒì›";
+        $unsg_mb_id = "ë¹„íšŒì›";
     }
 
     $wr_subject = "";
@@ -134,16 +134,16 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     if ($row['sg_notes']) {
         ;
     } else if ($row['bo_table'] == "@memo") {
-        // ÂÊÁö ½Å°í
+        // ìª½ì§€ ì‹ ê³ 
         ;
     } else if ($row['bo_table'] == "@user") {
-        // »ç¿ëÀÚ ½Å°í
+        // ì‚¬ìš©ìž ì‹ ê³ 
         ;
     } else if ($row['bo_table'] == "@hidden_comment") {
-        // µýÁö°É±â ½Å°í
+        // ë”´ì§€ê±¸ê¸° ì‹ ê³ 
         ;
     } else {
-        // °Ô½Ã±Û ½Å°í
+        // ê²Œì‹œê¸€ ì‹ ê³ 
         $write_table = $g4['write_prefix'].$row[bo_table];
         $bo = get_board($row[bo_table], "bo_subject");
         $sql = " select wr_subject, wr_ip, wr_is_comment, wr_parent, wr_datetime, wr_singo from $write_table where wr_id = '$row[wr_id]' ";
@@ -151,11 +151,11 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         if ($write_row[wr_is_comment]) {
             $sql = " select wr_subject, wr_ip, wr_datetime from $write_table, wr_singo where wr_id = '$write_row[wr_parent]' ";
             $parent_row = sql_fetch($sql);
-            $wr_subject = "[ÄÚ] ".$parent_row[wr_subject];
+            $wr_subject = "[ì½”] ".$parent_row[wr_subject];
             $wr_ip = $parent_row[wr_ip];
             $wr_datetime = $parent_row[wr_datetime];
         } else {
-            // wr_singo == 0, ½Å°íÇØÁ¦°¡ µÇ¾î ¹«È¿°¡ µÈ ½Å°í¶ó´Â°Å. ½Å°íÇØÁ¦´Â ¿ø±Û¿¡¸¸ ÇØ´ç.
+            // wr_singo == 0, ì‹ ê³ í•´ì œê°€ ë˜ì–´ ë¬´íš¨ê°€ ëœ ì‹ ê³ ë¼ëŠ”ê±°. ì‹ ê³ í•´ì œëŠ” ì›ê¸€ì—ë§Œ í•´ë‹¹.
             if ($write_row[wr_singo] == 0)
                 $wr_subject = "<del>" . $write_row[wr_subject] . "</del>";
             else
@@ -166,11 +166,11 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
             $wr_ip = $write_row[wr_ip];
             $wr_datetime = $write_row[wr_datetime];
 
-            // ½Å°í °Ç¼ö¸¦ °è»ê
+            // ì‹ ê³  ê±´ìˆ˜ë¥¼ ê³„ì‚°
             $sql3 = " select count(*) as cnt from $g4[singo_table] where bo_table='$row[bo_table]' and wr_id = '$row[wr_id]' ";
             $result3 = sql_fetch($sql3);
             if ($result3[cnt] > 0) {
-                // ½Å°í °Ç¼ö¿¡ ¸µÅ©¸¦ °É¾îÁà¾ßÁÒ
+                // ì‹ ê³  ê±´ìˆ˜ì— ë§í¬ë¥¼ ê±¸ì–´ì¤˜ì•¼ì£ 
                 $unsingo = " - <b><a href=./singo_list.php?sfl=wr_id&stx=$row[bo_table],$row[wr_id] target=new>$result3[cnt]<a></b>";
             }
             else
@@ -178,11 +178,11 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         }
         $singo_href = "<a href='$g4[bbs_path]/board.php?bo_table=$row[bo_table]&wr_id=$row[wr_id]' target='_blank'>";
 
-        // °Ô½ÃÆÇ Á¦¸ñ
+        // ê²Œì‹œíŒ ì œëª©
         $bo_subject = "<a href='./unsingo_list.php?sfl=bo_table&stx=$row[bo_table]'>" . cut_str($bo[bo_subject],30) . "</a>";
     } 
 
-    // ´ÐÀ» ´©¸£¸é, ÇØ´ç ´ÐÀÇ ¸ðµç°Ô °Ë»öµÇ°Ô ¼öÁ¤ÇØ ÁÖ½Ã°í
+    // ë‹‰ì„ ëˆ„ë¥´ë©´, í•´ë‹¹ ë‹‰ì˜ ëª¨ë“ ê²Œ ê²€ìƒ‰ë˜ê²Œ ìˆ˜ì •í•´ ì£¼ì‹œê³ 
     $mb_nick = "<a href=./unsingo_list.php?sfl=mb_id&stx=$mb_id>$mb_nick</a>";
     $unsg_mb_nick = "<a href=./unsingo_list.php?sfl=unsg_mb_id&stx=$unsg_mb_id>$unsg_mb_nick</a>";
 
@@ -227,12 +227,12 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='4' align=center height=100>³»¿ªÀÌ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='4' align=center height=100>ë‚´ì—­ì´ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- íŽ˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
@@ -241,7 +241,7 @@ echo "</table>";
 
 <div class="btn-group">
     <? if ($is_admin == "super") { ?>
-        <input type=button class='btn btn-default' value='¼±ÅÃ»èÁ¦' onclick="btn_check(this.form, 'delete')">
+        <input type=button class='btn btn-default' value='ì„ íƒì‚­ì œ' onclick="btn_check(this.form, 'delete')">
     <? } ?>
 </div>
 
@@ -252,9 +252,9 @@ if ($stx)
 </form>
 
 <p>
-* »èÁ¦½Ã ½Å°íÇØÁ¦µÈ ³»¿ª¸¸À» »èÁ¦ÇÏ¸ç °Ô½Ã¹°ÀÇ »èÁ¦´Â ÇÏÁö ¾Ê½À´Ï´Ù.<br>
-* ½Å°íÇØÁ¦¿¡¼­´Â Â÷´ÜÀ» ÇÏÁö ¾Ê½À´Ï´Ù. ÀÌ°ÍÀº ¹æ¾î±ÇÀÌ¶ó Á¸ÁßÇÕ´Ï´Ù.<br>
-* È¸¿øº°¸í ¿·ÀÇ <font color='#ff0000'>*</font> Ç¥½Ã´Â Â÷´ÜµÈ È¸¿øÀÓÀ» ³ªÅ¸³À´Ï´Ù. ¸¶¿ì½º ¿À¹ö½Ã Â÷´ÜÀÏÀÚ°¡ Ç¥½ÃµË´Ï´Ù.
+* ì‚­ì œì‹œ ì‹ ê³ í•´ì œëœ ë‚´ì—­ë§Œì„ ì‚­ì œí•˜ë©° ê²Œì‹œë¬¼ì˜ ì‚­ì œëŠ” í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.<br>
+* ì‹ ê³ í•´ì œì—ì„œëŠ” ì°¨ë‹¨ì„ í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤. ì´ê²ƒì€ ë°©ì–´ê¶Œì´ë¼ ì¡´ì¤‘í•©ë‹ˆë‹¤.<br>
+* íšŒì›ë³„ëª… ì˜†ì˜ <font color='#ff0000'>*</font> í‘œì‹œëŠ” ì°¨ë‹¨ëœ íšŒì›ìž„ì„ ë‚˜íƒ€ëƒ…ë‹ˆë‹¤. ë§ˆìš°ìŠ¤ ì˜¤ë²„ì‹œ ì°¨ë‹¨ì¼ìžê°€ í‘œì‹œë©ë‹ˆë‹¤.
 </p>
 
 <?

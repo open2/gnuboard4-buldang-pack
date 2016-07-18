@@ -1,23 +1,23 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
 if ($is_admin || !$view[is_notice] || !in_array( $write['mb_id'],explode(",", trim($board['bo_notice_comment_allow']) ) ) )
     $check_comment_allow = 1;
 
-// cwin=1ÀÌ¸é view.skin.php¸¦ ÀĞÁö ¾ÊÀ¸¹Ç·Î, ½ºÅ²¿¡¼­ »ç¿ëÇÏ´Â lib ÀĞ¾îµéÀÌ±â
+// cwin=1ì´ë©´ view.skin.phpë¥¼ ì½ì§€ ì•Šìœ¼ë¯€ë¡œ, ìŠ¤í‚¨ì—ì„œ ì‚¬ìš©í•˜ëŠ” lib ì½ì–´ë“¤ì´ê¸°
 if ($cwin == 1)
     include_once("$g4[path]/lib/view.skin.lib.php");
 ?>
 
 <script type="text/javascript">
-// ±ÛÀÚ¼ö Á¦ÇÑ
-var char_min = parseInt(<?=$comment_min?>); // ÃÖ¼Ò
-var char_max = parseInt(<?=$comment_max?>); // ÃÖ´ë
+// ê¸€ììˆ˜ ì œí•œ
+var char_min = parseInt(<?=$comment_min?>); // ìµœì†Œ
+var char_max = parseInt(<?=$comment_max?>); // ìµœëŒ€
 </script>
 
 <? if ($cwin==1) { ?><div width="<?=$width?>" class="table-responsive"><?}?>
 
-<!-- ÄÚ¸àÆ® ¸®½ºÆ® -->
+<!-- ì½”ë©˜íŠ¸ ë¦¬ìŠ¤íŠ¸ -->
 <div name="commentContents" id="commentContents" class="commentContents">
 
 <? if (trim($board[bo_comment_notice])) { ?>
@@ -50,7 +50,7 @@ for ($i=0; $i<count($list); $i++) {
                 <strong><?=$list[$i][name]?></strong>
                 <span style="color:#888888; font-size:11px;"><?=$list[$i][datetime]?></span>
                 <?
-                // $board[bo_new] ½Ã°£³»¿¡ »õ·Î¿î ÄÚ¸àÆ®°¡ ÀÖÀ¸¸é icon_new.gif¸¦ µÚ¿¡
+                // $board[bo_new] ì‹œê°„ë‚´ì— ìƒˆë¡œìš´ ì½”ë©˜íŠ¸ê°€ ìˆìœ¼ë©´ icon_new.gifë¥¼ ë’¤ì—
                 if ($list[$i]['wr_datetime'] >= date("Y-m-d H:i:s", $g4['server_time'] - ($board['bo_new'] * 3600))) 
                     echo "<span class=\"badge\">n</span>";
                 ?>
@@ -65,10 +65,10 @@ for ($i=0; $i<count($list); $i++) {
                 <? if ($list[$i][nosecret_href]) { ?><a class="btn btn-default btn-sm" href="<?=$list[$i][nosecret_href]?>">UnSecret</a><?}?>
                 </div>
 
-                <!-- ÄÚ¸àÆ® Ãâ·Â -->
+                <!-- ì½”ë©˜íŠ¸ ì¶œë ¥ -->
                 <div style='line-height:20px; padding:7px; word-break:break-all; overflow:hidden; clear:both; '>
                 <?
-                if (strstr($list[$i][wr_option], "secret")) echo "<span style='color:#ff6600;FONT-WEIGHT:bold'>*ºñ¹Ğ±ÛÀÔ´Ï´Ù</span><BR> ";
+                if (strstr($list[$i][wr_option], "secret")) echo "<span style='color:#ff6600;FONT-WEIGHT:bold'>*ë¹„ë°€ê¸€ì…ë‹ˆë‹¤</span><BR> ";
                 
                 if (strstr($list[$i][wr_option], "html"))
                     $str = $list[$i][content];
@@ -81,15 +81,15 @@ for ($i=0; $i<count($list); $i++) {
                     $str = "$str";
 
                 $str = preg_replace("/\[\<a\s.*href\=\"(http|https|ftp|mms)\:\/\/([^[:space:]]+)\.(mp3|wma|wmv|asf|asx|mpg|mpeg)\".*\<\/a\>\]/i", "<script>doc_write(obj_movie('$1://$2.$3'));</script>", $str);
-                // FLASH XSS °ø°İ¿¡ ÀÇÇØ ÁÖ¼® Ã³¸® - 110406
+                // FLASH XSS ê³µê²©ì— ì˜í•´ ì£¼ì„ ì²˜ë¦¬ - 110406
                 //$str = preg_replace("/\[\<a\s.*href\=\"(http|https|ftp)\:\/\/([^[:space:]]+)\.(swf)\".*\<\/a\>\]/i", "<script>doc_write(flash_movie('$1://$2.$3'));</script>", $str);
                 $str = preg_replace("/\[\<a\s*href\=\"(http|https|ftp)\:\/\/([^[:space:]]+)\.(gif|png|jpg|jpeg|bmp)\"\s*[^\>]*\>[^\s]*\<\/a\>\]/i", "<img src='$1://$2.$3' id='target_resize_image[]' onclick='image_window(this);' border='0'>", $str);
 
                 echo resize_content($str, $board[bo_image_width] - 150);
                 ?>
                 </div>
-                <span id='edit_<?=$comment_id?>' style='display:none;'></span><!-- ¼öÁ¤ -->
-                <span id='reply_<?=$comment_id?>' style='display:none;'></span><!-- ´äº¯ -->
+                <span id='edit_<?=$comment_id?>' style='display:none;'></span><!-- ìˆ˜ì • -->
+                <span id='reply_<?=$comment_id?>' style='display:none;'></span><!-- ë‹µë³€ -->
                 </div>
                 <input type=hidden id='secret_comment_<?=$comment_id?>' value="<?=strstr($list[$i][wr_option],"secret")?>">
                 <textarea id='save_comment_<?=$comment_id?>' style='display:none;'><? if (strstr($list[$i][wr_option], "html")) {if ($is_dhtml_editor) echo get_text($list[$i][content1],0); else echo $list[$i][wr_content0]; } else if ($is_dhtml_editor) echo get_text(nl2br($list[$i][content1]),0); else echo get_text($list[$i][content1], 0)?></textarea>
@@ -105,10 +105,10 @@ for ($i=0; $i<count($list); $i++) {
 </table>
 <? } ?>
 </div>
-<!-- ÄÚ¸àÆ® ¸®½ºÆ® -->
+<!-- ì½”ë©˜íŠ¸ ë¦¬ìŠ¤íŠ¸ -->
 
 <? if ($is_comment_write && $check_comment_allow ) { ?>
-<!-- ÄÚ¸àÆ® ÀÔ·Â -->
+<!-- ì½”ë©˜íŠ¸ ì…ë ¥ -->
 
 <?
 if ($is_dhtml_editor) {
@@ -142,29 +142,29 @@ if ($is_dhtml_editor) {
         <? } ?>
         
         <? if ($is_guest) { ?>
-            ÀÌ¸§ <INPUT type=text maxLength=20 size=10 name="wr_name" itemname="ÀÌ¸§" required class=ed>
-            ÆĞ½º¿öµå <INPUT type=password maxLength=20 size=10 name="wr_password" itemname="ÆĞ½º¿öµå" required class=ed>
+            ì´ë¦„ <INPUT type=text maxLength=20 size=10 name="wr_name" itemname="ì´ë¦„" required class=ed>
+            íŒ¨ìŠ¤ì›Œë“œ <INPUT type=password maxLength=20 size=10 name="wr_password" itemname="íŒ¨ìŠ¤ì›Œë“œ" required class=ed>
             <script src='https://www.google.com/recaptcha/api.js'></script>
             <div id="grecaptcha" class="g-recaptcha" data-sitekey="<?=$g4['recaptcha_sitekey']?>" style="float:right"></div>
         <? } ?>
-        <label><input type=checkbox id="wr_secret" name="wr_secret" value="secret">ºñ¹Ğ±Û</label>
-        <? if ($comment_min || $comment_max) { ?><span id=char_count></span>±ÛÀÚ<?}?>
+        <label><input type=checkbox id="wr_secret" name="wr_secret" value="secret">ë¹„ë°€ê¸€</label>
+        <? if ($comment_min || $comment_max) { ?><span id=char_count></span>ê¸€ì<?}?>
     </td>
 </tr>
 <tr>
     <td width=95%>
-    <!-- ÄÚ¸àÆ® À§Ä¡¸¦ Àâ¾ÆÁİ´Ï´Ù -->
+    <!-- ì½”ë©˜íŠ¸ ìœ„ì¹˜ë¥¼ ì¡ì•„ì¤ë‹ˆë‹¤ -->
     <a name="g4_comment"></a>
 
-		<!-- ¿¡µğÅÍ¸¦ È­¸é¿¡ Ãâ·ÂÇÕ´Ï´Ù. -->
+		<!-- ì—ë””í„°ë¥¼ í™”ë©´ì— ì¶œë ¥í•©ë‹ˆë‹¤. -->
 		<? if ($is_dhtml_editor) { ?>
 		
-    <!-- cheditor1 + chedito2¸¦ ÇÑ¹ø¿¡ ÇÏ´Â °Í / ³ªÃ¢È£´ÔÀÇ ÄÚµå -->
+    <!-- cheditor1 + chedito2ë¥¼ í•œë²ˆì— í•˜ëŠ” ê²ƒ / ë‚˜ì°½í˜¸ë‹˜ì˜ ì½”ë“œ -->
 		<textarea style="display:none" id="wr_content" name="wr_content" rows="10"></textarea>
     <input type=hidden id="html" name="html" value="html1">
 		<script type="text/javascript">
 		var editor = new cheditor("editor");
-		// 4.3.xºÎÅÍ´Â °æ·Î¸¦ º°µµ·Î ÁöÁ¤ÇÏÁö ¾Ê¾Æµµ µÊ
+		// 4.3.xë¶€í„°ëŠ” ê²½ë¡œë¥¼ ë³„ë„ë¡œ ì§€ì •í•˜ì§€ ì•Šì•„ë„ ë¨
 		//editor.config.editorPath = "<?=$g4['cheditor4_path']?>";
 		editor.config.editorHeight = '100px';
 		editor.config.autoHeight = true;
@@ -174,7 +174,7 @@ if ($is_dhtml_editor) {
 		</script>
 
 		<? } else { ?>
-        <textarea class="form-control" id="wr_content" name="wr_content" rows=8 itemname="³»¿ë" required
+        <textarea class="form-control" id="wr_content" name="wr_content" rows=8 itemname="ë‚´ìš©" required
         <? if ($comment_min || $comment_max) { ?>onkeyup="check_byte('wr_content', 'char_count');"<?}?> style='width:100%; word-break:break-all;' class=tx></textarea>
         <? if ($comment_min || $comment_max) { ?><script language="javascript"> check_byte('wr_content', 'char_count'); </script><?}?>
 		<? } ?>
@@ -197,7 +197,7 @@ var save_html = document.getElementById('wr_content').innerHTML;
 
 function fviewcomment_submit(f)
 {
-    var pattern = /(^\s*)|(\s*$)/g; // \s °ø¹é ¹®ÀÚ
+    var pattern = /(^\s*)|(\s*$)/g; // \s ê³µë°± ë¬¸ì
     <? if ($is_dhtml_editor) { ?>
         f.wr_content.value = editor.outputBodyHTML();
     <? } else { ?>
@@ -223,25 +223,25 @@ function fviewcomment_submit(f)
     });
 
     if (content) {
-        alert("³»¿ë¿¡ ±İÁö´Ü¾î('"+content+"')°¡ Æ÷ÇÔµÇ¾îÀÖ½À´Ï´Ù");
+        alert("ë‚´ìš©ì— ê¸ˆì§€ë‹¨ì–´('"+content+"')ê°€ í¬í•¨ë˜ì–´ìˆìŠµë‹ˆë‹¤");
         f.wr_content.focus();
         return false;
     }
 
-    // ¾çÂÊ °ø¹é ¾ø¾Ö±â
-    var pattern = /(^\s*)|(\s*$)/g; // \s °ø¹é ¹®ÀÚ
+    // ì–‘ìª½ ê³µë°± ì—†ì• ê¸°
+    var pattern = /(^\s*)|(\s*$)/g; // \s ê³µë°± ë¬¸ì
     f.wr_content.value = f.wr_content.value.replace(pattern, "");
 
-    // ÃÖ¼Ò±ÛÀÚ¼ö Á¦ÇÑÀÌ ÀÖÀ» ¶§ check
+    // ìµœì†Œê¸€ììˆ˜ ì œí•œì´ ìˆì„ ë•Œ check
     if (f.char_count) {
         if (char_min > 0 || char_max > 0) {
             var cnt = parseInt(f.char_count.innerHTML);
             if (char_min > 0 && char_min > cnt) {
-                alert("ÄÚ¸àÆ®´Â "+char_min+"±ÛÀÚ ÀÌ»ó ¾²¼Å¾ß ÇÕ´Ï´Ù.");
+                alert("ì½”ë©˜íŠ¸ëŠ” "+char_min+"ê¸€ì ì´ìƒ ì“°ì…”ì•¼ í•©ë‹ˆë‹¤.");
                 return false;
             } 
             else if (char_max > 0 && char_max < cnt) {
-                alert("ÄÚ¸àÆ®´Â "+char_max+"±ÛÀÚ ÀÌÇÏ·Î ¾²¼Å¾ß ÇÕ´Ï´Ù.");
+                alert("ì½”ë©˜íŠ¸ëŠ” "+char_max+"ê¸€ì ì´í•˜ë¡œ ì“°ì…”ì•¼ í•©ë‹ˆë‹¤.");
                 return false;
             }
         }
@@ -250,7 +250,7 @@ function fviewcomment_submit(f)
     <? if ($is_dhtml_editor) { ?>
     if (f.wr_content) {
         if (!editor.inputLength()) { 
-            alert('³»¿ëÀ» ÀÔ·ÂÇÏ½Ê½Ã¿À.'); 
+            alert('ë‚´ìš©ì„ ì…ë ¥í•˜ì‹­ì‹œì˜¤.'); 
             editor.returnFalse();
             return false;
         }
@@ -262,7 +262,7 @@ function fviewcomment_submit(f)
         f.wr_name.value = f.wr_name.value.replace(pattern, "");
         if (f.wr_name.value == '')
         {
-            alert('ÀÌ¸§ÀÌ ÀÔ·ÂµÇÁö ¾Ê¾Ò½À´Ï´Ù.');
+            alert('ì´ë¦„ì´ ì…ë ¥ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.');
             f.wr_name.focus();
             return false;
         }
@@ -273,7 +273,7 @@ function fviewcomment_submit(f)
         f.wr_password.value = f.wr_password.value.replace(pattern, "");
         if (f.wr_password.value == '')
         {
-            alert('ÆĞ½º¿öµå°¡ ÀÔ·ÂµÇÁö ¾Ê¾Ò½À´Ï´Ù.');
+            alert('íŒ¨ìŠ¤ì›Œë“œê°€ ì…ë ¥ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.');
             f.wr_password.focus();
             return false;
         }
@@ -282,7 +282,7 @@ function fviewcomment_submit(f)
     if (typeof(grecaptcha) != 'undefined') {
         var v = grecaptcha.getResponse();
         if(v.length == 0) {
-            alert("½ºÆÔ¹æÁöÄÚµå(Captcha Code)°¡ Æ²·È½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØ ÁÖ¼¼¿ä.");
+            alert("ìŠ¤íŒ¸ë°©ì§€ì½”ë“œ(Captcha Code)ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ ì£¼ì„¸ìš”.");
             return false;
         }
     }
@@ -293,7 +293,7 @@ function fviewcomment_submit(f)
 function comment_box(comment_id, work)
 {
     var el_id = '';
-    // ÄÚ¸àÆ® ¾ÆÀÌµğ°¡ ³Ñ¾î¿À¸é ´äº¯, ¼öÁ¤
+    // ì½”ë©˜íŠ¸ ì•„ì´ë””ê°€ ë„˜ì–´ì˜¤ë©´ ë‹µë³€, ìˆ˜ì •
     if (comment_id) {
         el_id = (work == 'c') ? 'reply_' : 'edit_';
 		    el_id += comment_id;
@@ -307,7 +307,7 @@ function comment_box(comment_id, work)
     {
 		    document.getElementById(el_id).appendChild(document.getElementById("comment_write"));
         document.getElementById(el_id).style.display = 'block';
-        // ÄÚ¸àÆ® ¼öÁ¤
+        // ì½”ë©˜íŠ¸ ìˆ˜ì •
         if (work == 'cu')
         {
 			<? if ($is_dhtml_editor) { ?>
@@ -351,28 +351,28 @@ function editorReset () {
 
 function comment_delete(url)
 {
-    if (confirm("ÀÌ ÄÚ¸àÆ®¸¦ »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?")) location.href = url;
+    if (confirm("ì´ ì½”ë©˜íŠ¸ë¥¼ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) location.href = url;
 }
 
-comment_box('', 'c'); // ÄÚ¸àÆ® ÀÔ·ÂÆûÀÌ º¸ÀÌµµ·Ï Ã³¸®ÇÏ±âÀ§ÇØ¼­ Ãß°¡ (root´Ô)
+comment_box('', 'c'); // ì½”ë©˜íŠ¸ ì…ë ¥í¼ì´ ë³´ì´ë„ë¡ ì²˜ë¦¬í•˜ê¸°ìœ„í•´ì„œ ì¶”ê°€ (rootë‹˜)
 </script>
 <? } ?>
 
-<!-- ¸ğ¹ÙÀÏ¿¡¼­´Â ·Î±×ÀÎÃ¢ÀÌ ¾Èº¸ÀÔ´Ï´Ù. ÄÚ¸àÆ® ÀÔ·ÂÀ» À§ÇØ ·Î±×ÀÎÃ¢À» º¸¿©ÁÖ´Â°Ô ÁÁ½À´Ï´Ù -->
+<!-- ëª¨ë°”ì¼ì—ì„œëŠ” ë¡œê·¸ì¸ì°½ì´ ì•ˆë³´ì…ë‹ˆë‹¤. ì½”ë©˜íŠ¸ ì…ë ¥ì„ ìœ„í•´ ë¡œê·¸ì¸ì°½ì„ ë³´ì—¬ì£¼ëŠ”ê²Œ ì¢‹ìŠµë‹ˆë‹¤ -->
 <? if ($member['mb_id'] == "" && $board['bo_comment_level'] > 1) {
     $login_url = "$g4[bbs_path]/login.php?wr_id=$wr_id{$qstr}&url=".urlencode("$g4[path]/$bo_table/$wr_id#g4_comment");
 ?>
-<div class="well"><a href="<?=$login_url?>" title="login">·Î±×ÀÎ ÇÏ½Ã¸é ´ñ±ÛÀ» ³²±æ ¼ö ÀÖ½À´Ï´Ù</a></div>
+<div class="well"><a href="<?=$login_url?>" title="login">ë¡œê·¸ì¸ í•˜ì‹œë©´ ëŒ“ê¸€ì„ ë‚¨ê¸¸ ìˆ˜ ìˆìŠµë‹ˆë‹¤</a></div>
 <? } ?>
 
-<? if($cwin==1) { ?></div><p align=center><a class="btn btn-default" href="javascript:window.close();">´İ ±â</a><?}?>
+<? if($cwin==1) { ?></div><p align=center><a class="btn btn-default" href="javascript:window.close();">ë‹« ê¸°</a><?}?>
 
-<!-- post ¹æ½ÄÀ¸·Î javascript submitÀ» ¼öÇà -->
+<!-- post ë°©ì‹ìœ¼ë¡œ javascript submitì„ ìˆ˜í–‰ -->
 <script type="text/javascript">
 function post_submit(action_url, bo_table, wr_id, comment_id, flag, msg)
 {
 	var f = document.fpost;
-  var submit_msg = msg + "À» ½ÇÇàÇÏ°Ú½À´Ï±î?";
+  var submit_msg = msg + "ì„ ì‹¤í–‰í•˜ê² ìŠµë‹ˆê¹Œ?";
   
 	if(confirm(submit_msg)) {
     f.bo_table.value    = bo_table;

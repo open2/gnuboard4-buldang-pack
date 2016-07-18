@@ -4357,7 +4357,7 @@
 					h = e.height(),
 					dw = $(window).width() + $(window).scrollLeft(),
 					dh = $(window).height() + $(window).scrollTop();
-				// може да се спести е една проверка - дали няма някой от класовете вече нагоре
+				// 劇棘菌筠 畇逵 ?筠 ?極筠??龜 筠 筠畇戟逵 極?棘勻筠?克逵 - 畇逵剋龜 戟?劇逵 戟?克棘橘 棘? 克剋逵?棘勻筠?筠 勻筠?筠 戟逵均棘?筠
 				if(right_to_left) {
 					o[x - (w + 10 + o.outerWidth()) < 0 ? "addClass" : "removeClass"]("vakata-context-left");
 				}
@@ -4464,7 +4464,7 @@
 					e.stopImmediatePropagation();
 
 					if($.contains(this, e.relatedTarget)) {
-						// премахнато заради delegate mouseleave по-долу
+						// 極?筠劇逵?戟逵?棘 鈞逵?逵畇龜 delegate mouseleave 極棘-畇棘剋?
 						// $(this).find(".vakata-context-hover").removeClass("vakata-context-hover");
 						return;
 					}
@@ -4477,7 +4477,7 @@
 						.parentsUntil(".vakata-context", "li").addBack().addClass("vakata-context-hover");
 					$.vakata.context._show_submenu(this);
 				})
-				// тестово - дали не натоварва?
+				// ?筠??棘勻棘 - 畇逵剋龜 戟筠 戟逵?棘勻逵?勻逵?
 				.on("mouseleave", "li", function (e) {
 					if($.contains(this, e.relatedTarget)) { return; }
 					$(this).find(".vakata-context-hover").addBack().removeClass("vakata-context-hover");

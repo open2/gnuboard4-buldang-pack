@@ -3,7 +3,7 @@ include_once("./_common.php");
 include_once("$g4[path]/memo.config.php");
 
 if (!$kind or !$me_id)
-    alert("´Ù¿î·Îµå¿¡ ÇÊ¿äÇÑ Á¤º¸°¡ ¾ø½À´Ï´Ù.");
+    alert("ë‹¤ìš´ë¡œë“œì— í•„ìš”í•œ ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤.");
 
 switch ($kind) {
   case 'send'   : $sql = " select * from $g4[memo_send_table] where me_id = $me_id "; break;
@@ -11,19 +11,19 @@ switch ($kind) {
   case 'spam'   : $sql = " select * from $g4[memo_spam_table] where me_id = $me_id "; break;
   case 'save'   : $sql = " select * from $g4[memo_save_table] where me_id = $me_id "; break;
   case 'notice' : $sql = " select * from $g4[memo_notice_table] where me_id = $me_id "; break;
-  default     : alert("Àß¸øµÈ kind °ª ÀÔ´Ï´Ù");
+  default     : alert("ìž˜ëª»ëœ kind ê°’ ìž…ë‹ˆë‹¤");
 }
 $result = sql_fetch($sql);
 
 if ($member['mb_id'] != $result['memo_owner'])
-    alert("´Ù¸¥ »ç¶÷ÀÇ ¸Þ¸ð¿¡¼­ Ã·ºÎÆÄÀÏÀ» ´Ù¿î·Îµå ÇÒ ¼ö ¾ø½À´Ï´Ù");
+    alert("ë‹¤ë¥¸ ì‚¬ëžŒì˜ ë©”ëª¨ì—ì„œ ì²¨ë¶€íŒŒì¼ì„ ë‹¤ìš´ë¡œë“œ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤");
 
 $file_server = $result['me_file_server'];
 $file_local = $result['me_file_local'];
 
 $filepath="$g4[path]/data/memo2/$file_server";
 
-//$original="$file_local"; -- UTF-8 ÆÄÀÏ¸í, NaviGator´Ô
+//$original="$file_local"; -- UTF-8 íŒŒì¼ëª…, NaviGatorë‹˜
 if (preg_match("/^utf/i", $g4['charset'])) 
     $original = urlencode($file_local); 
 else 
@@ -48,8 +48,8 @@ if (file_exists($filepath)) {
     if (is_file("$filepath")) {
         $fp = fopen("$filepath", "rb");
 
-        // 4.00 ´ëÃ¼
-        // ¼­¹öºÎÇÏ¸¦ ÁÙÀÌ·Á¸é print ³ª echo ¶Ç´Â while ¹®À» ÀÌ¿ëÇÑ ¹æ¹ýº¸´Ù´Â ÀÌ¹æ¹ýÀÌ...
+        // 4.00 ëŒ€ì²´
+        // ì„œë²„ë¶€í•˜ë¥¼ ì¤„ì´ë ¤ë©´ print ë‚˜ echo ë˜ëŠ” while ë¬¸ì„ ì´ìš©í•œ ë°©ë²•ë³´ë‹¤ëŠ” ì´ë°©ë²•ì´...
         //if (!fpassthru($fp)) {
         //    fclose($fp);
         //}
@@ -61,10 +61,10 @@ if (file_exists($filepath)) {
         fclose ($fp); 
         flush();
     } else {
-        alert("ÇØ´ç ÆÄÀÏÀÌ³ª °æ·Î°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+        alert("í•´ë‹¹ íŒŒì¼ì´ë‚˜ ê²½ë¡œê°€ ì¡´ìž¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
     }
 
 } else {
-    alert("ÆÄÀÏÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+    alert("íŒŒì¼ì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 }
 ?>

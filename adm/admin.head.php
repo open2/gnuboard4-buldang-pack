@@ -22,7 +22,7 @@ function print_menu2($key, $no)
             $str .= "<li class=\"divider\"></li>";
         else
         {
-            // target link°¡ ÀÖ´Â °æ¿ì
+            // target linkê°€ ìˆëŠ” ê²½ìš°
             $span1 = "";
 
             if ($menu[$key][$i][3]) {
@@ -56,7 +56,7 @@ function print_menu1($key, $no, $sub_menu)
             $str .= "<li class=\"nav-divider\"></li>";
         else
         {
-            // target link°¡ ÀÖ´Â °æ¿ì
+            // target linkê°€ ìˆëŠ” ê²½ìš°
             $span1 = "";
 
             if ($menu[$key][$i][3]) {
@@ -64,13 +64,13 @@ function print_menu1($key, $no, $sub_menu)
                 $span1 = " <i class=\"fa fa-external-link\"></i>";
             } else 
                 $target_link = "";
-            // ¼±ÅÃµÈ ¸Ş´º´Â active·Î
+            // ì„ íƒëœ ë©”ë‰´ëŠ” activeë¡œ
             if ($menu[$key][$i][0] == $sub_menu)
                 $active = "active";
             else
                 $active = "";
 
-            // Á¶±İ »ª»ªÇÏ°Ô º¸ÀÌ°Ô, ÀÏºÎ·¯ styleÀ» ¹Ù²ãÁØ´Ù. ¿ä±â¸¸ ÇÏ´Â°Å¶ó class »ı·«
+            // ì¡°ê¸ˆ ë¹½ë¹½í•˜ê²Œ ë³´ì´ê²Œ, ì¼ë¶€ëŸ¬ styleì„ ë°”ê¿”ì¤€ë‹¤. ìš”ê¸°ë§Œ í•˜ëŠ”ê±°ë¼ class ìƒëµ
             $str .= "<li style='margin-top:-5px;margin-bottom:-5px;' class='$active'><a href='{$menu[$key][$i][2]}' {$target_link}>{$menu[$key][$i][1]}{$span1}</a></li>";
             $auth_menu[$menu[$key][$i][0]] = $menu[$key][$i][1];
         }
@@ -83,23 +83,23 @@ function print_menu1($key, $no, $sub_menu)
 ?>
 <link rel="stylesheet" href="<?=$g4['admin_path']?>/admin.style.css" type="text/css">
 
-<header class="header-wrapper"><!-- »ó´Ü header ½ÃÀÛ -->
+<header class="header-wrapper"><!-- ìƒë‹¨ header ì‹œì‘ -->
 <div class="container">
 
 <div class="navbar navbar-inverse" role="navigation">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header col-sm-2">
-        <!-- collapse µÇ¾úÀ» ¶§, ¿ìÃø¿¡ ³ª¿À´Â ¸Ş´º ¹öÆ° -->
+        <!-- collapse ë˜ì—ˆì„ ë•Œ, ìš°ì¸¡ì— ë‚˜ì˜¤ëŠ” ë©”ë‰´ ë²„íŠ¼ -->
         <button type="button" class="btn navbar-toggle  btn-primary" data-toggle="collapse" data-target=".navbar-top-menu-collapse">
             <i class="glyphicon glyphicon-list"></i>
         </button>
         <a class="btn navbar-toggle" href="<?=$g4[admin_path]?>/index.php">Home</a>
 
-        <!-- sm, md, lg¿¡¼­ ³ª¿À´Â ·Î°í -->
+        <!-- sm, md, lgì—ì„œ ë‚˜ì˜¤ëŠ” ë¡œê³  -->
         <a class="navbar-brand hidden-xs" href="<?=$g4['admin_path']?>/index.php">
         <img src="<?=$g4[path]?>/img/opencode_aaa.png" align=absmiddle alt="brand logo">
         </a>
-        <!-- collapse µÇ¾úÀ» ¶§ ³ª¿À´Â ·Î°í -->
+        <!-- collapse ë˜ì—ˆì„ ë•Œ ë‚˜ì˜¤ëŠ” ë¡œê³  -->
         <a class="navbar-brand navbar-toggle pull-left" href="<?=$g4['admin_path']?>/index.php" style="border:0;margin-bottom:0;">
         <img src="<?=$g4[path]?>/img/opencode_aaa.png" alt="brand logo" style="width:120px;">
         </a>
@@ -116,7 +116,7 @@ function print_menu1($key, $no, $sub_menu)
     </ul>
     </div>
 
-    <!-- ¿ìÃøÁ¤·Ä ¸Ş´º -->
+    <!-- ìš°ì¸¡ì •ë ¬ ë©”ë‰´ -->
     <div class="collapse navbar-collapse pull-right col-sm-7">
     <ul class="nav navbar-nav">
         <p class="navbar-text">
@@ -138,29 +138,29 @@ function print_menu1($key, $no, $sub_menu)
         }
         ?>
         > <?=$g4['title']?>
-        :: <?=$member['mb_nick']?>´Ô
+        :: <?=$member['mb_nick']?>ë‹˜
         </p>
         <li class="pull-right"><a href="<?=$g4[path]?>"><i class="fa fa-home"></i> Home</a></li>
     </ul>
     </div>
-</div><!-- navbarÀÇ ³¡ -->
+</div><!-- navbarì˜ ë -->
 
 </div>
-</header><!-- »ó´Ü header ³¡ -->
+</header><!-- ìƒë‹¨ header ë -->
 
 
-<!-- Áß°£ÀÇ ¸ŞÀÎºÎ ½ÃÀÛ -->
+<!-- ì¤‘ê°„ì˜ ë©”ì¸ë¶€ ì‹œì‘ -->
 <div role="main" class="container">
 <div class="row">
 
-<!-- ¿ŞÂÊ side ½ÃÀÛ -->
+<!-- ì™¼ìª½ side ì‹œì‘ -->
 <div class="col-sm-2 visible-sm visible-md visible-lg">
     <?
-    // ¾Æ¿ô·Î±×ÀÎ
+    // ì•„ì›ƒë¡œê·¸ì¸
     include_once("$g4[path]/lib/outlogin.lib.php");
     echo outlogin("basic");
 
-    // menu ¼³Á¤ - ¾Æ¹«°Íµµ ¾øÀ¸¸é Ã³À½ ³ª¿À´Â key¸¦ ±âº» key·Î ¼³Á¤
+    // menu ì„¤ì • - ì•„ë¬´ê²ƒë„ ì—†ìœ¼ë©´ ì²˜ìŒ ë‚˜ì˜¤ëŠ” keyë¥¼ ê¸°ë³¸ keyë¡œ ì„¤ì •
     if ($tmp_menu == "") {
         $tmp_menu1 = key($menu);
     } else {
@@ -177,15 +177,15 @@ function print_menu1($key, $no, $sub_menu)
     </div>
 
     <?
-    // ¹æ¹®ÀÚ
+    // ë°©ë¬¸ì
     include_once("$g4[path]/lib/visit.lib.php");
     echo visit();
 
-    // ÇöÀçÁ¢¼ÓÀÚ
+    // í˜„ì¬ì ‘ì†ì
     include_once("$g4[path]/lib/connect.lib.php");
     echo connect();
     ?>
 
-</div><!-- ¿ŞÂÊ side ³¡ -->
+</div><!-- ì™¼ìª½ side ë -->
 
-<div class="col-sm-10" id="main"><!-- ¸ŞÀÎ content ½ÃÀÛ -->
+<div class="col-sm-10" id="main"><!-- ë©”ì¸ content ì‹œì‘ -->

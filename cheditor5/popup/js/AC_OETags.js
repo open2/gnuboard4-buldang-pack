@@ -8,7 +8,7 @@ var isWin = (navigator.appVersion.toLowerCase().indexOf("win") != -1) ? true : f
 var isOpera = (navigator.userAgent.indexOf("Opera") != -1) ? true : false;
 
 function errMaxFileSize (MaxFileSize) {
-	alert("¼±ÅÃÇÏ½Å ÆÄÀÏ Å©±â°¡ ³Ê¹« Å®´Ï´Ù. ÃÖ´ë Àü¼Û Å©±â´Â "+MaxFileSize+" MB ÀÔ´Ï´Ù.");
+	alert("ì„ íƒí•˜ì‹  íŒŒì¼ í¬ê¸°ê°€ ë„ˆë¬´ í½ë‹ˆë‹¤. ìµœëŒ€ ì „ì†¡ í¬ê¸°ëŠ” "+MaxFileSize+" MB ì…ë‹ˆë‹¤.");
 }
 
 function ControlVersion()

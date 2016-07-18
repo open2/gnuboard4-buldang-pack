@@ -5,9 +5,9 @@ include_once("./_common.php");
 check_demo();
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4[path]);
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4[path]);
 
-$g4[title] = "¾÷±×·¹ÀÌµå";
+$g4[title] = "ì—…ê·¸ë ˆì´ë“œ";
 if (!$g4[b4_upgrade]) include_once("./admin.head.php");
 
 $sql = " select bo_table from $g4[board_table] ";
@@ -19,10 +19,10 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     $sql1 = " ALTER TABLE $tmp_write_table ADD `wr_imagesize` INT( 11) NOT NULL DEFAULT '-1' ";
     sql_query($sql1, false);
 
-    echo  "<BR>" . $i . " : " . $row[bo_table] . " °Ô½ÃÆÇ¿¡ wr_imagesize ÇÊµå¸¦ Ãß°¡ Çß½À´Ï´Ù <br>";
+    echo  "<BR>" . $i . " : " . $row[bo_table] . " ê²Œì‹œíŒì— wr_imagesize í•„ë“œë¥¼ ì¶”ê°€ í–ˆìŠµë‹ˆë‹¤ <br>";
 }
 
-echo "<br>°Ô½ÃÆÇ wr_imagesize Ãß°¡ÇÏ´Â UPGRADE ¿Ï·á.";
+echo "<br>ê²Œì‹œíŒ wr_imagesize ì¶”ê°€í•˜ëŠ” UPGRADE ì™„ë£Œ.";
 
 if (!$g4[b4_upgrade]) include_once("./admin.tail.php");
 ?>

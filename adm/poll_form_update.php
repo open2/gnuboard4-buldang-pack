@@ -80,7 +80,7 @@ else if ($w == "u")
               where po_id = '$po_id' ";
     $res = sql_query($sql, false);
     
-    // ±×´©º¸µå¿¡ ÅõÇ¥±â´É°­È­¸¦ À§ÇÑ ÇÊµå Ãß°¡
+    // ê·¸ëˆ„ë³´ë“œì— íˆ¬í‘œê¸°ëŠ¥ê°•í™”ë¥¼ ìœ„í•œ í•„ë“œ ì¶”ê°€
     if (!$res) {
         $sql_db = " ALTER TABLE `$g4[poll_etc_table]` ADD `pc_password` VARCHAR( 255 ) NOT NULL ";
         $res = sql_query($sql_db, false);
@@ -106,9 +106,9 @@ else if ($w == "d")
     sql_query($sql);
 }
 
-// °¡Àå Å« ÅõÇ¥¹øÈ£¸¦ ±âº»È¯°æ¼³Á¤¿¡ ÀúÀåÇÏ¿© 
-// ÅõÇ¥¹øÈ£¸¦ ³Ñ°ÜÁÖÁö ¾Ê¾ÒÀ» °æ¿ì 
-// °¡Àå Å« ÅõÇ¥¹øÈ£¸¦ ±¸ÇØ¾ß ÇÏ´Â Äõ¸®¸¦ ´ëÃ¼ÇÑ´Ù
+// ê°€ì¥ í° íˆ¬í‘œë²ˆí˜¸ë¥¼ ê¸°ë³¸í™˜ê²½ì„¤ì •ì— ì €ì¥í•˜ì—¬ 
+// íˆ¬í‘œë²ˆí˜¸ë¥¼ ë„˜ê²¨ì£¼ì§€ ì•Šì•˜ì„ ê²½ìš° 
+// ê°€ì¥ í° íˆ¬í‘œë²ˆí˜¸ë¥¼ êµ¬í•´ì•¼ í•˜ëŠ” ì¿¼ë¦¬ë¥¼ ëŒ€ì²´í•œë‹¤
 $row = sql_fetch(" select max(po_id) as max_po_id from $g4[poll_table] where po_use_access = 0 ");
 sql_query(" update $g4[config_table] set cf_max_po_id = '$row[max_po_id]' ");
 

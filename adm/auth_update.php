@@ -11,14 +11,14 @@ $w = $_POST[w];
 $d = $_POST[d];
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.");
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
 $mb = get_member($mb_id);
 if (!$mb[mb_id])
-    alert("Á¸ÀçÇÏ´Â È¸¿ø¾ÆÀÌµğ°¡ ¾Æ´Õ´Ï´Ù."); 
+    alert("ì¡´ì¬í•˜ëŠ” íšŒì›ì•„ì´ë””ê°€ ì•„ë‹™ë‹ˆë‹¤."); 
 
 if ($mb[mb_id] == $config[cf_admin])
-    alert("ÃÖ°í°ü¸®ÀÚÀÇ ±ÇÇÑÀº Á¦ÇÑÇÒ ¼ö ¾ø½À´Ï´Ù."); 
+    alert("ìµœê³ ê´€ë¦¬ìì˜ ê¶Œí•œì€ ì œí•œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."); 
 
 $sql = " insert into $g4[auth_table] 
             set mb_id   = :mb_id,
@@ -42,7 +42,7 @@ if (!$result) {
     $result = pdo_query($stmt);
 }
 
-// ºÒ´çÆÑ - °ü¸®ÀÚ ±ÇÇÑº¯°æ ÀÛ¾÷³»¿ªÀ» db log¿¡ ³²±é´Ï´Ù
+// ë¶ˆë‹¹íŒ© - ê´€ë¦¬ì ê¶Œí•œë³€ê²½ ì‘ì—…ë‚´ì—­ì„ db logì— ë‚¨ê¹ë‹ˆë‹¤
 $sql_2 = " insert into $g4[admin_log_table] 
             set log_datetime = '$g4[time_ymdhis]', log = :log ";
 //sql_query($sql);
@@ -51,7 +51,7 @@ $log = "adm/auth_update.php - " . $sql;
 $stmt->bindParam(":log", $log);
 $result = pdo_query($stmt);
 
-//ºÒ´ç mb_auth_count¸¦ ¾÷µ¥ÀÌÆ®
+//ë¶ˆë‹¹ mb_auth_countë¥¼ ì—…ë°ì´íŠ¸
 $sql = " select count(*) as cnt from $g4[auth_table] where mb_id = :mb_id ";
 //$result = sql_fetch($sql);
 $stmt = $pdo_db->prepare($sql);

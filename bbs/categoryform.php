@@ -7,11 +7,11 @@ $sql_common = " from $g4[category_table] ";
 if ($w == "") 
 {
     if ($is_admin != 'super' && !$ca_id)
-        alert("ÃÖ°í°ü¸®ÀÚ¸¸ 1´Ü°è ºĞ·ù¸¦ Ãß°¡ÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+        alert("ìµœê³ ê´€ë¦¬ìë§Œ 1ë‹¨ê³„ ë¶„ë¥˜ë¥¼ ì¶”ê°€í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
     $len = strlen($ca_id);
     if ($len == 10) 
-        alert("ºĞ·ù¸¦ ´õ ÀÌ»ó Ãß°¡ÇÒ ¼ö ¾ø½À´Ï´Ù.\\n\\n5´Ü°è ºĞ·ù±îÁö¸¸ °¡´ÉÇÕ´Ï´Ù.");
+        alert("ë¶„ë¥˜ë¥¼ ë” ì´ìƒ ì¶”ê°€í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\\n\\n5ë‹¨ê³„ ë¶„ë¥˜ê¹Œì§€ë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
     $len2 = $len + 1;
 
@@ -23,8 +23,8 @@ if ($w == "")
     $subid += 36;
     if ($subid >= 36 * 36) 
     {
-        //alert("ºĞ·ù¸¦ ´õ ÀÌ»ó Ãß°¡ÇÒ ¼ö ¾ø½À´Ï´Ù.");
-        // ºó»óÅÂ·Î
+        //alert("ë¶„ë¥˜ë¥¼ ë” ì´ìƒ ì¶”ê°€í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
+        // ë¹ˆìƒíƒœë¡œ
         $subid = "  ";
     }
     $subid = base_convert($subid, 10, 36);
@@ -33,16 +33,16 @@ if ($w == "")
 
     $sublen = strlen($subid);
 
-    if ($ca_id) // 2´Ü°èÀÌ»ó ºĞ·ù
+    if ($ca_id) // 2ë‹¨ê³„ì´ìƒ ë¶„ë¥˜
     { 
         $sql = " select * from $g4[category_table] where ca_id = '$ca_id' ";
         $ca = sql_fetch($sql);
-        $html_title = $ca[ca_name] . " ÇÏÀ§ºĞ·ùÃß°¡";
+        $html_title = $ca[ca_name] . " í•˜ìœ„ë¶„ë¥˜ì¶”ê°€";
         $ca[ca_name] = "";
     } 
-    else // 1´Ü°è ºĞ·ù
+    else // 1ë‹¨ê³„ ë¶„ë¥˜
     {
-        $html_title = "1´Ü°èºĞ·ùÃß°¡";
+        $html_title = "1ë‹¨ê³„ë¶„ë¥˜ì¶”ê°€";
         $ca[ca_use] = 1;
         $ca[ca_explan_html] = 1;
         $ca[ca_list_mod] = 4;
@@ -54,9 +54,9 @@ else if ($w == "u")
     $sql = " select * from $g4[category_table] where ca_id = '$ca_id' ";
     $ca = sql_fetch($sql);
     if (!$ca[ca_id]) 
-        alert("ÀÚ·á°¡ ¾ø½À´Ï´Ù.");
+        alert("ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.");
 
-    $html_title = $ca[ca_name] . " ¼öÁ¤";
+    $html_title = $ca[ca_name] . " ìˆ˜ì •";
     $ca[ca_name] = get_text($ca[ca_name]);
 }
 
@@ -68,7 +68,7 @@ include_once ("./_head.php");
 
 <link rel="stylesheet" href="<?=$g4['admin_path']?>/admin.style.css" type="text/css">
 
-<?=subtitle("±âº» ÀÔ·Â")?>
+<?=subtitle("ê¸°ë³¸ ì…ë ¥")?>
 
 <script type="text/javascript" src="<?=$g4[cheditor4_path]?>/cheditor.js?v=$g4[cheditor_ver]"></script>
 <?=cheditor1('ca_head_html', '100%', '150');?>
@@ -88,31 +88,31 @@ include_once ("./_head.php");
 <colgroup width=35% bgcolor=#FFFFFF>
 <tr><td colspan=4 height=2 bgcolor=#0E87F9></td></tr>
 <tr class=ht>
-    <td height=28>ºĞ·ùÄÚµå</td>
+    <td height=28>ë¶„ë¥˜ì½”ë“œ</td>
     <td colspan=3>
 
     <? if ($w == "") { ?>
-        <input type=text class=ed id=ca_id name=ca_id itemname='ºĞ·ùÄÚµå' size='<?=$sublen?>' maxlength='<?=$sublen?>' minlength='<?=$sublen?>' nospace alphanumeric value='<?=$subid?>'>
+        <input type=text class=ed id=ca_id name=ca_id itemname='ë¶„ë¥˜ì½”ë“œ' size='<?=$sublen?>' maxlength='<?=$sublen?>' minlength='<?=$sublen?>' nospace alphanumeric value='<?=$subid?>'>
         <? if ($default[de_code_dup_use]) { ?><a href='javascript:;' onclick="codedupcheck(document.getElementById('ca_id').value)"><img src='./img/btn_code.gif' border=0 align=absmiddle></a><? } ?>
-        <?=help("ÀÚµ¿À¸·Î º¸¿©Áö´Â ºĞ·ùÄÚµå¸¦ »ç¿ëÇÏ½Ã±æ ±ÇÇØµå¸®Áö¸¸ Á÷Á¢ ÀÔ·ÂÇÑ °ªÀ¸·Îµµ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.\nºĞ·ùÄÚµå´Â ³ªÁß¿¡ ¼öÁ¤ÀÌ µÇÁö ¾ÊÀ¸¹Ç·Î ½ÅÁßÇÏ°Ô °áÁ¤ÇÏ¿© »ç¿ëÇÏ½Ê½Ã¿À.\n\nºĞ·ùÄÚµå´Â 2ÀÚ¸®¾¿ 10ÀÚ¸®¸¦ »ç¿ëÇÏ¿© 5´Ü°è¸¦ Ç¥ÇöÇÒ ¼ö ÀÖ½À´Ï´Ù.\n0~z±îÁö ÀÔ·ÂÀÌ °¡´ÉÇÏ¸ç ÇÑ ºĞ·ù´ç ÃÖ´ë 1296°¡Áö¸¦ Ç¥ÇöÇÒ ¼ö ÀÖ½À´Ï´Ù.\n±×·¯¹Ç·Î ÃÑ 3656158440062976°¡ÁöÀÇ ºĞ·ù¸¦ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.");?>
+        <?=help("ìë™ìœ¼ë¡œ ë³´ì—¬ì§€ëŠ” ë¶„ë¥˜ì½”ë“œë¥¼ ì‚¬ìš©í•˜ì‹œê¸¸ ê¶Œí•´ë“œë¦¬ì§€ë§Œ ì§ì ‘ ì…ë ¥í•œ ê°’ìœ¼ë¡œë„ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.\në¶„ë¥˜ì½”ë“œëŠ” ë‚˜ì¤‘ì— ìˆ˜ì •ì´ ë˜ì§€ ì•Šìœ¼ë¯€ë¡œ ì‹ ì¤‘í•˜ê²Œ ê²°ì •í•˜ì—¬ ì‚¬ìš©í•˜ì‹­ì‹œì˜¤.\n\në¶„ë¥˜ì½”ë“œëŠ” 2ìë¦¬ì”© 10ìë¦¬ë¥¼ ì‚¬ìš©í•˜ì—¬ 5ë‹¨ê³„ë¥¼ í‘œí˜„í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.\n0~zê¹Œì§€ ì…ë ¥ì´ ê°€ëŠ¥í•˜ë©° í•œ ë¶„ë¥˜ë‹¹ ìµœëŒ€ 1296ê°€ì§€ë¥¼ í‘œí˜„í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.\nê·¸ëŸ¬ë¯€ë¡œ ì´ 3656158440062976ê°€ì§€ì˜ ë¶„ë¥˜ë¥¼ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");?>
     <? } else { ?>
         <input type=hidden name=ca_id value='<?=$ca[ca_id]?>'><?=$ca[ca_id]?>
-        <? echo icon("¹Ì¸®º¸±â", "{$g4[shop_path]}/list.php?ca_id=$ca_id"); ?>
-        <? echo "<a href='./categoryform.php?ca_id=$ca_id&$qstr' title='ÇÏÀ§ºĞ·ù Ãß°¡'><img src='$g4[admin_path]/img/icon_insert.gif' border=0 align=absmiddle></a>"; ?>
-        <a href='./itemlist.php?sca=<?=$ca[ca_id]?>'>»óÇ°¸®½ºÆ®</a>
+        <? echo icon("ë¯¸ë¦¬ë³´ê¸°", "{$g4[shop_path]}/list.php?ca_id=$ca_id"); ?>
+        <? echo "<a href='./categoryform.php?ca_id=$ca_id&$qstr' title='í•˜ìœ„ë¶„ë¥˜ ì¶”ê°€'><img src='$g4[admin_path]/img/icon_insert.gif' border=0 align=absmiddle></a>"; ?>
+        <a href='./itemlist.php?sca=<?=$ca[ca_id]?>'>ìƒí’ˆë¦¬ìŠ¤íŠ¸</a>
     <? } ?>
 
     </td>
 </tr>
 <tr class=ht>
-    <td>ºĞ·ù¸í<font color="#ff6600"> <b>*</b></font></td>
-    <td colspan=3><input type=text name=ca_name value='<? echo $ca[ca_name] ?>' size=38 required itemname="ºĞ·ù¸í" class=ed></td>
+    <td>ë¶„ë¥˜ëª…<font color="#ff6600"> <b>*</b></font></td>
+    <td colspan=3><input type=text name=ca_name value='<? echo $ca[ca_name] ?>' size=38 required itemname="ë¶„ë¥˜ëª…" class=ed></td>
 </tr>
 <tr class=ht>
-    <td>ÆÇ¸Å°¡´É</td>
+    <td>íŒë§¤ê°€ëŠ¥</td>
     <td colspan=3>
-        <input type=checkbox name='ca_use' <? echo ($ca[ca_use]) ? "checked" : ""; ?> value='1'>¿¹
-        <?=help("Àá½Ã ÆÇ¸Å¸¦ Áß´ÜÇÏ°Å³ª Àç°í°¡ ¾øÀ» °æ¿ì¿¡ Ã¼Å©ÇÏ¸é ÀÌ ºĞ·ù¸í°ú ÀÌ ºĞ·ù¿¡ ¼ÓÇÑ »óÇ°Àº Ãâ·ÂÇÏÁö ¾ÊÀ¸¸ç ÁÖ¹®µµ ÇÒ ¼ö ¾ø½À´Ï´Ù.");?>
+        <input type=checkbox name='ca_use' <? echo ($ca[ca_use]) ? "checked" : ""; ?> value='1'>ì˜ˆ
+        <?=help("ì ì‹œ íŒë§¤ë¥¼ ì¤‘ë‹¨í•˜ê±°ë‚˜ ì¬ê³ ê°€ ì—†ì„ ê²½ìš°ì— ì²´í¬í•˜ë©´ ì´ ë¶„ë¥˜ëª…ê³¼ ì´ ë¶„ë¥˜ì— ì†í•œ ìƒí’ˆì€ ì¶œë ¥í•˜ì§€ ì•Šìœ¼ë©° ì£¼ë¬¸ë„ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");?>
     </td>
 </tr>
 <tr><td colspan=4 height=1 bgcolor=#CCCCCC></td></tr>
@@ -120,21 +120,21 @@ include_once ("./_head.php");
 
 
 <p>
-<?=subtitle("¼±ÅÃ ÀÔ·Â")?>
+<?=subtitle("ì„ íƒ ì…ë ¥")?>
 <table cellpadding=0 cellspacing=0 width=100%>
 <colgroup width=15%>
 <colgroup width=85% bgcolor=#FFFFFF>
 <tr><td colspan=4 height=2 bgcolor=#0E87F9></td></tr>
 <tr class=ht>
-    <td>»ó´Ü ÆÄÀÏ °æ·Î</td>
-    <td colspan=3><input type=text class=ed name=ca_include_head size=60 value="<?=$ca[ca_include_head]?>"> <?=help("ºĞ·ùº°·Î »ó´Ü+ÁÂÃøÀÇ ³»¿ëÀÌ ´Ù¸¦ °æ¿ì »ó´Ü+ÁÂÃø µğÀÚÀÎ ÆÄÀÏÀÇ °æ·Î¸¦ ÀÔ·ÂÇÕ´Ï´Ù.<p>ÀÔ·ÂÀÌ ¾øÀ¸¸é ±âº» »ó´Ü ÆÄÀÏÀ» »ç¿ëÇÕ´Ï´Ù.<p>»ó´Ü ³»¿ë°ú ´Ş¸® PHP ÄÚµå¸¦ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.");?></td>
+    <td>ìƒë‹¨ íŒŒì¼ ê²½ë¡œ</td>
+    <td colspan=3><input type=text class=ed name=ca_include_head size=60 value="<?=$ca[ca_include_head]?>"> <?=help("ë¶„ë¥˜ë³„ë¡œ ìƒë‹¨+ì¢Œì¸¡ì˜ ë‚´ìš©ì´ ë‹¤ë¥¼ ê²½ìš° ìƒë‹¨+ì¢Œì¸¡ ë””ìì¸ íŒŒì¼ì˜ ê²½ë¡œë¥¼ ì…ë ¥í•©ë‹ˆë‹¤.<p>ì…ë ¥ì´ ì—†ìœ¼ë©´ ê¸°ë³¸ ìƒë‹¨ íŒŒì¼ì„ ì‚¬ìš©í•©ë‹ˆë‹¤.<p>ìƒë‹¨ ë‚´ìš©ê³¼ ë‹¬ë¦¬ PHP ì½”ë“œë¥¼ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");?></td>
 </tr>
 <tr class=ht>
-    <td>ÇÏ´Ü ÆÄÀÏ °æ·Î</td>
-    <td colspan=3><input type=text class=ed name=ca_include_tail size=60 value="<?=$ca[ca_include_tail]?>"> <?=help("ºĞ·ùº°·Î ÇÏ´Ü+¿ìÃøÀÇ ³»¿ëÀÌ ´Ù¸¦ °æ¿ì ÇÏ´Ü+¿ìÃø µğÀÚÀÎ ÆÄÀÏÀÇ °æ·Î¸¦ ÀÔ·ÂÇÕ´Ï´Ù.<p>ÀÔ·ÂÀÌ ¾øÀ¸¸é ±âº» ÇÏ´Ü ÆÄÀÏÀ» »ç¿ëÇÕ´Ï´Ù.<p>ÇÏ´Ü ³»¿ë°ú ´Ş¸® PHP ÄÚµå¸¦ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.");?></td>
+    <td>í•˜ë‹¨ íŒŒì¼ ê²½ë¡œ</td>
+    <td colspan=3><input type=text class=ed name=ca_include_tail size=60 value="<?=$ca[ca_include_tail]?>"> <?=help("ë¶„ë¥˜ë³„ë¡œ í•˜ë‹¨+ìš°ì¸¡ì˜ ë‚´ìš©ì´ ë‹¤ë¥¼ ê²½ìš° í•˜ë‹¨+ìš°ì¸¡ ë””ìì¸ íŒŒì¼ì˜ ê²½ë¡œë¥¼ ì…ë ¥í•©ë‹ˆë‹¤.<p>ì…ë ¥ì´ ì—†ìœ¼ë©´ ê¸°ë³¸ í•˜ë‹¨ íŒŒì¼ì„ ì‚¬ìš©í•©ë‹ˆë‹¤.<p>í•˜ë‹¨ ë‚´ìš©ê³¼ ë‹¬ë¦¬ PHP ì½”ë“œë¥¼ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");?></td>
 </tr>
 <tr class=ht>
-    <td>»ó´ÜÀÌ¹ÌÁö</td>
+    <td>ìƒë‹¨ì´ë¯¸ì§€</td>
     <td colspan=3>
         <input type=file class=ed name=ca_himg size=40>
         <?
@@ -142,44 +142,44 @@ include_once ("./_head.php");
         $himg = "{$category_path}/{$ca[ca_id]}_h";
         if (file_exists($himg)) 
         {
-            echo "<input type=checkbox name=ca_himg_del value='1'>»èÁ¦";
+            echo "<input type=checkbox name=ca_himg_del value='1'>ì‚­ì œ";
             $himg_str = "<img src='$himg' border=0>";
             //$size = getimagesize($himg);
             //echo "<img src='$g4[admin_path]/img/icon_viewer.gif' border=0 align=absmiddle onclick=\"imageview('himg', $size[0], $size[1]);\">";
             //echo "<div id='himg' style='left:0; top:0; z-index:+1; display:none; position:absolute;'><img src='$himg' border=1></div>";
         }
         ?>
-        <?=help("»óÇ°¸®½ºÆ® ÆäÀÌÁö »ó´Ü¿¡ Ãâ·ÂÇÏ´Â ÀÌ¹ÌÁöÀÔ´Ï´Ù.");?>
+        <?=help("ìƒí’ˆë¦¬ìŠ¤íŠ¸ í˜ì´ì§€ ìƒë‹¨ì— ì¶œë ¥í•˜ëŠ” ì´ë¯¸ì§€ì…ë‹ˆë‹¤.");?>
     </td>
 </tr>
 <? if ($himg_str) { echo "<tr><td colspan=4>$himg_str</td></tr>"; } ?>
 
 <tr class=ht>
-    <td>ÇÏ´ÜÀÌ¹ÌÁö</td>
+    <td>í•˜ë‹¨ì´ë¯¸ì§€</td>
     <td colspan=3>
         <input type=file class=ed name=ca_timg size=40>
         <?
         $timg_str = "";
         $timg = "{$category_path}/{$ca[ca_id]}_t";
         if (file_exists($timg)) {
-            echo "<input type=checkbox name=ca_timg_del value='1'>»èÁ¦";
+            echo "<input type=checkbox name=ca_timg_del value='1'>ì‚­ì œ";
             $timg_str = "<img src='$timg' border=0>";
             //$size = getimagesize($timg);
-            //echo "<img src='$g4[admin_path]/img/icon_viewer.gif' border=0 align=absmiddle onclick=\"imageview('timg', $size[0], $size[1]);\"><input type=checkbox name=ca_timg_del value='1'>»èÁ¦";
+            //echo "<img src='$g4[admin_path]/img/icon_viewer.gif' border=0 align=absmiddle onclick=\"imageview('timg', $size[0], $size[1]);\"><input type=checkbox name=ca_timg_del value='1'>ì‚­ì œ";
             //echo "<div id='timg' style='left:0; top:0; z-index:+1; display:none; position:absolute;'><img src='$timg' border=1></div>";
         }
         ?>
-        <?=help("»óÇ°¸®½ºÆ® ÆäÀÌÁö ÇÏ´Ü¿¡ Ãâ·ÂÇÏ´Â ÀÌ¹ÌÁöÀÔ´Ï´Ù.");?>
+        <?=help("ìƒí’ˆë¦¬ìŠ¤íŠ¸ í˜ì´ì§€ í•˜ë‹¨ì— ì¶œë ¥í•˜ëŠ” ì´ë¯¸ì§€ì…ë‹ˆë‹¤.");?>
     </td>
 </tr>
 <? if ($timg_str) { echo "<tr><td colspan=4>$timg_str</td></tr>"; } ?>
 
 <tr class=ht>
-    <td>»ó´Ü ³»¿ë <?=help("»óÇ°¸®½ºÆ® ÆäÀÌÁö »ó´Ü¿¡ Ãâ·ÂÇÏ´Â HTML ³»¿ëÀÔ´Ï´Ù.", -150);?> </td>
+    <td>ìƒë‹¨ ë‚´ìš© <?=help("ìƒí’ˆë¦¬ìŠ¤íŠ¸ í˜ì´ì§€ ìƒë‹¨ì— ì¶œë ¥í•˜ëŠ” HTML ë‚´ìš©ì…ë‹ˆë‹¤.", -150);?> </td>
     <td colspan=3 align=right><br /><?=cheditor2('ca_head_html', $ca[ca_head_html]);?></td>
 </tr>
 <tr class=ht>
-    <td>ÇÏ´Ü ³»¿ë <?=help("»óÇ°¸®½ºÆ® ÆäÀÌÁö ÇÏ´Ü¿¡ Ãâ·ÂÇÏ´Â HTML ³»¿ëÀÔ´Ï´Ù.", -150);?></td>
+    <td>í•˜ë‹¨ ë‚´ìš© <?=help("ìƒí’ˆë¦¬ìŠ¤íŠ¸ í˜ì´ì§€ í•˜ë‹¨ì— ì¶œë ¥í•˜ëŠ” HTML ë‚´ìš©ì…ë‹ˆë‹¤.", -150);?></td>
     <td colspan=3 align=right><br /><?=cheditor2('ca_tail_html', $ca[ca_tail_html]);?></td>
 </tr>
 <tr><td colspan=4 height=1 bgcolor=#CCCCCC></td></tr>
@@ -188,16 +188,16 @@ include_once ("./_head.php");
 
 <? if ($w == "u") { ?>
 <p>
-<?=subtitle("±âÅ¸")?>
+<?=subtitle("ê¸°íƒ€")?>
 <table cellpadding=0 cellspacing=0 width=100%>
 <colgroup width=15%>
 <colgroup width=85% bgcolor=#FFFFFF>
 <tr><td colspan=4 height=2 bgcolor=#0E87F9></td></tr>
 <tr class=ht>
-    <td>ÇÏÀ§ºĞ·ù</td>
+    <td>í•˜ìœ„ë¶„ë¥˜</td>
     <td colspan=3>
-        <input type=checkbox name=sub_category value='1' onclick="if (this.checked) if (confirm('ÀÌ ºĞ·ù¿¡ ¼ÓÇÑ ÇÏÀ§ ºĞ·ùÀÇ ¼Ó¼ºÀ» ¶È°°ÀÌ º¯°æÇÕ´Ï´Ù.\n\nÀÌ ÀÛ¾÷Àº µÇµ¹¸± ¹æ¹ıÀÌ ¾ø½À´Ï´Ù.\n\n±×·¡µµ º¯°æÇÏ½Ã°Ú½À´Ï±î?')) return ; this.checked = false;"> ÀÌ ºĞ·ùÀÇ ¼³Á¤°ú °°Àº ¼³Á¤À¸·Î ¹İ¿µ
-        <?=help("ÀÌ ºĞ·ùÀÇ ÄÚµå°¡ 10 ÀÌ¶ó¸é 10 À¸·Î ½ÃÀÛÇÏ´Â ÇÏÀ§ºĞ·ùÀÇ ¼³Á¤°ªÀ» ÀÌ ºĞ·ù¿Í µ¿ÀÏÇÏ°Ô ¼³Á¤ÇÕ´Ï´Ù.", 0, -100);?>
+        <input type=checkbox name=sub_category value='1' onclick="if (this.checked) if (confirm('ì´ ë¶„ë¥˜ì— ì†í•œ í•˜ìœ„ ë¶„ë¥˜ì˜ ì†ì„±ì„ ë˜‘ê°™ì´ ë³€ê²½í•©ë‹ˆë‹¤.\n\nì´ ì‘ì—…ì€ ë˜ëŒë¦´ ë°©ë²•ì´ ì—†ìŠµë‹ˆë‹¤.\n\nê·¸ë˜ë„ ë³€ê²½í•˜ì‹œê² ìŠµë‹ˆê¹Œ?')) return ; this.checked = false;"> ì´ ë¶„ë¥˜ì˜ ì„¤ì •ê³¼ ê°™ì€ ì„¤ì •ìœ¼ë¡œ ë°˜ì˜
+        <?=help("ì´ ë¶„ë¥˜ì˜ ì½”ë“œê°€ 10 ì´ë¼ë©´ 10 ìœ¼ë¡œ ì‹œì‘í•˜ëŠ” í•˜ìœ„ë¶„ë¥˜ì˜ ì„¤ì •ê°’ì„ ì´ ë¶„ë¥˜ì™€ ë™ì¼í•˜ê²Œ ì„¤ì •í•©ë‹ˆë‹¤.", 0, -100);?>
     </td>
 </tr>
 <tr><td colspan=4 height=1 bgcolor=#CCCCCC></td></tr>
@@ -206,8 +206,8 @@ include_once ("./_head.php");
 
 
 <p align=center>
-    <input type=submit class=btn1 accesskey='s' value='  È®  ÀÎ  '>&nbsp;
-    <input type=button class=btn1 accesskey='l' value='  ¸ñ  ·Ï  ' onclick="document.location.href='./categorylist.php?<?=$qstr?>';">
+    <input type=submit class=btn1 accesskey='s' value='  í™•  ì¸  '>&nbsp;
+    <input type=button class=btn1 accesskey='l' value='  ëª©  ë¡  ' onclick="document.location.href='./categorylist.php?<?=$qstr?>';">
 </form>
 
 <script language='javascript'>
@@ -218,7 +218,7 @@ function fcategoryformcheck(f)
 
     if (f.w.value == "") {
         if (f.codedup.value == '1') {
-            alert("ÄÚµå Áßº¹°Ë»ç¸¦ ÇÏ¼Å¾ß ÇÕ´Ï´Ù.");
+            alert("ì½”ë“œ ì¤‘ë³µê²€ì‚¬ë¥¼ í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.");
             return false;
         }
     }
@@ -229,7 +229,7 @@ function fcategoryformcheck(f)
 function codedupcheck(id) 
 {
     if (!id) {
-        alert('ºĞ·ùÄÚµå¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À.');
+        alert('ë¶„ë¥˜ì½”ë“œë¥¼ ì…ë ¥í•˜ì‹­ì‹œì˜¤.');
         f.ca_id.focus();
         return;
     }

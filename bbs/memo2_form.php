@@ -2,21 +2,21 @@
 include_once("./_common.php");
 
 if (!$member[mb_id]) 
-    alert_close("È¸¿ø¸¸ ÀÌ¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+    alert_close("íšŒì›ë§Œ ì´ìš©í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
 //if (!$member[mb_open] && $is_admin != "super" && $member[mb_id] != $mb_id) 
-//    alert_close("ÀÚ½ÅÀÇ Á¤º¸¸¦ °ø°³ÇÏÁö ¾ÊÀ¸¸é ´Ù¸¥ºĞ¿¡°Ô ÂÊÁö¸¦ º¸³¾ ¼ö ¾ø½À´Ï´Ù.\\n\\nÁ¤º¸°ø°³ ¼³Á¤Àº È¸¿øÁ¤º¸¼öÁ¤¿¡¼­ ÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+//    alert_close("ìì‹ ì˜ ì •ë³´ë¥¼ ê³µê°œí•˜ì§€ ì•Šìœ¼ë©´ ë‹¤ë¥¸ë¶„ì—ê²Œ ìª½ì§€ë¥¼ ë³´ë‚¼ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\\n\\nì •ë³´ê³µê°œ ì„¤ì •ì€ íšŒì›ì •ë³´ìˆ˜ì •ì—ì„œ í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
 $content = "";
-// Å»ÅğÇÑ È¸¿ø¿¡°Ô ÂÊÁö º¸³¾ ¼ö ¾øÀ½
+// íƒˆí‡´í•œ íšŒì›ì—ê²Œ ìª½ì§€ ë³´ë‚¼ ìˆ˜ ì—†ìŒ
 if ($me_recv_mb_id) 
 {
     $mb = get_member($me_recv_mb_id);
     if (!$mb[mb_id]) 
-        alert_close("È¸¿øÁ¤º¸°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.\\n\\nÅ»ÅğÇÏ¿´À» ¼ö ÀÖ½À´Ï´Ù.");
+        alert_close("íšŒì›ì •ë³´ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.\\n\\níƒˆí‡´í•˜ì˜€ì„ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
 //    if (!$mb[mb_open] && $is_admin != "super")
-//        alert_close("Á¤º¸°ø°³¸¦ ÇÏÁö ¾Ê¾Ò½À´Ï´Ù.");
+//        alert_close("ì •ë³´ê³µê°œë¥¼ í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
     // 4.00.15
     $row = sql_fetch(" select me_memo from $g4[memo_table] where me_id = '$me_id' and (me_recv_mb_id = '$member[mb_id]' or me_send_mb_id = '$member[mb_id]') ");
@@ -31,7 +31,7 @@ if ($me_recv_mb_id)
     }
 }
 
-$g4[title] = "ÂÊÁö º¸³»±â";
+$g4[title] = "ìª½ì§€ ë³´ë‚´ê¸°";
 include_once("$g4[path]/head.sub.php");
 
 $memo_skin_path = "$g4[path]/skin/member/$config[cf_member_skin]";

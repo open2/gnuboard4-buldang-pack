@@ -1,4 +1,4 @@
-<!-- À§/¾Æ·¡ ÀÌµ¿ÇÏ´Â jQuery -->
+<!-- ìœ„/ì•„ë˜ ì´ë™í•˜ëŠ” jQuery -->
 <a href="#" class="btn btn-default back-to-top"><span class="glyphicon glyphicon-chevron-up"></span></a>
 <a href="#" class="btn btn-default go-to-bottom"><span class="glyphicon glyphicon-chevron-down"></span></a>
 <style>
@@ -20,10 +20,10 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-    var offset1 = 300;    // ¼öÁ÷À¸·Î ¾î´ÀÁ¤µµ ¿òÁ÷¿©¾ß ¹öÆ°ÀÌ ³ª¿Ã±î?
-    var offset2 = 100;    // ¼öÁ÷À¸·Î ¾î´ÀÁ¤µµ ¿òÁ÷¿©¾ß ¹öÆ°ÀÌ ³ª¿Ã±î?
-    var duration = 0;     // topÀ¸·Î ÀÌµ¿ÇÒ¶§±îÁöÀÇ animate ½Ã°£ (¹Ğ¸®¼¼ÄÁµå, default´Â 400. ¿¹Á¦ÀÇ ±âº»Àº 500)
-    var delay1 = 3000;    // ¹öÆ°ÀÌ »ç¶óÁú¶§±îÁöÀÇ ½Ã°£ (3000 = 3ÃÊ)
+    var offset1 = 300;    // ìˆ˜ì§ìœ¼ë¡œ ì–´ëŠì •ë„ ì›€ì§ì—¬ì•¼ ë²„íŠ¼ì´ ë‚˜ì˜¬ê¹Œ?
+    var offset2 = 100;    // ìˆ˜ì§ìœ¼ë¡œ ì–´ëŠì •ë„ ì›€ì§ì—¬ì•¼ ë²„íŠ¼ì´ ë‚˜ì˜¬ê¹Œ?
+    var duration = 0;     // topìœ¼ë¡œ ì´ë™í• ë•Œê¹Œì§€ì˜ animate ì‹œê°„ (ë°€ë¦¬ì„¸ì»¨ë“œ, defaultëŠ” 400. ì˜ˆì œì˜ ê¸°ë³¸ì€ 500)
+    var delay1 = 3000;    // ë²„íŠ¼ì´ ì‚¬ë¼ì§ˆë•Œê¹Œì§€ì˜ ì‹œê°„ (3000 = 3ì´ˆ)
 
     var timer;
     $(window).bind('scroll',function () {

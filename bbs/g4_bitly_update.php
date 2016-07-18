@@ -1,28 +1,28 @@
 <?
 include_once("./_common.php");
 
-// bo_tableÀÌ ¾øÀ¸¸é Á×´Â´Ù.
+// bo_tableì´ ì—†ìœ¼ë©´ ì£½ëŠ”ë‹¤.
 if( empty($bo_table) ) die("101");
 
-// wr_id°¡ ¾ø¾îµµ Á×´Â°Å´Ù.
+// wr_idê°€ ì—†ì–´ë„ ì£½ëŠ”ê±°ë‹¤.
 if( empty($wr_id) ) die("102");
 
-// °Ô½Ã±ÛÀÌ ÀÖ´ÂÁö´Â È®ÀÎ ¾ÈÇÑ´Ù. ¿Ö? ¾øÀ¸¸é ½ÇÇàÀÌ ¾ÈµÉÅ×´Ï±î. ¤»¤»
+// ê²Œì‹œê¸€ì´ ìžˆëŠ”ì§€ëŠ” í™•ì¸ ì•ˆí•œë‹¤. ì™œ? ì—†ìœ¼ë©´ ì‹¤í–‰ì´ ì•ˆë í…Œë‹ˆê¹Œ. ã…‹ã…‹
 
-// bitly_urlÀÌ ÀÖ´ÂÁö º»´Ù. ¾øÀ¸¸é Á×¾î¾ßÁö
+// bitly_urlì´ ìžˆëŠ”ì§€ ë³¸ë‹¤. ì—†ìœ¼ë©´ ì£½ì–´ì•¼ì§€
 if( empty($bitly_url) ) die("104");
 
-$tmp_write_table = $g4['write_prefix'] . $bo_table; // °Ô½ÃÆÇ Å×ÀÌºí ÀüÃ¼ÀÌ¸§
+$tmp_write_table = $g4['write_prefix'] . $bo_table; // ê²Œì‹œíŒ í…Œì´ë¸” ì „ì²´ì´ë¦„
 
 $sql = " update {$tmp_write_table} set bitly_url = '$bitly_url' where wr_id='{$wr_id}' ";
 $result = sql_query($sql, FALSE);
 
 if (!$result) {
-    //db¸¦ ¾÷µ¥ÀÌÆ®
+    //dbë¥¼ ì—…ë°ì´íŠ¸
     $sql2 = " ALTER TABLE $tmp_write_table ADD `bitly_url` VARCHAR( 255 ) NOT NULL ";
     sql_query($sql2);
     
-    // ´Ù½Ã ÇÑ¹ø ´õ~!
+    // ë‹¤ì‹œ í•œë²ˆ ë”~!
     sql_query($sql);
 }
 

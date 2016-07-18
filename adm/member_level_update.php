@@ -9,11 +9,11 @@ auth_check($auth[$sub_menu], "w");
 check_token();
 
 if ($is_admin != "super")
-    alert("È¸¿ø ·¹º§Á¤º¸ °ü¸®´Â ÃÖ°í°ü¸®ÀÚ¸¸ °¡´ÉÇÕ´Ï´Ù.");
+    alert("íšŒì› ë ˆë²¨ì •ë³´ ê´€ë¦¬ëŠ” ìµœê³ ê´€ë¦¬ìë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
 for ($i=0; $i<count($chk); $i++) 
 {
-    // ½ÇÁ¦ ¹øÈ£¸¦ ³Ñ±è
+    // ì‹¤ì œ ë²ˆí˜¸ë¥¼ ë„˜ê¹€
 		$k = $_POST[chk][$i];
 
 		$member_level   = (int)$_POST[member_level][$k];

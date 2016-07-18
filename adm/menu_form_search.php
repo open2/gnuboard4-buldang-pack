@@ -4,7 +4,7 @@ include_once('./_common.php');
 header("Content-Type: text/html; charset=$g4[charset]");
 
 if ($is_admin != 'super')
-    die('ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.');
+    die('ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.');
 
 switch($type) {
     case 'group':
@@ -40,8 +40,8 @@ if($sql) {
 <table class="table table-hover">
         <thead>
         <tr>
-        <th scope="col">Á¦¸ñ</th>
-        <th scope="col">¼±ÅÃ</th>
+        <th scope="col">ì œëª©</th>
+        <th scope="col">ì„ íƒ</th>
         </tr>
         </thead>
         <tbody>
@@ -69,7 +69,7 @@ if($sql) {
         <td>
             <input type="hidden" name="subject[]" value="<?php echo preg_replace('/[\'\"]/', '', $row['subject']); ?>">
             <input type="hidden" name="link[]" value="<?php echo $link; ?>">
-			<button type="button" name="act_button" class="btn btn-success add_select"><span class="sr-only"><?php echo $row['subject']; ?> </span>¼±ÅÃ</button>
+			<button type="button" name="act_button" class="btn btn-success add_select"><span class="sr-only"><?php echo $row['subject']; ?> </span>ì„ íƒ</button>
         </td>
     </tr>
 
@@ -80,7 +80,7 @@ if($sql) {
 
 
 <div>
-    <button type="button" class="btn btn-default" onclick="window.close();">Ã¢´İ±â</button>
+    <button type="button" class="btn btn-default" onclick="window.close();">ì°½ë‹«ê¸°</button>
 </div>
 
 <?php } else { ?>
@@ -93,14 +93,14 @@ if($sql) {
     </colgroup>
     <tbody class="col-lg-2">
     <tr>
-        <th scope="row"><label for="me_name">¸Ş´º</label></th>
+        <th scope="row"><label for="me_name">ë©”ë‰´</label></th>
         <td><input type="text" name="me_name" id="me_name" required class="form-control"></td>
     </tr>
     <tr>
-        <th scope="row"><label for="me_link">¸µÅ©</label></th>
+        <th scope="row"><label for="me_link">ë§í¬</label></th>
         <td>
             <input type="text" name="me_link" id="me_link" required class="form-control">
-          	<?=help("¸µÅ©´Â http://¸¦ Æ÷ÇÔÇØ¼­ ÀÔ·ÂÇØ ÁÖ¼¼¿ä.")?>
+          	<?=help("ë§í¬ëŠ” http://ë¥¼ í¬í•¨í•´ì„œ ì…ë ¥í•´ ì£¼ì„¸ìš”.")?>
         </td>
     </tr>
     </tbody>
@@ -108,7 +108,7 @@ if($sql) {
 </div>
 
 <div class="text-center">
-    <button id="add_manual" class="btn btn-success">Ãß°¡</button>
-    <button class="btn btn-default" onclick="window.close();">Ã¢´İ±â</button>
+    <button id="add_manual" class="btn btn-success">ì¶”ê°€</button>
+    <button class="btn btn-default" onclick="window.close();">ì°½ë‹«ê¸°</button>
 </div>
 <?php } ?>

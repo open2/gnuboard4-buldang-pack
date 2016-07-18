@@ -6,25 +6,25 @@ include_once("$g4[path]/memo.config.php");
 check_demo();
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4[path]);
+    alert("ìµœê³ ê´€ë¦¬ìžë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4[path]);
 
-$g4[title] = "ÂÊÁö4 - ¾÷±×·¹ÀÌµå(2)";
+$g4[title] = "ìª½ì§€4 - ì—…ê·¸ë ˆì´ë“œ(2)";
 include_once("./admin.head.php");
 
-// memo2 Ã·ºÎÆÄÀÏ µð·ºÅä¸®¸¦ »ý¼º
+// memo2 ì²¨ë¶€íŒŒì¼ ë””ë ‰í† ë¦¬ë¥¼ ìƒì„±
 $dir_name = $g4[path] . "/data/memo2";
 if(!is_dir($dir_name)){
     @mkdir("$dir_name", 0707);
     @chmod("$dir_name", 0707);
 }
 
-// ÀÏ¹ÝÀûÀÎ ¸Þ¸ðÀÇ °æ¿ì
+// ì¼ë°˜ì ì¸ ë©”ëª¨ì˜ ê²½ìš°
 $sql = " select * from $g4[memo_table] ";
 $result = sql_query($sql);
 
 for ($i=0; $row=sql_fetch_array($result); $i++)
 {
-    $me_subject = $row[me_send_mb_id] . "´ÔÀÌ º¸³»½Å ÂÊÁö ÀÔ´Ï´Ù";
+    $me_subject = $row[me_send_mb_id] . "ë‹˜ì´ ë³´ë‚´ì‹  ìª½ì§€ ìž…ë‹ˆë‹¤";
     $me_memo_text = nl2br($row[me_memo]);
 
     $html = "";
@@ -40,7 +40,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     echo "i: " . $i;
 }
 
-echo "UPGRADE ¿Ï·á.";
+echo "UPGRADE ì™„ë£Œ.";
 
 include_once("./admin.tail.php");
 ?>

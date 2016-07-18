@@ -2,9 +2,9 @@
 include_once("./_common.php");
 
 if (!$member[mb_id]) 
-    alert_close("È¸¿ø¸¸ Á¶È¸ÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+    alert_close("íšŒì›ë§Œ ì¡°íšŒí•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
-$g4[title] = $member[mb_nick] . "´ÔÀÇ $txt °Ô½Ã±Û";
+$g4[title] = $member[mb_nick] . "ë‹˜ì˜ $txt ê²Œì‹œê¸€";
 
 if ($head_on)
     include_once("$g4[path]/head.php");
@@ -13,10 +13,10 @@ else
 
 $sql_search = " where mb_id = '$member[mb_id]' ";
 if ($w == "nogood") {
-    $txt = "ºñÃßÃµ";
+    $txt = "ë¹„ì¶”ì²œ";
     $sql_search .= " and bg_flag = 'nogood' ";
 } else {
-    $txt = "ÃßÃµ";
+    $txt = "ì¶”ì²œ";
     $sql_search .= " and bg_flag = 'good' ";
 }
 
@@ -28,7 +28,7 @@ $sql_common = " from $g4[board_good_table] ";
 $sql_order = " order by bg_id desc ";
 
 /*
-°Ë»öºÎºĞ...
+ê²€ìƒ‰ë¶€ë¶„...
 */
 
 $sql = " select count(*) as cnt $sql_common $sql_search ";
@@ -39,9 +39,9 @@ if ($rows)
     $rows = (int) $rows;
 else
     $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if (!$page) $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if (!$page) $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
 $list = array();
 $sql = " select bg_id, bo_table, bg_id, wr_id , bg_datetime
@@ -57,18 +57,18 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 
     $bo_table = $row[bo_table];
 
-    // ¼øÂ÷ÀûÀÎ ¹øÈ£ (¼ø¹ø)
+    // ìˆœì°¨ì ì¸ ë²ˆí˜¸ (ìˆœë²ˆ)
     $list[$i]['num'] = $total_count - ($page - 1) * $rows - $i;
 
-    // °Ô½ÃÆÇ Á¦¸ñ
+    // ê²Œì‹œíŒ ì œëª©
     extract(get_board($bo_table, "bo_subject"));
     $bo_subject = cut_str($bo_subject, 20);
 
-    // °Ô½Ã¹° Á¦¸ñ
+    // ê²Œì‹œë¬¼ ì œëª©
     $write = get_write2($bo_table, $row[wr_id], "wr_subject, mb_id, wr_option ");
     $wr_subject = get_text($write['wr_subject']);
     if ($wr_subject == "") 
-        $wr_subject = "[±Û ¾øÀ½]";
+        $wr_subject = "[ê¸€ ì—†ìŒ]";
     if (strstr($row[wr_option], "secret"))
         $wr_secret = true;
     else
@@ -87,7 +87,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     $list[$i][mb_nick] = get_sideview($mb['mb_id'], get_text($mb[mb_nick]), $mb['mb_email'], $mb['mb_homepage']);
 }
 
-// °Ô½ÃÆÇ ¸ñ·Ïº°·Î Á¤·ÄÇÏ±â
+// ê²Œì‹œíŒ ëª©ë¡ë³„ë¡œ ì •ë ¬í•˜ê¸°
 $sql = " select distinct a.bo_table, b.bo_subject from $g4[board_good_table] a left join $g4[board_table] b on a.bo_table=b.bo_table where a.mb_id = '$member[mb_id]' ";
 $result = sql_query($sql);
 $bo_list = array();

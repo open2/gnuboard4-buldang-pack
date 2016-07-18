@@ -1,12 +1,12 @@
 <?
 if (!defined('_GNUBOARD_')) exit;
 
-// ³ªÀÇ ÃÖ½Å±Û °¹¼ö
+// ë‚˜ì˜ ìµœì‹ ê¸€ ê°¯ìˆ˜
 function count_latest_my($time=0, $options="")
 {
     global $g4, $member;
 
-    // ºñÈ¸¿øÀÌ¸é return
+    // ë¹„íšŒì›ì´ë©´ return
     if ($member[mb_id] == "")
         return 0;
 
@@ -22,8 +22,8 @@ function count_latest_my($time=0, $options="")
     return $result[cnt];
 }
 
-// ³ªÀÇ ÃÖ½Å±Û ÃßÃâ
-function latest_my($skin_dir="", $skin_title="³»°¡ ¿Ã¸° ±Û", $time=30, $rows=10, $subject_len=40, $options="", $target="")
+// ë‚˜ì˜ ìµœì‹ ê¸€ ì¶”ì¶œ
+function latest_my($skin_dir="", $skin_title="ë‚´ê°€ ì˜¬ë¦° ê¸€", $time=30, $rows=10, $subject_len=40, $options="", $target="")
 {
     global $g4, $member;
 
@@ -52,7 +52,7 @@ function latest_my($skin_dir="", $skin_title="³»°¡ ¿Ã¸° ±Û", $time=30, $rows=10,
         $sql2 = " select * from $tmp_write_table where wr_id = '$row[wr_id]' ";
         $row2 = sql_fetch($sql2);
         if (!$row2) {
-            // $g4_board_new¿¡¸¸ ÀÖ°í ½ÇÁ¦´Â °Ô½Ã±ÛÀÌ ¾øÀ¸¸é Áö¿ö¾ßÁö
+            // $g4_board_newì—ë§Œ ìžˆê³  ì‹¤ì œëŠ” ê²Œì‹œê¸€ì´ ì—†ìœ¼ë©´ ì§€ì›Œì•¼ì§€
             $sql = " delete from $g4[board_new_table] where bn_id = '$row[bn_id]' ";
             sql_query($sql);
             continue;
@@ -78,8 +78,8 @@ function latest_my($skin_dir="", $skin_title="³»°¡ ¿Ã¸° ±Û", $time=30, $rows=10,
     return $content;
 } 
 
-// ³»±Û¿¡ ´ëÇÑ ¹ÝÀÀ
-function latest_my_update($skin_dir="", $skin_title="³»±Û¿¡ ´ëÇÑ ¹ÝÀÀ", $time=30, $rows=10, $subject_len=40, $options="", $target="")
+// ë‚´ê¸€ì— ëŒ€í•œ ë°˜ì‘
+function latest_my_update($skin_dir="", $skin_title="ë‚´ê¸€ì— ëŒ€í•œ ë°˜ì‘", $time=30, $rows=10, $subject_len=40, $options="", $target="")
 {
     global $g4, $member;
 
@@ -104,7 +104,7 @@ function latest_my_update($skin_dir="", $skin_title="³»±Û¿¡ ´ëÇÑ ¹ÝÀÀ", $time=30
         $sql2 = " select wr_id, wr_subject, wr_option, wr_content, wr_comment, wr_parent, wr_datetime, wr_last, wr_homepage, wr_name, wr_reply, wr_link1, wr_link2, ca_name, wr_hit from $tmp_write_table where wr_id = '$row[wr_id]' ";
         $row2 = sql_fetch($sql2);
         if (!$row2) {
-            // $g4_board_new¿¡¸¸ ÀÖ°í ½ÇÁ¦´Â °Ô½Ã±ÛÀÌ ¾øÀ¸¸é Áö¿ö¾ßÁö
+            // $g4_board_newì—ë§Œ ìžˆê³  ì‹¤ì œëŠ” ê²Œì‹œê¸€ì´ ì—†ìœ¼ë©´ ì§€ì›Œì•¼ì§€
             $sql = " delete from $g4[board_new_table] where bn_id = '$row[bn_id]' ";
             sql_query($sql);
             continue;
@@ -127,8 +127,8 @@ function latest_my_update($skin_dir="", $skin_title="³»±Û¿¡ ´ëÇÑ ¹ÝÀÀ", $time=30
     return $content;
 }
 
-// ³»°¡ ¹æ¹®ÇÑ °Ô½ÃÆÇ
-function latest_my_board($skin_dir="", $skin_title="³»°¡ ¹æ¹®ÇÑ °Ô½ÃÆÇ", $rows=10, $subject_len=40, $options="")
+// ë‚´ê°€ ë°©ë¬¸í•œ ê²Œì‹œíŒ
+function latest_my_board($skin_dir="", $skin_title="ë‚´ê°€ ë°©ë¬¸í•œ ê²Œì‹œíŒ", $rows=10, $subject_len=40, $options="")
 {
     global $g4, $member;
 
@@ -160,7 +160,7 @@ function latest_my_board($skin_dir="", $skin_title="³»°¡ ¹æ¹®ÇÑ °Ô½ÃÆÇ", $rows=1
     return $content;
 }
 
-function latest_scrap($skin_dir="", $skin_title="½ºÅ©·¦ ÃÖ½Å±Û", $mb_id="", $rows=10, $subject_len=40, $options="")
+function latest_scrap($skin_dir="", $skin_title="ìŠ¤í¬ëž© ìµœì‹ ê¸€", $mb_id="", $rows=10, $subject_len=40, $options="")
 {
     global $g4, $member;
 
@@ -169,7 +169,7 @@ function latest_scrap($skin_dir="", $skin_title="½ºÅ©·¦ ÃÖ½Å±Û", $mb_id="", $row
     else
         $latest_skin_path = "$g4[path]/skin/latest/basic";
 
-    // $mb_id°¡ ÁöÁ¤µÇÁö ¾ÊÀ¸¸é, ·Î±×ÀÎÇÑ »ç¶÷ÀÇ °ÍÀ¸·Î ÇÑ´Ù.
+    // $mb_idê°€ ì§€ì •ë˜ì§€ ì•Šìœ¼ë©´, ë¡œê·¸ì¸í•œ ì‚¬ëžŒì˜ ê²ƒìœ¼ë¡œ í•œë‹¤.
     if ($mb_id == "")
         $mb_id = $member[mb_id];
 
@@ -179,10 +179,10 @@ function latest_scrap($skin_dir="", $skin_title="½ºÅ©·¦ ÃÖ½Å±Û", $mb_id="", $row
     $result = sql_query($sql);
     for ($i=0; $row = sql_fetch_array($result); $i++) {
 
-        // °Ô½ÃÆÇ Á¤º¸
+        // ê²Œì‹œíŒ ì •ë³´
         $board = get_board($row[bo_table]);
 
-        // °Ô½Ã±Û Á¤º¸
+        // ê²Œì‹œê¸€ ì •ë³´
         $tmp_write_table = $g4[write_prefix] . $row[bo_table];
         $sql2 = " select wr_id, wr_subject, wr_option, wr_content, wr_comment, wr_parent, wr_datetime, wr_last, wr_homepage, wr_name, wr_reply, wr_link1, wr_link2, ca_name, wr_hit from $tmp_write_table where wr_id = '$row[wr_id]' ";
         $row2 = sql_fetch($sql2);

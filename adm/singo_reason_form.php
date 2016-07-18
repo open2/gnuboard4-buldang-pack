@@ -6,9 +6,9 @@ auth_check($auth[$sub_menu], "w");
 
 $token = get_token();
 
-if ($is_admin != "super" && $w == "") alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.");
+if ($is_admin != "super" && $w == "") alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
-$html_title = "½Å°í»çÀ¯";
+$html_title = "ì‹ ê³ ì‚¬ìœ ";
 
 $sg_id = (int)$sg_id;
 
@@ -20,10 +20,10 @@ if ($w == "")
 else if ($w == "u") 
 {
     $sg = sql_fetch(" select * from $g4[singo_reason_table] where sg_id = '$sg_id' ");
-    $html_title .= " ¼öÁ¤";
+    $html_title .= " ìˆ˜ì •";
 } 
 else
-    alert("Á¦´ë·Î µÈ °ªÀÌ ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.");
+    alert("ì œëŒ€ë¡œ ëœ ê°’ì´ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
 $g4[title] = $html_title;
 include_once("./admin.head.php");
@@ -47,18 +47,18 @@ include_once("./admin.head.php");
     <td colspan=2><?=$html_title?></td>
 </tr>
 <tr>
-    <td>½Å°í»çÀ¯</td>
-    <td><input class="form-control col-xs-4" type='text' name=sg_reason size=21 maxlength=20 itemname='½Å°í»çÀ¯' value='<?=$sg[sg_reason]?>'></td>
+    <td>ì‹ ê³ ì‚¬ìœ </td>
+    <td><input class="form-control col-xs-4" type='text' name=sg_reason size=21 maxlength=20 itemname='ì‹ ê³ ì‚¬ìœ ' value='<?=$sg[sg_reason]?>'></td>
 </tr>
 <tr>
-    <td>½Å°í»çÀ¯Ãâ·Â</td>
+    <td>ì‹ ê³ ì‚¬ìœ ì¶œë ¥</td>
     <td>
         <input type=checkbox name=sg_print value='1' <?=$sg[sg_print]?'checked':'';?>>
-        <?=help("»ç¿ë¿¡ Ã¼Å©ÇÏ½Ã¸é ½Å°íµÈ °Ô½ÃÆÇ¿¡ ½Å°í»çÀ¯°¡ Ãâ·ÂµË´Ï´Ù.")?>
+        <?=help("ì‚¬ìš©ì— ì²´í¬í•˜ì‹œë©´ ì‹ ê³ ëœ ê²Œì‹œíŒì— ì‹ ê³ ì‚¬ìœ ê°€ ì¶œë ¥ë©ë‹ˆë‹¤.")?>
     </td>
 </tr>
 <tr>
-    <td>»ç¿ë</td>
+    <td>ì‚¬ìš©</td>
     <td>
         <input type=checkbox name=sg_use value='1' <?=$sg[sg_use]?'checked':'';?>>
     </td>
@@ -66,8 +66,8 @@ include_once("./admin.head.php");
 </table>
 
 <p align=center>
-    <input type=submit class="btn btn-default" accesskey='s' value='  È®  ÀÎ  '>&nbsp;
-    <input type=button class="btn btn-default" value='  ¸ñ  ·Ï  ' onclick="document.location.href='./singo_reason_list.php?<?=$qstr?>';">
+    <input type=submit class="btn btn-default" accesskey='s' value='  í™•  ì¸  '>&nbsp;
+    <input type=button class="btn btn-default" value='  ëª©  ë¡  ' onclick="document.location.href='./singo_reason_list.php?<?=$qstr?>';">
 </form>
 
 <script type="text/javascript">

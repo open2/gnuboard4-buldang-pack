@@ -44,9 +44,9 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if ($page == "") { $page = 1; } // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if ($page == "") { $page = 1; } // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
 $sql = " select * 
           $sql_common
@@ -55,9 +55,9 @@ $sql = " select *
           limit $from_record, $rows ";
 $result = sql_query($sql);
 
-$listall = "<a href='$_SERVER[PHP_SELF]'>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]'>ì²˜ìŒ</a>";
 
-$g4[title] = "¹è³Ê°ü¸®";
+$g4[title] = "ë°°ë„ˆê´€ë¦¬";
 include_once("./admin.head.php");
 
 include_once ("$g4[path]/lib/banner.lib.php");
@@ -70,17 +70,17 @@ var list_delete_php = 'banner_list_delete.php';
 
 <form name=fsearch method=get role="form" class="form-inline">
 <div class="btn-group">
-    <?=$listall?> (¹è³Ê¼ö : <?=number_format($total_count)?>°³)
+    <?=$listall?> (ë°°ë„ˆìˆ˜ : <?=number_format($total_count)?>ê°œ)
 </div>
 <div class="pull-right">
     <select name=sfl class="form-control">
-        <option value='bn_id'>¹è³ÊID</option>
-        <option value='bn_subject'>Á¦¸ñ</option>
-        <option value='a.bg_id'>±×·ìID</option>
+        <option value='bn_id'>ë°°ë„ˆID</option>
+        <option value='bn_subject'>ì œëª©</option>
+        <option value='a.bg_id'>ê·¸ë£¹ID</option>
     </select>
-    <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<?=$stx?>'>
+    <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<?=$stx?>'>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 </form>
@@ -104,26 +104,26 @@ var list_delete_php = 'banner_list_delete.php';
 <colgroup width=35>
 <tr class="success">
     <td rowspan=2><input type=checkbox name=chkall value="1" onclick="check_all(this.form)"></td>
-    <td ><?=subject_sort_link("bn_id")?>¹è³ÊID</a></td>
-    <td ><?=subject_sort_link("a.bg_id")?>±×·ì</a></td>
-    <td ><?=subject_sort_link("bn_subject")?>Á¦¸ñ</a></td>
-    <td >½ÃÀÛÀÏ</td>
-    <td rowspan=2 title="¹è³Ê»ç¿ë"><?=subject_sort_link("bn_use")?>¹è³Ê<br>»ç¿ë</a></td>
-    <td rowspan=2 title="¹è³Ê¼ø¼­"><?=subject_sort_link("bn_order")?>¹è³Ê<br>¼ø¼­</a></td>
-  	<td rowspan=2><a href="./banner_form.php"><i class='fa fa-plus-square fa-2x' title='»ı¼º'></i></a></td>
+    <td ><?=subject_sort_link("bn_id")?>ë°°ë„ˆID</a></td>
+    <td ><?=subject_sort_link("a.bg_id")?>ê·¸ë£¹</a></td>
+    <td ><?=subject_sort_link("bn_subject")?>ì œëª©</a></td>
+    <td >ì‹œì‘ì¼</td>
+    <td rowspan=2 title="ë°°ë„ˆì‚¬ìš©"><?=subject_sort_link("bn_use")?>ë°°ë„ˆ<br>ì‚¬ìš©</a></td>
+    <td rowspan=2 title="ë°°ë„ˆìˆœì„œ"><?=subject_sort_link("bn_order")?>ë°°ë„ˆ<br>ìˆœì„œ</a></td>
+  	<td rowspan=2><a href="./banner_form.php"><i class='fa fa-plus-square fa-2x' title='ìƒì„±'></i></a></td>
 </tr>
 <tr class="success">
-    <td>Å¬¸¯¼ö</td>
-    <td>Target(»õÃ¢)</td>
+    <td>í´ë¦­ìˆ˜</td>
+    <td>Target(ìƒˆì°½)</td>
     <td>URL</td>
-    <td>Á¾·áÀÏ</td>
+    <td>ì¢…ë£Œì¼</td>
 </tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) {
-    $s_upd = "<a href='./banner_form.php?w=u&bn_id=$row[bn_id]&$qstr'><i class='fa fa-pencil' title='¼öÁ¤'></i></a>";
+    $s_upd = "<a href='./banner_form.php?w=u&bn_id=$row[bn_id]&$qstr'><i class='fa fa-pencil' title='ìˆ˜ì •'></i></a>";
     $s_del = "";
     if ($is_admin == "super") {
-        $s_del = "<a href=\"javascript:post_delete('banner_delete.php', '$row[bn_id]');\"><i class='fa fa-trash-o' title='»èÁ¦'></i></a>";
+        $s_del = "<a href=\"javascript:post_delete('banner_delete.php', '$row[bn_id]');\"><i class='fa fa-trash-o' title='ì‚­ì œ'></i></a>";
     }
 
     $sql = " select count(*) as cnt from $g4[banner_click_table] where bg_id='$row[bg_id]' and bn_id='$row[bn_id]' ";
@@ -150,12 +150,12 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 } 
 
 if ($i == 0)
-    echo "<tr><td colspan='8' align=center height=100>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>"; 
+    echo "<tr><td colspan='8' align=center height=100>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>"; 
 
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
@@ -163,9 +163,9 @@ echo "</table>";
 </div>
 
 <div class="btn-group">
-    <input type=button class='btn btn-default' value='¼±ÅÃ¼öÁ¤' onclick="btn_check(this.form, 'update')">
+    <input type=button class='btn btn-default' value='ì„ íƒìˆ˜ì •' onclick="btn_check(this.form, 'update')">
     <? if ($is_admin == "super") { ?>
-        <input type=button class='btn btn-default' value='¼±ÅÃ»èÁ¦' onclick="btn_check(this.form, 'delete')">
+        <input type=button class='btn btn-default' value='ì„ íƒì‚­ì œ' onclick="btn_check(this.form, 'delete')">
     <? } ?>
 </div>
 
@@ -176,12 +176,12 @@ if ($stx)
 </form>
 
 <script type="text/javascript">
-// POST ¹æ½ÄÀ¸·Î »èÁ¦
+// POST ë°©ì‹ìœ¼ë¡œ ì‚­ì œ
 function post_delete(action_url, val)
 {
 	var f = document.fpost;
 
-	if(confirm("ÇÑ¹ø »èÁ¦ÇÑ ÀÚ·á´Â º¹±¸ÇÒ ¹æ¹ıÀÌ ¾ø½À´Ï´Ù.\n\nÁ¤¸» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?")) {
+	if(confirm("í•œë²ˆ ì‚­ì œí•œ ìë£ŒëŠ” ë³µêµ¬í•  ë°©ë²•ì´ ì—†ìŠµë‹ˆë‹¤.\n\nì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
     f.bn_id.value = val;
 		f.action      = action_url;
 		f.submit();

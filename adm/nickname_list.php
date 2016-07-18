@@ -36,9 +36,9 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if ($page == "") $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if ($page == "") $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
 $sql = " select *
           $sql_common
@@ -46,9 +46,9 @@ $sql = " select *
           $sql_order
           limit $from_record, $rows ";
 $result = sql_query($sql);
-$listall = "<a href='$_SERVER[PHP_SELF]'>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]'>ì²˜ìŒ</a>";
 
-$g4[title] = "´Ğ³×ÀÓº¯°æÀÌ·Â";
+$g4[title] = "ë‹‰ë„¤ì„ë³€ê²½ì´ë ¥";
 include_once ("./admin.head.php");
 ?>
 <script type="text/javascript">
@@ -58,16 +58,16 @@ var list_delete_php = "nickname_list_delete.php";
 
 <form name=fsearch method=get role="form" class="form-inline">
 <div class="btn-group">
-    <?=$listall?> (°Ç¼ö : <?=number_format($total_count)?>)
+    <?=$listall?> (ê±´ìˆ˜ : <?=number_format($total_count)?>)
 </div>
 <div class="pull-right">
     <select name=sfl class="form-control">
-        <option value='mb_id'>È¸¿ø¾ÆÀÌµğ</option>
-        <option value='mb_nick'>´Ğ³×ÀÓ</option>
+        <option value='mb_id'>íšŒì›ì•„ì´ë””</option>
+        <option value='mb_nick'>ë‹‰ë„¤ì„</option>
     </select>
-    <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<?=$stx?>'>
+    <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<?=$stx?>'>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 </form>
@@ -90,11 +90,11 @@ var list_delete_php = "nickname_list_delete.php";
 
 <tr class='success'>
     <td><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
-    <td>¹øÈ£</td>
-    <td><?=subject_sort_link('mb_id')?>È¸¿ø¾ÆÀÌµğ</a></td>
-    <td>º°¸í</td>
-    <td><?=subject_sort_link('start_datetime')?>»ç¿ë½ÃÀÛÀÏ</a></td>
-    <td><?=subject_sort_link('end_datetime')?>»ç¿ëÁ¾·áÀÏ</a></td>
+    <td>ë²ˆí˜¸</td>
+    <td><?=subject_sort_link('mb_id')?>íšŒì›ì•„ì´ë””</a></td>
+    <td>ë³„ëª…</td>
+    <td><?=subject_sort_link('start_datetime')?>ì‚¬ìš©ì‹œì‘ì¼</a></td>
+    <td><?=subject_sort_link('end_datetime')?>ì‚¬ìš©ì¢…ë£Œì¼</a></td>
 </tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++)
@@ -129,12 +129,12 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='6' align=center height=100>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='6' align=center height=100>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div>
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
@@ -142,7 +142,7 @@ echo "</table>";
 </div>
 
 <div class="btn-group">
-    <input type=button class='btn btn-default' value='¼±ÅÃ»èÁ¦' onclick="btn_check(this.form, 'delete')">
+    <input type=button class='btn btn-default' value='ì„ íƒì‚­ì œ' onclick="btn_check(this.form, 'delete')">
 </div>
 
 <?

@@ -11,15 +11,15 @@ if (!function_exists("alert_only"))
 }
 
 if (!$is_member)
-    alert_only("·Î±×ÀÎ ÈÄ ÀÌ¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+    alert_only("ë¡œê·¸ì¸ í›„ ì´ìš©í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
 if (!$bo_table)
-    alert_only("bo_table ÀÌ ¾ø½À´Ï´Ù.");
+    alert_only("bo_table ì´ ì—†ìŠµë‹ˆë‹¤.");
 
 /*
 $row = sql_fetch("select * from $g4[my_menu_table] where bo_table = '$bo_table' and mb_id = '$member[mb_id]'");
 if ($row)
-    alert_only("µî·ÏµÇ¾î ÀÖÁö ¾ÊÀº ¹Ù·Î°¡±âÀÔ´Ï´Ù.");
+    alert_only("ë“±ë¡ë˜ì–´ ìˆì§€ ì•Šì€ ë°”ë¡œê°€ê¸°ì…ë‹ˆë‹¤.");
 */
 
 sql_query("delete from $g4[my_menu_table] where mb_id = '$member[mb_id]' and bo_table = '$bo_table'");

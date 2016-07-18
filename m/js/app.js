@@ -1,10 +1,10 @@
 /**
  * Copyright 2016 Been Kyung-yoon.
  */
-// °³¹ßÀÚ¿ë µğ¹ö±ë È°¼ºÈ­¿©ºÎ
+// ê°œë°œììš© ë””ë²„ê¹… í™œì„±í™”ì—¬ë¶€
 var is_debug = app_debug || false;
 
-// ·ÎµùÁß ÀÌ¹ÌÁö Ç¥½Ã
+// ë¡œë”©ì¤‘ ì´ë¯¸ì§€ í‘œì‹œ
 var wrapLoading = null;
 function showLoading(delay, fade) {
     if (typeof delay === "undefined") {
@@ -20,7 +20,7 @@ function showLoading(delay, fade) {
     }, delay);
 }
 
-// ÆäÀÌÁö ÀÌµ¿ ½ÃÀÛ
+// í˜ì´ì§€ ì´ë™ ì‹œì‘
 try {
     window.addEventListener("beforeunload", function (e) {
         showLoading();
@@ -29,12 +29,12 @@ try {
     console.log(e);
 }
 
-// ajax ·Îµù ½ÃÀÛ
+// ajax ë¡œë”© ì‹œì‘
 $(document).ajaxStart(function () {
     $('#wrap-loading').fadeIn(200);
 });
 
-// ajax ·Îµù Á¾·á
+// ajax ë¡œë”© ì¢…ë£Œ
 $(document).ajaxStop(function () {
     if (wrapLoading !== null) {
         window.clearTimeout(wrapLoading);
@@ -42,7 +42,7 @@ $(document).ajaxStop(function () {
     $('#wrap-loading').fadeOut(500);
 });
 
-// ·ÎµùÁß ÀÌ¹Ì°¡ °è¼Ó Ç¥½ÃµÉ °æ¿ì, ´Ù¸¥ ±â´ÉÀ» ´©¸¦ ¼ö ¾ø´Â ´ÜÁ¡À» º¸¿ÏÇÏ±â À§ÇØ Å¬¸¯½Ã ·ÎµùÁß ´İ±â
+// ë¡œë”©ì¤‘ ì´ë¯¸ê°€ ê³„ì† í‘œì‹œë  ê²½ìš°, ë‹¤ë¥¸ ê¸°ëŠ¥ì„ ëˆ„ë¥¼ ìˆ˜ ì—†ëŠ” ë‹¨ì ì„ ë³´ì™„í•˜ê¸° ìœ„í•´ í´ë¦­ì‹œ ë¡œë”©ì¤‘ ë‹«ê¸°
 $('#wrap-loading').on('click', function () {
     $('#wrap-loading').hide();
 });
@@ -53,7 +53,7 @@ var AdminLTEOptions = {
 };
 
 /**
- * ¼ıÀÚ ÄŞ¸¶ Ç¥½Ã
+ * ìˆ«ì ì½¤ë§ˆ í‘œì‹œ
  * @param x
  * @returns {string}
  */
@@ -62,7 +62,7 @@ function number_format(x) {
 }
 
 /**
- * ÁÖ¼Ò ÀÌµ¿
+ * ì£¼ì†Œ ì´ë™
  * @param url
  */
 function redirect(url) {
@@ -72,7 +72,7 @@ function redirect(url) {
 }
 
 /**
- * »ó´Ü »õ·Î°íÄ§
+ * ìƒë‹¨ ìƒˆë¡œê³ ì¹¨
  */
 function windowReload() {
     $('#wrap-loading').fadeIn(200);
@@ -80,9 +80,9 @@ function windowReload() {
 }
 
 /**
- * µÚ·Î °¡±â
+ * ë’¤ë¡œ ê°€ê¸°
  *
- * TODO: µÚ·Î °¡±â°¡ ºÒ°¡ÇÒ °æ¿ì, ¸ŞÀÎÀ¸·Î ÀÌµ¿?
+ * TODO: ë’¤ë¡œ ê°€ê¸°ê°€ ë¶ˆê°€í•  ê²½ìš°, ë©”ì¸ìœ¼ë¡œ ì´ë™?
  */
 function windowBack() {
     window.history.back();
@@ -94,9 +94,9 @@ var simpleSpaEnable = window.history && window.history.pushState,
 
 /**
  * Simple SPA
- *  - ±Û¾²±â ÆäÀÌÁö¿¡¼­´Â ÆäÀÌÁö ³ª°¡±â ÀÌº¥Æ®¸¦ °í·ÁÇÏ¿© SPA Á¦¿Ü
- *  - # ·Î ½ÃÀÛÇÏ´Â ÇØ½Ã ÁÖ¼Ò´Â Á¦¿Ü
- *  - javascript:, mailto: Á¦¿Ü
+ *  - ê¸€ì“°ê¸° í˜ì´ì§€ì—ì„œëŠ” í˜ì´ì§€ ë‚˜ê°€ê¸° ì´ë²¤íŠ¸ë¥¼ ê³ ë ¤í•˜ì—¬ SPA ì œì™¸
+ *  - # ë¡œ ì‹œì‘í•˜ëŠ” í•´ì‹œ ì£¼ì†ŒëŠ” ì œì™¸
+ *  - javascript:, mailto: ì œì™¸
  */
 function simpleSpa() {
     if (simpleSpaIsAllowUrl(location.pathname)) {
@@ -110,7 +110,7 @@ function simpleSpa() {
                 && url.indexOf('mailto:') !== 0
                 && url.indexOf('intent:') !== 0
             ) {
-                // À¥¿¡¼­´Â »õÃ¢ÀÏ °æ¿ì, ÀÌº¥Æ® »ı·«
+                // ì›¹ì—ì„œëŠ” ìƒˆì°½ì¼ ê²½ìš°, ì´ë²¤íŠ¸ ìƒëµ
                 if (!in_app && $a.attr('target') === '_blank') {
                     //
                 } else {
@@ -125,13 +125,13 @@ function simpleSpa() {
 }
 
 /**
- * Simple SPA ³»¿ë °¡Á®¿À±â
- *  - head ´ÜÀ» Á¦¿ÜÇÑ body ¸¸ °¡Á®¿Í¼­ ±³Ã¼.
- *  - pushState Áö¿ø ºê¶ó¿ìÀú¿¡¼­¸¸ »ç¿ë.  IE 10, Android 4.3
+ * Simple SPA ë‚´ìš© ê°€ì ¸ì˜¤ê¸°
+ *  - head ë‹¨ì„ ì œì™¸í•œ body ë§Œ ê°€ì ¸ì™€ì„œ êµì²´.
+ *  - pushState ì§€ì› ë¸Œë¼ìš°ì €ì—ì„œë§Œ ì‚¬ìš©.  IE 10, Android 4.3
  *    - http://caniuse.com/#search=pushstate
- *  - ¸Ş¸ğ¸® ´©¼ö °¡´É¼ºÀ» °í·ÁÇÏ¿© simpleSpaLimit ÃÊ°ú½Ã¿£ ajax ´ë½Å ÆäÀÌÁö ÀÌµ¿ÇÏ¿© ÃÊ±âÈ­ ½ÃÅ´.
- *  - ·Îµù ÀÌ¹ÌÁö º¸¿©ÁÖµµ·Ï ºñµ¿±â½Ä Ã³¸®
- *  - ¿ÜºÎ µµ¸ŞÀÎÀÏ °æ¿ì ajax °¡ ¾Æ´Ñ  ÀÌµ¿ Ã³¸®
+ *  - ë©”ëª¨ë¦¬ ëˆ„ìˆ˜ ê°€ëŠ¥ì„±ì„ ê³ ë ¤í•˜ì—¬ simpleSpaLimit ì´ˆê³¼ì‹œì—” ajax ëŒ€ì‹  í˜ì´ì§€ ì´ë™í•˜ì—¬ ì´ˆê¸°í™” ì‹œí‚´.
+ *  - ë¡œë”© ì´ë¯¸ì§€ ë³´ì—¬ì£¼ë„ë¡ ë¹„ë™ê¸°ì‹ ì²˜ë¦¬
+ *  - ì™¸ë¶€ ë„ë©”ì¸ì¼ ê²½ìš° ajax ê°€ ì•„ë‹Œ  ì´ë™ ì²˜ë¦¬
  *
  * @param url
  * @param target
@@ -147,7 +147,7 @@ function simpleSpaRedirect(url, target, title, popState) {
             url = simpleSpaAbsoluteUrl(url);
             //console.log('simpleSpaRedirect: ' + url);
 
-            // »çÀÌµå¹Ù°¡ Å¬¸¯µÈ »óÅÂ¿¡¼­ ÀÌµ¿µÉ °æ¿ì¸¦ °¨¾ÈÇØ, »çÀÌµå¹Ù ´İ±â ÀÌº¥Æ®
+            // ì‚¬ì´ë“œë°”ê°€ í´ë¦­ëœ ìƒíƒœì—ì„œ ì´ë™ë  ê²½ìš°ë¥¼ ê°ì•ˆí•´, ì‚¬ì´ë“œë°” ë‹«ê¸° ì´ë²¤íŠ¸
             if (slideLeft) {
                 slideLeft.close();
             }
@@ -157,10 +157,10 @@ function simpleSpaRedirect(url, target, title, popState) {
                 cache: false,
                 timeout: 10000
             }).done(function (data) {
-                // ³»¿ë ±³Ã¼
+                // ë‚´ìš© êµì²´
                 var $body = $('body');
 
-                // alert, window.close ¸¸À¸·Î ÀÀ´äÇÏ´Â ÆäÀÌÁö´Â °æ°íÃ¢¸¸ º¸¿©ÁÖ°í, ÆäÀÌÁö ÀÌµ¿ÇÏÁö ¾ÊÀ½.
+                // alert, window.close ë§Œìœ¼ë¡œ ì‘ë‹µí•˜ëŠ” í˜ì´ì§€ëŠ” ê²½ê³ ì°½ë§Œ ë³´ì—¬ì£¼ê³ , í˜ì´ì§€ ì´ë™í•˜ì§€ ì•ŠìŒ.
                 try {
                     var dataScript = $(data).filter('script');
                     if (dataScript && dataScript.length === 2) {
@@ -182,21 +182,21 @@ function simpleSpaRedirect(url, target, title, popState) {
                 }
 
                 if ($body && data) {
-                    // ajax history Áö¿ø
+                    // ajax history ì§€ì›
                     if (!popState) {
-                        // ÀÌÀü URL°ú µ¿ÀÏÇÒ °æ¿ì Ãß°¡ »ı·«
+                        // ì´ì „ URLê³¼ ë™ì¼í•  ê²½ìš° ì¶”ê°€ ìƒëµ
                         if (!window.history.state || !window.history.state.url || window.history.state.url !== url) {
                             window.history.pushState({url: url}, title, url);
                         }
                     }
 
-                    // history ÀúÀåÈÄ ·ÎµùÇØ¾ß js ¿¡·¯ ¾È³².
+                    // history ì €ì¥í›„ ë¡œë”©í•´ì•¼ js ì—ëŸ¬ ì•ˆë‚¨.
                     $body.html(data);
 
-                    // ÆäÀÌÁö ÀÌµ¿ÈÄ¿£ »õ·Î°íÄ§Ã³·³ Å¾À¸·Î ½ºÅ©·Ñ ÀÌµ¿
+                    // í˜ì´ì§€ ì´ë™í›„ì—” ìƒˆë¡œê³ ì¹¨ì²˜ëŸ¼ íƒ‘ìœ¼ë¡œ ìŠ¤í¬ë¡¤ ì´ë™
                     $body.scrollTop(0);
 
-                    // »õ·Î¿î ³»¿ë¿¡ ÀÌº¥Æ® Àû¿ë
+                    // ìƒˆë¡œìš´ ë‚´ìš©ì— ì´ë²¤íŠ¸ ì ìš©
                     appEvents();
 
                     simpleSpaCount++;
@@ -219,8 +219,8 @@ function simpleSpaRedirect(url, target, title, popState) {
 }
 
 /**
- * Åä½ºÆ® ¸Ş½ÃÁö
- *  - ¾Û¿¡¼­´Â Åä½ºÆ® ¸Ş½ÃÁö·Î Àá½Ã º¸¿©Á³´Ù »ç¶óÁö°Ô ÇÔ.
+ * í† ìŠ¤íŠ¸ ë©”ì‹œì§€
+ *  - ì•±ì—ì„œëŠ” í† ìŠ¤íŠ¸ ë©”ì‹œì§€ë¡œ ì ì‹œ ë³´ì—¬ì¡Œë‹¤ ì‚¬ë¼ì§€ê²Œ í•¨.
  *
  * @param message
  */
@@ -238,8 +238,8 @@ function simpleSpaToast(message) {
 }
 
 /**
- * ÆË¾÷ Ã³¸®
- *  - À¥°ú ¾ÛÀ» ±¸ºĞÇÏ¿© Ã³¸®
+ * íŒì—… ì²˜ë¦¬
+ *  - ì›¹ê³¼ ì•±ì„ êµ¬ë¶„í•˜ì—¬ ì²˜ë¦¬
  *
  * @param url
  * @param target
@@ -257,8 +257,8 @@ function simpleSpaPopup(url, target) {
 }
 
 /**
- * ³»ºÎ ¸µÅ© ±¸ºĞ
- *   - µµ¸ŞÀÎ ±âÁØ
+ * ë‚´ë¶€ ë§í¬ êµ¬ë¶„
+ *   - ë„ë©”ì¸ ê¸°ì¤€
  *
  * @param url
  * @returns {boolean}
@@ -275,8 +275,8 @@ function simpleSpaIsInternalUrl(url) {
 }
 
 /**
- * SPA Çã¿ë ÁÖ¼Ò È®ÀÎ
- *  - °Ô½ÃÆÇ ±Û¾²±â Ã³·³ À¥¿¡µğÅÍ, ÆäÀÌÁö ³ª°¡±â ÀÌº¥Æ® °É¸° ÆäÀÌÁöµéÀº Á¦¿ÜÇØ¾ß ÇÔ
+ * SPA í—ˆìš© ì£¼ì†Œ í™•ì¸
+ *  - ê²Œì‹œíŒ ê¸€ì“°ê¸° ì²˜ëŸ¼ ì›¹ì—ë””í„°, í˜ì´ì§€ ë‚˜ê°€ê¸° ì´ë²¤íŠ¸ ê±¸ë¦° í˜ì´ì§€ë“¤ì€ ì œì™¸í•´ì•¼ í•¨
  *
  * @param url
  * @returns {boolean}
@@ -296,8 +296,8 @@ function simpleSpaIsAllowUrl(url) {
 }
 
 /**
- * Àı´ë °æ·Î º¯È¯
- *   - ../bbs/memo.php ÇüÅÂÀÇ »ó´ë ÁÖ¼Ò´Â history ¿¡¼­ ¹®Á¦°¡ ¹ß»ıÇÏ¹Ç·Î, Àı´ë °æ·Î·Î º¯È¯ÇÏ¿© ÀúÀåÇØ¾ß ÇÔ
+ * ì ˆëŒ€ ê²½ë¡œ ë³€í™˜
+ *   - ../bbs/memo.php í˜•íƒœì˜ ìƒëŒ€ ì£¼ì†ŒëŠ” history ì—ì„œ ë¬¸ì œê°€ ë°œìƒí•˜ë¯€ë¡œ, ì ˆëŒ€ ê²½ë¡œë¡œ ë³€í™˜í•˜ì—¬ ì €ì¥í•´ì•¼ í•¨
  * @param url
  * @returns {string}
  */
@@ -309,8 +309,8 @@ function simpleSpaAbsoluteUrl(url) {
 }
 
 /**
- * Simple SPA µÚ·Î°¡±â ÀÌº¥Æ®
- *  - ÁÖÀÇ) ÃÖÃÊ ÆäÀÌÁö ·Îµù½Ã 1È¸¸¸ ½ÇÇàµÇ¾î¾ß ÇÔ.  Áï app.js Áßº¹ ·ÎµùµÇ¸é ¾ÈµÊ.
+ * Simple SPA ë’¤ë¡œê°€ê¸° ì´ë²¤íŠ¸
+ *  - ì£¼ì˜) ìµœì´ˆ í˜ì´ì§€ ë¡œë”©ì‹œ 1íšŒë§Œ ì‹¤í–‰ë˜ì–´ì•¼ í•¨.  ì¦‰ app.js ì¤‘ë³µ ë¡œë”©ë˜ë©´ ì•ˆë¨.
  */
 if (simpleSpaEnable) {
     window.history.replaceState({url: window.location.href}, "", window.location.href);
@@ -349,19 +349,19 @@ function sideMenu() {
 }
 
 /**
- * ¾Û ÀÌº¥Æ®µé
+ * ì•± ì´ë²¤íŠ¸ë“¤
  */
 function appEvents() {
     sideMenu();
 
-    // ³¯Â¥ ¼±ÅÃ
+    // ë‚ ì§œ ì„ íƒ
     // if ($('.datepicker').not('.app-event').length) {
     //     $('.datepicker').not('.app-event')
     //         .datepicker()
     //         .addClass('app-event');
     // }
 
-    // ÇÃ·¡½Ã ¸Ş½ÃÁö ÀÚµ¿ ¼û±â±â
+    // í”Œë˜ì‹œ ë©”ì‹œì§€ ìë™ ìˆ¨ê¸°ê¸°
     if ($(".flash-message")) {
         $(".flash-message").delay(5000).fadeOut();
     }
@@ -370,7 +370,7 @@ function appEvents() {
 }
 
 /**
- * ¸ğ´Ş Æû
+ * ëª¨ë‹¬ í¼
  * @param url
  */
 function modalForm(url) {
@@ -383,9 +383,9 @@ function modalForm(url) {
         appEvents();
     }).fail(function (jqXHR) {
         if (jqXHR.status === 404) {
-            alert('Á¸ÀçÇÏÁö ¾Ê´Â Ç×¸ñÀÔ´Ï´Ù.');
+            alert('ì¡´ì¬í•˜ì§€ ì•ŠëŠ” í•­ëª©ì…ë‹ˆë‹¤.');
         } else {
-            alert('¼­¹ö Àå¾Ö·Î ¿äÃ»ÇÏ½Å ÀÛ¾÷ÀÌ ½ÇÆĞÇÏ¿´½À´Ï´Ù.\n'
+            alert('ì„œë²„ ì¥ì• ë¡œ ìš”ì²­í•˜ì‹  ì‘ì—…ì´ ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.\n'
                 + jqXHR.status + ' ' + jqXHR.statusText + '\n'
                 + jqXHR.responseText);
 
@@ -397,18 +397,18 @@ function modalForm(url) {
 }
 
 /**
- * ¸ğ´ŞÆû ´İ±â
+ * ëª¨ë‹¬í¼ ë‹«ê¸°
  */
 function modalClose() {
     $('#modal-edit').modal('hide');
 }
 
 /**
- * ÆÄÀÏ ´Ù¿î·Îµå
+ * íŒŒì¼ ë‹¤ìš´ë¡œë“œ
  */
 function fileDownload(uri, fileName) {
     if (in_app) {
-        window.plugins.toast.showLongTop("ÆÄÀÏ ´Ù¿î·Îµå¸¦ ½ÃÀÛÇÕ´Ï´Ù.");
+        window.plugins.toast.showLongTop("íŒŒì¼ ë‹¤ìš´ë¡œë“œë¥¼ ì‹œì‘í•©ë‹ˆë‹¤.");
 
         var fileTransfer = new FileTransfer();
 
@@ -418,12 +418,12 @@ function fileDownload(uri, fileName) {
             fileSave,
             function (entry) {
                 window.plugins.toast.hide();
-                window.plugins.toast.showShortTop("ÆÄÀÏ ´Ù¿î·Îµå°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù.");
+                window.plugins.toast.showShortTop("íŒŒì¼ ë‹¤ìš´ë¡œë“œê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
                 window.open(entry.toURL(), "_system");
                 //console.log("download complete: " + entry.toURL());
             },
             function (error) {
-                window.plugins.toast.showShortTop("ÆÄÀÏ ´Ù¿î·Îµå°¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.");
+                window.plugins.toast.showShortTop("íŒŒì¼ ë‹¤ìš´ë¡œë“œê°€ ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.");
                 console.log("download error source " + error.source);
                 console.log("download error target " + error.target);
                 console.log("upload error code" + error.code);
@@ -437,9 +437,9 @@ function fileDownload(uri, fileName) {
 }
 
 /**
- * ·Îµù½Ã ÀÌº¥Æ®
+ * ë¡œë”©ì‹œ ì´ë²¤íŠ¸
  */
 $(function () {
-    // ¸ğµç ÀÌº¥Æ® Àû¿ë
+    // ëª¨ë“  ì´ë²¤íŠ¸ ì ìš©
     appEvents();
 });

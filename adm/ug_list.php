@@ -39,9 +39,9 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if (!$page) $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if (!$page) $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
 $sql = " select * 
           $sql_common 
@@ -49,9 +49,9 @@ $sql = " select *
           $sql_order 
           limit $from_record, $rows ";
 $result = sql_query($sql);
-$listall = "<a href='$_SERVER[PHP_SELF]'>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]'>ì²˜ìŒ</a>";
 
-$g4[title] = "»ç¿ëÀÚ±×·ì¼³Á¤";
+$g4[title] = "ì‚¬ìš©ìê·¸ë£¹ì„¤ì •";
 include_once("./admin.head.php");
 ?>
 
@@ -61,17 +61,17 @@ var list_update_php = "./ug_list_update.php";
 
 <form name=fsearch method=get role="form" class="form-inline">
 <div class="btn-group">
-    <?=$listall?> (±×·ì¼ö : <?=number_format($total_count)?>°³)
+    <?=$listall?> (ê·¸ë£¹ìˆ˜ : <?=number_format($total_count)?>ê°œ)
 </div>
 <div class="pull-right">
     <select name=sfl class="form-control">
-        <option value="ug_subject">Á¦¸ñ</option>
+        <option value="ug_subject">ì œëª©</option>
         <option value="ug_id">ID</option>
-        <option value="ug_admin">±×·ì°ü¸®ÀÚ</option>
+        <option value="ug_admin">ê·¸ë£¹ê´€ë¦¬ì</option>
     </select>
-    <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<?=$stx?>'>
+    <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<?=$stx?>'>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 </form>
@@ -93,23 +93,23 @@ var list_update_php = "./ug_list_update.php";
 <colgroup width=80>
 <tr class='success'>
     <td><input type=checkbox name=chkall value="1" onclick="check_all(this.form)"></td>
-    <td><?=subject_sort_link("ug_id")?>±×·ì¾ÆÀÌµğ</a></td>
-    <td><?=subject_sort_link("ug_subject")?>Á¦¸ñ</a></td>
-    <td><?=subject_sort_link("ug_admin")?>±×·ì°ü¸®ÀÚ</a></td>
-    <td>È¸¿ø¼ö</td>   
-    <td><? if ($is_admin == "super") { echo "<a href='./ug_form.php'><i class='fa fa-plus-square fa-2x' title='»ı¼º'></i></a>"; } ?></td>
+    <td><?=subject_sort_link("ug_id")?>ê·¸ë£¹ì•„ì´ë””</a></td>
+    <td><?=subject_sort_link("ug_subject")?>ì œëª©</a></td>
+    <td><?=subject_sort_link("ug_admin")?>ê·¸ë£¹ê´€ë¦¬ì</a></td>
+    <td>íšŒì›ìˆ˜</td>   
+    <td><? if ($is_admin == "super") { echo "<a href='./ug_form.php'><i class='fa fa-plus-square fa-2x' title='ìƒì„±'></i></a>"; } ?></td>
 </tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) 
 { 
-    // ±×·ìÈ¸¿ø¼ö
+    // ê·¸ë£¹íšŒì›ìˆ˜
     $sql1 = " select count(*) as cnt from $g4[member_table] where ug_id = '$row[ug_id]' ";
     $row1 = sql_fetch($sql1);
 
-    $s_upd = "<a href='./ug_form.php?$qstr&w=u&gr_id=$row[ug_id]'><i class='fa fa-pencil' title='¼öÁ¤'></i></a>";
+    $s_upd = "<a href='./ug_form.php?$qstr&w=u&gr_id=$row[ug_id]'><i class='fa fa-pencil' title='ìˆ˜ì •'></i></a>";
     $s_del = "";
     if ($is_admin == "super")
-        $s_del = "&nbsp;<a href=\"javascript:post_delete('ug_delete.php', '$row[ug_id]');\"><i class='fa fa-trash-o' title='»èÁ¦'></i></a>";
+        $s_del = "&nbsp;<a href=\"javascript:post_delete('ug_delete.php', '$row[ug_id]');\"><i class='fa fa-trash-o' title='ì‚­ì œ'></i></a>";
         
     echo "<input type=hidden name=gr_id[$i] value='$row[ug_id]'>";
     echo "<tr>";
@@ -128,12 +128,12 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 } 
 
 if ($i == 0)
-    echo "<tr><td colspan='6' align=center height=100>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>"; 
+    echo "<tr><td colspan='6' align=center height=100>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>"; 
 
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
@@ -141,7 +141,7 @@ echo "</table>";
 </div>
 
 <div class="btn-group">
-    <input type=button class='btn btn-default' value='¼±ÅÃ¼öÁ¤' onclick="btn_check(this.form, 'update')">
+    <input type=button class='btn btn-default' value='ì„ íƒìˆ˜ì •' onclick="btn_check(this.form, 'update')">
 </div>
 
 <?
@@ -151,12 +151,12 @@ if ($stx)
 </form>
 
 <script type="text/javascript">
-// POST ¹æ½ÄÀ¸·Î »èÁ¦
+// POST ë°©ì‹ìœ¼ë¡œ ì‚­ì œ
 function post_delete(action_url, val)
 {
 	var f = document.fpost;
 
-	if(confirm("ÇÑ¹ø »èÁ¦ÇÑ ÀÚ·á´Â º¹±¸ÇÒ ¹æ¹ıÀÌ ¾ø½À´Ï´Ù.\n\nÁ¤¸» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?")) {
+	if(confirm("í•œë²ˆ ì‚­ì œí•œ ìë£ŒëŠ” ë³µêµ¬í•  ë°©ë²•ì´ ì—†ìŠµë‹ˆë‹¤.\n\nì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
     f.gr_id.value = val;
 		f.action         = action_url;
 		f.submit();

@@ -9,10 +9,10 @@ $token = get_token();
 /*
 CREATE TABLE IF NOT EXISTS `g4_singo_reason` (
   `sg_id` int(11) NOT NULL AUTO_INCREMENT,
-  `sg_reason` varchar(255) NOT NULL,  // ½Å°í»çÀ¯
-  `sg_use` tinyint(4) NOT NULL,       // »ç¿ë¿©ºÎ
-  `sg_print` tinyint(4) NOT NULL,     // ½Å°íÀÌÀ¯¸¦ »ç¿ëÀÚ¿¡°Ô Ãâ·Â
-  `sg_datetime` datetime NOT NULL,    // µî·ÏÀÏ
+  `sg_reason` varchar(255) NOT NULL,  // ì‹ ê³ ì‚¬ìœ 
+  `sg_use` tinyint(4) NOT NULL,       // ì‚¬ìš©ì—¬ë¶€
+  `sg_print` tinyint(4) NOT NULL,     // ì‹ ê³ ì´ìœ ë¥¼ ì‚¬ìš©ìì—ê²Œ ì¶œë ¥
+  `sg_datetime` datetime NOT NULL,    // ë“±ë¡ì¼
   PRIMARY KEY (`sg_id`)
 )
 */
@@ -51,9 +51,9 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if (!$page) $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if (!$page) $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
 $sql = " select * 
           $sql_common 
@@ -62,9 +62,9 @@ $sql = " select *
           limit $from_record, $rows ";
 $result = sql_query($sql);
 
-$listall = "<a href='$_SERVER[PHP_SELF]'>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]'>ì²˜ìŒ</a>";
 
-$g4[title] = "½Å°í»çÀ¯°ü¸®";
+$g4[title] = "ì‹ ê³ ì‚¬ìœ ê´€ë¦¬";
 include_once("./admin.head.php");
 ?>
 
@@ -75,15 +75,15 @@ var list_delete_php = "./singo_reason_delete.php";
 
 <form name=fsearch method=get role="form" class="form-inline">
 <div class="btn-group">
-    <?=$listall?> (½Å°í»çÀ¯ : <?=number_format($total_count)?>°³)
+    <?=$listall?> (ì‹ ê³ ì‚¬ìœ  : <?=number_format($total_count)?>ê°œ)
 </div>
 <div class="pull-right">
     <select name=sfl class="form-control">
-        <option value="sg_reason">½Å°í»çÀ¯</option>
+        <option value="sg_reason">ì‹ ê³ ì‚¬ìœ </option>
     </select>
-    <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<?=$stx?>'>
+    <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<?=$stx?>'>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 </form>
@@ -98,23 +98,23 @@ var list_delete_php = "./singo_reason_delete.php";
 <table width=100% class="table table-condensed table-hover table-responsive table-borderless" style="word-wrap:break-word;">
 <tr class="success">
     <td width=30><input type=checkbox name=chkall value="1" onclick="check_all(this.form)"></td>
-    <td width=45><? if ($is_admin == "super") { echo "<a href='./singo_reason_form.php'><i class='fa fa-plus-square fa-2x' title='»ı¼º'></i></a>"; } ?></td>
-    <td>½Å°í»çÀ¯</td>
-    <td width=80>½Å°í°Ç¼ö</td>
-    <td width=80>ÀÏÀÚ</td>
-    <td width=60>»çÀ¯Ãâ·Â</td>
-    <td width=60>»ç¿ë</td>
+    <td width=45><? if ($is_admin == "super") { echo "<a href='./singo_reason_form.php'><i class='fa fa-plus-square fa-2x' title='ìƒì„±'></i></a>"; } ?></td>
+    <td>ì‹ ê³ ì‚¬ìœ </td>
+    <td width=80>ì‹ ê³ ê±´ìˆ˜</td>
+    <td width=80>ì¼ì</td>
+    <td width=60>ì‚¬ìœ ì¶œë ¥</td>
+    <td width=60>ì‚¬ìš©</td>
 </tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++)
 {
-    $s_upd = "<a href='./singo_reason_form.php?$qstr&w=u&sg_id=$row[sg_id]'><i class='fa fa-pencil' title='¼öÁ¤'></i></a>";
+    $s_upd = "<a href='./singo_reason_form.php?$qstr&w=u&sg_id=$row[sg_id]'><i class='fa fa-pencil' title='ìˆ˜ì •'></i></a>";
     $s_del = "";
     if ($is_admin == "super") {
-        $s_del = "&nbsp;<a href=\"javascript:post_delete('singo_reason_delete.php', '$row[sg_id]');\"><i class='fa fa-trash-o' title='»èÁ¦'></i></a>";
+        $s_del = "&nbsp;<a href=\"javascript:post_delete('singo_reason_delete.php', '$row[sg_id]');\"><i class='fa fa-trash-o' title='ì‚­ì œ'></i></a>";
     }
 
-    // ½Å°í°Ç¼ö¸¦ °è»ê ÇÕ´Ï´Ù.
+    // ì‹ ê³ ê±´ìˆ˜ë¥¼ ê³„ì‚° í•©ë‹ˆë‹¤.
     $sql = " select count(*) as cnt from $g4[singo_table] where sg_reason like '$row[sg_reason]%' ";
     $cnt = sql_fetch($sql);
     $use_count = $cnt['cnt'];
@@ -129,18 +129,18 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     echo "<td><input type=text class='form-control' name=sg_reason[$i] value='".get_text($row[sg_reason])."' size=30></td>";
     echo "<td align='center'>" . $use_count . "</td>";
     echo "<td>" . get_datetime($row[sg_datetime]) . "</td>";
-    echo "<td align='center' title='½Å°í»çÀ¯Ãâ·Â'><input type=checkbox name=sg_print[$i] ".($row[sg_print]?'checked':'')." value='1'></td>";
-    echo "<td align='center' title='»ç¿ë'><input type=checkbox name=sg_use[$i] ".($row[sg_use]?'checked':'')." value='1'></td>";
+    echo "<td align='center' title='ì‹ ê³ ì‚¬ìœ ì¶œë ¥'><input type=checkbox name=sg_print[$i] ".($row[sg_print]?'checked':'')." value='1'></td>";
+    echo "<td align='center' title='ì‚¬ìš©'><input type=checkbox name=sg_use[$i] ".($row[sg_use]?'checked':'')." value='1'></td>";
     echo "</tr>\n";
 } 
 
 if ($i == 0)
-    echo "<tr><td colspan='9' align=center height=100>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>"; 
+    echo "<tr><td colspan='9' align=center height=100>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>"; 
 
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
@@ -148,8 +148,8 @@ echo "</table>";
 </div>
 
 <div class="btn-group">
-    <input type=button class='btn btn-default' value='¼±ÅÃ¼öÁ¤' onclick="btn_check(this.form, 'update')">
-    <input type=button class='btn btn-default' value='¼±ÅÃ»èÁ¦' onclick="btn_check(this.form, 'delete')">
+    <input type=button class='btn btn-default' value='ì„ íƒìˆ˜ì •' onclick="btn_check(this.form, 'update')">
+    <input type=button class='btn btn-default' value='ì„ íƒì‚­ì œ' onclick="btn_check(this.form, 'delete')">
 </div>
 
 <?
@@ -159,12 +159,12 @@ if ($stx)
 </form>
 
 <script type="text/javascript">
-// POST ¹æ½ÄÀ¸·Î »èÁ¦
+// POST ë°©ì‹ìœ¼ë¡œ ì‚­ì œ
 function post_delete(action_url, val)
 {
 	var f = document.fpost;
 
-	if(confirm("ÇÑ¹ø »èÁ¦ÇÑ ÀÚ·á´Â º¹±¸ÇÒ ¹æ¹ıÀÌ ¾ø½À´Ï´Ù.\n\nÁ¤¸» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?")) {
+	if(confirm("í•œë²ˆ ì‚­ì œí•œ ìë£ŒëŠ” ë³µêµ¬í•  ë°©ë²•ì´ ì—†ìŠµë‹ˆë‹¤.\n\nì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
         f.sg_id.value = val;
 		f.action      = action_url;
 		f.submit();

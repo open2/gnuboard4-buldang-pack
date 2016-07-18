@@ -7,9 +7,9 @@ check_demo();
 auth_check($auth[$sub_menu], "d");
 
 if ($is_admin != "super")
-    alert("ÈŞÁöÅë º¹±¸´Â ÃÖ°í°ü¸®ÀÚ¸¸ °¡´ÉÇÕ´Ï´Ù.");
+    alert("íœ´ì§€í†µ ë³µêµ¬ëŠ” ìµœê³ ê´€ë¦¬ìë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
-$g4[title] = "ÈŞÁöÅë º¹±¸";
+$g4[title] = "íœ´ì§€í†µ ë³µêµ¬";
 
 include_once("./admin.head.php");
 

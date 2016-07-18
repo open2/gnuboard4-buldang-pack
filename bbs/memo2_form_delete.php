@@ -5,9 +5,9 @@ include_once("$g4[path]/memo.config.php");
 $mb_id = $member['mb_id'];
 
 $tmp_array = array();
-if ($me_id) { // °Çº° »èÁ¦
+if ($me_id) { // ê±´ë³„ ì‚­ì œ
     $tmp_array[0] = $me_id;
-} else { // ÀüÃ¼»èÁ¦
+} else { // ì „ì²´ì‚­ì œ
     $tmp_array = $_POST['chk_me_id'];
 }
 
@@ -15,14 +15,14 @@ if ($g4['memo_delete']) {
     $memo_delete = " and memo_owner='$member[mb_id]' ";
 }
 
-for ($i=count($tmp_array)-1; $i>=0; $i--) // ³ôÀº°Å¿¡¼­ ³·Àº°Å·Î. ¿Ö? sir ¿øº»ÀÌ ±×·¸°Ô µÇ¾î ÀÖÀ¸´Ï±î ¤Ð..¤Ð
+for ($i=count($tmp_array)-1; $i>=0; $i--) // ë†’ì€ê±°ì—ì„œ ë‚®ì€ê±°ë¡œ. ì™œ? sir ì›ë³¸ì´ ê·¸ë ‡ê²Œ ë˜ì–´ ìžˆìœ¼ë‹ˆê¹Œ ã… ..ã… 
 {
   switch ($kind) {
   case 'recv' : $sql = " select * from $g4[memo_recv_table] where me_id = '$tmp_array[$i]' ";
                 $result = sql_fetch($sql);
-                if ($result['me_recv_mb_id'] == $member['mb_id']) {} else alert("¹Ù¸£Áö ¸øÇÑ »ç¿ëÀÔ´Ï´Ù");
+                if ($result['me_recv_mb_id'] == $member['mb_id']) {} else alert("ë°”ë¥´ì§€ ëª»í•œ ì‚¬ìš©ìž…ë‹ˆë‹¤");
 
-                // trash¿¡ ÂÊÁö¸¦ ³Ö¾îµÎ±â
+                // trashì— ìª½ì§€ë¥¼ ë„£ì–´ë‘ê¸°
                 $me = sql_fetch("select * from $g4[memo_send_table] where me_id = '$tmp_array[$i]' and me_recv_mb_id='$member[mb_id]' $memo_delete ");
                 $sql = " insert into $g4[memo_trash_table]
                             set 
@@ -49,9 +49,9 @@ for ($i=count($tmp_array)-1; $i>=0; $i--) // ³ôÀº°Å¿¡¼­ ³·Àº°Å·Î. ¿Ö? sir ¿øº»ÀÌ
                 break;
   case 'save' : $sql = " select memo_owner, memo_type from $g4[memo_save_table] where me_id = '$tmp_array[$i]' and memo_owner='$mb_id' limit 1";
                 $result = sql_fetch($sql);
-                if ($result['memo_owner'] == $member['mb_id']) {} else alert("¹Ù¸£Áö ¸øÇÑ »ç¿ëÀÔ´Ï´Ù");
+                if ($result['memo_owner'] == $member['mb_id']) {} else alert("ë°”ë¥´ì§€ ëª»í•œ ì‚¬ìš©ìž…ë‹ˆë‹¤");
 
-                // trash¿¡ ÂÊÁö¸¦ ³Ö¾îµÎ±â
+                // trashì— ìª½ì§€ë¥¼ ë„£ì–´ë‘ê¸°
                 $me = sql_fetch("select * from $g4[memo_save_table] where me_id = '$tmp_array[$i]' and memo_type = '$result[memo_type]' $memo_delete ");
                 $sql = " insert into $g4[memo_trash_table]
                             set 
@@ -76,29 +76,29 @@ for ($i=count($tmp_array)-1; $i>=0; $i--) // ³ôÀº°Å¿¡¼­ ³·Àº°Å·Î. ¿Ö? sir ¿øº»ÀÌ
   case 'spam' : $sql = " select * from $g4[memo_spam_table] where me_id = '$tmp_array[$i]' ";
                 $result = sql_fetch($sql);
                 
-                // ½ºÆÔÀÇ °æ¿ì¿¡´Â trash¸¦ °ÅÄ¡Áö ¾Ê°í ¹Ù·Î »èÁ¦
+                // ìŠ¤íŒ¸ì˜ ê²½ìš°ì—ëŠ” trashë¥¼ ê±°ì¹˜ì§€ ì•Šê³  ë°”ë¡œ ì‚­ì œ
                 if ($result['memo_owner'] == $member['mb_id'])
                     $sql = " delete from $g4[memo_spam_table] where me_id = '$tmp_array[$i]' and me_recv_mb_id='$member[mb_id]' ";
                 else if ($is_admin)
                     $sql = " delete from $g4[memo_spam_table] where me_id = '$tmp_array[$i]' and me_recv_mb_id='$result[memo_owner]' ";
                 else 
-                    alert("¹Ù¸£Áö ¸øÇÑ »ç¿ëÀÔ´Ï´Ù");
+                    alert("ë°”ë¥´ì§€ ëª»í•œ ì‚¬ìš©ìž…ë‹ˆë‹¤");
                 sql_query($sql);
                 break;
   case 'trash' :$sql = " select * from $g4[memo_trash_table] where me_id = '$tmp_array[$i]' ";
                 $result = sql_fetch($sql);
                 
-                // ÈÞÁöÅëÀÇ °æ¿ì¿¡´Â ¹Ù·Î »èÁ¦
+                // íœ´ì§€í†µì˜ ê²½ìš°ì—ëŠ” ë°”ë¡œ ì‚­ì œ
                 if ($result['memo_owner'] == $member['mb_id'])
                     $sql = " delete from $g4[memo_trash_table] where me_id = '$tmp_array[$i]' and memo_owner='$member[mb_id]' ";
                 else if ($is_admin)
                     $sql = " delete from $g4[memo_trash_table] where me_id = '$tmp_array[$i]' ";
                 else 
-                    alert("¹Ù¸£Áö ¸øÇÑ »ç¿ëÀÔ´Ï´Ù");
+                    alert("ë°”ë¥´ì§€ ëª»í•œ ì‚¬ìš©ìž…ë‹ˆë‹¤");
                 sql_query($sql);
 
-                // Ã·ºÎÆÄÀÏÀÌ ÀÖ´Â °æ¿ì¿¡¸¸ ÆÄÀÏ »èÁ¦¸¦ ÁøÇà
-        				// Ã·ºÎÆÄÀÏ °ËÃâ ¹× »èÁ¦(by Lusia) - ¾Æ·§ºÎºÐÀº bbs/memo2_form_delete.php, memo2_form_delete_all_trash.php, memo2_chkunlinkfile.php¿¡ °øÅëÀÔ´Ï´Ù
+                // ì²¨ë¶€íŒŒì¼ì´ ìžˆëŠ” ê²½ìš°ì—ë§Œ íŒŒì¼ ì‚­ì œë¥¼ ì§„í–‰
+        				// ì²¨ë¶€íŒŒì¼ ê²€ì¶œ ë° ì‚­ì œ(by Lusia) - ì•„ëž«ë¶€ë¶„ì€ bbs/memo2_form_delete.php, memo2_form_delete_all_trash.php, memo2_chkunlinkfile.phpì— ê³µí†µìž…ë‹ˆë‹¤
                 $file_name = $result['me_file_server'];
                 if ($file_name) {
 
@@ -121,43 +121,43 @@ for ($i=count($tmp_array)-1; $i>=0; $i--) // ³ôÀº°Å¿¡¼­ ³·Àº°Å·Î. ¿Ö? sir ¿øº»ÀÌ
                     while($row = sql_fetch_array($result_set))
                         $cnt_sum += $row['cnt'];
 
-                  	//DB¿¡ ÇØ´ç Ã·ºÎÆÄÀÏ Á¤º¸ ¾øÀ»°æ¿ì »èÁ¦ (Ã·ºÎÆÄÀÏÀº º¸³½ »ç¶÷ÀÇ µð·ºÅä¸®¿¡¸¸ ÀúÀåµË´Ï´Ù)
+                  	//DBì— í•´ë‹¹ ì²¨ë¶€íŒŒì¼ ì •ë³´ ì—†ì„ê²½ìš° ì‚­ì œ (ì²¨ë¶€íŒŒì¼ì€ ë³´ë‚¸ ì‚¬ëžŒì˜ ë””ë ‰í† ë¦¬ì—ë§Œ ì €ìž¥ë©ë‹ˆë‹¤)
                 	  if ($cnt_sum) {
             	         	$filepath="$g4[data_path]/memo2/$file_name";
                     		$file_deleted_dir = "$g4[data_path]/memo2_deleted/" . $member['mb_id'] . "/";
                     		$file_deleted_path = "$g4[data_path]/memo2_deleted/$file_name";
-                        // È¸¿øº°·Î µð·ºÅä¸®¸¦ »ý¼º
+                        // íšŒì›ë³„ë¡œ ë””ë ‰í† ë¦¬ë¥¼ ìƒì„±
                   			if(!is_dir($file_deleted_dir)){
                     				@mkdir($file_deleted_dir, 0707);
             		        		@chmod($file_deleted_dir, 0707);
                     		}
-                		    @copy($filepath, $file_deleted_path);  //ÀÓ½ÃÆú´õ·Î º¹»ç
+                		    @copy($filepath, $file_deleted_path);  //ìž„ì‹œí´ë”ë¡œ ë³µì‚¬
                     	  @unlink($filepath);
                     }
                 }
                 break;
   case 'notice': $sql = " select * from $g4[memo_notice_table] where me_id = '$tmp_array[$i]' ";
                 $result = sql_fetch($sql);
-                if ($result['memo_owner'] == $member['mb_id'] or $is_admin) {} else alert("¹Ù¸£Áö ¸øÇÑ »ç¿ëÀÔ´Ï´Ù");
+                if ($result['memo_owner'] == $member['mb_id'] or $is_admin) {} else alert("ë°”ë¥´ì§€ ëª»í•œ ì‚¬ìš©ìž…ë‹ˆë‹¤");
 
-                // °øÁöÀÇ °æ¿ì °ü¸®ÀÚÀÇ ÀÛ¾÷ÀÌ¹Ç·Î trash¸¦ °ÅÄ¡Áö ¾Ê°í ¹Ù·Î »èÁ¦
+                // ê³µì§€ì˜ ê²½ìš° ê´€ë¦¬ìžì˜ ìž‘ì—…ì´ë¯€ë¡œ trashë¥¼ ê±°ì¹˜ì§€ ì•Šê³  ë°”ë¡œ ì‚­ì œ
                 $sql = " delete from $g4[memo_notice_table] where me_id = '$tmp_array[$i]' ";
                 sql_query($sql);
                 break;
   default : 
-    alert("ÂÊÁö¸¦ »èÁ¦ÇÒ ¼ö ¾ø½À´Ï´Ù. °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.");
+    alert("ìª½ì§€ë¥¼ ì‚­ì œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ê´€ë¦¬ìžì—ê²Œ ë¬¸ì˜í•˜ì‹œê¸° ë°”ëžë‹ˆë‹¤.");
     
   } // end of switch
 } // end of for loop
 
 if ($kind == "recv") {
 
-    // ¾ÈÀÐÀº ÂÊÁö °¹¼ö¸¦ ¾÷µ¥ÀÌÆ®
+    // ì•ˆì½ì€ ìª½ì§€ ê°¯ìˆ˜ë¥¼ ì—…ë°ì´íŠ¸
     $sql1 = " select count(*) as cnt from $g4[memo_recv_table] 
                where me_recv_mb_id = '$member[mb_id]' and me_read_datetime = '0000-00-00 00:00:00' ";
     $row1 = sql_fetch($sql1);
     sql_query(" update $g4[member_table] set mb_memo_unread = '$row1[cnt]' where mb_id = '$member[mb_id]' ");
 }
 
-alert("ÂÊÁö¸¦ »èÁ¦ÇÏ¿´½À´Ï´Ù.", "./memo.php?kind=$kind");
+alert("ìª½ì§€ë¥¼ ì‚­ì œí•˜ì˜€ìŠµë‹ˆë‹¤.", "./memo.php?kind=$kind");
 ?>

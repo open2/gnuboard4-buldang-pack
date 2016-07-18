@@ -1,31 +1,31 @@
 <?
 include_once("./_common.php");
 
-$g4[title] = "º£½ºÆ® °Ô½Ã¹°";
+$g4[title] = "ë² ìŠ¤íŠ¸ ê²Œì‹œë¬¼";
 
-// °Ô½Ã±Û ¸ñ·ÏÀ» À§ÇÑ È¸¿ø ·¹º§ ¹üÀ§ ÁöÁ¤
+// ê²Œì‹œê¸€ ëª©ë¡ì„ ìœ„í•œ íšŒì› ë ˆë²¨ ë²”ìœ„ ì§€ì •
 $search_sql = " '$member[mb_level]' >= b.bo_list_level ";
 
-// °Ë»öÀÌ °¡´ÉÇÑ °Ô½ÃÆÇ¸¸ ¸ñ·ÏÀ» »ı¼º
+// ê²€ìƒ‰ì´ ê°€ëŠ¥í•œ ê²Œì‹œíŒë§Œ ëª©ë¡ì„ ìƒì„±
 $search_sql = $search_sql . " and b.bo_use_search = '1' ";
 
-// °Ô½ÃÆÇÀÌ ÁöÁ¤µÇ¾î ÀÖ´Â °æ¿ì
+// ê²Œì‹œíŒì´ ì§€ì •ë˜ì–´ ìˆëŠ” ê²½ìš°
 if ($bo_table_search)
     $search_sql .= " and a.bo_table = '$bo_table_search' ";
 
-// ±×·ìÀÌ ÁöÁ¤µÇ¾î ÀÖ´Â °æ¿ì
+// ê·¸ë£¹ì´ ì§€ì •ë˜ì–´ ìˆëŠ” ê²½ìš°
 if ($gr_i)
     $search_sql .= " and a.gr_id = '$gr_id' ";
 
-// º£½ºÆ®±Û Á¶°ÇÀ» ÁöÁ¤
+// ë² ìŠ¤íŠ¸ê¸€ ì¡°ê±´ì„ ì§€ì •
 $search_sql .= " and ( a.hit >= b.bo_list_good or (a.good - a.nogood) >= b.bo_list_good or a.comment >= b.bo_list_comment ) ";
 
-//ÃÊ±âÈ­
+//ì´ˆê¸°í™”
 $gl_flag=0;
 if ($is_admin && $_GET['gl_flag']==1)
     $gl_flag=1;
 
-// gl_flag = 1ÀÎ ÇÊµå´Â ±âº»ÀûÀ¸·Î º£½ºÆ®±Û¿¡¼­ Á¦¿Ü
+// gl_flag = 1ì¸ í•„ë“œëŠ” ê¸°ë³¸ì ìœ¼ë¡œ ë² ìŠ¤íŠ¸ê¸€ì—ì„œ ì œì™¸
 if ($gl_flag > 0)
     $search_sql .= " and a.gl_flag = 1 ";
 else
@@ -39,7 +39,7 @@ if ($sst)
 else
     $sql_order = " order by a.wr_datetime desc ";
 
-// Á¤·Ä¿¡ »ç¿ëÇÏ´Â QUERY_STRING
+// ì •ë ¬ì— ì‚¬ìš©í•˜ëŠ” QUERY_STRING
 $qstr2 = "bo_table_search=$bo_table&sop=$sop";
 
 $sql = " select count(*) as cnt $sql_common ";
@@ -47,9 +47,9 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $g4['good_list_rows'];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if (!$page) $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if (!$page) $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
 $list = array();
 $sql = " select a.gl_id, a.gr_id, a.bo_table, a.wr_id, a.gl_datetime, b.bo_subject
@@ -62,14 +62,14 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 {
     $tmp_write_table = $g4[write_prefix] . $row[bo_table];
 
-    // group °ü·Ã Á¤º¸¸¦ °¡Á®¿Â´Ù
+    // group ê´€ë ¨ ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤
     $gr_info = get_group($row[gr_id], "gr_subject");
 
-    // °Ô½Ã±Û Á¤º¸¸¦ °¡Á®¿Â´Ù
+    // ê²Œì‹œê¸€ ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤
     $row2 = sql_fetch(" select wr_id, wr_subject, mb_id, wr_name, wr_email, wr_homepage, wr_datetime, wr_hit, wr_good, wr_nogood, wr_comment from $tmp_write_table where wr_id = '$row[wr_id]' ");
     $list[$i] = $row2;
     
-    // ¾ø´Â°Ô ÀÖÀ¸¸é ¸ñ·Ï¿¡¼­ Áö¿öÁØ´Ù.
+    // ì—†ëŠ”ê²Œ ìˆìœ¼ë©´ ëª©ë¡ì—ì„œ ì§€ì›Œì¤€ë‹¤.
     if (!$row2)
         sql_query(" delete from $g4[good_list_table] where gl_id = '$row[gl_id]' ");
 

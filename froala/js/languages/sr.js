@@ -176,7 +176,7 @@ $.FE.LANGUAGE['sr'] = {
     "Persevering face": "Istrajnog lice",
     "Face with look of triumph": "Suo\u010davaju sa izgledom trijumfa",
     "Disappointed but relieved face": "Razo\u010daran ali laknulo lice",
-    "Frowning face with open mouth": "Namršten lice sa otvorenim ustima",
+    "Frowning face with open mouth": "Namr큄ten lice sa otvorenim ustima",
     "Anguished face": "Enih lica",
     "Fearful face": "Strahu lice",
     "Weary face": "Umorna lica",

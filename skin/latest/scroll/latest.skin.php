@@ -1,15 +1,15 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-// À§·Î ½ºÅ©·ÑµÇ´Â ÃÖ½Å±Û
+// ìœ„ë¡œ ìŠ¤í¬ë¡¤ë˜ëŠ” ìµœì‹ ê¸€
 
-// »ç¿ë¹ý : 
-// ½ºÅ², °Ô½ÃÆÇ¾ÆÀÌµð, Ãâ·Â¶óÀÎ, ±ÛÀÚ¼ö, "¸î°³¶óÀÎ,¶óÀÎ³ôÀÌ"
+// ì‚¬ìš©ë²• : 
+// ìŠ¤í‚¨, ê²Œì‹œíŒì•„ì´ë””, ì¶œë ¥ë¼ì¸, ê¸€ìžìˆ˜, "ëª‡ê°œë¼ì¸,ë¼ì¸ë†’ì´"
 // latest($skin_dir="", $bo_table, $rows=10, $subject_len=40, $options="")
 
-// $rows(Ãâ·Â¶óÀÎ)´Â $line_modÀÇ 2ÀÇ ¹è¼ö ÀÌ»óÀ¸·Î ¼³Á¤ÇÏ¼Å¾ß ÇÕ´Ï´Ù.
+// $rows(ì¶œë ¥ë¼ì¸)ëŠ” $line_modì˜ 2ì˜ ë°°ìˆ˜ ì´ìƒìœ¼ë¡œ ì„¤ì •í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.
 
-// À¯´ÏÅ© °ª (ÃÖ½Å±ÛÀº ÇÑÆäÀÌÁö¿¡ ¿©·¯°³ µÑ ¼ö ÀÖÀ¸¹Ç·Î... ÀÚ¹Ù½ºÅ©¸³Æ®¿¡¼­ ÇÔ¼ö, º¯¼ö Ãæµ¹À» ¹æÁö)
+// ìœ ë‹ˆí¬ ê°’ (ìµœì‹ ê¸€ì€ í•œíŽ˜ì´ì§€ì— ì—¬ëŸ¬ê°œ ë‘˜ ìˆ˜ ìžˆìœ¼ë¯€ë¡œ... ìžë°”ìŠ¤í¬ë¦½íŠ¸ì—ì„œ í•¨ìˆ˜, ë³€ìˆ˜ ì¶©ëŒì„ ë°©ì§€)
 $uni = md5(uniqid(rand(), true));
 
 list($line_mod, $height) = explode(",", $options);
@@ -30,7 +30,7 @@ $box_height = (int)$line_mod * (int)$height;
 </tr>
 
 <? if (count($list) == 0) { ?>
-    <tr><td colspan=4 align=center height=50>°Ô½Ã¹°ÀÌ ¾ø½À´Ï´Ù.</td></tr>
+    <tr><td colspan=4 align=center height=50>ê²Œì‹œë¬¼ì´ ì—†ìŠµë‹ˆë‹¤.</td></tr>
 <? } else { ?>
     <tr><td colspan=4 style='padding-left:20px; padding-right:20px; padding-top:5px; padding-bottom:5px;'>
 

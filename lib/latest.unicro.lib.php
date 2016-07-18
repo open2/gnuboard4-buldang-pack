@@ -31,7 +31,7 @@ function latest_unicro($skin_dir="", $bo_table="", $rows=10, $mb_id="", $subject
 
     $j=0;
     while ($row = sql_fetch_array($result)) {
-       	// °Ô½ÃÆÇ Å×ÀÌºí
+       	// ê²Œì‹œíŒ í…Œì´ë¸”
         $sql3 = " select bo_table, bo_notice, bo_subject, bo_subject_len, bo_use_list_content, bo_new, bo_use_sideview, bo_use_comment, bo_hot, bo_use_search from $g4[board_table] where bo_table = '$row[bo_table]'";
         $board = sql_fetch($sql3);
 
@@ -50,7 +50,7 @@ function latest_unicro($skin_dir="", $bo_table="", $rows=10, $mb_id="", $subject
             $result4 = sql_fetch(" select gr_subject from $g4[group_table] where gr_id = '$gr_id' ");
             $skin_title = "$result4[gr_subject]";
         } else {
-            $skin_title = "ÃÖ±Ù±Û";
+            $skin_title = "ìµœê·¼ê¸€";
         }
     }
         
@@ -101,7 +101,7 @@ function latest_unicro_group($skin_dir="", $gr_id="", $rows=10, $mb_id="", $subj
 /*
     $j=0;
     while ($row = sql_fetch_array($result)) {
-       	// °Ô½ÃÆÇ Å×ÀÌºí
+       	// ê²Œì‹œíŒ í…Œì´ë¸”
         $sql3 = " select bo_table, bo_notice, bo_subject, bo_subject_len, bo_use_list_content, bo_new, bo_use_sideview, bo_use_comment, bo_hot, bo_use_search from $g4[board_table] where bo_table = '$row[bo_table]'";
         $board = sql_fetch($sql3);
 
@@ -125,7 +125,7 @@ function latest_unicro_group($skin_dir="", $gr_id="", $rows=10, $mb_id="", $subj
             $sql2 .= " union all select $sql_select , $bo_select from $tmp_write_table a left join $g4[board_table] b on b.bo_table = '$row[bo_table]' where wr_id = '$row[wr_id]' ";
     }
 
-    // Query setÀÌ ÀÖ´Â °æ¿ì¿¡¸¸ ÀÛ¾÷À»
+    // Query setì´ ìˆëŠ” ê²½ìš°ì—ë§Œ ì‘ì—…ì„
     if ($sql2) {
         $result2 = sql_query($sql2);
         for ($i=0; $row2 = sql_fetch_array($result2); $i++) {
@@ -139,7 +139,7 @@ function latest_unicro_group($skin_dir="", $gr_id="", $rows=10, $mb_id="", $subj
             $result4 = sql_fetch(" select gr_subject from $g4[group_table] where gr_id = '$gr_id' ");
             $skin_title = "$result4[gr_subject]";
         } else {
-            $skin_title = "ÃÖ±Ù±Û";
+            $skin_title = "ìµœê·¼ê¸€";
         }
     }
         

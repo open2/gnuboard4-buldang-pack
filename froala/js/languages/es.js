@@ -186,7 +186,7 @@ $.FE.LANGUAGE['es'] = {
     "Loudly crying face": "Llorando en voz alta la cara",
     "Face with open mouth": "Cara con la boca abierta",
     "Hushed face": "Cara callada",
-    "Face with open mouth and cold sweat": "Cara con la boca abierta y el sudor frío",
+    "Face with open mouth and cold sweat": "Cara con la boca abierta y el sudor fr챠o",
     "Face screaming in fear": "Cara gritando de miedo",
     "Astonished face": "Cara asombrosa",
     "Flushed face": "Cara enrojecida",

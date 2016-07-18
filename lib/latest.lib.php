@@ -1,7 +1,7 @@
 <?
 if (!defined('_GNUBOARD_')) exit;
 
-// ÃÖ½Å±Û ÃßÃâ
+// ìµœì‹ ê¸€ ì¶”ì¶œ
 function latest($skin_dir="", $bo_table, $rows=10, $subject_len=40, $gallery_view=0, $notice=0, $options="")
 {
     global $g4,$member;
@@ -11,7 +11,7 @@ function latest($skin_dir="", $bo_table, $rows=10, $subject_len=40, $gallery_vie
     else
         $latest_skin_path = "$g4[path]/skin/latest/basic";
 
-    // $options¸¦ explode
+    // $optionsë¥¼ explode
     if (!is_array($options))
         $opt = explode(",", $options);
 
@@ -20,17 +20,17 @@ function latest($skin_dir="", $bo_table, $rows=10, $subject_len=40, $gallery_vie
     $sql = " select bo_table, bo_notice, bo_subject, bo_subject_len, bo_use_list_content, bo_list_level, bo_use_sideview, bo_use_comment, bo_hot, bo_use_search, bo_new from $g4[board_table] where bo_table = '$bo_table'";
     $board = sql_fetch($sql);
 
-    // °øÁö±ÛÀº ±âº»À¸·Î Æ÷ÇÔÇÑ´Ù, $notice=1ÀÌ¸é °øÁö±ÛÀ» Á¦¿Ü
+    // ê³µì§€ê¸€ì€ ê¸°ë³¸ìœ¼ë¡œ í¬í•¨í•œë‹¤, $notice=1ì´ë©´ ê³µì§€ê¸€ì„ ì œì™¸
     $sql_notice = "";
     if ($notice) {
-        // °øÁö±ÛÀ» ÂÉ°³¼­ ¹è¿­¿¡ ³Ö½À´Ï´Ù.
+        // ê³µì§€ê¸€ì„ ìª¼ê°œì„œ ë°°ì—´ì— ë„£ìŠµë‹ˆë‹¤.
         $arr_notice = preg_split("/\n/i", trim($board[bo_notice]));
         for ($i=0; $i < count($arr_notice); $i++) { 
-            // °¡²û ºóÁÙ °øÁö±Ûµµ ÀÖ´Âµ¥, ±×°Å´Â Áö³ª°¡°Ô...
+            // ê°€ë” ë¹ˆì¤„ ê³µì§€ê¸€ë„ ìˆëŠ”ë°, ê·¸ê±°ëŠ” ì§€ë‚˜ê°€ê²Œ...
             if (trim($arr_notice[$i]) == "") 
               continue; 
             else {
-              // ¸¶Áö¸·²¨¸¸ »©°í ¸ğµÎ µÚ¿¡ ÄŞ¸¶¸¦. ±×°Å ÇÔ¼ö·Î ÇÏ´Â°Åµµ °¡´ÉÀº ÇÑµ¥...À½...
+              // ë§ˆì§€ë§‰êº¼ë§Œ ë¹¼ê³  ëª¨ë‘ ë’¤ì— ì½¤ë§ˆë¥¼. ê·¸ê±° í•¨ìˆ˜ë¡œ í•˜ëŠ”ê±°ë„ ê°€ëŠ¥ì€ í•œë°...ìŒ...
               if ( ($i + 1) == count($arr_notice) ) 
                   $sql_notice .= $arr_notice[$i] ; 
               else 
@@ -41,11 +41,11 @@ function latest($skin_dir="", $bo_table, $rows=10, $subject_len=40, $gallery_vie
             $sql_notice = " and wr_id not in (" . $sql_notice . ") "; 
     }
 
-    $tmp_write_table = $g4['write_prefix'] . $bo_table; // °Ô½ÃÆÇ Å×ÀÌºí ÀüÃ¼ÀÌ¸§
+    $tmp_write_table = $g4['write_prefix'] . $bo_table; // ê²Œì‹œíŒ í…Œì´ë¸” ì „ì²´ì´ë¦„
     $sql_select = " wr_id, wr_subject, wr_option, wr_content, wr_comment, wr_parent, wr_datetime, wr_last, wr_homepage, wr_name, wr_reply, wr_link1, wr_link2, ca_name, wr_hit, wr_file_count, wr_1, wr_2, wr_3, wr_4, wr_5, wr_6, wr_7, wr_8, wr_9, wr_10 ";
     $sql = " select $sql_select from $tmp_write_table where wr_is_comment = 0 $sql_notice order by wr_num limit 0, $rows ";
 
-    // °Ô½ÃÆÇ¸ñ·Ïº¸±â ±ÇÇÑÀÌ È¸¿ø ·¹º§ ÀÌ»óÀÎ °æ¿ì¿¡´Â, ¾Æ¹«°Íµµ ³ëÃâµÇÁö ¾Ê°Ô ÄÚµùÀ» ¹Ù²ãÁİ´Ï´Ù.
+    // ê²Œì‹œíŒëª©ë¡ë³´ê¸° ê¶Œí•œì´ íšŒì› ë ˆë²¨ ì´ìƒì¸ ê²½ìš°ì—ëŠ”, ì•„ë¬´ê²ƒë„ ë…¸ì¶œë˜ì§€ ì•Šê²Œ ì½”ë”©ì„ ë°”ê¿”ì¤ë‹ˆë‹¤.
     if (is_array($opt) && in_array("list_level", $opt) && $board[bo_list_level] > $member[mb_level])
         $result = "";
     else
@@ -61,7 +61,7 @@ function latest($skin_dir="", $bo_table, $rows=10, $subject_len=40, $gallery_vie
     return $content;
 }
 
-// ÁöÁ¤ÇÏ´Â °Ô½ÃÆÇÀÇ °øÁö±Û ÃßÃâ
+// ì§€ì •í•˜ëŠ” ê²Œì‹œíŒì˜ ê³µì§€ê¸€ ì¶”ì¶œ
 function latest_bo_notice($skin_dir="", $bo_table, $rows=10, $subject_len=40, $gallery_view=0, $sod="rand", $skin_title="", $skin_title_link="", $options="")
 {
     global $g4;
@@ -77,15 +77,15 @@ function latest_bo_notice($skin_dir="", $bo_table, $rows=10, $subject_len=40, $g
     $arr_notice = preg_split("/\n/i", trim($result[bo_notice]));
     $arr_notice_count = count($arr_notice);
 
-    // $rows°¡ $arr_notice_count º¸´Ù Å©¸é
+    // $rowsê°€ $arr_notice_count ë³´ë‹¤ í¬ë©´
     if ($rows < $arr_notice_count)
         $rows = $arr_notice_count;
 
-    // ·£´ıÀÌ¸é ¹è¿­À» ¼ÅÇÃ¸µ
+    // ëœë¤ì´ë©´ ë°°ì—´ì„ ì…”í”Œë§
     if ($sod == "rand")
         shuffle($arr_notice);
 
-    $tmp_write_table = $g4['write_prefix'] . $bo_table; // °Ô½ÃÆÇ Å×ÀÌºí ÀüÃ¼ÀÌ¸§
+    $tmp_write_table = $g4['write_prefix'] . $bo_table; // ê²Œì‹œíŒ í…Œì´ë¸” ì „ì²´ì´ë¦„
     $board = get_board($bo_table);
     $sql_select = " wr_id, wr_subject, wr_option, wr_content, wr_comment, wr_parent, wr_datetime, wr_last, wr_homepage, wr_name, wr_reply, wr_link1, wr_link2, ca_name, wr_hit, wr_file_count, wr_1, wr_2, wr_3, wr_4, wr_5, wr_6, wr_7, wr_8, wr_9, wr_10 ";
     $list = array();
@@ -105,8 +105,8 @@ function latest_bo_notice($skin_dir="", $bo_table, $rows=10, $subject_len=40, $g
     return $content;
 }
 
-// ÀüÃ¼ °øÁö±Û ÃßÃâ
-function latest_notice($skin_dir="", $rows=10, $subject_len=40, $gallery_view=0, $sod="rand", $skin_title="ÀüÃ¼°øÁö", $skin_title_link="", $options="")
+// ì „ì²´ ê³µì§€ê¸€ ì¶”ì¶œ
+function latest_notice($skin_dir="", $rows=10, $subject_len=40, $gallery_view=0, $sod="rand", $skin_title="ì „ì²´ê³µì§€", $skin_title_link="", $options="")
 {
     global $g4;
 
@@ -128,7 +128,7 @@ function latest_notice($skin_dir="", $rows=10, $subject_len=40, $gallery_view=0,
 
     $list = array();
     for ($i=0; $row = sql_fetch_array($result); $i++) {
-        $tmp_write_table = $g4['write_prefix'] . $row[bo_table]; // °Ô½ÃÆÇ Å×ÀÌºí ÀüÃ¼ÀÌ¸§
+        $tmp_write_table = $g4['write_prefix'] . $row[bo_table]; // ê²Œì‹œíŒ í…Œì´ë¸” ì „ì²´ì´ë¦„
         $board = get_board($row[bo_table]);
         $sql_select = " wr_id, wr_subject, wr_option, wr_content, wr_comment, wr_parent, wr_datetime, wr_last, wr_homepage, wr_name, wr_reply, wr_link1, wr_link2, ca_name, wr_hit, wr_file_count, wr_1, wr_2, wr_3, wr_4, wr_5, wr_6, wr_7, wr_8, wr_9, wr_10 ";
         $sql = " select $sql_select from $tmp_write_table where wr_id = '$row[wr_id]' ";
@@ -144,9 +144,9 @@ function latest_notice($skin_dir="", $rows=10, $subject_len=40, $gallery_view=0,
     return $content;
 }
 
-// ÃÖ±Ù ÀÎ±â±ÛÃßÃâ
-// $bo_hot_list : 1(½Ç½Ã°£) 2(ÁÖ°£) 3(¿ù°£) 4(ÀÏ°£)
-// $bo_hot_list_basis : ÀÎ±â±Û »êÃâ±âÁØ
+// ìµœê·¼ ì¸ê¸°ê¸€ì¶”ì¶œ
+// $bo_hot_list : 1(ì‹¤ì‹œê°„) 2(ì£¼ê°„) 3(ì›”ê°„) 4(ì¼ê°„)
+// $bo_hot_list_basis : ì¸ê¸°ê¸€ ì‚°ì¶œê¸°ì¤€
 function latest_popular($skin_dir="", $bo_table, $rows=10, $subject_len=40, $options="", $bo_hot_list=1, $bo_hot_list_basis="hit")
 {
     global $g4;
@@ -162,10 +162,10 @@ function latest_popular($skin_dir="", $bo_table, $rows=10, $subject_len=40, $opt
     $board = sql_fetch($sql);
 
     switch ($bo_hot_list) {
-        case "1": $hot_start = ""; $hot_title = "½Ç½Ã°£"; break;
-        case "2": $hot_start = date("Y-m-d H:i:s", $g4[server_time]-60*60*24*7); $hot_title = "ÁÖ°£"; break;
-        case "3": $hot_start = date("Y-m-d H:i:s", $g4[server_time]-60*60*24*30); $hot_title = "¿ù°£"; break;
-        case "4": $hot_start = date("Y-m-d H:i:s", $g4[server_time]-60*60*24); $hot_title = "ÀÏ°£"; break;
+        case "1": $hot_start = ""; $hot_title = "ì‹¤ì‹œê°„"; break;
+        case "2": $hot_start = date("Y-m-d H:i:s", $g4[server_time]-60*60*24*7); $hot_title = "ì£¼ê°„"; break;
+        case "3": $hot_start = date("Y-m-d H:i:s", $g4[server_time]-60*60*24*30); $hot_title = "ì›”ê°„"; break;
+        case "4": $hot_start = date("Y-m-d H:i:s", $g4[server_time]-60*60*24); $hot_title = "ì¼ê°„"; break;
     }
     $sql_between = 1;
     if ($bo_hot_list > 1) 
@@ -173,7 +173,7 @@ function latest_popular($skin_dir="", $bo_table, $rows=10, $subject_len=40, $opt
         $sql_between = " wr_datetime between '$hot_start' and '$g4[time_ymdhis]' ";
     }
 
-    // °øÁö»çÇ×Á¦¿Ü
+    // ê³µì§€ì‚¬í•­ì œì™¸
     $arr_notice = preg_split("/\n/i", trim($board[bo_notice]));
 
     $not_sql = " ";
@@ -183,9 +183,9 @@ function latest_popular($skin_dir="", $bo_table, $rows=10, $subject_len=40, $opt
         }
     }
 
-    $tmp_write_table = $g4['write_prefix'] . $bo_table; // °Ô½ÃÆÇ Å×ÀÌºí ÀüÃ¼ÀÌ¸§
+    $tmp_write_table = $g4['write_prefix'] . $bo_table; // ê²Œì‹œíŒ í…Œì´ë¸” ì „ì²´ì´ë¦„
     //$sql = " select * from $tmp_write_table where wr_is_comment = 0 order by wr_id desc limit 0, $rows ";
-    // À§ÀÇ ÄÚµå º¸´Ù ¼Óµµ°¡ ºü¸§
+    // ìœ„ì˜ ì½”ë“œ ë³´ë‹¤ ì†ë„ê°€ ë¹ ë¦„
     //$sql = " select * from $tmp_write_table where wr_is_comment = 0 order by wr_num limit 0, $rows ";
     $sql_select = " wr_id, wr_subject, wr_option, wr_content, wr_comment, wr_parent, wr_datetime, wr_last, wr_homepage, wr_name, wr_reply, wr_link1, wr_link2, ca_name, wr_hit ";
     $sql = " SELECT $sql_select 
@@ -208,7 +208,7 @@ function latest_popular($skin_dir="", $bo_table, $rows=10, $subject_len=40, $opt
     return $content;
 }
 
-// ´Ü ÇÏ³ªÀÇ °Ô½Ã±Û ÃßÃâ
+// ë‹¨ í•˜ë‚˜ì˜ ê²Œì‹œê¸€ ì¶”ì¶œ
 function latest_one($skin_dir="", $bo_table, $wr_id, $subject_len=40, $content_len=0, $gallery_view=0, $options="") {
     global $g4, $qstr;
 
@@ -220,7 +220,7 @@ function latest_one($skin_dir="", $bo_table, $wr_id, $subject_len=40, $content_l
     $list = array();
 
     $board = get_board($bo_table);
-    $tmp_write_table = $g4['write_prefix'] . $bo_table; // °Ô½ÃÆÇ Å×ÀÌºí ÀüÃ¼ÀÌ¸§
+    $tmp_write_table = $g4['write_prefix'] . $bo_table; // ê²Œì‹œíŒ í…Œì´ë¸” ì „ì²´ì´ë¦„
     $row = sql_fetch(" select * from $tmp_write_table where wr_id = '$wr_id' ");
 
     $view = get_list($row, $board, $latest_skin_path, $subject_len, $gallery_view);
@@ -247,8 +247,8 @@ function latest_one($skin_dir="", $bo_table, $wr_id, $subject_len=40, $content_l
     return $content;
 }
 
-// ¿©·¯°³ÀÇ °Ô½Ã±Û ÃßÃâ ($bo_table°ú $wr_id´Â ¸ÅÄªµÇ´Â ¹è¿­ ÀÔ´Ï´Ù)
-// $bo1[] = "°Ô½ÃÆÇ1"; $wr1[] = "°Ô½Ã±Ûid1"; Ã³·³ ³ÖÀ¸¸é µË´Ï´Ù.
+// ì—¬ëŸ¬ê°œì˜ ê²Œì‹œê¸€ ì¶”ì¶œ ($bo_tableê³¼ $wr_idëŠ” ë§¤ì¹­ë˜ëŠ” ë°°ì—´ ì…ë‹ˆë‹¤)
+// $bo1[] = "ê²Œì‹œíŒ1"; $wr1[] = "ê²Œì‹œê¸€id1"; ì²˜ëŸ¼ ë„£ìœ¼ë©´ ë©ë‹ˆë‹¤.
 function latest_multi($skin_dir="", $bo_table, $wr_id, $subject_len=40, $content_len=0, $gallery_view=0, $options="") {
     global $g4, $qstr;
 
@@ -262,7 +262,7 @@ function latest_multi($skin_dir="", $bo_table, $wr_id, $subject_len=40, $content
     for ($i=0; $i<count($bo_table);$i++) {
 
         $board = get_board($bo_table[$i]);
-        $tmp_write_table = $g4['write_prefix'] . $bo_table[$i]; // °Ô½ÃÆÇ Å×ÀÌºí ÀüÃ¼ÀÌ¸§
+        $tmp_write_table = $g4['write_prefix'] . $bo_table[$i]; // ê²Œì‹œíŒ í…Œì´ë¸” ì „ì²´ì´ë¦„
         $row = sql_fetch(" select * from $tmp_write_table where wr_id = '$wr_id[$i]' ");
     
         $list[$i] = get_list($row, $board, $latest_skin_path, $subject_len, $gallery_view);
@@ -276,7 +276,7 @@ function latest_multi($skin_dir="", $bo_table, $wr_id, $subject_len=40, $content
     return $content;
 }
 
-// ÃßÃµ ±âÁØÀ¸·Î °Ô½Ã±Û ÃßÃâ
+// ì¶”ì²œ ê¸°ì¤€ìœ¼ë¡œ ê²Œì‹œê¸€ ì¶”ì¶œ
 function latest_good($skin_dir="", $bo_table, $rows=10, $subject_len=40, $bg_flag="good", $gallery_view=0, $options="") {
     global $g4, $qstr;
 
@@ -287,9 +287,9 @@ function latest_good($skin_dir="", $bo_table, $rows=10, $subject_len=40, $bg_fla
 
     $list = array();
 
-    // °Ô½ÃÆÇÀÇ ÃÖ±ÙÀÇ ÃßÃµ¿¡¼­ °ñ¶ó³½´Ù
+    // ê²Œì‹œíŒì˜ ìµœê·¼ì˜ ì¶”ì²œì—ì„œ ê³¨ë¼ë‚¸ë‹¤
     $board = get_board($bo_table);
-    $tmp_write_table = $g4['write_prefix'] . $bo_table; // °Ô½ÃÆÇ Å×ÀÌºí ÀüÃ¼ÀÌ¸§
+    $tmp_write_table = $g4['write_prefix'] . $bo_table; // ê²Œì‹œíŒ í…Œì´ë¸” ì „ì²´ì´ë¦„
 
     $sql = " select distinct wr_id from $g4[board_good_table] where bo_table='$bo_table' and bg_flag='$bg_flag' $sql_search order by bg_id desc limit $rows ";
     $result = sql_query($sql);

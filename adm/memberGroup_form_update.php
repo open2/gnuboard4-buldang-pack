@@ -8,23 +8,23 @@ if ($w == 'u')
 auth_check($auth[$sub_menu], "w");
 
 while(list($key,$value) = each($HTTP_POST_VARS)){
-        echo("º¯¼ö¸íÀº :".$key." - º¯¼öÀÇ °ªÀº :".$value."<br>");
+        echo("ë³€ìˆ˜ëª…ì€ :".$key." - ë³€ìˆ˜ì˜ ê°’ì€ :".$value."<br>");
 }	
 
 if ($w == "")
 {
-    alert("Àß¸øµÈ ÀÎÀÚ°ªÀÔ´Ï´Ù. w : ¸Å°³º¯¼ö È®ÀÎ"); 
+    alert("ì˜ëª»ëœ ì¸ìê°’ì…ë‹ˆë‹¤. w : ë§¤ê°œë³€ìˆ˜ í™•ì¸"); 
 }
 
 else if ($w == "u") 
 {
     if ($is_admin != "super")
-        alert("°ü¸®ÀÚ¸¸ÀÌ ¼öÁ¤ÇÏ½Ç¼ö ÀÖ½À´Ï´Ù..");
+        alert("ê´€ë¦¬ìë§Œì´ ìˆ˜ì •í•˜ì‹¤ìˆ˜ ìˆìŠµë‹ˆë‹¤..");
 
     $sql = " select count(*) as cnt from $g4[member_group_table] where gl_id = '$gl_id' ";	
     $gd = sql_fetch($sql);
     if ($gd[cnt] != 1)
-        alert("Á¸ÀçÇÏÁö ¾Ê°Å³ª Áßº¹ÀÌ ÀÖ´Â´Â È¸¿ø·¹º§ÀÔ´Ï´Ù."); 
+        alert("ì¡´ì¬í•˜ì§€ ì•Šê±°ë‚˜ ì¤‘ë³µì´ ìˆëŠ”ëŠ” íšŒì›ë ˆë²¨ì…ë‹ˆë‹¤."); 
 
     $sql = " update $g4[member_group_table]
                 set gl_name = '$gl_name'
@@ -32,7 +32,7 @@ else if ($w == "u")
     sql_query($sql);
 } 
 else
-    alert("Á¦´ë·Î µÈ °ªÀÌ ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.");
+    alert("ì œëŒ€ë¡œ ëœ ê°’ì´ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
 goto_url("./memberGroup_list.php");
 ?>

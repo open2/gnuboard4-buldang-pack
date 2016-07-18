@@ -1,22 +1,22 @@
 <?
 include_once("./_common.php");
 
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
 include_once("$g4[path]/_head.php");
 
-$one_rows = "25";  // ÇÑÁÙ¿¡ Ãâ·ÂÇÒ ¶óÀÎ¼ö
+$one_rows = "25";  // í•œì¤„ì— ì¶œë ¥í•  ë¼ì¸ìˆ˜
 
 $sql = " select count(*) as cnt from $g4[point_table] 
-                where (po_rel_table not like '@%' and mb_id='{$member[mb_id]}' and po_rel_action='ÀÐ±â') ";
+                where (po_rel_table not like '@%' and mb_id='{$member[mb_id]}' and po_rel_action='ì½ê¸°') ";
 $row = sql_fetch($sql); 
 $total_count = $row[cnt]; 
-$total_page  = ceil($total_count / $one_rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
+$total_page  = ceil($total_count / $one_rows);  // ì „ì²´ íŽ˜ì´ì§€ ê³„ì‚°
 
-echo "&nbsp;&nbsp;³»°¡ ÀÐÀº °Ô½Ã±Û : " . $total_count;
+echo "&nbsp;&nbsp;ë‚´ê°€ ì½ì€ ê²Œì‹œê¸€ : " . $total_count;
 
-if ($page == "") { $page = 1; } // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö) 
-$from_record = ($page - 1) * $one_rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+if ($page == "") { $page = 1; } // íŽ˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« íŽ˜ì´ì§€ (1 íŽ˜ì´ì§€) 
+$from_record = ($page - 1) * $one_rows; // ì‹œìž‘ ì—´ì„ êµ¬í•¨
 $to_record = $from_record + $one_rows ;
 
 $list = array();
@@ -27,16 +27,16 @@ $list = array();
   <td>
   <table>
   <tr height=28 align=center>
-      <td width=50>¹øÈ£</td>
-      <td>Á¦¸ñ</td>
-      <td width=110>±Û¾´ÀÌ</td>
-      <td width=40>³¯Â¥</td>
+      <td width=50>ë²ˆí˜¸</td>
+      <td>ì œëª©</td>
+      <td width=110>ê¸€ì“´ì´</td>
+      <td width=40>ë‚ ì§œ</td>
   </tr>
   <? 
-  //°Ô½ÃÆÇ¿¡¼­ ÀÚ±â°¡ º»±ÛÃßÃâ: Æ÷ÀÎÆ®Å×ÀÌºí ÀÌ¿ë.  
+  //ê²Œì‹œíŒì—ì„œ ìžê¸°ê°€ ë³¸ê¸€ì¶”ì¶œ: í¬ì¸íŠ¸í…Œì´ë¸” ì´ìš©.  
   $sql = "select * from $g4[point_table]
             where (po_rel_table not like '@%'
-                  and mb_id='{$member[mb_id]}' and po_rel_action='ÀÐ±â') 
+                  and mb_id='{$member[mb_id]}' and po_rel_action='ì½ê¸°') 
             order by po_datetime desc 
             limit $from_record, $one_rows
         ";

@@ -167,7 +167,7 @@ $.FE.LANGUAGE['pt_br'] = {
     "Kissing face with closed eyes": "Beijando a cara com os olhos fechados",
     "Face with stuck out tongue": "Preso de cara com a l\u00edngua para fora",
     "Face with stuck out tongue and winking eye": "Rosto com estendeu a l\u00edngua e olho piscando",
-    "Face with stuck out tongue and tightly-closed eyes": "Rosto com estendeu a língua e os olhos bem fechados",
+    "Face with stuck out tongue and tightly-closed eyes": "Rosto com estendeu a l챠ngua e os olhos bem fechados",
     "Disappointed face": "Rosto decepcionado",
     "Worried face": "O rosto preocupado",
     "Angry face": "Rosto irritado",

@@ -2,15 +2,15 @@
 include_once("./_common.php");
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4[path]);
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4[path]);
 
-$g4[title] = "±×´©º¸µå4 -> ºÒ´çÆÑ ¾÷±×·¹ÀÌµå";
+$g4[title] = "ê·¸ëˆ„ë³´ë“œ4 -> ë¶ˆë‹¹íŒ© ì—…ê·¸ë ˆì´ë“œ";
 include_once("./admin.head.php");
 
-// ÂÊÁö4 °ü·Ã ¼³Á¤ ÀĞ¾îµéÀÌ±â
+// ìª½ì§€4 ê´€ë ¨ ì„¤ì • ì½ì–´ë“¤ì´ê¸°
 include_once("../memo.config.php");
 
-// ÃÖ½Å±Û °Ô½ÃÆÇÀ» ¾÷µ¥ÀÌÆ® (±×·ìÁ¤º¸ Ãß°¡)
+// ìµœì‹ ê¸€ ê²Œì‹œíŒì„ ì—…ë°ì´íŠ¸ (ê·¸ë£¹ì •ë³´ ì¶”ê°€)
 $sql = " select distinct bo_table from $g4[board_new_table] ";
 $result = sql_query($sql);
 while ($row = sql_fetch_array($result))
@@ -21,9 +21,9 @@ while ($row = sql_fetch_array($result))
     $sql3 = "update $g4[board_new_table] set gr_id = '$result2[gr_id]' where bo_table = '$row[bo_table]' ";
     sql_query($sql3);
 }
-echo "<br>ÃÖ±Ù±Û °Ô½ÃÆÇ - gr_id UPGRADE ¿Ï·á.";
+echo "<br>ìµœê·¼ê¸€ ê²Œì‹œíŒ - gr_id UPGRADE ì™„ë£Œ.";
 
-// ÃÖ½Å±Û °Ô½ÃÆÇÀ» ¾÷µ¥ÀÌÆ® (ÄÚ¸àÆ® °ü·ÃÁ¤º¸ Ãß°¡)
+// ìµœì‹ ê¸€ ê²Œì‹œíŒì„ ì—…ë°ì´íŠ¸ (ì½”ë©˜íŠ¸ ê´€ë ¨ì •ë³´ ì¶”ê°€)
 $sql = " select bn_id, bo_table, wr_id from $g4[board_new_table] ";
 $result = sql_query($sql);
 while ($row = sql_fetch_array($result))
@@ -35,36 +35,36 @@ while ($row = sql_fetch_array($result))
     $sql3 = "update $g4[board_new_table] set wr_is_comment = '$result2[wr_is_comment]' where bn_id = '$row[bn_id]' ";
     sql_query($sql3);
 }
-echo "<br>ÃÖ±Ù±Û °Ô½ÃÆÇ - wr_is_comment UPGRADE ¿Ï·á.";
+echo "<br>ìµœê·¼ê¸€ ê²Œì‹œíŒ - wr_is_comment UPGRADE ì™„ë£Œ.";
 
-// Æ©´× (board_table : wr_file_count)
+// íŠœë‹ (board_table : wr_file_count)
 include_once("./upgrade_turning1.php");
 
-// Æ©´× (board_table : min_wr_num)
+// íŠœë‹ (board_table : min_wr_num)
 include_once("./upgrade_turning2.php");
 
-// Æ©´× (member_table : mb_auth_count)
+// íŠœë‹ (member_table : mb_auth_count)
 include_once("./upgrade_turning3.php");
 
-// Æ©´× (°Ô½ÃÆÇÀÇ index Ãß°¡)
+// íŠœë‹ (ê²Œì‹œíŒì˜ index ì¶”ê°€)
 include_once("./upgrade_board_index.php");
 
-// Æ©´× (°Ô½ÃÆÇÀÇ ccl Ãß°¡)
+// íŠœë‹ (ê²Œì‹œíŒì˜ ccl ì¶”ê°€)
 include_once("./upgrade_ccl.php");
 
-// Æ©´× (°Ô½ÃÆÇÀÇ ¾²±â index)
+// íŠœë‹ (ê²Œì‹œíŒì˜ ì“°ê¸° index)
 include_once("./upgrade_turning_write_idx.php");
 
-// °ü·Ã±Û
+// ê´€ë ¨ê¸€
 include_once("./upgrade_related.php");
 
-// ´Ğ³×ÀÓ È÷½ºÅä¸®
+// ë‹‰ë„¤ì„ íˆìŠ¤í† ë¦¬
 include_once("./upgrade_mb_nick.php");
 
-// ½ºÅ©·¦ 
+// ìŠ¤í¬ë© 
 include_once("./upgrade_scrap.php");
 
-// ½Å°í
+// ì‹ ê³ 
 include_once("./upgrade_singo.php");
 
 include_once("./admin.tail.php");

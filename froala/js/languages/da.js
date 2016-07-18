@@ -183,7 +183,7 @@ $.FE.LANGUAGE['da'] = {
     "Sleepy face": "S\u00f8vnig ansigt",
     "Tired face": "Tr\u00e6t ansigt",
     "Grimacing face": "Grimasser ansigt",
-    "Loudly crying face": "H\u00f8jlydt grædende ansigt",
+    "Loudly crying face": "H\u00f8jlydt gr챈dende ansigt",
     "Face with open mouth": "Ansigt med \u00e5ben mund",
     "Hushed face": "Tyst ansigt",
     "Face with open mouth and cold sweat": "Ansigt med \u00e5ben mund og koldsved",

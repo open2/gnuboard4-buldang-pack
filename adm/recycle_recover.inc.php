@@ -1,49 +1,49 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-// ¿ø·¡ °Ô½ÃÆÇÀ¸·Î ÀÌµ¿ - bbs/delete.phpÀÇ ¾ÕºÎºÐ°ú ºñ½ÁÇÑ ÄÚµå
+// ì›ëž˜ ê²Œì‹œíŒìœ¼ë¡œ ì´ë™ - bbs/delete.phpì˜ ì•žë¶€ë¶„ê³¼ ë¹„ìŠ·í•œ ì½”ë“œ
 $recycle = "";
 
 $rc_no = $_POST[rc_no];
 $rc_row = sql_fetch(" select * from $g4[recycle_table] where rc_no = '$rc_no' ");
 if ($rc_row) {
 
-    // °ü¸®ÀÚ ¶Ç´Â ±Û¾´ÀÌ°¡ ¾Æ´Ï¸é, ¾ÈµË´Ï´Ù
+    // ê´€ë¦¬ìž ë˜ëŠ” ê¸€ì“´ì´ê°€ ì•„ë‹ˆë©´, ì•ˆë©ë‹ˆë‹¤
     if ($is_admin == "super")
         ;
     else if ($member[mb_id] || $member[mb_id] == $rc_row[mb_id])
         ;
     else
-        alert("º¹±¸ÇÒ ¼ö ¾ø´Â ±ÇÇÑ ÀÔ´Ï´Ù.");
+        alert("ë³µêµ¬í•  ìˆ˜ ì—†ëŠ” ê¶Œí•œ ìž…ë‹ˆë‹¤.");
 
-    // recycle actionÀÓÀ» ÁöÁ¤
+    // recycle actionìž„ì„ ì§€ì •
     $recycle = "recycle";
 
-    // º¹»ç/ÀÌµ¿¿¡ ´ëÇÑ log¸¦ ³²±âÁö ¾Ê°Ô ¼³Á¤
+    // ë³µì‚¬/ì´ë™ì— ëŒ€í•œ logë¥¼ ë‚¨ê¸°ì§€ ì•Šê²Œ ì„¤ì •
     $config[cf_use_copy_log] = 0;
 
-    // º¹±¸ÇÒ ÈÞÁöÅë °Ô½ÃÆÇÀ» ÁöÁ¤
+    // ë³µêµ¬í•  íœ´ì§€í†µ ê²Œì‹œíŒì„ ì§€ì •
     $bo_table = $rc_row[rc_bo_table];
     
-    // º¹±¸¿¡ ÇÊ¿äÇÑ º¯¼ö°ªÀ» ¼³Á¤
+    // ë³µêµ¬ì— í•„ìš”í•œ ë³€ìˆ˜ê°’ì„ ì„¤ì •
     $write_table = $g4[write_prefix] . $rc_row[rc_bo_table];
     $wr_id = $rc_row[rc_wr_id];
 
     $sql = " select * from $g4[write_prefix]$rc_row[rc_bo_table] where wr_id = '$wr_id' ";
     $write = sql_fetch($sql);
 
-    // °Ô½Ã±Û¿¡ ´ëÇÑ Á¤º¸¿¡¼­ ¿ø±ÛÀÌ ¾Æ´Ï¸é, return
+    // ê²Œì‹œê¸€ì— ëŒ€í•œ ì •ë³´ì—ì„œ ì›ê¸€ì´ ì•„ë‹ˆë©´, return
     if ($write[wr_id] !== $write[wr_parent])
-        alert("¿ø±Û¿¡ ´ëÇØ¼­¸¸ °¡´ÉÇÑ ÀÛ¾÷ ÀÔ´Ï´Ù");
+        alert("ì›ê¸€ì— ëŒ€í•´ì„œë§Œ ê°€ëŠ¥í•œ ìž‘ì—… ìž…ë‹ˆë‹¤");
 
-    // º¹±¸ÇÒ °Ô½ÃÆÇ
+    // ë³µêµ¬í•  ê²Œì‹œíŒ
     $board['bo_move_bo_table'] = $rc_row[bo_table];
     $new_bo_table = sql_fetch(" select * from $g4[board_table] where bo_table = '$rc_row[bo_table]' ");
 
-    // °Ô½Ã±ÛÀ» º¹±¸
+    // ê²Œì‹œê¸€ì„ ë³µêµ¬
     include_once("$g4[bbs_path]/move2_update.php");
     
-    // ÈÞÁöÅëÀÇ Á¤º¸¸¦ »èÁ¦
+    // íœ´ì§€í†µì˜ ì •ë³´ë¥¼ ì‚­ì œ
     $sql2 = " delete from $g4[recycle_table] where rc_no = '$rc_no' ";
     sql_query($sql2);
 

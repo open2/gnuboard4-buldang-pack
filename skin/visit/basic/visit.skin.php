@@ -1,13 +1,13 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 <div class="panel panel-default">
   <div class="panel-body">
       <ul class="list-unstyled">
-    	<li> ¿À´Ã <?=number_format($visit[1])?><? if ($is_admin == "super") { ?>&nbsp;&nbsp;<a href="<?=$g4['admin_path']?>/visit_list.php"><i class="fa fa-cog"></i></a><?}?></li>
-    	<li> ¾îÁ¦ <?=number_format($visit[2])?></li>
-    	<li> ÃÖ´ë <?=number_format($visit[3])?></li>
-    	<li> ÀüÃ¼ <?=number_format($visit[4])?></li>
+    	<li> ì˜¤ëŠ˜ <?=number_format($visit[1])?><? if ($is_admin == "super") { ?>&nbsp;&nbsp;<a href="<?=$g4['admin_path']?>/visit_list.php"><i class="fa fa-cog"></i></a><?}?></li>
+    	<li> ì–´ì œ <?=number_format($visit[2])?></li>
+    	<li> ìµœëŒ€ <?=number_format($visit[3])?></li>
+    	<li> ì „ì²´ <?=number_format($visit[4])?></li>
       </ul>
   </div>
 </div>

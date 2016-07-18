@@ -1,14 +1,14 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-  	    ÀÌ¸ÞÀÏ ÀÎÁõ
+  	    ì´ë©”ì¼ ì¸ì¦
     </div>
     <div class="panel-body">
-  	ÀÎÁõ¹ÞÀ» ÀÌ¸ÞÀÏÁÖ¼Ò¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À.
-  	<? if ($g4['email_certify_point']) { ?><br>ÀÌ¸ÞÀÏÀ» ÀÎÁõÇÏ¸é <?=$g4['email_certify_point']?>Æ÷ÀÎÆ®¸¦ Àû¸³ÇØ µå¸³´Ï´Ù (1È¸¸¸ Àû¸³ µË´Ï´Ù).<? }?>
+  	ì¸ì¦ë°›ì„ ì´ë©”ì¼ì£¼ì†Œë¥¼ ìž…ë ¥í•˜ì‹­ì‹œì˜¤.
+  	<? if ($g4['email_certify_point']) { ?><br>ì´ë©”ì¼ì„ ì¸ì¦í•˜ë©´ <?=$g4['email_certify_point']?>í¬ì¸íŠ¸ë¥¼ ì ë¦½í•´ ë“œë¦½ë‹ˆë‹¤ (1íšŒë§Œ ì ë¦½ ë©ë‹ˆë‹¤).<? }?>
     <? 
-    // ÀÌ¸ÞÀÏÀÎÁõÀ» »ç¿ëÇÏ´Â °æ¿ì¿¡´Â Ãß°¡ ¸Þ½ÃÁö¸¦ Ãâ·ÂÇØ ÁÝ´Ï´Ù.
+    // ì´ë©”ì¼ì¸ì¦ì„ ì‚¬ìš©í•˜ëŠ” ê²½ìš°ì—ëŠ” ì¶”ê°€ ë©”ì‹œì§€ë¥¼ ì¶œë ¥í•´ ì¤ë‹ˆë‹¤.
     if ($config['cf_use_email_certify']) { ?>
-    ¹ß¼ÛµÈ ÀÎÁõ¸ÞÀÏÀ» ¹Ýµå½Ã È®ÀÎÇØ¾ß ·Î±×ÀÎÀÌ °¡´ÉÇÕ´Ï´Ù.
+    ë°œì†¡ëœ ì¸ì¦ë©”ì¼ì„ ë°˜ë“œì‹œ í™•ì¸í•´ì•¼ ë¡œê·¸ì¸ì´ ê°€ëŠ¥í•©ë‹ˆë‹¤.
     <? } ?>
 
     <form name="fwrite" method="post" onsubmit="return fwrite_submit(this);" enctype="multipart/form-data" role="form" class="form-inline">
@@ -19,14 +19,14 @@
     <br>
     <table class="table table-condensed table-hover">
     <tr>
-        <td class="col-md-2">µî·ÏµÈ ÀÌ¸ÞÀÏ</td>
+        <td class="col-md-2">ë“±ë¡ëœ ì´ë©”ì¼</td>
         <td align=left>
         <?=$member['mb_email']?>
-        <? if (!preg_match("/[1-9]/", $member[mb_email_certify])) echo "(ÀÎÁõµÇÁö ¾ÊÀ½)"; else echo "(ÀÎÁõÀÏÀÚ: " . cut_str($member[mb_email_certify],10,"") . ")"; ?>
+        <? if (!preg_match("/[1-9]/", $member[mb_email_certify])) echo "(ì¸ì¦ë˜ì§€ ì•ŠìŒ)"; else echo "(ì¸ì¦ì¼ìž: " . cut_str($member[mb_email_certify],10,"") . ")"; ?>
         </td>
     </tr>
         <tr>
-        <td>º¯°æÇÒ ÀÌ¸ÞÀÏ</td>
+        <td>ë³€ê²½í•  ì´ë©”ì¼</td>
         <td align=left>
         <input class="form-control" type=text id='mb_email' name='mb_email' required style="ime-mode:disabled" size=38 maxlength=100 value='<?=$member[mb_email]?>' onkeyup='reg_mb_email_check()'>
         &nbsp;<span id='msg_mb_email'></span>
@@ -35,11 +35,11 @@
     </table>
 
     <div style="text-align:center">
-    <button type="submit" class="btn btn-success" id="btn_submit" title="¸ÞÀÏ¹ß¼Û¿¡ ¸îÃÊ°¡ °É¸®¹Ç·Î ±â´Ù·Á ÁÖ¼¼¿ä.">¸ÞÀÏº¸³»±â</button>
+    <button type="submit" class="btn btn-success" id="btn_submit" title="ë©”ì¼ë°œì†¡ì— ëª‡ì´ˆê°€ ê±¸ë¦¬ë¯€ë¡œ ê¸°ë‹¤ë ¤ ì£¼ì„¸ìš”.">ë©”ì¼ë³´ë‚´ê¸°</button>
 
-    <!-- ÀÌ¸ÞÀÏ ÀÎÁõÀ» ÇÏ°Ô Çß°í, È¸¿ø°¡ÀÔÇßÀ¸³ª ¹ÌÀÎÁõµÈ °æ¿ì Å»Åð ±â´ÉÀ» Á¦°ø ÇÕ´Ï´Ù -->
+    <!-- ì´ë©”ì¼ ì¸ì¦ì„ í•˜ê²Œ í–ˆê³ , íšŒì›ê°€ìž…í–ˆìœ¼ë‚˜ ë¯¸ì¸ì¦ëœ ê²½ìš° íƒˆí‡´ ê¸°ëŠ¥ì„ ì œê³µ í•©ë‹ˆë‹¤ -->
     <? if ($config[cf_use_email_certify] && !preg_match("/[1-9]/", $member[mb_email_certify])) { ?>
-            &nbsp;&nbsp;&nbsp;<a href="javascript:member_leave();" class="btn btn-default pull-right">È¸¿øÅ»Åð</a>
+            &nbsp;&nbsp;&nbsp;<a href="javascript:member_leave();" class="btn btn-default pull-right">íšŒì›íƒˆí‡´</a>
     <? } ?>
     </div>
 
@@ -55,11 +55,11 @@ var member_skin_path = "<?=$member_skin_path?>";
 <script type="text/javascript">
 function fwrite_submit(f) {
 
-    // E-mail °Ë»ç
+    // E-mail ê²€ì‚¬
     reg_mb_email_check();
 
     if (f.mb_email_enabled.value != '000') {
-        alert('E-mailÀ» ÀÔ·ÂÇÏÁö ¾Ê¾Ò°Å³ª ÀÔ·Â¿¡ ¿À·ù°¡ ÀÖ½À´Ï´Ù.');
+        alert('E-mailì„ ìž…ë ¥í•˜ì§€ ì•Šì•˜ê±°ë‚˜ ìž…ë ¥ì— ì˜¤ë¥˜ê°€ ìžˆìŠµë‹ˆë‹¤.');
         f.mb_email.focus();
         return false;
     }
@@ -71,7 +71,7 @@ function fwrite_submit(f) {
 
 function member_leave() 
 { 
-   if (confirm("Á¤¸» È¸¿ø¿¡¼­ Å»Åð ÇÏ½Ã°Ú½À´Ï±î?")) 
+   if (confirm("ì •ë§ íšŒì›ì—ì„œ íƒˆí‡´ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) 
             location.href = "<?=$g4[bbs_path]?>/mb_leave.php"; 
 }
 </script>

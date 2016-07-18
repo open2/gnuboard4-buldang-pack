@@ -1,7 +1,7 @@
 <?
 if ( ! defined("_GNUBOARD_")) {
     exit;
-} // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+} // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
 if ($g4['https_url']) {
     $login_url = $_GET['url'];
@@ -28,39 +28,39 @@ if ($g4['https_url']) {
 
     <div style="margin: 10px">
         <div class="form-group-lg has-feedback">
-            <label for="mb_id" class="col-sm-2 control-label">¾ÆÀÌµð</label>
+            <label for="mb_id" class="col-sm-2 control-label">ì•„ì´ë””</label>
             <div class="col-sm-4">
                 <input type="text" name="mb_id" id="mb_id" class="form-control" maxLength=20 minlength="2" size=15
-                       itemname="¾ÆÀÌµð" placeholder="user id">
+                       itemname="ì•„ì´ë””" placeholder="user id">
             </div>
             <span class="form-control-feedback"><i class="material-icons">&#xE853;</i></span>
         </div>
         <div class="form-group-lg has-feedback">
-            <label for="mb_password" class="col-sm-2 control-label">ÆÐ½º¿öµå</label>
+            <label for="mb_password" class="col-sm-2 control-label">íŒ¨ìŠ¤ì›Œë“œ</label>
             <div class="col-sm-4">
                 <input type="password" name="mb_password" id="mb_password" class="form-control" maxLength=20 size=15
-                       itemname="ÆÐ½º¿öµå" placeholder="password">
+                       itemname="íŒ¨ìŠ¤ì›Œë“œ" placeholder="password">
             </div>
             <span class="form-control-feedback"><i class="material-icons">&#xE88D;</i></span>
         </div>
         <div class="form-group-lg">
             <div class="col-sm-4">
                 <input type="checkbox" id="auto_login" name="auto_login" style="display: none"
-                    <?php if (is_mobile()) {     // ¸ð¹ÙÀÏÀº ±âº» È°¼ºÈ­ ?>
+                    <?php if (is_mobile()) {     // ëª¨ë°”ì¼ì€ ê¸°ë³¸ í™œì„±í™” ?>
                         checked="checked"
                     <? } ?>
-                       onclick="if (this.checked) { if (confirm('ÀÚµ¿·Î±×ÀÎÀ» »ç¿ëÇÏ½Ã¸é ´ÙÀ½ºÎÅÍ È¸¿ø¾ÆÀÌµð¿Í ÆÐ½º¿öµå¸¦ ÀÔ·ÂÇÏ½Ç ÇÊ¿ä°¡ ¾ø½À´Ï´Ù.\n\n\°ø°øÀå¼Ò¿¡¼­´Â °³ÀÎÁ¤º¸°¡ À¯ÃâµÉ ¼ö ÀÖÀ¸´Ï »ç¿ëÀ» ÀÚÁ¦ÇÏ¿© ÁÖ½Ê½Ã¿À.\n\nÀÚµ¿·Î±×ÀÎÀ» »ç¿ëÇÏ½Ã°Ú½À´Ï±î?')) { this.checked = true; } else { this.checked = false;} }">
-                <label for="auto_login">·Î±×ÀÎ »óÅÂ À¯Áö</label>
+                       onclick="if (this.checked) { if (confirm('ìžë™ë¡œê·¸ì¸ì„ ì‚¬ìš©í•˜ì‹œë©´ ë‹¤ìŒë¶€í„° íšŒì›ì•„ì´ë””ì™€ íŒ¨ìŠ¤ì›Œë“œë¥¼ ìž…ë ¥í•˜ì‹¤ í•„ìš”ê°€ ì—†ìŠµë‹ˆë‹¤.\n\n\ê³µê³µìž¥ì†Œì—ì„œëŠ” ê°œì¸ì •ë³´ê°€ ìœ ì¶œë  ìˆ˜ ìžˆìœ¼ë‹ˆ ì‚¬ìš©ì„ ìžì œí•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.\n\nìžë™ë¡œê·¸ì¸ì„ ì‚¬ìš©í•˜ì‹œê² ìŠµë‹ˆê¹Œ?')) { this.checked = true; } else { this.checked = false;} }">
+                <label for="auto_login">ë¡œê·¸ì¸ ìƒíƒœ ìœ ì§€</label>
             </div>
         </div>
         <div style="margin-bottom: 30px">
             <button type="submit" accesskey="s" class="btn btn-primary btn-lg btn-block">
-                ·Î±×ÀÎ
+                ë¡œê·¸ì¸
             </button>
         </div>
         <div class="text-center" style="margin-bottom: 30px">
-            <a href="javascript:    ;" onclick="win_password_lost();" class="btn btn-default">¾ÆÀÌµð/ºñ¹Ð¹øÈ£ Ã£±â</a>
-            <a href="./register.php" class="btn btn-default">È¸¿ø°¡ÀÔ</a>
+            <a href="javascript:    ;" onclick="win_password_lost();" class="btn btn-default">ì•„ì´ë””/ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°</a>
+            <a href="./register.php" class="btn btn-default">íšŒì›ê°€ìž…</a>
         </div>
     </div>
 </form>

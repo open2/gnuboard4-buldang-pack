@@ -1,7 +1,7 @@
 <?
 include_once("./_common.php");
 
-// Æ¯¼ö¹®ÀÚ º¯È¯
+// íŠ¹ìˆ˜ë¬¸ì ë³€í™˜
 function specialchars_replace($str, $len=0) {
     if ($len) {
         $str = substr($str, 0, $len);
@@ -13,13 +13,13 @@ function specialchars_replace($str, $len=0) {
     return $str;
 }
 
-// Ãâ·ÂÇÒ°Å¸¦ ÃÊ±âÈ­
+// ì¶œë ¥í• ê±°ë¥¼ ì´ˆê¸°í™”
 $list= array();
 
-// $bo_tableÀÌ ¾øÀ¸¸é, RSS °¡´ÉÇÑ ÀüÃ¼ °Ô½ÃÆÇÀ» RSS
+// $bo_tableì´ ì—†ìœ¼ë©´, RSS ê°€ëŠ¥í•œ ì „ì²´ ê²Œì‹œíŒì„ RSS
 if ($bo_table == "") {
-    // tmp Å×ÀÌºíÀ» ¸¸µì´Ï´Ù. RSS °¡´ÉÇÑ °Ô½ÃÆÇ ¸ñ·ÏÀ» ¸¸µé±â À§ÇØ¼­
-    // ÆÀÀåÃ³·³ create temporaty tableÀÇ ±ÇÇÑÀ» ¾ÈÁÖ´Â °æ¿ì, Áö¿øÇÒ ¼ö ¾ø½À´Ï´Ù. ½Ã½ºÅÛ ºÎÇÏ°¡ ³Ê¹« Ä¿¿ä.
+    // tmp í…Œì´ë¸”ì„ ë§Œë“­ë‹ˆë‹¤. RSS ê°€ëŠ¥í•œ ê²Œì‹œíŒ ëª©ë¡ì„ ë§Œë“¤ê¸° ìœ„í•´ì„œ
+    // íŒ€ì¥ì²˜ëŸ¼ create temporaty tableì˜ ê¶Œí•œì„ ì•ˆì£¼ëŠ” ê²½ìš°, ì§€ì›í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ì‹œìŠ¤í…œ ë¶€í•˜ê°€ ë„ˆë¬´ ì»¤ìš”.
     if ($g4['old_stype_search']) {
         goto_url("./rss_list.php");
     } else {
@@ -32,8 +32,8 @@ if ($bo_table == "") {
         @mysql_query($sql_tmp) or die("<p>$sql_tmp<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : $_SERVER[PHP_SELF]");
         $result = @mysql_query($sql_ord) or die("<p>$sql_ord<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : $_SERVER[PHP_SELF]");
         
-        $subj1 = "ÀüÃ¼ RSS";
-        $subj2 = "°Ô½ÃÆÇ RSS ¸ñ·ÏÀº $g4[url]/bbs/rss_list.php";
+        $subj1 = "ì „ì²´ RSS";
+        $subj2 = "ê²Œì‹œíŒ RSS ëª©ë¡ì€ $g4[url]/bbs/rss_list.php";
         
         $rsslink = "$g4[url]/bbs/rss_list.php";
 
@@ -52,28 +52,28 @@ if ($bo_table == "") {
         }
     }
 } else {
-    // ºñÈ¸¿ø ÀĞ±â°¡ °¡´ÉÇÑ °Ô½ÃÆÇ¸¸ RSS Áö¿ø
+    // ë¹„íšŒì› ì½ê¸°ê°€ ê°€ëŠ¥í•œ ê²Œì‹œíŒë§Œ RSS ì§€ì›
     if ($board[bo_read_level] >= 2) {
-        echo "ºñÈ¸¿ø ÀĞ±â°¡ °¡´ÉÇÑ °Ô½ÃÆÇ¸¸ RSS Áö¿øÇÕ´Ï´Ù.";
+        echo "ë¹„íšŒì› ì½ê¸°ê°€ ê°€ëŠ¥í•œ ê²Œì‹œíŒë§Œ RSS ì§€ì›í•©ë‹ˆë‹¤.";
         exit;
     }
     
-    // RSS »ç¿ë Ã¼Å©
+    // RSS ì‚¬ìš© ì²´í¬
     if (!$board[bo_use_rss_view]) {
-        echo "RSS º¸±â°¡ ±İÁöµÇ¾î ÀÖ½À´Ï´Ù.";
+        echo "RSS ë³´ê¸°ê°€ ê¸ˆì§€ë˜ì–´ ìˆìŠµë‹ˆë‹¤.";
         exit;
     }
 
-    // °Ô½ÃÆÇ Á¦¸ñ
+    // ê²Œì‹œíŒ ì œëª©
     $subj2 = specialchars_replace($board[bo_subject], 255);
     $lines = $board[bo_page_rows];
     
-    // ±×·ì Á¦¸ñ
+    // ê·¸ë£¹ ì œëª©
     $sql = " select gr_subject from $g4[group_table] where gr_id = '$board[gr_id]' ";
     $row = sql_fetch($sql);
     $subj1 = specialchars_replace($row[gr_subject], 255);
 
-    // °Ô½ÃÆÇ Á¤º¸¸¦ Feed
+    // ê²Œì‹œíŒ ì •ë³´ë¥¼ Feed
     $sql = " select wr_id, wr_subject, wr_content, wr_name, wr_datetime, wr_option, wr_link1, wr_link2, mb_id
                from $g4[write_prefix]$bo_table 
               where wr_is_comment = 0 
@@ -91,7 +91,7 @@ if ($bo_table == "") {
 }
 
 
-// RSS Á¤º¸¸¦ XML Çü½ÄÀ¸·Î Ãâ·Â
+// RSS ì •ë³´ë¥¼ XML í˜•ì‹ìœ¼ë¡œ ì¶œë ¥
 Header("Content-type: text/xml"); 
 header("Cache-Control: no-cache, must-revalidate"); 
 header("Pragma: no-cache");   
@@ -101,22 +101,22 @@ echo "<rss version=\"2.0\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\">\n";
 echo "<channel>\n";
 echo "<title>".specialchars_replace("$config[cf_title] > $subj1 > $subj2")."</title>\n";
 echo "<link>".specialchars_replace("$rsslink")."</link>\n";
-echo "<description>Å×½ºÆ® ¹öÀü 0.2 (2004-04-26)</description>\n";
+echo "<description>í…ŒìŠ¤íŠ¸ ë²„ì „ 0.2 (2004-04-26)</description>\n";
 echo "<language>ko</language>\n";
 
 for ($i=0; $i < count($list); $i++) {
 
-    // $row¿¡ Ãâ·ÂÇÒ°Å¸¦ ³Ö¾îÁØ´Ù
+    // $rowì— ì¶œë ¥í• ê±°ë¥¼ ë„£ì–´ì¤€ë‹¤
     $row = $list[$i];
     
-    // °Ô½ÃÆÇÀÌ ÁöÁ¤µÈ RSS°¡ ¾Æ´Ï¸é, °Ô½ÃÆÇ Á¤º¸¸¦ °¡Á®¿Â´Ù
+    // ê²Œì‹œíŒì´ ì§€ì •ëœ RSSê°€ ì•„ë‹ˆë©´, ê²Œì‹œíŒ ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤
     if ($bo_table == "") {
         $board = get_board($row[bo_table]);
         $wr_id = $row[wr_id];
         $write_table = $g4[write_prefix] . $row[bo_table];
     }
 
-    // ¸µÅ© Ãâ·Â
+    // ë§í¬ ì¶œë ¥
     $link = "";
     for ($j=1; $j<=$g4['link_count']; $j++)
     {
@@ -128,10 +128,10 @@ for ($i=0; $i < count($list); $i++) {
         }
     }
 
-    // Ã·ºÎÆÄÀÏ Á¤º¸¸¦ °¡Á®¿Â´Ù
+    // ì²¨ë¶€íŒŒì¼ ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤
     $tmp_file = get_file($row[bo_table], $row['wr_id']);
 
-    // Ã·ºÎ ÀÌ¹ÌÁö ÆÄÀÏ Ãâ·Â
+    // ì²¨ë¶€ ì´ë¯¸ì§€ íŒŒì¼ ì¶œë ¥
     $file = "";
     for ($j=0; $j<=count($tmp_file); $j++)
         if ($tmp_file[$j][view])
@@ -142,7 +142,7 @@ for ($i=0; $i < count($list); $i++) {
     else
         $html = 0;
 
-    // Ã·ºÎÆÄÀÏ ´Ù¿î·Îµå ¸µÅ© Ãâ·Â
+    // ì²¨ë¶€íŒŒì¼ ë‹¤ìš´ë¡œë“œ ë§í¬ ì¶œë ¥
     if ($board[bo_download_level] == 1) {
         $cnt = 0;
         $download = "";
@@ -155,24 +155,24 @@ for ($i=0; $i < count($list); $i++) {
         }
     }
 
-    // ¼­¸í
+    // ì„œëª…
     $signature = "";
     if ($board[bo_use_signature]) {
         $mb = get_member($row[mb_id]);
         $signature = $mb[mb_signature];
 
         //$signature = bad_tag_convert($signature);
-        // 081022 : CSRF º¸¾È °áÇÔÀ¸·Î ÀÎÇÑ ÄÚµå ¼öÁ¤
+        // 081022 : CSRF ë³´ì•ˆ ê²°í•¨ìœ¼ë¡œ ì¸í•œ ì½”ë“œ ìˆ˜ì •
         $signature = "<p>" . conv_content($signature, 1) . "</p>";
     }
 
-    // ÄÚ¸àÆ® Ãâ·Â
-    $board[bo_comment_read_level] = 10; // ½ÇÁ¦·Î´Â ÄÚ¸àÆ®±îÁö ³»º¸³»´Â°Å´Â rssÀÇ ¿øÄ¢ À§¹İÀÌ¶ó mark ÇØµÓ´Ï´Ù.
+    // ì½”ë©˜íŠ¸ ì¶œë ¥
+    $board[bo_comment_read_level] = 10; // ì‹¤ì œë¡œëŠ” ì½”ë©˜íŠ¸ê¹Œì§€ ë‚´ë³´ë‚´ëŠ”ê±°ëŠ” rssì˜ ì›ì¹™ ìœ„ë°˜ì´ë¼ mark í•´ë‘¡ë‹ˆë‹¤.
     if ($board[bo_comment_read_level] <= 1) {
 
         $comment = "";
 
-        // ºÒ´çÆÑ -- tmp Å×ÀÌºíÀ» ÀÌ¿ëÇØ¼­ µ¥ÀÌÅÍ ÃßÃâ°ú Á¤·ÄÀ» º°µµ·Î ±¸ºĞÇÑ´Ù
+        // ë¶ˆë‹¹íŒ© -- tmp í…Œì´ë¸”ì„ ì´ìš©í•´ì„œ ë°ì´í„° ì¶”ì¶œê³¼ ì •ë ¬ì„ ë³„ë„ë¡œ êµ¬ë¶„í•œë‹¤
         $sql2 = " select * from $write_table where wr_parent = '$wr_id' and wr_is_comment = 1 order by wr_comment, wr_comment_reply ";
         $result2 = sql_query($sql2);
         for ($j=0; $row2=sql_fetch_array($result2); $j++) 
@@ -190,7 +190,7 @@ for ($i=0; $i < count($list); $i++) {
             if (!strstr($row2[wr_option], "secret") || $row[wr_singo])
                 $comment .= conv_content($row2[wr_content], 0, 'wr_content');
             else
-                $comment .= "<font color=red>*ºñ¹Ğ±Û ÀÔ´Ï´Ù.</font>";
+                $comment .= "<font color=red>*ë¹„ë°€ê¸€ ì…ë‹ˆë‹¤.</font>";
 
             $comment .= "</div></td></tr>";
             $comment .= "</table>";
@@ -203,7 +203,7 @@ for ($i=0; $i < count($list); $i++) {
     echo "<description><![CDATA[". $download . $link . $file . conv_content($row[wr_content], $html). $signature . $comment . "]]></description>\n";
     echo "<dc:creator>".specialchars_replace($row[wr_name])."</dc:creator>\n";
     $date = $row[wr_datetime];
-    // rss ¸®´õ ½ºÅ²À¸·Î È£ÃâÇÏ¸é ³¯Â¥°¡ Á¦´ë·Î Ç¥½ÃµÇÁö ¾ÊÀ½
+    // rss ë¦¬ë” ìŠ¤í‚¨ìœ¼ë¡œ í˜¸ì¶œí•˜ë©´ ë‚ ì§œê°€ ì œëŒ€ë¡œ í‘œì‹œë˜ì§€ ì•ŠìŒ
     //$date = substr($date,0,10) . "T" . substr($date,11,8) . "+09:00";
     $date = date('r', strtotime($date));
     echo "<dc:date>$date</dc:date>\n";

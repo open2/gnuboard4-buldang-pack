@@ -2,26 +2,26 @@
 include_once("./_common.php");
 include_once("$g4[path]/memo.config.php");
 
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ ÀÌ¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì´ìš©í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
 $kind   = $_POST[kind];
 $me_id  = $_POST[me_id];
 
 if ($kind != "spam")
-    alert("½ºÆÔÃë¼Ò¿À·ù - ÃÖ°í°ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ½Ã±â ¹Ù¶ø´Ï´Ù");
+    alert("ìŠ¤íŒ¸ì·¨ì†Œì˜¤ë¥˜ - ìµœê³ ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤");
 
 $sql = " select * from $g4[memo_spam_table] where me_id = '$me_id' ";
 $result = sql_fetch($sql);
 
-// ¹ß½ÅÀÚ, Á¦¸ñ, ³»¿ëÀÌ °°À¸¸ç, ¹ß½ÅÀÏ·Î ºÎÅÍ +/- 10ºĞ ÀÌ³»ÀÇ ¸ğµç ÂÊÁö¸¦ ½ºÆÔÀ¸·Î ±ÔÁ¤
+// ë°œì‹ ì, ì œëª©, ë‚´ìš©ì´ ê°™ìœ¼ë©°, ë°œì‹ ì¼ë¡œ ë¶€í„° +/- 10ë¶„ ì´ë‚´ì˜ ëª¨ë“  ìª½ì§€ë¥¼ ìŠ¤íŒ¸ìœ¼ë¡œ ê·œì •
 $sql_where = " me_send_mb_id = '$result[me_send_mb_id]' and me_subject = '$result[me_subject]' and me_memo = '" . addslashes($result[me_memo]) . "' and me_send_datetime > '" . date("Y-m-d H:i:s", strtotime($result[me_send_datetime]) - 60*10 ) . "' and me_send_datetime < '" . date("Y-m-d H:i:s", strtotime($result[me_send_datetime]) + 60*10 ) . "' ";
 $sql = " delete from $g4[memo_recv_table] where $where_datetime $sql_where";
 sql_query($sql);
 
 $result_count = mysql_affected_rows();
 
-alert("{$result_count} °ÇÀÇ ÂÊÁö¸¦ ½ºÆÔÈ¸¼ö ÇÏ¿´½À´Ï´Ù.", "./memo.php?kind=$kind");
+alert("{$result_count} ê±´ì˜ ìª½ì§€ë¥¼ ìŠ¤íŒ¸íšŒìˆ˜ í•˜ì˜€ìŠµë‹ˆë‹¤.", "./memo.php?kind=$kind");
 ?>

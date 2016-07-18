@@ -1,19 +1,19 @@
 <?
 include_once("./_common.php");
 
-// ºÒ´çÆÑ - °Ô½ÃÆÇ °ü¸®ÀÚ°¡ Ä«Å×°í¸®¸¦ ¸ðµÎ ½Ï~ ÇÑ¹ø¿¡ ¹Ù²ã¹ö¸³´Ï´Ù.
+// ë¶ˆë‹¹íŒ© - ê²Œì‹œíŒ ê´€ë¦¬ìžê°€ ì¹´í…Œê³ ë¦¬ë¥¼ ëª¨ë‘ ì‹¹~ í•œë²ˆì— ë°”ê¿”ë²„ë¦½ë‹ˆë‹¤.
 
 $tmp_array = array();
-if ($wr_id) // °Çº° ÁöÁ¤
+if ($wr_id) // ê±´ë³„ ì§€ì •
     $tmp_array[0] = $wr_id;
-else // ÀÏ°ýº¯°æ
+else // ì¼ê´„ë³€ê²½
     $tmp_array = $_POST[chk_wr_id];
 
 $sca = mysql_real_escape_string(trim($_POST[sca]));
 if ($sca == "" || $is_admin == "")
-    alert("Ä«Å×°í¸® ÀÏ°ý ¼öÁ¤ ¿À·ù ÀÔ´Ï´Ù.");
+    alert("ì¹´í…Œê³ ë¦¬ ì¼ê´„ ìˆ˜ì • ì˜¤ë¥˜ ìž…ë‹ˆë‹¤.");
 
-// °Å²Ù·Î ÀÐ´Â ÀÌÀ¯´Â delete_all.php¸¦ ¼öÁ¤Çß±â ¶§¹®. ´Ù¸¥ ÀÌÀ¯ ¾ø½¿
+// ê±°ê¾¸ë¡œ ì½ëŠ” ì´ìœ ëŠ” delete_all.phpë¥¼ ìˆ˜ì •í–ˆê¸° ë•Œë¬¸. ë‹¤ë¥¸ ì´ìœ  ì—†ìŠ´
 for ($i=count($tmp_array)-1; $i>=0; $i--) 
 {
     $sql = " update $write_table set ca_name='$sca' where wr_parent = '{$tmp_array[$i]}' ";

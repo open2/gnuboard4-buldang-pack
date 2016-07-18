@@ -1,18 +1,18 @@
 <?
 include_once("./_common.php");
 
-$html_title = "$group[gr_subject] > $board[bo_subject] > " . conv_subject($write[wr_subject], 255) . " > ¸µÅ©";
+$html_title = "$group[gr_subject] > $board[bo_subject] > " . conv_subject($write[wr_subject], 255) . " > ë§í¬";
 
 if (!($bo_table && $wr_id && $no)) 
-    alert_close("°ªÀÌ Á¦´ë·Î ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.");
+    alert_close("ê°’ì´ ì œëŒ€ë¡œ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
-// SQL Injection ¿¹¹æ
+// SQL Injection ì˜ˆë°©
 $row = sql_fetch(" select count(*) as cnt from {$g4[write_prefix]}{$bo_table} ", FALSE);
 if (!$row[cnt])
-    alert_close("Á¸ÀçÇÏ´Â °Ô½ÃÆÇÀÌ ¾Æ´Õ´Ï´Ù.");
+    alert_close("ì¡´ì¬í•˜ëŠ” ê²Œì‹œíŒì´ ì•„ë‹™ë‹ˆë‹¤.");
 
 if (!$write["wr_link{$no}"])
-    alert_close("¸µÅ©°¡ ¾ø½À´Ï´Ù.");
+    alert_close("ë§í¬ê°€ ì—†ìŠµë‹ˆë‹¤.");
 
 $ss_name = "ss_link_{$bo_table}_{$wr_id}_{$no}";
 if (empty($_SESSION[$ss_name])) 
@@ -23,7 +23,7 @@ if (empty($_SESSION[$ss_name]))
     set_session($ss_name, true);
 }
 
-// ÃßÃµ³«½Ã ¹æÁö - Çæ·©ÀÌ http://www.sir.co.kr/bbs/board.php?bo_table=g4_tiptech&wr_id=15628
+// ì¶”ì²œë‚™ì‹œ ë°©ì§€ - í—ë­ì´ http://www.sir.co.kr/bbs/board.php?bo_table=g4_tiptech&wr_id=15628
 $write["wr_link{$no}"] = preg_replace("/good\=good/i", "good=nogood", $write["wr_link{$no}"]); 
 
 goto_url(set_http($write["wr_link{$no}"]));

@@ -6,9 +6,9 @@ include_once("$g4[path]/memo.config.php");
 check_demo();
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4[path]);
+    alert("ìµœê³ ê´€ë¦¬ìžë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4[path]);
 
-$g4[title] = "¾÷±×·¹ÀÌµå";
+$g4[title] = "ì—…ê·¸ë ˆì´ë“œ";
 include_once("./admin.head.php");
 
 
@@ -25,7 +25,7 @@ while ($row = sql_fetch_array($result)) {
     sql_query(" update $g4[member_table] set mb_memo_unread = '$row1[cnt]' where mb_id = '$mb_id' ");
 }
 
-echo "UPGRADE ¿Ï·á.";
+echo "UPGRADE ì™„ë£Œ.";
 
 include_once("./admin.tail.php");
 ?>

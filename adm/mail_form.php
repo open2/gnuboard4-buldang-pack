@@ -6,18 +6,18 @@ auth_check($auth[$sub_menu], "r");
 
 $token = get_token();
 
-$html_title = "È¸¿ø¸ŞÀÏ";
+$html_title = "íšŒì›ë©”ì¼";
 
 if ($w == "u") {
-    $html_title .= "¼öÁ¤";
+    $html_title .= "ìˆ˜ì •";
     $readonly = " readonly";
 
     $sql = " select * from $g4[mail_table] where ma_id = '$ma_id' ";
     $ma = sql_fetch($sql);
     if (!$ma[ma_id]) 
-        alert("µî·ÏµÈ ÀÚ·á°¡ ¾ø½À´Ï´Ù.");
+        alert("ë“±ë¡ëœ ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.");
 } else {
-    $html_title .= "ÀÔ·Â";
+    $html_title .= "ì…ë ¥";
 }
 
 $g4[title] = $html_title;
@@ -41,22 +41,22 @@ echo "<script type='text/javascript'>ed_ma_content.config.includeHostname = true
 </tr>
 <tr><td colspan=2 class='line1'></td></tr>
 <tr class='ht'>
-    <td>¸ŞÀÏ Á¦¸ñ</td>
-    <td><input type=text class='ed w99' name=ma_subject value='<?=$ma[ma_subject]?>' required itemname='¸ŞÀÏ Á¦¸ñ'></td>
+    <td>ë©”ì¼ ì œëª©</td>
+    <td><input type=text class='ed w99' name=ma_subject value='<?=$ma[ma_subject]?>' required itemname='ë©”ì¼ ì œëª©'></td>
 </tr>
 <tr>
-    <td>¸ŞÀÏ ³»¿ë</td>
+    <td>ë©”ì¼ ë‚´ìš©</td>
     <td class=lh>
         <?=cheditor2('ma_content', $ma[ma_content]);?>
-        <br>{ÀÌ¸§} , {º°¸í} , {È¸¿ø¾ÆÀÌµğ} , {ÀÌ¸ŞÀÏ} , {»ıÀÏ}
-        <br>À§¿Í °°ÀÌ HTML ÄÚµå¿¡ »ğÀÔÇÏ¸é ÇØ´ç ³»¿ë¿¡ ¸Â°Ô º¯È¯ÇÏ¿© ¸ŞÀÏ ¹ß¼ÛÇÕ´Ï´Ù. 
+        <br>{ì´ë¦„} , {ë³„ëª…} , {íšŒì›ì•„ì´ë””} , {ì´ë©”ì¼} , {ìƒì¼}
+        <br>ìœ„ì™€ ê°™ì´ HTML ì½”ë“œì— ì‚½ì…í•˜ë©´ í•´ë‹¹ ë‚´ìš©ì— ë§ê²Œ ë³€í™˜í•˜ì—¬ ë©”ì¼ ë°œì†¡í•©ë‹ˆë‹¤. 
     </td>
 </tr>
 <tr><td colspan=2 class='line1'></td></tr>
 </table>
 
 <p align=center>
-    <input type=submit class=btn1 accesskey='s' value='  È®  ÀÎ  '>
+    <input type=submit class=btn1 accesskey='s' value='  í™•  ì¸  '>
 </form>
 
 
@@ -67,7 +67,7 @@ function fmailform_check(f)
     errmsg = "";
     errfld = "";
 
-    check_field(f.ma_subject, "Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä.");
+    check_field(f.ma_subject, "ì œëª©ì„ ì…ë ¥í•˜ì„¸ìš”.");
 
     <? echo cheditor3('ma_content'); ?>
     <? echo cheditor4('ma_content'); ?>

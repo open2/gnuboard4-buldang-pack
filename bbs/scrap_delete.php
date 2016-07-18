@@ -2,20 +2,20 @@
 include_once("./_common.php");
 
 if (!$member[mb_id]) 
-    alert("È¸¿ø¸¸ ÀÌ¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+    alert("íšŒì›ë§Œ ì´ìš©í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
 $sql = " delete from $g4[scrap_table] where mb_id = '$member[mb_id]' and ms_id = '$ms_id' ";
 sql_query($sql);
 
-// ºÒ´çÆÑ - ½ºÅ©·¦¼ö¿¡ µû¶ó¼­ º£½ºÆ®±Û µî·ÏµÈ °æ¿ì... ½ºÅ©·¦ÀÌ Áö¿öÁö¸é good countµµ ÇÏ³ª »©ÁØ´Ù
+// ë¶ˆë‹¹íŒ© - ìŠ¤í¬ë©ìˆ˜ì— ë”°ë¼ì„œ ë² ìŠ¤íŠ¸ê¸€ ë“±ë¡ëœ ê²½ìš°... ìŠ¤í¬ë©ì´ ì§€ì›Œì§€ë©´ good countë„ í•˜ë‚˜ ë¹¼ì¤€ë‹¤
 if ($board['bo_list_scrap'] > 0) {
 
-    // $ms_id¿¡¼­ $bo_table°ú $wr_id¸¦ Ã£¾Æ¾ß ÇÕ´Ï´Ù.
+    // $ms_idì—ì„œ $bo_tableê³¼ $wr_idë¥¼ ì°¾ì•„ì•¼ í•©ë‹ˆë‹¤.
     $result = sql_fetch(" select * from $g4[scrap_table] where ms_id = '$ms_id' ");
     $bo_table = $result['bo_table'];
     $wr_id = $result['wr_id'];
 
-    // Ä«¿îÅÍ¸¦ ÇÏ³ª »©Áİ´Ï´Ù
+    // ì¹´ìš´í„°ë¥¼ í•˜ë‚˜ ë¹¼ì¤ë‹ˆë‹¤
     $sql = " update $g4[good_list_table] set good = good - 1 where bo_table='$bo_table' and wr_id='$wr_id' ";
     $result = sql_query($sql, FALSE);
 }

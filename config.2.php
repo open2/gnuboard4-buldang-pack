@@ -1,21 +1,21 @@
 <?
-// ºÒ´çÆÑÀÇ »ç¿ë°úÁ¤¿¡¼­ ÇÊ¿äÇÑ ¼³Á¤º¯°æ»çÇ×µé·Î
-// config.phpÀÇ ¼öÁ¤À» ÃÖ¼Ò·Î ÇÏ±â À§ÇØ¼­ ÀÔ´Ï´Ù.
+// ë¶ˆë‹¹íŒ©ì˜ ì‚¬ìš©ê³¼ì •ì—ì„œ í•„ìš”í•œ ì„¤ì •ë³€ê²½ì‚¬í•­ë“¤ë¡œ
+// config.phpì˜ ìˆ˜ì •ì„ ìµœì†Œë¡œ í•˜ê¸° ìœ„í•´ì„œ ìž…ë‹ˆë‹¤.
 
-$g4['bver']         = "3304";   // ºÎÆ®½ºÆ®·¦ CSS ¹öÁ¯
-$g4['aver']         = "4400";   // ÆùÆ®¾î½æ CSS ¹öÁ¯
-$g4['sver']         = "1000";   // style.css CSS ¹öÁ¯
-$g4['cheditor_ver'] = "1000";   // cheditor ¹öÁ¯
-$g4['froala_ver']   = "20301";  // froala editor ¹öÁ¯
+$g4['bver']         = "3304";   // ë¶€íŠ¸ìŠ¤íŠ¸ëž© CSS ë²„ì ¼
+$g4['aver']         = "4400";   // í°íŠ¸ì–´ì¸ CSS ë²„ì ¼
+$g4['sver']         = "1000";   // style.css CSS ë²„ì ¼
+$g4['cheditor_ver'] = "1000";   // cheditor ë²„ì ¼
+$g4['froala_ver']   = "20301";  // froala editor ë²„ì ¼
 
-// $qstrÀÌ ¾ø´Â »óÈ²¿¡¼­ ÇÊ¿äÇÑ °ÍÀ» ³Ñ±â±â À§ÇØ¼­ »ç¿ë (¸Þ´º º¯¼ö µî...)
+// $qstrì´ ì—†ëŠ” ìƒí™©ì—ì„œ í•„ìš”í•œ ê²ƒì„ ë„˜ê¸°ê¸° ìœ„í•´ì„œ ì‚¬ìš© (ë©”ë‰´ ë³€ìˆ˜ ë“±...)
 $mstr = "";
-if (isset($mnb))  { // ºÒ´çºô´õ ±âº»¸Þ´º
+if (isset($mnb))  { // ë¶ˆë‹¹ë¹Œë” ê¸°ë³¸ë©”ë‰´
     $mnb = mysql_real_escape_string($mnb);
     $mstr .= '&mnb=' . urlencode($mnb);
 }
 
-if (isset($snb))  { // ºÒ´çºô´õ ¼­ºê¸Þ´º
+if (isset($snb))  { // ë¶ˆë‹¹ë¹Œë” ì„œë¸Œë©”ë‰´
     $snb = mysql_real_escape_string($snb);
     $mstr .= '&snb=' . urlencode($snb);
 }
@@ -26,31 +26,31 @@ if (isset($snb)) {
     }
 }
 
-if (isset($head_on))  { // ºÒ´çÆÑ¿¡¼­ °¡²û ¾²´Â º¯¼ö
+if (isset($head_on))  { // ë¶ˆë‹¹íŒ©ì—ì„œ ê°€ë” ì“°ëŠ” ë³€ìˆ˜
     $head_on = (int) $head_on;
     $mstr .= '&head_on=' . urlencode($head_on);
 }
 
-// ¸Þ´º ¹®ÀÚ¿­À» ÇÕÃÄ ÁÝ´Ï´Ù.
+// ë©”ë‰´ ë¬¸ìžì—´ì„ í•©ì³ ì¤ë‹ˆë‹¤.
 $qstr .= $mstr;
 
-// ³×ÀÌ¹ö API
+// ë„¤ì´ë²„ API
 $g4['naver_api'] = "";
 
-// ³×ÀÌ¹ö ´ÜÃàÁÖ¼Ò API - https://dev.naver.com/openapi/register
+// ë„¤ì´ë²„ ë‹¨ì¶•ì£¼ì†Œ API - https://dev.naver.com/openapi/register
 $g4['me2do_key'] = "";
 
-// ¿ìÃ¼±¹ ¿ìÆí¹øÈ£ API
+// ìš°ì²´êµ­ ìš°íŽ¸ë²ˆí˜¸ API
 $g4['epost_key'] = "f91427a9fc7337ff91385268803210";
 
-// Ã¤³Î - ´Ù¼ö´ëÀÇ web server¸¦ ¾µ ¶§, ¾î¶² ¼­¹öÀÎÁö È®ÀÎÀ» À§ÇØ Ã¤³Î¿¡ ip ¸¶Áö¸· ÀÚ¸®¸¦ ³Ö¾îÁÖ¸é ÆíÇÏ´Ù.
+// ì±„ë„ - ë‹¤ìˆ˜ëŒ€ì˜ web serverë¥¼ ì“¸ ë•Œ, ì–´ë–¤ ì„œë²„ì¸ì§€ í™•ì¸ì„ ìœ„í•´ ì±„ë„ì— ip ë§ˆì§€ë§‰ ìžë¦¬ë¥¼ ë„£ì–´ì£¼ë©´ íŽ¸í•˜ë‹¤.
 $g4['channel'] = "";
 
-// bbs/write.php¿¡¼­ ±×³É ³ª°¥¶§ °æ°íÇÒÁö ¾ÈÇÒÁö °áÁ¤
-// ¾²±âÇÒ ¶§ °æ°í°¡ ÇÊ¿äÇÏÁö ¾ÊÀº °æ¿ì´Â write.head.skin.php¿¡¼­ false·Î ÇÏ¸é µÊ
+// bbs/write.phpì—ì„œ ê·¸ëƒ¥ ë‚˜ê°ˆë•Œ ê²½ê³ í• ì§€ ì•ˆí• ì§€ ê²°ì •
+// ì“°ê¸°í•  ë•Œ ê²½ê³ ê°€ í•„ìš”í•˜ì§€ ì•Šì€ ê²½ìš°ëŠ” write.head.skin.phpì—ì„œ falseë¡œ í•˜ë©´ ë¨
 $g4['write_escape'] = true;
 
-// À¯´ÏÅ©·Î ÄíÅ°¸¦ ±¸¿öÁÝ´Ï´Ù.
+// ìœ ë‹ˆí¬ë¡œ ì¿ í‚¤ë¥¼ êµ¬ì›Œì¤ë‹ˆë‹¤.
 if ($g4[unicro_url]) {
     $unicro_cookie_id = $member["mb_id"] . "^" . $member["mb_no"];
     if (isset($_COOKIE[unicro_id]) && $_COOKIE[unicro_id] == "$unicro_cookie_id") { } else {
@@ -58,7 +58,7 @@ if ($g4[unicro_url]) {
     }
 }
 
-// geoip Ã¼Å©, ÇÑ±¹ÀÌ¸é KRÀÌ ¸®ÅÏ µË´Ï´Ù.
+// geoip ì²´í¬, í•œêµ­ì´ë©´ KRì´ ë¦¬í„´ ë©ë‹ˆë‹¤.
 if ($g4['use_geo_ip'])
     $geoip = ipaddress_to_country_code($_SERVER['REMOTE_ADDR']);
 ?>

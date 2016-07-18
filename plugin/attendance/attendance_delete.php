@@ -3,26 +3,26 @@ include_once("./_common.php");
 
 $at_id = (int) strip_tags($_GET['at_id']);
 
-if (!$is_admin) alert('°ü¸®ÀÚ¸¸ ÀÌ¿ëÇÏ½Ç¼ö ÀÖ½À´Ï´Ù.');
-if (!$at_id) alert('°ªÀÌ ¾ø½À´Ï´Ù.');
+if (!$is_admin) alert('ê´€ë¦¬ìžë§Œ ì´ìš©í•˜ì‹¤ìˆ˜ ìžˆìŠµë‹ˆë‹¤.');
+if (!$at_id) alert('ê°’ì´ ì—†ìŠµë‹ˆë‹¤.');
 
 $row = sql_fetch(" select mb_id,at_successive from $g4[attendance_plugin_table] where at_id = '$at_id' ");
-if(!$row[mb_id]) alert('ÇØ´ç ÀÚ·á°¡ ¾ø½À´Ï´Ù.');
+if(!$row[mb_id]) alert('í•´ë‹¹ ìžë£Œê°€ ì—†ìŠµë‹ˆë‹¤.');
 
 sql_query(" delete from $g4[attendance_plugin_table] where at_id = '$at_id' "); 
 sql_query(" delete from $g4[point_table] where po_rel_table = '@attendance' and po_rel_id = '$row[mb_id]' and SUBSTRING_INDEX(po_rel_action,'-',1) = '$at_id'  "); 
 
-// Æ÷ÀÎÆ® ³»¿ªÀÇ ÇÕÀ» ±¸ÇÏ°í
+// í¬ì¸íŠ¸ ë‚´ì—­ì˜ í•©ì„ êµ¬í•˜ê³ 
 $sql = " select sum(po_point) as sum_po_point from {$g4['point_table']} where mb_id = '$row[mb_id]' ";
 $row = sql_fetch($sql);
 $sum_point = $row['sum_po_point'];
 
-// Æ÷ÀÎÆ® UPDATE
+// í¬ì¸íŠ¸ UPDATE
 $sql = " update {$g4['member_table']} set mb_point = '$sum_point' where mb_id = '$row[mb_id]' ";
 $result = sql_query($sql);
 
 if($row[at_successive] > 1)
 	sql_query(" update $g4[attendance_successive_plugin_table] set as_successive = as_successive -1, as_datetime='$g4[time_ymdhis]' where mb_id='$row[mb_id]' ");
 
-alert("»èÁ¦µÇ¾ú½À´Ï´Ù.", "{$g4[attendance_path]}/attendance.php?s_date=$s_date" . $qstr);
+alert("ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.", "{$g4[attendance_path]}/attendance.php?s_date=$s_date" . $qstr);
 ?>

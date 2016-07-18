@@ -3,19 +3,19 @@ $sub_menu = "100720";
 include_once("./_common.php");
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4[path]);
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4[path]);
 
-$g4[title] = "¼¼¼Ç »èÁ¦";
+$g4[title] = "ì„¸ì…˜ ì‚­ì œ";
 include_once("./admin.head.php");
-echo " '¿Ï·á' ¸Ş¼¼Áö°¡ ³ª¿À±â Àü¿¡ ÇÁ·Î±×·¥ÀÇ ½ÇÇàÀ» ÁßÁöÇÏÁö ¸¶½Ê½Ã¿À.<br>";
-echo " ÆÄÀÏ¼¼¼ÇÀ» ¾²´Â °æ¿ì ¼¼¼ÇÆÄÀÏÀÇ »èÁ¦¸¦ ÁÖ±âÀûÀ¸·Î ÇØ¾ß ÇÏ¸ç, µğ½ºÅ©¿¡ Å« ºÎÇÏ¸¦ ÁÖ¹Ç·Î »õº®¿¡ ÁøÇàÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.<br><br>";
+echo " 'ì™„ë£Œ' ë©”ì„¸ì§€ê°€ ë‚˜ì˜¤ê¸° ì „ì— í”„ë¡œê·¸ë¨ì˜ ì‹¤í–‰ì„ ì¤‘ì§€í•˜ì§€ ë§ˆì‹­ì‹œì˜¤.<br>";
+echo " íŒŒì¼ì„¸ì…˜ì„ ì“°ëŠ” ê²½ìš° ì„¸ì…˜íŒŒì¼ì˜ ì‚­ì œë¥¼ ì£¼ê¸°ì ìœ¼ë¡œ í•´ì•¼ í•˜ë©°, ë””ìŠ¤í¬ì— í° ë¶€í•˜ë¥¼ ì£¼ë¯€ë¡œ ìƒˆë²½ì— ì§„í–‰í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.<br><br>";
 echo "<span id='ct'></span>";
 include_once("./admin.tail.php");
 flush();
 
-$session_path = "$g4[data_path]/session";  // ¼¼¼ÇÀÌÀúÀåµÈ µğ·ºÅä¸® 
+$session_path = "$g4[data_path]/session";  // ì„¸ì…˜ì´ì €ì¥ëœ ë””ë ‰í† ë¦¬ 
 if (!$dir=@opendir($session_path)) { 
-  echo "¼¼¼Ç µğ·ºÅä¸®¸¦ ¿­Áö¸øÇß½À´Ï´Ù."; 
+  echo "ì„¸ì…˜ ë””ë ‰í† ë¦¬ë¥¼ ì—´ì§€ëª»í–ˆìŠµë‹ˆë‹¤."; 
 } 
 
 $cnt=0;
@@ -32,7 +32,7 @@ while($file=readdir($dir)) {
 	if (!$atime=@fileatime("$session_path/$file")) { 
 	    continue; 
 	} 
-	if (time() > $atime + (3600 * 48)) {  // Áö³­½Ã°£À» ÃÊ·Î °è»êÇØ¼­ Àû¾îÁÖ½Ã¸é µË´Ï´Ù. default : 6½Ã°£Àü
+	if (time() > $atime + (3600 * 48)) {  // ì§€ë‚œì‹œê°„ì„ ì´ˆë¡œ ê³„ì‚°í•´ì„œ ì ì–´ì£¼ì‹œë©´ ë©ë‹ˆë‹¤. default : 6ì‹œê°„ì „
         $cnt++;
 	    $return = unlink("$session_path/$file");
 	    /*
@@ -46,12 +46,12 @@ while($file=readdir($dir)) {
 	} 
 } 
 
-$session_time = $g4[server_time] - 180 * 60; // ¼¼¼ÇÄ³½¬ º¸°ü±â°£ 180ºĞ (common.php¿¡¼­ Á¤ÀÇ)
+$session_time = $g4[server_time] - 180 * 60; // ì„¸ì…˜ìºì‰¬ ë³´ê´€ê¸°ê°„ 180ë¶„ (common.phpì—ì„œ ì •ì˜)
 $sql = " delete from $g4[session_table] where ss_datetime < '" . date("Y-m-d H:i:s", $session_time) . "' ";
 @sql_query($sql);
 
 $cnt2 = mysql_affected_rows();
 $cnt = $cnt + $cnt2;
 
-echo "<script>document.getElementById('ct').innerHTML += '<br><br>¼¼¼Çµ¥ÀÌÅÍ {$cnt}°Ç »èÁ¦ ¿Ï·á.<br><br>ÇÁ·Î±×·¥ÀÇ ½ÇÇàÀ» ³¡¸¶Ä¡¼Åµµ ÁÁ½À´Ï´Ù.';</script>\n";
+echo "<script>document.getElementById('ct').innerHTML += '<br><br>ì„¸ì…˜ë°ì´í„° {$cnt}ê±´ ì‚­ì œ ì™„ë£Œ.<br><br>í”„ë¡œê·¸ë¨ì˜ ì‹¤í–‰ì„ ëë§ˆì¹˜ì…”ë„ ì¢‹ìŠµë‹ˆë‹¤.';</script>\n";
 ?>

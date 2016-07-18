@@ -4,11 +4,11 @@ include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "w");
 
-$g4[title] = "ÀÌ¸ŞÀÏÁÖ¼Ò À¯È¿¼º È®ÀÎ";
+$g4[title] = "ì´ë©”ì¼ì£¼ì†Œ ìœ íš¨ì„± í™•ì¸";
 include_once ("./admin.head.php");
 
-echo "'¿Ï·á' ¸Ş¼¼Áö°¡ ³ª¿À±â Àü¿¡ ÇÁ·Î±×·¥ÀÇ ½ÇÇàÀ» ÁßÁöÇÏÁö ¸¶½Ê½Ã¿À.<br><br>";
-echo "naver.com, daum.net, hanmail.netÀº ÀÌ ÇÁ·Î±×·¥À¸·Î À¯È¿¼º È®ÀÎÀ» ÇÒ ¼ö ¾ø½À´Ï´Ù<br><br>";
+echo "'ì™„ë£Œ' ë©”ì„¸ì§€ê°€ ë‚˜ì˜¤ê¸° ì „ì— í”„ë¡œê·¸ë¨ì˜ ì‹¤í–‰ì„ ì¤‘ì§€í•˜ì§€ ë§ˆì‹­ì‹œì˜¤.<br><br>";
+echo "naver.com, daum.net, hanmail.netì€ ì´ í”„ë¡œê·¸ë¨ìœ¼ë¡œ ìœ íš¨ì„± í™•ì¸ì„ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤<br><br>";
 echo "<span id='ct'></span>";
 
 include_once("./admin.tail.php");
@@ -18,9 +18,9 @@ include_once("./admin.tail.php");
 $sql = " select mb_id, mb_nick, mb_name, mb_email, mb_email_certify from $g4[member_table] where mb_email != '' and mb_email_certify = '0000-00-00 00:00:00' ";
 $result = sql_query($sql);
 $sql_count = mysql_num_rows($result);
-echo "<script>document.getElementById('ct').innerHTML += '<br><br>{$sql_count}°³ÀÇ ÀÌ¸ŞÀÏÀÇ À¯È¿¼ºÀÌ È®ÀÎµÇÁö ¾Ê¾Ò½À´Ï´Ù.';</script>\n";
+echo "<script>document.getElementById('ct').innerHTML += '<br><br>{$sql_count}ê°œì˜ ì´ë©”ì¼ì˜ ìœ íš¨ì„±ì´ í™•ì¸ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.';</script>\n";
 
-// À¯È¿ÇÑ email °¹¼ö
+// ìœ íš¨í•œ email ê°¯ìˆ˜
 $valid_count = 0;
 
 for ($i=0; $row=sql_fetch_array($result); $i++) {
@@ -32,12 +32,12 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     if (validate_email($mb_email)) {
         $sql = "update $g4[member_table] set mb_email_certify='$g4[time_ymdhis]' where mb_id = '$mb_id' ";
         sql_query($sql);
-        echo "<script>document.getElementById('ct').innerHTML += '<br><br>{$mb_id}-{$mb_name} ({$mb_nick})´ÔÀÇ ÀÌ¸ŞÀÏ {$mb_email} ÀÌ À¯È¿ÇÕ´Ï´Ù.';</script>\n";
+        echo "<script>document.getElementById('ct').innerHTML += '<br><br>{$mb_id}-{$mb_name} ({$mb_nick})ë‹˜ì˜ ì´ë©”ì¼ {$mb_email} ì´ ìœ íš¨í•©ë‹ˆë‹¤.';</script>\n";
         $valid_count++;
     }
 }
 
-echo "<script>document.getElementById('ct').innerHTML += '<br><br>À¯È¿ÇÑ ÀÌ¸ŞÀÏ {$valid_count}°Ç ÀÎÁõ ¿Ï·á.<br><br>ÇÁ·Î±×·¥ÀÇ ½ÇÇàÀ» ³¡¸¶Ä¡¼Åµµ ÁÁ½À´Ï´Ù.';</script>\n";
+echo "<script>document.getElementById('ct').innerHTML += '<br><br>ìœ íš¨í•œ ì´ë©”ì¼ {$valid_count}ê±´ ì¸ì¦ ì™„ë£Œ.<br><br>í”„ë¡œê·¸ë¨ì˜ ì‹¤í–‰ì„ ëë§ˆì¹˜ì…”ë„ ì¢‹ìŠµë‹ˆë‹¤.';</script>\n";
 
 // http://kr2.php.net/manual/kr/function.getmxrr.php
 //1. it validates the syntax of the address.
@@ -45,8 +45,8 @@ echo "<script>document.getElementById('ct').innerHTML += '<br><br>À¯È¿ÇÑ ÀÌ¸ŞÀÏ 
 //3. connect mail server and verify mailbox(using smtp command RCTP TO:<email>)
 //When the function "validate_email([email])" fails connecting the mail server with the highest priority in the MX record it will continue with the second mail server and so on..
 //The function "validate_email([email])" returns 0 when it failes one the 3 steps above, it will return 1 otherwise
-// Á¤»óÀûÀÎ ¸ŞÀÏ°èÁ¤ : 1
-// ºñÁ¤»óÀÎ ¸ŞÀÏ°èÁ¤ : 0
+// ì •ìƒì ì¸ ë©”ì¼ê³„ì • : 1
+// ë¹„ì •ìƒì¸ ë©”ì¼ê³„ì • : 0
 function validate_email($email){
    $mailparts=explode("@",$email);
    $hostname = $mailparts[1];

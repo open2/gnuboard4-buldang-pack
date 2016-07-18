@@ -1,14 +1,14 @@
 <?
 include_once("./_common.php");
 
-// °Ô½ÃÆÇ °ü¸®ÀÚ ÀÌ»ó º¹»ç, ÀÌµ¿ °¡´É
+// ê²Œì‹œíŒ ê´€ë¦¬ì ì´ìƒ ë³µì‚¬, ì´ë™ ê°€ëŠ¥
 if ($is_admin != 'board' && $is_admin != 'group' && $is_admin != 'super') 
-    alert_close("°Ô½ÃÆÇ °ü¸®ÀÚ ÀÌ»ó Á¢±ÙÀÌ °¡´ÉÇÕ´Ï´Ù.");
+    alert_close("ê²Œì‹œíŒ ê´€ë¦¬ì ì´ìƒ ì ‘ê·¼ì´ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
 if ($sw != "move" && $sw != "copy")
-    alert("sw °ªÀÌ Á¦´ë·Î ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.");
+    alert("sw ê°’ì´ ì œëŒ€ë¡œ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
-// ¿øº» ÆÄÀÏ µğ·ºÅä¸®
+// ì›ë³¸ íŒŒì¼ ë””ë ‰í† ë¦¬
 $src_dir = "$g4[data_path]/file/$bo_table";
 
 $save = array();
@@ -16,7 +16,7 @@ $save_count_write = 0;
 $save_count_comment = 0;
 $cnt = 0;
 
-// SQL Injection À¸·Î ÀÎÇÑ ÄÚµå º¸¿Ï
+// SQL Injection ìœ¼ë¡œ ì¸í•œ ì½”ë“œ ë³´ì™„
 //$sql = " select distinct wr_num from $write_table where wr_id in (" . stripslashes($wr_id_list) . ") order by wr_id ";
 $sql = " select distinct wr_num from $write_table where wr_id in ($wr_id_list) order by wr_id ";
 $result = sql_query($sql);
@@ -28,11 +28,11 @@ while ($row = sql_fetch_array($result))
         $move_bo_table = $_POST['chk_bo_table'][$i];
         $move_write_table = $g4['write_prefix'] . $move_bo_table;
 
-        // ¿Å°Ü°¡´Â Å×ÀÌºíÀÇ gr_id¸¦ Ã£±â by. ºÒ´ç
+        // ì˜®ê²¨ê°€ëŠ” í…Œì´ë¸”ì˜ gr_idë¥¼ ì°¾ê¸° by. ë¶ˆë‹¹
         $move_gr_id = sql_fetch(" select gr_id from $g4[board_table] where bo_table = '$move_bo_table' ");
 
-        $src_dir = "$g4[data_path]/file/$bo_table"; // ¿øº» µğ·ºÅä¸®
-        $dst_dir = "$g4[data_path]/file/$move_bo_table"; // º¹»çº» µğ·ºÅä¸®
+        $src_dir = "$g4[data_path]/file/$bo_table"; // ì›ë³¸ ë””ë ‰í† ë¦¬
+        $dst_dir = "$g4[data_path]/file/$move_bo_table"; // ë³µì‚¬ë³¸ ë””ë ‰í† ë¦¬
 
         $count_write = 0;
         $count_comment = 0;
@@ -47,7 +47,7 @@ while ($row = sql_fetch_array($result))
         {
             $nick = cut_str($member[mb_nick], $config[cf_cut_name]);
             if (!$row2[wr_is_comment] && $config[cf_use_copy_log]) 
-                $row2[wr_content] .= " \n[ÀÌ °Ô½Ã¹°Àº {$nick}´Ô¿¡ ÀÇÇØ $g4[time_ymdhis] {$board[bo_subject]}¿¡¼­ " . ($sw == 'copy' ? 'º¹»ç' : 'ÀÌµ¿') ." µÊ]";
+                $row2[wr_content] .= " \n[ì´ ê²Œì‹œë¬¼ì€ {$nick}ë‹˜ì— ì˜í•´ $g4[time_ymdhis] {$board[bo_subject]}ì—ì„œ " . ($sw == 'copy' ? 'ë³µì‚¬' : 'ì´ë™') ." ë¨]";
 
             $sql = " insert into $move_write_table
                         set wr_num            = '$next_wr_num',
@@ -93,7 +93,7 @@ while ($row = sql_fetch_array($result))
 
             $insert_id = mysql_insert_id();
 
-            // ÄÚ¸àÆ®°¡ ¾Æ´Ï¶ó¸é
+            // ì½”ë©˜íŠ¸ê°€ ì•„ë‹ˆë¼ë©´
             if (!$row2[wr_is_comment]) 
             {
                 $save_parent = $insert_id;
@@ -104,7 +104,7 @@ while ($row = sql_fetch_array($result))
                 {
                     if ($row3[bf_file]) 
                     {
-                        // $file¿¡ µğ·ºÅä¸®°¡ µé¾î ÀÖ´Â °æ¿ì, ¹®Á¦¸¦ ÇØ°áÇØ¾ßÁÒ. - ºÒ´çÆÑ
+                        // $fileì— ë””ë ‰í† ë¦¬ê°€ ë“¤ì–´ ìˆëŠ” ê²½ìš°, ë¬¸ì œë¥¼ í•´ê²°í•´ì•¼ì£ . - ë¶ˆë‹¹íŒ©
                         $tmp = explode("/", $row3[bf_file]);
                         $encode_url = "";
                         $d_dir = $dst_dir;
@@ -116,7 +116,7 @@ while ($row = sql_fetch_array($result))
                             }
                         }
 
-                        // ¿øº»ÆÄÀÏÀ» º¹»çÇÏ°í ÆÛ¹Ì¼ÇÀ» º¯°æ
+                        // ì›ë³¸íŒŒì¼ì„ ë³µì‚¬í•˜ê³  í¼ë¯¸ì…˜ì„ ë³€ê²½
                         @copy("$src_dir/$row3[bf_file]", "$dst_dir/$row3[bf_file]");
                         @chmod("$dst_dir/$row3[bf_file]", 0606);
                     }
@@ -163,40 +163,40 @@ while ($row = sql_fetch_array($result))
 
                 if ($sw == "move" && $i == 0)
                 {
-                    // ½ºÅ©·¦ ÀÌµ¿
+                    // ìŠ¤í¬ë© ì´ë™
                     sql_query(" update $g4[scrap_table] set bo_table = '$move_bo_table', wr_id = '$save_parent' where bo_table = '$bo_table' and wr_id = '$row2[wr_id]' ");
 
-                    // ÃÖ½Å±Û ÀÌµ¿
+                    // ìµœì‹ ê¸€ ì´ë™
                     sql_query(" update $g4[board_new_table] 
                                     set bo_table = '$move_bo_table', wr_id = '$save_parent', wr_parent = '$save_parent', gr_id = '$move_gr_id[gr_id]' 
                                     where bo_table = '$bo_table' and wr_id = '$row2[wr_id]' ");
 
-                    // ½Å°í±Û ÀÌµ¿
+                    // ì‹ ê³ ê¸€ ì´ë™
                     sql_query(" update $g4[singo_table] set bo_table = '$move_bo_table', wr_id = '$insert_id', wr_parent = '$save_parent' where bo_table = '$bo_table' and wr_id = '$row2[wr_id]' ");
 
-                    // ÃßÃµ ÀÌµ¿
+                    // ì¶”ì²œ ì´ë™
                     sql_query(" update $g4[board_good_table] set bo_table = '$move_bo_table', wr_id = '$insert_id' where bo_table = '$bo_table' and wr_id = '$row2[wr_id]' ");
 
-                    // º£½ºÆ®±Û ÀÌµ¿
+                    // ë² ìŠ¤íŠ¸ê¸€ ì´ë™
                     sql_query(" update $g4[good_list_table] set bo_table = '$move_bo_table', wr_id = '$insert_id' where bo_table = '$bo_table' and wr_id = '$row2[wr_id]' ");
 
-                    // ºÒ´çÆÑ - À¯´ÏÅ©·Î
+                    // ë¶ˆë‹¹íŒ© - ìœ ë‹ˆí¬ë¡œ
                     $sql6 = " select * from $g4[unicro_item_table] where bo_table = '$bo_table' and wr_id = '$row2[wr_id]' ";
                     $result6 = sql_fetch($sql6, false);
-                    if ($result6['item_no']) { // À¯´ÏÅ©·Î ¾ÆÀÌÅÛÀÌ ÀÖ´Â °æ¿ì
+                    if ($result6['item_no']) { // ìœ ë‹ˆí¬ë¡œ ì•„ì´í…œì´ ìˆëŠ” ê²½ìš°
                         $sql7 = " update $g4[unicro_item_table] set bo_table = '$move_bo_table', wr_id = '$insert_id' 
                                   where bo_table = '$bo_table' and wr_id = '$row2[wr_id]' ";
                         sql_query($sql7, false);
                     }
                     
-                    // ºÒ´çÆÑ - ´Ù¿î·Îµå ³»¿ª ¾÷µ¥ÀÌÆ®
+                    // ë¶ˆë‹¹íŒ© - ë‹¤ìš´ë¡œë“œ ë‚´ì—­ ì—…ë°ì´íŠ¸
                     $g4[board_file_download_table] = $g4[board_file_table] . "_download";
                     sql_query(" update $g4[board_file_download_table] set bo_table = '$move_bo_table', wr_id = '$insert_id' where bo_table = '$bo_table' and wr_id = '$row2[wr_id]' ");
 
-                    // cheditor Á¤º¸ »èÁ¦
+                    // cheditor ì •ë³´ ì‚­ì œ
                     sql_query(" delete from $g4[board_cheditor_table] where bo_table = '$bo_table' and wr_id = '$row2[wr_id]' ");
                     
-                    // ºÒ´çÆÑ - ÀüÃ¼ °øÁö»çÇ× Á¤º¸ ¾÷µ¥ÀÌÆ®
+                    // ë¶ˆë‹¹íŒ© - ì „ì²´ ê³µì§€ì‚¬í•­ ì •ë³´ ì—…ë°ì´íŠ¸
                     $sql8 = " select count(*) as cnt from $g4[notice_table] where bo_table = '$bo_table' and wr_id = '$row2[wr_id]' ";
                     $result8 = sql_fetch($sql8);
                     if ($result8[cnt] > 0) {
@@ -215,19 +215,19 @@ while ($row = sql_fetch_array($result))
 
                 if ($sw == "move")
                 {
-                    // ÃÖ½Å±Û ÀÌµ¿
+                    // ìµœì‹ ê¸€ ì´ë™
                     sql_query(" update $g4[board_new_table] 
                                     set bo_table = '$move_bo_table', wr_id = '$insert_id', wr_parent = '$save_parent', gr_id = '$move_gr_id[gr_id]' 
                                     where bo_table = '$bo_table' and wr_id = '$row2[wr_id]' ");
 
-                    // ½Å°í±Û ÀÌµ¿
+                    // ì‹ ê³ ê¸€ ì´ë™
                     sql_query(" update $g4[singo_table] set bo_table = '$move_bo_table', wr_id = '$insert_id' where bo_table = '$bo_table' and wr_id = '$row2[wr_id]' ");
                 }
             }
 
             sql_query(" update $move_write_table set wr_parent = '$save_parent' where wr_id = '$insert_id' ");
 
-            // ºÒ´çÆÑ - »õ·Î »ı¼ºµÈ wr_id¸¦ ÀúÀå
+            // ë¶ˆë‹¹íŒ© - ìƒˆë¡œ ìƒì„±ëœ wr_idë¥¼ ì €ì¥
             $save[$cnt][insert_id] = $insert_id;
 
             if ($sw == "move")
@@ -240,7 +240,7 @@ while ($row = sql_fetch_array($result))
         sql_query(" update $g4[board_table] set bo_count_write   = bo_count_write   + '$count_write'   where bo_table = '$move_bo_table' ");
         sql_query(" update $g4[board_table] set bo_count_comment = bo_count_comment + '$count_comment' where bo_table = '$move_bo_table' ");
 
-        // ºÒ´çÆÑ - min_wr_num ¾÷µ¥ÀÌÆ®
+        // ë¶ˆë‹¹íŒ© - min_wr_num ì—…ë°ì´íŠ¸
         $result4 = sql_fetch(" select MIN(wr_num) as min_wr_num from $move_write_table ");
         $sql5 = " update $g4[board_table] set min_wr_num = '$result4[min_wr_num]' where bo_table = '$move_bo_table' ";
         sql_query($sql5); 
@@ -254,14 +254,14 @@ if ($sw == "move")
 {
     for ($i=0; $i<count($save); $i++) 
     {
-        // ºÒ´çÆÑ - ÈŞÁöÅë ±â´É, ÈŞÁöÅë »ç¿ë°Ô½ÃÆÇ¿¡¼­ ÈŞÁöÅëÀ¸·Î move¸¦ ÇÒ ¶§, ¿©±â ÄÚµå´Â bbs/delete.phpÀÇ ¾ÕºÎºĞ°ú °°¾Æ¾ß ÇÕ´Ï´Ù
+        // ë¶ˆë‹¹íŒ© - íœ´ì§€í†µ ê¸°ëŠ¥, íœ´ì§€í†µ ì‚¬ìš©ê²Œì‹œíŒì—ì„œ íœ´ì§€í†µìœ¼ë¡œ moveë¥¼ í•  ë•Œ, ì—¬ê¸° ì½”ë“œëŠ” bbs/delete.phpì˜ ì•ë¶€ë¶„ê³¼ ê°™ì•„ì•¼ í•©ë‹ˆë‹¤
         if ($config[cf_use_recycle] && $move_bo_table == $config[cf_recycle_table]) {
 
-            // »èÁ¦ÇÒ ÃÖ½Å±ÛÀÇ Á¤º¸¸¦ °¡Á®¿À°í
+            // ì‚­ì œí•  ìµœì‹ ê¸€ì˜ ì •ë³´ë¥¼ ê°€ì ¸ì˜¤ê³ 
             $sql00 = " select * from $g4[board_new_table] where bo_table = '$move_bo_table' and wr_id = '{$save[$i][insert_id]}' ";
             $bn = sql_fetch($sql00);
 
-            // recycle action - recycle °Ô½ÃÆÇ¿¡ ±Û¾²°í
+            // recycle action - recycle ê²Œì‹œíŒì— ê¸€ì“°ê³ 
             $sql = " insert into $g4[recycle_table]
                         set 
                     rc_bo_table     = '$config[cf_recycle_table]',
@@ -277,7 +277,7 @@ if ($sw == "move")
                     rc_datetime     = '$g4[time_ymdhis]' ";
             sql_query($sql);
             
-            // ÈŞÁöÅë¿¡ ÀÖ´Â ÃÖ½Å±ÛÀ» Áö¿öÁÖ°í
+            // íœ´ì§€í†µì— ìˆëŠ” ìµœì‹ ê¸€ì„ ì§€ì›Œì£¼ê³ 
             $sql09 = " delete from $g4[board_new_table] where bo_table = '$move_bo_table' and wr_id = '{$save[$i][insert_id]}' ";
             sql_query($sql09);
         }
@@ -291,13 +291,13 @@ if ($sw == "move")
     }
     sql_query(" update $g4[board_table] set bo_count_write = bo_count_write - '$save_count_write', bo_count_comment = bo_count_comment - '$save_count_comment' where bo_table = '$bo_table' ");
 
-    // ºÒ´çÆÑ - min_wr_num ¾÷µ¥ÀÌÆ®
+    // ë¶ˆë‹¹íŒ© - min_wr_num ì—…ë°ì´íŠ¸
     $result4 = sql_fetch(" select MIN(wr_num) as min_wr_num from $write_table ");
     $sql5 = " update $g4[board_table] set min_wr_num = '$result4[min_wr_num]' where bo_table = '$bo_table' ";
     sql_query($sql5); 
 }
 
-$msg = "ÇØ´ç °Ô½Ã¹°À» ¼±ÅÃÇÑ °Ô½ÃÆÇÀ¸·Î $act ÇÏ¿´½À´Ï´Ù.";
+$msg = "í•´ë‹¹ ê²Œì‹œë¬¼ì„ ì„ íƒí•œ ê²Œì‹œíŒìœ¼ë¡œ $act í•˜ì˜€ìŠµë‹ˆë‹¤.";
 $opener_href = "./board.php?bo_table=$bo_table&page=$page&$qstr";
 
 echo <<<HEREDOC

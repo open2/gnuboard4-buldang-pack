@@ -1,9 +1,9 @@
 <?php
 if ( ! defined("_GNUBOARD_")) {
     exit;
-} // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+} // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
-// °Ô½ÃÆÇ¿¡¼­ Áßº¹ include ¿¹¹æ
+// ê²Œì‹œíŒì—ì„œ ì¤‘ë³µ include ì˜ˆë°©
 if (defined('_G4_TAIL')) {
     return;
 } else {
@@ -16,9 +16,9 @@ if (defined('_G4_TAIL')) {
     </div>
     <div>
         <ul class="list-inline text-center list-horizontal-border">
-            <li><a href="/company/company.php?id=privacy">°³ÀÎÁ¤º¸Ãë±Þ¹æÄ§</a></li>
-            <li><a href="/company/company.php?id=service">ÀÌ¿ë¾à°ü</a></li>
-            <li><a href="/company/company.php?id=disclaimer">Ã¥ÀÓÇÑ°è</a></li>
+            <li><a href="/company/company.php?id=privacy">ê°œì¸ì •ë³´ì·¨ê¸‰ë°©ì¹¨</a></li>
+            <li><a href="/company/company.php?id=service">ì´ìš©ì•½ê´€</a></li>
+            <li><a href="/company/company.php?id=disclaimer">ì±…ìž„í•œê³„</a></li>
         </ul>
         <div style="padding: 20px;">
             <div class="pull-left"><i class="material-icons">&#xE90C;</i> 2CPU</div>
@@ -64,10 +64,10 @@ if (defined('_G4_TAIL')) {
         });
     </script>
 
-    <!-- »õÃ¢ ´ë½Å »ç¿ëÇÏ´Â iframe -->
+    <!-- ìƒˆì°½ ëŒ€ì‹  ì‚¬ìš©í•˜ëŠ” iframe -->
     <iframe width=0 height=0 name='hiddenframe' style='display:none;' title='hidden frame'></iframe>
 
-    <!-- ±âÁ¸ ºÒ´çÆÑ ÇÔ¼ö¸¦ ¿À¹ö¶óÀÌµåÇÏ¹Ç·Î SPA ¿¡¼­ ¿äÃ»½Ã¿¡µµ Æ÷ÇÔµÇ¾î¾ß ÇÔ -->
+    <!-- ê¸°ì¡´ ë¶ˆë‹¹íŒ© í•¨ìˆ˜ë¥¼ ì˜¤ë²„ë¼ì´ë“œí•˜ë¯€ë¡œ SPA ì—ì„œ ìš”ì²­ì‹œì—ë„ í¬í•¨ë˜ì–´ì•¼ í•¨ -->
     <script src="/m/js/common.js?v=<?= app_version() ?>"></script>
 
 <?php if ( ! is_ajax()) { ?>

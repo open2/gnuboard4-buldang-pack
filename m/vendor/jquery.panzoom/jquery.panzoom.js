@@ -716,7 +716,7 @@
 			// Calculate focal point based on scale
 			var focal = options.focal;
 			if (focal && !options.disablePan) {
-				// Adapted from code by Florian Günther
+				// Adapted from code by Florian G체nther
 				// https://github.com/florianguenther/zui53
 				var dims = this._checkDims();
 				var clientX = focal.clientX;

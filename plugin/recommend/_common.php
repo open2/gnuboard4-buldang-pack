@@ -1,7 +1,7 @@
 <?
-$g4_path = "../.."; // common.php ÀÇ »ó´ë °æ·Î
+$g4_path = "../.."; // common.php ì˜ ìƒëŒ€ ê²½ë¡œ
 include_once("$g4_path/common.php");
 
-// config.php ÆÄÀÏ ÀÐ±â
+// config.php íŒŒì¼ ì½ê¸°
 include_once("$g4[path]/plugin/recommend/recommend.config.php");
 ?>

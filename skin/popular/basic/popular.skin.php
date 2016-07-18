@@ -1,7 +1,7 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
-ÀÎ±â°Ë»ö¾î : 
+ì¸ê¸°ê²€ìƒ‰ì–´ : 
 <? 
 for ($i=0; $i<count($list); $i++) {
     echo "<a href='$g4[bbs_path]/search.php?sfl=wr_subject&sop=and&stx=".urlencode($list[$i][pp_word])."'>{$list[$i][pp_word]}</a>&nbsp;";

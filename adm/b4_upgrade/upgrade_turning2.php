@@ -5,9 +5,9 @@ include_once("./_common.php");
 check_demo();
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4[path]);
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4[path]);
 
-$g4[title] = "¾÷±×·¹ÀÌµå";
+$g4[title] = "ì—…ê·¸ë ˆì´ë“œ";
 if (!$g4[b4_upgrade]) include_once("./admin.head.php");
 
 $sql = " ALTER TABLE `$g4[board_table]` ADD `min_wr_num` INT( 11 ) NOT NULL ";
@@ -25,10 +25,10 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     $sql4 = " update $g4[board_table] set min_wr_num = '$result2[min_wr_num]' where bo_table = '$row[bo_table]' ";
     sql_query($sql4);
 
-    echo "<BR>" . $i . " : " . $row[bo_table] . " °Ô½ÃÆÇÀÇ min_wr_num À» ¾÷µ¥ÀÌÆ® Çß½À´Ï´Ù <br>";
+    echo "<BR>" . $i . " : " . $row[bo_table] . " ê²Œì‹œíŒì˜ min_wr_num ì„ ì—…ë°ì´íŠ¸ í–ˆìŠµë‹ˆë‹¤ <br>";
 }
 
-echo "<br>min_wr_num Ãß°¡ UPGRADE ¿Ï·á.";
+echo "<br>min_wr_num ì¶”ê°€ UPGRADE ì™„ë£Œ.";
 
 if (!$g4[b4_upgrade]) include_once("./admin.tail.php");
 ?>

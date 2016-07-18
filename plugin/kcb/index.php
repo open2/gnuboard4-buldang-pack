@@ -1,34 +1,34 @@
 <? 
 include_once("./_common.php");
 
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
-$g4[title] = "KCB(ÄÚ¸®¾ÆÅ©·¹µ÷ºä·Î) - okname º»ÀÎÀÎÁõ";
+$g4[title] = "KCB(ì½”ë¦¬ì•„í¬ë ˆë”§ë·°ë¡œ) - okname ë³¸ì¸ì¸ì¦";
 include_once("./_head.php");
 include_once("./nc.config.php");
 ?>
 <div class="panel panel-default">
 <div class="panel-heading">
-    <strong>KCB º»ÀÎÈ®ÀÎ</strong>
+    <strong>KCB ë³¸ì¸í™•ì¸</strong>
     <span class="pull-right"><a href="http://okname.allcredit.co.kr/" target=_new>kcb okname</a></span>
 </div>
 <div class="panel-body">
     <? if ($member['mb_id'] == "") { ?>
-				<p>È¸¿ø´ë»ó ¼­ºñ½º ÀÔ´Ï´Ù. <a href='<?=$g4[bbs_path]?>/login.php?<?=$qstr?>&url=<?=urlencode("$_SERVER[PHP_SELF]")?>'>·Î±×ÀÎ</a> ÇÏ½ÅÈÄ ÀÌ¿ëÇØÁÖ¼¼¿ä.</p>
+				<p>íšŒì›ëŒ€ìƒ ì„œë¹„ìŠ¤ ìž…ë‹ˆë‹¤. <a href='<?=$g4[bbs_path]?>/login.php?<?=$qstr?>&url=<?=urlencode("$_SERVER[PHP_SELF]")?>'>ë¡œê·¸ì¸</a> í•˜ì‹ í›„ ì´ìš©í•´ì£¼ì„¸ìš”.</p>
     <? } else { ?>
         <? if ($member[mb_realcheck] !== "0000-00-00 00:00:00") { ?>
-            <p><?=$member[mb_realcheck]?> ¿¡ º»ÀÎÀÎÁõÀ» ¹ÞÀ¸¼Ì½À´Ï´Ù.</p>
+            <p><?=$member[mb_realcheck]?> ì— ë³¸ì¸ì¸ì¦ì„ ë°›ìœ¼ì…¨ìŠµë‹ˆë‹¤.</p>
        	<? } else { ?>
- 		    	  <p>º»ÀÎÀÎÁõÀ» ¹ÞÀ¸½Ã·Á¸é <a href="javascript:popup_real();"><strong>ÀÌ°÷</strong></a>À» Å¬¸¯ÇØÁÖ¼¼¿ä.</p>
+ 		    	  <p>ë³¸ì¸ì¸ì¦ì„ ë°›ìœ¼ì‹œë ¤ë©´ <a href="javascript:popup_real();"><strong>ì´ê³³</strong></a>ì„ í´ë¦­í•´ì£¼ì„¸ìš”.</p>
    			<? } ?>
     <? } ?>
 </div>
 <div class="panel-footer">
 	<ul>
-		<li>´Ù¸¥ »ç¶÷ÀÇ °³ÀÎÁ¤º¸¸¦ µµ¿ëÇÏ´Â °ÍÀº ¸í¹éÇÑ ¹üÁËÇàÀ§·Î °ü·Ã ¹ý·ü¿¡ µû¶ó <strong>3³â ÀÌÇÏÀÇ Â¡¿ª¶Ç´Â 1Ãµ¸¸¿ø ÀÌÇÏÀÇ ¹ú±Ý</strong>¿¡ Ã³ÇØÁú ¼ö ÀÖ½À´Ï´Ù.</li>
-		<li>º»ÀÎÈ®ÀÎÀº <a href="http://okname.allcredit.co.kr/" target=_new>KCB(ÄÚ¸®¾ÆÅ©·¹µ÷ºä·Î, OK Name)</a>ÀÇ º»ÀÎÈ®ÀÎ ¼­ºñ½º·Î ÀÌ·ç¾î Áý´Ï´Ù.</li>
-		<li>º»ÀÎÈ®ÀÎÀ» À§ÇØ ÁÖ¹Î¹øÈ£¸¦ ¿ä±¸ÇÏÁö ¾Ê½À´Ï´Ù.</li>
-		<li>º»ÀÎÀÎÁõ¿¡ ´ëÇÑ ¹®ÀÇ´Â »çÀÌÆ®ÀÇ ¿î¿µÀÚ ¶Ç´Â KCBÀÇ ½Ç¸íÈ®ÀÎ ÄÝ¼¾ÅÍ(T.02-708-1000)·Î ÇÏ½Ã¸é µË´Ï´Ù.</li>
+		<li>ë‹¤ë¥¸ ì‚¬ëžŒì˜ ê°œì¸ì •ë³´ë¥¼ ë„ìš©í•˜ëŠ” ê²ƒì€ ëª…ë°±í•œ ë²”ì£„í–‰ìœ„ë¡œ ê´€ë ¨ ë²•ë¥ ì— ë”°ë¼ <strong>3ë…„ ì´í•˜ì˜ ì§•ì—­ë˜ëŠ” 1ì²œë§Œì› ì´í•˜ì˜ ë²Œê¸ˆ</strong>ì— ì²˜í•´ì§ˆ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.</li>
+		<li>ë³¸ì¸í™•ì¸ì€ <a href="http://okname.allcredit.co.kr/" target=_new>KCB(ì½”ë¦¬ì•„í¬ë ˆë”§ë·°ë¡œ, OK Name)</a>ì˜ ë³¸ì¸í™•ì¸ ì„œë¹„ìŠ¤ë¡œ ì´ë£¨ì–´ ì§‘ë‹ˆë‹¤.</li>
+		<li>ë³¸ì¸í™•ì¸ì„ ìœ„í•´ ì£¼ë¯¼ë²ˆí˜¸ë¥¼ ìš”êµ¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.</li>
+		<li>ë³¸ì¸ì¸ì¦ì— ëŒ€í•œ ë¬¸ì˜ëŠ” ì‚¬ì´íŠ¸ì˜ ìš´ì˜ìž ë˜ëŠ” KCBì˜ ì‹¤ëª…í™•ì¸ ì½œì„¼í„°(T.02-708-1000)ë¡œ í•˜ì‹œë©´ ë©ë‹ˆë‹¤.</li>
 	</ul>
 </div>
 </div>

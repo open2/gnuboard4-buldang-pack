@@ -1,11 +1,11 @@
 <?
 include_once("./_common.php");
 
-// ÀÌÈ£°æ´Ô Á¦¾È ÄÚµå
-session_unset(); // ¸ðµç ¼¼¼Çº¯¼ö¸¦ ¾ð·¹Áö½ºÅÍ ½ÃÄÑÁÜ 
-session_destroy(); // ¼¼¼ÇÇØÁ¦ÇÔ 
+// ì´í˜¸ê²½ë‹˜ ì œì•ˆ ì½”ë“œ
+session_unset(); // ëª¨ë“  ì„¸ì…˜ë³€ìˆ˜ë¥¼ ì–¸ë ˆì§€ìŠ¤í„° ì‹œì¼œì¤Œ 
+session_destroy(); // ì„¸ì…˜í•´ì œí•¨ 
 
-// ÀÚµ¿·Î±×ÀÎ ÇØÁ¦ --------------------------------
+// ìžë™ë¡œê·¸ì¸ í•´ì œ --------------------------------
 $ck_mb_id = get_cookie("ck_mb_id");
 $sql = " delete from $g4[cookie_table] where cookie_name='$ck_mb_id' ";
 sql_query($sql);
@@ -13,12 +13,12 @@ sql_query($sql);
 set_cookie('ck_mb_id', "", 0);
 set_cookie('ck_auto', '', 0);
 
-// ÀÚµ¿·Î±×ÀÎ ÇØÁ¦ end --------------------------------
+// ìžë™ë¡œê·¸ì¸ í•´ì œ end --------------------------------
 
 if ($url) {
     $p = parse_url($url);
     if ($p['scheme'] || $p['host']) {
-        alert("url¿¡ µµ¸ÞÀÎÀ» ÁöÁ¤ÇÒ ¼ö ¾ø½À´Ï´Ù.");
+        alert("urlì— ë„ë©”ì¸ì„ ì§€ì •í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
     }
 
     $link = $url;

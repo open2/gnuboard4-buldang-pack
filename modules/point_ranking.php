@@ -3,7 +3,7 @@ include_once("./_common.php");
 
 define("_CO_POINT_RANK_", TRUE); 
 
-$html_title = "Æ÷ÀÎÆ®¼øÀ§"; 
+$html_title = "í¬ì¸íŠ¸ìˆœìœ„"; 
 $g4[title] = "" . $html_title; 
 
 include_once("./_head.php"); 
@@ -12,7 +12,7 @@ include_once("./_head.php");
 <?
 if (!$is_member)
     echo "<script>
-          alert('È¸¿ø¸¸ Á¶È¸ÇÏ½Ç¼ö ÀÖ½À´Ï´Ù.');
+          alert('íšŒì›ë§Œ ì¡°íšŒí•˜ì‹¤ìˆ˜ ìˆìŠµë‹ˆë‹¤.');
     location.href='/bbs/login.php?wr_id=&url=../point_ranking.php';
     </script>";
 ?>
@@ -22,14 +22,14 @@ if (!$is_member)
 <? 
 
 $sql = " select count(mb_id) as cnt from $g4[member_table] 
-           where mb_id not in ('admin') and mb_point >= '$member[mb_point]' order by mb_point, mb_open_date desc "; // °ü¸®ÀÚ ¾ÆÀÌµğ´Â Æ÷ÀÎÆ® ¼øÀ§¿¡¼­ Á¦¿Ü
+           where mb_id not in ('admin') and mb_point >= '$member[mb_point]' order by mb_point, mb_open_date desc "; // ê´€ë¦¬ì ì•„ì´ë””ëŠ” í¬ì¸íŠ¸ ìˆœìœ„ì—ì„œ ì œì™¸
 $row = sql_fetch($sql); 
-echo "<br>&middot; ÇöÀç <b>$member[mb_nick]</b> ´ÔÀÇ Æ÷ÀÎÆ® ¼øÀ§´Â <B>".number_format($row[cnt])."µî</B> ÀÔ´Ï´Ù (Á¡¼ö°¡ °°À» ¶§´Â °¡ÀÔÀÏÀÌ ºü¸¥ »ç¶÷ÀÇ ¼øÀ§°¡ ´õ ³ô½À´Ï´Ù)."; 
+echo "<br>&middot; í˜„ì¬ <b>$member[mb_nick]</b> ë‹˜ì˜ í¬ì¸íŠ¸ ìˆœìœ„ëŠ” <B>".number_format($row[cnt])."ë“±</B> ì…ë‹ˆë‹¤ (ì ìˆ˜ê°€ ê°™ì„ ë•ŒëŠ” ê°€ì…ì¼ì´ ë¹ ë¥¸ ì‚¬ëŒì˜ ìˆœìœ„ê°€ ë” ë†’ìŠµë‹ˆë‹¤)."; 
 
 $sql = " select sum(mb_point) as sum_point from $g4[member_table]"; 
 $row = sql_fetch($sql); 
 $sum_point = $row[sum_point]; 
-echo "<br>&middot; ÀüÃ¼ Æ÷ÀÎÆ® : <B>".number_format($sum_point) . "Á¡</b><br><br>"; 
+echo "<br>&middot; ì „ì²´ í¬ì¸íŠ¸ : <B>".number_format($sum_point) . "ì </b><br><br>"; 
 
 echo "</td></tr><tr><td valign=top width=50%>"; 
 
@@ -49,16 +49,16 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt]; 
 
 $rows = 50; 
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê 
-if ($page == "") { $page = 1; } // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö) 
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ 
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚° 
+if ($page == "") { $page = 1; } // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€) 
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨ 
 
 $mod = 25; 
 
 $sql = " select * from $g4[member_table] 
           where mb_id not in ('admin') $keyword_yi 
           order by mb_point desc, mb_today_login desc 
-          limit $from_record, $rows "; // °ü¸®ÀÚ ¾ÆÀÌµğ´Â Æ÷ÀÎÆ® ¼øÀ§¿¡¼­ Á¦¿Ü
+          limit $from_record, $rows "; // ê´€ë¦¬ì ì•„ì´ë””ëŠ” í¬ì¸íŠ¸ ìˆœìœ„ì—ì„œ ì œì™¸
 $result = sql_query($sql); 
 for ($i=0; $row=sql_fetch_array($result); $i++) 
 { 
@@ -67,7 +67,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 
     if($_GET[keyword]!="") {
         $sql = " select count(mb_id) as cnt from $g4[member_table] 
-                   where mb_id not in ('admin') and mb_point >= '$row[mb_point]' order by mb_point desc "; // °ü¸®ÀÚ ¾ÆÀÌµğ´Â Æ÷ÀÎÆ® ¼øÀ§¿¡¼­ Á¦¿Ü
+                   where mb_id not in ('admin') and mb_point >= '$row[mb_point]' order by mb_point desc "; // ê´€ë¦¬ì ì•„ì´ë””ëŠ” í¬ì¸íŠ¸ ìˆœìœ„ì—ì„œ ì œì™¸
         $row2 = sql_fetch($sql); 
         $rank = $row2[cnt];
     } else {
@@ -78,7 +78,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     $point = number_format($row[mb_point]); 
     echo "<table width=98% cellpadding=0 align=center class=box border=0><tr>"; 
     echo "<td height=30>$rank. $name</td>"; 
-    echo "<td align=right><font color=777777>{$point}Á¡</font></td>"; 
+    echo "<td align=right><font color=777777>{$point}ì </font></td>"; 
     echo "</tr></table>"; 
     echo "<table width=100%><tr><td></td></tr></table>"; 
 } 
@@ -94,9 +94,9 @@ echo "<p><table width=100% cellpadding=0 cellspacing=0><tr><td width=50% align=c
 ?>
 <td align=left valign="middle">
          <select name="type" id="type">
-           <option value="0" <?php if($_GET[type]==0){ echo "selected";}?>>´Ğ³×ÀÓ</option>
-           <option value="1" <?php if($_GET[type]==1){ echo "selected";}?>>ÀÌ¸§</option>
-           <option value="2" <?php if($_GET[type]==2){ echo "selected";}?>>¾ÆÀÌµğ</option>
+           <option value="0" <?php if($_GET[type]==0){ echo "selected";}?>>ë‹‰ë„¤ì„</option>
+           <option value="1" <?php if($_GET[type]==1){ echo "selected";}?>>ì´ë¦„</option>
+           <option value="2" <?php if($_GET[type]==2){ echo "selected";}?>>ì•„ì´ë””</option>
          </select>
          <input name="keyword" type="text" id="keyword" size="15" value="<?=$_GET[keyword]?>"/>
          <input type=image src="<?=$g4['path']?>/modules/img/search_btn.gif" border=0 align=absmiddle></td>

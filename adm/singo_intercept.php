@@ -3,29 +3,29 @@ $sub_menu = "300540";
 include_once("./_common.php");
 
 if ($is_admin != "super") 
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.");
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
 //print_r2($_POST);
 
-// °ü¸®ÀÚ¸¸ÀÌ Á¢¼ÓÇÒ ¼ö ÀÖÀ¸¹Ç·Î, Á¢¼ÓÇÑ »ç¶÷ÀÇ ip, mb_id´Â Â÷´ÜÇÏ¸é ¾ÈµË´Ï´Ù.
+// ê´€ë¦¬ìë§Œì´ ì ‘ì†í•  ìˆ˜ ìˆìœ¼ë¯€ë¡œ, ì ‘ì†í•œ ì‚¬ëŒì˜ ip, mb_idëŠ” ì°¨ë‹¨í•˜ë©´ ì•ˆë©ë‹ˆë‹¤.
 if ($ip=="$remote_addr")
-    alert("ÇöÀç ·Î±×ÀÎ ÁßÀÎ °ü¸®ÀÚ IP ( $remote_addr ) ´Â Á¢±Ù Â÷´Ü ÇÒ ¼ö ¾ø½À´Ï´Ù.");
+    alert("í˜„ì¬ ë¡œê·¸ì¸ ì¤‘ì¸ ê´€ë¦¬ì IP ( $remote_addr ) ëŠ” ì ‘ê·¼ ì°¨ë‹¨ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 
 if ($mb_id) {
     if ($mb_id==$member[mb_id])
-        alert("ÇöÀç ·Î±×ÀÎ ÁßÀÎ °ü¸®ÀÚ ( $member[mb_id] ) ´Â Á¢±Ù Â÷´Ü ÇÒ ¼ö ¾ø½À´Ï´Ù.");
+        alert("í˜„ì¬ ë¡œê·¸ì¸ ì¤‘ì¸ ê´€ë¦¬ì ( $member[mb_id] ) ëŠ” ì ‘ê·¼ ì°¨ë‹¨ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 
     $sql = " update $g4[member_table] 
-                set mb_memo = concat('$g4[time_ymdhis] : °Ô½Ã¹° ½Å°í·Î ÀÎÇÑ Á¢±Ù Â÷´Ü\n', mb_memo),
+                set mb_memo = concat('$g4[time_ymdhis] : ê²Œì‹œë¬¼ ì‹ ê³ ë¡œ ì¸í•œ ì ‘ê·¼ ì°¨ë‹¨\n', mb_memo),
                     mb_intercept_date = '".date("Ymd", $g4[server_time])."'
               where mb_id = '$mb_id' ";
     sql_query($sql);
 }
 
-// Á¢±ÙÂ÷´Ü IP
+// ì ‘ê·¼ì°¨ë‹¨ IP
 $pattern = explode("\n", trim($config['cf_intercept_ip']));
 if (!in_array($ip, $pattern)) {
-    if (empty($pattern[0])) // ip Â÷´Ü¸ñ·ÏÀÌ ºñ¾î ÀÖÀ» ¶§
+    if (empty($pattern[0])) // ip ì°¨ë‹¨ëª©ë¡ì´ ë¹„ì–´ ìˆì„ ë•Œ
         $cf_intercept_ip = $ip;
     else
         $cf_intercept_ip = trim($config['cf_intercept_ip'])."\n{$ip}";

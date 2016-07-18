@@ -1,12 +1,12 @@
 <?
 include_once("./_common.php");
 
-// È¸¿ø¸¸ »ç¿ëÀÌ °¡´ÉÇÏ°Ô
+// íšŒì›ë§Œ ì‚¬ìš©ì´ ê°€ëŠ¥í•˜ê²Œ
 if (!$is_member) 
 {
     $href = "./login.php?$qstr&url=".urlencode("./singo_search.php");
 
-    echo "<script type='text/javascript'>alert('È¸¿ø¸¸ °¡´ÉÇÕ´Ï´Ù.'); top.location.href = '$href';</script>";
+    echo "<script type='text/javascript'>alert('íšŒì›ë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.'); top.location.href = '$href';</script>";
     exit;
 }
 
@@ -44,11 +44,11 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if (!$page) $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if (!$page) $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
-$g4[title] = "°Ô½Ã¹°½Å°í°ü¸®";
+$g4[title] = "ê²Œì‹œë¬¼ì‹ ê³ ê´€ë¦¬";
 include_once("./_head.php");
 
 $sql = " select * 

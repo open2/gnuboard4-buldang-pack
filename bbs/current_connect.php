@@ -1,21 +1,21 @@
 <?
 include_once("./_common.php");
 
-$g4[title] = "ÇöÀçÁ¢¼ÓÀÚ";
+$g4[title] = "í˜„ìž¬ì ‘ì†ìž";
 include_once("./_head.php");
 
 $list = array();
 
-// redisÀÏ ¶§, Á¤º¸¸¦ ¸¸µé¾îÁÝ´Ï´Ù.
+// redisì¼ ë•Œ, ì •ë³´ë¥¼ ë§Œë“¤ì–´ì¤ë‹ˆë‹¤.
 if ($g4['session_type'] == "redis") {
     //redis_login();
 
-    // redisÀÏ¶§¸¸ redis login °ü¸®¸¦ ¾´´Ù.
+    // redisì¼ë•Œë§Œ redis login ê´€ë¦¬ë¥¼ ì“´ë‹¤.
     $redis_login = new Redis();
     $redis_login->connect($g4["rhost"], $g4["rport"]);
     $redis_login->select($g4["rdb1"]);
 
-    // ¸ðµç key¸¦ °¡Á®¿Í¼­ g4_login DB¿¡ ³Ö¾îÁÝ´Ï´Ù.
+    // ëª¨ë“  keyë¥¼ ê°€ì ¸ì™€ì„œ g4_login DBì— ë„£ì–´ì¤ë‹ˆë‹¤.
     $allKeys = $redis_login->keys($g4["rdomain"] . "_login_*");   // all keys will match this.
     $i = 0;
     foreach ($allKeys as $rkey) {
@@ -41,12 +41,12 @@ if ($g4['session_type'] == "redis") {
           $list[$i]['lo_agent'] = $rdat[6];
           $i++;
         } else  {
-            // expireµÈ key´Â »èÁ¦
+            // expireëœ keyëŠ” ì‚­ì œ
             $redis_login->delete($rkey);
         }
     }
 
-    // redis instance connectionÀ» ´Ý¾ÆÁÝ´Ï´Ù.
+    // redis instance connectionì„ ë‹«ì•„ì¤ë‹ˆë‹¤.
     $redis_login->close();
 
 } else {
@@ -74,7 +74,7 @@ for ($i=0; $i < count($list); $i++)
         if ($is_admin)
             $list[$i][name] = $row[lo_ip];
         else
-            $list[$i][name] = preg_replace("/([0-9]+).([0-9]+).([0-9]+).([0-9]+)/", "\\1.¢½.\\3.\\4", $row[lo_ip]);
+            $list[$i][name] = preg_replace("/([0-9]+).([0-9]+).([0-9]+).([0-9]+)/", "\\1.â™¡.\\3.\\4", $row[lo_ip]);
     }
 
     $list[$i][num] = sprintf("%03d",$i+1);

@@ -12,14 +12,14 @@ $g4[board_file_download_table] = $g4[board_file_table] . "_download";
 
 for ($i=0; $i<count($chk); $i++) 
 {
-    // ½ÇÁ¦ ¹øÈ£¸¦ ³Ñ±è
+    // ì‹¤ì œ ë²ˆí˜¸ë¥¼ ë„˜ê¹€
     $k = $_POST['chk'][$i];
 
-    // ´Ù¿î·Îµå ³»¿ª Å×ÀÌºí¿¡¼­ »èÁ¦
+    // ë‹¤ìš´ë¡œë“œ ë‚´ì—­ í…Œì´ë¸”ì—ì„œ ì‚­ì œ
     $sql = " delete from $g4[board_file_download_table] where dn_id = '{$_POST['dn_id'][$k]}' ";
     sql_query($sql);
 
-    // ´Ù¿î·Îµå Å×ÀÌºí¿¡¼­ ´Ù¿î·Îµå È½¼ö¸¦ ÇÏ³ª Â÷°¨
+    // ë‹¤ìš´ë¡œë“œ í…Œì´ë¸”ì—ì„œ ë‹¤ìš´ë¡œë“œ íšŸìˆ˜ë¥¼ í•˜ë‚˜ ì°¨ê°
     $sql= " update $g4[board_file_table] set bf_download = bf_download - 1 where bo_table = '{$_POST['bo_table_list'][$k]}' and wr_id = '{$_POST['wr_id'][$k]}'";
     sql_query($sql, false);
 }

@@ -3,10 +3,10 @@ include_once("./_common.php");
 include_once("$g4[path]/memo.config.php");
 
 if (!$gr_id)
-  alert("±×·ì ¾ÆÀÌµğ°¡ ÁöÁ¤µÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+  alert("ê·¸ë£¹ ì•„ì´ë””ê°€ ì§€ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
 if (!$gr_edit)
-  alert("±×·ì ÀÌ¸§ÀÌ ÀÔ·ÂµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+  alert("ê·¸ë£¹ ì´ë¦„ì´ ì…ë ¥ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
   
 $gr_edit = addslashes($gr_edit);
 

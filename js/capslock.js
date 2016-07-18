@@ -1,13 +1,13 @@
-if (typeof(CAPSLOCK_JS) == 'undefined') // ÇÑ¹ø¸¸ ½ÇÇà
+if (typeof(CAPSLOCK_JS) == 'undefined') // í•œë²ˆë§Œ ì‹¤í–‰
 {
     if (typeof g4_path == 'undefined')
-        alert('g4_path º¯¼ö°¡ ¼±¾ğµÇÁö ¾Ê¾Ò½À´Ï´Ù. js/capslock.js');
+        alert('g4_path ë³€ìˆ˜ê°€ ì„ ì–¸ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. js/capslock.js');
 
     var CAPSLOCK_JS = true;
 
-    var capslock_delay = 3000; // "CapsLock ÀÌ ÄÑÁ® ÀÖ½À´Ï´Ù." ÀÌ¹ÌÁö¸¦ ¸îÃÊ°£ Ãâ·ÂÇÒ °ÍÀÎÁö?
-    var capslock_left = -4; // CaplsLock ÀÌ¹ÌÁöÀÇ X ÁÂÇ¥
-    var capslock_top = 0; // CaplsLock ÀÌ¹ÌÁöÀÇ Y ÁÂÇ¥
+    var capslock_delay = 3000; // "CapsLock ì´ ì¼œì ¸ ìˆìŠµë‹ˆë‹¤." ì´ë¯¸ì§€ë¥¼ ëª‡ì´ˆê°„ ì¶œë ¥í•  ê²ƒì¸ì§€?
+    var capslock_left = -4; // CaplsLock ì´ë¯¸ì§€ì˜ X ì¢Œí‘œ
+    var capslock_top = 0; // CaplsLock ì´ë¯¸ì§€ì˜ Y ì¢Œí‘œ
     function check_capslock(e, elem_id) {
         var myKeyCode=0;
         var myShiftKey=false;
@@ -66,7 +66,7 @@ if (typeof(CAPSLOCK_JS) == 'undefined') // ÇÑ¹ø¸¸ ½ÇÇà
         return obj.offsetTop + obj.clientTop + get_real_top(obj.offsetParent);
     }
 
-    // SPA Áö¿øÇÏµµ·Ï HTML Ãâ·Â ¹æ½Ä °³¼±
+    // SPA ì§€ì›í•˜ë„ë¡ HTML ì¶œë ¥ ë°©ì‹ ê°œì„ 
     //document.write("<div id='capslock_info' style='display:none; position:absolute;'><img src='"+g4_path+"/img/capslock.gif'></div>");
     var capslockDiv = document.createElement('div');
     capslockDiv.id = 'capslock_info';

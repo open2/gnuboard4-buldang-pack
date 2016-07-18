@@ -192,7 +192,7 @@ $.FE.LANGUAGE['hu'] = {
     "Flushed face": "Kipirult arc",
     "Sleeping face": "Alv\u00f3 arc\u00e1t",
     "Dizzy face": "sz\u00e1d\u00fcl arca",
-    "Face without mouth": "Arc n\u00e9lkül sz\u00e1j",
+    "Face without mouth": "Arc n\u00e9lk체l sz\u00e1j",
     "Face with medical mask": "Arc\u00e1t orvosi maszk",
 
     // Line breaker

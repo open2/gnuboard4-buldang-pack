@@ -1,12 +1,12 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
 if (!$skin_title) {
     if ($board['bo_subject']) {
         $skin_title = $board['bo_subject'];
         $skin_title_link = "$g4[path]/$bo_table";
     } else {
-        $skin_title = "ÃÖ½Å±Û";
+        $skin_title = "ìµœì‹ ê¸€";
     }
 }
 ?>
@@ -19,7 +19,7 @@ if (!$skin_title) {
   	<ul class="list-unstyled">
     <?
     if (count($list) == 0) {
-        echo "<li><a href='#'>³»¿ë¾ø½¿</a></li>";
+        echo "<li><a href='#'>ë‚´ìš©ì—†ìŠ´</a></li>";
     } else {
         for ($i=0; $i<count($list); $i++) { 
   
@@ -51,11 +51,11 @@ if (!$skin_title) {
             echo "</li>";
         }
     }
-    // fillÀÌ trueÀÌ°í, ´ú Ã¤¿öÁö¸é ²Ë Ã¤¿öÁØ´Ù.
+    // fillì´ trueì´ê³ , ëœ ì±„ì›Œì§€ë©´ ê½‰ ì±„ì›Œì¤€ë‹¤.
     if (is_array($options) && $options['fill'] && $i < $rows) {
           for ($j=$i; $j<$rows;$j++) {
               echo "<li><span class='bu'></span> ";
-              echo "<a href='#'><font style='font-family:µ¸¿ò; font-size:9pt; color:#6A6A6A;'>&nbsp;</font></a></li>";
+              echo "<a href='#'><font style='font-family:ë‹ì›€; font-size:9pt; color:#6A6A6A;'>&nbsp;</font></a></li>";
           }
     }
     ?>

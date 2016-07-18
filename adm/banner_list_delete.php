@@ -5,7 +5,7 @@ include_once("./_common.php");
 check_demo();
 
 if ($is_admin != "super")
-    alert("¹è³Ê »èÁ¦´Â ÃÖ°í°ü¸®ÀÚ¸¸ °¡´ÉÇÕ´Ï´Ù.");
+    alert("ë°°ë„ˆ ì‚­ì œëŠ” ìµœê³ ê´€ë¦¬ìë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
 auth_check($auth[$sub_menu], "d");
 
@@ -13,7 +13,7 @@ check_token();
 
 for ($i=0; $i<count($chk); $i++) 
 {
-    // ½ÇÁ¦ ¹øÈ£¸¦ ³Ñ±è
+    // ì‹¤ì œ ë²ˆí˜¸ë¥¼ ë„˜ê¹€
     $k = $chk[$i];
 
     $bn_id = trim($_POST['bn_id'][$k]);

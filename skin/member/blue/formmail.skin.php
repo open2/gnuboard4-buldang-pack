@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 <div class="container">
 <form name="fformmail" method="post" onsubmit="return fformmail_submit(this);" enctype="multipart/form-data" style="margin:0px;">
@@ -8,18 +8,18 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
 <input type="hidden" name="token"  value="<?=$token?>">
 
 <div class="panel panel-default">
-    <div class="panel-heading"><strong><?=$name?>´Ô¿¡°Ô <?=$g4[title]?></strong>
+    <div class="panel-heading"><strong><?=$name?>ë‹˜ì—ê²Œ <?=$g4[title]?></strong>
       </div>
       <div class="panel-body">
           <table class="table table-hover table-condensed">
-                <? if ($is_member) { // È¸¿øÀÌ¸é ?>
+                <? if ($is_member) { // íšŒì›ì´ë©´ ?>
                 <input type='hidden' name='fnick'  value='<?=get_text($member[mb_nick])?>'>
                 <input type='hidden' name='fmail'  value='<?=$member[mb_email]?>'>
                 <? } else { ?>
                 <tr> 
-                    <td height="27" align="center"><b>ÀÌ¸§</b></td>
+                    <td height="27" align="center"><b>ì´ë¦„</b></td>
                     <td valign="bottom"><img src="<?=$member_skin_path?>/img/l.gif" width="1" height="8"></td>
-                    <td><input type=text style='width:90%;' name='fnick' required minlength=2 itemname='ÀÌ¸§'></td>
+                    <td><input type=text style='width:90%;' name='fnick' required minlength=2 itemname='ì´ë¦„'></td>
                 </tr>
                 <tr> 
                     <td height="27" align="center"><b>E-mail</b></td>
@@ -29,13 +29,13 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
                 <? } ?>
 
           <tr>
-              <td class="col-sm-2" style="border:0px;">Á¦¸ñ</td>
+              <td class="col-sm-2" style="border:0px;">ì œëª©</td>
               <td style="border:0px;">
-                  <input class="form-control" style="width:100%;" type="text" name='subject' required itemname='Á¦¸ñ' placeholder="subject">
+                  <input class="form-control" style="width:100%;" type="text" name='subject' required itemname='ì œëª©' placeholder="subject">
               </td>
           </tr>
           <tr>
-              <td class="col-sm-2" style="border:0px;">¼±ÅÃ</td>
+              <td class="col-sm-2" style="border:0px;">ì„ íƒ</td>
               <td style="border:0px;">
                   <label class="radio-inline"><input type='radio' name='type' value='0' checked> TEXT </label>
                   <label class="radio-inline"><input type='radio' name='type' value='1' > HTML </label>
@@ -43,13 +43,13 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
               </td>
           </tr>
           <tr>
-              <td class="col-sm-2" style="border:0px;">³»¿ë</td>
+              <td class="col-sm-2" style="border:0px;">ë‚´ìš©</td>
               <td style="border:0px;">
-                  <textarea name="content" style='width:100%;' rows='9' required itemname='³»¿ë'></textarea>
+                  <textarea name="content" style='width:100%;' rows='9' required itemname='ë‚´ìš©'></textarea>
               </td>
           </tr>
           <tr>
-              <td class="col-sm-2" style="border:0px;">Ã·ºÎÆÄÀÏ</td>
+              <td class="col-sm-2" style="border:0px;">ì²¨ë¶€íŒŒì¼</td>
               <td style="border:0px;">
                   <input class="form-control" type="file" id="file1" name="file1" style="width:100%">
                   <input class="form-control" type="file" id="file2" name="file2" style="width:100%">
@@ -66,7 +66,7 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
 
           <div class="pull-right">
               <button type="submit" class="btn btn-success" id="btn_submit">Send</button>&nbsp;&nbsp;
-              <a class="btn btn-default" href="javascript:window.close();">´Ý±â</a>
+              <a class="btn btn-default" href="javascript:window.close();">ë‹«ê¸°</a>
           </div>
       </div>
 </div>
@@ -94,14 +94,14 @@ function fformmail_submit(f)
 {
     if (typeof(grecaptcha) != 'undefined') { 
         if(grecaptcha.getResponse() == "") { 
-            alert("½ºÆÔ¹æÁöÄÚµå(Captcha Code)°¡ Æ²·È½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØ ÁÖ¼¼¿ä."); 
+            alert("ìŠ¤íŒ¸ë°©ì§€ì½”ë“œ(Captcha Code)ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ìž…ë ¥í•´ ì£¼ì„¸ìš”."); 
             return false; 
         } 
     }
 
     if (f.file1.value || f.file2.value) {
         // 4.00.11
-        if (!confirm("Ã·ºÎÆÄÀÏÀÇ ¿ë·®ÀÌ Å«°æ¿ì Àü¼Û½Ã°£ÀÌ ¿À·¡ °É¸³´Ï´Ù.\n\n¸ÞÀÏº¸³»±â°¡ ¿Ï·áµÇ±â Àü¿¡ Ã¢À» ´Ý°Å³ª »õ·Î°íÄ§ ÇÏÁö ¸¶½Ê½Ã¿À."))
+        if (!confirm("ì²¨ë¶€íŒŒì¼ì˜ ìš©ëŸ‰ì´ í°ê²½ìš° ì „ì†¡ì‹œê°„ì´ ì˜¤ëž˜ ê±¸ë¦½ë‹ˆë‹¤.\n\në©”ì¼ë³´ë‚´ê¸°ê°€ ì™„ë£Œë˜ê¸° ì „ì— ì°½ì„ ë‹«ê±°ë‚˜ ìƒˆë¡œê³ ì¹¨ í•˜ì§€ ë§ˆì‹­ì‹œì˜¤."))
             return false;
     }
 

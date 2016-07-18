@@ -1,4 +1,4 @@
-if (typeof(MD5_JS) == 'undefined') // ÇÑ¹ø¸¸ ½ÇÇà
+if (typeof(MD5_JS) == 'undefined') // í•œë²ˆë§Œ ì‹¤í–‰
 {
     var MD5_JS = true;
 

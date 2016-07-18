@@ -8,29 +8,29 @@ if ($w == 'u')
 auth_check($auth[$sub_menu], "w");
 
 if ($member[mb_password] !== sql_password($_POST['admin_password'])) {
-    alert("ÆĞ½º¿öµå°¡ ´Ù¸¨´Ï´Ù.");
+    alert("íŒ¨ìŠ¤ì›Œë“œê°€ ë‹¤ë¦…ë‹ˆë‹¤.");
 }
 
 if (chk_recaptcha() == false)
-    alert ('½ºÆÔÂ÷´ÜÄÚµå°¡ Æ²·È½À´Ï´Ù.');
+    alert ('ìŠ¤íŒ¸ì°¨ë‹¨ì½”ë“œê°€ í‹€ë ¸ìŠµë‹ˆë‹¤.');
 
 $gr_id = $_POST[gr_id];
 $bo_subject = $_POST[bo_subject];
 
-if (!gr_id) { alert("±×·ì ID´Â ¹İµå½Ã ¼±ÅÃÇÏ¼¼¿ä."); }
-if (!$bo_table) { alert("°Ô½ÃÆÇ TABLE¸íÀº ¹İµå½Ã ÀÔ·ÂÇÏ¼¼¿ä."); }
-if (!preg_match("/^([A-Za-z0-9_]{1,20})$/", $bo_table)) { alert("°Ô½ÃÆÇ TABLE¸íÀº °ø¹é¾øÀÌ ¿µ¹®ÀÚ, ¼ıÀÚ, _ ¸¸ »ç¿ë °¡´ÉÇÕ´Ï´Ù. (20ÀÚ ÀÌ³»)"); }
-if (!$bo_subject) { alert("°Ô½ÃÆÇ Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä."); }
+if (!gr_id) { alert("ê·¸ë£¹ IDëŠ” ë°˜ë“œì‹œ ì„ íƒí•˜ì„¸ìš”."); }
+if (!$bo_table) { alert("ê²Œì‹œíŒ TABLEëª…ì€ ë°˜ë“œì‹œ ì…ë ¥í•˜ì„¸ìš”."); }
+if (!preg_match("/^([A-Za-z0-9_]{1,20})$/", $bo_table)) { alert("ê²Œì‹œíŒ TABLEëª…ì€ ê³µë°±ì—†ì´ ì˜ë¬¸ì, ìˆ«ì, _ ë§Œ ì‚¬ìš© ê°€ëŠ¥í•©ë‹ˆë‹¤. (20ì ì´ë‚´)"); }
+if (!$bo_subject) { alert("ê²Œì‹œíŒ ì œëª©ì„ ì…ë ¥í•˜ì„¸ìš”."); }
 
 if ($img = $_FILES[bo_image_head][name]) {
     if (!preg_match("/\.(gif|jpg|png)$/i", $img)) {
-        alert("»ó´Ü ÀÌ¹ÌÁö°¡ gif, jpg, png ÆÄÀÏÀÌ ¾Æ´Õ´Ï´Ù.");
+        alert("ìƒë‹¨ ì´ë¯¸ì§€ê°€ gif, jpg, png íŒŒì¼ì´ ì•„ë‹™ë‹ˆë‹¤.");
     }
 }
 
 if ($img = $_FILES[bo_image_tail][name]) {
     if (!preg_match("/\.(gif|jpg|png)$/i", $img)) {
-        alert("ÇÏ´Ü ÀÌ¹ÌÁö°¡ gif, jpg, png ÆÄÀÏÀÌ ¾Æ´Õ´Ï´Ù.");
+        alert("í•˜ë‹¨ ì´ë¯¸ì§€ê°€ gif, jpg, png íŒŒì¼ì´ ì•„ë‹™ë‹ˆë‹¤.");
     }
 }
 
@@ -41,7 +41,7 @@ if ($file = $_POST[bo_include_head]) {
     $purl = parse_url($file);
     $file = $purl['path'];
     if (!preg_match("/\.(php|htm[l]?)$/i", $file)) {
-        alert("»ó´Ü ÆÄÀÏ °æ·Î°¡ php, html ÆÄÀÏÀÌ ¾Æ´Õ´Ï´Ù.");
+        alert("ìƒë‹¨ íŒŒì¼ ê²½ë¡œê°€ php, html íŒŒì¼ì´ ì•„ë‹™ë‹ˆë‹¤.");
     }
     $_POST[bo_include_head] = $file;
 }
@@ -50,7 +50,7 @@ if ($file = $_POST[bo_include_tail]) {
     $purl = parse_url($file);
     $file = $purl['path'];
     if (!preg_match("/\.(php|htm[l]?)$/i", $file)) {
-        alert("ÇÏ´Ü ÆÄÀÏ °æ·Î°¡ php, html ÆÄÀÏÀÌ ¾Æ´Õ´Ï´Ù.");
+        alert("í•˜ë‹¨ íŒŒì¼ ê²½ë¡œê°€ php, html íŒŒì¼ì´ ì•„ë‹™ë‹ˆë‹¤.");
     }
     $_POST[bo_include_tail] = $file;
 }
@@ -59,20 +59,20 @@ check_token();
 
 $board_path = "$g4[data_path]/file/$bo_table";
 
-// °Ô½ÃÆÇ µğ·ºÅä¸® »ı¼º
+// ê²Œì‹œíŒ ë””ë ‰í† ë¦¬ ìƒì„±
 @mkdir($board_path, 0707);
 @chmod($board_path, 0707);
 
-// µğ·ºÅä¸®¿¡ ÀÖ´Â ÆÄÀÏÀÇ ¸ñ·ÏÀ» º¸ÀÌÁö ¾Ê°Ô ÇÑ´Ù.
+// ë””ë ‰í† ë¦¬ì— ìˆëŠ” íŒŒì¼ì˜ ëª©ë¡ì„ ë³´ì´ì§€ ì•Šê²Œ í•œë‹¤.
 $file = $board_path . "/index.php";
 $f = @fopen($file, "w");
 @fwrite($f, "");
 @fclose($f);
 @chmod($file, 0606);
 
-// ºĞ·ù¿¡ & ³ª = ´Â »ç¿ëÀÌ ºÒ°¡ÇÏ¹Ç·Î 2¹ÙÀÌÆ®·Î ¹Ù²Û´Ù.
+// ë¶„ë¥˜ì— & ë‚˜ = ëŠ” ì‚¬ìš©ì´ ë¶ˆê°€í•˜ë¯€ë¡œ 2ë°”ì´íŠ¸ë¡œ ë°”ê¾¼ë‹¤.
 $src_char = array('&', '=');
-$dst_char = array('£¦', '¡ë'); 
+$dst_char = array('ï¼†', 'ã€“'); 
 $bo_category_list = str_replace($src_char, $dst_char, $bo_category_list);
 
 $bo_admin               = $_POST[bo_admin];
@@ -340,7 +340,7 @@ if ($_FILES[bo_image_tail][name]) {
 if ($w == "") {
     $row = sql_fetch(" select count(*) as cnt from $g4[board_table] where bo_table = '$bo_table' ");
     if ($row[cnt])
-        alert("{$bo_table} Àº(´Â) ÀÌ¹Ì Á¸ÀçÇÏ´Â TABLE ÀÔ´Ï´Ù.");
+        alert("{$bo_table} ì€(ëŠ”) ì´ë¯¸ ì¡´ì¬í•˜ëŠ” TABLE ì…ë‹ˆë‹¤.");
 
     $sql = " insert into $g4[board_table]
                 set bo_table = '$bo_table',
@@ -349,35 +349,35 @@ if ($w == "") {
                     $sql_common ";
     sql_query($sql);
 
-    // °Ô½ÃÆÇ Å×ÀÌºí »ı¼º
+    // ê²Œì‹œíŒ í…Œì´ë¸” ìƒì„±
     $file = file("./sql_write.sql");
     $sql = implode($file, "\n");
 
     $create_table = $g4[write_prefix] . $bo_table;
 
-    // sql_board.sql ÆÄÀÏÀÇ Å×ÀÌºí¸íÀ» º¯È¯
+    // sql_board.sql íŒŒì¼ì˜ í…Œì´ë¸”ëª…ì„ ë³€í™˜
     $source = array("/__TABLE_NAME__/", "/;/");
     $target = array($create_table, "");
     $sql = preg_replace($source, $target, $sql);
     sql_query($sql, FALSE);
 } else if ($w == "u") {
-    // °Ô½ÃÆÇÀÇ ±Û ¼ö
+    // ê²Œì‹œíŒì˜ ê¸€ ìˆ˜
     $sql = " select count(*) as cnt from $g4[write_prefix]$bo_table where wr_is_comment = 0 ";
     $row = sql_fetch($sql);
     $bo_count_write = $row[cnt];
 
-    // °Ô½ÃÆÇÀÇ ÄÚ¸àÆ® ¼ö
+    // ê²Œì‹œíŒì˜ ì½”ë©˜íŠ¸ ìˆ˜
     $sql = " select count(*) as cnt from $g4[write_prefix]$bo_table where wr_is_comment = 1 ";
     $row = sql_fetch($sql);
     $bo_count_comment = $row[cnt];
 
-    // ±Û¼ö Á¶Á¤
+    // ê¸€ìˆ˜ ì¡°ì •
     if ($proc_count) {
-        // ¿ø±ÛÀ» ¾ò½À´Ï´Ù.
+        // ì›ê¸€ì„ ì–»ìŠµë‹ˆë‹¤.
         $sql = " select wr_id from $g4[write_prefix]$bo_table where wr_is_comment = 0 ";
         $result = sql_query($sql);
         for ($i=0; $row=sql_fetch_array($result); $i++) {
-            // ÄÚ¸àÆ®¼ö¸¦ ¾ò½À´Ï´Ù.
+            // ì½”ë©˜íŠ¸ìˆ˜ë¥¼ ì–»ìŠµë‹ˆë‹¤.
             $sql2 = " select count(*) as cnt from $g4[write_prefix]$bo_table where wr_parent = '$row[wr_id]' and wr_is_comment = 1 ";
             $row2 = sql_fetch($sql2);
 
@@ -385,7 +385,7 @@ if ($w == "") {
         }
     }
 
-    // °øÁö»çÇ×¿¡´Â µî·ÏµÇ¾î ÀÖÁö¸¸ ½ÇÁ¦ Á¸ÀçÇÏÁö ¾Ê´Â ±Û ¾ÆÀÌµğ´Â »èÁ¦ÇÕ´Ï´Ù.
+    // ê³µì§€ì‚¬í•­ì—ëŠ” ë“±ë¡ë˜ì–´ ìˆì§€ë§Œ ì‹¤ì œ ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ê¸€ ì•„ì´ë””ëŠ” ì‚­ì œí•©ë‹ˆë‹¤.
     $bo_notice = "";
     $lf = "";
     if ($board[bo_notice]) {
@@ -409,9 +409,9 @@ if ($w == "") {
               where bo_table = '$bo_table' ";
     $result = sql_query($sql);
     
-    // ¿À·ù°¡ »ı±â¸é Ãß°¡ ÇÊµå¸¦ ¾÷µ¥ÀÌÆ®
+    // ì˜¤ë¥˜ê°€ ìƒê¸°ë©´ ì¶”ê°€ í•„ë“œë¥¼ ì—…ë°ì´íŠ¸
     if (!$result) {
-        // 1.0.73 - ÄÚ¸àÆ® dhtml ÆíÁı±â »ç¿ë
+        // 1.0.73 - ì½”ë©˜íŠ¸ dhtml í¸ì§‘ê¸° ì‚¬ìš©
         sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_use_dhtml_comment` TINYINT( 4 ) NOT NULL ", FALSE);
 
         sql_query($sql);
@@ -419,7 +419,7 @@ if ($w == "") {
 }
 
 
-// °°Àº ±×·ì³» °Ô½ÃÆÇ µ¿ÀÏ ¿É¼Ç Àû¿ë
+// ê°™ì€ ê·¸ë£¹ë‚´ ê²Œì‹œíŒ ë™ì¼ ì˜µì…˜ ì ìš©
 $s = "";
 if ($chk_admin) $s .= " , bo_admin = '$bo_admin' ";
 if ($chk_list_level) $s .= " , bo_list_level = '$bo_list_level' ";
@@ -554,23 +554,23 @@ if ($_FILES[bo_image_tail][name]) {
     chmod($bo_image_tail_path, 0606);
 }
 
-// ºÒ´çÆÑ - ±×·ì¾ÆÀÌµğ°¡ º¯°æµÇ¾úÀ» ¶§ (board_form.php¿¡ gr_id_2¸¦ hiddenÀ¸·Î Ãß°¡Çß½¿)
+// ë¶ˆë‹¹íŒ© - ê·¸ë£¹ì•„ì´ë””ê°€ ë³€ê²½ë˜ì—ˆì„ ë•Œ (board_form.phpì— gr_id_2ë¥¼ hiddenìœ¼ë¡œ ì¶”ê°€í–ˆìŠ´)
 if ($w == 'u' && $gr_id != $_POST[gr_id_2]) { 
-    // ÃÖ±Ù±Û °Ô½ÃÆÇÀÇ gr_id¸¦ º¯°æ
+    // ìµœê·¼ê¸€ ê²Œì‹œíŒì˜ gr_idë¥¼ ë³€ê²½
     $sql = " update $g4[board_new_table] set gr_id = '$gr_id' where bo_table = '$bo_table' "; 
     sql_query($sql); 
-    // °Ô½ÃÆÇº° ¹æ¹®ÀÚ Å×ÀÌºíÀÇ gr_id¸¦ º¯°æ
+    // ê²Œì‹œíŒë³„ ë°©ë¬¸ì í…Œì´ë¸”ì˜ gr_idë¥¼ ë³€ê²½
     $sql = " update $mw[board_visit_table] set gr_id = '$gr_id' where bo_table = '$bo_table' "; 
     sql_query($sql);
-    // ´Ù¿î·Îµå ³»¿ª Å×ÀÌºíÀÇ gr_id¸¦ º¯°æ
+    // ë‹¤ìš´ë¡œë“œ ë‚´ì—­ í…Œì´ë¸”ì˜ gr_idë¥¼ ë³€ê²½
     $sql = " update " . $g4[board_file_table] . "_download set gr_id = '$gr_id' where bo_table = '$bo_table' "; 
     sql_query($sql);
-    // º£½ºÆ®±Û Å×ÀÌºíÀÇ gr_id¸¦ º¯°æ
+    // ë² ìŠ¤íŠ¸ê¸€ í…Œì´ë¸”ì˜ gr_idë¥¼ ë³€ê²½
     $sql = " update $g4[good_list_table] set gr_id = '$gr_id' where bo_table = '$bo_table' "; 
     sql_query($sql);
 }
 
-// ºÒ´çÆÑ - °øÁö»çÇ× Á¤·ÄÇÏ±â
+// ë¶ˆë‹¹íŒ© - ê³µì§€ì‚¬í•­ ì •ë ¬í•˜ê¸°
 $notice_list = $_POST[notice_list];
 $notice_count = count($notice_list);
 $bo_notice = "";
@@ -585,7 +585,7 @@ for($i=0; $i < $notice_count; $i++) {
 $sql = " update $g4[board_table] set bo_notice = '$bo_notice' where bo_table = '$bo_table' ";
 sql_query("$sql");
 
-// ºÒ´çÆÑ - ±ÇÇÑº¯°æ ÀÛ¾÷³»¿ªÀ» db log¿¡ ³²±é´Ï´Ù
+// ë¶ˆë‹¹íŒ© - ê¶Œí•œë³€ê²½ ì‘ì—…ë‚´ì—­ì„ db logì— ë‚¨ê¹ë‹ˆë‹¤
 if ($bo_admin !== $board['bo_admin']) {
     $sql =  " update $g4[board_table] set bo_admin='$bo_admin' where bo_table='$bo_table'";
     if ($chk_admin)

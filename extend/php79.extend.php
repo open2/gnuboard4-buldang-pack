@@ -1,20 +1,20 @@
 <?php
 if ( ! defined('_GNUBOARD_')) {
     exit;
-} // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+} // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
 //------------------------------------------------------------------------------
-// PHP79 »ó¼ö ¸ðÀ½ ½ÃÀÛ
+// PHP79 ìƒìˆ˜ ëª¨ìŒ ì‹œìž‘
 //------------------------------------------------------------------------------
 
 define('G4_PHP79_DIR', 'php79');
 define('G4_PHP79_PATH', dirname(dirname(__FILE__)) . '/plugin/' . G4_PHP79_DIR);
 define('G4_PHP79_URL', dirname(dirname(__FILE__)) . '/plugin/' . G4_PHP79_DIR);
 
-// PHP79 ÇïÆÛ ÇÔ¼ö
+// PHP79 í—¬í¼ í•¨ìˆ˜
 require_once(G4_PHP79_PATH . '/lib/helpers.php');
 
-// Å×ÀÌºí¸í
+// í…Œì´ë¸”ëª…
 $g4['php79_prefix']            = 'php79_';
 $g4['php79_migrations_table']  = $g4['php79_prefix'] . 'migrations';
 $g4['php79_pushes_table']      = $g4['php79_prefix'] . 'pushes';

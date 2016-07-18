@@ -3,18 +3,18 @@ include_once("./_common.php");
 include_once("$g4[path]/lib/mailer.lib.php");
 
 if (!$config[cf_email_use])
-    alert("È¯°æ¼³Á¤¿¡¼­ \'¸ŞÀÏ¹ß¼Û »ç¿ë\'¿¡ Ã¼Å©ÇÏ¼Å¾ß ¸ŞÀÏÀ» ¹ß¼ÛÇÒ ¼ö ÀÖ½À´Ï´Ù.\\n\\n°ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.");
+    alert("í™˜ê²½ì„¤ì •ì—ì„œ \'ë©”ì¼ë°œì†¡ ì‚¬ìš©\'ì— ì²´í¬í•˜ì…”ì•¼ ë©”ì¼ì„ ë°œì†¡í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.\\n\\nê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.");
 
 if (!$is_member && $config[cf_formmail_is_member])
-    alert_close("È¸¿ø¸¸ ÀÌ¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+    alert_close("íšŒì›ë§Œ ì´ìš©í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
 $to = base64_decode($to);
 
 if (substr_count($to, "@") > 1)
-    alert_close('ÇÑ¹ø¿¡ ÇÑ»ç¶÷¿¡°Ô¸¸ ¸ŞÀÏÀ» ¹ß¼ÛÇÒ ¼ö ÀÖ½À´Ï´Ù.');
+    alert_close('í•œë²ˆì— í•œì‚¬ëŒì—ê²Œë§Œ ë©”ì¼ì„ ë°œì†¡í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.');
 
 if (chk_recaptcha() == false)
-    alert ('½ºÆÔÂ÷´ÜÄÚµå°¡ Æ²·È½À´Ï´Ù.');
+    alert ('ìŠ¤íŒ¸ì°¨ë‹¨ì½”ë“œê°€ í‹€ë ¸ìŠµë‹ˆë‹¤.');
 
 for ($i=1; $i<=$attach; $i++) 
 {
@@ -29,22 +29,22 @@ if ($type == 2)
     $content = preg_replace("/\n/", "<br>", $content);
 } 
 
-// html ÀÌ¸é
+// html ì´ë©´
 if ($type) 
 {
     $current_url = $g4[url];
-    $mail_content = "<html><head><meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><title>¸ŞÀÏº¸³»±â</title><link rel='stylesheet' href='$current_url/style.css' type='text/css'></head><body>$content</body></html>";
+    $mail_content = "<html><head><meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><title>ë©”ì¼ë³´ë‚´ê¸°</title><link rel='stylesheet' href='$current_url/style.css' type='text/css'></head><body>$content</body></html>";
 } 
 else 
     $mail_content = $content;
 
 mailer($fnick, $fmail, $to, $subject, $mail_content, $type, $file);
 
-//$html_title = $tmp_to . "´Ô²² ¸ŞÀÏ¹ß¼Û";
-$html_title = "¸ŞÀÏ ¹ß¼ÛÁß";
+//$html_title = $tmp_to . "ë‹˜ê»˜ ë©”ì¼ë°œì†¡";
+$html_title = "ë©”ì¼ ë°œì†¡ì¤‘";
 include_once("$g4[path]/head.sub.php");
 
-alert_close("¸ŞÀÏÀ» Á¤»óÀûÀ¸·Î ¹ß¼ÛÇÏ¿´½À´Ï´Ù.");
+alert_close("ë©”ì¼ì„ ì •ìƒì ìœ¼ë¡œ ë°œì†¡í•˜ì˜€ìŠµë‹ˆë‹¤.");
 
 include_once("$g4[path]/tail.sub.php");
 ?>

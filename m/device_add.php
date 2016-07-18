@@ -2,18 +2,18 @@
 include_once("./_common.php");
 require_once(G4_PHP79_PATH . "/lib/devices.php");
 
-// ÀÔ·Â°ª °Ë»ç
+// ì…ë ¥ê°’ ê²€ì‚¬
 if (empty($_POST['uuid'])) {
-    response_error("´Ü¸»±âÀÇ UUID Á¤º¸°¡ ¾ø½À´Ï´Ù.");
+    response_error("ë‹¨ë§ê¸°ì˜ UUID ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤.");
 }
 if (empty($_POST['serial'])) {
-    response_error("´Ü¸»±âÀÇ serial Á¤º¸°¡ ¾ø½À´Ï´Ù.");
+    response_error("ë‹¨ë§ê¸°ì˜ serial ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤.");
 }
 
-// µğ¹ÙÀÌ½º µî·Ï/°»½Å
+// ë””ë°”ì´ìŠ¤ ë“±ë¡/ê°±ì‹ 
 device_save($_POST, $member);
 
-// µğ¹ÙÀÌ½º ±¸ºĞ°ªÀ» ÄíÅ°¿¡ ¿µ±¸ ÀúÀå
+// ë””ë°”ì´ìŠ¤ êµ¬ë¶„ê°’ì„ ì¿ í‚¤ì— ì˜êµ¬ ì €ì¥
 setcookie("device-uuid", $_POST['uuid'], time() + 86400 * 3650, '/', $g4['cookie_domain']);
 setcookie("device-serial", $_POST['serial'], time() + 86400 * 3650, '/', $g4['cookie_domain']);
 

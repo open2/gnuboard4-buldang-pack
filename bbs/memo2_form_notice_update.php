@@ -3,7 +3,7 @@ include_once("./_common.php");
 include_once("$g4[path]/memo.config.php");
 
 if (!$member[mb_id])
-    alert("È¸¿ø¸¸ ÀÌ¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+    alert("íšŒì›ë§Œ ì´ìš©í•˜ì‹¤ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.");
 
 $me_send_mb_id    = $_POST[me_send_mb_id];
 $me_subject       = $_POST[me_subject];
@@ -12,28 +12,28 @@ $notice_level_1   = $_POST[notice_level_1];
 $notice_level_2   = $_POST[notice_level_2];
 
 if ($memo_level_1 > $memo_level_2)
-    alert("memo_update - È¸¿ø·¹º§À» ¹Ù¸£°Ô ¼±ÅÃÇØ ÁÖ¼¼¿ä");
+    alert("memo_update - íšŒì›ë ˆë²¨ì„ ë°”ë¥´ê²Œ ì„ íƒí•´ ì£¼ì„¸ìš”");
     
 $me_send_mb_id = trim($me_send_mb_id);
 if ($me_send_mb_id == $member[mb_id]) {} else
-    alert("memo_update - ¹Ù¸£Áö ¸øÇÑ »ç¿ëÀÔ´Ï´Ù.");
+    alert("memo_update - ë°”ë¥´ì§€ ëª»í•œ ì‚¬ìš©ìž…ë‹ˆë‹¤.");
 
 if (!$is_admin)
-    alert("°ü¸®ÀÚ¸¸ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+    alert("ê´€ë¦¬ìžë§Œ ì‚¬ìš©í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.");
 
 if ($me_subject == '')
-    alert("ÂÊÁö Á¦¸ñÀÌ ÀÔ·ÂµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+    alert("ìª½ì§€ ì œëª©ì´ ìž…ë ¥ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
 $sql = " select mb_id 
            from $g4[member_table] 
           where mb_leave_date = '' and mb_intercept_date = '' and mb_level >= '$notice_level_1' and mb_level <= '$notice_level_2' ";
 $notice_list = sql_query($sql);
 
-// ÆÄÀÏ¸í ÃÊ±âÈ­
+// íŒŒì¼ëª… ì´ˆê¸°í™”
 $file_name0 = '';
 $file_name3 = '';
 
-// ÂÊÁö INSERT (°øÁö ÂÊÁöÇÔ)
+// ìª½ì§€ INSERT (ê³µì§€ ìª½ì§€í•¨)
 $sql = " insert into $g4[memo_notice_table]
                 ( me_recv_mb_id, me_send_mb_id, me_send_datetime, me_memo, me_subject, memo_type, memo_owner, me_file_local, me_file_server, me_option )
          values ( '$notice_level_1-$notice_level_2', '$member[mb_id]', '$g4[time_ymdhis]', '$me_memo', '$me_subject', 'send', '$member[mb_id]', '$file_name0', '$file_name3', '$html,$secret,$mail' ) ";
@@ -41,14 +41,14 @@ sql_query($sql);
 $me_id = mysql_insert_id();
 
 if ($_FILES[memo_file][name]) {
-    // È¸¿øº°·Î µð·ºÅä¸®¸¦ »ý¼º
+    // íšŒì›ë³„ë¡œ ë””ë ‰í† ë¦¬ë¥¼ ìƒì„±
     $dir_name = $g4[path] . "/data/memo2/" . $member[mb_id];
     if(!is_dir($dir_name)){
         @mkdir("$dir_name", 0707);
         @chmod("$dir_name", 0707);
     }
     
-    // ¾Æ·¡ÀÇ ¹®ÀÚ¿­ÀÌ µé¾î°£ ÆÄÀÏÀº -x ¸¦ ºÙ¿©¼­ À¥°æ·Î¸¦ ¾Ë´õ¶óµµ ½ÇÇàÀ» ÇÏÁö ¸øÇÏµµ·Ï ÇÔ
+    // ì•„ëž˜ì˜ ë¬¸ìžì—´ì´ ë“¤ì–´ê°„ íŒŒì¼ì€ -x ë¥¼ ë¶™ì—¬ì„œ ì›¹ê²½ë¡œë¥¼ ì•Œë”ë¼ë„ ì‹¤í–‰ì„ í•˜ì§€ ëª»í•˜ë„ë¡ í•¨
     $file_name0 = $_FILES[memo_file][name];
     $file_name1 = intval($me_id) . "_" . preg_replace("/\.(php|phtm|htm|cgi|pl|exe|jsp|asp|inc)/i", "$0-x", $file_name0);
     $file_name2 = str_replace('%', '', urlencode($file_name1));
@@ -68,19 +68,19 @@ for ($i=0; $mb_recv = sql_fetch_array($notice_list); $i++) {
     
     if (trim($mb_list)) {
                   
-        // ÂÊÁö INSERT (¼ö½ÅÇÔ - me_id´Â ¹ß½ÅÇÔÀÇ me_id¿Í µ¿ÀÏÇÏ°Ô À¯Áö)
+        // ìª½ì§€ INSERT (ìˆ˜ì‹ í•¨ - me_idëŠ” ë°œì‹ í•¨ì˜ me_idì™€ ë™ì¼í•˜ê²Œ ìœ ì§€)
         $sql = " insert into $g4[memo_recv_table]
                         ( me_recv_mb_id, me_send_mb_id, me_send_datetime, me_memo, me_subject, memo_type, memo_owner, me_file_local, me_file_server, me_option )
                  values ( '$mb_list', '$member[mb_id]', '$g4[time_ymdhis]', '$me_memo', '$me_subject', 'recv', '$mb_list', '$file_name0', '$file_name3', '$html,$secret,$mail' ) ";
         sql_query($sql);
 
-        // ½Ç½Ã°£ ÂÊÁö ¾Ë¸² ±â´É
+        // ì‹¤ì‹œê°„ ìª½ì§€ ì•Œë¦¼ ê¸°ëŠ¥
         $sql = " update $g4[member_table]
                     set mb_memo_call = '$member[mb_id]'
                   where mb_id = '$mb_list' ";
         sql_query($sql);
     }
-} // for - loopÀÇ ³¡ºÎºÐ
+} // for - loopì˜ ëë¶€ë¶„
 
-alert("\'$i\' ¸í¿¡°Ô ÀüÃ¼ ÂÊÁö¸¦ Àü´ÞÇÏ¿´½À´Ï´Ù.", "./memo.php?kind=notice");
+alert("\'$i\' ëª…ì—ê²Œ ì „ì²´ ìª½ì§€ë¥¼ ì „ë‹¬í•˜ì˜€ìŠµë‹ˆë‹¤.", "./memo.php?kind=notice");
 ?>

@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 <script type="text/javascript">
 var member_skin_path = "<?=$member_skin_path?>";
@@ -19,80 +19,80 @@ var member_skin_path = "<?=$member_skin_path?>";
 <input type=hidden name=token            id="token"             value="<?=$token?>" >
 
 <div class="panel panel-default">
-    <div class="panel-heading"><h4><strong>È¸¿øÁ¤º¸</strong></h4>
+    <div class="panel-heading"><h4><strong>íšŒì›ì •ë³´</strong></h4>
     <? if ($w=='') { ?>
         <div style="float:left;">
-            2CPU´Â È¸¿ø°£ÀÇ ¹ÏÀ½À» ¹ÙÅÁÀ¸·Î ÇÏ´Â Ä«ÆäÀÔ´Ï´Ù. È¸¿ø°¡ÀÔÈÄ º»ÀÎÀÎÁõÀ» ÇØÁÖ¼Å¾ß ±Û¾²±â°¡ °¡´ÉÇÕ´Ï´Ù. 
-            ±â¾÷È¸¿øÀ¸·Î °¡ÀÔÇÏ½Ã·Á´Â °æ¿ì È¸»ç¸íÀ¸·Î ´Ð³×ÀÓÀ» ÇØÁÖ½Ã¸é µË´Ï´Ù. 
+            2CPUëŠ” íšŒì›ê°„ì˜ ë¯¿ìŒì„ ë°”íƒ•ìœ¼ë¡œ í•˜ëŠ” ì¹´íŽ˜ìž…ë‹ˆë‹¤. íšŒì›ê°€ìž…í›„ ë³¸ì¸ì¸ì¦ì„ í•´ì£¼ì…”ì•¼ ê¸€ì“°ê¸°ê°€ ê°€ëŠ¥í•©ë‹ˆë‹¤. 
+            ê¸°ì—…íšŒì›ìœ¼ë¡œ ê°€ìž…í•˜ì‹œë ¤ëŠ” ê²½ìš° íšŒì‚¬ëª…ìœ¼ë¡œ ë‹‰ë„¤ìž„ì„ í•´ì£¼ì‹œë©´ ë©ë‹ˆë‹¤. 
         </div>
     <? } ?>
     </div>
     <div class="panel-body">
 
         <div class="form-group">
-            <label for="mb_id" class="col-sm-2 control-label">¾ÆÀÌµð</label>
+            <label for="mb_id" class="col-sm-2 control-label">ì•„ì´ë””</label>
             <div class="col-sm-6">
                 <input class="form-control" placeholder="User id" maxlength=20 size=20 id='mb_id' name="mb_id" required style="ime-mode:disabled" value="<?=$member[mb_id]?>" 
                 <? if ($w=='u') { echo "readonly"; } ?>
                 <? if ($w=='') { echo "onblur='reg_mb_id_check()'"; } ?>>
                 <? if ($w=='') { ?>
-                    <p class="help-block">¿µ¹®ÀÚ, ¼ýÀÚ, _ ¸¸ ÀÔ·Â °¡´É. 3ÀÚÀÌ»ó ÀÔ·ÂÇÏ¼¼¿ä.</p>
+                    <p class="help-block">ì˜ë¬¸ìž, ìˆ«ìž, _ ë§Œ ìž…ë ¥ ê°€ëŠ¥. 3ìžì´ìƒ ìž…ë ¥í•˜ì„¸ìš”.</p>
       	    				<p class="help-block"><span id="msg_mb_id"></span></p>
                 <? } ?>
             </div>
         </div>
     
         <div class="form-group">
-            <label for="mb_password" class="col-sm-2 control-label">ÆÐ½º¿öµå</label>
+            <label for="mb_password" class="col-sm-2 control-label">íŒ¨ìŠ¤ì›Œë“œ</label>
             <div class="col-sm-6">
-                <INPUT class="form-control" type="password" name="mb_password" id="mb_password" style="ime-mode:disabled" size=20 maxlength=20 <?=($w=="")?"required":"";?> itemname="ÆÐ½º¿öµå" placeholder="Password">
+                <INPUT class="form-control" type="password" name="mb_password" id="mb_password" style="ime-mode:disabled" size=20 maxlength=20 <?=($w=="")?"required":"";?> itemname="íŒ¨ìŠ¤ì›Œë“œ" placeholder="Password">
             </div>
         </div>
 
         <div class="form-group">
-            <label for="mb_password_re" class="col-sm-2 control-label">ÆÐ½º¿öµåÈ®ÀÎ</label>
+            <label for="mb_password_re" class="col-sm-2 control-label">íŒ¨ìŠ¤ì›Œë“œí™•ì¸</label>
             <div class="col-sm-6">
-                <INPUT class="form-control" type="password" name="mb_password_re" style="ime-mode:disabled" size=20 maxlength=20 <?=($w=="")?"required":"";?> itemname="ÆÐ½º¿öµå È®ÀÎ" placeholder="Password¸¦ ÇÑ¹ø ´õ ÀÔ·Â">
-                <p class="help-block">ºñ¹Ð¹øÈ£´Â 8ÀÚ ÀÌ»óÀ¸·Î ½±°Ô ÃßÁ¤ÇÒ ¼ö ¾ø°Ô ¼ýÀÚ¿Í ¿µ¹®ÀÚ¸¦ ¼¯¾î¼­ ¸¸µé¸é ¾ÈÀüÇÕ´Ï´Ù.</p>
+                <INPUT class="form-control" type="password" name="mb_password_re" style="ime-mode:disabled" size=20 maxlength=20 <?=($w=="")?"required":"";?> itemname="íŒ¨ìŠ¤ì›Œë“œ í™•ì¸" placeholder="Passwordë¥¼ í•œë²ˆ ë” ìž…ë ¥">
+                <p class="help-block">ë¹„ë°€ë²ˆí˜¸ëŠ” 8ìž ì´ìƒìœ¼ë¡œ ì‰½ê²Œ ì¶”ì •í•  ìˆ˜ ì—†ê²Œ ìˆ«ìžì™€ ì˜ë¬¸ìžë¥¼ ì„žì–´ì„œ ë§Œë“¤ë©´ ì•ˆì „í•©ë‹ˆë‹¤.</p>
             </div>
         </div>
 
         <? if ($g4['nick_reg_only'] !== 1) { ?>
         <div class="form-group">
-            <label for="mb_password_re" class="col-sm-2 control-label">ÀÌ¸§</label>
+            <label for="mb_password_re" class="col-sm-2 control-label">ì´ë¦„</label>
             <div class="col-sm-6">
-                <INPUT class="form-control" type="text" name=mb_name id=mb_name size=20 maxlength=20 required itemname="ÀÌ¸§" value="<?=$member[mb_name]?>" placeholder="Name"
+                <INPUT class="form-control" type="text" name=mb_name id=mb_name size=20 maxlength=20 required itemname="ì´ë¦„" value="<?=$member[mb_name]?>" placeholder="Name"
                 <? if ($w=='u') { echo "readonly"; } ?>
                 <? if ($w=='') { echo "onblur='reg_mb_name_check()'"; } ?>>
                 <? if ($w=='') { ?>
-                    <p class="help-block">°ø¹é¾øÀÌ ÇÑ±Û ¶Ç´Â ¿µ¹®¸¸ ÀÔ·Â °¡´ÉÇÕ´Ï´Ù.</p>
+                    <p class="help-block">ê³µë°±ì—†ì´ í•œê¸€ ë˜ëŠ” ì˜ë¬¸ë§Œ ìž…ë ¥ ê°€ëŠ¥í•©ë‹ˆë‹¤.</p>
       	    				<p class="help-block"><span id="msg_mb_name"></span></p>
                 <? } ?>
             </div>
         </div>
         <? } ?>
 
-        <? if ($member[mb_nick_date] <= date("Y-m-d", $g4[server_time] - ($config[cf_nick_modify] * 86400))) { // º°¸í¼öÁ¤ÀÏÀÌ Áö³µ´Ù¸é ¼öÁ¤°¡´É ?>
+        <? if ($member[mb_nick_date] <= date("Y-m-d", $g4[server_time] - ($config[cf_nick_modify] * 86400))) { // ë³„ëª…ìˆ˜ì •ì¼ì´ ì§€ë‚¬ë‹¤ë©´ ìˆ˜ì •ê°€ëŠ¥ ?>
         <input type=hidden name=mb_nick_default value='<?=$member[mb_nick]?>'>
         <div class="form-group">
-            <label for="mb_nick" class="col-sm-2 control-label">´Ð³×ÀÓ</label>
+            <label for="mb_nick" class="col-sm-2 control-label">ë‹‰ë„¤ìž„</label>
             <div class="col-sm-6">
                 <input class="form-control" type="text" id='mb_nick' name='mb_nick' required hangulalphanumeric maxlength=20 value='<?=$member[mb_nick]?>' placeholder="Nick name" onblur="reg_mb_nick_check();">
-                    <p class="help-block">°ø¹é¾øÀÌ ÇÑ±Û,¿µ¹®,¼ýÀÚ¸¸ ÀÔ·Â °¡´É (ÇÑ±Û2ÀÚ, ¿µ¹®4ÀÚ ÀÌ»ó)<br>
-                    º°¸íÀ» ¹Ù²Ù½Ã¸é ¾ÕÀ¸·Î <?=(int)$config[cf_nick_modify]?>ÀÏ ÀÌ³»¿¡´Â º¯°æ ÇÒ ¼ö ¾ø½À´Ï´Ù.</p>
+                    <p class="help-block">ê³µë°±ì—†ì´ í•œê¸€,ì˜ë¬¸,ìˆ«ìžë§Œ ìž…ë ¥ ê°€ëŠ¥ (í•œê¸€2ìž, ì˜ë¬¸4ìž ì´ìƒ)<br>
+                    ë³„ëª…ì„ ë°”ê¾¸ì‹œë©´ ì•žìœ¼ë¡œ <?=(int)$config[cf_nick_modify]?>ì¼ ì´ë‚´ì—ëŠ” ë³€ê²½ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.</p>
       	    				<p class="help-block"><span id="msg_mb_nick"></span></p>
             </div>
         </div>
         <? } else { ?>
         <input type=hidden name="mb_nick_default" value='<?=$member[mb_nick]?>'>
         <div class="form-group">
-            <label for="mb_nick" class="col-sm-2 control-label">´Ð³×ÀÓ</label>
+            <label for="mb_nick" class="col-sm-2 control-label">ë‹‰ë„¤ìž„</label>
             <div class="col-sm-6">
                 <?
                 $d_times = (int)(($config[cf_nick_modify] * 86400 - ( $g4[server_time] - strtotime($member[mb_nick_date]))) / 86400) + 1;
                 ?>
                 <input class="form-control" readonly type="text" id='mb_nick' name='mb_nick' value='<?=$member[mb_nick]?>'>
-                    <p class="help-block">¡Ø <?=$d_times?>ÀÏ ÈÄ º¯°æÀÌ °¡´É ÇÕ´Ï´Ù.</p>
+                    <p class="help-block">â€» <?=$d_times?>ì¼ í›„ ë³€ê²½ì´ ê°€ëŠ¥ í•©ë‹ˆë‹¤.</p>
             </div>
         </div>
         <? } ?>
@@ -104,19 +104,19 @@ var member_skin_path = "<?=$member_skin_path?>";
                 <input class="form-control" type="text" id='mb_email' name='mb_email' required style="ime-mode:disabled" size=38 maxlength=100 value='<?=$member[mb_email]?>' placeholder="E-mail"
                     onblur="reg_mb_email_check()">
                 <? if ($w=='') { ?>
-                    <p class="help-block">¾ÆÀÌµð, ºñ¹Ð¹øÈ£ ºÐ½Ç ½Ã º»ÀÎÈ®ÀÎ¿ëÀ¸·Î »ç¿ëµÇ¹Ç·Î<br>À¯È¿ÇÑ ÀÌ¸ÞÀÏ °èÁ¤À¸·Î ÀÔ·ÂÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.</p>
+                    <p class="help-block">ì•„ì´ë””, ë¹„ë°€ë²ˆí˜¸ ë¶„ì‹¤ ì‹œ ë³¸ì¸í™•ì¸ìš©ìœ¼ë¡œ ì‚¬ìš©ë˜ë¯€ë¡œ<br>ìœ íš¨í•œ ì´ë©”ì¼ ê³„ì •ìœ¼ë¡œ ìž…ë ¥í•˜ì‹œê¸° ë°”ëžë‹ˆë‹¤.</p>
       	    				<p class="help-block"><span id="msg_mb_email"></span></p>
       	    		<?}?>
                 <? if ($member[mb_email_certify]) {?>
-                    <p class="help-block"><?=cut_str($member[mb_email_certify],10,"")?> ¿¡ ÀÎÁõµÇ¾ú½À´Ï´Ù.</p>
+                    <p class="help-block"><?=cut_str($member[mb_email_certify],10,"")?> ì— ì¸ì¦ë˜ì—ˆìŠµë‹ˆë‹¤.</p>
                 <? } ?>
                 <? if ($config[cf_use_email_certify]) { ?>
-                    <? if ($w=='') { ?><p class="help-block">e-mail ·Î ¹ß¼ÛµÈ ³»¿ëÀ» È®ÀÎÇÑ ÈÄ ÀÎÁõÇÏ¼Å¾ß È¸¿ø°¡ÀÔÀÌ ¿Ï·áµË´Ï´Ù.</p><?}?>
-                    <? if ($w=='u'){ ?><p class="help-block">e-mail ÁÖ¼Ò¸¦ º¯°æÇÏ½Ã¸é ´Ù½Ã ÀÎÁõÇÏ¼Å¾ß ÇÕ´Ï´Ù.</p><?}?>
+                    <? if ($w=='') { ?><p class="help-block">e-mail ë¡œ ë°œì†¡ëœ ë‚´ìš©ì„ í™•ì¸í•œ í›„ ì¸ì¦í•˜ì…”ì•¼ íšŒì›ê°€ìž…ì´ ì™„ë£Œë©ë‹ˆë‹¤.</p><?}?>
+                    <? if ($w=='u'){ ?><p class="help-block">e-mail ì£¼ì†Œë¥¼ ë³€ê²½í•˜ì‹œë©´ ë‹¤ì‹œ ì¸ì¦í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.</p><?}?>
                 <? } ?>
                 <? if ($w=='u') {
                     if ($g4['email_certify_point'] || $config['cf_use_email_certify']) ?>
-                        <p class="help-block"><a href='<?=$g4[bbs_path]?>/email_re_certify.php' target=new>ÀÌ¸ÞÀÏÀÎÁõÇÏ·¯ °¡±â</a>¸¦ ´©¸£½Ã¸é ÀÎÁõÃ¢ÀÌ ¿­¸³´Ï´Ù.</p>
+                        <p class="help-block"><a href='<?=$g4[bbs_path]?>/email_re_certify.php' target=new>ì´ë©”ì¼ì¸ì¦í•˜ëŸ¬ ê°€ê¸°</a>ë¥¼ ëˆ„ë¥´ì‹œë©´ ì¸ì¦ì°½ì´ ì—´ë¦½ë‹ˆë‹¤.</p>
                 <?}?>
             </div>
         </div>
@@ -124,13 +124,13 @@ var member_skin_path = "<?=$member_skin_path?>";
         <? if ($w=="") { ?>
             <? if ($config[cf_use_birthdate]) { ?>
             <div class="form-group">
-                <label for="mb_birth" class="col-sm-2 control-label">»ý³â¿ùÀÏ</label>
+                <label for="mb_birth" class="col-sm-2 control-label">ìƒë…„ì›”ì¼</label>
                 <div class="col-sm-6">
                     <div class="input-group">
                     <span class="input-group-btn">
                     <a class="btn btn-default" href="javascript:win_calendar('mb_birth', document.getElementById('mb_birth').value, '');"><i class="fa fa-calendar"></i></a>
                     </span>
-                    <INPUT class="form-control" type="text" id="mb_birth" name='mb_birth' size=8 maxlength=8 minlength=8 required numeric itemname='»ý³â¿ùÀÏ' value='<?=$member[mb_birth]?>' readonly title='¿·ÀÇ ´Þ·Â ¾ÆÀÌÄÜÀ» Å¬¸¯ÇÏ¿© ³¯Â¥¸¦ ÀÔ·ÂÇÏ¼¼¿ä.'>
+                    <INPUT class="form-control" type="text" id="mb_birth" name='mb_birth' size=8 maxlength=8 minlength=8 required numeric itemname='ìƒë…„ì›”ì¼' value='<?=$member[mb_birth]?>' readonly title='ì˜†ì˜ ë‹¬ë ¥ ì•„ì´ì½˜ì„ í´ë¦­í•˜ì—¬ ë‚ ì§œë¥¼ ìž…ë ¥í•˜ì„¸ìš”.'>
                     </div>
                 </div>
             </div>
@@ -140,13 +140,13 @@ var member_skin_path = "<?=$member_skin_path?>";
         <? if ($member[mb_sex]) { ?>
         <input type=hidden name=mb_sex value='<?=$member[mb_sex]?>'>
         <div class="form-group">
-            <label for="mb_sex" class="col-sm-2 control-label">¼ºº°</label>
+            <label for="mb_sex" class="col-sm-2 control-label">ì„±ë³„</label>
             <div class="col-sm-6">
                 <p class="help-block">
                     <? 
                     switch ($member[mb_sex]) {
-                      case 'F' : echo "¿©ÀÚ"; break;
-                      case 'M' : echo "³²ÀÚ"; break;
+                      case 'F' : echo "ì—¬ìž"; break;
+                      case 'M' : echo "ë‚¨ìž"; break;
                     }
                     ?>
                 </p>
@@ -155,16 +155,16 @@ var member_skin_path = "<?=$member_skin_path?>";
         <? } else { ?>
             <? if ($config[cf_use_sex]) { ?>
             <div class="form-group">
-                <label for="mb_sex" class="col-sm-2 control-label">¼ºº°</label>
+                <label for="mb_sex" class="col-sm-2 control-label">ì„±ë³„</label>
                 <div class="col-sm-6">
                     <div class="radio-inline">
                         <label>
-                        <input type="radio" name="mb_sex" id="mb_sex1" value="F" checked>¿©¼º
+                        <input type="radio" name="mb_sex" id="mb_sex1" value="F" checked>ì—¬ì„±
                         </label>
                     </div>
                     <div class="radio-inline">
                         <label>
-                        <input type="radio" name="mb_sex" id="mb_sex2" value="M">³²¼º
+                        <input type="radio" name="mb_sex" id="mb_sex2" value="M">ë‚¨ì„±
                         </label>
                     </div>
                 </div>
@@ -174,27 +174,27 @@ var member_skin_path = "<?=$member_skin_path?>";
 
         <? if ($config[cf_use_hp]) { ?>
         <div class="form-group">
-            <label for="mb_homepage" class="col-sm-2 control-label">ÇÚµåÆù¹øÈ£</label>
+            <label for="mb_homepage" class="col-sm-2 control-label">í•¸ë“œí°ë²ˆí˜¸</label>
             <div class="col-sm-6">
                 <?
                 if ($member[mb_hp_certify_datetime] && $member[mb_hp_certify_datetime] !== '0000-00-00 00:00:00') {
-                    echo "$member[mb_hp_certify_datetime] ¿¡ ÀÎÁõÇÏ¿´½À´Ï´Ù.<br>"; 
+                    echo "$member[mb_hp_certify_datetime] ì— ì¸ì¦í•˜ì˜€ìŠµë‹ˆë‹¤.<br>"; 
                     echo "<input type='hidden' name='mb_hp_old' value='$member[mb_hp]'>"; 
                 } 
                 ?>
                 <?if ($w=='u') { ?>
-                    <input type=text name='mb_hp' size=21 maxlength=20 <?=$config[cf_req_hp]?'required':'';?> itemname='ÇÚµåÆù¹øÈ£' value='<?=$member[mb_hp]?>'>
+                    <input type=text name='mb_hp' size=21 maxlength=20 <?=$config[cf_req_hp]?'required':'';?> itemname='í•¸ë“œí°ë²ˆí˜¸' value='<?=$member[mb_hp]?>'>
                     <? if ($config[cf_hp_certify]) { ?>
-                        <input type=button value='ÀÎÁõ¹øÈ£ Àü¼Û' onclick="hp_certify(this.form);">  
-                        ÀÎÁõ¹øÈ£ : <input class=m_text type=text name='mb_hp_certify' size=6 maxlength=6> 6ÀÚ¸® ¼ýÀÚ<br> 
+                        <input type=button value='ì¸ì¦ë²ˆí˜¸ ì „ì†¡' onclick="hp_certify(this.form);">  
+                        ì¸ì¦ë²ˆí˜¸ : <input class=m_text type=text name='mb_hp_certify' size=6 maxlength=6> 6ìžë¦¬ ìˆ«ìž<br> 
                         <span> 
-                            ÇÚµåÆùÀ¸·Î Àü¼ÛµÈ ÀÎÁõ¹øÈ£¸¦ ÀÔ·Â ÈÄ È¸¿øÁ¤º¸¸¦ ¼öÁ¤(È®ÀÎ ¹öÆ°)ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.<br> 
+                            í•¸ë“œí°ìœ¼ë¡œ ì „ì†¡ëœ ì¸ì¦ë²ˆí˜¸ë¥¼ ìž…ë ¥ í›„ íšŒì›ì •ë³´ë¥¼ ìˆ˜ì •(í™•ì¸ ë²„íŠ¼)í•˜ì‹œê¸° ë°”ëžë‹ˆë‹¤.<br> 
                         </span> 
                         <script> 
                         function hp_certify(f) { 
                             var pattern = /^01[0-9][-]{0,1}[0-9]{3,4}[-]{0,1}[0-9]{4}$/; 
                             if(!pattern.test(f.mb_hp.value)){  
-                                alert("ÇÚµåÆù ¹øÈ£°¡ ÀÔ·ÂµÇÁö ¾Ê¾Ò°Å³ª ¹øÈ£°¡ Æ²¸³´Ï´Ù.\n\nÇÚµåÆù ¹øÈ£¸¦ 010-123-4567 ¶Ç´Â 01012345678 °ú °°ÀÌ ÀÔ·ÂÇØ ÁÖ½Ê½Ã¿À."); 
+                                alert("í•¸ë“œí° ë²ˆí˜¸ê°€ ìž…ë ¥ë˜ì§€ ì•Šì•˜ê±°ë‚˜ ë²ˆí˜¸ê°€ í‹€ë¦½ë‹ˆë‹¤.\n\ní•¸ë“œí° ë²ˆí˜¸ë¥¼ 010-123-4567 ë˜ëŠ” 01012345678 ê³¼ ê°™ì´ ìž…ë ¥í•´ ì£¼ì‹­ì‹œì˜¤."); 
                                 f.mb_hp.select(); 
                                 f.mb_hp.focus(); 
                                 return; 
@@ -204,7 +204,7 @@ var member_skin_path = "<?=$member_skin_path?>";
                         </script>
                     <? } ?>
                 <? } else { ?>
-                    <input class="form-control" type=text name='mb_hp' size=21 maxlength=20 <?=$config[cf_req_hp]?'required':'';?> itemname='ÇÚµåÆù¹øÈ£' value='<?=$member[mb_hp]?>'>
+                    <input class="form-control" type=text name='mb_hp' size=21 maxlength=20 <?=$config[cf_req_hp]?'required':'';?> itemname='í•¸ë“œí°ë²ˆí˜¸' value='<?=$member[mb_hp]?>'>
                 <? } ?>
             </div>
         </div>
@@ -212,43 +212,43 @@ var member_skin_path = "<?=$member_skin_path?>";
 
         <? if ($config[cf_use_tel]) { ?>
         <div class="form-group">
-            <label for="mb_tel" class="col-sm-2 control-label">ÀüÈ­¹øÈ£</label>
+            <label for="mb_tel" class="col-sm-2 control-label">ì „í™”ë²ˆí˜¸</label>
             <div class="col-sm-6">
-                <INPUT class="form-control" type="text" name="mb_tel" size=21 maxlength=20 <?=$config[cf_req_tel]?'required':'';?> itemname='ÀüÈ­¹øÈ£' value='<?=$member[mb_tel]?>' placeholder="Telephone no.">
+                <INPUT class="form-control" type="text" name="mb_tel" size=21 maxlength=20 <?=$config[cf_req_tel]?'required':'';?> itemname='ì „í™”ë²ˆí˜¸' value='<?=$member[mb_tel]?>' placeholder="Telephone no.">
             </div>
         </div>
         <? } ?>
 
         <? if ($config[cf_use_homepage]) { ?>
         <div class="form-group">
-            <label for="mb_homepage" class="col-sm-2 control-label">È¨ÆäÀÌÁö</label>
+            <label for="mb_homepage" class="col-sm-2 control-label">í™ˆíŽ˜ì´ì§€</label>
             <div class="col-sm-6">
-                <INPUT class="form-control" type="text" name="mb_homepage" id="mb_homepage" size=38 maxlength=255 <?=$config[cf_req_homepage]?'required':'';?> itemname='È¨ÆäÀÌÁö' value='<?=$member[mb_homepage]?>' placeholder="Homepage URL">
+                <INPUT class="form-control" type="text" name="mb_homepage" id="mb_homepage" size=38 maxlength=255 <?=$config[cf_req_homepage]?'required':'';?> itemname='í™ˆíŽ˜ì´ì§€' value='<?=$member[mb_homepage]?>' placeholder="Homepage URL">
             </div>
         </div>
         <? } ?>
 
         <? if ($config[cf_use_addr]) { ?>
         <div class="form-group">
-            <label class="col-sm-2 control-label">ÁÖ¼Ò</label>
+            <label class="col-sm-2 control-label">ì£¼ì†Œ</label>
             <div class="col-sm-6">
-                <input class=m_text type=text name='mb_zip1' size=4 maxlength=3 readonly <?=$config[cf_req_addr]?'required':'';?> itemname='¿ìÆí¹øÈ£ ¾ÕÀÚ¸®' value='<?=$member[mb_zip1]?>'>
+                <input class=m_text type=text name='mb_zip1' size=4 maxlength=3 readonly <?=$config[cf_req_addr]?'required':'';?> itemname='ìš°íŽ¸ë²ˆí˜¸ ì•žìžë¦¬' value='<?=$member[mb_zip1]?>'>
                 - 
-                <input class=m_text type=text name='mb_zip2' size=4 maxlength=3 readonly <?=$config[cf_req_addr]?'required':'';?> itemname='¿ìÆí¹øÈ£ µÞÀÚ¸®' value='<?=$member[mb_zip2]?>'>
+                <input class=m_text type=text name='mb_zip2' size=4 maxlength=3 readonly <?=$config[cf_req_addr]?'required':'';?> itemname='ìš°íŽ¸ë²ˆí˜¸ ë’·ìžë¦¬' value='<?=$member[mb_zip2]?>'>
                 &nbsp;<a href="javascript:;" onclick="win_zip('fregisterform', 'mb_zip1', 'mb_zip2', 'mb_addr1', 'mb_addr2');"><img width="91" height="20" src="<?=$member_skin_path?>/img/post_search_btn.gif" border=0 align=absmiddle></a>
-                <input class="form-control" type=text name='mb_addr1' size=60 readonly <?=$config[cf_req_addr]?'required':'';?> itemname='ÁÖ¼Ò' value='<?=$member[mb_addr1]?>'>
-                <input class="form-control" type=text name='mb_addr2' size=60 <?=$config[cf_req_addr]?'required':'';?> itemname='»ó¼¼ÁÖ¼Ò' value='<?=$member[mb_addr2]?>'>
+                <input class="form-control" type=text name='mb_addr1' size=60 readonly <?=$config[cf_req_addr]?'required':'';?> itemname='ì£¼ì†Œ' value='<?=$member[mb_addr1]?>'>
+                <input class="form-control" type=text name='mb_addr2' size=60 <?=$config[cf_req_addr]?'required':'';?> itemname='ìƒì„¸ì£¼ì†Œ' value='<?=$member[mb_addr2]?>'>
             </div>
         </div>
         <? } ?>
 
         <div class="form-group">
-            <label for="mb_mailling" class="col-sm-2 control-label">¸ÞÀÏ¸µ¼­ºñ½º</label>
+            <label for="mb_mailling" class="col-sm-2 control-label">ë©”ì¼ë§ì„œë¹„ìŠ¤</label>
             <div class="col-sm-6">
             <div class="checkbox">
 						<label>
                 <input type="checkbox" name="mb_mailling" id="mb_mailling" value='1' <?=($w=='' || $member[mb_mailling])?'checked':'';?>>
-                Á¤º¸ ¸ÞÀÏÀ» ¹Þ°Ú½À´Ï´Ù.
+                ì •ë³´ ë©”ì¼ì„ ë°›ê² ìŠµë‹ˆë‹¤.
 						</label>
 						</div>
             </div>
@@ -256,31 +256,31 @@ var member_skin_path = "<?=$member_skin_path?>";
 
         <? if ($config[cf_use_hp]) { ?>
         <div class="form-group">
-            <label for="mb_sms" class="col-sm-2 control-label">SMS ¼ö½Å¿©ºÎ</label>
+            <label for="mb_sms" class="col-sm-2 control-label">SMS ìˆ˜ì‹ ì—¬ë¶€</label>
             <div class="col-sm-6">
             <div class="checkbox">
 						<label>
                 <input type="checkbox" name="mb_sms" value='1' <?=($w=='' || $member[mb_sms])?'checked':'';?>>
-                ÇÚµåÆù ¹®ÀÚ¸Þ¼¼Áö¸¦ ¹Þ°Ú½À´Ï´Ù.
+                í•¸ë“œí° ë¬¸ìžë©”ì„¸ì§€ë¥¼ ë°›ê² ìŠµë‹ˆë‹¤.
 						</label>
 						</div>
             </div>
         </div>
         <? } ?>
 
-        <? if ($member[mb_open_date] <= date("Y-m-d", $g4[server_time] - ($config[cf_open_modify] * 86400)) || !$member['mb_open']) { // Á¤º¸°ø°³ ¼öÁ¤ÀÏÀÌ Áö³µ´Ù¸é ¼öÁ¤°¡´É ?>
+        <? if ($member[mb_open_date] <= date("Y-m-d", $g4[server_time] - ($config[cf_open_modify] * 86400)) || !$member['mb_open']) { // ì •ë³´ê³µê°œ ìˆ˜ì •ì¼ì´ ì§€ë‚¬ë‹¤ë©´ ìˆ˜ì •ê°€ëŠ¥ ?>
         <input type=hidden name=mb_open_default value='<?=$member[mb_open]?>'>
         <div class="form-group">
-            <label for="mb_open" class="col-sm-2 control-label">Á¤º¸°ø°³</label>
+            <label for="mb_open" class="col-sm-2 control-label">ì •ë³´ê³µê°œ</label>
             <div class="col-sm-6">
             <div class="checkbox">
 						<label>
                 <input type="checkbox" name="mb_open" id="mb_open" value='1' <?=($w=='' || $member[mb_open])?'checked':'';?>>
-                ´Ù¸¥ È¸¿øµéÀÌ ³ªÀÇ Á¤º¸¸¦ º¼ ¼ö ÀÖµµ·Ï ÇÕ´Ï´Ù.
+                ë‹¤ë¥¸ íšŒì›ë“¤ì´ ë‚˜ì˜ ì •ë³´ë¥¼ ë³¼ ìˆ˜ ìžˆë„ë¡ í•©ë‹ˆë‹¤.
 						</label>
 						</div>
                 <? if ($config[cf_open_modify]) { ?>
-                <p class="help-block">Á¤º¸°ø°³¸¦ ¹Ù²Ù½Ã¸é ¾ÕÀ¸·Î <?=(int)$config[cf_open_modify]?>ÀÏ ÀÌ³»¿¡´Â º¯°æÀÌ ¾ÈµË´Ï´Ù.</p>
+                <p class="help-block">ì •ë³´ê³µê°œë¥¼ ë°”ê¾¸ì‹œë©´ ì•žìœ¼ë¡œ <?=(int)$config[cf_open_modify]?>ì¼ ì´ë‚´ì—ëŠ” ë³€ê²½ì´ ì•ˆë©ë‹ˆë‹¤.</p>
                 <? } ?>
             </div>
         </div>        
@@ -289,13 +289,13 @@ var member_skin_path = "<?=$member_skin_path?>";
         <div class="form-group">
             <?
             $d_times = (int)(($config[cf_open_modify] * 86400 - ( $g4[server_time] - strtotime($member[mb_open_date]))) / 86400) + 1;
-            if ($member[mb_open]) $msg="Á¤º¸°ø°³"; else $msg = "Á¤º¸ºñ°ø°³";
+            if ($member[mb_open]) $msg="ì •ë³´ê³µê°œ"; else $msg = "ì •ë³´ë¹„ê³µê°œ";
             ?>
-            <label for="mb_open" class="col-sm-2 control-label">Á¤º¸°ø°³</label>
+            <label for="mb_open" class="col-sm-2 control-label">ì •ë³´ê³µê°œ</label>
             <div class="col-sm-6">
                 <p class="help-block">
-                ÇöÀç <?=$msg?> »óÅÂÀÌ¸ç, <?=$member[mb_open_date]?>ÀÏ Á¤º¸¸¦ ¼öÁ¤Çß½À´Ï´Ù.<br>
-                Á¤º¸°ø°³´Â ¼öÁ¤ÈÄ <?=(int)$config[cf_open_modify]?>ÀÏ ÀÌ³», <?=date("Y³â m¿ù jÀÏ", strtotime("$member[mb_open_date] 00:00:00") + ($config[cf_open_modify] * 86400))?> ±îÁö´Â º¯°æÀÌ ¾ÈµË´Ï´Ù.<br> 
+                í˜„ìž¬ <?=$msg?> ìƒíƒœì´ë©°, <?=$member[mb_open_date]?>ì¼ ì •ë³´ë¥¼ ìˆ˜ì •í–ˆìŠµë‹ˆë‹¤.<br>
+                ì •ë³´ê³µê°œëŠ” ìˆ˜ì •í›„ <?=(int)$config[cf_open_modify]?>ì¼ ì´ë‚´, <?=date("Yë…„ mì›” jì¼", strtotime("$member[mb_open_date] 00:00:00") + ($config[cf_open_modify] * 86400))?> ê¹Œì§€ëŠ” ë³€ê²½ì´ ì•ˆë©ë‹ˆë‹¤.<br> 
                 </p>
             </div>
         </div>         
@@ -303,31 +303,31 @@ var member_skin_path = "<?=$member_skin_path?>";
 
         <? if ($config[cf_use_signature]) { ?>
         <div class="form-group">
-            <label for="mb_open" class="col-sm-2 control-label">¼­¸í</label>
+            <label for="mb_open" class="col-sm-2 control-label">ì„œëª…</label>
             <div class="col-sm-6">
-                <textarea name=mb_signature class="form-control" rows=3 style='width:100%;' <?=$config[cf_req_signature]?'required':'';?> itemname='¼­¸í'><?=$member[mb_signature]?></textarea>
+                <textarea name=mb_signature class="form-control" rows=3 style='width:100%;' <?=$config[cf_req_signature]?'required':'';?> itemname='ì„œëª…'><?=$member[mb_signature]?></textarea>
             </div>
         </div>
         <? } ?>
 
         <? if ($config[cf_use_profile]) { ?>
         <div class="form-group">
-            <label for="mb_open" class="col-sm-2 control-label">ÀÚ±â¼Ò°³</label>
+            <label for="mb_open" class="col-sm-2 control-label">ìžê¸°ì†Œê°œ</label>
             <div class="col-sm-6">
-                <textarea name=mb_profile class="form-control" rows=3 style='width:100%;' <?=$config[cf_req_profile]?'required':'';?> itemname='ÀÚ±â ¼Ò°³'><?=$member[mb_profile]?></textarea>            </div>
+                <textarea name=mb_profile class="form-control" rows=3 style='width:100%;' <?=$config[cf_req_profile]?'required':'';?> itemname='ìžê¸° ì†Œê°œ'><?=$member[mb_profile]?></textarea>            </div>
             </div>
         </div>
         <? } ?>
 
         <? if ($member[mb_level] >= $config[cf_icon_level]) { ?>
         <div class="form-group">
-            <label for="mb_open" class="col-sm-2 control-label">È¸¿ø¾ÆÀÌÄÜ</label>
+            <label for="mb_open" class="col-sm-2 control-label">íšŒì›ì•„ì´ì½˜</label>
             <div class="col-sm-6">
                 <INPUT type=file name='mb_icon' size=30>
     						<div>
-                * ÀÌ¹ÌÁö Å©±â´Â °¡·Î(<?=$config[cf_member_icon_width]?>ÇÈ¼¿)x¼¼·Î(<?=$config[cf_member_icon_height]?>ÇÈ¼¿) ÀÌÇÏ·Î ÇØÁÖ¼¼¿ä.<br>&nbsp;&nbsp;(gif/jpg/bmp/png¸¸ °¡´É / ¿ë·®:<?=number_format($config[cf_member_icon_size]/1000)?>k ¹ÙÀÌÆ® ÀÌÇÏ¸¸ µî·ÏµË´Ï´Ù.)
+                * ì´ë¯¸ì§€ í¬ê¸°ëŠ” ê°€ë¡œ(<?=$config[cf_member_icon_width]?>í”½ì…€)xì„¸ë¡œ(<?=$config[cf_member_icon_height]?>í”½ì…€) ì´í•˜ë¡œ í•´ì£¼ì„¸ìš”.<br>&nbsp;&nbsp;(gif/jpg/bmp/pngë§Œ ê°€ëŠ¥ / ìš©ëŸ‰:<?=number_format($config[cf_member_icon_size]/1000)?>k ë°”ì´íŠ¸ ì´í•˜ë§Œ ë“±ë¡ë©ë‹ˆë‹¤.)
                 <? if ($w == "u" && file_exists($mb_icon)) { ?>
-                    <br><img src='<?=$mb_icon?>' align=absmiddle> <input type=checkbox name='del_mb_icon' value='1'>»èÁ¦
+                    <br><img src='<?=$mb_icon?>' align=absmiddle> <input type=checkbox name='del_mb_icon' value='1'>ì‚­ì œ
                 <? } ?>
                 </div>
             </div>
@@ -336,22 +336,22 @@ var member_skin_path = "<?=$member_skin_path?>";
 
         <? if ($w == "" && $config[cf_use_recommend]) { ?>
         <div class="form-group">
-            <label for="mb_recommend" class="col-sm-2 control-label">ÃßÃµÀÎ¾ÆÀÌµð</label>
+            <label for="mb_recommend" class="col-sm-2 control-label">ì¶”ì²œì¸ì•„ì´ë””</label>
             <div class="col-sm-6">
                 <? if ($mb_recommend) { ?>
                     <input type=hidden name=mb_recommend         id=mb_recommend            value="<?=$mb_recommend?>">
                     <?=$mb_recommend?>
                 <? } else { ?>
-                    <input  class="form-control" type=text name=mb_recommend maxlength=20 size=20 <?=$config[cf_req_recommend]?'required':'';?> itemname='ÃßÃµÀÎ¾ÆÀÌµð'>
+                    <input  class="form-control" type=text name=mb_recommend maxlength=20 size=20 <?=$config[cf_req_recommend]?'required':'';?> itemname='ì¶”ì²œì¸ì•„ì´ë””'>
                 <? } ?>
                 <? if ($config[cf_recommend_point]) { ?>
-                    *ÃßÃµ È¸¿ø¿¡°Ô <?=$config[cf_recommend_point]?> Æ÷ÀÎÆ®¸¦ Áö±ÞÇÕ´Ï´Ù.
+                    *ì¶”ì²œ íšŒì›ì—ê²Œ <?=$config[cf_recommend_point]?> í¬ì¸íŠ¸ë¥¼ ì§€ê¸‰í•©ë‹ˆë‹¤.
                 <? } ?>
             </div>
         </div>
         <? } else if ($config[cf_use_recommend] && $member[mb_recommend]) {?>
         <div class="form-group">
-            <label for="mb_recommend" class="col-sm-2 control-label">ÃßÃµÀÎ¾ÆÀÌµð</label>
+            <label for="mb_recommend" class="col-sm-2 control-label">ì¶”ì²œì¸ì•„ì´ë””</label>
             <div class="col-sm-6">
                 <? $mb=get_member($member['mb_recommend'], "mb_id, mb_nick")?>
                 <?=get_sideview($mb['mb_id'], $mb['mb_nick'])?>
@@ -366,15 +366,15 @@ var member_skin_path = "<?=$member_skin_path?>";
                 <img id="zsfImg">
             </label>
             <div class="col-sm-6">
-                <input class="form-control" type="input" size=10 name=wr_key id=wr_key itemname="ÀÚµ¿µî·Ï¹æÁö" required placeholder="Captcha">
-                <p class="help-block">¿ÞÂÊÀÇ ±ÛÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä.</p>
+                <input class="form-control" type="input" size=10 name=wr_key id=wr_key itemname="ìžë™ë“±ë¡ë°©ì§€" required placeholder="Captcha">
+                <p class="help-block">ì™¼ìª½ì˜ ê¸€ìžë¥¼ ìž…ë ¥í•˜ì„¸ìš”.</p>
             </div>
         </div>        
         <? } ?>
 
         <? if ($w == "u") { ?>
         <div class="form-group">
-            <label class="col-sm-2 control-label">°¡ÀÔÀÏ</label>
+            <label class="col-sm-2 control-label">ê°€ìž…ì¼</label>
             <div class="col-sm-6">
                 <p class="help-block"><?=$member[mb_datetime]?></p>
             </div>
@@ -385,14 +385,14 @@ var member_skin_path = "<?=$member_skin_path?>";
     <div class="panel-footer">
     <div style="text-align:center">
     <? if ($w == "") { ?>
-        <button class="btn btn-success">°¡ ÀÔ</button>
+        <button class="btn btn-success">ê°€ ìž…</button>
     <? } else { ?>
-        <button class="btn btn-success">¼ö Á¤</button>
+        <button class="btn btn-success">ìˆ˜ ì •</button>
     <? } ?>
     </style>
 
     <? if ($is_member) { ?> 
-    <a href="javascript:member_leave();" class="btn btn-default pull-right">È¸¿øÅ»Åð</a>
+    <a href="javascript:member_leave();" class="btn btn-default pull-right">íšŒì›íƒˆí‡´</a>
     <? } ?> 
     </div>
 
@@ -401,7 +401,7 @@ var member_skin_path = "<?=$member_skin_path?>";
 </form> 
 
 <script type="text/javascript">
-// È¸¿ø°¡ÀÔ½Ã -> mb_id¿¡ focus, ¼öÁ¤½Ã -> mb_password¿¡ focus
+// íšŒì›ê°€ìž…ì‹œ -> mb_idì— focus, ìˆ˜ì •ì‹œ -> mb_passwordì— focus
 $(document).ready(function(){
     if ($('#w').val() == '')
         $('#mb_id').focus();
@@ -410,16 +410,16 @@ $(document).ready(function(){
     }
 });
 
-// submit ÃÖÁ¾ ÆûÃ¼Å©
+// submit ìµœì¢… í¼ì²´í¬
 function fregisterform_submit(f) 
 {
-    // È¸¿ø¾ÆÀÌµð °Ë»ç
+    // íšŒì›ì•„ì´ë”” ê²€ì‚¬
     if (f.w.value == "") {
 
         reg_mb_id_check();
 
         if (f.mb_id_enabled.value != '000') {
-            alert('È¸¿ø¾ÆÀÌµð¸¦ ÀÔ·ÂÇÏÁö ¾Ê¾Ò°Å³ª ÀÔ·Â¿¡ ¿À·ù°¡ ÀÖ½À´Ï´Ù.');
+            alert('íšŒì›ì•„ì´ë””ë¥¼ ìž…ë ¥í•˜ì§€ ì•Šì•˜ê±°ë‚˜ ìž…ë ¥ì— ì˜¤ë¥˜ê°€ ìžˆìŠµë‹ˆë‹¤.');
             f.mb_id.focus();
             return false;
         }
@@ -427,7 +427,7 @@ function fregisterform_submit(f)
 
     if (f.w.value == '') {
         if ($.trim(f.mb_password.value).length < 8) {
-            alert('ÆÐ½º¿öµå¸¦ 8±ÛÀÚ ÀÌ»ó ÀÔ·ÂÇÏ½Ê½Ã¿À.');
+            alert('íŒ¨ìŠ¤ì›Œë“œë¥¼ 8ê¸€ìž ì´ìƒ ìž…ë ¥í•˜ì‹­ì‹œì˜¤.');
             f.mb_password.focus();
             return false;
         }
@@ -435,53 +435,53 @@ function fregisterform_submit(f)
 
     if ($.trim(f.mb_password.value).length > 0) {
         if ($.trim(f.mb_password_re.value).length < 8) {
-            alert('ÆÐ½º¿öµå¸¦ 8±ÛÀÚ ÀÌ»ó ÀÔ·ÂÇÏ½Ê½Ã¿À.');
+            alert('íŒ¨ìŠ¤ì›Œë“œë¥¼ 8ê¸€ìž ì´ìƒ ìž…ë ¥í•˜ì‹­ì‹œì˜¤.');
             f.mb_password_re.focus();
             return false;
         }
     }
 
     if (f.mb_password.value != f.mb_password_re.value) {
-        alert('ÆÐ½º¿öµå°¡ °°Áö ¾Ê½À´Ï´Ù.');
+        alert('íŒ¨ìŠ¤ì›Œë“œê°€ ê°™ì§€ ì•ŠìŠµë‹ˆë‹¤.');
         f.mb_password_re.focus();
         return false;
     }
 
     <? if ($g4['nick_reg_only'] !== 1) { ?>
-    // ÀÌ¸§ °Ë»ç
+    // ì´ë¦„ ê²€ì‚¬
     if (f.w.value == "") {
 
         reg_mb_name_check();
 
         if (f.mb_name_enabled.value != '000') {
-            alert('ÀÌ¸§À» ÀÔ·ÂÇÏÁö ¾Ê¾Ò°Å³ª ÀÔ·Â¿¡ ¿À·ù°¡ ÀÖ½À´Ï´Ù.');
+            alert('ì´ë¦„ì„ ìž…ë ¥í•˜ì§€ ì•Šì•˜ê±°ë‚˜ ìž…ë ¥ì— ì˜¤ë¥˜ê°€ ìžˆìŠµë‹ˆë‹¤.');
             f.mb_name.focus();
             return false;
         }
     }
     <? } ?>
 
-    // º°¸í °Ë»ç
+    // ë³„ëª… ê²€ì‚¬
     if ((f.w.value == "") ||
         (f.w.value == "u" && f.mb_nick.defaultValue != f.mb_nick.value)) {
 
         reg_mb_nick_check();
 
         if (f.mb_nick_enabled.value != '000') {
-            alert('º°¸íÀ» ÀÔ·ÂÇÏÁö ¾Ê¾Ò°Å³ª ÀÔ·Â¿¡ ¿À·ù°¡ ÀÖ½À´Ï´Ù.');
+            alert('ë³„ëª…ì„ ìž…ë ¥í•˜ì§€ ì•Šì•˜ê±°ë‚˜ ìž…ë ¥ì— ì˜¤ë¥˜ê°€ ìžˆìŠµë‹ˆë‹¤.');
             f.mb_nick.focus();
             return false;
         }
     }
 
-    // E-mail °Ë»ç
+    // E-mail ê²€ì‚¬
     if ((f.w.value == "") ||
         (f.w.value == "u" && f.mb_email.defaultValue != f.mb_email.value)) {
 
         reg_mb_email_check();
 
         if (f.mb_email_enabled.value != '000') {
-            alert('E-mailÀ» ÀÔ·ÂÇÏÁö ¾Ê¾Ò°Å³ª ÀÔ·Â¿¡ ¿À·ù°¡ ÀÖ½À´Ï´Ù.');
+            alert('E-mailì„ ìž…ë ¥í•˜ì§€ ì•Šì•˜ê±°ë‚˜ ìž…ë ¥ì— ì˜¤ë¥˜ê°€ ìžˆìŠµë‹ˆë‹¤.');
             f.mb_email.focus();
             return false;
         }
@@ -489,24 +489,24 @@ function fregisterform_submit(f)
 
     if (typeof(f.mb_birth) != 'undefined') {
         if ($.trim(f.mb_birth.value).length < 1) {
-            alert('´Þ·Â ¹öÆ°À» Å¬¸¯ÇÏ¿© »ýÀÏÀ» ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À.');
+            alert('ë‹¬ë ¥ ë²„íŠ¼ì„ í´ë¦­í•˜ì—¬ ìƒì¼ì„ ìž…ë ¥í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.');
             //f.mb_birth.focus();
             return false;
         }
 
         var todays = <?=date("Ymd", $g4['server_time']);?>;
-        // ¿À´Ã³¯Â¥¿¡¼­ »ýÀÏÀ» »©°í °Å±â¼­ 140000 À» »«´Ù.
-        // °á°ú°¡ 0 ÀÌ»óÀÇ ¾ç¼öÀÌ¸é ¸¸ 14¼¼°¡ Áö³­°ÍÀÓ
+        // ì˜¤ëŠ˜ë‚ ì§œì—ì„œ ìƒì¼ì„ ë¹¼ê³  ê±°ê¸°ì„œ 140000 ì„ ëº€ë‹¤.
+        // ê²°ê³¼ê°€ 0 ì´ìƒì˜ ì–‘ìˆ˜ì´ë©´ ë§Œ 14ì„¸ê°€ ì§€ë‚œê²ƒìž„
         var n = todays - parseInt(f.mb_birth.value) - 140000;
         if (n < 0) {
-            alert("¸¸ 14¼¼°¡ Áö³ªÁö ¾ÊÀº ¾î¸°ÀÌ´Â Á¤º¸Åë½Å¸Á ÀÌ¿ëÃËÁø ¹× Á¤º¸º¸È£ µî¿¡ °üÇÑ ¹ý·ü\n\nÁ¦ 31Á¶ 1Ç×ÀÇ ±ÔÁ¤¿¡ ÀÇÇÏ¿© ¹ýÁ¤´ë¸®ÀÎÀÇ µ¿ÀÇ¸¦ ¾ò¾î¾ß ÇÏ¹Ç·Î\n\n¹ýÁ¤´ë¸®ÀÎÀÇ ÀÌ¸§°ú ¿¬¶ôÃ³¸¦ 'ÀÚ±â¼Ò°³'¶õ¿¡ º°µµ·Î ÀÔ·ÂÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.");
+            alert("ë§Œ 14ì„¸ê°€ ì§€ë‚˜ì§€ ì•Šì€ ì–´ë¦°ì´ëŠ” ì •ë³´í†µì‹ ë§ ì´ìš©ì´‰ì§„ ë° ì •ë³´ë³´í˜¸ ë“±ì— ê´€í•œ ë²•ë¥ \n\nì œ 31ì¡° 1í•­ì˜ ê·œì •ì— ì˜í•˜ì—¬ ë²•ì •ëŒ€ë¦¬ì¸ì˜ ë™ì˜ë¥¼ ì–»ì–´ì•¼ í•˜ë¯€ë¡œ\n\në²•ì •ëŒ€ë¦¬ì¸ì˜ ì´ë¦„ê³¼ ì—°ë½ì²˜ë¥¼ 'ìžê¸°ì†Œê°œ'ëž€ì— ë³„ë„ë¡œ ìž…ë ¥í•˜ì‹œê¸° ë°”ëžë‹ˆë‹¤.");
             return false;
         }
     }
 
     if (typeof(f.mb_sex) != 'undefined') {
         if (f.mb_sex.value == '') {
-            alert('¼ºº°À» ¼±ÅÃÇÏ¿© ÁÖ½Ê½Ã¿À.');
+            alert('ì„±ë³„ì„ ì„ íƒí•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.');
             f.mb_sex.focus();
             return false;
         }
@@ -515,7 +515,7 @@ function fregisterform_submit(f)
     if (typeof f.mb_icon != 'undefined') {
         if (f.mb_icon.value) {
             if (!f.mb_icon.value.toLowerCase().match(/.(gif|bmp|jpg|png)$/i)) {
-                alert('È¸¿ø¾ÆÀÌÄÜÀÌ gif|jpg|bmp|png ÆÄÀÏÀÌ ¾Æ´Õ´Ï´Ù.');
+                alert('íšŒì›ì•„ì´ì½˜ì´ gif|jpg|bmp|png íŒŒì¼ì´ ì•„ë‹™ë‹ˆë‹¤.');
                 f.mb_icon.focus();
                 return false;
             }
@@ -524,7 +524,7 @@ function fregisterform_submit(f)
 
     if (typeof(f.mb_recommend) != 'undefined') {
         if (f.mb_id.value == f.mb_recommend.value) {
-            alert('º»ÀÎÀ» ÃßÃµÇÒ ¼ö ¾ø½À´Ï´Ù.');
+            alert('ë³¸ì¸ì„ ì¶”ì²œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
             f.mb_recommend.focus();
             return false;
         }
@@ -532,7 +532,7 @@ function fregisterform_submit(f)
 
     if (typeof(f.wr_key) != 'undefined') {
         if (!checkFrm()) {
-            alert ("½ºÆÔ¹æÁöÄÚµå(Captcha Code)°¡ Æ²·È½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØ ÁÖ¼¼¿ä.");
+            alert ("ìŠ¤íŒ¸ë°©ì§€ì½”ë“œ(Captcha Code)ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ìž…ë ¥í•´ ì£¼ì„¸ìš”.");
             return false;
         }
     }
@@ -544,16 +544,16 @@ function fregisterform_submit(f)
         echo "f.action = './register_form_update.php';";
     ?>
 
-    // º¸¾ÈÀÎÁõ°ü·Ã ÄÚµå·Î ¹Ýµå½Ã Æ÷ÇÔµÇ¾î¾ß ÇÕ´Ï´Ù.
+    // ë³´ì•ˆì¸ì¦ê´€ë ¨ ì½”ë“œë¡œ ë°˜ë“œì‹œ í¬í•¨ë˜ì–´ì•¼ í•©ë‹ˆë‹¤.
     set_cookie("<?=md5($token)?>", "<?=base64_encode($token)?>", 1, "<?=$g4['cookie_domain']?>");
 
     return true;
 }
 
-// È¸¿ø Å»Åð 
+// íšŒì› íƒˆí‡´ 
 function member_leave() 
 { 
-    if (confirm("Á¤¸» È¸¿ø¿¡¼­ Å»Åð ÇÏ½Ã°Ú½À´Ï±î?")) 
+    if (confirm("ì •ë§ íšŒì›ì—ì„œ íƒˆí‡´ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) 
             location.href = "<?=$g4[bbs_path]?>/mb_leave.php"; 
 }
 </script>

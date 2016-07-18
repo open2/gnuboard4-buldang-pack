@@ -6,41 +6,41 @@ auth_check($auth[$sub_menu], "r");
 
 $token = get_token();
 
-$html_title = "¼±ÅÃµÈ È¸¿ø¸ŞÀÏ¸®½ºÆ®";
+$html_title = "ì„ íƒëœ íšŒì›ë©”ì¼ë¦¬ìŠ¤íŠ¸";
 
 $ma_last_option = "";
 
 $sql_common = " from $g4[member_table] ";
 $sql_where = " where (1) ";
 
-// È¸¿øID ..¿¡¼­ ..±îÁö
+// íšŒì›ID ..ì—ì„œ ..ê¹Œì§€
 if ($mb_id1 != 1)
     $sql_where .= " and mb_id between '$mb_id1_from' and '$mb_id1_to' ";
 
-// E-mail¿¡ Æ¯Á¤ ´Ü¾î Æ÷ÇÔ
+// E-mailì— íŠ¹ì • ë‹¨ì–´ í¬í•¨
 if ($mb_email != "")
     $sql_where .= " and mb_email like '%$mb_email%' ";
 
-// ¼ºº°
+// ì„±ë³„
 if ($mb_sex != "")
     $sql_where .= " and mb_sex = '$mb_sex' ";
 
-// »ıÀÏ
+// ìƒì¼
 if ($mb_birth_from && $mb_birth_to)
     $sql_where .= " and substring(mb_birth,5,4) between '$mb_birth_from' and '$mb_birth_to' ";
 
-// Áö¿ª
+// ì§€ì—­
 if ($mb_area != "")
     $sql_where .= " and mb_addr1 like '$mb_area%' ";
 
-// ¸ŞÀÏ¸µ
+// ë©”ì¼ë§
 if ($mb_mailling != "")
     $sql_where .= " and mb_mailling = '$mb_mailling' ";
 
-// ±ÇÇÑ
+// ê¶Œí•œ
 $sql_where .= " and mb_level between '$mb_level_from' and '$mb_level_to' ";
 
-// °Ô½ÃÆÇ±×·ìÈ¸¿ø
+// ê²Œì‹œíŒê·¸ë£¹íšŒì›
 if ($gr_id)
 {
     $group_member = "";
@@ -54,21 +54,21 @@ if ($gr_id)
     }
 
     if (!$group_member)
-        alert("¼±ÅÃÇÏ½Å °Ô½ÃÆÇ ±×·ìÈ¸¿øÀÌ ÇÑ¸íµµ ¾ø½À´Ï´Ù.");
+        alert("ì„ íƒí•˜ì‹  ê²Œì‹œíŒ ê·¸ë£¹íšŒì›ì´ í•œëª…ë„ ì—†ìŠµë‹ˆë‹¤.");
 
     $sql_where .= " and mb_id in ($group_member) ";
 }
 
-// Å»Åğ, Â÷´ÜµÈ È¸¿øÀº Á¦¿Ü
+// íƒˆí‡´, ì°¨ë‹¨ëœ íšŒì›ì€ ì œì™¸
 $sql_where .= " and mb_leave_date = '' and mb_intercept_date = '' ";
 
 $sql = " select COUNT(*) as cnt $sql_common $sql_where ";
 $row = sql_fetch($sql);
 $cnt = $row[cnt];
 if ($cnt == 0)
-    alert("¼±ÅÃÇÏ½Å ³»¿ëÀ¸·Î´Â ÇØ´çµÇ´Â È¸¿øÀÚ·á°¡ ¾ø½À´Ï´Ù.");
+    alert("ì„ íƒí•˜ì‹  ë‚´ìš©ìœ¼ë¡œëŠ” í•´ë‹¹ë˜ëŠ” íšŒì›ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.");
 
-// ¸¶Áö¸· ¿É¼ÇÀ» ÀúÀåÇÕ´Ï´Ù.
+// ë§ˆì§€ë§‰ ì˜µì…˜ì„ ì €ì¥í•©ë‹ˆë‹¤.
 $ma_last_option .= "mb_id1=$mb_id1";
 $ma_last_option .= "||mb_id1_from=$mb_id1_from";
 $ma_last_option .= "||mb_id1_to=$mb_id1_to";
@@ -92,7 +92,7 @@ include_once("./admin.head.php");
 
 <?//=subtitle_bar($html_title)?><p>
 
-<div align=right>¼±ÅÃµÈ È¸¿ø¼ö : <?=number_format($cnt)?> ¸í</div>
+<div align=right>ì„ íƒëœ íšŒì›ìˆ˜ : <?=number_format($cnt)?> ëª…</div>
 <form name=fmailselectlist method=post onsubmit="return fmailselectlist_submit(this);">
 <input type=hidden name=token value='<?=$token?>'>
 <table cellpadding=4 cellspacing=1 width=100% class=tablebg>
@@ -100,7 +100,7 @@ include_once("./admin.head.php");
 <tr>
     <td align=center>
         <select size=25 name='list' style='width:500px;'>
-        <option>¹øÈ£ . È¸¿ø¾ÆÀÌµğ / ÀÌ¸§ / º°¸í / »ıÀÏ / E-mail
+        <option>ë²ˆí˜¸ . íšŒì›ì•„ì´ë”” / ì´ë¦„ / ë³„ëª… / ìƒì¼ / E-mail
         <?
             $sql = " select mb_id, mb_name, mb_nick, mb_email, mb_birth, mb_datetime $sql_common $sql_where order by mb_id ";
             $result = sql_query($sql);
@@ -122,8 +122,8 @@ include_once("./admin.head.php");
 </table>
 
 <p align=center>
-    <input type=submit class=btn1 value='  ¸ŞÀÏ º¸³»±â  '>&nbsp;
-    <input type=button class=btn1 value='  µÚ  ·Î  ' onclick="history.go(-1);">
+    <input type=submit class=btn1 value='  ë©”ì¼ ë³´ë‚´ê¸°  '>&nbsp;
+    <input type=button class=btn1 value='  ë’¤  ë¡œ  ' onclick="history.go(-1);">
 </form>
 
 </td></tr></table>

@@ -1,16 +1,16 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-// Æ÷ÀÎÆ® ³»¿ªÀ» ºĞ·ù
+// í¬ì¸íŠ¸ ë‚´ì—­ì„ ë¶„ë¥˜
 $bo_str = "<select class=\"form-control\" name='bo_table' onchange=\"location='$g4[bbs_path]/point.php?sfl=po_rel_table&stx='+this.value;\">";
-$bo_str .= "<option value='all'>ÀüÃ¼¸ñ·Ïº¸±â</option>";
+$bo_str .= "<option value='all'>ì „ì²´ëª©ë¡ë³´ê¸°</option>";
 
 $sql = " select distinct po_rel_table from $g4[point_table] where mb_id = '$member[mb_id]' ";
 $result = sql_query($sql);
 
 for ($i=0; $row=sql_fetch_array($result); $i++) {
 
-        // g4_point Å×ÀÌºí°ú g4_board Å×ÀÌºíÀ» left join ÇÏÁö ¾Êµµ·Ï ÄÚµå ¼öÁ¤
+        // g4_point í…Œì´ë¸”ê³¼ g4_board í…Œì´ë¸”ì„ left join í•˜ì§€ ì•Šë„ë¡ ì½”ë“œ ìˆ˜ì •
         $row[bo_table] = $row[po_rel_table];
         $temp = sql_fetch(" select bo_subject from $g4[board_table] where bo_table = '$row[po_rel_table]' ");
         if ($temp) 
@@ -30,22 +30,22 @@ $bo_str .= "</select>";
     <?=$g4[title]?> (<?=number_format($member[mb_point])?>)
 
     <div class="pull-right">
-        <a class="btn btn-default" style="display:inline;" href="javascript:window.close();">´İ±â</a>
+        <a class="btn btn-default" style="display:inline;" href="javascript:window.close();">ë‹«ê¸°</a>
     </div>
 </div>
 <div class="panel-body">
     <div class="input-group">
         <span class="input-group-btn">
-            <a class="btn btn-default" href="<?=$_SERVER[PHP_SELF]?>">Ã³À½</a>
+            <a class="btn btn-default" href="<?=$_SERVER[PHP_SELF]?>">ì²˜ìŒ</a>
         </span>
         <?=$bo_str?>
     </div>
     <table width=100% class="table table-hover">
     <tr class="success" align=center>
-        <td class="col-sm-1">ÀÏ½Ã</td>
-        <td>³»¿ë</td>
-        <td class="col-sm-1">Áö±Ş</td>
-        <td class="col-sm-1">»ç¿ë</td>
+        <td class="col-sm-1">ì¼ì‹œ</td>
+        <td>ë‚´ìš©</td>
+        <td class="col-sm-1">ì§€ê¸‰</td>
+        <td class="col-sm-1">ì‚¬ìš©</td>
     </tr>
     <?
     $sum_point1 = $sum_point2 = 0;
@@ -77,14 +77,14 @@ $bo_str .= "</select>";
         <? } ?>
         <?
         if ($i == 0)
-            echo "<tr><td colspan=4 align=center height=100>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>";
+            echo "<tr><td colspan=4 align=center height=100>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
         else {
             if ($sum_point1 > 0)
                $sum_point1 = "+" . number_format($sum_point1);
             $sum_point2 = number_format($sum_point2);
             echo <<<HEREDOC
             <tr bgcolor="#E1E1E1" align="center"> 
-                <td height="24" colspan=2 align=center>¼Ò°è</td>
+                <td height="24" colspan=2 align=center>ì†Œê³„</td>
                 <td align=right>{$sum_point1}&nbsp;</td>
                 <td align=right>{$sum_point2}&nbsp;</td>
             </tr>
@@ -93,19 +93,19 @@ HEREDOC;
         ?>
     </table>
 
-    <!-- ÆäÀÌÁö -->
+    <!-- í˜ì´ì§€ -->
     <div class="center-block">
         <ul class="pagination">
-        <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ÀÌÀü°Ë»ö</a></li>"; } ?>
+        <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ì´ì „ê²€ìƒ‰</a></li>"; } ?>
         <?
-        // ±âº»À¸·Î ³Ñ¾î¿À´Â ÆäÀÌÁö¸¦ ¾Æ·¡¿Í °°ÀÌ º¯È¯ÇÏ¿© ´Ù¾çÇÏ°Ô Ãâ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.
-        $write_pages = str_replace("ÀÌÀü", "<i class='fa fa-angle-left'></i>", $write_pages);
-        $write_pages = str_replace("´ÙÀ½", "<i class='fa fa-angle-right'></i>", $write_pages);
-        $write_pages = str_replace("Ã³À½", "<i class='fa fa-angle-double-left'></i>", $write_pages);
-        $write_pages = str_replace("¸Ç³¡", "<i class='fa fa-angle-double-right'></i>", $write_pages);
+        // ê¸°ë³¸ìœ¼ë¡œ ë„˜ì–´ì˜¤ëŠ” í˜ì´ì§€ë¥¼ ì•„ë˜ì™€ ê°™ì´ ë³€í™˜í•˜ì—¬ ë‹¤ì–‘í•˜ê²Œ ì¶œë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+        $write_pages = str_replace("ì´ì „", "<i class='fa fa-angle-left'></i>", $write_pages);
+        $write_pages = str_replace("ë‹¤ìŒ", "<i class='fa fa-angle-right'></i>", $write_pages);
+        $write_pages = str_replace("ì²˜ìŒ", "<i class='fa fa-angle-double-left'></i>", $write_pages);
+        $write_pages = str_replace("ë§¨ë", "<i class='fa fa-angle-double-right'></i>", $write_pages);
         ?>
         <?=$write_pages?>
-        <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ÀÌÈÄ°Ë»ö</a></li>"; } ?>
+        <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ì´í›„ê²€ìƒ‰</a></li>"; } ?>
         </ul>
     </div>
 

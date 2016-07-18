@@ -4,32 +4,32 @@ include_once("./_common.php");
 $singo_href = "./singo_search.php";
 $href = "./login.php?$qstr&url=".urlencode("$singo_href");
 
-// È¸¿ø¸¸ »ç¿ëÀÌ °¡´ÉÇÏ°Ô
+// íšŒì›ë§Œ ì‚¬ìš©ì´ ê°€ëŠ¥í•˜ê²Œ
 if (!$is_member) 
 {
-    echo "<script type='text/javascript'>alert('È¸¿ø¸¸ °¡´ÉÇÕ´Ï´Ù.'); top.location.href = '$href';</script>";
+    echo "<script type='text/javascript'>alert('íšŒì›ë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.'); top.location.href = '$href';</script>";
     exit;
 }
 
 if (!$sg_id) 
 {
-    echo "<script type='text/javascript'>alert('ºÎÀûÀıÇÑ »èÁ¦¿äÃ» ÀÔ´Ï´Ù.'); top.location.href = '$singo_href';</script>";
+    echo "<script type='text/javascript'>alert('ë¶€ì ì ˆí•œ ì‚­ì œìš”ì²­ ì…ë‹ˆë‹¤.'); top.location.href = '$singo_href';</script>";
     exit;
 }
 
-// ½Å°íÅ×ÀÌºí¿¡¼­ °Ô½ÃÆÇ Å×ÀÌºí°ú ¾ÆÀÌµğ¸¦ ÀĞ¾î
+// ì‹ ê³ í…Œì´ë¸”ì—ì„œ ê²Œì‹œíŒ í…Œì´ë¸”ê³¼ ì•„ì´ë””ë¥¼ ì½ì–´
 $sql = " select bo_table, wr_id, mb_id from $g4[singo_table] where sg_id = '$sg_id' ";
 $row = sql_fetch($sql);
 
 if ($row[bo_table] == "@memo") {
     ;
 } else {
-    // ±×·ì, °Ô½ÃÆÇ °ü¸®ÀÚ Á¤º¸ °¡Á®¿À±â
+    // ê·¸ë£¹, ê²Œì‹œíŒ ê´€ë¦¬ì ì •ë³´ ê°€ì ¸ì˜¤ê¸°
     $board = sql_fetch(" select bo_admin, gr_id from $g4[board_table] where bo_table = '$row[bo_table]' ");
     $group = sql_fetch(" select gr_admin from $g4[group_table] where gr_id = '$board[gr_id]' ");
 }
 
-// ½Å°í ÀÚ·á¸¦ »èÁ¦
+// ì‹ ê³  ìë£Œë¥¼ ì‚­ì œ
 if ($is_admin == 'super' or $board['bo_admin'] == $member['mb_id'] or $group['gr_admin'] == $member['mb_id'])
     $member_sql = "";
 else
@@ -38,7 +38,7 @@ else
 $sql = " delete from $g4[singo_table] where sg_id = '$sg_id' $member_sql ";
 sql_query($sql);
 
-// ½Å°í ÇÊµåÀÇ ½Å°í Ä«¿îÆ®¸¦ ¼öÁ¤ÇÑ´Ù
+// ì‹ ê³  í•„ë“œì˜ ì‹ ê³  ì¹´ìš´íŠ¸ë¥¼ ìˆ˜ì •í•œë‹¤
 if ($row[bo_table] == "@memo") {
     ;
 } else {

@@ -4,20 +4,20 @@ include_once("$g4[path]/memo.config.php");
 
 include_once("$g4[path]/head.sub.php");
 
-// È¸¿øÀÎÁö °Ë»çÇÏ¿© È¸¿øÀÌ ¾Æ´Ñ °æ¿ì¿¡´Â ·Î±×ÀÎ ÆäÀÌÁö·Î ÀÌµ¿ÇÑ´Ù.
+// íšŒì›ì¸ì§€ ê²€ì‚¬í•˜ì—¬ íšŒì›ì´ ì•„ë‹Œ ê²½ìš°ì—ëŠ” ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ ì´ë™í•œë‹¤.
 if (!$member[mb_id]) 
-    alert("È¸¿ø¸¸ ½Å°í ÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+    alert("íšŒì›ë§Œ ì‹ ê³  í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
 $bo_table = $_POST['bo_table'];
 $sg_reason = $_POST['sg_reason'];
 $singo_mb_id = $_POST['singo_mb_id'];
 
 if ($bo_table != "@user") {
-    alert("°Ô½Ã¹°/ÂÊÁö µîÀÇ ½Å°í´Â º°µµ±â´ÉÀ» »ç¿ëÇÏ¼¼¿ä.");
+    alert("ê²Œì‹œë¬¼/ìª½ì§€ ë“±ì˜ ì‹ ê³ ëŠ” ë³„ë„ê¸°ëŠ¥ì„ ì‚¬ìš©í•˜ì„¸ìš”.");
 }
 $write_table = $g4['write_prefix'].$bo_table;
     
-// ½Å°í Á¤º¸ µî·Ï
+// ì‹ ê³  ì •ë³´ ë“±ë¡
 $sql = " insert into $g4[singo_table] 
             set mb_id = '$singo_mb_id',
                 bo_table = '$bo_table',
@@ -29,35 +29,35 @@ $sql = " insert into $g4[singo_table]
                 sg_ip = '$remote_addr' ";
 sql_query($sql);
 
-// ½Å°íµÈ »ç¶÷ÀÇ Á¤º¸¸¦ ¾÷µ¥ÀÌÆ® (½Å°í°Ç¼ö, ½Å°íµÈ ³¯Â¥)
+// ì‹ ê³ ëœ ì‚¬ëŒì˜ ì •ë³´ë¥¼ ì—…ë°ì´íŠ¸ (ì‹ ê³ ê±´ìˆ˜, ì‹ ê³ ëœ ë‚ ì§œ)
 $sql = " update $g4[member_table] set mb_singo = mb_singo + 1, mb_singo_datetime = '$g4[time_ymdhis]'  where mb_id = '$singo_mb_id' ";
 sql_query($sql, false);
 
-// ½Å°í´ç»çÀÚ, °Ô½ÃÆÇ°ü¸®ÀÚ/±×·ì°ü¸®ÀÚ/»çÀÌÆ® °ü¸®ÀÚ¿¡°Ô ÂÊÁö¸¦ ¹ß¼Û (ºÒ´çÀÇ ÂÊÁö2)
+// ì‹ ê³ ë‹¹ì‚¬ì, ê²Œì‹œíŒê´€ë¦¬ì/ê·¸ë£¹ê´€ë¦¬ì/ì‚¬ì´íŠ¸ ê´€ë¦¬ìì—ê²Œ ìª½ì§€ë¥¼ ë°œì†¡ (ë¶ˆë‹¹ì˜ ìª½ì§€2)
 $memo_list = array();
 
-$memo_list[] = $singo_mb_id;// ½Å°íµÈ °Ô½Ã±ÛÀÇ ±Û¾´ÀÌ
-$memo_list[] = $config['cf_admin']; // »çÀÌÆ® °ü¸®ÀÚ
+$memo_list[] = $singo_mb_id;// ì‹ ê³ ëœ ê²Œì‹œê¸€ì˜ ê¸€ì“´ì´
+$memo_list[] = $config['cf_admin']; // ì‚¬ì´íŠ¸ ê´€ë¦¬ì
 
 foreach($memo_list as $memo_recv_mb_id) {
-        $me_send_mb_id = $config['cf_admin']; // »çÀÌÆ® °ü¸®ÀÚ ¸íÀÇ·Î ÂÊÁö¸¦ ¹ß¼Û
-        $me_memo = "½Å°íµÈ È¸¿ø - $singo_mb_id<br>½Å°íÀÌÀ¯ - $sg_reason<br><br>ÇØ´ç ½Å°í³»¿ë¿¡ ÀÌÀÇ°¡ ÀÖ´Â °æ¿ì ¿î¿µÀÚ¿¡°Ô ¹®ÀÇÇÏ½Ã±â ¹Ù¶ø´Ï´Ù."; // ¸Ş¸ğ³»¿ë
-        $me_subject = "$singo_mb_id ´ÔÀÌ ½Å°íµÇ¾ú½À´Ï´Ù"; // ¸Ş¸ğÁ¦¸ñ
+        $me_send_mb_id = $config['cf_admin']; // ì‚¬ì´íŠ¸ ê´€ë¦¬ì ëª…ì˜ë¡œ ìª½ì§€ë¥¼ ë°œì†¡
+        $me_memo = "ì‹ ê³ ëœ íšŒì› - $singo_mb_id<br>ì‹ ê³ ì´ìœ  - $sg_reason<br><br>í•´ë‹¹ ì‹ ê³ ë‚´ìš©ì— ì´ì˜ê°€ ìˆëŠ” ê²½ìš° ìš´ì˜ìì—ê²Œ ë¬¸ì˜í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤."; // ë©”ëª¨ë‚´ìš©
+        $me_subject = "$singo_mb_id ë‹˜ì´ ì‹ ê³ ë˜ì—ˆìŠµë‹ˆë‹¤"; // ë©”ëª¨ì œëª©
 
-        // ÂÊÁö INSERT (¼ö½ÅÇÔ) 
+        // ìª½ì§€ INSERT (ìˆ˜ì‹ í•¨) 
         $sql = " insert into $g4[memo_recv_table] 
                         ( me_recv_mb_id, me_send_mb_id, me_send_datetime, me_memo, me_subject, memo_type, memo_owner, me_file_local, me_file_server ) 
                 values ('$memo_recv_mb_id', '$me_send_mb_id', '$g4[time_ymdhis]', '$me_memo', '$me_subject', 'recv', '$memo_recv_mb_id', '', '' ) "; 
         sql_query($sql); 
         $me_id = mysql_insert_id(); 
 
-        // ½Ç½Ã°£ ÂÊÁö ¾Ë¸² ±â´É 
+        // ì‹¤ì‹œê°„ ìª½ì§€ ì•Œë¦¼ ê¸°ëŠ¥ 
         $sql = " update $g4[member_table] 
                     set mb_memo_call = '$me_send_mb_id' 
                   where mb_id = '$memo_recv_mb_id' "; 
         sql_query($sql); 
 }
 
-// È¸¿ø½Å°íÈÄ¿¡´Â Ç×»ó Ã¹ ÆäÀÌÁö·Î ÀÌµ¿
+// íšŒì›ì‹ ê³ í›„ì—ëŠ” í•­ìƒ ì²« í˜ì´ì§€ë¡œ ì´ë™
 goto_url("$g4[path]");
 ?>

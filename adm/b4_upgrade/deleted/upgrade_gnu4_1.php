@@ -2,15 +2,15 @@
 include_once("./_common.php");
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4[path]);
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4[path]);
 
-$g4[title] = "±×´©º¸µå4 -> ºÒ´çÆÑ ¾÷±×·¹ÀÌµå";
+$g4[title] = "ê·¸ëˆ„ë³´ë“œ4 -> ë¶ˆë‹¹íŒ© ì—…ê·¸ë ˆì´ë“œ";
 include_once("./admin.head.php");
 
-// ÂÊÁö4 °ü·Ã ¼³Á¤ ÀĞ¾îµéÀÌ±â
+// ìª½ì§€4 ê´€ë ¨ ì„¤ì • ì½ì–´ë“¤ì´ê¸°
 include_once("../memo.config.php");
 
-// Å×ÀÌºí »ı¼º (ºÒ´çÆÑ) ----------------------------
+// í…Œì´ë¸” ìƒì„± (ë¶ˆë‹¹íŒ©) ----------------------------
 $file = implode("", file("$g4[path]/install.bak/sql_opencode.sql"));
 eval("\$file = \"$file\";");
 
@@ -21,10 +21,10 @@ for ($i=0; $i<count($f); $i++) {
     //mysql_query($f[$i]) or die(mysql_error());
 }
 
-echo " /install/sql_opencode.sql ¾÷±×·¹ÀÌµå ¿Ï·á<br>";
-// Å×ÀÌºí »ı¼º (ºÒ´çÆÑ) ---------------------------
+echo " /install/sql_opencode.sql ì—…ê·¸ë ˆì´ë“œ ì™„ë£Œ<br>";
+// í…Œì´ë¸” ìƒì„± (ë¶ˆë‹¹íŒ©) ---------------------------
 
-// ¾à°ü, °³ÀÎÁ¤º¸ ÆÄÀÏ¿¡¼­ ÀĞ¾î¿À±â ---------------
+// ì•½ê´€, ê°œì¸ì •ë³´ íŒŒì¼ì—ì„œ ì½ì–´ì˜¤ê¸° ---------------
 $service=addslashes(implode("", file("../company/service.html")));
 $priv=addslashes(implode("", file("../company/privacy.html")));
 
@@ -43,7 +43,7 @@ $sql = " insert into $g4[config_reg_table]
                 cf_privacy_4    = '$priv4'
                 ";
 sql_query($sql, false);
-// ¾à°ü, °³ÀÎÁ¤º¸ ÆÄÀÏ¿¡¼­ ÀĞ¾î¿À±â ---------------
+// ì•½ê´€, ê°œì¸ì •ë³´ íŒŒì¼ì—ì„œ ì½ì–´ì˜¤ê¸° ---------------
 
 include_once("./admin.tail.php");
 ?>

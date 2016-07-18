@@ -1,19 +1,19 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-// ÀÚ½ÅÀÌ ´Ù¿î·Îµå ¹Þ´Â °æ¿ì Â÷°¨ÇÑ Æ÷ÀÎÆ®¸¦ »èÁ¦ÇÑ´Ù
+// ìžì‹ ì´ ë‹¤ìš´ë¡œë“œ ë°›ëŠ” ê²½ìš° ì°¨ê°í•œ í¬ì¸íŠ¸ë¥¼ ì‚­ì œí•œë‹¤
 if ($is_admin || ($write[mb_id] == $member[mb_id] && $member[mb_id]))
 //    $write[wr_datetime] < date("Y-m-d H:i:s", $g4[server_time] - 86400 * 30))
 {
-    delete_point($member[mb_id], $bo_table, $wr_id, '´Ù¿î·Îµå');
+    delete_point($member[mb_id], $bo_table, $wr_id, 'ë‹¤ìš´ë¡œë“œ');
 }
 else
 {
-    // ÇÑ´ÞÀÌ Áö³ªÁö ¾ÊÀº °Ô½Ã¹°
+    // í•œë‹¬ì´ ì§€ë‚˜ì§€ ì•Šì€ ê²Œì‹œë¬¼
     //echo "if ($write[wr_datetime] > date(\"Y-m-d\", $g4[server_time] - 86400 * 30)) {"; exit;
     if ($write[wr_datetime] > date("Y-m-d", $g4[server_time] - 86400 * 30)) {
-        // °Ô½ÃÀÚ¿¡°Ô Æ÷ÀÎÆ® 50% ºÎ¿©
-        insert_point($write[mb_id], (int)(abs($board[bo_download_point])/2), "{$member[mb_nick]}´ÔÀÌ $board[bo_subject] $wr_id ÆÄÀÏ ´Ù¿î·Îµå", $bo_table, $wr_id, "{$member[mb_nick]}´ÔÀÌ ´Ù¿î·Îµå");
+        // ê²Œì‹œìžì—ê²Œ í¬ì¸íŠ¸ 50% ë¶€ì—¬
+        insert_point($write[mb_id], (int)(abs($board[bo_download_point])/2), "{$member[mb_nick]}ë‹˜ì´ $board[bo_subject] $wr_id íŒŒì¼ ë‹¤ìš´ë¡œë“œ", $bo_table, $wr_id, "{$member[mb_nick]}ë‹˜ì´ ë‹¤ìš´ë¡œë“œ");
     }
 }
 ?>

@@ -4,7 +4,7 @@ include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "r");
 
-$g4[title] = "Á¢¼ÓÀÚÇöÈ²";
+$g4[title] = "ì ‘ì†ìí˜„í™©";
 include_once("./admin.head.php");
 include_once("./visit.sub.php");
 ?>
@@ -18,14 +18,14 @@ include_once("./visit.sub.php");
 <colgroup width=80>
 <tr class="success">
     <td>ip</td>
-    <td><?=subject_sort_link('vi_referer',"fr_date=$fr_date&to_date=$to_date&domain=$domain&ip=$ip")?>Á¢¼Ó °æ·Î</a></td>
-    <td>°Ë»ö¾î</td>
-    <td>ºê¶ó¿ìÀú</td>
+    <td><?=subject_sort_link('vi_referer',"fr_date=$fr_date&to_date=$to_date&domain=$domain&ip=$ip")?>ì ‘ì† ê²½ë¡œ</a></td>
+    <td>ê²€ìƒ‰ì–´</td>
+    <td>ë¸Œë¼ìš°ì €</td>
     <td>OS</td>
-    <td>ÀÏ½Ã</td>
+    <td>ì¼ì‹œ</td>
 </tr>
 <?
-//unset($br); // ºê¶ó¿ìÀú
+//unset($br); // ë¸Œë¼ìš°ì €
 //unset($os); // OS
 
 $sql_common = " from $g4[visit_table] ";
@@ -51,9 +51,9 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if ($page == "") $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if ($page == "") $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
 $sql = " select * 
           $sql_common
@@ -93,23 +93,23 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     if ($is_admin == 'super')
         $ip = $row[vi_ip];
     else
-        $ip = preg_replace("/([0-9]+).([0-9]+).([0-9]+).([0-9]+)/", "\\1.¢½.\\3.\\4", $row[vi_ip]);
+        $ip = preg_replace("/([0-9]+).([0-9]+).([0-9]+).([0-9]+)/", "\\1.â™¡.\\3.\\4", $row[vi_ip]);
 
-    $ip_link = "<a href='./visit_list.php?fr_date=$fr_date&to_date=$to_date&ip=$ip' title='$ip ·Î Á¢¼ÓÇÑ ¸ñ·Ï'>";
+    $ip_link = "<a href='./visit_list.php?fr_date=$fr_date&to_date=$to_date&ip=$ip' title='$ip ë¡œ ì ‘ì†í•œ ëª©ë¡'>";
     preg_match("/^(http:\/\/)?([^\/]+)/i", $title, $matches);
     $ref_domain = $matches[2];
     if ($ref_domain)
-        $ref_link = "<a href='./visit_list.php?fr_date=$fr_date&to_date=$to_date&domain=$ref_domain' title='$ref_domain À¸·Î Á¢¼ÓÇÑ ¸ñ·Ï'>" . "<i class='fa fa-user'></i></a>";
+        $ref_link = "<a href='./visit_list.php?fr_date=$fr_date&to_date=$to_date&domain=$ref_domain' title='$ref_domain ìœ¼ë¡œ ì ‘ì†í•œ ëª©ë¡'>" . "<i class='fa fa-user'></i></a>";
     else
         $ref_link = "";
-    $title_link = "<a href='./visit_list.php?fr_date=$fr_date&to_date=$to_date&domain=$title' title='$title À¸·Î Á¢¼ÓÇÑ ¸ñ·Ï'>";
+    $title_link = "<a href='./visit_list.php?fr_date=$fr_date&to_date=$to_date&domain=$title' title='$title ìœ¼ë¡œ ì ‘ì†í•œ ëª©ë¡'>";
     
-    if ($brow == '±âÅ¸') { $brow = "<span title='$row[vi_agent]'>$brow</span>"; }
-    if ($os == '±âÅ¸') { $os = "<span title='$row[vi_agent]'>$os</span>"; }
+    if ($brow == 'ê¸°íƒ€') { $brow = "<span title='$row[vi_agent]'>$brow</span>"; }
+    if ($os == 'ê¸°íƒ€') { $os = "<span title='$row[vi_agent]'>$os</span>"; }
 
     $list = ($i%2);
     
-    // °Ë»ö¾î ¼³Á¤
+    // ê²€ìƒ‰ì–´ ì„¤ì •
     $query=$q="";
     //parse_str($title);
     if ($query)
@@ -129,12 +129,12 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='6' height=100 align=center>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>"; 
+    echo "<tr><td colspan='6' height=100 align=center>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>"; 
 
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
@@ -146,7 +146,7 @@ include_once("./admin.tail.php");
 ?>
 
 <script type="text/javascript">
-// java script·Î ÆäÀÌÁö ÀÌµ¿ (referer¸¦ ³²±âÁö ¾Ê±â À§ÇØ¼­)
+// java scriptë¡œ í˜ì´ì§€ ì´ë™ (refererë¥¼ ë‚¨ê¸°ì§€ ì•Šê¸° ìœ„í•´ì„œ)
 function goto_page(page)
 {
     if (page) {

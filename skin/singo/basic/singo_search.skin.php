@@ -1,20 +1,20 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
 include_once("$g4[path]/memo.config.php");
 ?>
 <form name=fsearch method=get role="form" class="form-inline">
-<a class="btn btn-default" href='<?=$_SERVER[PHP_SELF]?>'>Ã³À½</a>
-(½Å°íµÈ °Ô½Ã¹° : <?=number_format($total_count)?>)
+<a class="btn btn-default" href='<?=$_SERVER[PHP_SELF]?>'>ì²˜ìŒ</a>
+(ì‹ ê³ ëœ ê²Œì‹œë¬¼ : <?=number_format($total_count)?>)
 <div class="pull-right">
     <select class="form-control" name=sfl class=cssfl>
-        <option value='mb_id'>½Å°íµÈ È¸¿ø¾ÆÀÌµğ</option>
-        <option value='sg_reason'>½Å°íÇÑ ÀÌÀ¯</option>
+        <option value='mb_id'>ì‹ ê³ ëœ íšŒì›ì•„ì´ë””</option>
+        <option value='sg_reason'>ì‹ ê³ í•œ ì´ìœ </option>
     </select>
     <div class="form-group">
-        <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<? echo $stx ?>'>
+        <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<? echo $stx ?>'>
     </div>
-    <input class="btn btn-default" type=submit value='°Ë»ö'>
+    <input class="btn btn-default" type=submit value='ê²€ìƒ‰'>
 </div>
 </form>
 
@@ -28,11 +28,11 @@ include_once("$g4[path]/memo.config.php");
 <table width=100% class="table table-hover table-condensed">
 <tr class="success">
     <td align='center'><?=subject_sort_link('sg_id')?>no.</a></td>
-    <td class="col-sm-2" align='center'><?=subject_sort_link('mb_id')?>½Å°íµÈ È¸¿ø</a></td>
-    <td align='left'>Á¦¸ñ</td>
-    <td>³¯Â¥</td>
-    <td><?=subject_sort_link('sg_datetime')?>½Å°í³¯Â¥</a></td>
-    <td class="col-sm-2" align='left'><?=subject_sort_link('sg_reason')?>½Å°í»çÀ¯</a></td>
+    <td class="col-sm-2" align='center'><?=subject_sort_link('mb_id')?>ì‹ ê³ ëœ íšŒì›</a></td>
+    <td align='left'>ì œëª©</td>
+    <td>ë‚ ì§œ</td>
+    <td><?=subject_sort_link('sg_datetime')?>ì‹ ê³ ë‚ ì§œ</a></td>
+    <td class="col-sm-2" align='left'><?=subject_sort_link('sg_reason')?>ì‹ ê³ ì‚¬ìœ </a></td>
 </tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) {
@@ -43,14 +43,14 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         $mb = get_member($row[mb_id], "mb_id, mb_nick, mb_email, mb_homepage, mb_intercept_date");
         $mb_nick = get_sideview($mb[mb_id], get_text($mb[mb_nick]), $mb[mb_email], $mb[mb_homepage]);
     } else 
-        $mb_nick = "<span style='color:#222222;'>ºñÈ¸¿ø</a>";
+        $mb_nick = "<span style='color:#222222;'>ë¹„íšŒì›</a>";
 
     if ($row[sg_mb_id]) {
         $sg_mb = sql_fetch(" select mb_id, mb_nick, mb_email, mb_homepage, mb_intercept_date from $g4[member_table] where mb_id = '$row[sg_mb_id]' ");
         $sg_mb_nick = get_sideview($sg_mb[mb_id], $sg_mb[mb_nick], $sg_mb[mb_email], $sg_mb[mb_homepage]);
         $sg_mb_nick = str_replace(" class='member'", " class='member' style='color:#C15B27;'", $sg_mb_nick);
     } else
-        $sg_mb_nick = "<span style='color:#C15B27;'>ºñÈ¸¿ø</a>";
+        $sg_mb_nick = "<span style='color:#C15B27;'>ë¹„íšŒì›</a>";
 
     if ($row[bo_table] == "@memo") {
         $sql = "select * from $g4[memo_spam_table] where me_id = '$row[wr_id]' ";
@@ -64,7 +64,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         if ($write_row[wr_is_comment]) {
             $sql = " select wr_subject, wr_ip, wr_datetime from $write_table where wr_id = '$write_row[wr_parent]' ";
             $parent_row = sql_fetch($sql);
-            $wr_subject = "[ÄÚ] ".$parent_row[wr_subject];
+            $wr_subject = "[ì½”] ".$parent_row[wr_subject];
             $wr_ip = $parent_row[wr_ip];
             $wr_datetime = $parent_row[wr_datetime];
         } else {
@@ -96,7 +96,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='5' align=center height=100>³»¿ªÀÌ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='5' align=center height=100>ë‚´ì—­ì´ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 
 echo "</table>";
 
@@ -105,22 +105,22 @@ if ($stx)
 ?>
 <div class="center-block">
     <ul class="pagination">
-    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ÀÌÀü°Ë»ö</a></li>"; } ?>
+    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ì´ì „ê²€ìƒ‰</a></li>"; } ?>
     <?
-    // ±âº»À¸·Î ³Ñ¾î¿À´Â ÆäÀÌÁö¸¦ ¾Æ·¡¿Í °°ÀÌ º¯È¯ÇÏ¿© ´Ù¾çÇÏ°Ô Ãâ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.
-    $write_pages = str_replace("ÀÌÀü", "<i class='fa fa-angle-left'></i>", $write_pages);
-    $write_pages = str_replace("´ÙÀ½", "<i class='fa fa-angle-right'></i>", $write_pages);
-    $write_pages = str_replace("Ã³À½", "<i class='fa fa-angle-double-left'></i>", $write_pages);
-    $write_pages = str_replace("¸Ç³¡", "<i class='fa fa-angle-double-right'></i>", $write_pages);
+    // ê¸°ë³¸ìœ¼ë¡œ ë„˜ì–´ì˜¤ëŠ” í˜ì´ì§€ë¥¼ ì•„ë˜ì™€ ê°™ì´ ë³€í™˜í•˜ì—¬ ë‹¤ì–‘í•˜ê²Œ ì¶œë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+    $write_pages = str_replace("ì´ì „", "<i class='fa fa-angle-left'></i>", $write_pages);
+    $write_pages = str_replace("ë‹¤ìŒ", "<i class='fa fa-angle-right'></i>", $write_pages);
+    $write_pages = str_replace("ì²˜ìŒ", "<i class='fa fa-angle-double-left'></i>", $write_pages);
+    $write_pages = str_replace("ë§¨ë", "<i class='fa fa-angle-double-right'></i>", $write_pages);
     ?>
     <?=$write_pages?>
-    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ÀÌÈÄ°Ë»ö</a></li>"; } ?>
+    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ì´í›„ê²€ìƒ‰</a></li>"; } ?>
     </ul>
 </div>
 </form>
 
 <ul class="well">
-<li>½Å°í»çÀ¯´Â º»ÀÎ¸¸ È®ÀÎÇÒ ¼ö ÀÖ½À´Ï´Ù.</li>
-<li>½Å°íµÈ ±ÛÀ» »èÁ¦ÇÏ´Â °æ¿ì °ü·Ã ½Å°í Ä«¿îÅÍ´Â ¾ø¾îÁı´Ï´Ù.</li>
-<li>½Å°í±Û¿¡ ´ëÇÑ ¼Ò¸í ¶Ç´Â »èÁ¦°¡ ÇÊ¿äÇÑ °æ¿ì ¿î¿µÀÚ¿¡°Ô ¹®ÀÇÇÏ¼¼¿ä.</li>
+<li>ì‹ ê³ ì‚¬ìœ ëŠ” ë³¸ì¸ë§Œ í™•ì¸í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.</li>
+<li>ì‹ ê³ ëœ ê¸€ì„ ì‚­ì œí•˜ëŠ” ê²½ìš° ê´€ë ¨ ì‹ ê³  ì¹´ìš´í„°ëŠ” ì—†ì–´ì§‘ë‹ˆë‹¤.</li>
+<li>ì‹ ê³ ê¸€ì— ëŒ€í•œ ì†Œëª… ë˜ëŠ” ì‚­ì œê°€ í•„ìš”í•œ ê²½ìš° ìš´ì˜ìì—ê²Œ ë¬¸ì˜í•˜ì„¸ìš”.</li>
 </ul>

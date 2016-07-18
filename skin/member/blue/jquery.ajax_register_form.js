@@ -1,4 +1,4 @@
-// È¸¿ø¾ÆÀÌµğ °Ë»ç
+// íšŒì›ì•„ì´ë”” ê²€ì‚¬
 function reg_mb_id_check() {
    var check_mb_id_val = document.fregisterform.mb_id.value;
    var check_mb_id_len = document.fregisterform.mb_id.value.length;
@@ -24,17 +24,17 @@ function return_reg_mb_id_check(req) {
     var msg = $('#msg_mb_id');
 
     switch(req) {
-        case '110' : msg.text('¿µ¹®ÀÚ, ¼ıÀÚ, _ ¸¸ ÀÔ·ÂÇÏ¼¼¿ä.').css( "color", "red" ); break;
-        case '120' : msg.text('ÃÖ¼Ò 3ÀÚÀÌ»ó ÀÔ·ÂÇÏ¼¼¿ä.').css( "color", "red" ); break;
-        case '130' : msg.text('ÀÌ¹Ì »ç¿ëÁßÀÎ ¾ÆÀÌµğ ÀÔ´Ï´Ù.').css( "color", "red" ); break;
-        case '140' : msg.text('¿¹¾à¾î·Î »ç¿ëÇÒ ¼ö ¾ø´Â ¾ÆÀÌµğ ÀÔ´Ï´Ù.').css( "color", "red" ); break;
-        case '000' : msg.text('»ç¿ëÇÏ¼Åµµ ÁÁÀº ¾ÆÀÌµğ ÀÔ´Ï´Ù.').css( "color", "blue" );break;
-        default : alert( 'Àß¸øµÈ Á¢±ÙÀÔ´Ï´Ù.\n\n' + req ); break;
+        case '110' : msg.text('ì˜ë¬¸ì, ìˆ«ì, _ ë§Œ ì…ë ¥í•˜ì„¸ìš”.').css( "color", "red" ); break;
+        case '120' : msg.text('ìµœì†Œ 3ìì´ìƒ ì…ë ¥í•˜ì„¸ìš”.').css( "color", "red" ); break;
+        case '130' : msg.text('ì´ë¯¸ ì‚¬ìš©ì¤‘ì¸ ì•„ì´ë”” ì…ë‹ˆë‹¤.').css( "color", "red" ); break;
+        case '140' : msg.text('ì˜ˆì•½ì–´ë¡œ ì‚¬ìš©í•  ìˆ˜ ì—†ëŠ” ì•„ì´ë”” ì…ë‹ˆë‹¤.').css( "color", "red" ); break;
+        case '000' : msg.text('ì‚¬ìš©í•˜ì…”ë„ ì¢‹ì€ ì•„ì´ë”” ì…ë‹ˆë‹¤.').css( "color", "blue" );break;
+        default : alert( 'ì˜ëª»ëœ ì ‘ê·¼ì…ë‹ˆë‹¤.\n\n' + req ); break;
     }
     $('#mb_id_enabled').val(req);    
 }
 
-// º°¸í °Ë»ç
+// ë³„ëª… ê²€ì‚¬
 function reg_mb_nick_check() {
     var reg_mb_nick = $('#mb_nick').val();
     if (check_byte2(reg_mb_nick) < 4) {
@@ -55,18 +55,18 @@ function reg_mb_nick_check() {
 function return_reg_mb_nick_check(req) {
     var msg = $('#msg_mb_nick');
     switch(req) {
-        case '110' : msg.text('º°¸íÀº °ø¹é¾øÀÌ ÇÑ±Û, ¿µ¹®, ¼ıÀÚ¸¸ ÀÔ·Â °¡´ÉÇÕ´Ï´Ù.').css( "color", "red" ); break;
-        case '120' : msg.text('ÇÑ±Û 2±ÛÀÚ, ¿µ¹® 4±ÛÀÚ ÀÌ»ó ÀÔ·Â °¡´ÉÇÕ´Ï´Ù.').css( "color", "red" ); break;
-        case '130' : msg.text('ÀÌ¹Ì Á¸ÀçÇÏ´Â º°¸íÀÔ´Ï´Ù.').css( "color", "red" ); break;
-        case '140' : msg.text('¿¹¾à¾î·Î »ç¿ëÇÒ ¼ö ¾ø´Â º°¸í ÀÔ´Ï´Ù.').css( "color", "red" ); break;
-        case '150' : msg.text('±âÅ¸ »çÀ¯·Î ´Ğ³×ÀÓÀ» º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù.').css( "color", "red" ); break;
-        case '000' : msg.text('»ç¿ëÇÏ¼Åµµ ÁÁÀº º°¸í ÀÔ´Ï´Ù.').css( "color", "blue" ); break;
-        default : alert( 'Àß¸øµÈ Á¢±ÙÀÔ´Ï´Ù.\n\n' + req ); break;
+        case '110' : msg.text('ë³„ëª…ì€ ê³µë°±ì—†ì´ í•œê¸€, ì˜ë¬¸, ìˆ«ìë§Œ ì…ë ¥ ê°€ëŠ¥í•©ë‹ˆë‹¤.').css( "color", "red" ); break;
+        case '120' : msg.text('í•œê¸€ 2ê¸€ì, ì˜ë¬¸ 4ê¸€ì ì´ìƒ ì…ë ¥ ê°€ëŠ¥í•©ë‹ˆë‹¤.').css( "color", "red" ); break;
+        case '130' : msg.text('ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ë³„ëª…ì…ë‹ˆë‹¤.').css( "color", "red" ); break;
+        case '140' : msg.text('ì˜ˆì•½ì–´ë¡œ ì‚¬ìš©í•  ìˆ˜ ì—†ëŠ” ë³„ëª… ì…ë‹ˆë‹¤.').css( "color", "red" ); break;
+        case '150' : msg.text('ê¸°íƒ€ ì‚¬ìœ ë¡œ ë‹‰ë„¤ì„ì„ ë³€ê²½í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.').css( "color", "red" ); break;
+        case '000' : msg.text('ì‚¬ìš©í•˜ì…”ë„ ì¢‹ì€ ë³„ëª… ì…ë‹ˆë‹¤.').css( "color", "blue" ); break;
+        default : alert( 'ì˜ëª»ëœ ì ‘ê·¼ì…ë‹ˆë‹¤.\n\n' + req ); break;
     }
     $('#mb_nick_enabled').val(req);
 }
 
-// E-mail ÁÖ¼Ò °Ë»ç
+// E-mail ì£¼ì†Œ ê²€ì‚¬
 function reg_mb_email_check() {
     if($('#mb_email').val().length >= 4){
         $.ajax({
@@ -86,18 +86,18 @@ function reg_mb_email_check() {
 function return_reg_mb_email_check(req) {
     var msg = $('#msg_mb_email');
     switch(req) {
-        case '110' : msg.text('E-mail ÁÖ¼Ò¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À.').css( "color", "red" ); break;
-        case '120' : msg.text('E-mail ÁÖ¼Ò°¡ Çü½Ä¿¡ ¸ÂÁö ¾Ê½À´Ï´Ù.').css( "color", "red" ); break;
-        case '130' : msg.text('ÀÌ¹Ì Á¸ÀçÇÏ´Â E-mail ÁÖ¼ÒÀÔ´Ï´Ù.').css( "color", "red" ); break;
-        case '140' : msg.text('¿¹¾à¾î·Î »ç¿ëÇÒ ¼ö ¾ø´Â º°¸í ÀÔ´Ï´Ù.').css( "color", "red" ); break;
-        case '150' : msg.text('±İÁöµÈ ¸ŞÀÏ µµ¸ŞÀÎ ÀÔ´Ï´Ù.').css( "color", "red" ); break;
-        case '000' : msg.text('»ç¿ëÇÏ¼Åµµ ÁÁÀº E-mail ÁÖ¼ÒÀÔ´Ï´Ù.').css( "color", "blue" ); break;
-        default : alert( 'Àß¸øµÈ Á¢±ÙÀÔ´Ï´Ù.\n\n' + req ); break;
+        case '110' : msg.text('E-mail ì£¼ì†Œë¥¼ ì…ë ¥í•˜ì‹­ì‹œì˜¤.').css( "color", "red" ); break;
+        case '120' : msg.text('E-mail ì£¼ì†Œê°€ í˜•ì‹ì— ë§ì§€ ì•ŠìŠµë‹ˆë‹¤.').css( "color", "red" ); break;
+        case '130' : msg.text('ì´ë¯¸ ì¡´ì¬í•˜ëŠ” E-mail ì£¼ì†Œì…ë‹ˆë‹¤.').css( "color", "red" ); break;
+        case '140' : msg.text('ì˜ˆì•½ì–´ë¡œ ì‚¬ìš©í•  ìˆ˜ ì—†ëŠ” ë³„ëª… ì…ë‹ˆë‹¤.').css( "color", "red" ); break;
+        case '150' : msg.text('ê¸ˆì§€ëœ ë©”ì¼ ë„ë©”ì¸ ì…ë‹ˆë‹¤.').css( "color", "red" ); break;
+        case '000' : msg.text('ì‚¬ìš©í•˜ì…”ë„ ì¢‹ì€ E-mail ì£¼ì†Œì…ë‹ˆë‹¤.').css( "color", "blue" ); break;
+        default : alert( 'ì˜ëª»ëœ ì ‘ê·¼ì…ë‹ˆë‹¤.\n\n' + req ); break;
     }
     $('#mb_email_enabled').val(req);
 }
 
-// È¸¿øÀÌ¸§ °Ë»ç
+// íšŒì›ì´ë¦„ ê²€ì‚¬
 function reg_mb_name_check() {
    if($('#mb_name').val().length >= 2){
       $.ajax({
@@ -117,11 +117,11 @@ function reg_mb_name_check() {
 function return_reg_mb_name_check(req) {
     var msg = $('#msg_mb_name');
     switch(req) {
-        case '110' : msg.text('ÇÑ±Û, ¿µ¹®ÀÚ¸¸ ÀÔ·ÂÇÏ¼¼¿ä.').css( "color", "red" ); break;
-        case '120' : msg.text('ÃÖ¼Ò 2ÀÚÀÌ»ó ÀÔ·ÂÇÏ¼¼¿ä.').css( "color", "red" ); break;
-        case '140' : msg.text('¿¹¾à¾î·Î »ç¿ëÇÒ ¼ö ¾ø´Â º°¸í ÀÔ´Ï´Ù.').css( "color", "red" ); break;
+        case '110' : msg.text('í•œê¸€, ì˜ë¬¸ìë§Œ ì…ë ¥í•˜ì„¸ìš”.').css( "color", "red" ); break;
+        case '120' : msg.text('ìµœì†Œ 2ìì´ìƒ ì…ë ¥í•˜ì„¸ìš”.').css( "color", "red" ); break;
+        case '140' : msg.text('ì˜ˆì•½ì–´ë¡œ ì‚¬ìš©í•  ìˆ˜ ì—†ëŠ” ë³„ëª… ì…ë‹ˆë‹¤.').css( "color", "red" ); break;
         case '000' : msg.text('').css( "color", "blue" ); break;
-        default : alert( 'Àß¸øµÈ Á¢±ÙÀÔ´Ï´Ù.\n\n' + req ); break;
+        default : alert( 'ì˜ëª»ëœ ì ‘ê·¼ì…ë‹ˆë‹¤.\n\n' + req ); break;
     }
     $('#mb_name_enabled').val(req);
 }

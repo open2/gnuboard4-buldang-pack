@@ -1,15 +1,15 @@
 <?
-// È¸¿ø°¡ÀÔ ¸ŞÀÏ (°ü¸®ÀÚ ¸ŞÀÏ·Î ¹ß¼Û)
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+// íšŒì›ê°€ì… ë©”ì¼ (ê´€ë¦¬ì ë©”ì¼ë¡œ ë°œì†¡)
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=<?=$g4[charset]?>">
-<title>È¸¿ø°¡ÀÔ ¸ŞÀÏ</title>
+<title>íšŒì›ê°€ì… ë©”ì¼</title>
 </head>
 
 <style>
-body, th, td, form, input, select, text, textarea, caption { font-size: 12px; font-family:±¼¸²;}
+body, th, td, form, input, select, text, textarea, caption { font-size: 12px; font-family:êµ´ë¦¼;}
 .line {border: 1px solid #868F98;}
 </style>
 
@@ -30,17 +30,17 @@ body, th, td, form, input, select, text, textarea, caption { font-size: 12px; fo
             <td>
                 <table width="500" border="0" cellspacing="0" cellpadding="4">
                 <tr> 
-                    <td width="100%" height="25" bgcolor=#F7F1D8>È¸¿ø°¡ÀÔ ¸ŞÀÏ</td>
+                    <td width="100%" height="25" bgcolor=#F7F1D8>íšŒì›ê°€ì… ë©”ì¼</td>
                 </tr>
                 </table>
                 <p>
 
                 <table width="500" border="0" align="center" cellpadding="4" cellspacing="0">
-                <tr><td height="150"><b><?=$mb_name?></b> ´Ô²²¼­ È¸¿ø°¡ÀÔ ÇÏ¼Ì½À´Ï´Ù.
-                    <p>È¸¿ø ¾ÆÀÌµğ : <b><?=$mb_id?></b>
-                    <p>È¸¿ø ÀÌ¸§ : <?=$mb_name?>
-                    <p>È¸¿ø º°¸í : <?=$mb_nick?>
-                    <p>ÃßÃµÀÎ¾ÆÀÌµğ : <?=$mb_recommend?></td></tr>
+                <tr><td height="150"><b><?=$mb_name?></b> ë‹˜ê»˜ì„œ íšŒì›ê°€ì… í•˜ì…¨ìŠµë‹ˆë‹¤.
+                    <p>íšŒì› ì•„ì´ë”” : <b><?=$mb_id?></b>
+                    <p>íšŒì› ì´ë¦„ : <?=$mb_name?>
+                    <p>íšŒì› ë³„ëª… : <?=$mb_nick?>
+                    <p>ì¶”ì²œì¸ì•„ì´ë”” : <?=$mb_recommend?></td></tr>
                 </table>
                 <p>
 
@@ -49,7 +49,7 @@ body, th, td, form, input, select, text, textarea, caption { font-size: 12px; fo
                     <td height="2" bgcolor="#E0E0E0" align="center"></td>
                 </tr>
                 <tr> 
-                    <td height="25" bgcolor="#EDEDED" align="center">°ü¸®ÀÚÈ­¸é¿¡¼­ ÀÚ¼¼ÇÑ ³»¿ëÀ» È®ÀÎÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.[<a href="<?=$g4[url]?>/<?=$g4[admin]?>/member_form.php?w=u&mb_id=<?=$mb_id?>">¹Ù·Î°¡±â</a>]</td>
+                    <td height="25" bgcolor="#EDEDED" align="center">ê´€ë¦¬ìí™”ë©´ì—ì„œ ìì„¸í•œ ë‚´ìš©ì„ í™•ì¸í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.[<a href="<?=$g4[url]?>/<?=$g4[admin]?>/member_form.php?w=u&mb_id=<?=$mb_id?>">ë°”ë¡œê°€ê¸°</a>]</td>
                 </tr>
                 </table>
             </td>

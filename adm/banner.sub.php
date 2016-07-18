@@ -16,20 +16,20 @@ $member_skin_path = "$g4[path]/skin/member/$config[cf_member_skin]";
 <form name=fvisit method=get enctype="multipart/form-data">
 <tr>
     <td>
-        <a href="./banner_click_list.php">√≥¿Ω</a>
-        <input type='text' name='fr_date' id='fr_date' size=11 maxlength=10 value='<?=$fr_date?>' class=ed><a href="javascript:win_calendar('fr_date', document.getElementById('fr_date').value, '-');"><img src='<?=$member_skin_path?>/img/calendar.gif' border=0 align=absmiddle title='¥ﬁ∑¬ - ≥Ø¬•∏¶ º±≈√«œººø‰'></a>
+        <a href="./banner_click_list.php">Ï≤òÏùå</a>
+        <input type='text' name='fr_date' id='fr_date' size=11 maxlength=10 value='<?=$fr_date?>' class=ed><a href="javascript:win_calendar('fr_date', document.getElementById('fr_date').value, '-');"><img src='<?=$member_skin_path?>/img/calendar.gif' border=0 align=absmiddle title='Îã¨Î†• - ÎÇ†ÏßúÎ•º ÏÑ†ÌÉùÌïòÏÑ∏Ïöî'></a>
         -
-        <input type='text' name='to_date' id='to_date' size=11 maxlength=10 value='<?=$to_date?>' class=ed><a href="javascript:win_calendar('to_date', document.getElementById('to_date').value, '-');"><img src='<?=$member_skin_path?>/img/calendar.gif' border=0 align=absmiddle title='¥ﬁ∑¬ - ≥Ø¬•∏¶ º±≈√«œººø‰'></a>
+        <input type='text' name='to_date' id='to_date' size=11 maxlength=10 value='<?=$to_date?>' class=ed><a href="javascript:win_calendar('to_date', document.getElementById('to_date').value, '-');"><img src='<?=$member_skin_path?>/img/calendar.gif' border=0 align=absmiddle title='Îã¨Î†• - ÎÇ†ÏßúÎ•º ÏÑ†ÌÉùÌïòÏÑ∏Ïöî'></a>
         &nbsp;
-        <input type=button class=btn1 value=' πË≥ ≈¨∏Ø'   onclick="fvisit_submit('banner_click_list.php');">
-        <input type=button class=btn1 value=' πË≥ ±◊∑Ï'   onclick="fvisit_submit('banner_click_group.php');">
-        <input type=button class=btn1 value=' πË≥ ID'   onclick="fvisit_submit('banner_click_banner.php');">
-        <input type=button class=btn1 value=' ∫Í∂ÛøÏ¿˙ ' onclick="fvisit_submit('banner_browser.php');">
-        <input type=button class=btn1 value=' Ω√∞£ '     onclick="fvisit_submit('banner_hour.php');">
-        <input type=button class=btn1 value=' ø‰¿œ '     onclick="fvisit_submit('banner_week.php');">
-        <input type=button class=btn1 value=' ¿œ '       onclick="fvisit_submit('banner_date.php');">
-        <input type=button class=btn1 value=' ø˘ '       onclick="fvisit_submit('banner_month.php');">
-        <input type=button class=btn1 value=' ≥‚ '       onclick="fvisit_submit('banner_year.php');">
+        <input type=button class=btn1 value=' Î∞∞ÎÑàÌÅ¥Î¶≠'   onclick="fvisit_submit('banner_click_list.php');">
+        <input type=button class=btn1 value=' Î∞∞ÎÑàÍ∑∏Î£π'   onclick="fvisit_submit('banner_click_group.php');">
+        <input type=button class=btn1 value=' Î∞∞ÎÑàID'   onclick="fvisit_submit('banner_click_banner.php');">
+        <input type=button class=btn1 value=' Î∏åÎùºÏö∞Ï†Ä ' onclick="fvisit_submit('banner_browser.php');">
+        <input type=button class=btn1 value=' ÏãúÍ∞Ñ '     onclick="fvisit_submit('banner_hour.php');">
+        <input type=button class=btn1 value=' ÏöîÏùº '     onclick="fvisit_submit('banner_week.php');">
+        <input type=button class=btn1 value=' Ïùº '       onclick="fvisit_submit('banner_date.php');">
+        <input type=button class=btn1 value=' Ïõî '       onclick="fvisit_submit('banner_month.php');">
+        <input type=button class=btn1 value=' ÎÖÑ '       onclick="fvisit_submit('banner_year.php');">
     </td>
 </tr>
 </form>

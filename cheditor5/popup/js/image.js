@@ -248,7 +248,7 @@ function setImageInfo(id) {
     if (!id) {
         document.getElementById('selectedImageWidth').innerHTML = 0;
         document.getElementById('selectedImageHeight').innerHTML = 0;
-        document.getElementById('selectedImageName').innerHTML = "¾øÀ½";
+        document.getElementById('selectedImageName').innerHTML = "ì—†ìŒ";
     }
     else {
         document.getElementById('selectedImageWidth').innerHTML = imageCompletedList[id]['width'];
@@ -346,8 +346,8 @@ function startUpload(count) {
 }
 
 function fileFilterError(file) {
-	alert("¼±ÅÃÇÏ½Å '" + file + "' ÆÄÀÏÀº Àü¼ÛÇÒ ¼ö ¾ø½À´Ï´Ù.\n" +
-		  "gif, png, jpg, ±×¸² ÆÄÀÏ¸¸ Àü¼ÛÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+	alert("ì„ íƒí•˜ì‹  '" + file + "' íŒŒì¼ì€ ì „ì†¡í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\n" +
+		  "gif, png, jpg, ê·¸ë¦¼ íŒŒì¼ë§Œ ì „ì†¡í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 }
 
 function imgComplete(img, imgSize, boxId) {
@@ -453,7 +453,7 @@ function showUploadWindow() {
 		winWidth  = document.body.clientWidth;
 	}
 	else {
-		alert('ÇöÀç ºê¶ó¿ìÀú¸¦ Áö¿øÇÏÁö ¾Ê½À´Ï´Ù.');
+		alert('í˜„ì¬ ë¸Œë¼ìš°ì €ë¥¼ ì§€ì›í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.');
 		return;
 	}
 
@@ -538,7 +538,7 @@ function removeImage() {
 	}
 
 	if (found) {
-		if (!confirm('Ãß°¡ÇÏ½Å »çÁøÀÌ ÀÖ½À´Ï´Ù. »çÁø ³Ö±â¸¦ Ãë¼ÒÇÏ½Ã°Ú½À´Ï±î?')) {
+		if (!confirm('ì¶”ê°€í•˜ì‹  ì‚¬ì§„ì´ ìˆìŠµë‹ˆë‹¤. ì‚¬ì§„ ë„£ê¸°ë¥¼ ì·¨ì†Œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?')) {
 			return false;
 		}
         removeImages();

@@ -6,11 +6,11 @@ check_demo();
 
 auth_check($auth[$sub_menu], "d");
 
-// °Ô½ÃÆÇÀÇ ½ºÅ²À» ¿øº»À¸·Î ÇÕ´Ï´Ù.
+// ê²Œì‹œíŒì˜ ìŠ¤í‚¨ì„ ì›ë³¸ìœ¼ë¡œ í•©ë‹ˆë‹¤.
 $bo = get_board($org_bo_table, "bo_skin");
 $board['bo_skin'] = $bo['bo_skin'];
 
-$board_skin_path = "{$g4['path']}/skin/board/{$bo['bo_skin']}"; // °Ô½ÃÆÇ ½ºÅ² °æ·Î
+$board_skin_path = "{$g4['path']}/skin/board/{$bo['bo_skin']}"; // ê²Œì‹œíŒ ìŠ¤í‚¨ ê²½ë¡œ
 
 chdir($g4[bbs_path]);
 

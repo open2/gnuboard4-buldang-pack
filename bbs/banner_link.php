@@ -1,17 +1,17 @@
 <?
 include_once("./_common.php");
 
-$html_title = "$group[gr_subject] > $board[bo_subject] > " . conv_subject($write[wr_subject], 255) . " > ¸µÅ©";
+$html_title = "$group[gr_subject] > $board[bo_subject] > " . conv_subject($write[wr_subject], 255) . " > ë§í¬";
 
-// common.php¿¡¼­ $bo_tableÀ» ¾ÈÀüÇÏ°Ô ÇÏ´Â ÄÚµå
+// common.phpì—ì„œ $bo_tableì„ ì•ˆì „í•˜ê²Œ í•˜ëŠ” ì½”ë“œ
 $bn_id = preg_match("/^[a-zA-Z0-9_]+$/", $bn_id) ? $bn_id : "";
 if (!$bn_id)
-    alert_close("¸µÅ©°ªÀÌ Á¦´ë·Î ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.");
+    alert_close("ë§í¬ê°’ì´ ì œëŒ€ë¡œ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
-// SQL Injection ¿¹¹æ
+// SQL Injection ì˜ˆë°©
 $bn = sql_fetch(" select * from $g4[banner_table] where bn_id = '$bn_id' ");
 if (!$bn['bn_id'] || !$bn['bn_url'])
-    alert_close("Á¸ÀçÇÏ´Â ¹è³Ê°¡ ¾Æ´Õ´Ï´Ù.");
+    alert_close("ì¡´ì¬í•˜ëŠ” ë°°ë„ˆê°€ ì•„ë‹™ë‹ˆë‹¤.");
 
 $ss_name = "ss_banner_click_{$bn_id}_{$bn[bg_id]}";
 if (empty($_SESSION[$ss_name])) 
@@ -27,10 +27,10 @@ if (empty($_SESSION[$ss_name]))
             ";
     $result = sql_query($sql);
 
-    // Á¤»óÀ¸·Î INSERT µÇ¾ú´Ù¸é ¹è³ÊÅ¬¸¯ ÇÕ°è¿¡ ¹İ¿µ
+    // ì •ìƒìœ¼ë¡œ INSERT ë˜ì—ˆë‹¤ë©´ ë°°ë„ˆí´ë¦­ í•©ê³„ì— ë°˜ì˜
     if ($result) {
       
-        // UPDATE¸¦ ¸ÕÀúÇÏ°í ¿À·ù°¡ ¹ß»ı½Ã insert¸¦ ½ÇÇà (¿¢½º¿¥¿¤´Ô)
+        // UPDATEë¥¼ ë¨¼ì €í•˜ê³  ì˜¤ë¥˜ê°€ ë°œìƒì‹œ insertë¥¼ ì‹¤í–‰ (ì—‘ìŠ¤ì— ì—˜ë‹˜)
         $sql = " update $g4[banner_click_sum_table] set bc_count = bc_count + 1 where bc_date = '$g4[time_ymd]' ";
         $result = sql_query($sql);
 

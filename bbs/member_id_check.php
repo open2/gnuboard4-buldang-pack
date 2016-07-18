@@ -1,7 +1,7 @@
 <?
 include_once("./_common.php");
 
-$g4[title] = "È¸¿ø¾ÆÀÌµğ Áßº¹È®ÀÎ";
+$g4[title] = "íšŒì›ì•„ì´ë”” ì¤‘ë³µí™•ì¸";
 include_once("$g4[path]/head.sub.php");
 
 $mb_id = trim($mb_id);
@@ -10,7 +10,7 @@ $mb = get_member($mb_id);
 if ($mb[mb_id]) 
 {
     echo "<script language=\"JavaScript\">";
-    echo "alert(\"'{$mb_id}'Àº(´Â) ÀÌ¹Ì °¡ÀÔµÈ È¸¿ø¾ÆÀÌµğ ÀÌ¹Ç·Î »ç¿ëÇÏ½Ç ¼ö ¾ø½À´Ï´Ù.\");";
+    echo "alert(\"'{$mb_id}'ì€(ëŠ”) ì´ë¯¸ ê°€ì…ëœ íšŒì›ì•„ì´ë”” ì´ë¯€ë¡œ ì‚¬ìš©í•˜ì‹¤ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\");";
     echo "parent.document.getElementById(\"mb_id_enabled\").value = -1;";
     echo "window.close();";
     echo "</script>";
@@ -20,7 +20,7 @@ else
     if (preg_match("/[\,]?{$mb_id}/i", $config[cf_prohibit_id]))
     {
         echo "<script language=\"JavaScript\">";
-        echo "alert(\"'{$mb_id}'Àº(´Â) ¿¹¾à¾î·Î »ç¿ëÇÏ½Ç ¼ö ¾ø´Â È¸¿ø¾ÆÀÌµğÀÔ´Ï´Ù.\");";
+        echo "alert(\"'{$mb_id}'ì€(ëŠ”) ì˜ˆì•½ì–´ë¡œ ì‚¬ìš©í•˜ì‹¤ ìˆ˜ ì—†ëŠ” íšŒì›ì•„ì´ë””ì…ë‹ˆë‹¤.\");";
         echo "parent.document.getElementById(\"mb_id_enabled\").value = -2;";
         echo "window.close();";
         echo "</script>";
@@ -28,7 +28,7 @@ else
     else
     {
         echo "<script language=\"JavaScript\">";
-        echo "alert(\"'{$mb_id}'Àº(´Â) Áßº¹µÈ È¸¿ø¾ÆÀÌµğ°¡ ¾ø½À´Ï´Ù.\\n\\n»ç¿ëÇÏ¼Åµµ ÁÁ½À´Ï´Ù.\");";
+        echo "alert(\"'{$mb_id}'ì€(ëŠ”) ì¤‘ë³µëœ íšŒì›ì•„ì´ë””ê°€ ì—†ìŠµë‹ˆë‹¤.\\n\\nì‚¬ìš©í•˜ì…”ë„ ì¢‹ìŠµë‹ˆë‹¤.\");";
         echo "parent.document.getElementById(\"mb_id_enabled\").value = 1;";
         echo "window.close();";
         echo "</script>";

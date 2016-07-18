@@ -7,22 +7,22 @@ auth_check($auth[$sub_menu], "w");
 check_token();
 
 if ($is_admin != "super")
-    alert("È¸¿ø ·¹º§°ü¸®´Â ÃÖ°í°ü¸®ÀÚ¸¸ °¡´ÉÇÕ´Ï´Ù.");
+    alert("íšŒì› ë ˆë²¨ê´€ë¦¬ëŠ” ìµœê³ ê´€ë¦¬ìë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
     
-$g4[title] = "È¸¿ø·¹º§°ü¸®";
+$g4[title] = "íšŒì›ë ˆë²¨ê´€ë¦¬";
 include_once("./admin.head.php");
 
 echo "<span id='ct'></span>";
 include_once("./admin.tail.php");
 flush();
 
-// ·¹º§¾÷ÇÒ ¸ñ·ÏÀ» ÁØºñ (ÃÖ°í °ü¸®ÀÚ »©°í´Â ¸ğµÎ ´ë»ó)
+// ë ˆë²¨ì—…í•  ëª©ë¡ì„ ì¤€ë¹„ (ìµœê³  ê´€ë¦¬ì ë¹¼ê³ ëŠ” ëª¨ë‘ ëŒ€ìƒ)
 $sql = " select mb_id from $g4[member_table] where mb_id <> '$config[cf_admin]' ";
 $result = sql_query($sql);
 while ($row = sql_fetch_array($result)) {
-    // °Ô½ÃÆÇ °ü¸®ÀÚ¸¦ ·¹º§ ´ë»ó¿¡¼­ Á¦¿ÜÇÑ´Ù
+    // ê²Œì‹œíŒ ê´€ë¦¬ìë¥¼ ë ˆë²¨ ëŒ€ìƒì—ì„œ ì œì™¸í•œë‹¤
     $bo = sql_fetch(" select count(*) as cnt from $g4[board_table] where bo_admin = '$row[mb_id]' ");
-    // ±×·ì °ü¸®ÀÚ¸¦ ·¹º§ ´ë»ó¿¡¼­ Á¦¿ÜÇÑ´Ù
+    // ê·¸ë£¹ ê´€ë¦¬ìë¥¼ ë ˆë²¨ ëŒ€ìƒì—ì„œ ì œì™¸í•œë‹¤
     $gr = sql_fetch(" select count(*) as cnt from $g4[group_table] where gr_admin = '$row[mb_id]' ");
     if ($bo[cnt] > 0 || $gr[cnt] > 0)
         ;
@@ -31,5 +31,5 @@ while ($row = sql_fetch_array($result)) {
     }
 }
 
-echo "<script>document.getElementById('ct').innerHTML += '<a href=\'" . $g4[admin_path] . "/member_level_list.php\'>È¸¿ø·¹º§°ü¸®·Î ÀÌµ¿ÇÏ±â</a>'</script>\n";
+echo "<script>document.getElementById('ct').innerHTML += '<a href=\'" . $g4[admin_path] . "/member_level_list.php\'>íšŒì›ë ˆë²¨ê´€ë¦¬ë¡œ ì´ë™í•˜ê¸°</a>'</script>\n";
 ?>

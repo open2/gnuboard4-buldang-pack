@@ -40,9 +40,9 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if ($page == "") $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if ($page == "") $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
 $sql = " select a.*, b.bf_source, b.bf_download, b.bf_content, b.bf_type, b.bf_datetime
           $sql_common
@@ -51,12 +51,12 @@ $sql = " select a.*, b.bf_source, b.bf_download, b.bf_content, b.bf_type, b.bf_d
           limit $from_record, $rows ";
 $result = sql_query($sql);
 
-$listall = "<a href='$_SERVER[PHP_SELF]'>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]'>ì²˜ìŒ</a>";
 
 if ($sfl == "mb_id" && $stx)
     $mb = get_member($stx);
 
-$g4[title] = "´Ù¿î·Îµå³»¿ª";
+$g4[title] = "ë‹¤ìš´ë¡œë“œë‚´ì—­";
 include_once ("./admin.head.php");
 ?>
 
@@ -66,21 +66,21 @@ var list_delete_php = "download_list_delete.php";
 
 <form name=fsearch method=get role="form" class="form-inline">
 <div class="btn-group">
-    <?=$listall?> (°Ç¼ö : <?=number_format($total_count)?>,
+    <?=$listall?> (ê±´ìˆ˜ : <?=number_format($total_count)?>,
     <?
     $row = sql_fetch(" select sum(download_point) as sum_point from $g4[board_file_download_table] ");
-    echo "&nbsp;´Ù¿î·Îµå Æ÷ÀÎÆ® ÇÕ°è : " . number_format($row[sum_point]) . "Á¡)";
+    echo "&nbsp;ë‹¤ìš´ë¡œë“œ í¬ì¸íŠ¸ í•©ê³„ : " . number_format($row[sum_point]) . "ì )";
     ?>
 </div>
 <div class="pull-right">
     <select name=sfl class="form-control">
-        <option value='a.mb_id'>È¸¿ø¾ÆÀÌµğ</option>
-        <option value='a.bo_table'>°Ô½ÃÆÇ</option>
+        <option value='a.mb_id'>íšŒì›ì•„ì´ë””</option>
+        <option value='a.bo_table'>ê²Œì‹œíŒ</option>
     </select>
     <? if ($stx == "all_dn") $stx = ""; ?>
-    <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<?=$stx?>'>
+    <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<?=$stx?>'>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 </form>
@@ -104,13 +104,13 @@ var list_delete_php = "download_list_delete.php";
 <colgroup width=100>
 <tr class='success'>
     <td><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
-    <td><?=subject_sort_link('a.mb_id')?>È¸¿ø¾ÆÀÌµğ</a></td>
-    <td><?=subject_sort_link('a.bo_table')?>°Ô½ÃÆÇ</a></td>
-    <td>°Ô½Ã±Û</td>
-    <td>ÆÄÀÏ¸í</td>
-    <td><?=subject_sort_link('a.download_point')?>Æ÷ÀÎÆ®</a></td>
-    <td><?=subject_sort_link('a.dn_datetime')?>ÀÏ½Ã</a></td>
-    <td><?=subject_sort_link('b.bf_download')?>´Ù¿îÈ½¼ö</a>(<?=subject_sort_link('a.dn_count')?>´©Àû</a>)</td>
+    <td><?=subject_sort_link('a.mb_id')?>íšŒì›ì•„ì´ë””</a></td>
+    <td><?=subject_sort_link('a.bo_table')?>ê²Œì‹œíŒ</a></td>
+    <td>ê²Œì‹œê¸€</td>
+    <td>íŒŒì¼ëª…</td>
+    <td><?=subject_sort_link('a.download_point')?>í¬ì¸íŠ¸</a></td>
+    <td><?=subject_sort_link('a.dn_datetime')?>ì¼ì‹œ</a></td>
+    <td><?=subject_sort_link('b.bf_download')?>ë‹¤ìš´íšŸìˆ˜</a>(<?=subject_sort_link('a.dn_count')?>ëˆ„ì </a>)</td>
 </tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) 
@@ -119,9 +119,9 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     $tmp_table = $g4['write_prefix'] . $row[bo_table];
     $wr = sql_fetch(" select wr_subject from $tmp_table where wr_id = '$row[wr_id]' ", false);
     if (!$board[bo_subject])
-        $board[bo_subject] = "°Ô½ÃÆÇ¾ø½¿(" . $row[bo_table] .")";
+        $board[bo_subject] = "ê²Œì‹œíŒì—†ìŠ´(" . $row[bo_table] .")";
     if (!$wr[wr_subject])
-        $wr[wr_subject] = "°Ô½Ã±Û ¾ø½¿";
+        $wr[wr_subject] = "ê²Œì‹œê¸€ ì—†ìŠ´";
     echo "
     <input type=hidden name=dn_id[$i] value='$row[dn_id]'>
     <input type=hidden name=mb_id[$i] value='$row[mb_id]'>
@@ -140,11 +140,11 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 } 
 
 if ($i == 0)
-    echo "<tr><td colspan='8' align=center height=100>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='8' align=center height=100>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
@@ -153,7 +153,7 @@ echo "</table>";
 
 <div class="btn-group">
     <? if ($is_admin == "super") { ?>
-        <input type=button class='btn btn-default' value='¼±ÅÃ»èÁ¦' onclick="btn_check(this.form, 'delete')">
+        <input type=button class='btn btn-default' value='ì„ íƒì‚­ì œ' onclick="btn_check(this.form, 'delete')">
     <? } ?>
 </div>
 

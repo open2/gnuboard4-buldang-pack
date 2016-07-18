@@ -1,12 +1,12 @@
-/* ¸¶¿ì½º°¡ ¸Ş´º¿¡ ¿Ã¶ó°¡¸é ÀÚµ¿À¸·Î dropdown µÇ°Ô */
+/* ë§ˆìš°ìŠ¤ê°€ ë©”ë‰´ì— ì˜¬ë¼ê°€ë©´ ìë™ìœ¼ë¡œ dropdown ë˜ê²Œ */
 ul.nav li.dropdown:hover > ul.dropdown-menu {
     display: block;    
 }
 
-/* 1ÁÙ·Î µÈ nav ¸Ş´º¸¦ ¹­¾î¼­ º¸¿©Áİ´Ï´Ù */
+/* 1ì¤„ë¡œ ëœ nav ë©”ë‰´ë¥¼ ë¬¶ì–´ì„œ ë³´ì—¬ì¤ë‹ˆë‹¤ */
 .nav > li { display:inline-block }
 
-/* navbar¾È¿¡¼­´Â btn-info ¼Ó¼ºÀÌ ¾È¸ÔÈü´Ï´Ù. ±×¶§ btn-info »öÀ» ¹Ù²ãÁÖ´Â ¹æ¹ı */
+/* navbarì•ˆì—ì„œëŠ” btn-info ì†ì„±ì´ ì•ˆë¨¹í™ë‹ˆë‹¤. ê·¸ë•Œ btn-info ìƒ‰ì„ ë°”ê¿”ì£¼ëŠ” ë°©ë²• */
 .btn-info-navbar {
     color: #fff;
     background-color: #5bc0de !important;
@@ -17,17 +17,17 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
     border: 0 !important;
 }
 
-/* ÃÖ´ë È­¸éÆøÀ» ¼³Á¤ */
+/* ìµœëŒ€ í™”ë©´í­ì„ ì„¤ì • */
 .container-fluid {
    max-width:1270px;
 }
 
-/* panel bottomÀÇ ³ôÀÌ¸¦ 20px¿¡¼­ 10px·Î */
+/* panel bottomì˜ ë†’ì´ë¥¼ 20pxì—ì„œ 10pxë¡œ */
 .panel {
     margin-bottom: 10px;
 }
 
-/* lg, md, sm, xs Å©±âº°·Î µ¿ÀÛÇÏ´Â media query */
+/* lg, md, sm, xs í¬ê¸°ë³„ë¡œ ë™ì‘í•˜ëŠ” media query */
 @media (min-width: 1200px) { 
 }
 
@@ -35,7 +35,7 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
 }
 
 @media (max-width: 767px) {
-    /* ½º¸ÀÆù¿¡¼­ 14px /*
+    /* ìŠ¤ë§›í°ì—ì„œ 14px /*
     body { 
         font-size: 14px; 
     } 

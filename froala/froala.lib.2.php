@@ -42,12 +42,12 @@
       theme: 'gray',
       language: 'ko',     // https://www.froala.com/wysiwyg-editor/docs/examples/language
       fontFamily: {       // https://www.froala.com/wysiwyg-editor/docs/examples/font-family
-        "µ¸¿ò": 'µ¸¿ò',
-        "¸¼Àº °íµñ": '¸¼Àº °íµñ',
-        "±¼¸²": '±¼¸²',
-        "³ª´®°íµñ": '³ª´®°íµñ',
-        "¹ÙÅÁ": '¹ÙÅÁ',
-        "±Ã¼­": '±Ã¼­'
+        "ë‹ì›€": 'ë‹ì›€',
+        "ë§‘ì€ ê³ ë”•": 'ë§‘ì€ ê³ ë”•',
+        "êµ´ë¦¼": 'êµ´ë¦¼',
+        "ë‚˜ëˆ”ê³ ë”•": 'ë‚˜ëˆ”ê³ ë”•',
+        "ë°”íƒ•": 'ë°”íƒ•',
+        "ê¶ì„œ": 'ê¶ì„œ'
       },
       heightMin: 400,     // https://www.froala.com/wysiwyg-editor/docs/examples/adjustable-height
       heightMax: 800,
@@ -63,7 +63,7 @@
       // Set the image upload URL.
       imageUploadURL: '<?=$g4[path]?>/froala/image_upload.php',
 
-      // Additional upload params (bo_table °ªÀ» image_upload.php¿¡ ³Ñ±ä´Ù)
+      // Additional upload params (bo_table ê°’ì„ image_upload.phpì— ë„˜ê¸´ë‹¤)
       imageUploadParams: {bo_table: '<?=$bo_table?>'},
 
       // Set request type.

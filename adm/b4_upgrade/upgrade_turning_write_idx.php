@@ -5,9 +5,9 @@ include_once("./_common.php");
 check_demo();
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4[path]);
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4[path]);
 
-$g4[title] = "¾÷±×·¹ÀÌµå";
+$g4[title] = "ì—…ê·¸ë ˆì´ë“œ";
 if (!$g4[b4_upgrade]) include_once("./admin.head.php");
 
 $sql = " select bo_table from $g4[board_table] ";
@@ -22,10 +22,10 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     $sql1 = " ALTER TABLE `$tmp_write_table` ADD INDEX `write_idx` ( `wr_parent` , `mb_id` , `wr_is_comment` ) ";
     sql_query($sql1, false);
     
-    echo  "<BR>" . $i . " : " . $row[bo_table] . " °Ô½ÃÆÇÀÇ ÀÎµ¦½º¸¦ ¾÷µ¥ÀÌÆ® Çß½À´Ï´Ù <br>";
+    echo  "<BR>" . $i . " : " . $row[bo_table] . " ê²Œì‹œíŒì˜ ì¸ë±ìŠ¤ë¥¼ ì—…ë°ì´íŠ¸ í–ˆìŠµë‹ˆë‹¤ <br>";
 }
 
-echo "<br>°Ô½ÃÆÇ ¾²±â °ü·Ã index Ãß°¡ UPGRADE ¿Ï·á.";
+echo "<br>ê²Œì‹œíŒ ì“°ê¸° ê´€ë ¨ index ì¶”ê°€ UPGRADE ì™„ë£Œ.";
 
 if (!$g4[b4_upgrade]) include_once("./admin.tail.php");
 ?>

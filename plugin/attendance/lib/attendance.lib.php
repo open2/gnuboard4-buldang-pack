@@ -1,18 +1,18 @@
 <?php
 
-//Å¸ÀÓº° µ¥ÀÌÅ¸ °¡Á®¿È
+//íƒ€ìž„ë³„ ë°ì´íƒ€ ê°€ì ¸ì˜´
 function attendance_get_type($v){
 
 	switch($v){
-		case "1" : $return = "¹¬"; break;
-		case "2" : $return = "Âî"; break;
-		case "3" : $return = "ºü"; break;
+		case "1" : $return = "ë¬µ"; break;
+		case "2" : $return = "ì°Œ"; break;
+		case "3" : $return = "ë¹ "; break;
 	}
 
     return $return;
 }
 
-// ¿¬½Â, ¿¬ÆÐ, ¿¬¹« µî Æ÷ÀÎÆ®¸¦ °è»êÇÔ
+// ì—°ìŠ¹, ì—°íŒ¨, ì—°ë¬´ ë“± í¬ì¸íŠ¸ë¥¼ ê³„ì‚°í•¨
 function attendance_get_successive($point,$successive){
 	global $att;
 
@@ -31,7 +31,7 @@ function attendance_get_successive($point,$successive){
 
 if(!function_exists('sql_value')){
 
-	//¼¿·ºÆ® °á°ú¿¡¼­ ÇÏ³ªÀÇ °ª¸¸ °¡Á®¿È
+	//ì…€ë ‰íŠ¸ ê²°ê³¼ì—ì„œ í•˜ë‚˜ì˜ ê°’ë§Œ ê°€ì ¸ì˜´
 	function sql_value($query, $a=0, $b=0){
 
 	  $result = sql_query($query);

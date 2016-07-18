@@ -1,5 +1,5 @@
 <?
-// ÀÎ±â°Ë»ö¾î °ü¸®
+// ì¸ê¸°ê²€ìƒ‰ì–´ ê´€ë¦¬
 $sub_menu = "200700";
 include_once("./_common.php");
 
@@ -42,9 +42,9 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if ($page == "") $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if ($page == "") $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
 $sql = " select a.*, b.bo_subject
           $sql_common
@@ -53,12 +53,12 @@ $sql = " select a.*, b.bo_subject
           limit $from_record, $rows ";
 $result = sql_query($sql);
 
-$listall = "<a href='$_SERVER[PHP_SELF]'>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]'>ì²˜ìŒ</a>";
 
 if ($sfl == "mb_id" && $stx)
     $mb = get_member($stx);
 
-$g4[title] = "ÀÎ±â°Ë»ö¾î°ü¸®";
+$g4[title] = "ì¸ê¸°ê²€ìƒ‰ì–´ê´€ë¦¬";
 include_once ("./admin.head.php");
 ?>
 
@@ -69,20 +69,20 @@ var list_delete_php = "popular_list_delete.php";
 
 <form name=fsearch method=get role="form" class="form-inline">
 <div class="btn-group">
-    <?=$listall?> (°Ç¼ö : <?=number_format($total_count)?>)
+    <?=$listall?> (ê±´ìˆ˜ : <?=number_format($total_count)?>)
 </div>
 <div class="pull-right">
     <select name=sfl class="form-control">
-        <option value='a.pp_word'>°Ë»ö¾î</option>
-        <option value='a.mb_id'>È¸¿ø¾ÆÀÌµğ</option>
-        <option value='a.bo_table'>°Ô½ÃÆÇ</option>
+        <option value='a.pp_word'>ê²€ìƒ‰ì–´</option>
+        <option value='a.mb_id'>íšŒì›ì•„ì´ë””</option>
+        <option value='a.bo_table'>ê²Œì‹œíŒ</option>
         <option value='a.pp_id'>ip</option>
-        <option value='a.pp_date'>°Ë»öÀÏÀÚ</option>
+        <option value='a.pp_date'>ê²€ìƒ‰ì¼ì</option>
     </select>
     <? if ($stx == "all_dn") $stx = ""; ?>
-    <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<?=$stx?>'>
+    <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<?=$stx?>'>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 </form>
@@ -106,13 +106,13 @@ var list_delete_php = "popular_list_delete.php";
 <colgroup width=60>
 <tr class='success'>
     <td><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
-    <td><?=subject_sort_link('a.bo_table')?>°Ô½ÃÆÇ</a></td>
-    <td>°Ë»ö¾î</td>
+    <td><?=subject_sort_link('a.bo_table')?>ê²Œì‹œíŒ</a></td>
+    <td>ê²€ìƒ‰ì–´</td>
     <td>sfl</td>
-    <td><?=subject_sort_link('a.mb_id')?>´Ğ³×ÀÓ</a></td>
+    <td><?=subject_sort_link('a.mb_id')?>ë‹‰ë„¤ì„</a></td>
     <td>ip</td>
-    <td><?=subject_sort_link('a.pp_date')?>°Ë»öÀÏ½Ã</a></td>
-    <td>°Ë»öÈ½¼ö</td>
+    <td><?=subject_sort_link('a.pp_date')?>ê²€ìƒ‰ì¼ì‹œ</a></td>
+    <td>ê²€ìƒ‰íšŸìˆ˜</td>
 </tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) 
@@ -122,7 +122,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     } else {
         $mb[mb_nick] = "";
     }
-    // ÀüÃ¼°Ë»öÈ½¼ö
+    // ì „ì²´ê²€ìƒ‰íšŸìˆ˜
     $tot = sql_fetch(" select count(*) as cnt from $g4[popular_table] where pp_word='$row[pp_word]' ");
     echo "
     <input type=hidden name=pp_id[$i] value='$row[pp_id]'>
@@ -142,12 +142,12 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 } 
 
 if ($i == 0)
-    echo "<tr><td colspan='$colspan' align=center height=100>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='$colspan' align=center height=100>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
@@ -156,7 +156,7 @@ echo "</table>";
 
 <div class="btn-group">
     <? if ($is_admin == "super") { ?>
-        <input type=button class='btn btn-default' value='¼±ÅÃ»èÁ¦' onclick="btn_check(this.form, 'delete')">
+        <input type=button class='btn btn-default' value='ì„ íƒì‚­ì œ' onclick="btn_check(this.form, 'delete')">
     <? } ?>
 </div>
 

@@ -1,32 +1,32 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
-// ±×·ìÀÇ Ä«¿îÆ® ±¸ÇÏ±â
+// ê·¸ë£¹ì˜ ì¹´ìš´íŠ¸ êµ¬í•˜ê¸°
 $mb_sql = " select count(*) as cnt from $g4[memo_group_table] where mb_id = '$member[mb_id]' ";
 $result = sql_fetch($mb_sql);
 $total_count = $result['cnt'];
 
-$one_rows = $config['cf_memo_page_rows'];       // ÇÑÆäÀÌÁöÀÇ ¶óÀÎ¼ö
-$total_page = ceil($total_count / $one_rows);   // ÀüÃ¼ ÆäÀÌÁö °è»ê 
-if ($page == 0)   // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö) 
+$one_rows = $config['cf_memo_page_rows'];       // í•œí˜ì´ì§€ì˜ ë¼ì¸ìˆ˜
+$total_page = ceil($total_count / $one_rows);   // ì „ì²´ í˜ì´ì§€ ê³„ì‚° 
+if ($page == 0)   // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€) 
     $page = 1; 
-$from_record = ($page - 1) * $one_rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$from_record = ($page - 1) * $one_rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 $to_record = $from_record + $one_rows ;
 
 $sql = " select * from $g4[memo_group_table] where mb_id = '$member[mb_id]' order by gr_id desc limit $from_record, $one_rows"; 
-$subj = "³ªÀÇ ¸Ş¸ğ±×·ì ¸ñ·Ï";
+$subj = "ë‚˜ì˜ ë©”ëª¨ê·¸ë£¹ ëª©ë¡";
 $result = sql_query($sql);
 
 $cols = 6; 
-$gr_width = '100%'; // ±×·ì°ü¸®ÀÇ Æø
-$ss_id = 'gr_id'; // Á÷Á¢ ¾ÆÀÌµğ¸¦ ÁöÁ¤ÇÏ´Ï±î ¿À·ù°¡ »ı°Ü¼­ ¾îÂ¿ ¼ö ¾øÀÌ... ¤Ğ..¤Ğ
+$gr_width = '100%'; // ê·¸ë£¹ê´€ë¦¬ì˜ í­
+$ss_id = 'gr_id'; // ì§ì ‘ ì•„ì´ë””ë¥¼ ì§€ì •í•˜ë‹ˆê¹Œ ì˜¤ë¥˜ê°€ ìƒê²¨ì„œ ì–´ì©” ìˆ˜ ì—†ì´... ã… ..ã… 
 ?>
 
-<!-- ±×·ì°ü¸® Á¦¸ñ -->
+<!-- ê·¸ë£¹ê´€ë¦¬ ì œëª© -->
 <table width="100%" height="30" border="0" cellspacing="0">
     <tr>
     <td>
-        &nbsp;<img src="<?=$memo_skin_path?>/img/memo_icon06.gif" align=absmiddle /> <a href="<?=$memo_url?>?kind=memo_group_admin">±×·ì°ü¸®</a> :: <?=$subj?> ::
+        &nbsp;<img src="<?=$memo_skin_path?>/img/memo_icon06.gif" align=absmiddle /> <a href="<?=$memo_url?>?kind=memo_group_admin">ê·¸ë£¹ê´€ë¦¬</a> :: <?=$subj?> ::
     </td>
     </tr>
 </table>
@@ -44,19 +44,19 @@ $ss_id = 'gr_id'; // Á÷Á¢ ¾ÆÀÌµğ¸¦ ÁöÁ¤ÇÏ´Ï±î ¿À·ù°¡ »ı°Ü¼­ ¾îÂ¿ ¼ö ¾øÀÌ... ¤Ğ..
     <thead>
     <tr>
         <th colspan=5>
-        ³» ¸Ş¸ğ±×·ìÀº <b>( <a href='<?=$memo_url?>?kind=memo_group_admin'><?=$total_count?></a> )</b>
+        ë‚´ ë©”ëª¨ê·¸ë£¹ì€ <b>( <a href='<?=$memo_url?>?kind=memo_group_admin'><?=$total_count?></a> )</b>
         </th>
     </tr>
     <tr>
         <th></th>
-        <th align="left">&nbsp;±×·ì¸í</th>
-        <th>¸â¹ö¼ö</th>
-        <th>º¸³»±â</th>
-        <th>µî·ÏÀÏ</th>
+        <th align="left">&nbsp;ê·¸ë£¹ëª…</th>
+        <th>ë©¤ë²„ìˆ˜</th>
+        <th>ë³´ë‚´ê¸°</th>
+        <th>ë“±ë¡ì¼</th>
     </tr>
     </thead>
-    <?//Ãâ·Â
-    for ($i=0; $row = sql_fetch_array($result); $i++) { // Join ¶Ç´Â °Ë»öÀ¸·Î ÇÏÁö ¾Ê°í °³º°·Î member Á¤º¸¸¦ fetch ÇÏ´Â °ÍÀº È¿À² ¶§¹®
+    <?//ì¶œë ¥
+    for ($i=0; $row = sql_fetch_array($result); $i++) { // Join ë˜ëŠ” ê²€ìƒ‰ìœ¼ë¡œ í•˜ì§€ ì•Šê³  ê°œë³„ë¡œ member ì •ë³´ë¥¼ fetch í•˜ëŠ” ê²ƒì€ íš¨ìœ¨ ë•Œë¬¸
     ?>
     <tr>
         <td>
@@ -96,7 +96,7 @@ $ss_id = 'gr_id'; // Á÷Á¢ ¾ÆÀÌµğ¸¦ ÁöÁ¤ÇÏ´Ï±î ¿À·ù°¡ »ı°Ü¼­ ¾îÂ¿ ¼ö ¾øÀÌ... ¤Ğ..
     </tr>
     <? } ?>
     <tr>
-        <td colspan=5 align=left style="padding:2px 0 2px 10px;" height=30px><a href="javascript:select_delete_gr();">±×·ì»èÁ¦</a>
+        <td colspan=5 align=left style="padding:2px 0 2px 10px;" height=30px><a href="javascript:select_delete_gr();">ê·¸ë£¹ì‚­ì œ</a>
         </td>
     </tr>
     </tfoot>
@@ -108,16 +108,16 @@ $ss_id = 'gr_id'; // Á÷Á¢ ¾ÆÀÌµğ¸¦ ÁöÁ¤ÇÏ´Ï±î ¿À·ù°¡ »ı°Ü¼­ ¾îÂ¿ ¼ö ¾øÀÌ... ¤Ğ..
 <table class="tbl_type" width="100%" border="1" cellspacing="0">
     <thead>
     <tr>
-    <th>»õ·Î¿î ±×·ì µî·ÏÇÏ±â</th>
+    <th>ìƒˆë¡œìš´ ê·¸ë£¹ ë“±ë¡í•˜ê¸°</th>
     </tr>
     </thead>
     <tr>
         <td>
         <form name="gr_register" action="javascript:gr_register_submit(document.gr_register);" method="post" enctype="multipart/form-data" autocomplete="off" >
         <input type="hidden" class="ed" name="mb_id" value="<?=$member[mb_id]?>" />
-        ¸Ş¸ğ±×·ì : 
-        &nbsp;<input name="gr_name" type="text" class="ed" itemname='¸Ş¸ğ±×·ì' size="45" />
-        &nbsp;<input type="submit" class="btn1" value=' ¸Ş¸ğ±×·ìµî·Ï' />
+        ë©”ëª¨ê·¸ë£¹ : 
+        &nbsp;<input name="gr_name" type="text" class="ed" itemname='ë©”ëª¨ê·¸ë£¹' size="45" />
+        &nbsp;<input type="submit" class="btn1" value=' ë©”ëª¨ê·¸ë£¹ë“±ë¡' />
         </form>
         </td>
     </tr>
@@ -141,21 +141,21 @@ function check_confirm_gr(str) {
     }
 
     if (!chk_count) {
-        alert(str + "ÇÒ ±×·ìÀ» ÇÑ°³ ÀÌ»ó ¼±ÅÃÇÏ¼¼¿ä.");
+        alert(str + "í•  ê·¸ë£¹ì„ í•œê°œ ì´ìƒ ì„ íƒí•˜ì„¸ìš”.");
         return false;
     }
     return true;
 }
 
-// ¼±ÅÃÇÑ ±×·ì »èÁ¦
+// ì„ íƒí•œ ê·¸ë£¹ ì‚­ì œ
 function select_delete_gr() {
     var f = document.grouplist;
 
-    str = "»èÁ¦";
+    str = "ì‚­ì œ";
     if (!check_confirm_gr(str))
         return;
 
-    if (!confirm("¼±ÅÃÇÑ ±×·ìÀ» Á¤¸» "+str+" ÇÏ½Ã°Ú½À´Ï±î?\n\n"))
+    if (!confirm("ì„ íƒí•œ ê·¸ë£¹ì„ ì •ë§ "+str+" í•˜ì‹œê² ìŠµë‹ˆê¹Œ?\n\n"))
         return;
 
     f.action = "<?=$memo_skin_path?>/memo2_group_delete.php";
@@ -178,7 +178,7 @@ function memo_box(memo_id)
     }
 }
 
-// ¼±ÅÃÇÑ ¸Ş¸ğ¸¦ ¾÷µ¥ÀÌÆ®
+// ì„ íƒí•œ ë©”ëª¨ë¥¼ ì—…ë°ì´íŠ¸
 function memo_update(gr_id) {
     var f = document.grouplist;
     var el_id = 'gr_edit_' + gr_id;

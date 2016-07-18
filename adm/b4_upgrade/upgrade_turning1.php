@@ -5,9 +5,9 @@ include_once("./_common.php");
 check_demo();
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4[path]);
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4[path]);
 
-$g4[title] = "¾÷±×·¹ÀÌµå";
+$g4[title] = "ì—…ê·¸ë ˆì´ë“œ";
 if (!$g4[b4_upgrade]) include_once("./admin.head.php");
 
 $sql = " select bo_table from $g4[board_table] ";
@@ -18,7 +18,7 @@ while ($row = sql_fetch_array($result))
     $tmp_write_table = $g4[write_prefix] . $row[bo_table];
     $sql2 = " ALTER TABLE `$tmp_write_table` ADD `wr_file_count` TINYINT( 4 ) UNSIGNED NOT NULL ";
     sql_query($sql2, false);
-    echo "<BR>" . $tmp_write_table . "¿¡ wr_file_count ÇÊµå°¡ Ãß°¡µÇ¾ú½À´Ï´Ù<br>";
+    echo "<BR>" . $tmp_write_table . "ì— wr_file_count í•„ë“œê°€ ì¶”ê°€ë˜ì—ˆìŠµë‹ˆë‹¤<br>";
 
     $sql3 = " select wr_id, count(*) as cnt from $g4[board_file_table] where bo_table = '$row[bo_table]' group by wr_id ";
     $result3 = sql_query($sql3);
@@ -29,7 +29,7 @@ while ($row = sql_fetch_array($result))
     }    
 }
 
-echo "<br>wr_file_count file Ãß°¡ UPGRADE ¿Ï·á.";
+echo "<br>wr_file_count file ì¶”ê°€ UPGRADE ì™„ë£Œ.";
 
 if (!$g4[b4_upgrade]) include_once("./admin.tail.php");
 ?>

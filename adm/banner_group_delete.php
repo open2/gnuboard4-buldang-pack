@@ -5,7 +5,7 @@ include_once("./_common.php");
 check_demo();
 
 if ($is_admin != "super")
-    alert("°Ô½ÃÆÇ±×·ì »èÁ¦´Â ÃÖ°í°ü¸®ÀÚ¸¸ °¡´ÉÇÕ´Ï´Ù.");
+    alert("ê²Œì‹œíŒê·¸ë£¹ ì‚­ì œëŠ” ìµœê³ ê´€ë¦¬ìë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
 auth_check($auth[$sub_menu], "d");
 
@@ -14,10 +14,10 @@ check_token();
 $bg_id = mysql_real_escape_string(trim($_POST['bg_id']));
 $row = sql_fetch(" select count(*) as cnt from $g4[banner_table] where bg_id = '$bg_id' ");
 if ($row[cnt])
-    alert("ÀÌ ±×·ì¿¡ ¼ÓÇÑ ¹è³Ê°¡ Á¸ÀçÇÏ¿© ¹è³Ê ±×·ìÀ» »èÁ¦ÇÒ ¼ö ¾ø½À´Ï´Ù.\\n\\nÀÌ ±×·ì¿¡ ¼ÓÇÑ ¹è³Ê¸¦ ¸ÕÀú »èÁ¦ÇÏ¿© ÁÖ½Ê½Ã¿À.", "./banner_list.php?sfl=bg_id&stx=$bg_id");
+    alert("ì´ ê·¸ë£¹ì— ì†í•œ ë°°ë„ˆê°€ ì¡´ì¬í•˜ì—¬ ë°°ë„ˆ ê·¸ë£¹ì„ ì‚­ì œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\\n\\nì´ ê·¸ë£¹ì— ì†í•œ ë°°ë„ˆë¥¼ ë¨¼ì € ì‚­ì œí•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.", "./banner_list.php?sfl=bg_id&stx=$bg_id");
 
 
-// ±×·ì »èÁ¦
+// ê·¸ë£¹ ì‚­ì œ
 sql_query(" delete from $g4[banner_group_table] where bg_id = '$bg_id' ");
 
 goto_url("banner_group_list.php?$qstr");

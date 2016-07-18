@@ -1,6 +1,6 @@
 <? 
 //
-// Á¶º´¿Ï(korone)´Ô , ³²±Ô¾Æºü(eagletalon)´Ô²²¼­ ¸¸µé¾î ÁÖ¼Ì½À´Ï´Ù.
+// ì¡°ë³‘ì™„(korone)ë‹˜ , ë‚¨ê·œì•„ë¹ (eagletalon)ë‹˜ê»˜ì„œ ë§Œë“¤ì–´ ì£¼ì…¨ìŠµë‹ˆë‹¤.
 //
 
 $sub_menu = "100400"; 
@@ -8,7 +8,7 @@ include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "r");
 
-$g4[title] = "¹öÀüÈ®ÀÎ"; 
+$g4[title] = "ë²„ì „í™•ì¸"; 
 
 include_once("./admin.head.php"); 
 include_once("$g4[path]/lib/mailer.lib.php"); 
@@ -19,7 +19,7 @@ if ($handle) {
     fclose($handle);
 }
 
-echo "ÇöÀç¹öÀü : <b>";
+echo "í˜„ìž¬ë²„ì „ : <b>";
 echo "$buffer";
 echo "</b>";
 ?> 
@@ -32,8 +32,8 @@ echo "</b>";
 </tr> 
 <tr>
     <td>
-    ÇöÀç¹öÀüÁ¤º¸´Â HISTORY ÆÄÀÏÀÇ Ã¹ÁÙÀ» ÀÐ¾î¼­ ±×´ë·Î º¸¿©ÁÖ´Â °Í ÀÔ´Ï´Ù.<br>
-    ¹öÀü¾÷À» Çß½¿¿¡µµ ¹öÀüÁ¤º¸°¡ º¯°æµÇÁö ¾Ê¾Ò´Ù¸é HISTORY ÆÄÀÏÀ» ¾÷±Û ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.
+    í˜„ìž¬ë²„ì „ì •ë³´ëŠ” HISTORY íŒŒì¼ì˜ ì²«ì¤„ì„ ì½ì–´ì„œ ê·¸ëŒ€ë¡œ ë³´ì—¬ì£¼ëŠ” ê²ƒ ìž…ë‹ˆë‹¤.<br>
+    ë²„ì „ì—…ì„ í–ˆìŠ´ì—ë„ ë²„ì „ì •ë³´ê°€ ë³€ê²½ë˜ì§€ ì•Šì•˜ë‹¤ë©´ HISTORY íŒŒì¼ì„ ì—…ê¸€ í•˜ì‹œê¸° ë°”ëžë‹ˆë‹¤.
     </td>
 </tr>
 </table> 

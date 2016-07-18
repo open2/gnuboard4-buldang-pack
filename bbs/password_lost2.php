@@ -5,7 +5,7 @@ include_once("$g4[path]/lib/mailer.lib.php");
 if ($member[mb_id]) 
 {
     echo "<script type='text/javascript'>";
-    echo "alert('ÀÌ¹Ì ·Î±×ÀÎÁßÀÔ´Ï´Ù.');";
+    echo "alert('ì´ë¯¸ ë¡œê·¸ì¸ì¤‘ì…ë‹ˆë‹¤.');";
     echo "window.close();";
     echo "opener.document.location.reload();";
     echo "</script>";
@@ -13,57 +13,57 @@ if ($member[mb_id])
 }
 
 if (chk_recaptcha() == false)
-    alert ('½ºÆÔÂ÷´ÜÄÚµå°¡ Æ²·È½À´Ï´Ù.');
+    alert ('ìŠ¤íŒ¸ì°¨ë‹¨ì½”ë“œê°€ í‹€ë ¸ìŠµë‹ˆë‹¤.');
 
 $email = trim($_POST['mb_email']);
 
 if (!$email) 
-    // ¸ŞÀÏÁÖ¼Ò ¿À·ùÀÔ´Ï´Ù.
-    alert_close("Á¤»óÀûÀÎ Á¢±ÙÀÌ ¾Æ´Ñ°Í °°½À´Ï´Ù - 100");
+    // ë©”ì¼ì£¼ì†Œ ì˜¤ë¥˜ì…ë‹ˆë‹¤.
+    alert_close("ì •ìƒì ì¸ ì ‘ê·¼ì´ ì•„ë‹Œê²ƒ ê°™ìŠµë‹ˆë‹¤ - 100");
 
 $sql = " select count(*) as cnt from $g4[member_table] where mb_email = '$email' ";
 $row = sql_fetch($sql);
 if ($row[cnt] > 1)
-    alert("µ¿ÀÏÇÑ ¸ŞÀÏÁÖ¼Ò°¡ 2°³ ÀÌ»ó Á¸ÀçÇÕ´Ï´Ù.\\n\\n°ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ¿© ÁÖ½Ê½Ã¿À.");
+    alert("ë™ì¼í•œ ë©”ì¼ì£¼ì†Œê°€ 2ê°œ ì´ìƒ ì¡´ì¬í•©ë‹ˆë‹¤.\\n\\nê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
 
 $sql = " select mb_no, mb_id, mb_name, mb_nick, mb_email, mb_datetime from $g4[member_table] where mb_email = '$email' ";
 $mb = sql_fetch($sql);
 $msg = "";
 if (!$mb[mb_id])
-    // Á¸ÀçÇÏÁö ¾Ê´Â È¸¿øÀÔ´Ï´Ù.
-    $msg = "Á¤»óÀûÀÎ Á¢±ÙÀÌ ¾Æ´Ñ°Í °°½À´Ï´Ù - 110";
+    // ì¡´ì¬í•˜ì§€ ì•ŠëŠ” íšŒì›ì…ë‹ˆë‹¤.
+    $msg = "ì •ìƒì ì¸ ì ‘ê·¼ì´ ì•„ë‹Œê²ƒ ê°™ìŠµë‹ˆë‹¤ - 110";
 else if (is_admin($mb[mb_id])) 
-    // °ü¸®ÀÚ ¾ÆÀÌµğ´Â Á¢±Ù ºÒ°¡ÇÕ´Ï´Ù.
-    $msg = "Á¤»óÀûÀÎ Á¢±ÙÀÌ ¾Æ´Ñ°Í °°½À´Ï´Ù - 120";
+    // ê´€ë¦¬ì ì•„ì´ë””ëŠ” ì ‘ê·¼ ë¶ˆê°€í•©ë‹ˆë‹¤.
+    $msg = "ì •ìƒì ì¸ ì ‘ê·¼ì´ ì•„ë‹Œê²ƒ ê°™ìŠµë‹ˆë‹¤ - 120";
 
-// ºÒ´çÆÑ - ÆĞ½º¿öµå Ã£±â·Î Àå³­Áú ÇÏ´Â °ÍÀ» ¸·¾Æ¾ßÁÒ.
+// ë¶ˆë‹¹íŒ© - íŒ¨ìŠ¤ì›Œë“œ ì°¾ê¸°ë¡œ ì¥ë‚œì§ˆ í•˜ëŠ” ê²ƒì„ ë§‰ì•„ì•¼ì£ .
 if ($msg) {
 
-    // ÄÚµå È£È¯¼ºÀ» À§ÇØ¼­ º¯¼ö¸¦ setting
+    // ì½”ë“œ í˜¸í™˜ì„±ì„ ìœ„í•´ì„œ ë³€ìˆ˜ë¥¼ setting
     $mb_id = $mb[mb_id];
 
-    // ºÒ´çÆÑ : ¾Æ·¡ ÄÚµå´Â ºÒ´çÆÑÀÇ /bbs/login_check.php¿Í µ¿ÀÏ ÇÕ´Ï´Ù. ---------------------------------------
+    // ë¶ˆë‹¹íŒ© : ì•„ë˜ ì½”ë“œëŠ” ë¶ˆë‹¹íŒ©ì˜ /bbs/login_check.phpì™€ ë™ì¼ í•©ë‹ˆë‹¤. ---------------------------------------
 
-    // ·Î±×ÀÎ ¿À·ù¸¦ db¿¡ ±â·Ï ÇÕ´Ï´Ù.
+    // ë¡œê·¸ì¸ ì˜¤ë¥˜ë¥¼ dbì— ê¸°ë¡ í•©ë‹ˆë‹¤.
     $sql = " insert into $g4[login_fail_log_table] (mb_id, ip_addr, log_datetime, log_url) values ('$mb_id', '$remote_addr', '$g4[time_ymdhis]', '/bbs/password_lost2.php') ";
     sql_query($sql);
 
-    // ¿À·ù È½¼ö¸¦ Ã¼Å©ÇØ¼­ Â÷´ÜÇÒÁö¸¦ °áÁ¤ ÇÕ´Ï´Ù.
+    // ì˜¤ë¥˜ íšŸìˆ˜ë¥¼ ì²´í¬í•´ì„œ ì°¨ë‹¨í• ì§€ë¥¼ ê²°ì • í•©ë‹ˆë‹¤.
     if ($config['cf_retry_time_interval'] > 0 && $config['cf_retry_count'] > 0) {
         $sql = " select count(*) as cnt from $g4[login_fail_log_table] where log_datetime >= '" . date("Y-m-d H:i:s", $g4[server_time] - $config['cf_retry_time_interval'] ) . "' and ip_addr='$remote_addr' ";
         $result = sql_fetch($sql);
 
         $ip = $_SERVER[REMOTE_ADDR];
         
-        // È¸¼ö -2ÀÏ¶§, °æ°í ¸Ş½ÃÁö, 4È¸ ÀÌÈÄ¿¡ IP Â÷´ÜÀ» ÇÏ´Â °æ¿ì ¸Ş½ÃÁö ¾øÀÌ Â÷´Ü µÉ ¼ö ÀÖÀ¸¹Ç·Î, È½¼ö¸¦ 5È¸ ÀÌ»óÀ¸·Î ÇÏ´Â°Ô ÁÁ½À´Ï´Ù.
+        // íšŒìˆ˜ -2ì¼ë•Œ, ê²½ê³  ë©”ì‹œì§€, 4íšŒ ì´í›„ì— IP ì°¨ë‹¨ì„ í•˜ëŠ” ê²½ìš° ë©”ì‹œì§€ ì—†ì´ ì°¨ë‹¨ ë  ìˆ˜ ìˆìœ¼ë¯€ë¡œ, íšŸìˆ˜ë¥¼ 5íšŒ ì´ìƒìœ¼ë¡œ í•˜ëŠ”ê²Œ ì¢‹ìŠµë‹ˆë‹¤.
         if (($result['cnt']+3) == $config['cf_retry_count']) {
-            alert("2È¸ ¿À·ù¸¦ ´õ ÇÏ´Â °æ¿ì, IP°¡ Â÷´Ü µË´Ï´Ù.");
+            alert("2íšŒ ì˜¤ë¥˜ë¥¼ ë” í•˜ëŠ” ê²½ìš°, IPê°€ ì°¨ë‹¨ ë©ë‹ˆë‹¤.");
         }
 
-        // È½¼ö ÃÊ°ú½Ã Â÷´Ü
+        // íšŸìˆ˜ ì´ˆê³¼ì‹œ ì°¨ë‹¨
         if ($result['cnt'] >= $config['cf_retry_count']) {
             $pattern = explode("\n", trim($config['cf_intercept_ip']));
-            if (empty($pattern[0])) // ip Â÷´Ü¸ñ·ÏÀÌ ºñ¾î ÀÖÀ» ¶§
+            if (empty($pattern[0])) // ip ì°¨ë‹¨ëª©ë¡ì´ ë¹„ì–´ ìˆì„ ë•Œ
                 $cf_intercept_ip = $ip;
             else
                 $cf_intercept_ip = trim($config['cf_intercept_ip'])."\n{$ip}";
@@ -77,7 +77,7 @@ if ($msg) {
     }
 }
 
-// ³­¼ö ¹ß»ı
+// ë‚œìˆ˜ ë°œìƒ
 srand(time());
 $randval = rand(4, 6); 
 
@@ -91,42 +91,42 @@ $sql = " update $g4[member_table]
           where mb_id = '$mb[mb_id]' ";
 $res = sql_query($sql);
 
-// $mb_no¸¦ ¾ÏÈ£È­ ÇÕ´Ï´Ù.
+// $mb_noë¥¼ ì•”í˜¸í™” í•©ë‹ˆë‹¤.
 $mb_no = encrypt($mb[mb_no], $g4[encrypt_key]);
 
 $href = "$g4[url]/$g4[bbs]/password_lost_certify.php?mb_no=$mb_no&mb_datetime=$mb_datetime&mb_lost_certify=$mb_lost_certify";
 
-$subject = "¿äÃ»ÇÏ½Å È¸¿ø¾ÆÀÌµğ/ÆĞ½º¿öµå Á¤º¸ÀÔ´Ï´Ù.";
+$subject = "ìš”ì²­í•˜ì‹  íšŒì›ì•„ì´ë””/íŒ¨ìŠ¤ì›Œë“œ ì •ë³´ì…ë‹ˆë‹¤.";
 
 $content = "";
 $content .= "<div style='line-height:180%;'>";
-$content .= "<p>¿äÃ»ÇÏ½Å °èÁ¤Á¤º¸´Â ´ÙÀ½°ú °°½À´Ï´Ù.</p>";
+$content .= "<p>ìš”ì²­í•˜ì‹  ê³„ì •ì •ë³´ëŠ” ë‹¤ìŒê³¼ ê°™ìŠµë‹ˆë‹¤.</p>";
 $content .= "<hr>";
 $content .= "<ul>";
-$content .= "<li>È¸¿ø¾ÆÀÌµğ : $mb[mb_id]</li>";
-$content .= "<li>º¯°æ ÆĞ½º¿öµå : <span style='color:#ff3300; font:13px Verdana;'><strong>$change_password</strong></span></li>";
-$content .= "<li>ÀÌ¸§ : ".addslashes($mb[mb_name])."</li>";
-$content .= "<li>º°¸í : ".addslashes($mb[mb_nick])."</li>";
-$content .= "<li>ÀÌ¸ŞÀÏÁÖ¼Ò : ".addslashes($mb[mb_email])."</li>";
-$content .= "<li>¿äÃ»ÀÏ½Ã : $g4[time_ymdhis]</li>";
-$content .= "<li>È¨ÆäÀÌÁö : $g4[url]</li>";
-$content .= "<li>ºñ¹Ğ¹øÈ£ ¹Ù²Ù´Â ¸µÅ© : <a href='$href' target='_blank'>$href</a></p>";
+$content .= "<li>íšŒì›ì•„ì´ë”” : $mb[mb_id]</li>";
+$content .= "<li>ë³€ê²½ íŒ¨ìŠ¤ì›Œë“œ : <span style='color:#ff3300; font:13px Verdana;'><strong>$change_password</strong></span></li>";
+$content .= "<li>ì´ë¦„ : ".addslashes($mb[mb_name])."</li>";
+$content .= "<li>ë³„ëª… : ".addslashes($mb[mb_nick])."</li>";
+$content .= "<li>ì´ë©”ì¼ì£¼ì†Œ : ".addslashes($mb[mb_email])."</li>";
+$content .= "<li>ìš”ì²­ì¼ì‹œ : $g4[time_ymdhis]</li>";
+$content .= "<li>í™ˆí˜ì´ì§€ : $g4[url]</li>";
+$content .= "<li>ë¹„ë°€ë²ˆí˜¸ ë°”ê¾¸ëŠ” ë§í¬ : <a href='$href' target='_blank'>$href</a></p>";
 $content .= "</ul>";
 $content .= "<hr>";
 $content .= "<p>";
-$content .= "1. À§ÀÇ ¸µÅ©¸¦ Å¬¸¯ÇÏ½Ê½Ã¿À. ¸µÅ©°¡ Å¬¸¯µÇÁö ¾Ê´Â´Ù¸é ¸µÅ©¸¦ ºê¶ó¿ìÀúÀÇ ÁÖ¼ÒÃ¢¿¡ Á÷Á¢ º¹»çÇØ ³ÖÀ¸½Ã±â ¹Ù¶ø´Ï´Ù.<br />";
-$content .= "2. ¸µÅ©¸¦ Å¬¸¯ÇÏ½Ã¸é ÆĞ½º¿öµå°¡ º¯°æ µÇ¾ú´Ù´Â ÀÎÁõ ¸Ş¼¼Áö°¡ Ãâ·ÂµË´Ï´Ù.<br />";
-$content .= "3. È¨ÆäÀÌÁö¿¡¼­ È¸¿ø¾ÆÀÌµğ¿Í À§¿¡ ÀûÈù º¯°æ ÆĞ½º¿öµå·Î ·Î±×ÀÎ ÇÏ½Ê½Ã¿À.<br />";
-$content .= "4. ·Î±×ÀÎ ÇÏ½Å ÈÄ »õ·Î¿î ÆĞ½º¿öµå·Î º¯°æÇÏ½Ã¸é µË´Ï´Ù.<br />";
-$content .= "5. <font color=red>À§ÀÇ ¸µÅ©¸¦ µÎ¹ø µÎ¸£¸é ºñ¹Ğ¹øÈ£°¡ ÀÓÀÇ·Î º¯°æ µÇ¹Ç·Î, ºñ¹Ğ¹øÈ£ Ã£±â·Î »õ·Î¿î ÆĞ½º¿öµå¸¦ ¹Ş¾Æ¾ß ÇÕ´Ï´Ù.</font><br />";
-$content .= "6. ¾ÆÀÌµğ¸¸À» È®ÀÎ±â¸¦ ¿øÇÏ´Â °æ¿ì¿¡´Â, À§ÀÇ ¸µÅ©¸¦ ´©¸£Áö ¾Ê°í È¸¿ø¾ÆÀÌµğ¿Í ¾Ë°í ÀÖ´Â ±âÁ¸ÀÇ ºñ¹Ğ¹øÈ£·Î ·Î±×ÀÎ ÇÏ¸é µË´Ï´Ù.<br />";
+$content .= "1. ìœ„ì˜ ë§í¬ë¥¼ í´ë¦­í•˜ì‹­ì‹œì˜¤. ë§í¬ê°€ í´ë¦­ë˜ì§€ ì•ŠëŠ”ë‹¤ë©´ ë§í¬ë¥¼ ë¸Œë¼ìš°ì €ì˜ ì£¼ì†Œì°½ì— ì§ì ‘ ë³µì‚¬í•´ ë„£ìœ¼ì‹œê¸° ë°”ëë‹ˆë‹¤.<br />";
+$content .= "2. ë§í¬ë¥¼ í´ë¦­í•˜ì‹œë©´ íŒ¨ìŠ¤ì›Œë“œê°€ ë³€ê²½ ë˜ì—ˆë‹¤ëŠ” ì¸ì¦ ë©”ì„¸ì§€ê°€ ì¶œë ¥ë©ë‹ˆë‹¤.<br />";
+$content .= "3. í™ˆí˜ì´ì§€ì—ì„œ íšŒì›ì•„ì´ë””ì™€ ìœ„ì— ì íŒ ë³€ê²½ íŒ¨ìŠ¤ì›Œë“œë¡œ ë¡œê·¸ì¸ í•˜ì‹­ì‹œì˜¤.<br />";
+$content .= "4. ë¡œê·¸ì¸ í•˜ì‹  í›„ ìƒˆë¡œìš´ íŒ¨ìŠ¤ì›Œë“œë¡œ ë³€ê²½í•˜ì‹œë©´ ë©ë‹ˆë‹¤.<br />";
+$content .= "5. <font color=red>ìœ„ì˜ ë§í¬ë¥¼ ë‘ë²ˆ ë‘ë¥´ë©´ ë¹„ë°€ë²ˆí˜¸ê°€ ì„ì˜ë¡œ ë³€ê²½ ë˜ë¯€ë¡œ, ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°ë¡œ ìƒˆë¡œìš´ íŒ¨ìŠ¤ì›Œë“œë¥¼ ë°›ì•„ì•¼ í•©ë‹ˆë‹¤.</font><br />";
+$content .= "6. ì•„ì´ë””ë§Œì„ í™•ì¸ê¸°ë¥¼ ì›í•˜ëŠ” ê²½ìš°ì—ëŠ”, ìœ„ì˜ ë§í¬ë¥¼ ëˆ„ë¥´ì§€ ì•Šê³  íšŒì›ì•„ì´ë””ì™€ ì•Œê³  ìˆëŠ” ê¸°ì¡´ì˜ ë¹„ë°€ë²ˆí˜¸ë¡œ ë¡œê·¸ì¸ í•˜ë©´ ë©ë‹ˆë‹¤.<br />";
 $content .= "</p>";
-$content .= "<p>°¨»çÇÕ´Ï´Ù.</p>";
-$content .= "<p>[³¡]</p>";
+$content .= "<p>ê°ì‚¬í•©ë‹ˆë‹¤.</p>";
+$content .= "<p>[ë]</p>";
 $content .= "</div>";
 
 $admin = get_admin('super');
 mailer($admin[mb_nick], $admin[mb_email], $mb[mb_email], $subject, $content, 1);
 
-alert_close("$email ¸ŞÀÏ·Î È¸¿ø¾ÆÀÌµğ¿Í ÆĞ½º¿öµå¸¦ ÀÎÁõÇÒ ¼ö ÀÖ´Â ¸ŞÀÏÀÌ ¹ß¼Û µÇ¾ú½À´Ï´Ù.\\n\\n¸ŞÀÏÀ» È®ÀÎÇÏ¿© ÁÖ½Ê½Ã¿À.");
+alert_close("$email ë©”ì¼ë¡œ íšŒì›ì•„ì´ë””ì™€ íŒ¨ìŠ¤ì›Œë“œë¥¼ ì¸ì¦í•  ìˆ˜ ìˆëŠ” ë©”ì¼ì´ ë°œì†¡ ë˜ì—ˆìŠµë‹ˆë‹¤.\\n\\në©”ì¼ì„ í™•ì¸í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
 ?>

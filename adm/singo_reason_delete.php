@@ -12,17 +12,17 @@ check_token();
 
 $tmp_array = array();
 if ($sg_id) { 
-    // ∞«∫∞ªË¡¶
+    // Í±¥Î≥ÑÏÇ≠Ï†ú
     $chk[0][0] = 0;
     $_POST[chk][0] = 0;
     $chk_sg_id[0] = $_POST[sg_id];
 }
 
 for ($i=0; $i<count($chk); $i++) {
-    // Ω«¡¶ π¯»£∏¶ ≥—±Ë
+    // Ïã§Ï†ú Î≤àÌò∏Î•º ÎÑòÍπÄ
     $k = $_POST[chk][$i];
 
-    // Ω≈∞Ì ªÁ¿Ø∏¶ ªË¡¶
+    // Ïã†Í≥† ÏÇ¨Ïú†Î•º ÏÇ≠Ï†ú
     $sql = " delete from $g4[singo_reason_table] where sg_id = '$chk_sg_id[$k]' ";
     sql_query($sql);
     echo $sql;

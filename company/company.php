@@ -1,29 +1,29 @@
 <?
 include_once("./_common.php");
 
-// º¯¼öÀÇ ÅÂ±×¸¦ ¾ø¾ÖÁÝ´Ï´Ù
+// ë³€ìˆ˜ì˜ íƒœê·¸ë¥¼ ì—†ì• ì¤ë‹ˆë‹¤
 $id = strip_tags($id);
 
-// µî·Ï¿¡ °ü·ÃµÈ ¼³Á¤À» Ãß°¡·Î ÀÐ¾î µéÀÔ´Ï´Ù.
+// ë“±ë¡ì— ê´€ë ¨ëœ ì„¤ì •ì„ ì¶”ê°€ë¡œ ì½ì–´ ë“¤ìž…ë‹ˆë‹¤.
 $config = get_config("reg");
 
 switch ($id) {
     case 'disclaimer' :
-        $g4['title'] = "Ã¥ÀÓÇÑ°è¿Í ¹ýÀû°íÁö";
+        $g4['title'] = "ì±…ìž„í•œê³„ì™€ ë²•ì ê³ ì§€";
         $wr_content = nl2br(implode("", file("./disclaimer.php")));
         break;
     case 'rejection' :
-        $g4['title'] = "ÀÌ¸ÞÀÏÁÖ¼Ò¹«´Ü¼öÁý°ÅºÎ";
+        $g4['title'] = "ì´ë©”ì¼ì£¼ì†Œë¬´ë‹¨ìˆ˜ì§‘ê±°ë¶€";
         $wr_content = nl2br(implode("", file("./rejection.php")));
         break;
     case 'service' :
     default :
-        $g4['title'] = "ÀÌ¿ë¾à°ü";
+        $g4['title'] = "ì´ìš©ì•½ê´€";
         $wr_content = nl2br(stripslashes($config[cf_stipulation]));
         break;
     case 'privacy' :
     default :
-        $g4['title'] = "°³ÀÎÁ¤º¸Ãë±Þ¹æÄ§";
+        $g4['title'] = "ê°œì¸ì •ë³´ì·¨ê¸‰ë°©ì¹¨";
         $wr_content = nl2br(stripslashes($config[cf_privacy]));
         break;
 }

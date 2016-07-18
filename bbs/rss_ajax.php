@@ -5,7 +5,7 @@ $w = strip_tags($_POST[w]);
 $bo_table = strip_tags($_POST[bo_table]);
 
 if ($is_admin !== "super")
-  alert("°ü¸®ÀÚ¿¡°Ô ¹®ÀÇ ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù");
+  alert("ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜ í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤");
 
 if ($w == "on")
     sql_query(" update $g4[board_table] set bo_use_rss_view = 1 where bo_table='$bo_table' ");

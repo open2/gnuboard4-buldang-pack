@@ -1,15 +1,15 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 <form name="fpasswordlost" class="form-horizontal" method="post" onsubmit="return fpasswordlost_submit(this);" autocomplete="off">
 <div class="panel panel-default">
-  <div class="panel-heading"><div class="col-sm-offset-2"><strong>È¸¿ø ¾ÆÀÌµğ/ÆĞ½º¿öµå Ã£±â</strong></div></div>
+  <div class="panel-heading"><div class="col-sm-offset-2"><strong>íšŒì› ì•„ì´ë””/íŒ¨ìŠ¤ì›Œë“œ ì°¾ê¸°</strong></div></div>
   <div class="panel-body">
 			<div class="form-group">
-				<label for="mb_id" class="col-sm-2 control-label">ÀÌ¸ŞÀÏÁÖ¼Ò</label>
+				<label for="mb_id" class="col-sm-2 control-label">ì´ë©”ì¼ì£¼ì†Œ</label>
 				<div class="col-sm-2">
-					<input type="text" name="mb_email" id="mb_email" class="form-control" maxLength=80 minlength="5" itemname="ÀÌ¸ŞÀÏÁÖ¼Ò" placeholder="e-mail address">
-          È¸¿ø°¡ÀÔ½Ã µî·ÏÇÏ½Å ÀÌ¸ŞÀÏÁÖ¼Ò ÀÔ·Â
+					<input type="text" name="mb_email" id="mb_email" class="form-control" maxLength=80 minlength="5" itemname="ì´ë©”ì¼ì£¼ì†Œ" placeholder="e-mail address">
+          íšŒì›ê°€ì…ì‹œ ë“±ë¡í•˜ì‹  ì´ë©”ì¼ì£¼ì†Œ ì…ë ¥
 				</div>
 			</div>
 			<div class="form-group">
@@ -17,8 +17,8 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
           <div id="grecaptcha" class="g-recaptcha pull-left" data-sitekey="<?=$g4['recaptcha_sitekey']?>" style="float:right"></div> 
 			</div>
 			<div class="form-group">
-					<input type="submit" accesskey="s" class="btn btn-success" value="´ÙÀ½">
-					<a href="javascript:window.close();" class="btn btn-default">´İ±â</a>
+					<input type="submit" accesskey="s" class="btn btn-success" value="ë‹¤ìŒ">
+					<a href="javascript:window.close();" class="btn btn-default">ë‹«ê¸°</a>
 			</div>
   </div>
 </div>
@@ -29,7 +29,7 @@ function fpasswordlost_submit(f)
 {
     if (typeof(grecaptcha) != 'undefined') { 
         if(grecaptcha.getResponse() == "") { 
-            alert("½ºÆÔ¹æÁöÄÚµå(Captcha Code)°¡ Æ²·È½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØ ÁÖ¼¼¿ä."); 
+            alert("ìŠ¤íŒ¸ë°©ì§€ì½”ë“œ(Captcha Code)ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ ì£¼ì„¸ìš”."); 
             return false; 
         } 
     }

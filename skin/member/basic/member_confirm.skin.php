@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 
 <script type="text/javascript" src="<?=$g4[path]?>/js/capslock.js"></script>
@@ -9,25 +9,25 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
 <input type=hidden name=w     value='u'>
 
 <div class="panel panel-default">
-    <div class="panel-heading"><strong>ÆÐ½º¿öµå È®ÀÎ</strong></div>
+    <div class="panel-heading"><strong>íŒ¨ìŠ¤ì›Œë“œ í™•ì¸</strong></div>
     <div class="panel-body">
   			<div class="form-group">
-	    			<label for="mb_id" class="control-label col-xs-3">¾ÆÀÌµð</label>
+	    			<label for="mb_id" class="control-label col-xs-3">ì•„ì´ë””</label>
 			    	<div class="col-xs-6">
   					<?=$member[mb_id]?>
     				</div>
 		  	</div>
   			<div class="form-group">
-	    			<label for="mb_id" class="control-label col-xs-3">ÆÐ½º¿öµå</label>
+	    			<label for="mb_id" class="control-label col-xs-3">íŒ¨ìŠ¤ì›Œë“œ</label>
 			    	<div class="col-xs-6">
-            <INPUT type=password class="form-control" maxLength=20 size=15 name="mb_password" id="confirm_mb_password" itemname="ÆÐ½º¿öµå" placeholder="password" required>
+            <INPUT type=password class="form-control" maxLength=20 size=15 name="mb_password" id="confirm_mb_password" itemname="íŒ¨ìŠ¤ì›Œë“œ" placeholder="password" required>
     				</div>
 		  	</div>
         <div class="col-xs-3"></div>
-        <input type="submit" class="btn btn-success" value="È®ÀÎ" id="btn_submit">
+        <input type="submit" class="btn btn-success" value="í™•ì¸" id="btn_submit">
   	</div>
     <div class="panel-footer">
-        ¿ÜºÎ·ÎºÎÅÍ È¸¿ø´ÔÀÇ Á¤º¸¸¦ ¾ÈÀüÇÏ°Ô º¸È£ÇÏ±â À§ÇØ ÆÐ½º¿öµå¸¦ È®ÀÎÇÏ¼Å¾ß ÇÕ´Ï´Ù.
+        ì™¸ë¶€ë¡œë¶€í„° íšŒì›ë‹˜ì˜ ì •ë³´ë¥¼ ì•ˆì „í•˜ê²Œ ë³´í˜¸í•˜ê¸° ìœ„í•´ íŒ¨ìŠ¤ì›Œë“œë¥¼ í™•ì¸í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.
     </div>
 </div>
 

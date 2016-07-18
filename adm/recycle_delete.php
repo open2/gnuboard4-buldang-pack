@@ -7,22 +7,22 @@ check_demo();
 auth_check($auth[$sub_menu], "d");
 
 if ($is_admin != "super")
-    alert("ÈŞÁöÅëÁ¤¸®´Â ÃÖ°í°ü¸®ÀÚ¸¸ °¡´ÉÇÕ´Ï´Ù.");
+    alert("íœ´ì§€í†µì •ë¦¬ëŠ” ìµœê³ ê´€ë¦¬ìë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
-$g4[title] = "ÈŞÁöÅë Á¤¸®";
+$g4[title] = "íœ´ì§€í†µ ì •ë¦¬";
 
 include_once("./admin.head.php");
 echo "<span id='ct'></span>";
 include_once("./admin.tail.php");
 flush();
 
-echo "<script>document.getElementById('ct').innerHTML += '<p>ÈŞÁöÅë Á¤¸®Áß...';</script>\n";
+echo "<script>document.getElementById('ct').innerHTML += '<p>íœ´ì§€í†µ ì •ë¦¬ì¤‘...';</script>\n";
 flush();
 
-// È¸¿ø »èÁ¦ ÇÔ¼ö ÀÎÅ¬·çµå.
+// íšŒì› ì‚­ì œ í•¨ìˆ˜ ì¸í´ë£¨ë“œ.
 include_once("$g4[admin_path]/admin.lib.php");
 
-$rc_datetime = $config[cf_recycle_days]; // ÈŞÁöÅë¿¡ µé¾î¿ÂÁö ¸îÀÏÀÌ Áö³­±ÛÀ» »èÁ¦ÇÒÁö¸¦ °áÁ¤
+$rc_datetime = $config[cf_recycle_days]; // íœ´ì§€í†µì— ë“¤ì–´ì˜¨ì§€ ëª‡ì¼ì´ ì§€ë‚œê¸€ì„ ì‚­ì œí• ì§€ë¥¼ ê²°ì •
 $today_login_time = date("Y-m-d H:i:s", $g4['server_time'] - ($rc_datetime * 86400));
 
 $sql = " update $g4[recycle_table] set rc_delete='1' where rc_datetime < '$today_login_time'";
@@ -30,7 +30,7 @@ sql_query($sql);
 
 $j = mysql_modified_rows();
 
-// °Ô½Ã±ÛÀ» ¿ÏÀüÈ÷ »èÁ¦
+// ê²Œì‹œê¸€ì„ ì™„ì „íˆ ì‚­ì œ
 if ($ok == 1) {
 
 }
@@ -40,6 +40,6 @@ if ($ok == 1) {
 <br><br>
 
 <?
-echo "<script>document.getElementById('ct').innerHTML += '<p>ÃÑ ".$j."¸íÀÇ ÈŞÁö±ÛÀÌ Á¤¸® µÇ¾ú½À´Ï´Ù.';</script>\n";
+echo "<script>document.getElementById('ct').innerHTML += '<p>ì´ ".$j."ëª…ì˜ íœ´ì§€ê¸€ì´ ì •ë¦¬ ë˜ì—ˆìŠµë‹ˆë‹¤.';</script>\n";
 ?>
 

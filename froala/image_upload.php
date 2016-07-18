@@ -25,7 +25,7 @@ if ((($mime == "image/gif")
     || ($mime == "image/png"))
     && in_array(strtolower($extension), $allowedExts)) {
 
-    // µğ·ºÅä¸®º°·Î ºĞ¸®ÇØ¼­ ³Ö´Â´Ù (¸Å¹ø ¸¸µå´Â°Ô ´õ ºü¸§)
+    // ë””ë ‰í† ë¦¬ë³„ë¡œ ë¶„ë¦¬í•´ì„œ ë„£ëŠ”ë‹¤ (ë§¤ë²ˆ ë§Œë“œëŠ”ê²Œ ë” ë¹ ë¦„)
     @mkdir("$g4[data_path]/froala/$bo_table");
     @mkdir("$g4[data_path]/froala/$bo_table/$ymd");
 
@@ -36,7 +36,7 @@ if ((($mime == "image/gif")
     // Save file in the uploads folder.
     move_uploaded_file($_FILES["file"]["tmp_name"], $savefile);
 
-    // ¿Ã¶ó°£ ÆÄÀÏÀÇ ÆÛ¹Ì¼ÇÀ» º¯°æÇÕ´Ï´Ù.
+    // ì˜¬ë¼ê°„ íŒŒì¼ì˜ í¼ë¯¸ì…˜ì„ ë³€ê²½í•©ë‹ˆë‹¤.
     chmod($savefile, 0606);
 
     // Generate response.

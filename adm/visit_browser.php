@@ -4,7 +4,7 @@ include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "r");
 
-$g4[title] = "ºê¶ó¿ìÀúº° Á¢¼ÓÀÚÇöÈ²";
+$g4[title] = "ë¸Œë¼ìš°ì €ë³„ ì ‘ì†ìží˜„í™©";
 include_once("./admin.head.php");
 include_once("./visit.sub.php");
 ?>
@@ -16,11 +16,11 @@ include_once("./visit.sub.php");
 <colgroup width=100>
 <colgroup width=''>
 <tr class="success">
-    <td>¼øÀ§</td>
-    <td>ºê¶ó¿ìÀú</td>
-    <td>¹æ¹®ÀÚ¼ö</td>
-    <td>ºñÀ²(%)</td>
-    <td>±×·¡ÇÁ</td>
+    <td>ìˆœìœ„</td>
+    <td>ë¸Œë¼ìš°ì €</td>
+    <td>ë°©ë¬¸ìžìˆ˜</td>
+    <td>ë¹„ìœ¨(%)</td>
+    <td>ê·¸ëž˜í”„</td>
 </tr>
 <?
 $max = 0;
@@ -73,12 +73,12 @@ if (count($arr)) {
 
     echo "
     <tr>
-        <td colspan=2>ÇÕ°è</td>
+        <td colspan=2>í•©ê³„</td>
         <td>$sum_count</td>
         <td colspan=2>&nbsp;</td>
     </tr>";
 } else {
-    echo "<tr><td colspan='5' height=100 align=center>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='5' height=100 align=center>ìžë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 }
 ?>
 </table>

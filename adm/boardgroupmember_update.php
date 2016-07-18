@@ -14,12 +14,12 @@ if ($w == "")
 
     $mb = get_member($mb_id);
     if (!$mb[mb_id]) { 
-        alert("Á¸ÀçÇÏÁö ¾Ê´Â È¸¿øÀÔ´Ï´Ù."); 
+        alert("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” íšŒì›ì…ë‹ˆë‹¤."); 
     }
 
     $gr = get_group($gr_id);
     if (!$gr[gr_id]) {
-        alert("Á¸ÀçÇÏÁö ¾Ê´Â ±×·ìÀÔ´Ï´Ù."); 
+        alert("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ê·¸ë£¹ì…ë‹ˆë‹¤."); 
     }
 
     $sql = " select count(*) as cnt 
@@ -28,7 +28,7 @@ if ($w == "")
                 and mb_id = '$mb_id' ";
     $row = sql_fetch($sql);
     if ($row[cnt]) {
-        alert("ÀÌ¹Ì µî·ÏµÇ¾î ÀÖ´Â ÀÚ·áÀÔ´Ï´Ù.");
+        alert("ì´ë¯¸ ë“±ë¡ë˜ì–´ ìˆëŠ” ìë£Œì…ë‹ˆë‹¤.");
     } 
     else 
     {
@@ -48,12 +48,12 @@ else if ($w == 'd' || $w == 'listdelete')
     $sql = " select * from $g4[group_member_table] where gm_id = '$gm_id' ";
     $gm = sql_fetch($sql);
     if (!$gm[gm_id]) {
-        alert("Á¸ÀçÇÏÁö ¾Ê´Â ÀÚ·áÀÔ´Ï´Ù.");
+        alert("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ìë£Œì…ë‹ˆë‹¤.");
     }
 
     check_token();
 
-    //goto¸¦ ÇÒ ¶§¸¦ À§ÇØ¼­
+    //gotoë¥¼ í•  ë•Œë¥¼ ìœ„í•´ì„œ
     $gr_id = $gm[gr_id];
     $mb_id = $gm[mb_id];
 

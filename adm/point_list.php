@@ -36,9 +36,9 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if ($page == "" || $page == 0) $page = 1;   // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows;         // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if ($page == "" || $page == 0) $page = 1;   // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows;         // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
 $sql = " select *
           $sql_common
@@ -47,12 +47,12 @@ $sql = " select *
           limit $from_record, $rows ";
 $result = sql_query($sql);
 
-$listall = "<a href='$_SERVER[PHP_SELF]'>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]'>ì²˜ìŒ</a>";
 
 if ($sfl == "mb_id" && $stx)
     $mb = get_member($stx);
 
-$g4[title] = "Æ÷ÀÎÆ®°ü¸®";
+$g4[title] = "í¬ì¸íŠ¸ê´€ë¦¬";
 include_once ("./admin.head.php");
 ?>
 
@@ -63,7 +63,7 @@ var list_delete_php = "point_list_delete.php";
 <script type="text/javascript">
 function point_clear()
 {
-    if (confirm("Æ÷ÀÎÆ® Á¤¸®¸¦ ÇÏ½Ã¸é ÃÖ±Ù 30ÀÏ ÀÌÀüÀÇ 30°ÇÀÌ ³Ñ´Â Æ÷ÀÎÆ®¿¡ ´ëÇØ¼­ Æ÷ÀÎÆ® ³»¿ªÀ» »èÁ¦ÇÏ¹Ç·Î\n\nÆ÷ÀÎÆ® ³»¿ªÀ» ÇÊ¿ä·Î ÇÒ¶§ Ã£Áö ¸øÇÒ ¼öµµ ÀÖ½À´Ï´Ù.\n\n\n±×·¡µµ ÁøÇàÇÏ½Ã°Ú½À´Ï±î?")) {
+    if (confirm("í¬ì¸íŠ¸ ì •ë¦¬ë¥¼ í•˜ì‹œë©´ ìµœê·¼ 30ì¼ ì´ì „ì˜ 30ê±´ì´ ë„˜ëŠ” í¬ì¸íŠ¸ì— ëŒ€í•´ì„œ í¬ì¸íŠ¸ ë‚´ì—­ì„ ì‚­ì œí•˜ë¯€ë¡œ\n\ní¬ì¸íŠ¸ ë‚´ì—­ì„ í•„ìš”ë¡œ í• ë•Œ ì°¾ì§€ ëª»í•  ìˆ˜ë„ ìˆìŠµë‹ˆë‹¤.\n\n\nê·¸ë˜ë„ ì§„í–‰í•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
         document.location.href = "./point_clear.php?ok=1";
     }
 }
@@ -71,25 +71,25 @@ function point_clear()
 
 <form name=fsearch method=get role="form" class="form-inline">
 <div class="btn-group">
-    <?=$listall?> (°Ç¼ö : <?=number_format($total_count)?>)
+    <?=$listall?> (ê±´ìˆ˜ : <?=number_format($total_count)?>)
     <? 
     if ($mb[mb_id]) 
-        echo "&nbsp;(" . $mb[mb_id] ." ´Ô Æ÷ÀÎÆ® ÇÕ°è : " . number_format($mb[mb_point]) . "Á¡)";
+        echo "&nbsp;(" . $mb[mb_id] ." ë‹˜ í¬ì¸íŠ¸ í•©ê³„ : " . number_format($mb[mb_point]) . "ì )";
     else {
         $row2 = sql_fetch(" select sum(po_point) as sum_point from $g4[point_table] ");
-        echo "&nbsp;(ÀüÃ¼ Æ÷ÀÎÆ® ÇÕ°è : " . number_format($row2[sum_point]) . "Á¡)";
+        echo "&nbsp;(ì „ì²´ í¬ì¸íŠ¸ í•©ê³„ : " . number_format($row2[sum_point]) . "ì )";
     }
     ?>
-    <? if ($is_admin == "super") { ?><a href="javascript:point_clear();">Æ÷ÀÎÆ®Á¤¸®</a><? } ?>
+    <? if ($is_admin == "super") { ?><a href="javascript:point_clear();">í¬ì¸íŠ¸ì •ë¦¬</a><? } ?>
 </div>
 <div class="pull-right">
     <select name=sfl class="form-control">
-        <option value='mb_id'>È¸¿ø¾ÆÀÌµğ</option>
-        <option value='po_content'>³»¿ë</option>
+        <option value='mb_id'>íšŒì›ì•„ì´ë””</option>
+        <option value='po_content'>ë‚´ìš©</option>
     </select>
-    <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<?=$stx?>'>
+    <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<?=$stx?>'>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 </form>
@@ -113,13 +113,13 @@ function point_clear()
 <colgroup width=''>
 <tr class="success">
     <td><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
-    <td><?=subject_sort_link('mb_id')?>È¸¿ø¾ÆÀÌµğ</a></td>
-    <td>ÀÌ¸§</td>
-    <td>º°¸í</td>
-    <td><?=subject_sort_link('po_datetime')?>ÀÏ½Ã</a></td>
-    <td><?=subject_sort_link('po_point')?>Æ÷ÀÎÆ®</a></td>
-    <td>Æ÷ÀÎÆ®ÇÕ</td>
-    <td><?=subject_sort_link('po_content')?>Æ÷ÀÎÆ® ³»¿ë</a></td>
+    <td><?=subject_sort_link('mb_id')?>íšŒì›ì•„ì´ë””</a></td>
+    <td>ì´ë¦„</td>
+    <td>ë³„ëª…</td>
+    <td><?=subject_sort_link('po_datetime')?>ì¼ì‹œ</a></td>
+    <td><?=subject_sort_link('po_point')?>í¬ì¸íŠ¸</a></td>
+    <td>í¬ì¸íŠ¸í•©</td>
+    <td><?=subject_sort_link('po_content')?>í¬ì¸íŠ¸ ë‚´ìš©</a></td>
 </tr>
 <?
     if ($sod == "asc")
@@ -128,7 +128,7 @@ function point_clear()
         $sod = "asc";
     $sql_order = " order by $sst $sod ";
 
-/* ¾öÃ»³­ DB ºÎÇÏ ¶§¹®¿¡, ±â´ÉÀ» off ÇÏ±â·Î Çß½À´Ï´Ù.
+/* ì—„ì²­ë‚œ DB ë¶€í•˜ ë•Œë¬¸ì—, ê¸°ëŠ¥ì„ off í•˜ê¸°ë¡œ í–ˆìŠµë‹ˆë‹¤.
     $sum_count = $total_count-$from_record;
 
     $rownum = $total_count - ($from_record) - 1;
@@ -158,8 +158,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         $link2 = "</a>";
     }
 
-    // ÅõÇ¥ÀÇ °æ¿ì link¸¦ ¼³Á¤
-    if ($row['po_rel_action'] == "ÅõÇ¥")
+    // íˆ¬í‘œì˜ ê²½ìš° linkë¥¼ ì„¤ì •
+    if ($row['po_rel_action'] == "íˆ¬í‘œ")
     {
         $poll = sql_fetch(" select po_skin from $g4[poll_table] where po_id = '$row[po_rel_id]' ");
         $po_skin = $poll['po_skin']; 
@@ -175,7 +175,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         <?
         $link1 = "<a href='javascript:;' onclick=\"poll_result('<?=$row[po_rel_id]?>');\" >";
         $link2 = "</a>";
-    } else if ($row['po_rel_action'] == "ÂÊÁö5") {
+    } else if ($row['po_rel_action'] == "ìª½ì§€5") {
         $link1 = $link2 = "";
     }
 
@@ -213,12 +213,12 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 } 
 
 if ($i == 0)
-    echo "<tr><td colspan='6' align=center height=100>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='6' align=center height=100>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
@@ -226,7 +226,7 @@ echo "</table>";
 </div>
 
 <div class="btn-group">
-    <input type=button class='btn btn-default' value='¼±ÅÃ»èÁ¦' onclick="btn_check(this.form, 'delete')">
+    <input type=button class='btn btn-default' value='ì„ íƒì‚­ì œ' onclick="btn_check(this.form, 'delete')">
 </div>
 
 <?
@@ -259,19 +259,19 @@ else
 <colgroup width=100>
 <tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
 <tr class='success'>
-    <td>È¸¿ø¾ÆÀÌµğ</td>
-    <td>Æ÷ÀÎÆ® ³»¿ë</td>
-    <td>Æ÷ÀÎÆ®</td>
-    <td>°ü¸®ÀÚÆĞ½º¿öµå</td>
-    <td>ÀÔ·Â</td>
+    <td>íšŒì›ì•„ì´ë””</td>
+    <td>í¬ì¸íŠ¸ ë‚´ìš©</td>
+    <td>í¬ì¸íŠ¸</td>
+    <td>ê´€ë¦¬ìíŒ¨ìŠ¤ì›Œë“œ</td>
+    <td>ì…ë ¥</td>
 </tr>
 <tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <tr class='ht center'>
-    <td><input type=text class=ed name=mb_id required itemname='È¸¿ø¾ÆÀÌµğ' value='<?=$mb_id?>'></td>
-    <td><input type=text class=ed name=po_content required itemname='³»¿ë' style='width:99%;'></td>
-    <td><input type=text class=ed name=po_point required itemname='Æ÷ÀÎÆ®' size=10></td>
-    <td><input type=password class=ed name=admin_password required itemname='°ü¸®ÀÚ ÆĞ½º¿öµå'></td>
-    <td><input type=submit class=btn1 value='  È®  ÀÎ  '></td>
+    <td><input type=text class=ed name=mb_id required itemname='íšŒì›ì•„ì´ë””' value='<?=$mb_id?>'></td>
+    <td><input type=text class=ed name=po_content required itemname='ë‚´ìš©' style='width:99%;'></td>
+    <td><input type=text class=ed name=po_point required itemname='í¬ì¸íŠ¸' size=10></td>
+    <td><input type=password class=ed name=admin_password required itemname='ê´€ë¦¬ì íŒ¨ìŠ¤ì›Œë“œ'></td>
+    <td><input type=submit class=btn1 value='  í™•  ì¸  '></td>
 </tr>
 <tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 </form>

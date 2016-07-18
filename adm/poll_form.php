@@ -6,25 +6,25 @@ auth_check($auth[$sub_menu], "w");
 
 $token = get_token();
 
-$html_title = "ÅõÇ¥";
+$html_title = "íˆ¬í‘œ";
 if ($w == "") {
-    $html_title .= " »ý¼º";
+    $html_title .= " ìƒì„±";
     
-    // ÃÊ±â°ª ¼³Á¤
-    $po['po_level']     = 2;                  // ÅõÇ¥±ÇÇÑ
-    $po['po_point']     = 100;                // ÅõÇ¥ÇÒ È¸¿ø¿¡°Ô ºÎ¿©ÇÒ Æ÷ÀÎÆ®
-    $po['po_skin']      = "basic";            // ½ºÅ²
-    $po['po_date']      = $g4['time_ymd'];    // ÅõÇ¥ ½ÃÀÛÀÏ
-    $po['po_end_date']  = "0000-00-00";       // ÅõÇ¥ ¸¶°¨ÀÏ (³¡³ª´Â ³¯Â¥¸¦ ÁöÁ¤ÇÏÁö ¾ÊÀ½)
-    $po['po_etc']       = "±âÅ¸ ÀÇ°ßÀÌ °è½Ã¸é ¾Ë·ÁÁÖ¼¼¿ä";
-    $po['po_end_date'] = date("Y-m-d", $g4['server_time'] + 3600*24*90);   // ÅõÇ¥ ¸¶°¨ÀÏ (90ÀÏ ÀÌÈÄ¸¦ ±âº»À¸·Î ¼³Á¤)
+    // ì´ˆê¸°ê°’ ì„¤ì •
+    $po['po_level']     = 2;                  // íˆ¬í‘œê¶Œí•œ
+    $po['po_point']     = 100;                // íˆ¬í‘œí•  íšŒì›ì—ê²Œ ë¶€ì—¬í•  í¬ì¸íŠ¸
+    $po['po_skin']      = "basic";            // ìŠ¤í‚¨
+    $po['po_date']      = $g4['time_ymd'];    // íˆ¬í‘œ ì‹œìž‘ì¼
+    $po['po_end_date']  = "0000-00-00";       // íˆ¬í‘œ ë§ˆê°ì¼ (ëë‚˜ëŠ” ë‚ ì§œë¥¼ ì§€ì •í•˜ì§€ ì•ŠìŒ)
+    $po['po_etc']       = "ê¸°íƒ€ ì˜ê²¬ì´ ê³„ì‹œë©´ ì•Œë ¤ì£¼ì„¸ìš”";
+    $po['po_end_date'] = date("Y-m-d", $g4['server_time'] + 3600*24*90);   // íˆ¬í‘œ ë§ˆê°ì¼ (90ì¼ ì´í›„ë¥¼ ê¸°ë³¸ìœ¼ë¡œ ì„¤ì •)
 }
 else if ($w == "u")  {
-    $html_title .= " ¼öÁ¤";
+    $html_title .= " ìˆ˜ì •";
     $sql = " select * from $g4[poll_table] where po_id = '$po_id' ";
     $po = sql_fetch($sql);
 } else 
-    alert("w °ªÀÌ Á¦´ë·Î ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù."); 
+    alert("w ê°’ì´ ì œëŒ€ë¡œ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤."); 
 
 $g4[title] = $html_title;
 include_once("./admin.head.php");
@@ -49,11 +49,11 @@ include_once("./admin.head.php");
     <td colspan=4><?=$html_title?></td>
 </tr>
 <tr>
-    <td>ÅõÇ¥ Á¦¸ñ</td>
-    <td colspan=3><input type='text' class=ed name='po_subject' style='width:99%;' required itemname='ÅõÇ¥ Á¦¸ñ' value='<?=$po[po_subject]?>' maxlength="125"></td>
+    <td>íˆ¬í‘œ ì œëª©</td>
+    <td colspan=3><input type='text' class=ed name='po_subject' style='width:99%;' required itemname='íˆ¬í‘œ ì œëª©' value='<?=$po[po_subject]?>' maxlength="125"></td>
 </tr>
 <tr>
-    <td>ÅõÇ¥ °³¿ä</td>
+    <td>íˆ¬í‘œ ê°œìš”</td>
     <td colspan=3>
     <textarea class=ed name="po_summary" rows=5 style='width:99%;'><?=$po['po_summary']?></textarea>
     </td>
@@ -64,16 +64,16 @@ for ($i=1; $i<=9; $i++) {
     $itemname = "";
     if ($i==1 || $i==2) {
         $required = "required";
-        $itemname = "itemname='Ç×¸ñ$i'";
+        $itemname = "itemname='í•­ëª©$i'";
     }
 
     $po_poll = get_text($po["po_poll".$i]);
 
     echo <<<HEREDOC
     <tr>
-        <td>Ç×¸ñ{$i}</td>
+        <td>í•­ëª©{$i}</td>
         <td><input type="text" class=ed name="po_poll{$i}" {$required} {$itemname} value="{$po_poll}" style="width:99%;" maxlength="125"></td>
-        <td>ÅõÇ¥¼ö</td>
+        <td>íˆ¬í‘œìˆ˜</td>
         <td><input type="text" class=ed name="po_cnt{$i}" size=5 value="{$po["po_cnt".$i]}"></td>
         
     </tr>
@@ -82,16 +82,16 @@ HEREDOC;
 ?>
 
 <tr>
-    <td>±âÅ¸ÀÇ°ß</td>
+    <td>ê¸°íƒ€ì˜ê²¬</td>
     <td colspan=3>
     <input type='text' class=ed name='po_etc' style='width:95%;' value='<?=get_text($po[po_etc])?>' maxlength="125">
-    <?=help("±âÅ¸ÀÇ°ß ÀÔ·ÂÀ» °¡´ÉÇÏ°Ô ÇÏ·Á¸é, ÀÌ°÷¿¡ °ªÀ» ÀÔ·ÂÇØ¾ß ÇÕ´Ï´Ù.<br>(¿¹: '±âÅ¸' ¼±ÅÃ ¶Ç´Â ´Ù¸¥ ÀÇ°ßÀÌ ÀÖ´Ù¸é ¸»¾¸ÇØ ÁÖ½Ê½Ã¿À.")?>
+    <?=help("ê¸°íƒ€ì˜ê²¬ ìž…ë ¥ì„ ê°€ëŠ¥í•˜ê²Œ í•˜ë ¤ë©´, ì´ê³³ì— ê°’ì„ ìž…ë ¥í•´ì•¼ í•©ë‹ˆë‹¤.<br>(ì˜ˆ: 'ê¸°íƒ€' ì„ íƒ ë˜ëŠ” ë‹¤ë¥¸ ì˜ê²¬ì´ ìžˆë‹¤ë©´ ë§ì”€í•´ ì£¼ì‹­ì‹œì˜¤.")?>
     </td>
 </tr>
 
 <tr>
-    <td>½ºÅ² µð·ºÅä¸®</td>
-    <td colspan=3><select name=po_skin required itemname="½ºÅ² µð·ºÅä¸®">
+    <td>ìŠ¤í‚¨ ë””ë ‰í† ë¦¬</td>
+    <td colspan=3><select name=po_skin required itemname="ìŠ¤í‚¨ ë””ë ‰í† ë¦¬">
         <?
         $arr = get_skin_dir("poll");
         for ($i=0; $i<count($arr); $i++) {
@@ -103,51 +103,51 @@ HEREDOC;
 </tr>
 
 <tr>
-    <td>Á¢±Ù»ç¿ë</td>
+    <td>ì ‘ê·¼ì‚¬ìš©</td>
     <td colspan=3>
-        <input type=checkbox name=po_use_access value='1' <?=$po[po_use_access]?'checked':'';?>>»ç¿ë
-        <?=help("»ç¿ë¿¡ Ã¼Å©ÇÏ½Ã¸é ÀÌ ÅõÇ¥´Â °ü¸®ÀÚ¸¸ Á¢±ÙÀÌ °¡´É ÇÕ´Ï´Ù.")?>
+        <input type=checkbox name=po_use_access value='1' <?=$po[po_use_access]?'checked':'';?>>ì‚¬ìš©
+        <?=help("ì‚¬ìš©ì— ì²´í¬í•˜ì‹œë©´ ì´ íˆ¬í‘œëŠ” ê´€ë¦¬ìžë§Œ ì ‘ê·¼ì´ ê°€ëŠ¥ í•©ë‹ˆë‹¤.")?>
     </td>
 </tr>
 
 <tr>
-    <td>ÅõÇ¥±ÇÇÑ</td>
-    <td colspan=3><?=get_member_level_select("po_level", 1, 10, $po[po_level])?>ÀÌ»ó ÅõÇ¥ÇÒ ¼ö ÀÖÀ½</td>
+    <td>íˆ¬í‘œê¶Œí•œ</td>
+    <td colspan=3><?=get_member_level_select("po_level", 1, 10, $po[po_level])?>ì´ìƒ íˆ¬í‘œí•  ìˆ˜ ìžˆìŒ</td>
 </tr>
 
 <tr>
-    <td>±âÅ¸ÀÇ°ß ±ÇÇÑ</td>
-    <td colspan=3><?=get_member_level_select("po_etc_level", $po[po_level], 10, $po[po_etc_level])?>ÀÌ»ó ÅõÇ¥ÇÒ ¼ö ÀÖÀ½</td>
+    <td>ê¸°íƒ€ì˜ê²¬ ê¶Œí•œ</td>
+    <td colspan=3><?=get_member_level_select("po_etc_level", $po[po_level], 10, $po[po_etc_level])?>ì´ìƒ íˆ¬í‘œí•  ìˆ˜ ìžˆìŒ</td>
 </tr>
 
 <tr>
-    <td>Æ÷ÀÎÆ®</td>
-    <td colspan=3><input type='text' class=ed name='po_point' size='10' value='<?=$po[po_point]?>'> Á¡ (ÅõÇ¥ÇÑ È¸¿ø¿¡°Ô ºÎ¿©ÇÔ)</td>
+    <td>í¬ì¸íŠ¸</td>
+    <td colspan=3><input type='text' class=ed name='po_point' size='10' value='<?=$po[po_point]?>'> ì  (íˆ¬í‘œí•œ íšŒì›ì—ê²Œ ë¶€ì—¬í•¨)</td>
 </tr>
 
 <tr>
-    <td>ÅõÇ¥½ÃÀÛÀÏ</td>
-    <td colspan=3><input type="text" class=ed name="po_date" id="po_date" size=10 maxlength=10 value="<?=$po[po_date]?>" itemname="ÅõÇ¥½ÃÀÛÀÏ" >
-    <a href="#none" onClick="win_calendar('po_date', document.getElementById('po_date').value, '-');" >³¯Â¥ ¼±ÅÃ</a>
+    <td>íˆ¬í‘œì‹œìž‘ì¼</td>
+    <td colspan=3><input type="text" class=ed name="po_date" id="po_date" size=10 maxlength=10 value="<?=$po[po_date]?>" itemname="íˆ¬í‘œì‹œìž‘ì¼" >
+    <a href="#none" onClick="win_calendar('po_date', document.getElementById('po_date').value, '-');" >ë‚ ì§œ ì„ íƒ</a>
     </td>
 </tr>
 
 <tr>
-    <td>ÅõÇ¥¸¶°¨ÀÏ</td>
-    <td colspan=3><input type="text" class=ed name="po_end_date" id="po_end_date" size=10 maxlength=10 value="<?=$po[po_end_date]?>" itemname="ÅõÇ¥¸¶°¨ÀÏ" >
-    <a href="#none" onClick="win_calendar('po_end_date', document.getElementById('po_end_date').value, '-');" >³¯Â¥ ¼±ÅÃ</a> (¸¶°¨ÀÏÀ» <a href="#none" onClick="document.getElementById('po_end_date').value = '0000-00-00';" >0000-00-00</a>À¸·Î ÀÔ·ÂÇÏ¸é ÅõÇ¥Á¾·á°¡ µÇÁö ¾Ê½À´Ï´Ù)
+    <td>íˆ¬í‘œë§ˆê°ì¼</td>
+    <td colspan=3><input type="text" class=ed name="po_end_date" id="po_end_date" size=10 maxlength=10 value="<?=$po[po_end_date]?>" itemname="íˆ¬í‘œë§ˆê°ì¼" >
+    <a href="#none" onClick="win_calendar('po_end_date', document.getElementById('po_end_date').value, '-');" >ë‚ ì§œ ì„ íƒ</a> (ë§ˆê°ì¼ì„ <a href="#none" onClick="document.getElementById('po_end_date').value = '0000-00-00';" >0000-00-00</a>ìœ¼ë¡œ ìž…ë ¥í•˜ë©´ íˆ¬í‘œì¢…ë£Œê°€ ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤)
     </td>
 </tr>
 
 <? if ($w == "u") { ?>
 
 <tr>
-    <td>ÅõÇ¥Âü°¡ IP</td>
+    <td>íˆ¬í‘œì°¸ê°€ IP</td>
     <td colspan=3><textarea class=ed name="po_ips" rows=10 style='width:99%;' readonly><?=preg_replace("/\n/", " / ", $po[po_ips])?></textarea></td>
 </tr>
 
 <tr>
-    <td>ÅõÇ¥Âü°¡ È¸¿ø</td>
+    <td>íˆ¬í‘œì°¸ê°€ íšŒì›</td>
     <td colspan=3><textarea class=ed name="mb_ids" rows=10 style='width:99%;' readonly><?=preg_replace("/\n/", " / ", $po[mb_ids])?></textarea></td>
 </tr>
 
@@ -157,8 +157,8 @@ HEREDOC;
 </table>
 
 <p align=center>
-    <input type=submit class="btn btn-default" accesskey='s' value='  È®  ÀÎ  '>&nbsp;
-    <input type=button class="btn btn-default" value='  ¸ñ  ·Ï  ' onclick="document.location.href='./poll_list.php?<?=$qstr?>';">
+    <input type=submit class="btn btn-default" accesskey='s' value='  í™•  ì¸  '>&nbsp;
+    <input type=button class="btn btn-default" value='  ëª©  ë¡  ' onclick="document.location.href='./poll_list.php?<?=$qstr?>';">
 </form>
 
 <script type="text/javascript">

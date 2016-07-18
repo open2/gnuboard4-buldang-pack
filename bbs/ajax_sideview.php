@@ -8,27 +8,27 @@ if (strtolower($g4[charset]) == 'euc-kr')
     $_POST['sca'] = iconv("UTF-8", $g4['charset'], $_POST['sca']);
 }
 
-$mb_nick = trim(get_text($_POST['mb_nick']));    // sideviewÀÇ ´ë»ó
-$mb_nick2 = trim(get_text($_POST['mb_nick2']));  // sideview¸¦ Å¬¸¯ÇÑ »ç¶÷
+$mb_nick = trim(get_text($_POST['mb_nick']));    // sideviewì˜ ëŒ€ìƒ
+$mb_nick2 = trim(get_text($_POST['mb_nick2']));  // sideviewë¥¼ í´ë¦­í•œ ì‚¬ëŒ
 $bo_table = trim($_POST['bo_table']);
 $sca = trim($_POST['sca']);
 
-// ºñÈ¸¿øÀÇ sideview´Â ±×³É return
-if ($mb_nick == "[ºñÈ¸¿ø]") {
+// ë¹„íšŒì›ì˜ sideviewëŠ” ê·¸ëƒ¥ return
+if ($mb_nick == "[ë¹„íšŒì›]") {
     $res = "<div>";
     $res .= "<ul class='list-unstyled'>";
-    $res .= "<li>ºñÈ¸¿øÀÔ´Ï´Ù</li>";
+    $res .= "<li>ë¹„íšŒì›ì…ë‹ˆë‹¤</li>";
     $res .= "</ul>";
     $res .= "</div>";
     echo iconv($g4['charset'], "UTF-8", $res);
     exit;
 }
 
-// ºñÈ¸¿øÀÇ sideview ¿äÃ»µµ ±×³É return
+// ë¹„íšŒì›ì˜ sideview ìš”ì²­ë„ ê·¸ëƒ¥ return
 if ($member[mb_id] == "") {
     $res = "<div>";
     $res .= "<ul class='list-unstyled'>";
-    $res .= "<li>È¸¿ø¼­ºñ½ºÀÔ´Ï´Ù.<br>·Î±×ÀÎ ÇÏ½ÅÈÄ ÀÌ¿ëÇØ ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.</li>";
+    $res .= "<li>íšŒì›ì„œë¹„ìŠ¤ì…ë‹ˆë‹¤.<br>ë¡œê·¸ì¸ í•˜ì‹ í›„ ì´ìš©í•´ ì£¼ì‹œê¸° ë°”ëë‹ˆë‹¤.</li>";
     $res .= "</ul>";
     $res .= "</div>";
     echo iconv($g4['charset'], "UTF-8", $res);
@@ -40,22 +40,22 @@ $mb2 = get_member_nick($mb_nick2);
 
 $mb_id = $mb['mb_id'];
 
-// Ãâ·ÂÇÒ º¯¼ö¸¦ ¾Õ¿¡¼­ ÃÊ±âÈ­...
+// ì¶œë ¥í•  ë³€ìˆ˜ë¥¼ ì•ì—ì„œ ì´ˆê¸°í™”...
 $res = "";
 
 if ($mb_id =='undefined' || $mb_id == "") {
-    echo "Error: 110"; // ÀÔ·ÂÀÌ ¾ø½À´Ï´Ù.
+    echo "Error: 110"; // ì…ë ¥ì´ ì—†ìŠµë‹ˆë‹¤.
 } else {
     $mb = get_member($mb_id);
     if ($mb[mb_id] == "") {
-        echo "Error: 130"; // ¾ø´Â ¾ÆÀÌµğ
+        echo "Error: 130"; // ì—†ëŠ” ì•„ì´ë””
     } else {
 
-        // mb_nickÀÇ °¹¼ö¸¦ ¼¼¾î º¾´Ï´Ù. mb_nickÀÌ ¿©·¯°³ÀÎ °æ¿ì°¡ ÀÖ´õ¶ó±¸¿ä.
+        // mb_nickì˜ ê°¯ìˆ˜ë¥¼ ì„¸ì–´ ë´…ë‹ˆë‹¤. mb_nickì´ ì—¬ëŸ¬ê°œì¸ ê²½ìš°ê°€ ìˆë”ë¼êµ¬ìš”.
         $sql = "select count(*) as cnt from $g4[member_table] where mb_nick = '$mb_nick' ";
         $result = sql_fetch($sql);
         if ($result['cnt'] > 1) {
-            $res = "<div>[Error] ´Ğ³×ÀÓ Áßº¹. °ü¸®ÀÚ¿¡°Ô ¹®ÀÇ ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù</div>";
+            $res = "<div>[Error] ë‹‰ë„¤ì„ ì¤‘ë³µ. ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜ í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤</div>";
             echo iconv($g4['charset'], "UTF-8", $res);
             die;
         }
@@ -66,22 +66,22 @@ if ($mb_id =='undefined' || $mb_id == "") {
         $new_url = "$g4[bbs_path]/new.php?mb_id=$mb_id";
         $member_modify_url = "$g4[admin_path]//member_form.php?w=u&mb_id=$mb_id";
 
-        // °á°ú°ªÀ» return
+        // ê²°ê³¼ê°’ì„ return
         $res .= "<div>";
         $res .= "<ul class='list-unstyled'>";
-        $res .= "<li><a href=\"javascript:;\" onClick=\"win_memo('$memo_url', '$mb_id');\">ÂÊÁöº¸³»±â</a></li>";
-        $res .= "<li><a href=\"javascript:;\" onClick=\"win_formmail('$mb_id','$mb_nick');\">¸ŞÀÏº¸³»±â</a></li>";
-        $res .= "<li><a href=\"javascript:;\" onClick=\"win_profile('$mb_id');\">ÀÚ±â¼Ò°³</a></li>";
+        $res .= "<li><a href=\"javascript:;\" onClick=\"win_memo('$memo_url', '$mb_id');\">ìª½ì§€ë³´ë‚´ê¸°</a></li>";
+        $res .= "<li><a href=\"javascript:;\" onClick=\"win_formmail('$mb_id','$mb_nick');\">ë©”ì¼ë³´ë‚´ê¸°</a></li>";
+        $res .= "<li><a href=\"javascript:;\" onClick=\"win_profile('$mb_id');\">ìê¸°ì†Œê°œ</a></li>";
         if ($mb[mb_homepage])
-            $res .= "<li><a href=\"javascript:;\" onClick=\"window.open('$mb[mb_homepage]');\">È¨ÆäÀÌÁö</a></li>";
+            $res .= "<li><a href=\"javascript:;\" onClick=\"window.open('$mb[mb_homepage]');\">í™ˆí˜ì´ì§€</a></li>";
         if ($bo_table)
-            $res .= "<li><a href=\"$bo_url\" target=\"_blank\">¾ÆÀÌµğ·Î°Ë»ö</a></li>";
+            $res .= "<li><a href=\"$bo_url\" target=\"_blank\">ì•„ì´ë””ë¡œê²€ìƒ‰</a></li>";
         if ($member[mb_id] == $mb_id)
-            $res .= "<li><a href=\"javascript:;\" onClick=\"win_point('');;\">Æ÷ÀÎÆ®³»¿ª</a></li>";
-        $res .= "<li><a href=\"$new_url\" target=\"_blank\">ÀüÃ¼°Ô½Ã¹°</a></li>";
+            $res .= "<li><a href=\"javascript:;\" onClick=\"win_point('');;\">í¬ì¸íŠ¸ë‚´ì—­</a></li>";
+        $res .= "<li><a href=\"$new_url\" target=\"_blank\">ì „ì²´ê²Œì‹œë¬¼</a></li>";
         if ($is_admin == "super") {
-            $res .= "<li><a href=\"$point_url\" target=\"_blank\">*Æ÷ÀÎÆ®³»¿ª*</a></li>";
-            $res .= "<li><a href=\"$member_modify_url\" target=\"_blank\">*È¸¿øÁ¤º¸º¯°æ*</a></li>";
+            $res .= "<li><a href=\"$point_url\" target=\"_blank\">*í¬ì¸íŠ¸ë‚´ì—­*</a></li>";
+            $res .= "<li><a href=\"$member_modify_url\" target=\"_blank\">*íšŒì›ì •ë³´ë³€ê²½*</a></li>";
         }
         $res .= "</ul>";
         $res .= "</div>";

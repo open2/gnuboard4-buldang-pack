@@ -3,38 +3,38 @@ include_once("./_common.php");
 
 include_once("$g4[path]/_head.php");
 
-// ºÒ´ç½æÀÇ ¶óÀÌºê·¯¸®¸¦ ÀÐ¾î ÁÝ´Ï´Ù.
+// ë¶ˆë‹¹ì¸ì˜ ë¼ì´ë¸ŒëŸ¬ë¦¬ë¥¼ ì½ì–´ ì¤ë‹ˆë‹¤.
 include_once("$g4[path]/lib/thumb.lib.php");
  
 ////////////////basic cf control///////////
-$one_rows = "25";   // ÀÌ¹ÌÁö Ãâ·Â¼ö·®
-$cols  = "5";       //  ÀÌ¹ÌÁö °¡·Î°¹¼ö
-$width_o = "120";   //ÀÌ¹ÌÁö °¡·Î°ª
-$height_o = "100";  //ÀÌ¹ÌÁö ¼¼·Î°ª
-$image_h  = "17";   // ÀÌ¹ÌÁö »óÇÏ °£°Ý
+$one_rows = "25";   // ì´ë¯¸ì§€ ì¶œë ¥ìˆ˜ëŸ‰
+$cols  = "5";       //  ì´ë¯¸ì§€ ê°€ë¡œê°¯ìˆ˜
+$width_o = "120";   //ì´ë¯¸ì§€ ê°€ë¡œê°’
+$height_o = "100";  //ì´ë¯¸ì§€ ì„¸ë¡œê°’
+$image_h  = "17";   // ì´ë¯¸ì§€ ìƒí•˜ ê°„ê²©
 
-//jpg, gif, png ÆÄÀÏ¸¸ °Ë»öÇÑ´Ù.
+//jpg, gif, png íŒŒì¼ë§Œ ê²€ìƒ‰í•œë‹¤.
 $sql_common = " a.bf_type in (1, 2, 3) and b.bo_use_search = 1 ";
 
 $one_count_sql = " select count(*) as cnt from $g4[board_file_table] a left join $g4[board_table] b on (a.bo_table = b.bo_table) where $sql_common ";
 $row = sql_fetch($one_count_sql);
 
 $total_count = $row[cnt]; 
-$total_page  = ceil($total_count / $one_rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê 
-if ($page == "") { $page = 1; } // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö) 
-$from_record = ($page - 1) * $one_rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $one_rows);  // ì „ì²´ íŽ˜ì´ì§€ ê³„ì‚° 
+if ($page == "") { $page = 1; } // íŽ˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« íŽ˜ì´ì§€ (1 íŽ˜ì´ì§€) 
+$from_record = ($page - 1) * $one_rows; // ì‹œìž‘ ì—´ì„ êµ¬í•¨
 $to_record = $from_record + $one_rows ;
       
 $one_sql = " select * from $g4[board_file_table] a left join $g4[board_table] b on (a.bo_table = b.bo_table) where $sql_common order by bf_datetime desc limit $from_record, $one_rows";
 $one_result = sql_query($one_sql);
 ?>
 
-<!-----------±â°£º° Ãâ·Â½ÃÀÛ--------->
+<!-----------ê¸°ê°„ë³„ ì¶œë ¥ì‹œìž‘--------->
 
 
 <table width=100% cellpadding=0 cellspacing=0>
 <tr><td height="4"></td></tr>
-<tr><td align=left><font style="font-size:12pt;"><b>ÀÌ¹ÌÁö</b>&nbsp;(ÃÑ <?=$total_count?>°³Áß <?=$from_record+1?> -
+<tr><td align=left><font style="font-size:12pt;"><b>ì´ë¯¸ì§€</b>&nbsp;(ì´ <?=$total_count?>ê°œì¤‘ <?=$from_record+1?> -
 <? 
 if (($from_record + ($one_rows-1)) < $total_count) {
 echo "{$to_record}";
@@ -50,7 +50,7 @@ echo "{$total_count}";
 </table>
 <table width=100% cellpadding=0 cellspacing=0>
 <tr>
-<?//Ãâ·Â
+<?//ì¶œë ¥
   for ($i=0; $one_row = sql_fetch_array($one_result); $i++){
     if ($i>0 && $i%$cols==0) { echo "</tr><tr><td colspan='$cols' height='$image_h'></td></tr><tr>"; }
 ?>

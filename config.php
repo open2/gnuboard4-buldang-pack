@@ -1,17 +1,17 @@
 <?
-// ÀÌ »ó¼ö°¡ Á¤ÀÇµÇÁö ¾ÊÀ¸¸é °¢°¢ÀÇ °³º° ÆäÀÌÁö´Â º°µµ·Î ½ÇÇàµÉ ¼ö ¾øÀ½
+// ì´ ìƒìˆ˜ê°€ ì •ì˜ë˜ì§€ ì•Šìœ¼ë©´ ê°ê°ì˜ ê°œë³„ íŽ˜ì´ì§€ëŠ” ë³„ë„ë¡œ ì‹¤í–‰ë  ìˆ˜ ì—†ìŒ
 define("_GNUBOARD_", TRUE);
 
-// php 5.1.x ÀÌ»óÀÌ¸é¼­ ¼­¹ö¿Í ´Ù¸¥ ½Ã°£´ë ¼³Á¤ÀÌ ÇÊ¿äÇÒ ¶§ ¾²¼¼¿ä.
-// Áö¿øÇÏ´Â timezone ¸ñ·ÏÀº http://kr2.php.net/manual/en/timezones.php
-// 5.4.x ºÎÅÍ´Â ¾Æ·¡ Á¤ÀÇ°¡ ¾øÀ¸¸é PHP Notice°¡ ÆÎÆÎ ¶å´Ï´Ù.
+// php 5.1.x ì´ìƒì´ë©´ì„œ ì„œë²„ì™€ ë‹¤ë¥¸ ì‹œê°„ëŒ€ ì„¤ì •ì´ í•„ìš”í•  ë•Œ ì“°ì„¸ìš”.
+// ì§€ì›í•˜ëŠ” timezone ëª©ë¡ì€ http://kr2.php.net/manual/en/timezones.php
+// 5.4.x ë¶€í„°ëŠ” ì•„ëž˜ ì •ì˜ê°€ ì—†ìœ¼ë©´ PHP Noticeê°€ íŒ¡íŒ¡ ëœ¹ë‹ˆë‹¤.
 if (function_exists("date_default_timezone_set"))
     date_default_timezone_set("Asia/Seoul");
 
-// ºÒ´çÆÑ ¹öÁ¯
+// ë¶ˆë‹¹íŒ© ë²„ì ¼
 $g4['b4_version']     = "1.1.x";
 
-// µð·ºÅä¸®
+// ë””ë ‰í† ë¦¬
 $g4['bbs']            = "bbs";
 $g4['bbs_path']       = $g4['path'] . "/" . $g4['bbs'];
 $g4['bbs_img']        = "img";
@@ -38,264 +38,264 @@ $g4['plugin']         = "plugin";
 $g4['plugin_path']    = $g4['path'] . "/" . $g4['plugin'];
 
 
-// ÀÚÁÖ »ç¿ëÇÏ´Â °ª
-// ¼­¹öÀÇ ½Ã°£°ú ½ÇÁ¦ »ç¿ëÇÏ´Â ½Ã°£ÀÌ Æ²¸° °æ¿ì ¼öÁ¤ÇÏ¼¼¿ä.
-// ÇÏ·ç´Â 86400 ÃÊÀÔ´Ï´Ù. 1½Ã°£Àº 3600ÃÊ
-// 6½Ã°£ÀÌ ºü¸¥ °æ¿ì time() + (3600 * 6);
-// 6½Ã°£ÀÌ ´À¸° °æ¿ì time() - (3600 * 6);
+// ìžì£¼ ì‚¬ìš©í•˜ëŠ” ê°’
+// ì„œë²„ì˜ ì‹œê°„ê³¼ ì‹¤ì œ ì‚¬ìš©í•˜ëŠ” ì‹œê°„ì´ í‹€ë¦° ê²½ìš° ìˆ˜ì •í•˜ì„¸ìš”.
+// í•˜ë£¨ëŠ” 86400 ì´ˆìž…ë‹ˆë‹¤. 1ì‹œê°„ì€ 3600ì´ˆ
+// 6ì‹œê°„ì´ ë¹ ë¥¸ ê²½ìš° time() + (3600 * 6);
+// 6ì‹œê°„ì´ ëŠë¦° ê²½ìš° time() - (3600 * 6);
 $g4['server_time'] = time();
 $g4['time_ymd']    = date("Y-m-d", $g4['server_time']);
 $g4['time_his']    = date("H:i:s", $g4['server_time']);
 $g4['time_ymdhis'] = date("Y-m-d H:i:s", $g4['server_time']);
 
 //
-// Å×ÀÌºí ¸í
-// (»ó¼ö·Î ¼±¾ðÇÑ°ÍÀº ÇÔ¼ö¿¡¼­ global ¼±¾ðÀ» ÇÏÁö ¾Ê¾Æµµ ¹Ù·Î »ç¿ëÇÒ ¼ö ÀÖ±â ¶§¹®)
+// í…Œì´ë¸” ëª…
+// (ìƒìˆ˜ë¡œ ì„ ì–¸í•œê²ƒì€ í•¨ìˆ˜ì—ì„œ global ì„ ì–¸ì„ í•˜ì§€ ì•Šì•„ë„ ë°”ë¡œ ì‚¬ìš©í•  ìˆ˜ ìžˆê¸° ë•Œë¬¸)
 //
-$g4['table_prefix']        = "g4_"; // Å×ÀÌºí¸í Á¢µÎ»ç
-$g4['write_prefix']        = $g4['table_prefix'] . "write_"; // °Ô½ÃÆÇ Å×ÀÌºí¸í Á¢µÎ»ç
+$g4['table_prefix']        = "g4_"; // í…Œì´ë¸”ëª… ì ‘ë‘ì‚¬
+$g4['write_prefix']        = $g4['table_prefix'] . "write_"; // ê²Œì‹œíŒ í…Œì´ë¸”ëª… ì ‘ë‘ì‚¬
 
-$g4['auth_table']          = $g4['table_prefix'] . "auth";          // °ü¸®±ÇÇÑ ¼³Á¤ Å×ÀÌºí
-$g4['config_table']        = $g4['table_prefix'] . "config";        // ±âº»È¯°æ ¼³Á¤ Å×ÀÌºí
-$g4['group_table']         = $g4['table_prefix'] . "group";         // °Ô½ÃÆÇ ±×·ì Å×ÀÌºí
-$g4['group_member_table']  = $g4['table_prefix'] . "group_member";  // °Ô½ÃÆÇ ±×·ì+È¸¿ø Å×ÀÌºí
-$g4['board_table']         = $g4['table_prefix'] . "board";         // °Ô½ÃÆÇ ¼³Á¤ Å×ÀÌºí
-$g4['board_file_table']    = $g4['table_prefix'] . "board_file";    // °Ô½ÃÆÇ Ã·ºÎÆÄÀÏ Å×ÀÌºí
-$g4['board_good_table']    = $g4['table_prefix'] . "board_good";    // °Ô½Ã¹° ÃßÃµ,ºñÃßÃµ Å×ÀÌºí
-$g4['board_new_table']     = $g4['table_prefix'] . "board_new";     // °Ô½ÃÆÇ »õ±Û Å×ÀÌºí
-$g4['login_table']         = $g4['table_prefix'] . "login";         // ·Î±×ÀÎ Å×ÀÌºí (Á¢¼ÓÀÚ¼ö)
-$g4['mail_table']          = $g4['table_prefix'] . "mail";          // È¸¿ø¸ÞÀÏ Å×ÀÌºí
-$g4['member_table']        = $g4['table_prefix'] . "member";        // È¸¿ø Å×ÀÌºí
-$g4['poll_table']          = $g4['table_prefix'] . "poll";          // ÅõÇ¥ Å×ÀÌºí
-$g4['poll_etc_table']      = $g4['table_prefix'] . "poll_etc";      // ÅõÇ¥ ±âÅ¸ÀÇ°ß Å×ÀÌºí
-$g4['point_table']         = $g4['table_prefix'] . "point";         // Æ÷ÀÎÆ® Å×ÀÌºí
-$g4['popular_table']       = $g4['table_prefix'] . "popular";       // ÀÎ±â°Ë»ö¾î Å×ÀÌºí
-$g4['scrap_table']         = $g4['table_prefix'] . "scrap";         // °Ô½Ã±Û ½ºÅ©·¦ Å×ÀÌºí
-$g4['visit_table']         = $g4['table_prefix'] . "visit";         // ¹æ¹®ÀÚ Å×ÀÌºí
-$g4['visit_sum_table']     = $g4['table_prefix'] . "visit_sum";     // ¹æ¹®ÀÚ ÇÕ°è Å×ÀÌºí
+$g4['auth_table']          = $g4['table_prefix'] . "auth";          // ê´€ë¦¬ê¶Œí•œ ì„¤ì • í…Œì´ë¸”
+$g4['config_table']        = $g4['table_prefix'] . "config";        // ê¸°ë³¸í™˜ê²½ ì„¤ì • í…Œì´ë¸”
+$g4['group_table']         = $g4['table_prefix'] . "group";         // ê²Œì‹œíŒ ê·¸ë£¹ í…Œì´ë¸”
+$g4['group_member_table']  = $g4['table_prefix'] . "group_member";  // ê²Œì‹œíŒ ê·¸ë£¹+íšŒì› í…Œì´ë¸”
+$g4['board_table']         = $g4['table_prefix'] . "board";         // ê²Œì‹œíŒ ì„¤ì • í…Œì´ë¸”
+$g4['board_file_table']    = $g4['table_prefix'] . "board_file";    // ê²Œì‹œíŒ ì²¨ë¶€íŒŒì¼ í…Œì´ë¸”
+$g4['board_good_table']    = $g4['table_prefix'] . "board_good";    // ê²Œì‹œë¬¼ ì¶”ì²œ,ë¹„ì¶”ì²œ í…Œì´ë¸”
+$g4['board_new_table']     = $g4['table_prefix'] . "board_new";     // ê²Œì‹œíŒ ìƒˆê¸€ í…Œì´ë¸”
+$g4['login_table']         = $g4['table_prefix'] . "login";         // ë¡œê·¸ì¸ í…Œì´ë¸” (ì ‘ì†ìžìˆ˜)
+$g4['mail_table']          = $g4['table_prefix'] . "mail";          // íšŒì›ë©”ì¼ í…Œì´ë¸”
+$g4['member_table']        = $g4['table_prefix'] . "member";        // íšŒì› í…Œì´ë¸”
+$g4['poll_table']          = $g4['table_prefix'] . "poll";          // íˆ¬í‘œ í…Œì´ë¸”
+$g4['poll_etc_table']      = $g4['table_prefix'] . "poll_etc";      // íˆ¬í‘œ ê¸°íƒ€ì˜ê²¬ í…Œì´ë¸”
+$g4['point_table']         = $g4['table_prefix'] . "point";         // í¬ì¸íŠ¸ í…Œì´ë¸”
+$g4['popular_table']       = $g4['table_prefix'] . "popular";       // ì¸ê¸°ê²€ìƒ‰ì–´ í…Œì´ë¸”
+$g4['scrap_table']         = $g4['table_prefix'] . "scrap";         // ê²Œì‹œê¸€ ìŠ¤í¬ëž© í…Œì´ë¸”
+$g4['visit_table']         = $g4['table_prefix'] . "visit";         // ë°©ë¬¸ìž í…Œì´ë¸”
+$g4['visit_sum_table']     = $g4['table_prefix'] . "visit_sum";     // ë°©ë¬¸ìž í•©ê³„ í…Œì´ë¸”
 
 //
-// ±âÅ¸
+// ê¸°íƒ€
 //
-$g4['memo_table']           = $g4['table_prefix'] . "memo_recv";          // ¸Þ¸ð Å×ÀÌºí (ÂÊÁö2/ÂÊÁö4)
-$g4['member_group_table']   = $g4['table_prefix'] . "member_group";       // ¸â¹ö±×·ì
-$g4['my_menu_table']        = $g4['table_prefix'] . "my_menu";            // ¸¶ÀÌ¸Þ´º
-$g4['auction_tender_table'] = $g4['table_prefix'] . "auction_tender";     // Æ÷ÀÎÆ®°æ¸Å Å×ÀÌºí 
-$g4['tag_table']            = $g4['table_prefix'] . "tag";                // °ü·Ã±Û ÅÂ±× Å×ÀÌºí 
-$g4['mb_nick_table']        = $g4['table_prefix'] . "mb_nick";            // ´Ð³×ÀÓ È÷½ºÅä¸® Å×ÀÌºí 
-$g4['singo_table']          = $g4['table_prefix'] . "singo";              // °Ô½Ã¹° ½Å°í Å×ÀÌºí 
-$g4['singo_reason_table']   = $g4['table_prefix'] . "singo_reason";       // °Ô½Ã¹° ½Å°í »çÀ¯ Å×ÀÌºí 
-$g4['unsingo_table']        = $g4['table_prefix'] . "unsingo";            // °Ô½Ã¹° ½Å°í Å×ÀÌºí 
-$g4['my_board_table']       = $g4['table_prefix'] . "my_board";           // ³»°¡ ¹æ¹®ÇÑ °Ô½ÃÆÇ Å×ÀÌºí 
-$g4['user_group_table']     = $g4['table_prefix'] . "user_group";         // »ç¿ëÀÚ ±×·ì
-$g4['hidden_comment_table'] = $g4['table_prefix'] . "hidden_comment";     // µýÁö°É±â
-$g4['login_fail_log_table'] = $g4['table_prefix'] . "login_fail_log";     // ·Î±×ÀÎ ¿À·ù logging
-$g4['config_reg_table']     = $g4['table_prefix'] . "config_reg";         // ±âº»È¯°æ ¼³Á¤ Å×ÀÌºí (ÀÌ¿ë¾à°ü, °³ÀÎÁ¤º¸ Ãë±Þ¹æÄ§ µî ºóµµ°¡ ³·Àº ¼³Á¤Á¤º¸)
-$g4['member_level_table']   = $g4['table_prefix'] . "member_level";       // È¸¿ø ·¹º§¾÷ °ü¸® Å×ÀÌºí
-$g4['member_level_history_table'] = $g4['table_prefix'] . "member_level_history";       // È¸¿ø ·¹º§¾÷ history Å×ÀÌºí
-$g4['category_table']       = $g4['table_prefix'] . "category";           // È¸¿ø ·¹º§¾÷ °ü¸® Å×ÀÌºí
-$g4['member_register_table']= $g4['table_prefix'] . "member_register";    // È¸¿ø °¡ÀÔ °ü·Ã Á¤º¸ Å×ÀÌºí
-$g4['recycle_table']        = $g4['table_prefix'] . "recycle";            // ÈÞÁöÅë °ü·Ã Á¤º¸ Å×ÀÌºí
-$g4['board_file_download_table'] = $g4['board_file_table'] . "_download";     // °Ô½ÃÆÇ ÆÄÀÏ ´Ù¿î·Îµå Å×ÀÌºí
-$g4['cache_table']          = $g4['table_prefix'] . "cache";              // db cache Å×ÀÌºí
-$g4['board_cheditor_table'] = $g4['table_prefix'] . "board_cheditor";     // chediotr ÆÄÀÏ °ü¸® Å×ÀÌºí
-$g4['notice_table']         = $g4['table_prefix'] . "notice";             // ÀüÃ¼°øÁö Å×ÀÌºí
-$g4['whatson_table']        = $g4['table_prefix'] . "whatson";            // ¿Ô~œ¼~ Å×ÀÌºí
-$g4['geoip_table']          = $g4['table_prefix'] . "geoip";              // GeoIP Å×ÀÌºí
-$g4['popular_sum_table']    = $g4['table_prefix'] . "popular_sum";        // ÀÎ±â°Ë»ö¾î ÇÕ°è Å×ÀÌºí
-$g4['filter_table']         = $g4['table_prefix'] . "filter";             // ÀÎ±â°Ë»ö¾î µî¿¡ ¾²ÀÌ´Â ÇÊÅÍ Å×ÀÌºí
-$g4['promotion_table']      = $g4['table_prefix'] . "promotion";          // ÇÁ·Î¸ð¼Ç Å×ÀÌºí
-$g4['promotion_sign_table'] = $g4['table_prefix'] . "promotion_sign";     // ÇÁ·Î¸ð¼Ç µî·Ï Å×ÀÌºí
-$g4['tempsave_table']       = $g4['table_prefix'] . "tempsave";           // ÀÓ½ÃÀúÀå Å×ÀÌºí
-$g4['namecheck_table']      = $g4['table_prefix'] . "namecheck";          // ½Ç¸íÀÎÁõ History Å×ÀÌºí
-$g4['realcheck_table']      = $g4['table_prefix'] . "realcheck";          // º»ÀÎÀÎÁõ History Å×ÀÌºí
-$g4['good_list_table']      = $g4['table_prefix'] . "good_list";          // º£½ºÆ®±Û Å×ÀÌºí
-$g4['seo_tag_table']        = $g4['table_prefix'] . "seo_tag";            // SEO - tag Å×ÀÌºí
-$g4['seo_server_table']     = $g4['table_prefix'] . "seo_server";         // SEO - ¼­¹ö Å×ÀÌºí
-$g4['seo_history_table']    = $g4['table_prefix'] . "seo_history";        // SEO - History Å×ÀÌºí
-$g4['member_suggest_table'] = $g4['table_prefix'] . "member_suggest";     // È¸¿øÃßÃµÁ¤º¸ Å×ÀÌºí
-$g4['banner_group_table']   = $g4['table_prefix'] . "banner_group";       // ¹è³Ê±×·ì Å×ÀÌºí
-$g4['banner_table']         = $g4['table_prefix'] . "banner";             // ¹è³Ê Å×ÀÌºí
-$g4['banner_click_table']   = $g4['table_prefix'] . "banner_click";       // ¹è³ÊÅ¬¸¯ Å×ÀÌºí
-$g4['banner_click_sum_table']   = $g4['table_prefix'] . "banner_click_sum";       // ¹è³ÊÅ¬¸¯ Åë°è Å×ÀÌºí
-$g4['category_table']       = $g4['table_prefix'] . "category";           // Ä«Å×°í¸® Å×ÀÌºí
-$g4['admin_log_table']      = $g4['table_prefix'] . "admin_log";          // °ü¸®ÀÚ log Å×ÀÌºí
-$g4['menu_table']           = $g4['table_prefix'] . "menu";               // ¸Þ´º°ü¸® Å×ÀÌºí
-$g4['cookie_table']         = $g4['table_prefix'] . "cookie";             // cookie Å×ÀÌºí
-$g4['unlogin_table']        = $g4['table_prefix'] . "member_unlogin";     // ÈÞ¸éÈ¸¿ø Å×ÀÌºí
+$g4['memo_table']           = $g4['table_prefix'] . "memo_recv";          // ë©”ëª¨ í…Œì´ë¸” (ìª½ì§€2/ìª½ì§€4)
+$g4['member_group_table']   = $g4['table_prefix'] . "member_group";       // ë©¤ë²„ê·¸ë£¹
+$g4['my_menu_table']        = $g4['table_prefix'] . "my_menu";            // ë§ˆì´ë©”ë‰´
+$g4['auction_tender_table'] = $g4['table_prefix'] . "auction_tender";     // í¬ì¸íŠ¸ê²½ë§¤ í…Œì´ë¸” 
+$g4['tag_table']            = $g4['table_prefix'] . "tag";                // ê´€ë ¨ê¸€ íƒœê·¸ í…Œì´ë¸” 
+$g4['mb_nick_table']        = $g4['table_prefix'] . "mb_nick";            // ë‹‰ë„¤ìž„ ížˆìŠ¤í† ë¦¬ í…Œì´ë¸” 
+$g4['singo_table']          = $g4['table_prefix'] . "singo";              // ê²Œì‹œë¬¼ ì‹ ê³  í…Œì´ë¸” 
+$g4['singo_reason_table']   = $g4['table_prefix'] . "singo_reason";       // ê²Œì‹œë¬¼ ì‹ ê³  ì‚¬ìœ  í…Œì´ë¸” 
+$g4['unsingo_table']        = $g4['table_prefix'] . "unsingo";            // ê²Œì‹œë¬¼ ì‹ ê³  í…Œì´ë¸” 
+$g4['my_board_table']       = $g4['table_prefix'] . "my_board";           // ë‚´ê°€ ë°©ë¬¸í•œ ê²Œì‹œíŒ í…Œì´ë¸” 
+$g4['user_group_table']     = $g4['table_prefix'] . "user_group";         // ì‚¬ìš©ìž ê·¸ë£¹
+$g4['hidden_comment_table'] = $g4['table_prefix'] . "hidden_comment";     // ë”´ì§€ê±¸ê¸°
+$g4['login_fail_log_table'] = $g4['table_prefix'] . "login_fail_log";     // ë¡œê·¸ì¸ ì˜¤ë¥˜ logging
+$g4['config_reg_table']     = $g4['table_prefix'] . "config_reg";         // ê¸°ë³¸í™˜ê²½ ì„¤ì • í…Œì´ë¸” (ì´ìš©ì•½ê´€, ê°œì¸ì •ë³´ ì·¨ê¸‰ë°©ì¹¨ ë“± ë¹ˆë„ê°€ ë‚®ì€ ì„¤ì •ì •ë³´)
+$g4['member_level_table']   = $g4['table_prefix'] . "member_level";       // íšŒì› ë ˆë²¨ì—… ê´€ë¦¬ í…Œì´ë¸”
+$g4['member_level_history_table'] = $g4['table_prefix'] . "member_level_history";       // íšŒì› ë ˆë²¨ì—… history í…Œì´ë¸”
+$g4['category_table']       = $g4['table_prefix'] . "category";           // íšŒì› ë ˆë²¨ì—… ê´€ë¦¬ í…Œì´ë¸”
+$g4['member_register_table']= $g4['table_prefix'] . "member_register";    // íšŒì› ê°€ìž… ê´€ë ¨ ì •ë³´ í…Œì´ë¸”
+$g4['recycle_table']        = $g4['table_prefix'] . "recycle";            // íœ´ì§€í†µ ê´€ë ¨ ì •ë³´ í…Œì´ë¸”
+$g4['board_file_download_table'] = $g4['board_file_table'] . "_download";     // ê²Œì‹œíŒ íŒŒì¼ ë‹¤ìš´ë¡œë“œ í…Œì´ë¸”
+$g4['cache_table']          = $g4['table_prefix'] . "cache";              // db cache í…Œì´ë¸”
+$g4['board_cheditor_table'] = $g4['table_prefix'] . "board_cheditor";     // chediotr íŒŒì¼ ê´€ë¦¬ í…Œì´ë¸”
+$g4['notice_table']         = $g4['table_prefix'] . "notice";             // ì „ì²´ê³µì§€ í…Œì´ë¸”
+$g4['whatson_table']        = $g4['table_prefix'] . "whatson";            // ì™”~ì‘~ í…Œì´ë¸”
+$g4['geoip_table']          = $g4['table_prefix'] . "geoip";              // GeoIP í…Œì´ë¸”
+$g4['popular_sum_table']    = $g4['table_prefix'] . "popular_sum";        // ì¸ê¸°ê²€ìƒ‰ì–´ í•©ê³„ í…Œì´ë¸”
+$g4['filter_table']         = $g4['table_prefix'] . "filter";             // ì¸ê¸°ê²€ìƒ‰ì–´ ë“±ì— ì“°ì´ëŠ” í•„í„° í…Œì´ë¸”
+$g4['promotion_table']      = $g4['table_prefix'] . "promotion";          // í”„ë¡œëª¨ì…˜ í…Œì´ë¸”
+$g4['promotion_sign_table'] = $g4['table_prefix'] . "promotion_sign";     // í”„ë¡œëª¨ì…˜ ë“±ë¡ í…Œì´ë¸”
+$g4['tempsave_table']       = $g4['table_prefix'] . "tempsave";           // ìž„ì‹œì €ìž¥ í…Œì´ë¸”
+$g4['namecheck_table']      = $g4['table_prefix'] . "namecheck";          // ì‹¤ëª…ì¸ì¦ History í…Œì´ë¸”
+$g4['realcheck_table']      = $g4['table_prefix'] . "realcheck";          // ë³¸ì¸ì¸ì¦ History í…Œì´ë¸”
+$g4['good_list_table']      = $g4['table_prefix'] . "good_list";          // ë² ìŠ¤íŠ¸ê¸€ í…Œì´ë¸”
+$g4['seo_tag_table']        = $g4['table_prefix'] . "seo_tag";            // SEO - tag í…Œì´ë¸”
+$g4['seo_server_table']     = $g4['table_prefix'] . "seo_server";         // SEO - ì„œë²„ í…Œì´ë¸”
+$g4['seo_history_table']    = $g4['table_prefix'] . "seo_history";        // SEO - History í…Œì´ë¸”
+$g4['member_suggest_table'] = $g4['table_prefix'] . "member_suggest";     // íšŒì›ì¶”ì²œì •ë³´ í…Œì´ë¸”
+$g4['banner_group_table']   = $g4['table_prefix'] . "banner_group";       // ë°°ë„ˆê·¸ë£¹ í…Œì´ë¸”
+$g4['banner_table']         = $g4['table_prefix'] . "banner";             // ë°°ë„ˆ í…Œì´ë¸”
+$g4['banner_click_table']   = $g4['table_prefix'] . "banner_click";       // ë°°ë„ˆí´ë¦­ í…Œì´ë¸”
+$g4['banner_click_sum_table']   = $g4['table_prefix'] . "banner_click_sum";       // ë°°ë„ˆí´ë¦­ í†µê³„ í…Œì´ë¸”
+$g4['category_table']       = $g4['table_prefix'] . "category";           // ì¹´í…Œê³ ë¦¬ í…Œì´ë¸”
+$g4['admin_log_table']      = $g4['table_prefix'] . "admin_log";          // ê´€ë¦¬ìž log í…Œì´ë¸”
+$g4['menu_table']           = $g4['table_prefix'] . "menu";               // ë©”ë‰´ê´€ë¦¬ í…Œì´ë¸”
+$g4['cookie_table']         = $g4['table_prefix'] . "cookie";             // cookie í…Œì´ë¸”
+$g4['unlogin_table']        = $g4['table_prefix'] . "member_unlogin";     // íœ´ë©´íšŒì› í…Œì´ë¸”
 
-// °ö½½ÃÖ¾¾ (¹èÃßÆÁ)
+// ê³±ìŠ¬ìµœì”¨ (ë°°ì¶”íŒ)
 $mw['table_prefix'] = $g4['table_prefix']."mw_";
-$mw['board_visit_table'] = $mw['table_prefix']."board_visit";             // °Ô½ÃÆÇº° ¹æ¹®ÀÚ Åë°è
-$mw['board_visit_log_table'] = $mw['table_prefix']."board_visit_log";     // °Ô½ÃÆÇº° ¹æ¹®ÀÚ ·Î±×
-$g4['session_table'] = $g4['table_prefix'] . "session";                   // db·Î ¼¼¼Ç°ü¸®
+$mw['board_visit_table'] = $mw['table_prefix']."board_visit";             // ê²Œì‹œíŒë³„ ë°©ë¬¸ìž í†µê³„
+$mw['board_visit_log_table'] = $mw['table_prefix']."board_visit_log";     // ê²Œì‹œíŒë³„ ë°©ë¬¸ìž ë¡œê·¸
+$g4['session_table'] = $g4['table_prefix'] . "session";                   // dbë¡œ ì„¸ì…˜ê´€ë¦¬
 
-// www.sir.co.kr °ú sir.co.kr µµ¸ÞÀÎÀº ¼­·Î ´Ù¸¥ µµ¸ÞÀÎÀ¸·Î ÀÎ½ÄÇÕ´Ï´Ù. ÄíÅ°¸¦ °øÀ¯ÇÏ·Á¸é .sir.co.kr °ú °°ÀÌ ÀÔ·ÂÇÏ¼¼¿ä.
-// ÀÌ°÷¿¡ ÀÔ·ÂÀÌ ¾ø´Ù¸é www ºÙÀº µµ¸ÞÀÎ°ú ±×·¸Áö ¾ÊÀº µµ¸ÞÀÎÀº ÄíÅ°¸¦ °øÀ¯ÇÏÁö ¾ÊÀ¸¹Ç·Î ·Î±×ÀÎÀÌ Ç®¸± ¼ö ÀÖ½À´Ï´Ù.
+// www.sir.co.kr ê³¼ sir.co.kr ë„ë©”ì¸ì€ ì„œë¡œ ë‹¤ë¥¸ ë„ë©”ì¸ìœ¼ë¡œ ì¸ì‹í•©ë‹ˆë‹¤. ì¿ í‚¤ë¥¼ ê³µìœ í•˜ë ¤ë©´ .sir.co.kr ê³¼ ê°™ì´ ìž…ë ¥í•˜ì„¸ìš”.
+// ì´ê³³ì— ìž…ë ¥ì´ ì—†ë‹¤ë©´ www ë¶™ì€ ë„ë©”ì¸ê³¼ ê·¸ë ‡ì§€ ì•Šì€ ë„ë©”ì¸ì€ ì¿ í‚¤ë¥¼ ê³µìœ í•˜ì§€ ì•Šìœ¼ë¯€ë¡œ ë¡œê·¸ì¸ì´ í’€ë¦´ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
 $g4['cookie_domain'] = ".opencode.co.kr";
 
-// DNS Round Robin, L4 Loading Balancing µîÀÇ °æ¿ì, Á¢¼Ó½Ã¸¶´Ù $_SERVER[SERVER_ADDR]ÀÌ ¹Ù²ò´Ï´Ù.
-// µû¶ó¼­, »çÀÌÆ®¸¦ ³ªÅ¸³¾ ¼ö ÀÖ´Â uniqueÇÑ ÀÌ¸§(¿¹:µµ¸ÞÀÎÀÌ¸§,»çÀÌÆ®¸í,¼­¹öipµî)À» ½áÁà¾ß ÀÚµ¿·Î±×ÀÎÀÌ ¾ÈÇ®¸³´Ï´Ù.
+// DNS Round Robin, L4 Loading Balancing ë“±ì˜ ê²½ìš°, ì ‘ì†ì‹œë§ˆë‹¤ $_SERVER[SERVER_ADDR]ì´ ë°”ë€ë‹ˆë‹¤.
+// ë”°ë¼ì„œ, ì‚¬ì´íŠ¸ë¥¼ ë‚˜íƒ€ë‚¼ ìˆ˜ ìžˆëŠ” uniqueí•œ ì´ë¦„(ì˜ˆ:ë„ë©”ì¸ì´ë¦„,ì‚¬ì´íŠ¸ëª…,ì„œë²„ipë“±)ì„ ì¨ì¤˜ì•¼ ìžë™ë¡œê·¸ì¸ì´ ì•ˆí’€ë¦½ë‹ˆë‹¤.
 $g4['load_balance'] = ".opencode.co.kr";
 
-// °Ô½ÃÆÇ¿¡¼­ ¸µÅ©ÀÇ ±âº»°¹¼ö¸¦ ¸»ÇÕ´Ï´Ù.
-// ÇÊµå¸¦ Ãß°¡ÇÏ¸é ÀÌ ¼ýÀÚ¸¦ ÇÊµå¼ö¿¡ ¸Â°Ô ´Ã·ÁÁÖ½Ê½Ã¿À.
+// ê²Œì‹œíŒì—ì„œ ë§í¬ì˜ ê¸°ë³¸ê°¯ìˆ˜ë¥¼ ë§í•©ë‹ˆë‹¤.
+// í•„ë“œë¥¼ ì¶”ê°€í•˜ë©´ ì´ ìˆ«ìžë¥¼ í•„ë“œìˆ˜ì— ë§žê²Œ ëŠ˜ë ¤ì£¼ì‹­ì‹œì˜¤.
 $g4['link_count'] = 2;
 
-// ¹®ÀÚ¼ÂÀ» Á¤ÀÇ (euc-kr/utf-8)
-$g4['charset'] = "euc-kr";
+// ë¬¸ìžì…‹ì„ ì •ì˜ (euc-kr/utf-8)
+$g4['charset'] = "utf-8";
 
-// config.php °¡ ÀÖ´Â°÷ÀÇ À¥°æ·Î. µÚ¿¡ / ¸¦ ºÙÀÌÁö ¸¶¼¼¿ä.
-// ¿¹) http://g4.sir.co.kr
+// config.php ê°€ ìžˆëŠ”ê³³ì˜ ì›¹ê²½ë¡œ. ë’¤ì— / ë¥¼ ë¶™ì´ì§€ ë§ˆì„¸ìš”.
+// ì˜ˆ) http://g4.sir.co.kr
 $g4['url'] = "";
 $g4['https_url'] = "";
 //$g4['https_url'] = "https://www.opencode.co.kr";
-// ÀÔ·Â¿¹
+// ìž…ë ¥ì˜ˆ
 //$g4['url'] = "http://www.sir.co.kr";
 //$g4['https_url'] = "https://www.sir.co.kr";
 
-// ¾ÏÈ£È­¸¦ À§ÇÑ KEY
+// ì•”í˜¸í™”ë¥¼ ìœ„í•œ KEY
 $g4['encrypt_key'] = "opencode";
 
-// ÃßÃµ+ÀÎÁõÀ¸·Î °¡ÀÔÀ» ÇÏ±â À§ÇØ¼­ (0: ±×³É °¡ÀÔ, 1 : ÃßÃµ+ÀÎÁõÀ¸·Î¸¸ °¡ÀÔ)
+// ì¶”ì²œ+ì¸ì¦ìœ¼ë¡œ ê°€ìž…ì„ í•˜ê¸° ìœ„í•´ì„œ (0: ê·¸ëƒ¥ ê°€ìž…, 1 : ì¶”ì²œ+ì¸ì¦ìœ¼ë¡œë§Œ ê°€ìž…)
 $g4['member_suggest_join']  = 0;
 
-// ÃßÃµ+ÀÎÁõÀ¸·Î °¡ÀÔÇÒ ¶§, ÃßÃµ ÄÚµåÀÇ À¯È¿±â°£ (±âº» 7ÀÏ. ½Ã°£ÀÌ ¾Æ´Ï¶ó ³¯Â¥´Ù.)
+// ì¶”ì²œ+ì¸ì¦ìœ¼ë¡œ ê°€ìž…í•  ë•Œ, ì¶”ì²œ ì½”ë“œì˜ ìœ íš¨ê¸°ê°„ (ê¸°ë³¸ 7ì¼. ì‹œê°„ì´ ì•„ë‹ˆë¼ ë‚ ì§œë‹¤.)
 $g4['member_suggest_join_days']  = 90;
 
-// ÀÚµ¿ ·¹º§¾÷À» »ç¿ëÇÒ °ÍÀÎ°¡¸¦ ¼³Á¤
+// ìžë™ ë ˆë²¨ì—…ì„ ì‚¬ìš©í•  ê²ƒì¸ê°€ë¥¼ ì„¤ì •
 $g4['use_auto_levelup'] = 1;
 
-// »ç¿ëÇÒ session ÇüÅÂ¸¦ ÁöÁ¤ ÇÕ´Ï´Ù. 
-// db. redis. file - 3Á¾ ÀÔ´Ï´Ù
-// redis¸¦ »ç¿ëÇÏ±â À§ÇØ¼­´Â PECL:redis¿Í phpredis¸¦ ¼³Ä¡ÇØ¾ßÁö ÇÕ´Ï´Ù. redis ¼­¹öÀÇ ¼³Ä¡°¡ ÇÊ¿äÇÕ´Ï´Ù.
-// 3Á¾ÀÇ ¼¼¼Ç°ü¸®Áß redis¸¦ °­·ÂÇÏ°Ô ÃßÃµ ÇÕ´Ï´Ù.
+// ì‚¬ìš©í•  session í˜•íƒœë¥¼ ì§€ì • í•©ë‹ˆë‹¤. 
+// db. redis. file - 3ì¢… ìž…ë‹ˆë‹¤
+// redisë¥¼ ì‚¬ìš©í•˜ê¸° ìœ„í•´ì„œëŠ” PECL:redisì™€ phpredisë¥¼ ì„¤ì¹˜í•´ì•¼ì§€ í•©ë‹ˆë‹¤. redis ì„œë²„ì˜ ì„¤ì¹˜ê°€ í•„ìš”í•©ë‹ˆë‹¤.
+// 3ì¢…ì˜ ì„¸ì…˜ê´€ë¦¬ì¤‘ redisë¥¼ ê°•ë ¥í•˜ê²Œ ì¶”ì²œ í•©ë‹ˆë‹¤.
 $g4['session_type'] = "db";
 
-// redis »ç¿ëÇÒ¶§ÀÇ ¼³Á¤
+// redis ì‚¬ìš©í• ë•Œì˜ ì„¤ì •
 $g4['rhost']    = "localhost";
 $g4['rport']    = "6379";
-$g4['rauth']    = "";             // redis-server password. default´Â °ªÀÌ ¾ø´Ù. redis.conf¿¡¼­ Á¤ÀÇ
-$g4['rdomain']  = "opencode";     // redis domain. ´Ù¸¥ redis instance¿Í Ãæµ¹ÇÏÁö ¾Ê°Ô uniqueÇÏ°Ô Àâ¾ÆÁÝ´Ï´Ù
-$g4['rdb']      = "0";            // redis DB space (0) - ¼¼¼Ç°ü¸®¿¡ »ç¿ë
-$g4['rdb1']     = "1";            // redis DB space (1) - login °ü¸®¿¡ »ç¿ë. ´Ù¸¥ °Íµé°ú ¾ÈÇò°¥¸®°Ô
+$g4['rauth']    = "";             // redis-server password. defaultëŠ” ê°’ì´ ì—†ë‹¤. redis.confì—ì„œ ì •ì˜
+$g4['rdomain']  = "opencode";     // redis domain. ë‹¤ë¥¸ redis instanceì™€ ì¶©ëŒí•˜ì§€ ì•Šê²Œ uniqueí•˜ê²Œ ìž¡ì•„ì¤ë‹ˆë‹¤
+$g4['rdb']      = "0";            // redis DB space (0) - ì„¸ì…˜ê´€ë¦¬ì— ì‚¬ìš©
+$g4['rdb1']     = "1";            // redis DB space (1) - login ê´€ë¦¬ì— ì‚¬ìš©. ë‹¤ë¥¸ ê²ƒë“¤ê³¼ ì•ˆí—·ê°ˆë¦¬ê²Œ
 
 // push redis
 $g4['push_rhost']    = "192.168.0.3";   // push server ip
 $g4['push_rport']    = "6381";          // push server port
 $g4['push_rdb']      = "0";
 
-// redis ¼¼¼Ç path
+// redis ì„¸ì…˜ path
 $g4['rpath']    = "tcp://$g4[rhost]:$g4[rport]?weight=1&auth=$g4[rauth]&database=$g4[rdb]";    
 
-// redis ±âº»Å° ±¸¼º - ÂüÁ¶ÀÚ·á
+// redis ê¸°ë³¸í‚¤ êµ¬ì„± - ì°¸ì¡°ìžë£Œ
 // g4_login     : $g4[rdomain] . "_login_" . $remote_addr
 
-// cdn °æ·Î¸¦ ¼³Á¤ ÇÕ´Ï´Ù. (¿¹: http://cdnid.imagetong.com)
+// cdn ê²½ë¡œë¥¼ ì„¤ì • í•©ë‹ˆë‹¤. (ì˜ˆ: http://cdnid.imagetong.com)
 $g4['cdn_path']          = "";
 
-// ÆÀÀå´åÄÄ°ú °°ÀÌ create temporary tableÀÌ ¾È¸ÔÈ÷´Â °æ¿ì¿¡´Â ¼³Á¤°ªÀ» 1·Î ÇÏ¼¼¿ä.
+// íŒ€ìž¥ë‹·ì»´ê³¼ ê°™ì´ create temporary tableì´ ì•ˆë¨¹ížˆëŠ” ê²½ìš°ì—ëŠ” ì„¤ì •ê°’ì„ 1ë¡œ í•˜ì„¸ìš”.
 $g4['old_stype_search'] = 0;
 
-// gblog·Î °Ô½Ã±Û º¸³»±â¸¦ À§ÇÑ ¼³Á¤
-$g4['use_gblog']   = 0;   // gblog·Î ±Ûº¸³»±â¸¦ ¿øÄ¡ ¾ÊÀ»¶§´Â, 0À¸·Î ¼³Á¤À» º¯°æÇÏ¸é µË´Ï´Ù.
+// gblogë¡œ ê²Œì‹œê¸€ ë³´ë‚´ê¸°ë¥¼ ìœ„í•œ ì„¤ì •
+$g4['use_gblog']   = 0;   // gblogë¡œ ê¸€ë³´ë‚´ê¸°ë¥¼ ì›ì¹˜ ì•Šì„ë•ŒëŠ”, 0ìœ¼ë¡œ ì„¤ì •ì„ ë³€ê²½í•˜ë©´ ë©ë‹ˆë‹¤.
 
-// Á¦¸ñ¿¡¼­ Æ¯¼ö¹®ÀÚ ¸ðµÎ ¾ø¾Ö±â
-$g4['remove_special_chars'] = 1;    // 1Àº ¾ø¾Ö´Â°Å, 0Àº ¾È ¾ø¾Ö´Â°Å
-$g4['special_chars_change'] = "¡Ù¡Ú¡Þ¡ß¡à¡á¡â¡ã¡ä¡å¡Û¡Ý¡Ø¢·¢¸¢¹¢º¢»¢¼¢¿¢À¢Â¢Ã¢½¢¾";  // ¾ø¾Ö°í ½ÍÀº ¹®ÀÚ´Â ¿ä±â¿¡ Ãß°¡/»èÁ¦
+// ì œëª©ì—ì„œ íŠ¹ìˆ˜ë¬¸ìž ëª¨ë‘ ì—†ì• ê¸°
+$g4['remove_special_chars'] = 1;    // 1ì€ ì—†ì• ëŠ”ê±°, 0ì€ ì•ˆ ì—†ì• ëŠ”ê±°
+$g4['special_chars_change'] = "â˜†â˜…â—‡â—†â–¡â– â–³â–²â–½â–¼â—‹â—Žâ€»â—â—€â–·â–¶â™¤â™ â™§â™£â—ˆâ–£â™¡â™¥";  // ì—†ì• ê³  ì‹¶ì€ ë¬¸ìžëŠ” ìš”ê¸°ì— ì¶”ê°€/ì‚­ì œ
 
-// phpmyadminÀÇ °æ·Î¸¦ ÁöÁ¤
+// phpmyadminì˜ ê²½ë¡œë¥¼ ì§€ì •
 $g4['phpmyadmin_dir'] = $g4['admin_path'] . "/phpMyAdmin/";
 
 // use geo_ip
 $g4['use_geo_ip'] = false;
 
-// iframeÀ» ¾²´Â °æ¿ì, ÇöÀçÀÇ iframeÀÌ ÁöÁ¤µÈ °æ¿ì goto_urlÀ» »óÀ§ frame¿¡¼­ ½ÇÇàÇÏ°Ô ÇÑ´Ù.
-// Æ¯Á¤ ÇÁ·Î±×·¥¿¡¼­¸¸ »óÀ§ ÇÁ·Î±×·¥¿¡¼­ ½ÇÇàµÇ°Ô ÇÏ´Â °Íµµ ÁöÁ¤ °¡´ÉÇÏ´Ù.
+// iframeì„ ì“°ëŠ” ê²½ìš°, í˜„ìž¬ì˜ iframeì´ ì§€ì •ëœ ê²½ìš° goto_urlì„ ìƒìœ„ frameì—ì„œ ì‹¤í–‰í•˜ê²Œ í•œë‹¤.
+// íŠ¹ì • í”„ë¡œê·¸ëž¨ì—ì„œë§Œ ìƒìœ„ í”„ë¡œê·¸ëž¨ì—ì„œ ì‹¤í–‰ë˜ê²Œ í•˜ëŠ” ê²ƒë„ ì§€ì • ê°€ëŠ¥í•˜ë‹¤.
 $g4['goto_url_parent'] = "";
 $g4['goto_url_pgm'] = "";
 
-// ÀÌ¹ÌÁö À§ÀÇ ¸¶¿ì½º ¿ìÅ¬¸¯ ±ÝÁö¸¦ Ç®¾îÁÖ±â
+// ì´ë¯¸ì§€ ìœ„ì˜ ë§ˆìš°ìŠ¤ ìš°í´ë¦­ ê¸ˆì§€ë¥¼ í’€ì–´ì£¼ê¸°
 $is_test = 0;
 
-// cheditor ÀÌ¹ÌÁö ¾÷·Îµå µð·ºÅä¸®
+// cheditor ì´ë¯¸ì§€ ì—…ë¡œë“œ ë””ë ‰í† ë¦¬
 $g4['cheditor_save_dir'] = $g4['data_path'] . "/" . $g4['cheditor4'];
 
-// cheditorÀÇ ÀÌ¹ÌÁö ¾÷·Îµå »çÀÌÁî´Â ¹ÙÀÌÆ®·Î Áà¾ß ÇÕ´Ï´Ù. 
-// ¿¹) 5 * 1000 * 1000; // Å©±â ´ÜÀ§ ¹ÙÀÌÆ®, ±âº»°ª 0 (Á¦ÇÑ ¾øÀ½)
+// cheditorì˜ ì´ë¯¸ì§€ ì—…ë¡œë“œ ì‚¬ì´ì¦ˆëŠ” ë°”ì´íŠ¸ë¡œ ì¤˜ì•¼ í•©ë‹ˆë‹¤. 
+// ì˜ˆ) 5 * 1000 * 1000; // í¬ê¸° ë‹¨ìœ„ ë°”ì´íŠ¸, ê¸°ë³¸ê°’ 0 (ì œí•œ ì—†ìŒ)
 $g4['cheditor_uploadsize'] = 0;
 
-// cheditor ÀÌ¹ÌÁö url - ¸íÈ®ÇÏ°Ô URLÀ» ÁöÁ¤ÇØ ÁÖ´Â °ÍÀÌ ¶§·Î´Â ´õ ÆíÇÏ´Ù
+// cheditor ì´ë¯¸ì§€ url - ëª…í™•í•˜ê²Œ URLì„ ì§€ì •í•´ ì£¼ëŠ” ê²ƒì´ ë•Œë¡œëŠ” ë” íŽ¸í•˜ë‹¤
 $g4['cheditor_image_url'] = $g4['data_path'] . "/" . $g4['cheditor4'];
 
-// ±¤°í¸¦ À§ÇØ¼­ º¯¼ö¸¦ »ý¼ºÇÑ´Ù. ¾Öµå¼¾½º(1), ¾ÖµåÇÃ·¯½º(2), ¸®¾óÅ¬¸¯(1) - 3Á¾ÀÌ¶ó 3°¡Áö·Î ±âº» »ý¼º.
+// ê´‘ê³ ë¥¼ ìœ„í•´ì„œ ë³€ìˆ˜ë¥¼ ìƒì„±í•œë‹¤. ì• ë“œì„¼ìŠ¤(1), ì• ë“œí”ŒëŸ¬ìŠ¤(2), ë¦¬ì–¼í´ë¦­(1) - 3ì¢…ì´ë¼ 3ê°€ì§€ë¡œ ê¸°ë³¸ ìƒì„±.
 $g4['ad_type'] = rand(1, 3);
 
-// º£½ºÆ®±Û ¼³Á¤Àº ¿©±â¿¡¼­
+// ë² ìŠ¤íŠ¸ê¸€ ì„¤ì •ì€ ì—¬ê¸°ì—ì„œ
 $g4['good_list_rows'] = 30;
 $g4['good_list_head'] = "../head.php";
 $g4['good_list_tail'] = "../tail.php";
 $g4['good_list_skin'] = "basic";
 $g4['goodlist_use_list_view'] = false;
 
-// °øÁö±Û ¼³Á¤Àº ¿©±â¿¡¼­
+// ê³µì§€ê¸€ ì„¤ì •ì€ ì—¬ê¸°ì—ì„œ
 $g4['notice_list_rows'] = 30;
 $g4['notice_list_head'] = "../head.php";
 $g4['notice_list_tail'] = "../tail.php";
 $g4['notice_list_skin'] = "basic";
 $g4['notice_use_list_view'] = true;
 
-// »õ±Û ¼³Á¤Àº ¿©±â¿¡¼­
+// ìƒˆê¸€ ì„¤ì •ì€ ì—¬ê¸°ì—ì„œ
 $g4['new_use_list_view'] = true;
 
-// ³»°¡ ÃßÃµÇÑ ±Û/ÃßÃµ ¹ÞÀº ±Û ¼³Á¤
+// ë‚´ê°€ ì¶”ì²œí•œ ê¸€/ì¶”ì²œ ë°›ì€ ê¸€ ì„¤ì •
 $g4['my_good_skin'] = "basic";
 
-// ÈÞÁöÅë ¼³Á¤
+// íœ´ì§€í†µ ì„¤ì •
 $g4['recycle_skin'] = "basic";
 $g4['recycle_page_rows'] = 24;
 
-// ½Å°í ¼³Á¤
+// ì‹ ê³  ì„¤ì •
 $g4['singo_skin'] = "basic";
 $g4['singo_page_rows'] = 24;
 
-// IEÀÇ UA¸¦ Á¤ÀÇ - 5, 7, 8, Edge, EmulateIE7 - http://opencode.co.kr/bbs/board.php?bo_table=qna&wr_id=3611
+// IEì˜ UAë¥¼ ì •ì˜ - 5, 7, 8, Edge, EmulateIE7 - http://opencode.co.kr/bbs/board.php?bo_table=qna&wr_id=3611
 $g4['ie_ua'] = "edge";
 
-// °Ë»ö·¹º§
+// ê²€ìƒ‰ë ˆë²¨
 $g4['search_level'] = 2;
 
-// ÀÌ¸ÞÀÏÀÎÁõ½Ã Áö±ÞÇÒ Æ÷ÀÎÆ®
+// ì´ë©”ì¼ì¸ì¦ì‹œ ì§€ê¸‰í•  í¬ì¸íŠ¸
 $g4['email_certify_point'] = 500;
 
-// Å°¿öµå SEO Ãâ·Â Áö¿ø¿©ºÎ
+// í‚¤ì›Œë“œ SEO ì¶œë ¥ ì§€ì›ì—¬ë¶€
 $g4['keyword_seo'] = 1;
 
-// trueÀÌ¸é, SQL ¿À·ù¸¦ Ãâ·Â, fasle·Î ¹Ù²Ù¸é ¸ðµç SQL ¿À·ù°¡ Ãâ·Â ¾ÈµÊ
+// trueì´ë©´, SQL ì˜¤ë¥˜ë¥¼ ì¶œë ¥, fasleë¡œ ë°”ê¾¸ë©´ ëª¨ë“  SQL ì˜¤ë¥˜ê°€ ì¶œë ¥ ì•ˆë¨
 $g4['debug'] = true;
 
-// º°¸íÀ¸·Î¸¸ °¡ÀÔÀ» Çã¿ëÇÏ±â
+// ë³„ëª…ìœ¼ë¡œë§Œ ê°€ìž…ì„ í—ˆìš©í•˜ê¸°
 $g4['nick_reg_only'] = 1;
 
-// ÀÓ½Ã±Û ÀúÀå½Ã°£ (ºÐ´ÜÀ§ ÀÔ´Ï´Ù. ±âº»Àº 5ºÐ.)
-// ½ÇÁ¦·Î´Â 1ºÐ ÀÌ³»¸¸ ÀÎÁ¤ÇÏ´Â°Ô ¸Â´Âµ¥, À¥ ºê¶ó¿ìÀú°¡ Á×±âµµ ÇÏ´Ï 5ºÐÀ» ÁÝ´Ï´Ù.
+// ìž„ì‹œê¸€ ì €ìž¥ì‹œê°„ (ë¶„ë‹¨ìœ„ ìž…ë‹ˆë‹¤. ê¸°ë³¸ì€ 5ë¶„.)
+// ì‹¤ì œë¡œëŠ” 1ë¶„ ì´ë‚´ë§Œ ì¸ì •í•˜ëŠ”ê²Œ ë§žëŠ”ë°, ì›¹ ë¸Œë¼ìš°ì €ê°€ ì£½ê¸°ë„ í•˜ë‹ˆ 5ë¶„ì„ ì¤ë‹ˆë‹¤.
 $g4['tempsave_time'] = 5;
 
-// HTML Purifier Cache µð·ºÅä¸®
+// HTML Purifier Cache ë””ë ‰í† ë¦¬
 $g4['htmlpurifier_cache'] = $g4[data_path].'/cache';
 
-// ±¸±Û ¸®Ä¸Ã­ : https://www.google.com/recaptcha/admin
+// êµ¬ê¸€ ë¦¬ìº¡ì±  : https://www.google.com/recaptcha/admin
 $g4['recaptcha_sitekey'] = "6Lc7SxMTAAAAABg7FNHjkATlEX1zksIQ5EHK2DC0";
 $g4['recaptcha_secret_key'] = "6Lc7SxMTAAAAAMZyrM2RPsdzC2zfVojAQPHuy_vi";
 
-// froala license key (Àç¹èÆ÷ ¶óÀÌ¼¾½º ÀÔ´Ï´Ù)
+// froala license key (ìž¬ë°°í¬ ë¼ì´ì„¼ìŠ¤ ìž…ë‹ˆë‹¤)
 $g4['froala_key'] = "VZSZGUSXYSMZe1JGZ==";
 
-// °øÁö»çÇ× °¹¼öÁ¦ÇÑ, 0 = Á¦ÇÑ¾ø½¿. 0 ÀÌ»óÀÇ ¼ýÀÚ = ÇØ´ç °¹¼ö·Î Á¦ÇÑ
-$g4['bo_notice_max'] = 0;       // °Ô½ÃÆÇ °øÁö»çÇ×
-$g4['global_notice_max'] = 5;   // ÀüÃ¼ °øÁö»çÇ×
+// ê³µì§€ì‚¬í•­ ê°¯ìˆ˜ì œí•œ, 0 = ì œí•œì—†ìŠ´. 0 ì´ìƒì˜ ìˆ«ìž = í•´ë‹¹ ê°¯ìˆ˜ë¡œ ì œí•œ
+$g4['bo_notice_max'] = 0;       // ê²Œì‹œíŒ ê³µì§€ì‚¬í•­
+$g4['global_notice_max'] = 5;   // ì „ì²´ ê³µì§€ì‚¬í•­
 
-// °³¹ß Àåºñ¿¡¼­ÀÇ È¯°æ ¼³Á¤.  ¿î¿µ ¼­¹ö¿¡´Â ¾Æ·¡ ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾ÊÀ½.
+// ê°œë°œ ìž¥ë¹„ì—ì„œì˜ í™˜ê²½ ì„¤ì •.  ìš´ì˜ ì„œë²„ì—ëŠ” ì•„ëž˜ íŒŒì¼ì´ ì¡´ìž¬í•˜ì§€ ì•ŠìŒ.
 if (file_exists(__DIR__ . '/config.dev.php')) {
     include_once(__DIR__ . '/config.dev.php');
 }

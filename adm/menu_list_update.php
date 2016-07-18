@@ -5,11 +5,11 @@ include_once('./_common.php');
 check_demo();
 
 if ($is_admin != 'super')
-    alert('ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.');
+    alert('ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.');
 
 check_token();
 
-// ÀÌÀü ¸Ş´ºÁ¤º¸ »èÁ¦
+// ì´ì „ ë©”ë‰´ì •ë³´ ì‚­ì œ
 $sql = " delete from {$g4['menu_table']} ";
 sql_query($sql);
 
@@ -54,7 +54,7 @@ for ($i=0; $i<$count; $i++)
         $primary_code = $me_code;
     }
 
-    // ¸Ş´º µî·Ï
+    // ë©”ë‰´ ë“±ë¡
     $sql = " insert into {$g4['menu_table']}
                 set me_code         = '$me_code',
                     me_name         = '$me_name',

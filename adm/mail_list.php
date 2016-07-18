@@ -8,7 +8,7 @@ $token = get_token();
 
 $sql_common = " from $g4[mail_table] ";
 
-// Å×ÀÌºíÀÇ ÀüÃ¼ ·¹ÄÚµå¼ö¸¸ ¾òÀ½
+// í…Œì´ë¸”ì˜ ì „ì²´ ë ˆì½”ë“œìˆ˜ë§Œ ì–»ìŒ
 $sql = " select COUNT(*) as cnt " . $sql_common;
 $row = sql_fetch($sql);
 $total_count = $row[cnt];
@@ -18,28 +18,28 @@ $page = 1;
 $sql = "select * $sql_common order by ma_id desc ";
 $result = sql_query($sql);
 
-$g4[title] = "È¸¿ø¸ŞÀÏ¹ß¼Û";
+$g4[title] = "íšŒì›ë©”ì¼ë°œì†¡";
 include_once("./admin.head.php");
 ?>
 
 <div class="btn-group">
-    °Ç¼ö : <? echo $total_count ?>&nbsp;
+    ê±´ìˆ˜ : <? echo $total_count ?>&nbsp;
 </div>
 
 <table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <tr class='success'>
     <td width=40>ID</td>
-    <td width=''>Á¦¸ñ</td>
-    <td width=120>ÀÛ¼ºÀÏ½Ã</td>
-    <td width=50>Å×½ºÆ®</td>
-    <td width=50>º¸³»±â</td>
-    <td width=80><a href='./mail_form.php'><i class='fa fa-plus-square fa-2x' title='»ı¼º'></i></a></td>
+    <td width=''>ì œëª©</td>
+    <td width=120>ì‘ì„±ì¼ì‹œ</td>
+    <td width=50>í…ŒìŠ¤íŠ¸</td>
+    <td width=50>ë³´ë‚´ê¸°</td>
+    <td width=80><a href='./mail_form.php'><i class='fa fa-plus-square fa-2x' title='ìƒì„±'></i></a></td>
 </tr>
 <?
 for ($i=0; $row=mysql_fetch_array($result); $i++) {
-    $s_mod = "<a href=\"./mail_form.php?w=u&ma_id=$row[ma_id]\"><i class='fa fa-pencil' title='¼öÁ¤'></i></a>";
-    $s_del = "<a href=\"javascript:post_delete('mail_update.php', '$row[ma_id]');\"><i class='fa fa-trash-o' title='»èÁ¦'></i></a>";
-    $s_vie = "<a href=\"./mail_preview.php?ma_id=$row[ma_id]\" target=_blank><i class='fa fa-external-link' title='º¸±â'></i></a>";
+    $s_mod = "<a href=\"./mail_form.php?w=u&ma_id=$row[ma_id]\"><i class='fa fa-pencil' title='ìˆ˜ì •'></i></a>";
+    $s_del = "<a href=\"javascript:post_delete('mail_update.php', '$row[ma_id]');\"><i class='fa fa-trash-o' title='ì‚­ì œ'></i></a>";
+    $s_vie = "<a href=\"./mail_preview.php?ma_id=$row[ma_id]\" target=_blank><i class='fa fa-external-link' title='ë³´ê¸°'></i></a>";
 
     $num = number_format($total_count - ($page - 1) * $config[cf_page_rows] - $i);
 
@@ -49,24 +49,24 @@ for ($i=0; $row=mysql_fetch_array($result); $i++) {
         <td>$num</td>
         <td>$row[ma_subject]</td>
         <td>" . get_datetime($row[ma_time]) . "</td>
-        <td><a href='./mail_test.php?ma_id=$row[ma_id]'>Å×½ºÆ®</a></td>
-        <td><a href='./mail_select_form.php?ma_id=$row[ma_id]'>º¸³»±â</a></td>
+        <td><a href='./mail_test.php?ma_id=$row[ma_id]'>í…ŒìŠ¤íŠ¸</a></td>
+        <td><a href='./mail_select_form.php?ma_id=$row[ma_id]'>ë³´ë‚´ê¸°</a></td>
         <td>$s_mod&nbsp;&nbsp;$s_del&nbsp;&nbsp;$s_vie</td>
     </tr>";
 }
 
 if (!$i)
-    echo "<tr><td colspan='6' height=100 align=center>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='6' height=100 align=center>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 ?>
 </table>
 
 <script type="text/javascript">
-// POST ¹æ½ÄÀ¸·Î »èÁ¦
+// POST ë°©ì‹ìœ¼ë¡œ ì‚­ì œ
 function post_delete(action_url, val)
 {
 	var f = document.fpost;
 
-	if(confirm("ÇÑ¹ø »èÁ¦ÇÑ ÀÚ·á´Â º¹±¸ÇÒ ¹æ¹ıÀÌ ¾ø½À´Ï´Ù.\n\nÁ¤¸» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?")) {
+	if(confirm("í•œë²ˆ ì‚­ì œí•œ ìë£ŒëŠ” ë³µêµ¬í•  ë°©ë²•ì´ ì—†ìŠµë‹ˆë‹¤.\n\nì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
         f.ma_id.value = val;
 		f.action      = action_url;
 		f.submit();

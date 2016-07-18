@@ -1,12 +1,12 @@
 <?
 include_once("./_common.php");
 
-$g4[title] = "E-mail Áßº¹È®ÀÎ";
+$g4[title] = "E-mail ì¤‘ë³µí™•ì¸";
 include_once("$g4[path]/head.sub.php");
 
 $mb_email = trim($mb_email);
 
-if ($member[mb_id]) // ¼öÁ¤Áß Áßº¹È®ÀÎÀÌ¸é
+if ($member[mb_id]) // ìˆ˜ì •ì¤‘ ì¤‘ë³µí™•ì¸ì´ë©´
     $sql = " select mb_email from $g4[member_table] where mb_email = '$mb_email' and mb_id <> '$member[mb_id]' ";
 else
     $sql = " select mb_email from $g4[member_table] where mb_email = '$mb_email' ";
@@ -15,8 +15,8 @@ $row = sql_fetch($sql);
 if ($row[mb_email]) {
     echo <<<HEREDOC
     <script language="JavaScript"> 
-        alert("'{$mb_email}'Àº(´Â) ÀÌ¹Ì ´Ù¸¥ È¸¿øÀÌ »ç¿ëÇÏ´Â E-mailÀÌ¹Ç·Î »ç¿ëÇÏ½Ç ¼ö ¾ø½À´Ï´Ù."); 
-        //opener.fmbform.mb_email_enabled.value = "0"; // »õÃ¢À¸·Î ¿­ °æ¿ì¿¡...
+        alert("'{$mb_email}'ì€(ëŠ”) ì´ë¯¸ ë‹¤ë¥¸ íšŒì›ì´ ì‚¬ìš©í•˜ëŠ” E-mailì´ë¯€ë¡œ ì‚¬ìš©í•˜ì‹¤ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."); 
+        //opener.fmbform.mb_email_enabled.value = "0"; // ìƒˆì°½ìœ¼ë¡œ ì—´ ê²½ìš°ì—...
         parent.document.getElementById("mb_email_enabled").value = -1;
         window.close();
     </script>
@@ -25,7 +25,7 @@ HEREDOC;
     if (!preg_match("/^([0-9a-zA-Z_-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/", $mb_email)) {
         echo <<<HEREDOC
         <script language="JavaScript"> 
-            alert("'{$mb_email}'Àº(´Â) E-mail ÁÖ¼Ò Çü½ÄÀÌ ¾Æ´Ï¹Ç·Î »ç¿ëÇÏ½Ç ¼ö ¾ø½À´Ï´Ù."); 
+            alert("'{$mb_email}'ì€(ëŠ”) E-mail ì£¼ì†Œ í˜•ì‹ì´ ì•„ë‹ˆë¯€ë¡œ ì‚¬ìš©í•˜ì‹¤ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."); 
             parent.document.getElementById("mb_email_enabled").value = "";
             window.close();
         </script>
@@ -33,7 +33,7 @@ HEREDOC;
     } else {
         echo <<<HEREDOC
         <script language="JavaScript"> 
-            alert("'{$mb_email}'Àº(´Â) Áßº¹µÈ E-mailÀÌ ¾ø½À´Ï´Ù.\\n\\n»ç¿ëÇÏ¼Åµµ ÁÁ½À´Ï´Ù."); 
+            alert("'{$mb_email}'ì€(ëŠ”) ì¤‘ë³µëœ E-mailì´ ì—†ìŠµë‹ˆë‹¤.\\n\\nì‚¬ìš©í•˜ì…”ë„ ì¢‹ìŠµë‹ˆë‹¤."); 
             parent.document.getElementById("mb_email_enabled").value = 1;
             window.close();
         </script>

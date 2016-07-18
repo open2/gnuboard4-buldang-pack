@@ -22,9 +22,9 @@ $result = sql_query($sql);
 $total_count = mysql_num_rows($result);
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if ($page == "") { $page = 1; } // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if ($page == "") { $page = 1; } // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
 $sql = " select pp_word, count(*) as cnt 
           $sql_common
@@ -34,9 +34,9 @@ $sql = " select pp_word, count(*) as cnt
           limit $from_record, $rows ";
 $result = sql_query($sql);
 
-$listall = "<a href='$_SERVER[PHP_SELF]'>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]'>ì²˜ìŒ</a>";
 
-$g4[title] = "ÀÎ±â°Ë»ö¾î¼øÀ§";
+$g4[title] = "ì¸ê¸°ê²€ìƒ‰ì–´ìˆœìœ„";
 include_once("./admin.head.php");
 
 $colspan = 3;
@@ -46,11 +46,11 @@ $colspan = 3;
 //==============================================================================
 // jquery date picker
 //------------------------------------------------------------------------------
-// Âü°í) ie ¿¡¼­´Â ³â, ¿ù select box ¸¦ µÎ¹ø¾¿ Å¬¸¯ÇØ¾ß ÇÏ´Â ¿À·ù°¡ ÀÖ½À´Ï´Ù.
+// ì°¸ê³ ) ie ì—ì„œëŠ” ë…„, ì›” select box ë¥¼ ë‘ë²ˆì”© í´ë¦­í•´ì•¼ í•˜ëŠ” ì˜¤ë¥˜ê°€ ìˆìŠµë‹ˆë‹¤.
 //------------------------------------------------------------------------------
-// jquery-ui.css ÀÇ Å×¸¶¸¦ º¯°æÇØ¼­ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.
+// jquery-ui.css ì˜ í…Œë§ˆë¥¼ ë³€ê²½í•´ì„œ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
 // base, black-tie, blitzer, cupertino, dark-hive, dot-luv, eggplant, excite-bike, flick, hot-sneaks, humanity, le-frog, mint-choc, overcast, pepper-grinder, redmond, smoothness, south-street, start, sunny, swanky-purse, trontastic, ui-darkness, ui-lightness, vader
-// ¾Æ·¡ css ´Â date picker ÀÇ È­¸éÀ» ¸ÂÃß´Â ÄÚµåÀÔ´Ï´Ù.
+// ì•„ë˜ css ëŠ” date picker ì˜ í™”ë©´ì„ ë§ì¶”ëŠ” ì½”ë“œì…ë‹ˆë‹¤.
 ?>
 
 <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/themes/base/jquery-ui.css" rel="stylesheet" />
@@ -68,17 +68,17 @@ $colspan = 3;
 /* Written by DaeKwon Kang (ncrash.dk@gmail.com). */
 jQuery(function($){
 	$.datepicker.regional['ko'] = {
-		closeText: '´İ±â',
-		prevText: 'ÀÌÀü´Ş',
-		nextText: '´ÙÀ½´Ş',
-		currentText: '¿À´Ã',
-		monthNames: ['1¿ù(JAN)','2¿ù(FEB)','3¿ù(MAR)','4¿ù(APR)','5¿ù(MAY)','6¿ù(JUN)',
-		'7¿ù(JUL)','8¿ù(AUG)','9¿ù(SEP)','10¿ù(OCT)','11¿ù(NOV)','12¿ù(DEC)'],
-		monthNamesShort: ['1¿ù','2¿ù','3¿ù','4¿ù','5¿ù','6¿ù',
-		'7¿ù','8¿ù','9¿ù','10¿ù','11¿ù','12¿ù'],
-		dayNames: ['ÀÏ','¿ù','È­','¼ö','¸ñ','±İ','Åä'],
-		dayNamesShort: ['ÀÏ','¿ù','È­','¼ö','¸ñ','±İ','Åä'],
-		dayNamesMin: ['ÀÏ','¿ù','È­','¼ö','¸ñ','±İ','Åä'],
+		closeText: 'ë‹«ê¸°',
+		prevText: 'ì´ì „ë‹¬',
+		nextText: 'ë‹¤ìŒë‹¬',
+		currentText: 'ì˜¤ëŠ˜',
+		monthNames: ['1ì›”(JAN)','2ì›”(FEB)','3ì›”(MAR)','4ì›”(APR)','5ì›”(MAY)','6ì›”(JUN)',
+		'7ì›”(JUL)','8ì›”(AUG)','9ì›”(SEP)','10ì›”(OCT)','11ì›”(NOV)','12ì›”(DEC)'],
+		monthNamesShort: ['1ì›”','2ì›”','3ì›”','4ì›”','5ì›”','6ì›”',
+		'7ì›”','8ì›”','9ì›”','10ì›”','11ì›”','12ì›”'],
+		dayNames: ['ì¼','ì›”','í™”','ìˆ˜','ëª©','ê¸ˆ','í† '],
+		dayNamesShort: ['ì¼','ì›”','í™”','ìˆ˜','ëª©','ê¸ˆ','í† '],
+		dayNamesMin: ['ì¼','ì›”','í™”','ìˆ˜','ëª©','ê¸ˆ','í† '],
 		weekHeader: 'Wk',
 		dateFormat: 'yy-mm-dd',
 		firstDay: 0,
@@ -91,7 +91,7 @@ jQuery(function($){
         showOn: 'button',
 		buttonImage: '<?=$g4[path]?>/img/calendar.gif',
 		buttonImageOnly: true,
-        buttonText: "´Ş·Â",
+        buttonText: "ë‹¬ë ¥",
         changeMonth: true,
 		changeYear: true,
         showButtonPanel: true,
@@ -107,9 +107,9 @@ jQuery(function($){
 <table width=100% cellpadding=3 cellspacing=1>
 <form name=fsearch method=get>
 <tr>
-    <td width=50% align=left><?=$listall?> (°Ç¼ö : <?=number_format($total_count)?>°³)</td>
+    <td width=50% align=left><?=$listall?> (ê±´ìˆ˜ : <?=number_format($total_count)?>ê°œ)</td>
     <td width=50% align=right>
-        ±â°£ : 
+        ê¸°ê°„ : 
         <input type='text' id='fr_date' name='fr_date' size=11 maxlength=10 value='<?=$fr_date?>' class=ed>
         -
         <input type='text' id='to_date' name='to_date' size=11 maxlength=10 value='<?=$to_date?>' class=ed>
@@ -131,9 +131,9 @@ jQuery(function($){
 <colgroup width=150>
 <tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
 <tr class='bgcol1 bold col1 ht center'>
-    <td>°Ë»ö¾î</td>
-    <td>°Ë»öÈ¸¼ö</td>
-    <td>¼øÀ§</td>
+    <td>ê²€ìƒ‰ì–´</td>
+    <td>ê²€ìƒ‰íšŒìˆ˜</td>
+    <td>ìˆœìœ„</td>
 </tr>
 <tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <?
@@ -153,7 +153,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 } 
 
 if ($i == 0)
-    echo "<tr><td colspan='$colspan' align=center height=100 bgcolor=#ffffff>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>"; 
+    echo "<tr><td colspan='$colspan' align=center height=100 bgcolor=#ffffff>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>"; 
 
 echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
 echo "</table>";
@@ -163,7 +163,7 @@ echo "<table width=100% cellpadding=3 cellspacing=1>";
 echo "<tr><td width=50%>";
 
 if ($is_admin == "super")
-    echo "<input type=button class='btn1' value='¼±ÅÃ»èÁ¦' onclick=\"btn_check(this.form, 'delete')\">";
+    echo "<input type=button class='btn1' value='ì„ íƒì‚­ì œ' onclick=\"btn_check(this.form, 'delete')\">";
 
 echo "</td>";
 echo "<td width=50% align=right>$pagelist</td></tr></table>\n";

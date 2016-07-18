@@ -1,15 +1,15 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-// °Ô½ÃÆÇ °ü¸®ÀÇ »ó´Ü ÆÄÀÏ °æ·Î
+// ê²Œì‹œíŒ ê´€ë¦¬ì˜ ìƒë‹¨ íŒŒì¼ ê²½ë¡œ
 if ($board[bo_include_head]) 
     @include ($board[bo_include_head]); 
 
-// °Ô½ÃÆÇ °ü¸®ÀÇ »ó´Ü ÀÌ¹ÌÁö °æ·Î
+// ê²Œì‹œíŒ ê´€ë¦¬ì˜ ìƒë‹¨ ì´ë¯¸ì§€ ê²½ë¡œ
 if ($board[bo_image_head]) 
     echo "<img src='$g4[data_path]/file/$bo_table/$board[bo_image_head]' border='0'>";
 
-// °Ô½ÃÆÇ °ü¸®ÀÇ »ó´Ü ³»¿ë
+// ê²Œì‹œíŒ ê´€ë¦¬ì˜ ìƒë‹¨ ë‚´ìš©
 if (strip_tags($board[bo_content_head]) == "" || $board[bo_content_head] == "<p>&nbsp;</p>")
     ;
 else

@@ -10,7 +10,7 @@ check_token();
 
 for ($i=0; $i<count($chk); $i++) 
 {
-    // ½ÇÁ¦ ¹øÈ£¸¦ ³Ñ±è
+    // ì‹¤ì œ ë²ˆí˜¸ë¥¼ ë„˜ê¹€
     $k = $chk[$i];
 
     $bn_id = $_POST[bn_id][$k];
@@ -22,10 +22,10 @@ for ($i=0; $i<count($chk); $i++)
     $bn_start_datetime = $_POST[bn_start_datetime][$k];
     $bn_end_datetime = $_POST[bn_end_datetime][$k];
 
-    // ³¯Â¥°¡ ºñ¾î ÀÖÀ¸¸é ¿À´ÃÀ» ³Ö¾îÁØ´Ù
+    // ë‚ ì§œê°€ ë¹„ì–´ ìžˆìœ¼ë©´ ì˜¤ëŠ˜ì„ ë„£ì–´ì¤€ë‹¤
     if ($bn_start_datetime == "0000-00-00 00:00:00" || $bn_end_datetime == "0000-00-00 00:00:00")
         $bn_start_datetime = $bn_end_datetime = $g4['time_ymdhis'];
-    // ³¯Â¥¸¸ ÀÖÀ¸¸é µÚ¿¡ ½Ã.ºÐ.ÃÊ¸¦ ºÙ¿©ÁØ´Ù
+    // ë‚ ì§œë§Œ ìžˆìœ¼ë©´ ë’¤ì— ì‹œ.ë¶„.ì´ˆë¥¼ ë¶™ì—¬ì¤€ë‹¤
     if (strlen(trim($bn_end_datetime)) == 10)
         $bn_end_datetime .= " 23:59:59";
 
@@ -34,7 +34,7 @@ for ($i=0; $i<count($chk); $i++)
         $bn = sql_fetch(" select * from $g4[banner_table] where bn_id = '$bn_id' ");
         $bg = sql_fetch(" select * from $g4[banner_group_table] where bg_id = '$bn[bg_id]' ");
         if ($member[mb_id] !== $bg[bg_admin])
-            alert("ÃÖ°í°ü¸®ÀÚ ¶Ç´Â ¹è³Ê±×·ì °ü¸®ÀÚ°¡ ¾Æ´Ñ °æ¿ì ¼öÁ¤ÀÌ ºÒ°¡ÇÕ´Ï´Ù.");
+            alert("ìµœê³ ê´€ë¦¬ìž ë˜ëŠ” ë°°ë„ˆê·¸ë£¹ ê´€ë¦¬ìžê°€ ì•„ë‹Œ ê²½ìš° ìˆ˜ì •ì´ ë¶ˆê°€í•©ë‹ˆë‹¤.");
     }
 
     $sql = " update $g4[banner_table]

@@ -1,7 +1,7 @@
 <?
 if (!defined('_GNUBOARD_')) exit;
 
-// ÆË¾÷Ã¢ ÃßÃâ
+// íŒì—…ì°½ ì¶”ì¶œ
 function popup($skin_dir="", $bo_table, $cate="", $gallery_view=0, $options="")
 {
     global $g4, $is_admin;
@@ -13,11 +13,11 @@ function popup($skin_dir="", $bo_table, $cate="", $gallery_view=0, $options="")
 
     $list = array();
 
-    // ÇÊ¿äÇÑ field¸¸ select
+    // í•„ìš”í•œ fieldë§Œ select
     $sql = " select bo_table, bo_notice, bo_subject, bo_subject_len, bo_use_list_content, bo_use_sideview, bo_use_comment, bo_hot, bo_use_search from $g4[board_table] where bo_table = '$bo_table'";
     $board = sql_fetch($sql, FALSE);
 
-    // ca_nameÀÌ ÀÏÄ¡ÇÏ°í, ³¯Â¥°¡ ¹üÀ§³»¿¡ ÀÖ°í, ºñ¹Ð±ÛÀÌ ¾Æ´Ñ °Í¸¸ °ñ¶ó ³À´Ï´Ù. ºñ¹Ð±ÛÀº Ãâ·ÂÀ» ¾ÈÇÕ´Ï´Ù.
+    // ca_nameì´ ì¼ì¹˜í•˜ê³ , ë‚ ì§œê°€ ë²”ìœ„ë‚´ì— ìžˆê³ , ë¹„ë°€ê¸€ì´ ì•„ë‹Œ ê²ƒë§Œ ê³¨ë¼ ëƒ…ë‹ˆë‹¤. ë¹„ë°€ê¸€ì€ ì¶œë ¥ì„ ì•ˆí•©ë‹ˆë‹¤.
     if ($is_admin != "super")
         $secret_sql = " and wr_option not like '%secret%' ";
 
@@ -26,18 +26,18 @@ function popup($skin_dir="", $bo_table, $cate="", $gallery_view=0, $options="")
     else
         $cate_sql = " ";
 
-    $tmp_write_table = $g4['write_prefix'] . $bo_table; // °Ô½ÃÆÇ Å×ÀÌºí ÀüÃ¼ÀÌ¸§
+    $tmp_write_table = $g4['write_prefix'] . $bo_table; // ê²Œì‹œíŒ í…Œì´ë¸” ì „ì²´ì´ë¦„
     $wr_select = "wr_id, wr_subject, wr_content, wr_file_count, wr_link1, wr_link2, wr_datetime, wr_option, wr_1, wr_2, wr_3, wr_4, wr_5, wr_6, wr_7, wr_8, wr_9, wr_10";
     $sql = " select $wr_select from $tmp_write_table where ('$g4[time_ymdhis]' between wr_1 and wr_2) $secret_sql $cate_sql order by wr_num desc ";
     $result = sql_query($sql, FALSE);
 
-    // Á¦¸ñÀÌ Â©¸®´Â °ÍÀº ÀÌ»óÇÏ¹Ç·Î Á¦¸ñÀ» ¹«Á¶°Ç ¸ðµÎ Ãâ·ÂÇÏ°Ô ¼³Á¤ ÇÕ´Ï´Ù. °ªÀÌ ÁöÁ¤µÇÁö ¾ÊÀ¸¸é 40±ÛÀÚ¿¡¼­ Â©¸³´Ï´Ù.
+    // ì œëª©ì´ ì§¤ë¦¬ëŠ” ê²ƒì€ ì´ìƒí•˜ë¯€ë¡œ ì œëª©ì„ ë¬´ì¡°ê±´ ëª¨ë‘ ì¶œë ¥í•˜ê²Œ ì„¤ì • í•©ë‹ˆë‹¤. ê°’ì´ ì§€ì •ë˜ì§€ ì•Šìœ¼ë©´ 40ê¸€ìžì—ì„œ ì§¤ë¦½ë‹ˆë‹¤.
     $subject_len="255";
     
     for ($i=0; $row = sql_fetch_array($result); $i++) {
         $list[$i] = get_list($row, $board, $popup_skin_path, $subject_len, $gallery_view);
      
-        // ÄíÅ°ÀÏ¼ö°¡ ¾øÀ¸¸é ¹«Á¶°Ç 7ÀÏ·Î ¼³Á¤ 
+        // ì¿ í‚¤ì¼ìˆ˜ê°€ ì—†ìœ¼ë©´ ë¬´ì¡°ê±´ 7ì¼ë¡œ ì„¤ì • 
         if (!$list[$i][wr_7])
         {
             sql_query(" update $tmp_write_table set wr_7 = '7' where wr_id = '{$list[$i][wr_id]}' ");

@@ -4,7 +4,7 @@ include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "r");
 
-$g4[title] = "ipÁÖ¼Òº° Á¢¼ÓÀÚÇöÈ²";
+$g4[title] = "ipì£¼ì†Œë³„ ì ‘ì†ìí˜„í™©";
 include_once("./admin.head.php");
 include_once("./visit.sub.php");
 ?>
@@ -16,11 +16,11 @@ include_once("./visit.sub.php");
 <colgroup width=100>
 <colgroup width=''>
 <tr class="success">
-    <td>¼øÀ§</td>
-    <td>ipÁÖ¼Ò</td>
-    <td>¹æ¹®ÀÚ¼ö</td>
-    <td>ºñÀ²(%)</td>
-    <td>±×·¡ÇÁ</td>
+    <td>ìˆœìœ„</td>
+    <td>ipì£¼ì†Œ</td>
+    <td>ë°©ë¬¸ììˆ˜</td>
+    <td>ë¹„ìœ¨(%)</td>
+    <td>ê·¸ë˜í”„</td>
 </tr>
 <?
 $sql_common = " from $g4[visit_table] ";
@@ -36,9 +36,9 @@ $result = sql_query($sql);
 $total_count = mysql_num_rows($result);
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if ($page == "") $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if ($page == "") $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
 $sql = " select *, count(*) as cnt 
            $sql_common
@@ -81,17 +81,17 @@ if ($sum_count > 0) {
 
     echo "
     <tr>
-        <td>ÇÕ°è</td>
+        <td>í•©ê³„</td>
         <td>".number_format($sum_count)."</td>
         <td colspan=2>&nbsp;</td>
     </tr>";
 } else {
-    echo "<tr><td colspan='5' height=100 align=center>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='5' height=100 align=center>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 }
 ?>
 </table>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>

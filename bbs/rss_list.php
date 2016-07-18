@@ -3,7 +3,7 @@ include_once("./_common.php");
 
 include_once("./_head.php");
 
-// RSS View¸¦ Á¦°øÇÏ´Â ¸ñ·ÏÀ» °¡Á® ¿É´Ï´Ù.
+// RSS Viewë¥¼ ì œê³µí•˜ëŠ” ëª©ë¡ì„ ê°€ì ¸ ì˜µë‹ˆë‹¤.
 $sql = " select bo_table, bo_subject from $g4[board_table] where bo_use_rss_view = 1 order by bo_order_search ";
 $result = sql_query($sql);
 while ($row = sql_fetch_array($result)) {
@@ -26,7 +26,7 @@ while ($row = sql_fetch_array($result)) {
 </div>
 
 <?
-// °ü¸®ÀÚÀÇ °æ¿ì RSS °¡´ÉÇÑ °Ô½ÃÆÇ ¸ñ·ÏÀ» º¸¿©Áİ´Ï´Ù.
+// ê´€ë¦¬ìì˜ ê²½ìš° RSS ê°€ëŠ¥í•œ ê²Œì‹œíŒ ëª©ë¡ì„ ë³´ì—¬ì¤ë‹ˆë‹¤.
 if ($is_admin == "super") { 
     $sql = "select A.bo_table, A.bo_subject, A.bo_use_rss_view, B.gr_id, B.gr_subject
               from $g4[board_table] A left join $g4[group_table] B on A.gr_id=B.gr_id 

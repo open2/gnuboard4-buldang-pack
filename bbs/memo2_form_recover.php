@@ -2,32 +2,32 @@
 include_once("./_common.php");
 include_once("$g4[path]/memo.config.php");
 
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
 if (!$member[mb_id])
-    alert("È¸¿ø¸¸ ÀÌ¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+    alert("íšŒì›ë§Œ ì´ìš©í•˜ì‹¤ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.");
 
-// $me_from_kind°¡ ¾ø´Â °æ¿ì°¡ ÀÖ´Ù...
+// $me_from_kindê°€ ì—†ëŠ” ê²½ìš°ê°€ ìžˆë‹¤...
 if ($me_from_kind == "")
-    alert("ÇØ´ç ÂÊÁö´Â »èÁ¦Ãë¼Ò¸¦ ÇÒ ¼ö ¾ø½À´Ï´Ù", "./memo.php?kind=trash");
+    alert("í•´ë‹¹ ìª½ì§€ëŠ” ì‚­ì œì·¨ì†Œë¥¼ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤", "./memo.php?kind=trash");
 
-// ÇØ´ç °Ô½Ã±ÛÀÌ Á¸ÀçÇÏ´ÂÁö ¿©ºÎ¸¦ È®ÀÎ
+// í•´ë‹¹ ê²Œì‹œê¸€ì´ ì¡´ìž¬í•˜ëŠ”ì§€ ì—¬ë¶€ë¥¼ í™•ì¸
 $sql = " select * from $g4[memo_trash_table] where me_id = '$me_id' and me_from_kind = '$me_from_kind' ";
 $result = sql_fetch($sql);
 
 if ($result['me_id']) {
-    // ¿ø·¡ÀÇ ÂÊÁöÇÔÀ¸·Î º¹±¸
+    // ì›ëž˜ì˜ ìª½ì§€í•¨ìœ¼ë¡œ ë³µêµ¬
     $sql_select = " me_id, me_recv_mb_id, me_send_mb_id,me_send_datetime,me_read_datetime, me_memo, me_file_local, me_file_server, me_subject, memo_type, memo_owner, me_option ";
     $sql_table = "memo_{$me_from_kind}_table";
     $sql = " insert into $g4[$sql_table] select $sql_select from $g4[memo_trash_table] where me_id = '$me_id' and me_from_kind = '$me_from_kind' ";
     sql_query($sql);
 
-    // º¹±¸°¡ ³¡³µÀ¸¸é »èÁ¦¸¦...
+    // ë³µêµ¬ê°€ ëë‚¬ìœ¼ë©´ ì‚­ì œë¥¼...
     $sql = " delete from $g4[memo_trash_table] where me_id = '$me_id' and me_from_kind = '$me_from_kind'  ";
     sql_query($sql);
     
     if ($me_from_kind == "recv" && $result[me_read_datetime] == '0000-00-00 00:00:00') {
-        // ¾ÈÀÐÀº ÂÊÁö °¹¼ö¸¦ ¾÷µ¥ÀÌÆ®
+        // ì•ˆì½ì€ ìª½ì§€ ê°¯ìˆ˜ë¥¼ ì—…ë°ì´íŠ¸
         $sql1 = " select count(*) as cnt from $g4[memo_recv_table] 
                    where me_recv_mb_id = '$member[mb_id]' and me_read_datetime = '0000-00-00 00:00:00' ";
         $row1 = sql_fetch($sql1);
@@ -35,8 +35,8 @@ if ($result['me_id']) {
     }
 
 } else {
-    alert("ÂÊÁö¸¦ »èÁ¦Ãë¼Ò¸¦ ÇÒ ¼ö ¾ø½À´Ï´Ù.", "./memo.php?kind=trash");
+    alert("ìª½ì§€ë¥¼ ì‚­ì œì·¨ì†Œë¥¼ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", "./memo.php?kind=trash");
 }
 
-alert("ÂÊÁö¸¦ »èÁ¦Ãë¼Ò ÇÏ¿´½À´Ï´Ù.", "./memo.php?kind=trash");
+alert("ìª½ì§€ë¥¼ ì‚­ì œì·¨ì†Œ í•˜ì˜€ìŠµë‹ˆë‹¤.", "./memo.php?kind=trash");
 ?>

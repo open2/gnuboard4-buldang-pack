@@ -1,44 +1,44 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 
 <form name="fregister" method="POST" onsubmit="return fregister_submit(this);" autocomplete="off" role="form" class="form-horizontal">
 <div class="panel panel-default">
-    <div class="panel-heading"><strong>È¸¿ø¾à°ü ¹× °³ÀÎÁ¤º¸Ãë±Þ¹æÄ§ÀÇ ³»¿ë¿¡ µ¿ÀÇÇÏ¼Å¾ß È¸¿ø°¡ÀÔ ÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.</strong>
+    <div class="panel-heading"><strong>íšŒì›ì•½ê´€ ë° ê°œì¸ì •ë³´ì·¨ê¸‰ë°©ì¹¨ì˜ ë‚´ìš©ì— ë™ì˜í•˜ì…”ì•¼ íšŒì›ê°€ìž… í•˜ì‹¤ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.</strong>
     </div>
 
     <div class="panel-body">
 
-        <? if ($g4['member_suggest_join']) { // ÃßÃµ+°¡ÀÔÀÎÁõÀ¸·Î¸¸ °¡ÀÔ°¡´ÉÇÏ°Ô ?>
-        <p><?=$config['cf_title']?>´Â ±âÁ¸ È¸¿øÀÇ ÃßÃµÀ» ÅëÇØ¼­¸¸ È¸¿ø °¡ÀÔÀÌ °¡´É</b>ÇÏ¸ç,<br>
-        ÃßÃµÀÎ ¾ÆÀÌµð¿Í ÀÎÁõ¹øÈ£´Â È¸¿øÀ¸·Î °¡ÀÔÇÑ ÀÌÈÄ¿¡´Â »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù (1¹øÀÇ ÃßÃµ=1¹ø °¡ÀÔ).<br>
-        È¸¿ø °¡ÀÔ¹®ÀÇ´Â <?=$config['cf_title']?> È¸¿øºÐµé²² ÇÏ½Ã±â¸¦ ¹Ù¶ø´Ï´Ù.
+        <? if ($g4['member_suggest_join']) { // ì¶”ì²œ+ê°€ìž…ì¸ì¦ìœ¼ë¡œë§Œ ê°€ìž…ê°€ëŠ¥í•˜ê²Œ ?>
+        <p><?=$config['cf_title']?>ëŠ” ê¸°ì¡´ íšŒì›ì˜ ì¶”ì²œì„ í†µí•´ì„œë§Œ íšŒì› ê°€ìž…ì´ ê°€ëŠ¥</b>í•˜ë©°,<br>
+        ì¶”ì²œì¸ ì•„ì´ë””ì™€ ì¸ì¦ë²ˆí˜¸ëŠ” íšŒì›ìœ¼ë¡œ ê°€ìž…í•œ ì´í›„ì—ëŠ” ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤ (1ë²ˆì˜ ì¶”ì²œ=1ë²ˆ ê°€ìž…).<br>
+        íšŒì› ê°€ìž…ë¬¸ì˜ëŠ” <?=$config['cf_title']?> íšŒì›ë¶„ë“¤ê»˜ í•˜ì‹œê¸°ë¥¼ ë°”ëžë‹ˆë‹¤.
         </p>
 
-        <label for="mb_recommend" class="control-label">ÃßÃµÀÎ¾ÆÀÌµð</label>
-        <input name=mb_recommend itemname="ÃßÃµÀÎ¾ÆÀÌµð" required placeholder="ÃßÃµÀÎ¾ÆÀÌµð" class="form-control">
+        <label for="mb_recommend" class="control-label">ì¶”ì²œì¸ì•„ì´ë””</label>
+        <input name=mb_recommend itemname="ì¶”ì²œì¸ì•„ì´ë””" required placeholder="ì¶”ì²œì¸ì•„ì´ë””" class="form-control">
 
-        <label for="join_code" class="control-label">°¡ÀÔÀÎÁõ¹øÈ£</label>
-        <input name=join_code itemname="°¡ÀÔÀÎÁõ¹øÈ£" required maxlength=6 placeholder="°¡ÀÔÀÎÁõ¹øÈ£" class="form-control">
+        <label for="join_code" class="control-label">ê°€ìž…ì¸ì¦ë²ˆí˜¸</label>
+        <input name=join_code itemname="ê°€ìž…ì¸ì¦ë²ˆí˜¸" required maxlength=6 placeholder="ê°€ìž…ì¸ì¦ë²ˆí˜¸" class="form-control">
 
         <br>
         <? } ?>
 
-        <label>È¸¿ø¾à°ü</label>
+        <label>íšŒì›ì•½ê´€</label>
         <textarea style="width:100%" class="form-control" rows=5 readonly><?=get_text($config[cf_stipulation])?></textarea>
         <div class="checkbox">
             <label>
             <input type="checkbox" value=1 name=agree id=agree>
-            µ¿ÀÇÇÕ´Ï´Ù.
+            ë™ì˜í•©ë‹ˆë‹¤.
             </label>
         </div>
         <br>
 
-        <label>°³ÀÎÁ¤º¸ Ãë±Þ¹æÄ§</label>
+        <label>ê°œì¸ì •ë³´ ì·¨ê¸‰ë°©ì¹¨</label>
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#cf_privacy_2" data-toggle="tab">¼öÁý ¹× ÀÌ¿ë¸ñÀû</a></li>
-            <li><a href="#cf_privacy_3" data-toggle="tab">º¸À¯</a></li>
-            <li><a href="#cf_privacy_1" data-toggle="tab">¼öÁýÇÏ´Â Ç×¸ñ</a></li>
+            <li class="active"><a href="#cf_privacy_2" data-toggle="tab">ìˆ˜ì§‘ ë° ì´ìš©ëª©ì </a></li>
+            <li><a href="#cf_privacy_3" data-toggle="tab">ë³´ìœ </a></li>
+            <li><a href="#cf_privacy_1" data-toggle="tab">ìˆ˜ì§‘í•˜ëŠ” í•­ëª©</a></li>
         </ul>
 
         <div class="tab-content">
@@ -50,7 +50,7 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
         <div class="checkbox">
             <label>
             <input type="checkbox" value=1 name=agree2 id=agree2>
-            µ¿ÀÇÇÕ´Ï´Ù.
+            ë™ì˜í•©ë‹ˆë‹¤.
             </label>
         </div>
         <br>
@@ -66,16 +66,16 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
         <div class="checkbox">
             <label>
             <input type="checkbox" value=1 name=agree4 id=agree4>
-            µ¿ÀÇÇÕ´Ï´Ù.
+            ë™ì˜í•©ë‹ˆë‹¤.
             </label>
         </div>
         <? } ?>
     </div>
 
     <div class="panel-footer">
-    <button class="btn btn-success">µ¿ÀÇÇÕ´Ï´Ù</button>
+    <button class="btn btn-success">ë™ì˜í•©ë‹ˆë‹¤</button>
     &nbsp;&nbsp;&nbsp;
-    <a href="javascript:" class="btn btn-default" onClick="history.go(-1);">µ¿ÀÇÇÏÁö ¾Ê½À´Ï´Ù</a>
+    <a href="javascript:" class="btn btn-default" onClick="history.go(-1);">ë™ì˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤</a>
     </div>
 </div>
 </form>
@@ -86,14 +86,14 @@ function fregister_submit(f)
 {
     var agree1 = document.getElementsByName("agree");
     if (!agree1[0].checked) {
-        alert("È¸¿ø°¡ÀÔ¾à°üÀÇ ³»¿ë¿¡ µ¿ÀÇÇÏ¼Å¾ß È¸¿ø°¡ÀÔ ÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+        alert("íšŒì›ê°€ìž…ì•½ê´€ì˜ ë‚´ìš©ì— ë™ì˜í•˜ì…”ì•¼ íšŒì›ê°€ìž… í•˜ì‹¤ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.");
         agree1[0].focus();
         return false;
     }
 
     var agree2 = document.getElementsByName("agree2");
     if (!agree2[0].checked) {
-        alert("°³ÀÎÁ¤º¸Ãë±Þ¹æÄ§ÀÇ ³»¿ë¿¡ µ¿ÀÇÇÏ¼Å¾ß È¸¿ø°¡ÀÔ ÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+        alert("ê°œì¸ì •ë³´ì·¨ê¸‰ë°©ì¹¨ì˜ ë‚´ìš©ì— ë™ì˜í•˜ì…”ì•¼ íšŒì›ê°€ìž… í•˜ì‹¤ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.");
         agree2[0].focus();
         return false;
     }

@@ -6,7 +6,7 @@ auth_check($auth[$sub_menu], "w");
 
 $token = get_token();
 
-$g4[title] = "°Ô½ÃÆÇ º¹»ç";
+$g4[title] = "ê²Œì‹œíŒ ë³µì‚¬";
 include_once("$g4[path]/head.sub.php");
 ?>
 
@@ -20,29 +20,29 @@ include_once("$g4[path]/head.sub.php");
     <td colspan=2 class="success"><?=$g4[title]?></td>
 </tr>
 <tr>
-	<td>¿øº» Å×ÀÌºí</td>
+	<td>ì›ë³¸ í…Œì´ë¸”</td>
 	<td><?=$bo_table?></td>
 </tr>
 <tr>
-	<td>º¹»çÇÒ TABLE</td>
-	<td><input type=text class="form-control" name="target_table" size="20" maxlength="20" required alphanumericunderline itemname="TABLE"> ¿µ¹®ÀÚ, ¼ýÀÚ, _ ¸¸ °¡´É (°ø¹é¾øÀÌ)</td>
+	<td>ë³µì‚¬í•  TABLE</td>
+	<td><input type=text class="form-control" name="target_table" size="20" maxlength="20" required alphanumericunderline itemname="TABLE"> ì˜ë¬¸ìž, ìˆ«ìž, _ ë§Œ ê°€ëŠ¥ (ê³µë°±ì—†ì´)</td>
 </tr>
 <tr>
-	<td>°Ô½ÃÆÇ Á¦¸ñ</td>
-	<td><input type=text class="form-control" name='target_subject' size=60 maxlength=120 required itemname='°Ô½ÃÆÇ Á¦¸ñ' value='[º¹»çº»] <?=$board[bo_subject]?>'></td>
+	<td>ê²Œì‹œíŒ ì œëª©</td>
+	<td><input type=text class="form-control" name='target_subject' size=60 maxlength=120 required itemname='ê²Œì‹œíŒ ì œëª©' value='[ë³µì‚¬ë³¸] <?=$board[bo_subject]?>'></td>
 </tr>
 <tr>
-	<td>º¹»ç À¯Çü</td>
+	<td>ë³µì‚¬ ìœ í˜•</td>
 	<td>
-        <input type="radio" name="copy_case" value="schema_only" checked>±¸Á¶¸¸
-        <input type="radio" name="copy_case" value="schema_data_both">±¸Á¶¿Í µ¥ÀÌÅÍ
+        <input type="radio" name="copy_case" value="schema_only" checked>êµ¬ì¡°ë§Œ
+        <input type="radio" name="copy_case" value="schema_data_both">êµ¬ì¡°ì™€ ë°ì´í„°
     </td>
 </tr>
 </table>
 
 <div style="text-align:center">
-    <input type="submit" value="  º¹  »ç  " class="btn btn-default">&nbsp;
-    <input type="button" value="Ã¢´Ý±â" onclick="window.close();" class="btn btn-default">
+    <input type="submit" value="  ë³µ  ì‚¬  " class="btn btn-default">&nbsp;
+    <input type="button" value="ì°½ë‹«ê¸°" onclick="window.close();" class="btn btn-default">
 </div>
 
 </form>

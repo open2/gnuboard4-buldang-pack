@@ -10,11 +10,11 @@ $token = get_token();
 $sql = " select count(*) as cnt from $g4[group_table] ";
 $row = sql_fetch($sql);
 if (!$row[cnt])
-    alert("°Ô½ÃÆÇ±×·ìÀÌ ÇÑ°³ ÀÌ»ó »ý¼ºµÇ¾î¾ß ÇÕ´Ï´Ù.", "./boardgroup_form.php");
+    alert("ê²Œì‹œíŒê·¸ë£¹ì´ í•œê°œ ì´ìƒ ìƒì„±ë˜ì–´ì•¼ í•©ë‹ˆë‹¤.", "./boardgroup_form.php");
 
-$html_title = "°Ô½ÃÆÇ";
+$html_title = "ê²Œì‹œíŒ";
 if ($w == "") {
-    $html_title .= " »ý¼º";
+    $html_title .= " ìƒì„±";
 
     $bo_table_attr = "required alphanumericunderline";
 
@@ -41,7 +41,7 @@ if ($w == "") {
     $board[bo_disable_tags] = "script|iframe";
     $board[bo_use_secret] = 0;
     
-    // ºÒ´çÆÑ
+    // ë¶ˆë‹¹íŒ©
     $board[bo_use_dhtml_editor] = '1';
     $board[bo_use_dhtml_comment] = '0';
 
@@ -72,14 +72,14 @@ if ($w == "") {
     $board[bo_nogood_click_point] = 0;
 
 } else if ($w == "u") {
-    $html_title .= " ¼öÁ¤";
+    $html_title .= " ìˆ˜ì •";
 
     if (!$board[bo_table])
-        alert("Á¸ÀçÇÏÁö ¾ÊÀº °Ô½ÃÆÇ ÀÔ´Ï´Ù.");
+        alert("ì¡´ìž¬í•˜ì§€ ì•Šì€ ê²Œì‹œíŒ ìž…ë‹ˆë‹¤.");
 
     if ($is_admin == "group") {
         if ($member[mb_id] != $group[gr_admin]) 
-            alert("±×·ìÀÌ Æ²¸³´Ï´Ù.");
+            alert("ê·¸ë£¹ì´ í‹€ë¦½ë‹ˆë‹¤.");
     }
 
     $bo_table_attr = "readonly style='background-color:#dddddd'";
@@ -124,7 +124,7 @@ include_once ("./admin.head.php");
     <td><input type=text class=ed name=bo_table size=30 maxlength=20 <?=$bo_table_attr?> itemname='TABLE' value='<?=$board[bo_table] ?>'>
         <? 
         if ($w == "") 
-            echo "¿µ¹®ÀÚ, ¼ýÀÚ, _ ¸¸ °¡´É (°ø¹é¾øÀÌ 20ÀÚ ÀÌ³»)";
+            echo "ì˜ë¬¸ìž, ìˆ«ìž, _ ë§Œ ê°€ëŠ¥ (ê³µë°±ì—†ì´ 20ìž ì´ë‚´)";
         else 
             echo "<a href='$g4[bbs_path]/board.php?bo_table=$board[bo_table]' target=_new><i class='fa fa-external-link'></i></a>";
         ?>
@@ -132,37 +132,37 @@ include_once ("./admin.head.php");
 </tr>
 <tr>
     <td></td>
-    <td>±×·ì</td>
+    <td>ê·¸ë£¹</td>
     <td>
-        <?=get_group_select('gr_id', $board[gr_id], "required itemname='±×·ì'");?>
-        <? if ($w=='u') { ?><a href="javascript:location.href='./board_list.php?sfl=a.gr_id&stx='+document.fboardform.gr_id.value;">µ¿ÀÏ±×·ì°Ô½ÃÆÇ¸ñ·Ï</a><?}?></td>
+        <?=get_group_select('gr_id', $board[gr_id], "required itemname='ê·¸ë£¹'");?>
+        <? if ($w=='u') { ?><a href="javascript:location.href='./board_list.php?sfl=a.gr_id&stx='+document.fboardform.gr_id.value;">ë™ì¼ê·¸ë£¹ê²Œì‹œíŒëª©ë¡</a><?}?></td>
 </tr>
 <tr>
     <td></td>
-    <td>°Ô½ÃÆÇ Á¦¸ñ</td>
+    <td>ê²Œì‹œíŒ ì œëª©</td>
     <td>
-        <input type=text class=ed name=bo_subject size=60 maxlength=120 required itemname='°Ô½ÃÆÇ Á¦¸ñ' value='<?=get_text($board[bo_subject])?>'>
+        <input type=text class=ed name=bo_subject size=60 maxlength=120 required itemname='ê²Œì‹œíŒ ì œëª©' value='<?=get_text($board[bo_subject])?>'>
     </td>
 </tr>
 <tr>
     <td></td>
-    <td>»ó´Ü ÀÌ¹ÌÁö</td>
+    <td>ìƒë‹¨ ì´ë¯¸ì§€</td>
     <td>
         <input type=file name=bo_image_head class=ed size=60>
         <?
         if ($board[bo_image_head])
-            echo "<br><a href='$g4[data_path]/file/{$board['bo_table']}/$board[bo_image_head]' target='_blank'>$board[bo_image_head]</a> <input type=checkbox name='bo_image_head_del' value='$board[bo_image_head]'> »èÁ¦";
+            echo "<br><a href='$g4[data_path]/file/{$board['bo_table']}/$board[bo_image_head]' target='_blank'>$board[bo_image_head]</a> <input type=checkbox name='bo_image_head_del' value='$board[bo_image_head]'> ì‚­ì œ";
         ?>
     </td>
 </tr>
 <tr>
     <td></td>
-    <td>ÇÏ´Ü ÀÌ¹ÌÁö</td>
+    <td>í•˜ë‹¨ ì´ë¯¸ì§€</td>
     <td>
         <input type=file name=bo_image_tail class=ed size=60>
         <? 
         if ($board[bo_image_tail]) 
-            echo "<br><a href='$g4[data_path]/file/{$board['bo_table']}/$board[bo_image_tail]' target='_blank'>$board[bo_image_tail]</a> <input type=checkbox name='bo_image_tail_del' value='$board[bo_image_tail]'> »èÁ¦";
+            echo "<br><a href='$g4[data_path]/file/{$board['bo_table']}/$board[bo_image_tail]' target='_blank'>$board[bo_image_tail]</a> <input type=checkbox name='bo_image_tail_del' value='$board[bo_image_tail]'> ì‚­ì œ";
         ?>
     </td>
 </tr>
@@ -170,11 +170,11 @@ include_once ("./admin.head.php");
 <? if ($w == "u") { ?>
 <tr>
     <td></td>
-    <td>Ä«¿îÆ® Á¶Á¤</td>
+    <td>ì¹´ìš´íŠ¸ ì¡°ì •</td>
     <td>
-        <input type=checkbox name=proc_count value=1> Ä«¿îÆ®¸¦ Á¶Á¤ÇÕ´Ï´Ù.
-        (ÇöÀç ¿ø±Û¼ö : <?=number_format($board[bo_count_write])?> , ÇöÀç ÄÚ¸àÆ®¼ö : <?=number_format($board[bo_count_comment])?>)
-        <?=help("°Ô½ÃÆÇ ¸ñ·Ï¿¡¼­ ±ÛÀÇ ¹øÈ£°¡ ¸ÂÁö ¾ÊÀ» °æ¿ì¿¡ Ã¼Å©ÇÏ½Ê½Ã¿À.")?>
+        <input type=checkbox name=proc_count value=1> ì¹´ìš´íŠ¸ë¥¼ ì¡°ì •í•©ë‹ˆë‹¤.
+        (í˜„ìž¬ ì›ê¸€ìˆ˜ : <?=number_format($board[bo_count_write])?> , í˜„ìž¬ ì½”ë©˜íŠ¸ìˆ˜ : <?=number_format($board[bo_count_comment])?>)
+        <?=help("ê²Œì‹œíŒ ëª©ë¡ì—ì„œ ê¸€ì˜ ë²ˆí˜¸ê°€ ë§žì§€ ì•Šì„ ê²½ìš°ì— ì²´í¬í•˜ì‹­ì‹œì˜¤.")?>
     </td>
 </tr>
 <? } ?>
@@ -182,148 +182,148 @@ include_once ("./admin.head.php");
 <tr>
     <td>
         <input type=checkbox name=chk_admin value=1>
-        <?=help("°°Àº ±×·ì¿¡ ¼ÓÇÑ °Ô½ÃÆÇÀÇ ¼³Á¤À» µ¿ÀÏÇÏ°Ô º¯°æÇÒ °æ¿ì¿¡ Ã¼Å©ÇÕ´Ï´Ù.");?>
+        <?=help("ê°™ì€ ê·¸ë£¹ì— ì†í•œ ê²Œì‹œíŒì˜ ì„¤ì •ì„ ë™ì¼í•˜ê²Œ ë³€ê²½í•  ê²½ìš°ì— ì²´í¬í•©ë‹ˆë‹¤.");?>
     </td>
-    <td>°Ô½ÃÆÇ °ü¸®ÀÚ</td>
+    <td>ê²Œì‹œíŒ ê´€ë¦¬ìž</td>
     <td><input type=text class=ed name=bo_admin maxlength=20 value='<?=$board[bo_admin]?>'></td>
 </tr>
 
 <tr class="success">
     <td><input type=checkbox name=chk_list_level value=1></td>
-    <td>¸ñ·Ïº¸±â ±ÇÇÑ</td>
+    <td>ëª©ë¡ë³´ê¸° ê¶Œí•œ</td>
     <td>
         <?=get_member_level_select('bo_list_level', 1, 10, $board[bo_list_level]) ?>
-        <?=help("±ÇÇÑ 1Àº ºñÈ¸¿ø, 2 ÀÌ»ó È¸¿øÀÔ´Ï´Ù.\n±ÇÇÑÀº 10 ÀÌ °¡Àå ³ô½À´Ï´Ù.", 50)?>
+        <?=help("ê¶Œí•œ 1ì€ ë¹„íšŒì›, 2 ì´ìƒ íšŒì›ìž…ë‹ˆë‹¤.\nê¶Œí•œì€ 10 ì´ ê°€ìž¥ ë†’ìŠµë‹ˆë‹¤.", 50)?>
     </td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_read_level value=1></td>
-    <td>±ÛÀÐ±â ±ÇÇÑ</td>
+    <td>ê¸€ì½ê¸° ê¶Œí•œ</td>
     <td><?=get_member_level_select('bo_read_level', 1, 10, $board[bo_read_level]) ?></td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_search_level value=1></td>
-    <td>±Û°Ë»ö ±ÇÇÑ</td>
+    <td>ê¸€ê²€ìƒ‰ ê¶Œí•œ</td>
     <td><?=get_member_level_select('bo_search_level', 1, 10, $board[bo_search_level]) ?></td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_write_level value=1></td>
-    <td>±Û¾²±â ±ÇÇÑ</td>
+    <td>ê¸€ì“°ê¸° ê¶Œí•œ</td>
     <td><?=get_member_level_select('bo_write_level', 1, 10, $board[bo_write_level]) ?></td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_reply_level value=1></td>
-    <td>±Û´äº¯ ±ÇÇÑ</td>
+    <td>ê¸€ë‹µë³€ ê¶Œí•œ</td>
     <td><?=get_member_level_select('bo_reply_level', 1, 10, $board[bo_reply_level]) ?></td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_comment_level value=1></td>
-    <td>ÄÚ¸àÆ®¾²±â ±ÇÇÑ</td>
+    <td>ì½”ë©˜íŠ¸ì“°ê¸° ê¶Œí•œ</td>
     <td><?=get_member_level_select('bo_comment_level', 1, 10, $board[bo_comment_level]) ?></td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_comment_read_level value=1></td>
-    <td>ÄÚ¸àÆ®ÀÐ±â ±ÇÇÑ</td>
-    <td><?=get_member_level_select('bo_comment_read_level', 0, 10, $board[bo_comment_read_level]) ?> (°ªÀ» 0À¸·Î ¼³Á¤ÇÏ¸é ±ÛÀÐ±â ±ÇÇÑ°ú µ¿ÀÏÇÑ ±ÇÇÑÀ¸·Î Àû¿ëµË´Ï´Ù)</td>
+    <td>ì½”ë©˜íŠ¸ì½ê¸° ê¶Œí•œ</td>
+    <td><?=get_member_level_select('bo_comment_read_level', 0, 10, $board[bo_comment_read_level]) ?> (ê°’ì„ 0ìœ¼ë¡œ ì„¤ì •í•˜ë©´ ê¸€ì½ê¸° ê¶Œí•œê³¼ ë™ì¼í•œ ê¶Œí•œìœ¼ë¡œ ì ìš©ë©ë‹ˆë‹¤)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_link_level value=1></td>
-    <td>¸µÅ© ±ÇÇÑ</td>
+    <td>ë§í¬ ê¶Œí•œ</td>
     <td><?=get_member_level_select('bo_link_level', 1, 10, $board[bo_link_level]) ?></td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_upload_level value=1></td>
-    <td>¾÷·Îµå ±ÇÇÑ</td>
+    <td>ì—…ë¡œë“œ ê¶Œí•œ</td>
     <td><?=get_member_level_select('bo_upload_level', 1, 10, $board[bo_upload_level]) ?></td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_download_level value=1></td>
-    <td>´Ù¿î·Îµå ±ÇÇÑ</td>
+    <td>ë‹¤ìš´ë¡œë“œ ê¶Œí•œ</td>
     <td><?=get_member_level_select('bo_download_level', 1, 10, $board[bo_download_level]) ?></td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_html_level value=1></td>
-    <td>HTML ¾²±â ±ÇÇÑ</td>
+    <td>HTML ì“°ê¸° ê¶Œí•œ</td>
     <td><?=get_member_level_select('bo_html_level', 2, 10, $board[bo_html_level]) ?></td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_html_level_comment value=1></td>
-    <td>ÄÚ¸àÆ® HTML ¾²±â ±ÇÇÑ</td>
+    <td>ì½”ë©˜íŠ¸ HTML ì“°ê¸° ê¶Œí•œ</td>
     <td><?=get_member_level_select('bo_html_level_comment', 2, 11, $board[bo_html_level_comment]) ?></td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_dhtml_editor_level value=1></td>
-    <td>HTML ¿¡µðÅÍ ¾²±â ±ÇÇÑ</td>
+    <td>HTML ì—ë””í„° ì“°ê¸° ê¶Œí•œ</td>
     <td><?=get_member_level_select('bo_dhtml_editor_level', 2, 10, $board[bo_dhtml_editor_level]) ?></td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_dhtml_editor_level_comment value=1></td>
-    <td>ÄÚ¸àÆ® HTML ¿¡µðÅÍ ¾²±â ±ÇÇÑ</td>
+    <td>ì½”ë©˜íŠ¸ HTML ì—ë””í„° ì“°ê¸° ê¶Œí•œ</td>
     <td><?=get_member_level_select('bo_dhtml_editor_level_comment', 2, 11, $board[bo_dhtml_editor_level_comment]) ?></td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_count_modify value=1></td>
-    <td>¿ø±Û ¼öÁ¤ ºÒ°¡</td>
-    <td>ÄÚ¸àÆ® <input type=text class=ed name=bo_count_modify size=3 required numeric itemname='¿ø±Û ¼öÁ¤ ºÒ°¡ ÄÚ¸àÆ®¼ö' value='<?=$board[bo_count_modify]?>'>°³ ÀÌ»ó ´Þ¸®¸é ¼öÁ¤ºÒ°¡</td>
+    <td>ì›ê¸€ ìˆ˜ì • ë¶ˆê°€</td>
+    <td>ì½”ë©˜íŠ¸ <input type=text class=ed name=bo_count_modify size=3 required numeric itemname='ì›ê¸€ ìˆ˜ì • ë¶ˆê°€ ì½”ë©˜íŠ¸ìˆ˜' value='<?=$board[bo_count_modify]?>'>ê°œ ì´ìƒ ë‹¬ë¦¬ë©´ ìˆ˜ì •ë¶ˆê°€</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_count_delete value=1></td>
-    <td>¿ø±Û »èÁ¦ ºÒ°¡</td>
-    <td>ÄÚ¸àÆ® <input type=text class=ed name=bo_count_delete size=3 required numeric itemname='¿ø±Û »èÁ¦ ºÒ°¡ ÄÚ¸àÆ®¼ö' value='<?=$board[bo_count_delete]?>'>°³ ÀÌ»ó ´Þ¸®¸é »èÁ¦ºÒ°¡</td>
+    <td>ì›ê¸€ ì‚­ì œ ë¶ˆê°€</td>
+    <td>ì½”ë©˜íŠ¸ <input type=text class=ed name=bo_count_delete size=3 required numeric itemname='ì›ê¸€ ì‚­ì œ ë¶ˆê°€ ì½”ë©˜íŠ¸ìˆ˜' value='<?=$board[bo_count_delete]?>'>ê°œ ì´ìƒ ë‹¬ë¦¬ë©´ ì‚­ì œë¶ˆê°€</td>
 </tr>
 <tr class="success">
     <td></td>
-    <td>Æ÷ÀÎÆ® ¼³Á¤</td>
-    <td><input type=checkbox name="chk_point" onclick="set_point(this.form)"> È¯°æ¼³Á¤¿¡ ÀÔ·ÂµÈ Æ÷ÀÎÆ®·Î ¼³Á¤</td>
+    <td>í¬ì¸íŠ¸ ì„¤ì •</td>
+    <td><input type=checkbox name="chk_point" onclick="set_point(this.form)"> í™˜ê²½ì„¤ì •ì— ìž…ë ¥ëœ í¬ì¸íŠ¸ë¡œ ì„¤ì •</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_read_point value=1></td>
-    <td>±ÛÀÐ±â Æ÷ÀÎÆ®</td>
-    <td><input type=text class=ed name=bo_read_point size=10 required itemname='±ÛÀÐ±â Æ÷ÀÎÆ®' value='<?=$board[bo_read_point]?>'></td>
+    <td>ê¸€ì½ê¸° í¬ì¸íŠ¸</td>
+    <td><input type=text class=ed name=bo_read_point size=10 required itemname='ê¸€ì½ê¸° í¬ì¸íŠ¸' value='<?=$board[bo_read_point]?>'></td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_write_point value=1></td>
-    <td>±Û¾²±â Æ÷ÀÎÆ®</td>
-    <td><input type=text class=ed name=bo_write_point size=10 required itemname='±Û¾²±â Æ÷ÀÎÆ®' value='<?=$board[bo_write_point]?>'></td>
+    <td>ê¸€ì“°ê¸° í¬ì¸íŠ¸</td>
+    <td><input type=text class=ed name=bo_write_point size=10 required itemname='ê¸€ì“°ê¸° í¬ì¸íŠ¸' value='<?=$board[bo_write_point]?>'></td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_comment_point value=1></td>
-    <td>ÄÚ¸àÆ®¾²±â Æ÷ÀÎÆ®</td>
-    <td><input type=text class=ed name=bo_comment_point size=10 required itemname='´äº¯, ÄÚ¸àÆ®¾²±â Æ÷ÀÎÆ®' value='<?=$board[bo_comment_point]?>'></td>
+    <td>ì½”ë©˜íŠ¸ì“°ê¸° í¬ì¸íŠ¸</td>
+    <td><input type=text class=ed name=bo_comment_point size=10 required itemname='ë‹µë³€, ì½”ë©˜íŠ¸ì“°ê¸° í¬ì¸íŠ¸' value='<?=$board[bo_comment_point]?>'></td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_download_point value=1></td>
-    <td>´Ù¿î·Îµå Æ÷ÀÎÆ®</td>
-    <td><input type=text class=ed name=bo_download_point size=10 required itemname='´Ù¿î·Îµå Æ÷ÀÎÆ®' value='<?=$board[bo_download_point]?>'></td>
+    <td>ë‹¤ìš´ë¡œë“œ í¬ì¸íŠ¸</td>
+    <td><input type=text class=ed name=bo_download_point size=10 required itemname='ë‹¤ìš´ë¡œë“œ í¬ì¸íŠ¸' value='<?=$board[bo_download_point]?>'></td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_good_point value=1></td>
-    <td>ÃßÃµ Æ÷ÀÎÆ®(±Û¾´ÀÌ)</td>
-    <td><input type=text class=ed name=bo_good_point size=10 required itemname='ÃßÃµ Æ÷ÀÎÆ®(ÃßÃµÀÎ)' value='<?=$board[bo_good_point]?>'> (ÃßÃµµÈ °Ô½Ã±ÛÀÇ ±Û¾´ÀÌ¿¡°Ô ºÎ¿©ÇÏ´Â Æ÷ÀÎÆ®)</td>
+    <td>ì¶”ì²œ í¬ì¸íŠ¸(ê¸€ì“´ì´)</td>
+    <td><input type=text class=ed name=bo_good_point size=10 required itemname='ì¶”ì²œ í¬ì¸íŠ¸(ì¶”ì²œì¸)' value='<?=$board[bo_good_point]?>'> (ì¶”ì²œëœ ê²Œì‹œê¸€ì˜ ê¸€ì“´ì´ì—ê²Œ ë¶€ì—¬í•˜ëŠ” í¬ì¸íŠ¸)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_good_click_point value=1></td>
-    <td>ÃßÃµ Æ÷ÀÎÆ®(ÃßÃµÀÎ)</td>
-    <td><input type=text class=ed name=bo_good_click_point size=10 required itemname='ÃßÃµ Æ÷ÀÎÆ®(±Û¾´ÀÌ)' value='<?=$board[bo_good_click_point]?>'> (°Ô½Ã±ÛÀ» ÃßÃµÇÑ È¸¿ø¿¡°Ô ºÎ¿©ÇÏ´Â Æ÷ÀÎÆ®)</td>
+    <td>ì¶”ì²œ í¬ì¸íŠ¸(ì¶”ì²œì¸)</td>
+    <td><input type=text class=ed name=bo_good_click_point size=10 required itemname='ì¶”ì²œ í¬ì¸íŠ¸(ê¸€ì“´ì´)' value='<?=$board[bo_good_click_point]?>'> (ê²Œì‹œê¸€ì„ ì¶”ì²œí•œ íšŒì›ì—ê²Œ ë¶€ì—¬í•˜ëŠ” í¬ì¸íŠ¸)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_nogood_point value=1></td>
-    <td>ºñÃßÃµ Æ÷ÀÎÆ®(±Û¾´ÀÌ)</td>
-    <td><input type=text class=ed name=bo_nogood_point size=10 required itemname='ºñÃßÃµ Æ÷ÀÎÆ®(ÃßÃµÀÎ)' value='<?=$board[bo_nogood_point]?>'> (ºñÃßÃµµÈ °Ô½Ã±ÛÀÇ ±Û¾´ÀÌ¿¡°Ô °ÔºÎ¿©ÇÏ´Â Æ÷ÀÎÆ®)</td>
+    <td>ë¹„ì¶”ì²œ í¬ì¸íŠ¸(ê¸€ì“´ì´)</td>
+    <td><input type=text class=ed name=bo_nogood_point size=10 required itemname='ë¹„ì¶”ì²œ í¬ì¸íŠ¸(ì¶”ì²œì¸)' value='<?=$board[bo_nogood_point]?>'> (ë¹„ì¶”ì²œëœ ê²Œì‹œê¸€ì˜ ê¸€ì“´ì´ì—ê²Œ ê²Œë¶€ì—¬í•˜ëŠ” í¬ì¸íŠ¸)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_nogood_click_point value=1></td>
-    <td>ºñÃßÃµ Æ÷ÀÎÆ®(ÃßÃµÀÎ)</td>
-    <td><input type=text class=ed name=bo_nogood_click_point size=10 required itemname='ºñÃßÃµ Æ÷ÀÎÆ®(±Û¾´ÀÌ)' value='<?=$board[bo_nogood_click_point]?>'> (½Ã±ÛÀ» ºñÃßÃµÇÑ È¸¿ø¿¡°Ô ºÎ¿©ÇÏ´Â Æ÷ÀÎÆ®)</td>
+    <td>ë¹„ì¶”ì²œ í¬ì¸íŠ¸(ì¶”ì²œì¸)</td>
+    <td><input type=text class=ed name=bo_nogood_click_point size=10 required itemname='ë¹„ì¶”ì²œ í¬ì¸íŠ¸(ê¸€ì“´ì´)' value='<?=$board[bo_nogood_click_point]?>'> (ì‹œê¸€ì„ ë¹„ì¶”ì²œí•œ íšŒì›ì—ê²Œ ë¶€ì—¬í•˜ëŠ” í¬ì¸íŠ¸)</td>
 </tr>
 
 <tr>
     <td><input type=checkbox name=chk_category_list value=1></td>
-    <td>ºÐ·ù </td>
+    <td>ë¶„ë¥˜ </td>
     <td><input type=text class=ed name=bo_category_list style='width:80%;' value='<?=get_text($board[bo_category_list])?>'>
-        <input type=checkbox name=bo_use_category value='1' <?=$board[bo_use_category]?'checked':'';?>><b>»ç¿ë</b>
-        <?=help("ºÐ·ù¿Í ºÐ·ù »çÀÌ´Â | ·Î ±¸ºÐÇÏ¼¼¿ä. (¿¹: Áú¹®|´äº¯) Ã¹ÀÚ·Î #Àº ÀÔ·ÂÇÏÁö ¸¶¼¼¿ä. (¿¹: #Áú¹®|#´äº¯ [X])", -120)?>
-        <br><a href='javascript:;' onclick='board_form_category();'>Ä«Å×°í¸®ÈùÆ®»ý¼º</a> <span id="bo_category_hint"></span>
+        <input type=checkbox name=bo_use_category value='1' <?=$board[bo_use_category]?'checked':'';?>><b>ì‚¬ìš©</b>
+        <?=help("ë¶„ë¥˜ì™€ ë¶„ë¥˜ ì‚¬ì´ëŠ” | ë¡œ êµ¬ë¶„í•˜ì„¸ìš”. (ì˜ˆ: ì§ˆë¬¸|ë‹µë³€) ì²«ìžë¡œ #ì€ ìž…ë ¥í•˜ì§€ ë§ˆì„¸ìš”. (ì˜ˆ: #ì§ˆë¬¸|#ë‹µë³€ [X])", -120)?>
+        <br><a href='javascript:;' onclick='board_form_category();'>ì¹´í…Œê³ ë¦¬ížŒíŠ¸ìƒì„±</a> <span id="bo_category_hint"></span>
         <script type="text/javascript">
         function board_form_category() {
             $.ajax({
@@ -346,106 +346,106 @@ include_once ("./admin.head.php");
 
 <tr class="success">
     <td><input type=checkbox name=chk_use_sideview value=1></td>
-    <td>±Û¾´ÀÌ »çÀÌµåºä</td>
-    <td><input type=checkbox name=bo_use_sideview value='1' <?=$board[bo_use_sideview]?'checked':'';?>>»ç¿ë (±Û¾´ÀÌ Å¬¸¯½Ã ³ª¿À´Â ·¹ÀÌ¾î ¸Þ´º)</td>
+    <td>ê¸€ì“´ì´ ì‚¬ì´ë“œë·°</td>
+    <td><input type=checkbox name=bo_use_sideview value='1' <?=$board[bo_use_sideview]?'checked':'';?>>ì‚¬ìš© (ê¸€ì“´ì´ í´ë¦­ì‹œ ë‚˜ì˜¤ëŠ” ë ˆì´ì–´ ë©”ë‰´)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_use_file_content value=1></td>
-    <td>ÆÄÀÏ ¼³¸í »ç¿ë</td>
-    <td><input type=checkbox name=bo_use_file_content value='1' <?=$board[bo_use_file_content]?'checked':'';?>>»ç¿ë</td>
+    <td>íŒŒì¼ ì„¤ëª… ì‚¬ìš©</td>
+    <td><input type=checkbox name=bo_use_file_content value='1' <?=$board[bo_use_file_content]?'checked':'';?>>ì‚¬ìš©</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_use_comment value=1></td>
-    <td>ÄÚ¸àÆ® »õÃ¢ »ç¿ë</td>
-    <td><input type=checkbox name=bo_use_comment value='1' <?=$board[bo_use_comment]?'checked':'';?>>»ç¿ë (ÄÚ¸àÆ®¼ö Å¬¸¯½Ã »õÃ¢À¸·Î º¸ÀÓ)</td>
+    <td>ì½”ë©˜íŠ¸ ìƒˆì°½ ì‚¬ìš©</td>
+    <td><input type=checkbox name=bo_use_comment value='1' <?=$board[bo_use_comment]?'checked':'';?>>ì‚¬ìš© (ì½”ë©˜íŠ¸ìˆ˜ í´ë¦­ì‹œ ìƒˆì°½ìœ¼ë¡œ ë³´ìž„)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_use_secret value=1></td>
-    <td>ºñ¹Ð±Û »ç¿ë</td>
+    <td>ë¹„ë°€ê¸€ ì‚¬ìš©</td>
     <td>
         <select name=bo_use_secret id='bo_use_secret'>
-        <option value='0'>»ç¿ëÇÏÁö ¾ÊÀ½
-        <option value='1'>Ã¼Å©¹Ú½º
-        <option value='2'>¹«Á¶°Ç
+        <option value='0'>ì‚¬ìš©í•˜ì§€ ì•ŠìŒ
+        <option value='1'>ì²´í¬ë°•ìŠ¤
+        <option value='2'>ë¬´ì¡°ê±´
         </select>
-        &nbsp;<?=help("'Ã¼Å©¹Ú½º'´Â ±ÛÀÛ¼º½Ã ºñ¹Ð±Û Ã¼Å©°¡ °¡´ÉÇÕ´Ï´Ù.\n\n'¹«Á¶°Ç'Àº ÀÛ¼ºµÇ´Â ¸ðµç±ÛÀ» ºñ¹Ð±Û·Î ÀÛ¼ºÇÕ´Ï´Ù. (°ü¸®ÀÚ´Â Ã¼Å©¹Ú½º·Î Ãâ·ÂÇÕ´Ï´Ù.)\n\n½ºÅ²¿¡ µû¶ó Àû¿ëµÇÁö ¾ÊÀ» ¼ö ÀÖ½À´Ï´Ù.")?>
+        &nbsp;<?=help("'ì²´í¬ë°•ìŠ¤'ëŠ” ê¸€ìž‘ì„±ì‹œ ë¹„ë°€ê¸€ ì²´í¬ê°€ ê°€ëŠ¥í•©ë‹ˆë‹¤.\n\n'ë¬´ì¡°ê±´'ì€ ìž‘ì„±ë˜ëŠ” ëª¨ë“ ê¸€ì„ ë¹„ë°€ê¸€ë¡œ ìž‘ì„±í•©ë‹ˆë‹¤. (ê´€ë¦¬ìžëŠ” ì²´í¬ë°•ìŠ¤ë¡œ ì¶œë ¥í•©ë‹ˆë‹¤.)\n\nìŠ¤í‚¨ì— ë”°ë¼ ì ìš©ë˜ì§€ ì•Šì„ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.")?>
         <script type='text/javascript'>document.getElementById('bo_use_secret').value='<?=$board[bo_use_secret]?>';</script>
     </td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_use_dhtml_editor value=1></td>
-    <td>DHTML ¿¡µðÅÍ »ç¿ë</td>
+    <td>DHTML ì—ë””í„° ì‚¬ìš©</td>
     <td>
-        <input type=checkbox name=bo_use_dhtml_editor value='1' <?=$board[bo_use_dhtml_editor]?'checked':'';?>>»ç¿ë
-        &nbsp;<?=help("±ÛÀÛ¼º½Ã ³»¿ëÀ» DHTML ¿¡µðÅÍ ±â´ÉÀ¸·Î »ç¿ëÇÒ °ÍÀÎÁö ¼³Á¤ÇÕ´Ï´Ù.\n\n½ºÅ²¿¡ µû¶ó Àû¿ëµÇÁö ¾ÊÀ» ¼ö ÀÖ½À´Ï´Ù.")?>
+        <input type=checkbox name=bo_use_dhtml_editor value='1' <?=$board[bo_use_dhtml_editor]?'checked':'';?>>ì‚¬ìš©
+        &nbsp;<?=help("ê¸€ìž‘ì„±ì‹œ ë‚´ìš©ì„ DHTML ì—ë””í„° ê¸°ëŠ¥ìœ¼ë¡œ ì‚¬ìš©í•  ê²ƒì¸ì§€ ì„¤ì •í•©ë‹ˆë‹¤.\n\nìŠ¤í‚¨ì— ë”°ë¼ ì ìš©ë˜ì§€ ì•Šì„ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.")?>
     </td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_bo_use_dhtml_comment value=1></td>
-    <td>ÄÚ¸àÆ® DHTML ¿¡µðÅÍ »ç¿ë</td>
+    <td>ì½”ë©˜íŠ¸ DHTML ì—ë””í„° ì‚¬ìš©</td>
     <td>
-        <input type=checkbox name=bo_use_dhtml_comment value='1' <?=$board[bo_use_dhtml_comment]?'checked':'';?>>»ç¿ë
-        &nbsp;<?=help("ÄÚ¸àÆ® ÀÛ¼º½Ã ³»¿ëÀ» DHTML ¿¡µðÅÍ ±â´ÉÀ¸·Î »ç¿ëÇÒ °ÍÀÎÁö ¼³Á¤ÇÕ´Ï´Ù.\n\n½ºÅ²¿¡ µû¶ó Àû¿ëµÇÁö ¾ÊÀ» ¼ö ÀÖ½À´Ï´Ù.")?>
+        <input type=checkbox name=bo_use_dhtml_comment value='1' <?=$board[bo_use_dhtml_comment]?'checked':'';?>>ì‚¬ìš©
+        &nbsp;<?=help("ì½”ë©˜íŠ¸ ìž‘ì„±ì‹œ ë‚´ìš©ì„ DHTML ì—ë””í„° ê¸°ëŠ¥ìœ¼ë¡œ ì‚¬ìš©í•  ê²ƒì¸ì§€ ì„¤ì •í•©ë‹ˆë‹¤.\n\nìŠ¤í‚¨ì— ë”°ë¼ ì ìš©ë˜ì§€ ì•Šì„ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.")?>
     </td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_use_rss_view value=1></td>
-    <td>RSS º¸ÀÌ±â »ç¿ë</td>
+    <td>RSS ë³´ì´ê¸° ì‚¬ìš©</td>
     <td>
-        <input type=checkbox name=bo_use_rss_view value='1' <?=$board[bo_use_rss_view]?'checked':'';?>>»ç¿ë
-        &nbsp;<?=help("ºñÈ¸¿ø ±ÛÀÐ±â°¡ °¡´ÉÇÏ°í RSS º¸ÀÌ±â »ç¿ë¿¡ Ã¼Å©°¡ µÇ¾î¾ß¸¸ RSS Áö¿øÀ» ÇÕ´Ï´Ù.")?>
+        <input type=checkbox name=bo_use_rss_view value='1' <?=$board[bo_use_rss_view]?'checked':'';?>>ì‚¬ìš©
+        &nbsp;<?=help("ë¹„íšŒì› ê¸€ì½ê¸°ê°€ ê°€ëŠ¥í•˜ê³  RSS ë³´ì´ê¸° ì‚¬ìš©ì— ì²´í¬ê°€ ë˜ì–´ì•¼ë§Œ RSS ì§€ì›ì„ í•©ë‹ˆë‹¤.")?>
     </td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_use_good value=1></td>
-    <td>ÃßÃµ »ç¿ë</td>
-    <td><input type=checkbox name=bo_use_good value='1' <?=$board[bo_use_good]?'checked':'';?>>»ç¿ë</td>
+    <td>ì¶”ì²œ ì‚¬ìš©</td>
+    <td><input type=checkbox name=bo_use_good value='1' <?=$board[bo_use_good]?'checked':'';?>>ì‚¬ìš©</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_use_nogood value=1></td>
-    <td>ºñÃßÃµ »ç¿ë</td>
-    <td><input type=checkbox name=bo_use_nogood value='1' <?=$board[bo_use_nogood]?'checked':'';?>>»ç¿ë</td>
+    <td>ë¹„ì¶”ì²œ ì‚¬ìš©</td>
+    <td><input type=checkbox name=bo_use_nogood value='1' <?=$board[bo_use_nogood]?'checked':'';?>>ì‚¬ìš©</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_use_name value=1></td>
-    <td>ÀÌ¸§(½Ç¸í) »ç¿ë</td>
-    <td><input type=checkbox name=bo_use_name value='1' <?=$board[bo_use_name]?'checked':'';?>>»ç¿ë</td>
+    <td>ì´ë¦„(ì‹¤ëª…) ì‚¬ìš©</td>
+    <td><input type=checkbox name=bo_use_name value='1' <?=$board[bo_use_name]?'checked':'';?>>ì‚¬ìš©</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_use_signature value=1></td>
-    <td>¼­¸íº¸ÀÌ±â »ç¿ë</td>
-    <td><input type=checkbox name=bo_use_signature value='1' <?=$board[bo_use_signature]?'checked':'';?>>»ç¿ë</td>
+    <td>ì„œëª…ë³´ì´ê¸° ì‚¬ìš©</td>
+    <td><input type=checkbox name=bo_use_signature value='1' <?=$board[bo_use_signature]?'checked':'';?>>ì‚¬ìš©</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_use_ip_view value=1></td>
-    <td>IP º¸ÀÌ±â »ç¿ë</td>
-    <td><input type=checkbox name=bo_use_ip_view value='1' <?=$board[bo_use_ip_view]?'checked':'';?>>»ç¿ë</td>
+    <td>IP ë³´ì´ê¸° ì‚¬ìš©</td>
+    <td><input type=checkbox name=bo_use_ip_view value='1' <?=$board[bo_use_ip_view]?'checked':'';?>>ì‚¬ìš©</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_use_list_content value=1></td>
-    <td>¸ñ·Ï¿¡¼­ ³»¿ë »ç¿ë</td>
-    <td><input type=checkbox name=bo_use_list_content value='1' <?=$board[bo_use_list_content]?'checked':'';?>>»ç¿ë (»ç¿ë½Ã ¼Óµµ ´À·ÁÁü)</td>
+    <td>ëª©ë¡ì—ì„œ ë‚´ìš© ì‚¬ìš©</td>
+    <td><input type=checkbox name=bo_use_list_content value='1' <?=$board[bo_use_list_content]?'checked':'';?>>ì‚¬ìš© (ì‚¬ìš©ì‹œ ì†ë„ ëŠë ¤ì§)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_use_list_view value=1></td>
-    <td>ÀüÃ¼¸ñ·Ïº¸ÀÌ±â »ç¿ë</td>
-    <td><input type=checkbox name=bo_use_list_view value='1' <?=$board[bo_use_list_view]?'checked':'';?>>»ç¿ë</td>
+    <td>ì „ì²´ëª©ë¡ë³´ì´ê¸° ì‚¬ìš©</td>
+    <td><input type=checkbox name=bo_use_list_view value='1' <?=$board[bo_use_list_view]?'checked':'';?>>ì‚¬ìš©</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_use_email value=1></td>
-    <td>¸ÞÀÏ¹ß¼Û »ç¿ë</td>
-    <td><input type=checkbox name=bo_use_email value='1' <?=$board[bo_use_email]?'checked':'';?>>»ç¿ë</td>
+    <td>ë©”ì¼ë°œì†¡ ì‚¬ìš©</td>
+    <td><input type=checkbox name=bo_use_email value='1' <?=$board[bo_use_email]?'checked':'';?>>ì‚¬ìš©</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_bo_use_recycle value=1></td>
-    <td>ÈÞÁöÅë »ç¿ë</td>
-    <td><input type=checkbox name=bo_use_recycle value='1' <?=$board[bo_use_recycle]?'checked':'';?>>»ç¿ë</td>
+    <td>íœ´ì§€í†µ ì‚¬ìš©</td>
+    <td><input type=checkbox name=bo_use_recycle value='1' <?=$board[bo_use_recycle]?'checked':'';?>>ì‚¬ìš©</td>
 </tr>
 
 <tr class="success">
     <td><input type=checkbox name=chk_skin value=1></td>
-    <td>½ºÅ² µð·ºÅä¸®</td>
-    <td><select name=bo_skin required itemname="½ºÅ² µð·ºÅä¸®">
+    <td>ìŠ¤í‚¨ ë””ë ‰í† ë¦¬</td>
+    <td><select name=bo_skin required itemname="ìŠ¤í‚¨ ë””ë ‰í† ë¦¬">
         <?
         $arr = get_skin_dir("board");
         for ($i=0; $i<count($arr); $i++) {
@@ -457,47 +457,47 @@ include_once ("./admin.head.php");
 </tr>
 <tr>
     <td><input type=checkbox name=chk_gallery_cols value=1></td>
-    <td>°¡·Î ÀÌ¹ÌÁö¼ö</td>
-    <td><input type=text class=ed name=bo_gallery_cols size=10 required itemname='°¡·Î ÀÌ¹ÌÁö¼ö' value='<?=$board[bo_gallery_cols]?>'>
-        <?=help("°¶·¯¸® Çü½ÄÀÇ °Ô½ÃÆÇ ¸ñ·Ï¿¡¼­ ÀÌ¹ÌÁö¸¦ ÇÑÁÙ¿¡ ¸îÀå¾¿ º¸¿©ÁÙ°ÍÀÎÁö¸¦ ¼³Á¤ÇÏ´Â °ª")?></td>
+    <td>ê°€ë¡œ ì´ë¯¸ì§€ìˆ˜</td>
+    <td><input type=text class=ed name=bo_gallery_cols size=10 required itemname='ê°€ë¡œ ì´ë¯¸ì§€ìˆ˜' value='<?=$board[bo_gallery_cols]?>'>
+        <?=help("ê°¤ëŸ¬ë¦¬ í˜•ì‹ì˜ ê²Œì‹œíŒ ëª©ë¡ì—ì„œ ì´ë¯¸ì§€ë¥¼ í•œì¤„ì— ëª‡ìž¥ì”© ë³´ì—¬ì¤„ê²ƒì¸ì§€ë¥¼ ì„¤ì •í•˜ëŠ” ê°’")?></td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_table_width value=1></td>
-    <td>°Ô½ÃÆÇ Å×ÀÌºí Æø</td>
-    <td><input type=text class=ed name=bo_table_width size=10 required itemname='°Ô½ÃÆÇ Å×ÀÌºí Æø' value='<?=$board[bo_table_width]?>'> 100 ÀÌÇÏ´Â %</td>
+    <td>ê²Œì‹œíŒ í…Œì´ë¸” í­</td>
+    <td><input type=text class=ed name=bo_table_width size=10 required itemname='ê²Œì‹œíŒ í…Œì´ë¸” í­' value='<?=$board[bo_table_width]?>'> 100 ì´í•˜ëŠ” %</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_page_rows value=1></td>
-    <td>ÆäÀÌÁö´ç ¸ñ·Ï ¼ö</td>
-    <td><input type=text class=ed name=bo_page_rows size=10 required itemname='ÆäÀÌÁö´ç ¸ñ·Ï ¼ö' value='<?=$board[bo_page_rows]?>'></td>
+    <td>íŽ˜ì´ì§€ë‹¹ ëª©ë¡ ìˆ˜</td>
+    <td><input type=text class=ed name=bo_page_rows size=10 required itemname='íŽ˜ì´ì§€ë‹¹ ëª©ë¡ ìˆ˜' value='<?=$board[bo_page_rows]?>'></td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_subject_len value=1></td>
-    <td>Á¦¸ñ ±æÀÌ</td>
-    <td><input type=text class=ed name=bo_subject_len size=10 required itemname='Á¦¸ñ ±æÀÌ' value='<?=$board[bo_subject_len]?>'> ¸ñ·Ï¿¡¼­ÀÇ Á¦¸ñ ±ÛÀÚ¼ö. Àß¸®´Â ±ÛÀº ¡¦ ·Î Ç¥½Ã</td>
+    <td>ì œëª© ê¸¸ì´</td>
+    <td><input type=text class=ed name=bo_subject_len size=10 required itemname='ì œëª© ê¸¸ì´' value='<?=$board[bo_subject_len]?>'> ëª©ë¡ì—ì„œì˜ ì œëª© ê¸€ìžìˆ˜. ìž˜ë¦¬ëŠ” ê¸€ì€ â€¦ ë¡œ í‘œì‹œ</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_new value=1></td>
-    <td>new ÀÌ¹ÌÁö</td>
-    <td><input type=text class=ed name=bo_new size=10 required itemname='new ÀÌ¹ÌÁö' value='<?=$board[bo_new]?>'> ±Û ÀÔ·ÂÈÄ new ÀÌ¹ÌÁö¸¦ Ãâ·ÂÇÏ´Â ½Ã°£</td>
+    <td>new ì´ë¯¸ì§€</td>
+    <td><input type=text class=ed name=bo_new size=10 required itemname='new ì´ë¯¸ì§€' value='<?=$board[bo_new]?>'> ê¸€ ìž…ë ¥í›„ new ì´ë¯¸ì§€ë¥¼ ì¶œë ¥í•˜ëŠ” ì‹œê°„</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_hot value=1></td>
-    <td>hot ÀÌ¹ÌÁö</td>
-    <td><input type=text class=ed name=bo_hot size=10 required itemname='hot ÀÌ¹ÌÁö' value='<?=$board[bo_hot]?>'> Á¶È¸¼ö°¡ ¼³Á¤°ª ÀÌ»óÀÌ¸é hot ÀÌ¹ÌÁö Ãâ·Â</td>
+    <td>hot ì´ë¯¸ì§€</td>
+    <td><input type=text class=ed name=bo_hot size=10 required itemname='hot ì´ë¯¸ì§€' value='<?=$board[bo_hot]?>'> ì¡°íšŒìˆ˜ê°€ ì„¤ì •ê°’ ì´ìƒì´ë©´ hot ì´ë¯¸ì§€ ì¶œë ¥</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_image_width value=1></td>
-    <td>ÀÌ¹ÌÁö Æø Å©±â</td>
-    <td><input type=text class=ed name=bo_image_width size=10 required itemname='ÀÌ¹ÌÁö Æø Å©±â' value='<?=$board[bo_image_width]?>'> ÇÈ¼¿ (°Ô½ÃÆÇ¿¡¼­ Ãâ·ÂµÇ´Â ÀÌ¹ÌÁöÀÇ Æø Å©±â)</td>
+    <td>ì´ë¯¸ì§€ í­ í¬ê¸°</td>
+    <td><input type=text class=ed name=bo_image_width size=10 required itemname='ì´ë¯¸ì§€ í­ í¬ê¸°' value='<?=$board[bo_image_width]?>'> í”½ì…€ (ê²Œì‹œíŒì—ì„œ ì¶œë ¥ë˜ëŠ” ì´ë¯¸ì§€ì˜ í­ í¬ê¸°)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_reply_order value=1></td>
-    <td>´äº¯ ´Þ±â</td>
+    <td>ë‹µë³€ ë‹¬ê¸°</td>
     <td>
         <select name=bo_reply_order>
-        <option value='1'>³ªÁß¿¡ ¾´ ´äº¯ ¾Æ·¡·Î ´Þ±â (±âº»)
-        <option value='0'>³ªÁß¿¡ ¾´ ´äº¯ À§·Î ´Þ±â
+        <option value='1'>ë‚˜ì¤‘ì— ì“´ ë‹µë³€ ì•„ëž˜ë¡œ ë‹¬ê¸° (ê¸°ë³¸)
+        <option value='0'>ë‚˜ì¤‘ì— ì“´ ë‹µë³€ ìœ„ë¡œ ë‹¬ê¸°
         </select>
         <script type='text/javascript'> document.fboardform.bo_reply_order.value = '<?=$board[bo_reply_order]?>'; </script>
     </td>
@@ -506,72 +506,72 @@ include_once ("./admin.head.php");
 <?/*?>
 <tr>
     <td><input type=checkbox name=chk_disable_tags value=1></td>
-    <td>»ç¿ë±ÝÁö ÅÂ±×</td>
+    <td>ì‚¬ìš©ê¸ˆì§€ íƒœê·¸</td>
     <td><input type=text class=ed name=bo_disable_tags style='width:80%;' value='<?=get_text($board[bo_disable_tags])?>'>
-        <?=help("ÅÂ±×¿Í ÅÂ±× »çÀÌ´Â | ·Î ±¸ºÐÇÏ¼¼¿ä. (¿¹: <b>script</b>|<b>iframe</b>)\n\nHTML »ç¿ë½Ã ±ÝÁöÇÒ ÅÂ±×¸¦ ÀÔ·ÂÇÏ´Â°÷ ÀÔ´Ï´Ù.", -50)?></td>
+        <?=help("íƒœê·¸ì™€ íƒœê·¸ ì‚¬ì´ëŠ” | ë¡œ êµ¬ë¶„í•˜ì„¸ìš”. (ì˜ˆ: <b>script</b>|<b>iframe</b>)\n\nHTML ì‚¬ìš©ì‹œ ê¸ˆì§€í•  íƒœê·¸ë¥¼ ìž…ë ¥í•˜ëŠ”ê³³ ìž…ë‹ˆë‹¤.", -50)?></td>
 </tr>
 <?*/?>
 
 <tr>
     <td><input type=checkbox name=chk_sort_field value=1></td>
-    <td>¸®½ºÆ® Á¤·Ä ÇÊµå</td>
+    <td>ë¦¬ìŠ¤íŠ¸ ì •ë ¬ í•„ë“œ</td>
     <td>
         <select name=bo_sort_field>
-        <option value=''>wr_num, wr_reply : ±âº»
-        <option value='wr_datetime asc'>wr_datetime asc : ³¯Â¥ ÀÌÀü°Í ºÎÅÍ
-        <option value='wr_datetime desc'>wr_datetime desc : ³¯Â¥ ÃÖ±Ù°Í ºÎÅÍ
-        <option value='wr_hit asc, wr_num, wr_reply'>wr_hit asc : Á¶È¸¼ö ³·Àº°Í ºÎÅÍ
-        <option value='wr_hit desc, wr_num, wr_reply'>wr_hit desc : Á¶È¸¼ö ³ôÀº°Í ºÎÅÍ
-        <option value='wr_last asc'>wr_last asc : ÃÖ±Ù±Û ÀÌÀü°Í ºÎÅÍ
-        <option value='wr_last desc'>wr_last desc : ÃÖ±Ù±Û ÃÖ±Ù°Í ºÎÅÍ
-        <option value='wr_comment asc, wr_num, wr_reply'>wr_comment asc : ÄÚ¸àÆ®¼ö ³·Àº°Í ºÎÅÍ
-        <option value='wr_comment desc, wr_num, wr_reply'>wr_comment asc : ÄÚ¸àÆ®¼ö ³ôÀº°Í ºÎÅÍ
-        <option value='wr_good asc, wr_num, wr_reply'>wr_good asc : ÃßÃµ¼ö ³·Àº°Í ºÎÅÍ
-        <option value='wr_good desc, wr_num, wr_reply'>wr_good asc : ÃßÃµ¼ö ³ôÀº°Í ºÎÅÍ
-        <option value='wr_nogood asc, wr_num, wr_reply'>wr_nogood asc : ºñÃßÃµ¼ö ³·Àº°Í ºÎÅÍ
-        <option value='wr_nogood desc, wr_num, wr_reply'>wr_nogood asc : ºñÃßÃµ¼ö ³ôÀº°Í ºÎÅÍ
-        <option value='wr_subject asc, wr_num, wr_reply'>wr_subject : Á¦¸ñ ³»¸²Â÷¼ø
-        <option value='wr_subject desc, wr_num, wr_reply'>wr_subject : Á¦¸ñ ¿À¸§Â÷¼ø
-        <option value='wr_name asc, wr_num, wr_reply'>wr_name : ±Û¾´ÀÌ ³»¸²Â÷¼ø
-        <option value='wr_name desc, wr_num, wr_reply'>wr_name : ±Û¾´ÀÌ ¿À¸§Â÷¼ø
-        <option value='ca_name asc, wr_num, wr_reply'>ca_name : ºÐ·ù¸í ³»¸²Â÷¼ø
-        <option value='ca_name desc, wr_num, wr_reply'>ca_name : ºÐ·ù¸í ¿À¸§Â÷¼ø
-        <option value='rand()'>rand() : ·£´ýÀ¸·Î Ç¥½Ã
+        <option value=''>wr_num, wr_reply : ê¸°ë³¸
+        <option value='wr_datetime asc'>wr_datetime asc : ë‚ ì§œ ì´ì „ê²ƒ ë¶€í„°
+        <option value='wr_datetime desc'>wr_datetime desc : ë‚ ì§œ ìµœê·¼ê²ƒ ë¶€í„°
+        <option value='wr_hit asc, wr_num, wr_reply'>wr_hit asc : ì¡°íšŒìˆ˜ ë‚®ì€ê²ƒ ë¶€í„°
+        <option value='wr_hit desc, wr_num, wr_reply'>wr_hit desc : ì¡°íšŒìˆ˜ ë†’ì€ê²ƒ ë¶€í„°
+        <option value='wr_last asc'>wr_last asc : ìµœê·¼ê¸€ ì´ì „ê²ƒ ë¶€í„°
+        <option value='wr_last desc'>wr_last desc : ìµœê·¼ê¸€ ìµœê·¼ê²ƒ ë¶€í„°
+        <option value='wr_comment asc, wr_num, wr_reply'>wr_comment asc : ì½”ë©˜íŠ¸ìˆ˜ ë‚®ì€ê²ƒ ë¶€í„°
+        <option value='wr_comment desc, wr_num, wr_reply'>wr_comment asc : ì½”ë©˜íŠ¸ìˆ˜ ë†’ì€ê²ƒ ë¶€í„°
+        <option value='wr_good asc, wr_num, wr_reply'>wr_good asc : ì¶”ì²œìˆ˜ ë‚®ì€ê²ƒ ë¶€í„°
+        <option value='wr_good desc, wr_num, wr_reply'>wr_good asc : ì¶”ì²œìˆ˜ ë†’ì€ê²ƒ ë¶€í„°
+        <option value='wr_nogood asc, wr_num, wr_reply'>wr_nogood asc : ë¹„ì¶”ì²œìˆ˜ ë‚®ì€ê²ƒ ë¶€í„°
+        <option value='wr_nogood desc, wr_num, wr_reply'>wr_nogood asc : ë¹„ì¶”ì²œìˆ˜ ë†’ì€ê²ƒ ë¶€í„°
+        <option value='wr_subject asc, wr_num, wr_reply'>wr_subject : ì œëª© ë‚´ë¦¼ì°¨ìˆœ
+        <option value='wr_subject desc, wr_num, wr_reply'>wr_subject : ì œëª© ì˜¤ë¦„ì°¨ìˆœ
+        <option value='wr_name asc, wr_num, wr_reply'>wr_name : ê¸€ì“´ì´ ë‚´ë¦¼ì°¨ìˆœ
+        <option value='wr_name desc, wr_num, wr_reply'>wr_name : ê¸€ì“´ì´ ì˜¤ë¦„ì°¨ìˆœ
+        <option value='ca_name asc, wr_num, wr_reply'>ca_name : ë¶„ë¥˜ëª… ë‚´ë¦¼ì°¨ìˆœ
+        <option value='ca_name desc, wr_num, wr_reply'>ca_name : ë¶„ë¥˜ëª… ì˜¤ë¦„ì°¨ìˆœ
+        <option value='rand()'>rand() : ëžœë¤ìœ¼ë¡œ í‘œì‹œ
         </select>
         <script type='text/javascript'> document.fboardform.bo_sort_field.value = '<?=$board[bo_sort_field]?>'; </script>
-        <?=help("¸®½ºÆ®¿¡¼­ ±âº»À¸·Î Á¤·Ä¿¡ »ç¿ëÇÒ ÇÊµå¸¦ ¼±ÅÃÇÕ´Ï´Ù.\n\n'±âº»'À¸·Î »ç¿ëÇÏÁö ¾ÊÀ¸½Ã´Â °æ¿ì ¼Óµµ°¡ ´À·ÁÁú ¼ö ÀÖ½À´Ï´Ù.", -50)?>
+        <?=help("ë¦¬ìŠ¤íŠ¸ì—ì„œ ê¸°ë³¸ìœ¼ë¡œ ì •ë ¬ì— ì‚¬ìš©í•  í•„ë“œë¥¼ ì„ íƒí•©ë‹ˆë‹¤.\n\n'ê¸°ë³¸'ìœ¼ë¡œ ì‚¬ìš©í•˜ì§€ ì•Šìœ¼ì‹œëŠ” ê²½ìš° ì†ë„ê°€ ëŠë ¤ì§ˆ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.", -50)?>
     </td>
 </tr>
 
 <tr class="success">
     <td><input type=checkbox name=chk_write_min value=1></td>
-    <td>ÃÖ¼Ò ±Û¼ö Á¦ÇÑ</td>
+    <td>ìµœì†Œ ê¸€ìˆ˜ ì œí•œ</td>
     <td><input type=text class=ed name=bo_write_min size=5 numeric value='<?=$board[bo_write_min]?>'>
-        (±Û ÀÔ·Â½Ã ÃÖ¼Ò ±ÛÀÚ¼ö¸¦ ¼³Á¤. 0À» ÀÔ·ÂÇÏ¸é °Ë»çÇÏÁö ¾ÊÀ½)</td>
+        (ê¸€ ìž…ë ¥ì‹œ ìµœì†Œ ê¸€ìžìˆ˜ë¥¼ ì„¤ì •. 0ì„ ìž…ë ¥í•˜ë©´ ê²€ì‚¬í•˜ì§€ ì•ŠìŒ)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_write_max value=1></td>
-    <td>ÃÖ´ë ±Û¼ö Á¦ÇÑ</td>
+    <td>ìµœëŒ€ ê¸€ìˆ˜ ì œí•œ</td>
     <td><input type=text class=ed name=bo_write_max size=5 numeric value='<?=$board[bo_write_max]?>'>
-        (±Û ÀÔ·Â½Ã ÃÖ´ë ±ÛÀÚ¼ö¸¦ ¼³Á¤. 0À» ÀÔ·ÂÇÏ¸é °Ë»çÇÏÁö ¾ÊÀ½)</td>
+        (ê¸€ ìž…ë ¥ì‹œ ìµœëŒ€ ê¸€ìžìˆ˜ë¥¼ ì„¤ì •. 0ì„ ìž…ë ¥í•˜ë©´ ê²€ì‚¬í•˜ì§€ ì•ŠìŒ)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_comment_min value=1></td>
-    <td>ÃÖ¼Ò ÄÚ¸àÆ®¼ö Á¦ÇÑ</td>
+    <td>ìµœì†Œ ì½”ë©˜íŠ¸ìˆ˜ ì œí•œ</td>
     <td><input type=text class=ed name=bo_comment_min size=5 numeric value='<?=$board[bo_comment_min]?>'>
-        (ÄÚ¸àÆ® ÀÔ·Â½Ã ÃÖ¼Ò ±ÛÀÚ¼ö, ÃÖ´ë ±ÛÀÚ¼ö¸¦ ¼³Á¤. 0À» ÀÔ·ÂÇÏ¸é °Ë»çÇÏÁö ¾ÊÀ½)</td>
+        (ì½”ë©˜íŠ¸ ìž…ë ¥ì‹œ ìµœì†Œ ê¸€ìžìˆ˜, ìµœëŒ€ ê¸€ìžìˆ˜ë¥¼ ì„¤ì •. 0ì„ ìž…ë ¥í•˜ë©´ ê²€ì‚¬í•˜ì§€ ì•ŠìŒ)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_comment_max value=1></td>
-    <td>ÃÖ´ë ÄÚ¸àÆ®¼ö Á¦ÇÑ</td>
+    <td>ìµœëŒ€ ì½”ë©˜íŠ¸ìˆ˜ ì œí•œ</td>
     <td><input type=text class=ed name=bo_comment_max size=5 numeric value='<?=$board[bo_comment_max]?>'>
-        (ÄÚ¸àÆ® ÀÔ·Â½Ã ÃÖ¼Ò ±ÛÀÚ¼ö, ÃÖ´ë ±ÛÀÚ¼ö¸¦ ¼³Á¤. 0À» ÀÔ·ÂÇÏ¸é °Ë»çÇÏÁö ¾ÊÀ½)</td>
+        (ì½”ë©˜íŠ¸ ìž…ë ¥ì‹œ ìµœì†Œ ê¸€ìžìˆ˜, ìµœëŒ€ ê¸€ìžìˆ˜ë¥¼ ì„¤ì •. 0ì„ ìž…ë ¥í•˜ë©´ ê²€ì‚¬í•˜ì§€ ì•ŠìŒ)</td>
 </tr>
 
 <tr class="success">
     <td><input type=checkbox name=chk_upload_count value=1></td>
-    <td>ÆÄÀÏ ¾÷·Îµå °¹¼ö</td>
-    <td><input type=text class=ed name=bo_upload_count size=10 required itemname='ÆÄÀÏ ¾÷·Îµå °¹¼ö' value='<?=$board[bo_upload_count]?>'> °Ô½Ã¹° ÇÑ°Ç´ç ¾÷·Îµå ÇÒ ¼ö ÀÖ´Â ÆÄÀÏÀÇ ÃÖ´ë °³¼ö (0 ÀÌ¸é Á¦ÇÑ ¾øÀ½)</td>
+    <td>íŒŒì¼ ì—…ë¡œë“œ ê°¯ìˆ˜</td>
+    <td><input type=text class=ed name=bo_upload_count size=10 required itemname='íŒŒì¼ ì—…ë¡œë“œ ê°¯ìˆ˜' value='<?=$board[bo_upload_count]?>'> ê²Œì‹œë¬¼ í•œê±´ë‹¹ ì—…ë¡œë“œ í•  ìˆ˜ ìžˆëŠ” íŒŒì¼ì˜ ìµœëŒ€ ê°œìˆ˜ (0 ì´ë©´ ì œí•œ ì—†ìŒ)</td>
 </tr>
 <?
 $upload_max_filesize = ini_get("upload_max_filesize");
@@ -581,149 +581,149 @@ if (!preg_match("/([m|M])$/", $upload_max_filesize)) {
 ?>
 <tr>
     <td><input type=checkbox name=chk_upload_size value=1></td>
-    <td>ÆÄÀÏ ¾÷·Îµå ¿ë·®</td>
-    <td>¾÷·Îµå ÆÄÀÏ ÇÑ°³´ç <input type=text class=ed name=bo_upload_size size=10 required itemname='ÆÄÀÏ ¾÷·Îµå ¿ë·®' value='<?=$board[bo_upload_size]?>'> bytes ÀÌÇÏ (ÃÖ´ë <?=ini_get("upload_max_filesize")?> ÀÌÇÏ) <?=help("1 MB = 1,048,576 bytes")?></td>
+    <td>íŒŒì¼ ì—…ë¡œë“œ ìš©ëŸ‰</td>
+    <td>ì—…ë¡œë“œ íŒŒì¼ í•œê°œë‹¹ <input type=text class=ed name=bo_upload_size size=10 required itemname='íŒŒì¼ ì—…ë¡œë“œ ìš©ëŸ‰' value='<?=$board[bo_upload_size]?>'> bytes ì´í•˜ (ìµœëŒ€ <?=ini_get("upload_max_filesize")?> ì´í•˜) <?=help("1 MB = 1,048,576 bytes")?></td>
 </tr>
 
 <tr>
     <td><input type=checkbox name=chk_include_head value=1></td>
-    <td>»ó´Ü ÆÄÀÏ °æ·Î</td>
+    <td>ìƒë‹¨ íŒŒì¼ ê²½ë¡œ</td>
     <td>
         <input type=text class=ed name=bo_include_head style='width:80%;' value='<?=$board[bo_include_head]?>'>
-        <?=help("http://µµ¸ÞÀÎ/head.php ¿Í °°Àº °æ·Î´Â »ç¿ëÇÒ¼ö ¾ø½À´Ï´Ù.<br>_head.php ¶Ç´Â /home/user/www/head.php ¿Í °°Àº °æ·Î¸¸ »ç¿ëÇÒ¼ö ÀÖ½À´Ï´Ù.");?>
+        <?=help("http://ë„ë©”ì¸/head.php ì™€ ê°™ì€ ê²½ë¡œëŠ” ì‚¬ìš©í• ìˆ˜ ì—†ìŠµë‹ˆë‹¤.<br>_head.php ë˜ëŠ” /home/user/www/head.php ì™€ ê°™ì€ ê²½ë¡œë§Œ ì‚¬ìš©í• ìˆ˜ ìžˆìŠµë‹ˆë‹¤.");?>
     </td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_include_tail value=1></td>
-    <td>ÇÏ´Ü ÆÄÀÏ °æ·Î</td>
+    <td>í•˜ë‹¨ íŒŒì¼ ê²½ë¡œ</td>
     <td>
         <input type=text class=ed name=bo_include_tail style='width:80%;' value='<?=$board[bo_include_tail]?>'>
-        <?=help("http://µµ¸ÞÀÎ/tail.php ¿Í °°Àº °æ·Î´Â »ç¿ëÇÒ¼ö ¾ø½À´Ï´Ù.<br>_tail.php ¶Ç´Â /home/user/www/tail.php ¿Í °°Àº °æ·Î¸¸ »ç¿ëÇÒ¼ö ÀÖ½À´Ï´Ù.");?>
+        <?=help("http://ë„ë©”ì¸/tail.php ì™€ ê°™ì€ ê²½ë¡œëŠ” ì‚¬ìš©í• ìˆ˜ ì—†ìŠµë‹ˆë‹¤.<br>_tail.php ë˜ëŠ” /home/user/www/tail.php ì™€ ê°™ì€ ê²½ë¡œë§Œ ì‚¬ìš©í• ìˆ˜ ìžˆìŠµë‹ˆë‹¤.");?>
     </td>
 </tr>
 
 <tr>
     <td><input type=checkbox name=chk_content_head value=1></td>
-    <td>»ó´Ü ³»¿ë</td>
+    <td>ìƒë‹¨ ë‚´ìš©</td>
     <td style='padding-top:7px; padding-bottom:7px;'><?=cheditor2('bo_content_head', $board[bo_content_head]);?></td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_content_tail value=1></td>
-    <td>ÇÏ´Ü ³»¿ë</td>
+    <td>í•˜ë‹¨ ë‚´ìš©</td>
     <td style='padding-top:7px; padding-bottom:7px;'><?=cheditor2('bo_content_tail', $board[bo_content_tail]);?></td>
 </tr>
 
 <tr>
     <td><input type=checkbox name=chk_insert_content value=1></td>
-    <td>±Û¾²±â ±âº» ³»¿ë</td>
+    <td>ê¸€ì“°ê¸° ê¸°ë³¸ ë‚´ìš©</td>
     <td style='padding-top:7px; padding-bottom:7px;'><?=cheditor2('bo_insert_content', $board[bo_insert_content]);?></td>
 </tr>
 
 <tr class="success">
     <td><input type=checkbox name=chk_use_search value=1></td>
-    <td>ÀüÃ¼ °Ë»ö »ç¿ë</td>
+    <td>ì „ì²´ ê²€ìƒ‰ ì‚¬ìš©</td>
     <td>
     <? if ($group[gr_use_search] ==0) { ?>
-    ±×·ì ¼³Á¤¿¡¼­ ÀüÃ¼°Ë»ö »ç¿ëÇÏÁö ¾ÊÀ½À» ¼±ÅÃÇß½À´Ï´Ù
+    ê·¸ë£¹ ì„¤ì •ì—ì„œ ì „ì²´ê²€ìƒ‰ ì‚¬ìš©í•˜ì§€ ì•ŠìŒì„ ì„ íƒí–ˆìŠµë‹ˆë‹¤
     <input type=hidden name=bo_use_search value='0'>
     <? } else { ?>
-    <input type=checkbox name=bo_use_search value='1' <?=$board[bo_use_search]?'checked':'';?>>»ç¿ë
+    <input type=checkbox name=bo_use_search value='1' <?=$board[bo_use_search]?'checked':'';?>>ì‚¬ìš©
     <? } ?>
     </td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_order_search value=1></td>
-    <td>ÀüÃ¼ °Ë»ö ¼ø¼­</td>
-    <td><input type=text class=ed name=bo_order_search size=5 value='<?=$board[bo_order_search]?>'> ¼ýÀÚ°¡ ³·Àº °Ô½ÃÆÇ ºÎÅÍ °Ë»ö</td>
+    <td>ì „ì²´ ê²€ìƒ‰ ìˆœì„œ</td>
+    <td><input type=text class=ed name=bo_order_search size=5 value='<?=$board[bo_order_search]?>'> ìˆ«ìžê°€ ë‚®ì€ ê²Œì‹œíŒ ë¶€í„° ê²€ìƒ‰</td>
 </tr>
 
 <tr>
     <td><input type=checkbox name=chk_list_view value=1></td>
-    <td>º£½ºÆ®±Û(Á¶È½¼ö)</td>
-    <td><input type=text class=ed name=bo_list_view size=5 value='<?=$board[bo_list_view]?>'> º£½ºÆ®±Û °Ô½ÃÆÇ¿¡ µî·Ï</td>
+    <td>ë² ìŠ¤íŠ¸ê¸€(ì¡°íšŸìˆ˜)</td>
+    <td><input type=text class=ed name=bo_list_view size=5 value='<?=$board[bo_list_view]?>'> ë² ìŠ¤íŠ¸ê¸€ ê²Œì‹œíŒì— ë“±ë¡</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_list_comment value=1></td>
-    <td>º£½ºÆ®±Û(ÄÚ¸àÆ®¼ö)</td>
-    <td><input type=text class=ed name=bo_list_comment size=5 value='<?=$board[bo_list_comment]?>'> º£½ºÆ®±Û °Ô½ÃÆÇ¿¡ µî·Ï</td>
+    <td>ë² ìŠ¤íŠ¸ê¸€(ì½”ë©˜íŠ¸ìˆ˜)</td>
+    <td><input type=text class=ed name=bo_list_comment size=5 value='<?=$board[bo_list_comment]?>'> ë² ìŠ¤íŠ¸ê¸€ ê²Œì‹œíŒì— ë“±ë¡</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_list_good value=1></td>
-    <td>º£½ºÆ®±Û(ÃßÃµ¼ö)</td>
-    <td><input type=text class=ed name=bo_list_good size=5 value='<?=$board[bo_list_good]?>'> º£½ºÆ®±Û °Ô½ÃÆÇ¿¡ µî·Ï</td>
+    <td>ë² ìŠ¤íŠ¸ê¸€(ì¶”ì²œìˆ˜)</td>
+    <td><input type=text class=ed name=bo_list_good size=5 value='<?=$board[bo_list_good]?>'> ë² ìŠ¤íŠ¸ê¸€ ê²Œì‹œíŒì— ë“±ë¡</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_list_nogood value=1></td>
-    <td>º£½ºÆ®±Û(ºñÃßÃµ¼ö)</td>
-    <td><input type=text class=ed name=bo_list_nogood size=5 value='<?=$board[bo_list_nogood]?>'> º£½ºÆ®±Û °Ô½ÃÆÇ¿¡ µî·Ï</td>
+    <td>ë² ìŠ¤íŠ¸ê¸€(ë¹„ì¶”ì²œìˆ˜)</td>
+    <td><input type=text class=ed name=bo_list_nogood size=5 value='<?=$board[bo_list_nogood]?>'> ë² ìŠ¤íŠ¸ê¸€ ê²Œì‹œíŒì— ë“±ë¡</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_list_scrap value=1></td>
-    <td>º£½ºÆ®±Û(½ºÅ©·¦¼ö)</td>
-    <td><input type=text class=ed name=bo_list_scrap size=5 value='<?=$board[bo_list_scrap]?>'> º£½ºÆ®±Û °Ô½ÃÆÇ¿¡ µî·Ï</td>
+    <td>ë² ìŠ¤íŠ¸ê¸€(ìŠ¤í¬ëž©ìˆ˜)</td>
+    <td><input type=text class=ed name=bo_list_scrap size=5 value='<?=$board[bo_list_scrap]?>'> ë² ìŠ¤íŠ¸ê¸€ ê²Œì‹œíŒì— ë“±ë¡</td>
 </tr>
 
 <tr class="success">
     <td><input type=checkbox name=chk_bo_gallery value=1></td>
-    <td>°¶·¯¸® view</td>
-    <td><input type=checkbox name=bo_gallery value='1' <?=$board[bo_gallery]?'checked':'';?>>»ç¿ë (°¶·¯¸® view°¡ check µÇ¾î¾ß ¸ñ·Ï¿¡¼­ ÀÌ¹ÌÁö Á¤º¸¸¦ °¡Áö°í ¿É´Ï´Ù. °¶·¯¸® °Ô½ÃÆÇÀº ÇÊÃ½~!)</td>
+    <td>ê°¤ëŸ¬ë¦¬ view</td>
+    <td><input type=checkbox name=bo_gallery value='1' <?=$board[bo_gallery]?'checked':'';?>>ì‚¬ìš© (ê°¤ëŸ¬ë¦¬ viewê°€ check ë˜ì–´ì•¼ ëª©ë¡ì—ì„œ ì´ë¯¸ì§€ ì •ë³´ë¥¼ ê°€ì§€ê³  ì˜µë‹ˆë‹¤. ê°¤ëŸ¬ë¦¬ ê²Œì‹œíŒì€ í•„ì²µ~!)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_bo_image_info value=1></td>
-    <td>ÀÌ¹ÌÁö Á¤º¸°¡Á®¿À±â</td>
-    <td><input type=checkbox name=bo_image_info value='1' <?=$board[bo_image_info]?'checked':'';?>>»ç¿ë (resize ÇÔ¼ö¿¡¼­ À¥ÆíÁý±âÀÇ ÀÌ¹ÌÁö Á¤º¸¸¦ °¡Áö°í ¿À°Ô ÇÕ´Ï´Ù.~!)</td>
+    <td>ì´ë¯¸ì§€ ì •ë³´ê°€ì ¸ì˜¤ê¸°</td>
+    <td><input type=checkbox name=bo_image_info value='1' <?=$board[bo_image_info]?'checked':'';?>>ì‚¬ìš© (resize í•¨ìˆ˜ì—ì„œ ì›¹íŽ¸ì§‘ê¸°ì˜ ì´ë¯¸ì§€ ì •ë³´ë¥¼ ê°€ì§€ê³  ì˜¤ê²Œ í•©ë‹ˆë‹¤.~!)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_bo_image_max_size value=1></td>
-    <td>ÃÖ´ë ÀÌ¹ÌÁö¿ë·®</td>
-    <td><input type=text class=ed name=bo_image_max_size size=10 itemname='ÃÖ´ë ÀÌ¹ÌÁö¿ë·®' value='<?=$board[bo_image_max_size]?>'> (kb, À¥ÆíÁý±â ÀÌ¹ÌÁö ¿ë·®ÀÌ ÇÑµµ¸¦ ³ÑÀ¸¸é Ãâ·ÂÇÏÁö ¾ÊÀ½)</td>
+    <td>ìµœëŒ€ ì´ë¯¸ì§€ìš©ëŸ‰</td>
+    <td><input type=text class=ed name=bo_image_max_size size=10 itemname='ìµœëŒ€ ì´ë¯¸ì§€ìš©ëŸ‰' value='<?=$board[bo_image_max_size]?>'> (kb, ì›¹íŽ¸ì§‘ê¸° ì´ë¯¸ì§€ ìš©ëŸ‰ì´ í•œë„ë¥¼ ë„˜ìœ¼ë©´ ì¶œë ¥í•˜ì§€ ì•ŠìŒ)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_chimage value=1></td>
-    <td>chimage Ãâ·Â</td>
-    <td><input type=checkbox name=bo_chimage value='1' <?=$board[bo_chimage]?'checked':'';?>>»ç¿ë (°Ô½Ã±Û ÇÏ´Ü¿¡ cheditor ¾÷·Îµå ÀÌ¹ÌÁöÀÇ ½æÀ» Ãâ·Â ÇÕ´Ï´Ù)</td>
+    <td>chimage ì¶œë ¥</td>
+    <td><input type=checkbox name=bo_chimage value='1' <?=$board[bo_chimage]?'checked':'';?>>ì‚¬ìš© (ê²Œì‹œê¸€ í•˜ë‹¨ì— cheditor ì—…ë¡œë“œ ì´ë¯¸ì§€ì˜ ì¸ì„ ì¶œë ¥ í•©ë‹ˆë‹¤)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_ccl value=1></td>
-    <td>CCL »ç¿ë</td>
-    <td><input type=checkbox name=bo_ccl value='1' <?=$board[bo_ccl]?'checked':'';?>>»ç¿ë</td>
+    <td>CCL ì‚¬ìš©</td>
+    <td><input type=checkbox name=bo_ccl value='1' <?=$board[bo_ccl]?'checked':'';?>>ì‚¬ìš©</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_source value=1></td>
-    <td>ÃâÃ³ ÀÚµ¿º¹»ç</td>
-    <td><input type=checkbox name=bo_source value='1' <?=$board[bo_source]?'checked':'';?>>»ç¿ë</td>
+    <td>ì¶œì²˜ ìžë™ë³µì‚¬</td>
+    <td><input type=checkbox name=bo_source value='1' <?=$board[bo_source]?'checked':'';?>>ì‚¬ìš©</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_related value=1></td>
-    <td>°ü·Ã±Û Ãâ·Â°¹¼ö</td>
-    <td><?=get_member_level_select('bo_related', 0, 10, $board[bo_related]) ?> (0°³ÀÇ °ü·Ã±Û = °ü·Ã±Û »ç¿ëÇÏÁö ¾ÊÀ½)</td>
+    <td>ê´€ë ¨ê¸€ ì¶œë ¥ê°¯ìˆ˜</td>
+    <td><?=get_member_level_select('bo_related', 0, 10, $board[bo_related]) ?> (0ê°œì˜ ê´€ë ¨ê¸€ = ê´€ë ¨ê¸€ ì‚¬ìš©í•˜ì§€ ì•ŠìŒ)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_popular value=1></td>
-    <td>ÀÎ±â°Ë»ö¾î Ãâ·Â°¹¼ö</td>
-    <td><?=get_member_level_select('bo_popular', 0, 10, $board[bo_popular]) ?> (0°³ÀÇ ÀÎ±â°Ë»ö¾î = »ç¿ëÇÏÁö ¾ÊÀ½)</td>
+    <td>ì¸ê¸°ê²€ìƒ‰ì–´ ì¶œë ¥ê°¯ìˆ˜</td>
+    <td><?=get_member_level_select('bo_popular', 0, 10, $board[bo_popular]) ?> (0ê°œì˜ ì¸ê¸°ê²€ìƒ‰ì–´ = ì‚¬ìš©í•˜ì§€ ì•ŠìŒ)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_popular_days value=1></td>
-    <td>ÀÎ±â°Ë»ö¾î Ãâ·ÂÀÏ¼ö</td>
-    <td><input type=text class=ed name=bo_popular_days size=10 itemname='ÀÎ±â°Ë»ö¾î Ãâ·ÂÀÏ¼ö' value='<?=$board[bo_popular_days]?>'> ÁöÁ¤µÈ ÀÏ¼öµ¿¾ÈÀÇ ÇØ´ç ÀÎ±â°Ë»ö¾î¸¦ Ãâ·Â</td>
+    <td>ì¸ê¸°ê²€ìƒ‰ì–´ ì¶œë ¥ì¼ìˆ˜</td>
+    <td><input type=text class=ed name=bo_popular_days size=10 itemname='ì¸ê¸°ê²€ìƒ‰ì–´ ì¶œë ¥ì¼ìˆ˜' value='<?=$board[bo_popular_days]?>'> ì§€ì •ëœ ì¼ìˆ˜ë™ì•ˆì˜ í•´ë‹¹ ì¸ê¸°ê²€ìƒ‰ì–´ë¥¼ ì¶œë ¥</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_hot_list value=1></td>
-    <td>ÀÎ±â °Ô½Ã¹°</td>
+    <td>ì¸ê¸° ê²Œì‹œë¬¼</td>
     <td>
         <select name=bo_hot_list>
-        <option value="0"> »ç¿ë¾ÈÇÔ </option>
-        <option value="1"> ½Ç½Ã°£ </option>
-        <option value="2"> ÁÖ°£ </option>
-        <option value="3"> ¿ù°£ </option>
-        <option value="4"> ÀÏ°£ </option>
+        <option value="0"> ì‚¬ìš©ì•ˆí•¨ </option>
+        <option value="1"> ì‹¤ì‹œê°„ </option>
+        <option value="2"> ì£¼ê°„ </option>
+        <option value="3"> ì›”ê°„ </option>
+        <option value="4"> ì¼ê°„ </option>
         </select>
         <select name=bo_hot_list_basis>
-        <option value="hit"> Á¶È¸¼ö </option>
-        <option value="good"> ÃßÃµ¼ö </option>
+        <option value="hit"> ì¡°íšŒìˆ˜ </option>
+        <option value="good"> ì¶”ì²œìˆ˜ </option>
         </select>
-        (¸ñ·Ï»ó´Ü¿¡ ÀÎ±â°Ô½Ã¹°À» Ãâ·ÂÇÕ´Ï´Ù.)
+        (ëª©ë¡ìƒë‹¨ì— ì¸ê¸°ê²Œì‹œë¬¼ì„ ì¶œë ¥í•©ë‹ˆë‹¤.)
         <script type="text/javascript">
         document.fboardform.bo_hot_list.value = "<?=$board[bo_hot_list]?>";
         document.fboardform.bo_hot_list_basis.value = "<?=$board[bo_hot_list_basis]?>";
@@ -733,64 +733,64 @@ if (!preg_match("/([m|M])$/", $upload_max_filesize)) {
 
 <tr class="success">
     <td><input type=checkbox name=chk_singo value=1></td>
-    <td>°Ô½ÃÆÇ ½Å°í±â´É</td>
-    <td><input type=checkbox name=bo_singo value='1' <?=$board[bo_singo]?'checked':'';?>>»ç¿ë</td>
+    <td>ê²Œì‹œíŒ ì‹ ê³ ê¸°ëŠ¥</td>
+    <td><input type=checkbox name=bo_singo value='1' <?=$board[bo_singo]?'checked':'';?>>ì‚¬ìš©</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_singo_action value=1></td>
-    <td>½Å°í Ã³¸® È½¼ö</td>
-    <td><?=get_member_level_select('bo_singo_action', 0, 10, $board[bo_singo_action]) ?> (½Å°íµÈ ±ÛÀÇ ¸ñ·Ï ¹× ³»¿ë¿¡ actionÀ» ÇÏ´Â È½¼ö.0 È¸´Â ½Å°íÃ³¸®¸¦ ÇÏÁö ¾Ê½À´Ï´Ù)</td>
+    <td>ì‹ ê³  ì²˜ë¦¬ íšŸìˆ˜</td>
+    <td><?=get_member_level_select('bo_singo_action', 0, 10, $board[bo_singo_action]) ?> (ì‹ ê³ ëœ ê¸€ì˜ ëª©ë¡ ë° ë‚´ìš©ì— actionì„ í•˜ëŠ” íšŸìˆ˜.0 íšŒëŠ” ì‹ ê³ ì²˜ë¦¬ë¥¼ í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_singo_nowrite value=1></td>
-    <td>½Å°í ±Û¾²±âÁ¦ÇÑ</td>
-    <td><input type=text class=ed name=bo_singo_nowrite size=20 itemname='½Å°í ±Û¾²±âÁ¦ÇÑ' value='<?=$board[bo_singo_nowrite]?>'> (aÀÏµ¿¾È bÈ¸ ½Å°íµÇ¸é °Ô½ÃÆÇÀÇ ±Û¾²±â¸¦ ±ÝÁöÇÕ´Ï´Ù. a,b|c,d ¿Í °°ÀÌ ÀÔ·ÂÇØÁÖ¼¼¿ä)</td>
+    <td>ì‹ ê³  ê¸€ì“°ê¸°ì œí•œ</td>
+    <td><input type=text class=ed name=bo_singo_nowrite size=20 itemname='ì‹ ê³  ê¸€ì“°ê¸°ì œí•œ' value='<?=$board[bo_singo_nowrite]?>'> (aì¼ë™ì•ˆ bíšŒ ì‹ ê³ ë˜ë©´ ê²Œì‹œíŒì˜ ê¸€ì“°ê¸°ë¥¼ ê¸ˆì§€í•©ë‹ˆë‹¤. a,b|c,d ì™€ ê°™ì´ ìž…ë ¥í•´ì£¼ì„¸ìš”)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_bo_move_bo_table value=1></td>
-    <td>°Ô½Ã±Û ´ëÇÇ °Ô½ÃÆÇ</td>
-    <td><input type=text class=ed name=bo_move_bo_table size=20 itemname='°Ô½Ã±Û ´ëÇÇ °Ô½ÃÆÇ' value='<?=$board[bo_move_bo_table]?>'> ÁöÁ¤µÈ °Ô½ÃÆÇÀ¸·Î »ç¿ëÀÚ°¡ °Ô½Ã±ÛÀ» ´ëÇÇÇÒ ¼ö ÀÖ°Ô ÇÔ</td>
+    <td>ê²Œì‹œê¸€ ëŒ€í”¼ ê²Œì‹œíŒ</td>
+    <td><input type=text class=ed name=bo_move_bo_table size=20 itemname='ê²Œì‹œê¸€ ëŒ€í”¼ ê²Œì‹œíŒ' value='<?=$board[bo_move_bo_table]?>'> ì§€ì •ëœ ê²Œì‹œíŒìœ¼ë¡œ ì‚¬ìš©ìžê°€ ê²Œì‹œê¸€ì„ ëŒ€í”¼í•  ìˆ˜ ìžˆê²Œ í•¨</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_bo_hidden_comment_notice value=1></td>
-    <td>µýÁö°É±â</td>
-    <td><input type=checkbox name=bo_hidden_comment value='1' <?=$board[bo_hidden_comment]?'checked':'';?>>»ç¿ë (µýÁö°É±â´Â À¯´ÏÅ©·Î¿Í ÀåÅÍ°Ô½ÃÆÇ ½ºÅ²¿¡¼­¸¸ °¡´É)</td>
+    <td>ë”´ì§€ê±¸ê¸°</td>
+    <td><input type=checkbox name=bo_hidden_comment value='1' <?=$board[bo_hidden_comment]?'checked':'';?>>ì‚¬ìš© (ë”´ì§€ê±¸ê¸°ëŠ” ìœ ë‹ˆí¬ë¡œì™€ ìž¥í„°ê²Œì‹œíŒ ìŠ¤í‚¨ì—ì„œë§Œ ê°€ëŠ¥)</td>
 </tr>
 
 <tr class="success">
     <td><input type=checkbox name=chk_hhp value=1></td>
-    <td>ÇÚÆùÀÎÁõÈ¸¿ø¸¸ ±Û¾²±â</td>
-    <td><input type=checkbox name=bo_hhp value='1' <?=$board[bo_hhp]?'checked':'';?>>»ç¿ë (ÇÚµåÆù ÀÎÁõÀ» ¹ÞÀº È¸¿ø¸¸ ±Û¾²±â°¡ °¡´ÉÇÏ°Ô Á¦ÇÑÇÕ´Ï´Ù.)</td>
+    <td>í•¸í°ì¸ì¦íšŒì›ë§Œ ê¸€ì“°ê¸°</td>
+    <td><input type=checkbox name=bo_hhp value='1' <?=$board[bo_hhp]?'checked':'';?>>ì‚¬ìš© (í•¸ë“œí° ì¸ì¦ì„ ë°›ì€ íšŒì›ë§Œ ê¸€ì“°ê¸°ê°€ ê°€ëŠ¥í•˜ê²Œ ì œí•œí•©ë‹ˆë‹¤.)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_realcheck value=1></td>
-    <td>º»ÀÎÀÎÁõÈ¸¿ø¸¸ ±Û¾²±â</td>
-    <td><input type=checkbox name=bo_realcheck value='1' <?=$board[bo_realcheck]?'checked':'';?>>»ç¿ë (º»ÀÎ ÀÎÁõÀ» ¹ÞÀº È¸¿ø¸¸ ±Û¾²±â°¡ °¡´ÉÇÏ°Ô Á¦ÇÑÇÕ´Ï´Ù.)</td>
+    <td>ë³¸ì¸ì¸ì¦íšŒì›ë§Œ ê¸€ì“°ê¸°</td>
+    <td><input type=checkbox name=bo_realcheck value='1' <?=$board[bo_realcheck]?'checked':'';?>>ì‚¬ìš© (ë³¸ì¸ ì¸ì¦ì„ ë°›ì€ íšŒì›ë§Œ ê¸€ì“°ê¸°ê°€ ê°€ëŠ¥í•˜ê²Œ ì œí•œí•©ë‹ˆë‹¤.)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_read_point_lock value=1></td>
-    <td>¸¶ÀÌ³Ê½ºÆ÷ÀÎÆ® ±Û¾²±âÁ¦ÇÑ</td>
-    <td><input type=checkbox name=bo_read_point_lock value='1' <?=$board[bo_read_point_lock]?'checked':'';?>>»ç¿ë (Æ÷ÀÎÆ®°¡ ¸¶ÀÌ³Ê½ºÀÎ È¸¿øÀÇ ±Û¾²±â¸¦ Á¦ÇÑÇÕ´Ï´Ù.)</td>
+    <td>ë§ˆì´ë„ˆìŠ¤í¬ì¸íŠ¸ ê¸€ì“°ê¸°ì œí•œ</td>
+    <td><input type=checkbox name=bo_read_point_lock value='1' <?=$board[bo_read_point_lock]?'checked':'';?>>ì‚¬ìš© (í¬ì¸íŠ¸ê°€ ë§ˆì´ë„ˆìŠ¤ì¸ íšŒì›ì˜ ê¸€ì“°ê¸°ë¥¼ ì œí•œí•©ë‹ˆë‹¤.)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_bo_day_nowrite value=1></td>
-    <td>ÀÏº° ±Û¾²±âÁ¦ÇÑ</td>
-    <td><input type=text class=ed name=bo_day_nowrite size=20 itemname='ÀÏº° ±Û¾²±âÁ¦ÇÑ' value='<?=$board[bo_day_nowrite]?>'> (aÀÏµ¿¾È bÈ¸ ÀÌ»ó ±Û¾²±â¸¦ ±ÝÁöÇÕ´Ï´Ù. a,b|c,d ¿Í °°ÀÌ ÀÔ·ÂÇØÁÖ¼¼¿ä)</td>
+    <td>ì¼ë³„ ê¸€ì“°ê¸°ì œí•œ</td>
+    <td><input type=text class=ed name=bo_day_nowrite size=20 itemname='ì¼ë³„ ê¸€ì“°ê¸°ì œí•œ' value='<?=$board[bo_day_nowrite]?>'> (aì¼ë™ì•ˆ bíšŒ ì´ìƒ ê¸€ì“°ê¸°ë¥¼ ê¸ˆì§€í•©ë‹ˆë‹¤. a,b|c,d ì™€ ê°™ì´ ìž…ë ¥í•´ì£¼ì„¸ìš”)</td>
 </tr>
 
 <tr>
     <td><input type=checkbox name=chk_bo_comment_nowrite value=1></td>
-    <td>nÀÏÈÄ ÄÚ¸àÆ®¾²±âÁ¦ÇÑ</td>
-    <td><input type=text class=ed name=bo_comment_nowrite size=20 itemname='nÀÏÈÄ ÄÚ¸àÆ®¾²±âÁ¦ÇÑ' value='<?=$board[bo_comment_nowrite]?>'> (0: ÄÚ¸àÆ® °¡´É, n: nÀÏ ÀÌÈÄ ÄÚ¸àÆ® ´Þ ¼ö ¾ø½¿, -n: ±Û¾´ÀÌ¸¸ ÄÚ¸àÆ® ¾²±â¸¦ Á¦ÇÑ °¡´É)</td>
+    <td>nì¼í›„ ì½”ë©˜íŠ¸ì“°ê¸°ì œí•œ</td>
+    <td><input type=text class=ed name=bo_comment_nowrite size=20 itemname='nì¼í›„ ì½”ë©˜íŠ¸ì“°ê¸°ì œí•œ' value='<?=$board[bo_comment_nowrite]?>'> (0: ì½”ë©˜íŠ¸ ê°€ëŠ¥, n: nì¼ ì´í›„ ì½”ë©˜íŠ¸ ë‹¬ ìˆ˜ ì—†ìŠ´, -n: ê¸€ì“´ì´ë§Œ ì½”ë©˜íŠ¸ ì“°ê¸°ë¥¼ ì œí•œ ê°€ëŠ¥)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_bo_sex value=1></td>
-    <td>¼ºº° °Ô½ÃÆÇ</td>
+    <td>ì„±ë³„ ê²Œì‹œíŒ</td>
     <td>
         <select name=bo_sex>
-        <option value=""> »ç¿ë¾ÈÇÔ </option>
-        <option value="M"> ³²¼º¸¸ Á¢±Ù°¡´É </option>
-        <option value="F"> ¿©¼º¸¸ Á¢±Ù°¡´É </option>
+        <option value=""> ì‚¬ìš©ì•ˆí•¨ </option>
+        <option value="M"> ë‚¨ì„±ë§Œ ì ‘ê·¼ê°€ëŠ¥ </option>
+        <option value="F"> ì—¬ì„±ë§Œ ì ‘ê·¼ê°€ëŠ¥ </option>
         </select>
         <script type="text/javascript">
         document.fboardform.bo_sex.value = "<?=$board[bo_sex]?>";
@@ -799,29 +799,29 @@ if (!preg_match("/([m|M])$/", $upload_max_filesize)) {
 </tr>
 <tr>
     <td><input type=checkbox name=chk_bo_print_level value=1></td>
-    <td>°Ô½Ã±ÛÇÁ¸°Æ®</td>
-    <td><?=get_member_level_select('bo_print_level', 0, 10, $board[bo_print_level]) ?> (0·¹º§Àº Ãâ·ÂÀ» ¸ðµÎ¿¡°Ô Çã¿ëÇÏÁö ¾ÊÀ½)</td>
+    <td>ê²Œì‹œê¸€í”„ë¦°íŠ¸</td>
+    <td><?=get_member_level_select('bo_print_level', 0, 10, $board[bo_print_level]) ?> (0ë ˆë²¨ì€ ì¶œë ¥ì„ ëª¨ë‘ì—ê²Œ í—ˆìš©í•˜ì§€ ì•ŠìŒ)</td>
 </tr>
 
 <tr class="success">
     <td><input type=checkbox name=chk_naver_notice value=1></td>
-    <td>ÀüÃ¼ °øÁö »ç¿ëÇÏ±â</td>
-    <td><input type=checkbox name=bo_naver_notice value='1' <?=$board[bo_naver_notice]?'checked':'';?>>»ç¿ë (ÀüÃ¼ °øÁö¸¦ Ãâ·ÂÇØ ÁÝ´Ï´Ù.)</td>
+    <td>ì „ì²´ ê³µì§€ ì‚¬ìš©í•˜ê¸°</td>
+    <td><input type=checkbox name=bo_naver_notice value='1' <?=$board[bo_naver_notice]?'checked':'';?>>ì‚¬ìš© (ì „ì²´ ê³µì§€ë¥¼ ì¶œë ¥í•´ ì¤ë‹ˆë‹¤.)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_notice_comment_allow value=1></td>
-    <td>°øÁö±Û¿¡ ÄÚ¸àÆ® ±ÝÁö</td>
+    <td>ê³µì§€ê¸€ì— ì½”ë©˜íŠ¸ ê¸ˆì§€</td>
     <td><input type=text class=ed name=bo_notice_comment_allow style='width:80%;' value='<?=get_text($board[bo_notice_comment_allow])?>'>
-        <?=help("°øÁö±Û¿¡ ÄÚ¸àÆ® ¾²±â¸¦ ±ÝÁöÇÒ »ç¿ëÀÚ ¾ÆÀÌµð¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä\n\n»ç¿ëÀÚ ¾ÆÀÌµð´Â ÄÞ¸¶·Î ±¸ºÐÇÏ½Ã¸é µË´Ï´Ù(¿¹: admin,test1).", -50)?></td>
+        <?=help("ê³µì§€ê¸€ì— ì½”ë©˜íŠ¸ ì“°ê¸°ë¥¼ ê¸ˆì§€í•  ì‚¬ìš©ìž ì•„ì´ë””ë¥¼ ìž…ë ¥í•´ ì£¼ì„¸ìš”\n\nì‚¬ìš©ìž ì•„ì´ë””ëŠ” ì½¤ë§ˆë¡œ êµ¬ë¶„í•˜ì‹œë©´ ë©ë‹ˆë‹¤(ì˜ˆ: admin,test1).", -50)?></td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_notice_joongbok value=1></td>
-    <td>°øÁö±Û Áßº¹ ±ÝÁö</td>
-    <td><input type=checkbox name=bo_notice_joongbok value='1' <?=$board[bo_notice_joongbok]?'checked':'';?>>»ç¿ë (°øÁö±ÛÀÌ °Ô½Ã±Û ¸ñ·Ï¿¡´Â ³ª¿ÀÁö ¾Ê°Ô ÇÕ´Ï´Ù)</td>
+    <td>ê³µì§€ê¸€ ì¤‘ë³µ ê¸ˆì§€</td>
+    <td><input type=checkbox name=bo_notice_joongbok value='1' <?=$board[bo_notice_joongbok]?'checked':'';?>>ì‚¬ìš© (ê³µì§€ê¸€ì´ ê²Œì‹œê¸€ ëª©ë¡ì—ëŠ” ë‚˜ì˜¤ì§€ ì•Šê²Œ í•©ë‹ˆë‹¤)</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_bo_comment_notice value=1></td>
-    <td>ÄÚ¸àÆ® °øÁö»çÇ×</td>
+    <td>ì½”ë©˜íŠ¸ ê³µì§€ì‚¬í•­</td>
     <td><textarea class=ed name=bo_comment_notice rows=5 style='width:80%;'><?=$board[bo_comment_notice] ?></textarea></td>
 </tr>
 
@@ -834,7 +834,7 @@ if ($notice_wr_id[0] != '' && $notice_count) {
 <script type="text/javascript" src="<?=$g4[path]?>/js/javascripttoolbox.js"></script> 
 <tr>
     <td></td>
-    <td>°øÁö»çÇ×Á¤·Ä</td>
+    <td>ê³µì§€ì‚¬í•­ì •ë ¬</td>
     <td>
     <select name="notice_list[]" size="<?=$notice_count?>" id="notice_list" multiple>
         <?
@@ -855,23 +855,23 @@ if ($notice_wr_id[0] != '' && $notice_count) {
 <? for ($i=1; $i<=10; $i++) { ?>
 <tr>
     <td><input type=checkbox name=chk_<?=$i?> value=1></td>
-    <td><input type=text name='bo_<?=$i?>_subj' value='<?=get_text($board["bo_{$i}_subj"])?>' title='¿©ºÐÇÊµå <?=$i?> Á¦¸ñ' style='text-align:right;font-weight:bold;'></td>
-    <td><input type=text style='width:80%;' name='bo_<?=$i?>' value='<?=get_text($board["bo_$i"])?>' title='¿©ºÐÇÊµå <?=$i?> ¼³Á¤°ª'></td>
+    <td><input type=text name='bo_<?=$i?>_subj' value='<?=get_text($board["bo_{$i}_subj"])?>' title='ì—¬ë¶„í•„ë“œ <?=$i?> ì œëª©' style='text-align:right;font-weight:bold;'></td>
+    <td><input type=text style='width:80%;' name='bo_<?=$i?>' value='<?=get_text($board["bo_$i"])?>' title='ì—¬ë¶„í•„ë“œ <?=$i?> ì„¤ì •ê°’'></td>
 </tr>
 <? } ?>
 
 <tr class="success">
     <td colspan=3 align=left>
-        XSS / CSRF ¹æÁö
+        XSS / CSRF ë°©ì§€
     </td>
 </tr>
 <tr>
     <td colspan='2'>
-        °ü¸®ÀÚ ÆÐ½º¿öµå
+        ê´€ë¦¬ìž íŒ¨ìŠ¤ì›Œë“œ
     </td>
     <td>
-        <input class='ed' type='password' name='admin_password' itemname="°ü¸®ÀÚ ÆÐ½º¿öµå" required>
-        <?=help("°ü¸®ÀÚ ±ÇÇÑÀ» »©¾Ñ±æ °Í¿¡ ´ëºñÇÏ¿© ·Î±×ÀÎÇÑ °ü¸®ÀÚÀÇ ÆÐ½º¿öµå¸¦ ÇÑ¹ø ´õ ¹¯´Â°Í ÀÔ´Ï´Ù.");?>
+        <input class='ed' type='password' name='admin_password' itemname="ê´€ë¦¬ìž íŒ¨ìŠ¤ì›Œë“œ" required>
+        <?=help("ê´€ë¦¬ìž ê¶Œí•œì„ ë¹¼ì•—ê¸¸ ê²ƒì— ëŒ€ë¹„í•˜ì—¬ ë¡œê·¸ì¸í•œ ê´€ë¦¬ìžì˜ íŒ¨ìŠ¤ì›Œë“œë¥¼ í•œë²ˆ ë” ë¬»ëŠ”ê²ƒ ìž…ë‹ˆë‹¤.");?>
 
         <script src='https://www.google.com/recaptcha/api.js'></script> 
         <div id="grecaptcha" class="g-recaptcha" data-sitekey="<?=$g4['recaptcha_sitekey']?>"></div> 
@@ -880,9 +880,9 @@ if ($notice_wr_id[0] != '' && $notice_count) {
 </table>
 
 <div>
-    <input type=submit class="btn btn-default" accesskey='s' value='  È®  ÀÎ  '>&nbsp;
-    <input type=button class="btn btn-default" value='  ¸ñ  ·Ï  ' onclick="document.location.href='./board_list.php?<?=$qstr?>';">&nbsp;
-    <? if ($w == 'u') { ?><input type=button class="btn btn-default" value='  º¹  »ç  ' onclick="board_copy('<?=$bo_table?>');"><?}?>
+    <input type=submit class="btn btn-default" accesskey='s' value='  í™•  ì¸  '>&nbsp;
+    <input type=button class="btn btn-default" value='  ëª©  ë¡  ' onclick="document.location.href='./board_list.php?<?=$qstr?>';">&nbsp;
+    <? if ($w == 'u') { ?><input type=button class="btn btn-default" value='  ë³µ  ì‚¬  ' onclick="board_copy('<?=$bo_table?>');"><?}?>
 </div>
 
 </form>
@@ -910,32 +910,32 @@ function fboardform_submit(f) {
     var tmp_title;
     var tmp_image;
 
-    tmp_title = "»ó´Ü";
+    tmp_title = "ìƒë‹¨";
     tmp_image = f.bo_image_head;
     if (tmp_image.value) {
         if (!tmp_image.value.toLowerCase().match(/.(gif|jpg|png)$/i)) {
-            alert(tmp_title + "ÀÌ¹ÌÁö°¡ gif, jpg, png ÆÄÀÏÀÌ ¾Æ´Õ´Ï´Ù.");
+            alert(tmp_title + "ì´ë¯¸ì§€ê°€ gif, jpg, png íŒŒì¼ì´ ì•„ë‹™ë‹ˆë‹¤.");
             return false;
         }
     }
 
-    tmp_title = "ÇÏ´Ü";
+    tmp_title = "í•˜ë‹¨";
     tmp_image = f.bo_image_tail;
     if (tmp_image.value) {
         if (!tmp_image.value.toLowerCase().match(/.(gif|jpg|png)$/i)) {
-            alert(tmp_title + "ÀÌ¹ÌÁö°¡ gif, jpg, png ÆÄÀÏÀÌ ¾Æ´Õ´Ï´Ù.");
+            alert(tmp_title + "ì´ë¯¸ì§€ê°€ gif, jpg, png íŒŒì¼ì´ ì•„ë‹™ë‹ˆë‹¤.");
             return false;
         }
     }
 
     if (parseInt(f.bo_count_modify.value) < 1) {
-        alert("¿ø±Û ¼öÁ¤ ºÒ°¡ ÄÚ¸àÆ®¼ö´Â 1 ÀÌ»ó ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù.");
+        alert("ì›ê¸€ ìˆ˜ì • ë¶ˆê°€ ì½”ë©˜íŠ¸ìˆ˜ëŠ” 1 ì´ìƒ ìž…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.");
         f.bo_count_modify.focus();
         return false;
     }
 
     if (parseInt(f.bo_count_delete.value) < 1) {
-        alert("¿ø±Û »èÁ¦ ºÒ°¡ ÄÚ¸àÆ®¼ö´Â 1 ÀÌ»ó ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù.");
+        alert("ì›ê¸€ ì‚­ì œ ë¶ˆê°€ ì½”ë©˜íŠ¸ìˆ˜ëŠ” 1 ì´ìƒ ìž…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.");
         f.bo_count_delete.focus();
         return false;
     }
@@ -944,7 +944,7 @@ function fboardform_submit(f) {
     <?=cheditor3('bo_content_tail')."\n";?>
     <?=cheditor3('bo_insert_content')."\n";?>
     
-    // °øÁö»çÇ× Á¤·ÄÀ» À§ÇØ¼­
+    // ê³µì§€ì‚¬í•­ ì •ë ¬ì„ ìœ„í•´ì„œ
     <?
     if ($notice_wr_id[0] != '' && $notice_count) {
     ?>
@@ -955,7 +955,7 @@ function fboardform_submit(f) {
 
     if (typeof(grecaptcha) != 'undefined') { 
         if(grecaptcha.getResponse() == "") { 
-            alert("½ºÆÔ¹æÁöÄÚµå(Captcha Code)°¡ Æ²·È½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØ ÁÖ¼¼¿ä."); 
+            alert("ìŠ¤íŒ¸ë°©ì§€ì½”ë“œ(Captcha Code)ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ìž…ë ¥í•´ ì£¼ì„¸ìš”."); 
             return false; 
         } 
     }

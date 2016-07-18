@@ -11,16 +11,16 @@ else if ($w == "p")
     $action = "./poll_etc_update.php";
 else if ($w == "s")
 {
-    // ÆĞ½º¿öµå Ã¢¿¡¼­ ·Î±×ÀÎ ÇÏ´Â °æ¿ì °ü¸®ÀÚ ¶Ç´Â ÀÚ½ÅÀÇ ±ÛÀÌ¸é ¹Ù·Î ±Ûº¸±â·Î °¨
+    // íŒ¨ìŠ¤ì›Œë“œ ì°½ì—ì„œ ë¡œê·¸ì¸ í•˜ëŠ” ê²½ìš° ê´€ë¦¬ì ë˜ëŠ” ìì‹ ì˜ ê¸€ì´ë©´ ë°”ë¡œ ê¸€ë³´ê¸°ë¡œ ê°
     if ($is_admin || ($member[mb_id] == $write[mb_id] && $write[mb_id]))
         goto_url("./board.php?bo_table=$bo_table&wr_id=$wr_id");
     else
         $action = "./password_check.php";
 }
 else
-    alert("w °ªÀÌ Á¦´ë·Î ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.");
+    alert("w ê°’ì´ ì œëŒ€ë¡œ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
-$g4[title] = "ÆĞ½º¿öµå ÀÔ·Â";
+$g4[title] = "íŒ¨ìŠ¤ì›Œë“œ ì…ë ¥";
 include_once("$g4[path]/head.sub.php");
 
 //if ($board[bo_include_head]) { @include ($board[bo_include_head]); }

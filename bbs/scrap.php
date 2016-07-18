@@ -2,9 +2,9 @@
 include_once("./_common.php");
 
 if (!$member[mb_id]) 
-    alert_close("È¸¿ø¸¸ Á¶È¸ÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+    alert_close("íšŒì›ë§Œ ì¡°íšŒí•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
-$g4[title] = get_text($member[mb_nick]) . "´ÔÀÇ ½ºÅ©·¦";
+$g4[title] = get_text($member[mb_nick]) . "ë‹˜ì˜ ìŠ¤í¬ë©";
 
 if ($head_on)
     include_once("$g4[path]/head.php");
@@ -60,9 +60,9 @@ $total_count = $row[cnt];
 
 //$rows = $config[cf_page_rows];
 $rows = 12; 
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if (!$page) $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if (!$page) $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
 $list = array();
 
@@ -76,21 +76,21 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 {
     $list[$i] = $row;
 
-    // ¼øÂ÷ÀûÀÎ ¹øÈ£ (¼ø¹ø)
+    // ìˆœì°¨ì ì¸ ë²ˆí˜¸ (ìˆœë²ˆ)
     $num = $total_count - ($page - 1) * $rows - $i;
 
-    // °Ô½ÃÆÇ Á¦¸ñ
+    // ê²Œì‹œíŒ ì œëª©
     $sql2 = " select bo_subject from $g4[board_table] where bo_table = '$row[bo_table]' ";
     $row2 = sql_fetch($sql2);
-    if (!$row2[bo_subject]) $row2[bo_subject] = "[°Ô½ÃÆÇ ¾øÀ½]";
+    if (!$row2[bo_subject]) $row2[bo_subject] = "[ê²Œì‹œíŒ ì—†ìŒ]";
 
-    // °Ô½Ã¹° Á¦¸ñ
+    // ê²Œì‹œë¬¼ ì œëª©
     $tmp_write_table = $g4[write_prefix] . $row[bo_table];
     $sql3 = " select wr_subject, mb_id, wr_option from $tmp_write_table where wr_id = '$row[wr_id]' ";
     $row3 = sql_fetch($sql3, FALSE);
     $subject = get_text($row3[wr_subject]);
     if (!$row3[wr_subject]) 
-        $row3[wr_subject] = "[±Û ¾øÀ½]";
+        $row3[wr_subject] = "[ê¸€ ì—†ìŒ]";
     if (strstr($row3[wr_option], "secret"))
         $secret = true;
     else

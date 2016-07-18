@@ -7,12 +7,12 @@ if ($w == 'u')
 
 auth_check($auth[$sub_menu], "w");
 
-if ($is_admin != "super" && $w == "") alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.");
+if ($is_admin != "super" && $w == "") alert("ìµœê³ ê´€ë¦¬ìžë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
 if (!preg_match("/^([A-Za-z0-9_]{1,20})$/", $bg_id))
-    alert("±×·ì ID´Â °ø¹é¾øÀÌ ¿µ¹®ÀÚ, ¼ýÀÚ, _ ¸¸ »ç¿ë °¡´ÉÇÕ´Ï´Ù. (20ÀÚ ÀÌ³»)");
+    alert("ê·¸ë£¹ IDëŠ” ê³µë°±ì—†ì´ ì˜ë¬¸ìž, ìˆ«ìž, _ ë§Œ ì‚¬ìš© ê°€ëŠ¥í•©ë‹ˆë‹¤. (20ìž ì´ë‚´)");
 
-if (!$bg_subject) alert("±×·ì Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä.");
+if (!$bg_subject) alert("ê·¸ë£¹ ì œëª©ì„ ìž…ë ¥í•˜ì„¸ìš”.");
 
 check_token();
 
@@ -48,7 +48,7 @@ if ($w == "")
     $sql = " select count(*) as cnt from $g4[banner_group_table] where bg_id = '$bg_id' ";
     $row = sql_fetch($sql);
     if ($row['cnt']) 
-        alert("ÀÌ¹Ì Á¸ÀçÇÏ´Â ±×·ì ID ÀÔ´Ï´Ù.");
+        alert("ì´ë¯¸ ì¡´ìž¬í•˜ëŠ” ê·¸ë£¹ ID ìž…ë‹ˆë‹¤.");
 
     $sql = " insert into $g4[banner_group_table]
                 set bg_id = '$bg_id',
@@ -63,7 +63,7 @@ else if ($w == "u")
     sql_query($sql);
 } 
 else
-    alert("Á¦´ë·Î µÈ °ªÀÌ ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.");
+    alert("ì œëŒ€ë¡œ ëœ ê°’ì´ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
 goto_url("./banner_group_form.php?w=u&bg_id=$bg_id&$qstr");
 ?>

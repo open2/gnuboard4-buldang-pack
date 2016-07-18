@@ -1,7 +1,7 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
-// ´Ù¼öÀÇ ÅõÇ¥¸¦ Ãâ·ÂÇÏ±â À§ÇØ¼­, formÀ» uniqueÇÏ°Ô ¸¸µé¾î Áİ´Ï´Ù
+// ë‹¤ìˆ˜ì˜ íˆ¬í‘œë¥¼ ì¶œë ¥í•˜ê¸° ìœ„í•´ì„œ, formì„ uniqueí•˜ê²Œ ë§Œë“¤ì–´ ì¤ë‹ˆë‹¤
 $mt = uniqid();
 ?>
 
@@ -25,9 +25,9 @@ $mt = uniqid();
     ?>
     </ul>
     <div class="btn-group">
-    <a class="btn btn-default" href="javascript:;" onclick="poll_result_<?=$mt?>('<?=$po_id?>');">°á°ú</a>
+    <a class="btn btn-default" href="javascript:;" onclick="poll_result_<?=$mt?>('<?=$po_id?>');">ê²°ê³¼</a>
     <? if ($po_use) { ?>
-    <button type="submit" class="btn btn-default">ÅõÇ¥</button>
+    <button type="submit" class="btn btn-default">íˆ¬í‘œ</button>
     <? } ?>
     </div>
     </div>
@@ -47,11 +47,11 @@ function fpoll_submit_<?=$mt?>(f)
 
     <?
     if ($member[mb_level] < $po[po_level])
-        echo " alert('$po[gl_name] ÀÌ»óÀÇ È¸¿ø¸¸ ÅõÇ¥¿¡ Âü¿©ÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.'); return false; ";
+        echo " alert('$po[gl_name] ì´ìƒì˜ íšŒì›ë§Œ íˆ¬í‘œì— ì°¸ì—¬í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.'); return false; ";
     ?>
 
     if (!chk) {
-        alert("Ç×¸ñÀ» ¼±ÅÃÇÏ¼¼¿ä");
+        alert("í•­ëª©ì„ ì„ íƒí•˜ì„¸ìš”");
         return false;
     }
 
@@ -63,7 +63,7 @@ function poll_result_<?=$mt?>(po_id)
 {
     <?
     if ($member[mb_level] < $po[po_level])
-        echo " alert('$po[gl_name] ÀÌ»óÀÇ È¸¿ø¸¸ °á°ú¸¦ º¸½Ç ¼ö ÀÖ½À´Ï´Ù.'); return false; ";
+        echo " alert('$po[gl_name] ì´ìƒì˜ íšŒì›ë§Œ ê²°ê³¼ë¥¼ ë³´ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.'); return false; ";
     ?>
 
     win_poll("<?=$g4[bbs_path]?>/poll_result.php?po_id="+po_id+"&skin_dir="+document.fpoll_<?=$mt?>.skin_dir.value);

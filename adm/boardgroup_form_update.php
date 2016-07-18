@@ -6,16 +6,16 @@ if ($w == 'u')
     check_demo();
 
 if (chk_recaptcha() == false)
-    alert ('½ºÆÔÂ÷´ÜÄÚµå°¡ Æ²·È½À´Ï´Ù.');
+    alert ('ìŠ¤íŒ¸ì°¨ë‹¨ì½”ë“œê°€ í‹€ë ¸ìŠµë‹ˆë‹¤.');
 
 auth_check($auth[$sub_menu], "w");
 
-if ($is_admin != "super" && $w == "") alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.");
+if ($is_admin != "super" && $w == "") alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
 if (!preg_match("/^([A-Za-z0-9_]{1,20})$/", $gr_id))
-    alert("±×·ì ID´Â °ø¹é¾øÀÌ ¿µ¹®ÀÚ, ¼ıÀÚ, _ ¸¸ »ç¿ë °¡´ÉÇÕ´Ï´Ù. (20ÀÚ ÀÌ³»)");
+    alert("ê·¸ë£¹ IDëŠ” ê³µë°±ì—†ì´ ì˜ë¬¸ì, ìˆ«ì, _ ë§Œ ì‚¬ìš© ê°€ëŠ¥í•©ë‹ˆë‹¤. (20ì ì´ë‚´)");
 
-if (!$gr_subject) alert("±×·ì Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä.");
+if (!$gr_subject) alert("ê·¸ë£¹ ì œëª©ì„ ì…ë ¥í•˜ì„¸ìš”.");
 
 check_token();
 
@@ -77,7 +77,7 @@ if ($w == "")
     $sql = " select count(*) as cnt from $g4[group_table] where gr_id = '$gr_id' ";
     $row = sql_fetch($sql);
     if ($row[cnt]) 
-        alert("ÀÌ¹Ì Á¸ÀçÇÏ´Â ±×·ì ID ÀÔ´Ï´Ù.");
+        alert("ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ê·¸ë£¹ ID ì…ë‹ˆë‹¤.");
 
     $sql = " insert into $g4[group_table]
                 set gr_id = '$gr_id',
@@ -86,7 +86,7 @@ if ($w == "")
 } 
 else if ($w == "u") 
 {
-    // ºÒ´çÆÑ - $gr_use_search¿¡ °ªÀ» ÇÏÀ§ °Ô½ÃÆÇ¿¡ ¹İ¿µ
+    // ë¶ˆë‹¹íŒ© - $gr_use_searchì— ê°’ì„ í•˜ìœ„ ê²Œì‹œíŒì— ë°˜ì˜
     $gr_old = sql_fetch(" select * from $g4[group_table] where gr_id = '$gr_id' ");
     if ($gr_old[gr_use_search] != $gr_use_search) {
         $sql = " update $g4[board_table] set bo_use_search = '$gr_use_search' where gr_id = '$gr_id' ";
@@ -99,9 +99,9 @@ else if ($w == "u")
     sql_query($sql);
 } 
 else
-    alert("Á¦´ë·Î µÈ °ªÀÌ ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.");
+    alert("ì œëŒ€ë¡œ ëœ ê°’ì´ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
-// ºÒ´çÆÑ - ±ÇÇÑº¯°æ ÀÛ¾÷³»¿ªÀ» db log¿¡ ³²±é´Ï´Ù
+// ë¶ˆë‹¹íŒ© - ê¶Œí•œë³€ê²½ ì‘ì—…ë‚´ì—­ì„ db logì— ë‚¨ê¹ë‹ˆë‹¤
 if ($gr_admin !== $group['gr_admin']) {
     $sql =  " update $g4[group_table] set gr_admin='$gr_admin' where gr_id='$gr_id'";
 

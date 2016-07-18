@@ -4,11 +4,11 @@ include_once("_common.php");
 if (!function_exists('convert_charset')) {
     /*
     -----------------------------------------------------------
-        Charset À» º¯È¯ÇÏ´Â ÇÔ¼ö
+        Charset ì„ ë³€í™˜í•˜ëŠ” í•¨ìˆ˜
     -----------------------------------------------------------
-    iconv ÇÔ¼ö°¡ ÀÖÀ¸¸é iconv ·Î º¯È¯ÇÏ°í
-    ¾øÀ¸¸é mb_convert_encoding ÇÔ¼ö¸¦ »ç¿ëÇÑ´Ù.
-    µÑ´Ù ¾øÀ¸¸é »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    iconv í•¨ìˆ˜ê°€ ìˆìœ¼ë©´ iconv ë¡œ ë³€í™˜í•˜ê³ 
+    ì—†ìœ¼ë©´ mb_convert_encoding í•¨ìˆ˜ë¥¼ ì‚¬ìš©í•œë‹¤.
+    ë‘˜ë‹¤ ì—†ìœ¼ë©´ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
     */
     function convert_charset($from_charset, $to_charset, $str) {
 
@@ -29,30 +29,30 @@ $reg_mb_nick = $_POST['reg_mb_nick'];
 if (strtolower($g4[charset]) == 'euc-kr') 
     $reg_mb_nick = convert_charset('UTF-8','CP949',$reg_mb_nick);
 
-// º°¸íÀº ÇÑ±Û, ¿µ¹®, ¼ıÀÚ¸¸ °¡´É
+// ë³„ëª…ì€ í•œê¸€, ì˜ë¬¸, ìˆ«ìë§Œ ê°€ëŠ¥
 //if (!check_string($reg_mb_nick, _G4_HANGUL_ + _G4_ALPHABETIC_ + _G4_NUMERIC_)) {
 if (preg_match('/[^0-9a-zA-Z\x{1100}-\x{11FF}\x{3130}-\x{318F}\x{AC00}-\x{D7AF}]+/u', $reg_mb_nick)) {
-    echo "110"; // º°¸íÀº °ø¹é¾øÀÌ ÇÑ±Û, ¿µ¹®, ¼ıÀÚ¸¸ ÀÔ·Â °¡´ÉÇÕ´Ï´Ù.
+    echo "110"; // ë³„ëª…ì€ ê³µë°±ì—†ì´ í•œê¸€, ì˜ë¬¸, ìˆ«ìë§Œ ì…ë ¥ ê°€ëŠ¥í•©ë‹ˆë‹¤.
 } else if (strlen($reg_mb_nick) < 4) {
-    echo "120"; // 4±ÛÀÚ ÀÌ»ó ÀÔ·Â
+    echo "120"; // 4ê¸€ì ì´ìƒ ì…ë ¥
 } else if (preg_match("/[\,]?{$reg_mb_nick}/i", $config[cf_prohibit_id])) {
-    echo "140"; // ¿¹¾à¾î·Î ±İÁöµÈ È¸¿ø¾ÆÀÌµğ
+    echo "140"; // ì˜ˆì•½ì–´ë¡œ ê¸ˆì§€ëœ íšŒì›ì•„ì´ë””
 } else {
-    // È¸¿ø Å×ÀÌºí¿¡¼­ È®ÀÎ
+    // íšŒì› í…Œì´ë¸”ì—ì„œ í™•ì¸
     $row = sql_fetch(" select count(*) as cnt from $g4[member_table] where mb_nick = '$reg_mb_nick' ");
     $mb_count = $row[cnt];
-    // ºÒ´çÆÑ - È¸¿ø nick Å×ÀÌºí¿¡¼­ È®ÀÎ (³»°¡ ½è´ø ´Ğ³×ÀÓÀº ´Ù½Ã ¾µ ¼ö ÀÖ°Ô)
+    // ë¶ˆë‹¹íŒ© - íšŒì› nick í…Œì´ë¸”ì—ì„œ í™•ì¸ (ë‚´ê°€ ì¼ë˜ ë‹‰ë„¤ì„ì€ ë‹¤ì‹œ ì“¸ ìˆ˜ ìˆê²Œ)
     $row = sql_fetch(" select count(*) as cnt from $g4[mb_nick_table] where mb_nick = '$reg_mb_nick' and mb_id <> '$member[mb_id]' ");
     $mb_count_pack = $row[cnt];
     if ($mb_count or $mb_count_pack) {
-        echo "130"; // ÀÌ¹Ì Á¸ÀçÇÏ´Â º°¸í
+        echo "130"; // ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ë³„ëª…
     } else {
-        // ½Å°íµÈ È¸¿øÀÇ ´Ğ³×ÀÓ º¯°æÀ» ÇÒ ¼ö ¾ø°Ô Á¦ÇÑ
+        // ì‹ ê³ ëœ íšŒì›ì˜ ë‹‰ë„¤ì„ ë³€ê²½ì„ í•  ìˆ˜ ì—†ê²Œ ì œí•œ
         $row1 = sql_fetch(" select count(*) as cnt from $g4[singo_table] where mb_id = '$member[mb_id]' ");
         if ($row1['cnt'] > 0)
-            echo "150"; // ½Å°í°¡ ÀÖ¾î¼­ ´Ğ³×ÀÓ º¯°æÀ» ÇÒ ¼ö ¾ø½¿
+            echo "150"; // ì‹ ê³ ê°€ ìˆì–´ì„œ ë‹‰ë„¤ì„ ë³€ê²½ì„ í•  ìˆ˜ ì—†ìŠ´
         else
-            echo "000"; // Á¤»ó
+            echo "000"; // ì •ìƒ
     }
 }
 ?>

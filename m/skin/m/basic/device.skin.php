@@ -1,18 +1,18 @@
 <?php
 if ( ! defined("_GNUBOARD_")) {
     exit;
-} // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+} // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 ?>
 <div class="container">
     <form role="form" class="form-inline" name='deviceForm' method='post' action="device_update.php">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <strong>¾Ë¸² ¼³Á¤</strong>
+                <strong>ì•Œë¦¼ ì„¤ì •</strong>
             </div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-xs-10">
-                        Çª½Ã¾Ë¸² ¹Þ±â
+                        í‘¸ì‹œì•Œë¦¼ ë°›ê¸°
                     </div>
                     <div class="col-xs-2">
                         <label for="push"><input type=checkbox name=push
@@ -24,13 +24,13 @@ if ( ! defined("_GNUBOARD_")) {
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <strong>¼ö¸é ¼³Á¤</strong>
+                <strong>ìˆ˜ë©´ ì„¤ì •</strong>
             </div>
             <div class="panel-body">
                 <div class="row" style="margin-bottom: 15px">
                     <div class="col-xs-10">
-                        ¼ö¸é ½Ã°£¿¡´Â Çª½Ã ¾Ë¸²½Ã ¼Ò¸®/Áøµ¿/LEDÇ¥½Ã¸¦ »ý·«ÇÕ´Ï´Ù.<br>
-                        ´Ü, ±â±âÀÇ È­¸éÀÌ ÄÑÁø »óÅÂ¿¡¼­´Â »ý·«ÇÏÁö ¾Ê°í Á¤»ó Ç¥½ÃµË´Ï´Ù.
+                        ìˆ˜ë©´ ì‹œê°„ì—ëŠ” í‘¸ì‹œ ì•Œë¦¼ì‹œ ì†Œë¦¬/ì§„ë™/LEDí‘œì‹œë¥¼ ìƒëžµí•©ë‹ˆë‹¤.<br>
+                        ë‹¨, ê¸°ê¸°ì˜ í™”ë©´ì´ ì¼œì§„ ìƒíƒœì—ì„œëŠ” ìƒëžµí•˜ì§€ ì•Šê³  ì •ìƒ í‘œì‹œë©ë‹ˆë‹¤.
                     </div>
                     <div class="col-xs-2">
                         <label for="push_sleep"><input type=checkbox name=push_sleep
@@ -40,7 +40,7 @@ if ( ! defined("_GNUBOARD_")) {
                 </div>
                 <div class="row" style="margin-bottom: 15px; padding-top: 15px; border-top: 1px solid #f4f4f4;">
                     <div class="col-xs-6 text-right">
-                        ½ÃÀÛ ½Ã°£
+                        ì‹œìž‘ ì‹œê°„
                     </div>
                     <div class="col-xs-6">
                         <input type=time name='push_sleep_start' size='5' required
@@ -49,7 +49,7 @@ if ( ! defined("_GNUBOARD_")) {
                 </div>
                 <div class="row" style="padding-top: 15px; border-top: 1px solid #f4f4f4;">
                     <div class="col-xs-6 text-right">
-                        Á¾·á ½Ã°£
+                        ì¢…ë£Œ ì‹œê°„
                     </div>
                     <div class="col-xs-6">
                         <input type=time name='push_sleep_end' size='5' required
@@ -60,7 +60,7 @@ if ( ! defined("_GNUBOARD_")) {
         </div>
 
         <div class="text-center">
-            <button type="submit" class="btn btn-success" id="btn_submit">º¯°æ</button>
+            <button type="submit" class="btn btn-success" id="btn_submit">ë³€ê²½</button>
         </div>
     </form>
 </div>

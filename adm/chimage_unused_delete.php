@@ -11,22 +11,22 @@ check_token();
 //print_r2($_POST);
 
 for ($i=0; $i<count($chk); $i++) {
-    // ½ÇÁ¦ ¹øÈ£¸¦ ³Ñ±è
+    // ì‹¤ì œ ë²ˆí˜¸ë¥¼ ë„˜ê¹€
     $k = $_POST[chk][$i];
 
     $bc_now = $bc_id[$k];
     
-    // ÀÌ¹ÌÁö Á¤º¸¸¦ ÀÐ¾î ¿Â´Ù
+    // ì´ë¯¸ì§€ ì •ë³´ë¥¼ ì½ì–´ ì˜¨ë‹¤
     $bc = sql_fetch(" select * from $g4[board_cheditor_table] where bc_id = '$bc_now' ");
 
-    // $img[src] À¥ »óÀÇ Àý´ë°æ·Î ÀÌ¹Ç·Î ÀÌ¹ÌÁö ÆÄÀÏÀÇ »ó´ë°æ·Î¸¦ ±¸ÇÕ´Ï´Ù.
-    // ÀÌ·¸°Ô Àß¶óÁà¾ß Á¦´ë·Î µÈ °æ·Î°¡ ³ª¿Â´Ù.
+    // $img[src] ì›¹ ìƒì˜ ì ˆëŒ€ê²½ë¡œ ì´ë¯€ë¡œ ì´ë¯¸ì§€ íŒŒì¼ì˜ ìƒëŒ€ê²½ë¡œë¥¼ êµ¬í•©ë‹ˆë‹¤.
+    // ì´ë ‡ê²Œ ìž˜ë¼ì¤˜ì•¼ ì œëŒ€ë¡œ ëœ ê²½ë¡œê°€ ë‚˜ì˜¨ë‹¤.
     $fl = explode("/$g4[data]/",$bc[bc_dir]);
     $rel_path = "../" . $g4[data] . "/" . $fl[1];
 
     $img_link = $rel_path . "/" . $bc[bc_file];
 
-    // ¹é¾÷À¸·Î ³Ö¾îµÑ µð·ºÅä¸®. ³¡ÀÌ _delete·Î ³¡³­´Ù.
+    // ë°±ì—…ìœ¼ë¡œ ë„£ì–´ë‘˜ ë””ë ‰í† ë¦¬. ëì´ _deleteë¡œ ëë‚œë‹¤.
     $img_bkup = $rel_path . "_delete";
     if (!file_exists("$img_bkup")) {
         @mkdir($img_bkup, 0707);
@@ -34,10 +34,10 @@ for ($i=0; $i<count($chk); $i++) {
     }
     $bkup_link = $img_bkup . "/" . $bc[bc_file];
     
-    // ÀÌ¹ÌÁö¸¦ ¹é¾÷ ¹Þ´Â´Ù
+    // ì´ë¯¸ì§€ë¥¼ ë°±ì—… ë°›ëŠ”ë‹¤
     rename("$img_link", "$bkup_link");
 
-    // ÀÌ¹ÌÁö Á¤º¸¸¦ Áö¿î´Ù
+    // ì´ë¯¸ì§€ ì •ë³´ë¥¼ ì§€ìš´ë‹¤
     $sql = " delete from $g4[board_cheditor_table] where bc_id = '$bc_now' ";
     sql_query($sql);
 }

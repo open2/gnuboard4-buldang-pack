@@ -7,7 +7,7 @@ if (!$member[mb_id]) {
     $href = "./login.php?$qstr&url=".urlencode("./board.php?bo_table=$bo_table&wr_id=$wr_id");
     echo <<<HEREDOC
     <script language="JavaScript">
-        alert("È¸¿ø¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.");
+        alert("íšŒì›ë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
         opener.location.href = "$href";
         window.close();
     </script>
@@ -19,7 +19,7 @@ if ( ! in_app()) {
     echo <<<HEREDOC
 <script language="JavaScript">
     if (window.name != "scrap") {
-        alert("¿Ã¹Ù¸¥ ¹æ¹ıÀ¸·Î »ç¿ëÇØ ÁÖ½Ê½Ã¿À.");
+        alert("ì˜¬ë°”ë¥¸ ë°©ë²•ìœ¼ë¡œ ì‚¬ìš©í•´ ì£¼ì‹­ì‹œì˜¤.");
         window.close();
     }
 </script>
@@ -27,7 +27,7 @@ HEREDOC;
 }
 
 if ($write[wr_is_comment])
-    alert_close("ÄÚ¸àÆ®´Â ½ºÅ©·¦ ÇÒ ¼ö ¾ø½À´Ï´Ù.");
+    alert_close("ì½”ë©˜íŠ¸ëŠ” ìŠ¤í¬ë© í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 
 $sql = " select count(*) as cnt from $g4[scrap_table]
           where mb_id = '$member[mb_id]'
@@ -37,7 +37,7 @@ $row = sql_fetch($sql);
 if ($row[cnt]) {
     echo <<<HEREDOC
     <script language="JavaScript">
-    if (confirm('ÀÌ¹Ì ½ºÅ©·¦ÇÏ½Å ±Û ÀÔ´Ï´Ù.\\n\\nÁö±İ ½ºÅ©·¦À» È®ÀÎÇÏ½Ã°Ú½À´Ï±î?'))
+    if (confirm('ì´ë¯¸ ìŠ¤í¬ë©í•˜ì‹  ê¸€ ì…ë‹ˆë‹¤.\\n\\nì§€ê¸ˆ ìŠ¤í¬ë©ì„ í™•ì¸í•˜ì‹œê² ìŠµë‹ˆê¹Œ?'))
         document.location.href = './scrap.php';
     else
         window.close();

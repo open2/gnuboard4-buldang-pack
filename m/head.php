@@ -1,8 +1,8 @@
 <?
 if ( ! defined("_GNUBOARD_")) {
     exit;
-} // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+} // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
-// ¹è³Ê°ü¸® lib
+// ë°°ë„ˆê´€ë¦¬ lib
 include_once("$g4[path]/lib/banner.lib.php");
 include_once("$g4[path]/lib/latest.lib.php");

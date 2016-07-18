@@ -3,21 +3,21 @@ include_once("./_common.php");
 include_once("$g4[path]/memo.config.php");
 
 if (!$member[mb_id])
-    alert("È¸¿ø¸¸ ÀÌ¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+    alert("íšŒì›ë§Œ ì´ìš©í•˜ì‹¤ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.");
 
 $mb_id = $member['mb_id'];
 
 switch ($kind) {
   case 'recv' : $sql = " select me_recv_mb_id from $g4[memo_recv_table] where me_id='$me_id' and memo_owner='$mb_id' ";
                 $result = sql_fetch($sql);
-                if ($result[me_recv_mb_id] == $mb_id) {} else alert("¹Ù¸£Áö ¸øÇÑ »ç¿ëÀÔ´Ï´Ù");
+                if ($result[me_recv_mb_id] == $mb_id) {} else alert("ë°”ë¥´ì§€ ëª»í•œ ì‚¬ìš©ìž…ë‹ˆë‹¤");
 
-                // ¼ö½ÅÀÚ/¹ß½ÅÀÚ°¡ ¸ðµÎ save¸¦ ÇÏ·Á°í ÇÏ¸é me_id Áßº¹À¸·Î save°¡ µÇÁö ¾Ê½À´Ï´Ù.
-                // me_id+memo_owner¸¦ primary key·Î ÁöÁ¤ 
+                // ìˆ˜ì‹ ìž/ë°œì‹ ìžê°€ ëª¨ë‘ saveë¥¼ í•˜ë ¤ê³  í•˜ë©´ me_id ì¤‘ë³µìœ¼ë¡œ saveê°€ ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
+                // me_id+memo_ownerë¥¼ primary keyë¡œ ì§€ì • 
                 // ALTER TABLE `g4_memo_save` DROP PRIMARY KEY , ADD PRIMARY KEY ( `me_id` , `memo_type` ) 
                 $sql = " select count(*) as cnt from $g4[memo_save_table] where me_id = '$me_id' and memo_type = 'recv' and memo_owner='$mb_id' ";
                 $result = sql_fetch($sql);
-                if ($result[cnt] > 0) alert("ÀÌ¹Ì ÀúÀåµÈ ÂÊÁö ÀÔ´Ï´Ù. ¿î¿µÀÚ¿¡°Ô ¹®ÀÇÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.");
+                if ($result[cnt] > 0) alert("ì´ë¯¸ ì €ìž¥ëœ ìª½ì§€ ìž…ë‹ˆë‹¤. ìš´ì˜ìžì—ê²Œ ë¬¸ì˜í•˜ì‹œê¸° ë°”ëžë‹ˆë‹¤.");
                 
                 $sql = " insert into $g4[memo_save_table] select * from $g4[memo_recv_table] where me_id = '$me_id' and memo_owner='$mb_id' ";
                 sql_query($sql);
@@ -27,11 +27,11 @@ switch ($kind) {
                 break;
   case 'send' : $sql = " select me_send_mb_id from $g4[memo_send_table] where me_id = '$me_id' and memo_owner='$mb_id' ";
                 $result = sql_fetch($sql);
-                if ($result[me_send_mb_id] == $mb_id) {} else alert("¹Ù¸£Áö ¸øÇÑ »ç¿ëÀÔ´Ï´Ù");
+                if ($result[me_send_mb_id] == $mb_id) {} else alert("ë°”ë¥´ì§€ ëª»í•œ ì‚¬ìš©ìž…ë‹ˆë‹¤");
 
                 $sql = " select count(*) as cnt from $g4[memo_save_table] where me_id = '$me_id' and memo_type = 'recv' and memo_owner='$mb_id' ";
                 $result = sql_fetch($sql);
-                if ($result[cnt] > 0) alert("ÀÌ¹Ì ÀúÀåµÈ ÂÊÁö ÀÔ´Ï´Ù. ¿î¿µÀÚ¿¡°Ô ¹®ÀÇÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.");
+                if ($result[cnt] > 0) alert("ì´ë¯¸ ì €ìž¥ëœ ìª½ì§€ ìž…ë‹ˆë‹¤. ìš´ì˜ìžì—ê²Œ ë¬¸ì˜í•˜ì‹œê¸° ë°”ëžë‹ˆë‹¤.");
                 
                 $sql = " insert into $g4[memo_save_table] select * from $g4[memo_send_table] where me_id = '$me_id' and memo_owner='$mb_id' ";
                 sql_query($sql);
@@ -40,8 +40,8 @@ switch ($kind) {
                 sql_query($sql);
                 break;
   default : 
-    alert("¼ö½Å/¹ß½ÅÇÔÀÇ ÂÊÁö¸¸ ÀúÀåÀÌ °¡´É ÇÕ´Ï´Ù.");
+    alert("ìˆ˜ì‹ /ë°œì‹ í•¨ì˜ ìª½ì§€ë§Œ ì €ìž¥ì´ ê°€ëŠ¥ í•©ë‹ˆë‹¤.");
 }
 
-alert("ÂÊÁö¸¦ ÀúÀåÇÏ¿´½À´Ï´Ù.", "./memo.php?kind=save");
+alert("ìª½ì§€ë¥¼ ì €ìž¥í•˜ì˜€ìŠµë‹ˆë‹¤.", "./memo.php?kind=save");
 ?>

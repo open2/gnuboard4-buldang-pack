@@ -1,7 +1,7 @@
-if (typeof(B4_COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
+if (typeof(B4_COMMON_JS) == 'undefined') { // í•œë²ˆë§Œ ì‹¤í–‰
     var B4_COMMON_JS = true;
 
-    // °ö½½ÃÖ¾¾´ÔÀÇ mw_image_window¸¦ ÀÌ¸§¿À·ù ¾È³ª°Ô ÀÌ¸§¸¸ º¯°æ
+    // ê³±ìŠ¬ìµœì”¨ë‹˜ì˜ mw_image_windowë¥¼ ì´ë¦„ì˜¤ë¥˜ ì•ˆë‚˜ê²Œ ì´ë¦„ë§Œ ë³€ê²½
     function image_window2(img, w, h)
     {
     	if (!w || !h)
@@ -64,7 +64,7 @@ if (typeof(B4_COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
     		js_url += "//--> \n"; 
     		js_url += "</"+"script> \n"; 
    
-      // zzzz´ÔÀÌ ¾Ë·ÁÁÖ¼Ì¾î¿ä. °¨¼İ ^^
+      // zzzzë‹˜ì´ ì•Œë ¤ì£¼ì…¨ì–´ìš”. ê°ì†¨ ^^
     	var j1_url = "<script language='JavaScript1.2'> \n"; 
     		j1_url += "<!-- \n"; 
     		j1_url += "function _ReSize() { ";
@@ -101,14 +101,14 @@ if (typeof(B4_COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
     	win=window.open("","image_window",settings); 
     	win.document.open(); 
     	win.document.write ("<html><head> \n<meta http-equiv='content-type' content='text/html; charset="+g4_charset+"'>\n"); 
-    	var size = "ÀÌ¹ÌÁö »çÀÌÁî : "+w+" x "+h;
+    	var size = "ì´ë¯¸ì§€ ì‚¬ì´ì¦ˆ : "+w+" x "+h;
     	win.document.write ("<title>"+size+"</title> \n"); 
     	if(w >= screen.width || h >= screen.height) { 
      		win.document.write (js_url); 
-    		var click = "ondblclick='window.close();' style='cursor:move' title=' "+size+" \n\n ÀÌ¹ÌÁö »çÀÌÁî°¡ È­¸éº¸´Ù Å®´Ï´Ù. \n ¿ŞÂÊ ¹öÆ°À» Å¬¸¯ÇÑ ÈÄ ¸¶¿ì½º¸¦ ¿òÁ÷¿©¼­ º¸¼¼¿ä. \n\n ´õºí Å¬¸¯ÇÏ¸é ´İÇô¿ä. '"; 
+    		var click = "ondblclick='window.close();' style='cursor:move' title=' "+size+" \n\n ì´ë¯¸ì§€ ì‚¬ì´ì¦ˆê°€ í™”ë©´ë³´ë‹¤ í½ë‹ˆë‹¤. \n ì™¼ìª½ ë²„íŠ¼ì„ í´ë¦­í•œ í›„ ë§ˆìš°ìŠ¤ë¥¼ ì›€ì§ì—¬ì„œ ë³´ì„¸ìš”. \n\n ë”ë¸” í´ë¦­í•˜ë©´ ë‹«í˜€ìš”. '"; 
     	} 
     	else 
-    		var click = "onclick='window.close();' style='cursor:pointer' title=' "+size+" \n\n Å¬¸¯ÇÏ¸é ´İÇô¿ä. '"; 
+    		var click = "onclick='window.close();' style='cursor:pointer' title=' "+size+" \n\n í´ë¦­í•˜ë©´ ë‹«í˜€ìš”. '"; 
 
    		win.document.write (j1_url); 
    		
@@ -126,7 +126,7 @@ if (typeof(B4_COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
     
     }
     
-    // img_src °ªÀ¸·Î ÀÌ¹ÌÁöÃ¢À» ÆË¾÷ (ÆÒ+ÁÜ)
+    // img_src ê°’ìœ¼ë¡œ ì´ë¯¸ì§€ì°½ì„ íŒì—… (íŒ¬+ì¤Œ)
     function image_window3(img_src, w, h)
     {
     	if (!w || !h)
@@ -189,7 +189,7 @@ if (typeof(B4_COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
     		js_url += "//--> \n"; 
     		js_url += "</"+"script> \n"; 
 
-      // zzzz´ÔÀÌ ¾Ë·ÁÁÖ¼Ì¾î¿ä. °¨¼İ ^^
+      // zzzzë‹˜ì´ ì•Œë ¤ì£¼ì…¨ì–´ìš”. ê°ì†¨ ^^
     	var j1_url = "<script type/text='JavaScript'> \n"; 
     		j1_url += "<!-- \n"; 
     		j1_url += "function _ReSize() { ";
@@ -226,15 +226,15 @@ if (typeof(B4_COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
     	win=window.open("","image_window",settings); 
     	win.document.open(); 
     	win.document.write ("<html><head> \n<meta http-equiv='content-type' content='text/html; charset="+g4_charset+"'>\n"); 
-    	var size = "ÀÌ¹ÌÁö »çÀÌÁî : "+w+" x "+h;
+    	var size = "ì´ë¯¸ì§€ ì‚¬ì´ì¦ˆ : "+w+" x "+h;
     	win.document.write ("<title>"+size+"</title> \n"); 
 
     	if(w >= screen.width || h >= screen.height) { 
     		win.document.write (js_url);
-    		var click = "ondblclick='window.close();' style='cursor:move' title=' "+size+" \n\n ÀÌ¹ÌÁö »çÀÌÁî°¡ È­¸éº¸´Ù Å®´Ï´Ù. \n ¿ŞÂÊ ¹öÆ°À» Å¬¸¯ÇÑ ÈÄ ¸¶¿ì½º¸¦ ¿òÁ÷¿©¼­ º¸¼¼¿ä. \n\n ´õºí Å¬¸¯ÇÏ¸é ´İÇô¿ä. '"; 
+    		var click = "ondblclick='window.close();' style='cursor:move' title=' "+size+" \n\n ì´ë¯¸ì§€ ì‚¬ì´ì¦ˆê°€ í™”ë©´ë³´ë‹¤ í½ë‹ˆë‹¤. \n ì™¼ìª½ ë²„íŠ¼ì„ í´ë¦­í•œ í›„ ë§ˆìš°ìŠ¤ë¥¼ ì›€ì§ì—¬ì„œ ë³´ì„¸ìš”. \n\n ë”ë¸” í´ë¦­í•˜ë©´ ë‹«í˜€ìš”. '"; 
     	} 
     	else
-    		var click = "onclick='window.close();' style='cursor:pointer' title=' "+size+" \n\n Å¬¸¯ÇÏ¸é ´İÇô¿ä. '"; 
+    		var click = "onclick='window.close();' style='cursor:pointer' title=' "+size+" \n\n í´ë¦­í•˜ë©´ ë‹«í˜€ìš”. '"; 
 
    		win.document.write (j1_url); 
 
@@ -252,7 +252,7 @@ if (typeof(B4_COMMON_JS) == 'undefined') { // ÇÑ¹ø¸¸ ½ÇÇà
     
     }
 
-    // ½Å°íÇØÁö Ã¢
+    // ì‹ ê³ í•´ì§€ ì°½
     function win_unsingo(url)
     {
         win_open(url, "unsingo", "left=20, top=20, width=608, height=350, scrollbars=0");
@@ -343,7 +343,7 @@ function strip_tags(input, allowed) {
   // bugfixed by: Eric Nagel
   // bugfixed by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
   // bugfixed by: Tomasz Wesolowski
-  //  revised by: Rafa©© Kukawski (http://blog.kukawski.pl/)
+  //  revised by: RafaÅ‚ Kukawski (http://blog.kukawski.pl/)
   //   example 1: strip_tags('<p>Kevin</p> <br /><b>van</b> <i>Zonneveld</i>', '<i><b>');
   //   returns 1: 'Kevin <b>van</b> <i>Zonneveld</i>'
   //   example 2: strip_tags('<p>Kevin <img src="someimage.png" onmouseover="someFunction()">van <i>Zonneveld</i></p>', '<p>');

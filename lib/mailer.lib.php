@@ -1,14 +1,14 @@
 <?
 if (!defined("_GNUBOARD_")) exit;
 
-// ¸ÞÀÏ º¸³»±â (ÆÄÀÏ ¿©·¯°³ Ã·ºÎ °¡´É)
+// ë©”ì¼ ë³´ë‚´ê¸° (íŒŒì¼ ì—¬ëŸ¬ê°œ ì²¨ë¶€ ê°€ëŠ¥)
 // type : text=0, html=1, text+html=2
 function mailer($fname, $fmail, $to, $subject, $content, $type=0, $file="", $cc="", $bcc="") 
 {
     global $config;
     global $g4;
 
-    // ¸ÞÀÏ¹ß¼Û »ç¿ëÀ» ÇÏÁö ¾Ê´Â´Ù¸é
+    // ë©”ì¼ë°œì†¡ ì‚¬ìš©ì„ í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´
     if (!$config[cf_email_use]) return;
 
     $fname   = "=?$g4[charset]?B?" . base64_encode($fname) . "?=";
@@ -22,7 +22,7 @@ function mailer($fname, $fmail, $to, $subject, $content, $type=0, $file="", $cc=
     if ($bcc) $header .= "Bcc: $bcc\n";
     $header .= "MIME-Version: 1.0\n";
     //$header .= "X-Mailer: SIR Mailer 0.91 (sir.co.kr) : $_SERVER[SERVER_ADDR] : $_SERVER[REMOTE_ADDR] : $g4[url] : $_SERVER[PHP_SELF] : $_SERVER[HTTP_REFERER] \n";
-    // UTF-8 °ü·Ã ¼öÁ¤
+    // UTF-8 ê´€ë ¨ ìˆ˜ì •
     $header .= "X-Mailer: SIR Mailer 0.92 (sir.co.kr) : $_SERVER[SERVER_ADDR] : $_SERVER[REMOTE_ADDR] : $g4[url] : $_SERVER[PHP_SELF] : $_SERVER[HTTP_REFERER] \n";
 
     if ($file != "") {
@@ -59,7 +59,7 @@ function mailer($fname, $fmail, $to, $subject, $content, $type=0, $file="", $cc=
     @mail($to, $subject, "", $header);
 }
 
-// ÆÄÀÏ Ã·ºÎ½Ã
+// íŒŒì¼ ì²¨ë¶€ì‹œ
 /*
 $fp = fopen(__FILE__, "r");
 $file[] = array(
@@ -68,7 +68,7 @@ $file[] = array(
 fclose($fp);
 */
 
-// ÆÄÀÏÀ» Ã·ºÎÇÔ
+// íŒŒì¼ì„ ì²¨ë¶€í•¨
 function attach_file($filename, $file)
 {
     $fp = fopen($file, "r");
@@ -79,52 +79,52 @@ function attach_file($filename, $file)
     return $tmpfile;
 }
 
-// ¸ÞÀÏ À¯È¿¼º °Ë»ç
-// core PHP Programming Ã¥ Âü°í
-// hanmail.net , hotmail.com , kebi.com µîÀÌ Á¤»óÀûÀÌÁö ¾ÊÀ½À¸·Î »ç¿ë ºÒ°¡
+// ë©”ì¼ ìœ íš¨ì„± ê²€ì‚¬
+// core PHP Programming ì±… ì°¸ê³ 
+// hanmail.net , hotmail.com , kebi.com ë“±ì´ ì •ìƒì ì´ì§€ ì•ŠìŒìœ¼ë¡œ ì‚¬ìš© ë¶ˆê°€
 function verify_email($address, &$error)
 {
     global $g4;
 
-    $WAIT_SECOND = 3; // ?ÃÊ ±â´Ù¸²
+    $WAIT_SECOND = 3; // ?ì´ˆ ê¸°ë‹¤ë¦¼
 
     list($user, $domain) = explode("@", $address);
 
-    // µµ¸ÞÀÎ¿¡ ¸ÞÀÏ ±³È¯±â°¡ Á¸ÀçÇÏ´ÂÁö °Ë»ç
+    // ë„ë©”ì¸ì— ë©”ì¼ êµí™˜ê¸°ê°€ ì¡´ìž¬í•˜ëŠ”ì§€ ê²€ì‚¬
     if (checkdnsrr($domain, "MX")) {
-        // ¸ÞÀÏ ±³È¯±â ·¹ÄÚµåµéÀ» ¾ò´Â´Ù
+        // ë©”ì¼ êµí™˜ê¸° ë ˆì½”ë“œë“¤ì„ ì–»ëŠ”ë‹¤
         if (!getmxrr($domain, $mxhost, $mxweight)) {
-            $error = "¸ÞÀÏ ±³È¯±â¸¦ È¸¼öÇÒ ¼ö ¾øÀ½";
+            $error = "ë©”ì¼ êµí™˜ê¸°ë¥¼ íšŒìˆ˜í•  ìˆ˜ ì—†ìŒ";
             return false;
         }
     } else {
-        // ¸ÞÀÏ ±³È¯±â°¡ ¾øÀ¸¸é, µµ¸ÞÀÎ ÀÚÃ¼°¡ ÆíÁö¸¦ ¹Þ´Â °ÍÀ¸·Î °£ÁÖ
+        // ë©”ì¼ êµí™˜ê¸°ê°€ ì—†ìœ¼ë©´, ë„ë©”ì¸ ìžì²´ê°€ íŽ¸ì§€ë¥¼ ë°›ëŠ” ê²ƒìœ¼ë¡œ ê°„ì£¼
         $mxhost[] = $domain;
         $mxweight[] = 1;
     }
 
-    // ¸ÞÀÏ ±³È¯±â È£½ºÆ®ÀÇ ¹è¿­À» ¸¸µç´Ù.
+    // ë©”ì¼ êµí™˜ê¸° í˜¸ìŠ¤íŠ¸ì˜ ë°°ì—´ì„ ë§Œë“ ë‹¤.
     for ($i=0; $i<count($mxhost); $i++)
         $weighted_host[($mxweight[$i])] = $mxhost[$i];
     ksort($weighted_host);
 
-    // °¢ È£½ºÆ®¸¦ °Ë»ç
+    // ê° í˜¸ìŠ¤íŠ¸ë¥¼ ê²€ì‚¬
     foreach($weighted_host as $host) {
-        // È£½ºÆ®ÀÇ SMTP Æ÷Æ®¿¡ ¿¬°á
+        // í˜¸ìŠ¤íŠ¸ì˜ SMTP í¬íŠ¸ì— ì—°ê²°
         if (!($fp = @fsockopen($host, 25))) continue;
 
-        // 220 ¸Þ¼¼ÁöµéÀº °Ç³Ê¶Ü
-        // 3ÃÊ°¡ Áö³ªµµ ÀÀ´äÀÌ ¾øÀ¸¸é Æ÷±â
+        // 220 ë©”ì„¸ì§€ë“¤ì€ ê±´ë„ˆëœ€
+        // 3ì´ˆê°€ ì§€ë‚˜ë„ ì‘ë‹µì´ ì—†ìœ¼ë©´ í¬ê¸°
         socket_set_blocking($fp, false);
         $stoptime = $g4[server_time] + $WAIT_SECOND;
         $gotresponse = false;
 
         while (true) {
-            // ¸ÞÀÏ¼­¹ö·ÎºÎÅÍ ÇÑÁÙ ¾òÀ½
+            // ë©”ì¼ì„œë²„ë¡œë¶€í„° í•œì¤„ ì–»ìŒ
             $line = fgets($fp, 1024);
 
             if (substr($line, 0, 3) == "220") {
-                // Å¸ÀÌ¸Ó¸¦ ÃÊ±âÈ­
+                // íƒ€ì´ë¨¸ë¥¼ ì´ˆê¸°í™”
                 $stoptime = $g4[server_time] + $WAIT_SECOND;
                 $gotresponse = true;
             } else if ($line == "" && $gotresponse)
@@ -133,41 +133,41 @@ function verify_email($address, &$error)
                 break;
         }
 
-        // ÀÌ È£½ºÆ®´Â ÀÀ´äÀÌ ¾øÀ½. ´ÙÀ½ È£½ºÆ®·Î ³Ñ¾î°£´Ù
+        // ì´ í˜¸ìŠ¤íŠ¸ëŠ” ì‘ë‹µì´ ì—†ìŒ. ë‹¤ìŒ í˜¸ìŠ¤íŠ¸ë¡œ ë„˜ì–´ê°„ë‹¤
         if (!$gotresponse) continue;
 
         socket_set_blocking($fp, true);
 
-        // SMTP ¼­¹ö¿ÍÀÇ ´ëÈ­¸¦ ½ÃÀÛ
+        // SMTP ì„œë²„ì™€ì˜ ëŒ€í™”ë¥¼ ì‹œìž‘
         fputs($fp, "HELO $_SERVER[SERVER_NAME]\r\n");
         echo "HELO $_SERVER[SERVER_NAME]\r\n";
         fgets($fp, 1024);
 
-        // FromÀ» ¼³Á¤
+        // Fromì„ ì„¤ì •
         fputs($fp, "MAIL FROM: <info@$domain>\r\n");
         echo "MAIL FROM: <info@$domain>\r\n";
         fgets($fp, 1024);
 
-        // ÁÖ¼Ò¸¦ ½Ãµµ
+        // ì£¼ì†Œë¥¼ ì‹œë„
         fputs($fp, "RCPT TO: <$address>\r\n");
         echo "RCPT TO: <$address>\r\n";
         $line = fgets($fp, 1024);
 
-        // ¿¬°áÀ» ´ÝÀ½
+        // ì—°ê²°ì„ ë‹«ìŒ
         fputs($fp, "QUIT\r\n");
         fclose($fp);
 
         if (substr($line, 0, 3) != "250") {
-            // SMTP ¼­¹ö°¡ ÀÌ ÁÖ¼Ò¸¦ ÀÎ½ÄÇÏÁö ¸øÇÏ¹Ç·Î Àß¸øµÈ ÁÖ¼ÒÀÓ
+            // SMTP ì„œë²„ê°€ ì´ ì£¼ì†Œë¥¼ ì¸ì‹í•˜ì§€ ëª»í•˜ë¯€ë¡œ ìž˜ëª»ëœ ì£¼ì†Œìž„
             $error = $line;
             return false;
         } else
-            // ÁÖ¼Ò¸¦ ÀÎ½ÄÇßÀ½
+            // ì£¼ì†Œë¥¼ ì¸ì‹í–ˆìŒ
             return true;
 
     }
     
-    $error = "¸ÞÀÏ ±³È¯±â¿¡ µµ´ÞÇÏÁö ¸øÇÏ¿´½À´Ï´Ù.";
+    $error = "ë©”ì¼ êµí™˜ê¸°ì— ë„ë‹¬í•˜ì§€ ëª»í•˜ì˜€ìŠµë‹ˆë‹¤.";
     return false;
 }
 ?>

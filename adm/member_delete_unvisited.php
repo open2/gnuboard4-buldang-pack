@@ -7,56 +7,56 @@ check_demo();
 auth_check($auth[$sub_menu], "d");
 
 if ($is_admin != "super")
-    alert("È¸¿øÁ¤¸®´Â ÃÖ°í°ü¸®ÀÚ¸¸ °¡´ÉÇÕ´Ï´Ù.");
+    alert("íšŒì›ì •ë¦¬ëŠ” ìµœê³ ê´€ë¦¬ìë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
-$g4[title] = "Àå±â¹ÌÁ¢¼ÓÈ¸¿ø Á¤¸®";
+$g4[title] = "ì¥ê¸°ë¯¸ì ‘ì†íšŒì› ì •ë¦¬";
 
 include_once("./admin.head.php");
 echo "<span id='ct'></span>";
 include_once("./admin.tail.php");
 flush();
 
-echo "<script>document.getElementById('ct').innerHTML += '<p>Àå±â¹ÌÁ¢¼ÓÈ¸¿ø Á¤¸®Áß...';</script>\n";
+echo "<script>document.getElementById('ct').innerHTML += '<p>ì¥ê¸°ë¯¸ì ‘ì†íšŒì› ì •ë¦¬ì¤‘...';</script>\n";
 flush();
 
-// È¸¿ø »èÁ¦ ÇÔ¼ö ÀÎÅ¬·çµå.
+// íšŒì› ì‚­ì œ í•¨ìˆ˜ ì¸í´ë£¨ë“œ.
 include_once("$g4[admin_path]/admin.lib.php");
 
-// °³º° »èÁ¦
+// ê°œë³„ ì‚­ì œ
 if ($w == 'd' && $mb_id) {
 
-    // µ¥ÀÌÅÍ
+    // ë°ì´í„°
     $mb = get_member($mb_id);
 
-    // Ã¼Å©
+    // ì²´í¬
     if (!$mb['mb_id']) {
 
-        alert("È¸¿ø µ¥ÀÌÅÍ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+        alert("íšŒì› ë°ì´í„°ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 
     }
 
-    // È¸¿ø»èÁ¦
+    // íšŒì›ì‚­ì œ
     member_delete($mb_id);
 
-    // ÀÌµ¿
+    // ì´ë™
     goto_url("./member_delete.php");
 
 }
 
-$login_time = 365 * 5; //Áö³­ ¸îÀÏ µ¿¾È Á¢¼ÓÇÏÁö ¾ÊÀº È¸¿øÀ» »èÁ¦ÇÒÁö¸¦ °áÁ¤?
+$login_time = 365 * 5; //ì§€ë‚œ ëª‡ì¼ ë™ì•ˆ ì ‘ì†í•˜ì§€ ì•Šì€ íšŒì›ì„ ì‚­ì œí• ì§€ë¥¼ ê²°ì •?
 $today_login_time = date("Y-m-d H:i:s", $g4['server_time'] - ($login_time * 86400));
 
-// $login_timeÀÏ ÀÌÀü¿¡ ·Î±×ÀÎÇÑ È¸¿ø Ãâ·Â. Áï ÃÖ±Ù $login_timeÀÏ¾È¿¡ ·Î±×ÀÎÇÑ »ç¶÷ÀÌ ¾ø´Ù´Â °ÍÀÌ´Ù.
+// $login_timeì¼ ì´ì „ì— ë¡œê·¸ì¸í•œ íšŒì› ì¶œë ¥. ì¦‰ ìµœê·¼ $login_timeì¼ì•ˆì— ë¡œê·¸ì¸í•œ ì‚¬ëŒì´ ì—†ë‹¤ëŠ” ê²ƒì´ë‹¤.
 $sql = " select * from $g4[unlogin_table] where mb_today_login < '$today_login_time' and mb_level > '1' order by mb_today_login desc ";
 $result = sql_query($sql);
 
 $j = 0;
 for ($i=0; $row=sql_fetch_array($result); $i++) { 
 
-        // È¸¿ø»èÁ¦
+        // íšŒì›ì‚­ì œ
         member_delete($row['mb_id']);
 
-        // 1,000°³ ´ÜÀ§·Î »èÁ¦
+        // 1,000ê°œ ë‹¨ìœ„ë¡œ ì‚­ì œ
         if ($i > 1000)
             break;
 
@@ -69,6 +69,6 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 <br><br>
 
 <?
-echo "<script>document.getElementById('ct').innerHTML += '<p>ÃÑ ".$j."¸íÀÇ È¸¿øÀÌ Á¤¸® µÇ¾ú½À´Ï´Ù.';</script>\n";
+echo "<script>document.getElementById('ct').innerHTML += '<p>ì´ ".$j."ëª…ì˜ íšŒì›ì´ ì •ë¦¬ ë˜ì—ˆìŠµë‹ˆë‹¤.';</script>\n";
 ?>
 

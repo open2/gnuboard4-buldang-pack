@@ -29,10 +29,10 @@ if ($addr1)
         }    
     }
 
-    if (!$search_count) alert("Ã£À¸½Ã´Â ÁÖ¼Ò°¡ ¾ø½À´Ï´Ù.");
+    if (!$search_count) alert("ì°¾ìœ¼ì‹œëŠ” ì£¼ì†Œê°€ ì—†ìŠµë‹ˆë‹¤.");
 }
 
-/* ±âÁ¸ÀÇ DB¿¡¼­ ºÒ·¯¿À´Â ¹æ½Ä
+/* ê¸°ì¡´ì˜ DBì—ì„œ ë¶ˆëŸ¬ì˜¤ëŠ” ë°©ì‹
 if ($addr1) 
 {
     //$sql = " select * from $g4[zip_table] where zp_dong like '%$addr1%' order by zp_id ";
@@ -50,11 +50,11 @@ if ($addr1)
     }
 
     if (!$search_count) 
-        alert("Ã£À¸½Ã´Â ÁÖ¼Ò°¡ ¾ø½À´Ï´Ù.");
+        alert("ì°¾ìœ¼ì‹œëŠ” ì£¼ì†Œê°€ ì—†ìŠµë‹ˆë‹¤.");
 }
 */
 
-$g4[title] = "¿ìÆí¹øÈ£ °Ë»ö";
+$g4[title] = "ìš°í¸ë²ˆí˜¸ ê²€ìƒ‰";
 include_once("$g4[path]/head.sub.php");
 
 $member_skin_path = "$g4[path]/skin/member/$config[cf_member_skin]";

@@ -1,15 +1,15 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 <!--ui object -->
-<div class="well well-sm" style="margin-bottom:0px;"><strong><a href="<?=$_SERVER[PHP_SELF]?>">ÇöÀçÁ¢¼ÓÀÚ</a></strong></div>
+<div class="well well-sm" style="margin-bottom:0px;"><strong><a href="<?=$_SERVER[PHP_SELF]?>">í˜„ì¬ì ‘ì†ì</a></strong></div>
 
 <table class="table table-hover" width=100%>
 <thead>
 <tr class="success">
-    <th class="col-sm-1 hidden-xs">¹ø È£</th>
-    <th class="col-sm-2 col-xs-2">ÀÌ ¸§</th>
-    <th>¸µ Å©</th>
+    <th class="col-sm-1 hidden-xs">ë²ˆ í˜¸</th>
+    <th class="col-sm-2 col-xs-2">ì´ ë¦„</th>
+    <th>ë§ í¬</th>
 </tr>
 </thead>
 <tbody>
@@ -23,7 +23,7 @@ for ($i=0; $i<count($list); $i++) {
 
     $location = $list[$i][lo_location];
 
-    // botÀ» ±¸ºĞ ÇÕ´Ï´Ù.
+    // botì„ êµ¬ë¶„ í•©ë‹ˆë‹¤.
     $bot = "";
     if (preg_match('/Googlebot/', $list[$i][lo_agent]))
         $bot = "Google-bot";
@@ -34,8 +34,8 @@ for ($i=0; $i<count($list); $i++) {
     else if (preg_match('/Daumoa/', $list[$i][lo_agent]))
         $bot = "Daum-bot";
 
-    // ÃÖ°í°ü¸®ÀÚ¿¡°Ô¸¸ Çã¿ë
-    // ÀÌ Á¶°Ç¹®Àº °¡´ÉÇÑ º¯°æÇÏÁö ¸¶½Ê½Ã¿À.
+    // ìµœê³ ê´€ë¦¬ìì—ê²Œë§Œ í—ˆìš©
+    // ì´ ì¡°ê±´ë¬¸ì€ ê°€ëŠ¥í•œ ë³€ê²½í•˜ì§€ ë§ˆì‹­ì‹œì˜¤.
     if ($bot)
         echo "<td style='text-align:left'>&nbsp;{$bot}</td>";
     else if ($is_admin == "super" && $list[$i][lo_url])
@@ -48,10 +48,10 @@ for ($i=0; $i<count($list); $i++) {
 }
 
 if ($i == 0)
-    echo "<tr><td colspan=3 height=50 align=center>ÇöÀç Á¢¼ÓÀÚ°¡ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan=3 height=50 align=center>í˜„ì¬ ì ‘ì†ìê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 if ($write_pages) {
-    $write_pages = str_replace("Ã³À½", "&laquo Ã³À½", $write_pages);
-    $write_pages = str_replace("¸Ç³¡", "¸Ç³¡ &raquo", $write_pages);
+    $write_pages = str_replace("ì²˜ìŒ", "&laquo ì²˜ìŒ", $write_pages);
+    $write_pages = str_replace("ë§¨ë", "ë§¨ë &raquo", $write_pages);
 
     echo "<tr><td colspan=3 height=30 align=center>";
     echo "<ul class='pagination'>";

@@ -50,12 +50,12 @@ else {
 	}
 }
 
-// ¿Ã¶ó°£ ÆÄÀÏÀÇ ÆÛ¹Ì¼ÇÀ» º¯°æÇÕ´Ï´Ù.
+// ì˜¬ë¼ê°„ íŒŒì¼ì˜ í¼ë¯¸ì…˜ì„ ë³€ê²½í•©ë‹ˆë‹¤.
 chmod($savefile, 0606);
 
-// ÀúÀå ÆÄÀÏ ÀÌ¸§: ³â¿ùÀÏ½ÃºĞÃÊ_·»´ı¹®ÀÚ8ÀÚ
+// ì €ì¥ íŒŒì¼ ì´ë¦„: ë…„ì›”ì¼ì‹œë¶„ì´ˆ_ë Œë¤ë¬¸ì8ì
 // 20140327125959_abcdefghi.jpg
-// ¿øº» ÆÄÀÏ ÀÌ¸§: $_POST["origname"]
+// ì›ë³¸ íŒŒì¼ ì´ë¦„: $_POST["origname"]
 $filesize = filesize($savefile);
 
 $rdata = sprintf('{"fileUrl": "%s/%s", "filePath": "%s", "fileName": "%s", "fileSize": "%d" }',
@@ -67,7 +67,7 @@ $rdata = sprintf('{"fileUrl": "%s/%s", "filePath": "%s", "fileName": "%s", "file
 
 echo $rdata;
 
-// ºÒ´çÆÑ - ¿Ã¶ó°¡´Â ¸ğµç image ÆÄÀÏÀ» Ã¼Å©, °Ô½ÃÆÇ¿¡ ¿Ã¶ó°¡´Â°Å¸¸ Ã³¸®.
+// ë¶ˆë‹¹íŒ© - ì˜¬ë¼ê°€ëŠ” ëª¨ë“  image íŒŒì¼ì„ ì²´í¬, ê²Œì‹œíŒì— ì˜¬ë¼ê°€ëŠ”ê±°ë§Œ ì²˜ë¦¬.
 if ($bo_table !== "") {
     $bc_url = SAVE_URL . "/" . $filename;
     $sql = " insert into $g4[board_cheditor_table]

@@ -1,18 +1,18 @@
-<!-- ¸ŞÀÎÈ­¸é ÃÖ½Å±Û ½ÃÀÛ -->
+<!-- ë©”ì¸í™”ë©´ ìµœì‹ ê¸€ ì‹œì‘ -->
 
 <?
-include_once("$g4[path]/lib/latest.lib.php");       // ÃÖ½Å±Û
+include_once("$g4[path]/lib/latest.lib.php");       // ìµœì‹ ê¸€
 
 
 echo "<table width=100%><tr>";
 
-// $snb_listÀÇ ÃÖ½Å±ÛÀ» Ãâ·Â
+// $snb_listì˜ ìµœì‹ ê¸€ì„ ì¶œë ¥
 $snb_list = get_snb_list($snb_arr[$mnb]);
 $ja = 0;
 if ($snb_list) {
 foreach ($snb_list as $bo_id) {
 
-   if ($ja == 2) { // ÁÙ¹Ù²Ş
+   if ($ja == 2) { // ì¤„ë°”ê¿ˆ
      echo "</tr><tr valign=top>";
      $ja = 0;
     }
@@ -28,7 +28,7 @@ if ($ja = 2)
     echo "<td></td>";
 echo "</tr>";
 }
-// sitemapÀ» Ãâ·Â
+// sitemapì„ ì¶œë ¥
 echo "<tr valign=top>";
 echo "<td width='100%' valign=top colspan=2>";
 include_once("$g4[path]/lib/sitemap.lib.php");
@@ -38,4 +38,4 @@ echo "</tr>";
 
 echo "</table>";
 ?>
-<!-- ¸ŞÀÎÈ­¸é ÃÖ½Å±Û ³¡ -->
+<!-- ë©”ì¸í™”ë©´ ìµœì‹ ê¸€ ë -->

@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
 if (!$skin_title) {
     $skin_title = $board[bo_subject];
@@ -11,7 +11,7 @@ if (!$skin_title) {
 <table width="100%" border="0" cellspacing="0" cellpadding="0" >
 <tr bgcolor="#F9F9F9"> 
     <td height="20" width=10px></td>
-    <td bgcolor="#F9F9F9">&nbsp;<a href='<?=$skin_title_link?>' onfocus='this.blur()'><font style='font-family:µ¸¿ò; font-size:9pt; color:#696969;'><strong><?=$skin_title?></strong></font></a>&nbsp;</td>
+    <td bgcolor="#F9F9F9">&nbsp;<a href='<?=$skin_title_link?>' onfocus='this.blur()'><font style='font-family:ë‹ì›€; font-size:9pt; color:#696969;'><strong><?=$skin_title?></strong></font></a>&nbsp;</td>
     <td align="right" bgcolor="#F9F9F9" width=37px><a href='<?=$skin_title_link?>' onfocus='this.blur()'><img src="<?=$latest_skin_path?>/img/more.gif" width="37" height="15" border="0" alt='more'></a></td>
     <td bgcolor="#F9F9F9" width=10px></td>
 </tr>
@@ -22,7 +22,7 @@ if (!$skin_title) {
     <td colspan=2 height="5"></td>
 </tr>
 <? if (count($list) == 0) { ?>
-    <tr><td colspan=2 align=center height=30>³»¿ë ¾øÀ½</td></tr>
+    <tr><td colspan=2 align=center height=30>ë‚´ìš© ì—†ìŒ</td></tr>
 <? } else { ?>
 <? for ($i=0; $i<count($list); $i++) { 
     if ($list[$i][ca_name] !== $member[mb_id])
@@ -43,14 +43,14 @@ if (!$skin_title) {
             $list_title = $list[$i][subject]  . " (". $list[$i][datetime] . ")" ;
         
         if ($list[$i][comment_cnt]) 
-            echo " <a href=\"{$list[$i][comment_href]}\" onfocus=\"this.blur()\"><span style='font-family:µ¸¿ò; font-size:8pt; color:#9A9A9A;'>{$list[$i][comment_cnt]}</span></a> ";
+            echo " <a href=\"{$list[$i][comment_href]}\" onfocus=\"this.blur()\"><span style='font-family:ë‹ì›€; font-size:8pt; color:#9A9A9A;'>{$list[$i][comment_cnt]}</span></a> ";
 
         echo $list[$i][icon_reply] . " ";
         echo "<a href='{$list[$i][href]}' onfocus='this.blur()' title='{$list_title}' {$target_link}>";
         if ($list[$i][is_notice])
-            echo "<font style='font-family:µ¸¿ò; font-size:9pt; color:#2C88B9;'><strong>" . $list[$i][subject] . "</strong></font>";
+            echo "<font style='font-family:ë‹ì›€; font-size:9pt; color:#2C88B9;'><strong>" . $list[$i][subject] . "</strong></font>";
         else
-            echo "<font style='font-family:µ¸¿ò; font-size:9pt; color:#6A6A6A;'>" . $list[$i][subject] . "</font>";
+            echo "<font style='font-family:ë‹ì›€; font-size:9pt; color:#6A6A6A;'>" . $list[$i][subject] . "</font>";
         echo "</a>";
 
         echo " " . $list[$i][icon_new];

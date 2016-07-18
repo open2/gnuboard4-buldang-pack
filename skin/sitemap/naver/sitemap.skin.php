@@ -1,10 +1,10 @@
 <?
-// º¸´õÇü ÅÂÀÌºí 4
+// ë³´ë”í˜• íƒœì´ë¸” 4
 // http://html.nhndesign.com/uio_factory/ui_pattern/table/4
 ?>
 <link rel='stylesheet' href='<?=$sitemap_skin_path?>/style.latest.css' type='text/css'>
 
-<table class="tbl_type" border="1" cellspacing="0" summary="»çÀÌÆ®¸Ê-sitemap" width="100%" style="margin-top:5px;border-right: 1px solid #dddee2;">
+<table class="tbl_type" border="1" cellspacing="0" summary="ì‚¬ì´íŠ¸ë§µ-sitemap" width="100%" style="margin-top:5px;border-right: 1px solid #dddee2;">
 <colgroup>
 <col width="100">
 <col>
@@ -15,12 +15,12 @@ for ($i=0; $i<count($mnb_arr); $i++) {
 
     echo "<tr>";
     echo "<th scopt='row'>";
-    // href°¡ ÀÖÀ¸¸é ¾²°í, ¾øÀ¸¸é ¸¸µé°í
+    // hrefê°€ ìˆìœ¼ë©´ ì“°ê³ , ì—†ìœ¼ë©´ ë§Œë“¤ê³ 
     if ($mnb_arr[$i][href])
         $mnb_href = $mnb_arr[$i][href];
     else
         $mnb_href = "$g4[path]/?mnb=" . $mnb_arr[$i][id];
-    // new = 1ÀÌ¸é »õÃ¢À» ¶ç¿öÁØ´Ù.
+    // new = 1ì´ë©´ ìƒˆì°½ì„ ë„ì›Œì¤€ë‹¤.
     if ($mnb_arr[$i]['new'])
         $mnb_new = " target=new ";
     else

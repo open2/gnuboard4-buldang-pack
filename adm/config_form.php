@@ -7,12 +7,12 @@ auth_check($auth[$sub_menu], "r");
 $token = get_token();
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.");
+    alert("ìµœê³ ê´€ë¦¬ìžë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
-// ºÒ´çÆÑ - µî·Ï¿¡ °ü·ÃµÈ ¼³Á¤À» Ãß°¡·Î ÀÐ¾î µéÀÔ´Ï´Ù.
+// ë¶ˆë‹¹íŒ© - ë“±ë¡ì— ê´€ë ¨ëœ ì„¤ì •ì„ ì¶”ê°€ë¡œ ì½ì–´ ë“¤ìž…ë‹ˆë‹¤.
 $config = get_config("reg");
 
-$g4['title'] = "±âº»È¯°æ¼³Á¤";
+$g4['title'] = "ê¸°ë³¸í™˜ê²½ì„¤ì •";
 include_once ("./admin.head.php");
 ?>
 
@@ -21,79 +21,79 @@ include_once ("./admin.head.php");
 
 <table width=100% class="table table-hover" style="word-wrap:break-word;">
 <tr class='success'>
-    <td colspan=2>±âº» ¼³Á¤</td>
+    <td colspan=2>ê¸°ë³¸ ì„¤ì •</td>
 </tr>
 <tr>
-    <td class="col-sm-2">È¨ÆäÀÌÁö Á¦¸ñ</td>
+    <td class="col-sm-2">í™ˆíŽ˜ì´ì§€ ì œëª©</td>
     <td>
-        <input type=text  name='cf_title' size='30' required itemname='È¨ÆäÀÌÁö Á¦¸ñ' value='<?=$config[cf_title]?>'>
+        <input type=text  name='cf_title' size='30' required itemname='í™ˆíŽ˜ì´ì§€ ì œëª©' value='<?=$config[cf_title]?>'>
     </td>
 </tr>
 <tr>
-    <td>ÃÖ°í°ü¸®ÀÚ</td>
-    <td><?=get_member_id_select("cf_admin", 10, $config[cf_admin], "required itemname='ÃÖ°í °ü¸®ÀÚ'")?></td>
+    <td>ìµœê³ ê´€ë¦¬ìž</td>
+    <td><?=get_member_id_select("cf_admin", 10, $config[cf_admin], "required itemname='ìµœê³  ê´€ë¦¬ìž'")?></td>
 </tr>
 <tr>
-    <td>Æ÷ÀÎÆ® »ç¿ë</td>
-    <td><input type='checkbox' name='cf_use_point' value='1' <?=$config[cf_use_point]?'checked':'';?>> »ç¿ë</td>
+    <td>í¬ì¸íŠ¸ ì‚¬ìš©</td>
+    <td><input type='checkbox' name='cf_use_point' value='1' <?=$config[cf_use_point]?'checked':'';?>> ì‚¬ìš©</td>
 </tr>
 <tr>
-    <td>·Î±×ÀÎ½Ã Æ÷ÀÎÆ®</td>
-    <td><input type=text  name='cf_login_point' size='5' required itemname='·Î±×ÀÎ½Ã Æ÷ÀÎÆ®' value='<?=$config[cf_login_point]?>'> Á¡
-        <?=help("È¸¿ø¿¡°Ô ÇÏ·ç¿¡ ÇÑ¹ø¸¸ ºÎ¿©")?>
+    <td>ë¡œê·¸ì¸ì‹œ í¬ì¸íŠ¸</td>
+    <td><input type=text  name='cf_login_point' size='5' required itemname='ë¡œê·¸ì¸ì‹œ í¬ì¸íŠ¸' value='<?=$config[cf_login_point]?>'> ì 
+        <?=help("íšŒì›ì—ê²Œ í•˜ë£¨ì— í•œë²ˆë§Œ ë¶€ì—¬")?>
     </td>
 </tr>
 <tr>
-    <td>ÂÊÁöº¸³¾½Ã Â÷°¨ Æ÷ÀÎÆ®</td>
-    <td><input type=text  name='cf_memo_send_point' size='5' required itemname='ÂÊÁöÀü¼Û½Ã Â÷°¨ Æ÷ÀÎÆ®' value='<?=$config[cf_memo_send_point]?>'> Á¡
-        <?=help("¾ç¼ö·Î ÀÔ·ÂÇÏ½Ê½Ã¿À.<br>0À¸·Î ÀÔ·ÂÇÏ½Ã¸é ÂÊÁöº¸³¾½Ã Æ÷ÀÎÆ®¸¦ Â÷°¨ÇÏÁö ¾Ê½À´Ï´Ù.")?></td>
+    <td>ìª½ì§€ë³´ë‚¼ì‹œ ì°¨ê° í¬ì¸íŠ¸</td>
+    <td><input type=text  name='cf_memo_send_point' size='5' required itemname='ìª½ì§€ì „ì†¡ì‹œ ì°¨ê° í¬ì¸íŠ¸' value='<?=$config[cf_memo_send_point]?>'> ì 
+        <?=help("ì–‘ìˆ˜ë¡œ ìž…ë ¥í•˜ì‹­ì‹œì˜¤.<br>0ìœ¼ë¡œ ìž…ë ¥í•˜ì‹œë©´ ìª½ì§€ë³´ë‚¼ì‹œ í¬ì¸íŠ¸ë¥¼ ì°¨ê°í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.")?></td>
 </tr>
 <tr>
-    <td>ÀÌ¸§(º°¸í) Ç¥½Ã</td>
-    <td><input type=text  name='cf_cut_name' value='<?=$config[cf_cut_name]?>' size=2> ÀÚ¸®¸¸ Ç¥½Ã
-        <?=help("¿µ¼ýÀÚ 2±ÛÀÚ = ÇÑ±Û 1±ÛÀÚ")?></td>
+    <td>ì´ë¦„(ë³„ëª…) í‘œì‹œ</td>
+    <td><input type=text  name='cf_cut_name' value='<?=$config[cf_cut_name]?>' size=2> ìžë¦¬ë§Œ í‘œì‹œ
+        <?=help("ì˜ìˆ«ìž 2ê¸€ìž = í•œê¸€ 1ê¸€ìž")?></td>
 </tr>
 <tr>
-    <td>º°¸í ¼öÁ¤</td>
-    <td>¼öÁ¤ÇÑ ÈÄ <input type=text  name='cf_nick_modify' value='<?=$config[cf_nick_modify]?>' size=2> ÀÏ µ¿¾È ¹Ù²Ü ¼ö ¾øÀ½</td>
+    <td>ë³„ëª… ìˆ˜ì •</td>
+    <td>ìˆ˜ì •í•œ í›„ <input type=text  name='cf_nick_modify' value='<?=$config[cf_nick_modify]?>' size=2> ì¼ ë™ì•ˆ ë°”ê¿€ ìˆ˜ ì—†ìŒ</td>
 </tr>
 <tr>
-    <td>Á¤º¸°ø°³ ¼öÁ¤</td>
-    <td>¼öÁ¤ÇÑ ÈÄ <input type=text  name='cf_open_modify' value='<?=$config[cf_open_modify]?>' size=2> ÀÏ µ¿¾È ¹Ù²Ü ¼ö ¾øÀ½</td>
+    <td>ì •ë³´ê³µê°œ ìˆ˜ì •</td>
+    <td>ìˆ˜ì •í•œ í›„ <input type=text  name='cf_open_modify' value='<?=$config[cf_open_modify]?>' size=2> ì¼ ë™ì•ˆ ë°”ê¿€ ìˆ˜ ì—†ìŒ</td>
 </tr>
 <tr>
-    <td>ÃÖ±Ù°Ô½Ã¹° »èÁ¦</td>
-    <td><input type=text  name='cf_new_del' value='<?=$config[cf_new_del]?>' size=5> ÀÏ
-        <?=help("¼³Á¤ÀÏÀÌ Áö³­ ÃÖ±Ù°Ô½Ã¹° ÀÚµ¿ »èÁ¦")?></td>
+    <td>ìµœê·¼ê²Œì‹œë¬¼ ì‚­ì œ</td>
+    <td><input type=text  name='cf_new_del' value='<?=$config[cf_new_del]?>' size=5> ì¼
+        <?=help("ì„¤ì •ì¼ì´ ì§€ë‚œ ìµœê·¼ê²Œì‹œë¬¼ ìžë™ ì‚­ì œ")?></td>
 </tr>
 <tr> 
-    <td>ÂÊÁö »èÁ¦</td>
-    <td><input type=text  name='cf_memo_del' value='<?=$config[cf_memo_del]?>' size=5> ÀÏ
-        <?=help("¼³Á¤ÀÏÀÌ Áö³­ ÂÊÁö ÀÚµ¿ »èÁ¦")?></td>
+    <td>ìª½ì§€ ì‚­ì œ</td>
+    <td><input type=text  name='cf_memo_del' value='<?=$config[cf_memo_del]?>' size=5> ì¼
+        <?=help("ì„¤ì •ì¼ì´ ì§€ë‚œ ìª½ì§€ ìžë™ ì‚­ì œ")?></td>
 </tr> 
 <tr>
-    <td>Á¢¼ÓÀÚ·Î±× »èÁ¦</td>
-    <td><input type=text  name='cf_visit_del' value='<?=$config[cf_visit_del]?>' size=5> ÀÏ
-        <?=help("¼³Á¤ÀÏÀÌ Áö³­ Á¢¼ÓÀÚ ·Î±× ÀÚµ¿ »èÁ¦")?></td>
+    <td>ì ‘ì†ìžë¡œê·¸ ì‚­ì œ</td>
+    <td><input type=text  name='cf_visit_del' value='<?=$config[cf_visit_del]?>' size=5> ì¼
+        <?=help("ì„¤ì •ì¼ì´ ì§€ë‚œ ì ‘ì†ìž ë¡œê·¸ ìžë™ ì‚­ì œ")?></td>
 </tr>
 <tr>
-    <td>ÀÎ±â°Ë»ö¾î »èÁ¦</td>
-    <td><input type=text  name='cf_popular_del' value='<?=$config[cf_popular_del]?>' size=5> ÀÏ
-        <?=help("¼³Á¤ÀÏÀÌ Áö³­ ÀÎ±â°Ë»ö¾î ÀÚµ¿ »èÁ¦")?></td>
+    <td>ì¸ê¸°ê²€ìƒ‰ì–´ ì‚­ì œ</td>
+    <td><input type=text  name='cf_popular_del' value='<?=$config[cf_popular_del]?>' size=5> ì¼
+        <?=help("ì„¤ì •ì¼ì´ ì§€ë‚œ ì¸ê¸°ê²€ìƒ‰ì–´ ìžë™ ì‚­ì œ")?></td>
 </tr>
 <tr>
-    <td>ÇöÀç Á¢¼ÓÀÚ</td>
-    <td><input type=text  name='cf_login_minutes' value='<?=$config[cf_login_minutes]?>' size=5> ºÐ
-        <?=help("¼³Á¤°ª ÀÌ³»ÀÇ Á¢¼ÓÀÚ¸¦ ÇöÀç Á¢¼ÓÀÚ·Î ÀÎÁ¤")?></td>
+    <td>í˜„ìž¬ ì ‘ì†ìž</td>
+    <td><input type=text  name='cf_login_minutes' value='<?=$config[cf_login_minutes]?>' size=5> ë¶„
+        <?=help("ì„¤ì •ê°’ ì´ë‚´ì˜ ì ‘ì†ìžë¥¼ í˜„ìž¬ ì ‘ì†ìžë¡œ ì¸ì •")?></td>
 </tr>
 <tr>
-    <td>ÇÑÆäÀÌÁö´ç ¶óÀÎ¼ö</td>
-    <td><input type=text  name='cf_page_rows' value='<?=$config[cf_page_rows]?>' size=5> ¶óÀÎ
-        <?=help("¸ñ·Ï(¸®½ºÆ®) ÇÑÆäÀÌÁö´ç ¶óÀÎ¼ö")?></td>
+    <td>í•œíŽ˜ì´ì§€ë‹¹ ë¼ì¸ìˆ˜</td>
+    <td><input type=text  name='cf_page_rows' value='<?=$config[cf_page_rows]?>' size=5> ë¼ì¸
+        <?=help("ëª©ë¡(ë¦¬ìŠ¤íŠ¸) í•œíŽ˜ì´ì§€ë‹¹ ë¼ì¸ìˆ˜")?></td>
 </tr>
 <tr>
-    <td>ÃÖ±Ù°Ô½Ã¹° ½ºÅ²</td>
-    <td><select id=cf_new_skin name=cf_new_skin required itemname="ÃÖ±Ù°Ô½Ã¹° ½ºÅ²">
+    <td>ìµœê·¼ê²Œì‹œë¬¼ ìŠ¤í‚¨</td>
+    <td><select id=cf_new_skin name=cf_new_skin required itemname="ìµœê·¼ê²Œì‹œë¬¼ ìŠ¤í‚¨">
         <?
         $arr = get_skin_dir("new");
         for ($i=0; $i<count($arr); $i++) {
@@ -104,13 +104,13 @@ include_once ("./admin.head.php");
     </td>
 </tr>
 <tr>
-    <td>ÃÖ±Ù°Ô½Ã¹° ¶óÀÎ¼ö</td>
-    <td><input type=text  name='cf_new_rows' value='<?=$config[cf_new_rows]?>' size=5> ¶óÀÎ
-        <?=help("¸ñ·Ï ÇÑÆäÀÌÁö´ç ¶óÀÎ¼ö")?></td>
+    <td>ìµœê·¼ê²Œì‹œë¬¼ ë¼ì¸ìˆ˜</td>
+    <td><input type=text  name='cf_new_rows' value='<?=$config[cf_new_rows]?>' size=5> ë¼ì¸
+        <?=help("ëª©ë¡ í•œíŽ˜ì´ì§€ë‹¹ ë¼ì¸ìˆ˜")?></td>
 </tr>
 <tr>
-    <td>°Ë»ö ½ºÅ²</td>
-    <td><select id=cf_search_skin name=cf_search_skin required itemname="°Ë»ö ½ºÅ²">
+    <td>ê²€ìƒ‰ ìŠ¤í‚¨</td>
+    <td><select id=cf_search_skin name=cf_search_skin required itemname="ê²€ìƒ‰ ìŠ¤í‚¨">
         <?
         $arr = get_skin_dir("search");
         for ($i=0; $i<count($arr); $i++) {
@@ -121,8 +121,8 @@ include_once ("./admin.head.php");
     </td>
 </tr>
 <tr>
-    <td>Á¢¼ÓÀÚ ½ºÅ²</td>
-    <td><select id=cf_connect_skin name=cf_connect_skin required itemname="Á¢¼ÓÀÚ ½ºÅ²">
+    <td>ì ‘ì†ìž ìŠ¤í‚¨</td>
+    <td><select id=cf_connect_skin name=cf_connect_skin required itemname="ì ‘ì†ìž ìŠ¤í‚¨">
         <?
         $arr = get_skin_dir("connect");
         for ($i=0; $i<count($arr); $i++) {
@@ -133,242 +133,242 @@ include_once ("./admin.head.php");
     </td>
 </tr>
 <tr>
-    <td>º¹»ç, ÀÌµ¿½Ã ·Î±×</td>
-    <td><input type='checkbox' name='cf_use_copy_log' value='1' <?=$config[cf_use_copy_log]?'checked':'';?>> ³²±è
-        <?=help("°Ô½Ã¹° ¾Æ·¡¿¡ ´©±¸·Î ºÎÅÍ º¹»ç, ÀÌµ¿µÊ Ç¥½Ã")?></td>
+    <td>ë³µì‚¬, ì´ë™ì‹œ ë¡œê·¸</td>
+    <td><input type='checkbox' name='cf_use_copy_log' value='1' <?=$config[cf_use_copy_log]?'checked':'';?>> ë‚¨ê¹€
+        <?=help("ê²Œì‹œë¬¼ ì•„ëž˜ì— ëˆ„êµ¬ë¡œ ë¶€í„° ë³µì‚¬, ì´ë™ë¨ í‘œì‹œ")?></td>
 </tr>
 <tr>
-    <td>Á¢±Ù°¡´É IP</td>
-    <td valign=top><textarea  name='cf_possible_ip' rows='5' style='width:99%;'><?=$config[cf_possible_ip]?> </textarea><br>ÀÔ·ÂµÈ IPÀÇ ÄÄÇ»ÅÍ¸¸ Á¢±ÙÇÒ ¼ö ÀÖÀ½.<br>123.123.+ µµ ÀÔ·Â °¡´É. (¿£ÅÍ·Î ±¸ºÐ)</td>
+    <td>ì ‘ê·¼ê°€ëŠ¥ IP</td>
+    <td valign=top><textarea  name='cf_possible_ip' rows='5' style='width:99%;'><?=$config[cf_possible_ip]?> </textarea><br>ìž…ë ¥ëœ IPì˜ ì»´í“¨í„°ë§Œ ì ‘ê·¼í•  ìˆ˜ ìžˆìŒ.<br>123.123.+ ë„ ìž…ë ¥ ê°€ëŠ¥. (ì—”í„°ë¡œ êµ¬ë¶„)</td>
 </tr>
 <tr>
-    <td>Á¢±ÙÂ÷´Ü IP</td>
-    <td valign=top><textarea  name='cf_intercept_ip' rows='5' style='width:99%;'><?=$config[cf_intercept_ip]?> </textarea><br>ÀÔ·ÂµÈ IPÀÇ ÄÄÇ»ÅÍ´Â Á¢±ÙÇÒ ¼ö ¾øÀ½.<br>123.123.+ µµ ÀÔ·Â °¡´É. (¿£ÅÍ·Î ±¸ºÐ)</td>
-</tr>
-
-<tr>
-    <td colspan=2 align=left class="success">±âº» ¼³Á¤(2)</td>
-</tr>
-<tr>
-    <td>ÀÚµ¿µî·Ï¹æÁö »ç¿ë</td>
-    <td><input type='checkbox' name='cf_use_norobot' value='1' <?=$config[cf_use_norobot]?'checked':'';?>> »ç¿ë
-        <?=help("ÀÚµ¿ È¸¿ø°¡ÀÔ°ú ±Û¾²±â¸¦ ¹æÁö")?></td>
-</tr>
-<tr>
-    <td>°³ÀÎÁ¤º¸ º¯°æÁÖ±â</td>
-    <td>
-    <input type=text  name='cf_password_change_dates' value='<?=$config[cf_password_change_dates]?>' size=5> ÀÏ
-        <?=help("°³ÀÎÁ¤º¸ º¯°æÁÖ±â ÀÌÈÄ¿¡ °³ÀÎÁ¤º¸ º¯°æÀ» ÇÏµµ·Ï À¯µµ ÇÕ´Ï´Ù. 0À¸·Î ¼³Á¤ÇÏ¸é °³ÀÎÁ¤º¸ º¯°æ ¿äÃ»À» ÇÏÁö ¾Ê½À´Ï´Ù.")?>
-    </td>
-</tr>
-<tr>
-    <td>Áßº¹·Î±×ÀÎ</td>
-    <td>
-    <input type=text  name='cf_double_login' value='<?=$config[cf_double_login]?>' size=5>°³ÀÇ Áßº¹ ·Î±×ÀÎÀ» Çã¿ë
-        <?=help("Áßº¹µÈ ·Î±×ÀÎÀ» ¸î°³±îÁö Çã¿ëÇÒ °ÍÀÎÁö ¿©ºÎ¸¦ ¼³Á¤ÇÕ´Ï´Ù.")?>
-    </td>
-</tr>
-<tr>
-    <td>¾ÆÀÌµð Retry Interval</td>
-    <td>
-    <input type=text  name='cf_retry_time_interval' value='<?=$config[cf_retry_time_interval]?>' size=5> ÃÊ
-        <?=help("ÁöÁ¤µÈ ½Ã°£µ¿¾È ¾ÆÀÌµð/ºñ¹øÀÇ ¿À·ù°¡ ¹ß»ýÇÏ´Â È½¼ö¸¦ count ÇÏ¿©, ±× È½¼ö°¡ °úµµÇÑ °æ¿ì ÇØÅ·À¸·Î °£ÁÖ ÇÕ´Ï´Ù.")?>
-    </td>
-</tr>
-<tr>
-    <td>¾ÆÀÌµð Retry È½¼ö</td>
-    <td>
-    <input type=text  name='cf_retry_count' value='<?=$config[cf_retry_count]?>' size=5> È¸
-        <?=help("·Î±×ÀÎ ¿À·ù Åë°è¸¦ º¸°í ÀûÁ¤ÇÑ ½Ã°£°ú È½¼ö¸¦ ¼³Á¤ÇÏ½Ã¸é µË´Ï´Ù.")?>
-    </td>
+    <td>ì ‘ê·¼ì°¨ë‹¨ IP</td>
+    <td valign=top><textarea  name='cf_intercept_ip' rows='5' style='width:99%;'><?=$config[cf_intercept_ip]?> </textarea><br>ìž…ë ¥ëœ IPì˜ ì»´í“¨í„°ëŠ” ì ‘ê·¼í•  ìˆ˜ ì—†ìŒ.<br>123.123.+ ë„ ìž…ë ¥ ê°€ëŠ¥. (ì—”í„°ë¡œ êµ¬ë¶„)</td>
 </tr>
 
 <tr>
-    <td colspan=2 align=left class="success">È¨ÆäÀÌÁö ¸ÞÅ¸Á¤º¸ ¼³Á¤</td>
+    <td colspan=2 align=left class="success">ê¸°ë³¸ ì„¤ì •(2)</td>
 </tr>
 <tr>
-    <td>ÀÛ¼ºÀÚ(Author)</td>
+    <td>ìžë™ë“±ë¡ë°©ì§€ ì‚¬ìš©</td>
+    <td><input type='checkbox' name='cf_use_norobot' value='1' <?=$config[cf_use_norobot]?'checked':'';?>> ì‚¬ìš©
+        <?=help("ìžë™ íšŒì›ê°€ìž…ê³¼ ê¸€ì“°ê¸°ë¥¼ ë°©ì§€")?></td>
+</tr>
+<tr>
+    <td>ê°œì¸ì •ë³´ ë³€ê²½ì£¼ê¸°</td>
+    <td>
+    <input type=text  name='cf_password_change_dates' value='<?=$config[cf_password_change_dates]?>' size=5> ì¼
+        <?=help("ê°œì¸ì •ë³´ ë³€ê²½ì£¼ê¸° ì´í›„ì— ê°œì¸ì •ë³´ ë³€ê²½ì„ í•˜ë„ë¡ ìœ ë„ í•©ë‹ˆë‹¤. 0ìœ¼ë¡œ ì„¤ì •í•˜ë©´ ê°œì¸ì •ë³´ ë³€ê²½ ìš”ì²­ì„ í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.")?>
+    </td>
+</tr>
+<tr>
+    <td>ì¤‘ë³µë¡œê·¸ì¸</td>
+    <td>
+    <input type=text  name='cf_double_login' value='<?=$config[cf_double_login]?>' size=5>ê°œì˜ ì¤‘ë³µ ë¡œê·¸ì¸ì„ í—ˆìš©
+        <?=help("ì¤‘ë³µëœ ë¡œê·¸ì¸ì„ ëª‡ê°œê¹Œì§€ í—ˆìš©í•  ê²ƒì¸ì§€ ì—¬ë¶€ë¥¼ ì„¤ì •í•©ë‹ˆë‹¤.")?>
+    </td>
+</tr>
+<tr>
+    <td>ì•„ì´ë”” Retry Interval</td>
+    <td>
+    <input type=text  name='cf_retry_time_interval' value='<?=$config[cf_retry_time_interval]?>' size=5> ì´ˆ
+        <?=help("ì§€ì •ëœ ì‹œê°„ë™ì•ˆ ì•„ì´ë””/ë¹„ë²ˆì˜ ì˜¤ë¥˜ê°€ ë°œìƒí•˜ëŠ” íšŸìˆ˜ë¥¼ count í•˜ì—¬, ê·¸ íšŸìˆ˜ê°€ ê³¼ë„í•œ ê²½ìš° í•´í‚¹ìœ¼ë¡œ ê°„ì£¼ í•©ë‹ˆë‹¤.")?>
+    </td>
+</tr>
+<tr>
+    <td>ì•„ì´ë”” Retry íšŸìˆ˜</td>
+    <td>
+    <input type=text  name='cf_retry_count' value='<?=$config[cf_retry_count]?>' size=5> íšŒ
+        <?=help("ë¡œê·¸ì¸ ì˜¤ë¥˜ í†µê³„ë¥¼ ë³´ê³  ì ì •í•œ ì‹œê°„ê³¼ íšŸìˆ˜ë¥¼ ì„¤ì •í•˜ì‹œë©´ ë©ë‹ˆë‹¤.")?>
+    </td>
+</tr>
+
+<tr>
+    <td colspan=2 align=left class="success">í™ˆíŽ˜ì´ì§€ ë©”íƒ€ì •ë³´ ì„¤ì •</td>
+</tr>
+<tr>
+    <td>ìž‘ì„±ìž(Author)</td>
     <td>
     <input type=text  name='cf_meta_author' value='<?=$config[cf_meta_author]?>' size=30>
-        <?=help("È¨ÆäÀÌÁö ÀÛ¼ºÀÚ")?></td>
+        <?=help("í™ˆíŽ˜ì´ì§€ ìž‘ì„±ìž")?></td>
 </tr>
 <tr>
-    <td>Å°¿öµå (Keywords)</td>
+    <td>í‚¤ì›Œë“œ (Keywords)</td>
     <td>
     <input type=text  name='cf_meta_keywords' value='<?=$config[cf_meta_keywords]?>' size=100>
-        <?=help("È¨ÆäÀÌÁö Å°¿öµå, ÄÞ¸¶·Î ±¸ºÐÇØ ÁÝ´Ï´Ù.")?>
+        <?=help("í™ˆíŽ˜ì´ì§€ í‚¤ì›Œë“œ, ì½¤ë§ˆë¡œ êµ¬ë¶„í•´ ì¤ë‹ˆë‹¤.")?>
     </td>
 </tr>
 <tr>
-    <td>¼³¸í (Description)</td>
+    <td>ì„¤ëª… (Description)</td>
     <td>
     <input type=text  name='cf_meta_description' value='<?=$config[cf_meta_description]?>' size=100>
-        <?=help("È¨ÆäÀÌÁö¿¡ ´ëÇÑ ¼³¸í")?>
+        <?=help("í™ˆíŽ˜ì´ì§€ì— ëŒ€í•œ ì„¤ëª…")?>
     </td>
 </tr>
 
 <tr>
-    <td colspan=2 align=left class="success">ÈÞÁöÅë ¼³Á¤</td>
+    <td colspan=2 align=left class="success">íœ´ì§€í†µ ì„¤ì •</td>
 </tr>
 <tr>
-    <td>ÈÞÁöÅë »ç¿ë</td>
-    <td><input type='checkbox' name='cf_use_recycle' value='1' <?=$config[cf_use_recycle]?'checked':'';?>> »ç¿ë
-        <?=help("ÈÞÁöÅë »ç¿ë ¿©ºÎ¸¦ ¼³Á¤ÇÕ´Ï´Ù.")?></td>
+    <td>íœ´ì§€í†µ ì‚¬ìš©</td>
+    <td><input type='checkbox' name='cf_use_recycle' value='1' <?=$config[cf_use_recycle]?'checked':'';?>> ì‚¬ìš©
+        <?=help("íœ´ì§€í†µ ì‚¬ìš© ì—¬ë¶€ë¥¼ ì„¤ì •í•©ë‹ˆë‹¤.")?></td>
 </tr>
 <tr>
-    <td>ÈÞÁöÅë Å×ÀÌºí</td>
+    <td>íœ´ì§€í†µ í…Œì´ë¸”</td>
     <td>
     <input type=text  name='cf_recycle_table' value='<?=$config[cf_recycle_table]?>' size=20>
-        <?=help("ÈÞÁöÅë Å×ÀÌºíÀÌ¸§ (\$bo_table) °ªÀ» Àû¾îÁÝ´Ï´Ù.")?>
+        <?=help("íœ´ì§€í†µ í…Œì´ë¸”ì´ë¦„ (\$bo_table) ê°’ì„ ì ì–´ì¤ë‹ˆë‹¤.")?>
     </td>
 </tr>
 <tr>
-    <td>ÈÞÁöÅë ºñ¿ì±â ÀÏ¼ö</td>
+    <td>íœ´ì§€í†µ ë¹„ìš°ê¸° ì¼ìˆ˜</td>
     <td>
     <input type=text  name='cf_recycle_days' value='<?=$config[cf_recycle_days]?>' size=20>
-        <?=help("nÀÏÈÄ¿¡ ÈÞÁöÅëÀ» ºñ¿öÁÝ´Ï´Ù.")?>
+        <?=help("nì¼í›„ì— íœ´ì§€í†µì„ ë¹„ì›Œì¤ë‹ˆë‹¤.")?>
     </td>
 </tr>
 
 <tr>
-    <td colspan=2 align=left class="success">½Å°í¼³Á¤</td>
+    <td colspan=2 align=left class="success">ì‹ ê³ ì„¤ì •</td>
 </tr>
 <tr>
-    <td>°Ô½Ã±Û ½Å°íÃ³¸®</td>
+    <td>ê²Œì‹œê¸€ ì‹ ê³ ì²˜ë¦¬</td>
     <td>
-    <input type=text  name='cf_singo_intercept_count' value='<?=$config[cf_singo_intercept_count]?>' size=5> È¸
-        <?=help("°Ô½Ã±Û ½Å°í°Ç¼ö°¡ ÁöÁ¤µÈ È½¼ö¸¦ ÃÊ°úÇÏ¸é Ã³¸®")?>
+    <input type=text  name='cf_singo_intercept_count' value='<?=$config[cf_singo_intercept_count]?>' size=5> íšŒ
+        <?=help("ê²Œì‹œê¸€ ì‹ ê³ ê±´ìˆ˜ê°€ ì§€ì •ëœ íšŸìˆ˜ë¥¼ ì´ˆê³¼í•˜ë©´ ì²˜ë¦¬")?>
     </td>
 </tr>
 <tr>
-    <td>ÇÏ·ç ½Å°í°¡´É È½¼ö</td>
+    <td>í•˜ë£¨ ì‹ ê³ ê°€ëŠ¥ íšŸìˆ˜</td>
     <td>
-    <input type=text  name='cf_singo_today_count' value='<?=$config[cf_singo_today_count]?>' size=5> È¸
-        <?=help("ÇÏ·íµ¿¾ÈÀÇ °Ô½Ã±Û ½Å°í°Ç¼ö°¡ ÁöÁ¤µÈ È½¼ö¸¦ ÃÊ°úÇÏ¸é ½Å°íÇÒ ¼ö ¾ø½À´Ï´Ù")?>
+    <input type=text  name='cf_singo_today_count' value='<?=$config[cf_singo_today_count]?>' size=5> íšŒ
+        <?=help("í•˜ë£»ë™ì•ˆì˜ ê²Œì‹œê¸€ ì‹ ê³ ê±´ìˆ˜ê°€ ì§€ì •ëœ íšŸìˆ˜ë¥¼ ì´ˆê³¼í•˜ë©´ ì‹ ê³ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤")?>
     </td>
 </tr>
 <tr>
-    <td>½Å°í°¡´É ·¹º§</td>
+    <td>ì‹ ê³ ê°€ëŠ¥ ë ˆë²¨</td>
     <td>
     <? echo get_member_level_select('cf_singo_level', 2, 9, $config[cf_singo_level]) ?>
-        <?=help("°Ô½Ã±Û ½Å°í¸¦ ÇÒ ¼ö ÀÖ´Â È¸¿øÀÇ ÃÖ¼Ò ·¹º§. ·¹º§ÀÌ ¹Ì´ÞÇÏ¸é ½Å°íÇÒ ¼ö ¾ø½À´Ï´Ù")?>
+        <?=help("ê²Œì‹œê¸€ ì‹ ê³ ë¥¼ í•  ìˆ˜ ìžˆëŠ” íšŒì›ì˜ ìµœì†Œ ë ˆë²¨. ë ˆë²¨ì´ ë¯¸ë‹¬í•˜ë©´ ì‹ ê³ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤")?>
     </td>
 </tr>
 <tr>
-    <td>½Å°í°¡´É Æ÷ÀÎÆ®</td>
+    <td>ì‹ ê³ ê°€ëŠ¥ í¬ì¸íŠ¸</td>
     <td>
-    <input type=text  name='cf_singo_point' value='<?=$config[cf_singo_point]?>' size=5> Á¡
-        <?=help("°Ô½Ã±Û ½Å°í¸¦ ÇÒ ¼ö ÀÖ´Â È¸¿øÀÇ ÃÖ¼Ò Æ÷ÀÎÆ®. Æ÷ÀÎÆ®°¡ ¹Ì´ÞÇÏ¸é ½Å°íÇÒ ¼ö ¾ø½À´Ï´Ù")?>
+    <input type=text  name='cf_singo_point' value='<?=$config[cf_singo_point]?>' size=5> ì 
+        <?=help("ê²Œì‹œê¸€ ì‹ ê³ ë¥¼ í•  ìˆ˜ ìžˆëŠ” íšŒì›ì˜ ìµœì†Œ í¬ì¸íŠ¸. í¬ì¸íŠ¸ê°€ ë¯¸ë‹¬í•˜ë©´ ì‹ ê³ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤")?>
     </td>
 </tr>
 <tr>
-    <td>½Å°íÇÑ »ç¶÷ Â÷°¨Æ÷ÀÎÆ®</td>
+    <td>ì‹ ê³ í•œ ì‚¬ëžŒ ì°¨ê°í¬ì¸íŠ¸</td>
     <td>
-    <input type=text  name='cf_singo_point_send' value='<?=$config[cf_singo_point_send]?>' size=5> Á¡
-        <?=help("½Å°íÇÑ »ç¶÷¿¡°Ô¼­ Â÷°¨ÇÒ Æ÷ÀÎÆ®¸¦ ¼³Á¤ ÇÕ´Ï´Ù. 0 ÀÌ»óÀ¸·Î ¼³Á¤µÇ¸é ½Å°í°Ç¿¡ ´ëÇØ¼­ Æ÷ÀÎÆ®¸¦ Â÷°¨ÇÕ´Ï´Ù.")?>
+    <input type=text  name='cf_singo_point_send' value='<?=$config[cf_singo_point_send]?>' size=5> ì 
+        <?=help("ì‹ ê³ í•œ ì‚¬ëžŒì—ê²Œì„œ ì°¨ê°í•  í¬ì¸íŠ¸ë¥¼ ì„¤ì • í•©ë‹ˆë‹¤. 0 ì´ìƒìœ¼ë¡œ ì„¤ì •ë˜ë©´ ì‹ ê³ ê±´ì— ëŒ€í•´ì„œ í¬ì¸íŠ¸ë¥¼ ì°¨ê°í•©ë‹ˆë‹¤.")?>
     </td>
 </tr>
 <tr>
-    <td>½Å°íµÈ »ç¶÷ Â÷°¨Æ÷ÀÎÆ®</td>
+    <td>ì‹ ê³ ëœ ì‚¬ëžŒ ì°¨ê°í¬ì¸íŠ¸</td>
     <td>
-    <input type=text  name='cf_singo_point_recv' value='<?=$config[cf_singo_point_recv]?>' size=5> Á¡
-        <?=help("½Å°íµÈ »ç¶÷¿¡°Ô¼­ Â÷°¨ÇÒ Æ÷ÀÎÆ®¸¦ ¼³Á¤ ÇÕ´Ï´Ù. 0 ÀÌ»óÀ¸·Î ¼³Á¤µÇ¸é ½Å°í°Ç¿¡ ´ëÇØ¼­ Æ÷ÀÎÆ®¸¦ Â÷°¨ ÇÕ´Ï´Ù.")?>
+    <input type=text  name='cf_singo_point_recv' value='<?=$config[cf_singo_point_recv]?>' size=5> ì 
+        <?=help("ì‹ ê³ ëœ ì‚¬ëžŒì—ê²Œì„œ ì°¨ê°í•  í¬ì¸íŠ¸ë¥¼ ì„¤ì • í•©ë‹ˆë‹¤. 0 ì´ìƒìœ¼ë¡œ ì„¤ì •ë˜ë©´ ì‹ ê³ ê±´ì— ëŒ€í•´ì„œ í¬ì¸íŠ¸ë¥¼ ì°¨ê° í•©ë‹ˆë‹¤.")?>
     </td>
 </tr>
 
 <tr>
-    <td colspan=2 align=left class="success">°Ô½ÃÆÇ ¼³Á¤</td>
+    <td colspan=2 align=left class="success">ê²Œì‹œíŒ ì„¤ì •</td>
 </tr>
 <tr>
-    <td>±ÛÀÐ±â Æ÷ÀÎÆ®</td>
-    <td><input type=text  name='cf_read_point' size='10' required itemname='±ÛÀÐ±â Æ÷ÀÎÆ®' value='<?=$config[cf_read_point]?>'> Á¡</td>
+    <td>ê¸€ì½ê¸° í¬ì¸íŠ¸</td>
+    <td><input type=text  name='cf_read_point' size='10' required itemname='ê¸€ì½ê¸° í¬ì¸íŠ¸' value='<?=$config[cf_read_point]?>'> ì </td>
 </tr>
 <tr>
-    <td>±Û¾²±â Æ÷ÀÎÆ®</td>
-    <td><input type=text  name='cf_write_point' size='10' required itemname='±Û¾²±â Æ÷ÀÎÆ®' value='<?=$config[cf_write_point]?>'> Á¡</td>
+    <td>ê¸€ì“°ê¸° í¬ì¸íŠ¸</td>
+    <td><input type=text  name='cf_write_point' size='10' required itemname='ê¸€ì“°ê¸° í¬ì¸íŠ¸' value='<?=$config[cf_write_point]?>'> ì </td>
 </tr>
 <tr>
-    <td>ÄÚ¸àÆ®¾²±â Æ÷ÀÎÆ®</td>
-    <td><input type=text  name='cf_comment_point' size='10' required itemname='´äº¯, ÄÚ¸àÆ®¾²±â Æ÷ÀÎÆ®' value='<?=$config[cf_comment_point]?>'> Á¡</td>
+    <td>ì½”ë©˜íŠ¸ì“°ê¸° í¬ì¸íŠ¸</td>
+    <td><input type=text  name='cf_comment_point' size='10' required itemname='ë‹µë³€, ì½”ë©˜íŠ¸ì“°ê¸° í¬ì¸íŠ¸' value='<?=$config[cf_comment_point]?>'> ì </td>
 </tr>
 <tr>
-    <td>´Ù¿î·Îµå Æ÷ÀÎÆ®</td>
-    <td><input type=text  name='cf_download_point' size='10' required itemname='´Ù¿î·Îµå¹Þ±â Æ÷ÀÎÆ®' value='<?=$config[cf_download_point]?>'> Á¡</td>
+    <td>ë‹¤ìš´ë¡œë“œ í¬ì¸íŠ¸</td>
+    <td><input type=text  name='cf_download_point' size='10' required itemname='ë‹¤ìš´ë¡œë“œë°›ê¸° í¬ì¸íŠ¸' value='<?=$config[cf_download_point]?>'> ì </td>
 </tr>
 <tr>
-    <td>ÄÚ¸àÆ® ¾²±âÆ÷ÀÎÆ® ¾ø½¿</td>
-    <td><input type=text  name='cf_no_comment_point_days' size='10' required itemname='ÄÚ¸àÆ® ¾²±â¿¡ Æ÷ÀÎÆ® ºÎ¿©ÇÏÁö ¾Ê´Â ±â°£' value='<?=$config[cf_no_comment_point_days]?>'> ÀÏ <?=help("Æ÷ÀÎÆ®¸¦ ¿Ã¸®±â À§ÇØ¼­ ¿À·¡µÈ ±Û¿¡ ÄÚ¸àÆ® ´Ù´Â »ç¶÷µéÀÌ ÀÖ´Â °æ¿ì¸¦ À§ÇØ¼­ ¿À·¡µÈ ±Û¿¡ ÄÚ¸àÆ® ´Ù´Â °Í¿¡ Æ÷ÀÎÆ® ºÎ¿©ÇÏÁö ¾Ê´Â ±â°£À» Á¤ÇÏ´Â °Í ÀÔ´Ï´Ù.\n\n 0À¸·Î µÎ½Ã¸é ¿À·¡µÈ ±Û¿¡ ÄÚ¸àÆ®¸¦ ´Þ¾Æµµ Æ÷ÀÎÆ®°¡ ºÎ¿©µË´Ï´Ù.\n\n ¼ýÀÚ°¡ ÁöÁ¤µÇ¸é ÀÛ¼ºµÈÁö nÀÏÀÌ ±Û¿¡´Â ÄÚ¸àÆ®¸¦ ½áµµ Æ÷ÀÎÆ®°¡ ºÎ¿©µÇÁö ¾Ê½À´Ï´Ù.")?></td>
+    <td>ì½”ë©˜íŠ¸ ì“°ê¸°í¬ì¸íŠ¸ ì—†ìŠ´</td>
+    <td><input type=text  name='cf_no_comment_point_days' size='10' required itemname='ì½”ë©˜íŠ¸ ì“°ê¸°ì— í¬ì¸íŠ¸ ë¶€ì—¬í•˜ì§€ ì•ŠëŠ” ê¸°ê°„' value='<?=$config[cf_no_comment_point_days]?>'> ì¼ <?=help("í¬ì¸íŠ¸ë¥¼ ì˜¬ë¦¬ê¸° ìœ„í•´ì„œ ì˜¤ëž˜ëœ ê¸€ì— ì½”ë©˜íŠ¸ ë‹¤ëŠ” ì‚¬ëžŒë“¤ì´ ìžˆëŠ” ê²½ìš°ë¥¼ ìœ„í•´ì„œ ì˜¤ëž˜ëœ ê¸€ì— ì½”ë©˜íŠ¸ ë‹¤ëŠ” ê²ƒì— í¬ì¸íŠ¸ ë¶€ì—¬í•˜ì§€ ì•ŠëŠ” ê¸°ê°„ì„ ì •í•˜ëŠ” ê²ƒ ìž…ë‹ˆë‹¤.\n\n 0ìœ¼ë¡œ ë‘ì‹œë©´ ì˜¤ëž˜ëœ ê¸€ì— ì½”ë©˜íŠ¸ë¥¼ ë‹¬ì•„ë„ í¬ì¸íŠ¸ê°€ ë¶€ì—¬ë©ë‹ˆë‹¤.\n\n ìˆ«ìžê°€ ì§€ì •ë˜ë©´ ìž‘ì„±ëœì§€ nì¼ì´ ê¸€ì—ëŠ” ì½”ë©˜íŠ¸ë¥¼ ì¨ë„ í¬ì¸íŠ¸ê°€ ë¶€ì—¬ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.")?></td>
 </tr>
 <tr>
     <td>LINK TARGET</td>
     <td><input type=text  name='cf_link_target' size='10' value='<?=$config[cf_link_target]?>'> 
-        <?=help("°Ô½ÃÆÇ ³»¿ëÁß ÀÚµ¿À¸·Î ¸µÅ©µÇ´Â Ã¢ÀÇ Å¸ÄÏÀ» ÁöÁ¤ÇÕ´Ï´Ù.\n\n_self, _top, _blank, _new ¸¦ ÁÖ·Î ÁöÁ¤ÇÕ´Ï´Ù.")?></td>
+        <?=help("ê²Œì‹œíŒ ë‚´ìš©ì¤‘ ìžë™ìœ¼ë¡œ ë§í¬ë˜ëŠ” ì°½ì˜ íƒ€ì¼“ì„ ì§€ì •í•©ë‹ˆë‹¤.\n\n_self, _top, _blank, _new ë¥¼ ì£¼ë¡œ ì§€ì •í•©ë‹ˆë‹¤.")?></td>
 </tr>
 <tr>
-    <td>°Ë»ö ´ÜÀ§</td>
-    <td><input type=text  name='cf_search_part' size='10' itemname='°Ë»ö ´ÜÀ§' value='<?=$config[cf_search_part]?>'> °Ç ´ÜÀ§·Î °Ë»ö</td>
+    <td>ê²€ìƒ‰ ë‹¨ìœ„</td>
+    <td><input type=text  name='cf_search_part' size='10' itemname='ê²€ìƒ‰ ë‹¨ìœ„' value='<?=$config[cf_search_part]?>'> ê±´ ë‹¨ìœ„ë¡œ ê²€ìƒ‰</td>
 </tr>
 <tr>
-    <td>°Ë»ö ¹è°æ »ö»ó</td>
-    <td><input type=text  name='cf_search_bgcolor' size='10' required itemname='°Ë»ö ¹è°æ »ö»ó' value='<?=$config[cf_search_bgcolor]?>'></td>
+    <td>ê²€ìƒ‰ ë°°ê²½ ìƒ‰ìƒ</td>
+    <td><input type=text  name='cf_search_bgcolor' size='10' required itemname='ê²€ìƒ‰ ë°°ê²½ ìƒ‰ìƒ' value='<?=$config[cf_search_bgcolor]?>'></td>
 </tr>
 <tr>
-    <td>°Ë»ö ±ÛÀÚ »ö»ó</td>
-    <td><input type=text  name='cf_search_color' size='10' required itemname='°Ë»ö ±ÛÀÚ »ö»ó' value='<?=$config[cf_search_color]?>'></td>
+    <td>ê²€ìƒ‰ ê¸€ìž ìƒ‰ìƒ</td>
+    <td><input type=text  name='cf_search_color' size='10' required itemname='ê²€ìƒ‰ ê¸€ìž ìƒ‰ìƒ' value='<?=$config[cf_search_color]?>'></td>
 </tr>
 <tr>
-    <td>ÇÑÆäÀÌÁö´ç ¶óÀÎ ¼ö</td>
-    <td><input type=text  name='cf_write_pages' size='10' required itemname='ÆäÀÌÁö Ç¥½Ã ¼ö' value='<?=$config[cf_write_pages]?>'> ÆäÀÌÁö¾¿ Ç¥½Ã</td>
+    <td>í•œíŽ˜ì´ì§€ë‹¹ ë¼ì¸ ìˆ˜</td>
+    <td><input type=text  name='cf_write_pages' size='10' required itemname='íŽ˜ì´ì§€ í‘œì‹œ ìˆ˜' value='<?=$config[cf_write_pages]?>'> íŽ˜ì´ì§€ì”© í‘œì‹œ</td>
 </tr>
 <tr>
-    <td>ÇÑÆäÀÌÁö´ç ¶óÀÎ ¼ö(xs)</td>
-    <td><input type=text  name='cf_write_pages_xs' size='10' required itemname='ÆäÀÌÁö Ç¥½Ã ¼ö' value='<?=$config[cf_write_pages_xs]?>'> ÆäÀÌÁö¾¿ Ç¥½Ã
-        <?=help("¸ð¹ÙÀÏ xs/ È­¸é¿¡¼­ ÆäÀÌÁöÀÇ Ç¥½Ã¼ö")?></td>
+    <td>í•œíŽ˜ì´ì§€ë‹¹ ë¼ì¸ ìˆ˜(xs)</td>
+    <td><input type=text  name='cf_write_pages_xs' size='10' required itemname='íŽ˜ì´ì§€ í‘œì‹œ ìˆ˜' value='<?=$config[cf_write_pages_xs]?>'> íŽ˜ì´ì§€ì”© í‘œì‹œ
+        <?=help("ëª¨ë°”ì¼ xs/ í™”ë©´ì—ì„œ íŽ˜ì´ì§€ì˜ í‘œì‹œìˆ˜")?></td>
     </td>
 </tr>
 <tr>
-    <td>ÀÌ¹ÌÁö ¾÷·Îµå È®ÀåÀÚ</td>
-    <td><input type=text  name='cf_image_extension' size='80' itemname='ÀÌ¹ÌÁö ¾÷·Îµå È®ÀåÀÚ' value='<?=$config[cf_image_extension]?>'>
-        <?=help("°Ô½ÃÆÇ ±ÛÀÛ¼º½Ã ÀÌ¹ÌÁö ÆÄÀÏ ¾÷·Îµå °¡´É È®ÀåÀÚ. | ·Î ±¸ºÐ")?></td>
+    <td>ì´ë¯¸ì§€ ì—…ë¡œë“œ í™•ìž¥ìž</td>
+    <td><input type=text  name='cf_image_extension' size='80' itemname='ì´ë¯¸ì§€ ì—…ë¡œë“œ í™•ìž¥ìž' value='<?=$config[cf_image_extension]?>'>
+        <?=help("ê²Œì‹œíŒ ê¸€ìž‘ì„±ì‹œ ì´ë¯¸ì§€ íŒŒì¼ ì—…ë¡œë“œ ê°€ëŠ¥ í™•ìž¥ìž. | ë¡œ êµ¬ë¶„")?></td>
 </tr>
 <tr>
-    <td>ÇÃ·¡½¬ ¾÷·Îµå È®ÀåÀÚ</td>
-    <td><input type=text  name='cf_flash_extension' size='80' itemname='ÇÃ·¡½¬ ¾÷·Îµå È®ÀåÀÚ' value='<?=$config[cf_flash_extension]?>'>
-        <?=help("°Ô½ÃÆÇ ±ÛÀÛ¼º½Ã ÇÃ·¡½¬ ÆÄÀÏ ¾÷·Îµå °¡´É È®ÀåÀÚ. | ·Î ±¸ºÐ")?></td>
+    <td>í”Œëž˜ì‰¬ ì—…ë¡œë“œ í™•ìž¥ìž</td>
+    <td><input type=text  name='cf_flash_extension' size='80' itemname='í”Œëž˜ì‰¬ ì—…ë¡œë“œ í™•ìž¥ìž' value='<?=$config[cf_flash_extension]?>'>
+        <?=help("ê²Œì‹œíŒ ê¸€ìž‘ì„±ì‹œ í”Œëž˜ì‰¬ íŒŒì¼ ì—…ë¡œë“œ ê°€ëŠ¥ í™•ìž¥ìž. | ë¡œ êµ¬ë¶„")?></td>
 </tr>
 <tr>
-    <td>µ¿¿µ»ó ¾÷·Îµå È®ÀåÀÚ</td>
-    <td><input type=text  name='cf_movie_extension' size='80' itemname='µ¿¿µ»ó ¾÷·Îµå È®ÀåÀÚ' value='<?=$config[cf_movie_extension]?>'>
-        <?=help("°Ô½ÃÆÇ ±ÛÀÛ¼º½Ã µ¿¿µ»ó ÆÄÀÏ ¾÷·Îµå °¡´É È®ÀåÀÚ. | ·Î ±¸ºÐ")?></td>
+    <td>ë™ì˜ìƒ ì—…ë¡œë“œ í™•ìž¥ìž</td>
+    <td><input type=text  name='cf_movie_extension' size='80' itemname='ë™ì˜ìƒ ì—…ë¡œë“œ í™•ìž¥ìž' value='<?=$config[cf_movie_extension]?>'>
+        <?=help("ê²Œì‹œíŒ ê¸€ìž‘ì„±ì‹œ ë™ì˜ìƒ íŒŒì¼ ì—…ë¡œë“œ ê°€ëŠ¥ í™•ìž¥ìž. | ë¡œ êµ¬ë¶„")?></td>
 </tr>
 <tr>
-    <td>´Ü¾î ÇÊÅÍ¸µ
-        <?=help("ÀÔ·ÂµÈ ´Ü¾î°¡ Æ÷ÇÔµÈ ³»¿ëÀº °Ô½ÃÇÒ ¼ö ¾ø½À´Ï´Ù.\n\n´Ü¾î¿Í ´Ü¾î »çÀÌ´Â ,·Î ±¸ºÐÇÕ´Ï´Ù.")?></td>
+    <td>ë‹¨ì–´ í•„í„°ë§
+        <?=help("ìž…ë ¥ëœ ë‹¨ì–´ê°€ í¬í•¨ëœ ë‚´ìš©ì€ ê²Œì‹œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\n\në‹¨ì–´ì™€ ë‹¨ì–´ ì‚¬ì´ëŠ” ,ë¡œ êµ¬ë¶„í•©ë‹ˆë‹¤.")?></td>
     <td><textarea  name='cf_filter' rows='7' style='width:99%;word-break:break-all;'><?=$config[cf_filter]?> </textarea></td>
 </tr>
 
 <tr>
-    <td colspan=2 align=left class="success">±Û¾²±âÁ¦ÇÑ ¼³Á¤</td>
+    <td colspan=2 align=left class="success">ê¸€ì“°ê¸°ì œí•œ ì„¤ì •</td>
 </tr>
 <tr>
-    <td>»õ·Î¿î ±Û¾²±â</td>
-    <td><input type=text  name='cf_delay_sec' size='10' required itemname='»õ·Î¿î ±Û¾²±â' value='<?=$config[cf_delay_sec]?>'> ÃÊ Áö³­ÈÄ °¡´É</td>
+    <td>ìƒˆë¡œìš´ ê¸€ì“°ê¸°</td>
+    <td><input type=text  name='cf_delay_sec' size='10' required itemname='ìƒˆë¡œìš´ ê¸€ì“°ê¸°' value='<?=$config[cf_delay_sec]?>'> ì´ˆ ì§€ë‚œí›„ ê°€ëŠ¥</td>
 </tr>
 <tr>
-    <td>±Û¾²±âÁ¦ÇÑ ÇØÁ¦ ·¹º§</td>
-    <td><? echo get_member_level_select('cf_delay_level', 2, 9, $config[cf_delay_level]) ?> ·¹º§ºÎÅÍ Á¦ÇÑ ¾ø½¿</td>
+    <td>ê¸€ì“°ê¸°ì œí•œ í•´ì œ ë ˆë²¨</td>
+    <td><? echo get_member_level_select('cf_delay_level', 2, 9, $config[cf_delay_level]) ?> ë ˆë²¨ë¶€í„° ì œí•œ ì—†ìŠ´</td>
 </tr>
 <tr>
-    <td>±Û¾²±âÁ¦ÇÑ ÇØÁ¦ Æ÷ÀÎÆ®</td>
-    <td><input type=text  name='cf_delay_point' size='10' required itemname='»õ·Î¿î ±Û¾²±â ÇØÁ¦ Æ÷ÀÎÆ®' value='<?=$config[cf_delay_point]?>'> Æ÷ÀÎÆ®ºÎÅÍ Á¦ÇÑ ¾ø½¿</td></td>
+    <td>ê¸€ì“°ê¸°ì œí•œ í•´ì œ í¬ì¸íŠ¸</td>
+    <td><input type=text  name='cf_delay_point' size='10' required itemname='ìƒˆë¡œìš´ ê¸€ì“°ê¸° í•´ì œ í¬ì¸íŠ¸' value='<?=$config[cf_delay_point]?>'> í¬ì¸íŠ¸ë¶€í„° ì œí•œ ì—†ìŠ´</td></td>
 </tr>
 
 <tr>
-    <td colspan=2 align=left class="success">È¸¿ø°¡ÀÔ ¼³Á¤</td>
+    <td colspan=2 align=left class="success">íšŒì›ê°€ìž… ì„¤ì •</td>
 </tr>
 <tr>
-    <td>È¸¿ø ½ºÅ²</td>
-    <td><select id=cf_member_skin name=cf_member_skin required itemname="È¸¿ø°¡ÀÔ ½ºÅ²">
+    <td>íšŒì› ìŠ¤í‚¨</td>
+    <td><select id=cf_member_skin name=cf_member_skin required itemname="íšŒì›ê°€ìž… ìŠ¤í‚¨">
         <?
         $arr = get_skin_dir("member");
         for ($i=0; $i<count($arr); $i++) {
@@ -379,263 +379,263 @@ include_once ("./admin.head.php");
     </td>
 </tr>
 <tr>
-    <td>È¨ÆäÀÌÁö ÀÔ·Â</td>
+    <td>í™ˆíŽ˜ì´ì§€ ìž…ë ¥</td>
     <td>
-        <input type='checkbox' name='cf_use_homepage' value='1' <?=$config[cf_use_homepage]?'checked':'';?>> º¸ÀÌ±â
-        <input type='checkbox' name='cf_req_homepage' value='1' <?=$config[cf_req_homepage]?'checked':'';?>> ÇÊ¼öÀÔ·Â
+        <input type='checkbox' name='cf_use_homepage' value='1' <?=$config[cf_use_homepage]?'checked':'';?>> ë³´ì´ê¸°
+        <input type='checkbox' name='cf_req_homepage' value='1' <?=$config[cf_req_homepage]?'checked':'';?>> í•„ìˆ˜ìž…ë ¥
     </td>
 </tr>
 <tr>
-    <td>ÁÖ¼Ò ÀÔ·Â</td>
+    <td>ì£¼ì†Œ ìž…ë ¥</td>
     <td>
-        <input type='checkbox' name='cf_use_addr' value='1' <?=$config[cf_use_addr]?'checked':'';?>> º¸ÀÌ±â
-        <input type='checkbox' name='cf_req_addr' value='1' <?=$config[cf_req_addr]?'checked':'';?>> ÇÊ¼öÀÔ·Â
+        <input type='checkbox' name='cf_use_addr' value='1' <?=$config[cf_use_addr]?'checked':'';?>> ë³´ì´ê¸°
+        <input type='checkbox' name='cf_req_addr' value='1' <?=$config[cf_req_addr]?'checked':'';?>> í•„ìˆ˜ìž…ë ¥
     </td>
 </tr>
 <tr>
-    <td>ÀüÈ­¹øÈ£ ÀÔ·Â</td>
+    <td>ì „í™”ë²ˆí˜¸ ìž…ë ¥</td>
     <td>
-        <input type='checkbox' name='cf_use_tel' value='1' <?=$config[cf_use_tel]?'checked':'';?>> º¸ÀÌ±â
-        <input type='checkbox' name='cf_req_tel' value='1' <?=$config[cf_req_tel]?'checked':'';?>> ÇÊ¼öÀÔ·Â
+        <input type='checkbox' name='cf_use_tel' value='1' <?=$config[cf_use_tel]?'checked':'';?>> ë³´ì´ê¸°
+        <input type='checkbox' name='cf_req_tel' value='1' <?=$config[cf_req_tel]?'checked':'';?>> í•„ìˆ˜ìž…ë ¥
     </td>
 </tr>
 <tr>
-    <td>ÇÚµåÆù ÀÔ·Â</td>
+    <td>í•¸ë“œí° ìž…ë ¥</td>
     <td>
-        <input type='checkbox' name='cf_use_hp' value='1' <?=$config[cf_use_hp]?'checked':'';?>> º¸ÀÌ±â
-        <input type='checkbox' name='cf_req_hp' value='1' <?=$config[cf_req_hp]?'checked':'';?>> ÇÊ¼öÀÔ·Â
+        <input type='checkbox' name='cf_use_hp' value='1' <?=$config[cf_use_hp]?'checked':'';?>> ë³´ì´ê¸°
+        <input type='checkbox' name='cf_req_hp' value='1' <?=$config[cf_req_hp]?'checked':'';?>> í•„ìˆ˜ìž…ë ¥
     </td>
 </tr>
 <tr>
-    <td>¼­¸í ÀÔ·Â</td>
+    <td>ì„œëª… ìž…ë ¥</td>
     <td>
-        <input type='checkbox' name='cf_use_signature' value='1' <?=$config[cf_use_signature]?'checked':'';?>> º¸ÀÌ±â
-        <input type='checkbox' name='cf_req_signature' value='1' <?=$config[cf_req_signature]?'checked':'';?>> ÇÊ¼öÀÔ·Â
+        <input type='checkbox' name='cf_use_signature' value='1' <?=$config[cf_use_signature]?'checked':'';?>> ë³´ì´ê¸°
+        <input type='checkbox' name='cf_req_signature' value='1' <?=$config[cf_req_signature]?'checked':'';?>> í•„ìˆ˜ìž…ë ¥
     </td>
 </tr>
 <tr>
-    <td>ÀÚ±â¼Ò°³ ÀÔ·Â</td>
+    <td>ìžê¸°ì†Œê°œ ìž…ë ¥</td>
     <td>
-        <input type='checkbox' name='cf_use_profile' value='1' <?=$config[cf_use_profile]?'checked':'';?>> º¸ÀÌ±â
-        <input type='checkbox' name='cf_req_profile' value='1' <?=$config[cf_req_profile]?'checked':'';?>> ÇÊ¼öÀÔ·Â
+        <input type='checkbox' name='cf_use_profile' value='1' <?=$config[cf_use_profile]?'checked':'';?>> ë³´ì´ê¸°
+        <input type='checkbox' name='cf_req_profile' value='1' <?=$config[cf_req_profile]?'checked':'';?>> í•„ìˆ˜ìž…ë ¥
     </td>
 </tr>
 <tr>
-    <td>¼ºº°(³²¼º/¿©¼º) ÀÔ·Â</td>
+    <td>ì„±ë³„(ë‚¨ì„±/ì—¬ì„±) ìž…ë ¥</td>
     <td>
-        <input type='checkbox' name='cf_use_sex' value='1' <?=$config[cf_use_sex]?'checked':'';?>> º¸ÀÌ±â
+        <input type='checkbox' name='cf_use_sex' value='1' <?=$config[cf_use_sex]?'checked':'';?>> ë³´ì´ê¸°
     </td>
 </tr>
 <tr>
-    <td>»ý³â¿ùÀÏ ÀÔ·Â</td>
+    <td>ìƒë…„ì›”ì¼ ìž…ë ¥</td>
     <td>
-        <input type='checkbox' name='cf_use_birthdate' value='1' <?=$config[cf_use_birthdate]?'checked':'';?>> º¸ÀÌ±â
+        <input type='checkbox' name='cf_use_birthdate' value='1' <?=$config[cf_use_birthdate]?'checked':'';?>> ë³´ì´ê¸°
     </td>
 </tr>
 <tr>
-    <td>È¸¿ø°¡ÀÔ½Ã ±ÇÇÑ</td>
+    <td>íšŒì›ê°€ìž…ì‹œ ê¶Œí•œ</td>
     <td><? echo get_member_level_select('cf_register_level', 1, 9, $config[cf_register_level]) ?></td>
 </tr>
 <tr>
-    <td>È¸¿ø°¡ÀÔ½Ã Æ÷ÀÎÆ®</td>
-    <td><input type=text  name='cf_register_point' size='5' value='<?=$config[cf_register_point]?>'> Á¡</td>
+    <td>íšŒì›ê°€ìž…ì‹œ í¬ì¸íŠ¸</td>
+    <td><input type=text  name='cf_register_point' size='5' value='<?=$config[cf_register_point]?>'> ì </td>
 </tr>
 <tr>
-    <td>È¸¿øÅ»ÅðÈÄ »èÁ¦ÀÏ</td>
-    <td><input type=text  name='cf_leave_day' size='5' value='<?=$config[cf_leave_day]?>'> ÀÏ ÈÄ ÀÚµ¿ »èÁ¦</td>
+    <td>íšŒì›íƒˆí‡´í›„ ì‚­ì œì¼</td>
+    <td><input type=text  name='cf_leave_day' size='5' value='<?=$config[cf_leave_day]?>'> ì¼ í›„ ìžë™ ì‚­ì œ</td>
 </tr>
 <tr>
-    <td>È¸¿ø¾ÆÀÌÄÜ »ç¿ë</td>
+    <td>íšŒì›ì•„ì´ì½˜ ì‚¬ìš©</td>
     <td>
         <select name='cf_use_member_icon'> 
-        <option value='0'>¹Ì»ç¿ë
-        <option value='1'>¾ÆÀÌÄÜ¸¸ Ç¥½Ã
-        <option value='2'>¾ÆÀÌÄÜ+ÀÌ¸§ Ç¥½Ã
+        <option value='0'>ë¯¸ì‚¬ìš©
+        <option value='1'>ì•„ì´ì½˜ë§Œ í‘œì‹œ
+        <option value='2'>ì•„ì´ì½˜+ì´ë¦„ í‘œì‹œ
         </select>
-        <?=help("°Ô½Ã¹°¿¡ °Ô½ÃÀÚ º°¸í ´ë½Å ¾ÆÀÌÄÜ »ç¿ë")?>
+        <?=help("ê²Œì‹œë¬¼ì— ê²Œì‹œìž ë³„ëª… ëŒ€ì‹  ì•„ì´ì½˜ ì‚¬ìš©")?>
     <script language='javascript'> document.fconfigform.cf_use_member_icon.value = '<?=$config[cf_use_member_icon]?>'; </script>
     </td>
 </tr>
 <tr>
-    <td>¾ÆÀÌÄÜ ¾÷·Îµå ±ÇÇÑ</td>
-    <td><? echo get_member_level_select('cf_icon_level', 1, 9, $config[cf_icon_level]) ?> ÀÌ»ó</td>
+    <td>ì•„ì´ì½˜ ì—…ë¡œë“œ ê¶Œí•œ</td>
+    <td><? echo get_member_level_select('cf_icon_level', 1, 9, $config[cf_icon_level]) ?> ì´ìƒ</td>
 </tr>
 <tr>
-    <td>È¸¿ø¾ÆÀÌÄÜ ¿ë·®</td>
-    <td><input type=text  name='cf_member_icon_size' size='5' value='<?=$config[cf_member_icon_size]?>'> ¹ÙÀÌÆ® ÀÌÇÏ</td>
+    <td>íšŒì›ì•„ì´ì½˜ ìš©ëŸ‰</td>
+    <td><input type=text  name='cf_member_icon_size' size='5' value='<?=$config[cf_member_icon_size]?>'> ë°”ì´íŠ¸ ì´í•˜</td>
 </tr>
 <tr>
-    <td>È¸¿ø¾ÆÀÌÄÜ »çÀÌÁî</td>
-    <td>Æø <input type=text  name='cf_member_icon_width' size='5' value='<?=$config[cf_member_icon_width]?>'> ÇÈ¼¿ , ³ôÀÌ <input type=text  name='cf_member_icon_height' size='5' value='<?=$config[cf_member_icon_height]?>'> ÇÈ¼¿ ÀÌÇÏ</td>
+    <td>íšŒì›ì•„ì´ì½˜ ì‚¬ì´ì¦ˆ</td>
+    <td>í­ <input type=text  name='cf_member_icon_width' size='5' value='<?=$config[cf_member_icon_width]?>'> í”½ì…€ , ë†’ì´ <input type=text  name='cf_member_icon_height' size='5' value='<?=$config[cf_member_icon_height]?>'> í”½ì…€ ì´í•˜</td>
 </tr>
 <tr>
-    <td>ÃßÃµÀÎÁ¦µµ »ç¿ë</td>
+    <td>ì¶”ì²œì¸ì œë„ ì‚¬ìš©</td>
     <td>
-    <input type='checkbox' name='cf_use_recommend' value='1' <?=$config[cf_use_recommend]?'checked':'';?>> º¸ÀÌ±â
-    <input type='checkbox' name='cf_req_recommend' value='1' <?=$config[cf_req_recommend]?'checked':'';?>> ÇÊ¼öÀÔ·Â
+    <input type='checkbox' name='cf_use_recommend' value='1' <?=$config[cf_use_recommend]?'checked':'';?>> ë³´ì´ê¸°
+    <input type='checkbox' name='cf_req_recommend' value='1' <?=$config[cf_req_recommend]?'checked':'';?>> í•„ìˆ˜ìž…ë ¥
     </td>
 </tr>
 <tr>
-    <td>ÃßÃµÀÎ Æ÷ÀÎÆ®</td>
-    <td><input type=text  name='cf_recommend_point' size='5' value='<?=$config[cf_recommend_point]?>'> Á¡</td>
+    <td>ì¶”ì²œì¸ í¬ì¸íŠ¸</td>
+    <td><input type=text  name='cf_recommend_point' size='5' value='<?=$config[cf_recommend_point]?>'> ì </td>
 </tr>
 <tr>
-    <td>È¸¿ø°¡ÀÔ ÃàÇÏÂÊÁö ¹ß¼Û</td>
-    <td><input type='checkbox' name='cf_memo_mb_member' value='1' <?=$config[cf_memo_mb_member]?'checked':'';?>> »ç¿ë</td>
+    <td>íšŒì›ê°€ìž… ì¶•í•˜ìª½ì§€ ë°œì†¡</td>
+    <td><input type='checkbox' name='cf_memo_mb_member' value='1' <?=$config[cf_memo_mb_member]?'checked':'';?>> ì‚¬ìš©</td>
 </tr>
 <tr>
-    <td>¾ÆÀÌµð,º°¸í ±ÝÁö´Ü¾î
-        <?=help("ÀÔ·ÂµÈ ´Ü¾î°¡ Æ÷ÇÔµÈ ³»¿ëÀº È¸¿ø¾ÆÀÌµð, º°¸íÀ¸·Î »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.\n\n´Ü¾î¿Í ´Ü¾î »çÀÌ´Â , ·Î ±¸ºÐÇÕ´Ï´Ù.")?></td>
+    <td>ì•„ì´ë””,ë³„ëª… ê¸ˆì§€ë‹¨ì–´
+        <?=help("ìž…ë ¥ëœ ë‹¨ì–´ê°€ í¬í•¨ëœ ë‚´ìš©ì€ íšŒì›ì•„ì´ë””, ë³„ëª…ìœ¼ë¡œ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\n\në‹¨ì–´ì™€ ë‹¨ì–´ ì‚¬ì´ëŠ” , ë¡œ êµ¬ë¶„í•©ë‹ˆë‹¤.")?></td>
     <td valign=top><textarea class="ed" name='cf_prohibit_id' rows='5' style='width:99%;word-break:break-all;'><?=$config[cf_prohibit_id]?> </textarea></td>
 </tr>
 <tr>
-    <td>ÀÔ·Â ±ÝÁö ¸ÞÀÏ
-        <?=help("hanmail.net°ú °°Àº ¸ÞÀÏ ÁÖ¼Ò´Â ÀÔ·ÂÀ» ¸øÇÕ´Ï´Ù.\n\n¿£ÅÍ·Î ±¸ºÐÇÕ´Ï´Ù.")?></td>
+    <td>ìž…ë ¥ ê¸ˆì§€ ë©”ì¼
+        <?=help("hanmail.netê³¼ ê°™ì€ ë©”ì¼ ì£¼ì†ŒëŠ” ìž…ë ¥ì„ ëª»í•©ë‹ˆë‹¤.\n\nì—”í„°ë¡œ êµ¬ë¶„í•©ë‹ˆë‹¤.")?></td>
     <td valign=top><textarea  name='cf_prohibit_email' rows='5' style='width:99%;'><?=$config[cf_prohibit_email]?> </textarea><br></td>
 </tr>
 <tr>
-    <td>È¸¿ø°¡ÀÔ¾à°ü</td>
+    <td>íšŒì›ê°€ìž…ì•½ê´€</td>
     <td valign=top><textarea  name='cf_stipulation' rows='10' style='width:99%;'><?=$config[cf_stipulation]?> </textarea></td>
 </tr>
 <tr>
-    <td>°³ÀÎÁ¤º¸Ãë±Þ¹æÄ§</td>
+    <td>ê°œì¸ì •ë³´ì·¨ê¸‰ë°©ì¹¨</td>
     <td valign=top><textarea  name='cf_privacy' rows='10' style='width:99%;'><?=$config[cf_privacy]?> </textarea></td>
 </tr>
 <tr>
-    <td>¼öÁýÇÏ´Â °³ÀÎÁ¤º¸ÀÇ <br>Ç×¸ñ</td>
+    <td>ìˆ˜ì§‘í•˜ëŠ” ê°œì¸ì •ë³´ì˜ <br>í•­ëª©</td>
     <td valign=top><textarea  name='cf_privacy_1' rows='5' style='width:99%;'><?=$config[cf_privacy_1]?> </textarea></td>
 </tr>
 <tr>
-    <td>°³ÀÎÁ¤º¸ÀÇ <br>¼öÁý ¹× ÀÌ¿ë ¸ñÀû</td>
+    <td>ê°œì¸ì •ë³´ì˜ <br>ìˆ˜ì§‘ ë° ì´ìš© ëª©ì </td>
     <td valign=top><textarea  name='cf_privacy_2' rows='5' style='width:99%;'><?=$config[cf_privacy_2]?> </textarea></td>
 </tr>
 <tr>
-    <td>°³ÀÎÁ¤º¸ÀÇ <br>º¸À¯ ¹× ÀÌ¿ë±â°£</td>
+    <td>ê°œì¸ì •ë³´ì˜ <br>ë³´ìœ  ë° ì´ìš©ê¸°ê°„</td>
     <td valign=top><textarea  name='cf_privacy_3' rows='5' style='width:99%;'><?=$config[cf_privacy_3]?> </textarea></td>
 </tr>
 <tr>
-    <td>°³ÀÎÁ¤º¸ÀÇ Á¦3ÀÚÁ¦°ø<br>¡Ø³»¿ëÀÌ ÀÖÀ¸¸é µ¿ÀÇ¹öÆ°ÀÌ Ãâ·ÂµË´Ï´Ù</td>
+    <td>ê°œì¸ì •ë³´ì˜ ì œ3ìžì œê³µ<br>â€»ë‚´ìš©ì´ ìžˆìœ¼ë©´ ë™ì˜ë²„íŠ¼ì´ ì¶œë ¥ë©ë‹ˆë‹¤</td>
     <td valign=top><textarea  name='cf_privacy_4' rows='5' style='width:99%;'><?=$config[cf_privacy_4]?> </textarea></td>
 </tr>
 <tr>
-    <td>°³ÀÎÁ¤º¸ÀÇ Ãë±ÞÀ§Å¹<br>¡ØÇÊ¼ö ¾÷¹«ÀÌ¿ÜÀÇ Ãë±ÞÀ§Å¹À» ÇÏ´Â °æ¿ì´Â µ¿ÀÇ¹öÆ°À» º°µµ·Î ¸¸µé¾î¾ß ÇÕ´Ï´Ù.</td>
+    <td>ê°œì¸ì •ë³´ì˜ ì·¨ê¸‰ìœ„íƒ<br>â€»í•„ìˆ˜ ì—…ë¬´ì´ì™¸ì˜ ì·¨ê¸‰ìœ„íƒì„ í•˜ëŠ” ê²½ìš°ëŠ” ë™ì˜ë²„íŠ¼ì„ ë³„ë„ë¡œ ë§Œë“¤ì–´ì•¼ í•©ë‹ˆë‹¤.</td>
     <td valign=top><textarea  name='cf_privacy_5' rows='5' style='width:99%;'><?=$config[cf_privacy_5]?> </textarea></td>
 </tr>
 
 <tr>
-    <td colspan=2 class="success">ÇÚµåÆùÀÎÁõ ¼³Á¤</td>
+    <td colspan=2 class="success">í•¸ë“œí°ì¸ì¦ ì„¤ì •</td>
 </tr>
 <tr>
-    <td>ÇÚµåÆùÀÎÁõ »ç¿ë</td>
-    <td><input type=checkbox name=cf_hp_certify value='1' <?=$config[cf_hp_certify]?'checked':'';?>> »ç¿ë (Ã¼Å©ÇÏÁö ¾ÊÀ¸¸é ÇÚµåÆùÀÎÁõÀ» »ç¿ëÇÏÁö ¾Ê½À´Ï´Ù.)</td>
+    <td>í•¸ë“œí°ì¸ì¦ ì‚¬ìš©</td>
+    <td><input type=checkbox name=cf_hp_certify value='1' <?=$config[cf_hp_certify]?'checked':'';?>> ì‚¬ìš© (ì²´í¬í•˜ì§€ ì•Šìœ¼ë©´ í•¸ë“œí°ì¸ì¦ì„ ì‚¬ìš©í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.)</td>
 </tr>
 <tr>
-    <td>ÇÚµåÆù ÀÎÁõ ¸Þ½ÃÁö</td>
+    <td>í•¸ë“œí° ì¸ì¦ ë©”ì‹œì§€</td>
     <td><textarea  name='cf_hp_certify_message' rows='5' style='width:99%;'><?=$config[cf_hp_certify_message]?> </textarea>
     <BR>
-        <?=help("ÇÚµåÆù ÀÎÁõÀ» À§ÇÑ ¹®ÀÚ¿­À» ÀÔ·ÂÇÕ´Ï´Ù. \n\nÀÎÁõ¹øÈ£´Â $certify_numberÀÌ¸ç´Ü¾î¿Í ÁÙ¹Ù²ÞÀº \\n ÀÔ´Ï´Ù.")?>
-    (¿¹: ºÒ´çÀÇ Opencode\n\n$certify_number\nÀÎÁõ¹øÈ£ ÀÔ´Ï´Ù. )
+        <?=help("í•¸ë“œí° ì¸ì¦ì„ ìœ„í•œ ë¬¸ìžì—´ì„ ìž…ë ¥í•©ë‹ˆë‹¤. \n\nì¸ì¦ë²ˆí˜¸ëŠ” $certify_numberì´ë©°ë‹¨ì–´ì™€ ì¤„ë°”ê¿ˆì€ \\n ìž…ë‹ˆë‹¤.")?>
+    (ì˜ˆ: ë¶ˆë‹¹ì˜ Opencode\n\n$certify_number\nì¸ì¦ë²ˆí˜¸ ìž…ë‹ˆë‹¤. )
     </td>
 </tr>
 <tr>
-    <td>¹ß½ÅÀÚ ÀüÈ­¹øÈ£</td>
-    <td><input type=text  name='cf_hp_certify_return' size='16' itemname='¹ß½ÅÀÚ ÀüÈ­¹øÈ£' value='<?=$config[cf_hp_certify_return]?>'> (¿¹: 01012341234)</td>
+    <td>ë°œì‹ ìž ì „í™”ë²ˆí˜¸</td>
+    <td><input type=text  name='cf_hp_certify_return' size='16' itemname='ë°œì‹ ìž ì „í™”ë²ˆí˜¸' value='<?=$config[cf_hp_certify_return]?>'> (ì˜ˆ: 01012341234)</td>
 </tr>
 
 <tr>
-    <td colspan=2 align=left class="success">¸ÞÀÏ ¼³Á¤</td>
+    <td colspan=2 align=left class="success">ë©”ì¼ ì„¤ì •</td>
 </tr>
 <tr>
-    <td>°ü¸®ÀÚ ¸ÞÀÏ ÁÖ¼Ò</td>
+    <td>ê´€ë¦¬ìž ë©”ì¼ ì£¼ì†Œ</td>
     <td>
         <input type="text" name="cf_admin_email" value="<?php echo $config['cf_admin_email'] ?>" id="cf_admin_email" required class="required email frm_input" size="40">
-        <?=help('°ü¸®ÀÚ°¡ º¸³»°í ¹Þ´Â ¿ëµµ·Î »ç¿ëÇÏ´Â ¸ÞÀÏ ÁÖ¼Ò¸¦ ÀÔ·ÂÇÕ´Ï´Ù. (È¸¿ø°¡ÀÔ, ÀÎÁõ¸ÞÀÏ, Å×½ºÆ®, È¸¿ø¸ÞÀÏ¹ß¼Û µî¿¡¼­ »ç¿ë)') ?>
+        <?=help('ê´€ë¦¬ìžê°€ ë³´ë‚´ê³  ë°›ëŠ” ìš©ë„ë¡œ ì‚¬ìš©í•˜ëŠ” ë©”ì¼ ì£¼ì†Œë¥¼ ìž…ë ¥í•©ë‹ˆë‹¤. (íšŒì›ê°€ìž…, ì¸ì¦ë©”ì¼, í…ŒìŠ¤íŠ¸, íšŒì›ë©”ì¼ë°œì†¡ ë“±ì—ì„œ ì‚¬ìš©)') ?>
     </td>
 </tr>
 <tr>
-    <td>¸ÞÀÏ¹ß¼Û »ç¿ë</td>
-    <td><input type=checkbox name=cf_email_use value='1' <?=$config[cf_email_use]?'checked':'';?>> »ç¿ë (Ã¼Å©ÇÏÁö ¾ÊÀ¸¸é ¸ÞÀÏ¹ß¼ÛÀ» ¾Æ¿¹ »ç¿ëÇÏÁö ¾Ê½À´Ï´Ù. ¸ÞÀÏ Å×½ºÆ®µµ ºÒ°¡ÇÕ´Ï´Ù.)</td>
+    <td>ë©”ì¼ë°œì†¡ ì‚¬ìš©</td>
+    <td><input type=checkbox name=cf_email_use value='1' <?=$config[cf_email_use]?'checked':'';?>> ì‚¬ìš© (ì²´í¬í•˜ì§€ ì•Šìœ¼ë©´ ë©”ì¼ë°œì†¡ì„ ì•„ì˜ˆ ì‚¬ìš©í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤. ë©”ì¼ í…ŒìŠ¤íŠ¸ë„ ë¶ˆê°€í•©ë‹ˆë‹¤.)</td>
 </tr>
 <tr>
-    <td>¸ÞÀÏÀÎÁõ »ç¿ë</td>
-    <td><input type='checkbox' name='cf_use_email_certify' value='1' <?=$config[cf_use_email_certify]?'checked':'';?>> »ç¿ë
-        <?=help("¸ÞÀÏ¿¡ ¹è´ÞµÈ ÀÎÁõ ÁÖ¼Ò¸¦ Å¬¸¯ÇÏ¿©¾ß È¸¿øÀ¸·Î ÀÎÁ¤ÇÕ´Ï´Ù.");?></td>
+    <td>ë©”ì¼ì¸ì¦ ì‚¬ìš©</td>
+    <td><input type='checkbox' name='cf_use_email_certify' value='1' <?=$config[cf_use_email_certify]?'checked':'';?>> ì‚¬ìš©
+        <?=help("ë©”ì¼ì— ë°°ë‹¬ëœ ì¸ì¦ ì£¼ì†Œë¥¼ í´ë¦­í•˜ì—¬ì•¼ íšŒì›ìœ¼ë¡œ ì¸ì •í•©ë‹ˆë‹¤.");?></td>
 </tr>
 <tr>
-    <td>Æû¸ÞÀÏ »ç¿ë ¿©ºÎ</td>
-    <td><input type='checkbox' name='cf_formmail_is_member' value='1' <?=$config[cf_formmail_is_member]?'checked':'';?>> È¸¿ø¸¸ »ç¿ë
-        <?=help("Ã¼Å©ÇÏÁö ¾ÊÀ¸¸é ºñÈ¸¿øµµ »ç¿ë ÇÒ ¼ö ÀÖ½À´Ï´Ù.")?></td>
+    <td>í¼ë©”ì¼ ì‚¬ìš© ì—¬ë¶€</td>
+    <td><input type='checkbox' name='cf_formmail_is_member' value='1' <?=$config[cf_formmail_is_member]?'checked':'';?>> íšŒì›ë§Œ ì‚¬ìš©
+        <?=help("ì²´í¬í•˜ì§€ ì•Šìœ¼ë©´ ë¹„íšŒì›ë„ ì‚¬ìš© í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.")?></td>
 </tr>
 <tr>
-    <td class="success">°Ô½ÃÆÇ ±Û ÀÛ¼º½Ã</td>
+    <td class="success">ê²Œì‹œíŒ ê¸€ ìž‘ì„±ì‹œ</td>
     <td></td>
 </tr>
 <tr>
-    <td>ÃÖ°í°ü¸®ÀÚ ¸ÞÀÏ¹ß¼Û</td>
-    <td><input type=checkbox name=cf_email_wr_super_admin value='1' <?=$config[cf_email_wr_super_admin]?'checked':'';?>> »ç¿ë (ÃÖ°í°ü¸®ÀÚ¿¡°Ô ¸ÞÀÏÀ» ¹ß¼ÛÇÕ´Ï´Ù.)</td>
+    <td>ìµœê³ ê´€ë¦¬ìž ë©”ì¼ë°œì†¡</td>
+    <td><input type=checkbox name=cf_email_wr_super_admin value='1' <?=$config[cf_email_wr_super_admin]?'checked':'';?>> ì‚¬ìš© (ìµœê³ ê´€ë¦¬ìžì—ê²Œ ë©”ì¼ì„ ë°œì†¡í•©ë‹ˆë‹¤.)</td>
 </tr>
 <tr>
-    <td>±×·ì°ü¸®ÀÚ ¸ÞÀÏ¹ß¼Û</td>
-    <td><input type=checkbox name=cf_email_wr_group_admin value='1' <?=$config[cf_email_wr_group_admin]?'checked':'';?>> »ç¿ë (±×·ì°ü¸®ÀÚ¿¡°Ô ¸ÞÀÏÀ» ¹ß¼ÛÇÕ´Ï´Ù.)</td>
+    <td>ê·¸ë£¹ê´€ë¦¬ìž ë©”ì¼ë°œì†¡</td>
+    <td><input type=checkbox name=cf_email_wr_group_admin value='1' <?=$config[cf_email_wr_group_admin]?'checked':'';?>> ì‚¬ìš© (ê·¸ë£¹ê´€ë¦¬ìžì—ê²Œ ë©”ì¼ì„ ë°œì†¡í•©ë‹ˆë‹¤.)</td>
 </tr>
 <tr>
-    <td>°Ô½ÃÆÇ°ü¸®ÀÚ ¸ÞÀÏ¹ß¼Û</td>
-    <td><input type=checkbox name=cf_email_wr_board_admin value='1' <?=$config[cf_email_wr_board_admin]?'checked':'';?>> »ç¿ë (°Ô½ÃÆÇ°ü¸®ÀÚ¿¡°Ô ¸ÞÀÏÀ» ¹ß¼ÛÇÕ´Ï´Ù.)</td>
+    <td>ê²Œì‹œíŒê´€ë¦¬ìž ë©”ì¼ë°œì†¡</td>
+    <td><input type=checkbox name=cf_email_wr_board_admin value='1' <?=$config[cf_email_wr_board_admin]?'checked':'';?>> ì‚¬ìš© (ê²Œì‹œíŒê´€ë¦¬ìžì—ê²Œ ë©”ì¼ì„ ë°œì†¡í•©ë‹ˆë‹¤.)</td>
 </tr>
 <tr>
-    <td>¿ø±Û ¸ÞÀÏ¹ß¼Û</td>
-    <td><input type=checkbox name=cf_email_wr_write value='1' <?=$config[cf_email_wr_write]?'checked':'';?>> »ç¿ë (°Ô½ÃÀÚ´Ô²² ¸ÞÀÏÀ» ¹ß¼ÛÇÕ´Ï´Ù.)</td>
+    <td>ì›ê¸€ ë©”ì¼ë°œì†¡</td>
+    <td><input type=checkbox name=cf_email_wr_write value='1' <?=$config[cf_email_wr_write]?'checked':'';?>> ì‚¬ìš© (ê²Œì‹œìžë‹˜ê»˜ ë©”ì¼ì„ ë°œì†¡í•©ë‹ˆë‹¤.)</td>
 </tr>
 <tr>
-    <td>ÄÚ¸àÆ® ¸ÞÀÏ¹ß¼Û</td>
-    <td><input type=checkbox name=cf_email_wr_comment_all value='1' <?=$config[cf_email_wr_comment_all]?'checked':'';?>> »ç¿ë (¿ø±Û¿¡ ÄÚ¸àÆ®°¡ ¿Ã¶ó¿À´Â °æ¿ì ÄÚ¸àÆ® ¾´ ¸ðµç ºÐµé²² ¸ÞÀÏÀ» ¹ß¼ÛÇÕ´Ï´Ù.)</td>
+    <td>ì½”ë©˜íŠ¸ ë©”ì¼ë°œì†¡</td>
+    <td><input type=checkbox name=cf_email_wr_comment_all value='1' <?=$config[cf_email_wr_comment_all]?'checked':'';?>> ì‚¬ìš© (ì›ê¸€ì— ì½”ë©˜íŠ¸ê°€ ì˜¬ë¼ì˜¤ëŠ” ê²½ìš° ì½”ë©˜íŠ¸ ì“´ ëª¨ë“  ë¶„ë“¤ê»˜ ë©”ì¼ì„ ë°œì†¡í•©ë‹ˆë‹¤.)</td>
 </tr>
 <tr>
-    <td class="success">È¸¿ø °¡ÀÔ½Ã</td>
+    <td class="success">íšŒì› ê°€ìž…ì‹œ</td>
     <td></td>
 </tr>
 <tr>
-    <td>ÃÖ°í°ü¸®ÀÚ ¸ÞÀÏ¹ß¼Û</td>
-    <td><input type=checkbox name=cf_email_mb_super_admin value='1' <?=$config[cf_email_mb_super_admin]?'checked':'';?>> »ç¿ë (ÃÖ°í°ü¸®ÀÚ¿¡°Ô ¸ÞÀÏÀ» ¹ß¼ÛÇÕ´Ï´Ù.)</td>
+    <td>ìµœê³ ê´€ë¦¬ìž ë©”ì¼ë°œì†¡</td>
+    <td><input type=checkbox name=cf_email_mb_super_admin value='1' <?=$config[cf_email_mb_super_admin]?'checked':'';?>> ì‚¬ìš© (ìµœê³ ê´€ë¦¬ìžì—ê²Œ ë©”ì¼ì„ ë°œì†¡í•©ë‹ˆë‹¤.)</td>
 </tr>
 <tr>
-    <td>È¸¿ø´Ô²² ¸ÞÀÏ¹ß¼Û</td>
-    <td><input type=checkbox name=cf_email_mb_member value='1' <?=$config[cf_email_mb_member]?'checked':'';?>> »ç¿ë (È¸¿ø°¡ÀÔÇÑ È¸¿ø´Ô²² ¸ÞÀÏÀ» ¹ß¼ÛÇÕ´Ï´Ù.)</td>
+    <td>íšŒì›ë‹˜ê»˜ ë©”ì¼ë°œì†¡</td>
+    <td><input type=checkbox name=cf_email_mb_member value='1' <?=$config[cf_email_mb_member]?'checked':'';?>> ì‚¬ìš© (íšŒì›ê°€ìž…í•œ íšŒì›ë‹˜ê»˜ ë©”ì¼ì„ ë°œì†¡í•©ë‹ˆë‹¤.)</td>
 </tr>
 <tr>
-    <td class="success">ÅõÇ¥ ±âÅ¸ÀÇ°ß ÀÛ¼º½Ã</td>
+    <td class="success">íˆ¬í‘œ ê¸°íƒ€ì˜ê²¬ ìž‘ì„±ì‹œ</td>
     <td></td>
 </tr>
 <tr>
-    <td>ÃÖ°í°ü¸®ÀÚ ¸ÞÀÏ¹ß¼Û</td>
-    <td><input type=checkbox name=cf_email_po_super_admin value='1' <?=$config[cf_email_po_super_admin]?'checked':'';?>> »ç¿ë (ÃÖ°í°ü¸®ÀÚ¿¡°Ô ¸ÞÀÏÀ» ¹ß¼ÛÇÕ´Ï´Ù.)</td>
+    <td>ìµœê³ ê´€ë¦¬ìž ë©”ì¼ë°œì†¡</td>
+    <td><input type=checkbox name=cf_email_po_super_admin value='1' <?=$config[cf_email_po_super_admin]?'checked':'';?>> ì‚¬ìš© (ìµœê³ ê´€ë¦¬ìžì—ê²Œ ë©”ì¼ì„ ë°œì†¡í•©ë‹ˆë‹¤.)</td>
 </tr>
 
 <tr>
-    <td colspan=2 class="success">¿©ºÐ ÇÊµå</td>
+    <td colspan=2 class="success">ì—¬ë¶„ í•„ë“œ</td>
 </tr>
 <? for ($i=1; $i<=10; $i=$i+2) { $k=$i+1; ?>
 <tr>
-    <td><input type=text name='cf_<?=$i?>_subj' value='<?=get_text($config["cf_{$i}_subj"])?>' title='¿©ºÐÇÊµå <?=$i?> Á¦¸ñ' style='text-align:right;font-weight:bold;' size=15></td>
-    <td><input type='text' style='width:99%;' name=cf_<?=$i?> value='<?=$config["cf_$i"]?>' title='¿©ºÐÇÊµå <?=$i?> ¼³Á¤°ª'>
-    <input type=text name='cf_<?=$k?>_subj' value='<?=get_text($config["cf_{$k}_subj"])?>' title='¿©ºÐÇÊµå <?=$k?> Á¦¸ñ' style='text-align:right;font-weight:bold;' size=15>
-    <input type='text' style='width:99%;' name=cf_<?=$k?> value='<?=$config["cf_$k"]?>' title='¿©ºÐÇÊµå <?=$k?> ¼³Á¤°ª'>
+    <td><input type=text name='cf_<?=$i?>_subj' value='<?=get_text($config["cf_{$i}_subj"])?>' title='ì—¬ë¶„í•„ë“œ <?=$i?> ì œëª©' style='text-align:right;font-weight:bold;' size=15></td>
+    <td><input type='text' style='width:99%;' name=cf_<?=$i?> value='<?=$config["cf_$i"]?>' title='ì—¬ë¶„í•„ë“œ <?=$i?> ì„¤ì •ê°’'>
+    <input type=text name='cf_<?=$k?>_subj' value='<?=get_text($config["cf_{$k}_subj"])?>' title='ì—¬ë¶„í•„ë“œ <?=$k?> ì œëª©' style='text-align:right;font-weight:bold;' size=15>
+    <input type='text' style='width:99%;' name=cf_<?=$k?> value='<?=$config["cf_$k"]?>' title='ì—¬ë¶„í•„ë“œ <?=$k?> ì„¤ì •ê°’'>
     </td>
 </tr>
 <? } ?>
 
 <tr>
     <td colspan=2 class="success">
-        XSS / CSRF ¹æÁö
+        XSS / CSRF ë°©ì§€
     </td>
 </tr>
 <tr>
     <td>
-        °ü¸®ÀÚ ÆÐ½º¿öµå
+        ê´€ë¦¬ìž íŒ¨ìŠ¤ì›Œë“œ
     </td>
     <td>
-        <input class='btn btn-default' type='password' name='admin_password' itemname="°ü¸®ÀÚ ÆÐ½º¿öµå" required>
-        <?=help("°ü¸®ÀÚ ±ÇÇÑÀ» »©¾Ñ±æ °Í¿¡ ´ëºñÇÏ¿© ·Î±×ÀÎÇÑ °ü¸®ÀÚÀÇ ÆÐ½º¿öµå¸¦ ÇÑ¹ø ´õ ¹¯´Â°Í ÀÔ´Ï´Ù.");?>
+        <input class='btn btn-default' type='password' name='admin_password' itemname="ê´€ë¦¬ìž íŒ¨ìŠ¤ì›Œë“œ" required>
+        <?=help("ê´€ë¦¬ìž ê¶Œí•œì„ ë¹¼ì•—ê¸¸ ê²ƒì— ëŒ€ë¹„í•˜ì—¬ ë¡œê·¸ì¸í•œ ê´€ë¦¬ìžì˜ íŒ¨ìŠ¤ì›Œë“œë¥¼ í•œë²ˆ ë” ë¬»ëŠ”ê²ƒ ìž…ë‹ˆë‹¤.");?>
 
         <script src='https://www.google.com/recaptcha/api.js'></script> 
         <div id="grecaptcha" class="g-recaptcha" data-sitekey="<?=$g4['recaptcha_sitekey']?>"></div> 
@@ -644,7 +644,7 @@ include_once ("./admin.head.php");
 </table>
 
 <div style="text-align:center;">
-    <input type=submit class="btn btn-default" accesskey='s' value='  È®  ÀÎ  '>
+    <input type=submit class="btn btn-default" accesskey='s' value='  í™•  ì¸  '>
 </div>
 
 </form>
@@ -654,7 +654,7 @@ function fconfigform_submit(f)
 {
     if (typeof(grecaptcha) != 'undefined') { 
         if(grecaptcha.getResponse() == "") { 
-            alert("½ºÆÔ¹æÁöÄÚµå(Captcha Code)°¡ Æ²·È½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØ ÁÖ¼¼¿ä."); 
+            alert("ìŠ¤íŒ¸ë°©ì§€ì½”ë“œ(Captcha Code)ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ìž…ë ¥í•´ ì£¼ì„¸ìš”."); 
             return false; 
         } 
     }

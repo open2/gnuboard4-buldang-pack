@@ -6,7 +6,7 @@ if($is_admin == 'super'){
   	$dir="$g4[path]/data/memo2/";
 	  $dp=@opendir($dir);
   	$i=0;
-  	while($subdir=readdir($dp))	//¼­ºêÆú´õ °Ë»ö
+  	while($subdir=readdir($dp))	//ì„œë¸Œí´ë” ê²€ìƒ‰
 	  {
 		    if($subdir!="." and $subdir!="..")
     		{
@@ -15,10 +15,10 @@ if($is_admin == 'super'){
       			else
         				$type="document";
 
-      			if($type=="folder")//Æú´õÀÏ°æ¿ì¿¡ ³»ºÎ ÆÄÀÏµé °Ë»ö
+      			if($type=="folder")//í´ë”ì¼ê²½ìš°ì— ë‚´ë¶€ íŒŒì¼ë“¤ ê²€ìƒ‰
       			{
         				$sdp=@opendir($dir.$subdir.'/');
-        				while($file=readdir($sdp))	//½ÇÁ¦ ÆÄÀÏ °Ë»ö
+        				while($file=readdir($sdp))	//ì‹¤ì œ íŒŒì¼ ê²€ìƒ‰
         				{
           					if($file!="." and $file!="..")
           					{
@@ -27,7 +27,7 @@ if($is_admin == 'super'){
             						else
               							$stype="document";
 
-        						    if($stype!=="folder")//ÆÄÀÏÀÏ°æ¿ì DB °Ë»çÈÄ °á°ú ¾øÀ»¶§ »èÁ¦
+        						    if($stype!=="folder")//íŒŒì¼ì¼ê²½ìš° DB ê²€ì‚¬í›„ ê²°ê³¼ ì—†ì„ë•Œ ì‚­ì œ
     				        		{
               							if(chkDel($subdir.'/'.$file))
 				    	        			$i++;
@@ -38,12 +38,12 @@ if($is_admin == 'super'){
 		    }
 	  }
 	  closedir($dp);
-	  alert($i.' °ÇÀÇ µ¥ÀÌÅÍ¸¦ »èÁ¦ÇÏ¿´½À´Ï´Ù.',"./memo.php?kind=memo_config");
+	  alert($i.' ê±´ì˜ ë°ì´í„°ë¥¼ ì‚­ì œí•˜ì˜€ìŠµë‹ˆë‹¤.',"./memo.php?kind=memo_config");
 }
 else
-	  alert('Àß¸øµÈ Á¢±Ù ¶Ç´Â ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.',"./memo.php?kind=memo_config");
+	  alert('ì˜ëª»ëœ ì ‘ê·¼ ë˜ëŠ” ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.',"./memo.php?kind=memo_config");
 
-// Ã·ºÎÆÄÀÏ °ËÃâ ¹× »èÁ¦(by Lusia) - ¾Æ·§ºÎºĞÀº bbs/memo2_form_delete.php, memo2_form_delete_all_trash.php, memo2_chkunlinkfile.php¿¡ °øÅëÀÔ´Ï´Ù
+// ì²¨ë¶€íŒŒì¼ ê²€ì¶œ ë° ì‚­ì œ(by Lusia) - ì•„ë«ë¶€ë¶„ì€ bbs/memo2_form_delete.php, memo2_form_delete_all_trash.php, memo2_chkunlinkfile.phpì— ê³µí†µì…ë‹ˆë‹¤
 function chkDel($chkFile){
   	global $g4;
 
@@ -66,17 +66,17 @@ function chkDel($chkFile){
                     while($row = sql_fetch_array($result_set))
                         $cnt_sum += $row[cnt];
 
-  	//DB¿¡ ÇØ´ç Ã·ºÎÆÄÀÏ Á¤º¸ ¾øÀ»°æ¿ì »èÁ¦ (Ã·ºÎÆÄÀÏÀº º¸³½ »ç¶÷ÀÇ µğ·ºÅä¸®¿¡¸¸ ÀúÀåµË´Ï´Ù)
+  	//DBì— í•´ë‹¹ ì²¨ë¶€íŒŒì¼ ì •ë³´ ì—†ì„ê²½ìš° ì‚­ì œ (ì²¨ë¶€íŒŒì¼ì€ ë³´ë‚¸ ì‚¬ëŒì˜ ë””ë ‰í† ë¦¬ì—ë§Œ ì €ì¥ë©ë‹ˆë‹¤)
  	  if ($cnt_sum) {
 	     	$filepath="$g4[path]/data/memo2/" . $member[mb_id] . "/" . $chkFile;
     		$file_deleted_dir = "$g4[path]/data/memo2_deleted/" . $member[mb_id] . "/";
     		$file_deleted_path = $file_deleted_dir . $chkFile;
-        // È¸¿øº°·Î µğ·ºÅä¸®¸¦ »ı¼º
+        // íšŒì›ë³„ë¡œ ë””ë ‰í† ë¦¬ë¥¼ ìƒì„±
   			if(!is_dir($file_deleted_dir)){
     				@mkdir($file_deleted_dir, 0707);
 		    		@chmod($file_deleted_dir, 0707);
     		}
-		    @copy($filepath, $file_deleted_path);  //ÀÓ½ÃÆú´õ·Î º¹»ç
+		    @copy($filepath, $file_deleted_path);  //ì„ì‹œí´ë”ë¡œ ë³µì‚¬
     	  @unlink($filepath);
     		return true;
     }

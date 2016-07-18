@@ -2,9 +2,9 @@
 include_once("./_common.php");
 
 if (!$member[mb_id]) 
-    alert_close("ΘΈΏψΈΈ Α¶ΘΈΗΟ½Η Όφ ΐΦ½ΐ΄Ο΄Ω.");
+    alert_close("νμ›λ§ μ΅°νν•μ‹¤ μ μμµλ‹λ‹¤.");
 
-$g4[title] = $member[mb_nick] . "΄ΤΐΗ ΖχΐΞΖ® ³»Ώª";
+$g4[title] = $member[mb_nick] . "λ‹μ ν¬μΈνΈ λ‚΄μ—­";
 include_once("$g4[path]/head.sub.php");
 
 $list = array();
@@ -17,9 +17,9 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ΐόΓΌ ΖδΐΜΑφ °θ»κ
-if (!$page) { $page = 1; } // ΖδΐΜΑφ°΅ ΎψΐΈΈι ΓΉ ΖδΐΜΑφ (1 ΖδΐΜΑφ)
-$from_record = ($page - 1) * $rows; // ½ΓΐΫ Ώ­ΐ» ±ΈΗΤ
+$total_page  = ceil($total_count / $rows);  // μ „μ²΄ νμ΄μ§€ κ³„μ‚°
+if (!$page) { $page = 1; } // νμ΄μ§€κ°€ μ—†μΌλ©΄ μ²« νμ΄μ§€ (1 νμ΄μ§€)
+$from_record = ($page - 1) * $rows; // μ‹μ‘ μ—΄μ„ κµ¬ν•¨
 ?>
 
 <table width="600" height="50" border="0" cellpadding="0" cellspacing="0">
@@ -46,10 +46,10 @@ $from_record = ($page - 1) * $rows; // ½ΓΐΫ Ώ­ΐ» ±ΈΗΤ
             <td width="540" bgcolor="#FFFFFF">
                 <table width=100% cellpadding=1 cellspacing=1 border=0>
                 <tr bgcolor=#E1E1E1 align=center> 
-                    <td width="130" height="24"><b>ΐΟ½Γ</b></td>
-                    <td width=""><b>³»Ώλ</b></td>
-                    <td width="70"><b>Αφ±ήΖχΐΞΖ®</b></td>
-                    <td width="70"><b>»ηΏλΖχΐΞΖ®</b></td>
+                    <td width="130" height="24"><b>μΌμ‹</b></td>
+                    <td width=""><b>λ‚΄μ©</b></td>
+                    <td width="70"><b>μ§€κΈ‰ν¬μΈνΈ</b></td>
+                    <td width="70"><b>μ‚¬μ©ν¬μΈνΈ</b></td>
                 </tr>
 
                 <?
@@ -81,14 +81,14 @@ HEREDOC;
                 }
 
                 if ($i == 0)
-                    echo "<tr><td colspan=5 align=center height=100>ΐΪ·α°΅ Ύψ½ΐ΄Ο΄Ω.</td></tr>";
+                    echo "<tr><td colspan=5 align=center height=100>μλ£κ°€ μ—†μµλ‹λ‹¤.</td></tr>";
                 else {
                     if ($sum_point1 > 0)
                         $sum_point1 = "+" . number_format($sum_point1);
                     $sum_point2 = number_format($sum_point2);
                     echo <<<HEREDOC
                     <tr height=25 bgcolor="#E1E1E1" align="center"> 
-                        <td height="24" colspan=2 align=center>ΌÒ°θ</td>
+                        <td height="24" colspan=2 align=center>μ†κ³„</td>
                         <td align=right>{$sum_point1}&nbsp;</td>
                         <td align=right>{$sum_point2}&nbsp;</td>
                     </tr>
@@ -104,7 +104,7 @@ HEREDOC;
 </tr>
 <tr>
     <td height="30" align="center" bgcolor="#F6F6F6">
-        <img src='<?=$g4[bbs_img_path]?>/icon_02.gif'> ΊΈΐ― ΖχΐΞΖ® : <B><?=number_format($member[mb_point])?> Α΅</B></td>
+        <img src='<?=$g4[bbs_img_path]?>/icon_02.gif'> λ³΄μ  ν¬μΈνΈ : <B><?=number_format($member[mb_point])?> μ </B></td>
 </tr>
 <tr> 
     <td height="2" align="center" valign="top" bgcolor="#D5D5D5"></td>
@@ -131,10 +131,10 @@ HEREDOC;
 <colgroup width=70></colgroup>
 <colgroup width=70></colgroup>
 <tr height=25 bgcolor=#F9F9F9 align=center>
-	<td>ΐΟ½Γ</td>
-	<td>³»Ώλ</td>
-	<td>Αφ±ήΖχΐΞΖ®</td>
-	<td>»ηΏλΖχΐΞΖ®</td>
+	<td>μΌμ‹</td>
+	<td>λ‚΄μ©</td>
+	<td>μ§€κΈ‰ν¬μΈνΈ</td>
+	<td>μ‚¬μ©ν¬μΈνΈ</td>
 </tr>
 
 <?
@@ -162,7 +162,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 }
 
 if ($i == 0)
-    echo "<tr><td colspan=4 align=center height=100>ΐΪ·α°΅ Ύψ½ΐ΄Ο΄Ω.</td></tr>";
+    echo "<tr><td colspan=4 align=center height=100>μλ£κ°€ μ—†μµλ‹λ‹¤.</td></tr>";
 ?>
 </table>
 
@@ -175,8 +175,8 @@ if ($i == 0)
 		<td>
 			<table width='100%' cellpadding=0 cellspacing=0 bgcolor=#F9F9F9>
 				<tr>
-					<td height=50>&nbsp;&nbsp;&nbsp;<B>³» ΖχΐΞΖ® </B></td>
-					<td><img src='<?=$g4[bbs_img_path]?>/icon_02.gif'> ΊΈΐ― ΖχΐΞΖ® : <B><?=number_format($member[mb_point])?></B></td>
+					<td height=50>&nbsp;&nbsp;&nbsp;<B>λ‚΄ ν¬μΈνΈ </B></td>
+					<td><img src='<?=$g4[bbs_img_path]?>/icon_02.gif'> λ³΄μ  ν¬μΈνΈ : <B><?=number_format($member[mb_point])?></B></td>
 				</tr>
 			</table>
 		</td>

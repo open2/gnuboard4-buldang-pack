@@ -6,37 +6,37 @@ $mb_id = $member['mb_id'];
 $me_id = $me_id;
 
 if (!$me_id || !$mb_id || $is_admin != 'super')
-    alert("ºÎÀûÀýÇÑ »ç¿ëÀÔ´Ï´Ù");
+    alert("ë¶€ì ì ˆí•œ ì‚¬ìš©ìž…ë‹ˆë‹¤");
 
-// °øÁöÂÊÁö¸¦ ¹ß¼ÛÇÏ°í 1½Ã°£ ÀÌ³»¿¡¸¸ Ãë¼Ò °¡´É ÇÕ´Ï´Ù.
+// ê³µì§€ìª½ì§€ë¥¼ ë°œì†¡í•˜ê³  1ì‹œê°„ ì´ë‚´ì—ë§Œ ì·¨ì†Œ ê°€ëŠ¥ í•©ë‹ˆë‹¤.
 $sql = " select * from $g4[memo_notice_table] where me_id = '$me_id' ";
 $memo = sql_fetch($sql);
 
 $time_diff = strtotime("-1 hour") - strtotime($memo['me_send_datetime']);
 
 if ($time_diff > 0)
-    alert("°øÁöÂÊÁö¸¦ ¹ß¼ÛÇÏ°í 1½Ã°£ ÀÌ³»¿¡¸¸ Ãë¼Ò °¡´É ÇÕ´Ï´Ù.");
+    alert("ê³µì§€ìª½ì§€ë¥¼ ë°œì†¡í•˜ê³  1ì‹œê°„ ì´ë‚´ì—ë§Œ ì·¨ì†Œ ê°€ëŠ¥ í•©ë‹ˆë‹¤.");
 
-// °øÅëÁ¶°Ç
+// ê³µí†µì¡°ê±´
 $sql_where = " where me_send_mb_id = '$memo[me_send_mb_id]' and 
                      me_subject = '$memo[me_subject]' and 
                      me_send_datetime = '$memo[me_send_datetime]' 
               ";
-// ¹ÞÀºÂÊÁöÇÔÀÇ °øÁöÂÊÁö »èÁ¦
+// ë°›ì€ìª½ì§€í•¨ì˜ ê³µì§€ìª½ì§€ ì‚­ì œ
 $sql = " delete from $g4[memo_recv_table] " . $sql_where;
 sql_query($sql);
 
-// º¸³½ÂÊÁöÇÔÀÇ °øÁöÂÊÁö »èÁ¦
+// ë³´ë‚¸ìª½ì§€í•¨ì˜ ê³µì§€ìª½ì§€ ì‚­ì œ
 $sql = " delete from $g4[memo_send_table] " . $sql_where;
 sql_query($sql);
 
-// º¸°üÇÑÂÊÁöÇÔÀÇ °øÁöÂÊÁö »èÁ¦
+// ë³´ê´€í•œìª½ì§€í•¨ì˜ ê³µì§€ìª½ì§€ ì‚­ì œ
 $sql = " delete from $g4[memo_save_table] " . $sql_where;
 sql_query($sql);
 
-// °øÁöÂÊÁö »èÁ¦
+// ê³µì§€ìª½ì§€ ì‚­ì œ
 $sql = " delete from $g4[memo_notice_table] " . $sql_where;
 sql_query($sql);
 
-alert("°øÁöÂÊÁö¸¦ »èÁ¦ÇÏ°í, ¹ß¼ÛµÈ ÂÊÁö¸¦ ¸ðµÎ È¸¼öÇÏ¿´½À´Ï´Ù.", "./memo.php?kind=$kind");
+alert("ê³µì§€ìª½ì§€ë¥¼ ì‚­ì œí•˜ê³ , ë°œì†¡ëœ ìª½ì§€ë¥¼ ëª¨ë‘ íšŒìˆ˜í•˜ì˜€ìŠµë‹ˆë‹¤.", "./memo.php?kind=$kind");
 ?>

@@ -2,20 +2,20 @@
 include_once("./_common.php");
 require_once("$g4[path]/lib/whatson.lib.php");
 
-// ÀÔ·Â°ª °Ë»ç
+// ì…ë ¥ê°’ ê²€ì‚¬
 if (empty($_GET['wo_id'])) {
-    response_error("Çª½Ã wo_id Á¤º¸°¡ ¾ø½À´Ï´Ù.");
+    response_error("í‘¸ì‹œ wo_id ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤.");
 }
 
-// ·Î±×ÀÎ ÇÊ¿ä
+// ë¡œê·¸ì¸ í•„ìš”
 if ( ! $member['mb_id']) {
     redirect("$g4[bbs_path]/login.php?url=" . urlencode($_SERVER['REQUEST_URI']));
 }
 
-// Whats on ÀĞÀ½ Ã³¸®
+// Whats on ì½ìŒ ì²˜ë¦¬
 whatson_read($member['mb_id'], $_GET['wo_id']);
 
-// ÀÌµ¿ÇÒ ÁÖ¼Ò °¡Á®¿À±â
+// ì´ë™í•  ì£¼ì†Œ ê°€ì ¸ì˜¤ê¸°
 $whatson = pdo(
     "select * from {$g4['whatson_table']} where wo_id=? and mb_id=?",
     array(
@@ -28,7 +28,7 @@ if ($whatson) {
     $url = whatson_click_url($whatson);
 }
 
-// ÀÌµ¿ÇÒ ÁÖ¼Ò¸¦ Ã£Áö ¸øÇÑ °æ¿ì, MyOn À¸·Î ÀÌµ¿
+// ì´ë™í•  ì£¼ì†Œë¥¼ ì°¾ì§€ ëª»í•œ ê²½ìš°, MyOn ìœ¼ë¡œ ì´ë™
 if (empty($url)) {
     $url = '/bbs/myon.php';
 }

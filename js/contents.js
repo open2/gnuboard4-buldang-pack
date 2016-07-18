@@ -1,9 +1,9 @@
-if (typeof(CONTENTS_JS) == 'undefined') // ÇÑ¹ø¸¸ ½ÇÇà
+if (typeof(CONTENTS_JS) == 'undefined') // í•œë²ˆë§Œ ì‹¤í–‰
 {
     if (typeof g4_is_member == 'undefined')
-        alert('g4_is_member º¯¼ö°¡ ¼±¾ğµÇÁö ¾Ê¾Ò½À´Ï´Ù. js/contents.js');
+        alert('g4_is_member ë³€ìˆ˜ê°€ ì„ ì–¸ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. js/contents.js');
     if (typeof g4_path == 'undefined')
-        alert('g4_path º¯¼ö°¡ ¼±¾ğµÇÁö ¾Ê¾Ò½À´Ï´Ù. js/contents.js');
+        alert('g4_path ë³€ìˆ˜ê°€ ì„ ì–¸ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. js/contents.js');
 
     var CONTENTS_JS = true;
     

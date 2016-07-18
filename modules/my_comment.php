@@ -4,28 +4,28 @@ include_once("./_common.php");
 include_once("$g4[path]/_head.php");
 
 if ($my) {
-  $my_sql = "and my_datetime != '0000-00-00 00:00:00'"; // ³»±ÛÀÇ ¹İÀÀ
-  $title = "³»±Û¿¡ ´ëÇÑ ¹İÀÀ";
+  $my_sql = "and my_datetime != '0000-00-00 00:00:00'"; // ë‚´ê¸€ì˜ ë°˜ì‘
+  $title = "ë‚´ê¸€ì— ëŒ€í•œ ë°˜ì‘";
   $order_sql = " order by my_datetime desc ";
 } else {
   $my_sql = "";
-  $title = "³»°¡ ¿Ã¸° ±Û";
+  $title = "ë‚´ê°€ ì˜¬ë¦° ê¸€";
   $order_sql = " order by bn_id desc ";
 }
 
-$one_rows = "25";  // ÇÑÁÙ¿¡ Ãâ·ÂÇÒ ¶óÀÎ¼ö
+$one_rows = "25";  // í•œì¤„ì— ì¶œë ¥í•  ë¼ì¸ìˆ˜
 
 $sql = " select count(*) as cnt from $g4[board_new_table] 
           where mb_id = '$member[mb_id]'  and wr_is_comment = '0' 
                 $my_sql ";
 $row = sql_fetch($sql); 
 $total_count = $row[cnt]; 
-$total_page  = ceil($total_count / $one_rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
+$total_page  = ceil($total_count / $one_rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
 
 echo "&nbsp;&nbsp;$title : " . $total_count;
 
-if ($page == "") { $page = 1; } // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö) 
-$from_record = ($page - 1) * $one_rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+if ($page == "") { $page = 1; } // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€) 
+$from_record = ($page - 1) * $one_rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 $to_record = $from_record + $one_rows ;
 
 $list = array();
@@ -36,10 +36,10 @@ $list = array();
   <td>
   <table>
   <tr height=28 align=center>
-      <td width=50>¹øÈ£</td>
-      <td>Á¦¸ñ</td>
-      <td width=110>±Û¾´ÀÌ</td>
-      <td width=40>³¯Â¥</td>
+      <td width=50>ë²ˆí˜¸</td>
+      <td>ì œëª©</td>
+      <td width=110>ê¸€ì“´ì´</td>
+      <td width=40>ë‚ ì§œ</td>
   </tr>
   <? 
   $sql = " select * from $g4[board_new_table] 

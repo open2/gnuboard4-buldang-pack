@@ -26,7 +26,7 @@ Owner of DHTMLgoodies.com
 
 ************************************************************************************************************/	
 
-  // ºÒ´çÀÌ Ãß°¡ÇÑ ºÎºĞ
+  // ë¶ˆë‹¹ì´ ì¶”ê°€í•œ ë¶€ë¶„
   picker_path = g4_path + "/modules/js_color_picker_v2/";
   
 	var MSIE = navigator.userAgent.indexOf('MSIE')>=0?true:false;
@@ -536,7 +536,7 @@ Owner of DHTMLgoodies.com
 	function chooseColor()
 	{
 		color_picker_form_field.value = this.getAttribute('rgbColor');
-    // ºÒ´çÀÌ Ãß°¡ÇÑ ÄÚµå (RGB ¼±ÅÃ½Ã ÅØ½ºÆ®¹Ú½ºÀÇ color º¯°æ)
+    // ë¶ˆë‹¹ì´ ì¶”ê°€í•œ ì½”ë“œ (RGB ì„ íƒì‹œ í…ìŠ¤íŠ¸ë°•ìŠ¤ì˜ color ë³€ê²½)
 		color_picker_form_field.style.color = this.getAttribute('rgbColor');
 		color_picker_div.style.display='none';
 	}
@@ -554,7 +554,7 @@ Owner of DHTMLgoodies.com
 	function chooseColorSlider()
 	{
 		color_picker_form_field.value = document.getElementById('js_color_picker_color_code').value;
-    // ºÒ´çÀÌ Ãß°¡ÇÑ ÄÚµå (RGB ¼±ÅÃ½Ã ÅØ½ºÆ®¹Ú½ºÀÇ color º¯°æ)
+    // ë¶ˆë‹¹ì´ ì¶”ê°€í•œ ì½”ë“œ (RGB ì„ íƒì‹œ í…ìŠ¤íŠ¸ë°•ìŠ¤ì˜ color ë³€ê²½)
 		color_picker_form_field.style.color = document.getElementById('js_color_picker_color_code').value;
 		color_picker_div.style.display='none';		
 	}

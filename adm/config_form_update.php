@@ -7,18 +7,18 @@ check_demo();
 auth_check($auth[$sub_menu], "w");
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.");
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
 if ($member[mb_password] !== sql_password($_POST['admin_password'])) {
-    alert("ÆĞ½º¿öµå°¡ ´Ù¸¨´Ï´Ù.");
+    alert("íŒ¨ìŠ¤ì›Œë“œê°€ ë‹¤ë¦…ë‹ˆë‹¤.");
 }
 
 $mb = get_member($cf_admin);
 if (!$mb[mb_id])
-    alert("ÃÖ°í°ü¸®ÀÚ È¸¿ø¾ÆÀÌµğ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+    alert("ìµœê³ ê´€ë¦¬ì íšŒì›ì•„ì´ë””ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 
 if (chk_recaptcha() == false)
-    alert ('½ºÆÔÂ÷´ÜÄÚµå°¡ Æ²·È½À´Ï´Ù.');
+    alert ('ìŠ¤íŒ¸ì°¨ë‹¨ì½”ë“œê°€ í‹€ë ¸ìŠµë‹ˆë‹¤.');
 
 check_token();
 
@@ -154,11 +154,11 @@ $cf_use_recycle          = $_POST[cf_use_recycle];
 $cf_recycle_table        = $_POST[cf_recycle_table];
 $cf_recycle_days         = $_POST[cf_recycle_days];
 
-// ÈŞÁöÅë ÁöÁ¤µÈ °Ô½ÃÆÇÀÌ Á¸ÀçÇÏ´ÂÁö È®ÀÎ
+// íœ´ì§€í†µ ì§€ì •ëœ ê²Œì‹œíŒì´ ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸
 if ($cf_recycle_table) {
     $board = get_board("$cf_recycle_table");
     if (!$board)
-        alert("ÈŞÁöÅëÀ¸·ÎÁöÁ¤µÈ °Ô½ÃÆÇÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù. $cf_recycle_table °Ô½ÃÆÇÀ» »ı¼ºÇÏÁö±â ¹Ù¶ø´Ï´Ù.");
+        alert("íœ´ì§€í†µìœ¼ë¡œì§€ì •ëœ ê²Œì‹œíŒì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤. $cf_recycle_table ê²Œì‹œíŒì„ ìƒì„±í•˜ì§€ê¸° ë°”ëë‹ˆë‹¤.");
 }
 
 $sql = " update $g4[config_table]
@@ -284,7 +284,7 @@ $sql = " update $g4[config_table]
                 ";
 sql_query($sql);
 
-// ºÒ´çÆÑ - È¸¿ø°¡ÀÔ±âº» Á¤º¸ (¾à°ü µî)
+// ë¶ˆë‹¹íŒ© - íšŒì›ê°€ì…ê¸°ë³¸ ì •ë³´ (ì•½ê´€ ë“±)
 $sql = " update $g4[config_reg_table]
             set cf_stipulation          = '$cf_stipulation',
                 cf_privacy              = '$cf_privacy',

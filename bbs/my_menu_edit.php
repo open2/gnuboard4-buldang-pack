@@ -4,7 +4,7 @@ include_once("_common.php");
 include_once("$g4[path]/head.php");
 
 if (!$is_member)
-    alert_close("·Î±×ÀÎ ÈÄ ÀÌ¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+    alert_close("ë¡œê·¸ì¸ í›„ ì´ìš©í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
 $num = 1;
 $qry = sql_query("select m.bo_table, b.bo_subject from $g4[my_menu_table] as m left join $g4[board_table] as b on b.bo_table = m.bo_table where mb_id = '$member[mb_id]'");

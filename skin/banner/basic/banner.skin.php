@@ -1,7 +1,7 @@
 <?
 if (!defined('_GNUBOARD_')) exit;
 
-// ¹è³Ê°¡ ¾øÀ¸¸é Ãâ·ÂÇÏÁö ¾Ê´Â´Ù
+// ë°°ë„ˆê°€ ì—†ìœ¼ë©´ ì¶œë ¥í•˜ì§€ ì•ŠëŠ”ë‹¤
 if (count($list)) {
     $bn_target = $list[0][bn_target];
     $bg_id = $list[0][bg_id];

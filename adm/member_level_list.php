@@ -6,9 +6,9 @@ auth_check($auth[$sub_menu], "r");
 
 $token = get_token();
 
-$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>ì²˜ìŒ</a>";
 
-$g4[title] = "È¸¿øµî¾÷°ü¸®";
+$g4[title] = "íšŒì›ë“±ì—…ê´€ë¦¬";
 include_once("./admin.head.php");
 
 $sql = " select * from $g4[member_level_table] where member_level >= 2 order by member_level asc";
@@ -25,8 +25,8 @@ var list_update_php = "member_level_update.php";
 
 <table width=100%>
 <tr>
-    <td align=left><?=$listall?>&nbsp;&nbsp;È¸¿ø ·¹º§¾÷ Á¶°ÇÀ» ¼³Á¤ÇÕ´Ï´Ù.</td>
-    <td><a href="./member_level_execute.php">·¹¹ú¾÷½ÇÇà</a></td>
+    <td align=left><?=$listall?>&nbsp;&nbsp;íšŒì› ë ˆë²¨ì—… ì¡°ê±´ì„ ì„¤ì •í•©ë‹ˆë‹¤.</td>
+    <td><a href="./member_level_execute.php">ë ˆë²Œì—…ì‹¤í–‰</a></td>
 </tr>
 </table>
 
@@ -48,14 +48,14 @@ var list_update_php = "member_level_update.php";
 	<tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
 	<tr class='bgcol1 bold col1 ht center'>
     <td rowspan=2><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
-    <td rowspan=2>È¸¿ø·¹º§</td>
-    <td>·¹º§¾÷</td>
-		<td>ÃÖ¼ÒÀÏ¼ö</td>
-		<td>Æ÷ ÀÎ Æ®</td>
-		<td>°Ô½Ã±Û¼ö</td>
-		<td>ÀüÃ¼±Û¼ö</td>
-		<td>°ËÁõÀÏ¼ö</td>
-		<td>Ãß Ãµ ¼ö</td>
+    <td rowspan=2>íšŒì›ë ˆë²¨</td>
+    <td>ë ˆë²¨ì—…</td>
+		<td>ìµœì†Œì¼ìˆ˜</td>
+		<td>í¬ ì¸ íŠ¸</td>
+		<td>ê²Œì‹œê¸€ìˆ˜</td>
+		<td>ì „ì²´ê¸€ìˆ˜</td>
+		<td>ê²€ì¦ì¼ìˆ˜</td>
+		<td>ì¶” ì²œ ìˆ˜</td>
 		<td></td>
     <? if ($g4['singo_table']) { ?>
 		<td></td>
@@ -63,16 +63,16 @@ var list_update_php = "member_level_update.php";
 		<td rowspan=2><a href='./member_level_history.php'>HISTORY</a></td>
 	</tr>
 	<tr class='bgcol1 bold col1 ht center'>
-    <td>·¹º§´Ù¿î</td>
+    <td>ë ˆë²¨ë‹¤ìš´</td>
     <td></td>
-		<td>Æ÷ ÀÎ Æ®</td>
-		<td>°Ô½Ã±Û¼ö</td>
-		<td>ÀüÃ¼±Û¼ö</td>
-		<td>°ËÁõÀÏ¼ö</td>
+		<td>í¬ ì¸ íŠ¸</td>
+		<td>ê²Œì‹œê¸€ìˆ˜</td>
+		<td>ì „ì²´ê¸€ìˆ˜</td>
+		<td>ê²€ì¦ì¼ìˆ˜</td>
 		<td></td>
-		<td>ºñÃßÃµ¼ö</td>
+		<td>ë¹„ì¶”ì²œìˆ˜</td>
     <? if ($g4['singo_table']) { ?>
-		<td>½Å°í°Ç¼ö</td>
+		<td>ì‹ ê³ ê±´ìˆ˜</td>
 		<? } ?>
 	</tr>
 	<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
@@ -83,34 +83,34 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     <input type=hidden name="member_level[<?=$i?>]" value='<?=$row[member_level]?>'>
     <tr class='list<?=$list?> col1 ht center'>
         <td rowspan=2><input type="checkbox" name="chk[]" value='<?=$i?>'></td>
-        <td>&nbsp;<?=$row[member_level]?>¡æ<?=$row[member_level]+1?></td>
+        <td>&nbsp;<?=$row[member_level]?>â†’<?=$row[member_level]+1?></td>
         <td><input type="checkbox" name="use_levelup[<?=$i?>]" value='1' <?=$row[use_levelup]?'checked':'';?>></td>
-        <td><input type=text class=ed name="up_days[<?=$i?>]" size=8 itemname='·¹º§¾÷ ÃÖ¼ÒÀÏ¼ö' value='<?=$row[up_days]?>'></td>
-        <td><input type=text class=ed name="up_point[<?=$i?>]" size=8 itemname='·¹º§¾÷ Æ÷ÀÎÆ®' value='<?=$row[up_point]?>'></td>
-        <td><input type=text class=ed name="up_post[<?=$i?>]" size=8 itemname='·¹º§¾÷ °Ô½Ã±Û¼ö' value='<?=$row[up_post]?>'></td>
-        <td><input type=text class=ed name="up_post_all[<?=$i?>]" size=8 itemname='·¹º§¾÷ ÀüÃ¼±Û¼ö' value='<?=$row[up_post_all]?>'></td>
-        <td><input type=text class=ed name="up_audit_days[<?=$i?>]" size=8 itemname='·¹º§¾÷ °ËÁõ±â°£(ÃßÃµ)' value='<?=$row[up_audit_days]?>'></td>
-        <td><input type=text class=ed name="good[<?=$i?>]" size=8 itemname='·¹º§¾÷ ÃßÃµ¼ö' value='<?=$row[good]?>'></td>
+        <td><input type=text class=ed name="up_days[<?=$i?>]" size=8 itemname='ë ˆë²¨ì—… ìµœì†Œì¼ìˆ˜' value='<?=$row[up_days]?>'></td>
+        <td><input type=text class=ed name="up_point[<?=$i?>]" size=8 itemname='ë ˆë²¨ì—… í¬ì¸íŠ¸' value='<?=$row[up_point]?>'></td>
+        <td><input type=text class=ed name="up_post[<?=$i?>]" size=8 itemname='ë ˆë²¨ì—… ê²Œì‹œê¸€ìˆ˜' value='<?=$row[up_post]?>'></td>
+        <td><input type=text class=ed name="up_post_all[<?=$i?>]" size=8 itemname='ë ˆë²¨ì—… ì „ì²´ê¸€ìˆ˜' value='<?=$row[up_post_all]?>'></td>
+        <td><input type=text class=ed name="up_audit_days[<?=$i?>]" size=8 itemname='ë ˆë²¨ì—… ê²€ì¦ê¸°ê°„(ì¶”ì²œ)' value='<?=$row[up_audit_days]?>'></td>
+        <td><input type=text class=ed name="good[<?=$i?>]" size=8 itemname='ë ˆë²¨ì—… ì¶”ì²œìˆ˜' value='<?=$row[good]?>'></td>
         <td></td>
         <? if ($g4['singo_table']) { ?>
         <td></td>
         <? } ?>
-        <td><a href='./member_level_history.php?sst=id&sod=desc&sfl=from_level&stx=<?=$row[member_level]?>'>·¹º§¾÷</a></td>
+        <td><a href='./member_level_history.php?sst=id&sod=desc&sfl=from_level&stx=<?=$row[member_level]?>'>ë ˆë²¨ì—…</a></td>
     </tr>
     <tr class='list<?=$list?> col1 ht center'>
-        <td>&nbsp;<?=$row[member_level]?>¡æ<?=$row[member_level]-1?></td>
+        <td>&nbsp;<?=$row[member_level]?>â†’<?=$row[member_level]-1?></td>
         <td><input type="checkbox" name="use_leveldown[<?=$i?>]" value='1' <?=$row[use_leveldown]?'checked':'';?>></td>
         <td></td>
-        <td><input type=text class=ed name="down_point[<?=$i?>]" size=8 itemname='·¹º§´Ù¿î Æ÷ÀÎÆ®' value='<?=$row[down_point]?>'></td>
-        <td><input type=text class=ed name="down_post[<?=$i?>]" size=8 itemname='·¹º§´Ù¿î °Ô½Ã±Û¼ö' value='<?=$row[down_post]?>'></td>
-        <td><input type=text class=ed name="down_post_all[<?=$i?>]" size=8 itemname='·¹º§´Ù¿î ÀüÃ¼±Û¼ö' value='<?=$row[down_post_all]?>'></td>
-        <td><input type=text class=ed name="down_audit_days[<?=$i?>]" size=8 itemname='·¹º§¾÷ °ËÁõ±â°£(ºñÃßÃµ.½Å°í)' value='<?=$row[down_audit_days]?>'></td>
+        <td><input type=text class=ed name="down_point[<?=$i?>]" size=8 itemname='ë ˆë²¨ë‹¤ìš´ í¬ì¸íŠ¸' value='<?=$row[down_point]?>'></td>
+        <td><input type=text class=ed name="down_post[<?=$i?>]" size=8 itemname='ë ˆë²¨ë‹¤ìš´ ê²Œì‹œê¸€ìˆ˜' value='<?=$row[down_post]?>'></td>
+        <td><input type=text class=ed name="down_post_all[<?=$i?>]" size=8 itemname='ë ˆë²¨ë‹¤ìš´ ì „ì²´ê¸€ìˆ˜' value='<?=$row[down_post_all]?>'></td>
+        <td><input type=text class=ed name="down_audit_days[<?=$i?>]" size=8 itemname='ë ˆë²¨ì—… ê²€ì¦ê¸°ê°„(ë¹„ì¶”ì²œ.ì‹ ê³ )' value='<?=$row[down_audit_days]?>'></td>
         <td></td>
-        <td><input type=text class=ed name="nogood[<?=$i?>]" size=8 itemname='·¹º§´Ù¿î ºñÃßÃµ¼ö' value='<?=$row[nogood]?>'></td>
+        <td><input type=text class=ed name="nogood[<?=$i?>]" size=8 itemname='ë ˆë²¨ë‹¤ìš´ ë¹„ì¶”ì²œìˆ˜' value='<?=$row[nogood]?>'></td>
         <? if ($g4['singo_table']) { ?>
-        <td><input type=text class=ed name="singo[<?=$i?>]" size=8 itemname='·¹º§´Ù¿î ½Å°í°Ç¼ö' value='<?=$row[singo]?>'></td>
+        <td><input type=text class=ed name="singo[<?=$i?>]" size=8 itemname='ë ˆë²¨ë‹¤ìš´ ì‹ ê³ ê±´ìˆ˜' value='<?=$row[singo]?>'></td>
         <? } ?>
-        <td><a href='./member_level_history.php?sst=id&sod=desc&sfl=to_level&stx=<?=($row[member_level]-1)?>'>·¹º§´Ù¿î</a></td>
+        <td><a href='./member_level_history.php?sst=id&sod=desc&sfl=to_level&stx=<?=($row[member_level]-1)?>'>ë ˆë²¨ë‹¤ìš´</a></td>
     </tr>
   	<tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <?
@@ -121,25 +121,25 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 
 <table width=100% cellpadding=3 cellspacing=1>
 	<tr>
-		<td width=50%><input type=button class='btn1' value='¼±ÅÃ¼öÁ¤' onclick="btn_check(this.form, 'update')"></td>
+		<td width=50%><input type=button class='btn1' value='ì„ íƒìˆ˜ì •' onclick="btn_check(this.form, 'update')"></td>
 		<td width=50% align=right></td>
 	</tr>
 </table>
 
 <table width=100% cellpadding=0 cellspacing=0>
 	<tr class='bgcol1 col1 ht left'>
-		<td width=60px>·¹º§¾÷</td>
+		<td width=60px>ë ˆë²¨ì—…</td>
 		<td>
-		ÃÖ¼ÒÀÏ¼ö : È¸¿ø°¡ÀÔÈÄ ¹Ù·Î ·¹º§¾÷À» ½ÃµµÇÏ´Â »ç¶÷À» Â÷´ÜÇÏ±â À§ÇØ, ÃÖ¼Ò ¾ó¸¶ÀÇ ½Ã°£ÀÌ °æ°úÈÄ ·¹º§¾÷ °¡´ÉÇÏ°Ô ÇÔ<br>
-		°ËÁõÀÏ¼ö : °Ô½Ã±Û, ÀüÃ¼±ÛÀÇ ¼ýÀÚ¸¦ °ËÁõÇÒ ¶§ »ç¿ëÇÏ´Â ±â°£ (ÀüÃ¼ ±â°£À¸·Î °Ô½Ã±Û, ÀüÃ¼±Û¼ö¸¦ Ã¼Å© ÇÏ´Â°Í Á»...<br>
-    ÃßÃµÁ¦¾È : ÃÖ¼ÒÀÏ¼ö 1ÀÏ (°¡ÀÔÈÄ ¹Ù·Î ·¹º§¾÷ ½ÃµµÇÏ´Â °ÍÀº ½ºÆÐ¸Ó...) + Æ÷ÀÎÆ® 5500(Á¶±Ý È°µ¿)
+		ìµœì†Œì¼ìˆ˜ : íšŒì›ê°€ìž…í›„ ë°”ë¡œ ë ˆë²¨ì—…ì„ ì‹œë„í•˜ëŠ” ì‚¬ëžŒì„ ì°¨ë‹¨í•˜ê¸° ìœ„í•´, ìµœì†Œ ì–¼ë§ˆì˜ ì‹œê°„ì´ ê²½ê³¼í›„ ë ˆë²¨ì—… ê°€ëŠ¥í•˜ê²Œ í•¨<br>
+		ê²€ì¦ì¼ìˆ˜ : ê²Œì‹œê¸€, ì „ì²´ê¸€ì˜ ìˆ«ìžë¥¼ ê²€ì¦í•  ë•Œ ì‚¬ìš©í•˜ëŠ” ê¸°ê°„ (ì „ì²´ ê¸°ê°„ìœ¼ë¡œ ê²Œì‹œê¸€, ì „ì²´ê¸€ìˆ˜ë¥¼ ì²´í¬ í•˜ëŠ”ê²ƒ ì¢€...<br>
+    ì¶”ì²œì œì•ˆ : ìµœì†Œì¼ìˆ˜ 1ì¼ (ê°€ìž…í›„ ë°”ë¡œ ë ˆë²¨ì—… ì‹œë„í•˜ëŠ” ê²ƒì€ ìŠ¤íŒ¨ë¨¸...) + í¬ì¸íŠ¸ 5500(ì¡°ê¸ˆ í™œë™)
 		</td>
 	</tr>
 	<tr class='bgcol1 col1 ht left'>
-		<td width=60px>·¹º§´Ù¿î</td>
+		<td width=60px>ë ˆë²¨ë‹¤ìš´</td>
 		<td>
-    ·¹º§´Ù¿îÀ» ½Ã½ºÅÛÀ¸·Î ÇÏ´Â °ÍÀº ºÐÀïÀÇ ¼ÒÁö°¡ Á¶±ÝÀº ÀÖÀ¸¹Ç·Î ÃßÃµÇÏÁö ¾Ê½À´Ï´Ù.<br>
-    ÃßÃµÁ¦¾È : ½Å°í°Ç¼ö 5°ÇÀÌ»ó (ÀÌ°ÍÀº ½ºÆÐ¸Ó µîÀ» Á¦ÇÑÇÏ±â À§ÇÑ °ÍÀÎµ¥, ¾È¾²´Â°Ô ÁÁ½À´Ï´Ù)
+    ë ˆë²¨ë‹¤ìš´ì„ ì‹œìŠ¤í…œìœ¼ë¡œ í•˜ëŠ” ê²ƒì€ ë¶„ìŸì˜ ì†Œì§€ê°€ ì¡°ê¸ˆì€ ìžˆìœ¼ë¯€ë¡œ ì¶”ì²œí•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.<br>
+    ì¶”ì²œì œì•ˆ : ì‹ ê³ ê±´ìˆ˜ 5ê±´ì´ìƒ (ì´ê²ƒì€ ìŠ¤íŒ¨ë¨¸ ë“±ì„ ì œí•œí•˜ê¸° ìœ„í•œ ê²ƒì¸ë°, ì•ˆì“°ëŠ”ê²Œ ì¢‹ìŠµë‹ˆë‹¤)
 		</td>
 	</tr>
 </table>

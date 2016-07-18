@@ -1,43 +1,43 @@
 <? 
 include_once("./_common.php"); 
 
-// ¼¼¼Ç¿¡ ÀúÀåµÈ ÅäÅ«°ú Æû°ªÀ¸·Î ³Ñ¾î¿Â ÅäÅ«À» ºñ±³ 
+// ì„¸ì…˜ì— ì €ìž¥ëœ í† í°ê³¼ í¼ê°’ìœ¼ë¡œ ë„˜ì–´ì˜¨ í† í°ì„ ë¹„êµ 
 $ss_token = get_session("ss_token");
 if ($_GET["token"] && $ss_token == $_GET["token"]) { 
-    set_session("ss_token", ""); // ¸ÂÀ¸¸é ¼¼¼ÇÀ» Áö¿ö ´Ù½Ã ÀÔ·ÂÆûÀ» ÅëÇØ¼­ µé¾î¿Àµµ·Ï ÇÑ´Ù.
+    set_session("ss_token", ""); // ë§žìœ¼ë©´ ì„¸ì…˜ì„ ì§€ì›Œ ë‹¤ì‹œ ìž…ë ¥í¼ì„ í†µí•´ì„œ ë“¤ì–´ì˜¤ë„ë¡ í•œë‹¤.
 } else {
-    alert_close("ÀÎÁõ¹øÈ£ ¹ß¼Û½Ã ¿À·ù°¡ ¹ß»ýÇÏ¿´½À´Ï´Ù."); 
+    alert_close("ì¸ì¦ë²ˆí˜¸ ë°œì†¡ì‹œ ì˜¤ë¥˜ê°€ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤."); 
     exit; 
 } 
 
-$receive_number = preg_replace("/[^0-9]/", "", $hp); // ¼ö½ÅÀÚ¹øÈ£ 
-$send_number = preg_replace("/[^0-9]/", "", $default['de_sms_hp']); // ¹ß½ÅÀÚ¹øÈ£ 
+$receive_number = preg_replace("/[^0-9]/", "", $hp); // ìˆ˜ì‹ ìžë²ˆí˜¸ 
+$send_number = preg_replace("/[^0-9]/", "", $default['de_sms_hp']); // ë°œì‹ ìžë²ˆí˜¸ 
 
-// ÀÌ¹Ì ¹ß¼ÛµÈ ÇÚµåÆùÀÇ °æ¿ì¿¡´Â Àç¹ß¼ÛÀ» ±ÝÁö
+// ì´ë¯¸ ë°œì†¡ëœ í•¸ë“œí°ì˜ ê²½ìš°ì—ëŠ” ìž¬ë°œì†¡ì„ ê¸ˆì§€
 $sql = " select count(*) as cnt from $g4[member_suggest_table] 
             where mb_id = '$member[mb_id]' and join_hp = '$receive_number' ";
 $result = sql_fetch($sql);
-if ($result[cnt] > 0) alert_close("ÀÌ¹Ì ÀÎÁõ¹øÈ£¸¦ ¹ß¼Û ÇÏ¿´½À´Ï´Ù", "./index.php");
+if ($result[cnt] > 0) alert_close("ì´ë¯¸ ì¸ì¦ë²ˆí˜¸ë¥¼ ë°œì†¡ í•˜ì˜€ìŠµë‹ˆë‹¤", "./index.php");
 
-// ³ª¿¡°Ô ÀÎÁõ¹øÈ£ ¹ß½ÅÇÏ´Â °ÍÀ» ±ÝÁö
-if ($receive_number == $send_number) alert("³ª¿¡°Ô´Â ÀÎÁõ¹øÈ£¸¦ ¹ß¼ÛÇÒ ¼ö ¾ø½À´Ï´Ù", "./index.php");
+// ë‚˜ì—ê²Œ ì¸ì¦ë²ˆí˜¸ ë°œì‹ í•˜ëŠ” ê²ƒì„ ê¸ˆì§€
+if ($receive_number == $send_number) alert("ë‚˜ì—ê²ŒëŠ” ì¸ì¦ë²ˆí˜¸ë¥¼ ë°œì†¡í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤", "./index.php");
 
 // SMS BEGIN -------------------------------------------------------- 
 
-// »ý¼ºµÈ ÀÎÁõ¹øÈ£¸¦ ¼¼¼Ç¿¡ ÀúÀåÇÔ 
-// form ¿¡¼­ ³Ñ¾î¿Â ÀÎÁõ¹øÈ£¿Í ºñ±³ÇÏ¿© °°À¸¸é ±Û¾²±â Çã¿ëÇÔ, skin/member/basic/register_update.skin.php
+// ìƒì„±ëœ ì¸ì¦ë²ˆí˜¸ë¥¼ ì„¸ì…˜ì— ì €ìž¥í•¨ 
+// form ì—ì„œ ë„˜ì–´ì˜¨ ì¸ì¦ë²ˆí˜¸ì™€ ë¹„êµí•˜ì—¬ ê°™ìœ¼ë©´ ê¸€ì“°ê¸° í—ˆìš©í•¨, skin/member/basic/register_update.skin.php
 set_session("ss_hp_certify_number", $certify_number); 
 
 if ($receive_number) { 
     include_once("$g4[path]/lib/icode.sms.lib.php"); 
-    $SMS = new SMS; // SMS ¿¬°á 
+    $SMS = new SMS; // SMS ì—°ê²° 
     $SMS->SMS_con($default['de_icode_server_ip'], $default['de_icode_id'], $default['de_icode_pw'], $default['de_icode_server_port']); 
     $SMS->Add($receive_number, $send_number, $default['de_icode_id'], stripslashes($sms_contents), ""); 
     $SMS->Send(); 
 } 
 // SMS END   -------------------------------------------------------- 
 
-// ÃßÃµÈ¸¿ø Á¤º¸¸¦ DB¿¡ insert
+// ì¶”ì²œíšŒì› ì •ë³´ë¥¼ DBì— insert
 $sql = " insert 
             into $g4[member_suggest_table]
             set mb_id = '$member[mb_id]',
@@ -48,8 +48,8 @@ $sql = " insert
                 ";
 sql_query($sql);
 
-// ÃßÃµÀ» ÇÒ ¶§¸¶´Ù Æ÷ÀÎÆ®¸¦ Â÷°¨
-insert_point($member[mb_id], -1 * $config[cf_recommend_point], "È¸¿ø°¡ÀÔÃßÃµ", '@member', $member[mb_id], "{$receive_number} ÃßÃµ");
+// ì¶”ì²œì„ í•  ë•Œë§ˆë‹¤ í¬ì¸íŠ¸ë¥¼ ì°¨ê°
+insert_point($member[mb_id], -1 * $config[cf_recommend_point], "íšŒì›ê°€ìž…ì¶”ì²œ", '@member', $member[mb_id], "{$receive_number} ì¶”ì²œ");
 
-alert_close("½Å±ÔÈ¸¿ø ÃßÃµÁ¤º¸¸¦ Àü¼ÛÇÏ¿´½À´Ï´Ù."); 
+alert_close("ì‹ ê·œíšŒì› ì¶”ì²œì •ë³´ë¥¼ ì „ì†¡í•˜ì˜€ìŠµë‹ˆë‹¤."); 
 ?> 

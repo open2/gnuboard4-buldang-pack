@@ -1,28 +1,28 @@
 <?
 include_once("./_common.php");
 
-// ºÒ¹ýÁ¢±ÙÀ» ¸·µµ·Ï ÅäÅ«»ý¼º
+// ë¶ˆë²•ì ‘ê·¼ì„ ë§‰ë„ë¡ í† í°ìƒì„±
 $token = md5(uniqid(rand(), true));
 set_session("ss_token", $token);
 
-$g4[title] = "ÀÌ¸ÞÀÏ ÀÎÁõ";
+$g4[title] = "ì´ë©”ì¼ ì¸ì¦";
 include_once("$g4[path]/_head.php");
 
 if ($is_member) {
     $mb_id = $member[mb_id];
 } else {
     $mb_id = $_SESSION['email_mb_id'];
-    // ·Î±×ÀÎÈÄ¿¡ ÀÌµ¿ÇÑ °ÍÀÌ¸é
+    // ë¡œê·¸ì¸í›„ì— ì´ë™í•œ ê²ƒì´ë©´
     if ($mb_id) {
         ;
     } else {
         set_session('email_mb_id', "");
-        alert("ÀÌ¸ÞÀÏ ÀÎÁõÀ» À§ÇØ ·Î±×ÀÎ ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.", "./login.php?$qstr&url=".urlencode("$_SERVER[PHP_SELF]"));
+        alert("ì´ë©”ì¼ ì¸ì¦ì„ ìœ„í•´ ë¡œê·¸ì¸ í•˜ì‹œê¸° ë°”ëžë‹ˆë‹¤.", "./login.php?$qstr&url=".urlencode("$_SERVER[PHP_SELF]"));
     }
 }
 $member = get_member($mb_id);
 
-// °ü¸®ÀÚ´Â ÀÌ¸ÞÀÏ ÀçÀÎÁõÀ» ¸øÇÏ°Ô ÇÕ´Ï´Ù.
+// ê´€ë¦¬ìžëŠ” ì´ë©”ì¼ ìž¬ì¸ì¦ì„ ëª»í•˜ê²Œ í•©ë‹ˆë‹¤.
 if ($is_admin)
     die;
 

@@ -3,13 +3,13 @@ include_once("./_common.php");
 include_once("$g4[path]/memo.config.php");
 
 if (!$member[mb_id])
-    alert("È¸¿ø¸¸ ÀÌ¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+    alert("íšŒì›ë§Œ ì´ìš©í•˜ì‹¤ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.");
 
 switch ($kind) {
-  case 'recv' : // spam ½Å°í
+  case 'recv' : // spam ì‹ ê³ 
                 $sql = " select * from $g4[memo_recv_table] where me_id = '$me_id' ";
                 $result = sql_fetch($sql);
-                if ($result[me_recv_mb_id] == $member[mb_id]) {} else alert("¹Ù¸£Áö ¸øÇÑ »ç¿ëÀÔ´Ï´Ù");
+                if ($result[me_recv_mb_id] == $member[mb_id]) {} else alert("ë°”ë¥´ì§€ ëª»í•œ ì‚¬ìš©ìž…ë‹ˆë‹¤");
 
                 $sql = " insert into $g4[memo_spam_table] select * from $g4[memo_recv_table] where me_id = '$me_id' and me_recv_mb_id = '$member[mb_id]' ";
                 sql_query($sql);
@@ -17,23 +17,23 @@ switch ($kind) {
                 $sql = " delete from $g4[memo_recv_table] where me_id = '$me_id' ";
                 sql_query($sql);
                 
-                // ½Å°íÅ×ÀÌºí¿¡ µî·ÏÇÏ±â
+                // ì‹ ê³ í…Œì´ë¸”ì— ë“±ë¡í•˜ê¸°
                 if ($g4['singo_table']) {
                     $bo_table = "@memo";
-                    $wr_id = $wr_parent = $me_id;             // ¸Þ¸ð id
-                    $write[mb_id] = $result[me_send_mb_id];   // ±Û¾´ÀÌ = ¸Þ¸ð ¹ß½ÅÀÚ
-                    $sg_reason = "½ºÆÔÂÊÁö ¹ß¼Û";
+                    $wr_id = $wr_parent = $me_id;             // ë©”ëª¨ id
+                    $write[mb_id] = $result[me_send_mb_id];   // ê¸€ì“´ì´ = ë©”ëª¨ ë°œì‹ ìž
+                    $sg_reason = "ìŠ¤íŒ¸ìª½ì§€ ë°œì†¡";
                     
                     include("./singo_popin_update.php");
                 }
                 
-                alert("ÂÊÁö¸¦ spam ½Å°í ÇÏ¿´½À´Ï´Ù.", "./memo.php?kind=spam");
+                alert("ìª½ì§€ë¥¼ spam ì‹ ê³  í•˜ì˜€ìŠµë‹ˆë‹¤.", "./memo.php?kind=spam");
                 break;
-  case 'spam' : // spam Ãë¼Ò
+  case 'spam' : // spam ì·¨ì†Œ
                 $sql = " select * from $g4[memo_spam_table] where me_id = '$me_id' ";
                 $result = sql_fetch($sql);
-                // °ü¸®ÀÚ ¶Ç´Â ½ºÆÔÀ» ½Å°íÇÑ »ç¶÷¸¸ Ãë¼Ò°¡ °¡´É
-                if ($is_admin || $result[me_recv_mb_id] == $member[mb_id]) {} else alert("¹Ù¸£Áö ¸øÇÑ »ç¿ëÀÔ´Ï´Ù");
+                // ê´€ë¦¬ìž ë˜ëŠ” ìŠ¤íŒ¸ì„ ì‹ ê³ í•œ ì‚¬ëžŒë§Œ ì·¨ì†Œê°€ ê°€ëŠ¥
+                if ($is_admin || $result[me_recv_mb_id] == $member[mb_id]) {} else alert("ë°”ë¥´ì§€ ëª»í•œ ì‚¬ìš©ìž…ë‹ˆë‹¤");
                 
                 $sql = " insert into $g4[memo_recv_table] select * from $g4[memo_spam_table] where me_id = '$me_id' and me_recv_mb_id = '$member[mb_id]' ";
                 sql_query($sql);
@@ -41,16 +41,16 @@ switch ($kind) {
                 $sql = " delete from $g4[memo_spam_table] where me_id = '$me_id' ";
                 sql_query($sql);
 
-                // ½Å°íÅ×ÀÌºí¿¡¼­ »èÁ¦ÇÏ±â
+                // ì‹ ê³ í…Œì´ë¸”ì—ì„œ ì‚­ì œí•˜ê¸°
                 if ($g4['singo_table']) {
                     $result = sql_fetch(" select sg_id from $g4[singo_table] where bo_table = '@memo' and wr_id = '$me_id' ");
                     $sql = " delete from $g4[singo_table] where sg_id = '$result[sg_id]' ";
                     sql_query($sql);
                 }
 
-                alert("ÂÊÁö¸¦ spam Ãë¼Ò ÇÏ¿´½À´Ï´Ù.", "./memo.php?kind=recv");
+                alert("ìª½ì§€ë¥¼ spam ì·¨ì†Œ í•˜ì˜€ìŠµë‹ˆë‹¤.", "./memo.php?kind=recv");
                 break;                
   default : 
-    alert("¼ö½ÅÇÔÀÇ ÂÊÁö¸¸ spam ½Å°í¸¦ ÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+    alert("ìˆ˜ì‹ í•¨ì˜ ìª½ì§€ë§Œ spam ì‹ ê³ ë¥¼ í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.");
 }
 ?>

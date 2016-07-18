@@ -1,17 +1,17 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-// °Ô½ÃÆÇ °ü¸®ÀÇ ÇÏ´Ü ³»¿ë
+// ê²Œì‹œíŒ ê´€ë¦¬ì˜ í•˜ë‹¨ ë‚´ìš©
 if (strip_tags($board[bo_content_tail]) == "" || $board[bo_content_tail] == "<p>&nbsp;</p>")
     ;
 else
     echo stripslashes($board[bo_content_tail]); 
 
-// °Ô½ÃÆÇ °ü¸®ÀÇ ÇÏ´Ü ÀÌ¹ÌÁö °æ·Î
+// ê²Œì‹œíŒ ê´€ë¦¬ì˜ í•˜ë‹¨ ì´ë¯¸ì§€ ê²½ë¡œ
 if ($board[bo_image_tail]) 
     echo "<img src='$g4[data_path]/file/$bo_table/$board[bo_image_tail]' border='0'>";
 
-// °Ô½ÃÆÇ °ü¸®ÀÇ ÇÏ´Ü ÆÄÀÏ °æ·Î
+// ê²Œì‹œíŒ ê´€ë¦¬ì˜ í•˜ë‹¨ íŒŒì¼ ê²½ë¡œ
 if ($board[bo_include_tail]) 
     @include ($board[bo_include_tail]); 
 ?>

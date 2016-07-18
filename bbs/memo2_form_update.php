@@ -3,28 +3,28 @@ include_once("./_common.php");
 include_once("$g4[path]/memo.config.php");
 
 if ($_SESSION["sm_datetime"] >= ($g4['server_time'] - $g4['memo_delay_sec']) && !$is_admin) 
-    alert("³Ê¹« ºü¸¥ ½Ã°£³»¿¡ ÂÊÁö¸¦ ¿¬¼ÓÇØ¼­ ¹ß½ÅÇÒ ¼ö ¾ø½À´Ï´Ù.");
+    alert("ë„ˆë¬´ ë¹ ë¥¸ ì‹œê°„ë‚´ì— ìª½ì§€ë¥¼ ì—°ì†í•´ì„œ ë°œì‹ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 set_session("sm_datetime", $g4['server_time']);
 
 $me_send_mb_id = strip_tags($_POST['me_send_mb_id']);
 $me_recv_mb_id = strip_tags($_POST['me_recv_mb_id']);
 
 if (!$member['mb_id'])
-    alert("È¸¿ø¸¸ ÀÌ¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+    alert("íšŒì›ë§Œ ì´ìš©í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
 $me_send_mb_id = trim($me_send_mb_id);
 if ($me_send_mb_id == $member['mb_id']) {} else
-    alert("memo_update - ¹Ù¸£Áö ¸øÇÑ »ç¿ëÀÔ´Ï´Ù.");
+    alert("memo_update - ë°”ë¥´ì§€ ëª»í•œ ì‚¬ìš©ì…ë‹ˆë‹¤.");
 
 if ($me_subject == '')
-    alert("ÂÊÁö Á¦¸ñÀÌ ÀÔ·ÂµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+    alert("ìª½ì§€ ì œëª©ì´ ì…ë ¥ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
-// ÂÊÁöÀÇ ³»¿ëÀ» º¯°æ
+// ìª½ì§€ì˜ ë‚´ìš©ì„ ë³€ê²½
 $me_memo = addslashes($wr_content);
 
 $tmp_list = explode(",", $me_recv_mb_id);
 
-// ÂÊÁö ÆøÅº Á¦°Å¸¦ À§ÇÏ¿©, Áßº¹À» »èÁ¦
+// ìª½ì§€ í­íƒ„ ì œê±°ë¥¼ ìœ„í•˜ì—¬, ì¤‘ë³µì„ ì‚­ì œ
 $tmp_list = array_unique($tmp_list);
 $tmp_list = implode(",",$tmp_list);
 $tmp_list = explode(",",$tmp_list);
@@ -36,8 +36,8 @@ $mb_list = array();
 $mb_array = array();
 for ($i=0; $i<count($tmp_list); $i++) {
     $row = get_member($tmp_list[$i]);
-    // Ä£±¸°ü¸®°¡ Àû¿ëµÇ¾úÀ» ¶§
-    if ($row['mb_id']) { // È¸¿øÁ¤º¸°¡ ÀÖ´Â °æ¿ì ³»°¡ ºí·¢¸®½ºÆ®¿¡ Æ÷ÇÔµÇ¾ú´ÂÁö È®ÀÎ
+    // ì¹œêµ¬ê´€ë¦¬ê°€ ì ìš©ë˜ì—ˆì„ ë•Œ
+    if ($row['mb_id']) { // íšŒì›ì •ë³´ê°€ ìˆëŠ” ê²½ìš° ë‚´ê°€ ë¸”ë™ë¦¬ìŠ¤íŠ¸ì— í¬í•¨ë˜ì—ˆëŠ”ì§€ í™•ì¸
         $sql2 = " select count(*) as cnt from $g4[friend_table] where fr_id = '$me_send_mb_id' and mb_id = '$row[mb_id]' and fr_type = 'black_id' ";
         $result2 = sql_fetch($sql2);
     }
@@ -60,23 +60,23 @@ if (!$is_admin) {
         $point = (int)$config['cf_memo_send_point'] * count($mb_list);
         if ($point) {
             if ($member['mb_point'] - $point < 0) {
-                alert("º¸À¯ÇÏ½Å Æ÷ÀÎÆ®(".number_format($member[mb_point])."Á¡)°¡ ¸ğÀÚ¶ó¼­ ÂÊÁö¸¦ º¸³¾ ¼ö ¾ø½À´Ï´Ù.");
+                alert("ë³´ìœ í•˜ì‹  í¬ì¸íŠ¸(".number_format($member[mb_point])."ì )ê°€ ëª¨ìë¼ì„œ ìª½ì§€ë¥¼ ë³´ë‚¼ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
             } 
         }
     }
 }
 
 if ($msg && count($mb_list)==0)
-    alert("È¸¿ø¾ÆÀÌµğ \'".$msg."\' Àº(´Â) Á¸ÀçÇÏÁö ¾Ê°Å³ª(Å»Åğ, Á¢±ÙÂ÷´Ü) ¼ö½ÅÀ» °ÅºÎÇÏ´Â ¾ÆÀÌµğ ÀÔ´Ï´Ù.\\n\\nÂÊÁö¸¦ ¹ß¼ÛÇÏÁö ¾Ê¾Ò½À´Ï´Ù.");
+    alert("íšŒì›ì•„ì´ë”” \'".$msg."\' ì€(ëŠ”) ì¡´ì¬í•˜ì§€ ì•Šê±°ë‚˜(íƒˆí‡´, ì ‘ê·¼ì°¨ë‹¨) ìˆ˜ì‹ ì„ ê±°ë¶€í•˜ëŠ” ì•„ì´ë”” ì…ë‹ˆë‹¤.\\n\\nìª½ì§€ë¥¼ ë°œì†¡í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
-// ÆÄÀÏ¸í ÃÊ±âÈ­
+// íŒŒì¼ëª… ì´ˆê¸°í™”
 $file_name0 = '';
 $file_name3 = '';
 
-// ¼­¹ö¿¡¼­ ¾÷·Îµå °¡´ÉÇÑ ÃÖ´ë ÆÄÀÏ ¿ë·®
+// ì„œë²„ì—ì„œ ì—…ë¡œë“œ ê°€ëŠ¥í•œ ìµœëŒ€ íŒŒì¼ ìš©ëŸ‰
 //$upload_max_filesize = ini_get('upload_max_filesize');
 
-// ÂÊÁö2¿¡¼­ ¾÷·Îµå °¡´ÉÇÑ ÃÖ´ë ÆÄÀÏ ¿ë·®
+// ìª½ì§€2ì—ì„œ ì—…ë¡œë“œ ê°€ëŠ¥í•œ ìµœëŒ€ íŒŒì¼ ìš©ëŸ‰
 //$memo2_upload_size = intval(substr($config[cf_memo_file_size],0,-1)) * 1024 * 1024;
 if ($config['cf_memo_file_size'])
     $memo2_upload_size = $config['cf_memo_file_size'] * 1024 * 1024;
@@ -89,10 +89,10 @@ for ($i=0; $i<count($mb_list); $i++) {
 
     if (trim($mb_list[$i])) {
 
-        // Ã·ºÎÆÄÀÏ
-        if ($i ==0 and $_FILES[memo_file][name]) { // Ã¹¹øÂ° loop¿¡¼­ Ã·ºÎÆÄÀÏÀÇ ¾ÆÀÌµğ¸¦ me_id¿Í µ¿ÀÏÇÏ°Ô »ı¼º - ÆíÇÏ°Ô °ü¸®ÇÏ·Á°í
+        // ì²¨ë¶€íŒŒì¼
+        if ($i ==0 and $_FILES[memo_file][name]) { // ì²«ë²ˆì§¸ loopì—ì„œ ì²¨ë¶€íŒŒì¼ì˜ ì•„ì´ë””ë¥¼ me_idì™€ ë™ì¼í•˜ê²Œ ìƒì„± - í¸í•˜ê²Œ ê´€ë¦¬í•˜ë ¤ê³ 
 
-              // È¸¿øº°·Î µğ·ºÅä¸®¸¦ »ı¼º
+              // íšŒì›ë³„ë¡œ ë””ë ‰í† ë¦¬ë¥¼ ìƒì„±
               $dir_name = $g4['path'] . "/data/memo2/" . $member[mb_id];
               if(!is_dir($dir_name)){
                   @mkdir("$dir_name", 0707);
@@ -101,30 +101,30 @@ for ($i=0; $i<count($mb_list); $i++) {
     
               $file_name0 = $_FILES[memo_file][name];
 
-              // °ü¸®ÀÚ°¡ ¾Æ´Ï¸é¼­ ¼³Á¤ÇÑ ¾÷·Îµå »çÀÌÁîº¸´Ù Å©´Ù¸é °Ç³Ê¶Ü
+              // ê´€ë¦¬ìê°€ ì•„ë‹ˆë©´ì„œ ì„¤ì •í•œ ì—…ë¡œë“œ ì‚¬ì´ì¦ˆë³´ë‹¤ í¬ë‹¤ë©´ ê±´ë„ˆëœ€
               $tmp_file  = $_FILES[memo_file][tmp_name];
               $filesize  = $_FILES[memo_file][size];
 
               if (is_uploaded_file($tmp_file)) {
                   if ($filesize > $memo2_upload_size) {
-                      $file_upload_msg .= "\'{$file_name0}\' ÆÄÀÏÀÇ ¿ë·®(".number_format($filesize)." ¹ÙÀÌÆ®)ÀÌ ÂÊÁö2¿¡¼­ ¼³Á¤(".number_format($memo2_upload_size)." ¹ÙÀÌÆ®)µÈ °ªº¸´Ù Å©¹Ç·Î ¾÷·Îµå ÇÏÁö ¾Ê½À´Ï´Ù.\\n";
+                      $file_upload_msg .= "\'{$file_name0}\' íŒŒì¼ì˜ ìš©ëŸ‰(".number_format($filesize)." ë°”ì´íŠ¸)ì´ ìª½ì§€2ì—ì„œ ì„¤ì •(".number_format($memo2_upload_size)." ë°”ì´íŠ¸)ëœ ê°’ë³´ë‹¤ í¬ë¯€ë¡œ ì—…ë¡œë“œ í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.\\n";
                   }
               }
 
-              // ¼­¹ö¿¡ ¼³Á¤µÈ °ªº¸´Ù Å«ÆÄÀÏÀ» ¾÷·Îµå ÇÑ´Ù¸é
+              // ì„œë²„ì— ì„¤ì •ëœ ê°’ë³´ë‹¤ í°íŒŒì¼ì„ ì—…ë¡œë“œ í•œë‹¤ë©´
               if ($file_name0) {
                   if ($_FILES[memo_file][error] == 1) {
-                      $file_upload_msg .= "\'{$file_name0}\' ÆÄÀÏÀÇ ¿ë·®ÀÌ ¼³Á¤µÈ °ª{$config[cf_memo_file_size]}º¸´Ù Å©¹Ç·Î ¾÷·Îµå ÇÒ ¼ö ¾ø½À´Ï´Ù.\\n";
+                      $file_upload_msg .= "\'{$file_name0}\' íŒŒì¼ì˜ ìš©ëŸ‰ì´ ì„¤ì •ëœ ê°’{$config[cf_memo_file_size]}ë³´ë‹¤ í¬ë¯€ë¡œ ì—…ë¡œë“œ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\\n";
                   } else if ($_FILES[memo_file][error] != 0) {
-                      $file_upload_msg .= "\'{$file_name0}\' ÆÄÀÏÀÌ Á¤»óÀûÀ¸·Î ¾÷·Îµå µÇÁö ¾Ê¾Ò½À´Ï´Ù.\\n";
+                      $file_upload_msg .= "\'{$file_name0}\' íŒŒì¼ì´ ì •ìƒì ìœ¼ë¡œ ì—…ë¡œë“œ ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.\\n";
                   }
               }
 
-              // ºÒ´çÆÑ : ÀÌ¹ÌÁö È®ÀåÀÚ¸¦ °¡Áø°æ¿ì ÀÌ¹ÌÁöÆÄÀÏÀÎÁö È®ÀÎ
+              // ë¶ˆë‹¹íŒ© : ì´ë¯¸ì§€ í™•ì¥ìë¥¼ ê°€ì§„ê²½ìš° ì´ë¯¸ì§€íŒŒì¼ì¸ì§€ í™•ì¸
               if ($file_name0 && preg_match("/\.($config[cf_image_extension])/i", $file_name0))
               {
                   if (!getimagesize($tmp_file)) {
-                      $file_upload_msg .= "\'{$file_name0}\' ÆÄÀÏÀÌ Á¤»óÀûÀ¸·Î ¾÷·Îµå µÇÁö ¾Ê¾Ò½À´Ï´Ù.\\n";
+                      $file_upload_msg .= "\'{$file_name0}\' íŒŒì¼ì´ ì •ìƒì ìœ¼ë¡œ ì—…ë¡œë“œ ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.\\n";
                   }
               }
 
@@ -132,8 +132,8 @@ for ($i=0; $i<count($mb_list); $i++) {
                   alert($file_upload_msg);
               }
               
-              // ¾Æ·¡ÀÇ ¹®ÀÚ¿­ÀÌ µé¾î°£ ÆÄÀÏÀº -x ¸¦ ºÙ¿©¼­ À¥°æ·Î¸¦ ¾Ë´õ¶óµµ ½ÇÇàÀ» ÇÏÁö ¸øÇÏµµ·Ï ÇÔ        
-              // ÆÄÀÏ¸í ¿À·ù (NaviGator´Ô)
+              // ì•„ë˜ì˜ ë¬¸ìì—´ì´ ë“¤ì–´ê°„ íŒŒì¼ì€ -x ë¥¼ ë¶™ì—¬ì„œ ì›¹ê²½ë¡œë¥¼ ì•Œë”ë¼ë„ ì‹¤í–‰ì„ í•˜ì§€ ëª»í•˜ë„ë¡ í•¨        
+              // íŒŒì¼ëª… ì˜¤ë¥˜ (NaviGatorë‹˜)
               $file_name0= str_replace(' ', '_',$file_name0); 
               $file_name0= str_replace('\\\'', '_',$file_name0); 
 
@@ -146,20 +146,20 @@ for ($i=0; $i<count($mb_list); $i++) {
               $file_name3 = $member[mb_id] . "/" . $file_name2;
         }
 
-        // ÂÊÁö º¸³»±â
+        // ìª½ì§€ ë³´ë‚´ê¸°
         memo4_send($mb_list[$i], $member[mb_id], $me_memo, $me_subject, "$html,$secret,$mail", 1, $file_name0, $file_name3);
 
-        // Æ÷ÀÎÆ® ±â·Ï - history¸¦ À§ÇØ¼­
+        // í¬ì¸íŠ¸ ê¸°ë¡ - historyë¥¼ ìœ„í•´ì„œ
         $recv_mb_nick = get_text($mb_array[$i][mb_nick]);
         $recv_mb_id = $mb_array[$i][mb_id];
-        insert_point($member[mb_id], (int)$config[cf_memo_send_point] * (-1), "{$recv_mb_nick}({$recv_mb_id})´Ô²² ÂÊÁö ¹ß¼Û", "@memo", $recv_mb_id, $me_id);
+        insert_point($member[mb_id], (int)$config[cf_memo_send_point] * (-1), "{$recv_mb_nick}({$recv_mb_id})ë‹˜ê»˜ ìª½ì§€ ë°œì†¡", "@memo", $recv_mb_id, $me_id);
     }
 
-} // for - loopÀÇ ³¡ºÎºĞ
+} // for - loopì˜ ëë¶€ë¶„
 
 if ($msg)
-    alert("\'$msg\'´ÔÀº Á¸ÀçÇÏÁö ¾Ê°Å³ª ¼ö½ÅÀ» °ÅºÎÇÏ´Â ¾ÆÀÌµğ ÀÔ´Ï´Ù. \'$me_recv_mb_id_list\' ´Ô²² ÂÊÁö¸¦ Àü´ŞÇÏ¿´½À´Ï´Ù.", "./memo.php?kind=send");
+    alert("\'$msg\'ë‹˜ì€ ì¡´ì¬í•˜ì§€ ì•Šê±°ë‚˜ ìˆ˜ì‹ ì„ ê±°ë¶€í•˜ëŠ” ì•„ì´ë”” ì…ë‹ˆë‹¤. \'$me_recv_mb_id_list\' ë‹˜ê»˜ ìª½ì§€ë¥¼ ì „ë‹¬í•˜ì˜€ìŠµë‹ˆë‹¤.", "./memo.php?kind=send");
 else 
-    alert("\'$me_recv_mb_id_list\' ´Ô²² ÂÊÁö¸¦ Àü´ŞÇÏ¿´½À´Ï´Ù.", "./memo.php?kind=send");
+    alert("\'$me_recv_mb_id_list\' ë‹˜ê»˜ ìª½ì§€ë¥¼ ì „ë‹¬í•˜ì˜€ìŠµë‹ˆë‹¤.", "./memo.php?kind=send");
 
 ?>

@@ -3,11 +3,11 @@ $sub_menu = "100110";
 include_once("./_common.php");
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.");
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
 $token = get_token();
 
-// PDO bindParam °ªÀ» ³Ö¾îµÎ´Â º¯¼ö ÃÊ±âÈ­
+// PDO bindParam ê°’ì„ ë„£ì–´ë‘ëŠ” ë³€ìˆ˜ ì´ˆê¸°í™”
 $params = array();
 
 $sql_common = " from $g4[auth_table] a left join $g4[member_table] b on (a.mb_id=b.mb_id) ";
@@ -41,9 +41,9 @@ $row = pdo_fetch_params($stmt, $params);
 $total_count = $row['cnt'];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if ($page == "") $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if ($page == "") $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
 $sql = " select * 
           $sql_common
@@ -54,9 +54,9 @@ $sql = " select *
 $stmt = $pdo_db->prepare($sql);
 $result = pdo_query_params($stmt, $params);  
 
-$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>ì²˜ìŒ</a>";
 
-$g4[title] = "°ü¸®±ÇÇÑ¼³Á¤";
+$g4[title] = "ê´€ë¦¬ê¶Œí•œì„¤ì •";
 include_once("./admin.head.php");
 ?>
 
@@ -66,15 +66,15 @@ var list_delete_php = "auth_list_delete.php";
 
 <form name=fsearch method=get role="form" class="form-inline">
 <div class="btn-group">
-    <?=$listall?> (°Ç¼ö : <?=number_format($total_count)?>)
+    <?=$listall?> (ê±´ìˆ˜ : <?=number_format($total_count)?>)
 </div>
 <div class="pull-right">
     <select name=sfl class="form-control">
-        <option value='a.mb_id'>È¸¿ø¾ÆÀÌµğ</option>
+        <option value='a.mb_id'>íšŒì›ì•„ì´ë””</option>
     </select>
-    <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<?=$stx?>'>
+    <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<?=$stx?>'>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 </form>
@@ -96,10 +96,10 @@ var list_delete_php = "auth_list_delete.php";
 <colgroup width=100>
 <tr class='success'>
     <td><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
-    <td><?=subject_sort_link('a.mb_id')?>È¸¿ø¾ÆÀÌµğ</a></td>
-    <td><?=subject_sort_link('mb_nick')?>º°¸í</a></td>
-  	<td>¸Ş´º</td>
-	  <td>±ÇÇÑ</td>
+    <td><?=subject_sort_link('a.mb_id')?>íšŒì›ì•„ì´ë””</a></td>
+    <td><?=subject_sort_link('mb_nick')?>ë³„ëª…</a></td>
+  	<td>ë©”ë‰´</td>
+	  <td>ê¶Œí•œ</td>
 </tr>
 <?
 //for ($i=0; $row=sql_fetch_array($result); $i++)
@@ -107,7 +107,7 @@ for ($i=0; $row=$stmt->fetch(PDO::FETCH_ASSOC); $i++)
 {
     $mb_nick = get_sideview($row[mb_id], get_text($row[mb_nick]), $row[mb_email], $row[mb_homepage]);
 
-    // ¸Ş´º¹øÈ£°¡ ¹Ù²î´Â °æ¿ì¿¡ ÇöÀç ¾ø´Â ÀúÀåµÈ ¸Ş´º´Â »èÁ¦ÇÔ
+    // ë©”ë‰´ë²ˆí˜¸ê°€ ë°”ë€ŒëŠ” ê²½ìš°ì— í˜„ì¬ ì—†ëŠ” ì €ì¥ëœ ë©”ë‰´ëŠ” ì‚­ì œí•¨
     if (!isset($auth_menu[$row[au_menu]]))
     {
         //sql_query(" delete from $g4[auth_table] where au_menu = '$row[au_menu]' ");
@@ -131,12 +131,12 @@ for ($i=0; $row=$stmt->fetch(PDO::FETCH_ASSOC); $i++)
 }
 
 if ($i==0) 
-    echo "<tr><td colspan='5' height=100 align=center>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='5' height=100 align=center>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
@@ -145,7 +145,7 @@ echo "</table>";
 
 <div class="btn-group">
     <? if ($is_admin == "super") { ?>
-        <input type=button class='btn btn-default' value='¼±ÅÃ»èÁ¦' onclick="btn_check(this.form, 'delete')">
+        <input type=button class='btn btn-default' value='ì„ íƒì‚­ì œ' onclick="btn_check(this.form, 'delete')">
     <? } ?>
 </div>
 
@@ -180,16 +180,16 @@ else
 <colgroup width=150>
 <colgroup width=100>
 <tr class="success">
-    <td>È¸¿ø¾ÆÀÌµğ</span></td>
-    <td>Á¢±Ù°¡´É¸Ş´º</span></td>
-    <td>±ÇÇÑ</span></td>
-    <td>ÀÔ·Â</span></td>
+    <td>íšŒì›ì•„ì´ë””</span></td>
+    <td>ì ‘ê·¼ê°€ëŠ¥ë©”ë‰´</span></td>
+    <td>ê¶Œí•œ</span></td>
+    <td>ì…ë ¥</span></td>
 </tr>
 <tr>
-    <td><input type=text class=ed name=mb_id required itemname='È¸¿ø¾ÆÀÌµğ' value='<?=$mb_id?>'></td>
+    <td><input type=text class=ed name=mb_id required itemname='íšŒì›ì•„ì´ë””' value='<?=$mb_id?>'></td>
     <td>
-        <select name=au_menu required itemname='Á¢±Ù°¡´É¸Ş´º'>
-        <option value=''>-- ¼±ÅÃÇÏ¼¼¿ä
+        <select name=au_menu required itemname='ì ‘ê·¼ê°€ëŠ¥ë©”ë‰´'>
+        <option value=''>-- ì„ íƒí•˜ì„¸ìš”
         <?
         foreach($auth_menu as $key=>$value)
         {
@@ -207,12 +207,12 @@ else
         	<td width=33%><input type=checkbox name='d' value='d'></td>
         </tr>
         <tr align=center>
-        	<td>r<br>(ÀĞ±â)</td>
-        	<td>w<br>(ÀÔ·Â,¼öÁ¤)</td>
-        	<td>d<br>(»èÁ¦)</td>
+        	<td>r<br>(ì½ê¸°)</td>
+        	<td>w<br>(ì…ë ¥,ìˆ˜ì •)</td>
+        	<td>d<br>(ì‚­ì œ)</td>
         </tr>
         </table></td>
-    <td><input type=submit class="btn btn-default" value='  È®  ÀÎ  '></td>
+    <td><input type=submit class="btn btn-default" value='  í™•  ì¸  '></td>
 </tr>
 </table>
 

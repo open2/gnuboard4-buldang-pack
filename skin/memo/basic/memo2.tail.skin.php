@@ -1,7 +1,7 @@
-</div><!-- Áß°£ÀÇ ¸ŞÀÎºÎ ³¡ -->
+</div><!-- ì¤‘ê°„ì˜ ë©”ì¸ë¶€ ë -->
 
 <script type="text/javascript">
-// È¸¿øID Ã£±â  
+// íšŒì›ID ì°¾ê¸°  
 function popup_id(frm_name, ss_id, top, left) 
 { 
     url = './write_id.php?frm_name='+frm_name+'&ss_id='+ss_id; 
@@ -28,34 +28,34 @@ function check_confirm(str) {
     }
 
     if (!chk_count) {
-        alert(str + "ÇÒ ÂÊÁö¸¦ ÇÏ³ª ÀÌ»ó ¼±ÅÃÇÏ¼¼¿ä.");
+        alert(str + "í•  ìª½ì§€ë¥¼ í•˜ë‚˜ ì´ìƒ ì„ íƒí•˜ì„¸ìš”.");
         return false;
     }
     return true;
 }
 
-// ¼±ÅÃÇÑ °Ô½Ã¹° »èÁ¦
+// ì„ íƒí•œ ê²Œì‹œë¬¼ ì‚­ì œ
 function select_delete() {
     var f = document.fboardlist;
 
-    str = "»èÁ¦";
+    str = "ì‚­ì œ";
     if (!check_confirm(str))
         return;
 
-    if (!confirm("¼±ÅÃÇÑ ÂÊÁö¸¦ Á¤¸» "+str+" ÇÏ½Ã°Ú½À´Ï±î?\n\nÇÑ¹ø "+str+"ÇÑ ÀÚ·á´Â º¹±¸ÇÒ ¼ö ¾ø½À´Ï´Ù"))
+    if (!confirm("ì„ íƒí•œ ìª½ì§€ë¥¼ ì •ë§ "+str+" í•˜ì‹œê² ìŠµë‹ˆê¹Œ?\n\ní•œë²ˆ "+str+"í•œ ìë£ŒëŠ” ë³µêµ¬í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤"))
         return;
 
     f.action = "./memo2_form_delete.php";
     f.submit();
 }
 
-// ¸ğµç °Ô½Ã¹° »èÁ¦
+// ëª¨ë“  ê²Œì‹œë¬¼ ì‚­ì œ
 function all_delete_trash() {
     var f = document.fboardlist;
 
-    str = "»èÁ¦";
+    str = "ì‚­ì œ";
 
-    if (!confirm("¸ğµç ÂÊÁö¸¦ Á¤¸» "+str+" ÇÏ½Ã°Ú½À´Ï±î?\n\nÇÑ¹ø "+str+"ÇÑ ÀÚ·á´Â º¹±¸ÇÒ ¼ö ¾ø½À´Ï´Ù"))
+    if (!confirm("ëª¨ë“  ìª½ì§€ë¥¼ ì •ë§ "+str+" í•˜ì‹œê² ìŠµë‹ˆê¹Œ?\n\ní•œë²ˆ "+str+"í•œ ìë£ŒëŠ” ë³µêµ¬í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤"))
         return;
 
     f.action = "./memo2_form_delete_all_trash.php";

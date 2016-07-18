@@ -6,7 +6,7 @@ auth_check($auth[$sub_menu], "r");
 
 $token = get_token();
 
-$g4[title] = "db»óÅÂÁ¤º¸";
+$g4[title] = "dbìƒíƒœì •ë³´";
 include_once("./admin.head.php");
 
 $colspan = 13;
@@ -19,13 +19,13 @@ $colspan = 13;
 <table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <tr class="success">
 		<td>No</td>
-		<td>Å×ÀÌºí ÀÌ¸§</td>
-		<td>Çü½Ä</td>
-		<td>ÁÙ(Rows)</td>
-		<td>µ¥ÀÌÅ¸ ¿ë·®</td>
-		<td>ÀÎµ¦½º ¿ë·®</td>
-		<td><b>ÀüÃ¼ ¿ë·®</b></td>
-		<td>»ı¼º½Ã°£</td>
+		<td>í…Œì´ë¸” ì´ë¦„</td>
+		<td>í˜•ì‹</td>
+		<td>ì¤„(Rows)</td>
+		<td>ë°ì´íƒ€ ìš©ëŸ‰</td>
+		<td>ì¸ë±ìŠ¤ ìš©ëŸ‰</td>
+		<td><b>ì „ì²´ ìš©ëŸ‰</b></td>
+		<td>ìƒì„±ì‹œê°„</td>
 </tr>
 <?
 $result = sql_query("show table status from $mysql_db like '$g4[table_prefix]%' ");
@@ -51,7 +51,7 @@ while($dbData=sql_fetch_array($result)) {
 </table>
 
 <script type="text/javascript">
-$("#size").text("<?=getFileSize($size)?> (<?=$num-1?>°³)");
+$("#size").text("<?=getFileSize($size)?> (<?=$num-1?>ê°œ)");
 </script>
 
 <?

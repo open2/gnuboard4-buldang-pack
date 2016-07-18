@@ -4,7 +4,7 @@
 
 <script language=javascript>
 function my_menu_add() { 
-if (confirm("'<?=$board[bo_subject]?>' °Ô½ÃÆÇ ¹Ù·Î°¡±â¸¦ µî·ÏÇÏ½Ã°Ú½À´Ï±î?")) { 
+if (confirm("'<?=$board[bo_subject]?>' ê²Œì‹œíŒ ë°”ë¡œê°€ê¸°ë¥¼ ë“±ë¡í•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) { 
    hiddenframe.location.href = "../bbs/my_menu_add.php?bo_table=<?=$bo_table?>";
 }}
 </script>

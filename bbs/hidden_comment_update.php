@@ -1,21 +1,21 @@
 <?
 include_once("./_common.php");
 
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
 if (!$member[mb_id]) 
-  alert("È¸¿ø¸¸ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù");
+  alert("íšŒì›ë§Œ ì‚¬ìš©í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤");
 
-if ($w == 'del') { // »èÁ¦ÇÏ±â
+if ($w == 'del') { // ì‚­ì œí•˜ê¸°
     if ($is_admin)
         $sql = " delete from $g4[hidden_comment_table] where co_id = '$co_id' and bo_table='$bo_table' and wr_id='$wr_id' ";
     else
         $sql = " delete from $g4[hidden_comment_table] where co_id = '$co_id' and bo_table='$bo_table' and wr_id='$wr_id' and mb_id = '$member[mb_id]' ";
     sql_query($sql);
 } 
-else if ($w == 'update') { // ¼öÁ¤ÇÏ±â
+else if ($w == 'update') { // ìˆ˜ì •í•˜ê¸°
 }
-else // »ðÀÔÇÏ±â
+else // ì‚½ìž…í•˜ê¸°
 {
     $co_content = addslashes($wr_hidden_comment);
     $co_link = set_http($wr_hidden_comment_link);

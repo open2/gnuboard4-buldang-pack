@@ -4,24 +4,24 @@ include_once("./_common.php");
 check_demo();
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4[path]);
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4[path]);
 
-// º¯°æÇÒ id
+// ë³€ê²½í•  id
 $mb_id = "test3";
-// º¯°æµÉ id (Áßº¹ id°¡ ¾ø´ÂÁö´Â °ü¸®ÀÚ°¡ ¸ÕÀú È®ÀÎÇØ¾ß ÇÕ´Ï´Ù)
+// ë³€ê²½ë  id (ì¤‘ë³µ idê°€ ì—†ëŠ”ì§€ëŠ” ê´€ë¦¬ìê°€ ë¨¼ì € í™•ì¸í•´ì•¼ í•©ë‹ˆë‹¤)
 $to_id = "test30";  
 
-// ÁÖÀÇ Á¡
+// ì£¼ì˜ ì 
 //
-// 1. È®Àå ÇÊµå¿¡ mb_id°¡ ÀúÀåµÈ °æ¿ì¿¡´Â phpMyAdmin¿¡¼­ º¯°æÇØ¾ß ÇÕ´Ï´Ù
-// 2. ÅõÇ¥Å×ÀÌºíÀÇ mb_id´Â ¾÷µ¥ÀÌÆ® ¾ÈÇÕ´Ï´Ù (±ÍÃ¯¾Æ¼­ ÇÁ·Î±×·¥ ¾ÈÇß¾î¿ä)
-// 3. ·Î±×ÀÎ Å×ÀÌºíµµ ¾÷µ¥ÀÌÆ® ¾ÈÇÕ´Ï´Ù. ¾îÂ÷ÇÇ Áö¿öÁú Á¤º¸´Ï±î¿ä.
-// 4. º¯°æÇÒ ¾ÆÀÌµğ, º¯°æµÉ ¾ÆÀÌµğ Á¤º¸´Â Àß~~~ ÀÔ·ÂÇÏ¼¼¿ä.
+// 1. í™•ì¥ í•„ë“œì— mb_idê°€ ì €ì¥ëœ ê²½ìš°ì—ëŠ” phpMyAdminì—ì„œ ë³€ê²½í•´ì•¼ í•©ë‹ˆë‹¤
+// 2. íˆ¬í‘œí…Œì´ë¸”ì˜ mb_idëŠ” ì—…ë°ì´íŠ¸ ì•ˆí•©ë‹ˆë‹¤ (ê·€ì±¦ì•„ì„œ í”„ë¡œê·¸ë¨ ì•ˆí–ˆì–´ìš”)
+// 3. ë¡œê·¸ì¸ í…Œì´ë¸”ë„ ì—…ë°ì´íŠ¸ ì•ˆí•©ë‹ˆë‹¤. ì–´ì°¨í”¼ ì§€ì›Œì§ˆ ì •ë³´ë‹ˆê¹Œìš”.
+// 4. ë³€ê²½í•  ì•„ì´ë””, ë³€ê²½ë  ì•„ì´ë”” ì •ë³´ëŠ” ì˜~~~ ì…ë ¥í•˜ì„¸ìš”.
 
 //
-echo "È¸¿ø ¾ÆÀÌµğ $mb_id¸¦ $to_id·Î º¯°æÇÕ´Ï´Ù<BR>";
+echo "íšŒì› ì•„ì´ë”” $mb_idë¥¼ $to_idë¡œ ë³€ê²½í•©ë‹ˆë‹¤<BR>";
 
-// ºÒ´çÆÑ
+// ë¶ˆë‹¹íŒ©
 if (file_exists("$g4[path]/memo.config.php"))
     include_once("$g4[path]/memo.config.php");
 
@@ -29,95 +29,95 @@ $sql = " select count(*) as cnt from $g4[member_table] where mb_id = '$mb_id' ";
 $result = sql_fetch($sql);
 
 if (!$result[cnt])
-    alert ("º¯°æÇÒ ¾ÆÀÌµğ $mb_id°¡ ¾ø½À´Ï´Ù. È®ÀÎÈÄ ´Ù½Ã ¼öÇàÇØ ÁÖ¼¼¿ä");
+    alert ("ë³€ê²½í•  ì•„ì´ë”” $mb_idê°€ ì—†ìŠµë‹ˆë‹¤. í™•ì¸í›„ ë‹¤ì‹œ ìˆ˜í–‰í•´ ì£¼ì„¸ìš”");
 
 $sql = " select count(*) as cnt from $g4[member_table] where mb_id = '$to_id' ";
 $result = sql_fetch($sql);
 
 if ($result[cnt]) 
-    alert ("º¯°æµÈ ¾ÆÀÌµğ $to_id´Â ÀÌ¹Ì Á¸ÀçÇÕ´Ï´Ù. È®ÀÎÈÄ ´Ù½Ã ¼öÇàÇØ ÁÖ¼¼¿ä");
+    alert ("ë³€ê²½ëœ ì•„ì´ë”” $to_idëŠ” ì´ë¯¸ ì¡´ì¬í•©ë‹ˆë‹¤. í™•ì¸í›„ ë‹¤ì‹œ ìˆ˜í–‰í•´ ì£¼ì„¸ìš”");
 
-// ±×´©º¸µå db Á¤º¸ º¯°æ ---------------------------------------------------------------
+// ê·¸ëˆ„ë³´ë“œ db ì •ë³´ ë³€ê²½ ---------------------------------------------------------------
 
-// auth Å×ÀÌºí
+// auth í…Œì´ë¸”
 $sql = " update $g4[auth_table] set mb_id = '$to_id' where mb_id = '$mb_id' ";
 sql_query($sql, FALSE);
 
-// °Ô½ÃÆÇ Å×ÀÌºí - bo_admin¿¡ ¿©·¯°³ÀÇ ¾ÆÀÌµğ¸¦ ¾²´Â °æ¿ì¿¡´Â »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.
+// ê²Œì‹œíŒ í…Œì´ë¸” - bo_adminì— ì—¬ëŸ¬ê°œì˜ ì•„ì´ë””ë¥¼ ì“°ëŠ” ê²½ìš°ì—ëŠ” ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.
 $sql = " update $g4[board_table] set bo_admin = '$to_id' where bo_admin = '$mb_id' ";
 sql_query($sql, FALSE);
 
-// Ã·ºÎÆÄÀÏ ´Ù¿î·Îµå Å×ÀÌºí
+// ì²¨ë¶€íŒŒì¼ ë‹¤ìš´ë¡œë“œ í…Œì´ë¸”
 $sql = " update $g4[board_file_table]_download set mb_id = '$to_id' where mb_id = '$mb_id' ";
 sql_query($sql, FALSE);
 
-// °Ô½ÃÆÇ ÃßÃµ Å×ÀÌºí
+// ê²Œì‹œíŒ ì¶”ì²œ í…Œì´ë¸”
 $sql = " update $g4[board_good_table] set mb_id = '$to_id' where mb_id = '$mb_id' ";
 sql_query($sql, FALSE);
 
-// ÃÖ±Ù±Û Å×ÀÌºí
+// ìµœê·¼ê¸€ í…Œì´ë¸”
 $sql = " update $g4[board_new_table] set mb_id = '$to_id' where mb_id = '$mb_id' ";
 sql_query($sql, FALSE);
 
-// ºÒ´çÆÑ - ÃÖ±Ù±Û Å×ÀÌºí
+// ë¶ˆë‹¹íŒ© - ìµœê·¼ê¸€ í…Œì´ë¸”
 $sql = " update $g4[board_new_table] set parent_mb_id = '$to_id' where parent_mb_id = '$mb_id' ";
 sql_query($sql, FALSE);
 
-// ºÒ´çÆÑ - Ä£±¸ Å×ÀÌºí
+// ë¶ˆë‹¹íŒ© - ì¹œêµ¬ í…Œì´ë¸”
 if ($g4[friend_table]) {
 $sql = " update $g4[friend_table] set mb_id = '$to_id' where mb_id = '$mb_id' ";
 sql_query($sql, FALSE);
 }
 
-// ±×·ìÅ×ÀÌºí - gr_admin¿¡ ¿©·¯°³ÀÇ ¾ÆÀÌµğ¸¦ ¾²´Â °æ¿ì¿¡´Â »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.
+// ê·¸ë£¹í…Œì´ë¸” - gr_adminì— ì—¬ëŸ¬ê°œì˜ ì•„ì´ë””ë¥¼ ì“°ëŠ” ê²½ìš°ì—ëŠ” ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.
 $sql = " update $g4[group_table] set gr_admin = '$to_id' where gr_admin = '$mb_id' ";
 sql_query($sql, FALSE);
 
-// ±×·ìÈ¸¿ø Å×ÀÌºí
+// ê·¸ë£¹íšŒì› í…Œì´ë¸”
 $sql = " update $g4[group_member_table] set mb_id = '$to_id' where mb_id = '$mb_id' ";
 sql_query($sql, FALSE);
 
-// ºÒ´çÆÑ - hidden_comment
+// ë¶ˆë‹¹íŒ© - hidden_comment
 if ($g4[hidden_comment_table]) {
 $sql = " update $g4[hidden_comment_table] set mb_id = '$to_id' where mb_id = '$mb_id' ";
 sql_query($sql, FALSE);
 }
 
-// ºÒ´çÆÑ - ·Î±×ÀÎ ¿À·ùÁ¤º¸ Å×ÀÌºí
+// ë¶ˆë‹¹íŒ© - ë¡œê·¸ì¸ ì˜¤ë¥˜ì •ë³´ í…Œì´ë¸”
 if ($g4[login_fail_log_table]) {
 $sql = " update $g4[login_fail_log_table] set mb_id = '$to_id' where mb_id = '$mb_id' ";
 sql_query($sql, FALSE);
 }
 
-// ºÒ´çÆÑ - È¸¿ø´Ğ Å×ÀÌºí
+// ë¶ˆë‹¹íŒ© - íšŒì›ë‹‰ í…Œì´ë¸”
 if ($g4[mb_nick_table]) {
 $sql = " update $g4[mb_nick_table] set mb_id = '$to_id' where mb_id = '$mb_id' ";
 sql_query($sql, FALSE);
 }
 
-// È¸¿øÁ¤º¸ Å×ÀÌºí
+// íšŒì›ì •ë³´ í…Œì´ë¸”
 $sql = " update $g4[member_table] set mb_id = '$to_id' where mb_id = '$mb_id' ";
 sql_query($sql, FALSE);
 
-// ºÒ´çÆÑ - È¸¿ø·¹º§¾÷ Á¤º¸ Å×ÀÌºí
+// ë¶ˆë‹¹íŒ© - íšŒì›ë ˆë²¨ì—… ì •ë³´ í…Œì´ë¸”
 if ($g4[member_level_history_table]) {
 $sql = " update $g4[member_level_history_table] set mb_id = '$to_id' where mb_id = '$mb_id' ";
 sql_query($sql, FALSE);
 }
 
-// ºÒ´çÆÑ - ÂÊÁö4 ±×·ì
+// ë¶ˆë‹¹íŒ© - ìª½ì§€4 ê·¸ë£¹
 if ($g4[memo_group_table]) {
 $sql = " update $g4[memo_group_table] set mb_id = '$to_id' where mb_id = '$mb_id' ";
 sql_query($sql, FALSE);
 }
 
-// ºÒ´çÆÑ - ÂÊÁö4 ±×·ìÈ¸¿ø Å×ÀÌºí
+// ë¶ˆë‹¹íŒ© - ìª½ì§€4 ê·¸ë£¹íšŒì› í…Œì´ë¸”
 if ($g4[memo_group_member_table]) {
 $sql = " update $g4[memo_group_member_table] set gr_mb_id = '$to_id' where gr_mb_id = '$mb_id' ";
 sql_query($sql, FALSE);
 }
 
-// ºÒ´çÆÑ - ÂÊÁö4 Å×ÀÌºí
+// ë¶ˆë‹¹íŒ© - ìª½ì§€4 í…Œì´ë¸”
 if ($g4[memo_recv_table]) {
 
 $sql = " update $g4[memo_notice_table] set recv_mb_id = '$to_id' where recv_mb_id = '$mb_id' ";
@@ -169,8 +169,8 @@ sql_query($sql, FALSE);
 $sql = " update $g4[memo_trash_table] set memo_owner = '$to_id' where memo_owner = '$mb_id' ";
 sql_query($sql, FALSE);
 
-//ÂÊÁö4 - Ã·ºÎÆÄÀÏ µğ·ºÅä¸® ÀÌ¸§º¯°æ
-// È¸¿ø ¾ÆÀÌÄÜ Á¤º¸ º¯°æ
+//ìª½ì§€4 - ì²¨ë¶€íŒŒì¼ ë””ë ‰í† ë¦¬ ì´ë¦„ë³€ê²½
+// íšŒì› ì•„ì´ì½˜ ì •ë³´ ë³€ê²½
 $mb_memo = "$g4[data_path]/memo2/$mb_id/";
 $to_memo = "$g4[data_path]/memo2/$to_id/";
 if (file_exists($mb_memo)) {
@@ -178,41 +178,41 @@ if (file_exists($mb_memo)) {
 }
 }
 
-// ºÒ´çÆÑ - ³»°¡ ¹æ¹®ÇÑ Å×ÀÌºí
+// ë¶ˆë‹¹íŒ© - ë‚´ê°€ ë°©ë¬¸í•œ í…Œì´ë¸”
 if ($g4[my_board_table]) {
 $sql = " update $g4[my_board_table] set mb_id = '$to_id' where mb_id = '$mb_id' ";
 sql_query($sql, FALSE);
 }
 
-// ºÒ´çÆÑ - ¸¶ÀÌ¸Ş´º Å×ÀÌºí
+// ë¶ˆë‹¹íŒ© - ë§ˆì´ë©”ë‰´ í…Œì´ë¸”
 if ($g4[my_menu_table]) {
 $sql = " update $g4[my_menu_table] set mb_id = '$to_id' where mb_id = '$mb_id' ";
 sql_query($sql, FALSE);
 }
 
-// Æ÷ÀÎÆ® Å×ÀÌºí
+// í¬ì¸íŠ¸ í…Œì´ë¸”
 $sql = " update $g4[point_table] set mb_id = '$to_id' where mb_id = '$mb_id' ";
 sql_query($sql, FALSE);
 
-// ÅõÇ¥Å×ÀÌºíÀÇ mb_ids ÇÊµå´Â º¹ÀâÇØ¼­ ¤Ğ..¤Ğ...
+// íˆ¬í‘œí…Œì´ë¸”ì˜ mb_ids í•„ë“œëŠ” ë³µì¡í•´ì„œ ã… ..ã… ...
 
-// ÅõÇ¥ - ±âÅ¸ÀÇ°ß Å×ÀÌºí
+// íˆ¬í‘œ - ê¸°íƒ€ì˜ê²¬ í…Œì´ë¸”
 $sql = " update $g4[poll_etc_table] set mb_id = '$to_id' where mb_id = '$mb_id' ";
 sql_query($sql, FALSE);
 
-// ºÒ´çÆÑ - ÀÎ±â°Ë»ö¾î Å×ÀÌºí È®Àå
+// ë¶ˆë‹¹íŒ© - ì¸ê¸°ê²€ìƒ‰ì–´ í…Œì´ë¸” í™•ì¥
 $sql = " update $g4[popular_table] set mb_id = '$to_id' where mb_id = '$mb_id' ";
 sql_query($sql, FALSE);
 
-// ½ºÅ©·¦ Å×ÀÌºí
+// ìŠ¤í¬ë© í…Œì´ë¸”
 $sql = " update $g4[scrap_table] set mb_id = '$to_id' where mb_id = '$mb_id' ";
 sql_query($sql, FALSE);
 
-// ºÒ´çÆÑ - ½ºÅ©·¦ Å×ÀÌºí È®Àå
+// ë¶ˆë‹¹íŒ© - ìŠ¤í¬ë© í…Œì´ë¸” í™•ì¥
 $sql = " update $g4[scrap_table] set wr_mb_id = '$to_id' where wr_mb_id = '$mb_id' ";
 sql_query($sql, FALSE);
 
-// ºÒ´çÆÑ - ½Å°íÅ×ÀÌºí
+// ë¶ˆë‹¹íŒ© - ì‹ ê³ í…Œì´ë¸”
 if ($g4[singo_table]) {
 $sql = " update $g4[singo_table] set mb_id = '$to_id' where mb_id = '$mb_id' ";
 sql_query($sql, FALSE);
@@ -220,13 +220,13 @@ $sql = " update $g4[singo_table] set sg_mb_id = '$to_id' where sg_mb_id = '$mb_i
 sql_query($sql, FALSE);
 }
 
-// ºÒ´çÆÑ - »ç¿ëÀÚ±×·ì Å×ÀÌºí - ug_admin¿¡ ¿©·¯°³ÀÇ ¾ÆÀÌµğ¸¦ ¾²´Â °æ¿ì¿¡´Â »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.
+// ë¶ˆë‹¹íŒ© - ì‚¬ìš©ìê·¸ë£¹ í…Œì´ë¸” - ug_adminì— ì—¬ëŸ¬ê°œì˜ ì•„ì´ë””ë¥¼ ì“°ëŠ” ê²½ìš°ì—ëŠ” ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.
 if ($g4[user_group_table]) {
 $sql = " update $g4[user_group_table] set ug_mb_id = '$to_id' where ug_mb_id = '$mb_id' ";
 sql_query($sql, FALSE);
 }
 
-// °Ô½ÃÆÇ Å×ÀÌºí
+// ê²Œì‹œíŒ í…Œì´ë¸”
 $sql = " select bo_table from $g4[board_table] ";
 $result = sql_query($sql);
 
@@ -235,17 +235,17 @@ while ($row=sql_fetch_array($result)) {
     sql_query($sql, FALSE);
 }
 
-// Æ÷ÀÎÆ®°æ¸Å Å×ÀÌºí º¯°æ
-$g4[point_tender_table] = $g4[table_prefix] . "auction_tender";     // Æ÷ÀÎÆ®°æ¸Å
+// í¬ì¸íŠ¸ê²½ë§¤ í…Œì´ë¸” ë³€ê²½
+$g4[point_tender_table] = $g4[table_prefix] . "auction_tender";     // í¬ì¸íŠ¸ê²½ë§¤
 $sql = " update $g4[point_tender_table] set mb_id = '$to_id' where mb_id = '$mb_id' ";
 sql_query($sql, FALSE);
 
-// È¸¿ø ¾ÆÀÌÄÜ Á¤º¸ º¯°æ
+// íšŒì› ì•„ì´ì½˜ ì •ë³´ ë³€ê²½
 $mb_icon = "$g4[data_path]/member/" . substr($mb_id ,0,2) . "/" . $mb_id;
 $to_icon = "$g4[data_path]/member/" . substr($to_id ,0,2) . "/" . $to_id;
 if (file_exists($mb_icon)) {
     rename($mb_icon, $to_icon);
 }
 
-echo "È¸¿ø ¾ÆÀÌµğ º¯°æÀÌ ¿Ï·á µÇ¾ú½À´Ï´Ù<BR>";
+echo "íšŒì› ì•„ì´ë”” ë³€ê²½ì´ ì™„ë£Œ ë˜ì—ˆìŠµë‹ˆë‹¤<BR>";
 ?>

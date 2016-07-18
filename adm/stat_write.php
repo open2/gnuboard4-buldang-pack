@@ -22,17 +22,17 @@ $sql_search= ' where 1 > 0 ';
 
 if( empty( $this_year)) $this_year= date('Y'); 
 
-// ÀüÃ¼ °Ô½Ã±Û
+// ì „ì²´ ê²Œì‹œê¸€
 $sqlm= "select month( bn_datetime ), day( bn_datetime ), weekday( bn_datetime ) weeki, count(*) from $g4[board_new_table] where year( bn_datetime)=$this_year group by month( bn_datetime), day( bn_datetime) with rollup;"; 
 $ress= mysql_query( $sqlm); 
 
-// ÄÚ¸àÆ® °Ô½Ã±Û
+// ì½”ë©˜íŠ¸ ê²Œì‹œê¸€
 $sqlc= "select month( bn_datetime ), day( bn_datetime ), weekday( bn_datetime ) weeki, count(*) from $g4[board_new_table] where wr_id != wr_parent and year( bn_datetime)=$this_year group by month( bn_datetime), day( bn_datetime) with rollup;"; 
 $ress_c = mysql_query( $sqlc); 
 
-$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>Ã³À½</a>"; 
+$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>ì²˜ìŒ</a>"; 
 
-$g4[title] = "°Ô½Ã±Û Åë°è"; 
+$g4[title] = "ê²Œì‹œê¸€ í†µê³„"; 
 include_once("./admin.head.php"); 
 ?> 
 
@@ -43,7 +43,7 @@ href="?this_year=<?=$this_year+1;?>" >&gt;&gt;</a> </p>
 <thead> 
 <tr><td colspan='<?=$colspan?>' class='line1'></td></tr> 
 <tr class='bgcol1 bold col1 ht center'> 
-<td>¿ù</td> 
+<td>ì›”</td> 
 <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td> 
 <td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td> 
 <td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td> 
@@ -74,7 +74,7 @@ $this_month='';
 if($ress) while( $row= mysql_fetch_row( $ress)) { 
 
         if( empty( $row[1])) { 
-                if( empty( $row[0])) $this_month= 'ÃÑ°è'; 
+                if( empty( $row[0])) $this_month= 'ì´ê³„'; 
                 $row_days['sum']= $row[3]; 
                 echo '<tr height="60"><th rowspan="3" >', $this_month, '</th>'; 
                 foreach( $row_days as $key=> $cnt) { echo '<td valign="bottom" >'; 
@@ -104,7 +104,7 @@ if($ress) while( $row= mysql_fetch_row( $ress)) {
 echo "<tr><td colspan='$colspan' class='line2'></td></tr>"; 
 echo "</tbody></table>"; 
 
-$week_name= array( 0=>'¿ù', 'È­', '¼ö', '¸ñ', '±İ', 'Åä', 'ÀÏ'); 
+$week_name= array( 0=>'ì›”', 'í™”', 'ìˆ˜', 'ëª©', 'ê¸ˆ', 'í† ', 'ì¼'); 
 
 ?><table><tr><?php 
 

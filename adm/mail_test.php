@@ -3,7 +3,7 @@ $sub_menu = "200300";
 include_once("./_common.php");
 
 if (!$config[cf_email_use])
-    alert("È¯°æ¼³Á¤¿¡¼­ \'¸ŞÀÏ¹ß¼Û »ç¿ë\'¿¡ Ã¼Å©ÇÏ¼Å¾ß ¸ŞÀÏÀ» ¹ß¼ÛÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+    alert("í™˜ê²½ì„¤ì •ì—ì„œ \'ë©”ì¼ë°œì†¡ ì‚¬ìš©\'ì— ì²´í¬í•˜ì…”ì•¼ ë©”ì¼ì„ ë°œì†¡í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
 include_once("$g4[path]/lib/mailer.lib.php");
 
@@ -11,7 +11,7 @@ auth_check($auth[$sub_menu], "w");
 
 check_demo();
 
-$g4[title] = "È¸¿ø¸ŞÀÏ Å×½ºÆ®";
+$g4[title] = "íšŒì›ë©”ì¼ í…ŒìŠ¤íŠ¸";
 
 $name = $member[mb_name];
 $nick = get_text($member[mb_nick]);
@@ -25,17 +25,17 @@ $ma = sql_fetch($sql);
 $subject = $ma[ma_subject];
 
 $content = $ma[ma_content];
-$content = preg_replace("/{ÀÌ¸§}/", $name, $content);
-$content = preg_replace("/{º°¸í}/", $nick, $content);
-$content = preg_replace("/{È¸¿ø¾ÆÀÌµğ}/", $mb_id, $content);
-$content = preg_replace("/{ÀÌ¸ŞÀÏ}/", $email, $content);
-$content = preg_replace("/{»ıÀÏ}/", (int)substr($birth,4,2).'¿ù '.(int)substr($birth,6,2).'ÀÏ', $content);
+$content = preg_replace("/{ì´ë¦„}/", $name, $content);
+$content = preg_replace("/{ë³„ëª…}/", $nick, $content);
+$content = preg_replace("/{íšŒì›ì•„ì´ë””}/", $mb_id, $content);
+$content = preg_replace("/{ì´ë©”ì¼}/", $email, $content);
+$content = preg_replace("/{ìƒì¼}/", (int)substr($birth,4,2).'ì›” '.(int)substr($birth,6,2).'ì¼', $content);
 
 $mb_md5 = md5($member[mb_id].$member[mb_email].$member[mb_datetime]);
 
-$content = $content . "<hr size=0><p><span style='font-size:9pt; font-familye:±¼¸²'>¢º ´õ ÀÌ»ó Á¤º¸ ¼ö½ÅÀ» ¿øÄ¡ ¾ÊÀ¸½Ã¸é [<a href='$g4[url]/$g4[bbs]/email_stop.php?mb_id=$mb_id&mb_md5=$mb_md5' target='_blank'>¼ö½Å°ÅºÎ</a>] ÇØ ÁÖ½Ê½Ã¿À.</span></p>";
+$content = $content . "<hr size=0><p><span style='font-size:9pt; font-familye:êµ´ë¦¼'>â–¶ ë” ì´ìƒ ì •ë³´ ìˆ˜ì‹ ì„ ì›ì¹˜ ì•Šìœ¼ì‹œë©´ [<a href='$g4[url]/$g4[bbs]/email_stop.php?mb_id=$mb_id&mb_md5=$mb_md5' target='_blank'>ìˆ˜ì‹ ê±°ë¶€</a>] í•´ ì£¼ì‹­ì‹œì˜¤.</span></p>";
 
 mailer($config[cf_title], $member[mb_email], $member[mb_email], $subject, $content, 1);
 
-alert("$member[mb_nick]($member[mb_email])´Ô²² Å×½ºÆ® ¸ŞÀÏÀ» ¹ß¼ÛÇÏ¿´½À´Ï´Ù.\\n\\nÈ®ÀÎÇÏ¿© ÁÖ½Ê½Ã¿À.");
+alert("$member[mb_nick]($member[mb_email])ë‹˜ê»˜ í…ŒìŠ¤íŠ¸ ë©”ì¼ì„ ë°œì†¡í•˜ì˜€ìŠµë‹ˆë‹¤.\\n\\ní™•ì¸í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
 ?>

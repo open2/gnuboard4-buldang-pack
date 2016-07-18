@@ -33,9 +33,9 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if ($page == "") $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if ($page == "") $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
 $sql = " select * 
           $sql_common
@@ -44,23 +44,23 @@ $sql = " select *
           limit $from_record, $rows ";
 $result = sql_query($sql);
 
-$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>ì²˜ìŒ</a>";
 
-$g4[title] = "ÅõÇ¥°ü¸®";
+$g4[title] = "íˆ¬í‘œê´€ë¦¬";
 include_once("./admin.head.php");
 ?>
 
 <form name=fsearch method=get role="form" class="form-inline">
 <div class="btn-group">
-    <?=$listall?> (ÅõÇ¥¼ö : <?=number_format($total_count)?>°³)
+    <?=$listall?> (íˆ¬í‘œìˆ˜ : <?=number_format($total_count)?>ê°œ)
 </div>
 <div class="pull-right">
     <select name=sfl class="form-control">
-        <option value='po_subject'>Á¦¸ñ</option>
+        <option value='po_subject'>ì œëª©</option>
     </select>
-    <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<?=$stx?>'>
+    <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<?=$stx?>'>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 </form>
@@ -74,23 +74,23 @@ include_once("./admin.head.php");
 <colgroup width=70>
 <colgroup width=40>
 <tr class="success">
-	<td>¹øÈ£</td>
-	<td>Á¦¸ñ</td>
-	<td>ÅõÇ¥±ÇÇÑ</td>
-	<td>ÅõÇ¥¼ö</td>
-	<td>±âÅ¸ÀÇ°ß</td>
-	<td>Á¢±Ù»ç¿ë</td>
-	<td><a href="./poll_form.php"><i class='fa fa-plus-square fa-2x' title='»ı¼º'></i></a></td>
+	<td>ë²ˆí˜¸</td>
+	<td>ì œëª©</td>
+	<td>íˆ¬í‘œê¶Œí•œ</td>
+	<td>íˆ¬í‘œìˆ˜</td>
+	<td>ê¸°íƒ€ì˜ê²¬</td>
+	<td>ì ‘ê·¼ì‚¬ìš©</td>
+	<td><a href="./poll_form.php"><i class='fa fa-plus-square fa-2x' title='ìƒì„±'></i></a></td>
 </tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) {
     $sql2 = " select sum(po_cnt1+po_cnt2+po_cnt3+po_cnt4+po_cnt5+po_cnt6+po_cnt7+po_cnt8+po_cnt9) as sum_po_cnt from $g4[poll_table] where po_id = '$row[po_id]' ";
     $row2 = sql_fetch($sql2);
-    $po_etc = ($row[po_etc]) ? "»ç¿ë" : "<b>¹Ì»ç¿ë</b>";
-    $po_use_access = ($row[po_use_access]) ? "<b>»ç¿ë</b>" : "¹Ì»ç¿ë";
+    $po_etc = ($row[po_etc]) ? "ì‚¬ìš©" : "<b>ë¯¸ì‚¬ìš©</b>";
+    $po_use_access = ($row[po_use_access]) ? "<b>ì‚¬ìš©</b>" : "ë¯¸ì‚¬ìš©";
     
-    $s_mod = "<a href='./poll_form.php?$qstr&w=u&po_id=$row[po_id]'><i class='fa fa-pencil' title='¼öÁ¤'></i></a>";
-    $s_del = "<a href=\"javascript:post_delete('poll_form_update.php', '$row[po_id]');\"><i class='fa fa-trash-o' title='»èÁ¦'></i></a>";
+    $s_mod = "<a href='./poll_form.php?$qstr&w=u&po_id=$row[po_id]'><i class='fa fa-pencil' title='ìˆ˜ì •'></i></a>";
+    $s_del = "<a href=\"javascript:post_delete('poll_form_update.php', '$row[po_id]');\"><i class='fa fa-trash-o' title='ì‚­ì œ'></i></a>";
 
     $list = $i%2;
 ?>
@@ -107,12 +107,12 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 }
 
 if ($i==0) 
-    echo "<tr><td colspan='7' height=100 align=center>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='7' height=100 align=center>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
@@ -129,12 +129,12 @@ if ($stx)
 </script>
 
 <script type="text/javascript">
-// POST ¹æ½ÄÀ¸·Î »èÁ¦
+// POST ë°©ì‹ìœ¼ë¡œ ì‚­ì œ
 function post_delete(action_url, val)
 {
 	var f = document.fpost;
 
-	if(confirm("ÇÑ¹ø »èÁ¦ÇÑ ÀÚ·á´Â º¹±¸ÇÒ ¹æ¹ıÀÌ ¾ø½À´Ï´Ù.\n\nÁ¤¸» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?")) {
+	if(confirm("í•œë²ˆ ì‚­ì œí•œ ìë£ŒëŠ” ë³µêµ¬í•  ë°©ë²•ì´ ì—†ìŠµë‹ˆë‹¤.\n\nì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
         f.po_id.value = val;
 		f.action      = action_url;
 		f.submit();

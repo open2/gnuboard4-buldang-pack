@@ -1,28 +1,28 @@
 <?
 include_once("./_common.php");
 
-// ¿À·ù½Ã °øÈ÷ Error ¶ó°í Ã³¸®ÇÏ´Â °ÍÀº È¸¿øÁ¤º¸°¡ ÀÖ´ÂÁö? ÆÐ½º¿öµå°¡ Æ²¸°Áö? ¸¦ ¾Ë¾Æº¸·Á´Â ÇØÅ·¿¡ ´ëºñÇÑ°Í
+// ì˜¤ë¥˜ì‹œ ê³µížˆ Error ë¼ê³  ì²˜ë¦¬í•˜ëŠ” ê²ƒì€ íšŒì›ì •ë³´ê°€ ìžˆëŠ”ì§€? íŒ¨ìŠ¤ì›Œë“œê°€ í‹€ë¦°ì§€? ë¥¼ ì•Œì•„ë³´ë ¤ëŠ” í•´í‚¹ì— ëŒ€ë¹„í•œê²ƒ
 
 $mb_no           = trim($_GET[mb_no]);
 $mb_datetime     = trim($_GET[mb_datetime]);
 $mb_lost_certify = trim($_GET[mb_lost_certify]);
 
-// $mb_no¸¦ ¾ÏÈ£È­ ÇØÁ¦ ÇÑ´Ù
+// $mb_noë¥¼ ì•”í˜¸í™” í•´ì œ í•œë‹¤
 $mb_no = (int) decrypt($mb_no, $g4[encrypt_key]);
 
-// È¸¿ø¾ÆÀÌµð°¡ ¾Æ´Ñ È¸¿ø°íÀ¯¹øÈ£·Î È¸¿øÁ¤º¸¸¦ ±¸ÇÑ´Ù.
+// íšŒì›ì•„ì´ë””ê°€ ì•„ë‹Œ íšŒì›ê³ ìœ ë²ˆí˜¸ë¡œ íšŒì›ì •ë³´ë¥¼ êµ¬í•œë‹¤.
 $sql = " select mb_id, mb_datetime, mb_lost_certify from $g4[member_table] where mb_no = '$mb_no' ";
 $mb  = sql_fetch($sql);
 if (!trim($mb[mb_lost_certify]))
     die("Error");
 
-// ÀÎÁõ ¸µÅ©´Â ÇÑ¹ø¸¸ Ã³¸®°¡ µÇ°Ô ÇÑ´Ù.
+// ì¸ì¦ ë§í¬ëŠ” í•œë²ˆë§Œ ì²˜ë¦¬ê°€ ë˜ê²Œ í•œë‹¤.
 sql_query(" update $g4[member_table] set mb_lost_certify = '' where mb_no = '$mb_no' ");
 
-// º¯°æµÉ ÆÐ½º¿öµå°¡ ³Ñ¾î¿Í¾ßÇÏ°í ÀúÀåµÈ º¯°æÆÐ½º¿öµå¸¦ md5 ·Î º¯È¯ÇÏ¿© °°À¸¸é Á¤»ó
+// ë³€ê²½ë  íŒ¨ìŠ¤ì›Œë“œê°€ ë„˜ì–´ì™€ì•¼í•˜ê³  ì €ìž¥ëœ ë³€ê²½íŒ¨ìŠ¤ì›Œë“œë¥¼ md5 ë¡œ ë³€í™˜í•˜ì—¬ ê°™ìœ¼ë©´ ì •ìƒ
 if ($mb_lost_certify && $mb_datetime === sql_password($mb[mb_datetime]) && $mb_lost_certify === $mb[mb_lost_certify]) {
     sql_query(" update $g4[member_table] set mb_password = '$mb[mb_lost_certify]' where mb_no = '$mb_no' ");
-    alert("ÀÌ¸ÞÀÏ·Î º¸³»µå¸° ÆÐ½º¿öµå·Î º¯°æ ÇÏ¿´½À´Ï´Ù.\\n\\nÈ¸¿ø¾ÆÀÌµð¿Í º¯°æµÈ ÆÐ½º¿öµå·Î ·Î±×ÀÎ ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.", "$g4[url]/$g4[bbs]/login.php");
+    alert("ì´ë©”ì¼ë¡œ ë³´ë‚´ë“œë¦° íŒ¨ìŠ¤ì›Œë“œë¡œ ë³€ê²½ í•˜ì˜€ìŠµë‹ˆë‹¤.\\n\\níšŒì›ì•„ì´ë””ì™€ ë³€ê²½ëœ íŒ¨ìŠ¤ì›Œë“œë¡œ ë¡œê·¸ì¸ í•˜ì‹œê¸° ë°”ëžë‹ˆë‹¤.", "$g4[url]/$g4[bbs]/login.php");
 }
 else {
     die("Error");

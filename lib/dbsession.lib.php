@@ -4,7 +4,7 @@ if (!defined('_GNUBOARD_')) exit;
 /*******************************************************************************
     SESSION DB Class
 
-    »ç¿ë¹ı : 
+    ì‚¬ìš©ë²• : 
     
 
 *******************************************************************************/
@@ -23,13 +23,13 @@ class g4_dbsession {
         $id = mysql_real_escape_string($id);
         $sql = " select ss_data from `{$g4['session_table']}` where ss_id = '$id' ";
         $row = sql_fetch($sql, false);
-        // ¼¼¼Ç Å×ÀÌºíÀÌ ¾ø´Ù¸é
-        // ºÒ´çÆÑ - ±âº»À¸·Î ¼³Ä¡½Ã¿¡. ÀÌÈÄ¿¡´Â ¾Ë¾Æ¼­ Å×ÀÌºí ¼³Á¤.
+        // ì„¸ì…˜ í…Œì´ë¸”ì´ ì—†ë‹¤ë©´
+        // ë¶ˆë‹¹íŒ© - ê¸°ë³¸ìœ¼ë¡œ ì„¤ì¹˜ì‹œì—. ì´í›„ì—ëŠ” ì•Œì•„ì„œ í…Œì´ë¸” ì„¤ì •.
         //if (mysql_errno() == 1146) {
-        //    // ¼¼¼Ç Å×ÀÌºíÀ» »ı¼ºÇÑ´Ù.
+        //    // ì„¸ì…˜ í…Œì´ë¸”ì„ ìƒì„±í•œë‹¤.
         //    $sql = " CREATE TABLE `$g4[session_table]` ( `ss_id` CHAR(32) NOT NULL , `ss_data` TEXT NOT NULL , `ss_datetime` DATETIME NOT NULL , PRIMARY KEY (`ss_id`) ) ENGINE = MYISAM ";
         //    sql_query($sql, true);
-        //    // ¼¼¼Ç µğ·ºÅä¸®¿Í ÆÄÀÏÀ» ¸ğµÎ »èÁ¦ÇÑ´Ù.
+        //    // ì„¸ì…˜ ë””ë ‰í† ë¦¬ì™€ íŒŒì¼ì„ ëª¨ë‘ ì‚­ì œí•œë‹¤.
         //    foreach (glob("$g4[path]/data/session/*") as $filename) {
         //        unlink($filename);
         //    }
@@ -43,13 +43,13 @@ class g4_dbsession {
         $id = mysql_real_escape_string($id);
         $data = mysql_real_escape_string($data);
 
-        //ºÒ´çÆÑ - replace into = delete + insert ÀÌ¹Ç·Î index¸¦ ¸¸µé°í ±ú´Â ÀÛ¾÷ ¶§¹®¿¡ ¼ÓµµÀúÇÏ°¡ µÇ¹Ç·Î ÄÚµå¸¦ º¯°æ ÇÕ´Ï´Ù.
+        //ë¶ˆë‹¹íŒ© - replace into = delete + insert ì´ë¯€ë¡œ indexë¥¼ ë§Œë“¤ê³  ê¹¨ëŠ” ì‘ì—… ë•Œë¬¸ì— ì†ë„ì €í•˜ê°€ ë˜ë¯€ë¡œ ì½”ë“œë¥¼ ë³€ê²½ í•©ë‹ˆë‹¤.
         //$sql = " replace into `{$g4['session_table']}` set ss_id = '$id', ss_data = '$data', ss_datetime = '$g4[time_ymdhis]' ";
         //return sql_query($sql, false);
 
         $sql = "update $g4[session_table] set ss_datetime = '$g4[time_ymdhis]', ss_data = '$data', ip_addr='$_SERVER[REMOTE_ADDR]', mb_id='$_SESSION[ss_mb_id]' where ss_id = '$id'";
         $result = sql_query($sql);
-        // Ã³À½ ·Î±×ÀÎÀ» ÇÒ ¶§ Áßº¹Å° ¿À·ù¸¦ ÇÇÇÏ±â À§ÇØ¼­ - mysql_modified_rows() ÇÔ¼ö¸¦ common.lib.php¿¡¼­ Á¤ÀÇÇÏ¿´½¿
+        // ì²˜ìŒ ë¡œê·¸ì¸ì„ í•  ë•Œ ì¤‘ë³µí‚¤ ì˜¤ë¥˜ë¥¼ í”¼í•˜ê¸° ìœ„í•´ì„œ - mysql_modified_rows() í•¨ìˆ˜ë¥¼ common.lib.phpì—ì„œ ì •ì˜í•˜ì˜€ìŠ´
         if (mysql_modified_rows() ==0) {
             $sql = " insert into $g4[session_table] set ss_id='$id', ss_datetime = '$g4[time_ymdhis]', ss_data = '$data', ip_addr='$_SERVER[REMOTE_ADDR]', mb_id='$_SESSION[ss_mb_id]' ";
             $result = sql_query($sql, false); 

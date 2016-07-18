@@ -1,8 +1,8 @@
 <?
-// ÀÌ ÆÄÀÏÀº »õ·Î¿î ÆÄÀÏ »ý¼º½Ã ¹Ýµå½Ã Æ÷ÇÔµÇ¾î¾ß ÇÔ
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+// ì´ íŒŒì¼ì€ ìƒˆë¡œìš´ íŒŒì¼ ìƒì„±ì‹œ ë°˜ë“œì‹œ í¬í•¨ë˜ì–´ì•¼ í•¨
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-// session lockÀ» ¸·±â À§ÇØ¼­ ¾´ ´ÙÀ½¿¡ Ç×»ó ´Ý¾ÆÁØ´Ù
+// session lockì„ ë§‰ê¸° ìœ„í•´ì„œ ì“´ ë‹¤ìŒì— í•­ìƒ ë‹«ì•„ì¤€ë‹¤
 session_write_close();
 
 if (is_mobile()) {
@@ -43,7 +43,7 @@ $('.sideview').bind('click',function(e){
 });
 </script>
 
-<!-- »õÃ¢ ´ë½Å »ç¿ëÇÏ´Â iframe -->
+<!-- ìƒˆì°½ ëŒ€ì‹  ì‚¬ìš©í•˜ëŠ” iframe -->
 <iframe width=0 height=0 name='hiddenframe' style='display:none;' title='hidden frame'></iframe>
 
 <? if ($is_admin == "super") { ?><div class="well" style="text-align:center;">RUN TIME : <?=get_microtime()-$begin_time;?><br></div><? } ?>

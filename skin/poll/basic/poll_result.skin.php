@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 <div class="container">
 
@@ -21,7 +21,7 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
 <tbody>
     <tr class="active">
     <td colspan="2"><?=$po[po_date]?> ~ <?=$po[po_end_date]?></td>
-    <th><?=$nf_total_po_cnt?>Ç¥</th>
+    <th><?=$nf_total_po_cnt?>í‘œ</th>
     </tr>
     <? for ($i=1; $i<=count($list); $i++) { ?>
     <tr>
@@ -33,7 +33,7 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
         </div>
         </div>
     </td>
-    <th><?=$list[$i][cnt]?>Ç¥ (<?=number_format($list[$i][rate], 1)?>%)</th>
+    <th><?=$list[$i][cnt]?>í‘œ (<?=number_format($list[$i][rate], 1)?>%)</th>
     </tr>
     <? } ?>
 </table>
@@ -50,8 +50,8 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
         <table width=100%>
             <tr> 
                 <td>
-                    ÀÌ¸§ <input type='text' name='pc_name' size=20 class=input required itemname='ÀÌ¸§'> &nbsp;
-                    ÆĞ½º¿öµå <INPUT type=password maxLength=20 size=10 name="pc_password" itemname="ÆĞ½º¿öµå" required class=ed>
+                    ì´ë¦„ <input type='text' name='pc_name' size=20 class=input required itemname='ì´ë¦„'> &nbsp;
+                    íŒ¨ìŠ¤ì›Œë“œ <INPUT type=password maxLength=20 size=10 name="pc_password" itemname="íŒ¨ìŠ¤ì›Œë“œ" required class=ed>
                 </td>
             </tr>
             <tr> 
@@ -63,9 +63,9 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
         </table>
         <? } ?>
         <div class="input-group">
-            <input type="text" class="form-control" name='pc_idea' required itemname='ÀÇ°ß' maxlength="100" size=85>
+            <input type="text" class="form-control" name='pc_idea' required itemname='ì˜ê²¬' maxlength="100" size=85>
             <span class="input-group-btn">
-            <button type="submit" class="btn btn-success">¾²±â</button>
+            <button type="submit" class="btn btn-success">ì“°ê¸°</button>
             </span>
         </div>
         </form>
@@ -85,7 +85,7 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
 <tr>
     <td>
     <?=$list2[$i][idea]?>
-    <? if ($list2[$i][del]) { echo $list2[$i][del] . "<button type='submit' class='btn btn-xs'><i class='fa fa-trash-o' title='»èÁ¦'></i></button></a>"; } ?>
+    <? if ($list2[$i][del]) { echo $list2[$i][del] . "<button type='submit' class='btn btn-xs'><i class='fa fa-trash-o' title='ì‚­ì œ'></i></button></a>"; } ?>
     </td>
     <td align=center><?=$list2[$i][name]?></td>
     <td><?=get_datetime($list2[$i][datetime])?></td>
@@ -98,7 +98,7 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
 
 <div class="panel panel-default">
     <div class="panel-body">
-    <h5>´Ù¸¥ ÅõÇ¥°á°ú º¸±â</h5>
+    <h5>ë‹¤ë¥¸ íˆ¬í‘œê²°ê³¼ ë³´ê¸°</h5>
         <form name=fpolletc>
             <img src="<?=$g4[bbs_img_path]?>/icon_1.gif" width="15" height="8">
             <select name=po_id onchange="select_po_id(this)"><? for ($i=0; $i<count($list3); $i++) { ?><option value='<?=$list3[$i][po_id]?>'>[<?=$list3[$i][date]?>] <?=$list3[$i][subject]?><? } ?></select><script>document.fpolletc.po_id.value='<?=$po_id?>';</script>
@@ -113,7 +113,7 @@ function fpollresult_submit(f)
 {
     if (typeof(grecaptcha) != 'undefined') { 
         if(grecaptcha.getResponse() == "") { 
-            alert("½ºÆÔ¹æÁöÄÚµå(Captcha Code)°¡ Æ²·È½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØ ÁÖ¼¼¿ä."); 
+            alert("ìŠ¤íŒ¸ë°©ì§€ì½”ë“œ(Captcha Code)ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ ì£¼ì„¸ìš”."); 
             return false; 
         } 
     }

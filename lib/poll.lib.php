@@ -1,29 +1,29 @@
 <?
 if (!defined('_GNUBOARD_')) exit;
 
-// ¼³¹®Á¶»ç
+// ì„¤ë¬¸ì¡°ì‚¬
 function poll($skin_dir="basic", $po_id=false)
 {
     global $config, $member, $g4, $is_admin;
 
-    // ÅõÇ¥¹øÈ£°¡ ³Ñ¾î¿ÀÁö ¾Ê¾Ò´Ù¸é °¡Àå Å«(ÃÖ±Ù¿¡ µî·ÏÇÑ) ÅõÇ¥¹øÈ£¸¦ ¾ò´Â´Ù
+    // íˆ¬í‘œë²ˆí˜¸ê°€ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ë‹¤ë©´ ê°€ì¥ í°(ìµœê·¼ì— ë“±ë¡í•œ) íˆ¬í‘œë²ˆí˜¸ë¥¼ ì–»ëŠ”ë‹¤
     if (empty($po_id)) 
     {
         $po_id = $config['cf_max_po_id'];
         if (empty($po_id))
-            return "<!-- po_id¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù. -->";
+            return "<!-- po_idë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤. -->";
     }
 
     $sql_select = " a.po_subject, a.po_id, a.po_level, a.po_poll1, a.po_poll2, a.po_poll3, a.po_poll4, a.po_poll5, a.po_poll6, a.po_poll7, a.po_poll8, a.po_poll9, a.po_summary, a.po_skin, a.po_date, a.po_end_date ";
     $po = sql_fetch(" select $sql_select, b.gl_name from $g4[poll_table] a left join $g4[member_group_table] b on a.po_level = b.gl_id where a.po_id = '$po_id' ");
 
-    // ÅõÇ¥°¡´É ¿©ºÎ È®ÀÎ
+    // íˆ¬í‘œê°€ëŠ¥ ì—¬ë¶€ í™•ì¸
     $po_use = 0;
    
-    // ÅõÇ¥½ÃÀÛÀÏ check 
+    // íˆ¬í‘œì‹œì‘ì¼ check 
     $tm1 = explode("-", $po[po_date]);
     $start_stamp = mktime(0,0,0, $tm1[1], $tm1[2], $tm1[0]);
-    // ÅõÇ¥¸¶°¨ÀÏ check
+    // íˆ¬í‘œë§ˆê°ì¼ check
     $tm2 = explode("-", $po[po_end_date]);
     $end_stamp = mktime(0,0,0, $tm2[1], $tm2[2], $tm2[0]);
 

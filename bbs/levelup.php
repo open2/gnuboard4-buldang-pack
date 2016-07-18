@@ -1,10 +1,10 @@
 <?
 include_once("./_common.php");
 
-$g4[title] = "·¹º§¾÷";
+$g4[title] = "ë ˆë²¨ì—…";
 include_once("./_head.php");
 
-// ·¹º§¾÷ °ü·Ã Á¤º¸¸¦ ÀĞ¾î ¿É´Ï´Ù.
+// ë ˆë²¨ì—… ê´€ë ¨ ì •ë³´ë¥¼ ì½ì–´ ì˜µë‹ˆë‹¤.
 $sql = " select * from $g4[member_level_table] where member_level >= 2 and use_levelup = 1 order by member_level asc";
 $result = sql_query($sql);
 ?>
@@ -19,10 +19,10 @@ $result = sql_query($sql);
     <colgroup width=100px>
     <colgroup width=''>
   	<tr><td colspan='2' class='line2'></td></tr>
-    <th  colspan=2 align=left height=40px>È¸¿ø ·¹º§¾÷ ¸ğ´ÏÅÍ</th>
+    <th  colspan=2 align=left height=40px>íšŒì› ë ˆë²¨ì—… ëª¨ë‹ˆí„°</th>
   	<tr><td colspan='2' class='line2'></td></tr>
     <tr><td colspan=2 height=30px>
-        ÇöÀçÀÇ È¸¿ø·¹º§ : <?=$member[mb_level]?>
+        í˜„ì¬ì˜ íšŒì›ë ˆë²¨ : <?=$member[mb_level]?>
     </td></tr>
   	<tr><td colspan='2' class='line2'></td></tr>
     <?
@@ -31,15 +31,15 @@ $result = sql_query($sql);
         $to_level = $row[member_level] + 1;
         echo "<tr height=30px align=center><td>";
         echo $from_level;
-        echo "¡æ";
+        echo "â†’";
         echo $to_level;
         echo "</td><td align=left>";
         if ($member[mb_level] > $row[member_level]) {
             $sql = " select * from $g4[member_level_history_table] where mb_id='$member[mb_id]' and from_level='$from_level' and to_level='$to_level'";
             $ml = sql_fetch($sql);
             if ($ml[level_datetime])
-                echo $ml[level_datetime] . " ¿¡ ";
-            echo "·¹º§¾÷ µÇ¾ú½À´Ï´Ù.";
+                echo $ml[level_datetime] . " ì— ";
+            echo "ë ˆë²¨ì—… ë˜ì—ˆìŠµë‹ˆë‹¤.";
         }
         else {
             $sql = " select count(*) from $g4[board_new_table] where mb_id = '$member[mb_id]' and wr_id = wr_parent ";
@@ -58,16 +58,16 @@ $result = sql_query($sql);
             $days = implode(sql_fetch($sql));
             $days_diff = $row[up_days] - $days;
             
-            echo " ¾Æ·¡ÀÇ Á¶°ÇÀÌ ¸ğµÎ ¸¸Á·µÇ¸é, ÀÚµ¿À¸·Î ·¹º§¾÷ µË´Ï´Ù.";
+            echo " ì•„ë˜ì˜ ì¡°ê±´ì´ ëª¨ë‘ ë§Œì¡±ë˜ë©´, ìë™ìœ¼ë¡œ ë ˆë²¨ì—… ë©ë‹ˆë‹¤.";
             echo "<table align=left border=1px width=100%><tr align=center><td>";
             if ($row[up_days] > 0)
-                echo "<tr><td width=130px>È¸¿ø·¹º§ °æ°úÀÏ¼ö</td><td width=70px>$row[up_days] ÀÏ</td><td>·¹º§ °æ°úÀÏ¼ö $days ÀÏ</td><td>$days_diff ÀÏ ³²¾Ò½À´Ï´Ù</td></tr>";
+                echo "<tr><td width=130px>íšŒì›ë ˆë²¨ ê²½ê³¼ì¼ìˆ˜</td><td width=70px>$row[up_days] ì¼</td><td>ë ˆë²¨ ê²½ê³¼ì¼ìˆ˜ $days ì¼</td><td>$days_diff ì¼ ë‚¨ì•˜ìŠµë‹ˆë‹¤</td></tr>";
             if ($row[up_point] > 0)
-                echo "<tr><td>·¹º§¾÷ Æ÷ÀÎÆ®</td><td>$row[up_point]</td><td>$member[mb_point] Æ÷ÀÎÆ®</td><td>$point_diff Æ÷ÀÎÆ®¸¦ ´õ ¾òÀ¸¸é µË´Ï´Ù</td></tr>";
+                echo "<tr><td>ë ˆë²¨ì—… í¬ì¸íŠ¸</td><td>$row[up_point]</td><td>$member[mb_point] í¬ì¸íŠ¸</td><td>$point_diff í¬ì¸íŠ¸ë¥¼ ë” ì–»ìœ¼ë©´ ë©ë‹ˆë‹¤</td></tr>";
             if ($row[up_post] > 0)
-                echo "<tr><td>°Ô½Ã±Û¼ö</td><td>$row[up_post]</td><td>$wr_cnt ÀÇ °Ô½Ã±Û ÀÛ¼º</td><td>$wr_diff °³ÀÇ ±ÛÀ» ´õ ÀÛ¼ºÇØ ÁÖ¼¼¿ä</td></tr>";
+                echo "<tr><td>ê²Œì‹œê¸€ìˆ˜</td><td>$row[up_post]</td><td>$wr_cnt ì˜ ê²Œì‹œê¸€ ì‘ì„±</td><td>$wr_diff ê°œì˜ ê¸€ì„ ë” ì‘ì„±í•´ ì£¼ì„¸ìš”</td></tr>";
             if ($row[up_post_all] > 0)
-                echo "<tr><td>ÀüÃ¼±Û¼ö(ÄÚ¸àÆ®Æ÷ÇÔ)</td><td>$row[up_post_all]</td><td>$wr_total_cnt ÀÇ °Ô½Ã±Û ÀÛ¼º</td><td>$wr_total_diff °³ÀÇ ±ÛÀ» ´õ ÀÛ¼ºÇØÁÖ¼¼¿ä</td></tr>";
+                echo "<tr><td>ì „ì²´ê¸€ìˆ˜(ì½”ë©˜íŠ¸í¬í•¨)</td><td>$row[up_post_all]</td><td>$wr_total_cnt ì˜ ê²Œì‹œê¸€ ì‘ì„±</td><td>$wr_total_diff ê°œì˜ ê¸€ì„ ë” ì‘ì„±í•´ì£¼ì„¸ìš”</td></tr>";
             echo "</table>";
         }
         echo "</td></tr>";

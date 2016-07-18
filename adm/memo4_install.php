@@ -5,9 +5,9 @@ include_once("./_common.php");
 check_demo();
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4[path]);
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4[path]);
 
-$g4[title] = "ÂÊÁö4 ¼³Ä¡";
+$g4[title] = "ìª½ì§€4 ì„¤ì¹˜";
 include_once ("$g4[admin_path]/admin.head.php");
 ?>
 
@@ -16,7 +16,7 @@ include_once ("$g4[admin_path]/admin.head.php");
 <p>
 <table width=100% cellpadding=0 cellspacing=0>
 <tr>
-	<td width=50%><?=subtitle("ÂÊÁö4 ¼³Ä¡")?></td>
+	<td width=50%><?=subtitle("ìª½ì§€4 ì„¤ì¹˜")?></td>
 	<td width=50% align=right></td>
 </tr>
 </table>
@@ -26,9 +26,9 @@ include_once ("$g4[admin_path]/admin.head.php");
 <colgroup width=85% bgcolor=#FFFFFF></colgroup>
 <tr><td colspan=4 height=2 bgcolor=#0E87F9></td></tr>
 <tr class=ht>
-	<td>ÃÖ°í°ü¸®ÀÚ ÆĞ½º¿öµå</td>
+	<td>ìµœê³ ê´€ë¦¬ì íŒ¨ìŠ¤ì›Œë“œ</td>
 	<td colspan=3>
-        <input type=password name=mb_password class=ed required itemname='ÃÖ°í°ü¸®ÀÚ ÆĞ½º¿öµå'>
+        <input type=password name=mb_password class=ed required itemname='ìµœê³ ê´€ë¦¬ì íŒ¨ìŠ¤ì›Œë“œ'>
 	</td>
 </tr>
 <tr class=ht>
@@ -38,11 +38,11 @@ include_once ("$g4[admin_path]/admin.head.php");
         $result = sql_fetch(" select * from $g4[memo_config_table] ", false);
         if ($result)
         {
-            echo "ÀÌ¹Ì ¼³Ä¡µÇ¾î ÀÖ½À´Ï´Ù.<br>Àç¼³Ä¡ ÇÏ½Ã·Á¸é ÃÖ°í°ü¸®ÀÚ ÆĞ½º¿öµå¸¦ ÀÔ·ÂÇØ ÁÖ½Ê½Ã¿À<br><b>Àç¼³Ä¡ ÇÏ½Ã´Â °æ¿ì ÂÊÁö4¿Í °ü·ÃµÈ ±âÁ¸ÀÇ ÀÚ·á°¡ »èÁ¦µÉ ¼ö ÀÖÀ¸¹Ç·Î ÁÖÀÇÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.</b>";
+            echo "ì´ë¯¸ ì„¤ì¹˜ë˜ì–´ ìˆìŠµë‹ˆë‹¤.<br>ì¬ì„¤ì¹˜ í•˜ì‹œë ¤ë©´ ìµœê³ ê´€ë¦¬ì íŒ¨ìŠ¤ì›Œë“œë¥¼ ì…ë ¥í•´ ì£¼ì‹­ì‹œì˜¤<br><b>ì¬ì„¤ì¹˜ í•˜ì‹œëŠ” ê²½ìš° ìª½ì§€4ì™€ ê´€ë ¨ëœ ê¸°ì¡´ì˜ ìë£Œê°€ ì‚­ì œë  ìˆ˜ ìˆìœ¼ë¯€ë¡œ ì£¼ì˜í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.</b>";
         }
         else
         {
-            echo "¼³Ä¡µÇ¾î ÀÖÁö ¾Ê½À´Ï´Ù.<br>¼³Ä¡ÇÏ½Ã·Á¸é °ü¸®ÀÚ ÆĞ½º¿öµå¸¦ ÀÔ·ÂÇØ ÁÖ½Ê½Ã¿À.";
+            echo "ì„¤ì¹˜ë˜ì–´ ìˆì§€ ì•ŠìŠµë‹ˆë‹¤.<br>ì„¤ì¹˜í•˜ì‹œë ¤ë©´ ê´€ë¦¬ì íŒ¨ìŠ¤ì›Œë“œë¥¼ ì…ë ¥í•´ ì£¼ì‹­ì‹œì˜¤.";
         }
         ?>
 	</td>
@@ -51,7 +51,7 @@ include_once ("$g4[admin_path]/admin.head.php");
 </table>
 
 <p align=center>
-	<input type=submit class=btn1 accesskey='s' value='  È®  ÀÎ  '>
+	<input type=submit class=btn1 accesskey='s' value='  í™•  ì¸  '>
 </form>
 
 <script>

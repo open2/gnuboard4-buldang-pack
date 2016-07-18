@@ -1,7 +1,7 @@
 <?
 include_once("_common.php");
 
-// post·Î µé¾î¿Â °ªÀ» º¯¼ö·Î
+// postë¡œ ë“¤ì–´ì˜¨ ê°’ì„ ë³€ìˆ˜ë¡œ
 $sst        = strip_tags($_POST[sst]);
 $sod        = strip_tags($_POST[sod]);
 $sfl        = strip_tags($_POST[sfl]);
@@ -14,7 +14,7 @@ $wr_id      = strip_tags($_POST[wr_id]);
 $comment_id = strip_tags($_POST[comment_id]);
 $flag       = strip_tags($_POST[flag]);
 
-// comment_id°¡ ÀÖ´Â °æ¿ì´Â comment_id¸¦ Àá±ÅÁÖ°í, wr_option°ú mb_id °ªÀ» °¡Á® ¿É´Ï´Ù.
+// comment_idê°€ ìžˆëŠ” ê²½ìš°ëŠ” comment_idë¥¼ ìž ê¶ˆì£¼ê³ , wr_optionê³¼ mb_id ê°’ì„ ê°€ì ¸ ì˜µë‹ˆë‹¤.
 if ($comment_id) {
     $wr_id = $comment_id;
     $result = sql_fetch(" select wr_option, mb_id from $write_table where wr_id = '$wr_id' ");
@@ -27,21 +27,21 @@ if ($comment_id) {
 }
 
 if (!$is_admin && $write["mb_id"] != $member["mb_id"])
-    alert("Á¢±Ù±ÇÇÑÀÌ ¾ø½À´Ï´Ù. - $write[mb_id]", $url);
+    alert("ì ‘ê·¼ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤. - $write[mb_id]", $url);
 
 if ($flag == 'no') 
 {
     if (!strstr($wr_option, "secret"))
-        alert("ºñ¹Ð±ÛÀÌ ¾Æ´Õ´Ï´Ù.", $url);
+        alert("ë¹„ë°€ê¸€ì´ ì•„ë‹™ë‹ˆë‹¤.", $url);
 
     $wr_option = str_replace("secret", "", $wr_option);
 
-    $msg = "ºñ¹Ð±Û ¼³Á¤À» ÇØÁ¦ÇÏ¿´½À´Ï´Ù.";
+    $msg = "ë¹„ë°€ê¸€ ì„¤ì •ì„ í•´ì œí•˜ì˜€ìŠµë‹ˆë‹¤.";
 } 
 else 
 {
     if (strstr($wr_option, "secret"))
-        alert("ÀÌ¹Ì Àá°ÜÁ® ÀÖ´Â °Ô½Ã¹°ÀÔ´Ï´Ù.", $url);
+        alert("ì´ë¯¸ ìž ê²¨ì ¸ ìžˆëŠ” ê²Œì‹œë¬¼ìž…ë‹ˆë‹¤.", $url);
 
     if ($wr_option) {
         $wr_option = "$wr_option,secret";
@@ -49,7 +49,7 @@ else
         $wr_option = "secret";
     }
 
-    $msg = "°Ô½Ã¹°À» ºñ¹Ð±Û·Î Àá±É½À´Ï´Ù.";
+    $msg = "ê²Œì‹œë¬¼ì„ ë¹„ë°€ê¸€ë¡œ ìž ê¶œìŠµë‹ˆë‹¤.";
 }
 
 $sql = "update $write_table set wr_option = '$wr_option' where wr_id = '$wr_id'";

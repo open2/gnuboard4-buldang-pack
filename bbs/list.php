@@ -1,11 +1,11 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-// ºÒ´çÆÑ - È®Àå
+// ë¶ˆë‹¹íŒ© - í™•ì¥
 if (file_exists("$board_skin_path/list.head.skin.php"))
     @include_once("$board_skin_path/list.head.skin.php");
 
-// ºÒ´çÆÑ : °øÁö±ÛÀÇ °¹¼ö ±¸ÇÏ±â, DB ÀÛ¾÷ÀÌ ¾Æ´Ï¶ó¼­ Ç×»ó ÇØÁàµµ »ó°ü¾öµû.
+// ë¶ˆë‹¹íŒ© : ê³µì§€ê¸€ì˜ ê°¯ìˆ˜ êµ¬í•˜ê¸°, DB ì‘ì—…ì´ ì•„ë‹ˆë¼ì„œ í•­ìƒ í•´ì¤˜ë„ ìƒê´€ì—„ë”°.
 $notice = preg_split("/\n/i", trim($board[bo_notice]));
 $arr_notice_1 = array();
 foreach ($notice as $row) {
@@ -14,7 +14,7 @@ foreach ($notice as $row) {
 }
 $arr_notice_count = count($arr_notice_1);
 
-// °øÁö»çÇ× max. °¹¼ö¸¦ Á¶Á¤ÇØ Áİ´Ï´Ù. 
+// ê³µì§€ì‚¬í•­ max. ê°¯ìˆ˜ë¥¼ ì¡°ì •í•´ ì¤ë‹ˆë‹¤. 
 // http://php.net/manual/en/function.array-slice.php
 if ($g4['bo_notice_max'] > 0 && $arr_notice_count > 0 && $arr_notice_count > $g4['bo_notice_max']) {
     shuffle($arr_notice_1);
@@ -23,45 +23,45 @@ if ($g4['bo_notice_max'] > 0 && $arr_notice_count > 0 && $arr_notice_count > $g4
     $arr_notice = $arr_notice_1;
 }
 
-// SQL¿¡¼­ »ç¿ëÇÒ °øÁö»çÇ× ¸ñ·ÏÀ» ¸¸µé¾îµĞ´Ù. inÀ¸·Î ¾²¸é µÇ´Â°Å.
+// SQLì—ì„œ ì‚¬ìš©í•  ê³µì§€ì‚¬í•­ ëª©ë¡ì„ ë§Œë“¤ì–´ë‘”ë‹¤. inìœ¼ë¡œ ì“°ë©´ ë˜ëŠ”ê±°.
 if ($board[bo_notice_joongbok] && $arr_notice_count > 0)
     $sql_notice = "and wr_id not in (" . implode(",", $arr_notice) . ")";
 else
     $sql_notice = "";
 
-// ºÒ´çÆÑ - $board[bo_page_rows] °ªÀÌ ¾øÀ¸¸é ±âº»°ªÀ» ¼³Á¤
+// ë¶ˆë‹¹íŒ© - $board[bo_page_rows] ê°’ì´ ì—†ìœ¼ë©´ ê¸°ë³¸ê°’ì„ ì„¤ì •
 if (!$board[bo_page_rows])
     $board[bo_page_rows] = $config[cf_page_rows];
 
 $list_select = " * ";
 
-// ºĞ·ù »ç¿ë ¿©ºÎ
+// ë¶„ë¥˜ ì‚¬ìš© ì—¬ë¶€
 $is_category = false;
 if ($board[bo_use_category]) 
 {
     $is_category = true;
     $category_location = "$g4[path]/$bo_table?sca=";
-    $category_option = get_category_option($bo_table); // SELECT OPTION ÅÂ±×·Î ³Ñ°Ü¹ŞÀ½
+    $category_option = get_category_option($bo_table); // SELECT OPTION íƒœê·¸ë¡œ ë„˜ê²¨ë°›ìŒ
 }
 
 $sop = strtolower($sop);
 if ($sop != "and" && $sop != "or")
     $sop = "and";
 
-// ºĞ·ù ¼±ÅÃ ¶Ç´Â °Ë»ö¾î°¡ ÀÖ´Ù¸é
+// ë¶„ë¥˜ ì„ íƒ ë˜ëŠ” ê²€ìƒ‰ì–´ê°€ ìˆë‹¤ë©´
 $stx = trim($stx);
 if ($sca || $stx) 
 {
-    // °Ë»ö±ÇÇÑ - ±ÇÇÑ¼³Á¤ÀÌ ¾øÀ¸¸é, Á¶È¸±ÇÇÑ°ú µ¿ÀÏÇÏ°Ô
+    // ê²€ìƒ‰ê¶Œí•œ - ê¶Œí•œì„¤ì •ì´ ì—†ìœ¼ë©´, ì¡°íšŒê¶Œí•œê³¼ ë™ì¼í•˜ê²Œ
     if ($stx !== "") {
         if ($board['bo_search_level'] == 0 )
             $board['bo_search_level'] = $board['bo_read_level'];
         if ($board['bo_search_level'] > $member['mb_level'])
-            alert("°Ë»öÀ» »ç¿ëÇÒ ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.\\n\\nÈ¸¿øÀÌ½Ã¶ó¸é ·Î±×ÀÎ ÈÄ ÀÌ¿ëÇØ º¸½Ê½Ã¿À.", "$g4[bbs_path]/login.php?$qstr&url=".urlencode("$_SERVER[PHP_SELF]/$bo_table?sfl=$sfl&stx=$stx&sop=$sop"));
+            alert("ê²€ìƒ‰ì„ ì‚¬ìš©í•  ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.\\n\\níšŒì›ì´ì‹œë¼ë©´ ë¡œê·¸ì¸ í›„ ì´ìš©í•´ ë³´ì‹­ì‹œì˜¤.", "$g4[bbs_path]/login.php?$qstr&url=".urlencode("$_SERVER[PHP_SELF]/$bo_table?sfl=$sfl&stx=$stx&sop=$sop"));
     }
     $sql_search = get_sql_search($sca, $sfl, $stx, $sop, $bo_table);
 
-    // °¡Àå ÀÛÀº ¹øÈ£¸¦ ¾ò¾î¼­ º¯¼ö¿¡ ÀúÀå (ÇÏ´ÜÀÇ ÆäÀÌÂ¡¿¡¼­ »ç¿ë)
+    // ê°€ì¥ ì‘ì€ ë²ˆí˜¸ë¥¼ ì–»ì–´ì„œ ë³€ìˆ˜ì— ì €ì¥ (í•˜ë‹¨ì˜ í˜ì´ì§•ì—ì„œ ì‚¬ìš©)
     //$sql = " select MIN(wr_num) as min_wr_num from $write_table ";
     //$row = sql_fetch($sql);
     //$min_spt = $row[min_wr_num];
@@ -69,14 +69,14 @@ if ($sca || $stx)
 
     if (!$spt) $spt = $min_spt;
 
-    // $max_spt°¡ 0º¸´Ù Å©°Å³ª °°À¸¸é sql_search¸¦ ÇÒ ÇÊ¿ä°¡ ¾ø½À´Ï´Ù.
-    // ºÒÇÊ¿äÇÑ query Á¶°ÇÀÌ°í ½Ã½ºÅÛÀÇ ºÎÇÏ¸¸ °¡ÁßÇÏ´Â ÄÚµå ÀÔ´Ï´Ù.
+    // $max_sptê°€ 0ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ìœ¼ë©´ sql_searchë¥¼ í•  í•„ìš”ê°€ ì—†ìŠµë‹ˆë‹¤.
+    // ë¶ˆí•„ìš”í•œ query ì¡°ê±´ì´ê³  ì‹œìŠ¤í…œì˜ ë¶€í•˜ë§Œ ê°€ì¤‘í•˜ëŠ” ì½”ë“œ ì…ë‹ˆë‹¤.
     $max_spt = $spt + $config[cf_search_part];
     if ($max_spt < 0)
         $sql_search .= " and (wr_num between '".$spt."' and '".($spt + $config[cf_search_part])."') ";
 
-    // ¿ø±Û¸¸ ¾ò´Â´Ù. (ÄÚ¸àÆ®ÀÇ ³»¿ëµµ °Ë»öÇÏ±â À§ÇÔ)
-    // ¶ó¿¤´Ô Á¦¾È ÄÚµå·Î ´ëÃ¼ http://sir.co.kr/bbs/board.php?bo_table=g5_bug&wr_id=2922
+    // ì›ê¸€ë§Œ ì–»ëŠ”ë‹¤. (ì½”ë©˜íŠ¸ì˜ ë‚´ìš©ë„ ê²€ìƒ‰í•˜ê¸° ìœ„í•¨)
+    // ë¼ì—˜ë‹˜ ì œì•ˆ ì½”ë“œë¡œ ëŒ€ì²´ http://sir.co.kr/bbs/board.php?bo_table=g5_bug&wr_id=2922
     $sql = " SELECT COUNT(DISTINCT `wr_parent`) AS `cnt` FROM {$write_table} WHERE {$sql_search} ";
     $row = sql_fetch($sql);
     $total_count = $row['cnt'];
@@ -87,34 +87,34 @@ else
     $total_count = $board[bo_count_write];
 }
 
-$total_page = ceil($total_count / $board[bo_page_rows]);        // ÀüÃ¼ ÆäÀÌÁö °è»ê
+$total_page = ceil($total_count / $board[bo_page_rows]);        // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
 
-// ºÒ´çÆÑ - È¨ÀÌ³× ÆÁÀ¸·Î ¼öÁ¤, http://sir.co.kr/bbs/board.php?bo_table=g4_tiptech&wr_id=20870
+// ë¶ˆë‹¹íŒ© - í™ˆì´ë„¤ íŒìœ¼ë¡œ ìˆ˜ì •, http://sir.co.kr/bbs/board.php?bo_table=g4_tiptech&wr_id=20870
 if ($wr_id && !$page)
 {
     $query = " select COUNT(*) cnt from $write_table where wr_id > '$wr_id' and wr_is_comment = 0 ";
-    $query .= $sca || $stx ? " and ".$sql_search : ""; // ºĞ·ù ¼±ÅÃ ¶Ç´Â °Ë»ö¾î°¡ ÀÖ´Ù¸é
+    $query .= $sca || $stx ? " and ".$sql_search : ""; // ë¶„ë¥˜ ì„ íƒ ë˜ëŠ” ê²€ìƒ‰ì–´ê°€ ìˆë‹¤ë©´
 
     $row = sql_fetch( $query );
     $page = intval( $row[cnt] / $board[bo_page_rows] ) + 1;
 } else if (!$page)
-    { $page = 1; } // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
+    { $page = 1; } // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
 
-$from_record = ($page - 1) * $board[bo_page_rows]; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$from_record = ($page - 1) * $board[bo_page_rows]; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
-// °ü¸®ÀÚ¶ó¸é CheckBox º¸ÀÓ
+// ê´€ë¦¬ìë¼ë©´ CheckBox ë³´ì„
 $is_checkbox = false;
 if ($member[mb_id] && ($is_admin == "super" || $group[gr_admin] == $member[mb_id] || $board[bo_admin] == $member[mb_id])) 
     $is_checkbox = true;
 
-// Á¤·Ä¿¡ »ç¿ëÇÏ´Â QUERY_STRING
+// ì •ë ¬ì— ì‚¬ìš©í•˜ëŠ” QUERY_STRING
 $qstr2 = "bo_table=$bo_table&sop=$sop";
 
 if ($board[bo_gallery_cols])
     $td_width = (int)(100 / $board[bo_gallery_cols]);
 
-// Á¤·Ä
-// ÀÎµ¦½º ÇÊµå°¡ ¾Æ´Ï¸é Á¤·Ä¿¡ »ç¿ëÇÏÁö ¾ÊÀ½
+// ì •ë ¬
+// ì¸ë±ìŠ¤ í•„ë“œê°€ ì•„ë‹ˆë©´ ì •ë ¬ì— ì‚¬ìš©í•˜ì§€ ì•ŠìŒ
 //if (!$sst || ($sst && !(strstr($sst, 'wr_id') || strstr($sst, "wr_datetime")))) {
 if (!$sst)
 {
@@ -125,8 +125,8 @@ if (!$sst)
     $sod = "";
 }
 else {
-    // °Ô½Ã¹° ¸®½ºÆ®ÀÇ Á¤·Ä ´ë»ó ÇÊµå°¡ ¾Æ´Ï¶ó¸é °ø¹éÀ¸·Î (nasca ´Ô 09.06.16)
-    // ¸®½ºÆ®¿¡¼­ ´Ù¸¥ ÇÊµå·Î Á¤·ÄÀ» ÇÏ·Á¸é ¾Æ·¡ÀÇ ÄÚµå¿¡ ÇØ´ç ÇÊµå¸¦ Ãß°¡ÇÏ¼¼¿ä.
+    // ê²Œì‹œë¬¼ ë¦¬ìŠ¤íŠ¸ì˜ ì •ë ¬ ëŒ€ìƒ í•„ë“œê°€ ì•„ë‹ˆë¼ë©´ ê³µë°±ìœ¼ë¡œ (nasca ë‹˜ 09.06.16)
+    // ë¦¬ìŠ¤íŠ¸ì—ì„œ ë‹¤ë¥¸ í•„ë“œë¡œ ì •ë ¬ì„ í•˜ë ¤ë©´ ì•„ë˜ì˜ ì½”ë“œì— í•´ë‹¹ í•„ë“œë¥¼ ì¶”ê°€í•˜ì„¸ìš”.
     // $sst = preg_match("/^(wr_subject|wr_datetime|wr_hit|wr_good|wr_nogood)$/i", $sst) ? $sst : "";
     $sst = preg_match("/^(wr_datetime|wr_hit|wr_good|wr_nogood)$/i", $sst) ? $sst : "";
 }
@@ -139,7 +139,7 @@ if ($sst)
 
 if ($sca || $stx)
 {
-    // °Ë»ö¾î ÇÊÅÍ¸µ (±İÄ¢ °Ë»ö¾î´Â °Ë»öÇÒ ¼ö ¾ø°Ô)
+    // ê²€ìƒ‰ì–´ í•„í„°ë§ (ê¸ˆì¹™ ê²€ìƒ‰ì–´ëŠ” ê²€ìƒ‰í•  ìˆ˜ ì—†ê²Œ)
     $search_filter = 0;
     if (!$is_admin && $stx) {
         $result3 = sql_fetch(" select count(*) as cnt from $g4[filter_table] where pp_word like '%$stx%'");
@@ -148,7 +148,7 @@ if ($sca || $stx)
     }
 
     if ($search_filter ==1) {
-        // filtering¿¡ °É¸®´Â °æ¿ì °á°ú°ªÀ» ºñ¿ö¹ö¸°´Ù.
+        // filteringì— ê±¸ë¦¬ëŠ” ê²½ìš° ê²°ê³¼ê°’ì„ ë¹„ì›Œë²„ë¦°ë‹¤.
         $result = sql_query(" select * from $g4[filter_table] where pp_word='!@#$%^&DFVDSGF'");
     } else {
         $sql = " select distinct wr_parent from {$write_table} where {$sql_search} {$sql_order} limit {$from_record}, $board[bo_page_rows] ";
@@ -161,18 +161,18 @@ else
     $result = sql_query($sql, false);
 }
 
-// ³âµµ 2ÀÚ¸®
+// ë…„ë„ 2ìë¦¬
 $today2 = $g4[time_ymd];
 
 $list = array();
 $i = 0;
 
-// °¡Àå ¸¶Áö¸· °øÁö»çÇ× ³¯Â¥¸¦ Ã£´Â´Ù (ÃÊ±âÈ­)
+// ê°€ì¥ ë§ˆì§€ë§‰ ê³µì§€ì‚¬í•­ ë‚ ì§œë¥¼ ì°¾ëŠ”ë‹¤ (ì´ˆê¸°í™”)
 $g4['last_notice_datetime'] = 0;
 
 if (!$sca && !$stx) 
 {
-    // ºÒ´çÆÑ - ÀüÃ¼ °øÁö¸¦ °¡Á® ¿Â´Ù
+    // ë¶ˆë‹¹íŒ© - ì „ì²´ ê³µì§€ë¥¼ ê°€ì ¸ ì˜¨ë‹¤
     if ($board['bo_naver_notice']) {
 
         if ($g4[global_notice_max] > 0)
@@ -184,18 +184,18 @@ if (!$sca && !$stx)
 
         while ($row_notice = sql_fetch_array($global_notice)) 
         {
-            // ÇöÀç °Ô½ÃÆÇ¿¡¼­´Â °øÁö·Î µî·ÏµÇ¾î ÀÖ´Â °æ¿ì¿¡, ÇØ´ç ÀüÃ¼°øÁö¸¦ »ı·«
+            // í˜„ì¬ ê²Œì‹œíŒì—ì„œëŠ” ê³µì§€ë¡œ ë“±ë¡ë˜ì–´ ìˆëŠ” ê²½ìš°ì—, í•´ë‹¹ ì „ì²´ê³µì§€ë¥¼ ìƒëµ
             if ($row_notice['bo_table'] == $bo_table && in_array($row_notice[wr_id], $arr_notice))
                 ;
             else {
-                // °Ô½ÃÆÇ Á¤º¸¸¦ °¡Á® ¿É´Ï´Ù.
+                // ê²Œì‹œíŒ ì •ë³´ë¥¼ ê°€ì ¸ ì˜µë‹ˆë‹¤.
                 $n_board = get_board($row_notice['bo_table']);
                 
-                // ¸î°¡Áö´Â º¸¿©Áö´Â °Ô½ÃÆÇÀÇ Á¤º¸·êÀ» µû¶ó¾ß ÇÕ´Ï´Ù.
+                // ëª‡ê°€ì§€ëŠ” ë³´ì—¬ì§€ëŠ” ê²Œì‹œíŒì˜ ì •ë³´ë£°ì„ ë”°ë¼ì•¼ í•©ë‹ˆë‹¤.
                 $n_board['bo_gallery'] = $board['bo_gallery'];
                 
-                // Á¤º¸¸¦ °¡Á®¿Ã Å×ÀÌºí
-                $tmp_write_table = $g4['write_prefix'] . $row_notice['bo_table']; // °Ô½ÃÆÇ Å×ÀÌºí ÀüÃ¼ÀÌ¸§
+                // ì •ë³´ë¥¼ ê°€ì ¸ì˜¬ í…Œì´ë¸”
+                $tmp_write_table = $g4['write_prefix'] . $row_notice['bo_table']; // ê²Œì‹œíŒ í…Œì´ë¸” ì „ì²´ì´ë¦„
                 
                 $sql = " select $list_select from $tmp_write_table where wr_id = '$row_notice[wr_id]' ";
                 $n_row = sql_fetch($sql);
@@ -205,7 +205,7 @@ if (!$sca && !$stx)
                 $list[$i]['n_notice'] = $n_board['bo_table'];
                 $i++;
 
-                // °¡Àå ¸¶Áö¸· °øÁö»çÇ× ³¯Â¥¸¦ Ã£´Â´Ù (ÀüÃ¼°øÁöÀÇ ³¯Â¥¸¦. ±×·±µ¥ $list[$i][wr_datetime]Àº ¾È¸ÔÈù´Ù. ´õ ¼öÁ¤ÇÏ±â ±ÍÃ¯...)
+                // ê°€ì¥ ë§ˆì§€ë§‰ ê³µì§€ì‚¬í•­ ë‚ ì§œë¥¼ ì°¾ëŠ”ë‹¤ (ì „ì²´ê³µì§€ì˜ ë‚ ì§œë¥¼. ê·¸ëŸ°ë° $list[$i][wr_datetime]ì€ ì•ˆë¨¹íŒë‹¤. ë” ìˆ˜ì •í•˜ê¸° ê·€ì±¦...)
                 if ($n_row['wr_datetime'] > $g4['last_notice_datetime'])
                     $g4['last_notice_datetime'] = $n_row[wr_datetime];
             }
@@ -215,7 +215,7 @@ if (!$sca && !$stx)
     //$arr_notice = preg_split("/\n/i", trim($board[bo_notice]));
     //$arr_notice_count = count($arr_notice);
 
-    if ($arr_notice_count > 0 && $page == 1) { // °øÁö»çÇ×ÀÌ ÀÖ´Â °æ¿ì - ºÒ´çÆÑ¿¡¼­´Â Ã¹ ÆäÀÌÁö¿¡¼­¸¸ º¸ÀÌ°Ô ¼öÁ¤
+    if ($arr_notice_count > 0 && $page == 1) { // ê³µì§€ì‚¬í•­ì´ ìˆëŠ” ê²½ìš° - ë¶ˆë‹¹íŒ©ì—ì„œëŠ” ì²« í˜ì´ì§€ì—ì„œë§Œ ë³´ì´ê²Œ ìˆ˜ì •
 
         $sql_case = " ";
         $j = 0;
@@ -243,7 +243,7 @@ if (!$sca && !$stx)
                 $list[$i] = get_list($row_notice, $board, $board_skin_path, $board[bo_subject_len]);
                 $list[$i][is_notice] = true;
 
-                // °¡Àå ¸¶Áö¸· °øÁö»çÇ× ³¯Â¥¸¦ Ã£´Â´Ù (°øÁöÀÇ ³¯Â¥¸¦)
+                // ê°€ì¥ ë§ˆì§€ë§‰ ê³µì§€ì‚¬í•­ ë‚ ì§œë¥¼ ì°¾ëŠ”ë‹¤ (ê³µì§€ì˜ ë‚ ì§œë¥¼)
                 if ($list[$i][wr_datetime] > $g4['last_notice_datetime'])
                     $g4['last_notice_datetime'] = $list[$i][wr_datetime];
 
@@ -260,7 +260,7 @@ if (!$sca && !$stx)
 }
 else 
 {
-    // °Ë»öÀÏ °æ¿ì wr_id¸¸ ¾ò¾úÀ¸¹Ç·Î ´Ù½Ã ÇÑÇàÀ» ¾ò´Â´Ù
+    // ê²€ìƒ‰ì¼ ê²½ìš° wr_idë§Œ ì–»ì—ˆìœ¼ë¯€ë¡œ ë‹¤ì‹œ í•œí–‰ì„ ì–»ëŠ”ë‹¤
     $sql_case = "";
     $j = 0;
     while ($row = sql_fetch_array($result)) 
@@ -285,7 +285,7 @@ $k = 0;
 
 while ($row = sql_fetch_array($result)) 
 {
-    // °Ë»öÀÏ °æ¿ì wr_id¸¸ ¾ò¾úÀ¸¹Ç·Î ´Ù½Ã ÇÑÇàÀ» ¾ò´Â´Ù
+    // ê²€ìƒ‰ì¼ ê²½ìš° wr_idë§Œ ì–»ì—ˆìœ¼ë¯€ë¡œ ë‹¤ì‹œ í•œí–‰ì„ ì–»ëŠ”ë‹¤
     //if ($sca || $stx)
     //    $row = sql_fetch(" select {$list_select} from $write_table where wr_id = '$row[wr_parent]' ");
 
@@ -332,25 +332,25 @@ if (preg_match("/gecko|firefox/i", $_SERVER['HTTP_USER_AGENT'])) {
     $nobr_end   = "</nobr>";
 }
 
-// RSS º¸±â »ç¿ë¿¡ Ã¼Å©°¡ µÇ¾î ÀÖ¾î¾ß RSS º¸±â °¡´É 061106
+// RSS ë³´ê¸° ì‚¬ìš©ì— ì²´í¬ê°€ ë˜ì–´ ìˆì–´ì•¼ RSS ë³´ê¸° ê°€ëŠ¥ 061106
 $rss_href = "";
 if ($board[bo_use_rss_view])
     $rss_href = "$g4[bbs_path]/rss.php?bo_table=$bo_table";
 
-// ºÒ´çÆÑ : ¿Ö href¿¡ $qstrÀ» ¾È³Ö¾úÀ»±î?
+// ë¶ˆë‹¹íŒ© : ì™œ hrefì— $qstrì„ ì•ˆë„£ì—ˆì„ê¹Œ?
 if ($write_href) $write_href .= $qstr;
 if ($rss_href) $rss_href .= $qstr;
 
 $stx = get_text(stripslashes($stx));
 
-// ÇÑÁÙ°Ô½ÃÆÇÀº ÀÏ¹İ °Ô½ÃÆÇ°ú ´Ş¶ó ¿¹¿Ü Ã³¸®. ¸ğ¹ÙÀÏ ºĞ±â ºÒÇÊ¿ä.
+// í•œì¤„ê²Œì‹œíŒì€ ì¼ë°˜ ê²Œì‹œíŒê³¼ ë‹¬ë¼ ì˜ˆì™¸ ì²˜ë¦¬. ëª¨ë°”ì¼ ë¶„ê¸° ë¶ˆí•„ìš”.
 if ($bo_table === 'oneline') {
     include_once($board_skin_path . "/list.skin.php");
 } else {
     include_once(g4_path($board_skin_path) . "/list.skin.php");
 }
 
-// ºÒ´çÆÑ - È®Àå
+// ë¶ˆë‹¹íŒ© - í™•ì¥
 if (file_exists("$board_skin_path/list.tail.skin.php"))
     @include_once("$board_skin_path/list.tail.skin.php");
 ?>

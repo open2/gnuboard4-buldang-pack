@@ -1,37 +1,37 @@
 <? 
 include_once("./_common.php"); 
 
-// ¼¼¼Ç¿¡ ÀúÀåµÈ ÅäÅ«°ú Æû°ªÀ¸·Î ³Ñ¾î¿Â ÅäÅ«À» ºñ±³ 
+// ì„¸ì…˜ì— ì €ìž¥ëœ í† í°ê³¼ í¼ê°’ìœ¼ë¡œ ë„˜ì–´ì˜¨ í† í°ì„ ë¹„êµ 
 $ss_token = get_session("ss_token");
 if ($_GET["token"] && $ss_token == $_GET["token"]) { 
-    set_session("ss_token", ""); // ¸ÂÀ¸¸é ¼¼¼ÇÀ» Áö¿ö ´Ù½Ã ÀÔ·ÂÆûÀ» ÅëÇØ¼­ µé¾î¿Àµµ·Ï ÇÑ´Ù.
+    set_session("ss_token", ""); // ë§žìœ¼ë©´ ì„¸ì…˜ì„ ì§€ì›Œ ë‹¤ì‹œ ìž…ë ¥í¼ì„ í†µí•´ì„œ ë“¤ì–´ì˜¤ë„ë¡ í•œë‹¤.
 } else {
-    alert_close("ÀÎÁõ¹øÈ£ ¹ß¼Û½Ã ¿À·ù°¡ ¹ß»ýÇÏ¿´½À´Ï´Ù."); 
+    alert_close("ì¸ì¦ë²ˆí˜¸ ë°œì†¡ì‹œ ì˜¤ë¥˜ê°€ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤."); 
     exit; 
 } 
 
-// ÀÌ¸ÞÀÏÀÌ ¾øÀ¸¸é return
+// ì´ë©”ì¼ì´ ì—†ìœ¼ë©´ return
 if (trim($email) == "")
-    alert("ÀÌ¸ÞÀÏÁ¤º¸°¡ ¾ø½À´Ï´Ù.", "./index.php");
+    alert("ì´ë©”ì¼ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤.", "./index.php");
 $email = mysql_real_escape_string($email);
 
-// ÀÌ¹Ì ¹ß¼ÛµÈ ÀÌ¸ÞÀÏÀÇ °æ¿ì¿¡´Â Àç¹ß¼ÛÀ» ±ÝÁö
+// ì´ë¯¸ ë°œì†¡ëœ ì´ë©”ì¼ì˜ ê²½ìš°ì—ëŠ” ìž¬ë°œì†¡ì„ ê¸ˆì§€
 $sql = " select count(*) as cnt from $g4[member_suggest_table] 
             where mb_id = '$member[mb_id]' and join_hp = '$email' ";
 $result = sql_fetch($sql);
-if ($result[cnt] > 0) alert("ÀÌ¹Ì ÀÎÁõ¹øÈ£¸¦ ¹ß¼Û ÇÏ¿´½À´Ï´Ù", "./index.php");
+if ($result[cnt] > 0) alert("ì´ë¯¸ ì¸ì¦ë²ˆí˜¸ë¥¼ ë°œì†¡ í•˜ì˜€ìŠµë‹ˆë‹¤", "./index.php");
 
-// ³ª¿¡°Ô ÀÎÁõ¹øÈ£ ¹ß½ÅÇÏ´Â °ÍÀ» ±ÝÁö
-if ($email == $member[email]) alert("³ª¿¡°Ô´Â ÀÎÁõ¹øÈ£¸¦ ¹ß¼ÛÇÒ ¼ö ¾ø½À´Ï´Ù", "./index.php");
+// ë‚˜ì—ê²Œ ì¸ì¦ë²ˆí˜¸ ë°œì‹ í•˜ëŠ” ê²ƒì„ ê¸ˆì§€
+if ($email == $member[email]) alert("ë‚˜ì—ê²ŒëŠ” ì¸ì¦ë²ˆí˜¸ë¥¼ ë°œì†¡í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤", "./index.php");
 
 
-// Email ¹ß¼Û BEGIN   -------------------------------------------------------- 
+// Email ë°œì†¡ BEGIN   -------------------------------------------------------- 
 include_once("$g4[path]/lib/mailer.lib.php");
 
 $mb_name = $member[mb_nick];
 $subject = $g4['member_suggest_email_subject'];
 
-// ÀÓ½Ã ÀÎÁõ¹øÈ£ »ý¼º. ¸µÅ© È®ÀÎ½Ã Á¤½Ä ÀÎÁõ¹øÈ£ ¹ß»ý
+// ìž„ì‹œ ì¸ì¦ë²ˆí˜¸ ìƒì„±. ë§í¬ í™•ì¸ì‹œ ì •ì‹ ì¸ì¦ë²ˆí˜¸ ë°œìƒ
 $mb_md5 = md5($mb_id.$mb_email.$member[mb_datetime]);
 $certify_href = "$g4[url]/plugin/recommend/email_certify.php?mb_md5=$mb_md5";
         
@@ -43,7 +43,7 @@ ob_end_clean();
 mailer($member[mb_nick], $member[mb_email], $email, $subject, $content, 1);
 // SMS END   -------------------------------------------------------- 
 
-// ÃßÃµÈ¸¿ø Á¤º¸¸¦ DB¿¡ insert
+// ì¶”ì²œíšŒì› ì •ë³´ë¥¼ DBì— insert
 $sql = " insert 
             into $g4[member_suggest_table]
             set mb_id = '$member[mb_id]',
@@ -56,8 +56,8 @@ $sql = " insert
                 ";
 sql_query($sql);
 
-// ÃßÃµÀ» ÇÒ ¶§¸¶´Ù Æ÷ÀÎÆ®¸¦ Â÷°¨
-insert_point($member[mb_id], -1 * $config[cf_recommend_point], "È¸¿ø°¡ÀÔÃßÃµ", '@member', $member[mb_id], "{$receive_number} ÃßÃµ");
+// ì¶”ì²œì„ í•  ë•Œë§ˆë‹¤ í¬ì¸íŠ¸ë¥¼ ì°¨ê°
+insert_point($member[mb_id], -1 * $config[cf_recommend_point], "íšŒì›ê°€ìž…ì¶”ì²œ", '@member', $member[mb_id], "{$receive_number} ì¶”ì²œ");
 
-alert("½Å±ÔÈ¸¿ø ÃßÃµÁ¤º¸¸¦ Àü¼ÛÇÏ¿´½À´Ï´Ù.", "./index.php"); 
+alert("ì‹ ê·œíšŒì› ì¶”ì²œì •ë³´ë¥¼ ì „ì†¡í•˜ì˜€ìŠµë‹ˆë‹¤.", "./index.php"); 
 ?> 

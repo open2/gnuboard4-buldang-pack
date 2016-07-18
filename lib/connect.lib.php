@@ -1,19 +1,19 @@
 <?
 if (!defined('_GNUBOARD_')) exit;
 
-// ÇöÀç Á¢¼ÓÀÚ¼ö Ãâ·Â
+// í˜„ì¬ ì ‘ì†ììˆ˜ ì¶œë ¥
 function connect($skin_dir="")
 {
     global $config, $g4;
 
     if ($g4['session_type'] == "redis") {
 
-        // redisÀÏ¶§¸¸ redis login °ü¸®¸¦ ¾´´Ù.
+        // redisì¼ë•Œë§Œ redis login ê´€ë¦¬ë¥¼ ì“´ë‹¤.
         $redis_login = new Redis();
         $redis_login->connect($g4["rhost"], $g4["rport"]);
         $redis_login->select($g4["rdb1"]);
 
-        // ¸ğµç key¸¦ °¡Á®¿Í¼­ °¹¼ö¸¦ ¼¼¾î Áİ´Ï´Ù.
+        // ëª¨ë“  keyë¥¼ ê°€ì ¸ì™€ì„œ ê°¯ìˆ˜ë¥¼ ì„¸ì–´ ì¤ë‹ˆë‹¤.
         $total_cnt = 0;
         $mb_cnt = 0;
         $admin_cnt = 0;
@@ -32,12 +32,12 @@ function connect($skin_dir="")
             }
         }
 
-        // redis instance connectionÀ» ´İ¾ÆÁİ´Ï´Ù.
+        // redis instance connectionì„ ë‹«ì•„ì¤ë‹ˆë‹¤.
         $redis_login->close();
 
     } else {
 
-        // È¸¿ø, ¹æ¹®°´ Ä«¿îÆ®
+        // íšŒì›, ë°©ë¬¸ê° ì¹´ìš´íŠ¸
         //$sql = " select sum(IF(mb_id<>'',1,0)) as mb_cnt, count(*) as total_cnt from $g4[login_table]  where mb_id <> '$config[cf_admin]' ";
         //$row = sql_fetch($sql);
 

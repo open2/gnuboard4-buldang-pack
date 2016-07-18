@@ -1,7 +1,7 @@
 <?
 if ( ! defined("_GNUBOARD_")) {
     exit;
-} // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+} // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
 $nick = cut_str($member['mb_nick'], $config['cf_cut_name'])
 
@@ -11,7 +11,7 @@ $nick = cut_str($member['mb_nick'], $config['cf_cut_name'])
         <div class="sidebar-header">
             <div>
                 <div class="pull-left"><a href="/" style="display: inline-block;line-height: 34px;"><i
-                            class="material-icons">&#xE88A;</i> È¨À¸·Î</a></div>
+                            class="material-icons">&#xE88A;</i> í™ˆìœ¼ë¡œ</a></div>
                 <div class="pull-right"><a href="#" class="c-menu__close"
                                            style="display: inline-block;line-height: 34px;"><i
                             class="material-icons">&#xE5CD;</i></a>
@@ -35,10 +35,10 @@ $nick = cut_str($member['mb_nick'], $config['cf_cut_name'])
 
                 <div class="guest">
                     <button class="btn btn-outline"
-                            onclick="redirect('<?= $g4['bbs_path'] ?>/logout.php')">·Î±×¾Æ¿ô
+                            onclick="redirect('<?= $g4['bbs_path'] ?>/logout.php')">ë¡œê·¸ì•„ì›ƒ
                     </button>
                     <button class="btn btn-outline"
-                            onclick="redirect('<?= $g4['bbs_path'] ?>/member_confirm.php?url=register_form.php')">È¸¿øÁ¤º¸
+                            onclick="redirect('<?= $g4['bbs_path'] ?>/member_confirm.php?url=register_form.php')">íšŒì›ì •ë³´
                     </button>
                 </div>
             <?php } else { ?>
@@ -48,9 +48,9 @@ $nick = cut_str($member['mb_nick'], $config['cf_cut_name'])
 
                 <div class="guest">
                     <button class="btn btn-outline"
-                            onclick="redirect('/bbs/login.php?url=<?= urlencode($_SERVER['REQUEST_URI']) ?>')">·Î±×ÀÎ
+                            onclick="redirect('/bbs/login.php?url=<?= urlencode($_SERVER['REQUEST_URI']) ?>')">ë¡œê·¸ì¸
                     </button>
-                    <button class="btn btn-outline" onclick="redirect('/bbs/register.php')">È¸¿ø°¡ÀÔ</button>
+                    <button class="btn btn-outline" onclick="redirect('/bbs/register.php')">íšŒì›ê°€ì…</button>
                 </div>
             <?php } ?>
         </div>
@@ -59,7 +59,7 @@ $nick = cut_str($member['mb_nick'], $config['cf_cut_name'])
             <ul class="sidebar-menu" style="border-bottom: 1px solid #E5E5E5;">
 
                 <li class="treeview active">
-                    <a href="#"><i class="material-icons">&#xE88F;</i> <span>¹Ù·Î°¡±â</span>
+                    <a href="#"><i class="material-icons">&#xE88F;</i> <span>ë°”ë¡œê°€ê¸°</span>
                         <i class="material-icons pull-right">&#xE316;</i></a>
                     <ul class="treeview-menu">
                         <?php
@@ -74,7 +74,7 @@ $nick = cut_str($member['mb_nick'], $config['cf_cut_name'])
                         ?>
                         <li><a href="<?= $g4['bbs_path'] ?>/my_menu_edit.php"><i
                                     class="material-icons md-18">&#xE254;</i>
-                                ¹Ù·Î°¡±â ÆíÁı</a></li>
+                                ë°”ë¡œê°€ê¸° í¸ì§‘</a></li>
                     </ul>
                 </li>
             </ul>
@@ -82,88 +82,88 @@ $nick = cut_str($member['mb_nick'], $config['cf_cut_name'])
 
         <div class="sidebar-quick">
             <div class="pull-left">
-                <a href="<?= $g4['path'] ?>/freeboard_2011"><i class="material-icons">&#xE896;</i> ÀÚÀ¯°Ô½ÃÆÇ</a>
+                <a href="<?= $g4['path'] ?>/freeboard_2011"><i class="material-icons">&#xE896;</i> ììœ ê²Œì‹œíŒ</a>
             </div>
             <div class="pull-right">
-                <a href="<?= $g4['path'] ?>/oneline"><i class="material-icons">&#xE896;</i> ÇÑÁÙ</a>
+                <a href="<?= $g4['path'] ?>/oneline"><i class="material-icons">&#xE896;</i> í•œì¤„</a>
             </div>
             <div class="pull-left">
                 <a href="<?= $g4['path'] ?>/QnA"><i class="material-icons">&#xE896;</i> QnA</a>
             </div>
             <div class="pull-right">
-                <a href="<?= $g4['path'] ?>/column"><i class="material-icons">&#xE896;</i> »ıÈ°</a>
+                <a href="<?= $g4['path'] ?>/column"><i class="material-icons">&#xE896;</i> ìƒí™œ</a>
             </div>
             <div class="pull-left">
-                <a href="<?= $g4['path'] ?>/drone"><i class="material-icons">&#xE896;</i> µå·Ğ</a>
+                <a href="<?= $g4['path'] ?>/drone"><i class="material-icons">&#xE896;</i> ë“œë¡ </a>
             </div>
             <div class="pull-right">
                 <a href="<?= $g4['path'] ?>/hojak"><i class="material-icons">&#xE896;</i> DIY</a>
             </div>
             <div class="pull-left">
-                <a href="<?= $g4['path'] ?>/unbox"><i class="material-icons">&#xE896;</i> ¾ğ¹Ú½Ì</a>
+                <a href="<?= $g4['path'] ?>/unbox"><i class="material-icons">&#xE896;</i> ì–¸ë°•ì‹±</a>
             </div>
             <div class="pull-right">
                 <a href="<?= $g4['path'] ?>/nas"><i class="material-icons">&#xE896;</i> NAS</a>
             </div>
             <div class="pull-left">
-                <a href="<?= $g4['path'] ?>/cloud"><i class="material-icons">&#xE896;</i> Å¬¶ó¿ìµå</a>
+                <a href="<?= $g4['path'] ?>/cloud"><i class="material-icons">&#xE896;</i> í´ë¼ìš°ë“œ</a>
             </div>
             <div class="pull-right">
-                <a href="<?= $g4['path'] ?>/vm"><i class="material-icons">&#xE896;</i> °¡»óÈ­</a>
+                <a href="<?= $g4['path'] ?>/vm"><i class="material-icons">&#xE896;</i> ê°€ìƒí™”</a>
             </div>
             <div class="pull-left">
-                <a href="<?= $g4['path'] ?>/hardware_2014"><i class="material-icons">&#xE896;</i> ÇÏµå¿ş¾î</a>
+                <a href="<?= $g4['path'] ?>/hardware_2014"><i class="material-icons">&#xE896;</i> í•˜ë“œì›¨ì–´</a>
             </div>
             <div class="pull-right">
-                <a href="<?= $g4['path'] ?>/network"><i class="material-icons">&#xE896;</i> ³×Æ®¿÷</a>
+                <a href="<?= $g4['path'] ?>/network"><i class="material-icons">&#xE896;</i> ë„¤íŠ¸ì›</a>
             </div>
             <div class="pull-left">
                 <a href="<?= $g4['path'] ?>/4raid"><i class="material-icons">&#xE896;</i> RAID</a>
             </div>
             <div class="pull-right">
-                <a href="<?= $g4['path'] ?>/lec"><i class="material-icons">&#xE896;</i> °­ÁÂ</a>
+                <a href="<?= $g4['path'] ?>/lec"><i class="material-icons">&#xE896;</i> ê°•ì¢Œ</a>
             </div>
             <div class="pull-left">
-                <a href="<?= $g4['path'] ?>/PDS"><i class="material-icons">&#xE896;</i> ÀÚ·á</a>
+                <a href="<?= $g4['path'] ?>/PDS"><i class="material-icons">&#xE896;</i> ìë£Œ</a>
             </div>
             <div class="pull-right">
                 <a href="<?= $g4['path'] ?>/bmt"><i class="material-icons">&#xE896;</i> BMT</a>
             </div>
             <div class="pull-left">
-                <a href="<?= $g4['path'] ?>/ha"><i class="material-icons">&#xE896;</i> ÈÆÈÆ</a>
+                <a href="<?= $g4['path'] ?>/ha"><i class="material-icons">&#xE896;</i> í›ˆí›ˆ</a>
             </div>
             <div class="pull-right">
-                <a href="<?= $g4['path'] ?>/sell"><i class="material-icons">&#xE896;</i> ÆÇ¸Å</a>
+                <a href="<?= $g4['path'] ?>/sell"><i class="material-icons">&#xE896;</i> íŒë§¤</a>
             </div>
             <div class="pull-left">
-                <a href="<?= $g4['path'] ?>/buy"><i class="material-icons">&#xE896;</i> ±¸¸Å</a>
+                <a href="<?= $g4['path'] ?>/buy"><i class="material-icons">&#xE896;</i> êµ¬ë§¤</a>
             </div>
             <div class="pull-right">
-                <a href="<?= $g4['path'] ?>/quot"><i class="material-icons">&#xE896;</i> °ßÀû</a>
+                <a href="<?= $g4['path'] ?>/quot"><i class="material-icons">&#xE896;</i> ê²¬ì </a>
             </div>
             <div class="pull-left">
-                <a href="<?= $g4['path'] ?>/hongik"><i class="material-icons">&#xE896;</i> ÇØ¿Ü</a>
+                <a href="<?= $g4['path'] ?>/hongik"><i class="material-icons">&#xE896;</i> í•´ì™¸</a>
             </div>
             <div class="pull-right">
-                <a href="<?= $g4['path'] ?>/plugin/attendance/attendance.php"><i class="material-icons">&#xE896;</i> Ãâ¼®</a>
+                <a href="<?= $g4['path'] ?>/plugin/attendance/attendance.php"><i class="material-icons">&#xE896;</i> ì¶œì„</a>
             </div>
             <div class="clearfix"></div>
         </div>
 
         <div style="margin: 10px;">
             <button class="btn btn-default btn-outline btn-sm"
-                    onclick="redirect('<?= $g4['bbs_path'] ?>/scrap.php')">½ºÅ©·¦
+                    onclick="redirect('<?= $g4['bbs_path'] ?>/scrap.php')">ìŠ¤í¬ë©
             </button>
             <button class="btn btn-default btn-outline btn-sm"
-                    onclick="redirect('<?= $g4['path'] ?>/plugin/kcb/')">º»ÀÎÀÎÁõ
+                    onclick="redirect('<?= $g4['path'] ?>/plugin/kcb/')">ë³¸ì¸ì¸ì¦
             </button>
         </div>
         <div style="margin: 10px;">
             <button class="btn btn-default btn-outline btn-sm"
-                    onclick="redirect('<?= $g4['bbs_path'] ?>/point.php')">Æ÷ÀÎÆ®
+                    onclick="redirect('<?= $g4['bbs_path'] ?>/point.php')">í¬ì¸íŠ¸
             </button>
             <button class="btn btn-default btn-outline btn-sm"
-                    onclick="redirect('<?= $g4['bbs_path'] ?>/write.php?bo_table=pg')">Æ÷ÀÎÆ® ÃæÀü
+                    onclick="redirect('<?= $g4['bbs_path'] ?>/write.php?bo_table=pg')">í¬ì¸íŠ¸ ì¶©ì „
             </button>
         </div>
 

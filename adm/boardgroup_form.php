@@ -6,24 +6,24 @@ auth_check($auth[$sub_menu], "w");
 
 $token = get_token();
 
-if ($is_admin != "super" && $w == "") alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.");
+if ($is_admin != "super" && $w == "") alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
-$html_title = "°Ô½ÃÆÇ±×·ì";
+$html_title = "ê²Œì‹œíŒê·¸ë£¹";
 if ($w == "") 
 {
     $gr_id_attr = "required";
     $gr[gr_use_access] = 0;
     $gr[gr_use_search] = '1';
-    $html_title .= " »ı¼º";
+    $html_title .= " ìƒì„±";
 } 
 else if ($w == "u") 
 {
     $gr_id_attr = "readonly style='background-color:#dddddd'";
     $gr = sql_fetch(" select * from $g4[group_table] where gr_id = '$gr_id' ");
-    $html_title .= " ¼öÁ¤";
+    $html_title .= " ìˆ˜ì •";
 } 
 else
-    alert("Á¦´ë·Î µÈ °ªÀÌ ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.");
+    alert("ì œëŒ€ë¡œ ëœ ê°’ì´ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
 $g4[title] = $html_title;
 include_once("./admin.head.php");
@@ -46,21 +46,21 @@ include_once("./admin.head.php");
     <td colspan=4 align=left><?=$html_title?></td>
 </tr>
 <tr>
-    <td>±×·ì ID</td>
-    <td colspan=3><input type='text' class=ed name=gr_id size=21 maxlength=20 <?=$gr_id_attr?> alphanumericunderline itemname='±×·ì ¾ÆÀÌµğ' value='<?=$group[gr_id]?>'> ¿µ¹®ÀÚ, ¼ıÀÚ, _ ¸¸ °¡´É (°ø¹é¾øÀÌ)</td>
+    <td>ê·¸ë£¹ ID</td>
+    <td colspan=3><input type='text' class=ed name=gr_id size=21 maxlength=20 <?=$gr_id_attr?> alphanumericunderline itemname='ê·¸ë£¹ ì•„ì´ë””' value='<?=$group[gr_id]?>'> ì˜ë¬¸ì, ìˆ«ì, _ ë§Œ ê°€ëŠ¥ (ê³µë°±ì—†ì´)</td>
 </tr>
 <tr>
-    <td>±×·ì Á¦¸ñ</td>
+    <td>ê·¸ë£¹ ì œëª©</td>
     <td colspan=3>
-        <input type='text' class=ed name=gr_subject size=40 required itemname='±×·ì Á¦¸ñ' value='<?=get_text($group[gr_subject])?>'>
+        <input type='text' class=ed name=gr_subject size=40 required itemname='ê·¸ë£¹ ì œëª©' value='<?=get_text($group[gr_subject])?>'>
         <? 
         if ($w == 'u')
-            echo "<input type=button class='btn1' value='°Ô½ÃÆÇ»ı¼º' onclick=\"location.href='./board_form.php?gr_id=$gr_id';\">";
+            echo "<input type=button class='btn1' value='ê²Œì‹œíŒìƒì„±' onclick=\"location.href='./board_form.php?gr_id=$gr_id';\">";
         ?>
     </td>
 </tr>
 <tr>
-    <td>±×·ì °ü¸®ÀÚ</td>
+    <td>ê·¸ë£¹ ê´€ë¦¬ì</td>
     <td colspan=3>
         <?
         if ($is_admin == "super")
@@ -71,17 +71,17 @@ include_once("./admin.head.php");
         ?></td>
 </tr>
 <tr>
-    <td>Á¢±ÙÈ¸¿ø»ç¿ë</td>
+    <td>ì ‘ê·¼íšŒì›ì‚¬ìš©</td>
     <td colspan=3>
-        <input type=checkbox name=gr_use_access value='1' <?=$gr[gr_use_access]?'checked':'';?>>»ç¿ë 
-        <?=help("»ç¿ë¿¡ Ã¼Å©ÇÏ½Ã¸é ÀÌ ±×·ì¿¡ ¼ÓÇÑ °Ô½ÃÆÇÀº Á¢±Ù°¡´ÉÇÑ È¸¿ø¸¸ Á¢±ÙÀÌ °¡´ÉÇÕ´Ï´Ù.")?>
+        <input type=checkbox name=gr_use_access value='1' <?=$gr[gr_use_access]?'checked':'';?>>ì‚¬ìš© 
+        <?=help("ì‚¬ìš©ì— ì²´í¬í•˜ì‹œë©´ ì´ ê·¸ë£¹ì— ì†í•œ ê²Œì‹œíŒì€ ì ‘ê·¼ê°€ëŠ¥í•œ íšŒì›ë§Œ ì ‘ê·¼ì´ ê°€ëŠ¥í•©ë‹ˆë‹¤.")?>
     </td>
 </tr>
 <tr>
-    <td>Á¢±ÙÈ¸¿ø¼ö</td>
+    <td>ì ‘ê·¼íšŒì›ìˆ˜</td>
     <td colspan=3>
         <?
-        // Á¢±ÙÈ¸¿ø¼ö
+        // ì ‘ê·¼íšŒì›ìˆ˜
         $sql1 = " select count(*) as cnt from $g4[group_member_table] where gr_id = '$gr_id' ";
         $row1 = sql_fetch($sql1);
         echo "<a href='./boardgroupmember_list.php?gr_id=$gr_id'>$row1[cnt]</a>";
@@ -90,25 +90,25 @@ include_once("./admin.head.php");
 </tr>
 
 <tr>
-    <td>ÀüÃ¼ °Ë»ö »ç¿ë</td>
+    <td>ì „ì²´ ê²€ìƒ‰ ì‚¬ìš©</td>
     <td colspan=3>
-        <input type=checkbox name=gr_use_search value='1' <?=$gr[gr_use_search]?'checked':'';?>>»ç¿ë
+        <input type=checkbox name=gr_use_search value='1' <?=$gr[gr_use_search]?'checked':'';?>>ì‚¬ìš©
     </td>
 </tr>
 
 <tr>
-    <td>ÀüÃ¼ °Ë»ö ¼ø¼­</td>
+    <td>ì „ì²´ ê²€ìƒ‰ ìˆœì„œ</td>
     <td colspan=3>
-        <input type=text class=ed name=gr_order_search size=5 value='<?=$gr[gr_order_search]?>'> ¼ıÀÚ°¡ ³·Àº ±×·ì ºÎÅÍ °Ë»ö
+        <input type=text class=ed name=gr_order_search size=5 value='<?=$gr[gr_order_search]?>'> ìˆ«ìê°€ ë‚®ì€ ê·¸ë£¹ ë¶€í„° ê²€ìƒ‰
     </td>
 </tr>
 
 <? for ($i=1; $i<=10; $i=$i+2) { $k=$i+1; ?>
 <tr>
-    <td><input type=text class=ed name='gr_<?=$i?>_subj' value='<?=get_text($group["gr_{$i}_subj"])?>' title='¿©ºĞÇÊµå <?=$i?> Á¦¸ñ' style='text-align:right;font-weight:bold;' size=15></td>
-    <td><input type='text' class=ed style='width:99%;' name=gr_<?=$i?> value='<?=$gr["gr_$i"]?>' title='¿©ºĞÇÊµå <?=$i?> ¼³Á¤°ª'></td>
-    <td><input type=text class=ed name='gr_<?=$k?>_subj' value='<?=get_text($group["gr_{$k}_subj"])?>' title='¿©ºĞÇÊµå <?=$k?> Á¦¸ñ' style='text-align:right;font-weight:bold;' size=15></td>
-    <td><input type='text' class=ed style='width:99%;' name=gr_<?=$k?> value='<?=$gr["gr_$k"]?>' title='¿©ºĞÇÊµå <?=$k?> ¼³Á¤°ª'></td>
+    <td><input type=text class=ed name='gr_<?=$i?>_subj' value='<?=get_text($group["gr_{$i}_subj"])?>' title='ì—¬ë¶„í•„ë“œ <?=$i?> ì œëª©' style='text-align:right;font-weight:bold;' size=15></td>
+    <td><input type='text' class=ed style='width:99%;' name=gr_<?=$i?> value='<?=$gr["gr_$i"]?>' title='ì—¬ë¶„í•„ë“œ <?=$i?> ì„¤ì •ê°’'></td>
+    <td><input type=text class=ed name='gr_<?=$k?>_subj' value='<?=get_text($group["gr_{$k}_subj"])?>' title='ì—¬ë¶„í•„ë“œ <?=$k?> ì œëª©' style='text-align:right;font-weight:bold;' size=15></td>
+    <td><input type='text' class=ed style='width:99%;' name=gr_<?=$k?> value='<?=$gr["gr_$k"]?>' title='ì—¬ë¶„í•„ë“œ <?=$k?> ì„¤ì •ê°’'></td>
 </tr>
 <? } ?>
 
@@ -123,8 +123,8 @@ include_once("./admin.head.php");
 </table>
 
 <p align=center>
-    <input type=submit class="btn btn-default" accesskey='s' value='  È®  ÀÎ  '>&nbsp;
-    <input type=button class="btn btn-default" value='  ¸ñ  ·Ï  ' onclick="document.location.href='./boardgroup_list.php?<?=$qstr?>';">
+    <input type=submit class="btn btn-default" accesskey='s' value='  í™•  ì¸  '>&nbsp;
+    <input type=button class="btn btn-default" value='  ëª©  ë¡  ' onclick="document.location.href='./boardgroup_list.php?<?=$qstr?>';">
 </form>
 
 <script type="text/javascript">
@@ -137,7 +137,7 @@ function fboardgroup_check(f)
 {
     if (typeof(grecaptcha) != 'undefined') { 
         if(grecaptcha.getResponse() == "") { 
-            alert("½ºÆÔ¹æÁöÄÚµå(Captcha Code)°¡ Æ²·È½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØ ÁÖ¼¼¿ä."); 
+            alert("ìŠ¤íŒ¸ë°©ì§€ì½”ë“œ(Captcha Code)ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ ì£¼ì„¸ìš”."); 
             return false; 
         } 
     }

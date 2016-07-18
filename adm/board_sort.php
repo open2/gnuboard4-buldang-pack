@@ -8,15 +8,15 @@ auth_check($auth[$sub_menu], "r");
 
 $token = get_token();
 
-$g4[title] = "°Ô½ÃÆÇ°ü¸®";
+$g4[title] = "ê²Œì‹œíŒê´€ë¦¬";
 include_once("./admin.head.php");
 
-echo "'¿Ï·á' ¸Ş¼¼Áö°¡ ³ª¿À±â Àü¿¡ ÇÁ·Î±×·¥ÀÇ ½ÇÇàÀ» ÁßÁöÇÏÁö ¸¶½Ê½Ã¿À.<br><br>";
+echo "'ì™„ë£Œ' ë©”ì„¸ì§€ê°€ ë‚˜ì˜¤ê¸° ì „ì— í”„ë¡œê·¸ë¨ì˜ ì‹¤í–‰ì„ ì¤‘ì§€í•˜ì§€ ë§ˆì‹­ì‹œì˜¤.<br><br>";
 echo "<span id='ct'></span>";
 
 include_once("./admin.tail.php");
 
-if (!$bo_table) die("bo_table °ªÀÌ ¾ø½À´Ï´Ù.");
+if (!$bo_table) die("bo_table ê°’ì´ ì—†ìŠµë‹ˆë‹¤.");
 
 $write_table = $g4[write_prefix].$bo_table;
 
@@ -39,7 +39,7 @@ foreach ($data as $row)
     $sql = "update {$write_table} set wr_num = '{$wr_num}' where wr_num = '{$row[wr_num]}'";
     sql_query($sql);
 
-    $msg = "{$row[wr_num]}À» $wr_numÀ¸·Î ÀçÁ¤·Ä Çß½À´Ï´Ù";
+    $msg = "{$row[wr_num]}ì„ $wr_numìœ¼ë¡œ ì¬ì •ë ¬ í–ˆìŠµë‹ˆë‹¤";
     echo "<script>document.getElementById('ct').innerHTML += '$msg<br/>';</script>\n";
 
     flush();
@@ -49,9 +49,9 @@ foreach ($data as $row)
         echo "<script>document.getElementById('ct').innerHTML = '';</script>\n";
 }
 
-echo "<script>document.getElementById('ct').innerHTML += '<br><br>°Ô½ÃÆÇ ÀçÁ¤·Ä {$cnt}°Ç ¿Ï·á.<br><br>ÇÁ·Î±×·¥ÀÇ ½ÇÇàÀ» ³¡¸¶Ä¡¼Åµµ ÁÁ½À´Ï´Ù.';</script>\n";
+echo "<script>document.getElementById('ct').innerHTML += '<br><br>ê²Œì‹œíŒ ì¬ì •ë ¬ {$cnt}ê±´ ì™„ë£Œ.<br><br>í”„ë¡œê·¸ë¨ì˜ ì‹¤í–‰ì„ ëë§ˆì¹˜ì…”ë„ ì¢‹ìŠµë‹ˆë‹¤.';</script>\n";
 
-$msg = "<a href=./board_list.php>°Ô½ÃÆÇ°ü¸®·Î µ¹¾Æ°¡±â</a>";
+$msg = "<a href=./board_list.php>ê²Œì‹œíŒê´€ë¦¬ë¡œ ëŒì•„ê°€ê¸°</a>";
 echo "<script>document.getElementById('ct').innerHTML += '<br><br>$msg';</script>\n";
 
 //goto_url("board_list.php");

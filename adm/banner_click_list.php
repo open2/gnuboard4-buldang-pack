@@ -4,7 +4,7 @@ include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "r");
 
-$g4[title] = "¹è³ÊÅ¬¸¯ÇöÈ²";
+$g4[title] = "ë°°ë„ˆí´ë¦­í˜„í™©";
 include_once("./admin.head.php");
 include_once("./banner.sub.php");
 ?>
@@ -16,11 +16,11 @@ include_once("./banner.sub.php");
 <colgroup width=80>
 <colgroup width=80>
 <tr class="success">
-    <td>¹è³Ê±×·ì</td>
-    <td>¹è³ÊID</td>
-    <td>¹è³ÊÁ¦¸ñ</td>
-    <td>ºê¶ó¿ìÀú</td>
-    <td>ÀÏ½Ã</td>
+    <td>ë°°ë„ˆê·¸ë£¹</td>
+    <td>ë°°ë„ˆID</td>
+    <td>ë°°ë„ˆì œëª©</td>
+    <td>ë¸Œë¼ìš°ì €</td>
+    <td>ì¼ì‹œ</td>
 </tr>
 <?
 $sql_common = " from $g4[banner_click_table] ";
@@ -54,9 +54,9 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if ($page == "") $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if ($page == "") $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
 $sql = " select * 
           $sql_common
@@ -71,7 +71,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     $tmp = sql_fetch(" select * from $g4[banner_table] where bg_id='$row[bg_id]' and bn_id = '$row[bn_id]' ");
     $bn_subject = $tmp['bn_subject'];
 
-    // °Ë»ö¾î ¼³Á¤
+    // ê²€ìƒ‰ì–´ ì„¤ì •
     $query=$q="";
 
     if ($query)
@@ -90,12 +90,12 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='5' height=100 align=center>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>"; 
+    echo "<tr><td colspan='5' height=100 align=center>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>"; 
 
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
@@ -107,7 +107,7 @@ include_once("./admin.tail.php");
 ?>
 
 <script type="text/javascript">
-// java script·Î ÆäÀÌÁö ÀÌµ¿ (referer¸¦ ³²±âÁö ¾Ê±â À§ÇØ¼­)
+// java scriptë¡œ í˜ì´ì§€ ì´ë™ (refererë¥¼ ë‚¨ê¸°ì§€ ì•Šê¸° ìœ„í•´ì„œ)
 function goto_page(page)
 {
     if (page) {

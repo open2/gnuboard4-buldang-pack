@@ -2,14 +2,14 @@
 if (!defined("_GNUBOARD_")) exit;
 ?>
 
-</div><!-- ¸ÞÀÎ content ³¡ -->
+</div><!-- ë©”ì¸ content ë -->
 
 </div>
-</div><!-- Áß°£ÀÇ ¸ÞÀÎºÎ ³¡ -->
+</div><!-- ì¤‘ê°„ì˜ ë©”ì¸ë¶€ ë -->
 
 <footer class="footer-wrapper" role="contentinfo" style="margin-top:20px;">
 <div class="container well">
-    <p>½ÇÇà½Ã°£ : <?=get_microtime() - $begin_time;?>
+    <p>ì‹¤í–‰ì‹œê°„ : <?=get_microtime() - $begin_time;?>
 </div>
 </footer>
 

@@ -4,38 +4,38 @@ include_once("$g4[path]/memo.config.php");
 
 include_once("$g4[path]/head.sub.php");
 
-// »ç¿ëÀÚ¿¡ÀÇÇÑ ½Å°íÇØÁ¦´Â °Ô½ÃÆÇÀÇ ±Û¿¡¸¸ ÇØ´ç ÇÕ´Ï´Ù.
-// ÂÊÁö, ±âÅ¸ ½Å°í¿¡´Â ÇØ´ç »çÇ×ÀÌ ¾ø½À´Ï´Ù.
+// ì‚¬ìš©ìì—ì˜í•œ ì‹ ê³ í•´ì œëŠ” ê²Œì‹œíŒì˜ ê¸€ì—ë§Œ í•´ë‹¹ í•©ë‹ˆë‹¤.
+// ìª½ì§€, ê¸°íƒ€ ì‹ ê³ ì—ëŠ” í•´ë‹¹ ì‚¬í•­ì´ ì—†ìŠµë‹ˆë‹¤.
 
-// È¸¿øÀÎÁö °Ë»çÇÏ¿© È¸¿øÀÌ ¾Æ´Ñ °æ¿ì¿¡´Â ·Î±×ÀÎ ÆäÀÌÁö·Î ÀÌµ¿ÇÑ´Ù.
+// íšŒì›ì¸ì§€ ê²€ì‚¬í•˜ì—¬ íšŒì›ì´ ì•„ë‹Œ ê²½ìš°ì—ëŠ” ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ ì´ë™í•œë‹¤.
 if (!$member['mb_id']) 
-    alert_close("È¸¿ø¸¸ ½Å°íÇØÁ¦ ÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+    alert_close("íšŒì›ë§Œ ì‹ ê³ í•´ì œ í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
-// CSRF¸¦ ¸·±â À§ÇØ¼­
+// CSRFë¥¼ ë§‰ê¸° ìœ„í•´ì„œ
 $unsg_reason = strip_tags($_POST['unsg_reason']);
 
-// °Ô½Ã±Û Á¤º¸¸¦ °¡Á®¿Â´Ù
+// ê²Œì‹œê¸€ ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤
 $write_table = $g4['write_prefix'].$bo_table;
 $sql = " select mb_id from $write_table where wr_id = '$wr_id' ";
 $write_tmp = sql_fetch($sql);
 
-// º»ÀÎÀÌ ½Å°íÇÑ ±ÛÀÎÁö È®ÀÎ
+// ë³¸ì¸ì´ ì‹ ê³ í•œ ê¸€ì¸ì§€ í™•ì¸
 $sql = " select count(*) as cnt from $g4[singo_table] 
           where bo_table = '$bo_table' and wr_id = '$wr_id' and wr_parent = '$wr_parent' and sg_mb_id = '$member[mb_id]' ";
 $row = sql_fetch($sql);
-// º»ÀÎÀÇ ±ÛÀº Àı´ë·Î ¸ø Ç®¾îÁÜ
+// ë³¸ì¸ì˜ ê¸€ì€ ì ˆëŒ€ë¡œ ëª» í’€ì–´ì¤Œ
 if ($row['cnt'] > 0) {
     if ($write_tmp['mb_id'] == $member['mb_id'])
-        alert_close("ÀÚ½ÅÀÇ ±ÛÀº ½Å°íÇØÁ¦ ÇÒ ¼ö ¾ø½À´Ï´Ù.");
+        alert_close("ìì‹ ì˜ ê¸€ì€ ì‹ ê³ í•´ì œ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 } else {
-    alert_close("´Ù¸¥ È¸¿øÀÌ ½Å°íÇÑ ±ÛÀº ½Å°íÇØÁ¦ ÇÒ ¼ö ¾ø½À´Ï´Ù.");
+    alert_close("ë‹¤ë¥¸ íšŒì›ì´ ì‹ ê³ í•œ ê¸€ì€ ì‹ ê³ í•´ì œ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 }
 
-// ºñÈ¸¿øÀÇ ±ÛÀ» ½Å°íÇÒ °æ¿ì $write[mb_id]¿¡ °ªÀÌ ¾ø´Â ¹®Á¦¸¦ ÇØ°áÇÏ±â À§ÇØ¼­...¤Ğ..¤Ğ...
+// ë¹„íšŒì›ì˜ ê¸€ì„ ì‹ ê³ í•  ê²½ìš° $write[mb_id]ì— ê°’ì´ ì—†ëŠ” ë¬¸ì œë¥¼ í•´ê²°í•˜ê¸° ìœ„í•´ì„œ...ã… ..ã… ...
 if (!$write['mb_id'])
-    alert_close("ºñÈ¸¿øÀÇ ±ÛÀº ½Å°íÇØÁ¦ ÇÒ ¼ö ¾ø½À´Ï´Ù.");
+    alert_close("ë¹„íšŒì›ì˜ ê¸€ì€ ì‹ ê³ í•´ì œ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 
-// ½Å°íÇØÁ¦ Á¤º¸ µî·Ï
+// ì‹ ê³ í•´ì œ ì •ë³´ ë“±ë¡
 $sql = " insert into $g4[unsingo_table] 
             set mb_id = '$write[mb_id]',
                 bo_table = '$bo_table',
@@ -47,38 +47,38 @@ $sql = " insert into $g4[unsingo_table]
                 unsg_ip = '$remote_addr' ";
 sql_query($sql);
 
-// °Ô½Ã±Û¿¡ ½Å°í°ª ¼³Á¤
+// ê²Œì‹œê¸€ì— ì‹ ê³ ê°’ ì„¤ì •
 $sql = " update $write_table set wr_singo = wr_singo - 1 where wr_id = '$wr_id' ";
 sql_query($sql, false);
 
-// ½Å°íÇØÁ¦ÇÑ »ç¶÷ÀÇ Æ÷ÀÎÆ®¸¦ Â÷°¨
+// ì‹ ê³ í•´ì œí•œ ì‚¬ëŒì˜ í¬ì¸íŠ¸ë¥¼ ì°¨ê°
 if ($config['cf_singo_point_send'])
-    insert_point($mb_id, -$config['cf_singo_point_send'], "½Å°íÇØÁ¦ Æ÷ÀÎÆ®", '@member', $mb_id, '½Å°íÇØÁ¦');
+    insert_point($mb_id, -$config['cf_singo_point_send'], "ì‹ ê³ í•´ì œ í¬ì¸íŠ¸", '@member', $mb_id, 'ì‹ ê³ í•´ì œ');
 
-// ½Å°í´ç»çÀÚ, °Ô½ÃÆÇ°ü¸®ÀÚ/±×·ì°ü¸®ÀÚ/»çÀÌÆ® °ü¸®ÀÚ¿¡°Ô ÂÊÁö¸¦ ¹ß¼Û (ºÒ´çÀÇ ÂÊÁö2)
+// ì‹ ê³ ë‹¹ì‚¬ì, ê²Œì‹œíŒê´€ë¦¬ì/ê·¸ë£¹ê´€ë¦¬ì/ì‚¬ì´íŠ¸ ê´€ë¦¬ìì—ê²Œ ìª½ì§€ë¥¼ ë°œì†¡ (ë¶ˆë‹¹ì˜ ìª½ì§€2)
 $memo_list = array();
 
-$memo_list[] = $write['mb_id'];// ½Å°íµÈ °Ô½Ã±ÛÀÇ ±Û¾´ÀÌ
-$memo_list[] = $config['cf_admin']; // »çÀÌÆ® °ü¸®ÀÚ
-if ($group['gr_admin'] && !in_array($group['gr_admin'], $memo_list)) // ±×·ì°ü¸®ÀÚ
+$memo_list[] = $write['mb_id'];// ì‹ ê³ ëœ ê²Œì‹œê¸€ì˜ ê¸€ì“´ì´
+$memo_list[] = $config['cf_admin']; // ì‚¬ì´íŠ¸ ê´€ë¦¬ì
+if ($group['gr_admin'] && !in_array($group['gr_admin'], $memo_list)) // ê·¸ë£¹ê´€ë¦¬ì
     $memo_list[] = $group['gr_admin'];
-if ($board['bo_admin'] && !in_array($board['bo_admin'], $memo_list)) // °Ô½ÃÆÇ°ü¸®ÀÚ
+if ($board['bo_admin'] && !in_array($board['bo_admin'], $memo_list)) // ê²Œì‹œíŒê´€ë¦¬ì
     $memo_list[] = $board['bo_admin'];
 
 foreach($memo_list as $memo_recv_mb_id) {
 
-    $me_send_mb_id = $config['cf_admin']; // »çÀÌÆ® °ü¸®ÀÚ ¸íÀÇ·Î ÂÊÁö¸¦ ¹ß¼Û
+    $me_send_mb_id = $config['cf_admin']; // ì‚¬ì´íŠ¸ ê´€ë¦¬ì ëª…ì˜ë¡œ ìª½ì§€ë¥¼ ë°œì†¡
 
-    // ½Å°íÇØÁ¦µÈ url
+    // ì‹ ê³ í•´ì œëœ url
     $unsg_url = "$g4[bbs_path]/board.php?bo_table=$bo_table&wr_id=$wr_id";
 
-    // ½Å°íÇØÁ¦³»¿ë
-    $me_memo = "½Å°íÇØÁ¦µÈ °Ô½Ã±Û - <a href=\'$unsg_url\' target=new>$write[wr_subject]</a><br>°Ô½Ã±ÛÀÇ ½Å°íÇØÁ¦ÀÌÀ¯ - {$unsg_reason}<br><br>ÇØ´ç °Ô½Ã±ÛÀÇ ½Å°íÇØÁ¦ ³»¿ë¿¡ ÀÌÀÇ°¡ ÀÖ´Â °æ¿ì ¿î¿µÀÚ¿¡°Ô ¹®ÀÇÇÏ½Ã±â ¹Ù¶ø´Ï´Ù."; // ¸Ş¸ğ³»¿ë
+    // ì‹ ê³ í•´ì œë‚´ìš©
+    $me_memo = "ì‹ ê³ í•´ì œëœ ê²Œì‹œê¸€ - <a href=\'$unsg_url\' target=new>$write[wr_subject]</a><br>ê²Œì‹œê¸€ì˜ ì‹ ê³ í•´ì œì´ìœ  - {$unsg_reason}<br><br>í•´ë‹¹ ê²Œì‹œê¸€ì˜ ì‹ ê³ í•´ì œ ë‚´ìš©ì— ì´ì˜ê°€ ìˆëŠ” ê²½ìš° ìš´ì˜ìì—ê²Œ ë¬¸ì˜í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤."; // ë©”ëª¨ë‚´ìš©
 
-    // ½Å°í±Û Á¦¸ñ
-    $me_subject = "$write[mb_id] ´ÔÀÇ °Ô½Ã±ÛÀÌ ½Å°íÇØÁ¦ µÇ¾ú½À´Ï´Ù"; // ¸Ş¸ğÁ¦¸ñ
+    // ì‹ ê³ ê¸€ ì œëª©
+    $me_subject = "$write[mb_id] ë‹˜ì˜ ê²Œì‹œê¸€ì´ ì‹ ê³ í•´ì œ ë˜ì—ˆìŠµë‹ˆë‹¤"; // ë©”ëª¨ì œëª©
 
-    // ÂÊÁö INSERT (¼ö½ÅÇÔ) 
+    // ìª½ì§€ INSERT (ìˆ˜ì‹ í•¨) 
     $sql = " insert into $g4[memo_recv_table] 
                     ( me_recv_mb_id, me_send_mb_id, me_send_datetime, me_memo, me_subject, memo_type, memo_owner, me_file_local, me_file_server, me_option ) 
              values ('$memo_recv_mb_id', '$me_send_mb_id', '$g4[time_ymdhis]', '$me_memo', '$me_subject', 'recv', '$memo_recv_mb_id', '', '', '$html,$secret,$mail' ) 
@@ -86,7 +86,7 @@ foreach($memo_list as $memo_recv_mb_id) {
     sql_query($sql); 
     $me_id = mysql_insert_id(); 
 
-    // ½Ç½Ã°£ ÂÊÁö ¾Ë¸² ±â´É
+    // ì‹¤ì‹œê°„ ìª½ì§€ ì•Œë¦¼ ê¸°ëŠ¥
     $sql = " update $g4[member_table]
                 set mb_memo_call = concat(mb_memo_call, concat(' ', '$me_send_mb_id'))
               where mb_id = '$memo_recv_mb_id' ";
@@ -94,7 +94,7 @@ foreach($memo_list as $memo_recv_mb_id) {
 }
 ?>
 <script type="text/javascript">
-alert("°Ô½Ã¹°À» ½Å°íÇØÁ¦ ÇÏ¿´½À´Ï´Ù.\n\n´ã´çÀÚ È®ÀÎ ÈÄ ÇØ´ç °Ô½Ã¹°¿¡ ´ëÇØ¼­ °ü·ÃÁ¶Ä¡¸¦ ÇÏ°Ú½À´Ï´Ù.\n\n°¨»çÇÕ´Ï´Ù.");
+alert("ê²Œì‹œë¬¼ì„ ì‹ ê³ í•´ì œ í•˜ì˜€ìŠµë‹ˆë‹¤.\n\në‹´ë‹¹ì í™•ì¸ í›„ í•´ë‹¹ ê²Œì‹œë¬¼ì— ëŒ€í•´ì„œ ê´€ë ¨ì¡°ì¹˜ë¥¼ í•˜ê² ìŠµë‹ˆë‹¤.\n\nê°ì‚¬í•©ë‹ˆë‹¤.");
 opener.document.location.href = "<?="board.php?bo_table=$bo_table&wr_id=$wr_id"?>";
 window.close();
 </script>

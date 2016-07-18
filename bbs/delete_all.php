@@ -7,33 +7,33 @@ include_once("./_common.php");
 $count_write = 0;
 $count_comment = 0;
 
-// ºÒ´çÆÑ - »èÁ¦µÇÁö ¾Ê´Â ¸Ş½ÃÁö¸¦ À§ÇØ¼­
+// ë¶ˆë‹¹íŒ© - ì‚­ì œë˜ì§€ ì•ŠëŠ” ë©”ì‹œì§€ë¥¼ ìœ„í•´ì„œ
 $tmp_array_undeleted = "";
 
 $tmp_array = array();
-if ($wr_id) // °Çº°»èÁ¦
+if ($wr_id) // ê±´ë³„ì‚­ì œ
     $tmp_array[0] = $wr_id;
-else // ÀÏ°ı»èÁ¦
+else // ì¼ê´„ì‚­ì œ
     $tmp_array = $_POST[chk_wr_id];
 
 
-// »ç¿ëÀÚ ÄÚµå ½ÇÇà
+// ì‚¬ìš©ì ì½”ë“œ ì‹¤í–‰
 @include_once("$board_skin_path/delete_all.skin.php");
 
 
-// °Å²Ù·Î ÀĞ´Â ÀÌÀ¯´Â ´äº¯±ÛºÎÅÍ »èÁ¦°¡ µÇ¾î¾ß ÇÏ±â ¶§¹®ÀÓ
+// ê±°ê¾¸ë¡œ ì½ëŠ” ì´ìœ ëŠ” ë‹µë³€ê¸€ë¶€í„° ì‚­ì œê°€ ë˜ì–´ì•¼ í•˜ê¸° ë•Œë¬¸ì„
 for ($i=count($tmp_array)-1; $i>=0; $i--) 
 {
     $write = sql_fetch(" select * from $write_table where wr_id = '{$tmp_array[$i]}' ");
 
-    if ($is_admin == "super") // ÃÖ°í°ü¸®ÀÚ Åë°ú
+    if ($is_admin == "super") // ìµœê³ ê´€ë¦¬ì í†µê³¼
         ;
-    else if ($is_admin == "group") // ±×·ì°ü¸®ÀÚ
+    else if ($is_admin == "group") // ê·¸ë£¹ê´€ë¦¬ì
     {
         $mb = get_member($write[mb_id]);
-        if ($member[mb_id] == $group[gr_admin]) // ÀÚ½ÅÀÌ °ü¸®ÇÏ´Â ±×·ìÀÎ°¡?
+        if ($member[mb_id] == $group[gr_admin]) // ìì‹ ì´ ê´€ë¦¬í•˜ëŠ” ê·¸ë£¹ì¸ê°€?
         {
-            if ($member[mb_level] >= $mb[mb_level]) // ÀÚ½ÅÀÇ ·¹º§ÀÌ Å©°Å³ª °°´Ù¸é Åë°ú
+            if ($member[mb_level] >= $mb[mb_level]) // ìì‹ ì˜ ë ˆë²¨ì´ í¬ê±°ë‚˜ ê°™ë‹¤ë©´ í†µê³¼
                 ;
             else {
                 $tmp_array_undeleted .= $tmp_array[$i] . " ";
@@ -43,11 +43,11 @@ for ($i=count($tmp_array)-1; $i>=0; $i--)
         else
             continue;
     } 
-    else if ($is_admin == "board") // °Ô½ÃÆÇ°ü¸®ÀÚÀÌ¸é
+    else if ($is_admin == "board") // ê²Œì‹œíŒê´€ë¦¬ìì´ë©´
     {
         $mb = get_member($write[mb_id]);
-        if ($member[mb_id] == $board[bo_admin]) // ÀÚ½ÅÀÌ °ü¸®ÇÏ´Â °Ô½ÃÆÇÀÎ°¡?
-            if ($member[mb_level] >= $mb[mb_level]) // ÀÚ½ÅÀÇ ·¹º§ÀÌ Å©°Å³ª °°´Ù¸é Åë°ú
+        if ($member[mb_id] == $board[bo_admin]) // ìì‹ ì´ ê´€ë¦¬í•˜ëŠ” ê²Œì‹œíŒì¸ê°€?
+            if ($member[mb_level] >= $mb[mb_level]) // ìì‹ ì˜ ë ˆë²¨ì´ í¬ê±°ë‚˜ ê°™ë‹¤ë©´ í†µê³¼
                 ;
             else {
                 $tmp_array_undeleted .= $tmp_array[$i] . " ";
@@ -56,22 +56,22 @@ for ($i=count($tmp_array)-1; $i>=0; $i--)
         else
             continue;
     } 
-    else if ($member[mb_id] && $member[mb_id] == $write[mb_id]) // ÀÚ½ÅÀÇ ±ÛÀÌ¶ó¸é
+    else if ($member[mb_id] && $member[mb_id] == $write[mb_id]) // ìì‹ ì˜ ê¸€ì´ë¼ë©´
     {
         ;
     } 
-    else if ($wr_password && !$write[mb_id] && sql_password($wr_password) === $write[wr_password]) // ÆĞ½º¿öµå°¡ °°´Ù¸é
+    else if ($wr_password && !$write[mb_id] && sql_password($wr_password) === $write[wr_password]) // íŒ¨ìŠ¤ì›Œë“œê°€ ê°™ë‹¤ë©´
     {
         ;
     } 
     else
-        continue;   // ³ª¸ÓÁö´Â »èÁ¦ ºÒ°¡
+        continue;   // ë‚˜ë¨¸ì§€ëŠ” ì‚­ì œ ë¶ˆê°€
 
     $len = strlen($write[wr_reply]);
     if ($len < 0) $len = 0; 
     $reply = substr($write[wr_reply], 0, $len);
 
-    // ¿ø±Û¸¸ ±¸ÇÑ´Ù.
+    // ì›ê¸€ë§Œ êµ¬í•œë‹¤.
     $sql = " select count(*) as cnt from $write_table
               where wr_reply like '$reply%'
                 and wr_id <> '$write[wr_id]'
@@ -81,49 +81,49 @@ for ($i=count($tmp_array)-1; $i>=0; $i--)
     if ($row[cnt])
             continue;
 
-    // ³ª¶ó¿À¸§´Ô ¼öÁ¤ : ¿ø±Û°ú ÄÚ¸àÆ®¼ö°¡ Á¤»óÀûÀ¸·Î ¾÷µ¥ÀÌÆ® µÇÁö ¾Ê´Â ¿À·ù¸¦ Àâ¾Æ ÁÖ¼Ì½À´Ï´Ù.
+    // ë‚˜ë¼ì˜¤ë¦„ë‹˜ ìˆ˜ì • : ì›ê¸€ê³¼ ì½”ë©˜íŠ¸ìˆ˜ê°€ ì •ìƒì ìœ¼ë¡œ ì—…ë°ì´íŠ¸ ë˜ì§€ ì•ŠëŠ” ì˜¤ë¥˜ë¥¼ ì¡ì•„ ì£¼ì…¨ìŠµë‹ˆë‹¤.
     //$sql = " select wr_id, mb_id, wr_comment from $write_table where wr_parent = '$write[wr_id]' order by wr_id ";
     $sql = " select wr_id, mb_id, wr_is_comment from $write_table where wr_parent = '$write[wr_id]' order by wr_id ";
     $result = sql_query($sql);
     while ($row = sql_fetch_array($result)) 
     {
-        // ¿ø±ÛÀÌ¶ó¸é
+        // ì›ê¸€ì´ë¼ë©´
         if (!$row[wr_is_comment]) 
         {
-            // ¿ø±Û Æ÷ÀÎÆ® »èÁ¦
-            if (!delete_point($row[mb_id], $bo_table, $row[wr_id], '¾²±â'))
-                insert_point($row[mb_id], $board[bo_write_point] * (-1), "$board[bo_subject] $row[wr_id] ±Û»èÁ¦");
+            // ì›ê¸€ í¬ì¸íŠ¸ ì‚­ì œ
+            if (!delete_point($row[mb_id], $bo_table, $row[wr_id], 'ì“°ê¸°'))
+                insert_point($row[mb_id], $board[bo_write_point] * (-1), "$board[bo_subject] $row[wr_id] ê¸€ì‚­ì œ");
 
-            // ¿ø±Û ÃßÃµ Æ÷ÀÎÆ® »èÁ¦
-            delete_point($row[mb_id], $bo_table, $row[wr_id], 'ÃßÃµµÊ');
+            // ì›ê¸€ ì¶”ì²œ í¬ì¸íŠ¸ ì‚­ì œ
+            delete_point($row[mb_id], $bo_table, $row[wr_id], 'ì¶”ì²œë¨');
             
-            // ºÒ´çÆÑ - ÃßÃµÇÑ »ç¶÷µé Æ÷ÀÎÆ® »èÁ¦
-            $sql = " select * from $g4[point_table] where po_rel_table = '$bo_table' and po_rel_id = '$row[wr_id]' and po_rel_action = 'ÃßÃµ' ";
+            // ë¶ˆë‹¹íŒ© - ì¶”ì²œí•œ ì‚¬ëŒë“¤ í¬ì¸íŠ¸ ì‚­ì œ
+            $sql = " select * from $g4[point_table] where po_rel_table = '$bo_table' and po_rel_id = '$row[wr_id]' and po_rel_action = 'ì¶”ì²œ' ";
             $result4 = sql_query($sql);
             while ($row4=sql_fetch_array($result4)) {
-                delete_point($row4[mb_id], $bo_table, $row[wr_id], 'ÃßÃµ');
+                delete_point($row4[mb_id], $bo_table, $row[wr_id], 'ì¶”ì²œ');
             }
 
-            // ¾÷·ÎµåµÈ ÆÄÀÏÀÌ ÀÖ´Ù¸é ÆÄÀÏ»èÁ¦
+            // ì—…ë¡œë“œëœ íŒŒì¼ì´ ìˆë‹¤ë©´ íŒŒì¼ì‚­ì œ
             //$sql2 = " select * from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$row[wr_id]' ";
             //$result2 = sql_query($sql2);
             //while ($row2 = sql_fetch_array($result2))
             //    @unlink("$g4[data_path]/file/$bo_table/$row2[bf_file]");
             
-            // ÆÄÀÏÅ×ÀÌºí Çà »èÁ¦
+            // íŒŒì¼í…Œì´ë¸” í–‰ ì‚­ì œ
             //sql_query(" delete from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$row[wr_id]' ");
 
-            // ¾÷·ÎµåµÈ ÆÄÀÏÀÌ ÀÖ´Ù¸é
+            // ì—…ë¡œë“œëœ íŒŒì¼ì´ ìˆë‹¤ë©´
             $sql2 = " select * from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$row[wr_id]' ";
             $result2 = sql_query($sql2);
             while ($row2 = sql_fetch_array($result2))
-                // ÆÄÀÏ»èÁ¦
+                // íŒŒì¼ì‚­ì œ
                 @unlink("$g4[data_path]/file/$bo_table/$row2[bf_file]");
                 
-            // ÆÄÀÏÅ×ÀÌºí Çà »èÁ¦
+            // íŒŒì¼í…Œì´ë¸” í–‰ ì‚­ì œ
             sql_query(" delete from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$row[wr_id]' ");
 
-            // ºÒ´çÆÑ - cheditor ÀÌ¹ÌÁö »èÁ¦
+            // ë¶ˆë‹¹íŒ© - cheditor ì´ë¯¸ì§€ ì‚­ì œ
             $sql = " select * from $g4[board_cheditor_table] where bo_table = '$bo_table' and wr_id = '$row[wr_id]'";
             $result3 = sql_query($sql);
             while ($row3=sql_fetch_array($result3)) {
@@ -133,50 +133,50 @@ for ($i=count($tmp_array)-1; $i>=0; $i--)
                 sql_query($sql_d);
             }
 
-            // ºÒ´çÆÑ - whaton »èÁ¦ (´ä±Û)
+            // ë¶ˆë‹¹íŒ© - whaton ì‚­ì œ (ë‹µê¸€)
             $sql = " delete from $g4[whatson_table] where bo_table ='$bo_table' and wr_id = '$row[wr_id]' ";
             sql_query($sql);
 
-            // ºÒ´çÆÑ - ÀüÃ¼ °øÁö»çÇ× »èÁ¦
+            // ë¶ˆë‹¹íŒ© - ì „ì²´ ê³µì§€ì‚¬í•­ ì‚­ì œ
             $sql = " delete from $g4[notice_table] where bo_table = '$bo_table' and wr_id = '$row[wr_id]' ";
             sql_query($sql);
 
-            // º£½ºÆ®±Û »èÁ¦
+            // ë² ìŠ¤íŠ¸ê¸€ ì‚­ì œ
             sql_query(" delete from $g4[good_list_table] where bo_table = '$bo_table' and wr_id = '$row[wr_id]' ");
 
             $count_write++;
         } 
         else 
         {
-            // ÄÚ¸àÆ® Æ÷ÀÎÆ® »èÁ¦
-            if (!delete_point($row[mb_id], $bo_table, $row[wr_id], 'ÄÚ¸àÆ®'))
-                insert_point($row[mb_id], $board[bo_comment_point] * (-1), "$board[bo_subject] {$write[wr_id]}-{$row[wr_id]} ÄÚ¸àÆ®»èÁ¦");
+            // ì½”ë©˜íŠ¸ í¬ì¸íŠ¸ ì‚­ì œ
+            if (!delete_point($row[mb_id], $bo_table, $row[wr_id], 'ì½”ë©˜íŠ¸'))
+                insert_point($row[mb_id], $board[bo_comment_point] * (-1), "$board[bo_subject] {$write[wr_id]}-{$row[wr_id]} ì½”ë©˜íŠ¸ì‚­ì œ");
 
-            // ºÒ´çÆÑ - whaton »èÁ¦ (ÄÚ¸àÆ®)
+            // ë¶ˆë‹¹íŒ© - whaton ì‚­ì œ (ì½”ë©˜íŠ¸)
             $sql = " delete from $g4[whatson_table] where bo_table ='$bo_table' and wr_id = '$row[wr_id]' ";
             sql_query($sql);
 
             $count_comment++;
         }
 
-        // ÃßÃµÁ¤º¸¸¦ »èÁ¦
+        // ì¶”ì²œì •ë³´ë¥¼ ì‚­ì œ
         $sql = " delete from $g4[board_good_table] where bo_table = '$bo_table' and wr_id = '$row[wr_id]' ";
         sql_query($sql);
     }
 
-    // °Ô½Ã±Û »èÁ¦
+    // ê²Œì‹œê¸€ ì‚­ì œ
     sql_query(" delete from $write_table where wr_parent = '$write[wr_id]' ");
 
-    // ÃÖ±Ù°Ô½Ã¹° »èÁ¦
+    // ìµœê·¼ê²Œì‹œë¬¼ ì‚­ì œ
     sql_query(" delete from $g4[board_new_table] where bo_table = '$bo_table' and wr_parent = '$write[wr_id]' ");
 
-    // ½ºÅ©·¦ »èÁ¦
+    // ìŠ¤í¬ë© ì‚­ì œ
     sql_query(" delete from $g4[scrap_table] where bo_table = '$bo_table' and wr_id = '$write[wr_id]' ");
 
-    // ½Å°í³»¿ª »èÁ¦
+    // ì‹ ê³ ë‚´ì—­ ì‚­ì œ
     sql_query(" delete from $g4[singo_table] where bo_table = '$bo_table' and wr_parent = '$write[wr_id]' ");
 
-    // °øÁö»çÇ× »èÁ¦
+    // ê³µì§€ì‚¬í•­ ì‚­ì œ
     $notice_array = explode("\n", trim($board[bo_notice]));
     $bo_notice = "";
     for ($k=0; $k<count($notice_array); $k++)
@@ -186,20 +186,20 @@ for ($i=count($tmp_array)-1; $i>=0; $i--)
     sql_query(" update $g4[board_table] set bo_notice = '$bo_notice' where bo_table = '$bo_table' ");
     $board[bo_notice] = $bo_notice;
     
-    // ºÒ´çÆÑ - ÀüÃ¼ °øÁö»çÇ× »èÁ¦
+    // ë¶ˆë‹¹íŒ© - ì „ì²´ ê³µì§€ì‚¬í•­ ì‚­ì œ
     $sql = " delete from $g4[notice_table] where bo_table = '$bo_table' and wr_id = '$write[wr_id]' ";
     sql_query($sql);
 
-    // ºÒ´çÆÑ - ¿Ô¼õ~ »èÁ¦
+    // ë¶ˆë‹¹íŒ© - ì™”ìˆ‘~ ì‚­ì œ
     $sql = " delete from $g4[whatson_table] where bo_table ='$bo_table' and wr_id = '$write[wr_id]' ";
     sql_query($sql);
 }
 
-// ±Û¼ıÀÚ °¨¼Ò
+// ê¸€ìˆ«ì ê°ì†Œ
 if ($count_write > 0 || $count_comment > 0)
     sql_query(" update $g4[board_table] set bo_count_write = bo_count_write - '$count_write', bo_count_comment = bo_count_comment - '$count_comment' where bo_table = '$bo_table' ");
 
-// ºÒ´çÆÑ - min_wr_num ¾÷µ¥ÀÌÆ®
+// ë¶ˆë‹¹íŒ© - min_wr_num ì—…ë°ì´íŠ¸
 $result = sql_fetch(" select MIN(wr_num) as min_wr_num from $write_table ");
 $sql = " update $g4[board_table] set min_wr_num = '$result[min_wr_num]' where bo_table = '$bo_table' ";
 sql_query($sql);
@@ -208,7 +208,7 @@ sql_query($sql);
 @include_once("$board_skin_path/delete_all.tail.skin.php");
 
 if ($tmp_array_undeleted)
-    alert("°Ô½Ã±Û id {$tmp_array_undeleted}Àº/´Â °Ô½ÃÀÚÀÇ ·¹º§ÀÌ °°°Å³ª Å©±â ¶§¹®¿¡ »èÁ¦ÇÒ ¼ö ¾ø½À´Ï´Ù.", "./board.php?bo_table=$bo_table&page=$page" . $qstr);
+    alert("ê²Œì‹œê¸€ id {$tmp_array_undeleted}ì€/ëŠ” ê²Œì‹œìì˜ ë ˆë²¨ì´ ê°™ê±°ë‚˜ í¬ê¸° ë•Œë¬¸ì— ì‚­ì œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", "./board.php?bo_table=$bo_table&page=$page" . $qstr);
 else
     goto_url("./board.php?bo_table=$bo_table&page=$page" . $qstr);
 ?>

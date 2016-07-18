@@ -7,21 +7,21 @@ $mb_id = $member[mb_id];
 if ($w == "add") 
 {
     if (!$mb_id)
-        alert("È¸¿ø¸¸ Âü¿©°¡´É ÇÕ´Ï´Ù. ·Î±×ÀÎ ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù");
+        alert("íšŒì›ë§Œ ì°¸ì—¬ê°€ëŠ¥ í•©ë‹ˆë‹¤. ë¡œê·¸ì¸ í•˜ì‹œê¸° ë°”ëžë‹ˆë‹¤");
 
-    // ÀÌº¥Æ®¿¡´Â ÇÑ¹ø¸¸ Âü¿© °¡´É
+    // ì´ë²¤íŠ¸ì—ëŠ” í•œë²ˆë§Œ ì°¸ì—¬ ê°€ëŠ¥
     $sql = " select count(*) as cnt from $g4[promotion_sign_table] where po_id = '$po_id' and mb_id = '$mb_id' ";
     $my = sql_fetch($sql);
     if ($my[cnt] > 1)
-        alert("ÀÌº¥Æ® Âü¿© È½¼ö¸¦ ÃÊ°ú Çß½À´Ï´Ù. ÀÌº¥Æ® Âü¿© °á°ú¸¦ È®ÀÎÇØ ÁÖ¼¼¿ä.", "./promotion.php");
+        alert("ì´ë²¤íŠ¸ ì°¸ì—¬ íšŸìˆ˜ë¥¼ ì´ˆê³¼ í–ˆìŠµë‹ˆë‹¤. ì´ë²¤íŠ¸ ì°¸ì—¬ ê²°ê³¼ë¥¼ í™•ì¸í•´ ì£¼ì„¸ìš”.", "./promotion.php");
 
-    // ºñ¹Ð¹øÈ£ »ý¼º
+    // ë¹„ë°€ë²ˆí˜¸ ìƒì„±
     $po_password = rand(1000, 9999); 
 
-    // url¸¦ »ý¼º
+    // urlë¥¼ ìƒì„±
     $po_url = time() . "_" . sql_password($po_password);
 
-    // promotion ½ÅÃ» Á¤º¸¸¦ insert
+    // promotion ì‹ ì²­ ì •ë³´ë¥¼ insert
     $sql = " insert $g4[promotion_sign_table] set 
                     po_id = '$po_id',
                     mb_id = '$mb_id',
@@ -40,9 +40,9 @@ if ($w == "add")
     if ($my[po_id]) {
         $mb = get_member($my[mb_id] , "mb_nick");
         $po = sql_fetch(" select * from $g4[promotion_table] where po_id = '$my[po_id]'");
-        echo "$mb[mb_nick] ´ÔÀº $po[po_name] ¿¡ Âü¿© Çß½À´Ï´Ù.";
+        echo "$mb[mb_nick] ë‹˜ì€ $po[po_name] ì— ì°¸ì—¬ í–ˆìŠµë‹ˆë‹¤.";
     } else {
-        alert("À¯È¿ÇÏÁö ¾ÊÀº ÇÁ·Î¸ð¼Ç Á¤º¸ ÀÔ´Ï´Ù");
+        alert("ìœ íš¨í•˜ì§€ ì•Šì€ í”„ë¡œëª¨ì…˜ ì •ë³´ ìž…ë‹ˆë‹¤");
     }
 }
 ?>

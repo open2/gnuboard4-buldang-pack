@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 
 <div class="panel panel-default">
@@ -7,7 +7,7 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
 	  <ul class="list-unstyled">
     <?
     if (count($list) == 0) {
-        echo "<li><a href='#'>³»¿ë¾ø½¿</a></li>";
+        echo "<li><a href='#'>ë‚´ìš©ì—†ìŠ´</a></li>";
     } else {
         for ($i=0; $i<count($list); $i++) { 
 
@@ -40,7 +40,7 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
           echo "</li>";
       }
   }
-  // fillÀÌ trueÀÌ°í, ´ú Ã¤¿öÁö¸é ²Ë Ã¤¿öÁØ´Ù.
+  // fillì´ trueì´ê³ , ëœ ì±„ì›Œì§€ë©´ ê½‰ ì±„ì›Œì¤€ë‹¤.
   if ($options && $options['fill'] && $i < $rows) {
         for ($j=$i; $j<$rows;$j++) {
             echo "<li><a href='#'>&nbsp;</a></li>";

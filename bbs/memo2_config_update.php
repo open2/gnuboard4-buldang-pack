@@ -2,7 +2,7 @@
 include_once("./_common.php");
 include_once("$g4[path]/memo.config.php");
 
-// »ç¿ëÀÚ ¼³Á¤À» ÀúÀåÇÏ±â
+// ì‚¬ìš©ìž ì„¤ì •ì„ ì €ìž¥í•˜ê¸°
 $mb_realmemo             = $_POST['mb_realmemo'];
 $mb_realmemo_sound       = $_POST['mb_realmemo_sound'];
 $mb_memo_no_reply        = $_POST['mb_memo_no_reply'];
@@ -29,7 +29,7 @@ if (!$res) {
     sql_query( " ALTER TABLE `$g4[member_table]` ADD `mb_memo_no_reply_text` varchar(255) NOT NULL ", false);
     sql_query( " ALTER TABLE `$g4[member_table]` ADD `mb_memo_no_reply_datetime` datetime NOT NULL ", false);
         
-    // update¸¦ ¼öÇà
+    // updateë¥¼ ìˆ˜í–‰
     sql_query($sql);
 }
 
@@ -55,7 +55,7 @@ $cf_memo_mb_name      = $_POST['cf_memo_mb_name'];
 $cf_memo_file_size    = (int) $_POST['cf_memo_file_size'];
 $cf_max_memo_file_size    = (int) $_POST['cf_max_memo_file_size'];
 
-// °ü¸®ÀÚ ¼³Á¤À» ÀúÀåÇÏ±â
+// ê´€ë¦¬ìž ì„¤ì •ì„ ì €ìž¥í•˜ê¸°
 if ($is_admin) {
     $sql = " update $g4[config_table]
                 set
@@ -145,10 +145,10 @@ if ($is_admin) {
                   ";
         sql_query($sql2);
         
-        // update ¸í·ÉÀ» ÇÑ¹ø ´õ ¼öÇà
+        // update ëª…ë ¹ì„ í•œë²ˆ ë” ìˆ˜í–‰
         sql_query($sql);
     }
 }
 
-alert("ÂÊÁö ¼³Á¤À» ÀúÀå ÇÏ¿´½À´Ï´Ù.", "./memo.php?kind=memo_config");
+alert("ìª½ì§€ ì„¤ì •ì„ ì €ìž¥ í•˜ì˜€ìŠµë‹ˆë‹¤.", "./memo.php?kind=memo_config");
 ?>

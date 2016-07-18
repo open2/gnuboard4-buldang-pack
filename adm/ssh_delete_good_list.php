@@ -1,25 +1,25 @@
 <?
 include_once("./_common.php");
 
-$g4[title] = "º£½ºÆ® °Ô½Ã¹° ÀÏ°ý »èÁ¦(Flag Off¸¸ ÇÏ°í °Ô½Ã±Û »èÁ¦´Â ¾ÈÇÕ´Ï´Ù)" . $act;
+$g4[title] = "ë² ìŠ¤íŠ¸ ê²Œì‹œë¬¼ ì¼ê´„ ì‚­ì œ(Flag Offë§Œ í•˜ê³  ê²Œì‹œê¸€ ì‚­ì œëŠ” ì•ˆí•©ë‹ˆë‹¤)" . $act;
 include_once("$g4[path]/head.sub.php");
 
-// ÂüÁ¶ : /bbs/delete_all.php (ÇØ´ç ÄÚµå°¡ º¯°æµÇ¸é ÀÌ ÄÚµåµµ ¹Ýµå½Ã ¼öÁ¤ÇØ¾ß ÇÔ)
+// ì°¸ì¡° : /bbs/delete_all.php (í•´ë‹¹ ì½”ë“œê°€ ë³€ê²½ë˜ë©´ ì´ ì½”ë“œë„ ë°˜ë“œì‹œ ìˆ˜ì •í•´ì•¼ í•¨)
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.");
+    alert("ìµœê³ ê´€ë¦¬ìžë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
 if ($sw == "d" || $sw == "r")
     ;
 else
-    alert("¹Ù¸£Áö ¸øÇÑ »ç¿ëÀÔ´Ï´Ù.");
+    alert("ë°”ë¥´ì§€ ëª»í•œ ì‚¬ìš©ìž…ë‹ˆë‹¤.");
 
 // $_POST[chk_wr_id] : $list[$i][wr_id]}|{$list[$i][bo_table]}
 
 $tmp_array = array();
-if ($gp_id) // °Çº°»èÁ¦
+if ($gp_id) // ê±´ë³„ì‚­ì œ
     $tmp_array[0] = $gl_id;
-else // ÀÏ°ý»èÁ¦
+else // ì¼ê´„ì‚­ì œ
     $tmp_array = $_POST[chk_gl_id];
 
 for ($i=count($tmp_array)-1; $i>=0; $i--) {
@@ -34,7 +34,7 @@ for ($i=count($tmp_array)-1; $i>=0; $i--) {
         $gl_flag = 0;
     }
 
-} // for loopÀÇ ³¡
+} // for loopì˜ ë
 
 goto_url("$g4[bbs_path]/good_list.php?gr_id=$gr_id&bo_table=$bo_table&gl_flag=$gl_flag&page=$page" . $qstr);
 ?>

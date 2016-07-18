@@ -8,13 +8,13 @@ while ($row = sql_fetch_array($qry))
 }
 ?>
 <select class="form-control" onchange="quick_move(this.value)" style="width:160;">
-    <option value="">�Խ��� �ٷΰ���</option>
+    <option value="">게시판 바로가기</option>
     <option value="">-------------------------</option>
     <? for ($i=0; $i<count($my_menu); $i++) {?>
         <option value="<?=$my_menu[$i][bo_table]?>"><?=$my_menu[$i][bo_subject]?></option>
     <? } ?>
     <option value="">-------------------------</option>
-    <option value="menu-edit">�ٷΰ��� ����</option>
+    <option value="menu-edit">바로가기 편집</option>
 </select>
 
 <script type="text/javascript">

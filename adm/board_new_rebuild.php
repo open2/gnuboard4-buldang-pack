@@ -4,38 +4,38 @@ include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "r");
 
-$g4[title] = "ÃÖ½Å±Û ´Ù½Ã ¸¸µé±â";
+$g4[title] = "ìµœì‹ ê¸€ ë‹¤ì‹œ ë§Œë“¤ê¸°";
 include_once("./admin.head.php");
 
-echo "'¿Ï·á' ¸Ş¼¼Áö°¡ ³ª¿À±â Àü¿¡ ÇÁ·Î±×·¥ÀÇ ½ÇÇàÀ» ÁßÁöÇÏÁö ¸¶½Ê½Ã¿À.<br>";
+echo "'ì™„ë£Œ' ë©”ì„¸ì§€ê°€ ë‚˜ì˜¤ê¸° ì „ì— í”„ë¡œê·¸ë¨ì˜ ì‹¤í–‰ì„ ì¤‘ì§€í•˜ì§€ ë§ˆì‹­ì‹œì˜¤.<br>";
 echo "<span id='ct'></span>";
 include_once("./admin.tail.php");
 flush();
 
-// °Ô½ÃÆÇÀ» ¸ğµÎ ÀĞ¾î ³À´Ï´Ù.
+// ê²Œì‹œíŒì„ ëª¨ë‘ ì½ì–´ ëƒ…ë‹ˆë‹¤.
 $sql = " select * from $g4[board_table] ";
 $result = sql_query($sql);
 while($board = sql_fetch_array($result)) {
-    $tmp_write_table = $g4['write_prefix'] . $board[bo_table]; // °Ô½ÃÆÇ Å×ÀÌºí ÀüÃ¼ÀÌ¸§
+    $tmp_write_table = $g4['write_prefix'] . $board[bo_table]; // ê²Œì‹œíŒ í…Œì´ë¸” ì „ì²´ì´ë¦„
 
     $sql2 = " select * from $tmp_write_table where (TO_DAYS('$g4[time_ymdhis]') - TO_DAYS(wr_datetime)) <= '$config[cf_new_del]' order by wr_datetime asc ";
     $result2 = sql_query($sql2);
     
     while ($write = sql_fetch_array($result2)) {
-        // ÃÖ½Å±Û Å×ÀÌºí¿¡ ÀÖ´ÂÁö Ã¼Å©
+        // ìµœì‹ ê¸€ í…Œì´ë¸”ì— ìˆëŠ”ì§€ ì²´í¬
         $res = sql_fetch(" select count(*) as cnt from $g4[board_new_table] where bo_table = '$board[bo_table]' and wr_id = '$write[wr_id]' ");
         if ($res[cnt] > 0)
           continue;
         
-        // parent_mb_id¸¦ ±¸ÇÑ´Ù.
+        // parent_mb_idë¥¼ êµ¬í•œë‹¤.
         if ($write[wr_is_comment]) {
-            // ÄÚ¸àÆ®ÀÎ °æ¿ì¿¡´Â ¿ø±ÛÀÇ mb_id¸¦ ³Ö¾îÁİ´Ï´Ù.
+            // ì½”ë©˜íŠ¸ì¸ ê²½ìš°ì—ëŠ” ì›ê¸€ì˜ mb_idë¥¼ ë„£ì–´ì¤ë‹ˆë‹¤.
             $tmp_mb_id = sql_fetch(" select mb_id from $tmp_write_table where wr_id = '$write[wr_parent]' ");
             if ($tmp_mb_id[mb_id] !== "")
                 $parent_mb_id = $tmp_mb_id[mb_id];
         } if ($write[wr_reply]) {
-            // ºÒ´çÆÑ - ´ä±ÛÀÎ °æ¿ì ¿ø±ÛÀÇ mb_id¸¦ ÀÔ·Â
-            // ¿ø±Û¸¸ ±¸ÇÑ´Ù. + ÇöÀç±Û ÀÛ¼ºÀÚ¿Í´Â ´Ş¶ó¾ß ÇÑ´Ù
+            // ë¶ˆë‹¹íŒ© - ë‹µê¸€ì¸ ê²½ìš° ì›ê¸€ì˜ mb_idë¥¼ ì…ë ¥
+            // ì›ê¸€ë§Œ êµ¬í•œë‹¤. + í˜„ì¬ê¸€ ì‘ì„±ìì™€ëŠ” ë‹¬ë¼ì•¼ í•œë‹¤
             $sql = " select mb_id from $tmp_write_table
                       where wr_reply = ''
                       and wr_id <> '$write[wr_id]'
@@ -49,7 +49,7 @@ while($board = sql_fetch_array($result)) {
             $parent_mb_id = "";
         }
 
-        // ÃÖ½Å±Û Å×ÀÌºí¿¡ °ªÀ» insert
+        // ìµœì‹ ê¸€ í…Œì´ë¸”ì— ê°’ì„ insert
         $sql = " insert into $g4[board_new_table]
                     set 
                     bo_table = '$board[bo_table]',
@@ -67,7 +67,7 @@ while($board = sql_fetch_array($result)) {
 }
 
 
-echo "<script>document.getElementById('ct').innerHTML += '<br><br>ÃÖ½Å±ÛÅ×ÀÌºí ¸®ºôµå ¿Ï·á.<br><br>ÇÁ·Î±×·¥ÀÇ ½ÇÇàÀ» ³¡¸¶Ä¡¼Åµµ ÁÁ½À´Ï´Ù.';</script>\n";
+echo "<script>document.getElementById('ct').innerHTML += '<br><br>ìµœì‹ ê¸€í…Œì´ë¸” ë¦¬ë¹Œë“œ ì™„ë£Œ.<br><br>í”„ë¡œê·¸ë¨ì˜ ì‹¤í–‰ì„ ëë§ˆì¹˜ì…”ë„ ì¢‹ìŠµë‹ˆë‹¤.';</script>\n";
 
 include_once("./admin.tail.php");
 ?>

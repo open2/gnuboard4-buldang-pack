@@ -1,73 +1,73 @@
 <?php
 
-// ÈÄµüºô´õ°¡ ¾Æ´Ñ ±×´©º¸µå¿¡ ¼³Ä¡½Ã ¼ıÀÚ 1À» ³Ö¾îÁÖ½Ã¸é ±×´©º¸µå ¶Ç´Â ´Ù¸¥ ºô´õ¿¡¼­µµ ÀÛµ¿ÇÕ´Ï´Ù.
-$att['attendance_gnu'] = "1"; // ¿¹Á¦) $att['attendance_gnu'] = "1";
+// í›„ë”±ë¹Œë”ê°€ ì•„ë‹Œ ê·¸ëˆ„ë³´ë“œì— ì„¤ì¹˜ì‹œ ìˆ«ì 1ì„ ë„£ì–´ì£¼ì‹œë©´ ê·¸ëˆ„ë³´ë“œ ë˜ëŠ” ë‹¤ë¥¸ ë¹Œë”ì—ì„œë„ ì‘ë™í•©ë‹ˆë‹¤.
+$att['attendance_gnu'] = "1"; // ì˜ˆì œ) $att['attendance_gnu'] = "1";
 
 if($att['attendance_gnu']){
 	$g4['plugin']      = 'plugin';
 	$g4['plugin_path'] = $g4['path'] . '/' . $g4['plugin'];
 }
 
-//Ãâ¼®Ã¼Å© ±â´ÉÀÇ È¯°æ ¼³Á¤
+//ì¶œì„ì²´í¬ ê¸°ëŠ¥ì˜ í™˜ê²½ ì„¤ì •
 $g4['attendance'] = 'attendance';
-$g4['attendance_path'] = $g4['plugin_path'] . '/' . $g4['attendance']; // ÇÃ·¯±×ÀÎ À§Ä¡°æ·Î
-$g4['attendance_img'] = 'img'; // ÇÃ·¯±×ÀÎ ÀÌ¹ÌÁö
-$g4['attendance_css'] = 'css'; // ÇÃ·¯±×ÀÎ css
-$g4['attendance_lib'] = 'lib'; // ÇÃ·¯±×ÀÎ ¶óÀÌºê·¯¸®
-$g4['attendance_img_path'] = $g4['attendance_path'] .'/'.$g4['attendance_img']; // ÇÃ·¯±×ÀÎ ÀÌ¹ÌÁö °æ·Î
-$g4['attendance_css_path'] = $g4['attendance_path'] .'/'.$g4['attendance_css']; // ÇÃ·¯±×ÀÎ css °æ·Î
-$g4['attendance_lib_path'] = $g4['attendance_path'] .'/'.$g4['attendance_lib']; //  ÇÃ·¯±×ÀÎ ¶óÀÌºê·¯¸® °æ·Î
+$g4['attendance_path'] = $g4['plugin_path'] . '/' . $g4['attendance']; // í”ŒëŸ¬ê·¸ì¸ ìœ„ì¹˜ê²½ë¡œ
+$g4['attendance_img'] = 'img'; // í”ŒëŸ¬ê·¸ì¸ ì´ë¯¸ì§€
+$g4['attendance_css'] = 'css'; // í”ŒëŸ¬ê·¸ì¸ css
+$g4['attendance_lib'] = 'lib'; // í”ŒëŸ¬ê·¸ì¸ ë¼ì´ë¸ŒëŸ¬ë¦¬
+$g4['attendance_img_path'] = $g4['attendance_path'] .'/'.$g4['attendance_img']; // í”ŒëŸ¬ê·¸ì¸ ì´ë¯¸ì§€ ê²½ë¡œ
+$g4['attendance_css_path'] = $g4['attendance_path'] .'/'.$g4['attendance_css']; // í”ŒëŸ¬ê·¸ì¸ css ê²½ë¡œ
+$g4['attendance_lib_path'] = $g4['attendance_path'] .'/'.$g4['attendance_lib']; //  í”ŒëŸ¬ê·¸ì¸ ë¼ì´ë¸ŒëŸ¬ë¦¬ ê²½ë¡œ
 
 
-$g4['attendance_plugin_table'] = $g4['table_prefix'] . 'plugin_attendance'; // Ãâ¼®Ã¼Å© Å×ÀÌºí
-$g4['attendance_successive_plugin_table'] = $g4['table_prefix'] . 'plugin_attendance_successive'; // ¸í¿¹ Àü´ç Å×ÀÌºí
+$g4['attendance_plugin_table'] = $g4['table_prefix'] . 'plugin_attendance'; // ì¶œì„ì²´í¬ í…Œì´ë¸”
+$g4['attendance_successive_plugin_table'] = $g4['table_prefix'] . 'plugin_attendance_successive'; // ëª…ì˜ˆ ì „ë‹¹ í…Œì´ë¸”
 
-//±âÅ¸ È¯°æ ¼³Á¤
-$att['attendance_level'] = '2'; // Ãâ¼® Ã¼Å© °¡´É ·¹º§ 2·¹º§ ¹Ì¸¸Àº ÇÏ½Ç¼ö ¾ø½À´Ï´Ù.
-$att['attendance_rows'] = '20'; // Ãâ¼® ÀÎ¿ø Ç¥Çö°³¼ö
-$att['attendance_number'] = '1'; // ÇÏ·ç Ãâ¼® °¡´É È½¼ö ( ¾ÆÀÌµğ±âÁØ )
-$att['attendance_ip'] = "2"; // µ¿ÀÏ ¾ÆÀÌÇÇ Ãâ¼®¸·±â 1 ¶Ç´Â Çã¿ëÈ½¼ö
-$att['attendance_start_time'] = '00:00:00'; // Ãâ¼®½ÃÀÛ ½Ã°£ ½Ã:ºĞ:ÃÊ
-$att['attendance_end_time'] = '23:59:00'; // Ãâ¼®Á¾·á ½Ã°£ ½Ã:ºĞ:ÃÊ
+//ê¸°íƒ€ í™˜ê²½ ì„¤ì •
+$att['attendance_level'] = '2'; // ì¶œì„ ì²´í¬ ê°€ëŠ¥ ë ˆë²¨ 2ë ˆë²¨ ë¯¸ë§Œì€ í•˜ì‹¤ìˆ˜ ì—†ìŠµë‹ˆë‹¤.
+$att['attendance_rows'] = '20'; // ì¶œì„ ì¸ì› í‘œí˜„ê°œìˆ˜
+$att['attendance_number'] = '1'; // í•˜ë£¨ ì¶œì„ ê°€ëŠ¥ íšŸìˆ˜ ( ì•„ì´ë””ê¸°ì¤€ )
+$att['attendance_ip'] = "2"; // ë™ì¼ ì•„ì´í”¼ ì¶œì„ë§‰ê¸° 1 ë˜ëŠ” í—ˆìš©íšŸìˆ˜
+$att['attendance_start_time'] = '00:00:00'; // ì¶œì„ì‹œì‘ ì‹œê°„ ì‹œ:ë¶„:ì´ˆ
+$att['attendance_end_time'] = '23:59:00'; // ì¶œì„ì¢…ë£Œ ì‹œê°„ ì‹œ:ë¶„:ì´ˆ
 
-$att['attendance_win_start_point'] = "1"; // ½Â¸® ½ÃÀÛ Æ÷ÀÎÆ®
-$att['attendance_win_end_point'] = "2"; // ½Â¸® Á¾·á Æ÷ÀÎÆ®
+$att['attendance_win_start_point'] = "1"; // ìŠ¹ë¦¬ ì‹œì‘ í¬ì¸íŠ¸
+$att['attendance_win_end_point'] = "2"; // ìŠ¹ë¦¬ ì¢…ë£Œ í¬ì¸íŠ¸
 
-$att['attendance_tie_start_point'] = "1"; // ¹«½ÂºÎ ½ÃÀÛ Æ÷ÀÎÆ®
-$att['attendance_tie_end_point'] = "2"; // ¹«½ÂºÎ Á¾·á Æ÷ÀÎÆ®
+$att['attendance_tie_start_point'] = "1"; // ë¬´ìŠ¹ë¶€ ì‹œì‘ í¬ì¸íŠ¸
+$att['attendance_tie_end_point'] = "2"; // ë¬´ìŠ¹ë¶€ ì¢…ë£Œ í¬ì¸íŠ¸
 
-$att['attendance_loss_start_point'] = "1"; // ÆĞ ½ÃÀÛ Æ÷ÀÎÆ®
-$att['attendance_loss_end_point'] = "2"; // ÆĞ Á¾·á Æ÷ÀÎÆ®
+$att['attendance_loss_start_point'] = "1"; // íŒ¨ ì‹œì‘ í¬ì¸íŠ¸
+$att['attendance_loss_end_point'] = "2"; // íŒ¨ ì¢…ë£Œ í¬ì¸íŠ¸
 
-// ¿¬¼Ó ¼³Á¤
-$att['attendance_successive'] = "10,15,20"; // ¿¬½Â,¿¬¼Ó¹«½ÂºÎ,¿¬ÆĞ ¼³Á¤ ¼³Á¤ ¿¹Á¦ 3,5,10  <== 3, 5, 10 ¿¬¼ÓÀ» ¶æÇÔ
+// ì—°ì† ì„¤ì •
+$att['attendance_successive'] = "10,15,20"; // ì—°ìŠ¹,ì—°ì†ë¬´ìŠ¹ë¶€,ì—°íŒ¨ ì„¤ì • ì„¤ì • ì˜ˆì œ 3,5,10  <== 3, 5, 10 ì—°ì†ì„ ëœ»í•¨
 
-$att['attendance_page_rows'] = "15"; // ÇÑÆäÁö °³¼ö
-$att['attendance_pages'] = "10"; // ÆäÀÌÂ¡ Ãâ·Â¼ö
-$att['attendance_honor_rows'] = "10"; // ¸í¿¹ÀÇ Àü´ç Ãâ·Â¼ö
+$att['attendance_page_rows'] = "15"; // í•œí˜ì§€ ê°œìˆ˜
+$att['attendance_pages'] = "10"; // í˜ì´ì§• ì¶œë ¥ìˆ˜
+$att['attendance_honor_rows'] = "10"; // ëª…ì˜ˆì˜ ì „ë‹¹ ì¶œë ¥ìˆ˜
 
-$att['char_min'] = "10"; // ³»¿ë ÃÖ¼Ò ±ÛÀÚ¼ö
-$att['char_max'] = "100"; // ³»¿ë ÃÖ´ë ±ÛÀÚ¼ö
+$att['char_min'] = "10"; // ë‚´ìš© ìµœì†Œ ê¸€ììˆ˜
+$att['char_max'] = "100"; // ë‚´ìš© ìµœëŒ€ ê¸€ììˆ˜
 
-$att['attendance_memo'] = array(); // ³²±æ ¸»¾øÀ»¶§ ±âº» µğÆúÆ®¼³Á¤ ·£´ı Ç¥Çö
-$att['attendance_memo']['0'] = "¾È³çÇÏ¼¼¿ä Áñ°Å¿î ÇÏ·ç º¸³»¼¼¿ä!!";
-$att['attendance_memo']['1'] = "¿À´ÃÀº ²ÀÀÌ±æÅ×´Ù!!";
-$att['attendance_memo']['2'] = "2CPU ÃÖ°í!!";
-$att['attendance_memo']['3'] = "³»°¡ ¸Ö³¾±î ±Ã±İÇÏÁö?";
-$att['attendance_memo']['4'] = "»çÀºÇ°Àº ³»²¨!";
-$att['attendance_memo']['5'] = "ÃÊ¼ºÃ¼¿Í ÀÌ¸ğÆ¼ÄÜÀ» ¾È¾²°Ú½À´Ï´Ù";
-$att['attendance_memo']['9'] = "ÀåÅÍ´Â ÇÏ·ç¿¡ 1¹ø¸¸ µé¸®°Ú½À´Ï´Ù";
-$att['attendance_memo']['10'] = "³²ÀÚ´Â ÁÖ¸ÔÀ» ³À´Ï´Ù.";
-$att['attendance_memo']['11'] = "ÁÖ¸ÔÀ» ³»°í Á®µµ ¿ïÁö ¾Ê½À´Ï´Ù.";
-$att['attendance_memo']['12'] = "¸ÅÀÏ¸ÅÀÏ ÃâÃ½";
-$att['attendance_memo']['14'] = "µµÀü! Çàº¹ÇÑ ÇÏ·ç";
-$att['attendance_memo']['15'] = "Æí¾ÈÇÏ°Ô ÀáÀÚ°í ½Í¾î¿ä";
+$att['attendance_memo'] = array(); // ë‚¨ê¸¸ ë§ì—†ì„ë•Œ ê¸°ë³¸ ë””í´íŠ¸ì„¤ì • ëœë¤ í‘œí˜„
+$att['attendance_memo']['0'] = "ì•ˆë…•í•˜ì„¸ìš” ì¦ê±°ìš´ í•˜ë£¨ ë³´ë‚´ì„¸ìš”!!";
+$att['attendance_memo']['1'] = "ì˜¤ëŠ˜ì€ ê¼­ì´ê¸¸í…Œë‹¤!!";
+$att['attendance_memo']['2'] = "2CPU ìµœê³ !!";
+$att['attendance_memo']['3'] = "ë‚´ê°€ ë©€ë‚¼ê¹Œ ê¶ê¸ˆí•˜ì§€?";
+$att['attendance_memo']['4'] = "ì‚¬ì€í’ˆì€ ë‚´êº¼!";
+$att['attendance_memo']['5'] = "ì´ˆì„±ì²´ì™€ ì´ëª¨í‹°ì½˜ì„ ì•ˆì“°ê² ìŠµë‹ˆë‹¤";
+$att['attendance_memo']['9'] = "ì¥í„°ëŠ” í•˜ë£¨ì— 1ë²ˆë§Œ ë“¤ë¦¬ê² ìŠµë‹ˆë‹¤";
+$att['attendance_memo']['10'] = "ë‚¨ìëŠ” ì£¼ë¨¹ì„ ëƒ…ë‹ˆë‹¤.";
+$att['attendance_memo']['11'] = "ì£¼ë¨¹ì„ ë‚´ê³  ì ¸ë„ ìš¸ì§€ ì•ŠìŠµë‹ˆë‹¤.";
+$att['attendance_memo']['12'] = "ë§¤ì¼ë§¤ì¼ ì¶œì²µ";
+$att['attendance_memo']['14'] = "ë„ì „! í–‰ë³µí•œ í•˜ë£¨";
+$att['attendance_memo']['15'] = "í¸ì•ˆí•˜ê²Œ ì ìê³  ì‹¶ì–´ìš”";
 
 
 include_once($g4['attendance_path'] . '/lib/attendance.lib.php');
 ?>
 <script>
-/* ºÎÆ®½ºÆ®·¦ ÅøÆÁ ½ºÅ©¸³Æ® */
+/* ë¶€íŠ¸ìŠ¤íŠ¸ë© íˆ´íŒ ìŠ¤í¬ë¦½íŠ¸ */
 $(document).ready(function(){
     $(".tooltip-top").tooltip({trigger: 'hover click','placement': 'top'});
 });

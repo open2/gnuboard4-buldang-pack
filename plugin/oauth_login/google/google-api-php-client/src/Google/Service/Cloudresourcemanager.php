@@ -483,7 +483,7 @@ class Google_Service_Cloudresourcemanager_Projects_Resource extends Google_Servi
    * project's name is `Howl` or `howl`.| |name:HOWL|Equivalent to above.|
    * |NAME:howl|Equivalent to above.| |labels.color:*|The project has the label
    * `color`.| |labels.color:red|The project's label `color` has the value `red`.|
-   * |labels.color:red label.size:big|The project's label `color` has the value
+   * |labels.color:red혻label.size:big|The project's label `color` has the value
    * `red` and its label `size` has the value `big`. Optional.
    * @return Google_Service_Cloudresourcemanager_ListProjectsResponse
    */

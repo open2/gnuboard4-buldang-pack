@@ -4,47 +4,47 @@ include_once("$g4[path]/memo.config.php");
 
 include_once("$g4[path]/head.sub.php");
 
-// È¸¿øÀÎÁö °Ë»çÇÏ¿© È¸¿øÀÌ ¾Æ´Ñ °æ¿ì¿¡´Â ·Î±×ÀÎ ÆäÀÌÁö·Î ÀÌµ¿ÇÑ´Ù.
+// íšŒì›ì¸ì§€ ê²€ì‚¬í•˜ì—¬ íšŒì›ì´ ì•„ë‹Œ ê²½ìš°ì—ëŠ” ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ ì´ë™í•œë‹¤.
 if (!$member[mb_id]) 
-    alert_close("È¸¿ø¸¸ ½Å°í ÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+    alert_close("íšŒì›ë§Œ ì‹ ê³  í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
-// CSRF¸¦ ¸·±â À§ÇØ¼­
+// CSRFë¥¼ ë§‰ê¸° ìœ„í•´ì„œ
 $sg_reason = strip_tags($_POST[sg_reason]);
 
-// º»ÀÎÀÌ ½Å°íÇÑ ±ÛÀÎÁö È®ÀÎ
+// ë³¸ì¸ì´ ì‹ ê³ í•œ ê¸€ì¸ì§€ í™•ì¸
 $sql = " select sg_datetime from $g4[singo_table] 
           where bo_table = '$bo_table' and wr_id = '$wr_id' and wr_parent = '$wr_parent' and sg_mb_id = '$member[mb_id]' ";
 $row = sql_fetch($sql);
 if ($row[sg_datetime]) 
-    alert_close("ÀÌ¹Ì ½Å°íÇÑ ±ÛÀÔ´Ï´Ù. (½Å°íÀÏ½Ã : $row[sg_datetime])");
+    alert_close("ì´ë¯¸ ì‹ ê³ í•œ ê¸€ì…ë‹ˆë‹¤. (ì‹ ê³ ì¼ì‹œ : $row[sg_datetime])");
 
 $write_table = $g4['write_prefix'].$bo_table;
 if ($bo_table == "@memo") {
-    // ½Å°í»çÀ¯
-    $sg_reason = "½ºÆÔÂÊÁö ½Å°í ÀÔ´Ï´Ù";
+    // ì‹ ê³ ì‚¬ìœ 
+    $sg_reason = "ìŠ¤íŒ¸ìª½ì§€ ì‹ ê³  ì…ë‹ˆë‹¤";
 } else if ($bo_table == "@user") {
-    // ½Å°í»çÀ¯
-    $sg_reason = "»ç¿ëÀÚ ½Å°í ÀÔ´Ï´Ù";
+    // ì‹ ê³ ì‚¬ìœ 
+    $sg_reason = "ì‚¬ìš©ì ì‹ ê³  ì…ë‹ˆë‹¤";
 } else if ($bo_table == "hidden_comment") {
-    // ½Å°í»çÀ¯
-    $sg_reason = "hidden comment ½Å°í ÀÔ´Ï´Ù";
+    // ì‹ ê³ ì‚¬ìœ 
+    $sg_reason = "hidden comment ì‹ ê³  ì…ë‹ˆë‹¤";
     $write = sql_fetch(" select bo_table, wr_id, mb_id, co_content as wr_subject from $g4[hidden_comment_table] where co_id = '$wr_id' ");
 } else {
     $sql = " select count(*) as cnt from $write_table 
               where wr_id = '$wr_id' and wr_parent = '$wr_parent' ";
     $row = sql_fetch($sql);
     if (!$row[cnt])
-        alert_close("½Å°íÇÒ °Ô½Ã¹°ÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+        alert_close("ì‹ ê³ í•  ê²Œì‹œë¬¼ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
     
-    // formÀ¸·Î ³Ñ±â¸é Á» º¹ÀâÇØ¼­...
+    // formìœ¼ë¡œ ë„˜ê¸°ë©´ ì¢€ ë³µì¡í•´ì„œ...
     $wr_content = mysql_escape_string($write[wr_content]);
 }
 
-// ºñÈ¸¿øÀÇ ±ÛÀ» ½Å°íÇÒ °æ¿ì $write[mb_id]¿¡ °ªÀÌ ¾ø´Â ¹®Á¦¸¦ ÇØ°áÇÏ±â À§ÇØ¼­...¤Ğ..¤Ğ...
+// ë¹„íšŒì›ì˜ ê¸€ì„ ì‹ ê³ í•  ê²½ìš° $write[mb_id]ì— ê°’ì´ ì—†ëŠ” ë¬¸ì œë¥¼ í•´ê²°í•˜ê¸° ìœ„í•´ì„œ...ã… ..ã… ...
 if (!$write[mb_id])
-    $write[mb_id] = "ºñÈ¸¿ø";
+    $write[mb_id] = "ë¹„íšŒì›";
 
-// ½Å°í Á¤º¸ µî·Ï
+// ì‹ ê³  ì •ë³´ ë“±ë¡
 $sql = " insert into $g4[singo_table] 
             set mb_id = '$write[mb_id]',
                 bo_table = '$bo_table',
@@ -60,8 +60,8 @@ $sql = " insert into $g4[singo_table]
                 sg_ip = '$remote_addr' ";
 sql_query($sql);
 
-// °Ô½Ã±Û¿¡ ½Å°í°ª ¼³Á¤
-if ($bo_table == "@memo" and $bo_table == "@user") // ÂÊÁö ¶Ç´Â »ç¿ëÀÚ ½Å°íÀÇ °æ¿ì
+// ê²Œì‹œê¸€ì— ì‹ ê³ ê°’ ì„¤ì •
+if ($bo_table == "@memo" and $bo_table == "@user") // ìª½ì§€ ë˜ëŠ” ì‚¬ìš©ì ì‹ ê³ ì˜ ê²½ìš°
 {
 }
 else if ($bo_table == "hidden_comment")
@@ -74,85 +74,85 @@ else if ($bo_table == "hidden_comment")
     sql_query($sql, false);
 }
 
-// ½Å°íÇÑ »ç¶÷ÀÇ Æ÷ÀÎÆ®¸¦ Â÷°¨
+// ì‹ ê³ í•œ ì‚¬ëŒì˜ í¬ì¸íŠ¸ë¥¼ ì°¨ê°
 if ($config[cf_singo_point_send])
-    insert_point($mb_id, -$config[cf_singo_point_send], "½Å°íÃ³¸® Æ÷ÀÎÆ®", '@member', $mb_id, '½Å°íÃ³¸®');
+    insert_point($mb_id, -$config[cf_singo_point_send], "ì‹ ê³ ì²˜ë¦¬ í¬ì¸íŠ¸", '@member', $mb_id, 'ì‹ ê³ ì²˜ë¦¬');
 
-// ½Å°íµÈ »ç¶÷ÀÇ Æ÷ÀÎÆ®¸¦ Â÷°¨
+// ì‹ ê³ ëœ ì‚¬ëŒì˜ í¬ì¸íŠ¸ë¥¼ ì°¨ê°
 if ($config[cf_singo_point_recv])
-    insert_point($mb_id, -$config[cf_singo_point_recv], "½Å°íÃ³¸® Æ÷ÀÎÆ®", '@member', $mb_id, '½Å°íÃ³¸®');
+    insert_point($mb_id, -$config[cf_singo_point_recv], "ì‹ ê³ ì²˜ë¦¬ í¬ì¸íŠ¸", '@member', $mb_id, 'ì‹ ê³ ì²˜ë¦¬');
 
-// ½Å°íµÈ »ç¶÷ÀÇ Á¤º¸¸¦ ¾÷µ¥ÀÌÆ® (½Å°í°Ç¼ö, ½Å°íµÈ ³¯Â¥)
+// ì‹ ê³ ëœ ì‚¬ëŒì˜ ì •ë³´ë¥¼ ì—…ë°ì´íŠ¸ (ì‹ ê³ ê±´ìˆ˜, ì‹ ê³ ëœ ë‚ ì§œ)
 $sql = " update $g4[member_table] set mb_singo = mb_singo + 1, mb_singo_datetime = '$g4[time_ymdhis]'  where mb_id = '$write[mb_id]' ";
 sql_query($sql, false);
 
 //------------------------------------------------------------------------------------
-// ½Å°íµÈ °Ç¼ö°¡ ¸îÈ¸ÀÌ»óÀÌ¸é Â÷´ÜÇÒÁö¸¦ ¼³Á¤
-// È¸¿øÀÇ ±ÇÇÑÀ» 1·Î ¼³Á¤ÇÏ°í Â÷´ÜÀÏÀÚ¸¦ ÀúÀåÇÏ¿© Á¢±ÙÀ» Â÷´ÜÇÔ
+// ì‹ ê³ ëœ ê±´ìˆ˜ê°€ ëª‡íšŒì´ìƒì´ë©´ ì°¨ë‹¨í• ì§€ë¥¼ ì„¤ì •
+// íšŒì›ì˜ ê¶Œí•œì„ 1ë¡œ ì„¤ì •í•˜ê³  ì°¨ë‹¨ì¼ìë¥¼ ì €ì¥í•˜ì—¬ ì ‘ê·¼ì„ ì°¨ë‹¨í•¨
 //------------------------------------------------------------------------------------
 if (!isset($config[cf_singo_intercept_count]) || $config[cf_singo_intercept_count] == 0) $config[cf_singo_intercept_count] = 1000;
 $sql = " select count(*) as cnt from $g4[singo_table] where mb_id = '$write[mb_id]' ";
 $row = sql_fetch($sql);
 if ($row[cnt] >= $config[cf_singo_intercept_count]) {
-    // °ü¸®ÀÚ´Ô ÄÚµå - Á¢±Ù Â÷´Ü
+    // ê´€ë¦¬ìë‹˜ ì½”ë“œ - ì ‘ê·¼ ì°¨ë‹¨
     //$sql = " update $g4[member_table] set mb_level = '1', mb_intercept_date = '".date("Ymd",$g4[server_time])."' where mb_id = '$write[mb_id]' ";
     //sql_query($sql);
-    // ºÒ´ç ÄÚµå - »ç¿ëÀÚ ·¹º§/Æ÷ÀÎÆ® ÃÊ±âÈ­
+    // ë¶ˆë‹¹ ì½”ë“œ - ì‚¬ìš©ì ë ˆë²¨/í¬ì¸íŠ¸ ì´ˆê¸°í™”
     $sql = " update $g4[member_table] set mb_level = '$config[cf_register_level]', mb_point = '$config[cf_register_point]' where mb_id = '$write[mb_id]' ";
     sql_query($sql);    
-    insert_point($mb_id, -$member[mb_point], "½Å°íÃ³¸® Æ÷ÀÎÆ®»èÁ¦", '@member', $mb_id, '½Å°íÃ³¸®');
-    insert_point($mb_id, $config[cf_register_point], "½Å°íÃ³¸® Æ÷ÀÎÆ®ÃÊ±âÈ­", '@member', $mb_id, '½Å°íÃ³¸®');
+    insert_point($mb_id, -$member[mb_point], "ì‹ ê³ ì²˜ë¦¬ í¬ì¸íŠ¸ì‚­ì œ", '@member', $mb_id, 'ì‹ ê³ ì²˜ë¦¬');
+    insert_point($mb_id, $config[cf_register_point], "ì‹ ê³ ì²˜ë¦¬ í¬ì¸íŠ¸ì´ˆê¸°í™”", '@member', $mb_id, 'ì‹ ê³ ì²˜ë¦¬');
 }
-//$singo_count = $row['cnt']; // ÀüÃ¼ ½Å°íµÈ °Ç¼ö
+//$singo_count = $row['cnt']; // ì „ì²´ ì‹ ê³ ëœ ê±´ìˆ˜
 
-// ½Å°í´ç»çÀÚ, °Ô½ÃÆÇ°ü¸®ÀÚ/±×·ì°ü¸®ÀÚ/»çÀÌÆ® °ü¸®ÀÚ¿¡°Ô ÂÊÁö¸¦ ¹ß¼Û (ºÒ´çÀÇ ÂÊÁö2)
+// ì‹ ê³ ë‹¹ì‚¬ì, ê²Œì‹œíŒê´€ë¦¬ì/ê·¸ë£¹ê´€ë¦¬ì/ì‚¬ì´íŠ¸ ê´€ë¦¬ìì—ê²Œ ìª½ì§€ë¥¼ ë°œì†¡ (ë¶ˆë‹¹ì˜ ìª½ì§€2)
 $memo_list = array();
 
-$memo_list[] = $write[mb_id];// ½Å°íµÈ °Ô½Ã±ÛÀÇ ±Û¾´ÀÌ
-$memo_list[] = $config['cf_admin']; // »çÀÌÆ® °ü¸®ÀÚ
-if ($group['gr_admin'] && !in_array($group['gr_admin'], $memo_list)) // ±×·ì°ü¸®ÀÚ
+$memo_list[] = $write[mb_id];// ì‹ ê³ ëœ ê²Œì‹œê¸€ì˜ ê¸€ì“´ì´
+$memo_list[] = $config['cf_admin']; // ì‚¬ì´íŠ¸ ê´€ë¦¬ì
+if ($group['gr_admin'] && !in_array($group['gr_admin'], $memo_list)) // ê·¸ë£¹ê´€ë¦¬ì
     $memo_list[] = $group['gr_admin'];
-if ($board['bo_admin'] && !in_array($board['bo_admin'], $memo_list)) // °Ô½ÃÆÇ°ü¸®ÀÚ
+if ($board['bo_admin'] && !in_array($board['bo_admin'], $memo_list)) // ê²Œì‹œíŒê´€ë¦¬ì
     $memo_list[] = $board['bo_admin'];
 
-// ÄÚ¸àÆ®¸¦ ½Å°íÇÒ °æ¿ì
+// ì½”ë©˜íŠ¸ë¥¼ ì‹ ê³ í•  ê²½ìš°
 if ($wr_id != $wr_parent) {
-    // $write[wr_subject] °ªÀ» º»±ÛÀÇ Á¦¸ñÀ¸·Î ³Ö¾îÁİ´Ï´Ù
+    // $write[wr_subject] ê°’ì„ ë³¸ê¸€ì˜ ì œëª©ìœ¼ë¡œ ë„£ì–´ì¤ë‹ˆë‹¤
     $result = sql_fetch(" select wr_subject from $write_table where wr_id = '$wr_parent' ");
     $write['wr_subject'] = $result['wr_subject'];
-    // wr_id¸¦ ÄÚ¸àÆ®·Î ¼³Á¤
+    // wr_idë¥¼ ì½”ë©˜íŠ¸ë¡œ ì„¤ì •
     $wr_id = $wr_id . "#c_" . $wr_parent;
-    // ÄÚ¸àÆ®ÀÇ ¿É¼ÇÀ¸·Î html »ç¿ë¼³Á¤
+    // ì½”ë©˜íŠ¸ì˜ ì˜µì…˜ìœ¼ë¡œ html ì‚¬ìš©ì„¤ì •
 }
 
 foreach($memo_list as $memo_recv_mb_id) {
 
-    $me_send_mb_id = $config['cf_admin']; // »çÀÌÆ® °ü¸®ÀÚ ¸íÀÇ·Î ÂÊÁö¸¦ ¹ß¼Û
+    $me_send_mb_id = $config['cf_admin']; // ì‚¬ì´íŠ¸ ê´€ë¦¬ì ëª…ì˜ë¡œ ìª½ì§€ë¥¼ ë°œì†¡
     
-    // ¼ö½ÅÀÚ°¡ °ü¸®ÀÚÀÏ °æ¿ì¿¡´Â, ¹ß½ÅÀÚ¸¦ ½Å°íÀÚ·Î º¯°æ
+    // ìˆ˜ì‹ ìê°€ ê´€ë¦¬ìì¼ ê²½ìš°ì—ëŠ”, ë°œì‹ ìë¥¼ ì‹ ê³ ìë¡œ ë³€ê²½
     if ($memo_recv_mb_id == $config['cf_admin'])
         $me_send_mb_id = $member['mb_id'];
 
-    // ½Å°íµÈ url
+    // ì‹ ê³ ëœ url
     if ($bo_table == 'hidden_comment') {
         $sg_url = "$g4[bbs_path]/board.php?bo_table=$write[bo_table]&wr_id=$write[wr_id]&h_id=$wr_id";
     } else {
         $sg_url = "$g4[bbs_path]/board.php?bo_table=$bo_table&wr_id=$wr_id";
     }
 
-    // ½Å°í³»¿ë
-    $me_memo = "½Å°íµÈ °Ô½Ã±Û - <a href=\'$sg_url\' target=new>$write[wr_subject]</a><br>°Ô½Ã±ÛÀÇ ½Å°íÀÌÀ¯ - {$sg_reason}<br><br>ÇØ´ç °Ô½Ã±ÛÀÇ ½Å°í³»¿ë¿¡ ÀÌÀÇ°¡ ÀÖ´Â °æ¿ì ¿î¿µÀÚ¿¡°Ô ¹®ÀÇÇÏ½Ã±â ¹Ù¶ø´Ï´Ù."; // ¸Ş¸ğ³»¿ë
+    // ì‹ ê³ ë‚´ìš©
+    $me_memo = "ì‹ ê³ ëœ ê²Œì‹œê¸€ - <a href=\'$sg_url\' target=new>$write[wr_subject]</a><br>ê²Œì‹œê¸€ì˜ ì‹ ê³ ì´ìœ  - {$sg_reason}<br><br>í•´ë‹¹ ê²Œì‹œê¸€ì˜ ì‹ ê³ ë‚´ìš©ì— ì´ì˜ê°€ ìˆëŠ” ê²½ìš° ìš´ì˜ìì—ê²Œ ë¬¸ì˜í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤."; // ë©”ëª¨ë‚´ìš©
 
-    // ½Å°í±Û Á¦¸ñ
-    $me_subject = "$write[mb_id] ´ÔÀÇ °Ô½Ã±ÛÀÌ ½Å°íµÇ¾ú½À´Ï´Ù"; // ¸Ş¸ğÁ¦¸ñ
+    // ì‹ ê³ ê¸€ ì œëª©
+    $me_subject = "$write[mb_id] ë‹˜ì˜ ê²Œì‹œê¸€ì´ ì‹ ê³ ë˜ì—ˆìŠµë‹ˆë‹¤"; // ë©”ëª¨ì œëª©
     if ($row[cnt] >= $config[cf_singo_intercept_count]) {
-        $me_subject .= "<br><br>$write[mb_id]´ÔÀº ½Å°íÈ½¼ö°¡ $config[cf_singo_intercept_count]È¸¸¦ ÃÊ°úÇÏ¿©, »ç¿ëÀÚ·¹º§ ¹× Æ÷ÀÎÆ®°¡ ÃÊ±âÈ­ µÇ¾ú½À´Ï´Ù";
+        $me_subject .= "<br><br>$write[mb_id]ë‹˜ì€ ì‹ ê³ íšŸìˆ˜ê°€ $config[cf_singo_intercept_count]íšŒë¥¼ ì´ˆê³¼í•˜ì—¬, ì‚¬ìš©ìë ˆë²¨ ë° í¬ì¸íŠ¸ê°€ ì´ˆê¸°í™” ë˜ì—ˆìŠµë‹ˆë‹¤";
     }
 
-    // ½Å°í±ÛÀÇ º¸±â¸¦ html·Î
+    // ì‹ ê³ ê¸€ì˜ ë³´ê¸°ë¥¼ htmlë¡œ
     $html = "html1";
 
-    // ÂÊÁö INSERT (¼ö½ÅÇÔ) 
+    // ìª½ì§€ INSERT (ìˆ˜ì‹ í•¨) 
     $sql = " insert into $g4[memo_recv_table] 
                     ( me_recv_mb_id, me_send_mb_id, me_send_datetime, me_memo, me_subject, memo_type, memo_owner, me_file_local, me_file_server, me_option ) 
              values ('$memo_recv_mb_id', '$me_send_mb_id', '$g4[time_ymdhis]', '$me_memo', '$me_subject', 'recv', '$memo_recv_mb_id', '', '', '$html,$secret,$mail' ) 
@@ -160,13 +160,13 @@ foreach($memo_list as $memo_recv_mb_id) {
     sql_query($sql); 
     $me_id = mysql_insert_id(); 
 
-    // ¾ÈÀĞÀº ÂÊÁö °¹¼ö, ÂÊÁö ¼ö½Å ³¯Â¥¸¦ ¾÷µ¥ÀÌÆ®
+    // ì•ˆì½ì€ ìª½ì§€ ê°¯ìˆ˜, ìª½ì§€ ìˆ˜ì‹  ë‚ ì§œë¥¼ ì—…ë°ì´íŠ¸
     $sql = " update $g4[member_table]
                 set mb_memo_unread=mb_memo_unread+1, mb_memo_call_datetime='$g4[time_ymdhis]' 
               where mb_id = '$me_recv_mb_id' ";
     sql_query($sql);
 
-    // ÂÊÁö ¼ö½Å ¾Ë¸² ±â´É
+    // ìª½ì§€ ìˆ˜ì‹  ì•Œë¦¼ ê¸°ëŠ¥
     if ($mb_memo_call)
     {
         $sql = " update $g4[member_table]
@@ -176,18 +176,18 @@ foreach($memo_list as $memo_recv_mb_id) {
     }
 }
 
-// »ç¿ëÀÚ ÄÚµå ½ÇÇà
+// ì‚¬ìš©ì ì½”ë“œ ì‹¤í–‰
 @include_once ("$g4[path]/skin/member/$config[cf_member_skin]/singo_popin_update.skin.php");
 
 ?>
 
 <?
-if ($bo_table == "@memo" or $bo_table == "@user") { // ÂÊÁö.»ç¿ëÀÚ ½Å°í°¡ ¾Æ´Ñ °æ¿ì¿¡¸¸ È®ÀÎ
+if ($bo_table == "@memo" or $bo_table == "@user") { // ìª½ì§€.ì‚¬ìš©ì ì‹ ê³ ê°€ ì•„ë‹Œ ê²½ìš°ì—ë§Œ í™•ì¸
     ;
 } else if ($bo_table == "hidden_comment") {
 ?>
 <script type="text/javascript">
-alert("°Ô½Ã¹°À» ½Å°íÇÏ¿´½À´Ï´Ù.\n\n´ã´çÀÚ È®ÀÎ ÈÄ ÇØ´ç °Ô½Ã¹°¿¡ ´ëÇØ¼­ °ü·ÃÁ¶Ä¡¸¦ ÇÏ°Ú½À´Ï´Ù.\n\n°¨»çÇÕ´Ï´Ù.");
+alert("ê²Œì‹œë¬¼ì„ ì‹ ê³ í•˜ì˜€ìŠµë‹ˆë‹¤.\n\në‹´ë‹¹ì í™•ì¸ í›„ í•´ë‹¹ ê²Œì‹œë¬¼ì— ëŒ€í•´ì„œ ê´€ë ¨ì¡°ì¹˜ë¥¼ í•˜ê² ìŠµë‹ˆë‹¤.\n\nê°ì‚¬í•©ë‹ˆë‹¤.");
 opener.document.location.href = "<?="board.php?bo_table=$write[bo_table]&wr_id=$write[wr_id]"?>";
 window.close();
 </script>
@@ -195,7 +195,7 @@ window.close();
 } else {
 ?>
 <script type="text/javascript">
-alert("°Ô½Ã¹°À» ½Å°íÇÏ¿´½À´Ï´Ù.\n\n´ã´çÀÚ È®ÀÎ ÈÄ ÇØ´ç °Ô½Ã¹°¿¡ ´ëÇØ¼­ °ü·ÃÁ¶Ä¡¸¦ ÇÏ°Ú½À´Ï´Ù.\n\n°¨»çÇÕ´Ï´Ù.");
+alert("ê²Œì‹œë¬¼ì„ ì‹ ê³ í•˜ì˜€ìŠµë‹ˆë‹¤.\n\në‹´ë‹¹ì í™•ì¸ í›„ í•´ë‹¹ ê²Œì‹œë¬¼ì— ëŒ€í•´ì„œ ê´€ë ¨ì¡°ì¹˜ë¥¼ í•˜ê² ìŠµë‹ˆë‹¤.\n\nê°ì‚¬í•©ë‹ˆë‹¤.");
 opener.document.location.href = "<?="board.php?bo_table=$bo_table&wr_id=$wr_id"?>";
 window.close();
 </script>

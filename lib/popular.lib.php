@@ -1,11 +1,11 @@
 <?
 if (!defined('_GNUBOARD_')) exit;
 
-// ÀÎ±â°Ë»ö¾î Ãâ·Â
-// $skin_dir : ½ºÅ² µð·ºÅä¸®
-// $pop_cnt : °Ë»ö¾î ¸î°³
-// $date_cnt : ¸îÀÏ µ¿¾È
-// $bo_table : ¾î´À°Ô½ÃÆÇ
+// ì¸ê¸°ê²€ìƒ‰ì–´ ì¶œë ¥
+// $skin_dir : ìŠ¤í‚¨ ë””ë ‰í† ë¦¬
+// $pop_cnt : ê²€ìƒ‰ì–´ ëª‡ê°œ
+// $date_cnt : ëª‡ì¼ ë™ì•ˆ
+// $bo_table : ì–´ëŠê²Œì‹œíŒ
 function popular($skin_dir='basic', $pop_cnt=7, $date_cnt=3, $bo_table='')
 {
     global $config, $g4, $member;
@@ -14,7 +14,7 @@ function popular($skin_dir='basic', $pop_cnt=7, $date_cnt=3, $bo_table='')
 
     if ($bo_table) $bo_sql = " and bo_table = '$bo_table' ";
 
-    // ºÒ´çÆÑ - ÀÎ±â°Ë»ö¾î º¸´Â ·¹º§À» ÁöÁ¤
+    // ë¶ˆë‹¹íŒ© - ì¸ê¸°ê²€ìƒ‰ì–´ ë³´ëŠ” ë ˆë²¨ì„ ì§€ì •
     if (!$member)
         $pp_level = 1;
     else
@@ -32,7 +32,7 @@ function popular($skin_dir='basic', $pop_cnt=7, $date_cnt=3, $bo_table='')
     for ($i=0; $row=sql_fetch_array($result); $i++) 
     {
         $list[$i] = $row;
-        // ½ºÅ©¸³Æ®µîÀÇ ½ÇÇà±ÝÁö
+        // ìŠ¤í¬ë¦½íŠ¸ë“±ì˜ ì‹¤í–‰ê¸ˆì§€
         $list[$i][pp_word] = get_text($list[$i]['pp_word']);
     }
 
@@ -45,7 +45,7 @@ function popular($skin_dir='basic', $pop_cnt=7, $date_cnt=3, $bo_table='')
     return $content;
 }
 
-// ÀÎ±â°Ô½ÃÆÇ ÃßÃâ
+// ì¸ê¸°ê²Œì‹œíŒ ì¶”ì¶œ
 function board_popular($skin_dir="", $gr_id="", $days=7, $rows=10, $subject_len=40, $options="")
 {
     global $g4, $mw;

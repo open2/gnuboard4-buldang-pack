@@ -10,7 +10,7 @@ check_token();
 
 for ($i=0; $i<count($chk); $i++) 
 {
-    // ½ÇÁ¦ ¹øÈ£¸¦ ³Ñ±è
+    // ì‹¤ì œ ë²ˆí˜¸ë¥¼ ë„˜ê¹€
     $k = $chk[$i];
 
     $ca_id = $_POST[ca_id][$k];

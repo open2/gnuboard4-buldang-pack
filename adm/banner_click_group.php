@@ -4,7 +4,7 @@ include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "r");
 
-$g4[title] = "��ʱ׷��� ���Ŭ����Ȳ";
+$g4[title] = "배너그륩별 배너클릭현황";
 include_once("./admin.head.php");
 include_once("./banner.sub.php");
 ?>
@@ -16,11 +16,11 @@ include_once("./banner.sub.php");
 <colgroup width=100>
 <colgroup width=''>
 <tr class="success">
-    <td>����</td>
-    <td>��ʱ׷�</td>
-    <td>Ŭ����</td>
-    <td>����(%)</td>
-    <td>�׷���</td>
+    <td>순위</td>
+    <td>배너그룹</td>
+    <td>클릭수</td>
+    <td>비율(%)</td>
+    <td>그래프</td>
 </tr>
 <?
 $max = 0;
@@ -72,12 +72,12 @@ if (count($arr)) {
 
     echo "
     <tr>
-        <td colspan=2>�հ�</td>
+        <td colspan=2>합계</td>
         <td>$sum_count</td>
         <td colspan=2>&nbsp;</td>
     </tr>";
 } else {
-    echo "<tr><td colspan='5' height=100 align=center>�ڷᰡ �����ϴ�.</td></tr>";
+    echo "<tr><td colspan='5' height=100 align=center>자료가 없습니다.</td></tr>";
 }
 ?>
 </table>

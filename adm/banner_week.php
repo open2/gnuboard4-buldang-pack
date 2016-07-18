@@ -4,7 +4,7 @@ include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "r");
 
-$g4[title] = "¿äÀÏº° ¹è³ÊÅ¬¸¯ÇöÈ²";
+$g4[title] = "ìš”ì¼ë³„ ë°°ë„ˆí´ë¦­í˜„í™©";
 include_once("./admin.head.php");
 include_once("./banner.sub.php");
 ?>
@@ -15,13 +15,13 @@ include_once("./banner.sub.php");
 <colgroup width=100>
 <colgroup width=''>
 <tr class="success">
-    <td>¿äÀÏ</td>
-    <td>Å¬¸¯¼ö</td>
-    <td>ºñÀ²(%)</td>
-    <td>±×·¡ÇÁ</td>
+    <td>ìš”ì¼</td>
+    <td>í´ë¦­ìˆ˜</td>
+    <td>ë¹„ìœ¨(%)</td>
+    <td>ê·¸ë˜í”„</td>
 </tr>
 <?
-$weekday = array ('¿ù', 'È­', '¼ö', '¸ñ', '±İ', 'Åä', 'ÀÏ');
+$weekday = array ('ì›”', 'í™”', 'ìˆ˜', 'ëª©', 'ê¸ˆ', 'í† ', 'ì¼');
 
 $sum_count = 0;
 $sql = " select WEEKDAY(bc_date) as weekday_date, SUM(bc_count) as cnt 
@@ -56,12 +56,12 @@ if ($i) {
 
     echo "
     <tr>
-        <td>ÇÕ°è</td>
+        <td>í•©ê³„</td>
         <td>$sum_count</td>
         <td colspan=2>&nbsp;</td>
     </tr>";
 } else {
-    echo "<tr><td colspan='4' height=100 align=center>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='4' height=100 align=center>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 }
 ?>
 </table>

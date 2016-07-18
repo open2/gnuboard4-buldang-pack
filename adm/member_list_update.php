@@ -10,7 +10,7 @@ check_token();
 
 for ($i=0; $i<count($chk); $i++) 
 {
-    // ½ÇÁ¦ ¹øÈ£¸¦ ³Ñ±è
+    // ì‹¤ì œ ë²ˆí˜¸ë¥¼ ë„˜ê¹€
     $k = $_POST['chk'][$i];
 
     $mb_id = $_POST['mb_id'][$k];
@@ -20,11 +20,11 @@ for ($i=0; $i<count($chk); $i++)
     $mb = get_member($mb_id);
 
     if (!$mb[mb_id]) {
-        $msg .= "$mb[mb_id] : È¸¿øÀÚ·á°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.\\n";
+        $msg .= "$mb[mb_id] : íšŒì›ìë£Œê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.\\n";
     } else if ($is_admin != "super" && $mb[mb_level] >= $member[mb_level]) {
-        $msg .= "$mb[mb_id] : ÀÚ½Åº¸´Ù ±ÇÇÑÀÌ ³ô°Å³ª °°Àº È¸¿øÀº ¼öÁ¤ÇÒ ¼ö ¾ø½À´Ï´Ù.\\n";
+        $msg .= "$mb[mb_id] : ìì‹ ë³´ë‹¤ ê¶Œí•œì´ ë†’ê±°ë‚˜ ê°™ì€ íšŒì›ì€ ìˆ˜ì •í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\\n";
     } else if ($member[mb_id] == $mb[mb_id]) {
-        $msg .= "$mb[mb_id] : ·Î±×ÀÎ ÁßÀÎ °ü¸®ÀÚ´Â ¼öÁ¤ ÇÒ ¼ö ¾ø½À´Ï´Ù.\\n";
+        $msg .= "$mb[mb_id] : ë¡œê·¸ì¸ ì¤‘ì¸ ê´€ë¦¬ìëŠ” ìˆ˜ì • í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\\n";
     } else {
         $sql = " update $g4[member_table]
                     set mb_level          = '{$mb_level}',
@@ -33,7 +33,7 @@ for ($i=0; $i<count($chk); $i++)
         sql_query($sql);
     }
 
-    // È¸¿ø·¹º§ÀÌ ¾÷µ¥ÀÌÆ® µÈ °æ¿ì¿¡´Â ·¹º§¾÷ ³¯Â¥¿Í history¸¦ ±â·Ï ÇÕ´Ï´Ù.
+    // íšŒì›ë ˆë²¨ì´ ì—…ë°ì´íŠ¸ ëœ ê²½ìš°ì—ëŠ” ë ˆë²¨ì—… ë‚ ì§œì™€ historyë¥¼ ê¸°ë¡ í•©ë‹ˆë‹¤.
     if ($mb[mb_level] !== $mb_level) {
         sql_query(" update $g4[member_table] set mb_level_datetime = '$g4[time_ymdhis]' where mb_id='$mb_id' ");
         sql_query(" insert into $g4[member_level_history_table] set mb_id='$mb_id', from_level='$mb[mb_level]', to_level='$mb_level', level_datetime='$g4[time_ymdhis]' ");

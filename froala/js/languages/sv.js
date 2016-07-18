@@ -155,7 +155,7 @@ $.FE.LANGUAGE['sv'] = {
     "Smiling face with sunglasses": "Leende ansikte med solglas\u00f6gon",
     "Smirking face": "Flinande ansikte",
     "Neutral face": "Neutral ansikte",
-    "Expressionless face": "Uttryckslöst ansikte",
+    "Expressionless face": "Uttrycksl철st ansikte",
     "Unamused face": "Inte roade ansikte",
     "Face with cold sweat": "Ansikte med kallsvett",
     "Pensive face": "Eftert\u00e4nksamt ansikte",

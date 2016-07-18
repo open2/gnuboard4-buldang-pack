@@ -10,16 +10,16 @@ check_token();
 
 for ($i=0; $i<count($chk); $i++)
 {
-    // ½ÇÁ¦ ¹øÈ£¸¦ ³Ñ±è
+    // ì‹¤ì œ ë²ˆí˜¸ë¥¼ ë„˜ê¹€
     $k = $_POST['chk'][$i];
     $nick_no = $_POST[nick_no][$k];
 
     $sql = " select count(*) as cnt from $g4[mb_nick_table] where nick_no = '$nick_no' and end_datetime ='0000-00-00 00:00:00' ";
     $result = sql_fetch($sql);
 
-    // ´Ð³×ÀÓÀÌ »ç¿ëÁßÀÎ °æ¿ì¿¡´Â Áö¿ï ¼ö ¾ø½À´Ï´Ù
+    // ë‹‰ë„¤ìž„ì´ ì‚¬ìš©ì¤‘ì¸ ê²½ìš°ì—ëŠ” ì§€ìš¸ ìˆ˜ ì—†ìŠµë‹ˆë‹¤
     if ($result[cnt]) {
-      alert("nick_no : $nick_no : ´Ð³×ÀÓÀÌ »ç¿ëÁßÀÌ¹Ç·Î »èÁ¦ÇÒ ¼ö ¾ø½À´Ï´Ù", "./nickname_list.php?$qstr");
+      alert("nick_no : $nick_no : ë‹‰ë„¤ìž„ì´ ì‚¬ìš©ì¤‘ì´ë¯€ë¡œ ì‚­ì œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤", "./nickname_list.php?$qstr");
     }
     
     $sql = " delete from $g4[mb_nick_table] where nick_no = '$nick_no' ";

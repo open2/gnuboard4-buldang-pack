@@ -3,19 +3,19 @@ include_once("./_common.php");
 include_once("$g4[path]/memo.config.php");
 
 if (!$member[mb_id])
-    alert("È¸¿ø¸¸ ÀÌ¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+    alert("íšŒì›ë§Œ ì´ìš©í•˜ì‹¤ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.");
 
 if ($config['cf_memo_del_file']) {
-    // Ã·ºÎÆÄÀÏ °ËÃâ ¹× »èÁ¦(by Lusia)
+    // ì²¨ë¶€íŒŒì¼ ê²€ì¶œ ë° ì‚­ì œ(by Lusia)
     $sql = " select distinct me_file_server from $g4[memo_trash_table] where memo_owner = '$member[mb_id]' ";
     $filelist=sql_query($sql);
 }
 
-// ÈÞÁöÅë »èÁ¦
+// íœ´ì§€í†µ ì‚­ì œ
 $sql = " delete from $g4[memo_trash_table] where memo_owner = '$member[mb_id]' ";
 sql_query($sql);
 
-// Ã·ºÎÆÄÀÏ °ËÃâ ¹× »èÁ¦(by Lusia) - ¾Æ·§ºÎºÐÀº bbs/memo2_form_delete.php, memo2_form_delete_all_trash.php, memo2_chkunlinkfile.php¿¡ °øÅëÀÔ´Ï´Ù
+// ì²¨ë¶€íŒŒì¼ ê²€ì¶œ ë° ì‚­ì œ(by Lusia) - ì•„ëž«ë¶€ë¶„ì€ bbs/memo2_form_delete.php, memo2_form_delete_all_trash.php, memo2_chkunlinkfile.phpì— ê³µí†µìž…ë‹ˆë‹¤
 if ($filelist) {
 while($result=mysql_fetch_assoc($filelist)){
     $file_name = $result[me_file_server];
@@ -39,21 +39,21 @@ while($result=mysql_fetch_assoc($filelist)){
                     while($row = sql_fetch_array($result_set))
                         $cnt_sum += $row[cnt];
 
-   	//DB¿¡ ÇØ´ç Ã·ºÎÆÄÀÏ Á¤º¸ ¾øÀ»°æ¿ì »èÁ¦ (Ã·ºÎÆÄÀÏÀº º¸³½ »ç¶÷ÀÇ µð·ºÅä¸®¿¡¸¸ ÀúÀåµË´Ï´Ù)
+   	//DBì— í•´ë‹¹ ì²¨ë¶€íŒŒì¼ ì •ë³´ ì—†ì„ê²½ìš° ì‚­ì œ (ì²¨ë¶€íŒŒì¼ì€ ë³´ë‚¸ ì‚¬ëžŒì˜ ë””ë ‰í† ë¦¬ì—ë§Œ ì €ìž¥ë©ë‹ˆë‹¤)
  	  if ($cnt_sum) {
        	$filepath="$g4[path]/data/memo2/$file_name";
      		$file_deleted_dir = "$g4[path]/data/memo2_deleted/" . $member[mb_id] . "/";
      		$file_deleted_path = "$g4[path]/data/memo2_deleted/$file_name";
-        // È¸¿øº°·Î µð·ºÅä¸®¸¦ »ý¼º
+        // íšŒì›ë³„ë¡œ ë””ë ‰í† ë¦¬ë¥¼ ìƒì„±
    			if(!is_dir($file_deleted_dir)){
      				@mkdir($file_deleted_dir, 0707);
  		    		@chmod($file_deleted_dir, 0707);
      		}
- 		    @copy($filepath, $file_deleted_path);  //ÀÓ½ÃÆú´õ·Î º¹»ç
+ 		    @copy($filepath, $file_deleted_path);  //ìž„ì‹œí´ë”ë¡œ ë³µì‚¬
      	  @unlink($filepath);
     }
 }
 }
 
-alert("ÂÊÁö¸¦ »èÁ¦ÇÏ¿´½À´Ï´Ù.", "./memo.php?kind=trash");
+alert("ìª½ì§€ë¥¼ ì‚­ì œí•˜ì˜€ìŠµë‹ˆë‹¤.", "./memo.php?kind=trash");
 ?>

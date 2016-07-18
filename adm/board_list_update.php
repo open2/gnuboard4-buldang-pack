@@ -10,7 +10,7 @@ check_token();
 
 for ($i=0; $i<count($chk); $i++) 
 {
-    // ½ÇÁ¦ ¹øÈ£¸¦ ³Ñ±è
+    // ì‹¤ì œ ë²ˆí˜¸ë¥¼ ë„˜ê¹€
     $k = $chk[$i];
 
     if ($is_admin != "super")
@@ -21,24 +21,24 @@ for ($i=0; $i<count($chk); $i++)
                     and b.gr_admin = '$member[mb_id]' ";
         $row = sql_fetch($sql);
         if (!$row[cnt])
-            alert("ÃÖ°í°ü¸®ÀÚ°¡ ¾Æ´Ñ °æ¿ì ´Ù¸¥ °ü¸®ÀÚÀÇ °Ô½ÃÆÇ($board_table[$k])Àº ¼öÁ¤ÀÌ ºÒ°¡ÇÕ´Ï´Ù.");
+            alert("ìµœê³ ê´€ë¦¬ìžê°€ ì•„ë‹Œ ê²½ìš° ë‹¤ë¥¸ ê´€ë¦¬ìžì˜ ê²Œì‹œíŒ($board_table[$k])ì€ ìˆ˜ì •ì´ ë¶ˆê°€í•©ë‹ˆë‹¤.");
     }
 
-    // °Ô½ÃÆÇ ±×·ìÀÌ º¯°æ µÇ¾ú´ÂÁö È®ÀÎ
+    // ê²Œì‹œíŒ ê·¸ë£¹ì´ ë³€ê²½ ë˜ì—ˆëŠ”ì§€ í™•ì¸
     $bo_table = $_POST[board_table][$k];
-    $board = get_board($bo_table);  // ÇöÀçÀÇ gr_id
-    $gr_id = $_POST[gr_id][$k];     // form¿¡¼­ ³Ñ¾î¿Â gr_id
+    $board = get_board($bo_table);  // í˜„ìž¬ì˜ gr_id
+    $gr_id = $_POST[gr_id][$k];     // formì—ì„œ ë„˜ì–´ì˜¨ gr_id
     if ($board[gr_id] !== $gr_id) {
-        // ÃÖ±Ù±ÛÀÇ gr_id º¯°æ
+        // ìµœê·¼ê¸€ì˜ gr_id ë³€ê²½
         sql_query(" update $g4[board_new_table] set gr_id='$gr_id' where bo_table = '$bo_table' ");
 
-        // º£½ºÆ®±ÛÀÇ gr_id º¯°æ
+        // ë² ìŠ¤íŠ¸ê¸€ì˜ gr_id ë³€ê²½
         sql_query(" update $g4[good_list_table] set gr_id='$gr_id' where bo_table = '$bo_table' ");
         
-        // Ã·ºÎÆÄÀÏ ´Ù¿î·ÎµåÀÇ gr_id º¯°æ
+        // ì²¨ë¶€íŒŒì¼ ë‹¤ìš´ë¡œë“œì˜ gr_id ë³€ê²½
         sql_query(" update $g4[board_file_download_table] set gr_id='$gr_id' where bo_table = '$bo_table' ");
         
-        // °Ô½ÃÆÇº° ¹æ¹®ÀÚÀÇ gr_id º¯°æ
+        // ê²Œì‹œíŒë³„ ë°©ë¬¸ìžì˜ gr_id ë³€ê²½
         sql_query(" update $mw[board_visit_table] set gr_id='$gr_id' where bo_table = '$bo_table' ");
     }
 

@@ -3,23 +3,23 @@ include_once("_common.php");
 
 include_once $g4['path'].'/bbs/securimage.php';
 
-// echo "ÇÑ±Û"·Î Ãâ·ÂÇÏÁö ¾Ê´Â ÀÌÀ¯´Â Ajax ´Â euc_kr ¿¡¼­ ÇÑ±ÛÀ» Á¦´ë·Î ÀÎ½ÄÇÏÁö ¸øÇÏ±â ¶§¹®
-// ¿©±â¿¡¼­ ¿µ¹®À¸·Î echo ÇÏ¿© Request µÈ °ªÀ» Javascript ¿¡¼­ ÇÑ±Û·Î ¸Ş¼¼Áö¸¦ Ãâ·ÂÇÔ
+// echo "í•œê¸€"ë¡œ ì¶œë ¥í•˜ì§€ ì•ŠëŠ” ì´ìœ ëŠ” Ajax ëŠ” euc_kr ì—ì„œ í•œê¸€ì„ ì œëŒ€ë¡œ ì¸ì‹í•˜ì§€ ëª»í•˜ê¸° ë•Œë¬¸
+// ì—¬ê¸°ì—ì„œ ì˜ë¬¸ìœ¼ë¡œ echo í•˜ì—¬ Request ëœ ê°’ì„ Javascript ì—ì„œ í•œê¸€ë¡œ ë©”ì„¸ì§€ë¥¼ ì¶œë ¥í•¨
 
 if (preg_match("/[^0-9]+/i", $reg_wr_key)) {
-    echo "110"; // À¯È¿ÇÏÁö ¾ÊÀº ±ÛÀÚ
+    echo "110"; // ìœ íš¨í•˜ì§€ ì•Šì€ ê¸€ì
 } else if (strlen($reg_wr_key) < 5) {
-    echo "120"; // 4º¸´Ù ÀÛÀº ±ÛÀÚ
+    echo "120"; // 4ë³´ë‹¤ ì‘ì€ ê¸€ì
 } else {
 
   $img = new Securimage;
   if ($img->check($reg_wr_key) == false) {
 
-        echo "130"; // Æ²¸° ÄÚµå
+        echo "130"; // í‹€ë¦° ì½”ë“œ
 
     } else {
 
-            echo "000"; // Á¤»ó
+            echo "000"; // ì •ìƒ
             set_session('scaptcha_code', md5($reg_wr_key.$_SESSION["ss_token"]));
     }
 }

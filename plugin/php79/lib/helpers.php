@@ -4,9 +4,9 @@
  */
 
 /**
- * PDO Äõ¸®
- *   - ¹ÙÀÎµùÀ» ¹è¿­·Î ¹Ş¾Æ ½±°Ô Ã³¸®ÇÔ
- *   - µğºñ ¿¡·¯½Ã ¼­¹ö¿¡ ¿¡·¯ ·Î±×¸¦ ±â·ÏÇÏ°í, °ü¸®ÀÚÀÏ °æ¿ì È­¸é¿¡µµ Ãâ·Â
+ * PDO ì¿¼ë¦¬
+ *   - ë°”ì¸ë”©ì„ ë°°ì—´ë¡œ ë°›ì•„ ì‰½ê²Œ ì²˜ë¦¬í•¨
+ *   - ë””ë¹„ ì—ëŸ¬ì‹œ ì„œë²„ì— ì—ëŸ¬ ë¡œê·¸ë¥¼ ê¸°ë¡í•˜ê³ , ê´€ë¦¬ìì¼ ê²½ìš° í™”ë©´ì—ë„ ì¶œë ¥
  *
  * @link http://php.net/manual/kr/pdo.prepare.php
  *
@@ -30,16 +30,16 @@ function pdo($statement, $attributes = array())
         error_log($error);
 
         if ($is_admin === "super") {
-            dd("µğºñ ¿¡·¯°¡ ¹ß»ıÇÏ¿´½À´Ï´Ù.  (°ü¸®ÀÚ¿¡°Ô¸¸ Ç¥½ÃµË´Ï´Ù.)" . PHP_EOL . $error);
+            dd("ë””ë¹„ ì—ëŸ¬ê°€ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤.  (ê´€ë¦¬ìì—ê²Œë§Œ í‘œì‹œë©ë‹ˆë‹¤.)" . PHP_EOL . $error);
         } else {
-            response_error("µğºñ ¿¡·¯°¡ ¹ß»ıÇÏ¿´½À´Ï´Ù.");
+            response_error("ë””ë¹„ ì—ëŸ¬ê°€ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤.");
         }
     }
 }
 
 /**
- * PDO µ¥ÀÌÅ¸ »ğÀÔ
- *   - ´ë·® ÇÒ´ç Áö¿ø: Å°->¹ë·ù ¹è¿­·Î °ªÀ» Àü´ŞÇÏ¸é insert Äõ¸®¹®ÀÌ ÀÚµ¿ »ı¼ºµÇ¾î ½ÇÇàµÊ
+ * PDO ë°ì´íƒ€ ì‚½ì…
+ *   - ëŒ€ëŸ‰ í• ë‹¹ ì§€ì›: í‚¤->ë°¸ë¥˜ ë°°ì—´ë¡œ ê°’ì„ ì „ë‹¬í•˜ë©´ insert ì¿¼ë¦¬ë¬¸ì´ ìë™ ìƒì„±ë˜ì–´ ì‹¤í–‰ë¨
  *
  * @param $table
  * @param array $attributes
@@ -61,7 +61,7 @@ function pdo_create($table, $attributes = array())
 }
 
 /**
- * PDO ¸¶Áö¸·À¸·Î Ãß°¡µÈ ID
+ * PDO ë§ˆì§€ë§‰ìœ¼ë¡œ ì¶”ê°€ëœ ID
  *
  * @return string
  */
@@ -73,7 +73,7 @@ function pdo_last_insert_id()
 }
 
 /**
- * µğºñ ½ÇÇà °á°ú¿¡¼­ 1°³ ÄÃ·³¸¸ °¡Á®¿À±â
+ * ë””ë¹„ ì‹¤í–‰ ê²°ê³¼ì—ì„œ 1ê°œ ì»¬ëŸ¼ë§Œ ê°€ì ¸ì˜¤ê¸°
  *
  * @param      $sql
  * @param bool $error
@@ -95,7 +95,7 @@ function sql_one($sql, $error = true)
 }
 
 /**
- * Äõ¸® °á°ú¿¡¼­ ¸ğµç Çà °¡Á®¿À±â
+ * ì¿¼ë¦¬ ê²°ê³¼ì—ì„œ ëª¨ë“  í–‰ ê°€ì ¸ì˜¤ê¸°
  *
  * @param      $sql
  * @param bool $error
@@ -118,8 +118,8 @@ function sql_fetch_all($sql, $error = true)
 }
 
 /**
- * µğºñ ¸¶ÀÌ±×·¹ÀÌÆ® 1È¸¸¸ ½ÇÇà
- *  - Áßº¹ ½ÇÇà ¹æÁö¸¦ À§ÇØ µğºñ¿¡ ±â·Ï ³²±è
+ * ë””ë¹„ ë§ˆì´ê·¸ë ˆì´íŠ¸ 1íšŒë§Œ ì‹¤í–‰
+ *  - ì¤‘ë³µ ì‹¤í–‰ ë°©ì§€ë¥¼ ìœ„í•´ ë””ë¹„ì— ê¸°ë¡ ë‚¨ê¹€
  *
  * @param string $query
  * @param string|null $name
@@ -138,7 +138,7 @@ function php79_db_migrate($query, $name = null, $is_debug = true)
     }
     $exist_count = sql_one($q);
     if ( ! $exist_count) {
-        // ¸¶ÀÌ±×·¹ÀÌÆ® ½ÇÇà
+        // ë§ˆì´ê·¸ë ˆì´íŠ¸ ì‹¤í–‰
         if ($is_debug) {
             echo "<h5>" . $name . "</h5>";
             echo "<pre>" . $query . "</pre>";
@@ -147,7 +147,7 @@ function php79_db_migrate($query, $name = null, $is_debug = true)
             sql_query($query);
         }
 
-        // ±â·Ï
+        // ê¸°ë¡
         $q = "insert into {$g4['php79_migrations_table']} (name, query, created_at) values ('" . addslashes($name)
              . "', '"
              . addslashes($query) . "', NOW()) ";
@@ -165,7 +165,7 @@ function php79_db_migrate($query, $name = null, $is_debug = true)
 }
 
 /**
- * µğ¹ö±ë Ãâ·Â
+ * ë””ë²„ê¹… ì¶œë ¥
  *
  * @param        $var
  * @param string $title
@@ -186,7 +186,7 @@ function dd($var, $title = '')
 }
 
 /**
- * aJax ¿äÃ» ±¸ºĞ
+ * aJax ìš”ì²­ êµ¬ë¶„
  *
  * @return bool
  */
@@ -196,7 +196,7 @@ function is_ajax()
 }
 
 /**
- * ¸ğ¹ÙÀÏ ±â±â ±¸ºĞ
+ * ëª¨ë°”ì¼ ê¸°ê¸° êµ¬ë¶„
  *
  * @return bool
  */
@@ -206,8 +206,8 @@ function is_mobile()
 }
 
 /**
- * ÀÎ¾Û ±¸ºĞ
- *   - ¾Û¿¡¼­ ¸ğ¹ÙÀÏÀ¥À» ·ÎµùÇÑ °æ¿ì
+ * ì¸ì•± êµ¬ë¶„
+ *   - ì•±ì—ì„œ ëª¨ë°”ì¼ì›¹ì„ ë¡œë”©í•œ ê²½ìš°
  *
  * @return bool
  */
@@ -218,8 +218,8 @@ function in_app()
 }
 
 /**
- * ÆË¿À¹ö ÆäÀÌÁö ¿©ºÎ
- *   - ÂÊÁö?
+ * íŒì˜¤ë²„ í˜ì´ì§€ ì—¬ë¶€
+ *   - ìª½ì§€?
  *
  * @return bool
  */
@@ -232,8 +232,8 @@ function is_popover()
 }
 
 /**
- * ±×´©º¸µå4 °æ·Î
- *   - ¸ğ¹ÙÀÏ ½ºÅ²À» ºĞ¸®ÇÑ °æ¿ì, ´ÙÀ½Ã³·³ ÇÔ¼ö·Î µÑ·¯½Î´Â ºÎºĞ¸¸ º¯°æÇÏ¿© PC/¸ğ¹ÙÀÏ ±¸ºĞ Ã³¸®
+ * ê·¸ëˆ„ë³´ë“œ4 ê²½ë¡œ
+ *   - ëª¨ë°”ì¼ ìŠ¤í‚¨ì„ ë¶„ë¦¬í•œ ê²½ìš°, ë‹¤ìŒì²˜ëŸ¼ í•¨ìˆ˜ë¡œ ë‘˜ëŸ¬ì‹¸ëŠ” ë¶€ë¶„ë§Œ ë³€ê²½í•˜ì—¬ PC/ëª¨ë°”ì¼ êµ¬ë¶„ ì²˜ë¦¬
  *          include_once("$g4[memo_skin_path]/memo2.head.skin.php");
  *          include_once(g4_path($g4[memo_skin_path]) . "/memo2.head.skin.php");
  *
@@ -257,8 +257,8 @@ function g4_path($path = null)
 }
 
 /**
- * ¾Û ¹öÀü
- *   - À¥
+ * ì•± ë²„ì „
+ *   - ì›¹
  *
  * @return string
  */
@@ -277,8 +277,8 @@ function app_version()
 }
 
 /**
- * ¾Èµå·ÎÀÌµå¾Û ¹öÀü
- *   - ¾Û(À¥) ¹öÀü°ú º°µµ
+ * ì•ˆë“œë¡œì´ë“œì•± ë²„ì „
+ *   - ì•±(ì›¹) ë²„ì „ê³¼ ë³„ë„
  *
  * @return string
  */
@@ -294,9 +294,9 @@ function android_version()
 }
 
 /**
- * HTML ÅÂ±×¸¦ ÀÏ¹İ ¹®ÀÚ¿­·Î Ç¥½Ã
- *   - xss ¹æ¾î
- *   - UTF-8 ¸¸ °¡´ÉÇÏ¹Ç·Î, ³»ºÎÀûÀ¸·Î ÀÚµ¿ º¯È¯ Ã³¸®
+ * HTML íƒœê·¸ë¥¼ ì¼ë°˜ ë¬¸ìì—´ë¡œ í‘œì‹œ
+ *   - xss ë°©ì–´
+ *   - UTF-8 ë§Œ ê°€ëŠ¥í•˜ë¯€ë¡œ, ë‚´ë¶€ì ìœ¼ë¡œ ìë™ ë³€í™˜ ì²˜ë¦¬
  *
  * @param  string $value
  *
@@ -319,8 +319,8 @@ function e($value)
 }
 
 /**
- * ¹®ÀÚ¿­À» UTF-8·Î º¯È¯ÇÏ±â
- *   - ±×´©º¸µå euc-kr, utf-8 ¹öÀü ÇÔ²² Áö¿ø
+ * ë¬¸ìì—´ì„ UTF-8ë¡œ ë³€í™˜í•˜ê¸°
+ *   - ê·¸ëˆ„ë³´ë“œ euc-kr, utf-8 ë²„ì „ í•¨ê»˜ ì§€ì›
  *
  * @param string $value
  *
@@ -338,8 +338,8 @@ function to_utf8($value)
 }
 
 /**
- * ¾Û Å¸ÀÌÆ²
- *   - »ó´Ü Å¾ ¸Ş´º¿¡ Ç¥½Ã
+ * ì•± íƒ€ì´í‹€
+ *   - ìƒë‹¨ íƒ‘ ë©”ë‰´ì— í‘œì‹œ
  *
  * @param $title
  *
@@ -349,13 +349,13 @@ function app_title($title)
 {
     global $g4, $board;
 
-    // °Ô½ÃÆÇ ÀÌ¸§ Ç¥½Ã
+    // ê²Œì‹œíŒ ì´ë¦„ í‘œì‹œ
     if (isset($board['bo_subject']) && ! empty($board['bo_subject'])) {
         $title = $board['bo_subject'];
     } else {
         switch ($_SERVER['PHP_SELF']) {
             case '/bbs/my_menu_edit.php';
-                $title = '°Ô½ÃÆÇ ¹Ù·Î°¡±â';
+                $title = 'ê²Œì‹œíŒ ë°”ë¡œê°€ê¸°';
                 break;
             case '/bbs/myon.php';
                 $title = 'MyOn';
@@ -370,7 +370,7 @@ function app_title($title)
 }
 
 /**
- * JSON ÀÀ´ä
+ * JSON ì‘ë‹µ
  *
  * @param mixed $data
  *
@@ -384,8 +384,8 @@ function response_json($data)
 }
 
 /**
- * ¿¡·¯ ÀÀ´ä
- *   - json ¿äÃ»ÀÎÁö, ÀÏ¹İ ¿äÃ»ÀÎÁö¿¡ µû¶ó ¿¡·¯ ÀÀ´ä ´Ù¸£°Ô Ã³¸®.
+ * ì—ëŸ¬ ì‘ë‹µ
+ *   - json ìš”ì²­ì¸ì§€, ì¼ë°˜ ìš”ì²­ì¸ì§€ì— ë”°ë¼ ì—ëŸ¬ ì‘ë‹µ ë‹¤ë¥´ê²Œ ì²˜ë¦¬.
  *
  * @param string $error
  * @param string|null $redirect
@@ -405,7 +405,7 @@ function response_error($error, $redirect = null)
 }
 
 /**
- * text/html ÀÀ´ä
+ * text/html ì‘ë‹µ
  *
  * @param string $data
  *
@@ -420,8 +420,8 @@ function response($data)
 }
 
 /**
- * URL ¸®´ÙÀÌ·ºÆ®
- *   - ÇÁ·Î±×·¥ ½ÇÇà Áß´ÜÈÄ, ÀÌµ¿
+ * URL ë¦¬ë‹¤ì´ë ‰íŠ¸
+ *   - í”„ë¡œê·¸ë¨ ì‹¤í–‰ ì¤‘ë‹¨í›„, ì´ë™
  *
  * @param string $url
  */
@@ -432,7 +432,7 @@ function redirect($url)
 }
 
 /**
- * ÇöÀç ³¯Â¥ ¹× ½Ã°£
+ * í˜„ì¬ ë‚ ì§œ ë° ì‹œê°„
  *
  * @return string
  */
@@ -442,7 +442,7 @@ function date_full()
 }
 
 /**
- * ÇöÀç ³¯Â¥
+ * í˜„ì¬ ë‚ ì§œ
  * @return string
  */
 function date_short()
@@ -451,13 +451,13 @@ function date_short()
 }
 
 /**
- * ·Î±×ÀÎ½Ã ÀÌº¥Æ® ½ÇÇà
+ * ë¡œê·¸ì¸ì‹œ ì´ë²¤íŠ¸ ì‹¤í–‰
  *
  * @param array $member
  */
 function on_member_login($member)
 {
-    // ±â±â Á¤º¸°¡ ÄíÅ°¿¡ Á¸ÀçÇÒ °æ¿ì, ·Î±×ÀÎ »ç¿ëÀÚÀÇ ±â±â·Î ÁöÁ¤
+    // ê¸°ê¸° ì •ë³´ê°€ ì¿ í‚¤ì— ì¡´ì¬í•  ê²½ìš°, ë¡œê·¸ì¸ ì‚¬ìš©ìì˜ ê¸°ê¸°ë¡œ ì§€ì •
     if ( ! empty($_COOKIE['device-uuid']) && ! empty($_COOKIE['device-serial'])) {
         require_once(G4_PHP79_PATH . "/lib/devices.php");
 

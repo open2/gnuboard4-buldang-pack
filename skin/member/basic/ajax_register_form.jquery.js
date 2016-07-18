@@ -10,12 +10,12 @@ var reg_mb_id_check = function() {
         success: function(result) {
             var msg = $('#msg_mb_id');
             switch(result) {
-                case '110' : msg.html('¿µ¹®ÀÚ, ¼ıÀÚ, _ ¸¸ ÀÔ·ÂÇÏ¼¼¿ä.').css('color', 'red'); break;
-                case '120' : msg.html('ÃÖ¼Ò 3ÀÚÀÌ»ó ÀÔ·ÂÇÏ¼¼¿ä.').css('color', 'red'); break;
-                case '130' : msg.html('ÀÌ¹Ì »ç¿ëÁßÀÎ ¾ÆÀÌµğ ÀÔ´Ï´Ù.').css('color', 'red'); break;
-                case '140' : msg.html('¿¹¾à¾î·Î »ç¿ëÇÒ ¼ö ¾ø´Â ¾ÆÀÌµğ ÀÔ´Ï´Ù.').css('color', 'red'); break;
-                case '000' : msg.html('»ç¿ëÇÏ¼Åµµ ÁÁÀº ¾ÆÀÌµğ ÀÔ´Ï´Ù.').css('color', 'blue'); break;
-                default : alert( 'Àß¸øµÈ Á¢±ÙÀÔ´Ï´Ù.\n\n' + result ); break;
+                case '110' : msg.html('ì˜ë¬¸ì, ìˆ«ì, _ ë§Œ ì…ë ¥í•˜ì„¸ìš”.').css('color', 'red'); break;
+                case '120' : msg.html('ìµœì†Œ 3ìì´ìƒ ì…ë ¥í•˜ì„¸ìš”.').css('color', 'red'); break;
+                case '130' : msg.html('ì´ë¯¸ ì‚¬ìš©ì¤‘ì¸ ì•„ì´ë”” ì…ë‹ˆë‹¤.').css('color', 'red'); break;
+                case '140' : msg.html('ì˜ˆì•½ì–´ë¡œ ì‚¬ìš©í•  ìˆ˜ ì—†ëŠ” ì•„ì´ë”” ì…ë‹ˆë‹¤.').css('color', 'red'); break;
+                case '000' : msg.html('ì‚¬ìš©í•˜ì…”ë„ ì¢‹ì€ ì•„ì´ë”” ì…ë‹ˆë‹¤.').css('color', 'blue'); break;
+                default : alert( 'ì˜ëª»ëœ ì ‘ê·¼ì…ë‹ˆë‹¤.\n\n' + result ); break;
             }
             $('#mb_id_enabled').val(result);
         }
@@ -34,11 +34,11 @@ var reg_mb_nick_check = function() {
         success: function(result) {
             var msg = $('#msg_mb_nick');
             switch(result) {
-                case '110' : msg.html('º°¸íÀº °ø¹é¾øÀÌ ÇÑ±Û, ¿µ¹®, ¼ıÀÚ¸¸ ÀÔ·Â °¡´ÉÇÕ´Ï´Ù.').css('color', 'red'); break;
-                case '120' : msg.html('ÇÑ±Û 2±ÛÀÚ, ¿µ¹® 4±ÛÀÚ ÀÌ»ó ÀÔ·Â °¡´ÉÇÕ´Ï´Ù.').css('color', 'red'); break;
-                case '130' : msg.html('ÀÌ¹Ì Á¸ÀçÇÏ´Â º°¸íÀÔ´Ï´Ù.').css('color', 'red'); break;
-                case '000' : msg.html('»ç¿ëÇÏ¼Åµµ ÁÁÀº º°¸í ÀÔ´Ï´Ù.').css('color', 'blue'); break;
-                default : alert( 'Àß¸øµÈ Á¢±ÙÀÔ´Ï´Ù.\n\n' + result ); break;
+                case '110' : msg.html('ë³„ëª…ì€ ê³µë°±ì—†ì´ í•œê¸€, ì˜ë¬¸, ìˆ«ìë§Œ ì…ë ¥ ê°€ëŠ¥í•©ë‹ˆë‹¤.').css('color', 'red'); break;
+                case '120' : msg.html('í•œê¸€ 2ê¸€ì, ì˜ë¬¸ 4ê¸€ì ì´ìƒ ì…ë ¥ ê°€ëŠ¥í•©ë‹ˆë‹¤.').css('color', 'red'); break;
+                case '130' : msg.html('ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ë³„ëª…ì…ë‹ˆë‹¤.').css('color', 'red'); break;
+                case '000' : msg.html('ì‚¬ìš©í•˜ì…”ë„ ì¢‹ì€ ë³„ëª… ì…ë‹ˆë‹¤.').css('color', 'blue'); break;
+                default : alert( 'ì˜ëª»ëœ ì ‘ê·¼ì…ë‹ˆë‹¤.\n\n' + result ); break;
             }
             $('#mb_nick_enabled').val(result);
         }
@@ -58,11 +58,11 @@ var reg_mb_email_check = function() {
         success: function(result) {
             var msg = $('#msg_mb_email');
             switch(result) {
-                case '110' : msg.html('E-mail ÁÖ¼Ò¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À.').css('color', 'red'); break;
-                case '120' : msg.html('E-mail ÁÖ¼Ò°¡ Çü½Ä¿¡ ¸ÂÁö ¾Ê½À´Ï´Ù.').css('color', 'red'); break;
-                case '130' : msg.html('ÀÌ¹Ì Á¸ÀçÇÏ´Â E-mail ÁÖ¼ÒÀÔ´Ï´Ù.').css('color', 'red'); break;
-                case '000' : msg.html('»ç¿ëÇÏ¼Åµµ ÁÁÀº E-mail ÁÖ¼ÒÀÔ´Ï´Ù.').css('color', 'blue'); break;
-                default : alert( 'Àß¸øµÈ Á¢±ÙÀÔ´Ï´Ù.\n\n' + result ); break;
+                case '110' : msg.html('E-mail ì£¼ì†Œë¥¼ ì…ë ¥í•˜ì‹­ì‹œì˜¤.').css('color', 'red'); break;
+                case '120' : msg.html('E-mail ì£¼ì†Œê°€ í˜•ì‹ì— ë§ì§€ ì•ŠìŠµë‹ˆë‹¤.').css('color', 'red'); break;
+                case '130' : msg.html('ì´ë¯¸ ì¡´ì¬í•˜ëŠ” E-mail ì£¼ì†Œì…ë‹ˆë‹¤.').css('color', 'red'); break;
+                case '000' : msg.html('ì‚¬ìš©í•˜ì…”ë„ ì¢‹ì€ E-mail ì£¼ì†Œì…ë‹ˆë‹¤.').css('color', 'blue'); break;
+                default : alert( 'ì˜ëª»ëœ ì ‘ê·¼ì…ë‹ˆë‹¤.\n\n' + result ); break;
             }
             $('#mb_email_enabled').val(result);
         }

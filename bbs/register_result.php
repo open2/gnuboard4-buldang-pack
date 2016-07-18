@@ -2,16 +2,16 @@
 include_once("./_common.php");
 
 $mb = get_member($_SESSION[ss_mb_reg]);
-// È¸¿øÁ¤º¸°¡ ¾ø´Ù¸é ÃÊ±â ÆäÀÌÁö·Î ÀÌµ¿
+// íšŒì›ì •ë³´ê°€ ì—†ë‹¤ë©´ ì´ˆê¸° í˜ì´ì§€ë¡œ ì´ë™
 if (!$mb[mb_id]) 
     goto_url($g4[path]);
 
 $member_skin_path = "$g4[path]/skin/member/$config[cf_member_skin]";
 
-$g4[title] = "È¸¿ø°¡ÀÔ°á°ú";
+$g4[title] = "íšŒì›ê°€ì…ê²°ê³¼";
 include_once("./_head.php");
 
-// ºÒ´çÆÑ - È¸¿ø´Ô²² ÂÊÁö ¹ß¼Û, È¸¿ø°¡ÀÔ½Ã register_form_update.php¿¡¼­ mb_memo_callÀ» ¼³Á¤ÇÏÁö ¾Ê°í ÀÌ°÷¿¡¼­ ¼³Á¤
+// ë¶ˆë‹¹íŒ© - íšŒì›ë‹˜ê»˜ ìª½ì§€ ë°œì†¡, íšŒì›ê°€ì…ì‹œ register_form_update.phpì—ì„œ mb_memo_callì„ ì„¤ì •í•˜ì§€ ì•Šê³  ì´ê³³ì—ì„œ ì„¤ì •
 if ($config[cf_memo_mb_member]) 
 {
     $me_recv_mb_id = $mb[mb_id];

@@ -41,21 +41,21 @@ var GB = {
     LineBreakTags: { address:1, dd:1, dt:1, div:1, li:1, p:1, section:1, aside:1, article:1, figcaption:1 },
     doctype : '<!DOCTYPE html>',
 	popupWindow : {
-        ImageUpload :   {tmpl : 'image.html',           width : 700, title : '³» PC »çÁø ³Ö±â'},
-		ImageUrl :      {tmpl : 'image_url.html',       width : 350, title : 'À¥ »çÁø ³Ö±â'},
-		Embed :         {tmpl : 'media.html',           width : 430, title : '¹Ìµğ¾î'},
-		Table :         {tmpl : 'table.html',           width : 430, title : 'Ç¥ ¸¸µé±â'},
-		ModifyTable :   {tmpl : 'table_modify.html',    width : 430, title : 'Ç¥ °íÄ¡±â'},
-		Layout :        {tmpl : 'layout.html',          width : 430, title : '·¹ÀÌ¾Æ¿ô'},
-		Link :          {tmpl : 'link.html',            width : 350, title : 'ÇÏÀÌÆÛ¸µÅ©'},
-		EmotionIcon :   {tmpl : 'icon.html',            width : 300, title : 'Ç¥Á¤ ¾ÆÀÌÄÜ'},
-		Symbol :        {tmpl : 'symbol.html',          width : 450, title : 'Æ¯¼ö ¹®ÀÚ'},
-		GoogleMap :     {tmpl : 'google_map.html',      width : 538, title : '±¸±Û Áöµµ'},
-		ColorPicker :   {tmpl : 'color_picker.html',    width : 420, title : '»ö»ó ¼±ÅÃ'},
-		FlashMovie :    {tmpl : 'flash.html',           width : 584, title : 'ÇÃ·¡½¬ µ¿¿µ»ó'}
+        ImageUpload :   {tmpl : 'image.html',           width : 700, title : 'ë‚´ PC ì‚¬ì§„ ë„£ê¸°'},
+		ImageUrl :      {tmpl : 'image_url.html',       width : 350, title : 'ì›¹ ì‚¬ì§„ ë„£ê¸°'},
+		Embed :         {tmpl : 'media.html',           width : 430, title : 'ë¯¸ë””ì–´'},
+		Table :         {tmpl : 'table.html',           width : 430, title : 'í‘œ ë§Œë“¤ê¸°'},
+		ModifyTable :   {tmpl : 'table_modify.html',    width : 430, title : 'í‘œ ê³ ì¹˜ê¸°'},
+		Layout :        {tmpl : 'layout.html',          width : 430, title : 'ë ˆì´ì•„ì›ƒ'},
+		Link :          {tmpl : 'link.html',            width : 350, title : 'í•˜ì´í¼ë§í¬'},
+		EmotionIcon :   {tmpl : 'icon.html',            width : 300, title : 'í‘œì • ì•„ì´ì½˜'},
+		Symbol :        {tmpl : 'symbol.html',          width : 450, title : 'íŠ¹ìˆ˜ ë¬¸ì'},
+		GoogleMap :     {tmpl : 'google_map.html',      width : 538, title : 'êµ¬ê¸€ ì§€ë„'},
+		ColorPicker :   {tmpl : 'color_picker.html',    width : 420, title : 'ìƒ‰ìƒ ì„ íƒ'},
+		FlashMovie :    {tmpl : 'flash.html',           width : 584, title : 'í”Œë˜ì‰¬ ë™ì˜ìƒ'}
     },
 	fontName : {
-        'kr' : ['¸¼Àº °íµñ', 'µ¸¿ò', '±¼¸²', '¹ÙÅÁ', '±Ã¼­'],
+        'kr' : ['ë§‘ì€ ê³ ë”•', 'ë‹ì›€', 'êµ´ë¦¼', 'ë°”íƒ•', 'ê¶ì„œ'],
 		'en' : ['Arial', 'Comic Sans MS', 'Courier New', 'Georgia', 'Lucida Sans Unicode', 'Tahoma', 'Times New Roman', 'Verdana']
     },
     fontStyle : {
@@ -66,9 +66,9 @@ var GB = {
     },
     listStyle : {
         'ordered' : {
-            'decimal':'¼ıÀÚ', 'lower-alpha':'¿µ¹® ¼Ò¹®ÀÚ', 'upper-alpha':'¿µ¹® ´ë¹®ÀÚ', 'lower-roman':'·Î¸¶ ¼Ò¹®ÀÚ', 'upper-roman':'·Î¸¶ ´ë¹®ÀÚ'
+            'decimal':'ìˆ«ì', 'lower-alpha':'ì˜ë¬¸ ì†Œë¬¸ì', 'upper-alpha':'ì˜ë¬¸ ëŒ€ë¬¸ì', 'lower-roman':'ë¡œë§ˆ ì†Œë¬¸ì', 'upper-roman':'ë¡œë§ˆ ëŒ€ë¬¸ì'
         },
-        'unOrdered' : {'desc':'µ¿±×¶ó¹Ì', 'circle':'ºó ¿ø', 'square':'»ç°¢Çü'}
+        'unOrdered' : {'desc':'ë™ê·¸ë¼ë¯¸', 'circle':'ë¹ˆ ì›', 'square':'ì‚¬ê°í˜•'}
     },
     fontSize : {
         'pt' : [7, 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36],
@@ -76,10 +76,10 @@ var GB = {
     },
     formatBlock : {
         'P' : 'Normal (P)',
-		'H1' : 'Á¦¸ñ 1',
-		'H2' : 'Á¦¸ñ 2',
-		'H3' : 'Á¦¸ñ 3',
-		'H4' : 'Á¦¸ñ 4',
+		'H1' : 'ì œëª© 1',
+		'H2' : 'ì œëª© 2',
+		'H3' : 'ì œëª© 3',
+		'H4' : 'ì œëª© 4',
 		'H5' : 'Heading 5',
 		'H6' : 'Heading 6',
 		'ADDRESS' : 'Address',
@@ -87,7 +87,7 @@ var GB = {
 		'PRE' : 'Preformatted (PRE)'
     },
 	lineHeight : {
-        'ÇÑ ÁÙ °£°İ': 1, '1.15': 1.15, '1.5': 1.5, '1.7': 1.7, '1.8': 1.8, 'µÎ ÁÙ °£°İ': 2
+        'í•œ ì¤„ ê°„ê²©': 1, '1.15': 1.15, '1.5': 1.5, '1.7': 1.7, '1.8': 1.8, 'ë‘ ì¤„ ê°„ê²©': 2
     },
     textBlock : [
         ['1px #dedfdf solid','#f7f7f7'],
@@ -426,7 +426,7 @@ function setConfig () {
         editorWidth     : '100%',
         editorHeight    : '300px',
         editorFontSize  : '13px',
-        editorFontName  : '¸¼Àº °íµñ, ±¼¸², Malgun Gothic, gulim',
+        editorFontName  : 'ë§‘ì€ ê³ ë”•, êµ´ë¦¼, Malgun Gothic, gulim',
         editorFontColor : '#000',
         editorBgColor   : '#fff',
         imgCaptionText	: 'margin: 5px 0px; color: #333',
@@ -441,7 +441,7 @@ function setConfig () {
         imgMaxWidth     : 0,
         imgUploadNumber : 4,
         imgUploadSortName : false,
-        imgSetAttrWidth : 1, // -1 = (width=100%, height=auto), 0 = ¼³Á¤ ¾ÈÇÔ, 1 = ¿ø·¡´ë·Î
+        imgSetAttrWidth : 1, // -1 = (width=100%, height=auto), 0 = ì„¤ì • ì•ˆí•¨, 1 = ì›ë˜ëŒ€ë¡œ
         imgSetAttrAlt   : true,
         makeThumbnail   : false,
         imgDefaultAlign : "left", // [left, center, right]
@@ -452,12 +452,12 @@ function setConfig () {
         paragraphCss    : false, // true = <p style="margin:0"></p>, false = <p></p>
         xhtmlLang		: 'utf-8',
         xhtmlEncoding	: 'utf-8',
-        docTitle		: '³» ¹®¼­',
+        docTitle		: 'ë‚´ ë¬¸ì„œ',
         template        : 'template.xml',
         fontSizeValue   : 'px', // [pt, px]
         removeIndent    : false,
 
-        // ¹öÆ° »ç¿ë À¯¹«
+        // ë²„íŠ¼ ì‚¬ìš© ìœ ë¬´
         useSource       : true,
         usePreview      : true,
         usePrint        : false,
@@ -531,7 +531,7 @@ function setConfig () {
             }
         }
         if (config.editorPath === null) {
-            throw "CHEditor °æ·Î°¡ ¹Ù¸£Áö ¾Ê½À´Ï´Ù.\nmyeditor.config.editorPath¸¦ ¼³Á¤ÇÏ¿© ÁÖ½Ê½Ã¿À.";
+            throw "CHEditor ê²½ë¡œê°€ ë°”ë¥´ì§€ ì•ŠìŠµë‹ˆë‹¤.\nmyeditor.config.editorPathë¥¼ ì„¤ì •í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.";
         }
     }
 
@@ -588,7 +588,7 @@ function cheditor () {
     }
 
     if (error) {
-        alert("CHEditor´Â '"+this.browser.name + " " + this.browser.version + "' ¹öÀüÀ» Áö¿øÇÏÁö ¾Ê½À´Ï´Ù.");
+        alert("CHEditorëŠ” '"+this.browser.name + " " + this.browser.version + "' ë²„ì „ì„ ì§€ì›í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 		return null;
     }
 
@@ -680,7 +680,7 @@ setFolderPath : function () {
 checkInputForm : function () {
 	var textarea = document.getElementById(this.inputForm);
 	if (!textarea) {
-		throw "ID°¡ '"+this.inputForm+"'ÀÎ textarea °³Ã¼¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.";
+		throw "IDê°€ '"+this.inputForm+"'ì¸ textarea ê°œì²´ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.";
     }
 	textarea.style.display = 'none';
 	this.cheditor.textarea = textarea;
@@ -725,7 +725,7 @@ getWindowHandle : function (iframeObj) {
 		iframeWin = iframeObj.contentWindow;
     }
 	else {
-		throw 'ÇöÀç ºê¶ó¿ìÀú¿¡¼­ ¿¡µğÅÍ¸¦ ½ÇÇàÇÒ ¼ö ¾ø½À´Ï´Ù.';
+		throw 'í˜„ì¬ ë¸Œë¼ìš°ì €ì—ì„œ ì—ë””í„°ë¥¼ ì‹¤í–‰í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.';
     }
 	return iframeWin;
 },
@@ -1013,7 +1013,7 @@ initTemplate : function () {
     var httpRequest = null;
 
     function showError(msg) {
-        alert(self.templateFile + ' ÆÄÀÏ ·Îµù Áß ¿À·ù°¡ ¹ß»ıÇÏ¿´½À´Ï´Ù.\n¿øÀÎ: ' + msg);
+        alert(self.templateFile + ' íŒŒì¼ ë¡œë”© ì¤‘ ì˜¤ë¥˜ê°€ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤.\nì›ì¸: ' + msg);
         throw '';
     }
 
@@ -1051,7 +1051,7 @@ initTemplate : function () {
             httpRequest.open("GET", self.templatePath, true);
         }
         catch(e) {
-            showError(e + 'Âü°í: ¿¡µğÅÍ¸¦ À¥ ¼­¹ö¿¡¼­ ½ÇÇàÇÏ¿© ÁÖ½Ê½Ã¿À.');
+            showError(e + 'ì°¸ê³ : ì—ë””í„°ë¥¼ ì›¹ ì„œë²„ì—ì„œ ì‹¤í–‰í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.');
         }
         httpRequest.send();
     }
@@ -1062,7 +1062,7 @@ initTemplate : function () {
          httpRequest.load(self.templatePath);
     }
     else {
-        showError("ÇöÀç ºê¶ó¿ìÀú¿¡¼­ "+self.templateFile+" ÆÄÀÏÀ» »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.");
+        showError("í˜„ì¬ ë¸Œë¼ìš°ì €ì—ì„œ "+self.templateFile+" íŒŒì¼ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
     }
 },
 
@@ -1509,7 +1509,7 @@ toolbarUpdate : function () {
 			}
 
 			if (!el) {
-                span.appendChild(document.createTextNode('½ºÅ¸ÀÏ'));
+                span.appendChild(document.createTextNode('ìŠ¤íƒ€ì¼'));
 				wrapper.replaceChild(span, oldName);
 			}
             this.unselectionElement(span);
@@ -1734,7 +1734,7 @@ createButton : function (name, attr, prev) {
             self.toolbarMouseDownOut(obj, true);
 			break;
 		default :
-            alert('Áö¿øÇÏÁö ¾Ê´Â ¸í·ÉÀÔ´Ï´Ù.');
+            alert('ì§€ì›í•˜ì§€ ì•ŠëŠ” ëª…ë ¹ì…ë‹ˆë‹¤.');
 		}
 
         self.stopEvent(ev || window.event);
@@ -1802,15 +1802,15 @@ showToolbar : function (toolbar, toolbarWrapper) {
     if (self.config.useFullScreen === true) {
         fullscreen.appendChild(document.createTextNode("\u00a0"));
         fullscreen.className = "cheditor-tb-fullscreen";
-        fullscreen.setAttribute("title", "ÀüÃ¼ È­¸é");
+        fullscreen.setAttribute("title", "ì „ì²´ í™”ë©´");
         fullscreen.onclick = function() {
             if (self.setFullScreenMode) {
                 this.className = "cheditor-tb-fullscreen";
-                this.setAttribute("title", "ÀüÃ¼ È­¸é");
+                this.setAttribute("title", "ì „ì²´ í™”ë©´");
             }
             else {
                 this.className = "cheditor-tb-fullscreen-actual";
-                this.setAttribute("title", "ÀÌÀü Å©±â·Î º¹¿ø");
+                this.setAttribute("title", "ì´ì „ í¬ê¸°ë¡œ ë³µì›");
             }
             self.fullScreenMode();
         };
@@ -2056,7 +2056,7 @@ loadTemplate : function (xmlDoc) {
 	var toolbar = tmpl.getElementsByTagName('Toolbar').item(0);
 
 	if (tmpl.getElementsByTagName('Image').item(0).getAttribute('file') === null) {
-        throw 'Åø¹Ù ¾ÆÀÌÄÜ ÀÌ¹ÌÁö ÆÄÀÏ ÀÌ¸§ÀÌ Á¤ÀÇµÇÁö ¾Ê¾Ò½À´Ï´Ù.';
+        throw 'íˆ´ë°” ì•„ì´ì½˜ ì´ë¯¸ì§€ íŒŒì¼ ì´ë¦„ì´ ì •ì˜ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.';
     }
 
 	var cdata = tmpl.getElementsByTagName('Container').item(0).getElementsByTagName('Html').item(0);
@@ -2494,7 +2494,7 @@ showFontSizeMenu : function (pNode) {
             size = value[i];
             div = document.createElement('div');
             label = document.createElement('label');
-            text = size > 48 ? '°¡' : (size > 28 ? '°¡³ª´Ù' : '°¡³ª´Ù¶ó');
+            text = size > 48 ? 'ê°€' : (size > 28 ? 'ê°€ë‚˜ë‹¤' : 'ê°€ë‚˜ë‹¤ë¼');
             size = size + this.config.fontSizeValue;
             div.id = size;
             div.onclick = cmdPopup;
@@ -2587,7 +2587,7 @@ showTextBlockMenu : function (pNode) {
 			div.style.fontFamily = self.config.editorFontName;
 
 			label = document.createElement('label');
-			label.appendChild(document.createTextNode('°¡³ª´Ù¶ó ABC'));
+			label.appendChild(document.createTextNode('ê°€ë‚˜ë‹¤ë¼ ABC'));
 			div.appendChild(label);
 			wrapper.appendChild(div);
 			outputHtml.appendChild(wrapper);
@@ -4103,7 +4103,7 @@ setColorTable : function (menu) {
     reset.onclick = function() { colorPicker.fromString(self.colorConvert(selectedValue.style.backgroundColor, "hex")); };
     cellWrapper.appendChild(reset);
 
-    var showTooltip = '´õ ¸¹Àº »ö º¸±â'; var hideTooltip = '°¨Ãß±â';
+    var showTooltip = 'ë” ë§ì€ ìƒ‰ ë³´ê¸°'; var hideTooltip = 'ê°ì¶”ê¸°';
     var pickerSwitch = document.createElement('span');
     pickerSwitch.appendChild(document.createTextNode('\u00a0'));
     pickerSwitch.className = "cheditor-pulldown-color-show-picker";
@@ -4655,7 +4655,7 @@ windowOpen : function (popupName) {
 		this.popupWinLoad(popup);
     }
 	else {
-        alert('»ç¿ëÇÒ ¼ö ¾ø´Â ¸í·ÉÀÔ´Ï´Ù.');
+        alert('ì‚¬ìš©í•  ìˆ˜ ì—†ëŠ” ëª…ë ¹ì…ë‹ˆë‹¤.');
     }
 },
 
@@ -4666,7 +4666,7 @@ doCmd : function (cmd, opt) {
     var range = this.range;
 
     if (cmd === 'NewDocument') {
-		if (confirm('±Û ³»¿ëÀÌ ¸ğµÎ »ç¶óÁı´Ï´Ù. °è¼ÓÇÏ½Ã°Ú½À´Ï±î?')) {
+		if (confirm('ê¸€ ë‚´ìš©ì´ ëª¨ë‘ ì‚¬ë¼ì§‘ë‹ˆë‹¤. ê³„ì†í•˜ì‹œê² ìŠµë‹ˆê¹Œ?')) {
             this.doc.body.innerHTML = '';
         }
 
@@ -4679,7 +4679,7 @@ doCmd : function (cmd, opt) {
 	}
 
 	if (cmd === 'ClearTag') {
-		if (confirm('¸ğµç HTML ÅÂ±×¸¦ »èÁ¦ÇÕ´Ï´Ù. °è¼ÓÇÏ½Ã°Ú½À´Ï±î?\n(P, DIV, BR ÅÂ±×¿Í ÅØ½ºÆ®´Â »èÁ¦ÇÏÁö ¾Ê½À´Ï´Ù.)')) {
+		if (confirm('ëª¨ë“  HTML íƒœê·¸ë¥¼ ì‚­ì œí•©ë‹ˆë‹¤. ê³„ì†í•˜ì‹œê² ìŠµë‹ˆê¹Œ?\n(P, DIV, BR íƒœê·¸ì™€ í…ìŠ¤íŠ¸ëŠ” ì‚­ì œí•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.)')) {
 			var content = this.doc.body.innerHTML;
 			this.doc.body.innerHTML = content.replace(/<(\/?)([^>]*)>/g,
 					function(a, b, c) {
@@ -4715,12 +4715,12 @@ doCmd : function (cmd, opt) {
             var keyboard = '';
             var command = '';
             switch (cmd) {
-                case 'Cut'  : keyboard = 'x'; command = 'ÀÚ¸£±â'; break;
-                case 'Copy' : keyboard = 'c'; command = 'º¹»ç'; break;
-                case 'Paste': keyboard = 'v'; command = 'ºÙÀÌ±â'; break;
+                case 'Cut'  : keyboard = 'x'; command = 'ìë¥´ê¸°'; break;
+                case 'Copy' : keyboard = 'c'; command = 'ë³µì‚¬'; break;
+                case 'Paste': keyboard = 'v'; command = 'ë¶™ì´ê¸°'; break;
             }
-            alert('»ç¿ëÇÏ°í °è½Å ºê¶ó¿ìÀú´Â º¸¾È »óÀÇ ÀÌÀ¯·Î \'' + command + '\' ¸í·ÉÀ» »ç¿ëÇÏ½Ç ¼ö ¾ø½À´Ï´Ù. \n\n' +
-            'Å°º¸µå ´ÜÃàÅ°¸¦ ÀÌ¿ëÇÏ¿© ÁÖ½Ê½Ã¿À.\n´ÜÃàÅ°: Windows: Ctrl+' + keyboard + ', Mac OS X: Command+' + keyboard);
+            alert('ì‚¬ìš©í•˜ê³  ê³„ì‹  ë¸Œë¼ìš°ì €ëŠ” ë³´ì•ˆ ìƒì˜ ì´ìœ ë¡œ \'' + command + '\' ëª…ë ¹ì„ ì‚¬ìš©í•˜ì‹¤ ìˆ˜ ì—†ìŠµë‹ˆë‹¤. \n\n' +
+            'í‚¤ë³´ë“œ ë‹¨ì¶•í‚¤ë¥¼ ì´ìš©í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.\në‹¨ì¶•í‚¤: Windows: Ctrl+' + keyboard + ', Mac OS X: Command+' + keyboard);
             this.editAreaFocus();
 
         }
@@ -4970,7 +4970,7 @@ doCmd : function (cmd, opt) {
             }
 		}
 	} catch (e) {
-		alert(cmd + ": Áö¿øµÇÁö ¾Ê´Â ¸í·ÉÀÔ´Ï´Ù." + e.toString());
+		alert(cmd + ": ì§€ì›ë˜ì§€ ì•ŠëŠ” ëª…ë ¹ì…ë‹ˆë‹¤." + e.toString());
 	}
 
     this.editAreaFocus();
@@ -5376,7 +5376,7 @@ doCmdPopup : function (cmd, opt, checked) {
                 if (cmd === 'ForeColor' || cmd === 'BackColor') {
                     opt = this.colorConvert(opt, "hex");
                 }
-                else if (cmd === 'FontName' && opt === '¸¼Àº °íµñ') {
+                else if (cmd === 'FontName' && opt === 'ë§‘ì€ ê³ ë”•') {
                     opt += ", Malgun Gothic";
                 }
 
@@ -5737,10 +5737,10 @@ doCmdPopup : function (cmd, opt, checked) {
 modifyImage : function (img) {
 	var self = this;
 	var imageWidthOpt = {
-        "default" : {"size": "default", "desc": "¿øº» Å©±â"},
-		"fitpage" : {"size": "100%", "desc": "ÆäÀÌÁö Å©±â¿¡ ¸ÂÃã"}
+        "default" : {"size": "default", "desc": "ì›ë³¸ í¬ê¸°"},
+		"fitpage" : {"size": "100%", "desc": "í˜ì´ì§€ í¬ê¸°ì— ë§ì¶¤"}
     };
-	var imageAlignOpt = {"left" : "¿ŞÂÊ", "right" : "¿À¸¥ÂÊ"};
+	var imageAlignOpt = {"left" : "ì™¼ìª½", "right" : "ì˜¤ë¥¸ìª½"};
     var idx, div, ico, fmSelectWidth, wrapTextSpan, wrapTextCheckBox, wrapTextIcon, wrapTextChecked,
         width = 0, height = 0, inputAlt;
 
@@ -5856,7 +5856,7 @@ modifyImage : function (img) {
 		self.editImages[img.src] = { width: img.width, height: img.height };
 	}
 
-	div.appendChild(document.createTextNode('\u00a0 ´ëÃ¼ ÅØ½ºÆ®(alt):'));
+	div.appendChild(document.createTextNode('\u00a0 ëŒ€ì²´ í…ìŠ¤íŠ¸(alt):'));
 
 	inputAlt = document.createElement('input');
 	inputAlt.setAttribute('type', 'text');
@@ -6313,22 +6313,22 @@ modifyCell : function (ctd) {
 
     var tblReflash = function() { self.editAreaFocus(); self.doEditorEvent(); };
     var funcs = {
-            'add_cols_after' : { 'icon' : 'table_insert_column.png', 'title' : '¿­ »ğÀÔ',
+            'add_cols_after' : { 'icon' : 'table_insert_column.png', 'title' : 'ì—´ ì‚½ì…',
                 'func' : function() { insertColumn(ctd.cellIndex); tblReflash(); }},
-            'add_rows_after': { 'icon' : 'table_insert_row.png', 'title' : 'Çà »ğÀÔ',
+            'add_rows_after': { 'icon' : 'table_insert_row.png', 'title' : 'í–‰ ì‚½ì…',
                 'func' : function() { insertRow(ctr.rowIndex); tblReflash(); }},
-            'remove_cols': { 'icon' : 'table_delete_column.png', 'title' : '¿­ »èÁ¦',
+            'remove_cols': { 'icon' : 'table_delete_column.png', 'title' : 'ì—´ ì‚­ì œ',
                 'func' : function() { deleteColumn(ctd.cellIndex); tblReflash(); }},
-            'remove_rows': { 'icon' : 'table_delete_row.png', 'title' : 'Çà »èÁ¦',
+            'remove_rows': { 'icon' : 'table_delete_row.png', 'title' : 'í–‰ ì‚­ì œ',
                 'func' : function() { deleteRow(); tblReflash(); }},
             'sp1' : { 'icon' : 'dot.gif' },
-            'merge_cell_right': { 'icon' : 'table_join_row.png', 'title' : '¿À¸¥ÂÊ ¼¿°ú º´ÇÕ',
+            'merge_cell_right': { 'icon' : 'table_join_row.png', 'title' : 'ì˜¤ë¥¸ìª½ ì…€ê³¼ ë³‘í•©',
                 'func' : function() { mergeCellRight(); tblReflash(); }},
-            'merge_cell_down': { 'icon' : 'table_join_column.png', 'title' : '¾Æ·¡ ¼¿°ú º´ÇÕ',
+            'merge_cell_down': { 'icon' : 'table_join_column.png', 'title' : 'ì•„ë˜ ì…€ê³¼ ë³‘í•©',
                 'func' : function() { mergeCellDown(); tblReflash(); }},
-            'split_cell_v': { 'icon' : 'table_split_row.png', 'title' : '¼¿ ¿­·Î ³ª´©±â',
+            'split_cell_v': { 'icon' : 'table_split_row.png', 'title' : 'ì…€ ì—´ë¡œ ë‚˜ëˆ„ê¸°',
                 'func' : function() { splitCellVertical(); tblReflash(); }},
-            'split_cell_h': { 'icon' : 'table_split_column.png', 'title' : '¼¿ ÇàÀ¸·Î ³ª´©±â',
+            'split_cell_h': { 'icon' : 'table_split_column.png', 'title' : 'ì…€ í–‰ìœ¼ë¡œ ë‚˜ëˆ„ê¸°',
                 'func' : function() { splitCellHorizontal(); tblReflash(); }}
     };
 
@@ -6361,7 +6361,7 @@ modifyCell : function (ctd) {
     deleteSubmit.src = this.config.iconPath + 'delete_table.png';
     deleteSubmit.style.marginLeft = "22px";
     deleteSubmit.className = 'edit-table-ico';
-    deleteSubmit.setAttribute('title', 'Å×ÀÌºí »èÁ¦');
+    deleteSubmit.setAttribute('title', 'í…Œì´ë¸” ì‚­ì œ');
     deleteSubmit.onclick = function() {
         ctb.parentNode.removeChild(ctb);
         self.doEditorEvent();
@@ -6371,19 +6371,19 @@ modifyCell : function (ctd) {
 
     var attrFuncs = {
         'setWidth' : {
-            'txt': '°¡·ÎÆø',
+            'txt': 'ê°€ë¡œí­',
             'id' : 'fm_cell_width',
             'marginRight' : '10px',
             'value' : ctd.getAttribute('width')
         },
         'setHeight' : {
-            'txt': '¼¼·ÎÆø',
+            'txt': 'ì„¸ë¡œí­',
             'id' : 'fm_cell_height',
             'marginRight' : '10px',
             'value' : ctd.getAttribute('height')
         },
         'setBgcolor' : {
-            'txt': '¹è°æ»ö',
+            'txt': 'ë°°ê²½ìƒ‰',
             'id' : 'fm_cell_bgcolor',
             'marginRight' : '2px',
             'value' : ctd.getAttribute('bgcolor')

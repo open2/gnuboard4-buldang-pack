@@ -1,8 +1,8 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 <div class="panel panel-default">
-    <div class="panel-heading">°Ô½ÃÆÇ·©Å·</div>
+    <div class="panel-heading">ê²Œì‹œíŒëž­í‚¹</div>
     <div class="panel-body">
     <ol class="list-unstyled">
     <? 

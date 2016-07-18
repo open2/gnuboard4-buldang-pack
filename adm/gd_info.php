@@ -18,9 +18,9 @@ else
 
 function print_support($gd_support) {
     if ($gd_support)
-        echo "Áö¿ø";
+        echo "ì§€ì›";
     else 
-        echo "¹ÌÁö¿ø";
+        echo "ë¯¸ì§€ì›";
 }
 ?>
 <table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;"> 
@@ -28,33 +28,33 @@ function print_support($gd_support) {
 <colgroup width=''>
 <tr class="success">
     <td align=left>
-    <strong>GD¶óÀÌºê·¯¸® Á¤º¸</strong>
+    <strong>GDë¼ì´ë¸ŒëŸ¬ë¦¬ ì •ë³´</strong>
     </td> 
     <td></td>
 </tr>
 <tr> 
-    <td>GD Áö¿ø¿©ºÎ</td>
+    <td>GD ì§€ì›ì—¬ë¶€</td>
     <td><?=print_support($gd_support)?></td>
 </tr>
 <? if ($gd_support) { ?>
 <tr> 
-    <td>GD ¹öÁ¯</td>
+    <td>GD ë²„ì ¼</td>
     <td><?=print_support($gd_info['GD Version'])?></td>
 </tr>
 <tr> 
-    <td>TTF Áö¿ø (FreeType)</td>
+    <td>TTF ì§€ì› (FreeType)</td>
     <td><?=print_support($gd_info['FreeType Support'])?></td>
 </tr>
 <tr> 
-    <td>JPEG Áö¿ø</td>
+    <td>JPEG ì§€ì›</td>
     <td><?=print_support($gd_info['JPEG Support'])?></td>
 </tr>
 <tr> 
-    <td>PNG Áö¿ø</td>
+    <td>PNG ì§€ì›</td>
     <td><?=print_support($gd_info['PNG Support'])?></td>
 </tr>
 <tr> 
-    <td>GIF Áö¿ø</td>
+    <td>GIF ì§€ì›</td>
     <td><?=print_support($gd_info['GIF Create Support'])?></td>
 </tr>
 <? } ?>

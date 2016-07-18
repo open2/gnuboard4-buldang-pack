@@ -17,9 +17,9 @@ function latest_group($skin_dir="", $gr_id="", $rows=10, $subject_len=40, $conte
     else
       $sort_sql = " order by a.bn_id ";
 
-    // $secret = 0/±âÅ¸, ÀÏ¹İ»ç¿ëÀÚ: ºñ¹Ğ±Û ¾Èº¸ÀÓ, °ü¸®ÀÚ : ºñ¹Ğ±Û º¸ÀÓ
-    // $secret = 1, ÀÏ¹İ»ç¿ëÀÚ: ºñ¹Ğ±Û º¸ÀÓ, °ü¸®ÀÚ : ºñ¹Ğ±Û º¸ÀÓ
-    // $secret = 2, ÀÏ¹İ»ç¿ëÀÚ: ºñ¹Ğ±Û ¾Èº¸ÀÓ, °ü¸®ÀÚ : ºñ¹Ğ±Û ¾Èº¸ÀÓ
+    // $secret = 0/ê¸°íƒ€, ì¼ë°˜ì‚¬ìš©ì: ë¹„ë°€ê¸€ ì•ˆë³´ì„, ê´€ë¦¬ì : ë¹„ë°€ê¸€ ë³´ì„
+    // $secret = 1, ì¼ë°˜ì‚¬ìš©ì: ë¹„ë°€ê¸€ ë³´ì„, ê´€ë¦¬ì : ë¹„ë°€ê¸€ ë³´ì„
+    // $secret = 2, ì¼ë°˜ì‚¬ìš©ì: ë¹„ë°€ê¸€ ì•ˆë³´ì„, ê´€ë¦¬ì : ë¹„ë°€ê¸€ ì•ˆë³´ì„
     if ($secret == 1)
         $sql_secret = " ";
     else if ($secret == 2)
@@ -31,21 +31,21 @@ function latest_group($skin_dir="", $gr_id="", $rows=10, $subject_len=40, $conte
           $sql_secret = " and a.wr_option not like '%secret%' ";
     }
 
-    // °Ë»öÀÌ Çã¿ëµÈ °Ô½ÃÆÇÀÇ ±Û¸¸ select ÇÕ´Ï´Ù ^^
+    // ê²€ìƒ‰ì´ í—ˆìš©ëœ ê²Œì‹œíŒì˜ ê¸€ë§Œ select í•©ë‹ˆë‹¤ ^^
     if ($gr_id == "")
         $gr_search = " 1 ";
     else
         $gr_search = " a.gr_id = '$gr_id' ";
 
     if ($g4['old_stype_search'] == 1) {
-        // tmp Å×ÀÌºí »ı¼º ¿À·ù°¡ ³ª¿À´Â °æ¿ì, ÀÌ ÄÚµå¸¦ ¾²¸é µË´Ï´Ù. ¼Óµµ´Â Á» ¸¹ÀÌ ³ª»Ú°ÚÁÒ.
+        // tmp í…Œì´ë¸” ìƒì„± ì˜¤ë¥˜ê°€ ë‚˜ì˜¤ëŠ” ê²½ìš°, ì´ ì½”ë“œë¥¼ ì“°ë©´ ë©ë‹ˆë‹¤. ì†ë„ëŠ” ì¢€ ë§ì´ ë‚˜ì˜ê² ì£ .
           $sql = " select a.bo_table, a.wr_id 
                      from $g4[board_new_table] a, 
                           ( select d.bo_table from $g4[board_table] d left join $g4[group_table] e on (d.gr_id=e.gr_id) where d.bo_use_search=1 and e.gr_use_search=1 ) b 
                     where $gr_search and a.bo_table = b.bo_table and a.wr_is_comment = '0' $sql_secret $sort_sql desc limit 0, $rows ";
         $result = sql_query($sql);
     } else if ($g4['old_stype_search'] == 2) {
-        // MySQL DB ¹öÁ¯ÀÌ ³Ê¹«³ªµµ ³·¾Æ¼­ sub query°¡ ¾È¸ÔÈ÷´Â °æ¿ì, ¾îÂ¿ ¼ö ¾øÀÌ sql¿¡¼­ ±â´ÉÀ» ÀÏºÎ degration
+        // MySQL DB ë²„ì ¼ì´ ë„ˆë¬´ë‚˜ë„ ë‚®ì•„ì„œ sub queryê°€ ì•ˆë¨¹íˆëŠ” ê²½ìš°, ì–´ì©” ìˆ˜ ì—†ì´ sqlì—ì„œ ê¸°ëŠ¥ì„ ì¼ë¶€ degration
         $rows2 = $rows * 3;
         $sql = " select a.bo_table, a.wr_id 
                   from $g4[board_new_table] a ,$g4[board_table] b
@@ -57,7 +57,7 @@ function latest_group($skin_dir="", $gr_id="", $rows=10, $subject_len=40, $conte
         */
         $result = sql_query($sql);
     } else {
-        // tmp Å×ÀÌºíÀ» ¸¸µé°í ±×°Í¿¡¼­ select¸¦ ÇÑ´Ù.
+        // tmp í…Œì´ë¸”ì„ ë§Œë“¤ê³  ê·¸ê²ƒì—ì„œ selectë¥¼ í•œë‹¤.
         $sql = "select d.bo_table, d.bo_use_search, e.gr_use_search from $g4[board_table] d left join $g4[group_table] e on (d.gr_id=e.gr_id) ";
         $tmp_table = "g4_tmp_" . time();
         $sql_tmp = " create TEMPORARY table $tmp_table as $sql ";
@@ -75,7 +75,7 @@ function latest_group($skin_dir="", $gr_id="", $rows=10, $subject_len=40, $conte
         sql_query($sql);
     }
 
-    // °Ô½ÃÆÇ Á¤º¸¸¦ º°µµ·Î °¡Á®¿À°Ô ÄÚµùÀ» º¯°æ
+    // ê²Œì‹œíŒ ì •ë³´ë¥¼ ë³„ë„ë¡œ ê°€ì ¸ì˜¤ê²Œ ì½”ë”©ì„ ë³€ê²½
     for ($i=0; $row = sql_fetch_array($result); $i++) {
         $tmp_write_table = $g4[write_prefix] . $row[bo_table];
         $sql_select = " wr_id, wr_subject, wr_option, wr_content, wr_comment, wr_parent, wr_datetime, wr_last, wr_homepage, wr_name, wr_reply, wr_link1, wr_link2, ca_name, wr_hit, wr_file_count ";
@@ -86,7 +86,7 @@ function latest_group($skin_dir="", $gr_id="", $rows=10, $subject_len=40, $conte
             $sql2 .= " union all select $sql_select , $bo_select from $tmp_write_table where wr_id = '$row[wr_id]' ";
     }
 
-    // Query setÀÌ ÀÖ´Â °æ¿ì¿¡¸¸ ÀÛ¾÷À»
+    // Query setì´ ìˆëŠ” ê²½ìš°ì—ë§Œ ì‘ì—…ì„
     if ($sql2) {
         $result2 = sql_query($sql2);
         $j = 0;
@@ -94,7 +94,7 @@ function latest_group($skin_dir="", $gr_id="", $rows=10, $subject_len=40, $conte
             if ($j >= $rows)
                 break;
             $board = get_board($row2[bo_table], "bo_table, bo_notice, bo_subject, bo_subject_len, bo_use_list_content, bo_use_sideview, bo_use_comment, bo_hot, bo_use_search, bo_new ");
-            // °Ô½ÃÆÇ¿¡ °ªÀÌ ¾øÀ¸¸é ±×³É Áö³ª°£´Ù. ¾îÂ¿ ¼ö ¾ø´Ù. ºóÄ­ÀÌ ÇÏ³ª ´õ »ı±â´Â°Å °¨¼öÇÏ°í ¼Óµµ¸¦ ³ôÀÎ´Ù. °Ô½ÃÆÇ¸¸ ¾ÈÁö¿ì¸é ÀÌ·±ÀÏ »ç½Ç ¾ø´Ù. ¤¾¤¾
+            // ê²Œì‹œíŒì— ê°’ì´ ì—†ìœ¼ë©´ ê·¸ëƒ¥ ì§€ë‚˜ê°„ë‹¤. ì–´ì©” ìˆ˜ ì—†ë‹¤. ë¹ˆì¹¸ì´ í•˜ë‚˜ ë” ìƒê¸°ëŠ”ê±° ê°ìˆ˜í•˜ê³  ì†ë„ë¥¼ ë†’ì¸ë‹¤. ê²Œì‹œíŒë§Œ ì•ˆì§€ìš°ë©´ ì´ëŸ°ì¼ ì‚¬ì‹¤ ì—†ë‹¤. ã…ã…
             if (!$board)
                 continue;
             $write = $row2;
@@ -109,7 +109,7 @@ function latest_group($skin_dir="", $gr_id="", $rows=10, $subject_len=40, $conte
             $result4 = sql_fetch(" select gr_subject from $g4[group_table] where gr_id = '$gr_id' ");
             $skin_title = "$result4[gr_subject]";
         } else {
-            $skin_title = "ÃÖ±Ù±Û";
+            $skin_title = "ìµœê·¼ê¸€";
         }
     }
         
@@ -143,7 +143,7 @@ function latest_images($skin_dir="", $bo_table="", $gr_id="", $rows=10, $subject
     $list = array();
 
     if ($gr_id) {
-        // ±×·ìÀÇ °æ¿ì
+        // ê·¸ë£¹ì˜ ê²½ìš°
         $sql = " select bo_table from $g4[board_table] where gr_id = '$gr_id' ";
         $result = sql_query($sql);
         $bo_sql = " a.bo_table in( ";
@@ -155,7 +155,7 @@ function latest_images($skin_dir="", $bo_table="", $gr_id="", $rows=10, $subject
         }
         $bo_sql .= $one . " ) ";
     } else if ($bo_table) {
-        // °Ô½ÃÆÇÀÇ °æ¿ì
+        // ê²Œì‹œíŒì˜ ê²½ìš°
         $bo_sql = " a.bo_table = '$bo_table' ";
     } else {
         return;
@@ -165,10 +165,10 @@ function latest_images($skin_dir="", $bo_table="", $gr_id="", $rows=10, $subject
     else
       $sort_sql = " order by a.bf_datetime desc ";
 
-    // bo_tableÀÇ ÀÌ¹ÌÁö(bf_type > 0)¸¸ °¡Á® ¿É´Ï´Ù.
+    // bo_tableì˜ ì´ë¯¸ì§€(bf_type > 0)ë§Œ ê°€ì ¸ ì˜µë‹ˆë‹¤.
     $sql = " select * from $g4[board_file_table] a where $bo_sql and a.bf_type > 0 $sort_sql limit 0, $rows  ";
 
-    // Query setÀÌ ÀÖ´Â °æ¿ì¿¡¸¸ ÀÛ¾÷À»
+    // Query setì´ ìˆëŠ” ê²½ìš°ì—ë§Œ ì‘ì—…ì„
     $result = sql_query($sql);
     for ($i=0; $row = sql_fetch_array($result); $i++) {
         $tmp_write_table = $g4[write_prefix] . $row[bo_table];
@@ -198,7 +198,7 @@ function latest_images($skin_dir="", $bo_table="", $gr_id="", $rows=10, $subject
             $result4 = sql_fetch(" select gr_subject from $g4[group_table] where gr_id = '$gr_id' ");
             $skin_title = "$result4[gr_subject]";
         } else {
-            $skin_title = "ÃÖ±Ù±Û";
+            $skin_title = "ìµœê·¼ê¸€";
         }
     }
         

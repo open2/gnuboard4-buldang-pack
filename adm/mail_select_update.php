@@ -4,7 +4,7 @@ include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "w");
 
-$html_title = "È¸¿ø¸ŞÀÏ ¹ß¼Û";
+$html_title = "íšŒì›ë©”ì¼ ë°œì†¡";
 
 check_demo();
 
@@ -13,12 +13,12 @@ check_token();
 include_once("./admin.head.php");
 include_once("$g4[path]/lib/mailer.lib.php");
 
-$countgap = 10; // ¸î°Ç¾¿ º¸³¾Áö ¼³Á¤
-$maxscreen = 500; // ¸î°Ç¾¿ È­¸é¿¡ º¸¿©ÁÙ°ÇÁö?
-$sleepsec = 200;  // ÃµºĞÀÇ ¸îÃÊ°£ ½¯Áö ¼³Á¤
+$countgap = 10; // ëª‡ê±´ì”© ë³´ë‚¼ì§€ ì„¤ì •
+$maxscreen = 500; // ëª‡ê±´ì”© í™”ë©´ì— ë³´ì—¬ì¤„ê±´ì§€?
+$sleepsec = 200;  // ì²œë¶„ì˜ ëª‡ì´ˆê°„ ì‰´ì§€ ì„¤ì •
 
 echo "<span style='font-size:9pt;'>";
-echo "<p>¸ŞÀÏ ¹ß¼ÛÁß ...<p><font color=crimson><b>[³¡]</b></font> ÀÌ¶ó´Â ´Ü¾î°¡ ³ª¿À±â Àü¿¡´Â Áß°£¿¡ ÁßÁöÇÏÁö ¸¶¼¼¿ä.<p>";
+echo "<p>ë©”ì¼ ë°œì†¡ì¤‘ ...<p><font color=crimson><b>[ë]</b></font> ì´ë¼ëŠ” ë‹¨ì–´ê°€ ë‚˜ì˜¤ê¸° ì „ì—ëŠ” ì¤‘ê°„ì— ì¤‘ì§€í•˜ì§€ ë§ˆì„¸ìš”.<p>";
 echo "</span>";
 ?>
 
@@ -38,7 +38,7 @@ $select_member_list = addslashes(trim($_POST[ma_list]));
 //print_r2($_POST); EXIT;
 $member_list = explode("\n", $select_member_list);
 
-// ¸ŞÀÏ³»¿ë °¡Á®¿À±â
+// ë©”ì¼ë‚´ìš© ê°€ì ¸ì˜¤ê¸°
 $sql = "select ma_subject, ma_content from $g4[mail_table] where ma_id = '$ma_id' ";
 $ma = sql_fetch($sql);
 
@@ -50,7 +50,7 @@ for ($i=0; $i<count($member_list); $i++)
     list($to_email, $mb_id, $name, $nick, $birth, $datetime) = explode("||", trim($member_list[$i]));
 
     $sw = preg_match("/[0-9a-zA-Z_]+(\.[0-9a-zA-Z_]+)*@[0-9a-zA-Z_]+(\.[0-9a-zA-Z_]+)*/", $email);
-    // ¿Ã¹Ù¸¥ ¸ŞÀÏ ÁÖ¼Ò¸¸
+    // ì˜¬ë°”ë¥¸ ë©”ì¼ ì£¼ì†Œë§Œ
     if ($sw == true) 
     {
         $cnt++;
@@ -58,13 +58,13 @@ for ($i=0; $i<count($member_list); $i++)
         $mb_md5 = md5($mb_id.$email.$datetime);
 
         $content = $ma[ma_content];
-        $content = preg_replace("/{ÀÌ¸§}/", $name, $content);
-        $content = preg_replace("/{º°¸í}/", $nick, $content);
-        $content = preg_replace("/{È¸¿ø¾ÆÀÌµğ}/", $mb_id, $content);
-        $content = preg_replace("/{ÀÌ¸ŞÀÏ}/", $to_email, $content);
-        $content = preg_replace("/{»ıÀÏ}/", (int)substr($birth,4,2).'¿ù '.(int)substr($birth,6,2).'ÀÏ', $content);
+        $content = preg_replace("/{ì´ë¦„}/", $name, $content);
+        $content = preg_replace("/{ë³„ëª…}/", $nick, $content);
+        $content = preg_replace("/{íšŒì›ì•„ì´ë””}/", $mb_id, $content);
+        $content = preg_replace("/{ì´ë©”ì¼}/", $to_email, $content);
+        $content = preg_replace("/{ìƒì¼}/", (int)substr($birth,4,2).'ì›” '.(int)substr($birth,6,2).'ì¼', $content);
 
-        $content = $content . "<hr size=0><p><span style='font-size:9pt; font-familye:±¼¸²'>¢º ´õ ÀÌ»ó Á¤º¸ ¼ö½ÅÀ» ¿øÄ¡ ¾ÊÀ¸½Ã¸é [<a href='$g4[url]/$g4[bbs]/email_stop.php?mb_id=$mb_id&mb_md5=$mb_md5' target='_blank'>¼ö½Å°ÅºÎ</a>] ÇØ ÁÖ½Ê½Ã¿À.</span></p>";
+        $content = $content . "<hr size=0><p><span style='font-size:9pt; font-familye:êµ´ë¦¼'>â–¶ ë” ì´ìƒ ì •ë³´ ìˆ˜ì‹ ì„ ì›ì¹˜ ì•Šìœ¼ì‹œë©´ [<a href='$g4[url]/$g4[bbs]/email_stop.php?mb_id=$mb_id&mb_md5=$mb_md5' target='_blank'>ìˆ˜ì‹ ê±°ë¶€</a>] í•´ ì£¼ì‹­ì‹œì˜¤.</span></p>";
 
         mailer($config['cf_title'], $config['cf_admin_email'], $to_email, $subject, $content, 1);
 
@@ -79,10 +79,10 @@ for ($i=0; $i<count($member_list); $i++)
             echo "<script> document.all.cont.innerHTML += '<br>'; document.body.scrollTop += 1000; </script>\n";
         }
 
-        // È­¸éÀ» Áö¿î´Ù... ºÎÇÏ¸¦ ÁÙÀÓ
+        // í™”ë©´ì„ ì§€ìš´ë‹¤... ë¶€í•˜ë¥¼ ì¤„ì„
         if ($cnt % $maxscreen == 0)
             echo "<script> document.all.cont.innerHTML = ''; document.body.scrollTop += 1000; </script>\n";
     }
 }
 ?>
-<script> document.all.cont.innerHTML += "<br><br>ÃÑ <?=number_format($cnt)?>°Ç ¹ß¼Û<br><br><font color=crimson><b>[³¡]</b></font>"; document.body.scrollTop += 1000; </script>
+<script> document.all.cont.innerHTML += "<br><br>ì´ <?=number_format($cnt)?>ê±´ ë°œì†¡<br><br><font color=crimson><b>[ë]</b></font>"; document.body.scrollTop += 1000; </script>

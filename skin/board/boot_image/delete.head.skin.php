@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
 $downloadCount = 3;
 
@@ -10,7 +10,7 @@ if (!$is_admin) {
                 and bf_no = 0 ";
     $row = sql_fetch($sql);
     if ($row[bf_download] >= $downloadCount) {
-        alert("´Ù¿î·Îµå¼ö°¡ {$downloadCount}È¸ ÀÌ»óÀÌ¸é »èÁ¦ ºÒ°¡ÇÕ´Ï´Ù. ÇöÀç ´Ù¿î·Îµå¼ö : {$row[bf_download]}È¸");
+        alert("ë‹¤ìš´ë¡œë“œìˆ˜ê°€ {$downloadCount}íšŒ ì´ìƒì´ë©´ ì‚­ì œ ë¶ˆê°€í•©ë‹ˆë‹¤. í˜„ìž¬ ë‹¤ìš´ë¡œë“œìˆ˜ : {$row[bf_download]}íšŒ");
     }
 }
 ?>

@@ -10,10 +10,10 @@ check_token();
 
 for ($i=0; $i<count($chk); $i++) 
 {
-    // ½ÇÁ¦ ¹øÈ£¸¦ ³Ñ±è
+    // ì‹¤ì œ ë²ˆí˜¸ë¥¼ ë„˜ê¹€
     $k = $_POST[chk][$i];
 
-    // ºÒ´çÆÑ - $gr_use_search¿¡ °ªÀ» ÇÏÀ§ °Ô½ÃÆÇ¿¡ ¹Ý¿µ
+    // ë¶ˆë‹¹íŒ© - $gr_use_searchì— ê°’ì„ í•˜ìœ„ ê²Œì‹œíŒì— ë°˜ì˜
     $gr_id = $_POST[gr_id][$k];
     $gr_old = sql_fetch(" select * from $g4[group_table] where gr_id = '$gr_id' ");
     if ($gr_old[gr_use_search] != $_POST[gr_use_search][$k]) {
@@ -32,7 +32,7 @@ for ($i=0; $i<count($chk); $i++)
         $sql .= " and gr_admin    = '{$_POST[gr_admin][$k]}' ";
     sql_query($sql);
 
-    // ºÒ´çÆÑ - ±ÇÇÑº¯°æ ÀÛ¾÷³»¿ªÀ» db log¿¡ ³²±é´Ï´Ù
+    // ë¶ˆë‹¹íŒ© - ê¶Œí•œë³€ê²½ ìž‘ì—…ë‚´ì—­ì„ db logì— ë‚¨ê¹ë‹ˆë‹¤
     if ($_POST[gr_admin][$k] !== $gr_old['gr_admin']) {
         $sql =  " update $g4[group_table] set gr_admin='{$_POST[gr_admin][$k]}' where gr_id='{$_POST[gr_id][$k]}'";
 

@@ -7,23 +7,23 @@ check_demo();
 check_token();
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.");
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
 for ($i=0; $i<count($chk); $i++) 
 {
-    // ½ÇÁ¦ ¹øÈ£¸¦ ³Ñ±è
+    // ì‹¤ì œ ë²ˆí˜¸ë¥¼ ë„˜ê¹€
     $k = $chk[$i];
 
     $sql = " delete from $g4[auth_table] where mb_id = '{$_POST['mb_id'][$k]}' and au_menu = '{$_POST['au_menu'][$k]}' ";
     sql_query($sql);
 
-    // ºÒ´çÆÑ - °ü¸®ÀÚ ±ÇÇÑº¯°æ ÀÛ¾÷³»¿ªÀ» db log¿¡ ³²±é´Ï´Ù
+    // ë¶ˆë‹¹íŒ© - ê´€ë¦¬ì ê¶Œí•œë³€ê²½ ì‘ì—…ë‚´ì—­ì„ db logì— ë‚¨ê¹ë‹ˆë‹¤
     $sql = " insert into $g4[admin_log_table] 
                 set log_datetime = '$g4[time_ymdhis]',
                     log = '" . mysql_real_escape_string($sql) . "' ";
     sql_query($sql);
 
-    //ºÒ´ç mb_auth_count¸¦ ¾÷µ¥ÀÌÆ®
+    //ë¶ˆë‹¹ mb_auth_countë¥¼ ì—…ë°ì´íŠ¸
     $sql = " select count(*) as cnt from $g4[auth_table] where mb_id = '$mb_id[$k]' ";
     $result = sql_fetch($sql);
     $sql = " update $g4[member_table] set mb_auth_count = '$result[cnt]' where mb_id = '$mb_id[$k]' ";

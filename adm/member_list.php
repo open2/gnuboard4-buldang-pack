@@ -48,11 +48,11 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if (!$page) $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if (!$page) $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
-// ÈŞ¸é È¸¿ø¼ö
+// íœ´ë©´ íšŒì›ìˆ˜
 $sql = " select count(*) as cnt
          $sql_common
          $sql_search
@@ -61,7 +61,7 @@ $sql = " select count(*) as cnt
 $row = sql_fetch($sql);
 $unlogin_count = $row[cnt];
 
-// Å»ÅğÈ¸¿ø¼ö
+// íƒˆí‡´íšŒì›ìˆ˜
 $sql = " select count(*) as cnt
          $sql_common
          $sql_search
@@ -70,7 +70,7 @@ $sql = " select count(*) as cnt
 $row = sql_fetch($sql);
 $leave_count = $row[cnt];
 
-// Â÷´ÜÈ¸¿ø¼ö
+// ì°¨ë‹¨íšŒì›ìˆ˜
 $sql = " select count(*) as cnt
          $sql_common
          $sql_search
@@ -79,9 +79,9 @@ $sql = " select count(*) as cnt
 $row = sql_fetch($sql);
 $intercept_count = $row[cnt];
 
-$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>ì²˜ìŒ</a>";
 
-$g4[title] = "È¸¿ø°ü¸®";
+$g4[title] = "íšŒì›ê´€ë¦¬";
 include_once("./admin.head.php");
 
 $sql = " select *
@@ -102,7 +102,7 @@ var list_delete_php = "member_list_delete.php";
 <script type="text/javascript">
 function member_delete_unvisited()
 {
-    if (confirm("¿À·§µ¿¾È Á¢¼ÓÇÏÁö ¾Ê°í ±ÛÀÛ¼ºµµ ¾ø´Â È¸¿øÀ» Á¤¸®ÇÕ´Ï´Ù\n\nÁ¤¸®±â°£ µîÀº /adm/member_undelete_unvisited.php¿¡¼­ ¼³Á¤°¡´ÉÇÕ´Ï´Ù.\n\n\n±×·¡µµ ÁøÇàÇÏ½Ã°Ú½À´Ï±î?"))
+    if (confirm("ì˜¤ë«ë™ì•ˆ ì ‘ì†í•˜ì§€ ì•Šê³  ê¸€ì‘ì„±ë„ ì—†ëŠ” íšŒì›ì„ ì •ë¦¬í•©ë‹ˆë‹¤\n\nì •ë¦¬ê¸°ê°„ ë“±ì€ /adm/member_undelete_unvisited.phpì—ì„œ ì„¤ì •ê°€ëŠ¥í•©ë‹ˆë‹¤.\n\n\nê·¸ë˜ë„ ì§„í–‰í•˜ì‹œê² ìŠµë‹ˆê¹Œ?"))
     {
         document.location.href = "./member_delete_unvisited.php?ok=1";
     }
@@ -112,7 +112,7 @@ function member_delete_unvisited()
 <script type="text/javascript">
 function member_delete_unlogin()
 {
-    if (confirm("1³âÀÌ»ó Á¢¼ÓÇÏÁö ¾ÊÀº È¸¿øÀ» Á¤¸®ÇÕ´Ï´Ù\n\nÁøÇàÇÏ½Ã°Ú½À´Ï±î?"))
+    if (confirm("1ë…„ì´ìƒ ì ‘ì†í•˜ì§€ ì•Šì€ íšŒì›ì„ ì •ë¦¬í•©ë‹ˆë‹¤\n\nì§„í–‰í•˜ì‹œê² ìŠµë‹ˆê¹Œ?"))
     {
         document.location.href = "./member_delete_unlogin.php?ok=1";
     }
@@ -122,32 +122,32 @@ function member_delete_unlogin()
 <form name=fsearch method=get role="form" class="form-inline">
 <div class="btn-group">
     <?=$listall?> 
-    (ÃÑÈ¸¿ø¼ö : <?=number_format($total_count)?>, 
-    <a href='?sst=mb_unlogin&sod=desc&sfl=<?=$sfl?>&stx=<?=$stx?>' title='ÈŞ¸éÈ¸¿øºÎÅÍ Ãâ·Â'><font color=orange>ÈŞ¸é : <?=number_format($unlogin_count)?></font></a>, 
-    <a href='?sst=mb_intercept_date&sod=desc&sfl=<?=$sfl?>&stx=<?=$stx?>' title='Â÷´ÜµÈ È¸¿øºÎÅÍ Ãâ·Â'><font color=orange>Â÷´Ü : <?=number_format($intercept_count)?></font></a>, 
-    <a href='?sst=mb_leave_date&sod=desc&sfl=<?=$sfl?>&stx=<?=$stx?>' title='Å»ÅğÇÑ È¸¿øºÎÅÍ Ãâ·Â'><font color=crimson>Å»Åğ : <?=number_format($leave_count)?></font></a>)
-    &nbsp;&nbsp;<a href="javascript:member_delete_unlogin();">ÈŞ¸éÈ¸¿øÁ¤¸®</a>
-    &nbsp;&nbsp;<a href="javascript:member_delete_unvisited();">Àå±â¹ÌÁ¢¼ÓÈ¸¿øÁ¤¸®</a>
+    (ì´íšŒì›ìˆ˜ : <?=number_format($total_count)?>, 
+    <a href='?sst=mb_unlogin&sod=desc&sfl=<?=$sfl?>&stx=<?=$stx?>' title='íœ´ë©´íšŒì›ë¶€í„° ì¶œë ¥'><font color=orange>íœ´ë©´ : <?=number_format($unlogin_count)?></font></a>, 
+    <a href='?sst=mb_intercept_date&sod=desc&sfl=<?=$sfl?>&stx=<?=$stx?>' title='ì°¨ë‹¨ëœ íšŒì›ë¶€í„° ì¶œë ¥'><font color=orange>ì°¨ë‹¨ : <?=number_format($intercept_count)?></font></a>, 
+    <a href='?sst=mb_leave_date&sod=desc&sfl=<?=$sfl?>&stx=<?=$stx?>' title='íƒˆí‡´í•œ íšŒì›ë¶€í„° ì¶œë ¥'><font color=crimson>íƒˆí‡´ : <?=number_format($leave_count)?></font></a>)
+    &nbsp;&nbsp;<a href="javascript:member_delete_unlogin();">íœ´ë©´íšŒì›ì •ë¦¬</a>
+    &nbsp;&nbsp;<a href="javascript:member_delete_unvisited();">ì¥ê¸°ë¯¸ì ‘ì†íšŒì›ì •ë¦¬</a>
 </div>
 <div class="pull-right">
     <select name=sfl class="form-control">
-        <option value='mb_id'>È¸¿ø¾ÆÀÌµğ</option>
-        <option value='mb_name'>ÀÌ¸§</option>
-        <option value='mb_nick'>º°¸í</option>
-        <option value='mb_level'>±ÇÇÑ</option>
+        <option value='mb_id'>íšŒì›ì•„ì´ë””</option>
+        <option value='mb_name'>ì´ë¦„</option>
+        <option value='mb_nick'>ë³„ëª…</option>
+        <option value='mb_level'>ê¶Œí•œ</option>
         <option value='mb_email'>E-MAIL</option>
-        <option value='mb_tel'>ÀüÈ­¹øÈ£</option>
-        <option value='mb_hp'>ÇÚµåÆù¹øÈ£</option>
-        <option value='mb_point'>Æ÷ÀÎÆ®</option>
-        <option value='mb_datetime'>°¡ÀÔÀÏ½Ã</option>
+        <option value='mb_tel'>ì „í™”ë²ˆí˜¸</option>
+        <option value='mb_hp'>í•¸ë“œí°ë²ˆí˜¸</option>
+        <option value='mb_point'>í¬ì¸íŠ¸</option>
+        <option value='mb_datetime'>ê°€ì…ì¼ì‹œ</option>
         <option value='mb_ip'>IP</option>
-        <option value='mb_recommend'>ÃßÃµÀÎ</option>
-        <option value='ug_id'>»ç¿ëÀÚ±×·ì</option>
-        <option value='mb_no'>È¸¿ø¹øÈ£</option>
+        <option value='mb_recommend'>ì¶”ì²œì¸</option>
+        <option value='ug_id'>ì‚¬ìš©ìê·¸ë£¹</option>
+        <option value='mb_no'>íšŒì›ë²ˆí˜¸</option>
     </select>
-    <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<?=$stx?>'>
+    <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<?=$stx?>'>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 </form>
@@ -177,31 +177,31 @@ function member_delete_unlogin()
 <colgroup width=50>
 <tr class='bgcol1 bold col1 ht center'>
     <td><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
-  	<td><a href="./member_form.php"><i class='fa fa-plus-square fa-2x' title='»ı¼º'></i></a></td>
-    <td><?=subject_sort_link('mb_id')?>È¸¿ø¾ÆÀÌµğ</a></td>
-    <td><?=subject_sort_link('mb_name')?>ÀÌ¸§</a></td>
-    <td><?=subject_sort_link('mb_nick')?>º°¸í</a></td>
-    <td><?=subject_sort_link('mb_level', '', 'desc')?>±ÇÇÑ</a></td>
-    <td><?=subject_sort_link('mb_point', '', 'desc')?>Æ÷ÀÎÆ®</a></td>
-    <td><?=subject_sort_link('mb_today_login', '', 'desc')?>ÃÖÁ¾Á¢¼Ó</a></td>
-    <td title='¸ŞÀÏ¼ö½ÅÇã¿ë¿©ºÎ'><?=subject_sort_link('mb_mailling', '', 'desc')?>¼ö½Å</a></td>
-    <td title='Á¤º¸°ø°³¿©ºÎ'><?=subject_sort_link('mb_open', '', 'desc')?>°ø°³</a></td>
-    <!-- <td><?=subject_sort_link('mb_leave_date', '', 'desc')?>Å»Åğ</a></td> -->
-    <td><?=subject_sort_link('mb_email_certify', '', 'desc')?>ÀÎÁõ</a></td>
-    <td><?=subject_sort_link('mb_intercept_date', '', 'desc')?>Â÷´Ü</a></td>
-    <td title='»ç¿ëÀÚ±×·ì'><?=subject_sort_link('ug_id', '', 'desc')?>U±×·ì</a></td>
-    <td title='Á¢±Ù°¡´ÉÇÑ ±×·ì¼ö'>B±×·ì</td>
+  	<td><a href="./member_form.php"><i class='fa fa-plus-square fa-2x' title='ìƒì„±'></i></a></td>
+    <td><?=subject_sort_link('mb_id')?>íšŒì›ì•„ì´ë””</a></td>
+    <td><?=subject_sort_link('mb_name')?>ì´ë¦„</a></td>
+    <td><?=subject_sort_link('mb_nick')?>ë³„ëª…</a></td>
+    <td><?=subject_sort_link('mb_level', '', 'desc')?>ê¶Œí•œ</a></td>
+    <td><?=subject_sort_link('mb_point', '', 'desc')?>í¬ì¸íŠ¸</a></td>
+    <td><?=subject_sort_link('mb_today_login', '', 'desc')?>ìµœì¢…ì ‘ì†</a></td>
+    <td title='ë©”ì¼ìˆ˜ì‹ í—ˆìš©ì—¬ë¶€'><?=subject_sort_link('mb_mailling', '', 'desc')?>ìˆ˜ì‹ </a></td>
+    <td title='ì •ë³´ê³µê°œì—¬ë¶€'><?=subject_sort_link('mb_open', '', 'desc')?>ê³µê°œ</a></td>
+    <!-- <td><?=subject_sort_link('mb_leave_date', '', 'desc')?>íƒˆí‡´</a></td> -->
+    <td><?=subject_sort_link('mb_email_certify', '', 'desc')?>ì¸ì¦</a></td>
+    <td><?=subject_sort_link('mb_intercept_date', '', 'desc')?>ì°¨ë‹¨</a></td>
+    <td title='ì‚¬ìš©ìê·¸ë£¹'><?=subject_sort_link('ug_id', '', 'desc')?>Uê·¸ë£¹</a></td>
+    <td title='ì ‘ê·¼ê°€ëŠ¥í•œ ê·¸ë£¹ìˆ˜'>Bê·¸ë£¹</td>
 </tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) {
-    // Á¢±Ù°¡´ÉÇÑ ±×·ì¼ö
+    // ì ‘ê·¼ê°€ëŠ¥í•œ ê·¸ë£¹ìˆ˜
     $sql2 = " select count(*) as cnt from $g4[group_member_table] where mb_id = '$row[mb_id]' ";
     $row2 = sql_fetch($sql2);
     $group = "";
     if ($row2[cnt])
         $group = "<a href='./boardgroupmember_form.php?mb_id=$row[mb_id]'>$row2[cnt]</a>";
 
-    // »ç¿ëÀÚ±×·ì
+    // ì‚¬ìš©ìê·¸ë£¹
     $ug_id = $row[ug_id];
     if ($ug_id) {
         $result0 = sql_fetch(" select ug_subject from $g4[user_group_table] where ug_id = '$ug_id' ");
@@ -217,10 +217,10 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     } 
     else 
     {
-        $s_mod = "<a href=\"./member_form.php?$qstr&w=u&mb_id=$row[mb_id]\"><i class='fa fa-pencil' title='¼öÁ¤'></i></a>";
-        $s_del = "&nbsp;<a href=\"javascript:post_delete('member_delete.php', '$row[mb_id]');\"><i class='fa fa-trash-o' title='»èÁ¦'></i></a>";
+        $s_mod = "<a href=\"./member_form.php?$qstr&w=u&mb_id=$row[mb_id]\"><i class='fa fa-pencil' title='ìˆ˜ì •'></i></a>";
+        $s_del = "&nbsp;<a href=\"javascript:post_delete('member_delete.php', '$row[mb_id]');\"><i class='fa fa-trash-o' title='ì‚­ì œ'></i></a>";
     }
-    $s_grp = "&nbsp;<a href='./boardgroupmember_form.php?mb_id=$row[mb_id]'><i class='fa fa-group' title='»èÁ¦'></i></a>";
+    $s_grp = "&nbsp;<a href='./boardgroupmember_form.php?mb_id=$row[mb_id]'><i class='fa fa-group' title='ì‚­ì œ'></i></a>";
 
     $leave_date = $row[mb_leave_date] ? $row[mb_leave_date] : date("Ymd", $g4[server_time]);
     $intercept_date = $row[mb_intercept_date] ? $row[mb_intercept_date] : date("Ymd", $g4[server_time]);
@@ -256,12 +256,12 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='$colspan' align=center height=100 class=contentbg>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='$colspan' align=center height=100 class=contentbg>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
@@ -269,8 +269,8 @@ echo "</table>";
 </div>
 
 <div class="btn-group">
-    <input type=button class='btn btn-default' value='¼±ÅÃ¼öÁ¤' onclick="btn_check(this.form, 'update')">
-    <input type=button class='btn btn-default' value='¼±ÅÃ»èÁ¦' onclick="btn_check(this.form, 'delete')">
+    <input type=button class='btn btn-default' value='ì„ íƒìˆ˜ì •' onclick="btn_check(this.form, 'update')">
+    <input type=button class='btn btn-default' value='ì„ íƒì‚­ì œ' onclick="btn_check(this.form, 'delete')">
 </div>
 
 <?
@@ -279,15 +279,15 @@ if ($stx)
 ?>
 </form>
 
-* È¸¿øÀÚ·á »èÁ¦½Ã ´Ù¸¥ È¸¿øÀÌ ±âÁ¸ È¸¿ø¾ÆÀÌµğ¸¦ »ç¿ëÇÏÁö ¸øÇÏµµ·Ï È¸¿ø¾ÆÀÌµğ, ÀÌ¸§, º°¸íÀº »èÁ¦ÇÏÁö ¾Ê°í ¿µ±¸ º¸°üÇÕ´Ï´Ù.
+* íšŒì›ìë£Œ ì‚­ì œì‹œ ë‹¤ë¥¸ íšŒì›ì´ ê¸°ì¡´ íšŒì›ì•„ì´ë””ë¥¼ ì‚¬ìš©í•˜ì§€ ëª»í•˜ë„ë¡ íšŒì›ì•„ì´ë””, ì´ë¦„, ë³„ëª…ì€ ì‚­ì œí•˜ì§€ ì•Šê³  ì˜êµ¬ ë³´ê´€í•©ë‹ˆë‹¤.
 
 <script>
-// POST ¹æ½ÄÀ¸·Î »èÁ¦
+// POST ë°©ì‹ìœ¼ë¡œ ì‚­ì œ
 function post_delete(action_url, val)
 {
 	var f = document.fpost;
 
-	if(confirm("ÇÑ¹ø »èÁ¦ÇÑ ÀÚ·á´Â º¹±¸ÇÒ ¹æ¹ıÀÌ ¾ø½À´Ï´Ù.\n\nÁ¤¸» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?")) {
+	if(confirm("í•œë²ˆ ì‚­ì œí•œ ìë£ŒëŠ” ë³µêµ¬í•  ë°©ë²•ì´ ì—†ìŠµë‹ˆë‹¤.\n\nì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
         f.mb_id.value = val;
 		f.action      = action_url;
 		f.submit();

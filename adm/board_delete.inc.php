@@ -1,81 +1,81 @@
 <?
-// board_delete.php , boardgroup_delete.php ¿¡¼­ include ÇÏ´Â ÆÄÀÏ
+// board_delete.php , boardgroup_delete.php ì—ì„œ include í•˜ëŠ” íŒŒì¼
 
 if (!defined("_GNUBOARD_")) exit;
-if (!defined("_BOARD_DELETE_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_BOARD_DELETE_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-// $tmp_bo_table ¿¡´Â $bo_table °ªÀ» ³Ñ°ÜÁÖ¾î¾ß ÇÔ
+// $tmp_bo_table ì—ëŠ” $bo_table ê°’ì„ ë„˜ê²¨ì£¼ì–´ì•¼ í•¨
 if (!$tmp_bo_table) { return; }
 
-// °Ô½ÃÆÇ 1°³´Â »èÁ¦ ºÒ°¡ (°Ô½ÃÆÇ º¹»ç¸¦ À§ÇØ¼­)
+// ê²Œì‹œíŒ 1ê°œëŠ” ì‚­ì œ ë¶ˆê°€ (ê²Œì‹œíŒ ë³µì‚¬ë¥¼ ìœ„í•´ì„œ)
 //$row = sql_fetch(" select count(*) as cnt from $g4[board_table] ");
 //if ($row[cnt] <= 1) { return; }
 
-// °Ô½ÃÆÇ ¼³Á¤ »èÁ¦
+// ê²Œì‹œíŒ ì„¤ì • ì‚­ì œ
 sql_query(" delete from $g4[board_table] where bo_table = '$tmp_bo_table' ", FALSE);
 
-// ÃÖ½Å±Û »èÁ¦
+// ìµœì‹ ê¸€ ì‚­ì œ
 sql_query(" delete from $g4[board_new_table] where bo_table = '$tmp_bo_table' ", FALSE);
 
-// ½ºÅ©·¦ »èÁ¦
+// ìŠ¤í¬ëž© ì‚­ì œ
 sql_query(" delete from $g4[scrap_table] where bo_table = '$tmp_bo_table' ", FALSE);
 
-// ÆÄÀÏ »èÁ¦
+// íŒŒì¼ ì‚­ì œ
 sql_query(" delete from $g4[board_file_table] where bo_table = '$tmp_bo_table' ", FALSE);
 
-// °Ô½ÃÆÇ Å×ÀÌºí DROP
+// ê²Œì‹œíŒ í…Œì´ë¸” DROP
 sql_query(" drop table $g4[write_prefix]$tmp_bo_table ", FALSE);
 
-// °Ô½ÃÆÇ Æú´õ ÀüÃ¼ »èÁ¦
+// ê²Œì‹œíŒ í´ë” ì „ì²´ ì‚­ì œ
 rm_rf("$g4[data_path]/file/$tmp_bo_table");
 
-// ºÒ´çÆÑ - °Ô½ÃÆÇ ¹Ù·Î°¡±â »èÁ¦
+// ë¶ˆë‹¹íŒ© - ê²Œì‹œíŒ ë°”ë¡œê°€ê¸° ì‚­ì œ
 sql_query(" delete from $g4[my_menu_table] where bo_table = '$tmp_bo_table' ", FALSE);
 
-// ºÒ´çÆÑ - ½Å°í³»¿ª »èÁ¦
+// ë¶ˆë‹¹íŒ© - ì‹ ê³ ë‚´ì—­ ì‚­ì œ
 sql_query(" delete from $g4[singo_table] where bo_table = '$tmp_bo_table' ", FALSE);
 
-// ºÒ´çÆÑ - ÀÎ±â±Û »èÁ¦
+// ë¶ˆë‹¹íŒ© - ì¸ê¸°ê¸€ ì‚­ì œ
 sql_query(" delete from $g4[popular_table] where bo_table = '$tmp_bo_table' ", FALSE);
 
-// ºÒ´çÆÑ - ³»°¡ ¹æ¹®ÇÑ °Ô½ÃÆÇ »èÁ¦
+// ë¶ˆë‹¹íŒ© - ë‚´ê°€ ë°©ë¬¸í•œ ê²Œì‹œíŒ ì‚­ì œ
 sql_query(" delete from $g4[my_board_table] where bo_table = '$tmp_bo_table' ", FALSE);
 
-// ºÒ´çÆÑ - °Ô½ÃÆÇ ¹æ¹®ÀÚ Åë°è »èÁ¦
+// ë¶ˆë‹¹íŒ© - ê²Œì‹œíŒ ë°©ë¬¸ìž í†µê³„ ì‚­ì œ
 sql_query(" delete from $mw[board_visit_table] where bo_table = '$tmp_bo_table' ", FALSE);
 
-// Æ÷ÀÎÆ® »èÁ¦ ÇÏ±âÀü¿¡ sum Æ÷ÀÎÆ®¸¦ ¾ÐÃàÇØ¼­ ³Ö¾îÁØ´Ù
+// í¬ì¸íŠ¸ ì‚­ì œ í•˜ê¸°ì „ì— sum í¬ì¸íŠ¸ë¥¼ ì••ì¶•í•´ì„œ ë„£ì–´ì¤€ë‹¤
 $sql = " select mb_id, sum(po_point)as po_sum from $g4[point_table] where po_rel_table = '$tmp_bo_table' group by mb_id ";
 $result = sql_query($sql);
 while ($row = sql_fetch_array($result))
 {
-    insert_point($row[mb_id], $row[po_sum], "$board[bo_subject] »èÁ¦·Î ÀÎÇÑ Æ÷ÀÎÆ®Á¤¸®", $bo_table, '', '°Ô½ÃÆÇ»èÁ¦ Æ÷ÀÎÆ®Á¤¸®');
+    insert_point($row[mb_id], $row[po_sum], "$board[bo_subject] ì‚­ì œë¡œ ì¸í•œ í¬ì¸íŠ¸ì •ë¦¬", $bo_table, '', 'ê²Œì‹œíŒì‚­ì œ í¬ì¸íŠ¸ì •ë¦¬');
 }
-sql_query(" delete from $g4[point_table] where po_rel_table = '$tmp_bo_table' and rel_action <> '°Ô½ÃÆÇ»èÁ¦ Æ÷ÀÎÆ®Á¤¸®' ", FALSE);
+sql_query(" delete from $g4[point_table] where po_rel_table = '$tmp_bo_table' and rel_action <> 'ê²Œì‹œíŒì‚­ì œ í¬ì¸íŠ¸ì •ë¦¬' ", FALSE);
 
-// ÃßÃµ Á¤º¸ »èÁ¦
+// ì¶”ì²œ ì •ë³´ ì‚­ì œ
 sql_query(" delete from $g4[board_good_table] where bo_table = '$tmp_bo_table' ", FALSE);
 
-// whatson »èÁ¦
+// whatson ì‚­ì œ
 sql_query(" delete from $g4[whatson_table] where bo_table = '$tmp_bo_table' ", FALSE);
 
-// º£½ºÆ®±Û »èÁ¦
+// ë² ìŠ¤íŠ¸ê¸€ ì‚­ì œ
 sql_query(" delete from $g4[good_list_table] where bo_table = '$tmp_bo_table' ", FALSE);
 
-// chimage »èÁ¦
+// chimage ì‚­ì œ
 sql_query(" delete from $g4[board_cheditor_table] where bo_table = '$tmp_bo_table' ", FALSE);
 
-// ÀÎ±â°Ë»ö¾î ÇÕ°è »èÁ¦
+// ì¸ê¸°ê²€ìƒ‰ì–´ í•©ê³„ ì‚­ì œ
 sql_query(" delete from $g4[popular_sum_table] where bo_table = '$tmp_bo_table' ", FALSE);
 
-// ÀüÃ¼°øÁö Å×ÀÌºí »èÁ¦
+// ì „ì²´ê³µì§€ í…Œì´ë¸” ì‚­ì œ
 sql_query(" delete from $g4[notice_table] where bo_table = '$tmp_bo_table' ", FALSE);
 
-// ºÒ´çÆÑ - ´Ù¿î·Îµå ³»¿ª »èÁ¦, ¿ä°í´Â case by case¶ó¼­ ÄÚ¸àÆ®·Î ÇØµÐ´Ù.
+// ë¶ˆë‹¹íŒ© - ë‹¤ìš´ë¡œë“œ ë‚´ì—­ ì‚­ì œ, ìš”ê³ ëŠ” case by caseë¼ì„œ ì½”ë©˜íŠ¸ë¡œ í•´ë‘”ë‹¤.
 $g4[board_file_download_table] = $g4[board_file_table] . "_download";
 //sql_query(" delete from $g4[board_file_download_table] where po_rel_table = '$tmp_bo_table' ");
 
-// SEO Å°¿öµå »èÁ¦
+// SEO í‚¤ì›Œë“œ ì‚­ì œ
 sql_query(" delete from $g4[seo_tag_table] where bo_table = '$tmp_bo_table' ", FALSE);
 sql_query(" delete from $g4[seo_history_table] where bo_table = '$tmp_bo_table' ", FALSE);
 ?>

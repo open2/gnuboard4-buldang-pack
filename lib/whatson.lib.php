@@ -4,8 +4,8 @@ if ( ! defined('_GNUBOARD_')) {
 }
 
 /**
- * Whats On ÀĞÁö ¾ÊÀº °¹¼ö
- *   - Áßº¹ ½ÇÇàÇØµµ Äõ¸®´Â 1È¸¸¸ ½ÇÇàµÇµµ·Ï ÇÔ.
+ * Whats On ì½ì§€ ì•Šì€ ê°¯ìˆ˜
+ *   - ì¤‘ë³µ ì‹¤í–‰í•´ë„ ì¿¼ë¦¬ëŠ” 1íšŒë§Œ ì‹¤í–‰ë˜ë„ë¡ í•¨.
  *
  * @param string $mb_id
  *
@@ -25,7 +25,7 @@ function whatson_count($mb_id)
     return $g4['whatson_count'];
 }
 
-// ±×´©º¸µå ¿Ô¼õ~ ÃßÃâ
+// ê·¸ëˆ„ë³´ë“œ ì™”ìˆ‘~ ì¶”ì¶œ
 function whatson(
     $skin_dir = "",
     $rows = 10,
@@ -50,20 +50,20 @@ function whatson(
 
     $list = array();
 
-    // ºñÈ¸¿øÀÇ °æ¿ì¿¡´Â ¿Ô¼õ~ÇÒ °ÍÀÌ ¾ø½À´Ï´Ù.
+    // ë¹„íšŒì›ì˜ ê²½ìš°ì—ëŠ” ì™”ìˆ‘~í•  ê²ƒì´ ì—†ìŠµë‹ˆë‹¤.
     if ( ! $member[mb_id]) {
         return;
     }
 
-    // ¿Ô¼õ~ÀÇ ÀüÃ¼ °¹¼ö¸¦ ±¸ÇÕ´Ï´Ù.
+    // ì™”ìˆ‘~ì˜ ì „ì²´ ê°¯ìˆ˜ë¥¼ êµ¬í•©ë‹ˆë‹¤.
     $sql    = " select count(*) as cnt from $g4[whatson_table] where mb_id='$member[mb_id]' ";
     $result = sql_fetch($sql);
 
     $total_count = $result[cnt];
 
-    $total_page = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
+    $total_page = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
 
-    $from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+    $from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
     $limit_sql   = " limit $from_record, $rows ";
 
     if ( ! $head || $check == 1) {
@@ -76,7 +76,7 @@ function whatson(
     $sql    = " select * from $g4[whatson_table] where mb_id='$member[mb_id]' order by wo_datetime desc $limit_sql ";
     $result = sql_query($sql);
 
-    // °á°ú°ªÀ» $list¿¡ ³Ö½À´Ï´Ù. ½ºÅ² ÄÚµå°¡ ½ÉÇÃÇÏ°Ô µÇ°Ô
+    // ê²°ê³¼ê°’ì„ $listì— ë„£ìŠµë‹ˆë‹¤. ìŠ¤í‚¨ ì½”ë“œê°€ ì‹¬í”Œí•˜ê²Œ ë˜ê²Œ
     for ($i = 0; $row = sql_fetch_array($result); $i++) {
         $list[$i] = $row;
 
@@ -100,7 +100,7 @@ function whatson(
 }
 
 /**
- * Whats On Å¬¸¯½Ã ÀÌµ¿ÇÒ ÁÖ¼Ò
+ * Whats On í´ë¦­ì‹œ ì´ë™í•  ì£¼ì†Œ
  *
  * @param array $whatson
  *
@@ -127,22 +127,22 @@ function whatson_click_url($whatson)
 }
 
 /**
- * Whats On ÀĞÀ½ Ã³¸®
- *   - ´ë»ó ±ÛÀÌ³ª ÂÊÁö°¡ Á¸ÀçÇÏÁö ¾ÊÀ» °æ¿ì »èÁ¦
+ * Whats On ì½ìŒ ì²˜ë¦¬
+ *   - ëŒ€ìƒ ê¸€ì´ë‚˜ ìª½ì§€ê°€ ì¡´ì¬í•˜ì§€ ì•Šì„ ê²½ìš° ì‚­ì œ
  *
- * @param string $mb_id ¼ö½Å È¸¿ø ID
+ * @param string $mb_id ìˆ˜ì‹  íšŒì› ID
  * @param int $wo_id
  */
 function whatson_read($mb_id, $wo_id)
 {
     global $g4;
 
-    // ÀÌ½ÃÁ¡¿¡¼­ ¿Ô¼õ~ÀÇ ±ÛÀÌ ±×´ë·Î ÀÖ´ÂÁö È®ÀÎÇÒ ÇÊ¿ä°¡ ÀÖ½À´Ï´Ù.
-    // ÄÚ¸àÆ®ÀÇ °æ¿ì, °æ¿ìÀÇ ¼ö°¡ ³Ê¹« ¸¹¾Æ¼­ ¿Ô¼õÀÇ Ã³¸®¸¦ ¾ÈÇÏ°í, ±âÅ¸ »çÀ¯·Î ±ÛÀÌ ¾ø¾îÁö±âµµ ÇÏ°Åµç¿ä.
+    // ì´ì‹œì ì—ì„œ ì™”ìˆ‘~ì˜ ê¸€ì´ ê·¸ëŒ€ë¡œ ìˆëŠ”ì§€ í™•ì¸í•  í•„ìš”ê°€ ìˆìŠµë‹ˆë‹¤.
+    // ì½”ë©˜íŠ¸ì˜ ê²½ìš°, ê²½ìš°ì˜ ìˆ˜ê°€ ë„ˆë¬´ ë§ì•„ì„œ ì™”ìˆ‘ì˜ ì²˜ë¦¬ë¥¼ ì•ˆí•˜ê³ , ê¸°íƒ€ ì‚¬ìœ ë¡œ ê¸€ì´ ì—†ì–´ì§€ê¸°ë„ í•˜ê±°ë“ ìš”.
     $sql = " select * from $g4[whatson_table] where wo_id = '$wo_id' and mb_id = '$mb_id' ";
     $wo  = sql_fetch($sql);
     if ($wo[wo_type] === 'memo') {
-        // ¸Ş¸ğ Á¸ÀçÇÏ´ÂÁö È®ÀÎ
+        // ë©”ëª¨ ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸
         $memo_table = $g4['table_prefix'] . 'memo_' . $wo['bo_table'];
         $memo_count = pdo(
             "select count(*) from $memo_table where me_id=?",
@@ -154,9 +154,9 @@ function whatson_read($mb_id, $wo_id)
             sql_query(" delete from $g4[whatson_table] where wo_id = '$wo_id' and mb_id = '$mb_id' ");
         }
     } else {
-        $tmp_write_table = $g4['write_prefix'] . $wo[bo_table];  // °Ô½ÃÆÇ Å×ÀÌºí ÀüÃ¼ÀÌ¸§
+        $tmp_write_table = $g4['write_prefix'] . $wo[bo_table];  // ê²Œì‹œíŒ í…Œì´ë¸” ì „ì²´ì´ë¦„
 
-        // ¼±ÅÃÇÑ ¿Ô¼õ~ÀÇ ¿ø±ÛÀÌ Á¸ÀçÇÏ´ÂÁö¸¦ È®ÀÎ
+        // ì„ íƒí•œ ì™”ìˆ‘~ì˜ ì›ê¸€ì´ ì¡´ì¬í•˜ëŠ”ì§€ë¥¼ í™•ì¸
         $sql       = " select * from $tmp_write_table where wr_id='$wo[wr_id]' ";
         $wr_result = sql_fetch($sql);
 
@@ -164,7 +164,7 @@ function whatson_read($mb_id, $wo_id)
             sql_query(" delete from $g4[whatson_table] where wo_id = '$wo_id' and mb_id = '$mb_id' ");
         }
 
-        // ÄÚ¸àÆ®ÀÇ °æ¿ì, º»ÀÎÀÇ ÄÚ¸àÆ®°¡ ÀÖ´ÂÁö È®ÀÎ
+        // ì½”ë©˜íŠ¸ì˜ ê²½ìš°, ë³¸ì¸ì˜ ì½”ë©˜íŠ¸ê°€ ìˆëŠ”ì§€ í™•ì¸
         if ($wo['comment_id']) {
             $sql       = " select * from $tmp_write_table where wr_id='$wo[comment_id]' ";
             $co_result = sql_fetch($sql);
@@ -182,16 +182,16 @@ function whatson_read($mb_id, $wo_id)
 }
 
 /**
- * Whats On ¹ß¼Û - ´ñ±Û
- *   - ÀÌ¹Ì µî·ÏµÈ ´ñ±ÛÀº wo_count ¸¸ Áõ°¡
+ * Whats On ë°œì†¡ - ëŒ“ê¸€
+ *   - ì´ë¯¸ ë“±ë¡ëœ ëŒ“ê¸€ì€ wo_count ë§Œ ì¦ê°€
  *
- * @param string $mb_id ¼ö½Å È¸¿ø ID
- * @param string $wr_subject Á¦¸ñ
- * @param string $bo_table °Ô½ÃÆÇ Å×ÀÌºí
- * @param int $wr_id °Ô½ÃÆÇ ID
- * @param int $comment_id ÄÚ¸àÆ® ID
- * @param string $sender_nick ¹ß¼Û È¸¿ø ´Ğ³×ÀÓ
- * @param bool $is_reply false: ´ñ±Û, true: ´ñ±Û ´äº¯
+ * @param string $mb_id ìˆ˜ì‹  íšŒì› ID
+ * @param string $wr_subject ì œëª©
+ * @param string $bo_table ê²Œì‹œíŒ í…Œì´ë¸”
+ * @param int $wr_id ê²Œì‹œíŒ ID
+ * @param int $comment_id ì½”ë©˜íŠ¸ ID
+ * @param string $sender_nick ë°œì†¡ íšŒì› ë‹‰ë„¤ì„
+ * @param bool $is_reply false: ëŒ“ê¸€, true: ëŒ“ê¸€ ë‹µë³€
  */
 function whatson_send_comment($mb_id, $wr_subject, $bo_table, $wr_id, $comment_id, $sender_nick, $is_reply = false)
 {
@@ -207,7 +207,7 @@ function whatson_send_comment($mb_id, $wr_subject, $bo_table, $wr_id, $comment_i
         ':mb_id'    => $mb_id,
     );
 
-    // ´ñ±Û ´äº¯½Ã¿¡´Â comment_id ±âÁØ Ãß°¡
+    // ëŒ“ê¸€ ë‹µë³€ì‹œì—ëŠ” comment_id ê¸°ì¤€ ì¶”ê°€
     if ($is_reply) {
         $q .= " and comment_id=:comment_id";
         $params[':comment_id'] = $comment_id;
@@ -246,22 +246,22 @@ function whatson_send_comment($mb_id, $wr_subject, $bo_table, $wr_id, $comment_i
 
     require_once(G4_PHP79_PATH . "/lib/pushes.php");
     if ($is_reply) {
-        $title = $sender_nick . '´ÔÀÇ »õ·Î¿î ´ñ±Û ´äº¯ÀÔ´Ï´Ù.';
+        $title = $sender_nick . 'ë‹˜ì˜ ìƒˆë¡œìš´ ëŒ“ê¸€ ë‹µë³€ì…ë‹ˆë‹¤.';
     } else {
-        $title = $sender_nick . '´ÔÀÇ »õ·Î¿î ´ñ±ÛÀÔ´Ï´Ù.';
+        $title = $sender_nick . 'ë‹˜ì˜ ìƒˆë¡œìš´ ëŒ“ê¸€ì…ë‹ˆë‹¤.';
     }
     push_queue($mb_id, $wo_id, $title);
 }
 
 /**
- * Whats On ¹ß¼Û - ´äº¯
- *   - ÀÌ¹Ì µî·ÏµÈ ´äº¯Àº wo_count ¸¸ Áõ°¡
+ * Whats On ë°œì†¡ - ë‹µë³€
+ *   - ì´ë¯¸ ë“±ë¡ëœ ë‹µë³€ì€ wo_count ë§Œ ì¦ê°€
  *
- * @param string $mb_id ¼ö½Å È¸¿ø ID
- * @param string $wr_subject Á¦¸ñ
- * @param string $bo_table °Ô½ÃÆÇ Å×ÀÌºí
- * @param int $wr_id °Ô½ÃÆÇ ID
- * @param string $sender_nick ¹ß¼Û È¸¿ø ´Ğ³×ÀÓ
+ * @param string $mb_id ìˆ˜ì‹  íšŒì› ID
+ * @param string $wr_subject ì œëª©
+ * @param string $bo_table ê²Œì‹œíŒ í…Œì´ë¸”
+ * @param int $wr_id ê²Œì‹œíŒ ID
+ * @param string $sender_nick ë°œì†¡ íšŒì› ë‹‰ë„¤ì„
  */
 function whatson_send_reply($mb_id, $wr_subject, $bo_table, $wr_id, $sender_nick)
 {
@@ -308,18 +308,18 @@ function whatson_send_reply($mb_id, $wr_subject, $bo_table, $wr_id, $sender_nick
     }
 
     require_once(G4_PHP79_PATH . "/lib/pushes.php");
-    $title = $sender_nick . '´ÔÀÇ »õ·Î¿î ´äº¯ÀÔ´Ï´Ù.';
+    $title = $sender_nick . 'ë‹˜ì˜ ìƒˆë¡œìš´ ë‹µë³€ì…ë‹ˆë‹¤.';
     push_queue($mb_id, $wo_id, $title);
 }
 
 /**
- * Whats On ¹ß¼Û - ÂÊÁö
+ * Whats On ë°œì†¡ - ìª½ì§€
  *
- * @param string $mb_id ¼ö½Å È¸¿ø ID
- * @param string $wr_subject Á¦¸ñ
- * @param string $bo_table ÂÊÁö kind
- * @param int $wr_id ÂÊÁö ID
- * @param string $sender_nick ¹ß¼Û È¸¿ø ´Ğ³×ÀÓ
+ * @param string $mb_id ìˆ˜ì‹  íšŒì› ID
+ * @param string $wr_subject ì œëª©
+ * @param string $bo_table ìª½ì§€ kind
+ * @param int $wr_id ìª½ì§€ ID
+ * @param string $sender_nick ë°œì†¡ íšŒì› ë‹‰ë„¤ì„
  */
 function whatson_send_memo($mb_id, $wr_subject, $bo_table, $wr_id, $sender_nick)
 {
@@ -339,7 +339,7 @@ function whatson_send_memo($mb_id, $wr_subject, $bo_table, $wr_id, $sender_nick)
     $wo_id = pdo_last_insert_id();
 
     require_once(G4_PHP79_PATH . "/lib/pushes.php");
-    $title = $sender_nick . '´ÔÀÇ »õ·Î¿î ÂÊÁöÀÔ´Ï´Ù.';
+    $title = $sender_nick . 'ë‹˜ì˜ ìƒˆë¡œìš´ ìª½ì§€ì…ë‹ˆë‹¤.';
     push_queue($mb_id, $wo_id, $title);
 }
 

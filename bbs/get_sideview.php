@@ -6,6 +6,6 @@ $mb_id = $_POST['mb_id'];
 $sql = " select * from $g4[member_table] where mb_id='$mb_id'";
 $mb = sql_fetch($sql);
 
-$b = "<li>ÂÊÁö<li>ÀÌ¸ŞÀÏ<li>È¨ÆäÀÌÁö<li>Æ®À§ÅÍ";
+$b = "<li>ìª½ì§€<li>ì´ë©”ì¼<li>í™ˆí˜ì´ì§€<li>íŠ¸ìœ„í„°";
 echo iconv($g4['charset'], 'UTF-8',$b);
 ?>

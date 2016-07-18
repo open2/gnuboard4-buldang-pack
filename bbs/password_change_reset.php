@@ -1,12 +1,12 @@
 <?
 include_once("./_common.php");
 
-// ºñÈ¸¿øÀº Á¢±ÙÇÒ ¼ö ¾ø°Ô ÇÔ
+// ë¹„íšŒì›ì€ ì ‘ê·¼í•  ìˆ˜ ì—†ê²Œ í•¨
 if (!$is_member) 
-    alert("ºÎÀûÀýÇÑ Á¢±Ù ÀÔ´Ï´Ù. °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.");
+    alert("ë¶€ì ì ˆí•œ ì ‘ê·¼ ìž…ë‹ˆë‹¤. ê´€ë¦¬ìžì—ê²Œ ë¬¸ì˜í•˜ì‹œê¸° ë°”ëžë‹ˆë‹¤.");
 
-// ºñ¹Ð¹øÈ£ º¯°æÁÖ±â¸¦ reset ÇÕ´Ï´Ù.
-// µ¿ÀÏÇÑ ÄÚµå°¡ bbs/register_form_update.php¿¡ ÀÖ½À´Ï´Ù.
+// ë¹„ë°€ë²ˆí˜¸ ë³€ê²½ì£¼ê¸°ë¥¼ reset í•©ë‹ˆë‹¤.
+// ë™ì¼í•œ ì½”ë“œê°€ bbs/register_form_update.phpì— ìžˆìŠµë‹ˆë‹¤.
 $next_change = $g4[server_time] + ($config['cf_password_change_dates'] * 24 * 60 * 60);
 $next_date = date('Y-m-d h:i:s', $next_change);
 

@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
 if (is_mobile()) {
     include_once($g4['path'] . '/m/tail.php');
@@ -7,18 +7,18 @@ if (is_mobile()) {
     return;
 }
 
-// »ç¿ëÀÚ È­¸é ¿ìÃø°ú ÇÏ´ÜÀ» ´ã´çÇÏ´Â ÆäÀÌÁöÀÔ´Ï´Ù.
-// ¿ìÃø, ÇÏ´Ü È­¸éÀ» ²Ù¹Ì·Á¸é ÀÌ ÆÄÀÏÀ» ¼öÁ¤ÇÕ´Ï´Ù.
+// ì‚¬ìš©ìž í™”ë©´ ìš°ì¸¡ê³¼ í•˜ë‹¨ì„ ë‹´ë‹¹í•˜ëŠ” íŽ˜ì´ì§€ìž…ë‹ˆë‹¤.
+// ìš°ì¸¡, í•˜ë‹¨ í™”ë©´ì„ ê¾¸ë¯¸ë ¤ë©´ ì´ íŒŒì¼ì„ ìˆ˜ì •í•©ë‹ˆë‹¤.
 ?>
 
-</div><!-- ¸ÞÀÎ content ³¡ -->
+</div><!-- ë©”ì¸ content ë -->
 
 </div>
-</div><!-- Áß°£ÀÇ ¸ÞÀÎºÎ ³¡ -->
+</div><!-- ì¤‘ê°„ì˜ ë©”ì¸ë¶€ ë -->
 
 <? include("$g4[path]/lib/moveup.php") ?>
 
-<!-- ÆäÀÌÁö ÇÏ´ÜºÎ footer -->
+<!-- íŽ˜ì´ì§€ í•˜ë‹¨ë¶€ footer -->
 <footer class="footer-wrapper col-sm-offset-2" role="contentinfo" style="margin-top:20px;">
 <div class="container-fluid" id="footer">
     <div class="panel panel-default hidden-sm hidden-md hidden-lg">
@@ -35,8 +35,8 @@ if (is_mobile()) {
         <? } ?>
         </div>
 
-        <a href="<?=$g4[path]?>/company/company.php?id=privacy"><strong>°³ÀÎÁ¤º¸Ãë±Þ¹æÄ§</strong></a>
-        <small>(ÁÖ)¿ÀÇÂÄÚµå</small>
+        <a href="<?=$g4[path]?>/company/company.php?id=privacy"><strong>ê°œì¸ì •ë³´ì·¨ê¸‰ë°©ì¹¨</strong></a>
+        <small>(ì£¼)ì˜¤í”ˆì½”ë“œ</small>
 
         <a class="btn btn-default pull-right" href="#" onclick="$('html, body').animate({scrollTop: 0}, duration);">TOP</a>
 
@@ -46,15 +46,15 @@ if (is_mobile()) {
 
     <div class="collapse navbar-collapse navbar-bottom-collapse">
         <ul class="list-inline">
-            <li><a href="<?=$g4[path]?>/company/company.php?id=privacy"><strong>°³ÀÎÁ¤º¸Ãë±Þ¹æÄ§</strong></a></li>
-            <li><a href="<?=$g4[path]?>/company/company.php?id=service">ÀÌ¿ë¾à°ü</a></li>
-            <li><a href="<?=$g4[path]?>/company/company.php?id=disclaimer">Ã¥ÀÓÇÑ°è¿Í¹ýÀû°íÁö</a></li>
-            <li><a href="<?=$g4[path]?>/company/company.php?id=rejection">ÀÌ¸ÞÀÏÁÖ¼Ò¹«´Ü¼öÁý°ÅºÎ</a></li>
+            <li><a href="<?=$g4[path]?>/company/company.php?id=privacy"><strong>ê°œì¸ì •ë³´ì·¨ê¸‰ë°©ì¹¨</strong></a></li>
+            <li><a href="<?=$g4[path]?>/company/company.php?id=service">ì´ìš©ì•½ê´€</a></li>
+            <li><a href="<?=$g4[path]?>/company/company.php?id=disclaimer">ì±…ìž„í•œê³„ì™€ë²•ì ê³ ì§€</a></li>
+            <li><a href="<?=$g4[path]?>/company/company.php?id=rejection">ì´ë©”ì¼ì£¼ì†Œë¬´ë‹¨ìˆ˜ì§‘ê±°ë¶€</a></li>
         </ul>
-        <p>(ÁÖ)¿ÀÇÂÄÚµå »ç¾÷ÀÚµî·Ï¹øÈ£ :000-00-00000 Åë½ÅÆÇ¸Å¾÷½Å°í¹øÈ£ :Á¦2009-¼­¿ï¼­ÃÊ-0000È£<br>
-            ´ëÇ¥ÀÌ»ç :¾ÆºüºÒ´ç ÁÖ¼Ò :¼­¿ï½Ã ¼­ÃÊ±¸ ¼­ÃÊµ¿ ¸Õ»ê ÀüÈ­ :00-000-0000</p>
-        <p><?=$config[cf_title]?>´Â Áö½ÄÁß°³ÀÚ·Î¼­ Áö½ÄÀÇ ÁÖ¹®, ¹è¼Û ¹× È¯ºÒÀÇ ÀÇ¹«¿Í Ã¥ÀÓÀº °¢ È¸¿ø¿¡ ÀÖ½À´Ï´Ù.<br>
-            <?=$config[cf_title]?>ÀÇ »çÀü ¼­¸é µ¿ÀÇ ¾øÀÌ <?=$config[cf_title]?>ÀÇ ÀÏÃ¼ÀÇ Á¤º¸, ÄÜÅÙÃ÷ ¹× UIµîÀ» »ó¾÷Àû ¸ñÀûÀ¸·Î ÀüÀç, Àü¼Û, ½ºÅ©·¡ÇÎ µî ¹«´Ü »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.<br>
+        <p>(ì£¼)ì˜¤í”ˆì½”ë“œ ì‚¬ì—…ìžë“±ë¡ë²ˆí˜¸ :000-00-00000 í†µì‹ íŒë§¤ì—…ì‹ ê³ ë²ˆí˜¸ :ì œ2009-ì„œìš¸ì„œì´ˆ-0000í˜¸<br>
+            ëŒ€í‘œì´ì‚¬ :ì•„ë¹ ë¶ˆë‹¹ ì£¼ì†Œ :ì„œìš¸ì‹œ ì„œì´ˆêµ¬ ì„œì´ˆë™ ë¨¼ì‚° ì „í™” :00-000-0000</p>
+        <p><?=$config[cf_title]?>ëŠ” ì§€ì‹ì¤‘ê°œìžë¡œì„œ ì§€ì‹ì˜ ì£¼ë¬¸, ë°°ì†¡ ë° í™˜ë¶ˆì˜ ì˜ë¬´ì™€ ì±…ìž„ì€ ê° íšŒì›ì— ìžˆìŠµë‹ˆë‹¤.<br>
+            <?=$config[cf_title]?>ì˜ ì‚¬ì „ ì„œë©´ ë™ì˜ ì—†ì´ <?=$config[cf_title]?>ì˜ ì¼ì²´ì˜ ì •ë³´, ì½˜í…ì¸  ë° UIë“±ì„ ìƒì—…ì  ëª©ì ìœ¼ë¡œ ì „ìž¬, ì „ì†¡, ìŠ¤í¬ëž˜í•‘ ë“± ë¬´ë‹¨ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.<br>
             Copyright &copy; <a href="http://opencode.co.kr" target="_blank">Opencode.co.kr</a>. All rights reserved.</p>
     </div>
 </div>

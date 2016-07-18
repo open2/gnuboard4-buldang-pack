@@ -1,18 +1,18 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 
 <div class="panel panel-default">
 
-<div class="panel-heading"><strong>°Ô½ÃÆÇ ¹Ù·Î°¡±â</strong>
+<div class="panel-heading"><strong>ê²Œì‹œíŒ ë°”ë¡œê°€ê¸°</strong>
 </div>
 </div>
 
 <table width="100%" class="table table-hover table-condensed">
 <tr class="success">
-    <td align=center>¹øÈ£</td>
-    <td>°Ô½ÃÆÇ ¹Ù·Î°¡±â</td>
-    <td align=center>»èÁ¦</td>
+    <td align=center>ë²ˆí˜¸</td>
+    <td>ê²Œì‹œíŒ ë°”ë¡œê°€ê¸°</td>
+    <td align=center>ì‚­ì œ</td>
 </tr>
 
 <? for ($i=0; $i<count($list); $i++) { ?>
@@ -26,7 +26,7 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
     </td>
 </tr>
 <? } ?>
-<? if ($i == 0) echo "<tr><td colspan=2 align=center height=100>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>"; ?>
+<? if ($i == 0) echo "<tr><td colspan=2 align=center height=100>ìžë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>"; ?>
 </table>
 
 
@@ -34,7 +34,7 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
 <script type="text/javascript">
 function del(bo_table, bo_subject)
 {
-    if (confirm("'" + bo_subject + "' °Ô½ÃÆÇ ¹Ù·Î°¡±â¸¦ Á¤¸» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?"))
+    if (confirm("'" + bo_subject + "' ê²Œì‹œíŒ ë°”ë¡œê°€ê¸°ë¥¼ ì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?"))
         location.href = "<?=$g4[bbs_path]?>/my_menu_del.php?bo_table=" + bo_table;
 }
 </script>

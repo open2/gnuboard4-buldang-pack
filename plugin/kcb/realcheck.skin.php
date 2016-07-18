@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 ?>
 <script language="javascript" type="text/javascript">
     opener.location.reload();
@@ -7,33 +7,33 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
 
 <div class="panel panel-default">
 <div class="panel-heading">
-    ´ÙÀ½°ú °°ÀÌ º»ÀÎÈ®ÀÎÀÌ µÇ¾ú½À´Ï´Ù
-    <a class="btn btn-default pull-right" href="#" onclick="javascript:self.close();">´Ý±â</a>
+    ë‹¤ìŒê³¼ ê°™ì´ ë³¸ì¸í™•ì¸ì´ ë˜ì—ˆìŠµë‹ˆë‹¤
+    <a class="btn btn-default pull-right" href="#" onclick="javascript:self.close();">ë‹«ê¸°</a>
 </div>
 <div class="panel-body">
     <ul>
-    <li>¼º¸í : <?=$field[7]?> </li>
-    <li>»ý³â¿ùÀÏ : <?=$field[8]?> </li>
-    <li>¼ºº° : <?=$field[9]?> </li>
-    <li>³»¿Ü±¹ÀÎ±¸ºÐ	: <?=$field[10]?> </li>
-    <li>Åë½Å»çÄÚµå	: <?=$field[11]?> </li>
-    <li>ÈÞ´ëÆù¹øÈ£	: <?=$field[12]?> </li>
+    <li>ì„±ëª… : <?=$field[7]?> </li>
+    <li>ìƒë…„ì›”ì¼ : <?=$field[8]?> </li>
+    <li>ì„±ë³„ : <?=$field[9]?> </li>
+    <li>ë‚´ì™¸êµ­ì¸êµ¬ë¶„	: <?=$field[10]?> </li>
+    <li>í†µì‹ ì‚¬ì½”ë“œ	: <?=$field[11]?> </li>
+    <li>íœ´ëŒ€í°ë²ˆí˜¸	: <?=$field[12]?> </li>
     </ul>
 </div>
 </div>
 
 <? /*
-    echo "Ã³¸®°á°úÄÚµå		:$resultCd	<br/>";
-    echo "Ã³¸®°á°ú¸Þ½ÃÁö	:$field[1]	<br/>";
-    echo "°Å·¡ÀÏ·Ã¹øÈ£		:$field[2]	<br/>";
-    echo "ÀÎÁõÀÏ½Ã			  :$field[3]	<br/>";
+    echo "ì²˜ë¦¬ê²°ê³¼ì½”ë“œ		:$resultCd	<br/>";
+    echo "ì²˜ë¦¬ê²°ê³¼ë©”ì‹œì§€	:$field[1]	<br/>";
+    echo "ê±°ëž˜ì¼ë ¨ë²ˆí˜¸		:$field[2]	<br/>";
+    echo "ì¸ì¦ì¼ì‹œ			  :$field[3]	<br/>";
     echo "DI				      :$field[4]	<br/>";
     echo "CI				      :$field[5]	<br/>";
-    echo "¼º¸í				    :$field[7]	<br/>";
-    echo "»ý³â¿ùÀÏ			  :$field[8]	<br/>";
-    echo "¼ºº°				    :$field[9]	<br/>";
-    echo "³»¿Ü±¹ÀÎ±¸ºÐ		:$field[10]	<br/>";
-    echo "Åë½Å»çÄÚµå		  :$field[11]	<br/>";
-    echo "ÈÞ´ëÆù¹øÈ£		  :$field[12]	<br/>";
-    echo "¸®ÅÏ¸Þ½ÃÁö		  :$field[11]	<br/>";
+    echo "ì„±ëª…				    :$field[7]	<br/>";
+    echo "ìƒë…„ì›”ì¼			  :$field[8]	<br/>";
+    echo "ì„±ë³„				    :$field[9]	<br/>";
+    echo "ë‚´ì™¸êµ­ì¸êµ¬ë¶„		:$field[10]	<br/>";
+    echo "í†µì‹ ì‚¬ì½”ë“œ		  :$field[11]	<br/>";
+    echo "íœ´ëŒ€í°ë²ˆí˜¸		  :$field[12]	<br/>";
+    echo "ë¦¬í„´ë©”ì‹œì§€		  :$field[11]	<br/>";
 */ ?>

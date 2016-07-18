@@ -1,12 +1,12 @@
 <?
-// »ó¼ö Á¤ÀÇ
+// ìƒìˆ˜ ì •ì˜
 
-// ÀÔ·Â°ª °Ë»ç »ó¼ö
-define('_G4_ALPHAUPPER_', 1); // ¿µ´ë¹®ÀÚ
-define('_G4_ALPHALOWER_', 2); // ¿µ¼Ò¹®ÀÚ
-define('_G4_ALPHABETIC_', 4); // ¿µ´ë,¼Ò¹®ÀÚ
-define('_G4_NUMERIC_', 8); // ¼ýÀÚ
-define('_G4_HANGUL_', 16); // ÇÑ±Û
-define('_G4_SPACE_', 32); // °ø¹é
-define('_G4_SPECIAL_', 64); // Æ¯¼ö¹®ÀÚ
+// ìž…ë ¥ê°’ ê²€ì‚¬ ìƒìˆ˜
+define('_G4_ALPHAUPPER_', 1); // ì˜ëŒ€ë¬¸ìž
+define('_G4_ALPHALOWER_', 2); // ì˜ì†Œë¬¸ìž
+define('_G4_ALPHABETIC_', 4); // ì˜ëŒ€,ì†Œë¬¸ìž
+define('_G4_NUMERIC_', 8); // ìˆ«ìž
+define('_G4_HANGUL_', 16); // í•œê¸€
+define('_G4_SPACE_', 32); // ê³µë°±
+define('_G4_SPECIAL_', 64); // íŠ¹ìˆ˜ë¬¸ìž
 ?>

@@ -10,12 +10,12 @@ auth_check($auth[$sub_menu], "w");
 $ca_id = $_POST[ca_id];
 $ca_subject = $_POST[ca_subject];
 
-if (!$ca_id) { alert("Ä«Å×°í¸® ID´Â ¹İµå½Ã ÀÔ·ÂÇÏ¼¼¿ä."); }
+if (!$ca_id) { alert("ì¹´í…Œê³ ë¦¬ IDëŠ” ë°˜ë“œì‹œ ì…ë ¥í•˜ì„¸ìš”."); }
 if ($w == "d")
     ;
 else {
-    if (!preg_match("/^([A-Za-z0-9]{1,20})$/", $ca_id)) { alert("Ä«Å×°í¸® ID¸íÀº °ø¹é¾øÀÌ ¿µ¹®ÀÚ, ¼ıÀÚ ¸¸ »ç¿ë °¡´ÉÇÕ´Ï´Ù. (20ÀÚ ÀÌ³»)"); }
-    if (!$ca_subject) { alert("Ä«Å×°í¸® Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä."); }
+    if (!preg_match("/^([A-Za-z0-9]{1,20})$/", $ca_id)) { alert("ì¹´í…Œê³ ë¦¬ IDëª…ì€ ê³µë°±ì—†ì´ ì˜ë¬¸ì, ìˆ«ì ë§Œ ì‚¬ìš© ê°€ëŠ¥í•©ë‹ˆë‹¤. (20ì ì´ë‚´)"); }
+    if (!$ca_subject) { alert("ì¹´í…Œê³ ë¦¬ ì œëª©ì„ ì…ë ¥í•˜ì„¸ìš”."); }
 }
 
 check_token();
@@ -44,12 +44,12 @@ $sql_common = "
 
 if ($w == "") {
 
-    // ¼Ò¹®ÀÚ·Î º¯È¯
+    // ì†Œë¬¸ìë¡œ ë³€í™˜
     $ca_id = strtolower($ca_id);
 
     $row = sql_fetch(" select count(*) as cnt from $g4[category_table] where ca_id = '$ca_id' ");
     if ($row[cnt])
-        alert("{$ca_id} Àº(´Â) ÀÌ¹Ì Á¸ÀçÇÏ´Â Ä«Å×°í¸® ID ÀÔ´Ï´Ù.");
+        alert("{$ca_id} ì€(ëŠ”) ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ì¹´í…Œê³ ë¦¬ ID ì…ë‹ˆë‹¤.");
 
     $sql = " insert into $g4[category_table]
                 set ca_id = '$ca_id',
@@ -67,7 +67,7 @@ if ($w == "") {
     $result = sql_query($sql);
 } else if ($w == "d") {
 
-    // ºĞ·ùÀÇ ±æÀÌ
+    // ë¶„ë¥˜ì˜ ê¸¸ì´
     $len = strlen($ca_id);
 
     $sql = " select COUNT(*) as cnt from $g4[category_table]
@@ -75,7 +75,7 @@ if ($w == "") {
                 and ca_id <> '$ca_id' ";
     $row = sql_fetch($sql);
     if ($row[cnt] > 0) 
-        alert("ÇÏÀ§ Ä«Å×°í¸®°¡ ÀÖÀ¸¹Ç·Î »èÁ¦ ÇÒ ¼ö ¾ø½À´Ï´Ù.\\n\\nÇÏÀ§ Ä«Å×°í¸®¸¦ ¸ÕÀú »èÁ¦ÇÏ¿© ÁÖ½Ê½Ã¿À.");
+        alert("í•˜ìœ„ ì¹´í…Œê³ ë¦¬ê°€ ìˆìœ¼ë¯€ë¡œ ì‚­ì œ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\\n\\ní•˜ìœ„ ì¹´í…Œê³ ë¦¬ë¥¼ ë¨¼ì € ì‚­ì œí•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
 
     $sql = " delete from $g4[category_table]
               where ca_id = '$ca_id' ";

@@ -1,16 +1,16 @@
 <?
 /*******************************************************************************
-** °øÅë º¯¼ö, »ó¼ö, ÄÚµå
+** ê³µí†µ ë³€ìˆ˜, ìƒìˆ˜, ì½”ë“œ
 *******************************************************************************/
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE & ~E_STRICT);
 
-// º¸¾È¼³Á¤ÀÌ³ª ÇÁ·¹ÀÓÀÌ ´Ş¶óµµ ÄíÅ°°¡ ÅëÇÏµµ·Ï ¼³Á¤
+// ë³´ì•ˆì„¤ì •ì´ë‚˜ í”„ë ˆì„ì´ ë‹¬ë¼ë„ ì¿ í‚¤ê°€ í†µí•˜ë„ë¡ ì„¤ì •
 header('P3P: CP="ALL CURa ADMa DEVa TAIa OUR BUS IND PHY ONL UNI PUR FIN COM NAV INT DEM CNT STA POL HEA PRE LOC OTC"');
 
 if (!isset($set_time_limit)) $set_time_limit = 0;
 @set_time_limit($set_time_limit);
 
-// ÂªÀº È¯°æº¯¼ö¸¦ Áö¿øÇÏÁö ¾Ê´Â´Ù¸é
+// ì§§ì€ í™˜ê²½ë³€ìˆ˜ë¥¼ ì§€ì›í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´
 if (isset($HTTP_POST_VARS) && !isset($_POST)) {
 	$_POST   = &$HTTP_POST_VARS;
 	$_GET    = &$HTTP_GET_VARS;
@@ -24,9 +24,9 @@ if (isset($HTTP_POST_VARS) && !isset($_POST)) {
 }
 
 //
-// phpBB2 Âü°í
-// php.ini ÀÇ magic_quotes_gpc °ªÀÌ FALSE ÀÎ °æ¿ì addslashes() Àû¿ë
-// SQL Injection µîÀ¸·Î ºÎÅÍ º¸È£
+// phpBB2 ì°¸ê³ 
+// php.ini ì˜ magic_quotes_gpc ê°’ì´ FALSE ì¸ ê²½ìš° addslashes() ì ìš©
+// SQL Injection ë“±ìœ¼ë¡œ ë¶€í„° ë³´í˜¸
 //
 if( !get_magic_quotes_gpc() )
 {
@@ -98,7 +98,7 @@ if ($_GET['g4_path'] || $_POST['g4_path'] || $_COOKIE['g4_path']) {
     unset($g4_path);
 }
 
-// Proxy¸¦ °ÅÃÄ¼­ µé¾î¿À´Â °æ¿ì, ½ÇÁ¦ IP·Î º¯°æ, http://virendrachandak.wordpress.com/2011/10/23/getting-real-client-ip-address-in-php-2/
+// Proxyë¥¼ ê±°ì³ì„œ ë“¤ì–´ì˜¤ëŠ” ê²½ìš°, ì‹¤ì œ IPë¡œ ë³€ê²½, http://virendrachandak.wordpress.com/2011/10/23/getting-real-client-ip-address-in-php-2/
 function get_real_ip() {
     if (!empty($_SERVER['HTTP_CLIENT_IP']))  //check ip from share internet
         $ip=$_SERVER['HTTP_CLIENT_IP'];
@@ -117,7 +117,7 @@ function get_real_ip() {
 $_SERVER["REMOTE_ADDR"] = get_real_ip();
 
 //==========================================================================================================================
-// XSS(Cross Site Scripting) °ø°İ¿¡ ÀÇÇÑ µ¥ÀÌÅÍ °ËÁõ ¹× Â÷´Ü
+// XSS(Cross Site Scripting) ê³µê²©ì— ì˜í•œ ë°ì´í„° ê²€ì¦ ë° ì°¨ë‹¨
 //--------------------------------------------------------------------------------------------------------------------------
 function xss_clean($data) 
 { 
@@ -201,50 +201,50 @@ $_GET = xss_clean($_GET);
 
 
 //==========================================================================================================================
-// extract($_GET); ¸í·ÉÀ¸·Î ÀÎÇØ page.php?_POST[var1]=data1&_POST[var2]=data2 ¿Í °°Àº ÄÚµå°¡ _POST º¯¼ö·Î »ç¿ëµÇ´Â °ÍÀ» ¸·À½
-// 081029 : letsgolee ´Ô²²¼­ µµ¿ò ÁÖ¼Ì½À´Ï´Ù.
+// extract($_GET); ëª…ë ¹ìœ¼ë¡œ ì¸í•´ page.php?_POST[var1]=data1&_POST[var2]=data2 ì™€ ê°™ì€ ì½”ë“œê°€ _POST ë³€ìˆ˜ë¡œ ì‚¬ìš©ë˜ëŠ” ê²ƒì„ ë§‰ìŒ
+// 081029 : letsgolee ë‹˜ê»˜ì„œ ë„ì›€ ì£¼ì…¨ìŠµë‹ˆë‹¤.
 //--------------------------------------------------------------------------------------------------------------------------
 $ext_arr = array ('PHP_SELF', '_ENV', '_GET', '_POST', '_FILES', '_SERVER', '_COOKIE', '_SESSION', '_REQUEST',
                   'HTTP_ENV_VARS', 'HTTP_GET_VARS', 'HTTP_POST_VARS', 'HTTP_POST_FILES', 'HTTP_SERVER_VARS',
                   'HTTP_COOKIE_VARS', 'HTTP_SESSION_VARS', 'GLOBALS');
 $ext_cnt = count($ext_arr);
 for ($i=0; $i<$ext_cnt; $i++) {
-    // GET, POST ·Î ¼±¾ğµÈ Àü¿ªº¯¼ö°¡ ÀÖ´Ù¸é unset() ½ÃÅ´
+    // GET, POST ë¡œ ì„ ì–¸ëœ ì „ì—­ë³€ìˆ˜ê°€ ìˆë‹¤ë©´ unset() ì‹œí‚´
     if (isset($_GET[$ext_arr[$i]])) unset($_GET[$ext_arr[$i]]);
     if (isset($_POST[$ext_arr[$i]])) unset($_POST[$ext_arr[$i]]);
 }
 //==========================================================================================================================
 
-// PHP 4.1.0 ºÎÅÍ Áö¿øµÊ
-// php.ini ÀÇ register_globals=off ÀÏ °æ¿ì
+// PHP 4.1.0 ë¶€í„° ì§€ì›ë¨
+// php.ini ì˜ register_globals=off ì¼ ê²½ìš°
 @extract($_GET);
 @extract($_POST);
 @extract($_SERVER);
 
-// ¿ÏµÎÄá´ÔÀÌ ¾Ë·ÁÁÖ½Å º¸¾È°ü·Ã ¿À·ù ¼öÁ¤
-// $member ¿¡ °ªÀ» Á÷Á¢ ³Ñ±æ ¼ö ÀÖÀ½
+// ì™„ë‘ì½©ë‹˜ì´ ì•Œë ¤ì£¼ì‹  ë³´ì•ˆê´€ë ¨ ì˜¤ë¥˜ ìˆ˜ì •
+// $member ì— ê°’ì„ ì§ì ‘ ë„˜ê¸¸ ìˆ˜ ìˆìŒ
 $config = array();
 $member = array();
 $board  = array();
 $group  = array();
 $g4     = array();
 
-// index.php °¡ ÀÖ´Â°÷ÀÇ »ó´ë°æ·Î
-// php ÀÎÁ§¼Ç ( ÀÓÀÇ·Î º¯¼öÁ¶ÀÛÀ¸·Î ÀÎÇÑ ¸®¸ğÆ®°ø°İ) Ãë¾àÁ¡¿¡ ´ëºñÇÑ ÄÚµå
-// prosper ´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.
+// index.php ê°€ ìˆëŠ”ê³³ì˜ ìƒëŒ€ê²½ë¡œ
+// php ì¸ì ì…˜ ( ì„ì˜ë¡œ ë³€ìˆ˜ì¡°ì‘ìœ¼ë¡œ ì¸í•œ ë¦¬ëª¨íŠ¸ê³µê²©) ì·¨ì•½ì ì— ëŒ€ë¹„í•œ ì½”ë“œ
+// prosper ë‹˜ê»˜ì„œ ì•Œë ¤ì£¼ì…¨ìŠµë‹ˆë‹¤.
 if (!$g4_path || preg_match("/:\/\//", $g4_path))
-    die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script type='text/javascript'> alert('Àß¸øµÈ ¹æ¹ıÀ¸·Î º¯¼ö°¡ Á¤ÀÇµÇ¾ú½À´Ï´Ù.'); </script>");
+    die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script type='text/javascript'> alert('ì˜ëª»ëœ ë°©ë²•ìœ¼ë¡œ ë³€ìˆ˜ê°€ ì •ì˜ë˜ì—ˆìŠµë‹ˆë‹¤.'); </script>");
 //if (!$g4_path) $g4_path = ".";
 $g4['path'] = $g4_path;
 
-// °æ·ÎÀÇ ¿À·ù¸¦ ¾ø¾Ö±â À§ÇØ $g4_path º¯¼ö´Â ÇØÁ¦
+// ê²½ë¡œì˜ ì˜¤ë¥˜ë¥¼ ì—†ì• ê¸° ìœ„í•´ $g4_path ë³€ìˆ˜ëŠ” í•´ì œ
 unset($g4_path);
 
-include_once("$g4[path]/lib/constant.php");  // »ó¼ö Á¤ÀÇ
-include_once("$g4[path]/config.php");  // ¼³Á¤ ÆÄÀÏ
-include_once("$g4[path]/lib/common.lib.php"); // °øÅë ¶óÀÌºê·¯¸®
+include_once("$g4[path]/lib/constant.php");  // ìƒìˆ˜ ì •ì˜
+include_once("$g4[path]/config.php");  // ì„¤ì • íŒŒì¼
+include_once("$g4[path]/lib/common.lib.php"); // ê³µí†µ ë¼ì´ë¸ŒëŸ¬ë¦¬
 
-// config.php °¡ ÀÖ´Â°÷ÀÇ À¥°æ·Î
+// config.php ê°€ ìˆëŠ”ê³³ì˜ ì›¹ê²½ë¡œ
 if (!$g4['url'])
 {
     $g4['url'] = 'http://' . $_SERVER['HTTP_HOST'];
@@ -256,13 +256,13 @@ if (!$g4['url'])
         $dir = dirname($dir);
     $g4['url'] .= $dir;
 }
-// \ ¸¦ / ·Ñ º¯°æ
+// \ ë¥¼ / ë¡¤ ë³€ê²½
 $g4['url'] = strtr($g4['url'], "\\", "/");
-// url ÀÇ ³¡¿¡ ÀÖ´Â / ¸¦ »èÁ¦ÇÑ´Ù.
+// url ì˜ ëì— ìˆëŠ” / ë¥¼ ì‚­ì œí•œë‹¤.
 $g4['url'] = preg_replace("/\/$/", "", $g4['url']);
 
 //==============================================================================
-// °øÅë
+// ê³µí†µ
 //==============================================================================
 $dirname = dirname(__FILE__).'/';
 $dbconfig_file = "dbconfig.php";
@@ -270,25 +270,25 @@ $dbconfig_file = "dbconfig.php";
     $connect_db = sql_connect($mysql_host, $mysql_user, $mysql_password);
     $select_db = sql_select_db($mysql_db, $connect_db);
     if (!$select_db)
-        die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script type='text/javascript'> alert('DB Á¢¼Ó ¿À·ù'); </script>");
+        die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script type='text/javascript'> alert('DB ì ‘ì† ì˜¤ë¥˜'); </script>");
 
-// PDO Á¢¼Ó
+// PDO ì ‘ì†
 try {
     $pdo_db = new PDO( "mysql:host=$mysql_host;dbname=$mysql_db;charset=" . str_replace('-', '', $g4[charset]), "$mysql_user", "$mysql_password");
     $pdo_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch(PDOException $e) {
-    die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script type='text/javascript'> alert('PDO Á¢¼Ó ¿À·ù : ' . $e->getMessage()); </script>");
+    die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script type='text/javascript'> alert('PDO ì ‘ì† ì˜¤ë¥˜ : ' . $e->getMessage()); </script>");
 }
 
 $_SERVER['PHP_SELF'] = htmlentities($_SERVER['PHP_SELF']);
 
 //-------------------------------------------
-// SESSION ¼³Á¤
+// SESSION ì„¤ì •
 //-------------------------------------------
-@ini_set("session.use_trans_sid", 0);     // PHPSESSID¸¦ ÀÚµ¿À¸·Î ³Ñ±âÁö ¾ÊÀ½
-@ini_set("url_rewriter.tags","");         // ¸µÅ©¿¡ PHPSESSID°¡ µû¶ó´Ù´Ï´Â°ÍÀ» ¹«·ÂÈ­ÇÔ (ÇØ¶ã³è´Ô²²¼­ ¾Ë·ÁÁÖ¼Ì½À´Ï´Ù.)
+@ini_set("session.use_trans_sid", 0);     // PHPSESSIDë¥¼ ìë™ìœ¼ë¡œ ë„˜ê¸°ì§€ ì•ŠìŒ
+@ini_set("url_rewriter.tags","");         // ë§í¬ì— PHPSESSIDê°€ ë”°ë¼ë‹¤ë‹ˆëŠ”ê²ƒì„ ë¬´ë ¥í™”í•¨ (í•´ëœ°ë…˜ë‹˜ê»˜ì„œ ì•Œë ¤ì£¼ì…¨ìŠµë‹ˆë‹¤.)
 
-// »ç¿ëÇÒ session ÇüÅÂ¸¦ ÁöÁ¤ ÇÕ´Ï´Ù. db, redis, file - 3Á¾ ÀÔ´Ï´Ù
+// ì‚¬ìš©í•  session í˜•íƒœë¥¼ ì§€ì • í•©ë‹ˆë‹¤. db, redis, file - 3ì¢… ì…ë‹ˆë‹¤
 switch ($g4['session_type']) {
     case "db"       :
         include_once("$g4[path]/lib/dbsession.lib.php");
@@ -305,7 +305,7 @@ switch ($g4['session_type']) {
         ini_set('session.save_path', $g4['rpath']);
         break;
     default :
-        // ±×´©º¸µå ±âº» ¼¼¼Ç°ü¸®
+        // ê·¸ëˆ„ë³´ë“œ ê¸°ë³¸ ì„¸ì…˜ê´€ë¦¬
         session_save_path("{$g4['data_path']}/session");
 }
 
@@ -315,22 +315,22 @@ else
     @session_cache_limiter("no-cache, must-revalidate");
 
 //==============================================================================
-// °ø¿ë º¯¼ö
+// ê³µìš© ë³€ìˆ˜
 //==============================================================================
-// ±âº»È¯°æ¼³Á¤
-// ±âº»ÀûÀ¸·Î »ç¿ëÇÏ´Â ÇÊµå¸¸ ¾òÀº ÈÄ »óÈ²¿¡ µû¶ó ÇÊµå¸¦ Ãß°¡·Î ¾òÀ½
+// ê¸°ë³¸í™˜ê²½ì„¤ì •
+// ê¸°ë³¸ì ìœ¼ë¡œ ì‚¬ìš©í•˜ëŠ” í•„ë“œë§Œ ì–»ì€ í›„ ìƒí™©ì— ë”°ë¼ í•„ë“œë¥¼ ì¶”ê°€ë¡œ ì–»ìŒ
 $config = sql_fetch(" select * from $g4[config_table] ");
 
-// redis´Â ¼¼¼Ç°ü¸®°¡ Á¤È®ÇÏ°Ô ÀÌ·ç¾îÁö±â ¶§¹®¿¡, ½Ã°£À» ±æ°Ô Àâ¾ÆÁà¾ß ÇÕ´Ï´Ù
+// redisëŠ” ì„¸ì…˜ê´€ë¦¬ê°€ ì •í™•í•˜ê²Œ ì´ë£¨ì–´ì§€ê¸° ë•Œë¬¸ì—, ì‹œê°„ì„ ê¸¸ê²Œ ì¡ì•„ì¤˜ì•¼ í•©ë‹ˆë‹¤
 if ($g4['session_type'] == "redis") {
-    @ini_set("session.cache_expire", 7200); // ¼¼¼Ç Ä³½¬ º¸°ü½Ã°£ (ºĞ)
-    @ini_set("session.gc_maxlifetime", 504000); // session dataÀÇ garbage collection Á¸Àç ±â°£À» ÁöÁ¤ (ÃÊ)
+    @ini_set("session.cache_expire", 7200); // ì„¸ì…˜ ìºì‰¬ ë³´ê´€ì‹œê°„ (ë¶„)
+    @ini_set("session.gc_maxlifetime", 504000); // session dataì˜ garbage collection ì¡´ì¬ ê¸°ê°„ì„ ì§€ì • (ì´ˆ)
 } else {
-    @ini_set("session.cache_expire", 180); // ¼¼¼Ç Ä³½¬ º¸°ü½Ã°£ (ºĞ)
-    @ini_set("session.gc_maxlifetime", 10800); // session dataÀÇ garbage collection Á¸Àç ±â°£À» ÁöÁ¤ (ÃÊ)
+    @ini_set("session.cache_expire", 180); // ì„¸ì…˜ ìºì‰¬ ë³´ê´€ì‹œê°„ (ë¶„)
+    @ini_set("session.gc_maxlifetime", 10800); // session dataì˜ garbage collection ì¡´ì¬ ê¸°ê°„ì„ ì§€ì • (ì´ˆ)
 }
-@ini_set("session.gc_probability", 1); // session.gc_probability´Â session.gc_divisor¿Í ¿¬°èÇÏ¿© gc(¾²·¹±â ¼ö°Å) ·çÆ¾ÀÇ ½ÃÀÛ È®·üÀ» °ü¸®ÇÕ´Ï´Ù. ±âº»°ªÀº 1ÀÔ´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº session.gc_divisor¸¦ Âü°íÇÏ½Ê½Ã¿À.
-@ini_set("session.gc_divisor", 100); // session.gc_divisor´Â session.gc_probability¿Í °áÇÕÇÏ¿© °¢ ¼¼¼Ç ÃÊ±âÈ­ ½Ã¿¡ gc(¾²·¹±â ¼ö°Å) ÇÁ·Î¼¼½º¸¦ ½ÃÀÛÇÒ È®·üÀ» Á¤ÀÇÇÕ´Ï´Ù. È®·üÀº gc_probability/gc_divisor¸¦ »ç¿ëÇÏ¿© °è»êÇÕ´Ï´Ù. Áï, 1/100Àº °¢ ¿äÃ»½Ã¿¡ GC ÇÁ·Î¼¼½º¸¦ ½ÃÀÛÇÒ È®·üÀÌ 1%ÀÔ´Ï´Ù. session.gc_divisorÀÇ ±âº»°ªÀº 100ÀÔ´Ï´Ù.
+@ini_set("session.gc_probability", 1); // session.gc_probabilityëŠ” session.gc_divisorì™€ ì—°ê³„í•˜ì—¬ gc(ì“°ë ˆê¸° ìˆ˜ê±°) ë£¨í‹´ì˜ ì‹œì‘ í™•ë¥ ì„ ê´€ë¦¬í•©ë‹ˆë‹¤. ê¸°ë³¸ê°’ì€ 1ì…ë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ session.gc_divisorë¥¼ ì°¸ê³ í•˜ì‹­ì‹œì˜¤.
+@ini_set("session.gc_divisor", 100); // session.gc_divisorëŠ” session.gc_probabilityì™€ ê²°í•©í•˜ì—¬ ê° ì„¸ì…˜ ì´ˆê¸°í™” ì‹œì— gc(ì“°ë ˆê¸° ìˆ˜ê±°) í”„ë¡œì„¸ìŠ¤ë¥¼ ì‹œì‘í•  í™•ë¥ ì„ ì •ì˜í•©ë‹ˆë‹¤. í™•ë¥ ì€ gc_probability/gc_divisorë¥¼ ì‚¬ìš©í•˜ì—¬ ê³„ì‚°í•©ë‹ˆë‹¤. ì¦‰, 1/100ì€ ê° ìš”ì²­ì‹œì— GC í”„ë¡œì„¸ìŠ¤ë¥¼ ì‹œì‘í•  í™•ë¥ ì´ 1%ì…ë‹ˆë‹¤. session.gc_divisorì˜ ê¸°ë³¸ê°’ì€ 100ì…ë‹ˆë‹¤.
 
 session_set_cookie_params(0, "/");
 @ini_set("session.cookie_domain", $g4['cookie_domain']);
@@ -338,12 +338,12 @@ session_set_cookie_params(0, "/");
 @session_start();
 
 /*
-// 081022 : CSRF ¹æÁö¸¦ À§ÇØ ÄÚµå¸¦ ÀÛ¼ºÇßÀ¸³ª È¿°ú°¡ ¾ø¾î ÁÖ¼®Ã³¸® ÇÔ
+// 081022 : CSRF ë°©ì§€ë¥¼ ìœ„í•´ ì½”ë“œë¥¼ ì‘ì„±í–ˆìœ¼ë‚˜ íš¨ê³¼ê°€ ì—†ì–´ ì£¼ì„ì²˜ë¦¬ í•¨
 if (strpos($_SERVER[PHP_SELF], $g4['admin']) === false)
     set_session("ss_admin", false);
 */
 
-// 4.00.03 : [º¸¾È°ü·Ã] PHPSESSID °¡ Æ²¸®¸é ·Î±×¾Æ¿ôÇÑ´Ù.
+// 4.00.03 : [ë³´ì•ˆê´€ë ¨] PHPSESSID ê°€ í‹€ë¦¬ë©´ ë¡œê·¸ì•„ì›ƒí•œë‹¤.
 if ($_REQUEST['PHPSESSID'] && $_REQUEST['PHPSESSID'] != session_id())
     goto_url("{$g4['bbs_path']}/logout.php");
 
@@ -364,12 +364,12 @@ if (isset($_REQUEST['sfl']))  {
     $sfl = trim($_REQUEST['sfl']);
     $sfl = preg_replace("/[\<\>\'\"\\\'\\\"\%\=\(\)\/\^\*\s]/", "", $sfl); 
     if ($sfl)
-        $qstr .= '&amp;sfl=' . urlencode($sfl); // search field (°Ë»ö ÇÊµå)
+        $qstr .= '&amp;sfl=' . urlencode($sfl); // search field (ê²€ìƒ‰ í•„ë“œ)
 } else {
     $sfl = '';
 }
 
-if (isset($_REQUEST['stx']))  { // search text (°Ë»ö¾î)
+if (isset($_REQUEST['stx']))  { // search text (ê²€ìƒ‰ì–´)
     $stx = get_search_string(trim($_REQUEST['stx']));
     if ($stx)
         $qstr .= '&amp;stx=' . urlencode(cut_str($stx, 20, ''));
@@ -381,12 +381,12 @@ if (isset($_REQUEST['sst']))  {
     $sst = trim($_REQUEST['sst']);
     $sst = preg_replace("/[\<\>\'\"\\\'\\\"\%\=\(\)\/\^\*\s]/", "", $sst); 
     if ($sst)
-        $qstr .= '&amp;sst=' . urlencode($sst); // search sort (°Ë»ö Á¤·Ä ÇÊµå)
+        $qstr .= '&amp;sst=' . urlencode($sst); // search sort (ê²€ìƒ‰ ì •ë ¬ í•„ë“œ)
 } else {
     $sst = '';
 }
 
-if (isset($_REQUEST['sod']))  { // search order (°Ë»ö ¿À¸§, ³»¸²Â÷¼ø)
+if (isset($_REQUEST['sod']))  { // search order (ê²€ìƒ‰ ì˜¤ë¦„, ë‚´ë¦¼ì°¨ìˆœ)
     $sod = preg_match("/^(asc|desc)$/i", $sod) ? $sod : '';
     if ($sod)
         $qstr .= '&amp;sod=' . urlencode($sod);
@@ -394,7 +394,7 @@ if (isset($_REQUEST['sod']))  { // search order (°Ë»ö ¿À¸§, ³»¸²Â÷¼ø)
     $sod = '';
 }
 
-if (isset($_REQUEST['sop']))  { // search operator (°Ë»ö or, and ¿ÀÆÛ·¹ÀÌÅÍ)
+if (isset($_REQUEST['sop']))  { // search operator (ê²€ìƒ‰ or, and ì˜¤í¼ë ˆì´í„°)
     $sop = preg_match("/^(or|and)$/i", $sop) ? $sop : '';
     if ($sop)
         $qstr .= '&amp;sop=' . urlencode($sop);
@@ -402,7 +402,7 @@ if (isset($_REQUEST['sop']))  { // search operator (°Ë»ö or, and ¿ÀÆÛ·¹ÀÌÅÍ)
     $sop = '';
 }
 
-if (isset($_REQUEST['spt']))  { // search part (°Ë»ö ÆÄÆ®[±¸°£])
+if (isset($_REQUEST['spt']))  { // search part (ê²€ìƒ‰ íŒŒíŠ¸[êµ¬ê°„])
     $spt = (int)$spt;
     if ($spt)
         $qstr .= '&amp;spt=' . urlencode($spt);
@@ -410,7 +410,7 @@ if (isset($_REQUEST['spt']))  { // search part (°Ë»ö ÆÄÆ®[±¸°£])
     $spt = '';
 }
 
-if (isset($_REQUEST['page'])) { // ¸®½ºÆ® ÆäÀÌÁö
+if (isset($_REQUEST['page'])) { // ë¦¬ìŠ¤íŠ¸ í˜ì´ì§€
     $page = abs((int)$_REQUEST['page']);
     if ($page)
         $qstr .= '&amp;page=' . urlencode($page);
@@ -435,16 +435,16 @@ if (isset($url)) {
     $urlencode = urlencode($url);
 }
 else {
-    // 2008.01.25 Cross Site Scripting ¶§¹®¿¡ ¼öÁ¤
+    // 2008.01.25 Cross Site Scripting ë•Œë¬¸ì— ìˆ˜ì •
     //$urlencode = $_SERVER['REQUEST_URI'];
     $urlencode = urlencode($_SERVER[REQUEST_URI]);
 }
-if (isset($total_page)) { // ¸®½ºÆ® ÆäÀÌÁö
+if (isset($total_page)) { // ë¦¬ìŠ¤íŠ¸ í˜ì´ì§€
     $total_page = (int)$total_page;
 }
 
 
-if (isset($comment_id)) { // ¸®½ºÆ® ÆäÀÌÁö
+if (isset($comment_id)) { // ë¦¬ìŠ¤íŠ¸ í˜ì´ì§€
     $comment_id = (int)$comment_id;
 }
 
@@ -468,7 +468,7 @@ if (isset($_GET['ug_id'])) {
     $ug_id = preg_replace('/[^0-9a-z\-\_]/i', '', $_GET['ug_id']);
 }
 
-// ±×´©º¸µå 4.34.09 º¸¾ÈÆĞÄ¡ ($_SERVERÀÇ SQL Injection ¹æ¾î)
+// ê·¸ëˆ„ë³´ë“œ 4.34.09 ë³´ì•ˆíŒ¨ì¹˜ ($_SERVERì˜ SQL Injection ë°©ì–´)
 $_SERVER['REMOTE_ADDR'] = get_text(clean_xss_tags($_SERVER['REMOTE_ADDR']));
 $_SERVER['HTTP_REFERER'] = get_text(clean_xss_tags($_SERVER['HTTP_REFERER']));
 $_SERVER['HTTP_USER_AGENT'] = get_text(clean_xss_tags($_SERVER['HTTP_USER_AGENT']));
@@ -479,23 +479,23 @@ $user_agent  = mysql_real_escape_string($_SERVER['HTTP_USER_AGENT']);
 
 //===================================
 
-// ÀÚµ¿·Î±×ÀÎ ºÎºĞ¿¡¼­ Ã¹·Î±×ÀÎ¿¡ Æ÷ÀÎÆ® ºÎ¿©ÇÏ´ø°ÍÀ» ·Î±×ÀÎÁßÀÏ¶§·Î º¯°æÇÏ¸é¼­ ÄÚµåµµ ´ëÆø ¼öÁ¤ÇÏ¿´½À´Ï´Ù.
-if ($_SESSION['ss_mb_id']) // ·Î±×ÀÎÁßÀÌ¶ó¸é
+// ìë™ë¡œê·¸ì¸ ë¶€ë¶„ì—ì„œ ì²«ë¡œê·¸ì¸ì— í¬ì¸íŠ¸ ë¶€ì—¬í•˜ë˜ê²ƒì„ ë¡œê·¸ì¸ì¤‘ì¼ë•Œë¡œ ë³€ê²½í•˜ë©´ì„œ ì½”ë“œë„ ëŒ€í­ ìˆ˜ì •í•˜ì˜€ìŠµë‹ˆë‹¤.
+if ($_SESSION['ss_mb_id']) // ë¡œê·¸ì¸ì¤‘ì´ë¼ë©´
 {
     $member = get_member($_SESSION['ss_mb_id']);
 
-    // ¿À´Ã Ã³À½ ·Î±×ÀÎ ÀÌ¶ó¸é
+    // ì˜¤ëŠ˜ ì²˜ìŒ ë¡œê·¸ì¸ ì´ë¼ë©´
     if (substr($member['mb_today_login'], 0, 10) != $g4['time_ymd'])
     {
-        // Ã¹ ·Î±×ÀÎ Æ÷ÀÎÆ® Áö±Ş
-        insert_point($member['mb_id'], $config['cf_login_point'], "{$g4['time_ymd']} Ã¹·Î±×ÀÎ", "@login", $member['mb_id'], $g4['time_ymd']);
+        // ì²« ë¡œê·¸ì¸ í¬ì¸íŠ¸ ì§€ê¸‰
+        insert_point($member['mb_id'], $config['cf_login_point'], "{$g4['time_ymd']} ì²«ë¡œê·¸ì¸", "@login", $member['mb_id'], $g4['time_ymd']);
 
-        // ¿À´ÃÀÇ ·Î±×ÀÎÀÌ µÉ ¼öµµ ÀÖÀ¸¸ç ¸¶Áö¸· ·Î±×ÀÎÀÏ ¼öµµ ÀÖÀ½
-        // ÇØ´ç È¸¿øÀÇ Á¢±ÙÀÏ½Ã¿Í IP ¸¦ ÀúÀå
+        // ì˜¤ëŠ˜ì˜ ë¡œê·¸ì¸ì´ ë  ìˆ˜ë„ ìˆìœ¼ë©° ë§ˆì§€ë§‰ ë¡œê·¸ì¸ì¼ ìˆ˜ë„ ìˆìŒ
+        // í•´ë‹¹ íšŒì›ì˜ ì ‘ê·¼ì¼ì‹œì™€ IP ë¥¼ ì €ì¥
         $sql = " update {$g4['member_table']} set mb_today_login = '{$g4['time_ymdhis']}', mb_login_ip = '$remote_addr' where mb_id = '{$member['mb_id']}' ";
         sql_query($sql);
     } else {
-        // ¿À´ÃÀÇ ¸¶Áö¸· login_ip¿Í ÇöÀçÀÇ ·Î±×ÀÎ ip°¡ ´Ù¸£¸é, ÇöÀçÀÇ ·Î±×ÀÎ ip·Î ¾÷µ¥ÀÌÆ® ÇÑ´Ù
+        // ì˜¤ëŠ˜ì˜ ë§ˆì§€ë§‰ login_ipì™€ í˜„ì¬ì˜ ë¡œê·¸ì¸ ipê°€ ë‹¤ë¥´ë©´, í˜„ì¬ì˜ ë¡œê·¸ì¸ ipë¡œ ì—…ë°ì´íŠ¸ í•œë‹¤
         if ($member['mb_login_ip'] !== $_SERVER['REMOTE_ADDR']) {
             $sql = " update {$g4['member_table']} set mb_login_ip = '$remote_addr' where mb_id = '{$member['mb_id']}' ";
             sql_query($sql);
@@ -504,11 +504,11 @@ if ($_SESSION['ss_mb_id']) // ·Î±×ÀÎÁßÀÌ¶ó¸é
 }
 else
 {
-    // ÀÚµ¿·Î±×ÀÎ ---------------------------------------
-    // È¸¿ø¾ÆÀÌµğ°¡ ÄíÅ°¿¡ ÀúÀåµÇ¾î ÀÖ´Ù¸é (3.27)
+    // ìë™ë¡œê·¸ì¸ ---------------------------------------
+    // íšŒì›ì•„ì´ë””ê°€ ì¿ í‚¤ì— ì €ì¥ë˜ì–´ ìˆë‹¤ë©´ (3.27)
     if ($tmp_mb_id = get_cookie("ck_mb_id"))
     {
-        // ºÒ´çÆÑ - ¾ÏÈ£È­µÈ ÄíÅ°°ªÀ» ÀÌ¿ëÇØ¼­ mb_id¸¦ °¡Á®¿Â´Ù
+        // ë¶ˆë‹¹íŒ© - ì•”í˜¸í™”ëœ ì¿ í‚¤ê°’ì„ ì´ìš©í•´ì„œ mb_idë¥¼ ê°€ì ¸ì˜¨ë‹¤
         $sql = " select * from $g4[cookie_table] where cookie_name='$tmp_mb_id' ";
         $mb_cookie = sql_fetch($sql);
 
@@ -516,7 +516,7 @@ else
         $tmp_key = $mb_cookie['cookie_key'];
 
         $tmp_mb_id = substr(preg_replace("/[^a-zA-Z0-9_]*/", "", $tmp_mb_id), 0, 20);
-        // ÃÖ°í°ü¸®ÀÚ´Â ÀÚµ¿·Î±×ÀÎ ±İÁö
+        // ìµœê³ ê´€ë¦¬ìëŠ” ìë™ë¡œê·¸ì¸ ê¸ˆì§€
         if (strtolower($tmp_mb_id) != strtolower($config['cf_admin'])) 
         {
             $row = get_member("$tmp_mb_id", "mb_no, mb_password, mb_intercept_date, mb_leave_date, mb_email_certify");
@@ -526,35 +526,35 @@ else
                 $key = md5($_SERVER['SERVER_ADDR'] . $_SERVER['HTTP_USER_AGENT'] . $row['mb_password'] . $row['mb_no']);
             }
 
-            // ÄíÅ°¿¡ ÀúÀåµÈ Å°¿Í °°´Ù¸é
+            // ì¿ í‚¤ì— ì €ì¥ëœ í‚¤ì™€ ê°™ë‹¤ë©´
             if ($tmp_key == $key && $tmp_key)
             {
-                // Â÷´Ü, Å»Åğ°¡ ¾Æ´Ï°í ¸ŞÀÏÀÎÁõÀÌ »ç¿ëÀÌ¸é¼­ ÀÎÁõÀ» ¹Ş¾Ò´Ù¸é
+                // ì°¨ë‹¨, íƒˆí‡´ê°€ ì•„ë‹ˆê³  ë©”ì¼ì¸ì¦ì´ ì‚¬ìš©ì´ë©´ì„œ ì¸ì¦ì„ ë°›ì•˜ë‹¤ë©´
                 if ($row['mb_intercept_date'] == "" &&
                     $row['mb_leave_date'] == "" &&
                     (!$config['cf_use_email_certify'] || preg_match('/[1-9]/', $row['mb_email_certify'])) )
                 {
-                    // ¼¼¼Ç¿¡ È¸¿ø¾ÆÀÌµğ¸¦ ÀúÀåÇÏ¿© ·Î±×ÀÎÀ¸·Î °£ÁÖ
+                    // ì„¸ì…˜ì— íšŒì›ì•„ì´ë””ë¥¼ ì €ì¥í•˜ì—¬ ë¡œê·¸ì¸ìœ¼ë¡œ ê°„ì£¼
                     set_session("ss_mb_id", $tmp_mb_id);
 
-                    // ÆäÀÌÁö¸¦ Àç½ÇÇà
+                    // í˜ì´ì§€ë¥¼ ì¬ì‹¤í–‰
                     echo "<script type='text/javascript'> window.location.reload(); </script>";
                     exit;
                 }
             }
-            // $row ¹è¿­º¯¼ö ÇØÁ¦
+            // $row ë°°ì—´ë³€ìˆ˜ í•´ì œ
             unset($row);
         }
     }
-    // ÀÚµ¿·Î±×ÀÎ end ---------------------------------------
+    // ìë™ë¡œê·¸ì¸ end ---------------------------------------
 }
 
-// Ã¹¹æ¹® ÄíÅ°
-// 1³â°£ ÀúÀå
+// ì²«ë°©ë¬¸ ì¿ í‚¤
+// 1ë…„ê°„ ì €ì¥
 if (!get_cookie("ck_first_call"))     set_cookie("ck_first_call", $g4[server_time], 86400 * 365);
 if (!get_cookie("ck_first_referer"))  set_cookie("ck_first_referer", $_SERVER[HTTP_REFERER], 86400 * 365);
 
-// È¸¿øÀÌ ¾Æ´Ï¶ó¸é ±ÇÇÑÀ» ¹æ¹®°´ ±ÇÇÑÀ¸·Î ÇÔ
+// íšŒì›ì´ ì•„ë‹ˆë¼ë©´ ê¶Œí•œì„ ë°©ë¬¸ê° ê¶Œí•œìœ¼ë¡œ í•¨
 if (!($member['mb_id']))
     $member['mb_level'] = 1;
 else
@@ -570,7 +570,7 @@ if (isset($_REQUEST['bo_table'])) {
     $stmt->bindParam(":bo_table", $bo_table);
     $board = pdo_fetch($stmt);
 
-    $write_table = $g4['write_prefix'] . $bo_table; // °Ô½ÃÆÇ Å×ÀÌºí ÀüÃ¼ÀÌ¸§
+    $write_table = $g4['write_prefix'] . $bo_table; // ê²Œì‹œíŒ í…Œì´ë¸” ì „ì²´ì´ë¦„
     $gr_id = $board['gr_id'];
     if (isset($wr_id) && $wr_id) {
         $write = sql_fetch(" select * from $write_table where wr_id = '$wr_id' ");
@@ -579,7 +579,7 @@ if (isset($_REQUEST['bo_table'])) {
     $bo_table = '';
 }
 
-// adm/board_list.php¿¡¼­ gr_id¸¦ ¹è¿­·Î ¾²±â ¶§¹®¿¡, is_array¸¦ Ã¼Å©ÇØ¾ß ÇÕ´Ï´Ù. =..=...
+// adm/board_list.phpì—ì„œ gr_idë¥¼ ë°°ì—´ë¡œ ì“°ê¸° ë•Œë¬¸ì—, is_arrayë¥¼ ì²´í¬í•´ì•¼ í•©ë‹ˆë‹¤. =..=...
 if (isset($gr_id) && !is_array($gr_id)) {
     $gr_id = preg_match("/^[a-zA-Z0-9_]+$/", $gr_id) ? $gr_id : "";
     //$group = sql_fetch(" select * from {$g4['group_table']} where gr_id = '$gr_id' ");
@@ -589,7 +589,7 @@ if (isset($gr_id) && !is_array($gr_id)) {
     $group = pdo_fetch($stmt);
 }
 
-// È¸¿ø, ºñÈ¸¿ø ±¸ºĞ
+// íšŒì›, ë¹„íšŒì› êµ¬ë¶„
 $is_member = $is_guest = false;
 if ($member['mb_id'])
     $is_member = true;
@@ -599,7 +599,7 @@ else
 
 $is_admin = is_admin($member['mb_id']);
 if ($is_admin != "super") {
-    // Á¢±Ù°¡´É IP
+    // ì ‘ê·¼ê°€ëŠ¥ IP
     $cf_possible_ip = trim($config['cf_possible_ip']);
     if ($cf_possible_ip) {
         $is_possible_ip = false;
@@ -616,10 +616,10 @@ if ($is_admin != "super") {
                 break;
         }
         if (!$is_possible_ip)
-            die ("Á¢±ÙÀÌ °¡´ÉÇÏÁö ¾Ê½À´Ï´Ù.");
+            die ("ì ‘ê·¼ì´ ê°€ëŠ¥í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
     }
 
-    // Á¢±ÙÂ÷´Ü IP
+    // ì ‘ê·¼ì°¨ë‹¨ IP
     $is_intercept_ip = false;
     $pattern = explode("\n", trim($config['cf_intercept_ip']));
     for ($i=0; $i<count($pattern); $i++) {
@@ -631,28 +631,28 @@ if ($is_admin != "super") {
         $pat = "/^{$pattern[$i]}/";
         $is_intercept_ip = preg_match($pat, $_SERVER['REMOTE_ADDR']);
         if ($is_intercept_ip)
-            die ("Á¢±Ù ºÒ°¡ÇÕ´Ï´Ù.");
+            die ("ì ‘ê·¼ ë¶ˆê°€í•©ë‹ˆë‹¤.");
     }
 }
 
-// ½ºÅ²°æ·Î
+// ìŠ¤í‚¨ê²½ë¡œ
 $board_skin_path = '';
 if (isset($board['bo_skin']))
-    $board_skin_path = "{$g4['path']}/skin/board/{$board['bo_skin']}"; // °Ô½ÃÆÇ ½ºÅ² °æ·Î
+    $board_skin_path = "{$g4['path']}/skin/board/{$board['bo_skin']}"; // ê²Œì‹œíŒ ìŠ¤í‚¨ ê²½ë¡œ
 
-// ¹æ¹®ÀÚ¼öÀÇ Á¢¼ÓÀ» ³²±è
+// ë°©ë¬¸ììˆ˜ì˜ ì ‘ì†ì„ ë‚¨ê¹€
 include_once("{$g4['bbs_path']}/visit_insert.inc.php");
 
-// common.php ÆÄÀÏÀ» ¼öÁ¤ÇÒ ÇÊ¿ä°¡ ¾øµµ·Ï È®ÀåÇÕ´Ï´Ù.
+// common.php íŒŒì¼ì„ ìˆ˜ì •í•  í•„ìš”ê°€ ì—†ë„ë¡ í™•ì¥í•©ë‹ˆë‹¤.
 $tmp = dir("$g4[path]/extend");
 while ($entry = $tmp->read()) {
-    // php ÆÄÀÏ¸¸ include ÇÔ
+    // php íŒŒì¼ë§Œ include í•¨
     if (preg_match("/(\.php)$/i", $entry))
       if ($entry != "index.php")
         include_once("$g4[path]/extend/$entry");
 }
 
-// °ö½½ÃÖ¾¾ - °Ô½ÃÆÇº° Ä«¿îÅÍ
+// ê³±ìŠ¬ìµœì”¨ - ê²Œì‹œíŒë³„ ì¹´ìš´í„°
 if ($gr_id && $bo_table) 
 {
     $board_visit = "$g4[time_ymd].$gr_id.$bo_table.$_SERVER[REMOTE_ADDR]";
@@ -664,7 +664,7 @@ if ($gr_id && $bo_table)
     $stmt->bindParam(":board_visit", $board_visit);
     $result = pdo_fetch($stmt);
 
-    // $result[cnt] == 0 : ¿À´Ã Ã³À½ ¹æ¹®ÇÏ´Â °æ¿ì.
+    // $result[cnt] == 0 : ì˜¤ëŠ˜ ì²˜ìŒ ë°©ë¬¸í•˜ëŠ” ê²½ìš°.
     if ($result[cnt] == 0) {
         //$qry = sql_query("insert into $mw[board_visit_log_table] set log = '$board_visit'", false);
 
@@ -681,7 +681,7 @@ if ($gr_id && $bo_table)
             $stmt->bindParam(":bo_table", $bo_table);
             $result = pdo_query($stmt, false);
 
-            // ¼öÁ¤µÈ row°¡ ÇÏ³ªµµ ¾ø´Ù¸é(¾÷µ¥ÀÌÆ®°¡ ¾ÈµÇ´Â ¿À·ù) »õ·Î¿î ³¯Â¥º° ÇàÀ» »ı¼ºÇÏµµ·Ï insert¸¦ ½ÇÇà
+            // ìˆ˜ì •ëœ rowê°€ í•˜ë‚˜ë„ ì—†ë‹¤ë©´(ì—…ë°ì´íŠ¸ê°€ ì•ˆë˜ëŠ” ì˜¤ë¥˜) ìƒˆë¡œìš´ ë‚ ì§œë³„ í–‰ì„ ìƒì„±í•˜ë„ë¡ insertë¥¼ ì‹¤í–‰
             if ( $stmt->rowCount() == 0 ) {
                 //$sql = " insert $mw[board_visit_table] set bv_date = '$g4[time_ymd]', gr_id = '$gr_id', bo_table = '$bo_table', bv_count = 1 ";
                 //$qry = sql_query($sql);
@@ -696,25 +696,25 @@ if ($gr_id && $bo_table)
     }
 }
 
-// ±Û¾²±âÁ¦ÇÑ
+// ê¸€ì“°ê¸°ì œí•œ
 $is_delay = false;
 if ($member['mb_level'] > 1) {
     if ($member['mb_level'] >= $config['cf_delay_level'] || $member['mb_point'] >= $config['cf_delay_point'] || $is_admin)
         $is_delay = true;
 }
 
-// ÇöÀç Á¢¼ÓÀÚ
-// °Ô½ÃÆÇ Á¦¸ñ¿¡ ' Æ÷ÇÔµÇ¸é ¿À·ù ¹ß»ı
-// head.sub.php¿¡¼­ ÀÌµ¿
+// í˜„ì¬ ì ‘ì†ì
+// ê²Œì‹œíŒ ì œëª©ì— ' í¬í•¨ë˜ë©´ ì˜¤ë¥˜ ë°œìƒ
+// head.sub.phpì—ì„œ ì´ë™
 $lo_location = addslashes($g4['title']);
 if (!$lo_location)
     $lo_location = $_SERVER['REQUEST_URI'];
 $lo_url = $_SERVER['REQUEST_URI'];
 if (strstr($lo_url, "/$g4[admin]/") || $is_admin == "super") $lo_url = "";
 
-// º¯¼ö ÇÊÅÍ¸µ
+// ë³€ìˆ˜ í•„í„°ë§
 $bg_id = preg_match("/^[a-zA-Z0-9_]+$/", $bg_id) ? $bg_id : "";
 
-// ºÒ´çÆÑ - Ãß°¡ÀûÀÎ °³º° º¯¼ö¼³Á¤À» À§ÇØ
-include_once("$g4[path]/config.2.php");  // ¼³Á¤ ÆÄÀÏ
+// ë¶ˆë‹¹íŒ© - ì¶”ê°€ì ì¸ ê°œë³„ ë³€ìˆ˜ì„¤ì •ì„ ìœ„í•´
+include_once("$g4[path]/config.2.php");  // ì„¤ì • íŒŒì¼
 ?>

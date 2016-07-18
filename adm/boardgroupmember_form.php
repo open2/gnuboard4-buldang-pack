@@ -8,14 +8,14 @@ $token = get_token();
 
 $mb = get_member($mb_id);
 if (!$mb[mb_id])
-    alert("Á¸ÀçÇÏÁö ¾Ê´Â È¸¿øÀÔ´Ï´Ù."); 
+    alert("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” íšŒì›ì…ë‹ˆë‹¤."); 
 
-$g4[title] = "Á¢±Ù°¡´É±×·ì¼±ÅÃ";
+$g4[title] = "ì ‘ê·¼ê°€ëŠ¥ê·¸ë£¹ì„ íƒ";
 include_once("./admin.head.php");
 ?>
 
 <div>
-<? echo "<a href='./member_form.php?w=u&mb_id=$mb[mb_id]'><b>$mb[mb_id]</b> ($mb[mb_nick])</a> ´ÔÀÌ Á¢±Ù°¡´ÉÇÑ ±×·ì ¸ñ·Ï"; ?></td>
+<? echo "<a href='./member_form.php?w=u&mb_id=$mb[mb_id]'><b>$mb[mb_id]</b> ($mb[mb_nick])</a> ë‹˜ì´ ì ‘ê·¼ê°€ëŠ¥í•œ ê·¸ë£¹ ëª©ë¡"; ?></td>
 </div>
     
 <table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
@@ -24,10 +24,10 @@ include_once("./admin.head.php");
 <colgroup width=200>
 <colgroup width=100>
 <tr class="success">
-    <td>±×·ì¾ÆÀÌµğ</td>
-    <td>±×·ì</td>
-    <td>Ã³¸®ÀÏ½Ã</td>
-    <td>»èÁ¦</td>
+    <td>ê·¸ë£¹ì•„ì´ë””</td>
+    <td>ê·¸ë£¹</td>
+    <td>ì²˜ë¦¬ì¼ì‹œ</td>
+    <td>ì‚­ì œ</td>
 </tr>
 <?
 $sql = " select * 
@@ -40,7 +40,7 @@ if ($is_admin != 'super')
 $sql .= " order by a.gr_id desc ";
 $result = sql_query($sql);
 for ($i=0; $row=sql_fetch_array($result); $i++) {
-    $s_del = "<a href=\"javascript:post_delete('boardgroupmember_update.php', '$row[gm_id]');\"><i class='fa fa-trash-o' title='»èÁ¦'></i></a>";
+    $s_del = "<a href=\"javascript:post_delete('boardgroupmember_update.php', '$row[gm_id]');\"><i class='fa fa-trash-o' title='ì‚­ì œ'></i></a>";
 
     echo "
     <tr >
@@ -52,7 +52,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 }
 
 if ($i == 0) {
-    echo "<tr><td colspan='4' align=center height=100>Á¢±Ù°¡´ÉÇÑ ±×·ìÀÌ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='4' align=center height=100>ì ‘ê·¼ê°€ëŠ¥í•œ ê·¸ë£¹ì´ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 }
 ?>
 </table>
@@ -65,10 +65,10 @@ if ($i == 0) {
 <colgroup width=20% class='col1 pad1 bold right'>
 <colgroup width=80% class='col2 pad2'>
 <tr>
-    <td>±×·ì</td>
+    <td>ê·¸ë£¹</td>
     <td>
         <select name=gr_id>
-        <option value=''>Á¢±Ù°¡´É ±×·ìÀ» ¼±ÅÃÇÏ¼¼¿ä.
+        <option value=''>ì ‘ê·¼ê°€ëŠ¥ ê·¸ë£¹ì„ ì„ íƒí•˜ì„¸ìš”.
         <option value=''>--------------------------
         <?
         $sql = " select * 
@@ -85,7 +85,7 @@ if ($i == 0) {
         ?>
         </select>
         &nbsp;
-        <input type=submit class=btn1 value='  È®  ÀÎ  ' accesskey='s'>
+        <input type=submit class=btn1 value='  í™•  ì¸  ' accesskey='s'>
     </td>
 </tr>
 </table>
@@ -95,7 +95,7 @@ if ($i == 0) {
 function boardgroupmember_form_check(f) 
 {
     if (f.gr_id.value == '') {
-        alert('Á¢±Ù°¡´É ±×·ìÀ» ¼±ÅÃÇÏ¼¼¿ä.');
+        alert('ì ‘ê·¼ê°€ëŠ¥ ê·¸ë£¹ì„ ì„ íƒí•˜ì„¸ìš”.');
         return false;
     }
 
@@ -104,12 +104,12 @@ function boardgroupmember_form_check(f)
 </script>
 
 <script>
-// POST ¹æ½ÄÀ¸·Î »èÁ¦
+// POST ë°©ì‹ìœ¼ë¡œ ì‚­ì œ
 function post_delete(action_url, val)
 {
 	var f = document.fpost;
 
-	if(confirm("ÇÑ¹ø »èÁ¦ÇÑ ÀÚ·á´Â º¹±¸ÇÒ ¹æ¹ıÀÌ ¾ø½À´Ï´Ù.\n\nÁ¤¸» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?")) {
+	if(confirm("í•œë²ˆ ì‚­ì œí•œ ìë£ŒëŠ” ë³µêµ¬í•  ë°©ë²•ì´ ì—†ìŠµë‹ˆë‹¤.\n\nì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
         f.gm_id.value = val;
 		f.action      = action_url;
 		f.submit();

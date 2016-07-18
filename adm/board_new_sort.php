@@ -4,42 +4,42 @@ include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "r");
 
-$g4[title] = "ÃÖ½Å±ÛÁ¤·Ä";
+$g4[title] = "ìµœì‹ ê¸€ì •ë ¬";
 include_once("./admin.head.php");
 
-echo "'¿Ï·á' ¸Ş¼¼Áö°¡ ³ª¿À±â Àü¿¡ ÇÁ·Î±×·¥ÀÇ ½ÇÇàÀ» ÁßÁöÇÏÁö ¸¶½Ê½Ã¿À.<br>";
+echo "'ì™„ë£Œ' ë©”ì„¸ì§€ê°€ ë‚˜ì˜¤ê¸° ì „ì— í”„ë¡œê·¸ë¨ì˜ ì‹¤í–‰ì„ ì¤‘ì§€í•˜ì§€ ë§ˆì‹­ì‹œì˜¤.<br>";
 echo "<span id='ct'></span>";
 include_once("./admin.tail.php");
 flush();
 
-// º¹»ç Å×ÀÌºíÀ» Á¤ÀÇ ÇÕ´Ï´Ù.
+// ë³µì‚¬ í…Œì´ë¸”ì„ ì •ì˜ í•©ë‹ˆë‹¤.
 $g4[board_new_copy_table ] = $g4[board_new_table] . "_copy";
 
-// Å×ÀÌºíÀ» ÇÏ³ª º¹»ç ÇÕ´Ï´Ù. ¸Å»ç´Â ºÒ¿©Æ°Æ°
+// í…Œì´ë¸”ì„ í•˜ë‚˜ ë³µì‚¬ í•©ë‹ˆë‹¤. ë§¤ì‚¬ëŠ” ë¶ˆì—¬íŠ¼íŠ¼
 $sql = " DROP TABLE  IF EXISTS $g4[board_new_copy_table] ";
 sql_query($sql);
 $sql = " CREATE TABLE $g4[board_new_copy_table] select * from $g4[board_new_table] ";
 sql_query($sql);
 
-// º¹»çµÈ °Ô½ÃÆÇÀÇ bn_datetimeÀ» wr_datetimeÀ¸·Î ¾÷µ¥ÀÌÆ® ÇÕ´Ï´Ù. ÀÌ°Å´Â ÇÑ¶¡ ÇÑ¶¡ ÇØ¾ß ÇÕ´Ï´Ù.
+// ë³µì‚¬ëœ ê²Œì‹œíŒì˜ bn_datetimeì„ wr_datetimeìœ¼ë¡œ ì—…ë°ì´íŠ¸ í•©ë‹ˆë‹¤. ì´ê±°ëŠ” í•œë•€ í•œë•€ í•´ì•¼ í•©ë‹ˆë‹¤.
 $sql = " select * from $g4[board_new_copy_table] ";
 $result = sql_query($sql);
 while ($row = sql_fetch_array($result)) {
-    $tmp_write_table = $g4['write_prefix'] . $row[bo_table]; // °Ô½ÃÆÇ Å×ÀÌºí ÀüÃ¼ÀÌ¸§
+    $tmp_write_table = $g4['write_prefix'] . $row[bo_table]; // ê²Œì‹œíŒ í…Œì´ë¸” ì „ì²´ì´ë¦„
     $write = sql_fetch(" select wr_datetime from $tmp_write_table where wr_id = '$row[wr_id]' ");
     
     $sql = " update $g4[board_new_copy_table] set bn_datetime='$write[wr_datetime]' where bn_id='$row[bn_id]' ";
     sql_query($sql);
 }
-echo "<script>document.getElementById('ct').innerHTML += '<br><br>bn_datetime ¾÷µ¥ÀÌÆ® ¿Ï·á';</script>\n";
+echo "<script>document.getElementById('ct').innerHTML += '<br><br>bn_datetime ì—…ë°ì´íŠ¸ ì™„ë£Œ';</script>\n";
 
-// ¿øº» °Ô½ÃÆÇÀÇ ¸ğµç ÃÖ½Å±Û ·¹ÄÚµå¸¦ ½Ï Áö¿ö¹ö¸³´Ï´Ù.
+// ì›ë³¸ ê²Œì‹œíŒì˜ ëª¨ë“  ìµœì‹ ê¸€ ë ˆì½”ë“œë¥¼ ì‹¹ ì§€ì›Œë²„ë¦½ë‹ˆë‹¤.
 sql_query(" delete from $g4[board_new_table] ");
 
-echo "<script>document.getElementById('ct').innerHTML += '<br><br>max_id °è»ê ¿Ï·á';</script>\n";
+echo "<script>document.getElementById('ct').innerHTML += '<br><br>max_id ê³„ì‚° ì™„ë£Œ';</script>\n";
 
-// Áö¿üÀ¸´Ï, ÀÌÁ¦ ³Ö¾î¾ßÁÒ. ¾î¶»°Ô? Àß~. ¤»¤»... 
-// ÇÑ¹æ¿¡ ´Ù ³ÖÀ» ¼ö´Â ÀÖÁö¸¸, ±×·²·Á¸é ÀÛ¾÷ÇÒ µ¿¾È ´©°¡ ±Û¾²¸é ¾ÈµÇ°Åµç¿ä. ±×·¡¼­ ÇÑ¶¡¾¿ ³Ö¾î¹ö¸³´Ï´Ù.
+// ì§€ì› ìœ¼ë‹ˆ, ì´ì œ ë„£ì–´ì•¼ì£ . ì–´ë–»ê²Œ? ì˜~. ã…‹ã…‹... 
+// í•œë°©ì— ë‹¤ ë„£ì„ ìˆ˜ëŠ” ìˆì§€ë§Œ, ê·¸ëŸ´ë ¤ë©´ ì‘ì—…í•  ë™ì•ˆ ëˆ„ê°€ ê¸€ì“°ë©´ ì•ˆë˜ê±°ë“ ìš”. ê·¸ë˜ì„œ í•œë•€ì”© ë„£ì–´ë²„ë¦½ë‹ˆë‹¤.
 $sql = " select * from $g4[board_new_copy_table] order by bn_datetime asc ";
 $result = sql_query($sql);
 $bn_id = 1;
@@ -61,7 +61,7 @@ while ($row = sql_fetch_array($result)) {
     $bn_id++;
 }
 
-echo "<script>document.getElementById('ct').innerHTML += '<br><br>ÃÖ½Å±ÛÅ×ÀÌºí Á¤·Ä ¿Ï·á.<br><br>ÇÁ·Î±×·¥ÀÇ ½ÇÇàÀ» ³¡¸¶Ä¡¼Åµµ ÁÁ½À´Ï´Ù.';</script>\n";
+echo "<script>document.getElementById('ct').innerHTML += '<br><br>ìµœì‹ ê¸€í…Œì´ë¸” ì •ë ¬ ì™„ë£Œ.<br><br>í”„ë¡œê·¸ë¨ì˜ ì‹¤í–‰ì„ ëë§ˆì¹˜ì…”ë„ ì¢‹ìŠµë‹ˆë‹¤.';</script>\n";
 
 include_once("./admin.tail.php");
 ?>

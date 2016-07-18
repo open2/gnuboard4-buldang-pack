@@ -26,7 +26,7 @@ $mb_sex          = $_POST[mb_sex];
 $mb_signature    = $_POST[mb_signature];
 $mb_leave_date   = $_POST[mb_leave_date];
 $mb_intercept_date=$_POST[mb_intercept_date];
-$mb_memo         = htmlspecialchars($_POST[mb_memo]);   // mb_memo¿¡ Æ¯¼ö¹®ÀÚ°¡ µé¾î°¡´Â °æ¿ì ¶§¹®¿¡
+$mb_memo         = htmlspecialchars($_POST[mb_memo]);   // mb_memoì— íŠ¹ìˆ˜ë¬¸ìê°€ ë“¤ì–´ê°€ëŠ” ê²½ìš° ë•Œë¬¸ì—
 $mb_mailling     = $_POST[mb_mailling];
 $mb_sms          = $_POST[mb_sms];
 $mb_open         = $_POST[mb_open];
@@ -77,63 +77,63 @@ $sql_common = " mb_name         = '$mb_name',
                 mb_9            = '$mb_9',
                 mb_10           = '$mb_10' ";
 
-// ==== ¾Æ·¡ ºÎºĞÀº bbs/register_form_update.php¿¡¼­ °¡Á®¿Â °Ì´Ï´Ù.
-// ==== °ü¸®ÀÚµµ »ç¶÷ÀÌ¶ó ½Ç¼öÇÏ´Âµ¥, ±×°Å´Â ÇÇÇØ¾ßÁÒ.
+// ==== ì•„ë˜ ë¶€ë¶„ì€ bbs/register_form_update.phpì—ì„œ ê°€ì ¸ì˜¨ ê²ë‹ˆë‹¤.
+// ==== ê´€ë¦¬ìë„ ì‚¬ëŒì´ë¼ ì‹¤ìˆ˜í•˜ëŠ”ë°, ê·¸ê±°ëŠ” í”¼í•´ì•¼ì£ .
 
-// ÀÌ¸§Àº ÇÑ±Û¸¸ °¡´É
+// ì´ë¦„ì€ í•œê¸€ë§Œ ê°€ëŠ¥
 if (!check_string($mb_name, _G4_HANGUL_  + _G4_ALPHABETIC_ )) 
-    alert('ÀÌ¸§Àº °ø¹é¾øÀÌ ÇÑ±Û ¶Ç´Â ¿µ¹®¸¸ ÀÔ·Â °¡´ÉÇÕ´Ï´Ù.');
+    alert('ì´ë¦„ì€ ê³µë°±ì—†ì´ í•œê¸€ ë˜ëŠ” ì˜ë¬¸ë§Œ ì…ë ¥ ê°€ëŠ¥í•©ë‹ˆë‹¤.');
 
-// º°¸íÀº ÇÑ±Û, ¿µ¹®, ¼ıÀÚ¸¸ °¡´É
+// ë³„ëª…ì€ í•œê¸€, ì˜ë¬¸, ìˆ«ìë§Œ ê°€ëŠ¥
 if (!check_string($mb_nick, _G4_HANGUL_ + _G4_ALPHABETIC_ + _G4_NUMERIC_))
-    alert('º°¸íÀº °ø¹é¾øÀÌ ÇÑ±Û, ¿µ¹®, ¼ıÀÚ¸¸ ÀÔ·Â °¡´ÉÇÕ´Ï´Ù.');
+    alert('ë³„ëª…ì€ ê³µë°±ì—†ì´ í•œê¸€, ì˜ë¬¸, ìˆ«ìë§Œ ì…ë ¥ ê°€ëŠ¥í•©ë‹ˆë‹¤.');
 
 if ($w == "")
 {
-    // Áßº¹ º°¸íÀÌ ¾ø´ÂÁö È®ÀÎ ÇÕ´Ï´Ù.
+    // ì¤‘ë³µ ë³„ëª…ì´ ì—†ëŠ”ì§€ í™•ì¸ í•©ë‹ˆë‹¤.
     $sql = " select count(*) as cnt from $g4[member_table] where mb_nick = '$mb_nick' ";
     $row = sql_fetch($sql);
     if ($row[cnt])
-        alert("\'$mb_nick\' Àº(´Â) ÀÌ¹Ì ´Ù¸¥ºĞÀÌ »ç¿ëÁßÀÎ º°¸íÀÌ¹Ç·Î »ç¿ëÀÌ ºÒ°¡ÇÕ´Ï´Ù.");
+        alert("\'$mb_nick\' ì€(ëŠ”) ì´ë¯¸ ë‹¤ë¥¸ë¶„ì´ ì‚¬ìš©ì¤‘ì¸ ë³„ëª…ì´ë¯€ë¡œ ì‚¬ìš©ì´ ë¶ˆê°€í•©ë‹ˆë‹¤.");
     
-    // ºÒ´çÆÑ - È¸¿ø°¡ÀÔ½Ã mb_nick_table¿¡ Áßº¹ ´ĞÀÌ ¾ø´ÂÁö È®ÀÎ
+    // ë¶ˆë‹¹íŒ© - íšŒì›ê°€ì…ì‹œ mb_nick_tableì— ì¤‘ë³µ ë‹‰ì´ ì—†ëŠ”ì§€ í™•ì¸
     $sql = " select count(*) as cnt from $g4[mb_nick_table] where mb_nick = '$mb_nick' ";
     $row = sql_fetch($sql);
     if ($row[cnt])
-        alert("\'$mb_nick\' Àº(´Â) ÀÌ¹Ì ´Ù¸¥ºĞÀÌ »ç¿ëÁßÀÎ º°¸íÀÌ¹Ç·Î »ç¿ëÀÌ ºÒ°¡ÇÕ´Ï´Ù.");
+        alert("\'$mb_nick\' ì€(ëŠ”) ì´ë¯¸ ë‹¤ë¥¸ë¶„ì´ ì‚¬ìš©ì¤‘ì¸ ë³„ëª…ì´ë¯€ë¡œ ì‚¬ìš©ì´ ë¶ˆê°€í•©ë‹ˆë‹¤.");
     
     $sql = " select count(*) as cnt from $g4[member_table] where mb_email = '$mb_email' ";
     $row = sql_fetch($sql);
     if ($row[cnt])
-        alert("\'$mb_email\' Àº(´Â) ÀÌ¹Ì ´Ù¸¥ºĞÀÌ »ç¿ëÁßÀÎ E-mailÀÌ¹Ç·Î »ç¿ëÀÌ ºÒ°¡ÇÕ´Ï´Ù.");
+        alert("\'$mb_email\' ì€(ëŠ”) ì´ë¯¸ ë‹¤ë¥¸ë¶„ì´ ì‚¬ìš©ì¤‘ì¸ E-mailì´ë¯€ë¡œ ì‚¬ìš©ì´ ë¶ˆê°€í•©ë‹ˆë‹¤.");
 }
 else if ($w == "u")
 {
-    // Áßº¹ º°¸íÀÌ ¾ø´ÂÁö È®ÀÎ ÇÕ´Ï´Ù.
+    // ì¤‘ë³µ ë³„ëª…ì´ ì—†ëŠ”ì§€ í™•ì¸ í•©ë‹ˆë‹¤.
     $sql = " select count(*) as cnt from $g4[member_table] where mb_nick = '$mb_nick' and mb_id <> '$mb_id' ";
     $row = sql_fetch($sql);
     if ($row[cnt])
-        alert("\'$mb_nick\' Àº(´Â) ÀÌ¹Ì ´Ù¸¥ºĞÀÌ »ç¿ëÁßÀÎ º°¸íÀÌ¹Ç·Î »ç¿ëÀÌ ºÒ°¡ÇÕ´Ï´Ù.1");
+        alert("\'$mb_nick\' ì€(ëŠ”) ì´ë¯¸ ë‹¤ë¥¸ë¶„ì´ ì‚¬ìš©ì¤‘ì¸ ë³„ëª…ì´ë¯€ë¡œ ì‚¬ìš©ì´ ë¶ˆê°€í•©ë‹ˆë‹¤.1");
     
-    // ºÒ´çÆÑ - È¸¿ø°¡ÀÔ½Ã mb_nick_table¿¡ Áßº¹ ´ĞÀÌ ¾ø´ÂÁö È®ÀÎ
+    // ë¶ˆë‹¹íŒ© - íšŒì›ê°€ì…ì‹œ mb_nick_tableì— ì¤‘ë³µ ë‹‰ì´ ì—†ëŠ”ì§€ í™•ì¸
     $sql = " select count(*) as cnt from $g4[mb_nick_table] where mb_nick = '$mb_nick' and mb_id <> '$mb_id' ";
     $row = sql_fetch($sql);
     if ($row[cnt])
-        alert("\'$mb_nick\' Àº(´Â) ÀÌ¹Ì ´Ù¸¥ºĞÀÌ »ç¿ëÁßÀÎ º°¸íÀÌ¹Ç·Î »ç¿ëÀÌ ºÒ°¡ÇÕ´Ï´Ù.2");
+        alert("\'$mb_nick\' ì€(ëŠ”) ì´ë¯¸ ë‹¤ë¥¸ë¶„ì´ ì‚¬ìš©ì¤‘ì¸ ë³„ëª…ì´ë¯€ë¡œ ì‚¬ìš©ì´ ë¶ˆê°€í•©ë‹ˆë‹¤.2");
     
     $sql = " select count(*) as cnt from $g4[member_table] where mb_email = '$mb_email' and mb_id <> '$mb_id' ";
     $row = sql_fetch($sql);
     if ($row[cnt])
-        alert("\'$mb_email\' Àº(´Â) ÀÌ¹Ì ´Ù¸¥ºĞÀÌ »ç¿ëÁßÀÎ E-mailÀÌ¹Ç·Î »ç¿ëÀÌ ºÒ°¡ÇÕ´Ï´Ù.");
+        alert("\'$mb_email\' ì€(ëŠ”) ì´ë¯¸ ë‹¤ë¥¸ë¶„ì´ ì‚¬ìš©ì¤‘ì¸ E-mailì´ë¯€ë¡œ ì‚¬ìš©ì´ ë¶ˆê°€í•©ë‹ˆë‹¤.");
 }
 
 if ($w == "")
 {
     $mb = get_member($mb_id);
     if ($mb[mb_id])
-        alert("ÀÌ¹Ì Á¸ÀçÇÏ´Â È¸¿øÀÔ´Ï´Ù.\\n\\n£É£Ä : $mb[mb_id]\\n\\nÀÌ¸§ : $mb[mb_name]\\n\\nº°¸í : $mb[mb_nick]\\n\\n¸ŞÀÏ : $mb[mb_email]");
+        alert("ì´ë¯¸ ì¡´ì¬í•˜ëŠ” íšŒì›ì…ë‹ˆë‹¤.\\n\\nï¼©ï¼¤ : $mb[mb_id]\\n\\nì´ë¦„ : $mb[mb_name]\\n\\në³„ëª… : $mb[mb_nick]\\n\\në©”ì¼ : $mb[mb_email]");
 
-    // ºÒ´çÆÑ - mb_nickÀ» db¿¡ Ãß°¡
+    // ë¶ˆë‹¹íŒ© - mb_nickì„ dbì— ì¶”ê°€
     $sql2 = " insert $g4[mb_nick_table] set  mb_id = '$mb_id', mb_nick = '$mb_nick', start_datetime = '$g4[time_ymdhis]' ";
     sql_query($sql2);
 
@@ -143,24 +143,24 @@ else if ($w == "u")
 {
     $mb = get_member($mb_id);
     if (!$mb[mb_id])
-        alert("Á¸ÀçÇÏÁö ¾Ê´Â È¸¿øÀÚ·áÀÔ´Ï´Ù.");
+        alert("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” íšŒì›ìë£Œì…ë‹ˆë‹¤.");
 
     if ($is_admin != "super" && $mb[mb_level] >= $member[mb_level])
-        alert("ÀÚ½Åº¸´Ù ±ÇÇÑÀÌ ³ô°Å³ª °°Àº È¸¿øÀº ¼öÁ¤ÇÒ ¼ö ¾ø½À´Ï´Ù.");
+        alert("ìì‹ ë³´ë‹¤ ê¶Œí•œì´ ë†’ê±°ë‚˜ ê°™ì€ íšŒì›ì€ ìˆ˜ì •í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 
     if ($_POST[mb_id] == $member[mb_id] && $_POST[mb_level] != $mb[mb_level])
-        alert("$mb[mb_id] : ·Î±×ÀÎ ÁßÀÎ °ü¸®ÀÚ ·¹º§Àº ¼öÁ¤ ÇÒ ¼ö ¾ø½À´Ï´Ù.");
+        alert("$mb[mb_id] : ë¡œê·¸ì¸ ì¤‘ì¸ ê´€ë¦¬ì ë ˆë²¨ì€ ìˆ˜ì • í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 
     $mb_dir = substr($mb_id,0,2);
 
-    // È¸¿ø ¾ÆÀÌÄÜ »èÁ¦
+    // íšŒì› ì•„ì´ì½˜ ì‚­ì œ
     if ($del_mb_icon)
         @unlink("$g4[data_path]/member/$mb_dir/$mb_id.gif");
 
-    // ¾ÆÀÌÄÜ ¾÷·Îµå
+    // ì•„ì´ì½˜ ì—…ë¡œë“œ
     if (is_uploaded_file($_FILES[mb_icon][tmp_name])) {
         if (!preg_match("/(\.gif)$/i", $_FILES[mb_icon][name])) {
-            alert($_FILES[mb_icon][name] . 'Àº(´Â) gif ÆÄÀÏÀÌ ¾Æ´Õ´Ï´Ù.');
+            alert($_FILES[mb_icon][name] . 'ì€(ëŠ”) gif íŒŒì¼ì´ ì•„ë‹™ë‹ˆë‹¤.');
         }
 
         if (preg_match("/(\.gif)$/i", $_FILES[mb_icon][name])) {
@@ -174,7 +174,7 @@ else if ($w == "u")
 
             if (file_exists($dest_path)) {
                 $size = getimagesize($dest_path);
-                // ¾ÆÀÌÄÜÀÇ Æø ¶Ç´Â ³ôÀÌ°¡ ¼³Á¤°ª º¸´Ù Å©´Ù¸é ÀÌ¹Ì ¾÷·Îµå µÈ ¾ÆÀÌÄÜ »èÁ¦
+                // ì•„ì´ì½˜ì˜ í­ ë˜ëŠ” ë†’ì´ê°€ ì„¤ì •ê°’ ë³´ë‹¤ í¬ë‹¤ë©´ ì´ë¯¸ ì—…ë¡œë“œ ëœ ì•„ì´ì½˜ ì‚­ì œ
                 if ($size[0] > $config[cf_member_icon_width] || $size[1] > $config[cf_member_icon_height]) {
                     @unlink($dest_path);
                 }
@@ -199,21 +199,21 @@ else if ($w == "u")
               where mb_id = '$mb_id' ";
     sql_query($sql);
     
-    // È¸¿ø·¹º§ÀÌ ¾÷µ¥ÀÌÆ® µÈ °æ¿ì¿¡´Â ·¹º§¾÷ ³¯Â¥¿Í history¸¦ ±â·Ï ÇÕ´Ï´Ù.
+    // íšŒì›ë ˆë²¨ì´ ì—…ë°ì´íŠ¸ ëœ ê²½ìš°ì—ëŠ” ë ˆë²¨ì—… ë‚ ì§œì™€ historyë¥¼ ê¸°ë¡ í•©ë‹ˆë‹¤.
     if ($mb[mb_level] !== $mb_level) {
         sql_query(" update $g4[member_table] set mb_level_datetime = '$g4[time_ymdhis]' where mb_id='$mb_id' ");
         sql_query(" insert into $g4[member_level_history_table] set mb_id='$mb_id', from_level='$mb[mb_level]', to_level='$mb_level', level_datetime='$g4[time_ymdhis]' ");
     }
 
-    // ºÒ´çÆÑ - ´Ğ³×ÀÓÀÌ º¯°æµÇ¸é history¿¡ ±â·Ï ÇÕ´Ï´Ù.
+    // ë¶ˆë‹¹íŒ© - ë‹‰ë„¤ì„ì´ ë³€ê²½ë˜ë©´ historyì— ê¸°ë¡ í•©ë‹ˆë‹¤.
     if ($mb[mb_nick] != $mb_nick) {
-        // ³»°¡ »ç¿ëÇÏ´ø ´Ğ³×ÀÓÀÌ ÀÖ´ÂÁö È®ÀÎ
+        // ë‚´ê°€ ì‚¬ìš©í•˜ë˜ ë‹‰ë„¤ì„ì´ ìˆëŠ”ì§€ í™•ì¸
         $sql = " select count(*) as cnt from $g4[mb_nick_table] where mb_id = '$mb_id' and mb_nick = '$mb_nick' ";
         $result = sql_fetch($sql);
         if ($result['cnt']) {
-            // ±âÁ¸ÀÇ ´Ğ³×ÀÓÀº ´İ¾Æ¹ö¸®°í, 
+            // ê¸°ì¡´ì˜ ë‹‰ë„¤ì„ì€ ë‹«ì•„ë²„ë¦¬ê³ , 
             $sql = " update $g4[mb_nick_table] set end_datetime='$g4[time_ymdhis]' where mb_id = '$mb_id' and mb_nick = '$mb[mb_nick] ";
-            // »õ·Î¿î°Å´Â ¿­¿©ÁÖ°í.
+            // ìƒˆë¡œìš´ê±°ëŠ” ì—´ì—¬ì£¼ê³ .
             $sql = " update $g4[mb_nick_table] set start_datetime = '$g4[time_ymdhis]', end_datetime='0000-00-00 00:00:00' where mb_id = '$mb_id' and mb_nick = '$mb_nick' ";
         }
         else
@@ -221,14 +221,14 @@ else if ($w == "u")
             $sql = " insert $g4[mb_nick_table] set  mb_id = '$mb_id', mb_nick = '$mb_nick', start_datetime = '$g4[time_ymdhis]' ";
             sql_query($sql);
             
-            // ±âÁ¸¿¡ ¾²´ø nicknameÀ» close
+            // ê¸°ì¡´ì— ì“°ë˜ nicknameì„ close
             $sql = " update $g4[mb_nick_table] set end_datetime = '$g4[time_ymdhis]' where mb_id = '$mb_id' and mb_nick = '$mb[mb_nick]' ";
             sql_query($sql);
         }
     }
 }
 else
-    alert("Á¦´ë·Î µÈ °ªÀÌ ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.");
+    alert("ì œëŒ€ë¡œ ëœ ê°’ì´ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
 goto_url("./member_form.php?$qstr&w=u&mb_id=$mb_id");
 ?>

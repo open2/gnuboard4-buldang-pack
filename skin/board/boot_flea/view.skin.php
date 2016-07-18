@@ -1,46 +1,46 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-// ½ºÅ²¿¡¼­ »ç¿ëÇÏ´Â lib ÀĞ¾îµéÀÌ±â
+// ìŠ¤í‚¨ì—ì„œ ì‚¬ìš©í•˜ëŠ” lib ì½ì–´ë“¤ì´ê¸°
 include_once("$g4[path]/lib/view.skin.lib.php");
 ?>
 
 <div width="<?=$width?>" id="view_<?=$wr_id?>">
 
-<!-- ¸µÅ© ¹öÆ° -->
-<? ob_start(); // ÇÑ¹ø ¸¸µé¾î¼­ µÎ¹ø ¾¹´Ï´Ù ?>
+<!-- ë§í¬ ë²„íŠ¼ -->
+<? ob_start(); // í•œë²ˆ ë§Œë“¤ì–´ì„œ ë‘ë²ˆ ì”ë‹ˆë‹¤ ?>
 <div id="view_top">
     <div class="btn-group">
-        <? if ($search_href) { echo "<a href=\"$search_href\" class=\"btn btn-default btn-sm btn-search\">°Ë»ö</a> "; } ?>
-        <? echo "<a href=\"$list_href\" class=\"btn btn-default btn-sm btn-list\">¸ñ·Ï</a> "; ?>
+        <? if ($search_href) { echo "<a href=\"$search_href\" class=\"btn btn-default btn-sm btn-search\">ê²€ìƒ‰</a> "; } ?>
+        <? echo "<a href=\"$list_href\" class=\"btn btn-default btn-sm btn-list\">ëª©ë¡</a> "; ?>
     </div>
     <div class="btn-group">
-        <? if ($write_href) { echo "<a href=\"$write_href\" class=\"btn btn-default btn-sm btn-write\">¾²±â</a> "; } ?>
+        <? if ($write_href) { echo "<a href=\"$write_href\" class=\"btn btn-default btn-sm btn-write\">ì“°ê¸°</a> "; } ?>
     </div>
     <div class="btn-group">
-        <? if ($reply_href) { echo "<a href=\"$reply_href\" class=\"btn btn-default btn-sm btn-reply\">´äº¯</a> "; } ?>
-        <? if ($update_href) { echo "<a href=\"$update_href\" class=\"btn btn-default btn-sm btn-modify\">¼öÁ¤</a> "; } ?>
-        <? if ($delete_href) { echo "<a href=\"$delete_href\" class=\"btn btn-default btn-sm btn-delete\">»èÁ¦</a> "; } ?>
+        <? if ($reply_href) { echo "<a href=\"$reply_href\" class=\"btn btn-default btn-sm btn-reply\">ë‹µë³€</a> "; } ?>
+        <? if ($update_href) { echo "<a href=\"$update_href\" class=\"btn btn-default btn-sm btn-modify\">ìˆ˜ì •</a> "; } ?>
+        <? if ($delete_href) { echo "<a href=\"$delete_href\" class=\"btn btn-default btn-sm btn-delete\">ì‚­ì œ</a> "; } ?>
     </div>
     <div class="btn-group">
-        <? if ($good_href) { echo "<a href=\"$good_href\" target='hiddenframe' class=\"btn btn-default btn-sm btn-good\">ÃßÃµ</a> "; } ?>
-        <? if ($nogood_href) { echo "<a href=\"$nogood_href\" target='hiddenframe' class=\"btn btn-default btn-sm btn-nogood\">ºñÃßÃµ</a> "; } ?>
-        <? if ($scrap_href) { echo "<a href=\"javascript:;\" onclick=\"win_scrap('$scrap_href');\" class=\"btn btn-default btn-sm btn-scrap\">½ºÅ©·¦</a> "; } ?>
-        <? if ($nosecret_href) { echo "<a href=\"$nosecret_href\" class=\"btn btn-default btn-sm btn-nosecret\">ºñ¹Ğ±ÛÇØÁ¦</a> "; } ?>
-        <? if ($secret_href) { echo "<a href=\"$secret_href\" class=\"btn btn-default btn-sm btn-secret\">ºñ¹Ğ±Û</a> "; } ?>
+        <? if ($good_href) { echo "<a href=\"$good_href\" target='hiddenframe' class=\"btn btn-default btn-sm btn-good\">ì¶”ì²œ</a> "; } ?>
+        <? if ($nogood_href) { echo "<a href=\"$nogood_href\" target='hiddenframe' class=\"btn btn-default btn-sm btn-nogood\">ë¹„ì¶”ì²œ</a> "; } ?>
+        <? if ($scrap_href) { echo "<a href=\"javascript:;\" onclick=\"win_scrap('$scrap_href');\" class=\"btn btn-default btn-sm btn-scrap\">ìŠ¤í¬ë©</a> "; } ?>
+        <? if ($nosecret_href) { echo "<a href=\"$nosecret_href\" class=\"btn btn-default btn-sm btn-nosecret\">ë¹„ë°€ê¸€í•´ì œ</a> "; } ?>
+        <? if ($secret_href) { echo "<a href=\"$secret_href\" class=\"btn btn-default btn-sm btn-secret\">ë¹„ë°€ê¸€</a> "; } ?>
     </div>
     <div class="btn-group pull-right">
-        <? if ($prev_href) { echo "<a href=\"$prev_href\" title=\"$prev_wr_subject\" class=\"btn btn-default btn-sm btn-prev\">ÀÌÀü±Û</a>"; } ?>
-        <? if ($next_href) { echo "<a href=\"$next_href\" title=\"$next_wr_subject\" class=\"btn btn-default btn-sm btn-next\">´ÙÀ½±Û</a>"; } ?>
+        <? if ($prev_href) { echo "<a href=\"$prev_href\" title=\"$prev_wr_subject\" class=\"btn btn-default btn-sm btn-prev\">ì´ì „ê¸€</a>"; } ?>
+        <? if ($next_href) { echo "<a href=\"$next_href\" title=\"$next_wr_subject\" class=\"btn btn-default btn-sm btn-next\">ë‹¤ìŒê¸€</a>"; } ?>
  	      <a href="javascript:scaleFont(+1);" class="btn btn-default btn-sm btn-zoom-in"><span class="glyphicon glyphicon-zoom-in"></span></a>
         <a href="javascript:scaleFont(-1);" class="btn btn-default btn-sm btn-zoom-out"><span class="glyphicon glyphicon-zoom-out"></span></a>
         <a href="#commentContents" class="btn btn-default btn-sm"><i class="fa fa-chevron-down"></i></a>
-        <? echo "<a href=\"$list_href\" class=\"btn btn-default btn-sm btn-list\">¸ñ·Ï</a> "; ?>
+        <? echo "<a href=\"$list_href\" class=\"btn btn-default btn-sm btn-list\">ëª©ë¡</a> "; ?>
     </div>
     <div class="btn-group hidden-xs hidden-sm  pull-right">
-        <? if ($copy_href) { echo "<a href=\"$copy_href\" class=\"btn btn-default btn-sm btn-copy\">º¹»ç</a> "; } ?>
-        <? if ($move_href) { echo "<a href=\"$move_href\" class=\"btn btn-default btn-sm btn-move\">ÀÌµ¿</a> "; } ?>
-        <? if ($now_href) { echo "<a href=\"$now_href\" class=\"btn btn-default btn-sm btn-update\">°»½Å</a> "; } ?>
+        <? if ($copy_href) { echo "<a href=\"$copy_href\" class=\"btn btn-default btn-sm btn-copy\">ë³µì‚¬</a> "; } ?>
+        <? if ($move_href) { echo "<a href=\"$move_href\" class=\"btn btn-default btn-sm btn-move\">ì´ë™</a> "; } ?>
+        <? if ($now_href) { echo "<a href=\"$now_href\" class=\"btn btn-default btn-sm btn-update\">ê°±ì‹ </a> "; } ?>
     </div>
 </div>
 <?
@@ -51,8 +51,8 @@ ob_end_flush();
 <div id="view_header" class="panel panel-default">
 <div class="panel-heading">
     <p class="pull-right">
-        <?if ($singo_href) { ?><a class="btn btn-default btn-xs" href="javascript:win_singo('<?=$singo_href?>');">½Å°í</a><?}?>
-        <?if ($unsingo_href) { ?><a class="btn btn-default btn-xs" href="javascript:win_unsingo('<?=$unsingo_href?>');">½Å°íÃë¼Ò</a><?}?>
+        <?if ($singo_href) { ?><a class="btn btn-default btn-xs" href="javascript:win_singo('<?=$singo_href?>');">ì‹ ê³ </a><?}?>
+        <?if ($unsingo_href) { ?><a class="btn btn-default btn-xs" href="javascript:win_unsingo('<?=$unsingo_href?>');">ì‹ ê³ ì·¨ì†Œ</a><?}?>
 		</p>
 		<p>
         <? if ($is_category) { echo ($category_name ? "[$view[ca_name]] " : ""); } ?>
@@ -61,23 +61,23 @@ ob_end_flush();
 		<p>
         <?=$view[name]?><? if ($is_ip_view) { echo "&nbsp;($ip)"; } ?>&nbsp;&nbsp;
 	  		<?php echo substr($view['wr_datetime'], 2, 14); ?>&nbsp;&nbsp;
-        Á¶È¸ <?=$view[wr_hit]?>&nbsp;&nbsp;
-        <? if ($is_good) { ?><font style="color:#BABABA;">ÃßÃµ</font> <font style="color:#BABABA;"> <?=$view[wr_good]?>&nbsp;&nbsp;&nbsp;&nbsp;</font><?}?>
-        <? if ($is_nogood) { ?><font style="color:#BABABA;">ºñÃßÃµ</font> <font style="color:#BABABA;"> <?=$view[wr_nogood]?>&nbsp;&nbsp;&nbsp;&nbsp;</font><?}?>
+        ì¡°íšŒ <?=$view[wr_hit]?>&nbsp;&nbsp;
+        <? if ($is_good) { ?><font style="color:#BABABA;">ì¶”ì²œ</font> <font style="color:#BABABA;"> <?=$view[wr_good]?>&nbsp;&nbsp;&nbsp;&nbsp;</font><?}?>
+        <? if ($is_nogood) { ?><font style="color:#BABABA;">ë¹„ì¶”ì²œ</font> <font style="color:#BABABA;"> <?=$view[wr_nogood]?>&nbsp;&nbsp;&nbsp;&nbsp;</font><?}?>
     </p>
 
     <p>
         <?
-        // °¡º¯ ÆÄÀÏ
+        // ê°€ë³€ íŒŒì¼
         $cnt = 0;
         for ($i=0; $i<count($view[file]); $i++) {
             if ($view[file][$i][source] && !$view[file][$i][view]) {
                 $cnt++;
-                echo "<i class=\"fa fa-file-o\" title='attached file'></i> <a href=\"javascript:file_download('{$view[file][$i][href]}', '{$view[file][$i][source]}');\" title='{$view[file][$i][content]}'><font style='normal 11px µ¸¿ò;'>{$view[file][$i][source]} ({$view[file][$i][size]}), Down : {$view[file][$i][download]}, {$view[file][$i][datetime]}</font></a><br>";
+                echo "<i class=\"fa fa-file-o\" title='attached file'></i> <a href=\"javascript:file_download('{$view[file][$i][href]}', '{$view[file][$i][source]}');\" title='{$view[file][$i][content]}'><font style='normal 11px ë‹ì›€;'>{$view[file][$i][source]} ({$view[file][$i][size]}), Down : {$view[file][$i][download]}, {$view[file][$i][datetime]}</font></a><br>";
             }
         }
 
-        // ¸µÅ©
+        // ë§í¬
         $cnt = 0;
         for ($i=1; $i<=$g4[link_count]; $i++) {
             if ($view[link][$i]) {
@@ -93,17 +93,17 @@ ob_end_flush();
 <div id="view_main" class="panel-body">
 
     <?
-    // ÆÄÀÏ Ãâ·Â
+    // íŒŒì¼ ì¶œë ¥
     for ($i=0; $i<=$view[file][count]; $i++) {
         if ($view[file][$i][view]) {
             echo resize_dica($view[file][$i][view],250,300) . "<p>" . $view[file][$i][content] . "</p>";
         }
     }
 
-    // ½Å°íµÈ °Ô½Ã±ÛÀÇ ÀÌ¹ÌÁö¸¦ ¼±ÅÃÇÏ¿© Ãâ·ÂÇÏ±â
+    // ì‹ ê³ ëœ ê²Œì‹œê¸€ì˜ ì´ë¯¸ì§€ë¥¼ ì„ íƒí•˜ì—¬ ì¶œë ¥í•˜ê¸°
     if ($view['wr_singo'] and trim($file_viewer)) {
-        $singo = "<div id='singo_file_title{$view[wr_id]}' class='singo_title'><font color=gray>½Å°í°¡ Á¢¼öµÈ °Ô½Ã¹°ÀÔ´Ï´Ù. ";
-        $singo .= "<span class='singo_here' style='cursor:pointer;font-weight:bold;' onclick=\"document.getElementById('singo_file{$view[wr_id]}').style.display=(document.getElementById('singo_file{$view[wr_id]}').style.display=='none'?'':'none');\"><font color=red>¿©±â</font></span>¸¦ Å¬¸¯ÇÏ½Ã¸é Ã·ºÎ ÀÌ¹ÌÁö¸¦ º¼ ¼ö ÀÖ½À´Ï´Ù.</font></div>";
+        $singo = "<div id='singo_file_title{$view[wr_id]}' class='singo_title'><font color=gray>ì‹ ê³ ê°€ ì ‘ìˆ˜ëœ ê²Œì‹œë¬¼ì…ë‹ˆë‹¤. ";
+        $singo .= "<span class='singo_here' style='cursor:pointer;font-weight:bold;' onclick=\"document.getElementById('singo_file{$view[wr_id]}').style.display=(document.getElementById('singo_file{$view[wr_id]}').style.display=='none'?'':'none');\"><font color=red>ì—¬ê¸°</font></span>ë¥¼ í´ë¦­í•˜ì‹œë©´ ì²¨ë¶€ ì´ë¯¸ì§€ë¥¼ ë³¼ ìˆ˜ ìˆìŠµë‹ˆë‹¤.</font></div>";
         $singo .= "<div id='singo_file{$view[wr_id]}' style='display:none;'><p>";
         $singo .= $file_viewer;
         $singo .= "</div>";
@@ -113,7 +113,7 @@ ob_end_flush();
     }
     ?>
 
-    <!-- ³»¿ë Ãâ·Â -->
+    <!-- ë‚´ìš© ì¶œë ¥ -->
     <span id="writeContents">
     <?
         $write_contents=resize_dica($view[content],400,300);
@@ -121,12 +121,12 @@ ob_end_flush();
     ?>
     </span>
 
-    <? if ($is_signature && $signature) { echo "<div style='margin-top:30px;margin-bottom:30px;text-align:center;'>$signature</div>"; } // ¼­¸í Ãâ·Â ?>
+    <? if ($is_signature && $signature) { echo "<div style='margin-top:30px;margin-bottom:30px;text-align:center;'>$signature</div>"; } // ì„œëª… ì¶œë ¥ ?>
 
 </div>
 
 <?
-// ±¤°í°¡ ÀÖ´Â °æ¿ì ±¤°í¸¦ ¿¬°á
+// ê´‘ê³ ê°€ ìˆëŠ” ê²½ìš° ê´‘ê³ ë¥¼ ì—°ê²°
 if (file_exists("$g4[path]/adsense/adsense_view_comment.php"))
     include_once("$g4[path]/adsense/adsense_view_comment.php");
 ?>
@@ -134,7 +134,7 @@ if (file_exists("$g4[path]/adsense/adsense_view_comment.php"))
 </div>
 
 <?
-// ÄÚ¸àÆ® ÀÔÃâ·Â
+// ì½”ë©˜íŠ¸ ì…ì¶œë ¥
 if (!$board['bo_comment_read_level'])
   include_once("./view_comment.php");
 else if ($member['mb_level'] >= $board['bo_comment_read_level'])
@@ -153,4 +153,4 @@ window.onload=function() {
     OnclickCheck(document.getElementById("writeContents"), '<?=$config[cf_link_target]?>'); 
 }
 </script>
-<!-- °Ô½Ã±Û º¸±â ³¡ -->
+<!-- ê²Œì‹œê¸€ ë³´ê¸° ë -->

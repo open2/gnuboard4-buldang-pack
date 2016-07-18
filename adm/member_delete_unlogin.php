@@ -7,37 +7,37 @@ check_demo();
 auth_check($auth[$sub_menu], "d");
 
 if ($is_admin != "super")
-    alert("È¸¿øÁ¤¸®´Â ÃÖ°í°ü¸®ÀÚ¸¸ °¡´ÉÇÕ´Ï´Ù.");
+    alert("íšŒì›ì •ë¦¬ëŠ” ìµœê³ ê´€ë¦¬ìë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
-$g4[title] = "ÈŞ¸éÈ¸¿ø Á¤¸®";
+$g4[title] = "íœ´ë©´íšŒì› ì •ë¦¬";
 
 include_once("./admin.head.php");
 echo "<span id='ct'></span>";
 include_once("./admin.tail.php");
 flush();
 
-echo "<script>document.getElementById('ct').innerHTML += '<p>ÈŞ¸éÈ¸¿ø Á¤¸®Áß...';</script>\n";
+echo "<script>document.getElementById('ct').innerHTML += '<p>íœ´ë©´íšŒì› ì •ë¦¬ì¤‘...';</script>\n";
 flush();
 
-$login_time = "365"; //Áö³­ ¸îÀÏ µ¿¾È Á¢¼ÓÇÏÁö ¾ÊÀº È¸¿øÀ» »èÁ¦ÇÒÁö¸¦ °áÁ¤?
+$login_time = "365"; //ì§€ë‚œ ëª‡ì¼ ë™ì•ˆ ì ‘ì†í•˜ì§€ ì•Šì€ íšŒì›ì„ ì‚­ì œí• ì§€ë¥¼ ê²°ì •?
 $today_login_time = date("Y-m-d H:i:s", $g4['server_time'] - ($login_time * 86400));
 
-// $login_timeÀÏ ÀÌÀü¿¡ ·Î±×ÀÎÇÑ È¸¿ø Ãâ·Â. Áï ÃÖ±Ù $login_timeÀÏ¾È¿¡ ·Î±×ÀÎÇÑ »ç¶÷ÀÌ ¾ø´Ù´Â °ÍÀÌ´Ù.
+// $login_timeì¼ ì´ì „ì— ë¡œê·¸ì¸í•œ íšŒì› ì¶œë ¥. ì¦‰ ìµœê·¼ $login_timeì¼ì•ˆì— ë¡œê·¸ì¸í•œ ì‚¬ëŒì´ ì—†ë‹¤ëŠ” ê²ƒì´ë‹¤.
 $sql = " select * from $g4[member_table] where mb_today_login < '$today_login_time' and mb_level > '1' order by mb_today_login desc ";
 $result = sql_query($sql);
 
 $j = 0;
 for ($i=0; $row=sql_fetch_array($result); $i++) { 
 
-    // mb_unloginÀ» ÇöÀç ½ÃÁ¡À¸·Î update
+    // mb_unloginì„ í˜„ì¬ ì‹œì ìœ¼ë¡œ update
     $sql = " update $g4[member_table] set mb_unlogin = '$g4[time_ymdhis]' where mb_id = '$row[mb_id]' ";
     sql_query($sql);
 
-    // unlogin Å×ÀÌºí·Î µ¥ÀÌÅÍ¸¦ º¹»ç
+    // unlogin í…Œì´ë¸”ë¡œ ë°ì´í„°ë¥¼ ë³µì‚¬
     $sql = " replace $g4[unlogin_table] select * from $g4[member_table] where mb_id = '$row[mb_id]' ";
     sql_query($sql);
 
-    // member_tableÀ» reset
+    // member_tableì„ reset
     $sql = " update $g4[member_table]
               set 
                   mb_password = md5('" . $row[mb_password] . "'),
@@ -68,6 +68,6 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 <br><br>
 
 <?
-echo "<script>document.getElementById('ct').innerHTML += '<p>ÃÑ ".$i."¸íÀÇ È¸¿øÀÌ Á¤¸® µÇ¾ú½À´Ï´Ù.';</script>\n";
+echo "<script>document.getElementById('ct').innerHTML += '<p>ì´ ".$i."ëª…ì˜ íšŒì›ì´ ì •ë¦¬ ë˜ì—ˆìŠµë‹ˆë‹¤.';</script>\n";
 ?>
 

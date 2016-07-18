@@ -10,32 +10,32 @@ $token = get_token();
 $sql = " select count(*) as cnt from $g4[banner_group_table] ";
 $row = sql_fetch($sql);
 if (!$row[cnt])
-    alert("¹è³Ê±×·ìÀÌ ÇÑ°³ ÀÌ»ó »ı¼ºµÇ¾î¾ß ÇÕ´Ï´Ù.", "./banner_group_form.php");
+    alert("ë°°ë„ˆê·¸ë£¹ì´ í•œê°œ ì´ìƒ ìƒì„±ë˜ì–´ì•¼ í•©ë‹ˆë‹¤.", "./banner_group_form.php");
 
-$html_title = "¹è³Ê";
+$html_title = "ë°°ë„ˆ";
 if ($w == "") {
-    $html_title .= " »ı¼º";
+    $html_title .= " ìƒì„±";
 
     $bn['bg_id'] = $bg_id;
 
 } else if ($w == "u") {
-    $html_title .= " ¼öÁ¤";
+    $html_title .= " ìˆ˜ì •";
 
     $sql = " select * from $g4[banner_table] where bn_id = '$bn_id' ";
     $bn = sql_fetch($sql);
     if (!$bn[bn_id])
-        alert("Á¸ÀçÇÏÁö ¾Ê´Â ¹è³Ê ÀÔ´Ï´Ù.");
+        alert("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ë°°ë„ˆ ì…ë‹ˆë‹¤.");
 
     $bn_table_attr = "readonly style='background-color:#dddddd'";
 }
 
-// ±×·ì°ü¸® ±ÇÇÑ Ã¼Å©
+// ê·¸ë£¹ê´€ë¦¬ ê¶Œí•œ ì²´í¬
 $sql = " select * from $g4[banner_group_table] where bg_id = '$bg_id' ";
 $bg = sql_fetch($sql);
 
 if ($is_admin !== "super") {
     if ($member[mb_id] !== $bg[bg_admin]) 
-        alert("±×·ìÀÌ Æ²¸³´Ï´Ù.");
+        alert("ê·¸ë£¹ì´ í‹€ë¦½ë‹ˆë‹¤.");
     else
         $is_admin = "group";
 }
@@ -64,40 +64,40 @@ include_once ("$g4[path]/lib/banner.lib.php");
 </tr>
 <tr>
     <td></td>
-    <td>¹è³ÊID</td>
-    <td><input type=text class=ed name=bn_id size=30 maxlength=20 <?=$bn_table_attr?> required itemname='¹è³ÊID' value='<?=$bn[bn_id] ?>'>
+    <td>ë°°ë„ˆID</td>
+    <td><input type=text class=ed name=bn_id size=30 maxlength=20 <?=$bn_table_attr?> required itemname='ë°°ë„ˆID' value='<?=$bn[bn_id] ?>'>
         <? 
         if ($w == "") 
-            echo "¿µ¹®ÀÚ, ¼ıÀÚ, _ ¸¸ °¡´É (°ø¹é¾øÀÌ 20ÀÚ ÀÌ³»)";
+            echo "ì˜ë¬¸ì, ìˆ«ì, _ ë§Œ ê°€ëŠ¥ (ê³µë°±ì—†ì´ 20ì ì´ë‚´)";
         ?>
     </td>
 </tr>
 <tr>
     <td></td>
-    <td>±×·ì</td>
+    <td>ê·¸ë£¹</td>
     <td>
-        <?=get_banner_group_select('bg_id', $bn[bg_id], "required itemname='±×·ì'");?>
-        <? if ($w=='u') { ?><a href="javascript:location.href='./banner_list.php?sfl=a.bg_id&stx='+document.fbannerform.bg_id.value;">µ¿ÀÏ±×·ì¹è³Ê¸ñ·Ï</a><?}?></td>
+        <?=get_banner_group_select('bg_id', $bn[bg_id], "required itemname='ê·¸ë£¹'");?>
+        <? if ($w=='u') { ?><a href="javascript:location.href='./banner_list.php?sfl=a.bg_id&stx='+document.fbannerform.bg_id.value;">ë™ì¼ê·¸ë£¹ë°°ë„ˆëª©ë¡</a><?}?></td>
 </tr>
 <tr>
     <td></td>
-    <td>¹è³Ê Á¦¸ñ</td>
+    <td>ë°°ë„ˆ ì œëª©</td>
     <td>
-        <input type=text class=ed name=bn_subject size=60 maxlength=120 required itemname='¹è³Ê Á¦¸ñ' value='<?=get_text($bn[bn_subject])?>'> (alt ¶Ç´Â title)
+        <input type=text class=ed name=bn_subject size=60 maxlength=120 required itemname='ë°°ë„ˆ ì œëª©' value='<?=get_text($bn[bn_subject])?>'> (alt ë˜ëŠ” title)
     </td>
 </tr>
 
 <tr>
     <td></td>
-    <td>¹è³Ê ÀÌ¹ÌÁö</td>
+    <td>ë°°ë„ˆ ì´ë¯¸ì§€</td>
     <td style='padding-top:7px; padding-bottom:7px;'>
-        <b>¹è³Ê ÀÌ¹ÌÁö´Â ³ôÀÌ : <?=$bg[bg_width]?>px, ³ĞÀÌ : <?=$bg[bg_height]?>px Å©±â·Î ³Ö¾îÁÖ¼¼¿ä.</b><br>
+        <b>ë°°ë„ˆ ì´ë¯¸ì§€ëŠ” ë†’ì´ : <?=$bg[bg_width]?>px, ë„“ì´ : <?=$bg[bg_height]?>px í¬ê¸°ë¡œ ë„£ì–´ì£¼ì„¸ìš”.</b><br>
         <input type=file name=bn_image class=ed size=60>
         <?
         if ($bn[bn_image]) {
             $bn_image = "$g4[data_path]/banner/{$bn['bg_id']}/$bn[bn_image]";
-            echo "<br><a href='$bn_image' target='_blank'>$bn[bn_image] ( $bn[bn_filename] )</a> <input type=checkbox name='bn_image_del' value='$bn[bn_image]'> »èÁ¦";
-            // »çÀÌÁî¸¦ ±»ÀÌ db¿¡ ³Ö¾îµÑ ÇÊ¿ä´Â ¾ø½¿.
+            echo "<br><a href='$bn_image' target='_blank'>$bn[bn_image] ( $bn[bn_filename] )</a> <input type=checkbox name='bn_image_del' value='$bn[bn_image]'> ì‚­ì œ";
+            // ì‚¬ì´ì¦ˆë¥¼ êµ³ì´ dbì— ë„£ì–´ë‘˜ í•„ìš”ëŠ” ì—†ìŠ´.
             $im = getimagesize($bn_image);
             echo "<br>$im[3]";
             echo "<br><a href='$bn_image' target=_blank><img src='" . resize_dica($bn_image, 500) . "'></a>";
@@ -108,7 +108,7 @@ include_once ("$g4[path]/lib/banner.lib.php");
 </tr>
 <tr>
     <td></td>
-    <td>¹è³Ê TEXT</td>
+    <td>ë°°ë„ˆ TEXT</td>
     <td style='padding-top:7px; padding-bottom:7px;'>
         <script type="text/javascript" src="<?=$g4[cheditor4_path]?>/cheditor.js?v=$g4[cheditor_ver]"></script>
         <?=cheditor1('bn_text', '100%', '200');?>
@@ -118,62 +118,62 @@ include_once ("$g4[path]/lib/banner.lib.php");
 
 <tr>
     <td><input type=checkbox name=chk_use value=1></td>
-    <td>¹è³Ê»ç¿ë</td>
-    <td><input type=checkbox name=bn_use value='1' <?=$bn[bn_use]?'checked':'';?>>»ç¿ë</td>
+    <td>ë°°ë„ˆì‚¬ìš©</td>
+    <td><input type=checkbox name=bn_use value='1' <?=$bn[bn_use]?'checked':'';?>>ì‚¬ìš©</td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_target value=1></td>
-    <td>¹è³ÊÅ¸°Ù</td>
-    <td><input type=checkbox name=bn_target value='1' <?=$bn[bn_target]?'checked':'';?>>»õÃ¢ (Ã¼Å©ÇÏ¸é »õÃ¢À¸·Î)</td>
+    <td>ë°°ë„ˆíƒ€ê²Ÿ</td>
+    <td><input type=checkbox name=bn_target value='1' <?=$bn[bn_target]?'checked':'';?>>ìƒˆì°½ (ì²´í¬í•˜ë©´ ìƒˆì°½ìœ¼ë¡œ)</td>
 </tr>
 <tr>
     <td></td>
-    <td>Å¸°ÙURL</td>
-    <td><input type=text class=ed name=bn_url size=60 required itemname='Å¸°Ù URL' value='<?=$bn[bn_url]?>'></td>
+    <td>íƒ€ê²ŸURL</td>
+    <td><input type=text class=ed name=bn_url size=60 required itemname='íƒ€ê²Ÿ URL' value='<?=$bn[bn_url]?>'></td>
 </tr>
 
 <tr>
     <td><input type=checkbox name=chk_start_datetime value=1></td>
-    <td>½ÃÀÛÀÏ</td>
+    <td>ì‹œì‘ì¼</td>
     <td><input type=text class=ed name='bn_start_datetime' id='bn_start_datetime' size=24 maxlength=19 required value='<?=$bn[bn_start_datetime]?>'>
-    <a href="javascript:win_calendar('bn_start_datetime', document.getElementById('bn_start_datetime').value, '-');"><img src='<?=$g4[admin_path]?>/img/calendar.gif' border=0 align=absmiddle title='´Ş·Â - ³¯Â¥¸¦ ¼±ÅÃÇÏ¼¼¿ä'></a>
+    <a href="javascript:win_calendar('bn_start_datetime', document.getElementById('bn_start_datetime').value, '-');"><img src='<?=$g4[admin_path]?>/img/calendar.gif' border=0 align=absmiddle title='ë‹¬ë ¥ - ë‚ ì§œë¥¼ ì„ íƒí•˜ì„¸ìš”'></a>
     </td>
 </tr>
 <tr>
     <td><input type=checkbox name=chk_end_datetime value=1></td>
-    <td>Á¾·áÀÏ</td>
+    <td>ì¢…ë£Œì¼</td>
     <td><input type=text class=ed name='bn_end_datetime' id='bn_end_datetime' size=24 maxlength=19 required value='<?=$bn[bn_end_datetime]?>'>
-    <a href="javascript:win_calendar('bn_end_datetime', document.getElementById('bn_end_datetime').value, '-');"><img src='<?=$g4[admin_path]?>/img/calendar.gif' border=0 align=absmiddle title='´Ş·Â - ³¯Â¥¸¦ ¼±ÅÃÇÏ¼¼¿ä'></a>
-    +30<input type=button name=end_date_chk1 value="<? echo date("Y-m-d", $g4[server_time]+(60*60*24*30)); ?>" onclick="this.form.bn_end_datetime.value=this.value+' 23:59:59'" title='¿À´Ã+30ÀÏ'>
-    +90<input type=button name=end_date_chk2 value="<? echo date("Y-m-d", $g4[server_time]+(60*60*24*90)); ?>" onclick="this.form.bn_end_datetime.value=this.value+' 23:59:59'" title='¿À´Ã+90ÀÏ'>
-    +180<input type=button name=end_date_chk3 value="<? echo date("Y-m-d", $g4[server_time]+(60*60*24*180)); ?>" onclick="this.form.bn_end_datetime.value=this.value+' 23:59:59'" title='¿À´Ã+180ÀÏ'>
+    <a href="javascript:win_calendar('bn_end_datetime', document.getElementById('bn_end_datetime').value, '-');"><img src='<?=$g4[admin_path]?>/img/calendar.gif' border=0 align=absmiddle title='ë‹¬ë ¥ - ë‚ ì§œë¥¼ ì„ íƒí•˜ì„¸ìš”'></a>
+    +30<input type=button name=end_date_chk1 value="<? echo date("Y-m-d", $g4[server_time]+(60*60*24*30)); ?>" onclick="this.form.bn_end_datetime.value=this.value+' 23:59:59'" title='ì˜¤ëŠ˜+30ì¼'>
+    +90<input type=button name=end_date_chk2 value="<? echo date("Y-m-d", $g4[server_time]+(60*60*24*90)); ?>" onclick="this.form.bn_end_datetime.value=this.value+' 23:59:59'" title='ì˜¤ëŠ˜+90ì¼'>
+    +180<input type=button name=end_date_chk3 value="<? echo date("Y-m-d", $g4[server_time]+(60*60*24*180)); ?>" onclick="this.form.bn_end_datetime.value=this.value+' 23:59:59'" title='ì˜¤ëŠ˜+180ì¼'>
     </td>
 </tr>
 <tr>
     <td></td>
-    <td>¹è³Ê ¼ø¼­</td>
-    <td><input type=text class=ed name=bn_order size=5 value='<?=$bn[bn_order]?>'> ¼ıÀÚ°¡ ³·Àº ¹è³Ê ºÎÅÍ °Ë»ö</td>
+    <td>ë°°ë„ˆ ìˆœì„œ</td>
+    <td><input type=text class=ed name=bn_order size=5 value='<?=$bn[bn_order]?>'> ìˆ«ìê°€ ë‚®ì€ ë°°ë„ˆ ë¶€í„° ê²€ìƒ‰</td>
 </tr>
 
 <? for ($i=1; $i<=3; $i++) { ?>
 <tr>
     <td><input type=checkbox name=chk_<?=$i?> value=1></td>
-    <td><input type=text class=ed name='bn_<?=$i?>_subj' value='<?=get_text($bn["bn_{$i}_subj"])?>' title='¿©ºĞÇÊµå <?=$i?> Á¦¸ñ' style='text-align:right;font-weight:bold;'></td>
-    <td><input type=text class=ed style='width:80%;' name='bn_<?=$i?>' value='<?=get_text($bn["bn_$i"])?>' title='¿©ºĞÇÊµå <?=$i?> ¼³Á¤°ª'></td>
+    <td><input type=text class=ed name='bn_<?=$i?>_subj' value='<?=get_text($bn["bn_{$i}_subj"])?>' title='ì—¬ë¶„í•„ë“œ <?=$i?> ì œëª©' style='text-align:right;font-weight:bold;'></td>
+    <td><input type=text class=ed style='width:80%;' name='bn_<?=$i?>' value='<?=get_text($bn["bn_$i"])?>' title='ì—¬ë¶„í•„ë“œ <?=$i?> ì„¤ì •ê°’'></td>
 </tr>
 <? } ?>
 
 <tr>
     <td></td>
-    <td>¹è³Ê ¼öÁ¤ÀÏ</td>
+    <td>ë°°ë„ˆ ìˆ˜ì •ì¼</td>
     <td><?=$bn['bn_datetime']?></td>
 </tr>
 
 </table>
 
 <p align=center>
-    <input type=submit class="btn btn-default" accesskey='s' value='  È®  ÀÎ  '>&nbsp;
-    <input type=button class="btn btn-default" value='  ¸ñ  ·Ï  ' onclick="document.location.href='./banner_list.php?<?=$qstr?>';">&nbsp;
+    <input type=submit class="btn btn-default" accesskey='s' value='  í™•  ì¸  '>&nbsp;
+    <input type=button class="btn btn-default" value='  ëª©  ë¡  ' onclick="document.location.href='./banner_list.php?<?=$qstr?>';">&nbsp;
 </form>
 
 <script type="text/javascript">
@@ -181,11 +181,11 @@ function fbannerform_submit(f) {
     var tmp_title;
     var tmp_image;
 
-    tmp_title = "¹è³Ê";
+    tmp_title = "ë°°ë„ˆ";
     tmp_image = f.bn_image;
     if (tmp_image.value) {
         if (!tmp_image.value.toLowerCase().match(/.(gif|jpg|png)$/i)) {
-            alert(tmp_title + "ÀÌ¹ÌÁö°¡ gif, jpg, png ÆÄÀÏÀÌ ¾Æ´Õ´Ï´Ù.");
+            alert(tmp_title + "ì´ë¯¸ì§€ê°€ gif, jpg, png íŒŒì¼ì´ ì•„ë‹™ë‹ˆë‹¤.");
             return false;
         }
     }

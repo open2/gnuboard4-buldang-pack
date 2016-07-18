@@ -1,19 +1,19 @@
 <?
 include_once("./_common.php");
 
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
 include_once("$g4[path]/_head.php");
 
-// Ãâ¼®½Ã°£ ¼³Á¤
+// ì¶œì„ì‹œê°„ ì„¤ì •
 ?>
 
 <table width="100%" cellspacing="0" cellpadding="0" align="center" valign="top">
   <tr>
     <td align=center>
     <br>
-    00:00:00ºÎÅÍ Ãâ¼®¼ø¼­·Î 30¸íÀ» Ãâ·Â ÇÕ´Ï´Ù(½Ã°£ÀÌ °°Àº °æ¿ì´Â Æ÷ÀÎÆ®°¡ ÀûÀº ºĞÀÌ ¿ì¼±µË´Ï´Ù).<br>
-    °¡Àå ¸ÕÀú Ãâ¼®ÇÑ ºĞ¿¡°Ô´Â ¾Æ¹«·± ¼±¹°(?)ÀÌ³ª ÇıÅÃÀÌ ¾ø½À´Ï´Ù.
+    00:00:00ë¶€í„° ì¶œì„ìˆœì„œë¡œ 30ëª…ì„ ì¶œë ¥ í•©ë‹ˆë‹¤(ì‹œê°„ì´ ê°™ì€ ê²½ìš°ëŠ” í¬ì¸íŠ¸ê°€ ì ì€ ë¶„ì´ ìš°ì„ ë©ë‹ˆë‹¤).<br>
+    ê°€ì¥ ë¨¼ì € ì¶œì„í•œ ë¶„ì—ê²ŒëŠ” ì•„ë¬´ëŸ° ì„ ë¬¼(?)ì´ë‚˜ í˜œíƒì´ ì—†ìŠµë‹ˆë‹¤.
     <br>
     <br>
     </td>
@@ -24,46 +24,46 @@ include_once("$g4[path]/_head.php");
 				<tr><td colspan="9" height="3" bgcolor="#F2F2F2"></td></tr>
 				<tr><td colspan="9" height="1" bgcolor="#D9D9D9"></td></tr>
 				<tr height="30">
-					<td width="100" align="center"><span class="at_rk_s">¼ø¼­</span></td>
+					<td width="100" align="center"><span class="at_rk_s">ìˆœì„œ</span></td>
 					<td width="1"></td>
-					<td width="150" align="center"><span class="at_rk_s">Ãâ¼®½Ã°£</span></td>
+					<td width="150" align="center"><span class="at_rk_s">ì¶œì„ì‹œê°„</span></td>
 					<td width="1"></td>
-					<td width="100" align="center"><span class="at_rk_s">Á¢¼Ó»óÅÂ</span></td>
+					<td width="100" align="center"><span class="at_rk_s">ì ‘ì†ìƒíƒœ</span></td>
 					<td width="1"></td>
-					<td align="center"><span class="at_rk_s">´Ğ³×ÀÓ</span></td>
+					<td align="center"><span class="at_rk_s">ë‹‰ë„¤ì„</span></td>
 					<td width="1"></td>
-					<td width="100" align="center" style="padding:0 0 0 5px;"><span class="at_rk_s">Æ÷ÀÎÆ®</span></td>
+					<td width="100" align="center" style="padding:0 0 0 5px;"><span class="at_rk_s">í¬ì¸íŠ¸</span></td>
 				</tr>
 				<tr><td colspan="9" height="1" bgcolor="#D9D9D9"></td></tr>
 				<tr><td colspan="9" height="3" bgcolor="#F2F2F2"></td></tr>
 <?
-// ½ÃÀÛ½Ã°£
+// ì‹œì‘ì‹œê°„
 $str_today_time = date("Y-m-d 00:00:00");
 
-// È¸¿øÅ×ÀÌºí ¿¬°á
+// íšŒì›í…Œì´ë¸” ì—°ê²°
 $sql_select = " mb_id, mb_nick, mb_email, mb_homepage, mb_today_login, mb_point ";
 $sql = " select $sql_select from $g4[member_table] where mb_today_login >= '$str_today_time' and mb_id != '$config[cf_admin]' order by mb_today_login asc, mb_point asc limit 30";
 $result = sql_query($sql);
 for ($i=0; $row = sql_fetch_array($result); $i++) {
 
-// Á¢¼ÓÀÚÅ×ÀÌºí ¿¬°á
+// ì ‘ì†ìí…Œì´ë¸” ì—°ê²°
 $sql2 = " select mb_id from $g4[login_table] where mb_id = '$row[mb_id]' ";
 $row2 = sql_fetch($sql2);
 
-// Á¢¼Ó»óÅÂ
+// ì ‘ì†ìƒíƒœ
 if ($row2['mb_id']) {
-$on = "Á¢¼ÓÁß";
+$on = "ì ‘ì†ì¤‘";
 } else {
 $on = "";
 }
 
-// ´Ğ³×ÀÓ
+// ë‹‰ë„¤ì„
 $name = get_sideview($row[mb_id], get_text($row[mb_nick]), $row[mb_email], $row[mb_homepage]);
 
-// ·©Å·
+// ë­í‚¹
 $rank = $i + 1;
 
-// »ö»ó
+// ìƒ‰ìƒ
 if ($member['mb_id'] == $row['mb_id']) {
 $list = "2";
 } else {
@@ -80,7 +80,7 @@ $list = ($i%2);
 					<td width="1"></td>
 					<td align="center"><span class="at_rk_n"><?=$name?></span></td>
 					<td width="1"></td>
-					<td width="100" align="right" style="padding:0 5 0 0px;"><span class="at_rk_n"><?=number_format($row['mb_point']);?> Á¡</span></td>
+					<td width="100" align="right" style="padding:0 5 0 0px;"><span class="at_rk_n"><?=number_format($row['mb_point']);?> ì </span></td>
 				</tr>
 				<tr><td bgcolor="#EEEEEE" colspan="9"></td></tr>
 <? } ?>

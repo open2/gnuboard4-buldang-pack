@@ -2,7 +2,7 @@
 $g4['path'] = "..";
 include_once ("../config.php");
 
-// �۹̼��� ������ ���� �������� ��´�. drwxrwxrwx
+// 퍼미션을 다음과 같은 형식으로 얻는다. drwxrwxrwx
 function get_perms($mode)
 {
     /* Determine Type */
@@ -45,23 +45,23 @@ function get_perms($mode)
     return $perms;
 }
 
-// ������ �����Ѵٸ� ��ġ�� �� ����.
+// 파일이 존재한다면 설치할 수 없다.
 if (file_exists("../dbconfig.php")) {
     echo "<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'>";    
     echo <<<HEREDOC
     <script type="text/javascript">
-    alert("dbconfig.php�� �־ ��ġ�Ͻ� �� �����ϴ�.\n��ġ�Ͻ÷��� dbconfig.php�� ���켼��.\n���� ��ġ�� �ϸ� db�� ��� ������ �� �ֽ��ϴ�.");
+    alert("dbconfig.php가 있어서 설치하실 수 없습니다.\n설치하시려면 dbconfig.php를 지우세요.\n새로 설치를 하면 db는 모두 삭제될 수 있습니다.");
     location.href="../";
     </script>
 HEREDOC;
     exit;
 }
 
-// ��Ʈ ���丮�� ���� ���� �������� �˻�.
+// 루트 디렉토리에 파일 생성 가능한지 검사.
 if (!is_writeable("..")) 
 {
     echo "<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'>";
-    echo "<script language='JavaScript'>alert('��Ʈ ���丮�� �۹̼��� 707�� �����Ͽ� �ֽʽÿ�.\\n\\ncommon.php ������ �ִ°��� ��Ʈ ���丮 �Դϴ�.\\n\\n$> chmod 707 . \\n\\n�� ���� ��ġ�Ͽ� �ֽʽÿ�.');</script>"; 
+    echo "<script language='JavaScript'>alert('루트 디렉토리의 퍼미션을 707로 변경하여 주십시오.\\n\\ncommon.php 파일이 있는곳이 루트 디렉토리 입니다.\\n\\n$> chmod 707 . \\n\\n그 다음 설치하여 주십시오.');</script>"; 
     exit;
 }
 ?>
@@ -69,7 +69,7 @@ if (!is_writeable(".."))
 <html lang="ko">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=<?=$g4['charset']?>">
-<title>�״�����4 ��ġ (1/3) - ���̼���(License)</title>
+<title>그누보드4 설치 (1/3) - 라이센스(License)</title>
 
 <link rel="stylesheet" href="<?=$g4['path']?>/js/bootstrap/css/bootstrap.min.css?bver=<?=$g4[bver]?>" type="text/css" media="screen" title="no title" charset="<?=$g4[charset]?>">
 <link rel="stylesheet" href="<?=$g4['path']?>/js/font-awesome/css/font-awesome.min.css?aver=<?=$g4[aver]?>" type="text/css" media="screen" title="no title" charset="<?=$g4[charset]?>">
@@ -92,24 +92,24 @@ if (!is_writeable(".."))
 
 <div class="panel panel-primary">
 <div class="panel-heading">
-    <strong>�״�����4 ��ġ (1/3)</strong>
+    <strong>그누보드4 설치 (1/3)</strong>
 </div>
 <div class="panel-body">
     <p>
-    ���̼���(License) ������ �ݵ�� Ȯ���Ͻʽÿ�.
+    라이센스(License) 내용을 반드시 확인하십시오.
     </p>
     <textarea name="textarea" style='width:99%;margin-bottom:10px;' rows="9" class="box" readonly><?=implode("", file("../LICENSE"));?></textarea>
     <textarea name="textarea" style='width:99%' rows="9" class="box" readonly><?=implode("", file("../LICENSE_BD"));?></textarea>
     
     <p style="margin-top:5px;" class="text-danger">
-    ��ġ�� ���Ͻø� �� ���뿡 �����ϼž� �մϴ�.<br>
-    ���Ǹ� ���Ͻø� &lt;��, �����մϴ�&gt; ��ư�� Ŭ���� �ּ���.
+    설치를 원하시면 위 내용에 동의하셔야 합니다.<br>
+    동의를 원하시면 &lt;예, 동의합니다&gt; 버튼을 클릭해 주세요.
     </p>
 
     <div class="pull-right">
         <form name=frm method=post onsubmit="return frm_submit(document.frm);" autocomplete="off" role="form" class="form-inline">
-        <input type="hidden" name="agree" value="������">
-        <input type="submit" name="btn_submit" class="btn btn-default" value="��, �����մϴ� ">
+        <input type="hidden" name="agree" value="동의함">
+        <input type="submit" name="btn_submit" class="btn btn-default" value="예, 동의합니다 ">
         </form>
     </div>
 

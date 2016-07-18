@@ -1,5 +1,5 @@
 <?
-// SEO À¯ÀÔÅ°¿öµå °ü¸®
+// SEO ìœ ìž…í‚¤ì›Œë“œ ê´€ë¦¬
 $sub_menu = "200830";
 include_once("./_common.php");
 
@@ -7,7 +7,7 @@ auth_check($auth[$sub_menu], "r");
 
 $token = get_token();
 
-$g4[title] = "SEO-À¯ÀÔÅ°¿öµå";
+$g4[title] = "SEO-ìœ ìž…í‚¤ì›Œë“œ";
 include_once ("./admin.head.php");
 
 $g4[board_file_download_table] = $g4[board_file_table] . "_download";
@@ -48,9 +48,9 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if ($page == "") $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ íŽ˜ì´ì§€ ê³„ì‚°
+if ($page == "") $page = 1; // íŽ˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« íŽ˜ì´ì§€ (1 íŽ˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œìž‘ ì—´ì„ êµ¬í•¨
 
 $sql = " select a.*, b.bo_subject
           $sql_common
@@ -59,22 +59,22 @@ $sql = " select a.*, b.bo_subject
           limit $from_record, $rows ";
 $result = sql_query($sql);
 
-$listall = "<a href='$_SERVER[PHP_SELF]'>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]'>ì²˜ìŒ</a>";
 ?>
 
 <form name=fsearch method=get role="form" class="form-inline">
 <div class="btn-group">
-    <?=$listall?> (°Ç¼ö : <?=number_format($total_count)?>)
+    <?=$listall?> (ê±´ìˆ˜ : <?=number_format($total_count)?>)
 </div>
 <div class="pull-right">
     <select name=sfl class="form-control">
-        <option value='a.tag_name'>ÅÂ±×¸í</option>
-        <option value='a.bo_table'>°Ô½ÃÆÇ</option>
-        <option value='a.tag_date'>°Ë»öÀÏ½Ã</option>
-        <option value='a.count'>°Ë»öÈ½¼ö</option>    </select>
-    <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<?=$stx?>'>
+        <option value='a.tag_name'>íƒœê·¸ëª…</option>
+        <option value='a.bo_table'>ê²Œì‹œíŒ</option>
+        <option value='a.tag_date'>ê²€ìƒ‰ì¼ì‹œ</option>
+        <option value='a.count'>ê²€ìƒ‰íšŸìˆ˜</option>    </select>
+    <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<?=$stx?>'>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 </form>
@@ -96,11 +96,11 @@ $listall = "<a href='$_SERVER[PHP_SELF]'>Ã³À½</a>";
 <colgroup width=60>
 <tr class="success">
     <td><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
-    <td><?=subject_sort_link('a.tag_name')?>ÅÂ±×¸í</a></td>
-    <td><?=subject_sort_link('a.bo_table')?>°Ô½ÃÆÇ</a></td>
-    <td>°Ô½Ã±ÛÁ¦¸ñ</td>
-    <td><?=subject_sort_link('a.tag_date')?>°Ë»öÀÏ½Ã</a></td>
-    <td>°Ë»öÈ½¼ö</td>
+    <td><?=subject_sort_link('a.tag_name')?>íƒœê·¸ëª…</a></td>
+    <td><?=subject_sort_link('a.bo_table')?>ê²Œì‹œíŒ</a></td>
+    <td>ê²Œì‹œê¸€ì œëª©</td>
+    <td><?=subject_sort_link('a.tag_date')?>ê²€ìƒ‰ì¼ì‹œ</a></td>
+    <td>ê²€ìƒ‰íšŸìˆ˜</td>
 </tr>
 <?
 $sql = " select a.*, b.bo_subject
@@ -116,7 +116,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
         $write = sql_fetch("select * from $tmp_write_table where wr_id = $row[wr_id] ", FALSE);
         
         if ($write['wr_subject'] == "") {
-            $write['wr_subject'] = "»èÁ¦µÈ °Ô½ÃÆÇ";
+            $write['wr_subject'] = "ì‚­ì œëœ ê²Œì‹œíŒ";
         }
     }
     echo "
@@ -132,12 +132,12 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 } 
 
 if ($i == 0)
-    echo "<tr><td colspan='6' align=center height=100>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='6' align=center height=100>ìžë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- íŽ˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>

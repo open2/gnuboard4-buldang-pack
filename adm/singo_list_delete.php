@@ -11,18 +11,18 @@ check_token();
 //print_r2($_POST);
 
 for ($i=0; $i<count($chk); $i++) {
-    // ½ÇÁ¦ ¹øÈ£¸¦ ³Ñ±è
+    // ì‹¤ì œ ë²ˆí˜¸ë¥¼ ë„˜ê¹€
     $k = $_POST[chk][$i];
 
-    // ½Å°íÅ×ÀÌºí¿¡¼­ °Ô½ÃÆÇ Å×ÀÌºí°ú ¾ÆÀÌµð¸¦ ÀÐ¾î
+    // ì‹ ê³ í…Œì´ë¸”ì—ì„œ ê²Œì‹œíŒ í…Œì´ë¸”ê³¼ ì•„ì´ë””ë¥¼ ì½ì–´
     $sql = " select bo_table, wr_id from $g4[singo_table] where sg_id = '$sg_id[$k]' ";
     $row = sql_fetch($sql);
 
-    // ½Å°í ÀÚ·á¸¦ »èÁ¦
+    // ì‹ ê³  ìžë£Œë¥¼ ì‚­ì œ
     $sql = " delete from $g4[singo_table] where sg_id = '$sg_id[$k]' ";
     sql_query($sql);
 
-    // ½Å°í ÇÊµåÀÇ ½Å°í Ä«¿îÆ®¸¦ ¼öÁ¤ÇÑ´Ù
+    // ì‹ ê³  í•„ë“œì˜ ì‹ ê³  ì¹´ìš´íŠ¸ë¥¼ ìˆ˜ì •í•œë‹¤
     $sql = " select count(*) as cnt from $g4[singo_table] where bo_table = '$row[bo_table]' and wr_id = '$row[wr_id]' ";
     $sg_result = sql_fetch($sql);
     if ($row['bo_table'] == '@memo') {

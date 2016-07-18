@@ -1,30 +1,30 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
 if (!$skin_title) {
     if ($board[bo_subject]) {
         $skin_title = $board[bo_subject];
         $skin_title_link = "$g4[bbs_path]/board.php?bo_table=$bo_table";
     } else {
-        $skin_title = "ÃÖ½Å±Û";
+        $skin_title = "ìµœì‹ ê¸€";
     }
 }
 
 if ($content_len ==0)
     $content_len = 250;
 
-//id¸¦ ·£´ýÇÏ°Ô ¸¸µì´Ï´Ù. ¸î°³ÀÇ ¾ÆÄÚµð¾ðÀÌ ÀÖÀ» ¶§ ÂÐ³ªÁö ¾Ê°Ô...
+//idë¥¼ ëžœë¤í•˜ê²Œ ë§Œë“­ë‹ˆë‹¤. ëª‡ê°œì˜ ì•„ì½”ë””ì–¸ì´ ìžˆì„ ë•Œ ì«‘ë‚˜ì§€ ì•Šê²Œ...
 $rand1 = rand();
 ?>
 <div class="panel-group" id="accordion_<?=$rand1?>">
     <?
     if (count($list) == 0) {
-        echo "<div style='height:200px;'><a href='#'>³»¿ë¾ø½¿</a></div>";
+        echo "<div style='height:200px;'><a href='#'>ë‚´ìš©ì—†ìŠ´</a></div>";
     } else {
-        // ·£´ýÇÏ°Ô ¾ÆÄÚµð¾ðÀ» ¿­¾îÁÝ´Ï´Ù
+        // ëžœë¤í•˜ê²Œ ì•„ì½”ë””ì–¸ì„ ì—´ì–´ì¤ë‹ˆë‹¤
         $open_in = rand(0, count($list)-1);
 
-        // ¿ÀÇÂµÇ´Â ¹è¿­À» °¡Àå À§·Î ¿Ã¸°´Ù (¼±ÅÃµÈ °ÍÀ» 0À¸·Î ¿Ã¸®°í, 0ºÎÅÍ ¼±ÅÃµÈ°Å À§±îÁö ¹Ð¾î ³»¸°´Ù)
+        // ì˜¤í”ˆë˜ëŠ” ë°°ì—´ì„ ê°€ìž¥ ìœ„ë¡œ ì˜¬ë¦°ë‹¤ (ì„ íƒëœ ê²ƒì„ 0ìœ¼ë¡œ ì˜¬ë¦¬ê³ , 0ë¶€í„° ì„ íƒëœê±° ìœ„ê¹Œì§€ ë°€ì–´ ë‚´ë¦°ë‹¤)
         $tmp = $list[$open_in];
         for ($i=$open_in; $i>0; $i--) {
             $list[$i] = $list[$i-1];
@@ -33,7 +33,7 @@ $rand1 = rand();
 
         for ($i=0; $i<count($list); $i++) {
     ?>
-        <!-- margin-bottom:-6px´Â css¸¶´Ù ´Ù¸£¹Ç·Î... ¾Ë¾Æ¼­ ¼öÁ¤ÇØÁÖ¼¼¿ä -->
+        <!-- margin-bottom:-6pxëŠ” cssë§ˆë‹¤ ë‹¤ë¥´ë¯€ë¡œ... ì•Œì•„ì„œ ìˆ˜ì •í•´ì£¼ì„¸ìš” -->
         <div class="panel panel-default" style="margin-bottom:-6px;">
         <div class="panel-heading">
             <a data-toggle="collapse" data-parent="#accordion_<?=$rand1?>" href="#collapse_<?=$rand1?>_<?=$i?>">
@@ -70,7 +70,7 @@ $rand1 = rand();
             -->
         </div>
         <?
-        // Ã³À½³ª¿À´Â °ÍÀ» open... inÀÌ class¿¡ µé¾î°¡¸é ¿­¸³´Ï´Ù
+        // ì²˜ìŒë‚˜ì˜¤ëŠ” ê²ƒì„ open... inì´ classì— ë“¤ì–´ê°€ë©´ ì—´ë¦½ë‹ˆë‹¤
         if ($i == 0)
             $in = "in";
         else

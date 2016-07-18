@@ -1,15 +1,15 @@
 <?
 include_once("./_common.php");
 
-//if (!$stx) alert("°Ë»ö¾î°¡ ¾ø½À´Ï´Ù."); 
+//if (!$stx) alert("ê²€ìƒ‰ì–´ê°€ ì—†ìŠµë‹ˆë‹¤."); 
 
-// °Ë»ö±ÇÇÑ
+// ê²€ìƒ‰ê¶Œí•œ
 if ($g4['search_level']) {
     if ($g4['search_level'] > $member['mb_level'])
-        alert("°Ë»öÀ» »ç¿ëÇÒ ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.\\n\\nÈ¸¿øÀÌ½Ã¶ó¸é ·Î±×ÀÎ ÈÄ ÀÌ¿ëÇØ º¸½Ê½Ã¿À.", "./login.php?$qstr&url=".urlencode("$_SERVER[PHP_SELF]?sfl=$sfl&stx=$stx&sop=$sop"));
+        alert("ê²€ìƒ‰ì„ ì‚¬ìš©í•  ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.\\n\\níšŒì›ì´ì‹œë¼ë©´ ë¡œê·¸ì¸ í›„ ì´ìš©í•´ ë³´ì‹­ì‹œì˜¤.", "./login.php?$qstr&url=".urlencode("$_SERVER[PHP_SELF]?sfl=$sfl&stx=$stx&sop=$sop"));
 }
 
-$g4[title] = "°Ë»ö : " . $stx;
+$g4[title] = "ê²€ìƒ‰ : " . $stx;
 include_once("./_head.php");
 
 if ($stx)
@@ -17,23 +17,23 @@ if ($stx)
     //$stx = trim($stx);
     $stx = preg_replace("/\//", "\/", trim($stx));
     
-    // ºÒ´çÆÑ - ´Ü¾îÇÊÅÍ¸µ, ÂüÁ¶, write_update.php, http://sir.co.kr/bbs/board.php?bo_table=g4_tiptech&wr_id=20275
+    // ë¶ˆë‹¹íŒ© - ë‹¨ì–´í•„í„°ë§, ì°¸ì¡°, write_update.php, http://sir.co.kr/bbs/board.php?bo_table=g4_tiptech&wr_id=20275
     $config[cf_filter] = trim($config[cf_filter]);
     $filters = explode(",", $config[cf_filter]);
     for ($i=0; $i<count($filters); $i++) {
-        $s = trim($filters[$i]); // ÇÊÅÍ´Ü¾îÀÇ ¾ÕµÚ °ø¹éÀ» ¾ø¾Ú
-        // ¾ÆÁÖ °¡²û comma ¾ÕµÚ¿¡ ºóÄ­¸¸ ³ÖÀ¸½Ã´Â ºĞµéÀÌ...
+        $s = trim($filters[$i]); // í•„í„°ë‹¨ì–´ì˜ ì•ë’¤ ê³µë°±ì„ ì—†ì•°
+        // ì•„ì£¼ ê°€ë” comma ì•ë’¤ì— ë¹ˆì¹¸ë§Œ ë„£ìœ¼ì‹œëŠ” ë¶„ë“¤ì´...
         if ($s == "")
             continue;
         if (stristr($stx, $s)) {
-            alert("°Ë»ö¾î¿¡ ±İÁö´Ü¾î(\'{$s}\')°¡ Æ÷ÇÔµÇ¾î ÀÖ½À´Ï´Ù.");
+            alert("ê²€ìƒ‰ì–´ì— ê¸ˆì§€ë‹¨ì–´(\'{$s}\')ê°€ í¬í•¨ë˜ì–´ ìˆìŠµë‹ˆë‹¤.");
             exit;
         }
     }
     
     $sop = strtolower($sop);
-    if (!$sop || !($sop == "and" || $sop == "or")) $sop = "and"; // ¿¬»êÀÚ and , or
-    if (!$srows) $srows = 10; // ÇÑÆäÀÌÁö¿¡ Ãâ·ÂÇÏ´Â °Ë»ö Çà¼ö
+    if (!$sop || !($sop == "and" || $sop == "or")) $sop = "and"; // ì—°ì‚°ì and , or
+    if (!$srows) $srows = 10; // í•œí˜ì´ì§€ì— ì¶œë ¥í•˜ëŠ” ê²€ìƒ‰ í–‰ìˆ˜
 
     unset($g4_search[tables]);
     unset($g4_search[read_level]);
@@ -41,7 +41,7 @@ if ($stx)
     //            and bo_read_level <= '$member[mb_level]' ";
     if ($gr_id)
         $sql .= " and gr_id = '$gr_id' ";
-    if ($onetable) // ÇÏ³ªÀÇ °Ô½ÃÆÇ¸¸ °Ë»öÇÑ´Ù¸é
+    if ($onetable) // í•˜ë‚˜ì˜ ê²Œì‹œíŒë§Œ ê²€ìƒ‰í•œë‹¤ë©´
         $sql .= " and bo_table = '$onetable' ";
     $sql .= " order by bo_order_search, gr_id, bo_table ";
     $result = sql_query($sql);
@@ -49,13 +49,13 @@ if ($stx)
     {
         if ($is_admin != "super") 
         {
-            // ±×·ìÁ¢±Ù »ç¿ë¿¡ ´ëÇÑ °Ë»ö Â÷´Ü
+            // ê·¸ë£¹ì ‘ê·¼ ì‚¬ìš©ì— ëŒ€í•œ ê²€ìƒ‰ ì°¨ë‹¨
             $sql2 = " select gr_use_access, gr_admin from $g4[group_table] where gr_id = '$row[gr_id]' ";
             $row2 = sql_fetch($sql2);
-            // ±×·ìÁ¢±ÙÀ» »ç¿ëÇÑ´Ù¸é
+            // ê·¸ë£¹ì ‘ê·¼ì„ ì‚¬ìš©í•œë‹¤ë©´
             if ($row2[gr_use_access])
             {
-                // ±×·ì°ü¸®ÀÚ°¡ ÀÖÀ¸¸ç ÇöÀç È¸¿øÀÌ ±×·ì°ü¸®ÀÚ¶ó¸é Åë°ú
+                // ê·¸ë£¹ê´€ë¦¬ìê°€ ìˆìœ¼ë©° í˜„ì¬ íšŒì›ì´ ê·¸ë£¹ê´€ë¦¬ìë¼ë©´ í†µê³¼
                 if ($row2[gr_admin] && $row2[gr_admin] == $member[mb_id])
                     ;
                 else 
@@ -78,10 +78,10 @@ if ($stx)
 
     $op1 = "";
 
-    // °Ë»ö¾î¸¦ ±¸ºĞÀÚ·Î ³ª´«´Ù. ¿©±â¼­´Â °ø¹é
+    // ê²€ìƒ‰ì–´ë¥¼ êµ¬ë¶„ìë¡œ ë‚˜ëˆˆë‹¤. ì—¬ê¸°ì„œëŠ” ê³µë°±
     $s = explode(" ", strip_tags($stx));
 
-    // °Ë»öÇÊµå¸¦ ±¸ºĞÀÚ·Î ³ª´«´Ù. ¿©±â¼­´Â +
+    // ê²€ìƒ‰í•„ë“œë¥¼ êµ¬ë¶„ìë¡œ ë‚˜ëˆˆë‹¤. ì—¬ê¸°ì„œëŠ” +
     $field = explode("||", trim($sfl));
 
     $str = "(";
@@ -94,7 +94,7 @@ if ($stx)
         $str .= "(";
         
         $op2 = "";
-        for ($k=0; $k<count($field); $k++) // ÇÊµåÀÇ ¼ö¸¸Å­ ´ÙÁß ÇÊµå °Ë»ö °¡´É (ÇÊµå1+ÇÊµå2...)
+        for ($k=0; $k<count($field); $k++) // í•„ë“œì˜ ìˆ˜ë§Œí¼ ë‹¤ì¤‘ í•„ë“œ ê²€ìƒ‰ ê°€ëŠ¥ (í•„ë“œ1+í•„ë“œ2...)
         {
             $str .= $op2;
             switch ($field[$k]) 
@@ -111,7 +111,7 @@ if ($stx)
                         $str .= "INSTR($field[$k], '$search_str')";
                     break;
                 default :
-                    $str .= "1=0"; // Ç×»ó °ÅÁş
+                    $str .= "1=0"; // í•­ìƒ ê±°ì§“
                     break;
             }
             $op2 = " or ";
@@ -120,28 +120,28 @@ if ($stx)
 
         $op1 = " $sop ";
 
-        // ÀÎ±â°Ë»ö¾î
+        // ì¸ê¸°ê²€ìƒ‰ì–´
         $sql = " insert into $g4[popular_table] set pp_word = '$search_str', pp_date = '$g4[time_ymd]', pp_ip = '$remote_addr', bo_table='$onetable', mb_id = '$member[mb_id]', sfl = '$sfl' ";
         sql_query($sql, FALSE);
         $pp_id = mysql_insert_id();
 
 
-        // ÀÎ±â°Ë»ö¾î sum - ½Å±Ô·Î µé¾î°¥ ¶§¸¸, ¾Èµé¾î°¡¸é? ±×³É Áö³ª°¡¾ß µÇ´Â°Å¾ß. ¤¾¤¾
+        // ì¸ê¸°ê²€ìƒ‰ì–´ sum - ì‹ ê·œë¡œ ë“¤ì–´ê°ˆ ë•Œë§Œ, ì•ˆë“¤ì–´ê°€ë©´? ê·¸ëƒ¥ ì§€ë‚˜ê°€ì•¼ ë˜ëŠ”ê±°ì•¼. ã…ã…
         if ($pp_id) {
-            // °Ô½ÃÆÇÀÌ ÀÖ´Â °æ¿ì
+            // ê²Œì‹œíŒì´ ìˆëŠ” ê²½ìš°
             if ($bo_table)
                 $bo_sql = " and bo_table='$bo_table' ";
             else
                 $bo_sql = " and bo_table='' ";
-            // ÀÏ´Ü sum Å×ÀÌºíÀ» ¾÷µ¥ÀÌÆ® ÇÏ°í
+            // ì¼ë‹¨ sum í…Œì´ë¸”ì„ ì—…ë°ì´íŠ¸ í•˜ê³ 
             $sql = " update $g4[popular_sum_table] set pp_count=pp_count+1 where pp_date='$g4[time_ymd]' and pp_word='$search_str' $bo_sql ";
             sql_query($sql, FALSE);
-            // sum Å×ÀÌºíÀÌ ¾øÀ¸¸é insert¸¦ ÇÏ¸é µÇ°Åµç.
+            // sum í…Œì´ë¸”ì´ ì—†ìœ¼ë©´ insertë¥¼ í•˜ë©´ ë˜ê±°ë“ .
             if ( $pp_id && mysql_affected_rows() == 0 ) {
                 $sql = " insert into $g4[popular_sum_table] set pp_word = '$search_str', pp_date = '$g4[time_ymd]', bo_table='$bo_table', pp_count='1' ";
                 sql_query($sql, FALSE);
             }
-            // ´ã¿¡´Â °Ë»ö°á°ú ÇÊÅÍ¸µÀ» À§ÇÑ ·¹º§À» ³Ö¾îÁÖ´Â°Å¾ß.
+            // ë‹´ì—ëŠ” ê²€ìƒ‰ê²°ê³¼ í•„í„°ë§ì„ ìœ„í•œ ë ˆë²¨ì„ ë„£ì–´ì£¼ëŠ”ê±°ì•¼.
             $sql3 = " select pp_level from $g4[filter_table] where pp_word = '$search_str' ";
             $result3 = sql_fetch($sql3);
             if ($result3) {
@@ -152,7 +152,7 @@ if ($stx)
     }
     $str .= ")";
 
-    $sql_search = $str . " and wr_option not like '%secret%' "; // ºñ¹Ğ±ÛÀº Á¦¿Ü
+    $sql_search = $str . " and wr_option not like '%secret%' "; // ë¹„ë°€ê¸€ì€ ì œì™¸
 
     $str_board_list = "";
     $board_count = 0;
@@ -189,9 +189,9 @@ if ($stx)
     }
 
     $rows = $srows;
-    $total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-    if ($page == "") { $page = 1; } // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-    $from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+    $total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+    if ($page == "") { $page = 1; } // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+    $from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
     for ($i=0; $i<count($search_table); $i++)
     {
@@ -219,7 +219,7 @@ if ($stx)
         $result = sql_query($sql);
         for ($i=0; $row=sql_fetch_array($result); $i++) 
         {
-            // °Ë»ö¾î±îÁö ¸µÅ©µÇ¸é °Ô½ÃÆÇ ºÎÇÏ°¡ ÀÏ¾î³²
+            // ê²€ìƒ‰ì–´ê¹Œì§€ ë§í¬ë˜ë©´ ê²Œì‹œíŒ ë¶€í•˜ê°€ ì¼ì–´ë‚¨
             $list[$idx][$i] = $row;
             $list[$idx][$i][href] = "./board.php?bo_table=$search_table[$idx]&wr_id=$row[wr_parent]";
 
@@ -232,9 +232,9 @@ if ($stx)
                 $row[wr_subject] = get_text($row2[wr_subject]);
             }
 
-            // ºñ¹Ğ±ÛÀº °Ë»ö ºÒ°¡
+            // ë¹„ë°€ê¸€ì€ ê²€ìƒ‰ ë¶ˆê°€
             if (strstr($row[wr_option].$row2[wr_option], "secret")) 
-                $row[wr_content] = "[ºñ¹Ğ±Û ÀÔ´Ï´Ù.]";
+                $row[wr_content] = "[ë¹„ë°€ê¸€ ì…ë‹ˆë‹¤.]";
 
             $subject = get_text($row[wr_subject]);
             if (strstr($sfl, "wr_subject")) 
@@ -242,7 +242,7 @@ if ($stx)
 
             if ($read_level[$idx] <= $member[mb_level])
             {
-                $content = cut_str(conv_content(strip_tags($row[wr_content]),1),300,"¡¦");
+                $content = cut_str(conv_content(strip_tags($row[wr_content]),1),300,"â€¦");
                 if (strstr($sfl, "wr_content")) 
                     $content = search_font($stx, $content);
             }

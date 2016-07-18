@@ -7,7 +7,7 @@ auth_check($auth[$sub_menu], "w");
 check_token();
 
 if ($member[mb_password] !== sql_password($_POST['admin_password'])) {
-    alert("ÆĞ½º¿öµå°¡ ´Ù¸¨´Ï´Ù.");
+    alert("íŒ¨ìŠ¤ì›Œë“œê°€ ë‹¤ë¦…ë‹ˆë‹¤.");
 }
 
 $mb_id      = $_POST['mb_id'];
@@ -17,10 +17,10 @@ $po_content = $_POST['po_content'];
 $mb = get_member($mb_id);
 
 if (!$mb[mb_id])
-    alert("Á¸ÀçÇÏ´Â È¸¿ø¾ÆÀÌµğ°¡ ¾Æ´Õ´Ï´Ù.", "./point_list.php?$qstr"); 
+    alert("ì¡´ì¬í•˜ëŠ” íšŒì›ì•„ì´ë””ê°€ ì•„ë‹™ë‹ˆë‹¤.", "./point_list.php?$qstr"); 
 
 if (($po_point < 0) && ($po_point * (-1) > $mb[mb_point]))
-    alert("Æ÷ÀÎÆ®¸¦ ±ğ´Â °æ¿ì ÇöÀç Æ÷ÀÎÆ®º¸´Ù ÀÛÀ¸¸é ¾ÈµË´Ï´Ù.", "./point_list.php?$qstr");
+    alert("í¬ì¸íŠ¸ë¥¼ ê¹ëŠ” ê²½ìš° í˜„ì¬ í¬ì¸íŠ¸ë³´ë‹¤ ì‘ìœ¼ë©´ ì•ˆë©ë‹ˆë‹¤.", "./point_list.php?$qstr");
 
 insert_point($mb_id, $po_point, $po_content, '@passive', $mb_id, $member[mb_id]."-".uniqid(""));
 

@@ -13,7 +13,7 @@ for ($i=0; $i<count($_POST[ca_id]); $i++)
         $sql = " select mb_id from $g4[member_table] where mb_id = '{$_POST[ca_mb_id][$i]}' ";
         $row = sql_fetch($sql);
         if (!$row[mb_id])
-            alert("\'{$_POST[ca_mb_id][$i]}\' Àº(´Â) Á¸ÀçÇÏ´Â È¸¿ø¾ÆÀÌµð°¡ ¾Æ´Õ´Ï´Ù.", "./categorylist.php?page=$page&sort1=$sort1&sort2=$sort2");
+            alert("\'{$_POST[ca_mb_id][$i]}\' ì€(ëŠ”) ì¡´ìž¬í•˜ëŠ” íšŒì›ì•„ì´ë””ê°€ ì•„ë‹™ë‹ˆë‹¤.", "./categorylist.php?page=$page&sort1=$sort1&sort2=$sort2");
     }
 
     $sql = " update $g4[yc4_category_table]

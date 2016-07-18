@@ -1,7 +1,7 @@
 <?
 if ( ! defined("_GNUBOARD_")) {
     exit;
-} // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+} // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 <div class="container">
 <span>
@@ -26,35 +26,35 @@ if ( ! defined("_GNUBOARD_")) {
             </colgroup>
             <thead>
             <tr>
-                <td align=center>Á¦&nbsp;&nbsp;¸ñ</td>
+                <td align=center>ì œ&nbsp;&nbsp;ëª©</td>
                 <td align=left>&nbsp;<?= $view['me_subject'] ?></td>
             </tr>
             <tr>
-                <td align=center>¹ß&nbsp;&nbsp;½Å</td>
+                <td align=center>ë°œ&nbsp;&nbsp;ì‹ </td>
                 <td>&nbsp;<?= $view['me_send_mb_id_nick'] ?> (<?= $view['me_send_datetime'] ?>)
                 </td>
             </tr>
             <? if ($kind == 'notice') { ?>
                 <? if ($is_admin == 'super' || $member['mb_id'] == $view['me_send_mb_id']) { ?>
                     <tr>
-                        <td align=center>¼ö½Å·¹º§</td>
+                        <td align=center>ìˆ˜ì‹ ë ˆë²¨</td>
                         <td align=left>&nbsp;<?= $view['me_recv_mb_id'] ?></td>
                     </tr>
                     <tr>
-                        <td align=center>¾ÈÀĞÀº»ç¶÷</td>
+                        <td align=center>ì•ˆì½ì€ì‚¬ëŒ</td>
                         <td align=left>
                             <?
                             $sql                = " select count(*) as cnt from $g4[memo_recv_table] where me_send_datetime = '$view[me_send_datetime]' and me_send_mb_id = '$member[mb_id]' and me_read_datetime = '0000-00-00 00:00:00' ";
                             $result             = sql_fetch($sql);
                             $memo_notice_unread = $result['cnt'];
                             ?>
-                            &nbsp;<?= number_format($memo_notice_unread) ?>¸í
+                            &nbsp;<?= number_format($memo_notice_unread) ?>ëª…
                         </td>
                     </tr>
                 <? } ?>
             <? } else { ?>
                 <tr>
-                    <td align=center>¼ö&nbsp;&nbsp;½Å</td>
+                    <td align=center>ìˆ˜&nbsp;&nbsp;ì‹ </td>
                     <td align=left>&nbsp;<?= $view['me_recv_mb_id_nick'] ?> (<?= $view['me_read_datetime'] ?>)
                     </td>
                 </tr>
@@ -62,14 +62,14 @@ if ( ! defined("_GNUBOARD_")) {
 
             <? if ($view[me_file_local] && ! $view[imagesize]) { ?>
                 <tr>
-                    <td>Ã·ºÎÆÄÀÏ</td>
+                    <td>ì²¨ë¶€íŒŒì¼</td>
                     <td align=left>
                         <a href="javascript:file_download('<?= $g4[bbs_path] ?>/download_memo_file.php?kind=<?= $kind ?>&me_id=<?= $me_id ?>', '<?= $view[me_file_local] ?>')"
                            title="<?= $view[me_file_local] ?>"><?= $view[me_file_local] ?></a>
                     </td>
                 </tr>
             <? } ?>
-            <!-- Ã·ºÎÆÄÀÏÀÇ ÀÌ¹ÌÁö¸¦ Ãâ·Â -->
+            <!-- ì²¨ë¶€íŒŒì¼ì˜ ì´ë¯¸ì§€ë¥¼ ì¶œë ¥ -->
             <? if ($view[me_file_local] && $view[valid_image]) { ?>
                 <tr>
                     <td height="20" align="left"
@@ -96,7 +96,7 @@ if ( ! defined("_GNUBOARD_")) {
                         echo $view['memo'];
                     }
 
-                    // ¼­¸íÀÌ ÀÖÀ¸¸é ¼­¸íÀ» Ãâ·Â
+                    // ì„œëª…ì´ ìˆìœ¼ë©´ ì„œëª…ì„ ì¶œë ¥
                     if ($mb_send['mb_signature']) {
                         echo "<div style='; padding:25px 0;text-align:center;'>$mb_send[mb_signature]</div>";
                     }
@@ -131,7 +131,7 @@ if ( ! defined("_GNUBOARD_")) {
     <? if ($kind == "spam" && $view[spam_href]) { ?>
         <a class="btn btn-default" href='<?= $view[spam_href] ?>'>Cencal</a>
     <? } ?>
-    <? if ($kind == "send" and $view[me_read_datetime] == "ÀĞÁö ¾ÊÀ½") { ?>
+    <? if ($kind == "send" and $view[me_read_datetime] == "ì½ì§€ ì•ŠìŒ") { ?>
         <a class="btn btn-default" href='<?= $view[cancel_href] ?>'>Cancel</a>
     <? } ?>
     <? if ($kind == "recv" or $kind == "send") { ?>
@@ -140,7 +140,7 @@ if ( ! defined("_GNUBOARD_")) {
     <? if ($kind == "recv" or $kind == "send" or $kind == "save" or $kind == "spam") { ?>
         <a class="btn btn-default" href='javascript:del_memo();'>Delete</a>
     <? } ?>
-    <!-- °øÁöÂÊÁö »èÁ¦ = °øÁöÂÊÁö»èÁ¦ + ¹ß¼ÛµÈ °Í ¸ğµÎ È¸¼ö -->
+    <!-- ê³µì§€ìª½ì§€ ì‚­ì œ = ê³µì§€ìª½ì§€ì‚­ì œ + ë°œì†¡ëœ ê²ƒ ëª¨ë‘ íšŒìˆ˜ -->
     <? if ($kind == "notice" and ($is_admin == 'super' || $view[me_send_mb_id] == $member[mb_id])) { ?>
         <a href='javascript:withdraw_notice_memo();'>Delete</a>
     <? } ?>
@@ -153,7 +153,7 @@ if ( ! defined("_GNUBOARD_")) {
 </div>
 
 <?
-// ±¸±Û ±¤°í¸¦ include
+// êµ¬ê¸€ ê´‘ê³ ë¥¼ include
 $ad_file = $memo_skin_path . "/memo2_adsense.php";
 if (file_exists($ad_file)) {
     include_once($ad_file);
@@ -166,13 +166,13 @@ if (file_exists($ad_file)) {
     //    document.location.href=link;
     //}
 
-    // ½ºÆÔÀ» Ãë¼Ò
+    // ìŠ¤íŒ¸ì„ ì·¨ì†Œ
     function all_cancel_spam() {
         var f = document.fboardlist;
 
-        str = "½ºÆÔÈ¸¼ö";
+        str = "ìŠ¤íŒ¸íšŒìˆ˜";
 
-        if (!confirm("¸ğµç ÂÊÁö¸¦ Á¤¸» " + str + " ÇÏ½Ã°Ú½À´Ï±î?\n\nÇÑ¹ø " + str + "ÇÑ ÀÚ·á´Â º¹±¸ÇÒ ¼ö ¾ø½À´Ï´Ù"))
+        if (!confirm("ëª¨ë“  ìª½ì§€ë¥¼ ì •ë§ " + str + " í•˜ì‹œê² ìŠµë‹ˆê¹Œ?\n\ní•œë²ˆ " + str + "í•œ ìë£ŒëŠ” ë³µêµ¬í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤"))
             return;
 
         f.action = "./memo2_form_spam_cancel.php";
@@ -180,12 +180,12 @@ if (file_exists($ad_file)) {
     }
 
     function del_memo() {
-        if (confirm("ÂÊÁö¸¦ »èÁ¦ ÇÏ½Ã°Ú½À´Ï±î?"))
+        if (confirm("ìª½ì§€ë¥¼ ì‚­ì œ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?"))
             location.href = "<?=$view[del_href]?>";
     }
 
     function withdraw_notice_memo() {
-        if (confirm("°øÁöÂÊÁö¸¦ »èÁ¦ÇÏ¸é, ¹ß¼ÛµÈ ÂÊÁö¸¦ ¸ğµÎ È¸¼ö(»èÁ¦) ÇÕ´Ï´Ù.\n\n°øÁöÂÊÁö »èÁ¦¸¦ ÁøÇà ÇÏ½Ã°Ú½À´Ï±î?"))
+        if (confirm("ê³µì§€ìª½ì§€ë¥¼ ì‚­ì œí•˜ë©´, ë°œì†¡ëœ ìª½ì§€ë¥¼ ëª¨ë‘ íšŒìˆ˜(ì‚­ì œ) í•©ë‹ˆë‹¤.\n\nê³µì§€ìª½ì§€ ì‚­ì œë¥¼ ì§„í–‰ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?"))
             location.href = "./memo2_withdraw_notice.php?kind=<?=$kind?>&me_id=<?=$me_id?>";
     }
 </script>
@@ -193,7 +193,7 @@ if (file_exists($ad_file)) {
 <script type="text/javascript" src="<?= "$g4[path]/js/board.js" ?>?v=<?= app_version() ?>"></script>
 <script type="text/javascript">
     $(function () {
-        // SPA Áö¿ø ¹× ·£´ıÇÏ°Ô ¸®»çÀÌÂ¡ µÇÁö ¾Ê´Â ¹®Á¦ ÇØ°áÀ» À§ÇØ, ÀÌ¹ÌÁö ·Îµù ÀÌº¥Æ®¿¡¼­ °³º° ½ÇÇà
+        // SPA ì§€ì› ë° ëœë¤í•˜ê²Œ ë¦¬ì‚¬ì´ì§• ë˜ì§€ ì•ŠëŠ” ë¬¸ì œ í•´ê²°ì„ ìœ„í•´, ì´ë¯¸ì§€ ë¡œë”© ì´ë²¤íŠ¸ì—ì„œ ê°œë³„ ì‹¤í–‰
         //resizeBoardImage($(wr_content).width() - 10);
         var imageWidth = $('#wr_content').width() - 25;
         $('img[name^=target_resize_image]').one('load', function () {

@@ -4,7 +4,7 @@ include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "r");
 
-$g4[title] = "Ä«Å×°í¸®°ü¸®";
+$g4[title] = "ì¹´í…Œê³ ë¦¬ê´€ë¦¬";
 include_once ("$g4[admin_path]/admin.head.php");
 
 $where = " where ";
@@ -22,15 +22,15 @@ $sql_common = " from $g4[category_table] ";
 $sql_common .= $sql_search;
 
 
-// Å×ÀÌºíÀÇ ÀüÃ¼ ·¹ÄÚµå¼ö¸¸ ¾òÀ½
+// í…Œì´ë¸”ì˜ ì „ì²´ ë ˆì½”ë“œìˆ˜ë§Œ ì–»ìŒ
 $sql = " select count(*) as cnt " . $sql_common;
 $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if ($page == "") { $page = 1; } // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if ($page == "") { $page = 1; } // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
 if (!$sst) 
 {
@@ -39,7 +39,7 @@ if (!$sst)
 }
 $sql_order = "order by $sst $sod";
 
-// Ãâ·ÂÇÒ ·¹ÄÚµå¸¦ ¾òÀ½
+// ì¶œë ¥í•  ë ˆì½”ë“œë¥¼ ì–»ìŒ
 $sql  = " select *
            $sql_common
            $sql_order
@@ -53,11 +53,11 @@ $qstr  = "$qstr&sca=$sca&page=$page&save_stx=$stx";
 <form name=flist>
 <input type=hidden name=page value="<?=$page?>">
 <tr>
-    <td width=20%><a href='<?=$_SERVER[PHP_SELF]?>'>Ã³À½</a></td>
+    <td width=20%><a href='<?=$_SERVER[PHP_SELF]?>'>ì²˜ìŒ</a></td>
     <td width=60% align=center>
         <select name=sfl>
-            <option value='ca_subject'>Ä«Å×°í¸®Á¦¸ñ
-            <option value='ca_id'>Ä«Å×°í¸®ID
+            <option value='ca_subject'>ì¹´í…Œê³ ë¦¬ì œëª©
+            <option value='ca_id'>ì¹´í…Œê³ ë¦¬ID
         </select>
         <? if ($sfl) echo "<script> document.flist.sfl.value = '$sfl';</script>"; ?>
 
@@ -65,7 +65,7 @@ $qstr  = "$qstr&sca=$sca&page=$page&save_stx=$stx";
         <input type=text name=stx value='<?=$stx?>'>
         <input type=image src='<?=$g4[admin_path]?>/img/btn_search.gif' align=absmiddle>
     </td>
-    <td width=20% align=right>°Ç¼ö : <? echo $total_count ?>&nbsp;</td>
+    <td width=20% align=right>ê±´ìˆ˜ : <? echo $total_count ?>&nbsp;</td>
 </tr>
 </form>
 </table>
@@ -79,14 +79,14 @@ $qstr  = "$qstr&sca=$sca&page=$page&save_stx=$stx";
 <tr><td colspan=11 height=2 bgcolor=#0E87F9></td></tr>
 <tr align=center class=ht>
     <td rowspan=2><input type=checkbox name=chkall value="1" onclick="check_all(this.form)"></td>
-    <td width=180><?=subject_sort_link("ca_id");?>Ä«Å×°í¸®ID</a></td>
-    <td width='' ><?=subject_sort_link("ca_subject");?>Ä«Å×°í¸®Á¦¸ñ</a></td>
-    <td width=60 ><?=subject_sort_link("ca_use");?>»ç¿ë</a></td>
-    <td width=60 ><?=subject_sort_link("ca_order");?>¼ø¼­</a></td>
+    <td width=180><?=subject_sort_link("ca_id");?>ì¹´í…Œê³ ë¦¬ID</a></td>
+    <td width='' ><?=subject_sort_link("ca_subject");?>ì¹´í…Œê³ ë¦¬ì œëª©</a></td>
+    <td width=60 ><?=subject_sort_link("ca_use");?>ì‚¬ìš©</a></td>
+    <td width=60 ><?=subject_sort_link("ca_order");?>ìˆœì„œ</a></td>
     <td width=120>
         <? 
         if ($is_admin == 'super')
-            echo "<a href='./category_form.php'><img src='$g4[admin_path]/img/icon_insert.gif' border=0 title='1´Ü°èÄ«Å×°í¸® Ãß°¡'></a>";
+            echo "<a href='./category_form.php'><img src='$g4[admin_path]/img/icon_insert.gif' border=0 title='1ë‹¨ê³„ì¹´í…Œê³ ë¦¬ ì¶”ê°€'></a>";
         else
             echo "&nbsp;";
         ?>
@@ -99,23 +99,23 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 {
     $s_level = "";
     $level = strlen($row[ca_id]) / 4 - 1;
-    if ($level > 0) // 2´Ü°è ÀÌ»ó
+    if ($level > 0) // 2ë‹¨ê³„ ì´ìƒ
     {
-        $s_level = "&nbsp;&nbsp;<img src='./img/icon_catlevel.gif' border=0 width=17 height=15 align=absmiddle alt='".($level+1)."´Ü°è Ä«Å×°í¸®'>";
+        $s_level = "&nbsp;&nbsp;<img src='./img/icon_catlevel.gif' border=0 width=17 height=15 align=absmiddle alt='".($level+1)."ë‹¨ê³„ ì¹´í…Œê³ ë¦¬'>";
         for ($k=1; $k<$level; $k++)
             $s_level = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $s_level;
         $style = " ";
     } 
-    else // 1´Ü°è
+    else // 1ë‹¨ê³„
     {
         $style = " style='border:1 solid; border-color:#0071BD;' ";
     }
 
-    $s_add = icon("Ãß°¡", "./category_form.php?ca_id=$row[ca_id]&$qstr");
-    $s_upd = icon("¼öÁ¤", "./category_form.php?w=u&ca_id=$row[ca_id]&$qstr");
+    $s_add = icon("ì¶”ê°€", "./category_form.php?ca_id=$row[ca_id]&$qstr");
+    $s_upd = icon("ìˆ˜ì •", "./category_form.php?w=u&ca_id=$row[ca_id]&$qstr");
 
     if ($is_admin == 'super')
-        $s_del = "<a href=\"javascript:post_delete('category_form_update.php', '$row[ca_id]');\"><img src='img/icon_delete.gif' border=0 title='»èÁ¦' align=absmiddle></a>";
+        $s_del = "<a href=\"javascript:post_delete('category_form_update.php', '$row[ca_id]');\"><img src='img/icon_delete.gif' border=0 title='ì‚­ì œ' align=absmiddle></a>";
 
     $list = $i%2;
     echo "
@@ -123,7 +123,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     <tr class='list$list center ht'>
         <td height=25><input type=checkbox name=chk[] value='$i'></td>
         <td align=left>$row[ca_id]</td>
-        <td align=left>$s_level <input type=text name='ca_subject[$i]' value='".get_text($row[ca_subject])."' title='$row[ca_id]' required itemname='Ä«Å×°í¸®¸í' class=ed size=35 $style></td>";
+        <td align=left>$s_level <input type=text name='ca_subject[$i]' value='".get_text($row[ca_subject])."' title='$row[ca_id]' required itemname='ì¹´í…Œê³ ë¦¬ëª…' class=ed size=35 $style></td>";
 
     echo "
         <td><input type=checkbox name='ca_use[$i]' ".($row[ca_use] ? "checked" : "")." value='1'></td>
@@ -133,7 +133,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 }
 
 if ($i == 0) {
-    echo "<tr><td colspan=20 height=100 bgcolor='#ffffff' align=center><span class=point>ÀÚ·á°¡ ÇÑ°Çµµ ¾ø½À´Ï´Ù.</span></td></tr>\n";
+    echo "<tr><td colspan=20 height=100 bgcolor='#ffffff' align=center><span class=point>ìë£Œê°€ í•œê±´ë„ ì—†ìŠµë‹ˆë‹¤.</span></td></tr>\n";
 }
 ?>
 <tr><td colspan=11 height=1 bgcolor=#CCCCCC></td></tr>
@@ -143,19 +143,19 @@ if ($i == 0) {
 
 <table width=100%>
 <tr>
-    <td width=50%><input type=submit class=btn1 value='ÀÏ°ı¼öÁ¤'></td>
+    <td width=50%><input type=submit class=btn1 value='ì¼ê´„ìˆ˜ì •'></td>
     <td width=50% align=right><?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?></td>
 </tr>
 </form>
 </table>
 
 <script type="text/javascript">
-// POST ¹æ½ÄÀ¸·Î »èÁ¦
+// POST ë°©ì‹ìœ¼ë¡œ ì‚­ì œ
 function post_delete(action_url, val)
 {
 	var f = document.fpost;
 
-	if(confirm("ÇÑ¹ø »èÁ¦ÇÑ ÀÚ·á´Â º¹±¸ÇÒ ¹æ¹ıÀÌ ¾ø½À´Ï´Ù.\n\nÁ¤¸» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?")) {
+	if(confirm("í•œë²ˆ ì‚­ì œí•œ ìë£ŒëŠ” ë³µêµ¬í•  ë°©ë²•ì´ ì—†ìŠµë‹ˆë‹¤.\n\nì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
     f.ca_id.value = val;
 		f.action         = action_url;
 		f.submit();

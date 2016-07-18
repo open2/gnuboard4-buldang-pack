@@ -8,7 +8,7 @@ if ($w == "u" || $w == "d")
 auth_check($auth[$sub_menu], "d");
 
 if ($w == 'd' && $is_admin != 'super')
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ ºĞ·ù¸¦ »èÁ¦ÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ë¶„ë¥˜ë¥¼ ì‚­ì œí•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
 if ($w == "" || $w == "u")
 {
@@ -17,7 +17,7 @@ if ($w == "" || $w == "u")
         $sql = " select mb_id from $g4[member_table] where mb_id = '$ca_mb_id' ";
         $row = sql_fetch($sql);
         if (!$row[mb_id])
-            alert("\'$ca_mb_id\' Àº(´Â) Á¸ÀçÇÏ´Â È¸¿ø¾ÆÀÌµğ°¡ ¾Æ´Õ´Ï´Ù.");
+            alert("\'$ca_mb_id\' ì€(ëŠ”) ì¡´ì¬í•˜ëŠ” íšŒì›ì•„ì´ë””ê°€ ì•„ë‹™ë‹ˆë‹¤.");
     }
 }
 
@@ -56,9 +56,9 @@ $sql_common = " ca_skin         = '$ca_skin',
 if ($w == "") 
 {
     if (!trim($ca_id))
-        alert("ºĞ·ù ÄÚµå°¡ ¾øÀ¸¹Ç·Î ºĞ·ù¸¦ Ãß°¡ÇÏ½Ç ¼ö ¾ø½À´Ï´Ù.");
+        alert("ë¶„ë¥˜ ì½”ë“œê°€ ì—†ìœ¼ë¯€ë¡œ ë¶„ë¥˜ë¥¼ ì¶”ê°€í•˜ì‹¤ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 
-    // ¼Ò¹®ÀÚ·Î º¯È¯
+    // ì†Œë¬¸ìë¡œ ë³€í™˜
     $ca_id = strtolower($ca_id);
 
     $sql = " insert $g4[yc4_category_table]
@@ -75,7 +75,7 @@ else if ($w == "u")
               where ca_id = '$ca_id' ";
     sql_query($sql);
 
-    // ÇÏÀ§ºĞ·ù¸¦ ¶È°°Àº ¼³Á¤À¸·Î ¹İ¿µ
+    // í•˜ìœ„ë¶„ë¥˜ë¥¼ ë˜‘ê°™ì€ ì„¤ì •ìœ¼ë¡œ ë°˜ì˜
     if ($sub_category) {
         $len = strlen($ca_id);
         $sql = " update $g4[yc4_category_table]
@@ -88,7 +88,7 @@ else if ($w == "u")
 } 
 else if ($w == "d") 
 {
-    // ºĞ·ùÀÇ ±æÀÌ
+    // ë¶„ë¥˜ì˜ ê¸¸ì´
     $len = strlen($ca_id);
 
     $sql = " select COUNT(*) as cnt from $g4[yc4_category_table]
@@ -96,7 +96,7 @@ else if ($w == "d")
                 and ca_id <> '$ca_id' ";
     $row = sql_fetch($sql);
     if ($row[cnt] > 0) 
-        alert("ÀÌ ºĞ·ù¿¡ ¼ÓÇÑ ÇÏÀ§ ºĞ·ù°¡ ÀÖÀ¸¹Ç·Î »èÁ¦ ÇÒ ¼ö ¾ø½À´Ï´Ù.\\n\\nÇÏÀ§ºĞ·ù¸¦ ¿ì¼± »èÁ¦ÇÏ¿© ÁÖ½Ê½Ã¿À.");
+        alert("ì´ ë¶„ë¥˜ì— ì†í•œ í•˜ìœ„ ë¶„ë¥˜ê°€ ìˆìœ¼ë¯€ë¡œ ì‚­ì œ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\\n\\ní•˜ìœ„ë¶„ë¥˜ë¥¼ ìš°ì„  ì‚­ì œí•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
 
     $str = $comma = "";
     $sql = " select it_id from $g4[yc4_item_table] where ca_id = '$ca_id' ";
@@ -111,17 +111,17 @@ else if ($w == "d")
     }
 
     if ($str)
-        alert("ÀÌ ºĞ·ù¿Í °ü·ÃµÈ »óÇ°ÀÌ ÃÑ {$i} °Ç Á¸ÀçÇÏ¹Ç·Î »óÇ°À» »èÁ¦ÇÑ ÈÄ ºĞ·ù¸¦ »èÁ¦ÇÏ¿© ÁÖ½Ê½Ã¿À.\\n\\n$str");
+        alert("ì´ ë¶„ë¥˜ì™€ ê´€ë ¨ëœ ìƒí’ˆì´ ì´ {$i} ê±´ ì¡´ì¬í•˜ë¯€ë¡œ ìƒí’ˆì„ ì‚­ì œí•œ í›„ ë¶„ë¥˜ë¥¼ ì‚­ì œí•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.\\n\\n$str");
 
-    // ºĞ·ù On, Off ÀÌ¹ÌÁö »èÁ¦
+    // ë¶„ë¥˜ On, Off ì´ë¯¸ì§€ ì‚­ì œ
     @unlink("{$g4[category_path]}/$ca_id"."_1");
     @unlink("{$g4[category_path]}/$ca_id"."_0");
 
-    // »ó, ÇÏ´Ü ÀÌ¹ÌÁö »èÁ¦
+    // ìƒ, í•˜ë‹¨ ì´ë¯¸ì§€ ì‚­ì œ
     @unlink("{$g4[category_path]}/$ca_id"."_h");
     @unlink("{$g4[category_path]}/$ca_id"."_t");
 
-    // ºĞ·ù »èÁ¦
+    // ë¶„ë¥˜ ì‚­ì œ
     $sql = " delete from $g4[yc4_category_table] where ca_id = '$ca_id' ";
     sql_query($sql);
 }

@@ -13,19 +13,19 @@ $act = strip_tags($_POST['act']);
 if ($act == "delete") {
     for ($i=0; $i<count($chk); $i++) 
     {
-        // ½ÇÁ¦ ¹øÈ£¸¦ ³Ñ±è
+        // ì‹¤ì œ ë²ˆí˜¸ë¥¼ ë„˜ê¹€
         $k = $_POST[chk][$i];
 
-        // ÇÊÅÍ¸¦ Áö¿ì°í
+        // í•„í„°ë¥¼ ì§€ìš°ê³ 
         $sql = " delete from $g4[filter_table] where pp_id = '$k' ";
         sql_query($sql);
-        // Áö¿öÁø ÇÊÅÍÀÇ sumÀ» Áö¿ì°í
+        // ì§€ì›Œì§„ í•„í„°ì˜ sumì„ ì§€ìš°ê³ 
         $pp = sql_fetch(" select pp_word from $g4[filter_table] where pp_id = '$k' ");
         $sql = " update $g4[popular_sum_table] set pp_level=1 where pp_word = '$pp[pp_word]' ";
         sql_query($sql);
     }
 } else if ($act == "insert") {
-        // »õ·Î¿î ÇÊÅÍ¸¦ »ðÀÔ
+        // ìƒˆë¡œìš´ í•„í„°ë¥¼ ì‚½ìž…
         $pp_word = strip_tags($pp_word);
         $pp_level = (int) $pp_level;
 

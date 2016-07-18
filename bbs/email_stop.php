@@ -5,7 +5,7 @@ include_once("./_common.php");
 //$row = sql_fetch($sql);
 $row = get_member($mb_id, "mb_id, mb_email, mb_datetime");
 if (!$row[mb_id])
-    alert("Á¸ÀçÇÏ´Â È¸¿øÀÌ ¾Æ´Õ´Ï´Ù.", $g4[path]);
+    alert("ì¡´ìž¬í•˜ëŠ” íšŒì›ì´ ì•„ë‹™ë‹ˆë‹¤.", $g4[path]);
 
 if ($mb_md5) 
 {
@@ -14,9 +14,9 @@ if ($mb_md5)
     {
         sql_query(" update $g4[member_table] set mb_mailling  = '0' where mb_id = '$mb_id' ");
 
-        alert("Á¤º¸¸ÞÀÏÀ» º¸³»Áö ¾Êµµ·Ï ¼ö½Å°ÅºÎ ÇÏ¿´½À´Ï´Ù.", $g4[path]);
+        alert("ì •ë³´ë©”ì¼ì„ ë³´ë‚´ì§€ ì•Šë„ë¡ ìˆ˜ì‹ ê±°ë¶€ í•˜ì˜€ìŠµë‹ˆë‹¤.", $g4[path]);
     }
 }
 
-alert("Á¦´ë·Î µÈ °ªÀÌ ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.", $g4[path]);
+alert("ì œëŒ€ë¡œ ëœ ê°’ì´ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.", $g4[path]);
 ?>

@@ -1,15 +1,15 @@
 ## ######################################################
-## ºÒ´çÆÑ SQL
+## ë¶ˆë‹¹íŒ© SQL
 ## ######################################################
 
-# ±×´©º¸µå Æ©´×
+# ê·¸ëˆ„ë³´ë“œ íŠœë‹
 ALTER TABLE `$g4[member_table]` ADD `mb_auth_count` TINYINT( 4 ) NOT NULL default '0';
 
-# ±×·ìÁ¤·Ä, °Ë»öÇã¿ë
+# ê·¸ë£¹ì •ë ¬, ê²€ìƒ‰í—ˆìš©
 ALTER TABLE `$g4[group_table]` ADD `gr_use_search` tinyint(4) NOT NULL default '0';
 ALTER TABLE `$g4[group_table]` ADD `gr_order_search` int(11) NOT NULL default '0';
 
-# ÃÖ½Å±Û °Ô½ÃÆÇ È®Àå
+# ìµœì‹ ê¸€ ê²Œì‹œíŒ í™•ì¥
 ALTER TABLE `$g4[board_new_table]` ADD `wr_option` set('html1','html2','secret','mail') NOT NULL,
   ADD `parent_mb_id` varchar(20) NOT NULL,
   ADD `wr_is_comment` tinyint(4) NOT NULL default '0',
@@ -22,7 +22,7 @@ ALTER TABLE `$g4[board_new_table]` ADD INDEX `g4_board_new2` (`bo_table`) ;
 ALTER TABLE `$g4[board_new_table]` ADD INDEX `gr_id` (`gr_id`) ;
 ALTER TABLE `$g4[board_new_table]` ADD INDEX `wr_is_comment` (`wr_is_comment`) ;
 
-# ¸¶ÀÌ¸Ş´º
+# ë§ˆì´ë©”ë‰´
 DROP TABLE IF EXISTS `$g4[my_menu_table]`;
 CREATE TABLE `$g4[my_menu_table]` (
   `id` int(11) NOT NULL auto_increment,
@@ -32,7 +32,7 @@ CREATE TABLE `$g4[my_menu_table]` (
   KEY `mb_id` (`mb_id`,`bo_table`)
 );
 
-## »ç¿ëÀÚ ±×·ì¸í 
+## ì‚¬ìš©ì ê·¸ë£¹ëª… 
 DROP TABLE IF EXISTS `$g4[member_group_table]`;
 CREATE TABLE `$g4[member_group_table]` ( 
 `gl_id` tinyint(4) NOT NULL, 
@@ -40,18 +40,18 @@ CREATE TABLE `$g4[member_group_table]` (
 PRIMARY KEY (`gl_id`) 
 );
 
-INSERT INTO `$g4[member_group_table]` (`gl_id`, `gl_name`) VALUES (1, 'ºñÈ¸¿ø'); 
-INSERT INTO `$g4[member_group_table]` (`gl_id`, `gl_name`) VALUES (2, 'ÀÏ¹İÈ¸¿ø'); 
-INSERT INTO `$g4[member_group_table]` (`gl_id`, `gl_name`) VALUES (3, 'Á¤È¸¿ø'); 
-INSERT INTO `$g4[member_group_table]` (`gl_id`, `gl_name`) VALUES (4, 'Æ¯º°È¸¿ø'); 
+INSERT INTO `$g4[member_group_table]` (`gl_id`, `gl_name`) VALUES (1, 'ë¹„íšŒì›'); 
+INSERT INTO `$g4[member_group_table]` (`gl_id`, `gl_name`) VALUES (2, 'ì¼ë°˜íšŒì›'); 
+INSERT INTO `$g4[member_group_table]` (`gl_id`, `gl_name`) VALUES (3, 'ì •íšŒì›'); 
+INSERT INTO `$g4[member_group_table]` (`gl_id`, `gl_name`) VALUES (4, 'íŠ¹ë³„íšŒì›'); 
 INSERT INTO `$g4[member_group_table]` (`gl_id`, `gl_name`) VALUES (5, ''); 
 INSERT INTO `$g4[member_group_table]` (`gl_id`, `gl_name`) VALUES (6, ''); 
 INSERT INTO `$g4[member_group_table]` (`gl_id`, `gl_name`) VALUES (7, ''); 
 INSERT INTO `$g4[member_group_table]` (`gl_id`, `gl_name`) VALUES (8, ''); 
 INSERT INTO `$g4[member_group_table]` (`gl_id`, `gl_name`) VALUES (9, ''); 
-INSERT INTO `$g4[member_group_table]` (`gl_id`, `gl_name`) VALUES (10, '°ü¸®ÀÚ');
+INSERT INTO `$g4[member_group_table]` (`gl_id`, `gl_name`) VALUES (10, 'ê´€ë¦¬ì');
 
-# ÂÊÁö2 - »ç¿ëÀÚ±×·ì
+# ìª½ì§€2 - ì‚¬ìš©ìê·¸ë£¹
 DROP TABLE IF EXISTS `$g4[memo_group_table]`;
 CREATE TABLE `$g4[memo_group_table]` (
   `gr_id` int(11) NOT NULL auto_increment,
@@ -70,7 +70,7 @@ CREATE TABLE `$g4[memo_group_member_table]` (
   PRIMARY KEY  (`gr_mb_no`)
 );
 
-# ÂÊÁö2 - °øÁöÅ×ÀÌºí
+# ìª½ì§€2 - ê³µì§€í…Œì´ë¸”
 DROP TABLE IF EXISTS `$g4[memo_notice_table]`;
 CREATE TABLE `$g4[memo_notice_table]` (
   `me_id` int(11) NOT NULL auto_increment,
@@ -92,7 +92,7 @@ CREATE TABLE `$g4[memo_notice_table]` (
   KEY `me_file_local` (`me_file_local`)
 );
 
-# ÂÊÁö2 - ¼ö½ÅÅ×ÀÌºí
+# ìª½ì§€2 - ìˆ˜ì‹ í…Œì´ë¸”
 DROP TABLE IF EXISTS `$g4[memo_recv_table]`;
 CREATE TABLE `$g4[memo_recv_table]` (
   `me_id` int(11) NOT NULL auto_increment,
@@ -114,7 +114,7 @@ CREATE TABLE `$g4[memo_recv_table]` (
   KEY `me_file_local` (`me_file_local`)
 );
 
-# ÂÊÁö2 - ÀúÀåÅ×ÀÌºí
+# ìª½ì§€2 - ì €ì¥í…Œì´ë¸”
 DROP TABLE IF EXISTS `$g4[memo_save_table]`;
 CREATE TABLE `$g4[memo_save_table]` (
   `me_id` int(11) NOT NULL,
@@ -136,7 +136,7 @@ CREATE TABLE `$g4[memo_save_table]` (
   KEY `me_file_local` (`me_file_local`)
 );
 
-# ÂÊÁö2 - ¹ß½ÅÅ×ÀÌºí
+# ìª½ì§€2 - ë°œì‹ í…Œì´ë¸”
 DROP TABLE IF EXISTS `$g4[memo_send_table]`;
 CREATE TABLE `$g4[memo_send_table]` (
   `me_id` int(11) NOT NULL,
@@ -158,7 +158,7 @@ CREATE TABLE `$g4[memo_send_table]` (
   KEY `me_file_local` (`me_file_local`)
 );
 
-# ÂÊÁö2 - ½ºÆÔÅ×ÀÌºí
+# ìª½ì§€2 - ìŠ¤íŒ¸í…Œì´ë¸”
 DROP TABLE IF EXISTS `$g4[memo_spam_table]`;
 CREATE TABLE `$g4[memo_spam_table]` (
   `me_id` int(11) NOT NULL,
@@ -180,7 +180,7 @@ CREATE TABLE `$g4[memo_spam_table]` (
   KEY `me_file_local` (`me_file_local`)
 );
 
-# ÂÊÁö2 - Ä£±¸Å×ÀÌºí
+# ìª½ì§€2 - ì¹œêµ¬í…Œì´ë¸”
 DROP TABLE IF EXISTS `$g4[friend_table]`;
 CREATE TABLE `$g4[friend_table]` (
   `fr_no` int(11) NOT NULL auto_increment,
@@ -195,7 +195,7 @@ CREATE TABLE `$g4[friend_table]` (
   KEY `fr_relation` (`fr_type`)
 );
 
-## Æ÷ÀÎÆ®°æ¸Å
+## í¬ì¸íŠ¸ê²½ë§¤
 DROP TABLE IF EXISTS `$g4[auction_tender_table]`;
 create table `$g4[auction_tender_table]` ( 
 `td_id` INT NOT NULL AUTO_INCREMENT , 
@@ -214,7 +214,7 @@ PRIMARY KEY ( `td_id` ) ,
 INDEX ( `wr_id` ) 
 );
 
-# °Ô½ÃÆÇº° ¹æ¹®ÀÚ Ä«¿îÅÍ - °ö½½ÃÖ¾¾
+# ê²Œì‹œíŒë³„ ë°©ë¬¸ì ì¹´ìš´í„° - ê³±ìŠ¬ìµœì”¨
 DROP TABLE IF EXISTS `$mw[board_visit_table]`;
 CREATE TABLE `$mw[board_visit_table]` (
   `bv_date` date NOT NULL,
@@ -224,14 +224,14 @@ CREATE TABLE `$mw[board_visit_table]` (
   PRIMARY KEY  (`bv_date`,`gr_id`,`bo_table`)
 );
 
-# °Ô½ÃÆÇº° ¹æ¹®ÀÚ Ä«¿îÅÍ - °ö½½ÃÖ¾¾
+# ê²Œì‹œíŒë³„ ë°©ë¬¸ì ì¹´ìš´í„° - ê³±ìŠ¬ìµœì”¨
 DROP TABLE IF EXISTS `$mw[board_visit_log_table]`;
 CREATE TABLE `$mw[board_visit_log_table]` (
   `log` varchar(68) NOT NULL,
   PRIMARY KEY  (`log`)
 );
 
-# È¸¿ø ´Ğ³×ÀÓ È÷½ºÅä¸® °ü¸®
+# íšŒì› ë‹‰ë„¤ì„ íˆìŠ¤í† ë¦¬ ê´€ë¦¬
 DROP TABLE IF EXISTS `$g4[mb_nick_table]`;
 CREATE TABLE `$g4[mb_nick_table]` (
   `nick_no` int(11) NOT NULL auto_increment,
@@ -242,23 +242,23 @@ CREATE TABLE `$g4[mb_nick_table]` (
   PRIMARY KEY  (`nick_no`)
 );
 
-# °Ô½ÃÆÇº° ÀÎ±â±Û (utf-8ÀÇ ¼³Ä¡¿À·ù ¶§¹®¿¡ mb_id¸¦ 255¿¡¼­ 20À¸·Î º¯°æ
+# ê²Œì‹œíŒë³„ ì¸ê¸°ê¸€ (utf-8ì˜ ì„¤ì¹˜ì˜¤ë¥˜ ë•Œë¬¸ì— mb_idë¥¼ 255ì—ì„œ 20ìœ¼ë¡œ ë³€ê²½
 ALTER TABLE `$g4[popular_table]` ADD `bo_table` VARCHAR( 20 ) NOT NULL ,
 ADD `mb_id` VARCHAR( 20 ) NOT NULL,
 ADD `sfl` VARCHAR( 255 ) NOT NULL ;
 
-# utf-8¿¡¼­ ¹®Á¦°¡ µÇ¾ú³×¿ä...
+# utf-8ì—ì„œ ë¬¸ì œê°€ ë˜ì—ˆë„¤ìš”...
 ALTER TABLE `$g4[popular_table]` ADD INDEX `bo_table_idx` ( `bo_table` ) ;
 ALTER TABLE `$g4[popular_table]` ADD INDEX `mb_id_idx` ( `mb_id` ) ;
 
 ALTER TABLE `$g4[popular_table]` DROP INDEX `index1` ,
 ADD UNIQUE `index1` ( `pp_date` , `pp_word` , `pp_ip` , `bo_table` , `mb_id` ) ;
 
-# ÂÊÁö2 - ½Ç½Ã°£ ¸Ş¸ğ
+# ìª½ì§€2 - ì‹¤ì‹œê°„ ë©”ëª¨
 ALTER TABLE `$g4[member_table]` ADD `mb_realmemo` TINYINT( 4 ) NOT NULL ,
 ADD `mb_realmemo_sound` TINYINT( 4 ) NOT NULL ;
 
-# °Ô½ÃÆÇ ½Å°í
+# ê²Œì‹œíŒ ì‹ ê³ 
 DROP TABLE IF EXISTS `$g4[singo_table]`;
 CREATE TABLE `$g4[singo_table]` ( 
   `sg_id` int(11) NOT NULL auto_increment, 
@@ -277,7 +277,7 @@ CREATE TABLE `$g4[singo_table]` (
 
 ALTER TABLE `$g4[board_table]` ADD `bo_singo` TINYINT NOT NULL;
 
-# ³»°¡ ¹æ¹®ÇÑ °Ô½ÃÆÇ
+# ë‚´ê°€ ë°©ë¬¸í•œ ê²Œì‹œíŒ
 DROP TABLE IF EXISTS `$g4[my_board_table]`;
 CREATE TABLE `$g4[my_board_table]` (
   `my_id` int(11) NOT NULL auto_increment,
@@ -288,7 +288,7 @@ CREATE TABLE `$g4[my_board_table]` (
   KEY `mb_id` (`mb_id`, `bo_table`)
 ) ;
 
-# »ç¿ëÀÚ ±×·ì
+# ì‚¬ìš©ì ê·¸ë£¹
 DROP TABLE IF EXISTS `$g4[user_group_table]`;
 CREATE TABLE `$g4[user_group_table]` (
   `ug_id` varchar(10) NOT NULL default '',
@@ -309,21 +309,21 @@ CREATE TABLE `$g4[user_group_table]` (
 
 ALTER TABLE `$g4[member_table]` ADD `ug_id` VARCHAR( 10 ) NOT NULL ;
 
-# ÇÚµåÆù ÀÎÁõ
+# í•¸ë“œí° ì¸ì¦
 ALTER TABLE `$g4[member_table]` ADD `mb_hp_certify_datetime` DATETIME NOT NULL ;
 
-# ½ºÅ©·¦
+# ìŠ¤í¬ë©
 ALTER TABLE `$g4[scrap_table]` 
 ADD `ms_memo` TEXT NOT NULL ,
 ADD `wr_mb_id` VARCHAR( 255 ) NOT NULL ,
 ADD `wr_subject` VARCHAR( 255 ) NOT NULL ;
 
-# ÅõÇ¥ÇÏ±â 
+# íˆ¬í‘œí•˜ê¸° 
 ALTER TABLE `$g4[poll_table]` ADD `po_skin` VARCHAR( 255 ) NOT NULL ;
 ALTER TABLE `$g4[poll_table]` ADD `po_end_date` DATE NOT NULL ; 
 ALTER TABLE `$g4[poll_etc_table]` ADD `pc_password` VARCHAR( 255 ) NOT NULL ;
 
-# ½Å°í»çÀ¯ Å×ÀÌºí
+# ì‹ ê³ ì‚¬ìœ  í…Œì´ë¸”
 DROP TABLE IF EXISTS `$g4[singo_reason_table]`;
 CREATE TABLE `$g4[singo_reason_table]` (
   `sg_id` int(11) NOT NULL auto_increment,
@@ -335,33 +335,33 @@ CREATE TABLE `$g4[singo_reason_table]` (
 ) ;
 
 INSERT INTO `$g4[singo_reason_table]` (`sg_id`, `sg_reason`, `sg_use`, `sg_print`, `sg_datetime`) VALUES 
-(1, '¹«ÀÇ¹ÌÇÑ µµ¹è±Û', 0, 0, '0000-00-00 00:00:00'),
-(2, '°Ô½ÃÆÇ¸ñÀû°ú ¹«°üÇÑ °Ô½Ã±Û', 0, 0, '0000-00-00 00:00:00'),
-(3, 'ºÎÀûÀıÇÑ ¹°Ç°ÆÇ¸Å', 0, 1, '0000-00-00 00:00:00'),
-(4, '±¤°í.È«º¸.¹æ¹®À¯µµ', 0, 1, '0000-00-00 00:00:00'),
-(5, '¼ºÈñ·Õ ¹× °ü·Ã °Ô½Ã±Û', 0, 0, '0000-00-00 00:00:00'),
-(6, '¿å¼³.ºñ¹æ °Ô½Ã±Û', 0, 0, '0000-00-00 00:00:00'),
-(7, 'ÀúÀÛ±Ç¹ıÀ» À§¹İ', 0, 0, '0000-00-00 00:00:00'),
-(8, '¹İ»çÈ¸Àû °Ô½Ã±Û', 0, 0, '0000-00-00 00:00:00');
+(1, 'ë¬´ì˜ë¯¸í•œ ë„ë°°ê¸€', 0, 0, '0000-00-00 00:00:00'),
+(2, 'ê²Œì‹œíŒëª©ì ê³¼ ë¬´ê´€í•œ ê²Œì‹œê¸€', 0, 0, '0000-00-00 00:00:00'),
+(3, 'ë¶€ì ì ˆí•œ ë¬¼í’ˆíŒë§¤', 0, 1, '0000-00-00 00:00:00'),
+(4, 'ê´‘ê³ .í™ë³´.ë°©ë¬¸ìœ ë„', 0, 1, '0000-00-00 00:00:00'),
+(5, 'ì„±í¬ë¡± ë° ê´€ë ¨ ê²Œì‹œê¸€', 0, 0, '0000-00-00 00:00:00'),
+(6, 'ìš•ì„¤.ë¹„ë°© ê²Œì‹œê¸€', 0, 0, '0000-00-00 00:00:00'),
+(7, 'ì €ì‘ê¶Œë²•ì„ ìœ„ë°˜', 0, 0, '0000-00-00 00:00:00'),
+(8, 'ë°˜ì‚¬íšŒì  ê²Œì‹œê¸€', 0, 0, '0000-00-00 00:00:00');
 
-# ¹æ¹®ÀÚ Æ©´×
+# ë°©ë¬¸ì íŠœë‹
 ALTER TABLE `$g4[visit_table]` CHANGE `vi_id` `vi_id` INT( 11 ) NOT NULL AUTO_INCREMENT ;
 
-# ÂÊÁö2 - 2.0.36 (ÂÊÁö¼³Á¤ Å×ÀÌºí·Î ÀÌµ¿)
+# ìª½ì§€2 - 2.0.36 (ìª½ì§€ì„¤ì • í…Œì´ë¸”ë¡œ ì´ë™)
 #ALTER TABLE `$g4[config_table]` ADD `cf_memo_user_dhtml` TINYINT( 4 ) NOT NULL DEFAULT '1' ;
 #ALTER TABLE `$g4[config_table]` ADD `cf_memo_use_file` TINYINT( 4 ) NOT NULL DEFAULT '1' ;
 
-# °ü¸®ÀÚ´Ô ½Å°í±â´É 
+# ê´€ë¦¬ìë‹˜ ì‹ ê³ ê¸°ëŠ¥ 
 ALTER TABLE `$g4[board_table]` ADD `bo_singo_action` TINYINT( 4 ) NOT NULL AFTER `bo_singo` ;
 
-# pre32 - ÀÎ±â±Û Ãâ·Â °ü¸®
+# pre32 - ì¸ê¸°ê¸€ ì¶œë ¥ ê´€ë¦¬
 ALTER TABLE `$g4[board_table]` ADD `bo_popular` TINYINT( 4 ) NOT NULL ;
 ALTER TABLE `$g4[board_table]` ADD `bo_popular_days` INT( 11 ) NOT NULL DEFAULT '14';
 
-# pre32 - ¸Ş¸ğ call
+# pre32 - ë©”ëª¨ call
 ALTER TABLE `$g4[member_table]` CHANGE `mb_memo_call` `mb_memo_call` TEXT NOT NULL ;
 
-# pre32 - µıÁö°É±â
+# pre32 - ë”´ì§€ê±¸ê¸°
 DROP TABLE IF EXISTS `$g4[hidden_comment_table]`;
 CREATE TABLE `$g4[hidden_comment_table]` (
   `co_id` int(11) NOT NULL auto_increment,
@@ -380,26 +380,26 @@ CREATE TABLE `$g4[hidden_comment_table]` (
 
 ALTER TABLE `$g4[board_table]` ADD `bo_hidden_comment` TINYINT( 4 ) NOT NULL ;
 
-# pre33 - Æ©´×
+# pre33 - íŠœë‹
 ALTER TABLE `$g4[member_table]` ADD INDEX `mb_email` ( `mb_email` ) ; 
 ALTER TABLE `$g4[member_table]` ADD INDEX `mb_nick` ( `mb_nick` ) ;
 
-# pre34 - ÅõÇ¥¿À·ù ¼öÁ¤
+# pre34 - íˆ¬í‘œì˜¤ë¥˜ ìˆ˜ì •
 ALTER TABLE `$g4[poll_table]` ADD `po_etc_level` TINYINT( 4 ) NOT NULL ;
 
-# pre34 - ÅõÇ¥ Æ©´×
+# pre34 - íˆ¬í‘œ íŠœë‹
 ALTER TABLE `$g4[poll_etc_table]` ADD INDEX `po_id` ( `po_id` ) ;
 
-# pre35 - ÀÎ±â±Û Æ©´×
+# pre35 - ì¸ê¸°ê¸€ íŠœë‹
 ALTER TABLE `$g4[popular_table]` ADD INDEX `pp_word_idx` ( `pp_word` ) ;
 
-# pre36 - °Ô½Ã±Û ´ëÇÇ
+# pre36 - ê²Œì‹œê¸€ ëŒ€í”¼
 ALTER TABLE `$g4[board_table]` ADD `bo_move_bo_table` VARCHAR( 20 ) NOT NULL ;
 
-# pre36 - 00ÀÏÈÄ °³ÀÎÁ¤º¸(ºñ¹Ğ¹øÈ£) º¯°æÇÏ°Ô ÇÏ±â
+# pre36 - 00ì¼í›„ ê°œì¸ì •ë³´(ë¹„ë°€ë²ˆí˜¸) ë³€ê²½í•˜ê²Œ í•˜ê¸°
 ALTER TABLE `$g4[member_table]` ADD `mb_password_change_datetime` DATETIME NOT NULL ;
 
-# pre36 - Áö¼ÓÀûÀ¸·Î ºñ¹øÀÌ Æ²¸®´Â ip¸¦ ºí·°ÇÏ±â
+# pre36 - ì§€ì†ì ìœ¼ë¡œ ë¹„ë²ˆì´ í‹€ë¦¬ëŠ” ipë¥¼ ë¸”ëŸ­í•˜ê¸°
 DROP TABLE IF EXISTS `$g4[login_fail_log_table]`;
 CREATE TABLE `$g4[login_fail_log_table]` ( 
 `log_id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
@@ -409,13 +409,13 @@ CREATE TABLE `$g4[login_fail_log_table]` (
 `log_url` VARCHAR( 255 ) NOT NULL 
 );
 
-# pre36 - gr_id¸¦ 10ÀÚ¸®¿¡¼­ 20ÀÚ¸®·Î ´Ã¸®±â
+# pre36 - gr_idë¥¼ 10ìë¦¬ì—ì„œ 20ìë¦¬ë¡œ ëŠ˜ë¦¬ê¸°
 ALTER TABLE `$g4[board_table]` CHANGE `gr_id` `gr_id` VARCHAR( 20 ) ;
 ALTER TABLE `$g4[board_new_table]` CHANGE `gr_id` `gr_id` VARCHAR( 20 ) ;
 ALTER TABLE `$g4[group_table]` CHANGE `gr_id` `gr_id` VARCHAR( 20 ) NOT NULL;
 ALTER TABLE `$g4[group_member_table]` CHANGE `gr_id` `gr_id` VARCHAR( 20 ) ;
 
-# pre36 - config dbÀÇ ºĞ¸®
+# pre36 - config dbì˜ ë¶„ë¦¬
 DROP TABLE IF EXISTS `$g4[config_reg_table]`;
 CREATE TABLE `$g4[config_reg_table]` (
 `cf_stipulation` TEXT NOT NULL ,
@@ -426,7 +426,7 @@ CREATE TABLE `$g4[config_reg_table]` (
 `cf_privacy_4` TEXT NOT NULL 
 );
 
-## pre36 - Æ÷ÀÎÆ® ¹é¾÷ Å×ÀÌºí
+## pre36 - í¬ì¸íŠ¸ ë°±ì—… í…Œì´ë¸”
 
 DROP TABLE IF EXISTS `$g4[point_table]_backup`;
 CREATE TABLE `$g4[point_table]_backup` (
@@ -442,16 +442,16 @@ CREATE TABLE `$g4[point_table]_backup` (
   KEY `index1` (`mb_id`,`po_rel_table`,`po_rel_id`,`po_rel_action`)
 );
 
-## pre36 - ´Ğ³×ÀÓ history ¿À·ù ¼öÁ¤
+## pre36 - ë‹‰ë„¤ì„ history ì˜¤ë¥˜ ìˆ˜ì •
 ALTER TABLE `$g4[mb_nick_table]` ADD UNIQUE ( `mb_nick` ) ;
 
-# pre36 - ÅõÇ¥ Á¢±Ù»ç¿ë
+# pre36 - íˆ¬í‘œ ì ‘ê·¼ì‚¬ìš©
 ALTER TABLE `$g4[poll_table]` ADD `po_use_access` TINYINT( 4 ) NOT NULL ;
 
-# pre36 - ÄÚ¸àÆ® html ·¹º§
+# pre36 - ì½”ë©˜íŠ¸ html ë ˆë²¨
 ALTER TABLE `$g4[board_table]` ADD `bo_html_level_comment` TINYINT( 4 ) NOT NULL AFTER `bo_html_level` ;
 
-# pre37 - ´Ù¿î·Îµå ³»¿ª
+# pre37 - ë‹¤ìš´ë¡œë“œ ë‚´ì—­
 DROP TABLE IF EXISTS `$g4[board_file_download_table]`;
 CREATE TABLE `$g4[board_file_download_table]` (
   `dn_id` int(11) NOT NULL auto_increment,
@@ -468,14 +468,14 @@ CREATE TABLE `$g4[board_file_download_table]` (
   KEY `mb_id` (`mb_id`)
 );
 
-# pre37 - ÂÊÁö 4, ±âÁ¸ ÂÊÁö Å×ÀÌºíÀÇ ÀÌ¸§ ¹Ù²Ù±â
+# pre37 - ìª½ì§€ 4, ê¸°ì¡´ ìª½ì§€ í…Œì´ë¸”ì˜ ì´ë¦„ ë°”ê¾¸ê¸°
 #DROP TABLE IF EXISTS `$g4[table_prefix]memo_backup`;
 #RENAME TABLE `$g4[table_prefix]memo` TO `$g4[table_prefix]memo_backup` ;
 
-# pre37 - ÂÊÁö 4, g4_memo¶ó´Â view¸¦ ¸¸µé±â (MySQL 5.xºÎÅÍ view°¡ ÀÖ´ä´Ï´Ù ¤Ğ..¤Ğ...)
+# pre37 - ìª½ì§€ 4, g4_memoë¼ëŠ” viewë¥¼ ë§Œë“¤ê¸° (MySQL 5.xë¶€í„° viewê°€ ìˆë‹µë‹ˆë‹¤ ã… ..ã… ...)
 # CREATE VIEW $g4[memo_table] AS SELECT * FROM $g4[memo_table]_recv ;
 
-# ÂÊÁö4 - ½Å±Ô Å×ÀÌºí (¼³Á¤ - 4.0.23¿¡¼­ º¯°æµÊ)
+# ìª½ì§€4 - ì‹ ê·œ í…Œì´ë¸” (ì„¤ì • - 4.0.23ì—ì„œ ë³€ê²½ë¨)
 DROP TABLE IF EXISTS `$g4[memo_config_table]`;
 CREATE TABLE `$g4[memo_config_table]` (
   `cf_memo_page_rows` int(11) NOT NULL,
@@ -494,7 +494,7 @@ INSERT INTO `$g4[memo_config_table]`
 (`cf_memo_page_rows`, `cf_memo_del_unread`, `cf_memo_del_trash`, `cf_memo_delete_datetime`, `cf_memo_user_dhtml`, `cf_memo_use_file`, `cf_friend_management`, `cf_memo_notice_board`, `cf_memo_before_after`) VALUES 
 (20, 180, 7, '0000-00-00 00:00:00', 1, 0, 0, '', 0);
 
-# ÂÊÁö4 - ½Å±ÔÅ×ÀÌºí (ÈŞÁöÅë)
+# ìª½ì§€4 - ì‹ ê·œí…Œì´ë¸” (íœ´ì§€í†µ)
 DROP TABLE IF EXISTS `$g4[memo_trash_table]`;
 CREATE TABLE `$g4[memo_trash_table]` (
   `me_id` int(11) NOT NULL auto_increment,
@@ -516,7 +516,7 @@ CREATE TABLE `$g4[memo_trash_table]` (
   KEY `me_file_local` (`me_file_local`)
 );
 
-# ÂÊÁö4 - ¿É¼ÇÇÊµå Ãß°¡
+# ìª½ì§€4 - ì˜µì…˜í•„ë“œ ì¶”ê°€
 ALTER TABLE `$g4[memo_recv_table]` ADD `me_option` SET( 'html1', 'html2', 'secret', 'mail' ) NOT NULL ;
 ALTER TABLE `$g4[memo_send_table]` ADD `me_option` SET( 'html1', 'html2', 'secret', 'mail' ) NOT NULL ;
 ALTER TABLE `$g4[memo_save_table]` ADD `me_option` SET( 'html1', 'html2', 'secret', 'mail' ) NOT NULL ;
@@ -524,7 +524,7 @@ ALTER TABLE `$g4[memo_notice_table]` ADD `me_option` SET( 'html1', 'html2', 'sec
 ALTER TABLE `$g4[memo_spam_table]` ADD `me_option` SET( 'html1', 'html2', 'secret', 'mail' ) NOT NULL ;
 ALTER TABLE `$g4[memo_trash_table]` ADD `me_option` SET( 'html1', 'html2', 'secret', 'mail' ) NOT NULL ;
 
-# pre37 - db¿¡¼­ ¼¼¼Ç°ü¸®
+# pre37 - dbì—ì„œ ì„¸ì…˜ê´€ë¦¬
 DROP TABLE IF EXISTS `$g4[session_table]`;
 CREATE TABLE `$g4[session_table]` (
   `id` varchar(32) NOT NULL,
@@ -534,38 +534,38 @@ CREATE TABLE `$g4[session_table]` (
   KEY `se_datetime` (`ss_datetime`)
 );
 
-# pre37 - ÂÊÁö4 ÀÚµ¿ÀÀ´ä±â´É
+# pre37 - ìª½ì§€4 ìë™ì‘ë‹µê¸°ëŠ¥
 ALTER TABLE `$g4[member_table]` ADD `mb_memo_no_reply` TINYINT( 4 ) NOT NULL AFTER `mb_realmemo_sound` ;
 ALTER TABLE `$g4[member_table]` ADD `mb_memo_no_reply_text` text NOT NULL AFTER `mb_memo_no_reply` ;
 
-# pre37 - °Ô½ÃÆÇº° ÇÁ¸°Æ® Çã¿ë ·¹º§ÁöÁ¤
+# pre37 - ê²Œì‹œíŒë³„ í”„ë¦°íŠ¸ í—ˆìš© ë ˆë²¨ì§€ì •
 ALTER TABLE `$g4[board_table]` ADD `bo_print_level` TINYINT( 4 ) NOT NULL ;
 
-# pre37 - ½Å°í °Ô½ÃÆÇ¾²±â Á¦ÇÑ
+# pre37 - ì‹ ê³  ê²Œì‹œíŒì“°ê¸° ì œí•œ
 ALTER TABLE `$g4[board_table]` ADD `bo_singo_nowrite` VARCHAR( 255 ) NOT NULL ;
 
-# 1.0.1 - Áßº¹ ·Î±×ÀÎ ¹æÁö (ºÒ´çÆÁ)
+# 1.0.1 - ì¤‘ë³µ ë¡œê·¸ì¸ ë°©ì§€ (ë¶ˆë‹¹íŒ)
 ALTER TABLE `$g4[session_table]` ADD `ip_addr` VARCHAR( 255 ) NOT NULL ;
 
-# 1.0.4 - Áßº¹·Î±×ÀÎ ¹æÁö (¹èÃßÆÁ)
+# 1.0.4 - ì¤‘ë³µë¡œê·¸ì¸ ë°©ì§€ (ë°°ì¶”íŒ)
 ALTER TABLE `$g4[session_table]` ADD `mb_id` VARCHAR( 20 ) NOT NULL AFTER `ss_data` ;
 ALTER TABLE `$g4[session_table]` ADD INDEX `mb_id` ( `mb_id` , `ip_addr` ) ;
 ALTER TABLE `$g4[session_table]` CHANGE `ip_addr` `ip_addr` VARCHAR( 20 ) ;
 
-# 1.0.4 - ÇÚµåÆù ÀÎÁõµÈ È¸¿ø¸¸ ±Û¾²±â
+# 1.0.4 - í•¸ë“œí° ì¸ì¦ëœ íšŒì›ë§Œ ê¸€ì“°ê¸°
 ALTER TABLE `$g4[board_table]` ADD `bo_hhp` TINYINT( 4 ) NOT NULL ;
 
-# 1.0.4 - ÀÎ±â °Ô½Ã¹° ¸ñ·Ï (¹èÃß½ºÅ²)
+# 1.0.4 - ì¸ê¸° ê²Œì‹œë¬¼ ëª©ë¡ (ë°°ì¶”ìŠ¤í‚¨)
 ALTER TABLE `$g4[board_table]` ADD `bo_hot_list` TINYINT( 4 ) NOT NULL DEFAULT '0',
 ADD `bo_hot_list_basis` VARCHAR( 5 ) NOT NULL DEFAULT 'hit';
 
-# 1.0.6 - ÂÊÁö4 Ãâ·Â¼³Á¤
+# 1.0.6 - ìª½ì§€4 ì¶œë ¥ì„¤ì •
 ALTER TABLE `$g4[memo_config_table]` ADD `cf_memo_print` TINYINT( 4 ) NOT NULL ;
 
-# 1.0.8 - g4_login index Ãß°¡
+# 1.0.8 - g4_login index ì¶”ê°€
 ALTER TABLE `$g4[login_table]` ADD INDEX `lo_datetime` ( `lo_datetime` ) ;
 
-# 1.0.19 - ·¹º§¾÷/·¹º§´Ù¿î
+# 1.0.19 - ë ˆë²¨ì—…/ë ˆë²¨ë‹¤ìš´
 DROP TABLE IF EXISTS `$g4[member_level_table]`;
 CREATE TABLE `$g4[member_level_table]` (
   `member_level` tinyint(4) NOT NULL,
@@ -610,29 +610,29 @@ INSERT INTO `$g4[member_level_table]` set `member_level`='8' ;
 
 ALTER TABLE `$g4[member_table]` ADD `mb_level_datetime` DATETIME NOT NULL ;
 
-# 1.0.23 - ÅõÇ¥°³¿ä ±â´É Ãß°¡
+# 1.0.23 - íˆ¬í‘œê°œìš” ê¸°ëŠ¥ ì¶”ê°€
 ALTER TABLE `$g4[poll_table]` ADD `po_summary` TEXT NOT NULL ;
 
-# 1.0.23 - ÂÊÁö4 Ã·ºÎÆÄÀÏ »èÁ¦ ±â´É Ãß°¡
+# 1.0.23 - ìª½ì§€4 ì²¨ë¶€íŒŒì¼ ì‚­ì œ ê¸°ëŠ¥ ì¶”ê°€
 ALTER TABLE `$g4[memo_config_table]` ADD `cf_memo_del_file` TINYINT( 4 ) NOT NULL ;
 
-# 1.0.24 - ÂÊÁö4 temp, trash Å×ÀÌºí key Ãß°¡
+# 1.0.24 - ìª½ì§€4 temp, trash í…Œì´ë¸” key ì¶”ê°€
 ALTER TABLE `$g4[memo_trash_table]` ADD `me_from_kind` VARCHAR( 255 ) NOT NULL ;
 ALTER TABLE `$g4[memo_trash_table]` DROP PRIMARY KEY , ADD PRIMARY KEY ( `me_id` , `me_from_kind` ) ;
 
-# 1.0.26 - ÂÊÁö4 ¼³Á¤Ãß°¡ (½Ç½Ã°£¸Ş¸ğ)
+# 1.0.26 - ìª½ì§€4 ì„¤ì •ì¶”ê°€ (ì‹¤ì‹œê°„ë©”ëª¨)
 ALTER TABLE `$g4[memo_config_table]` ADD `cf_memo_realtime` TINYINT( 4 ) NOT NULL ;
 
-# 1.0.26 - ÂÊÁö4 ¼³Á¤Ãß°¡ (½Ç¸í »ç¿ë)
+# 1.0.26 - ìª½ì§€4 ì„¤ì •ì¶”ê°€ (ì‹¤ëª… ì‚¬ìš©)
 ALTER TABLE `$g4[memo_config_table]` ADD `cf_memo_mb_name` TINYINT( 4 ) NOT NULL ;
 
-# 1.0.31 - ÂÊÁö4 ¼³Á¤Ãß°¡ (¾÷·Îµå ÆÄÀÏ¿ë·®)
+# 1.0.31 - ìª½ì§€4 ì„¤ì •ì¶”ê°€ (ì—…ë¡œë“œ íŒŒì¼ìš©ëŸ‰)
 ALTER TABLE `$g4[memo_config_table]` ADD `cf_memo_file_size` VARCHAR( 20 ) NOT NULL ;
 
-# 1.0.32 - ÂÊÁö4 save ¿À·ù ¼öÁ¤
+# 1.0.32 - ìª½ì§€4 save ì˜¤ë¥˜ ìˆ˜ì •
 ALTER TABLE `$g4[memo_save_table]` DROP PRIMARY KEY , ADD PRIMARY KEY ( `me_id` , `memo_type` ) ;
 
-# 1.0.36 - °¡ÀÔ°æ·Î ±â·ÏÇÏ±â
+# 1.0.36 - ê°€ì…ê²½ë¡œ ê¸°ë¡í•˜ê¸°
 DROP TABLE IF EXISTS `$g4[member_register_table]`;
 CREATE TABLE `$g4[member_register_table]` ( 
   `mb_no` INT( 11 ) NOT NULL ,
@@ -643,42 +643,42 @@ CREATE TABLE `$g4[member_register_table]` (
   KEY `ref_url` (`ref_url`)
 );
 
-# 1.0.36 - ¼ºº° °Ô½ÃÆÇ
+# 1.0.36 - ì„±ë³„ ê²Œì‹œíŒ
 ALTER TABLE `$g4[board_table]` ADD `bo_sex` CHAR( 1 ) NOT NULL ;
 
-# 1.0.37 - ÂÊÁö4
+# 1.0.37 - ìª½ì§€4
 ALTER TABLE `$g4[memo_config_table]` ADD `cf_max_memo_file_size` INT( 11 ) NOT NULL ;
 
-# 1.0.38 - È¨ÆäÀÌÁö ÀÎÁõ
+# 1.0.38 - í™ˆí˜ì´ì§€ ì¸ì¦
 ALTER TABLE `$g4[member_table]` ADD `mb_homepage_certify` DATETIME NOT NULL AFTER `mb_email_certify` ;
 
-# 1.0.40 - ÀÏº° ±Û¾²±â Á¦ÇÑ
+# 1.0.40 - ì¼ë³„ ê¸€ì“°ê¸° ì œí•œ
 ALTER TABLE `$g4[board_table]` ADD `bo_day_nowrite` VARCHAR( 255 ) NOT NULL ;
 
-# 1.0.41 - Æ÷ÀÎÆ® º¸±â index ¼öÁ¤
+# 1.0.41 - í¬ì¸íŠ¸ ë³´ê¸° index ìˆ˜ì •
 ALTER TABLE `$g4[point_table]` ADD INDEX `mb_id` ( `mb_id` ) ;
 ALTER TABLE `$g4[point_table]` ADD INDEX `po_rel_table` ( `po_rel_table` ) ;
 ALTER TABLE `$g4[point_table]` ADD INDEX `po_rel` ( `po_rel_table` , `po_rel_id` ) ;
 
-# 1.0.41 - ÂÊÁö4 - 4.0.19
+# 1.0.41 - ìª½ì§€4 - 4.0.19
 ALTER TABLE `$g4[member_table]` ADD `mb_memo_no_reply_datetime` DATETIME NOT NULL ;
 
-# 1.0.45 - µıÁö°É±â
+# 1.0.45 - ë”´ì§€ê±¸ê¸°
 ALTER TABLE `$g4[hidden_comment_table]` ADD `co_mb_id` VARCHAR( 255 ) NOT NULL ;
 
-# 1.0.45 - nÀÏÈÄ ±Û¾²±â Á¦ÇÑ
+# 1.0.45 - nì¼í›„ ê¸€ì“°ê¸° ì œí•œ
 ALTER TABLE `$g4[board_table]` ADD `bo_comment_nowrite` TINYINT( 4 ) NOT NULL ;
 
-# 1.0.45 - ÇöÀçÁ¢¼ÓÀÚ¼ö Æ©´×
+# 1.0.45 - í˜„ì¬ì ‘ì†ììˆ˜ íŠœë‹
 ALTER TABLE `$g4[login_table]` ADD INDEX `mb_id` ( `mb_id` ) ;
 
-# 1.0.45 - °¶·¯¸® °Ô½ÃÆÇ ¼³Á¤ / Æ©´×
+# 1.0.45 - ê°¤ëŸ¬ë¦¬ ê²Œì‹œíŒ ì„¤ì • / íŠœë‹
 ALTER TABLE `$g4[board_table]` ADD `bo_gallery` TINYINT( 4 ) NOT NULL ;
 
-# 1.0.55 - °Ô½ÃÆÇ Å×ÀÌºíÀÇ ÃÖÁ¾ ¾÷µ¥ÀÌÆ®³¯Â¥ (°Ô½Ã±Û/ÄÚ¸àÆ®°¡ µî·ÏµÈ ³¯Â¥)
+# 1.0.55 - ê²Œì‹œíŒ í…Œì´ë¸”ì˜ ìµœì¢… ì—…ë°ì´íŠ¸ë‚ ì§œ (ê²Œì‹œê¸€/ì½”ë©˜íŠ¸ê°€ ë“±ë¡ëœ ë‚ ì§œ)
 ALTER TABLE `$g4[board_table]` ADD `bo_modify_datetime` DATETIME NOT NULL ;
 
-# 1.0.56 - db Æ©´×
+# 1.0.56 - db íŠœë‹
 ALTER TABLE `$g4[board_table]` ADD INDEX `gr_id` ( `gr_id` ) ;
 ALTER TABLE `$g4[board_table]` ADD INDEX `bo_use_search` ( `bo_use_search` ) ;
 ALTER TABLE `$g4[board_table]` ADD INDEX `bo_order_search` ( `bo_order_search` ) ;
@@ -690,7 +690,7 @@ ALTER TABLE `$g4[board_new_table]` ADD INDEX `parent_mb_id` ( `parent_mb_id` );
 ALTER TABLE `$g4[group_table]` ADD INDEX `gr_use_access` ( `gr_use_access` );
 #ALTER TABLE `$g4[member_table]` ADD INDEX `mb_open` ( `mb_open` ) ;
 
-# 1.0.64 - ÈŞÁöÅë±â´É
+# 1.0.64 - íœ´ì§€í†µê¸°ëŠ¥
 ALTER TABLE `$g4[board_table]` ADD `bo_use_recycle` TINYINT( 4 ) NOT NULL ;
 
 DROP TABLE IF EXISTS `$g4[recycle_table]`;
@@ -718,22 +718,22 @@ CREATE TABLE `$g4[recycle_table]` (
   KEY `recycle_table` (`rc_bo_table`)
 );
 
-# 1.0.66 - ½Å°í±â´É ¼öÁ¤
+# 1.0.66 - ì‹ ê³ ê¸°ëŠ¥ ìˆ˜ì •
 ALTER TABLE `$g4[singo_table]` ADD `sg_notes` VARCHAR( 255 ) NOT NULL ;
 
-# 1.0.69 - µğºñ Æ©´×
+# 1.0.69 - ë””ë¹„ íŠœë‹
 ALTER TABLE `$g4[board_good_table]` ADD INDEX `bg_flag` ( `bg_flag` ) ;
 ALTER TABLE `$g4[my_menu_table]` ADD INDEX `mb_id2` ( `mb_id` ) ;
 ALTER TABLE `$g4[scrap_table]` ADD INDEX `bo_table` ( `bo_table` ) ;
 ALTER TABLE `$g4[singo_table]` ADD INDEX `mb_id` ( `mb_id` ) ;
 
-# 1.0.70 - ÂÊÁö4 4.0.26 ¾÷±Û
+# 1.0.70 - ìª½ì§€4 4.0.26 ì—…ê¸€
 ALTER TABLE `$g4[member_table]` ADD `mb_memo_unread` INT( 11 ) NOT NULL ; 
 
-# 1.0.73 - ÄÚ¸àÆ® dhtml ÆíÁı±â »ç¿ë
+# 1.0.73 - ì½”ë©˜íŠ¸ dhtml í¸ì§‘ê¸° ì‚¬ìš©
 ALTER TABLE `$g4[board_table]` ADD `bo_use_dhtml_comment` TINYINT( 4 ) NOT NULL ;
 
-# 1.0.76 - ´©¶ôµÈ script
+# 1.0.76 - ëˆ„ë½ëœ script
 DROP TABLE IF EXISTS `$g4[board_file_download_table]`;
 CREATE TABLE IF NOT EXISTS `$g4[board_file_download_table]` (
   `dn_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -752,11 +752,11 @@ CREATE TABLE IF NOT EXISTS `$g4[board_file_download_table]` (
   KEY `gr_id` (`gr_id`)
 );
 
-# ÀÌ¹ÌÁö ¿ë·®Á¦ÇÑ
+# ì´ë¯¸ì§€ ìš©ëŸ‰ì œí•œ
 ALTER TABLE `$g4[board_table]` ADD `bo_image_info` TINYINT( 4 ) NOT NULL ;
 ALTER TABLE `$g4[board_table]` ADD `bo_image_max_size` INT( 11 ) NOT NULL ;
 
-# 1.0.84 - cheditor ÀÌ¹ÌÁö ÆÄÀÏ¸ñ·Ï
+# 1.0.84 - cheditor ì´ë¯¸ì§€ íŒŒì¼ëª©ë¡
 DROP TABLE IF EXISTS `$g4[board_cheditor_table]`;
 CREATE TABLE IF NOT EXISTS `$g4[board_cheditor_table]` (
   `bo_table` varchar(255) DEFAULT NULL,
@@ -773,11 +773,11 @@ CREATE TABLE IF NOT EXISTS `$g4[board_cheditor_table]` (
   KEY `bo_table` (`bo_table`,`wr_id`)
 );
 
-# 1.0.89 - cheditor ¾÷·Îµå ±â·Ï
+# 1.0.89 - cheditor ì—…ë¡œë“œ ê¸°ë¡
 ALTER TABLE `$g4[board_cheditor_table]` ADD `bc_ip` VARCHAR( 255 ) NOT NULL ;
 ALTER TABLE `$g4[board_cheditor_table]` ADD `mb_id` VARCHAR( 255 ) NOT NULL ;
 
-# 1.0.89 - ÀüÃ¼°øÁö
+# 1.0.89 - ì „ì²´ê³µì§€
 DROP TABLE IF EXISTS `$g4[notice_table]`;
 CREATE TABLE IF NOT EXISTS `$g4[notice_table]` (
   `no_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -787,12 +787,12 @@ CREATE TABLE IF NOT EXISTS `$g4[notice_table]` (
   PRIMARY KEY (`no_id`)
 );
 
-# 1.0.89 - bo_dhtml_editor_level Ãß°¡
+# 1.0.89 - bo_dhtml_editor_level ì¶”ê°€
 ALTER TABLE `$g4[board_table]` 
 ADD `bo_dhtml_editor_level` TINYINT( 4 ) NOT NULL AFTER `bo_html_level` ,
 ADD `bo_dhtml_editor_level_comment` TINYINT( 4 ) NOT NULL AFTER `bo_dhtml_editor_level` ;
 
-# 1.0.89 - ¿Ô¼õ~
+# 1.0.89 - ì™”ìˆ‘~
 DROP TABLE IF EXISTS `$g4[whatson_table]`;
 CREATE TABLE IF NOT EXISTS `$g4[whatson_table]` (
   `wo_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -810,10 +810,10 @@ CREATE TABLE IF NOT EXISTS `$g4[whatson_table]` (
   KEY `wo_datetime` (`wo_datetime`)
 );
 
-# 1.0.92 - ÀüÃ¼°øÁö °Ô½ÃÆÇ ¼³Á¤
+# 1.0.92 - ì „ì²´ê³µì§€ ê²Œì‹œíŒ ì„¤ì •
 ALTER TABLE `$g4[board_table]` ADD `bo_naver_notice` TINYINT( 4 ) NOT NULL DEFAULT '1';
 
-# 1.0.92 - ÂÊÁö 5 ¾÷±×·¹ÀÌµå
+# 1.0.92 - ìª½ì§€ 5 ì—…ê·¸ë ˆì´ë“œ
 ALTER TABLE `$g4[member_table]` ADD `mb_memo_call_datetime` DATETIME NOT NULL AFTER `mb_memo_call` ;
 
 # 1.0.92 - geoip
@@ -828,10 +828,10 @@ CREATE TABLE IF NOT EXISTS `$g4[geoip_table]` (
   KEY `ip32` (`ip32_start`,`ip32_end`)
 );
 
-# 1.0.93 - ¾ÆÀÌµğ/ºñ¹ø Ã£±â
+# 1.0.93 - ì•„ì´ë””/ë¹„ë²ˆ ì°¾ê¸°
 ALTER TABLE `$g4[member_table]` ADD `mb_lost_certify` VARCHAR( 255 ) NOT NULL ;
 
-# 1.0.93 - ÇÊÅÍ
+# 1.0.93 - í•„í„°
 DROP TABLE IF EXISTS `$g4[popular_sum_table]`;
 CREATE TABLE IF NOT EXISTS `$g4[popular_sum_table]` (
   `pp_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -856,7 +856,7 @@ CREATE TABLE IF NOT EXISTS `$g4[filter_table]` (
   KEY `pp_word` (`pp_word`)
 );
 
-# 1.0.94 - ½Å°íÇØÁ¦ Å×ÀÌºí
+# 1.0.94 - ì‹ ê³ í•´ì œ í…Œì´ë¸”
 DROP TABLE IF EXISTS `$g4[unsingo_table]`;
 CREATE TABLE IF NOT EXISTS `$g4[unsingo_table]` (
   `unsg_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -875,10 +875,10 @@ CREATE TABLE IF NOT EXISTS `$g4[unsingo_table]` (
   KEY `mb_id` (`mb_id`)
 );
 
-# 1.0.94 - chimage ¿É¼ÇÈ­
+# 1.0.94 - chimage ì˜µì…˜í™”
 ALTER TABLE `$g4[board_table]` ADD `bo_chimage` TINYINT( 4 ) NOT NULL ;
 
-# 1.0.94 - chimage Å×ÀÌºí ¼öÁ¤
+# 1.0.94 - chimage í…Œì´ë¸” ìˆ˜ì •
 ALTER TABLE `$g4[board_cheditor_table]` ADD INDEX `mb_id` (`mb_id`) ;
 ALTER TABLE `$g4[board_cheditor_table]` ADD `del` TINYINT( 4 ) NOT NULL ;
 ALTER TABLE `$g4[board_cheditor_table]` ADD `bc_id` INT( 11) NOT NULL AUTO_INCREMENT PRIMARY KEY ;
@@ -886,7 +886,7 @@ ALTER TABLE `$g4[board_cheditor_table]` ADD `wr_session` VARCHAR( 255 ) NOT NULL
 ALTER TABLE `$g4[board_cheditor_table]` ADD INDEX `wr_session` ( `wr_session` ) ;
 ALTER TABLE `$g4[board_cheditor_table]` ADD INDEX `bc_file` ( `bc_file` ) ;
 
-# 1.0.94 - ÀÓ½ÃÀúÀå Å×ÀÌºí
+# 1.0.94 - ì„ì‹œì €ì¥ í…Œì´ë¸”
 DROP TABLE IF EXISTS `$g4[tempsave_table]`;
 CREATE TABLE IF NOT EXISTS `$g4[tempsave_table]` (
   `tmp_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -904,11 +904,11 @@ CREATE TABLE IF NOT EXISTS `$g4[tempsave_table]` (
   KEY `bo_table` (`bo_table`)
 );
 
-# 1.0.95 - visit log Å×ÀÌºí ¾÷±Û
+# 1.0.95 - visit log í…Œì´ë¸” ì—…ê¸€
 ALTER TABLE `$g4[login_table]` ADD `lo_referer` TEXT NOT NULL , ADD `lo_agent` VARCHAR( 255 ) NOT NULL;
 
 
-# 1.0.99 - º»ÀÎÀÎÁõ
+# 1.0.99 - ë³¸ì¸ì¸ì¦
 ALTER TABLE `$g4[board_table]` ADD `bo_realcheck` TINYINT( 4 ) NOT NULL ;
 
 CREATE TABLE IF NOT EXISTS `g4_namecheck` (
@@ -960,19 +960,19 @@ CREATE TABLE IF NOT EXISTS `g4_good_list` (
   KEY `gr_id` (`gr_id`)
 );
 
-# 1.0.100 - ¸¶ÀÌ³Ê½º Æ÷ÀÎÆ® ±ÛÀĞ±â Á¦ÇÑ
+# 1.0.100 - ë§ˆì´ë„ˆìŠ¤ í¬ì¸íŠ¸ ê¸€ì½ê¸° ì œí•œ
 ALTER TABLE `$g4[board_table]` ADD `bo_read_point_lock` TINYINT( 4) NOT NULL ;
 
-# 1.1.01 - Áßº¹°øÁö ±İÁö
+# 1.1.01 - ì¤‘ë³µê³µì§€ ê¸ˆì§€
 ALTER TABLE `$g4[board_table]` ADD `bo_notice_joongbok` TINYINT( 4 ) NOT NULL ;
 
-# 1.1.02 - º£½ºÆ®±Û¿¡ mb_id Á¤º¸ Ãß°¡
+# 1.1.02 - ë² ìŠ¤íŠ¸ê¸€ì— mb_id ì •ë³´ ì¶”ê°€
  ALTER TABLE `$g4[good_list_table]` ADD `mb_id` VARCHAR( 255 ) NOT NULL ;
  
-# 1.1.02 - º£½ºÆ®±Û¿¡ unique index Ãß°¡
+# 1.1.02 - ë² ìŠ¤íŠ¸ê¸€ì— unique index ì¶”ê°€
 ALTER TABLE `$g4[good_list_table]` ADD UNIQUE `unique` (`bo_table` ,`wr_id`) ;
 
-# 1.1.03 - ÀÎ±â±Û¿¡ °³ÀÎÁ¤º¸ À¯ÃâµÇÁö ¾Ê°Ô ÇÏ±â
+# 1.1.03 - ì¸ê¸°ê¸€ì— ê°œì¸ì •ë³´ ìœ ì¶œë˜ì§€ ì•Šê²Œ í•˜ê¸°
 ALTER TABLE `$g4[popular_sum_table]` ADD `mb_info` TINYINT( 4) NOT NULL ;
 ALTER TABLE `$g4[popular_sum_table]` ADD INDEX `mb_info` (`mb_info`)  ;
 
@@ -989,7 +989,7 @@ CREATE TABLE IF NOT EXISTS `$g4[cache_table]` (
 # 1.1.05 - search
 ALTER TABLE $g4[board_table] ADD `bo_search_level` TINYINT( 4) NOT NULL ;
 
-# 1.1.07 - ÃßÃµ, ¼¼¼Ç, È¸¿ø°¡ÀÔ ÃßÃµ
+# 1.1.07 - ì¶”ì²œ, ì„¸ì…˜, íšŒì›ê°€ì… ì¶”ì²œ
 ALTER TABLE `$g4[member_table]` ADD `mb_good` INT( 11 ) NOT NULL , ADD `mb_nogood` INT( 11 ) NOT NULL ;
 ALTER TABLE `$g4[session_table]` CHANGE `id` `ss_id` VARCHAR( 32);
 ALTER TABLE `$g4[session_table]` CHANGE `ss_data` `ss_data` TEXT  ;
@@ -1013,7 +1013,7 @@ CREATE TABLE IF NOT EXISTS `$g4[member_suggest_table]` (
   KEY `email_certify` (`email_certify`)
 );
 
-# »çÀÌÆ®¿¡ Á¢±ÙÇÏ´Â keywordÀÇ Á¾·ù ¹× Á¢±Ù °Ô½Ã±Û
+# ì‚¬ì´íŠ¸ì— ì ‘ê·¼í•˜ëŠ” keywordì˜ ì¢…ë¥˜ ë° ì ‘ê·¼ ê²Œì‹œê¸€
 DROP TABLE IF EXISTS `$g4[seo_tag_table]`;
 CREATE TABLE IF NOT EXISTS `$g4[seo_tag_table]` (
             `tag_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1026,7 +1026,7 @@ CREATE TABLE IF NOT EXISTS `$g4[seo_tag_table]` (
             UNIQUE KEY `unique_key` (`tag_name`,`bo_table`,`wr_id`)
           ) ;
 
-# »çÀÌÆ®¿¡ Á¢¼ÓÇÏ´Â agentÀÇ ºóµµ
+# ì‚¬ì´íŠ¸ì— ì ‘ì†í•˜ëŠ” agentì˜ ë¹ˆë„
 DROP TABLE IF EXISTS `$g4[seo_server_table]`;
 CREATE TABLE IF NOT EXISTS `$g4[seo_server_table]` (
             `server_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1052,21 +1052,21 @@ CREATE TABLE IF NOT EXISTS `$g4[seo_history_table]` (
             KEY `tag_name` (`tag_name`)
           ) ;
 
-# °³ÀÎÁ¤º¸ Á¦3ÀÚ Á¦°ø Ç×¸ñ Ãß°¡
+# ê°œì¸ì •ë³´ ì œ3ì ì œê³µ í•­ëª© ì¶”ê°€
 ALTER TABLE `g4_config_reg` ADD `cf_privacy_5` TEXT NOT NULL ;
 
-# °³ÀÎÁ¤º¸ Á¦3ÀÚ Á¦°ø, Ãë±ŞÀ§Å¹ °ü·Ã µ¿ÀÇ ¹Ş±â
+# ê°œì¸ì •ë³´ ì œ3ì ì œê³µ, ì·¨ê¸‰ìœ„íƒ ê´€ë ¨ ë™ì˜ ë°›ê¸°
 ALTER TABLE `$g4[member_table]` ADD `mb_agree_3rd_pty` TINYINT( 4) NOT NULL ;
 
-# °Ô½ÃÆÇº° ÃßÃµ, ºñÃßÃµ Æ÷ÀÎÆ®
+# ê²Œì‹œíŒë³„ ì¶”ì²œ, ë¹„ì¶”ì²œ í¬ì¸íŠ¸
 ALTER TABLE `$g4[board_table]` ADD `bo_good_point` INT( 11 ) NOT NULL ;
 ALTER TABLE `$g4[board_table]` ADD `bo_nogood_point` INT( 11 ) NOT NULL ;
 
-# 1.1.07 - wr_mb_id ÇÊµå Ãß°¡ - ÃßÃµµÈ ±ÛÀÇ ±Û¾´ÀÌ
+# 1.1.07 - wr_mb_id í•„ë“œ ì¶”ê°€ - ì¶”ì²œëœ ê¸€ì˜ ê¸€ì“´ì´
 ALTER TABLE `$g4[board_good_table]` ADD `wr_mb_id` VARCHAR( 255 ) NOT NULL;
 ALTER TABLE `$g4[board_good_table]` ADD INDEX `wr_mb_id` ( `wr_mb_id` );
 
-# 1.1.11 - ¹è³Ê°ü¸®
+# 1.1.11 - ë°°ë„ˆê´€ë¦¬
 CREATE TABLE IF NOT EXISTS `$g4[banner_group_table]` (
   `bg_id` varchar(20) NOT NULL,
   `bg_subject` varchar(255) NOT NULL,

@@ -5,7 +5,7 @@ include_once("./_common.php");
 check_demo();
 
 if ($is_admin != "super")
-    alert("°Ô½ÃÆÇ±×·ì »èÁ¦´Â ÃÖ°í°ü¸®ÀÚ¸¸ °¡´ÉÇÕ´Ï´Ù.");
+    alert("ê²Œì‹œíŒê·¸ë£¹ ì‚­ì œëŠ” ìµœê³ ê´€ë¦¬ìë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
 auth_check($auth[$sub_menu], "d");
 
@@ -14,11 +14,11 @@ check_token();
 $gr_id = mysql_real_escape_string(trim($_POST['gr_id']));
 $row = sql_fetch(" select count(*) as cnt from $g4[board_table] where gr_id = '$gr_id' ");
 if ($row[cnt])
-    alert("ÀÌ ±×·ì¿¡ ¼ÓÇÑ °Ô½ÃÆÇÀÌ Á¸ÀçÇÏ¿© °Ô½ÃÆÇ ±×·ìÀ» »èÁ¦ÇÒ ¼ö ¾ø½À´Ï´Ù.\\n\\nÀÌ ±×·ì¿¡ ¼ÓÇÑ °Ô½ÃÆÇÀ» ¸ÕÀú »èÁ¦ÇÏ¿© ÁÖ½Ê½Ã¿À.", "./board_list.php?sfl=gr_id&stx=$gr_id");
+    alert("ì´ ê·¸ë£¹ì— ì†í•œ ê²Œì‹œíŒì´ ì¡´ì¬í•˜ì—¬ ê²Œì‹œíŒ ê·¸ë£¹ì„ ì‚­ì œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\\n\\nì´ ê·¸ë£¹ì— ì†í•œ ê²Œì‹œíŒì„ ë¨¼ì € ì‚­ì œí•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.", "./board_list.php?sfl=gr_id&stx=$gr_id");
 
 
 /*
-// _BOARD_DELETE_ »ó¼ö¸¦ ¼±¾ğÇØ¾ß board_delete.inc.php °¡ Á¤»ó ÀÛµ¿ÇÔ
+// _BOARD_DELETE_ ìƒìˆ˜ë¥¼ ì„ ì–¸í•´ì•¼ board_delete.inc.php ê°€ ì •ìƒ ì‘ë™í•¨
 define("_BOARD_DELETE_", TRUE);
 
 $sql = " select * from $g4[board_table] where gr_id = '$gr_id' ";
@@ -30,10 +30,10 @@ while ($row = sql_fetch_array($result)) {
 }
 */
 
-// ±×·ì »èÁ¦
+// ê·¸ë£¹ ì‚­ì œ
 sql_query(" delete from $g4[group_table] where gr_id = '$gr_id' ");
 
-// ±×·ìÁ¢±Ù È¸¿ø »èÁ¦
+// ê·¸ë£¹ì ‘ê·¼ íšŒì› ì‚­ì œ
 sql_query(" delete from $g4[group_member_table] where gr_id = '$gr_id' ");
 
 goto_url("boardgroup_list.php?$qstr");

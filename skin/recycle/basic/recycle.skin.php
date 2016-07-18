@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 ?>
 <script type="text/javascript">
 var list_delete_php = "recycle_list_delete.php";
@@ -11,9 +11,9 @@ function recycle_delete(ok)
     var msg;
 
     if (ok == 1)
-        msg = "<?=$config[cf_recycle_days]?>ÀÏÀÌ Áö³­ ÈŞÁö±ÛÀ» ¿ÏÀüÈ÷ »èÁ¦ÇÕ´Ï´Ù.\n\n\n±×·¡µµ ÁøÇàÇÏ½Ã°Ú½À´Ï±î?";
+        msg = "<?=$config[cf_recycle_days]?>ì¼ì´ ì§€ë‚œ íœ´ì§€ê¸€ì„ ì™„ì „íˆ ì‚­ì œí•©ë‹ˆë‹¤.\n\n\nê·¸ë˜ë„ ì§„í–‰í•˜ì‹œê² ìŠµë‹ˆê¹Œ?";
     else
-        msg = "<?=$config[cf_recycle_days]?>ÀÏÀÌ Áö³­ ÈŞÁö±ÛÀ» »èÁ¦ÇÕ´Ï´Ù.\n\n\n±×·¡µµ ÁøÇàÇÏ½Ã°Ú½À´Ï±î?";
+        msg = "<?=$config[cf_recycle_days]?>ì¼ì´ ì§€ë‚œ íœ´ì§€ê¸€ì„ ì‚­ì œí•©ë‹ˆë‹¤.\n\n\nê·¸ë˜ë„ ì§„í–‰í•˜ì‹œê² ìŠµë‹ˆê¹Œ?";
 
     if (confirm(msg)) {
         document.location.href = "<?=$g4[admin_path]?>/recycle_delete.php?ok=" + ok;
@@ -22,16 +22,16 @@ function recycle_delete(ok)
 </script>
 
 <form name=fsearch method=get role="form" class="form-inline">
-<a class="btn btn-default" href="<?=$_SERVER[PHP_SELF]?>">Ã³À½</a>
-(ÈŞÁö±Û¼ö : <?=number_format($total_count)?>, »èÁ¦±Û¼ö : <?=number_format($delete_count)?>)
+<a class="btn btn-default" href="<?=$_SERVER[PHP_SELF]?>">ì²˜ìŒ</a>
+(íœ´ì§€ê¸€ìˆ˜ : <?=number_format($total_count)?>, ì‚­ì œê¸€ìˆ˜ : <?=number_format($delete_count)?>)
 <div class="pull-right">
     <select class="form-control" name=sfl class=cssfl>
-        <option value='bo_table'>°Ô½ÃÆÇ</option>
+        <option value='bo_table'>ê²Œì‹œíŒ</option>
     </select>
     <div class="form-group">
-        <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<? echo $stx ?>'>
+        <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<? echo $stx ?>'>
     </div>
-    <input class="btn btn-default" type=submit value='°Ë»ö'>
+    <input class="btn btn-default" type=submit value='ê²€ìƒ‰'>
 </div>
 </form>
 
@@ -45,21 +45,21 @@ function recycle_delete(ok)
 
 <table width=100% class="table table-hover table-condensed">
 <tr class="success">
-    <td class="col-sm-2"><?=subject_sort_link('bo_table')?>°Ô½ÃÆÇ</a></td>
-    <td>(wr_id) °Ô½Ã±ÛÁ¦¸ñ</td>
-    <td>ÀÛ¼ºÀÏ</td>
-    <td><?=subject_sort_link('rc_datetime', '', 'desc')?>»èÁ¦ÀÏ</a></td>
-  	<td>º¹±¸</td>
+    <td class="col-sm-2"><?=subject_sort_link('bo_table')?>ê²Œì‹œíŒ</a></td>
+    <td>(wr_id) ê²Œì‹œê¸€ì œëª©</td>
+    <td>ì‘ì„±ì¼</td>
+    <td><?=subject_sort_link('rc_datetime', '', 'desc')?>ì‚­ì œì¼</a></td>
+  	<td>ë³µêµ¬</td>
 </tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) {
     
-    // °Ô½Ã±Û Á¦¸ñ
+    // ê²Œì‹œê¸€ ì œëª©
     $tmp_write_table = $g4['write_prefix'] . $row[rc_bo_table];
     $sql2 = " select wr_subject, wr_content, wr_datetime from $tmp_write_table where wr_id = '$row[rc_wr_id]' ";
     $write = sql_fetch($sql2);
 
-    // ÄÚ¸àÆ®ÀÎÁö ¿©ºÎ
+    // ì½”ë©˜íŠ¸ì¸ì§€ ì—¬ë¶€
     $c_flag="";
     if ($row[wr_is_comment])
         $c_flag = " C";
@@ -70,18 +70,18 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     else
         $wr_id = "<a href='$g4[bbs_path]/recycle_view.php?bo_table=$row[rc_bo_table]&wr_id=$row[rc_wr_id]&org_bo_table=$row[bo_table]' target=_blank>" . $row[wr_id] . "</a>";
 
-    // º¹±¸ ¹öÆ°À» Ãâ·Â
+    // ë³µêµ¬ ë²„íŠ¼ì„ ì¶œë ¥
     if ($row[rc_delete] == 0)
         $s_recover = "<a href=\"javascript:post_recover('$g4[bbs_path]/recycle_recover.php', '$row[rc_no]');\"><i class=\"fa fa-undo\"></i></a>";
     else
         $s_recover = "";
 
-    // ¿î¿µÀÚ°¡ »èÁ¦ÇÑ°Å (mb_id¿Í rc_mb_id°¡ ´Ù¸¥ °æ¿ì)¿¡´Â µÚ¿¡ mark
+    // ìš´ì˜ìê°€ ì‚­ì œí•œê±° (mb_idì™€ rc_mb_idê°€ ë‹¤ë¥¸ ê²½ìš°)ì—ëŠ” ë’¤ì— mark
     $mb_remover="";
     if ($row[mb_id] !== $row[rc_mb_id])
         $mb_remover="<i class=\"fa fa-eraser\"></i>&nbsp;";
 
-    // °Ô½ÃÆÇ¾ÆÀÌµğ. °Ô½ÃÆÇ Á¤·Ä
+    // ê²Œì‹œíŒì•„ì´ë””. ê²Œì‹œíŒ ì •ë ¬
     $bo_info = get_board($row[bo_table],"bo_subject");
     $bo_table1 = "<a href='$g4[bbs_path]/recycle_list.php?sfl=bo_table&stx=$row[bo_table]' title='$bo_info[bo_subject]'>" . cut_str($bo_info[bo_subject],80) . "</a>";
 
@@ -98,7 +98,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 }
 
 if ($i == 0)
-    echo "<tr><td colspan=6 align=center height=100 class=contentbg>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan=6 align=center height=100 class=contentbg>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 
 echo "</table>";
 
@@ -107,33 +107,33 @@ if ($stx)
 ?>
 <div class="center-block">
     <ul class="pagination">
-    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ÀÌÀü°Ë»ö</a></li>"; } ?>
+    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ì´ì „ê²€ìƒ‰</a></li>"; } ?>
     <?
-    // ±âº»À¸·Î ³Ñ¾î¿À´Â ÆäÀÌÁö¸¦ ¾Æ·¡¿Í °°ÀÌ º¯È¯ÇÏ¿© ´Ù¾çÇÏ°Ô Ãâ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.
-    $write_pages = str_replace("ÀÌÀü", "<i class='fa fa-angle-left'></i>", $write_pages);
-    $write_pages = str_replace("´ÙÀ½", "<i class='fa fa-angle-right'></i>", $write_pages);
-    $write_pages = str_replace("Ã³À½", "<i class='fa fa-angle-double-left'></i>", $write_pages);
-    $write_pages = str_replace("¸Ç³¡", "<i class='fa fa-angle-double-right'></i>", $write_pages);
+    // ê¸°ë³¸ìœ¼ë¡œ ë„˜ì–´ì˜¤ëŠ” í˜ì´ì§€ë¥¼ ì•„ë˜ì™€ ê°™ì´ ë³€í™˜í•˜ì—¬ ë‹¤ì–‘í•˜ê²Œ ì¶œë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+    $write_pages = str_replace("ì´ì „", "<i class='fa fa-angle-left'></i>", $write_pages);
+    $write_pages = str_replace("ë‹¤ìŒ", "<i class='fa fa-angle-right'></i>", $write_pages);
+    $write_pages = str_replace("ì²˜ìŒ", "<i class='fa fa-angle-double-left'></i>", $write_pages);
+    $write_pages = str_replace("ë§¨ë", "<i class='fa fa-angle-double-right'></i>", $write_pages);
     ?>
     <?=$write_pages?>
-    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ÀÌÈÄ°Ë»ö</a></li>"; } ?>
+    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ì´í›„ê²€ìƒ‰</a></li>"; } ?>
     </ul>
 </div>
 </form>
 
 <ul class="well">
-<li>DB¿¡¼­ ¿ÏÀüÈ÷ °Ô½Ã±Û »èÁ¦¸¦ ÇÏ±â¸¦ ¿øÇÏ´Â °æ¿ì °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.</li>
-<li>È¸¿ø¾ÆÀÌµğ ¿·¿¡ ¾ÆÀÌÄÜÀÌ ÀÖ´Â ±ÛÀº, »ç¿ëÀÚ°¡ »èÁ¦ÇÑ °ÍÀÌ ¾Æ´Ï¶ó °ü¸®ÀÚ°¡ »èÁ¦ÇÑ ±Û ÀÔ´Ï´Ù.</li>
-<li>°Ô½ÃÆÇÀ» Å¬¸¯ÇÏ¸é ÇØ´ç °Ô½ÃÆÇÀÇ »èÁ¦±ÛÀÌ Á¤·ÄµÇ¸ç, °Ô½Ã±Û id¸¦ Å¬¸¯ÇÏ¸é ÇØ´ç °Ô½Ã±ÛÀÇ »õÃ¢ÀÌ ¶å´Ï´Ù.</li>
+<li>DBì—ì„œ ì™„ì „íˆ ê²Œì‹œê¸€ ì‚­ì œë¥¼ í•˜ê¸°ë¥¼ ì›í•˜ëŠ” ê²½ìš° ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.</li>
+<li>íšŒì›ì•„ì´ë”” ì˜†ì— ì•„ì´ì½˜ì´ ìˆëŠ” ê¸€ì€, ì‚¬ìš©ìê°€ ì‚­ì œí•œ ê²ƒì´ ì•„ë‹ˆë¼ ê´€ë¦¬ìê°€ ì‚­ì œí•œ ê¸€ ì…ë‹ˆë‹¤.</li>
+<li>ê²Œì‹œíŒì„ í´ë¦­í•˜ë©´ í•´ë‹¹ ê²Œì‹œíŒì˜ ì‚­ì œê¸€ì´ ì •ë ¬ë˜ë©°, ê²Œì‹œê¸€ idë¥¼ í´ë¦­í•˜ë©´ í•´ë‹¹ ê²Œì‹œê¸€ì˜ ìƒˆì°½ì´ ëœ¹ë‹ˆë‹¤.</li>
 </ul>
 
 <script type="text/javascript">
-// POST ¹æ½ÄÀ¸·Î »èÁ¦
+// POST ë°©ì‹ìœ¼ë¡œ ì‚­ì œ
 function post_recover(action_url, val)
 {
 	var f = document.fpost;
 
-	if(confirm("¼±ÅÃÇÑ ÀÚ·á¸¦ º¹±¸ ÇÕ´Ï´Ù.\n\nÁ¤¸» º¹±¸ÇÏ½Ã°Ú½À´Ï±î?")) {
+	if(confirm("ì„ íƒí•œ ìë£Œë¥¼ ë³µêµ¬ í•©ë‹ˆë‹¤.\n\nì •ë§ ë³µêµ¬í•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
         f.rc_no.value = val;
 		f.action      = action_url;
 		f.submit();

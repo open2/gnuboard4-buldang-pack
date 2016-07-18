@@ -10,27 +10,27 @@ if (!$ok)
     alert();
 
 if ($is_admin != "super")
-    alert("Æ÷ÀÎÆ® Á¤¸®´Â ÃÖ°í°ü¸®ÀÚ¸¸ °¡´ÉÇÕ´Ï´Ù.");
+    alert("í¬ì¸íŠ¸ ì •ë¦¬ëŠ” ìµœê³ ê´€ë¦¬ìë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
-$g4[title] = "Æ÷ÀÎÆ® Á¤¸®";
+$g4[title] = "í¬ì¸íŠ¸ ì •ë¦¬";
 include_once("./admin.head.php");
 
 echo "<span id='ct'></span>";
 include_once("./admin.tail.php");
 flush();
 
-echo "<script>document.getElementById('ct').innerHTML += '<p>Æ÷ÀÎÆ® Á¤¸®Áß...';</script>\n";
+echo "<script>document.getElementById('ct').innerHTML += '<p>í¬ì¸íŠ¸ ì •ë¦¬ì¤‘...';</script>\n";
 flush();
 
-// Æ÷ÀÎÆ®°¡ 30°³ ÀÌ»óÀÎ È¸¿ø¿¡ ´ëÇØ¼­¸¸ point¸¦ clear ÇÕ´Ï´Ù.
+// í¬ì¸íŠ¸ê°€ 30ê°œ ì´ìƒì¸ íšŒì›ì— ëŒ€í•´ì„œë§Œ pointë¥¼ clear í•©ë‹ˆë‹¤.
 $max_count = 30;
-// ÇöÀçºÎÅÍ 30ÀÏ ÀÌÀüÀÇ Æ÷ÀÎÆ®¿¡ ´ëÇØ¼­¸¸ point¸¦ clear ÇÕ´Ï´Ù.
+// í˜„ì¬ë¶€í„° 30ì¼ ì´ì „ì˜ í¬ì¸íŠ¸ì— ëŒ€í•´ì„œë§Œ pointë¥¼ clear í•©ë‹ˆë‹¤.
 $clear_days = 30;
 $clear_datetime = date("Y-m-d H:i:s", $g4[server_time] - (86400 * $clear_days));
-// ÇÑ¹ø¿¡ Á¤¸®ÇÒ È¸¿øÀÇ ¼ıÀÚ
+// í•œë²ˆì— ì •ë¦¬í•  íšŒì›ì˜ ìˆ«ì
 $max_mb_num = 1000;
 
-// ¹é¾÷Å×ÀÌºíÀ» ¸¸µé°í
+// ë°±ì—…í…Œì´ë¸”ì„ ë§Œë“¤ê³ 
 $sql = "
 CREATE TABLE `$g4[point_table]_backup` (
   `po_id` int(11) NOT NULL auto_increment,
@@ -46,12 +46,12 @@ CREATE TABLE `$g4[point_table]_backup` (
 ) ";
 sql_query($sql, false);
 
-// 30ÀÏ ÀÌÀüÀÇ Æ÷ÀÎÆ®±îÁö¸¸ Á¤¸®ÇÏ±â ¶§¹®¿¡ lockÀ» °ÉÁö ¾Ê¾Æµµ µË´Ï´Ù.
-// Å×ÀÌºí ¶ôÀ» °É°í 
+// 30ì¼ ì´ì „ì˜ í¬ì¸íŠ¸ê¹Œì§€ë§Œ ì •ë¦¬í•˜ê¸° ë•Œë¬¸ì— lockì„ ê±¸ì§€ ì•Šì•„ë„ ë©ë‹ˆë‹¤.
+// í…Œì´ë¸” ë½ì„ ê±¸ê³  
 //$sql = " LOCK TABLES $g4[member_table] WRITE, $g4[point_table] WRITE ";
 //sql_query($sql);
 
-// Á¤¸®ÇÒ È¸¿ø¸ñ·ÏÀ» ¸¸µé°í (Á¤¸®ÇÒ ²«¼ö°¡ ¸¹Àº È¸¿øºÎÅÍ Á¤¸®¸¦ ÇÏµµ·Ï Á¤·Ä)
+// ì •ë¦¬í•  íšŒì›ëª©ë¡ì„ ë§Œë“¤ê³  (ì •ë¦¬í•  ê»€ìˆ˜ê°€ ë§ì€ íšŒì›ë¶€í„° ì •ë¦¬ë¥¼ í•˜ë„ë¡ ì •ë ¬)
 $sql = " SELECT mb_id, count(po_point) as cnt, sum(po_point) as po_sum
            FROM $g4[point_table] 
           WHERE po_datetime < '{$clear_datetime}'
@@ -62,16 +62,16 @@ $result = sql_query($sql);
 
 for ($i=0; $row=sql_fetch_array($result); $i++)
 {
-    // Ãµ¸íÀÌ µÇ¸é break;
+    // ì²œëª…ì´ ë˜ë©´ break;
     if ($i >= $max_mb_num) 
         break;
 
-    // Ã³¸®ÇÒ °Ç¼ö´Â ±âÁØÀÏÀÚ ÀÌÈÄÀÇ ¸ğµç °Ç¼ö¿¡¼­ $max-count¸¦ »« °Í
+    // ì²˜ë¦¬í•  ê±´ìˆ˜ëŠ” ê¸°ì¤€ì¼ì ì´í›„ì˜ ëª¨ë“  ê±´ìˆ˜ì—ì„œ $max-countë¥¼ ëº€ ê²ƒ
     $count = $row['cnt'] - $max_count;
 
-    // ÇÕ°è´Â ÀüÃ¼°Ç¼ö¿¡ ´ëÇÑ °ÍÀÌ¹Ç·Î $max_count¿¡ ´ëÇÑ ÇÕ°è´Â º°µµ·Î »©¾ß ÇÕ´Ï´Ù.
-    // select sum(po_point) ... limit 1, 30ÀÇ ÀÇ¹Ì´Â 
-    // select µÈ °á°ú °ªÀÇ returnÀÌÁö select ÀÚÃ¼ÀÇ limit°¡ ¾Æ´Ï±â ¶§¹®ÀÌÁÒ(¾î·Æ³ª¿ä? ¤»¤»)
+    // í•©ê³„ëŠ” ì „ì²´ê±´ìˆ˜ì— ëŒ€í•œ ê²ƒì´ë¯€ë¡œ $max_countì— ëŒ€í•œ í•©ê³„ëŠ” ë³„ë„ë¡œ ë¹¼ì•¼ í•©ë‹ˆë‹¤.
+    // select sum(po_point) ... limit 1, 30ì˜ ì˜ë¯¸ëŠ” 
+    // select ëœ ê²°ê³¼ ê°’ì˜ returnì´ì§€ select ìì²´ì˜ limitê°€ ì•„ë‹ˆê¸° ë•Œë¬¸ì´ì£ (ì–´ë µë‚˜ìš”? ã…‹ã…‹)
     $total = $row['po_sum'];
     
     $sql2 = " select po_id, po_point
@@ -99,17 +99,17 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
                limit $count";
     $result4 = sql_query($sql4);
     
-    insert_point($row[mb_id], $total, "{$clear_datetime} ½ÃÁ¡±îÁöÀÇ Æ÷ÀÎÆ® {$count}°Ç Á¤¸®", "@clear", $row[mb_id], $g4[time_ymd]."-".uniqid(""));
+    insert_point($row[mb_id], $total, "{$clear_datetime} ì‹œì ê¹Œì§€ì˜ í¬ì¸íŠ¸ {$count}ê±´ ì •ë¦¬", "@clear", $row[mb_id], $g4[time_ymd]."-".uniqid(""));
 
-    $str = $row[mb_id]."´Ô Æ÷ÀÎÆ® ³»¿ª ".number_format($count)."°Ç ".number_format($total)."Á¡ Á¤¸®<br>";
+    $str = $row[mb_id]."ë‹˜ í¬ì¸íŠ¸ ë‚´ì—­ ".number_format($count)."ê±´ ".number_format($total)."ì  ì •ë¦¬<br>";
     echo "<script>document.getElementById('ct').innerHTML += '$str';</script>\n";
     flush();
 }
 
-// Å×ÀÌºí ¶ôÀ» Ç®°í
+// í…Œì´ë¸” ë½ì„ í’€ê³ 
 //$sql = " UNLOCK TABLES ";
 //sql_query($sql);
 
-echo "<script>document.getElementById('ct').innerHTML += '<p>ÃÑ ".$i."°ÇÀÇ È¸¿øÆ÷ÀÎÆ® ³»¿ªÀÌ Á¤¸® µÇ¾ú½À´Ï´Ù.';</script>\n";
-echo "<script>document.getElementById('ct').innerHTML += '<a href=\'" . $g4[admin_path] . "/point_list.php\'>Æ÷ÀÎÆ®°ü¸®·Î ÀÌµ¿ÇÏ±â</a>'</script>\n";
+echo "<script>document.getElementById('ct').innerHTML += '<p>ì´ ".$i."ê±´ì˜ íšŒì›í¬ì¸íŠ¸ ë‚´ì—­ì´ ì •ë¦¬ ë˜ì—ˆìŠµë‹ˆë‹¤.';</script>\n";
+echo "<script>document.getElementById('ct').innerHTML += '<a href=\'" . $g4[admin_path] . "/point_list.php\'>í¬ì¸íŠ¸ê´€ë¦¬ë¡œ ì´ë™í•˜ê¸°</a>'</script>\n";
 ?>

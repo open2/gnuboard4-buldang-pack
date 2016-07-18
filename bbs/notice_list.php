@@ -1,7 +1,7 @@
 <?
 include_once("./_common.php");
 
-$g4[title] = "ÀüÃ¼°øÁö»çÇ×";
+$g4[title] = "ì „ì²´ê³µì§€ì‚¬í•­";
 
 $sql_common = " from $g4[notice_table] a left join $g4[board_table] b on (a.bo_table = b.bo_table) ";
 
@@ -14,11 +14,11 @@ $sql = " select count(*) as cnt $sql_common ";
 $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
-// rows´Â µû·Î ÁöÁ¤ÇÏÁö ¾Ê°í...
+// rowsëŠ” ë”°ë¡œ ì§€ì •í•˜ì§€ ì•Šê³ ...
 $rows = $g4['good_list_rows'];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if (!$page) $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ íŽ˜ì´ì§€ ê³„ì‚°
+if (!$page) $page = 1; // íŽ˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« íŽ˜ì´ì§€ (1 íŽ˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œìž‘ ì—´ì„ êµ¬í•¨
 
 $list = array();
 $sql = " select a.no_datetime, a.wr_id, b.*
@@ -31,7 +31,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 {
     $tmp_write_table = $g4[write_prefix] . $row[bo_table];
 
-    // °Ô½Ã±Û Á¤º¸¸¦ °¡Á®¿Â´Ù
+    // ê²Œì‹œê¸€ ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤
     $row2 = sql_fetch(" select * from $tmp_write_table where wr_id = '$row[wr_id]' ");
     $list[$i] = $row2;
     

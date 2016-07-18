@@ -2,15 +2,15 @@
 include_once("./_common.php");
 
 if (!$is_member) {
-    alert("·Î±×ÀÎ ÈÄ ÀÌ¿ëÇÏ¼¼¿ä.");
+    alert("ë¡œê·¸ì¸ í›„ ì´ìš©í•˜ì„¸ìš”.");
 }
-// ¿î¿µÀÚ°¡ ¾Æ´Ï¸é
+// ìš´ì˜ìžê°€ ì•„ë‹ˆë©´
 if ($is_admin != 'super') {
-    alert("¿äÃ»ÇÏ½Å ¼­ºñ½º¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.\\n\\nÈ®ÀÎÇÏ½Å ÈÄ ´Ù½Ã ÀÌ¿ëÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.");
+    alert("ìš”ì²­í•˜ì‹  ì„œë¹„ìŠ¤ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\\n\\ní™•ì¸í•˜ì‹  í›„ ë‹¤ì‹œ ì´ìš©í•˜ì‹œê¸° ë°”ëžë‹ˆë‹¤.");
 }
 
 
-// Å×ÀÌºí »ý¼º
+// í…Œì´ë¸” ìƒì„±
 $sql = " CREATE TABLE $g4[attendance_plugin_table] (
   at_id int(11) NOT NULL AUTO_INCREMENT,
   mb_id varchar(255) NOT NULL,
@@ -33,7 +33,7 @@ $sql = " CREATE TABLE $g4[attendance_plugin_table] (
 sql_query($sql, false);
 
 
-// Å×ÀÌºí »ý¼º
+// í…Œì´ë¸” ìƒì„±
 $sql = " CREATE TABLE $g4[attendance_successive_plugin_table] (
   `mb_id` varchar(255) NOT NULL,
   `as_victory` int(11) NOT NULL,
@@ -47,6 +47,6 @@ sql_query($sql, false);
 
 @rename("{$g4[attendance_path]}/install.php", "{$g4[attendance_path]}/install.bak");
 
-alert("¾÷µ¥ÀÌÆ®°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù.\\n\\nÈ®ÀÎÇÏ½Å ÈÄ ÀÌ¿ë ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.","{$g4[attendance_path]}/attendance.php");
+alert("ì—…ë°ì´íŠ¸ê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.\\n\\ní™•ì¸í•˜ì‹  í›„ ì´ìš© í•˜ì‹œê¸° ë°”ëžë‹ˆë‹¤.","{$g4[attendance_path]}/attendance.php");
 
 ?>

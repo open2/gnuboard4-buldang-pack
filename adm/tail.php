@@ -1,13 +1,13 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-// »ç¿ëÀÚ È­¸é ¿ìÃø°ú ÇÏ´ÜÀ» ´ã´çÇÏ´Â ÆäÀÌÁöÀÔ´Ï´Ù.
-// ¿ìÃø, ÇÏ´Ü È­¸éÀ» ²Ù¹Ì·Á¸é ÀÌ ÆÄÀÏÀ» ¼öÁ¤ÇÕ´Ï´Ù.
+// ì‚¬ìš©ìž í™”ë©´ ìš°ì¸¡ê³¼ í•˜ë‹¨ì„ ë‹´ë‹¹í•˜ëŠ” íŽ˜ì´ì§€ìž…ë‹ˆë‹¤.
+// ìš°ì¸¡, í•˜ë‹¨ í™”ë©´ì„ ê¾¸ë¯¸ë ¤ë©´ ì´ íŒŒì¼ì„ ìˆ˜ì •í•©ë‹ˆë‹¤.
 ?>
 
-</div><!-- °¡¿îµ¥ ¿µ¿ª div - content ³¡ -->
+</div><!-- ê°€ìš´ë° ì˜ì—­ div - content ë -->
 
-<!-- ¿À¸¥ÂÊ ÄÃ·³ div - side ½ÃÀÛ -->
+<!-- ì˜¤ë¥¸ìª½ ì»¬ëŸ¼ div - side ì‹œìž‘ -->
 <div class="aside">
     <div>
     <?
@@ -18,10 +18,10 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
         echo latest_good_metacoupon('scrap', 'metacoupon', 10, 25);
     }
 
-    // ±¤°í¸¦ ºÁÁÖ¼Å¾ß ÇÕ´Ï´Ù. ¤Ð..¤Ð...
+    // ê´‘ê³ ë¥¼ ë´ì£¼ì…”ì•¼ í•©ë‹ˆë‹¤. ã… ..ã… ...
     include_once("$g4[path]/adsense_aside.php");
 
-    // È¸¿øÀÏ ¶§
+    // íšŒì›ì¼ ë•Œ
     if ($is_member){
         include_once("$g4[path]/lib/whatson.lib.php");
 
@@ -34,34 +34,34 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
         echo "<div id='my_comment'>$loading_msg</div>";
     }
 
-    // ±¤°í¸¦ ºÁÁÖ¼Å¾ß ÇÕ´Ï´Ù. ¤Ð..¤Ð...
+    // ê´‘ê³ ë¥¼ ë´ì£¼ì…”ì•¼ í•©ë‹ˆë‹¤. ã… ..ã… ...
     include_once("$g4[path]/adsense_aside2.php");
 
-    // ¾ø¾îÁú ºÎºÐ
+    // ì—†ì–´ì§ˆ ë¶€ë¶„
     echo "<div id='my_response' style='height:260px'>$loading_msg</div>";
     ?>
     </div>
-</div><!-- ¿À¸¥ÂÊ ÄÃ·³ div - side ³¡ -->
+</div><!-- ì˜¤ë¥¸ìª½ ì»¬ëŸ¼ div - side ë -->
 
-</div><!-- Áß°£ºÎ div - container ³¡ -->
+</div><!-- ì¤‘ê°„ë¶€ div - container ë -->
 
-<!-- ÆäÀÌÁö ÇÏ´ÜºÎ footer -->
+<!-- íŽ˜ì´ì§€ í•˜ë‹¨ë¶€ footer -->
 <div id="footer">
 		<ul  class="footer-nav">
-  			<li><a href="<?=$g4[path]?>/">È¨À¸·Î</a></li>
-	  		<li><a href="<?=$g4[path]?>/company/privacy.php?mnb=info&snb=privacy"><b>°³ÀÎÁ¤º¸Ãë±Þ¹æÄ§</b></a></li>
-  			<li><a href="<?=$g4[path]?>/company/service.php?mnb=info&snb=service">ÀÌ¿ë¾à°ü</a></li>
-        <li><a href="<?=$g4[path]?>/company/disclaimer.php?mnb=info&snb=disclaimer">Ã¥ÀÓÇÑ°è¿Í¹ýÀû°íÁö</a></li>
-        <li><a href="<?=$g4[path]?>/company/rejection.php?mnb=info&snb=rejection">ÀÌ¸ÞÀÏÁÖ¼Ò¹«´Ü¼öÁý°ÅºÎ</a></li>
+  			<li><a href="<?=$g4[path]?>/">í™ˆìœ¼ë¡œ</a></li>
+	  		<li><a href="<?=$g4[path]?>/company/privacy.php?mnb=info&snb=privacy"><b>ê°œì¸ì •ë³´ì·¨ê¸‰ë°©ì¹¨</b></a></li>
+  			<li><a href="<?=$g4[path]?>/company/service.php?mnb=info&snb=service">ì´ìš©ì•½ê´€</a></li>
+        <li><a href="<?=$g4[path]?>/company/disclaimer.php?mnb=info&snb=disclaimer">ì±…ìž„í•œê³„ì™€ë²•ì ê³ ì§€</a></li>
+        <li><a href="<?=$g4[path]?>/company/rejection.php?mnb=info&snb=rejection">ì´ë©”ì¼ì£¼ì†Œë¬´ë‹¨ìˆ˜ì§‘ê±°ë¶€</a></li>
 		</ul>
     <p class="info">
-        ºÒ´çÀÇ DiorCafe´Â ÇØ¿Ü±¸¸ÅÁ¤º¸¸¦ °øÀ¯ÇÏ´Â Ä¿¹Â´ÏÆ¼ »çÀÌÆ®ÀÌ¸ç, »çÀÌÆ®ÀÇ °Ô½Ã±Û µî¿¡ ´ëÇÑ ÀÇ¹«¿Í Ã¥ÀÓÀº °¢ È¸¿ø¿¡ ÀÖ½À´Ï´Ù.
+        ë¶ˆë‹¹ì˜ DiorCafeëŠ” í•´ì™¸êµ¬ë§¤ì •ë³´ë¥¼ ê³µìœ í•˜ëŠ” ì»¤ë®¤ë‹ˆí‹° ì‚¬ì´íŠ¸ì´ë©°, ì‚¬ì´íŠ¸ì˜ ê²Œì‹œê¸€ ë“±ì— ëŒ€í•œ ì˜ë¬´ì™€ ì±…ìž„ì€ ê° íšŒì›ì— ìžˆìŠµë‹ˆë‹¤.
     </p>
     <p class="info2">
-        Ä«Åå: diorcafe/ ÀÌ¸ÞÀÏ: diorcafe.co.kr@gmail.com <br>
+        ì¹´í†¡: diorcafe/ ì´ë©”ì¼: diorcafe.co.kr@gmail.com <br>
 		<? if (($mnb == "mart" || $mnb == "flea" ) && $is_member){ ?>
-        »ç¾÷ÀÚµî·Ï¹øÈ£: 214-88-95569/ Åë½ÅÆÇ¸Å¾÷½Å°í¹øÈ£: 2012-¼­¿ï¼­ÃÊ-0764È£[<a href="http://ftc.go.kr/info/bizinfo/communicationList.jsp?searchKey=04&amp;searchVal=" style="color:#093" target="_blank">»ç¾÷ÀÚµî·ÏÁ¤º¸È®ÀÎ</a>]<br>
-        ¿ì)137-876,¼­¿ï½Ã¼­ÃÊ±¸¹ÝÆ÷´ë·Î14±æ54,¿¡ÀÌµ¿602È£/ ÀüÈ­: 070-7115-0010/ ÁÖ½ÄÈ¸»çºÒ´çÄ«Æä/ ´ëÇ¥ÀÌ»ç:°­À±È£/ °³ÀÎÁ¤º¸º¸È£Ã¥ÀÓÀÚ:°­À±È£
+        ì‚¬ì—…ìžë“±ë¡ë²ˆí˜¸: 214-88-95569/ í†µì‹ íŒë§¤ì—…ì‹ ê³ ë²ˆí˜¸: 2012-ì„œìš¸ì„œì´ˆ-0764í˜¸[<a href="http://ftc.go.kr/info/bizinfo/communicationList.jsp?searchKey=04&amp;searchVal=" style="color:#093" target="_blank">ì‚¬ì—…ìžë“±ë¡ì •ë³´í™•ì¸</a>]<br>
+        ìš°)137-876,ì„œìš¸ì‹œì„œì´ˆêµ¬ë°˜í¬ëŒ€ë¡œ14ê¸¸54,ì—ì´ë™602í˜¸/ ì „í™”: 070-7115-0010/ ì£¼ì‹íšŒì‚¬ë¶ˆë‹¹ì¹´íŽ˜/ ëŒ€í‘œì´ì‚¬:ê°•ìœ¤í˜¸/ ê°œì¸ì •ë³´ë³´í˜¸ì±…ìž„ìž:ê°•ìœ¤í˜¸
     <? } ?>
     </p>
 
@@ -70,7 +70,7 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
     </p>
 </div>
 
-</div><!-- ÀüÃ¼ div : wrap ³¡ -->
+</div><!-- ì „ì²´ div : wrap ë -->
 
 <?
 include_once("$g4[path]/tail.sub.php");

@@ -2,7 +2,7 @@
 <input type='hidden' name='kind' value='<?=$kind?>'>
 <div class="container">
     <strong><a href="<?=$memo_url?>?kind=<?=$kind?>"><?=$memo_title?></a>&nbsp;
-    ( <? if ($kind == "recv") echo "<a href='$memo_url?kind=recv&unread=only' title='¾ÈÀĞÀºÂÊÁö'><font color=red>$total_count_recv_unread</font></a> / "?><a href='<?=$memo_url?>?kind=$kind'><?=number_format($total_count)?></a>
+    ( <? if ($kind == "recv") echo "<a href='$memo_url?kind=recv&unread=only' title='ì•ˆì½ì€ìª½ì§€'><font color=red>$total_count_recv_unread</font></a> / "?><a href='<?=$memo_url?>?kind=$kind'><?=number_format($total_count)?></a>
     </strong>
     /&nbsp;<a href="<?=$memo_url?>?kind=<?=$kind?>&sfl=me_file&stx=me_file"><i class="fa fa-file"></i></a>
     )
@@ -14,27 +14,27 @@
     <div class="pull-right collapse navbar-collapse navbar-ex4-collapse">
         <div class="form-group" role="search">
         <select name='sfl' id='sfl' class="form-control">
-            <option value="me_subject_memo">Á¦¸ñ+³»¿ë</option>
-            <option value="me_subject">Á¦¸ñ</option>
-            <option value="me_memo">³»¿ë</option>
+            <option value="me_subject_memo">ì œëª©+ë‚´ìš©</option>
+            <option value="me_subject">ì œëª©</option>
+            <option value="me_memo">ë‚´ìš©</option>
         <? if ($kind == "recv" or $kind == "spam" or $kind == "notice") { ?>
-            <option value="me_send_mb_nick">º¸³½<? if ($config['cf_memo_mb_name']) echo "(ÀÌ¸§)"; else echo "(º°¸í)"; ?></option>
-            <option value="me_send_mb_id">º¸³½(¾ÆÀÌµğ)</option>
+            <option value="me_send_mb_nick">ë³´ë‚¸<? if ($config['cf_memo_mb_name']) echo "(ì´ë¦„)"; else echo "(ë³„ëª…)"; ?></option>
+            <option value="me_send_mb_id">ë³´ë‚¸(ì•„ì´ë””)</option>
         <? } else if ($kind == "send") { ?>
-            <option value="me_recv_mb_nick">¹ŞÀº<? if ($config['cf_memo_mb_name']) echo "(ÀÌ¸§)"; else echo "(º°¸í)"; ?></option>
-            <option value="me_recv_mb_id">¹ŞÀº(¾ÆÀÌµğ)</option>
+            <option value="me_recv_mb_nick">ë°›ì€<? if ($config['cf_memo_mb_name']) echo "(ì´ë¦„)"; else echo "(ë³„ëª…)"; ?></option>
+            <option value="me_recv_mb_id">ë°›ì€(ì•„ì´ë””)</option>
         <? } else if ($kind == "save" or $kind == "trash") { ?>
-            <option value="me_send_mb_nick">¹ŞÀº<? if ($config['cf_memo_mb_name']) echo "(ÀÌ¸§)"; else echo "(º°¸í)"; ?></option>
-            <option value="me_recv_mb_id">¹ŞÀº(¾ÆÀÌµğ)</option>
-            <option value="me_send_mb_nick">º¸³½<? if ($config['cf_memo_mb_name']) echo "(ÀÌ¸§)"; else echo "(º°¸í)"; ?></option>
-            <option value="me_send_mb_id">º¸³½(¾ÆÀÌµğ)</option>
+            <option value="me_send_mb_nick">ë°›ì€<? if ($config['cf_memo_mb_name']) echo "(ì´ë¦„)"; else echo "(ë³„ëª…)"; ?></option>
+            <option value="me_recv_mb_id">ë°›ì€(ì•„ì´ë””)</option>
+            <option value="me_send_mb_nick">ë³´ë‚¸<? if ($config['cf_memo_mb_name']) echo "(ì´ë¦„)"; else echo "(ë³„ëª…)"; ?></option>
+            <option value="me_send_mb_id">ë³´ë‚¸(ì•„ì´ë””)</option>
         <? } ?>
         </select>
         </div>
         <div class="form-group">
-            <input  class="form-control" name="stx" type="text" value='<?=$stx?>' maxlength=15 size="15" itemname="°Ë»ö¾î" required />
+            <input  class="form-control" name="stx" type="text" value='<?=$stx?>' maxlength=15 size="15" itemname="ê²€ìƒ‰ì–´" required />
         </div>
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 </form>
@@ -47,28 +47,28 @@
 <thead>
 <tr class="success">
     <th width=35>
-    <!-- °øÁöÂÊÁöÇÔÀº »èÁ¦ ¼±ÅÃÀÌ ¾ø°Ô... -->
+    <!-- ê³µì§€ìª½ì§€í•¨ì€ ì‚­ì œ ì„ íƒì´ ì—†ê²Œ... -->
     <input name="chk_me_id_all" type="checkbox" onclick="if (this.checked) all_checked(true); else all_checked(false);" />
     </th>
     <th class="hidden-xs" width=110><?=$list_title ?></th>
-    <th>Á¦ ¸ñ</th>
-    <th class=width=80>¹ß½Å</th>
+    <th>ì œ ëª©</th>
+    <th class=width=80>ë°œì‹ </th>
     <th width=80>
     <? if ($kind == 'notice') {
         if ($is_admin=='super' || $member['mb_id']==$view['me_send_mb_id']) { ?>  
-            ¼ö½Å·¹º§
+            ìˆ˜ì‹ ë ˆë²¨
         <? } ?>
     <? } else { ?>
-        ¼ö½Å
+        ìˆ˜ì‹ 
     <? } ?>
     </th>
 </tr>
 </thead>
 
-<? for ($i=0; $i<count($list); $i++) { // ¸ñ·ÏÀ» Ãâ·Â ÇÕ´Ï´Ù. ?>
+<? for ($i=0; $i<count($list); $i++) { // ëª©ë¡ì„ ì¶œë ¥ í•©ë‹ˆë‹¤. ?>
 <tr>
     <td>
-        <!-- °øÁöÂÊÁöÇÔÀº »èÁ¦ ¼±ÅÃÀÌ ¾ø°Ô... -->
+        <!-- ê³µì§€ìª½ì§€í•¨ì€ ì‚­ì œ ì„ íƒì´ ì—†ê²Œ... -->
         <? if ($kind !== 'notice') { ?>
         <input name="chk_me_id[]" type="checkbox" value="<?=$list[$i][me_id]?>" />
         <? } ?>
@@ -76,7 +76,7 @@
     <td class="hidden-xs"><?=$list[$i]['name']?></td>
     <td align="left" class="hidden-xs">
         <?
-        if ($list[$i]['read_datetime'] == 'ÀĞÁö ¾ÊÀ½' or $list[$i]['read_datetime'] == '¼ö½Å ¾ÊÀ½') {
+        if ($list[$i]['read_datetime'] == 'ì½ì§€ ì•ŠìŒ' or $list[$i]['read_datetime'] == 'ìˆ˜ì‹  ì•ŠìŒ') {
             $style1 = "<strong>";
             $style2 = "</strong>";
         } else {
@@ -88,7 +88,7 @@
         <? if ($list[$i]['me_file']) { ?><i class="fa fa-file"></i>&nbsp;<?}?><a href='<?=$view_url?>' title='<?=$list[$i]['subject']?>'><?=$style1?><?=cut_str($list[$i]['subject'],27)?><?=$style2?></a>
         </td>
         <?
-        // °øÁöÂÊÁöÀÇ ÀĞÀº ³¯Â¥´Â???
+        // ê³µì§€ìª½ì§€ì˜ ì½ì€ ë‚ ì§œëŠ”???
         if ($kind == 'notice') { 
             if ($is_admin=='super' || $member[mb_id]==$view[me_send_mb_id])
                 $list[$i]['read_datetime'] = $list[$i]['me_recv_mb_id'];
@@ -109,7 +109,7 @@
     <? } ?>
     <? if ($i==0) { ?>
     <tr>
-        <td align=center height=100 colspan=5>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td>
+        <td align=center height=100 colspan=5>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td>
     </tr>
     <? } ?>
     <tfoot>
@@ -117,7 +117,7 @@
         <td colspan=5>
         <div class="btn-group">
             <? if ($i > 0 and $kind !='notice') { ?>
-            <a href="javascript:select_delete();" class="btn btn-default" title="delete/»èÁ¦"><i class="fa fa-trash-o"></i></a>
+            <a href="javascript:select_delete();" class="btn btn-default" title="delete/ì‚­ì œ"><i class="fa fa-trash-o"></i></a>
             <? } ?>
             <? if ($i > 0 and $kind == "trash") { ?>
             <a href="javascript:all_delete_trash();" class="btn btn-default">Empty Trash</a>
@@ -128,11 +128,11 @@
             <?
             $write_pages = get_paging($config['cf_write_pages_xs'], $page, $total_page, "?&kind=$kind&sfl=$sfl&stx=$stx&unread=$unread&page="); 
 
-            // ±âº»À¸·Î ³Ñ¾î¿À´Â ÆäÀÌÁö¸¦ ¾Æ·¡¿Í °°ÀÌ º¯È¯ÇÏ¿© ´Ù¾çÇÏ°Ô Ãâ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.
-            $write_pages = str_replace("ÀÌÀü", "<i class='fa fa-angle-left'></i>", $write_pages);
-            $write_pages = str_replace("´ÙÀ½", "<i class='fa fa-angle-right'></i>", $write_pages);
-            $write_pages = str_replace("Ã³À½", "<i class='fa fa-angle-double-left'></i>", $write_pages);
-            $write_pages = str_replace("¸Ç³¡", "<i class='fa fa-angle-double-right'></i>", $write_pages);
+            // ê¸°ë³¸ìœ¼ë¡œ ë„˜ì–´ì˜¤ëŠ” í˜ì´ì§€ë¥¼ ì•„ë˜ì™€ ê°™ì´ ë³€í™˜í•˜ì—¬ ë‹¤ì–‘í•˜ê²Œ ì¶œë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+            $write_pages = str_replace("ì´ì „", "<i class='fa fa-angle-left'></i>", $write_pages);
+            $write_pages = str_replace("ë‹¤ìŒ", "<i class='fa fa-angle-right'></i>", $write_pages);
+            $write_pages = str_replace("ì²˜ìŒ", "<i class='fa fa-angle-double-left'></i>", $write_pages);
+            $write_pages = str_replace("ë§¨ë", "<i class='fa fa-angle-double-right'></i>", $write_pages);
 
             echo "$write_pages";
             ?>
@@ -146,21 +146,21 @@
 </form>
 
 <?
-// ÇÏ´ÜºÎ¿¡ ³»º¸³»´Â ±âº» Á¤º¸»çÇ×
+// í•˜ë‹¨ë¶€ì— ë‚´ë³´ë‚´ëŠ” ê¸°ë³¸ ì •ë³´ì‚¬í•­
 $msg = "";
-if ($kind == "write") { // ¾²±â ÀÏ¶§¸¸ ¸Ş½ÃÁö¸¦ Ãâ·Â ÇÕ´Ï´Ù.
-    $msg .= "<li>¿©·¯¸í¿¡°Ô ÂÊÁö ¹ß¼Û½Ã ÄÄ¸¶(,)·Î ±¸ºĞ ÇÕ´Ï´Ù.";
+if ($kind == "write") { // ì“°ê¸° ì¼ë•Œë§Œ ë©”ì‹œì§€ë¥¼ ì¶œë ¥ í•©ë‹ˆë‹¤.
+    $msg .= "<li>ì—¬ëŸ¬ëª…ì—ê²Œ ìª½ì§€ ë°œì†¡ì‹œ ì»´ë§ˆ(,)ë¡œ êµ¬ë¶„ í•©ë‹ˆë‹¤.";
     if ($config['cf_memo_use_file'] && $config['cf_memo_file_size']) {
-        $msg .= "<li>Ã·ºÎ°¡´ÉÇÑ ÆÄÀÏÀÇ ÃÖ´ë ¿ë·®Àº " .$config['cf_memo_file_size'] . "M(¸Ş°¡) ÀÔ´Ï´Ù.";
+        $msg .= "<li>ì²¨ë¶€ê°€ëŠ¥í•œ íŒŒì¼ì˜ ìµœëŒ€ ìš©ëŸ‰ì€ " .$config['cf_memo_file_size'] . "M(ë©”ê°€) ì…ë‹ˆë‹¤.";
     }
     if ($config['cf_memo_send_point']) 
-        $msg .= "<li>ÂÊÁö º¸³¾¶§ È¸¿ø´ç ".number_format($config['cf_memo_send_point'])."Á¡ÀÇ Æ÷ÀÎÆ®¸¦ Â÷°¨ÇÕ´Ï´Ù.";
+        $msg .= "<li>ìª½ì§€ ë³´ë‚¼ë•Œ íšŒì›ë‹¹ ".number_format($config['cf_memo_send_point'])."ì ì˜ í¬ì¸íŠ¸ë¥¼ ì°¨ê°í•©ë‹ˆë‹¤.";
 }
-if ($kind == "send") { // º¸³½ÂÊÁöÇÔ ÀÏ¶§¸¸ ¸Ş½ÃÁö¸¦ Ãâ·Â ÇÕ´Ï´Ù.
-    $msg .= "<li>ÀĞÁö ¾ÊÀº ÂÊÁö¸¦ »èÁ¦ÇÏ¸é, ¹ß½ÅÀÌ Ãë¼Ò(¼ö½ÅÀÚ ÂÊÁöÇÔ¿¡¼­ »èÁ¦) µË´Ï´Ù.";
+if ($kind == "send") { // ë³´ë‚¸ìª½ì§€í•¨ ì¼ë•Œë§Œ ë©”ì‹œì§€ë¥¼ ì¶œë ¥ í•©ë‹ˆë‹¤.
+    $msg .= "<li>ì½ì§€ ì•Šì€ ìª½ì§€ë¥¼ ì‚­ì œí•˜ë©´, ë°œì‹ ì´ ì·¨ì†Œ(ìˆ˜ì‹ ì ìª½ì§€í•¨ì—ì„œ ì‚­ì œ) ë©ë‹ˆë‹¤.";
 }
-if ($kind == "send" || $kind == "recv") { // º¸³½ÂÊÁöÇÔ ÀÏ¶§¸¸ ¸Ş½ÃÁö¸¦ Ãâ·Â ÇÕ´Ï´Ù.
-    $msg .= "<li>º¸°ü¾ÈµÈ ÂÊÁö´Â " . $config['cf_memo_del'] . "ÀÏ ÈÄ »èÁ¦µÇ¹Ç·Î Áß¿äÇÑ ÂÊÁö´Â º¸°üÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.";
+if ($kind == "send" || $kind == "recv") { // ë³´ë‚¸ìª½ì§€í•¨ ì¼ë•Œë§Œ ë©”ì‹œì§€ë¥¼ ì¶œë ¥ í•©ë‹ˆë‹¤.
+    $msg .= "<li>ë³´ê´€ì•ˆëœ ìª½ì§€ëŠ” " . $config['cf_memo_del'] . "ì¼ í›„ ì‚­ì œë˜ë¯€ë¡œ ì¤‘ìš”í•œ ìª½ì§€ëŠ” ë³´ê´€í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.";
 }
 if ($msg !== "") { 
     echo '<div class="container"><div class="panel panel-default"><div class="panel-heading">';
@@ -169,7 +169,7 @@ if ($msg !== "") {
 } ?>
 
 <?
-// ±¸±Û ±¤°í¸¦ include
+// êµ¬ê¸€ ê´‘ê³ ë¥¼ include
 $ad_file = "$memo_skin_path/memo2_adsense.php";
 if (file_exists($ad_file)) {
     include_once($ad_file);

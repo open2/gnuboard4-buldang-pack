@@ -1,7 +1,7 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-// ±×´©SEO - ¾îµğ¼­ ¿Ô´ÂÁö ºĞ¼®ÇØ¼­ Å×ÀÌºí¿¡ ³Ö½À´Ï´Ù.
+// ê·¸ëˆ„SEO - ì–´ë””ì„œ ì™”ëŠ”ì§€ ë¶„ì„í•´ì„œ í…Œì´ë¸”ì— ë„£ìŠµë‹ˆë‹¤.
 function convertUrlQuery($query) { 
     $queryParts = explode('&', $query); 
     
@@ -26,15 +26,15 @@ if ($referer) {
     $result = pdo_query($stmt);
 
     $query = "";
-    // ³×ÀÌ¹ö
+    // ë„¤ì´ë²„
     if (stristr($host, ".naver.") && $q['query']) {
         $query = urldecode($q['query']);
         $query = iconv($q['ie'], $g4['charset'] , $query);
-    // ±¸±Û
+    // êµ¬ê¸€
     } else if (stristr($host, ".google.") && $q['q']) {
         $query = urldecode($q['q']);
         $query = iconv("UTF-8", $g4['charset'] , $query);
-    // ´ÙÀ½
+    // ë‹¤ìŒ
     } else if (stristr($host, ".daum.") && $q['q']) {
         $query = urldecode($q['q']);
         $query = iconv("UTF-8", $g4['charset'] , $query);
@@ -42,12 +42,12 @@ if ($referer) {
     } else if (stristr($host, "sir.co.kr") && $q['stx']) {
         $query = urldecode($q['stx']);
         $query = iconv("UTF-8", $g4['charset'] , $query);
-    // ³» ¼­¹ö...±×°Å´Â ±×³É ÀÎ±â°Ë»ö¾î¸¦ µğºñ~
+    // ë‚´ ì„œë²„...ê·¸ê±°ëŠ” ê·¸ëƒ¥ ì¸ê¸°ê²€ìƒ‰ì–´ë¥¼ ë””ë¹„~
     } else if ($g4['cookie_domain'] && stristr($host, $g4['cookie_domain']) && $q['stx']) {
         ;
     }
 
-    // °Ë»ö¾î ÇÊÅÍ¸µ (±İÄ¢ °Ë»ö¾î´Â SEO¿¡ ³ÖÁö ¾Ê½À´Ï´Ù)
+    // ê²€ìƒ‰ì–´ í•„í„°ë§ (ê¸ˆì¹™ ê²€ìƒ‰ì–´ëŠ” SEOì— ë„£ì§€ ì•ŠìŠµë‹ˆë‹¤)
     if ($query) {
         $result3 = sql_fetch(" select count(*) as cnt from $g4[filter_table] where pp_word = '$query' ");
         if ($result3['cnt'] > 0)
@@ -67,11 +67,11 @@ if ($referer) {
     }
 }
 
-// ÄÄÇ»ÅÍÀÇ ¾ÆÀÌÇÇ¿Í ÄíÅ°¿¡ ÀúÀåµÈ ¾ÆÀÌÇÇ°¡ ´Ù¸£´Ù¸é Å×ÀÌºí¿¡ ¹İ¿µÇÔ
+// ì»´í“¨í„°ì˜ ì•„ì´í”¼ì™€ ì¿ í‚¤ì— ì €ì¥ëœ ì•„ì´í”¼ê°€ ë‹¤ë¥´ë‹¤ë©´ í…Œì´ë¸”ì— ë°˜ì˜í•¨
 if (get_cookie('ck_visit_ip') != $_SERVER['REMOTE_ADDR']) {
-    set_cookie('ck_visit_ip', $_SERVER['REMOTE_ADDR'], 86400); // ÇÏ·çµ¿¾È ÀúÀå
+    set_cookie('ck_visit_ip', $_SERVER['REMOTE_ADDR'], 86400); // í•˜ë£¨ë™ì•ˆ ì €ì¥
 
-    // vi_id¸¦ auto_increment·Î º¯°æÇÔ¿¡ µû¶ó¼­ ºÒÇÊ¿äÇÔ
+    // vi_idë¥¼ auto_incrementë¡œ ë³€ê²½í•¨ì— ë”°ë¼ì„œ ë¶ˆí•„ìš”í•¨
     //$tmp_row = sql_fetch(" select max(vi_id) as max_vi_id from $g4[visit_table] ");
     //$vi_id = $tmp_row[max_vi_id] + 1;
 
@@ -83,10 +83,10 @@ if (get_cookie('ck_visit_ip') != $_SERVER['REMOTE_ADDR']) {
     $stmt->bindParam(":user_agent", $user_agent);
     $result = pdo_query($stmt, FALSE);
 
-    // Á¤»óÀ¸·Î INSERT µÇ¾ú´Ù¸é ¹æ¹®ÀÚ ÇÕ°è¿¡ ¹İ¿µ
+    // ì •ìƒìœ¼ë¡œ INSERT ë˜ì—ˆë‹¤ë©´ ë°©ë¬¸ì í•©ê³„ì— ë°˜ì˜
     if ($result) {
       
-        // UPDATE¸¦ ¸ÕÀúÇÏ°í ¿À·ù°¡ ¹ß»ı½Ã insert¸¦ ½ÇÇà (¿¢½º¿¥¿¤´Ô)
+        // UPDATEë¥¼ ë¨¼ì €í•˜ê³  ì˜¤ë¥˜ê°€ ë°œìƒì‹œ insertë¥¼ ì‹¤í–‰ (ì—‘ìŠ¤ì— ì—˜ë‹˜)
         $sql = " update $g4[visit_sum_table] set vs_count = vs_count + 1 where vs_date = '$g4[time_ymd]' ";
         $result = sql_query($sql, FALSE);
         
@@ -95,30 +95,30 @@ if (get_cookie('ck_visit_ip') != $_SERVER['REMOTE_ADDR']) {
             $result = sql_query($sql, FALSE);
         }
 
-        // INSERT, UPDATE µÈ°ÇÀÌ ÀÖ´Ù¸é ±âº»È¯°æ¼³Á¤ Å×ÀÌºí¿¡ ÀúÀå
-        // ¹æ¹®°´ Á¢¼Ó½Ã¸¶´Ù µû·Î Äõ¸®¸¦ ÇÏÁö ¾Ê±â À§ÇÔ (¾öÃ»³­ Äõ¸®¸¦ ÁÙÀÓ ^^)
+        // INSERT, UPDATE ëœê±´ì´ ìˆë‹¤ë©´ ê¸°ë³¸í™˜ê²½ì„¤ì • í…Œì´ë¸”ì— ì €ì¥
+        // ë°©ë¬¸ê° ì ‘ì†ì‹œë§ˆë‹¤ ë”°ë¡œ ì¿¼ë¦¬ë¥¼ í•˜ì§€ ì•Šê¸° ìœ„í•¨ (ì—„ì²­ë‚œ ì¿¼ë¦¬ë¥¼ ì¤„ì„ ^^)
 
-        // ¿À´Ã
+        // ì˜¤ëŠ˜
         $sql = " select vs_count as cnt from $g4[visit_sum_table] where vs_date = '$g4[time_ymd]' ";
         $row = sql_fetch($sql);
         $vi_today = $row[cnt];
 
-        // ¾îÁ¦
+        // ì–´ì œ
         $sql = " select vs_count as cnt from $g4[visit_sum_table] where vs_date = DATE_SUB('$g4[time_ymd]', INTERVAL 1 DAY) ";
         $row = sql_fetch($sql);
         $vi_yesterday = $row[cnt];
 
-        // ÇÕ°è, ÀüÃ¼ - ¿¢½º¿¥¿¤´Ô²²¼­ SQL 2°³¸¦ 1°³·Î ÁÙ¿©ÁÖ¼Ì½À´Ï´Ù.
+        // í•©ê³„, ì „ì²´ - ì—‘ìŠ¤ì— ì—˜ë‹˜ê»˜ì„œ SQL 2ê°œë¥¼ 1ê°œë¡œ ì¤„ì—¬ì£¼ì…¨ìŠµë‹ˆë‹¤.
         $sql = " select max(vs_count) as cnt , sum(vs_count) as total from $g4[visit_sum_table] "; 
         $row = sql_fetch($sql);
         $vi_sum = $row[total];
         $vi_max = $row[cnt];
 
-        $visit = "¿À´Ã:$vi_today,¾îÁ¦:$vi_yesterday,ÃÖ´ë:$vi_max,ÀüÃ¼:$vi_sum";
+        $visit = "ì˜¤ëŠ˜:$vi_today,ì–´ì œ:$vi_yesterday,ìµœëŒ€:$vi_max,ì „ì²´:$vi_sum";
 
-        // ±âº»¼³Á¤ Å×ÀÌºí¿¡ ¹æ¹®ÀÚ¼ö¸¦ ±â·ÏÇÑ ÈÄ 
-        // ¹æ¹®ÀÚ¼ö Å×ÀÌºíÀ» ÀĞÁö ¾Ê°í Ãâ·ÂÇÑ´Ù.
-        // Äõ¸®ÀÇ ¼ö¸¦ »ó´çºÎºĞ ÁÙÀÓ
+        // ê¸°ë³¸ì„¤ì • í…Œì´ë¸”ì— ë°©ë¬¸ììˆ˜ë¥¼ ê¸°ë¡í•œ í›„ 
+        // ë°©ë¬¸ììˆ˜ í…Œì´ë¸”ì„ ì½ì§€ ì•Šê³  ì¶œë ¥í•œë‹¤.
+        // ì¿¼ë¦¬ì˜ ìˆ˜ë¥¼ ìƒë‹¹ë¶€ë¶„ ì¤„ì„
         sql_query(" update $g4[config_table] set cf_visit = '$visit' ");
     }
 }

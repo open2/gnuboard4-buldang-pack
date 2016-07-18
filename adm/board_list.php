@@ -44,9 +44,9 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if ($page == "") { $page = 1; } // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if ($page == "") { $page = 1; } // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
 $sql = " select * 
           $sql_common
@@ -55,9 +55,9 @@ $sql = " select *
           limit $from_record, $rows ";
 $result = sql_query($sql);
 
-$listall = "<a href='$_SERVER[PHP_SELF]'>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]'>ì²˜ìŒ</a>";
 
-$g4[title] = "°Ô½ÃÆÇ°ü¸®";
+$g4[title] = "ê²Œì‹œíŒê´€ë¦¬";
 include_once("./admin.head.php");
 ?>
 
@@ -68,17 +68,17 @@ var list_delete_php = 'board_list_delete.php';
 
 <form name=fsearch method=get role="form" class="form-inline">
 <div class="btn-group">
-    <?=$listall?> (°Ô½ÃÆÇ¼ö : <?=number_format($total_count)?>°³)
+    <?=$listall?> (ê²Œì‹œíŒìˆ˜ : <?=number_format($total_count)?>ê°œ)
 </div>
 <div class="pull-right">
     <select name=sfl class="form-control">
         <option value='bo_table'>TABLE</option>
-        <option value='bo_subject'>Á¦¸ñ</option>
-        <option value='a.gr_id'>±×·ìID</option>
+        <option value='bo_subject'>ì œëª©</option>
+        <option value='a.gr_id'>ê·¸ë£¹ID</option>
     </select>
-    <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<?=$stx?>'>
+    <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<?=$stx?>'>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 </form>
@@ -103,40 +103,40 @@ var list_delete_php = 'board_list_delete.php';
 <colgroup width=35>
 <tr>
     <td rowspan=2><input type=checkbox name=chkall value="1" onclick="check_all(this.form)"></td>
-    <td rowspan=2><?=subject_sort_link("bo_table")?>TABLE</a>&nbsp;&nbsp;&nbsp;<a href="./board_form.php"><i class='fa fa-plus-square fa-2x' title='»ı¼º'></i></a></td>
-    <td colspan=2><?=subject_sort_link("bo_subject")?>Á¦¸ñ</a></td>
-    <td rowspan=2 title="±ÛÀĞ±â Æ÷ÀÎÆ®"><?=subject_sort_link("bo_read_point")?>ÀĞ±â<br>Æ÷ÀÎÆ®</a></td>
-    <td rowspan=2 title="±Û¾²±â Æ÷ÀÎÆ®"><?=subject_sort_link("bo_write_point")?>¾²±â<br>Æ÷ÀÎÆ®</a></td>
-    <td rowspan=2 title="ÄÚ¸àÆ®¾²±â Æ÷ÀÎÆ®"><?=subject_sort_link("bo_comment_point")?>ÄÚ¸àÆ®<br>Æ÷ÀÎÆ®</a></td>
-    <td rowspan=2 title="´Ù¿î·Îµå Æ÷ÀÎÆ®"><?=subject_sort_link("bo_download_point")?>´Ù¿î<br>Æ÷ÀÎÆ®</a></td>
-    <td rowspan=2 title="°Ë»ö»ç¿ë"><?=subject_sort_link("bo_use_search")?>°Ë»ö<br>»ç¿ë</a></td>
-    <td rowspan=2 title="°Ë»ö¼ø¼­"><?=subject_sort_link("bo_order_search")?>°Ë»ö<br>¼ø¼­</a></td>
+    <td rowspan=2><?=subject_sort_link("bo_table")?>TABLE</a>&nbsp;&nbsp;&nbsp;<a href="./board_form.php"><i class='fa fa-plus-square fa-2x' title='ìƒì„±'></i></a></td>
+    <td colspan=2><?=subject_sort_link("bo_subject")?>ì œëª©</a></td>
+    <td rowspan=2 title="ê¸€ì½ê¸° í¬ì¸íŠ¸"><?=subject_sort_link("bo_read_point")?>ì½ê¸°<br>í¬ì¸íŠ¸</a></td>
+    <td rowspan=2 title="ê¸€ì“°ê¸° í¬ì¸íŠ¸"><?=subject_sort_link("bo_write_point")?>ì“°ê¸°<br>í¬ì¸íŠ¸</a></td>
+    <td rowspan=2 title="ì½”ë©˜íŠ¸ì“°ê¸° í¬ì¸íŠ¸"><?=subject_sort_link("bo_comment_point")?>ì½”ë©˜íŠ¸<br>í¬ì¸íŠ¸</a></td>
+    <td rowspan=2 title="ë‹¤ìš´ë¡œë“œ í¬ì¸íŠ¸"><?=subject_sort_link("bo_download_point")?>ë‹¤ìš´<br>í¬ì¸íŠ¸</a></td>
+    <td rowspan=2 title="ê²€ìƒ‰ì‚¬ìš©"><?=subject_sort_link("bo_use_search")?>ê²€ìƒ‰<br>ì‚¬ìš©</a></td>
+    <td rowspan=2 title="ê²€ìƒ‰ìˆœì„œ"><?=subject_sort_link("bo_order_search")?>ê²€ìƒ‰<br>ìˆœì„œ</a></td>
 </tr>
 <tr class='bgcol1 bold col1 ht2 center'>
-    <td><?=subject_sort_link("a.gr_id")?>±×·ì</a></td>
-    <td><?=subject_sort_link("bo_skin", "", "desc")?>½ºÅ²</a></td>
+    <td><?=subject_sort_link("a.gr_id")?>ê·¸ë£¹</a></td>
+    <td><?=subject_sort_link("bo_skin", "", "desc")?>ìŠ¤í‚¨</a></td>
 </tr>
 <?
-// ½ºÅ²µğ·ºÅä¸®
+// ìŠ¤í‚¨ë””ë ‰í† ë¦¬
 $skin_options = "";
 $arr = get_skin_dir("board");
 for ($k=0; $k<count($arr); $k++) 
 {
     $option = $arr[$k];
     if (strlen($option) > 10)
-        $option = substr($arr[$k], 0, 18) . "¡¦";
+        $option = substr($arr[$k], 0, 18) . "â€¦";
 
     $skin_options .= "<option value='$arr[$k]'>$option</option>";
 }
 
 for ($i=0; $row=sql_fetch_array($result); $i++) {
-    $s_upd = "<a href='./board_form.php?w=u&bo_table=$row[bo_table]&$qstr'><i class='fa fa-pencil' title='¼öÁ¤'></i></a>";
+    $s_upd = "<a href='./board_form.php?w=u&bo_table=$row[bo_table]&$qstr'><i class='fa fa-pencil' title='ìˆ˜ì •'></i></a>";
     $s_del = "";
     if ($is_admin == "super") {
-        $s_del = "&nbsp;<a href=\"javascript:post_delete('board_delete.php', '$row[bo_table]');\"><i class='fa fa-trash-o' title='»èÁ¦'></i></a>";
+        $s_del = "&nbsp;<a href=\"javascript:post_delete('board_delete.php', '$row[bo_table]');\"><i class='fa fa-trash-o' title='ì‚­ì œ'></i></a>";
     }
-    $s_copy = "&nbsp;<a href=\"javascript:board_copy('$row[bo_table]');\"><i class='fa fa-copy' title='º¹»ç'></i></a>";
-    $s_sort = "&nbsp;<a href='./board_sort.php?bo_table=$row[bo_table]'><i class='fa fa-sort-amount-desc' title='Á¤·Ä'></i></a>";
+    $s_copy = "&nbsp;<a href=\"javascript:board_copy('$row[bo_table]');\"><i class='fa fa-copy' title='ë³µì‚¬'></i></a>";
+    $s_sort = "&nbsp;<a href='./board_sort.php?bo_table=$row[bo_table]'><i class='fa fa-sort-amount-desc' title='ì •ë ¬'></i></a>";
 
     $list = $i % 2;
     echo "<input type=hidden name=board_table[$i] value='$row[bo_table]'>";
@@ -144,12 +144,12 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     echo "<td rowspan=2><input type=checkbox name=chk[] value='$i'></td>";
     echo "<td><a href='$g4[bbs_path]/board.php?bo_table=$row[bo_table]'><b>$row[bo_table]</b></a></td>";
     echo "<td colspan=2 align=left><input type=text class=ed name=bo_subject[$i] value='".get_text($row[bo_subject])."' style='width:99%'></td>";
-    echo "<td rowspan=2 title='ÀĞ±â Æ÷ÀÎÆ®'><input type=text class=ed name=bo_read_point[$i] value='$row[bo_read_point]' style='width:33px;'></td>";
-    echo "<td rowspan=2 title='¾²±â Æ÷ÀÎÆ®'><input type=text class=ed name=bo_write_point[$i] value='$row[bo_write_point]' style='width:33px;'></td>";
-    echo "<td rowspan=2 title='¼Ó±Û¾²±â Æ÷ÀÎÆ®'><input type=text class=ed name=bo_comment_point[$i] value='$row[bo_comment_point]' style='width:33px;'></td>";
-    echo "<td rowspan=2 title='´Ù¿î·Îµå Æ÷ÀÎÆ®'><input type=text class=ed name=bo_download_point[$i] value='$row[bo_download_point]' style='width:33px;'></td>";
-    echo "<td rowspan=2 title='°Ë»ö»ç¿ë'><input type=checkbox name=bo_use_search[$i] ".($row[bo_use_search]?'checked':'')." value='1'></td>";
-    echo "<td rowspan=2 title='°Ë»ö¼ø¼­'><input type=text class=ed name=bo_order_search[$i] value='$row[bo_order_search]' size=2></td>";
+    echo "<td rowspan=2 title='ì½ê¸° í¬ì¸íŠ¸'><input type=text class=ed name=bo_read_point[$i] value='$row[bo_read_point]' style='width:33px;'></td>";
+    echo "<td rowspan=2 title='ì“°ê¸° í¬ì¸íŠ¸'><input type=text class=ed name=bo_write_point[$i] value='$row[bo_write_point]' style='width:33px;'></td>";
+    echo "<td rowspan=2 title='ì†ê¸€ì“°ê¸° í¬ì¸íŠ¸'><input type=text class=ed name=bo_comment_point[$i] value='$row[bo_comment_point]' style='width:33px;'></td>";
+    echo "<td rowspan=2 title='ë‹¤ìš´ë¡œë“œ í¬ì¸íŠ¸'><input type=text class=ed name=bo_download_point[$i] value='$row[bo_download_point]' style='width:33px;'></td>";
+    echo "<td rowspan=2 title='ê²€ìƒ‰ì‚¬ìš©'><input type=checkbox name=bo_use_search[$i] ".($row[bo_use_search]?'checked':'')." value='1'></td>";
+    echo "<td rowspan=2 title='ê²€ìƒ‰ìˆœì„œ'><input type=text class=ed name=bo_order_search[$i] value='$row[bo_order_search]' size=2></td>";
     echo "</tr>";
 
     echo "<tr>";
@@ -165,12 +165,12 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 } 
 
 if ($i == 0)
-    echo "<tr><td colspan='9' align=center height=100>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>"; 
+    echo "<tr><td colspan='9' align=center height=100>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>"; 
 
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
@@ -178,9 +178,9 @@ echo "</table>";
 </div>
 
 <div class="btn-group">
-    <input type=button class='btn btn-default' value='¼±ÅÃ¼öÁ¤' onclick="btn_check(this.form, 'update')">
+    <input type=button class='btn btn-default' value='ì„ íƒìˆ˜ì •' onclick="btn_check(this.form, 'update')">
     <? if ($is_admin == "super") { ?>
-        <input type=button class='btn btn-default' value='¼±ÅÃ»èÁ¦' onclick="btn_check(this.form, 'delete')">
+        <input type=button class='btn btn-default' value='ì„ íƒì‚­ì œ' onclick="btn_check(this.form, 'delete')">
     <? } ?>
 </div>
 
@@ -197,12 +197,12 @@ function board_copy(bo_table) {
 </script>
 
 <script type="text/javascript">
-// POST ¹æ½ÄÀ¸·Î »èÁ¦
+// POST ë°©ì‹ìœ¼ë¡œ ì‚­ì œ
 function post_delete(action_url, val)
 {
 	var f = document.fpost;
 
-	if(confirm("ÇÑ¹ø »èÁ¦ÇÑ ÀÚ·á´Â º¹±¸ÇÒ ¹æ¹ıÀÌ ¾ø½À´Ï´Ù.\n\nÁ¤¸» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?")) {
+	if(confirm("í•œë²ˆ ì‚­ì œí•œ ìë£ŒëŠ” ë³µêµ¬í•  ë°©ë²•ì´ ì—†ìŠµë‹ˆë‹¤.\n\nì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
     f.bo_table.value = val;
 		f.action         = action_url;
 		f.submit();

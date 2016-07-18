@@ -1,7 +1,7 @@
 <?
 include_once("./_common.php");
 
-$g4['title'] = "�����ڸ���";
+$g4['title'] = "관리자메인";
 include_once ("./admin.head.php");
 
 $new_member_rows = 5;
@@ -22,7 +22,7 @@ if (trim($sst) == "") {
 
 $sql_order = " order by $sst $sod ";
 
-// ��üȸ����
+// 전체회원수
 $sql = " select count(*) as cnt
          $sql_common
          $sql_search
@@ -30,7 +30,7 @@ $sql = " select count(*) as cnt
 $row = sql_fetch($sql);
 $total_count = $row['cnt'];
 
-// Ż��ȸ����
+// 탈퇴회원수
 $sql = " select count(*) as cnt
          $sql_common
          $sql_search
@@ -39,7 +39,7 @@ $sql = " select count(*) as cnt
 $row = sql_fetch($sql);
 $leave_count = $row['cnt'];
 
-// ����ȸ����
+// 차단회원수
 $sql = " select count(*) as cnt
          $sql_common
          $sql_search
@@ -48,7 +48,7 @@ $sql = " select count(*) as cnt
 $row = sql_fetch($sql);
 $intercept_count = $row['cnt'];
 
-// �ű԰��� ȸ�����
+// 신규가입 회원목록
 $sql = " select *
           $sql_common
           $sql_search
@@ -60,18 +60,18 @@ $result = sql_query($sql);
 <div class="row-fluid row">
 <div class="col-sm-6">
     <div class="panel panel-default">
-        <div class="panel-heading"><a href="./member_list.php">�ű԰���ȸ�� <?=$new_member_rows?>��</a>
-            <span class="pull-right">��ȸ���� : <?=number_format($total_count)?>, ���� : <?=number_format($intercept_count)?>, Ż�� : <?=number_format($leave_count)?></span>
+        <div class="panel-heading"><a href="./member_list.php">신규가입회원 <?=$new_member_rows?>건</a>
+            <span class="pull-right">총회원수 : <?=number_format($total_count)?>, 차단 : <?=number_format($intercept_count)?>, 탈퇴 : <?=number_format($leave_count)?></span>
         </div>
     </div>
     <table width=100% class="table table-hover" style="word-wrap:break-word;">
     <tr class="success">
-        <td>ȸ�����̵�</td>
-        <td>�̸�</td>
-        <td>����</td>
-        <td>����</td>
-        <td>����Ʈ</td>
-        <td>��������</td>
+        <td>회원아이디</td>
+        <td>이름</td>
+        <td>별명</td>
+        <td>권한</td>
+        <td>포인트</td>
+        <td>최종접속</td>
     </tr>
     <?
     for ($i=0; $row=sql_fetch_array($result); $i++) 
@@ -92,7 +92,7 @@ $result = sql_query($sql);
     }
     
     if ($i == 0)
-        echo "<tr><td colspan='6' align=center height=100>�ڷᰡ �����ϴ�.</td></tr>";
+        echo "<tr><td colspan='6' align=center height=100>자료가 없습니다.</td></tr>";
     ?>
     </table>
 </div>
@@ -117,12 +117,12 @@ $result = sql_query($sql);
     $result = sql_query($sql);
     ?>
     <div class="panel panel-default">
-        <div class="panel-heading"><a href="./point_list.php">�ֱ�����Ʈ <?=$new_point_rows?>��</a>
+        <div class="panel-heading"><a href="./point_list.php">최근포인트 <?=$new_point_rows?>건</a>
             <span class="pull-right">
-                (�Ǽ� : <?=number_format($total_count)?>, 
+                (건수 : <?=number_format($total_count)?>, 
                 <? 
                 $row2 = sql_fetch(" select sum(po_point) as sum_point from $g4[point_table] ");
-                echo "&nbsp;��ü ����Ʈ �հ� : " . number_format($row2[sum_point]) . "��)";
+                echo "&nbsp;전체 포인트 합계 : " . number_format($row2[sum_point]) . "점)";
                 ?>
             </span>
         </div>
@@ -130,11 +130,11 @@ $result = sql_query($sql);
 
     <table width=100% class="table table-hover" style="word-wrap:break-word;">
     <tr class='success'>
-        <td width=80>ȸ�����̵�</td>
-        <td width=80>����</td>
-        <td width=80>�Ͻ�</td>
-        <td>����Ʈ ����</td>
-        <td width=60>����Ʈ</td>
+        <td width=80>회원아이디</td>
+        <td width=80>별명</td>
+        <td width=80>일시</td>
+        <td>포인트 내용</td>
+        <td width=60>포인트</td>
     </tr>
     <?
     for ($i=0; $row=sql_fetch_array($result); $i++) 
@@ -162,7 +162,7 @@ $result = sql_query($sql);
     } 
     
     if ($i == 0)
-        echo "<tr><td colspan='5' align=center height=100>�ڷᰡ �����ϴ�.</td></tr>";
+        echo "<tr><td colspan='5' align=center height=100>자료가 없습니다.</td></tr>";
 
     echo "</table>";
     ?>
@@ -173,19 +173,19 @@ $result = sql_query($sql);
 <div class="col-sm-6">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <a href='<?=$g4[bbs_path]?>/new.php' target="_blank">�ֱٰԽù�</a>
+            <a href='<?=$g4[bbs_path]?>/new.php' target="_blank">최근게시물</a>
         </div>
     </div>
 
     <table width=100% class="table table-hover" style="word-wrap:break-word;">
     <tr class='success'>
-        <td width=100>�Խ���</td>
-        <td>����</td>
-        <td width=80>����</td>
-        <td width=80>�Ͻ�</td>
+        <td width=100>게시판</td>
+        <td>제목</td>
+        <td width=80>별명</td>
+        <td width=80>일시</td>
     </tr>
     <?
-    // �ֱ� �Խù� $new_write_rows ���� ���մϴ�
+    // 최근 게시물 $new_write_rows 건을 구합니다
     $sql_common = " from $g4[board_new_table] ";
     $sql_common .= " where wr_is_comment = '0' ";
     $sql_order = " order by bn_id desc ";
@@ -218,26 +218,26 @@ $result = sql_query($sql);
     }
     
     if ($i == 0)
-        echo "<tr><td colspan='4' align=center height=100>�ڷᰡ �����ϴ�.</td></tr>";
+        echo "<tr><td colspan='4' align=center height=100>자료가 없습니다.</td></tr>";
     echo "</table>";
     ?>
 </div>
 <div class="col-sm-6">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <a href='<?=$g4[bbs_path]?>/new.php' target="_blank">�ֱ��ڸ�Ʈ</a>
+            <a href='<?=$g4[bbs_path]?>/new.php' target="_blank">최근코멘트</a>
         </div>
     </div>
 
     <table width=100% class="table table-hover" style="word-wrap:break-word;">
     <tr class='success'>
-        <td width=100>�Խ���</td>
-        <td>����</td>
-        <td width=80>����</td>
-        <td width=80>�Ͻ�</td>
+        <td width=100>게시판</td>
+        <td>제목</td>
+        <td width=80>별명</td>
+        <td width=80>일시</td>
     </tr>
     <?
-    // �ֱ� �Խù� $new_write_rows ���� ���մϴ�
+    // 최근 게시물 $new_write_rows 건을 구합니다
     $sql_common = " from $g4[board_new_table] ";
     $sql_common .= " where wr_is_comment = '1' ";
     $sql_order = " order by bn_id desc ";
@@ -251,12 +251,12 @@ $result = sql_query($sql);
     {
         $tmp_write_table = $g4['write_prefix'] . $row['bo_table'];
 
-        // ������ ����
+        // 원글의 정보
         $row2 = sql_fetch(" select * from $tmp_write_table where wr_id = '$row[wr_parent]' ");
         if (!$row2)
             continue;
 
-        // �ڸ�Ʈ�� ����
+        // 코멘트의 정보
         $row3 = sql_fetch(" select * from $tmp_write_table where wr_id = '$row[wr_id]' ");
         if (!$row3)
             continue;
@@ -276,7 +276,7 @@ $result = sql_query($sql);
     }
     
     if ($i == 0)
-        echo "<tr><td colspan='4' align=center height=100>�ڷᰡ �����ϴ�.</td></tr>";
+        echo "<tr><td colspan='4' align=center height=100>자료가 없습니다.</td></tr>";
     echo "</table>";
     ?>
 </div>

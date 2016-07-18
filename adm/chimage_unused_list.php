@@ -6,7 +6,7 @@ auth_check($auth[$sub_menu], "r");
 
 $sql_common = " from $g4[board_cheditor_table] ";
 
-// ³«µ¿°­ ¿À¸®¾ËÀÌ µÈ ½Ã°£ - 12½Ã°£ ÀÌÈÄ±îÁö ¾Æ¹«°Íµµ ¾øÀ¸¸é ³«ÀåÀ¸·Î ºĞ·ù
+// ë‚™ë™ê°• ì˜¤ë¦¬ì•Œì´ ëœ ì‹œê°„ - 12ì‹œê°„ ì´í›„ê¹Œì§€ ì•„ë¬´ê²ƒë„ ì—†ìœ¼ë©´ ë‚™ì¥ìœ¼ë¡œ ë¶„ë¥˜
 $date_gap = date("Y-m-d H:i:s", $g4[server_time] - 3600*12);
 
 $sql_search = " where (del = 1 or wr_id is null) and (bc_datetime < '$date_gap') ";
@@ -39,13 +39,13 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if (!$page) $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if (!$page) $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
-$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>ì²˜ìŒ</a>";
 
-$g4[title] = "¾È¾²´ÂÀÌ¹ÌÁö¸ñ·Ïº¸±â";
+$g4[title] = "ì•ˆì“°ëŠ”ì´ë¯¸ì§€ëª©ë¡ë³´ê¸°";
 include_once("./admin.head.php");
 
 $sql = " select * 
@@ -62,7 +62,7 @@ var list_delete_php = "chimage_unused_delete.php";
 
 <script type="text/javascript">
 function unused_clear() {
-    if (confirm("¾È¾²´Â ÀÌ¹ÌÁö Á¤¸®¸¦ ¼±ÅÃÇÏ½Ã¸é, ÇöÀçºÎÅÍ ÇÏ·ç ÀÌÀüÀÇ ¸ğµç »ç¿ëµÇÁö ¾ÊÀº ÀÌ¹ÌÁö·ê ¸ğµÎ »èÁ¦ ÇÕ´Ï´Ù.\n\n»èÁ¦µÈ ÀÌ¹ÌÁö´Â _delete·Î ³¡³ª´Â µğ·ºÅä¸®¿¡ ÀúÀå µÇ¹Ç·Î ¹é¾÷ÈÄ »èÁ¦ ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.\n\n\n±×·¡µµ ÁøÇàÇÏ½Ã°Ú½À´Ï±î?")) {
+    if (confirm("ì•ˆì“°ëŠ” ì´ë¯¸ì§€ ì •ë¦¬ë¥¼ ì„ íƒí•˜ì‹œë©´, í˜„ì¬ë¶€í„° í•˜ë£¨ ì´ì „ì˜ ëª¨ë“  ì‚¬ìš©ë˜ì§€ ì•Šì€ ì´ë¯¸ì§€ë£° ëª¨ë‘ ì‚­ì œ í•©ë‹ˆë‹¤.\n\nì‚­ì œëœ ì´ë¯¸ì§€ëŠ” _deleteë¡œ ëë‚˜ëŠ” ë””ë ‰í† ë¦¬ì— ì €ì¥ ë˜ë¯€ë¡œ ë°±ì—…í›„ ì‚­ì œ í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.\n\n\nê·¸ë˜ë„ ì§„í–‰í•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
         document.location.href = "./chimage_unused_clear.php?ok=1";
     }
 }
@@ -70,16 +70,16 @@ function unused_clear() {
 
 <form name=fsearch method=get role="form" class="form-inline">
 <div class="btn-group">
-    <?=$listall?> (¾È¾²´ÂÀÌ¹ÌÁö°¹¼ö : <?=number_format($total_count)?>) <a href="javascript:unused_clear();">ÀüÃ¼ ¾È¾²´Â ÀÌ¹ÌÁö Á¤¸®</a>
+    <?=$listall?> (ì•ˆì“°ëŠ”ì´ë¯¸ì§€ê°¯ìˆ˜ : <?=number_format($total_count)?>) <a href="javascript:unused_clear();">ì „ì²´ ì•ˆì“°ëŠ” ì´ë¯¸ì§€ ì •ë¦¬</a>
 </div>
 <div class="pull-right">
     <select name=sfl class="form-control">
-        <option value='mb_id'>È¸¿ø¾ÆÀÌµğ</option>
-        <option value='bo_table'>°Ô½ÃÆÇ</option>
+        <option value='mb_id'>íšŒì›ì•„ì´ë””</option>
+        <option value='bo_table'>ê²Œì‹œíŒ</option>
     </select>
-    <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<?=$stx?>'>
+    <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<?=$stx?>'>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 </form>
@@ -94,11 +94,11 @@ function unused_clear() {
 <table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <tr class='bgcol1 bold col1 ht center'>
     <td width=30><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
-    <td width=110><?=subject_sort_link('mb_id')?>È¸¿ø¾ÆÀÌµğ</a></td>
-    <td width=110><?=subject_sort_link('bo_table')?>°Ô½ÃÆÇ</a></td>
-    <td width=100><?=subject_sort_link('bc_filesize')?>ÀÌ¹ÌÁö¿ë·®(KB)</a></td>
-	  <td width=100><?=subject_sort_link('bc_datetime')?>³¯Â¥</a></td>
-    <td>ÀÌ¹ÌÁöÆÄÀÏ ÀÌ¸§</td>
+    <td width=110><?=subject_sort_link('mb_id')?>íšŒì›ì•„ì´ë””</a></td>
+    <td width=110><?=subject_sort_link('bo_table')?>ê²Œì‹œíŒ</a></td>
+    <td width=100><?=subject_sort_link('bc_filesize')?>ì´ë¯¸ì§€ìš©ëŸ‰(KB)</a></td>
+	  <td width=100><?=subject_sort_link('bc_datetime')?>ë‚ ì§œ</a></td>
+    <td>ì´ë¯¸ì§€íŒŒì¼ ì´ë¦„</td>
 </tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) {
@@ -106,7 +106,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         $mb = sql_fetch(" select mb_id, mb_nick, mb_email, mb_homepage, mb_intercept_date from $g4[member_table] where mb_id = '$row[mb_id]' ");
         $mb_nick = get_text($mb[mb_nick]);
     } else 
-        $mb_nick = "<span style='color:#222222;'>ºñÈ¸¿ø</a>";
+        $mb_nick = "<span style='color:#222222;'>ë¹„íšŒì›</a>";
     $mbinfo = "<a href='$_SERVER[PHP_SELF]?sfl=mb_id&stx=$row[mb_id]'>$mb_nick</a>";
 
     $subject = get_text($row[wr_subject]);
@@ -114,8 +114,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     $bo_subject = $bo[bo_subject];
     $boinfo = "<a href='$_SERVER[PHP_SELF]?sfl=bo_table&stx=$row[bo_table]'>$bo_subject</a>";
 
-    // $img[src] À¥ »óÀÇ Àı´ë°æ·Î ÀÌ¹Ç·Î ÀÌ¹ÌÁö ÆÄÀÏÀÇ »ó´ë°æ·Î¸¦ ±¸ÇÕ´Ï´Ù.
-    // ÀÌ·¸°Ô Àß¶óÁà¾ß Á¦´ë·Î µÈ °æ·Î°¡ ³ª¿Â´Ù.
+    // $img[src] ì›¹ ìƒì˜ ì ˆëŒ€ê²½ë¡œ ì´ë¯€ë¡œ ì´ë¯¸ì§€ íŒŒì¼ì˜ ìƒëŒ€ê²½ë¡œë¥¼ êµ¬í•©ë‹ˆë‹¤.
+    // ì´ë ‡ê²Œ ì˜ë¼ì¤˜ì•¼ ì œëŒ€ë¡œ ëœ ê²½ë¡œê°€ ë‚˜ì˜¨ë‹¤.
     $fl = explode("/$g4[data]/",$row[bc_dir]);
     $rel_path = "../" . $g4[data] . "/" . $fl[1];
 
@@ -138,12 +138,12 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='6' align=center height=100>³»¿ªÀÌ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='6' align=center height=100>ë‚´ì—­ì´ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
@@ -152,7 +152,7 @@ echo "</table>";
 
 <div class="btn-group">
     <? if ($is_admin == "super") { ?>
-        <input type=button class='btn btn-default' value='¼±ÅÃ»èÁ¦' onclick="btn_check(this.form, 'delete')">
+        <input type=button class='btn btn-default' value='ì„ íƒì‚­ì œ' onclick="btn_check(this.form, 'delete')">
     <? } ?>
 </div>
 

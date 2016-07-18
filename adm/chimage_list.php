@@ -37,13 +37,13 @@ $total_count = $row[cnt];
 $total_size = $row[filesize];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if (!$page) $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if (!$page) $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
-$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>ì²˜ìŒ</a>";
 
-$g4[title] = "ÀÌ¹ÌÁö¸ñ·Ïº¸±â";
+$g4[title] = "ì´ë¯¸ì§€ëª©ë¡ë³´ê¸°";
 include_once("./admin.head.php");
 
 $sql = " select *
@@ -56,16 +56,16 @@ $result = sql_query($sql);
 
 <form name=fsearch method=get role="form" class="form-inline">
 <div class="btn-group">
-    <?=$listall?> (ÀÌ¹ÌÁö°¹¼ö : <?=number_format($total_count)?>, ÀÌ¹ÌÁö¿ë·® : <?=number_format($total_size/1024, 2)?> MB)
+    <?=$listall?> (ì´ë¯¸ì§€ê°¯ìˆ˜ : <?=number_format($total_count)?>, ì´ë¯¸ì§€ìš©ëŸ‰ : <?=number_format($total_size/1024, 2)?> MB)
 </div>
 <div class="pull-right">
     <select name=sfl class="form-control">
-        <option value='mb_id'>È¸¿ø¾ÆÀÌµğ</option>
-        <option value='bo_table'>°Ô½ÃÆÇ</option>
+        <option value='mb_id'>íšŒì›ì•„ì´ë””</option>
+        <option value='bo_table'>ê²Œì‹œíŒ</option>
     </select>
-    <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<?=$stx?>'>
+    <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<?=$stx?>'>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 </form>
@@ -80,12 +80,12 @@ $result = sql_query($sql);
 <table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <tr class='success'>
     <td width=30><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
-    <td width=110><?=subject_sort_link('mb_id')?>È¸¿ø¾ÆÀÌµğ</a></td>
-    <td width=110><?=subject_sort_link('bo_table')?>°Ô½ÃÆÇ</a></td>
-    <td>ÀÌ¹ÌÁöÆÄÀÏ ÀÌ¸§</td>
-    <td width=80><?=subject_sort_link('bc_filesize')?>¿ë·®(KB)</a></td>
-    <td width=80><?=subject_sort_link('bc_filesize')?>Æ®·¡ÇÈ(MB)</a></td>
-	  <td width=80><?=subject_sort_link('bc_datetime')?>³¯Â¥</a></td>
+    <td width=110><?=subject_sort_link('mb_id')?>íšŒì›ì•„ì´ë””</a></td>
+    <td width=110><?=subject_sort_link('bo_table')?>ê²Œì‹œíŒ</a></td>
+    <td>ì´ë¯¸ì§€íŒŒì¼ ì´ë¦„</td>
+    <td width=80><?=subject_sort_link('bc_filesize')?>ìš©ëŸ‰(KB)</a></td>
+    <td width=80><?=subject_sort_link('bc_filesize')?>íŠ¸ë˜í”½(MB)</a></td>
+	  <td width=80><?=subject_sort_link('bc_datetime')?>ë‚ ì§œ</a></td>
 </tr>
 <?
 $total_traffic = 0;
@@ -95,7 +95,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         $mb = sql_fetch(" select mb_id, mb_nick, mb_email, mb_homepage, mb_intercept_date from $g4[member_table] where mb_id = '$row[mb_id]' ");
         $mb_nick = get_text($mb[mb_nick]);
     } else 
-        $mb_nick = "<span style='color:#222222;'>ºñÈ¸¿ø</a>";
+        $mb_nick = "<span style='color:#222222;'>ë¹„íšŒì›</a>";
     $mbinfo = "<a href='$_SERVER[PHP_SELF]?sfl=mb_id&stx=$row[mb_id]'>$mb_nick</a>";
 
     $subject = get_text($row[wr_subject]);
@@ -103,8 +103,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     $bo_subject = $bo[bo_subject];
     $boinfo = "<a href='$_SERVER[PHP_SELF]?sfl=bo_table&stx=$row[bo_table]'>$bo_subject</a>";
 
-    // $img[src] À¥ »óÀÇ Àı´ë°æ·Î ÀÌ¹Ç·Î ÀÌ¹ÌÁö ÆÄÀÏÀÇ »ó´ë°æ·Î¸¦ ±¸ÇÕ´Ï´Ù.
-    // ÀÌ·¸°Ô Àß¶óÁà¾ß Á¦´ë·Î µÈ °æ·Î°¡ ³ª¿Â´Ù.
+    // $img[src] ì›¹ ìƒì˜ ì ˆëŒ€ê²½ë¡œ ì´ë¯€ë¡œ ì´ë¯¸ì§€ íŒŒì¼ì˜ ìƒëŒ€ê²½ë¡œë¥¼ êµ¬í•©ë‹ˆë‹¤.
+    // ì´ë ‡ê²Œ ì˜ë¼ì¤˜ì•¼ ì œëŒ€ë¡œ ëœ ê²½ë¡œê°€ ë‚˜ì˜¨ë‹¤.
     $fl = explode("/$g4[data]/",$row[bc_dir]);
     $rel_path = "../" . $g4[data] . "/" . $fl[1];
 
@@ -113,8 +113,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 
     $bc_filesize = number_format($row[bc_filesize]);
 
-    // Æ®·¡ÇÈÀ» °è»êÇÑ´Ù
-    $tmp_write_table = $g4['write_prefix'] . $row[bo_table]; // °Ô½ÃÆÇ Å×ÀÌºí ÀüÃ¼ÀÌ¸§
+    // íŠ¸ë˜í”½ì„ ê³„ì‚°í•œë‹¤
+    $tmp_write_table = $g4['write_prefix'] . $row[bo_table]; // ê²Œì‹œíŒ í…Œì´ë¸” ì „ì²´ì´ë¦„
     $write = sql_fetch(" select wr_hit from $tmp_write_table where wr_id = '$row[wr_id]' ");
     $bc_traffic = number_format($write[wr_hit] * $row[bc_filesize] / 1000, 2);
 
@@ -136,12 +136,12 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='7' align=center height=100>³»¿ªÀÌ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='7' align=center height=100>ë‚´ì—­ì´ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
@@ -154,7 +154,7 @@ if ($stx)
 ?>
 </form>
 
-* ÇöÀç ÆäÀÌÁöÀÇ ÀÌ¹ÌÁöµéÀÇ ÀüÃ¼ Æ®·¡ÇÈÀº <?=$total_traffic?> MB ÀÔ´Ï´Ù.
+* í˜„ì¬ í˜ì´ì§€ì˜ ì´ë¯¸ì§€ë“¤ì˜ ì „ì²´ íŠ¸ë˜í”½ì€ <?=$total_traffic?> MB ì…ë‹ˆë‹¤.
 
 <?
 include_once ("./admin.tail.php");

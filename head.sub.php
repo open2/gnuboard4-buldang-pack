@@ -1,21 +1,21 @@
 <?
-// ÀÌ ÆÄÀÏÀº »õ·Î¿î ÆÄÀÏ »ı¼º½Ã ¹İµå½Ã Æ÷ÇÔµÇ¾î¾ß ÇÔ
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+// ì´ íŒŒì¼ì€ ìƒˆë¡œìš´ íŒŒì¼ ìƒì„±ì‹œ ë°˜ë“œì‹œ í¬í•¨ë˜ì–´ì•¼ í•¨
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
 $begin_time = get_microtime();
 
 if (!$g4['title'])
     $g4['title'] = $config['cf_title'];
-// DB injectionÀ» ¹æ¾îÇÏ±â À§ÇØ¼­ tag¸¦ stripÇÑ´Ù
+// DB injectionì„ ë°©ì–´í•˜ê¸° ìœ„í•´ì„œ tagë¥¼ stripí•œë‹¤
 $g4['title'] = strip_tags($g4['title']);
 
-// ¾Û¿¡¼­´Â Çª½Ã ¾Ë¸²ÀÌ º¸¿©Áö¹Ç·Î, ÂÊÁö ¾È³»Ã¢ »ı·«ÇØ¾ß ÇÔ.
+// ì•±ì—ì„œëŠ” í‘¸ì‹œ ì•Œë¦¼ì´ ë³´ì—¬ì§€ë¯€ë¡œ, ìª½ì§€ ì•ˆë‚´ì°½ ìƒëµí•´ì•¼ í•¨.
 if ( ! in_app()) {
-    // ÂÊÁö¸¦ ¹Ş¾Ò³ª?
+    // ìª½ì§€ë¥¼ ë°›ì•˜ë‚˜?
     if (trim($member['mb_memo_call'])) {
         $mb_memo_nick = check_memo_call();
         if ($mb_memo_nick !== "") {
-            alert($mb_memo_nick . "´ÔÀ¸·ÎºÎÅÍ ÂÊÁö°¡ Àü´ŞµÇ¾ú½À´Ï´Ù.", $_SERVER[REQUEST_URI]);
+            alert($mb_memo_nick . "ë‹˜ìœ¼ë¡œë¶€í„° ìª½ì§€ê°€ ì „ë‹¬ë˜ì—ˆìŠµë‹ˆë‹¤.", $_SERVER[REQUEST_URI]);
         }
     }
 }
@@ -42,7 +42,7 @@ header("X-Content-Type-Options: nosniff");
 <meta http-equiv="content-type" content="text/html; charset=<?=$g4['charset']?>">
 <? if ($config['cf_meta_author']) { ?><meta name="author" content="<?=get_text(clean_xss_tags($config['cf_meta_author']))?>"><? } ?>
 <?
-// ºñÈ¸¿øÀÏ¶§¸¸ SEO¸¦ »ı¼ºÇÕ´Ï´Ù. È¸¿øµéÀº ÀÌ¹Ì µé¾î¿Í ÀÖ´Â°Å¶ó, ±»ÀÌ ÇÒ ÀÌÀ¯°¡ ¾ø°ÚÁÒ?
+// ë¹„íšŒì›ì¼ë•Œë§Œ SEOë¥¼ ìƒì„±í•©ë‹ˆë‹¤. íšŒì›ë“¤ì€ ì´ë¯¸ ë“¤ì–´ì™€ ìˆëŠ”ê±°ë¼, êµ³ì´ í•  ì´ìœ ê°€ ì—†ê² ì£ ?
 if ($member['mb_id'] == "" && $g4['keyword_seo'])
     seo_keyword();
 ?>
@@ -61,7 +61,7 @@ if ($member['mb_id'] == "" && $g4['keyword_seo'])
 <![endif]-->
 <link rel="stylesheet" href="<?=$g4['path']?>/style.css?sver=<?=$g4[sver]?>" type="text/css">
 
-<? // canonical link by ¸»·¯83, http://sir.co.kr/bbs/board.php?bo_table=g4_tiptech&wr_id=20826
+<? // canonical link by ë§ëŸ¬83, http://sir.co.kr/bbs/board.php?bo_table=g4_tiptech&wr_id=20826
 if(stristr($_SERVER[PHP_SELF], "/bbs/board.php") == true && $bo_table) {
     if ($wr_id)
         echo "<link rel=\"canonical\" href=\"$_SERVER[PHP_SELF]?bo_table=$bo_table&wr_id=$wr_id\" />";
@@ -78,7 +78,7 @@ if(stristr($_SERVER[PHP_SELF], "/bbs/board.php") == true && $bo_table) {
 <![endif]-->
 
 <script type="text/javascript">
-// ÀÚ¹Ù½ºÅ©¸³Æ®¿¡¼­ »ç¿ëÇÏ´Â Àü¿ªº¯¼ö ¼±¾ğ
+// ìë°”ìŠ¤í¬ë¦½íŠ¸ì—ì„œ ì‚¬ìš©í•˜ëŠ” ì „ì—­ë³€ìˆ˜ ì„ ì–¸
 var g4_path      = "<?=$g4['path']?>";
 var g4_bbs       = "<?=$g4['bbs']?>";
 var g4_bbs_img   = "<?=$g4['bbs_img']?>";

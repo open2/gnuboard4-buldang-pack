@@ -72,7 +72,7 @@ function chkImgFormat (url)
     }
 
     if (!allowSubmit) {
-        alert("»çÁøÀº GIF, JPG, PNG Çü½Ä¸¸ ³ÖÀ» ¼ö ÀÖ½À´Ï´Ù.");
+        alert("ì‚¬ì§„ì€ GIF, JPG, PNG í˜•ì‹ë§Œ ë„£ì„ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
         return false;
     }
 
@@ -161,7 +161,7 @@ function removeSWF(id) {
 function doSubmit ()
 {
     if (newImage == null) {
-         alert("¹Ì¸® º¸±â ¹öÆ°À» Å¬¸¯ÇÏ¿© ÀÌ¹ÌÁö¸¦ È®ÀÎÇØ ÁÖ½Ê½Ã¿À.");
+         alert("ë¯¸ë¦¬ ë³´ê¸° ë²„íŠ¼ì„ í´ë¦­í•˜ì—¬ ì´ë¯¸ì§€ë¥¼ í™•ì¸í•´ ì£¼ì‹­ì‹œì˜¤.");
          return;
     }
 

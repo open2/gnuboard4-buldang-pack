@@ -1,15 +1,15 @@
 <?
 include_once("./_common.php");
 
-$g4[title] = "·Î±×ÀÎ";
+$g4[title] = "ë¡œê·¸ì¸";
 include_once("./_head.php");
 
 $p = parse_url($url);
 if ($p['scheme'] || $p['host']) {
-    alert("url¿¡ µµ¸ÞÀÎÀ» ÁöÁ¤ÇÒ ¼ö ¾ø½À´Ï´Ù.");
+    alert("urlì— ë„ë©”ì¸ì„ ì§€ì •í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 }
 
-// ÀÌ¹Ì ·Î±×ÀÎ ÁßÀÌ¶ó¸é
+// ì´ë¯¸ ë¡œê·¸ì¸ ì¤‘ì´ë¼ë©´
 if ($member[mb_id])
 {
     if ($url)

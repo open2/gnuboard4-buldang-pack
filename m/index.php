@@ -1,7 +1,7 @@
 <?php
 include_once("./_common.php");
 
-// ¾Û¿¡¼­ ½ÇÇàµÈ °æ¿ì ÄíÅ°·Î ±¸ºÐ
+// ì•±ì—ì„œ ì‹¤í–‰ëœ ê²½ìš° ì¿ í‚¤ë¡œ êµ¬ë¶„
 if ((isset($_GET['in-app']) && $_GET['in-app'])) {
     setcookie("in-app", $_GET['in-app'], time() + 86400 * 3650, '/', $g4['cookie_domain']);
 }

@@ -5,11 +5,11 @@ if (!function_exists('convert_charset'))
 {
     /*
     -----------------------------------------------------------
-        Charset À» º¯È¯ÇÏ´Â ÇÔ¼ö
+        Charset ì„ ë³€í™˜í•˜ëŠ” í•¨ìˆ˜
     -----------------------------------------------------------
-    iconv ÇÔ¼ö°¡ ÀÖÀ¸¸é iconv ·Î º¯È¯ÇÏ°í
-    ¾øÀ¸¸é mb_convert_encoding ÇÔ¼ö¸¦ »ç¿ëÇÑ´Ù.
-    µÑ´Ù ¾øÀ¸¸é »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    iconv í•¨ìˆ˜ê°€ ìˆìœ¼ë©´ iconv ë¡œ ë³€í™˜í•˜ê³ 
+    ì—†ìœ¼ë©´ mb_convert_encoding í•¨ìˆ˜ë¥¼ ì‚¬ìš©í•œë‹¤.
+    ë‘˜ë‹¤ ì—†ìœ¼ë©´ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
     */
     function convert_charset($from_charset, $to_charset, $str) 
     {
@@ -25,14 +25,14 @@ if (!function_exists('convert_charset'))
 
 header("Content-Type: text/html; charset=$g4[charset]");
 
-// °ü¸®ÀÚÀÇ °æ¿ì¿¡´Â ÇÊÅÍ¸µ Àû¿ëÀ» ¹ŞÁö ¾Ê½À´Ï´Ù
+// ê´€ë¦¬ìì˜ ê²½ìš°ì—ëŠ” í•„í„°ë§ ì ìš©ì„ ë°›ì§€ ì•ŠìŠµë‹ˆë‹¤
 if ($is_admin)
     die("{\"subject\":\"$subj\",\"content\":\"$cont\"}");
 
 $subject = strtolower($_POST['subject']);
 $content = strtolower(strip_tags($_POST['content']));
 
-//euc-kr ÀÏ °æ¿ì $config['cf_filter'] ¸¦ utf-8·Î º¯È¯ÇÑ´Ù.
+//euc-kr ì¼ ê²½ìš° $config['cf_filter'] ë¥¼ utf-8ë¡œ ë³€í™˜í•œë‹¤.
 if (strtolower($g4[charset]) == 'euc-kr') 
 {
     //$subject = convert_charset('utf-8', 'cp949', $subject);
@@ -41,31 +41,31 @@ if (strtolower($g4[charset]) == 'euc-kr')
 }
 
 //$filter = explode(",", strtolower(trim($config['cf_filter'])));
-// strtolower ¿¡ ÀÇÇÑ ÇÑ±Û º¯ÇüÀ¸·Î ¾Æ·¡ ÄÚµå·Î ´ëÃ¼ (°ö½½ÃÖ¾¾´ÔÀÌ ¾Ë·Á ÁÖ¼Ì½À´Ï´Ù.)
+// strtolower ì— ì˜í•œ í•œê¸€ ë³€í˜•ìœ¼ë¡œ ì•„ë˜ ì½”ë“œë¡œ ëŒ€ì²´ (ê³±ìŠ¬ìµœì”¨ë‹˜ì´ ì•Œë ¤ ì£¼ì…¨ìŠµë‹ˆë‹¤.)
 $filter = explode(",", trim($config['cf_filter']));
 for ($i=0; $i<count($filter); $i++) 
 {
     $str = $filter[$i];
 
-    // Á¦¸ñ ÇÊÅÍ¸µ (Ã£À¸¸é ÁßÁö)
+    // ì œëª© í•„í„°ë§ (ì°¾ìœ¼ë©´ ì¤‘ì§€)
     $subj = "";
     $pos = strpos($subject, $str);
     if ($pos !== false) 
     {
         if (strtolower($g4[charset]) == 'euc-kr') 
-            $subj = convert_charset('utf-8', 'cp949', $str);//cp949 ·Î º¯È¯ÇØ¼­ ¹İÈ¯
+            $subj = convert_charset('utf-8', 'cp949', $str);//cp949 ë¡œ ë³€í™˜í•´ì„œ ë°˜í™˜
         else 
             $subj = $str;
         break;
     }
 
-    // ³»¿ë ÇÊÅÍ¸µ (Ã£À¸¸é ÁßÁö)
+    // ë‚´ìš© í•„í„°ë§ (ì°¾ìœ¼ë©´ ì¤‘ì§€)
     $cont = "";
     $pos = strpos($content, $str);
     if ($pos !== false) 
     {
         if (strtolower($g4[charset]) == 'euc-kr') 
-            $cont = convert_charset('utf-8', 'cp949', $str);//cp949 ·Î º¯È¯ÇØ¼­ ¹İÈ¯
+            $cont = convert_charset('utf-8', 'cp949', $str);//cp949 ë¡œ ë³€í™˜í•´ì„œ ë°˜í™˜
         else 
             $cont = $str;
         break;

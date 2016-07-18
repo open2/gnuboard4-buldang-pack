@@ -5,14 +5,14 @@ include_once("./_common.php");
 check_demo();
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4[path]);
+    alert("ìµœê³ ê´€ë¦¬ìžë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4[path]);
 
-$g4[title] = "¾÷±×·¹ÀÌµå";
+$g4[title] = "ì—…ê·¸ë ˆì´ë“œ";
 include_once("./admin.head.php");
 
-echo "UPGRADE ½ÃÀÛ.";
+echo "UPGRADE ì‹œìž‘.";
 
-// ÀÏ¹ÝÀûÀÎ ¸Þ¸ðÀÇ °æ¿ì (memo Å×ÀÌºíÀÇ ÀÌ¸§À» Á¤È®ÇÏ°Ô ÁöÁ¤...)
+// ì¼ë°˜ì ì¸ ë©”ëª¨ì˜ ê²½ìš° (memo í…Œì´ë¸”ì˜ ì´ë¦„ì„ ì •í™•í•˜ê²Œ ì§€ì •...)
 $sql = " select * from $g4[table_prefix]memo_backup ";
 $result = sql_query($sql);
 
@@ -20,7 +20,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 {
     $me_memo_text = nl2br($row[me_memo]);
     
-    //$me_subject = $row[me_send_mb_id] . "´ÔÀÌ º¸³»½Å ÂÊÁö ÀÔ´Ï´Ù";
+    //$me_subject = $row[me_send_mb_id] . "ë‹˜ì´ ë³´ë‚´ì‹  ìª½ì§€ ìž…ë‹ˆë‹¤";
     $me_subject = addslashes(cut_str($me_memo_text,30));
     $me_id = $i+1;
     
@@ -60,7 +60,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 
 }
 
-echo "UPGRADE ¿Ï·á.";
+echo "UPGRADE ì™„ë£Œ.";
 
 include_once("./admin.tail.php");
 ?>

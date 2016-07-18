@@ -1,7 +1,7 @@
 <?
 include_once("./_common.php");
 
-$g4[title] = $member[mb_nick] . "´ÔÀÇ ÇÁ·Î¸ğ¼Ç";
+$g4[title] = $member[mb_nick] . "ë‹˜ì˜ í”„ë¡œëª¨ì…˜";
 //include_once("$g4[path]/head.sub.php");
 include_once("$g4[path]/head.php");
 
@@ -9,16 +9,16 @@ $po_id = (int) $po_id;
 $po_url = strip_tags($po_url);
 $mb_id = $member[mb_id];
 
-// °øÅë»çÇ×
+// ê³µí†µì‚¬í•­
 $sql_order = " order by po_no desc ";
 
 if ($po_id == 0) {
 
-    // ³ªÀÇ ÇÁ·Î¸ğ¼Ç ÄÚµå
+    // ë‚˜ì˜ í”„ë¡œëª¨ì…˜ ì½”ë“œ
     $sql = " select * from $g4[promotion_sign_table] where mb_id = '$mb_id' $sql_order ";
     $result = sql_query($sql);
 
-    echo "³ªÀÇ ÇÁ·Î¸ğ¼Ç";
+    echo "ë‚˜ì˜ í”„ë¡œëª¨ì…˜";
     echo "<ul>";
     for ($i=0; $row=sql_fetch_array($result); $i++) 
     {
@@ -30,11 +30,11 @@ if ($po_id == 0) {
     }
     echo "</ul>";
 
-    // ÇÁ·Î¸ğ¼Ç ÄÚµå°¡ ¾øÀ¸¸é, ¸ğµç ÇÁ·Î¸ğ¼ÇÀ» º¸¿© Áİ´Ï´Ù.
+    // í”„ë¡œëª¨ì…˜ ì½”ë“œê°€ ì—†ìœ¼ë©´, ëª¨ë“  í”„ë¡œëª¨ì…˜ì„ ë³´ì—¬ ì¤ë‹ˆë‹¤.
     $sql = " select * from $g4[promotion_table] order by po_id desc ";
     $result = sql_query($sql);
 
-    echo "ÀüÃ¼ ÇÁ·Î¸ğ¼Ç";
+    echo "ì „ì²´ í”„ë¡œëª¨ì…˜";
     echo "<ul>";
     for ($i=0; $row=sql_fetch_array($result); $i++) 
     {
@@ -45,14 +45,14 @@ if ($po_id == 0) {
 } else if ($po_id > 0 && $po_url == "") {
 
     if (!$member[mb_id]) 
-        alert("È¸¿ø¸¸ Á¶È¸ÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.", "./login.php?&url=".urlencode("promotion.php?po_id=$bo_$po_id"));
+        alert("íšŒì›ë§Œ ì¡°íšŒí•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.", "./login.php?&url=".urlencode("promotion.php?po_id=$bo_$po_id"));
 
-    // ÁöÁ¤µÈ ÇÁ·Î¸ğ¼Ç¸¸ º¸¿© Áİ´Ï´Ù.
+    // ì§€ì •ëœ í”„ë¡œëª¨ì…˜ë§Œ ë³´ì—¬ ì¤ë‹ˆë‹¤.
     $sql = " select * from $g4[promotion_table] where po_id = '$po_id' ";
     $po = sql_fetch($sql);
 
     echo "<ul>";
-    echo "<li>ÇÁ·Î¸ğ¼Ç : " . $po[po_name];
+    echo "<li>í”„ë¡œëª¨ì…˜ : " . $po[po_name];
     echo "</ul>";
     
     ?>
@@ -74,27 +74,27 @@ if ($po_id == 0) {
 <colgroup width=100>
 <tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
 <tr class='bgcol1 bold col1 ht center'>
-    <td>Âü¿©»çÇ×</td>
-    <td>ÀÔ·Â</td>
+    <td>ì°¸ì—¬ì‚¬í•­</td>
+    <td>ì…ë ¥</td>
 </tr>
 <tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <tr class='ht center'>
-    <td><input type=text class=ed name=po_content required itemname='³»¿ë' style='width:99%;'></td>
-    <td><input type=submit class=btn1 value='  È®  ÀÎ  '></td>
+    <td><input type=text class=ed name=po_content required itemname='ë‚´ìš©' style='width:99%;'></td>
+    <td><input type=submit class=btn1 value='  í™•  ì¸  '></td>
 </tr>
 <tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 </table>
 </form>
 
     <?
-    // Âü¿©ÁßÀÎ ÇÁ·Î¸ğ¼Ç È¸¿øµé
+    // ì°¸ì—¬ì¤‘ì¸ í”„ë¡œëª¨ì…˜ íšŒì›ë“¤
     $sql = " select * from $g4[promotion_sign_table] where po_id = '$po_id' $sql_order ";
     $result = sql_query($sql);
     for ($i=0; $row=sql_fetch_array($result); $i++) 
     {
     }
 } else if ($po_id > 0 && $po_url !== "") {
-    // ÇÁ·Î¸ğ¼Ç ÄÚµå Ã¼Å©
+    // í”„ë¡œëª¨ì…˜ ì½”ë“œ ì²´í¬
     ?>
 <form name=fpointlist2 method=post onsubmit="return fpointlist2_submit(this);" autocomplete="off">
 <input type=hidden name=sfl   value='<?=$sfl?>'>
@@ -114,13 +114,13 @@ if ($po_id == 0) {
 <colgroup width=100>
 <tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
 <tr class='bgcol1 bold col1 ht center'>
-    <td>Ã¼Å© ÆĞ½º¿öµå</td>
-    <td>ÀÔ·Â</td>
+    <td>ì²´í¬ íŒ¨ìŠ¤ì›Œë“œ</td>
+    <td>ì…ë ¥</td>
 </tr>
 <tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <tr class='ht center'>
-    <td><input type=text class=ed name=po_password required itemname='³»¿ë' style='width:99%;'></td>
-    <td><input type=submit class=btn1 value='  È®  ÀÎ  '></td>
+    <td><input type=text class=ed name=po_password required itemname='ë‚´ìš©' style='width:99%;'></td>
+    <td><input type=submit class=btn1 value='  í™•  ì¸  '></td>
 </tr>
 <tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 </table>

@@ -1,5 +1,5 @@
 // http://blueb.co.kr/bbs.php?table=JS_15&query=view&uid=10
-var clickmessage="±×¸²¿¡´Â ¿À¸¥ÂÊ¸¶¿ì½º¹öÆ°À» »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù."
+var clickmessage="ê·¸ë¦¼ì—ëŠ” ì˜¤ë¥¸ìª½ë§ˆìš°ìŠ¤ë²„íŠ¼ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
 function disableclick(e) {
     if (document.all) {
     if (event.button==2||event.button==3) {
@@ -33,7 +33,7 @@ function associateimages(){
     else if (document.layers)
         associateimages()
 
-// F5Å°¸¦ ±İÁöÇÏ±â, http://phpschool.com/gnuboard4/bbs/board.php?bo_table=tipntech&wr_id=68565
+// F5í‚¤ë¥¼ ê¸ˆì§€í•˜ê¸°, http://phpschool.com/gnuboard4/bbs/board.php?bo_table=tipntech&wr_id=68565
 document.onkeydown = function(e) { 
   var evtK = (e) ? e.which : window.event.keyCode; 
   var isCtrl = ((typeof isCtrl != 'undefined' && isCtrl) || ((e && evtK == 17) || (!e && event.ctrlKey))) ? true : false; 

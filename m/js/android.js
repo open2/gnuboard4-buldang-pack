@@ -31,23 +31,23 @@ var app = {
         document.addEventListener("offline", app.toggleCon, false);
 
         if (navigator.network.connection.type == Connection.NONE) {
-            window.plugins.toast.showLongBottom("ÀÎÅÍ³İ¿¡ ¿¬°áÇÒ ¼ö ¾ø½À´Ï´Ù.");
+            window.plugins.toast.showLongBottom("ì¸í„°ë„·ì— ì—°ê²°í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
         } else {
-            // Ã¹ ½ÇÇà½Ã
+            // ì²« ì‹¤í–‰ì‹œ
             app.startApp();
         }
     },
     toggleCon: function (e) {
         //console.log('toggleCon: ' + e.type);
         if (e.type == "offline") {
-            window.plugins.toast.showLongBottom("ÀÎÅÍ³İ¿¡ ¿¬°áÇÒ ¼ö ¾ø½À´Ï´Ù.");
+            window.plugins.toast.showLongBottom("ì¸í„°ë„·ì— ì—°ê²°í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
         } else {
-            // ³×Æ®¿öÅ©°¡ ²¨Á®ÀÖ´Ù°¡ ´Ù½Ã ÄÑÁø °æ¿ì
+            // ë„¤íŠ¸ì›Œí¬ê°€ êº¼ì ¸ìˆë‹¤ê°€ ë‹¤ì‹œ ì¼œì§„ ê²½ìš°
         }
     },
     startApp: function () {
         if (app.app_started === false) {
-            // ¾Ë¸²¼ö ¹èÁö¿¡ Àû¿ë
+            // ì•Œë¦¼ìˆ˜ ë°°ì§€ì— ì ìš©
             var notification_count = document.getElementById('notification_count');
             if (notification_count) {
                 cordova.plugins.notification.badge.set(
@@ -55,7 +55,7 @@ var app = {
                 );
             }
 
-            // Çª½Ã -  ¾Û ÀÚÃ¼¿¡¼­ º¸¿©ÁÖ¹Ç·Î À¥´Ü¿¡¼± »ı·«
+            // í‘¸ì‹œ -  ì•± ìì²´ì—ì„œ ë³´ì—¬ì£¼ë¯€ë¡œ ì›¹ë‹¨ì—ì„  ìƒëµ
             /*
             app.push = PushNotification.init({
                 android: {

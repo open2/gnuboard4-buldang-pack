@@ -1,11 +1,11 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 ?>
 
 <table height="30" border="0" cellpadding="0" cellspacing="0">
 <tr>
     <td>
-    &nbsp;<img src="<?=$memo_skin_path?>/img/memo_icon06.gif"/> ÁÖ¼Ò·Ï
+    &nbsp;<img src="<?=$memo_skin_path?>/img/memo_icon06.gif"/> ì£¼ì†Œë¡
     (<?=number_format($tot_cnt)?>)
     </td>
 </tr>
@@ -23,11 +23,11 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
 <thead>
 <tr>
     <th>no</th>
-    <th>È¸¿ø</th>
-    <th>¼ö½ÅÇÔ</th>
-    <th>¹ß½ÅÇÔ</th>
-    <th>º¸°ü(¼ö½Å)</th>
-    <th>º¸°ü(¹ß½Å)</th>
+    <th>íšŒì›</th>
+    <th>ìˆ˜ì‹ í•¨</th>
+    <th>ë°œì‹ í•¨</th>
+    <th>ë³´ê´€(ìˆ˜ì‹ )</th>
+    <th>ë³´ê´€(ë°œì‹ )</th>
 </tr>
 </thead>
 <?

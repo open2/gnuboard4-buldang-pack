@@ -12,7 +12,7 @@ if ($w == "")
     $sql = " select count(*) as cnt from $g4[singo_reason_table] where sg_reason = '$sg_reason' ";	
     $sg = sql_fetch($sql);
     if ($sg['cnt'] >= 1)
-        alert("ÀÌ¹Ì Á¸ÀçÇÏ´Â »çÀ¯ ÀÔ´Ï´Ù"); 
+        alert("ì´ë¯¸ ì¡´ìž¬í•˜ëŠ” ì‚¬ìœ  ìž…ë‹ˆë‹¤"); 
 
     $sql = " insert into $g4[singo_reason_table]
                 set sg_reason = '$sg_reason',
@@ -26,7 +26,7 @@ if ($w == "")
 else if ($w == "u") 
 {
     if ($is_admin != "super")
-        alert("°ü¸®ÀÚ¸¸ÀÌ ¼öÁ¤ÇÏ½Ç¼ö ÀÖ½À´Ï´Ù..");
+        alert("ê´€ë¦¬ìžë§Œì´ ìˆ˜ì •í•˜ì‹¤ìˆ˜ ìžˆìŠµë‹ˆë‹¤..");
 
     $sql = " update $g4[singo_reason_table]
                 set sg_reason = '$sg_reason',
@@ -36,7 +36,7 @@ else if ($w == "u")
     sql_query($sql);
 } 
 else
-    alert("Á¦´ë·Î µÈ °ªÀÌ ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.");
+    alert("ì œëŒ€ë¡œ ëœ ê°’ì´ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
 goto_url("./singo_reason_list.php");
 ?>

@@ -5,7 +5,7 @@
     <input type=hidden name=mb_memo_no_reply_org value="<?=$member[mb_memo_no_reply]?>">
 
     <div class="panel panel-default">
-    <div class="panel-heading">°³ÀÎ¼³Á¤</div>
+    <div class="panel-heading">ê°œì¸ì„¤ì •</div>
     <div class="panel-body">
         <? if ($config[cf_memo_user_config]) { ?>
   			<table width="100%" class="table table-hover table-condensed table-borderless" style="border:none;">
@@ -13,27 +13,27 @@
         $time_diff = ($g4[server_time] - (86400 * $config['cf_memo_no_reply'])) - strtotime($member[mb_memo_no_reply_datetime]);
         ?>
         <tr>
-            <td width="150px;">ºÎÀçÁß¼³Á¤</td>
+            <td width="150px;">ë¶€ìž¬ì¤‘ì„¤ì •</td>
             <td>
                 <? if ($config['cf_memo_no_reply'] && $time_diff > 0) { ?>
-                    <input type=checkbox name=mb_memo_no_reply value='1' <?=($member[mb_memo_no_reply])?'checked':'';?>>¼ö½ÅµÈ ÂÊÁö¿¡ ÀÚµ¿À¸·Î ºÎÀçÁß ÀÀ´äÀ» º¸³À´Ï´Ù.<BR>
+                    <input type=checkbox name=mb_memo_no_reply value='1' <?=($member[mb_memo_no_reply])?'checked':'';?>>ìˆ˜ì‹ ëœ ìª½ì§€ì— ìžë™ìœ¼ë¡œ ë¶€ìž¬ì¤‘ ì‘ë‹µì„ ë³´ëƒ…ë‹ˆë‹¤.<BR>
                 <? } else { ?>
-                    <?=$member[mb_memo_no_reply_datetime]?>¿¡ ºÎÀçÁß ¼³Á¤À» º¯°æÇÏ¼Ì½À´Ï´Ù.<br>
+                    <?=$member[mb_memo_no_reply_datetime]?>ì— ë¶€ìž¬ì¤‘ ì„¤ì •ì„ ë³€ê²½í•˜ì…¨ìŠµë‹ˆë‹¤.<br>
                 <? } ?>
-                <strong>ºÎÀçÁß¼³Á¤ Á¤º¸¸¦ ¼öÁ¤ÇÏ¸é <font color="red"><?=$config['cf_memo_no_reply']?> ÀÏ</font> ÈÄ¿¡ º¯°æÀÌ °¡´ÉÇÕ´Ï´Ù.</strong>
+                <strong>ë¶€ìž¬ì¤‘ì„¤ì • ì •ë³´ë¥¼ ìˆ˜ì •í•˜ë©´ <font color="red"><?=$config['cf_memo_no_reply']?> ì¼</font> í›„ì— ë³€ê²½ì´ ê°€ëŠ¥í•©ë‹ˆë‹¤.</strong>
             </td>
         </tr>
         <tr>
             <?
             if (!$member['mb_memo_no_reply_text'])
-                $member['mb_memo_no_reply_text'] = "Áö±ÝÀº °³ÀÎÀûÀÎ »çÁ¤À¸·Î ºÎÀçÁß ÀÔ´Ï´Ù. º¸³»ÁÖ½Å ÂÊÁö´Â Á¢¼ÓÀÌ °¡´ÉÇÑ ½ÃÁ¡¿¡ È®ÀÎÈÄ ´äÀ» µå¸®°Ú½À´Ï´Ù";
+                $member['mb_memo_no_reply_text'] = "ì§€ê¸ˆì€ ê°œì¸ì ì¸ ì‚¬ì •ìœ¼ë¡œ ë¶€ìž¬ì¤‘ ìž…ë‹ˆë‹¤. ë³´ë‚´ì£¼ì‹  ìª½ì§€ëŠ” ì ‘ì†ì´ ê°€ëŠ¥í•œ ì‹œì ì— í™•ì¸í›„ ë‹µì„ ë“œë¦¬ê² ìŠµë‹ˆë‹¤";
             ?>
-            <td>ºÎÀçÁß¾Ë¸²¸Þ¸ð</td>
+            <td>ë¶€ìž¬ì¤‘ì•Œë¦¼ë©”ëª¨</td>
             <td><textarea class=ed name='mb_memo_no_reply_text' rows=5 style='width:98%;'><?=stripslashes($member[mb_memo_no_reply_text])?></textarea>
         </tr>
         </table>
         <? } else { ?>
-            ¼³Á¤ÇÒ Ç×¸ñÀÌ ¾ø½À´Ï´Ù.
+            ì„¤ì •í•  í•­ëª©ì´ ì—†ìŠµë‹ˆë‹¤.
         <? } ?>
     </div>
     </div>
@@ -42,109 +42,109 @@
     <? if ($is_admin == 'super') { ?>
     <? include_once("$g4[admin_path]/admin.lib.php")?>
     <div class="panel panel-default">
-    <div class="panel-heading">½Ã½ºÅÛ¼³Á¤</div>
+    <div class="panel-heading">ì‹œìŠ¤í…œì„¤ì •</div>
     <div class="panel-body">
   			<table width="100%" class="table table-hover table-condensed table-borderless">
         <tr>
-            <td width="150px;">ÆäÀÌÁö´ç ¸ñ·Ï¼ö</td>
-            <td><input type=text required name='cf_memo_page_rows' size='5' required itemname='ÆäÀÌÁö´ç ¸ñ·Ï' value='<?=$config[cf_memo_page_rows]?>'>
+            <td width="150px;">íŽ˜ì´ì§€ë‹¹ ëª©ë¡ìˆ˜</td>
+            <td><input type=text required name='cf_memo_page_rows' size='5' required itemname='íŽ˜ì´ì§€ë‹¹ ëª©ë¡' value='<?=$config[cf_memo_page_rows]?>'>
             </td>
         </tr>
         <tr>
-            <td>ÂÊÁöº¸³¾½Ã Â÷°¨ Æ÷ÀÎÆ®</td>
-            <td><input type=text required name='cf_memo_send_point' size='5' required itemname='ÂÊÁöÀü¼Û½Ã Â÷°¨ Æ÷ÀÎÆ®' value='<?=$config[cf_memo_send_point]?>'> Á¡
-            <!-- <BR>(¾ç¼ö·Î ÀÔ·ÂÇÏ½Ê½Ã¿À. 0À¸·Î ÀÔ·ÂÇÏ½Ã¸é ÂÊÁöº¸³¾½Ã Æ÷ÀÎÆ®¸¦ Â÷°¨ÇÏÁö ¾Ê½À´Ï´Ù.) -->
+            <td>ìª½ì§€ë³´ë‚¼ì‹œ ì°¨ê° í¬ì¸íŠ¸</td>
+            <td><input type=text required name='cf_memo_send_point' size='5' required itemname='ìª½ì§€ì „ì†¡ì‹œ ì°¨ê° í¬ì¸íŠ¸' value='<?=$config[cf_memo_send_point]?>'> ì 
+            <!-- <BR>(ì–‘ìˆ˜ë¡œ ìž…ë ¥í•˜ì‹­ì‹œì˜¤. 0ìœ¼ë¡œ ìž…ë ¥í•˜ì‹œë©´ ìª½ì§€ë³´ë‚¼ì‹œ í¬ì¸íŠ¸ë¥¼ ì°¨ê°í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.) -->
             </td>
         </tr>
         <tr>
-            <td>ÂÊÁö »èÁ¦</td>
-            <td><input type=text class=ed name='cf_memo_del' value='<?=$config[cf_memo_del]?>' size=5 required > ÀÏ (¼³Á¤ÀÏÀÌ Áö³­ ÂÊÁö ÀÚµ¿ »èÁ¦)
+            <td>ìª½ì§€ ì‚­ì œ</td>
+            <td><input type=text class=ed name='cf_memo_del' value='<?=$config[cf_memo_del]?>' size=5 required > ì¼ (ì„¤ì •ì¼ì´ ì§€ë‚œ ìª½ì§€ ìžë™ ì‚­ì œ)
             </td>
         </tr>
         <tr>
-            <td>¾ÈÀÐÀº ÂÊÁö »èÁ¦</td>
-            <td><input type=text class=ed name='cf_memo_del_unread' value='<?=$config[cf_memo_del_unread]?>' size=5 required > ÀÏ (ÂÊÁö »èÁ¦ÀÏº¸´Ù Å©°Å³ª °°°Ô)
+            <td>ì•ˆì½ì€ ìª½ì§€ ì‚­ì œ</td>
+            <td><input type=text class=ed name='cf_memo_del_unread' value='<?=$config[cf_memo_del_unread]?>' size=5 required > ì¼ (ìª½ì§€ ì‚­ì œì¼ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê²Œ)
             </td>
         </tr>
         <tr>
-            <td>ÈÞÁöÅë º¸°üÀÏ¼ö</td>
-            <td><input type=text class=ed name='cf_memo_del_trash' value='<?=$config[cf_memo_del_trash]?>' size=5 required > ÀÏ (¼³Á¤ÀÏÀÌ Áö³­ ÂÊÁö´Â ÈÞÁöÅë¿¡¼­ »èÁ¦)
+            <td>íœ´ì§€í†µ ë³´ê´€ì¼ìˆ˜</td>
+            <td><input type=text class=ed name='cf_memo_del_trash' value='<?=$config[cf_memo_del_trash]?>' size=5 required > ì¼ (ì„¤ì •ì¼ì´ ì§€ë‚œ ìª½ì§€ëŠ” íœ´ì§€í†µì—ì„œ ì‚­ì œ)
             </td>
         </tr>
         <tr>
-            <td>dhtml ¿¡µðÅÍ</td>
-            <td><input type=checkbox name=cf_memo_user_dhtml value='1' <?=($config[cf_memo_user_dhtml])?'checked':'';?>>dhtml ¿¡µðÅÍ »ç¿ë
+            <td>dhtml ì—ë””í„°</td>
+            <td><input type=checkbox name=cf_memo_user_dhtml value='1' <?=($config[cf_memo_user_dhtml])?'checked':'';?>>dhtml ì—ë””í„° ì‚¬ìš©
             </td>
         </tr>
         <tr>
-            <td width="150">ÂÊÁöÇÁ¸°Æ®</td>
-            <td><input type=checkbox name=cf_memo_print value='1' <?=($config[cf_memo_print])?'checked':'';?>> »ç¿ë
+            <td width="150">ìª½ì§€í”„ë¦°íŠ¸</td>
+            <td><input type=checkbox name=cf_memo_print value='1' <?=($config[cf_memo_print])?'checked':'';?>> ì‚¬ìš©
             </td>
         </tr>
         <tr>
-            <td>ÀÌÀü/ÀÌÈÄ ÂÊÁöº¸±â</td>
-            <td><input type=checkbox name=cf_memo_before_after value='1' <?=($config[cf_memo_before_after])?'checked':'';?>> »ç¿ë
+            <td>ì´ì „/ì´í›„ ìª½ì§€ë³´ê¸°</td>
+            <td><input type=checkbox name=cf_memo_before_after value='1' <?=($config[cf_memo_before_after])?'checked':'';?>> ì‚¬ìš©
             </td>
         </tr>
         <tr>
-            <td>Ã·ºÎÆÄÀÏ</td>
-            <td><input type=checkbox name=cf_memo_use_file value='1' <?=($config[cf_memo_use_file])?'checked':'';?>>Ã·ºÎÆÄÀÏ ±â´É»ç¿ë
+            <td>ì²¨ë¶€íŒŒì¼</td>
+            <td><input type=checkbox name=cf_memo_use_file value='1' <?=($config[cf_memo_use_file])?'checked':'';?>>ì²¨ë¶€íŒŒì¼ ê¸°ëŠ¥ì‚¬ìš©
             </td>
         </tr>
         <tr>
-            <td>ÃÖ´ëÃ·ºÎÆÄÀÏ¿ë·®</td>
-            <td><input type=text class=ed name='cf_memo_file_size' value='<?=$config[cf_memo_file_size]?>' size=5 required > M(¸Þ°¡) (°èÁ¤ÃÖ´ë¿ë·® : <?=ini_get("upload_max_filesize")?>, ÀÔ·Â¿¹: 2, 4, 8)
+            <td>ìµœëŒ€ì²¨ë¶€íŒŒì¼ìš©ëŸ‰</td>
+            <td><input type=text class=ed name='cf_memo_file_size' value='<?=$config[cf_memo_file_size]?>' size=5 required > M(ë©”ê°€) (ê³„ì •ìµœëŒ€ìš©ëŸ‰ : <?=ini_get("upload_max_filesize")?>, ìž…ë ¥ì˜ˆ: 2, 4, 8)
             </td>
         </tr>
         <tr>
-            <td>°³ÀÎº°Ã·ºÎÆÄÀÏ ÃÖ´ëÇÑµµ</td>
-            <td><input type=text class=ed name='cf_max_memo_file_size' value='<?=$config[cf_max_memo_file_size]?>' size=5 required > M(¸Þ°¡) (ÀÔ·Â¿¹, 0:Á¦ÇÑ¾ø½¿, 50, 100 )
+            <td>ê°œì¸ë³„ì²¨ë¶€íŒŒì¼ ìµœëŒ€í•œë„</td>
+            <td><input type=text class=ed name='cf_max_memo_file_size' value='<?=$config[cf_max_memo_file_size]?>' size=5 required > M(ë©”ê°€) (ìž…ë ¥ì˜ˆ, 0:ì œí•œì—†ìŠ´, 50, 100 )
             </td>
         </tr>
         <!--
         <tr>
-            <td>ÂÊÁö»èÁ¦½Ã Ã·ºÎÆÄÀÏ»èÁ¦</td>
-            <td><input type=checkbox name=cf_memo_del_file value='1' <?=($config[cf_memo_del_file])?'checked':'';?>>Ã·ºÎÆÄÀÏÀ» ¼­¹ö¿¡¼­ »èÁ¦ÇÏ´Â ±â´É»ç¿ë
+            <td>ìª½ì§€ì‚­ì œì‹œ ì²¨ë¶€íŒŒì¼ì‚­ì œ</td>
+            <td><input type=checkbox name=cf_memo_del_file value='1' <?=($config[cf_memo_del_file])?'checked':'';?>>ì²¨ë¶€íŒŒì¼ì„ ì„œë²„ì—ì„œ ì‚­ì œí•˜ëŠ” ê¸°ëŠ¥ì‚¬ìš©
             </td>
         </tr>
   			<tr>
-            <td>½Ç½Ã°£ÂÊÁö</td>
+            <td>ì‹¤ì‹œê°„ìª½ì§€</td>
             <td>
-            <input type=checkbox name=cf_memo_realtime value='1' <?=($config[cf_memo_realtime])?'checked':'';?>> ½Ç½Ã°£ÂÊÁö ±â´ÉÀ» »ç¿ë
+            <input type=checkbox name=cf_memo_realtime value='1' <?=($config[cf_memo_realtime])?'checked':'';?>> ì‹¤ì‹œê°„ìª½ì§€ ê¸°ëŠ¥ì„ ì‚¬ìš©
             </td>
         </tr>
         -->
         <tr>
-            <td>Ä£±¸°ü¸®</td>
-            <td><input type=checkbox name=cf_friend_management value='1' <?=($config[cf_friend_management])?'checked':'';?>>Ä£±¸°ü¸® ±â´É»ç¿ë
+            <td>ì¹œêµ¬ê´€ë¦¬</td>
+            <td><input type=checkbox name=cf_friend_management value='1' <?=($config[cf_friend_management])?'checked':'';?>>ì¹œêµ¬ê´€ë¦¬ ê¸°ëŠ¥ì‚¬ìš©
             </td>
         </tr>
         <tr>
-            <td>ºÎÀçÁß¼³Á¤ º¯°æÀÏÀÚ</td>
-            <td><?=get_member_level_select(cf_memo_no_reply, 0, 7, $config[cf_memo_no_reply])?> ÀÏ (0 À¸·Î ¼³Á¤ÇÏ¸é ºÎÀçÁß¼³Á¤À» »ç¿ëÇÏÁö ¾ÊÀ½)
+            <td>ë¶€ìž¬ì¤‘ì„¤ì • ë³€ê²½ì¼ìž</td>
+            <td><?=get_member_level_select(cf_memo_no_reply, 0, 7, $config[cf_memo_no_reply])?> ì¼ (0 ìœ¼ë¡œ ì„¤ì •í•˜ë©´ ë¶€ìž¬ì¤‘ì„¤ì •ì„ ì‚¬ìš©í•˜ì§€ ì•ŠìŒ)
             </td>
         </tr>
         <tr>
-            <td>°øÁö¸Þ¸ð</td>
+            <td>ê³µì§€ë©”ëª¨</td>
             <td><textarea class=ed name='cf_memo_notice_memo' rows=3 style='width:98%;'><?=$config[cf_memo_notice_memo]?></textarea>
             </td>
         </tr>
   			<tr>
-            <td>ºÒ´çresize/ºÒ´ç½æ</td>
+            <td>ë¶ˆë‹¹resize/ë¶ˆë‹¹ì¸</td>
             <td>
-            <input type=checkbox name=cf_memo_b4_resize value='1' <?=($config[cf_memo_b4_resize])?'checked':'';?>> ºÒ´çresize/ºÒ´ç½æ ±â´ÉÀ» »ç¿ë
+            <input type=checkbox name=cf_memo_b4_resize value='1' <?=($config[cf_memo_b4_resize])?'checked':'';?>> ë¶ˆë‹¹resize/ë¶ˆë‹¹ì¸ ê¸°ëŠ¥ì„ ì‚¬ìš©
             </td>
         </tr>
    			<tr>
-            <td>ÀÌ¸§À» ±âº»À¸·Î »ç¿ë</td>
+            <td>ì´ë¦„ì„ ê¸°ë³¸ìœ¼ë¡œ ì‚¬ìš©</td>
             <td>
-            <input type=checkbox name=cf_memo_mb_name value='1' <?=($config[cf_memo_mb_name])?'checked':'';?>> ¸ñ·Ïµî¿¡¼­ ÀÌ¸§À» ±âº»À¸·Î »ç¿ë
+            <input type=checkbox name=cf_memo_mb_name value='1' <?=($config[cf_memo_mb_name])?'checked':'';?>> ëª©ë¡ë“±ì—ì„œ ì´ë¦„ì„ ê¸°ë³¸ìœ¼ë¡œ ì‚¬ìš©
             </td>
         </tr>
   			<tr>
-            <td>DB¿¡ ¾ø´Â Ã·ºÎÆÄÀÏ »èÁ¦</td>
+            <td>DBì— ì—†ëŠ” ì²¨ë¶€íŒŒì¼ ì‚­ì œ</td>
             <td>
-	          <a href="#" onclick="tmpFileChk();">»èÁ¦ÇÏ±â</a>
+	          <a href="#" onclick="tmpFileChk();">ì‚­ì œí•˜ê¸°</a>
             </td>
         </tr>
         </table>
@@ -167,7 +167,7 @@ function fmemoconfig_submit(f) {
 }
 
 function tmpFileChk(){
-	if(confirm('ÂÊÁö DB¿¡ ¾ø´Â Ã·ºÎÆÄÀÏÀ» »èÁ¦ÇÕ´Ï±î?')){
+	if(confirm('ìª½ì§€ DBì— ì—†ëŠ” ì²¨ë¶€íŒŒì¼ì„ ì‚­ì œí•©ë‹ˆê¹Œ?')){
 		location.href="./memo2_chkunlinkfile.php";
 	}
 }

@@ -1,15 +1,15 @@
 <?
 include_once("./_common.php");
 
-$g4[title] = "ȸ���Ű�";
+$g4[title] = "회원신고";
 include_once("./_head.php");
 
 if (!$is_member)
-    alert("ȸ���� ��밡���� ��� �Դϴ�.");
+    alert("회원만 사용가능한 기능 입니다.");
 ?>
 
 <script type="text/javascript"> 
-<!-- // ȸ��ID ã��  
+<!-- // 회원ID 찾기  
 function popup_id(frm_name, ss_id, top, left) 
 { 
     url = './write_id.php?frm_name='+frm_name+'&ss_id='+ss_id; 
@@ -33,25 +33,25 @@ function popup_id(frm_name, ss_id, top, left)
 <colgroup >
     <tr>
         <td colspan=2 style='padding-left:20px; height:30px;'>
-        ȸ���Ű�
+        회원신고
         </td>
     </tr>
     <tr class='ht'><td colspan=2 height=10></td></tr>
     <tr class='ht' height=30px>
         <td style='padding-left:20px; height:30px;'>
-        �Ű��� ȸ��
+        신고할 회원
         </td>
         <td>
-        <input type='text' name='singo_mb_id' style="width:200px;" class=input required maxlength="20" itemname='�̸�' readonly>
-        <a href="javascript:popup_id('fsingo','singo_mb_id',200,500);">ȸ���˻�</a>
+        <input type='text' name='singo_mb_id' style="width:200px;" class=input required maxlength="20" itemname='이름' readonly>
+        <a href="javascript:popup_id('fsingo','singo_mb_id',200,500);">회원검색</a>
         </td>
     </tr>
     <tr class='ht'>
         <td style='padding-left:20px; height:30px;'>
-        �Ű�����
+        신고사유
         </td>
         <td>
-            <?=cheditor2('sg_reason', '�Ű��� ������ �ڼ��� �����ּ���.');?>
+            <?=cheditor2('sg_reason', '신고할 내용을 자세히 적어주세요.');?>
         </td>
     </tr>
     <tr class='ht'><td colspan=2 height=10></td></tr>
@@ -59,17 +59,17 @@ function popup_id(frm_name, ss_id, top, left)
         <td>
         </td>
         <td >
-        * ȸ���Ű� ����� ����Ʈ Ȱ���� �־ �����Ǵ� Ȱ���� �ϴ� ȸ���� �Ű��ϱ� ���� �Դϴ�. <br>
-        * ����� �ٰŰ� ���� Ÿ���� �Ű��ϴ� ��� �Ű��ڿ��� �������� ���ư� ���� �ֽ��ϴ�.<br>
-        * �Ű��� ȸ���� ����� ����� �Ҹ��� ������ ��ģ �� ȸ���Ծ࿡ ���� ��ġ�� �� �Դϴ�.<br>
-        * ���� �ൿ�� Ÿ������ �Ͽ��� �����Ǵ� �ൿ�� �������� �ʾҴ��� ������ ���ñ� �ٶ��ϴ�.
+        * 회원신고 기능은 사이트 활동에 있어서 문제되는 활동을 하는 회원을 신고하기 위함 입니다. <br>
+        * 충분한 근거가 없이 타인을 신고하는 경우 신고자에게 불이익이 돌아갈 수도 있습니다.<br>
+        * 신고된 회원은 운영자의 검토와 소명의 절차를 거친 후 회원규약에 따라 조치할 것 입니다.<br>
+        * 나의 행동이 타인으로 하여금 문제되는 행동을 유발하지 않았는지 숙고해 보시기 바랍니다.
         </td>
     </tr>
 </table>
 
 <p align=center>
-    <input type=submit class=btn1 accesskey='s' value='  Ȯ  ��  '>&nbsp;
-    <input type=button class=btn1 value='  ��  ��  ' onclick="document.location.href='./singo_member.php?<?=$qstr?>';">
+    <input type=submit class=btn1 accesskey='s' value='  확  인  '>&nbsp;
+    <input type=button class=btn1 value='  취  소  ' onclick="document.location.href='./singo_member.php?<?=$qstr?>';">
 
 </form>
 
@@ -78,7 +78,7 @@ function popup_id(frm_name, ss_id, top, left)
     {
         <?
         echo cheditor3('sg_reason');
-        echo "if (!document.getElementById('sg_reason').value) { alert('������ �Է��Ͻʽÿ�.'); return; } ";
+        echo "if (!document.getElementById('sg_reason').value) { alert('내용을 입력하십시오.'); return; } ";
         ?>
             
         f.action = './singo_member_update.php';

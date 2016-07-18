@@ -1,7 +1,7 @@
 <?php
 if (!defined('_GNUBOARD_')) exit;
 
-// ³×ÀÌ¹ö ¿¬°ü°Ë»ö¾î
+// ë„¤ì´ë²„ ì—°ê´€ê²€ìƒ‰ì–´
 function naver_related($stx, $skin_dir="basic", $rows=10, $subject_len=16, $options="") {
     global $g4;
 
@@ -12,13 +12,13 @@ function naver_related($stx, $skin_dir="basic", $rows=10, $subject_len=16, $opti
 
     $rows = (int) $rows;
     
-    // ³×ÀÌ¹ö´Â 10°³¸¸ ³ª¿À´Ï±î
+    // ë„¤ì´ë²„ëŠ” 10ê°œë§Œ ë‚˜ì˜¤ë‹ˆê¹Œ
     if ($rows > 10 || $rows < 0) $rows = 10;
 
     $xmlurl = "http://openapi.naver.com/search?key=$g4[naver_api]&query=" . urlencode($stx) . "&target=recmd";
     $xml =simplexml_load_file($xmlurl);
 
-    // ¿À·ùÃ³¸®
+    // ì˜¤ë¥˜ì²˜ë¦¬
     if ($xml->error_code) {
         ob_start();
         echo $xml->error_code . " : " . $xml->message;
@@ -37,7 +37,7 @@ function naver_related($stx, $skin_dir="basic", $rows=10, $subject_len=16, $opti
         //echo "<a href='" . $list[$i][href] . "' target=_blank'>" . $list[$i]['subject'] . "</a>";
     }
 
-    $title = "$stx ¿¬°ü°Ë»ö¾î";
+    $title = "$stx ì—°ê´€ê²€ìƒ‰ì–´";
 
     ob_start();
     include "$popular_skin_path/latestbest.skin.php";
@@ -47,8 +47,8 @@ function naver_related($stx, $skin_dir="basic", $rows=10, $subject_len=16, $opti
     return $content;
 }
 
-// ³×ÀÌ¹ö ÀÎ±â°Ë»ö¾î
-function naver_popular($skin_dir="basic", $rows=10, $title="³×ÀÌ¹ö ÀÎ±â°Ë»ö¾î", $options="") {
+// ë„¤ì´ë²„ ì¸ê¸°ê²€ìƒ‰ì–´
+function naver_popular($skin_dir="basic", $rows=10, $title="ë„¤ì´ë²„ ì¸ê¸°ê²€ìƒ‰ì–´", $options="") {
     global $g4;
 
     if ($skin_dir)
@@ -58,7 +58,7 @@ function naver_popular($skin_dir="basic", $rows=10, $title="³×ÀÌ¹ö ÀÎ±â°Ë»ö¾î", 
 
     $rows = (int) $rows;
     
-    // ³×ÀÌ¹ö´Â 10°³¸¸ ³ª¿À´Ï±î
+    // ë„¤ì´ë²„ëŠ” 10ê°œë§Œ ë‚˜ì˜¤ë‹ˆê¹Œ
     if ($rows > 10 || $rows < 0) $rows = 10;
 
     $xml =simplexml_load_file("http://openapi.naver.com/search?key=$g4[naver_api]&query=nexearch&target=rank");

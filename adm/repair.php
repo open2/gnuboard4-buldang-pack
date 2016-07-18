@@ -3,45 +3,45 @@ $sub_menu = "100700";
 include_once("./_common.php");
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4[path]);
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4[path]);
 
-$g4[title] = "Å×ÀÌºí º¹±¸ ¹× ÃÖÀûÈ­";
+$g4[title] = "í…Œì´ë¸” ë³µêµ¬ ë° ìµœì í™”";
 include_once("./admin.head.php");
 
-echo "'¼³Á¤ÀÏÀÌ Áö³­ Á¢¼ÓÀÚ·Î±×, ÀÎ±â°Ë»ö¾î, ÃÖ±Ù°Ô½Ã¹°, ÂÊÁö, µîÀ» »èÁ¦ÇÕ´Ï´Ù.<br>";
-echo "'¿Ï·á' ¸Ş¼¼Áö°¡ ³ª¿À±â Àü¿¡ ÇÁ·Î±×·¥ÀÇ ½ÇÇàÀ» ÁßÁöÇÏÁö ¸¶½Ê½Ã¿À.<br>";
+echo "'ì„¤ì •ì¼ì´ ì§€ë‚œ ì ‘ì†ìë¡œê·¸, ì¸ê¸°ê²€ìƒ‰ì–´, ìµœê·¼ê²Œì‹œë¬¼, ìª½ì§€, ë“±ì„ ì‚­ì œí•©ë‹ˆë‹¤.<br>";
+echo "'ì™„ë£Œ' ë©”ì„¸ì§€ê°€ ë‚˜ì˜¤ê¸° ì „ì— í”„ë¡œê·¸ë¨ì˜ ì‹¤í–‰ì„ ì¤‘ì§€í•˜ì§€ ë§ˆì‹­ì‹œì˜¤.<br>";
 echo "<span id='ct'></span>";
 include_once("./admin.tail.php");
 flush();
 
-// ¼³Á¤ÀÏÀÌ Áö³­ Á¢¼ÓÀÚ·Î±× »èÁ¦
+// ì„¤ì •ì¼ì´ ì§€ë‚œ ì ‘ì†ìë¡œê·¸ ì‚­ì œ
 $tmp_before_date = date("Y-m-d", $g4[server_time] - ($config[cf_visit_del] * 86400));
 $sql = " delete from $g4[visit_table] where vi_date < '$tmp_before_date' ";
 sql_query($sql);
 sql_query(" OPTIMIZE TABLE `$g4[visit_table]`, `$g4[visit_sum_table]` ");
 
-// ¼³Á¤ÀÏÀÌ Áö³­ ÀÎ±â°Ë»ö¾î »èÁ¦
+// ì„¤ì •ì¼ì´ ì§€ë‚œ ì¸ê¸°ê²€ìƒ‰ì–´ ì‚­ì œ
 $tmp_before_date = date("Y-m-d", $g4[server_time] - ($config[cf_popular_del] * 86400));
 $sql = " delete from $g4[popular_table] where pp_date < '$tmp_before_date' ";
 sql_query($sql);
 sql_query(" OPTIMIZE TABLE `$g4[popular_table]` ");
 
-// ¼³Á¤ÀÏÀÌ Áö³­ ÃÖ±Ù°Ô½Ã¹° »èÁ¦
+// ì„¤ì •ì¼ì´ ì§€ë‚œ ìµœê·¼ê²Œì‹œë¬¼ ì‚­ì œ
 $sql = " delete from $g4[board_new_table] where (TO_DAYS('$g4[time_ymdhis]') - TO_DAYS(bn_datetime)) > '$config[cf_new_del]' ";
 sql_query($sql);
 sql_query(" OPTIMIZE TABLE `$g4[board_new_table]` ");
 
-// ¼³Á¤ÀÏÀÌ Áö³­ ÂÊÁö »èÁ¦
+// ì„¤ì •ì¼ì´ ì§€ë‚œ ìª½ì§€ ì‚­ì œ
 //$sql = " delete from $g4[memo_table] where (TO_DAYS('$g4[time_ymdhis]') - TO_DAYS(me_send_datetime)) > '$config[cf_memo_del]' ";
 //sql_query($sql);
 //sql_query(" OPTIMIZE TABLE `$g4[memo_table]` ");
 
-// Å»ÅğÈ¸¿ø ÀÚµ¿ »èÁ¦
+// íƒˆí‡´íšŒì› ìë™ ì‚­ì œ
 $sql = " select mb_id from $g4[member_table] where (TO_DAYS('$g4[time_ymdhis]') - TO_DAYS(mb_leave_date)) > '$config[cf_leave_day]' ";
 $result = sql_query($sql);
 while ($row=sql_fetch_array($result)) 
 {
-    // È¸¿øÀÚ·á »èÁ¦
+    // íšŒì›ìë£Œ ì‚­ì œ
     member_delete($row[mb_id]);
 }
 
@@ -57,7 +57,7 @@ while($row = sql_fetch_array($result))
     $result1 = @mysql_query($sql1);
     if (!$result1)
     {
-        // Å×ÀÌºí º¹±¸
+        // í…Œì´ë¸” ë³µêµ¬
         $sql2 = " REPAIR TABLE `$tbl` ";
         sql_query($sql2);
         $str .= $sql2 . "<br/>";
@@ -65,7 +65,7 @@ while($row = sql_fetch_array($result))
 
     if($row['Data_free'] == 0) continue;
 
-    // Å×ÀÌºí ÃÖÀûÈ­
+    // í…Œì´ë¸” ìµœì í™”
     $sql3 = " OPTIMIZE TABLE `$tbl` ";
     sql_query($sql3);
     $str .= $sql3 . "<br/>";
@@ -80,5 +80,5 @@ while($row = sql_fetch_array($result))
         echo $row['Data_free']." OPTIMIZED\n";
     */
 }
-echo "<script>document.getElementById('ct').innerHTML += '<br><br>Å×ÀÌºí º¹±¸ ¹× ÃÖÀûÈ­ ¿Ï·á.<br><br>ÇÁ·Î±×·¥ÀÇ ½ÇÇàÀ» ³¡¸¶Ä¡¼Åµµ ÁÁ½À´Ï´Ù.';</script>\n";
+echo "<script>document.getElementById('ct').innerHTML += '<br><br>í…Œì´ë¸” ë³µêµ¬ ë° ìµœì í™” ì™„ë£Œ.<br><br>í”„ë¡œê·¸ë¨ì˜ ì‹¤í–‰ì„ ëë§ˆì¹˜ì…”ë„ ì¢‹ìŠµë‹ˆë‹¤.';</script>\n";
 ?>

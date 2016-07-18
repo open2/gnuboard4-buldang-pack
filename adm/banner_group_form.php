@@ -6,23 +6,23 @@ auth_check($auth[$sub_menu], "w");
 
 $token = get_token();
 
-if ($is_admin != "super" && $w == "") alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.");
+if ($is_admin != "super" && $w == "") alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
-$html_title = "¹è³Ê±×·ì";
+$html_title = "ë°°ë„ˆê·¸ë£¹";
 if ($w == "") 
 {
     $bg_id_attr = "required";
     $bg[bg_use] = 1;
-    $html_title .= " »ı¼º";
+    $html_title .= " ìƒì„±";
 } 
 else if ($w == "u") 
 {
     $bg_id_attr = "readonly style='background-color:#dddddd'";
     $bg = sql_fetch(" select * from $g4[banner_group_table] where bg_id = '$bg_id' ");
-    $html_title .= " ¼öÁ¤";
+    $html_title .= " ìˆ˜ì •";
 } 
 else
-    alert("Á¦´ë·Î µÈ °ªÀÌ ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.");
+    alert("ì œëŒ€ë¡œ ëœ ê°’ì´ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
 $g4[title] = $html_title;
 include_once("./admin.head.php");
@@ -46,21 +46,21 @@ include_once("./admin.head.php");
     <td colspan=4><?=$html_title?></td>
 </tr>
 <tr>
-    <td>±×·ì ID</td>
-    <td colspan=3><input type='text' class=ed name=bg_id size=21 maxlength=20 <?=$bg_id_attr?> alphanumericunderline itemname='±×·ì ¾ÆÀÌµğ' value='<?=$bg[bg_id]?>'> ¿µ¹®ÀÚ, ¼ıÀÚ, _ ¸¸ °¡´É (°ø¹é¾øÀÌ)</td>
+    <td>ê·¸ë£¹ ID</td>
+    <td colspan=3><input type='text' class=ed name=bg_id size=21 maxlength=20 <?=$bg_id_attr?> alphanumericunderline itemname='ê·¸ë£¹ ì•„ì´ë””' value='<?=$bg[bg_id]?>'> ì˜ë¬¸ì, ìˆ«ì, _ ë§Œ ê°€ëŠ¥ (ê³µë°±ì—†ì´)</td>
 </tr>
 <tr>
-    <td>±×·ìÁ¦¸ñ</td>
+    <td>ê·¸ë£¹ì œëª©</td>
     <td colspan=3>
-        <input type='text' class=ed name=bg_subject size=40 required itemname='±×·ì Á¦¸ñ' value='<?=get_text($bg[bg_subject])?>'>
+        <input type='text' class=ed name=bg_subject size=40 required itemname='ê·¸ë£¹ ì œëª©' value='<?=get_text($bg[bg_subject])?>'>
         <? 
         if ($w == 'u')
-            echo "<input type=button class='btn1' value='¹è³Ê »ı¼º' onclick=\"location.href='./banner_form.php?bg_id=$bg_id';\">";
+            echo "<input type=button class='btn1' value='ë°°ë„ˆ ìƒì„±' onclick=\"location.href='./banner_form.php?bg_id=$bg_id';\">";
         ?>
     </td>
 </tr>
 <tr>
-    <td>±×·ì °ü¸®ÀÚ</td>
+    <td>ê·¸ë£¹ ê´€ë¦¬ì</td>
     <td colspan=3>
         <?
         if ($is_admin == "super")
@@ -70,29 +70,29 @@ include_once("./admin.head.php");
         ?></td>
 </tr>
 <tr>
-    <td>±×·ì¸Ş¸ğ</td>
+    <td>ê·¸ë£¹ë©”ëª¨</td>
     <td colspan=3>
         <textarea class=ed name=bg_desc rows=5 style='width:80%;'><?=get_text($bg[bg_desc]) ?></textarea></td>
     </td
 </tr>
 <tr>
-    <td>¹è³Ê±×·ì »ç¿ë</td>
+    <td>ë°°ë„ˆê·¸ë£¹ ì‚¬ìš©</td>
     <td colspan=3>
-        <input type=checkbox name=bg_use value='1' <?=$bg[bg_use]?'checked':'';?>>»ç¿ë
+        <input type=checkbox name=bg_use value='1' <?=$bg[bg_use]?'checked':'';?>>ì‚¬ìš©
     </td>
 </tr>
 <tr>
-    <td>¹è³Ê Å©±â(px)</td>
+    <td>ë°°ë„ˆ í¬ê¸°(px)</td>
     <td colspan=3>
-        <input type='text' class=ed name=bg_width size=8 numeric itemname='¹è³Ê³ĞÀÌ' value='<?=$bg[bg_width]?>'> ³ĞÀÌ, px <BR>
-        <input type='text' class=ed name=bg_height size=8 numeric itemname='¹è³Ê³ôÀÌ' value='<?=$bg[bg_height]?>'> ³ôÀÌ, px
+        <input type='text' class=ed name=bg_width size=8 numeric itemname='ë°°ë„ˆë„“ì´' value='<?=$bg[bg_width]?>'> ë„“ì´, px <BR>
+        <input type='text' class=ed name=bg_height size=8 numeric itemname='ë°°ë„ˆë†’ì´' value='<?=$bg[bg_height]?>'> ë†’ì´, px
     </td>
 </tr>
 
 <? for ($i=1; $i<=3; $i++) { ?>
 <tr>
-    <td><input type=text class=ed name='bg_<?=$i?>_subj' value='<?=get_text($bg["bg_{$i}_subj"])?>' title='¿©ºĞÇÊµå <?=$i?> Á¦¸ñ' style='text-align:right;font-weight:bold;' size=15></td>
-    <td><input type='text' class=ed style='width:99%;' name=bg_<?=$i?> value='<?=get_text($bg["bg_$i"])?>' title='¿©ºĞÇÊµå <?=$i?> ¼³Á¤°ª'></td>
+    <td><input type=text class=ed name='bg_<?=$i?>_subj' value='<?=get_text($bg["bg_{$i}_subj"])?>' title='ì—¬ë¶„í•„ë“œ <?=$i?> ì œëª©' style='text-align:right;font-weight:bold;' size=15></td>
+    <td><input type='text' class=ed style='width:99%;' name=bg_<?=$i?> value='<?=get_text($bg["bg_$i"])?>' title='ì—¬ë¶„í•„ë“œ <?=$i?> ì„¤ì •ê°’'></td>
     <td></td>
     <td></td>
 </tr>
@@ -100,8 +100,8 @@ include_once("./admin.head.php");
 </table>
 
 <p align=center>
-    <input type=submit class="btn btn-default" accesskey='s' value='  È®  ÀÎ  '>&nbsp;
-    <input type=button class="btn btn-default" value='  ¸ñ  ·Ï  ' onclick="document.location.href='./banner_group_list.php?<?=$qstr?>';">
+    <input type=submit class="btn btn-default" accesskey='s' value='  í™•  ì¸  '>&nbsp;
+    <input type=button class="btn btn-default" value='  ëª©  ë¡  ' onclick="document.location.href='./banner_group_list.php?<?=$qstr?>';">
 </form>
 
 <script type="text/javascript">

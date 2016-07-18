@@ -1,14 +1,14 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-// ÁöÁ¤µÈ ³¯Â¥ ÀÌÀüÀÇ ±ÛÀº º¼ ¼ö ¾ø°Ô ÇÏ±â
+// ì§€ì •ëœ ë‚ ì§œ ì´ì „ì˜ ê¸€ì€ ë³¼ ìˆ˜ ì—†ê²Œ í•˜ê¸°
 check_bo_from_date();
 
-// ³²¼º/¿©¼ºÀÌ bo_sex ÇÊµå¿¡ M/F·Î µî·ÏµÈ °æ¿ì¿¡¸¸ °Ô½ÃÆÇÀ» Á¢±ÙÀ» Çã¿ë
+// ë‚¨ì„±/ì—¬ì„±ì´ bo_sex í•„ë“œì— M/Fë¡œ ë“±ë¡ëœ ê²½ìš°ì—ë§Œ ê²Œì‹œíŒì„ ì ‘ê·¼ì„ í—ˆìš©
 check_bo_sex();
 ?>
 
-<!-- ÀÚµ¿ÃâÃ³ -->
+<!-- ìë™ì¶œì²˜ -->
 <? if ($board[bo_source]) { ?>
 <? $copy_url = set_http("{$g4[url]}/{$g4[bbs]}/board.php?bo_table={$bo_table}&wr_id={$wr_id}"); ?>
 <script type="text/javascript" src="<?=$g4['path']?>/js/autosourcing.open.compact.js"></script>
@@ -17,7 +17,7 @@ DIV.autosourcing-stub { display:none }
 DIV.autosourcing-stub-extra { position:absolute; opacity:0 }
 </style>
 <script type="text/javascript">
-AutoSourcing.setTemplate("<p style='margin:11px 0 7px 0;padding:0'> <a href='{link}' target='_blank'> [ÃâÃ³] {title} - {link}</a> </p>");
+AutoSourcing.setTemplate("<p style='margin:11px 0 7px 0;padding:0'> <a href='{link}' target='_blank'> [ì¶œì²˜] {title} - {link}</a> </p>");
 AutoSourcing.setString(<?=$wr_id?> ,"<?=$config[cf_title];//$view[wr_subject]?>", "<?=$view[wr_name]?>", "<?=$copy_url?>");
 AutoSourcing.init( 'view_%id%' , true);
 </script>
@@ -25,12 +25,12 @@ AutoSourcing.init( 'view_%id%' , true);
 
 <script type="text/javascript">
 function file_download(link, file) {
-    <? if ($board[bo_download_point] < 0) { ?>if (confirm("'"+file+"' ÆÄÀÏÀ» ´Ù¿î·Îµå ÇÏ½Ã¸é Æ÷ÀÎÆ®°¡ Â÷°¨(<?=number_format($board[bo_download_point])?>Á¡)µË´Ï´Ù.\n\nÆ÷ÀÎÆ®´Â °Ô½Ã¹°´ç ÇÑ¹ø¸¸ Â÷°¨µÇ¸ç ´ÙÀ½¿¡ ´Ù½Ã ´Ù¿î·Îµå ÇÏ¼Åµµ Áßº¹ÇÏ¿© Â÷°¨ÇÏÁö ¾Ê½À´Ï´Ù.\n\n±×·¡µµ ´Ù¿î·Îµå ÇÏ½Ã°Ú½À´Ï±î?"))<?}?>
+    <? if ($board[bo_download_point] < 0) { ?>if (confirm("'"+file+"' íŒŒì¼ì„ ë‹¤ìš´ë¡œë“œ í•˜ì‹œë©´ í¬ì¸íŠ¸ê°€ ì°¨ê°(<?=number_format($board[bo_download_point])?>ì )ë©ë‹ˆë‹¤.\n\ní¬ì¸íŠ¸ëŠ” ê²Œì‹œë¬¼ë‹¹ í•œë²ˆë§Œ ì°¨ê°ë˜ë©° ë‹¤ìŒì— ë‹¤ì‹œ ë‹¤ìš´ë¡œë“œ í•˜ì…”ë„ ì¤‘ë³µí•˜ì—¬ ì°¨ê°í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.\n\nê·¸ë˜ë„ ë‹¤ìš´ë¡œë“œ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?"))<?}?>
     document.location.href=strip_tags(htmlspecialchars_decode(link));
 }
 </script>
 
-<!-- nÀÏÈÄ ÄÚ¸àÆ® ¾²Áö ¸øÇÏ°Ô ¸·±â, ¾²±â±İÁö ³¯Â¥ÁöÁ¤+°ü¸®ÀÚ ¾Æ´Ï°í+±Û¾´ÀÌµµ ¾Æ´Ï°í, ±×·¯¸é ¾²±â ·¹º§À» °ü¸®ÀÚ¸¸Å­ ³ô¿© ¹ö¸°´Ù. ´©°¡ ¾µ·¡? ¤»¤» -->
+<!-- nì¼í›„ ì½”ë©˜íŠ¸ ì“°ì§€ ëª»í•˜ê²Œ ë§‰ê¸°, ì“°ê¸°ê¸ˆì§€ ë‚ ì§œì§€ì •+ê´€ë¦¬ì ì•„ë‹ˆê³ +ê¸€ì“´ì´ë„ ì•„ë‹ˆê³ , ê·¸ëŸ¬ë©´ ì“°ê¸° ë ˆë²¨ì„ ê´€ë¦¬ìë§Œí¼ ë†’ì—¬ ë²„ë¦°ë‹¤. ëˆ„ê°€ ì“¸ë˜? ã…‹ã…‹ -->
 <?
 if ($board[bo_comment_nowrite] && !$is_admin && $member[mb_id] != $write[mb_id])
     if (days_diff($write[wr_datetime]) > $board[bo_comment_nowrite])

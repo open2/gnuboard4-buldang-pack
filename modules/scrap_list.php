@@ -1,12 +1,12 @@
 <?
 include_once("./_common.php");
 
-// È¸¿ø¸¸ »ç¿ëÀÌ °¡´ÉÇÏ°Ô
+// íšŒì›ë§Œ ì‚¬ìš©ì´ ê°€ëŠ¥í•˜ê²Œ
 if (!$is_member) 
 {
     $href = "./login.php?$qstr&url=".urlencode("./singo_search.php");
 
-    echo "<script language='JavaScript'>alert('È¸¿ø¸¸ °¡´ÉÇÕ´Ï´Ù.'); top.location.href = '$href';</script>";
+    echo "<script language='JavaScript'>alert('íšŒì›ë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.'); top.location.href = '$href';</script>";
     exit;
 }
 
@@ -21,17 +21,17 @@ if (!$sst) {
       
 $sql_order = " order by $sst $sod ";
 
-$one_rows = "20";  // ÇÑÁÙ¿¡ Ãâ·ÂÇÒ ¶óÀÎ¼ö
+$one_rows = "20";  // í•œì¤„ì— ì¶œë ¥í•  ë¼ì¸ìˆ˜
 
 $sql = " SELECT count( * ) AS cnt $sql_common ";
 $result = sql_query($sql); 
 $total_count = mysql_num_rows($result); 
-$total_page  = ceil($total_count / $one_rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
+$total_page  = ceil($total_count / $one_rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
 
-echo "&nbsp;&nbsp;°Ô½Ã±Û ½ºÅ©·¦ : " . $total_count;
+echo "&nbsp;&nbsp;ê²Œì‹œê¸€ ìŠ¤í¬ë© : " . $total_count;
 
-if ($page == "") { $page = 1; } // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö) 
-$from_record = ($page - 1) * $one_rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+if ($page == "") { $page = 1; } // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€) 
+$from_record = ($page - 1) * $one_rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 $to_record = $from_record + $one_rows ;
 
 $list = array();
@@ -47,14 +47,14 @@ $list = array();
   <td>
   <table>
   <tr height=28 align=center>
-      <td width=50><?=subject_sort_link('ms_id')?>¹øÈ£</a></td>
-      <td>Á¦¸ñ</td>
-      <td width=110>±Û¾´ÀÌ</td>
-      <td width=40><?=subject_sort_link('ms_datetime')?>³¯Â¥</a></td>
-      <td width=60><?=subject_sort_link('cnt')?>½ºÅ©·¦È½¼ö</a></td>
+      <td width=50><?=subject_sort_link('ms_id')?>ë²ˆí˜¸</a></td>
+      <td>ì œëª©</td>
+      <td width=110>ê¸€ì“´ì´</td>
+      <td width=40><?=subject_sort_link('ms_datetime')?>ë‚ ì§œ</a></td>
+      <td width=60><?=subject_sort_link('cnt')?>ìŠ¤í¬ë©íšŸìˆ˜</a></td>
   </tr>
   <? 
-  //°Ô½ÃÆÇ¿¡¼­ ÀÚ±â°¡ º»±ÛÃßÃâ: Æ÷ÀÎÆ®Å×ÀÌºí ÀÌ¿ë.  
+  //ê²Œì‹œíŒì—ì„œ ìê¸°ê°€ ë³¸ê¸€ì¶”ì¶œ: í¬ì¸íŠ¸í…Œì´ë¸” ì´ìš©.  
   $sql = "SELECT * , count( * ) AS cnt 
             $sql_common 
             $sql_order 

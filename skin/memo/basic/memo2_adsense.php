@@ -1,6 +1,6 @@
 <script type="text/javascript"><!--
 google_ad_client = "ca-pub-2309139745261135";
-/* ¿ÀÇÂÄÚµå-ÂÊÁö4 */
+/* ì˜¤í”ˆì½”ë“œ-ìª½ì§€4 */
 google_ad_slot = "7150879460";
 google_ad_width = 468;
 google_ad_height = 60;

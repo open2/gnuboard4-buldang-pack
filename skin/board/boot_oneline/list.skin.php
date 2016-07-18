@@ -1,23 +1,23 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-// °Ô½Ã±Û »èÁ¦¸¦ À§ÇØ¼­ (bbs/view.php¿¡¼­ °¡Á®¿Â ÄÚµå)
+// ê²Œì‹œê¸€ ì‚­ì œë¥¼ ìœ„í•´ì„œ (bbs/view.phpì—ì„œ ê°€ì ¸ì˜¨ ì½”ë“œ)
 set_session("ss_delete_token", $token = uniqid(time()));
 
-// ÀÌ¸ğÆ¼ÄÜ Àû¿ëÇÏ±â
+// ì´ëª¨í‹°ì½˜ ì ìš©í•˜ê¸°
 function emoticon_html($str, $board_skin_path)
 {
     if ($str == "no-image")
         return "";
 
     if ($str >= 1 && $str <= 44) {
-        // ¿¾³¯ ÇÑÁÙ°Ô½ÃÆÇ µ¥ÀÌÅÍ¿ÍÀÇ È£È¯À» À§ÇØ
+        // ì˜›ë‚  í•œì¤„ê²Œì‹œíŒ ë°ì´í„°ì™€ì˜ í˜¸í™˜ì„ ìœ„í•´
       	$emo_file = "$str.gif";
     } else if ($str >= 101 && $str <= 143) {
-        // »õ·Î¿î ºÎÆ®½ºÆ®·¦ ÇÑÁÙ°Ô½ÃÆÇ ÀÌ¹ÌÁö
+        // ìƒˆë¡œìš´ ë¶€íŠ¸ìŠ¤íŠ¸ë© í•œì¤„ê²Œì‹œíŒ ì´ë¯¸ì§€
       	$emo_file = "$str.png";
     } else {
-        return ""; // ¹üÀ§¸¦ ¹ş¾î³ª°Å³ª ±âº»Ç¥Á¤ÀÇ °æ¿ì Ãâ·ÂÇÏÁö ¾ÊÀ½
+        return ""; // ë²”ìœ„ë¥¼ ë²—ì–´ë‚˜ê±°ë‚˜ ê¸°ë³¸í‘œì •ì˜ ê²½ìš° ì¶œë ¥í•˜ì§€ ì•ŠìŒ
     }
    	$img_src = "<img src='$board_skin_path/emoticons/" . $emo_file . "' border=0 alt=''> ";
 	  return $img_src;
@@ -27,11 +27,11 @@ function emoticon_html($str, $board_skin_path)
       include ("$board_skin_path/write.skin.php"); 
 ?>
 
-<!-- °ü¸®ÀÚÈ­¸é ¸µÅ© -->
+<!-- ê´€ë¦¬ìí™”ë©´ ë§í¬ -->
 <? if ($is_checkbox) { ?>&nbsp;&nbsp;<INPUT onclick="if (this.checked) all_checked(true); else all_checked(false);" type=checkbox>&nbsp;&nbsp;&nbsp;<?}?>
 <? if ($admin_href) { ?><a href="<?=$admin_href?>" class="btn btn-default"><i class='fa fa-cog'></i></a><?}?>
 
-<!-- Á¦¸ñ -->
+<!-- ì œëª© -->
 <form name="fboardlist" method="post" role="form" class="form-inline">
 <input type='hidden' name='bo_table' value='<?=$bo_table?>'>
 <input type='hidden' name='sfl'  value='<?=$sfl?>'>
@@ -41,19 +41,19 @@ function emoticon_html($str, $board_skin_path)
 <input type='hidden' name='sw'   value=''>
 <input type='hidden' name='token' value='<?=$token?>'>
 
-<!-- ¸ñ·Ï -->
+<!-- ëª©ë¡ -->
 <? for ($i=0; $i<count($list); $i++) { ?>
     <table role="table" width=100% class="table table-hover table-condensed" style="word-wrap:break-word;margin-bottom:0px;margin-right:0px;margin-left:0px;padding:0;">
     <tr >
-    <!-- reply ÀÌ¿Ü¿¡´Â td°¡ ³ª¿À¸é ¾ÈµÊ. ±¦È÷ °ø°£ Àâ¾Æ¸Ô¾î ÀÌ»óÇØÁü -->
+    <!-- reply ì´ì™¸ì—ëŠ” tdê°€ ë‚˜ì˜¤ë©´ ì•ˆë¨. ê´œíˆ ê³µê°„ ì¡ì•„ë¨¹ì–´ ì´ìƒí•´ì§ -->
     <? if (strlen($list[$i][wr_reply]) > 0) { ?>
     <td valign=top style="border:0px;">
-        <!-- ±×³É &nbsp; Ãâ·ÂÇÏ¸é ³Ê¹« Àû°í, strlenÀ¸·Î ÇÏ¸é ³Ê¹« ¸¹°í. ²Ä¼ö·Î wr_replyÀÇ 5¹è¸¸Å­¸¸... -->
+        <!-- ê·¸ëƒ¥ &nbsp; ì¶œë ¥í•˜ë©´ ë„ˆë¬´ ì ê³ , strlenìœ¼ë¡œ í•˜ë©´ ë„ˆë¬´ ë§ê³ . ê¼¼ìˆ˜ë¡œ wr_replyì˜ 5ë°°ë§Œí¼ë§Œ... -->
         <? for ($k=0; $k<(strlen($list[$i][wr_reply])*6); $k++) echo "&nbsp;"; ?>
     </td>
     <?}?>
     <?
-    // °øÁö»çÇ×ÀÏ¶§´Â success class·Î.
+    // ê³µì§€ì‚¬í•­ì¼ë•ŒëŠ” success classë¡œ.
     if ($list[$i][is_notice])
         $td_class = "class='success'";
     else
@@ -63,12 +63,12 @@ function emoticon_html($str, $board_skin_path)
         <? if ($is_checkbox) { ?><input type=checkbox name=chk_wr_id[] value="<?=$list[$i][wr_id]?>"><? } ?>
         <? 
         if ($list[$i][reply]) { 
-            if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply fa-rotate-180\" title='reply/´ä±Û'></i> ";
+            if ($list[$i][icon_reply]) echo "<i class=\"fa fa-reply fa-rotate-180\" title='reply/ë‹µê¸€'></i> ";
         }
         ?>
         <?
-        if ($list[$i][is_notice]) // °øÁö»çÇ× 
-            echo "<i class=\"fa fa-microphone\" title='notice/°øÁö»çÇ×'></i> ";
+        if ($list[$i][is_notice]) // ê³µì§€ì‚¬í•­ 
+            echo "<i class=\"fa fa-microphone\" title='notice/ê³µì§€ì‚¬í•­'></i> ";
         else {
          		$list[$i][subject] = emoticon_html($list[$i][subject], $board_skin_path);
             echo $list[$i][subject];
@@ -79,10 +79,10 @@ function emoticon_html($str, $board_skin_path)
 
      		echo $list[$i][wr_content];
 
-        // ¹Ø¿¡¼­ ÇÑ¹ø ´õ ½á¾ß ÇÏ±â ¶§¹®¿¡ ¹è¿­¿¡ ´ã¾Æ µÓ´Ï´Ù.
+        // ë°‘ì—ì„œ í•œë²ˆ ë” ì¨ì•¼ í•˜ê¸° ë•Œë¬¸ì— ë°°ì—´ì— ë‹´ì•„ ë‘¡ë‹ˆë‹¤.
         $icon_images = "";
-        if ($list[$i][icon_new]) $icon_images .= " <i class=\"fa fa-pagelines\" title='new articla/»õ±Û'></i>";
-        if ($list[$i][icon_secret]) $icon_images .= " <i class=\"fa fa-lock\" title='secret/ºñ¹Ğ±Û'></i>";
+        if ($list[$i][icon_new]) $icon_images .= " <i class=\"fa fa-pagelines\" title='new articla/ìƒˆê¸€'></i>";
+        if ($list[$i][icon_secret]) $icon_images .= " <i class=\"fa fa-lock\" title='secret/ë¹„ë°€ê¸€'></i>";
         echo $icon_images;
         ?>
 
@@ -92,15 +92,15 @@ function emoticon_html($str, $board_skin_path)
         if ($member[mb_id]) {
         ?>
             <div class="btn-group" style="margin-right:10px;">
-            <a href="<?=$write_href?>&w=r&wr_id=<?=$list[$i][wr_id]?>&page=<?=$page?>&sca=<?=$ca_name?>" class="btn btn-default btn-sm">´äº¯</a>
+            <a href="<?=$write_href?>&w=r&wr_id=<?=$list[$i][wr_id]?>&page=<?=$page?>&sca=<?=$ca_name?>" class="btn btn-default btn-sm">ë‹µë³€</a>
     		    </div>
         <? } ?>
         <?
         if (($member[mb_id] && ($member[mb_id] == $list[$i][mb_id])) || $is_admin) {
         ?>
             <div class="btn-group" style="margin-right:10px;">
-            <a href="<?=$write_href?>&w=u&wr_id=<?=$list[$i][wr_id]?>&page=<?=$page?>&sca=<?=$ca_name?>" class="btn btn-default btn-sm">¼öÁ¤</a>
-            <a href="javascript:if (confirm('»èÁ¦ÇÏ½Ã°Ú½À´Ï±î?')) { location='<?=$g4[bbs_path]?>/delete.php?w=d&bo_table=<?=$bo_table?>&wr_id=<?=$list[$i][wr_id]?>&sca=<?=$sca?>&token=<?=$token?>&page=<?=$page?>';}" class="btn btn-default btn-sm">»èÁ¦</a>
+            <a href="<?=$write_href?>&w=u&wr_id=<?=$list[$i][wr_id]?>&page=<?=$page?>&sca=<?=$ca_name?>" class="btn btn-default btn-sm">ìˆ˜ì •</a>
+            <a href="javascript:if (confirm('ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?')) { location='<?=$g4[bbs_path]?>/delete.php?w=d&bo_table=<?=$bo_table?>&wr_id=<?=$list[$i][wr_id]?>&sca=<?=$sca?>&token=<?=$token?>&page=<?=$page?>';}" class="btn btn-default btn-sm">ì‚­ì œ</a>
     		    </div>
         <? } ?>
         </div>
@@ -109,61 +109,61 @@ function emoticon_html($str, $board_skin_path)
     </table>
 <?}?>
 
-<? if (count($list) == 0) { echo "<table width=100%><tr><td height=100 align=center>°Ô½Ã¹°ÀÌ ¾ø½À´Ï´Ù.</td></tr></table>"; } ?>
+<? if (count($list) == 0) { echo "<table width=100%><tr><td height=100 align=center>ê²Œì‹œë¬¼ì´ ì—†ìŠµë‹ˆë‹¤.</td></tr></table>"; } ?>
 </form>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="center-block hidden-xs">
     <ul class="pagination">
-    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ÀÌÀü°Ë»ö</a></li>"; } ?>
+    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ì´ì „ê²€ìƒ‰</a></li>"; } ?>
     <?
-    // ±âº»À¸·Î ³Ñ¾î¿À´Â ÆäÀÌÁö¸¦ ¾Æ·¡¿Í °°ÀÌ º¯È¯ÇÏ¿© ´Ù¾çÇÏ°Ô Ãâ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.
-    $write_pages = str_replace("ÀÌÀü", "<i class='fa fa-angle-left'></i>", $write_pages);
-    $write_pages = str_replace("´ÙÀ½", "<i class='fa fa-angle-right'></i>", $write_pages);
-    $write_pages = str_replace("Ã³À½", "<i class='fa fa-angle-double-left'></i>", $write_pages);
-    $write_pages = str_replace("¸Ç³¡", "<i class='fa fa-angle-double-right'></i>", $write_pages);
+    // ê¸°ë³¸ìœ¼ë¡œ ë„˜ì–´ì˜¤ëŠ” í˜ì´ì§€ë¥¼ ì•„ë˜ì™€ ê°™ì´ ë³€í™˜í•˜ì—¬ ë‹¤ì–‘í•˜ê²Œ ì¶œë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+    $write_pages = str_replace("ì´ì „", "<i class='fa fa-angle-left'></i>", $write_pages);
+    $write_pages = str_replace("ë‹¤ìŒ", "<i class='fa fa-angle-right'></i>", $write_pages);
+    $write_pages = str_replace("ì²˜ìŒ", "<i class='fa fa-angle-double-left'></i>", $write_pages);
+    $write_pages = str_replace("ë§¨ë", "<i class='fa fa-angle-double-right'></i>", $write_pages);
     ?>
     <?=$write_pages?>
-    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ÀÌÈÄ°Ë»ö</a></li>"; } ?>
+    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ì´í›„ê²€ìƒ‰</a></li>"; } ?>
     </ul>
 </div>
 <div class="center-block visible-xs">
     <ul class="pagination">
-    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ÀÌÀü°Ë»ö</a></li>"; } ?>
+    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ì´ì „ê²€ìƒ‰</a></li>"; } ?>
     <?
-    // ±âº»À¸·Î ³Ñ¾î¿À´Â ÆäÀÌÁö¸¦ ¾Æ·¡¿Í °°ÀÌ º¯È¯ÇÏ¿© ´Ù¾çÇÏ°Ô Ãâ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.
-    $write_pages_xs = str_replace("ÀÌÀü", "<i class='fa fa-angle-left'></i>", $write_pages_xs);
-    $write_pages_xs = str_replace("´ÙÀ½", "<i class='fa fa-angle-right'></i>", $write_pages_xs);
-    $write_pages_xs = str_replace("Ã³À½", "<i class='fa fa-angle-double-left'></i>", $write_pages_xs);
-    $write_pages_xs = str_replace("¸Ç³¡", "<i class='fa fa-angle-double-right'></i>", $write_pages_xs);
+    // ê¸°ë³¸ìœ¼ë¡œ ë„˜ì–´ì˜¤ëŠ” í˜ì´ì§€ë¥¼ ì•„ë˜ì™€ ê°™ì´ ë³€í™˜í•˜ì—¬ ë‹¤ì–‘í•˜ê²Œ ì¶œë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+    $write_pages_xs = str_replace("ì´ì „", "<i class='fa fa-angle-left'></i>", $write_pages_xs);
+    $write_pages_xs = str_replace("ë‹¤ìŒ", "<i class='fa fa-angle-right'></i>", $write_pages_xs);
+    $write_pages_xs = str_replace("ì²˜ìŒ", "<i class='fa fa-angle-double-left'></i>", $write_pages_xs);
+    $write_pages_xs = str_replace("ë§¨ë", "<i class='fa fa-angle-double-right'></i>", $write_pages_xs);
     ?>
     <?=$write_pages_xs?>
-    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ÀÌÈÄ°Ë»ö</a></li>"; } ?>
+    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ì´í›„ê²€ìƒ‰</a></li>"; } ?>
     </ul>
 </div>
 
-<!-- ¸µÅ© ¹öÆ°, °Ë»ö -->
+<!-- ë§í¬ ë²„íŠ¼, ê²€ìƒ‰ -->
 <form name=fsearch method=get role="form" class="form-inline">
 <input type=hidden name=bo_table value="<?=$bo_table?>">
 <input type=hidden name=sca      value="<?=$sca?>">
 <? if ($list_href) { ?>
 <div class="btn-group">
-    <a href="<?=$list_href?>" class="btn btn-default"><i class='fa fa-list'></i> ¸ñ·Ï</a>
+    <a href="<?=$list_href?>" class="btn btn-default"><i class='fa fa-list'></i> ëª©ë¡</a>
 </div>
 <? } ?>
 <? if ($write_href) { ?>
 <div class="btn-group">
-    <a href="<?=$write_href?>" class="btn btn-default"><i class='fa fa-edit'></i> ¾²±â</a>
+    <a href="<?=$write_href?>" class="btn btn-default"><i class='fa fa-edit'></i> ì“°ê¸°</a>
 </div>
 <? } ?>
 <? if ($is_checkbox) { ?>
 <span style='display:inline-block!important;vertical-align:bottom;'>
 <div class="btn-group hidden-sm hidden-xs">
-    <a href="javascript:select_delete();" class="btn btn-default">¼±ÅÃ»èÁ¦</a>
-    <a href="javascript:select_copy('copy');" class="btn btn-default">¼±ÅÃº¹»ç</a>
-    <a href="javascript:select_copy('move');" class="btn btn-default">¼±ÅÃÀÌµ¿</a>
+    <a href="javascript:select_delete();" class="btn btn-default">ì„ íƒì‚­ì œ</a>
+    <a href="javascript:select_copy('copy');" class="btn btn-default">ì„ íƒë³µì‚¬</a>
+    <a href="javascript:select_copy('move');" class="btn btn-default">ì„ íƒì´ë™</a>
     <? if ($is_category) { ?>
-    <a href="javascript:select_category();"  class="btn btn-default">Ä«Å×°í¸®º¯°æ</a>
+    <a href="javascript:select_category();"  class="btn btn-default">ì¹´í…Œê³ ë¦¬ë³€ê²½</a>
     <select class="form-control input-sm" name=sca2><?=$category_option?></select>
     <? } ?>
 </div>
@@ -178,18 +178,18 @@ function emoticon_html($str, $board_skin_path)
     <div class="form-group">
         <label class="sr-only" for="sfl">sfl</label>
         <select name=sfl class="form-control">
-        <option value='wr_subject'>Á¦¸ñ</option>
-        <option value='wr_content'>³»¿ë</option>
-        <option value='wr_subject||wr_content'>Á¦¸ñ+³»¿ë</option>
-        <option value='mb_id,1'>È¸¿ø¾ÆÀÌµğ</option>
-        <option value='mb_id,0'>È¸¿ø¾ÆÀÌµğ(ÄÚ)</option>
-        <option value='wr_name,1'>ÀÌ¸§</option>
-        <option value='wr_name,0'>ÀÌ¸§(ÄÚ)</option>
+        <option value='wr_subject'>ì œëª©</option>
+        <option value='wr_content'>ë‚´ìš©</option>
+        <option value='wr_subject||wr_content'>ì œëª©+ë‚´ìš©</option>
+        <option value='mb_id,1'>íšŒì›ì•„ì´ë””</option>
+        <option value='mb_id,0'>íšŒì›ì•„ì´ë””(ì½”)</option>
+        <option value='wr_name,1'>ì´ë¦„</option>
+        <option value='wr_name,0'>ì´ë¦„(ì½”)</option>
         </select>
     </div>
     <div class="form-group">
         <label class="sr-only" for="stx">stx</label>
-        <input name=stx maxlength=15 size=10 itemname="°Ë»ö¾î" required value='<?=stripslashes($stx)?>' class="form-control">
+        <input name=stx maxlength=15 size=10 itemname="ê²€ìƒ‰ì–´" required value='<?=stripslashes($stx)?>' class="form-control">
     </div>
     <div class="form-group">
         <label class="sr-only" for="sop">sop</label>
@@ -199,7 +199,7 @@ function emoticon_html($str, $board_skin_path)
         </select>
     </div>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 
@@ -234,35 +234,35 @@ function check_confirm(str) {
     }
 
     if (!chk_count) {
-        alert(str + "ÇÒ °Ô½Ã¹°À» ÇÏ³ª ÀÌ»ó ¼±ÅÃÇÏ¼¼¿ä.");
+        alert(str + "í•  ê²Œì‹œë¬¼ì„ í•˜ë‚˜ ì´ìƒ ì„ íƒí•˜ì„¸ìš”.");
         return false;
     }
     return true;
 }
 
-// ¼±ÅÃÇÑ °Ô½Ã¹° »èÁ¦
+// ì„ íƒí•œ ê²Œì‹œë¬¼ ì‚­ì œ
 function select_delete() {
     var f = document.fboardlist;
 
-    str = "»èÁ¦";
+    str = "ì‚­ì œ";
     if (!check_confirm(str))
         return;
 
-    if (!confirm("¼±ÅÃÇÑ °Ô½Ã¹°À» Á¤¸» "+str+" ÇÏ½Ã°Ú½À´Ï±î?\n\nÇÑ¹ø "+str+"ÇÑ ÀÚ·á´Â º¹±¸ÇÒ ¼ö ¾ø½À´Ï´Ù"))
+    if (!confirm("ì„ íƒí•œ ê²Œì‹œë¬¼ì„ ì •ë§ "+str+" í•˜ì‹œê² ìŠµë‹ˆê¹Œ?\n\ní•œë²ˆ "+str+"í•œ ìë£ŒëŠ” ë³µêµ¬í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤"))
         return;
 
     f.action = "<?=$g4[bbs_path]?>/delete_all.php";
     f.submit();
 }
 
-// ¼±ÅÃÇÑ °Ô½Ã¹° º¹»ç ¹× ÀÌµ¿
+// ì„ íƒí•œ ê²Œì‹œë¬¼ ë³µì‚¬ ë° ì´ë™
 function select_copy(sw) {
     var f = document.fboardlist;
 
     if (sw == "copy")
-        str = "º¹»ç";
+        str = "ë³µì‚¬";
     else
-        str = "ÀÌµ¿";
+        str = "ì´ë™";
                        
     if (!check_confirm(str))
         return;
@@ -275,20 +275,20 @@ function select_copy(sw) {
     f.submit();
 }
 
-// ¼±ÅÃÇÑ °Ô½Ã¹° Ä«Å×°í¸®¸¦ º¯°æ
+// ì„ íƒí•œ ê²Œì‹œë¬¼ ì¹´í…Œê³ ë¦¬ë¥¼ ë³€ê²½
 function select_category() {
     var f = document.fboardlist;
     var f2 = document.fsearch;
 
-    str = "Ä«Å×°í¸®º¯°æ";
+    str = "ì¹´í…Œê³ ë¦¬ë³€ê²½";
     if (!check_confirm(str))
         return;
 
     str = f2.sca2.value;
-    if (!confirm("¼±ÅÃÇÑ °Ô½Ã¹°ÀÇ Ä«Å×°í¸®¸¦ "+str+" À¸·Î º¯°æ ÇÏ½Ã°Ú½À´Ï±î?"))
+    if (!confirm("ì„ íƒí•œ ê²Œì‹œë¬¼ì˜ ì¹´í…Œê³ ë¦¬ë¥¼ "+str+" ìœ¼ë¡œ ë³€ê²½ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?"))
         return;
 
-    // sca¿¡ °ªÀ» ³Ö¾îÁà¾ßÁÒ.
+    // scaì— ê°’ì„ ë„£ì–´ì¤˜ì•¼ì£ .
     f.sca.value = str;
 
     f.action = "./category_all.php";
@@ -296,4 +296,4 @@ function select_category() {
 }
 </script>
 <? } ?>
-<!-- °Ô½ÃÆÇ ¸ñ·Ï ³¡ -->
+<!-- ê²Œì‹œíŒ ëª©ë¡ ë -->

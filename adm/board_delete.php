@@ -5,24 +5,24 @@ include_once("./_common.php");
 check_demo();
 
 if ($is_admin != "super")
-    alert("°Ô½ÃÆÇ »èÁ¦´Â ÃÖ°í°ü¸®ÀÚ¸¸ °¡´ÉÇÕ´Ï´Ù.");
+    alert("ê²Œì‹œíŒ ì‚­ì œëŠ” ìµœê³ ê´€ë¦¬ìë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
 auth_check($auth[$sub_menu], "d");
 
 check_token();
 
-// _BOARD_DELETE_ »ó¼ö¸¦ ¼±¾ğÇØ¾ß board_delete.inc.php °¡ Á¤»ó ÀÛµ¿ÇÔ
+// _BOARD_DELETE_ ìƒìˆ˜ë¥¼ ì„ ì–¸í•´ì•¼ board_delete.inc.php ê°€ ì •ìƒ ì‘ë™í•¨
 define("_BOARD_DELETE_", TRUE);
 
-// °Ô½ÃÆÇ Á¤º¸¸¦ °¡Á®¿Â´Ù.
+// ê²Œì‹œíŒ ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 $board = get_board($_POST['bo_table']);
 
-// include Àü¿¡ $bo_table °ªÀ» ¹İµå½Ã ³Ñ°Ü¾ß ÇÔ
+// include ì „ì— $bo_table ê°’ì„ ë°˜ë“œì‹œ ë„˜ê²¨ì•¼ í•¨
 $tmp_bo_table = mysql_real_escape_string(trim($_POST['bo_table']));
 $sql = " select * from $g4[board_table] where bo_table = '$tmp_bo_table' ";
 $row = sql_fetch($sql);
 if (!$row) {
-    alert("°Ô½ÃÆÇÀ» »èÁ¦ÇÒ ¼ö ¾ø½À´Ï´Ù.");
+    alert("ê²Œì‹œíŒì„ ì‚­ì œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 }
 
 include_once ("./board_delete.inc.php");

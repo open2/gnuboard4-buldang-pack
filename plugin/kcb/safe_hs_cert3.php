@@ -1,42 +1,42 @@
 <?php
 /**************************************************************************
-	ÆÄÀÏ¸í : safe_hs_cert3.php
+	íŒŒì¼ëª… : safe_hs_cert3.php
 	
-	»ı³â¿ùÀÏ º»ÀÎ È®ÀÎ¼­ºñ½º °á°ú È­¸é(return url)
+	ìƒë…„ì›”ì¼ ë³¸ì¸ í™•ì¸ì„œë¹„ìŠ¤ ê²°ê³¼ í™”ë©´(return url)
 **************************************************************************/
 
 include_once("./_common.php");
 
-// ºñÈ¸¿ø Á¢¼ÓºÒ°¡
+// ë¹„íšŒì› ì ‘ì†ë¶ˆê°€
 if ($member['mb_id'] == "")
     die;
 
-$g4[title] = "KCB(ÄÚ¸®¾ÆÅ©·¹µ÷ºä·Î) - okname º»ÀÎÈ®ÀÎ";
+$g4[title] = "KCB(ì½”ë¦¬ì•„í¬ë ˆë”§ë·°ë¡œ) - okname ë³¸ì¸í™•ì¸";
 
 include_once("$g4[path]/head.sub.php");
 include_once("./nc.config.php");
 
-/* °øÅë ¸®ÅÏ Ç×¸ñ */
-$idcfMbrComCd			=	$_POST["idcf_mbr_com_cd"];		  // °í°´»çÄÚµå
-$hsCertSvcTxSeqno	=	$_POST["hs_cert_svc_tx_seqno"];	// °Å·¡¹øÈ£
-$rqstSiteNm				=	$_POST["rqst_site_nm"];			    // Á¢¼Óµµ¸ŞÀÎ	
-$hsCertRqstCausCd	=	$_POST["hs_cert_rqst_caus_cd"];	// ÀÎÁõ¿äÃ»»çÀ¯ÄÚµå 2byte  (00:È¸¿ø°¡ÀÔ, 01:¼ºÀÎÀÎÁõ, 02:È¸¿øÁ¤º¸¼öÁ¤, 03:ºñ¹Ğ¹øÈ£Ã£±â, 04:»óÇ°±¸¸Å, 99:±âÅ¸)
+/* ê³µí†µ ë¦¬í„´ í•­ëª© */
+$idcfMbrComCd			=	$_POST["idcf_mbr_com_cd"];		  // ê³ ê°ì‚¬ì½”ë“œ
+$hsCertSvcTxSeqno	=	$_POST["hs_cert_svc_tx_seqno"];	// ê±°ë˜ë²ˆí˜¸
+$rqstSiteNm				=	$_POST["rqst_site_nm"];			    // ì ‘ì†ë„ë©”ì¸	
+$hsCertRqstCausCd	=	$_POST["hs_cert_rqst_caus_cd"];	// ì¸ì¦ìš”ì²­ì‚¬ìœ ì½”ë“œ 2byte  (00:íšŒì›ê°€ì…, 01:ì„±ì¸ì¸ì¦, 02:íšŒì›ì •ë³´ìˆ˜ì •, 03:ë¹„ë°€ë²ˆí˜¸ì°¾ê¸°, 04:ìƒí’ˆêµ¬ë§¤, 99:ê¸°íƒ€)
 
-$resultCd				=	$_POST["result_cd"];			// °á°úÄÚµå
-$resultMsg			=	$_POST["result_msg"];			// °á°ú¸Ş¼¼Áö
-$certDtTm				=	$_POST["cert_dt_tm"];			// ÀÎÁõÀÏ½Ã
+$resultCd				=	$_POST["result_cd"];			// ê²°ê³¼ì½”ë“œ
+$resultMsg			=	$_POST["result_msg"];			// ê²°ê³¼ë©”ì„¸ì§€
+$certDtTm				=	$_POST["cert_dt_tm"];			// ì¸ì¦ì¼ì‹œ
 
 /**************************************************************************
- * ¸ğµâ È£Ãâ	; »ı³â¿ùÀÏ º»ÀÎ È®ÀÎ¼­ºñ½º °á°ú µ¥ÀÌÅÍ¸¦ º¹È£È­ÇÑ´Ù.
+ * ëª¨ë“ˆ í˜¸ì¶œ	; ìƒë…„ì›”ì¼ ë³¸ì¸ í™•ì¸ì„œë¹„ìŠ¤ ê²°ê³¼ ë°ì´í„°ë¥¼ ë³µí˜¸í™”í•œë‹¤.
  **************************************************************************/
 $encInfo = $_POST["encInfo"];
 
-//KCB¼­¹ö °ø°³Å°
+//KCBì„œë²„ ê³µê°œí‚¤
 $WEBPUBKEY = trim($_POST["WEBPUBKEY"]);
-//KCB¼­¹ö ¼­¸í°ª
+//KCBì„œë²„ ì„œëª…ê°’
 $WEBSIGNATURE = trim($_POST["WEBSIGNATURE"]);
 
-// º»ÀÎÈ®ÀÎ - ¾ÏÈ£È­Å° ÆÄÀÏ ¼³Á¤ (Àı´ë°æ·Î) - ÆÄÀÏÀº ÁÖ¾îÁø ÆÄÀÏ¸íÀ¸·Î ÀÚµ¿ »ı¼º µÊ
+// ë³¸ì¸í™•ì¸ - ì•”í˜¸í™”í‚¤ íŒŒì¼ ì„¤ì • (ì ˆëŒ€ê²½ë¡œ) - íŒŒì¼ì€ ì£¼ì–´ì§„ íŒŒì¼ëª…ìœ¼ë¡œ ìë™ ìƒì„± ë¨
 if ($kcb_test)
     $keypath = "$kcblog/tsafecert_$idcfMbrComCd.key";
 else
@@ -45,14 +45,14 @@ else
 $cpubkey = $WEBPUBKEY;    //server publickey
 $csig = $WEBSIGNATURE;    //server signature
 
-// ¸í·É¾î
+// ëª…ë ¹ì–´
 $cmd = array($keypath, $idcfMbrComCd, $EndPointURL, $WEBPUBKEY, $WEBSIGNATURE, $encInfo, $logPath, $option3);
 
 if ($kcb_test) {
     echo "$cmd<br>";
 }
 
-// ½ÇÇà
+// ì‹¤í–‰
 $output = NULL;
 $ret = okname($cmd, $output);
 if ($kcb_test) {
@@ -60,58 +60,58 @@ if ($kcb_test) {
 }
 
 if($ret == 0) {
-		// º¹È£È­°¡ Àß µÇ´ÂÁö º¸°í ½ÍÀ» ¶§ Ç®¾îÁØ´Ù.
-		// echo "º¹È£È­ ¿äÃ» È£Ãâ ¼º°ø.<br/>";
+		// ë³µí˜¸í™”ê°€ ì˜ ë˜ëŠ”ì§€ ë³´ê³  ì‹¶ì„ ë•Œ í’€ì–´ì¤€ë‹¤.
+		// echo "ë³µí˜¸í™” ìš”ì²­ í˜¸ì¶œ ì„±ê³µ.<br/>";
 
-		// °á°ú¶óÀÎ¿¡¼­ °ªÀ» ÃßÃâ
+		// ê²°ê³¼ë¼ì¸ì—ì„œ ê°’ì„ ì¶”ì¶œ
 		$output = iconv($g4['okname_charset'] , $g4['charset'], $output);
 		$field = explode("\n", $output);
 } else {
-		echo "º¹È£È­ ¿äÃ» È£Ãâ ¿¡·¯. ¸®ÅÏ°ª : ".$ret."<br/>";		 
+		echo "ë³µí˜¸í™” ìš”ì²­ í˜¸ì¶œ ì—ëŸ¬. ë¦¬í„´ê°’ : ".$ret."<br/>";		 
 		if($ret <=200)
 			$resultCd=sprintf("B%03d", $ret);
 		else
 			$resultCd=sprintf("S%03d", $ret);
 }
 
-// *** ÀÌ µÎ °ªÀ» $_POST ÀÇ °ª ´ë½Å »ç¿ë.
+// *** ì´ ë‘ ê°’ì„ $_POST ì˜ ê°’ ëŒ€ì‹  ì‚¬ìš©.
 $resultCd = $field[0];
 $resultMsg = $field[1];
 $hsCertSvcTxSeqno = $field[2];
 
-// *** Å×½ºÆ®ÇÒ¶§ Ç®¾îÁÖ¼¼¿ä.
+// *** í…ŒìŠ¤íŠ¸í• ë•Œ í’€ì–´ì£¼ì„¸ìš”.
 //$kcb_test = 1;
 if ($kcb_test) {
-    echo "Ã³¸®°á°úÄÚµå		:$resultCd	<br/>";
-    echo "Ã³¸®°á°ú¸Ş½ÃÁö	:$field[1]	<br/>";
-    echo "°Å·¡ÀÏ·Ã¹øÈ£		:$field[2]	<br/>";
-    echo "ÀÎÁõÀÏ½Ã			  :$field[3]	<br/>";
+    echo "ì²˜ë¦¬ê²°ê³¼ì½”ë“œ		:$resultCd	<br/>";
+    echo "ì²˜ë¦¬ê²°ê³¼ë©”ì‹œì§€	:$field[1]	<br/>";
+    echo "ê±°ë˜ì¼ë ¨ë²ˆí˜¸		:$field[2]	<br/>";
+    echo "ì¸ì¦ì¼ì‹œ			  :$field[3]	<br/>";
     echo "DI				      :$field[4]	<br/>";
     echo "CI				      :$field[5]	<br/>";
-    echo "¼º¸í				    :$field[7]	<br/>";
-    echo "»ı³â¿ùÀÏ			  :$field[8]	<br/>";
-    echo "¼ºº°				    :$field[9]	<br/>";
-    echo "³»¿Ü±¹ÀÎ±¸ºĞ		:$field[10]	<br/>";
-    echo "Åë½Å»çÄÚµå		  :$field[11]	<br/>";
-    echo "ÈŞ´ëÆù¹øÈ£		  :$field[12]	<br/>";
-    echo "¸®ÅÏ¸Ş½ÃÁö		  :$field[16]	<br/>";
+    echo "ì„±ëª…				    :$field[7]	<br/>";
+    echo "ìƒë…„ì›”ì¼			  :$field[8]	<br/>";
+    echo "ì„±ë³„				    :$field[9]	<br/>";
+    echo "ë‚´ì™¸êµ­ì¸êµ¬ë¶„		:$field[10]	<br/>";
+    echo "í†µì‹ ì‚¬ì½”ë“œ		  :$field[11]	<br/>";
+    echo "íœ´ëŒ€í°ë²ˆí˜¸		  :$field[12]	<br/>";
+    echo "ë¦¬í„´ë©”ì‹œì§€		  :$field[16]	<br/>";
 }
-// *** Å×½ºÆ®ÇÒ ¶§ °ªÀ» È®ÀÎÇÏ°í ½ÍÀº °æ¿ì Ç®¾îÁÖ¼¼¿ä.
+// *** í…ŒìŠ¤íŠ¸í•  ë•Œ ê°’ì„ í™•ì¸í•˜ê³  ì‹¶ì€ ê²½ìš° í’€ì–´ì£¼ì„¸ìš”.
 //print_r($field);die;
 
-// ¹«Á¶°Ç ·Î±×¸¦ ³²±ä´Ù
+// ë¬´ì¡°ê±´ ë¡œê·¸ë¥¼ ë‚¨ê¸´ë‹¤
 $sql = " insert into $g4[realcheck_table] set mb_id = '$member[mb_id]', cb_authtype = '$hsCertRqstCausCd', cb_ip = '$_SERVER[REMOTE_ADDR]', cb_datetime = '$g4[time_ymdhis]', cb_errorcode = '$resultCd' ";
 sql_query($sql);
 
-// °á°úÃ³¸® ===
+// ê²°ê³¼ì²˜ë¦¬ ===
 switch ($resultCd) {
-case "B000" : // Á¤»óÃ³¸®
+case "B000" : // ì •ìƒì²˜ë¦¬
     $sql = " update $g4[member_table] set mb_name = '$name', mb_realcheck = '$g4[time_ymdhis]', mb_hp = '$field[12]' where mb_id = '$member[mb_id]' ";
     sql_query($sql);
     
     include("./realcheck.skin.php");
     break;
-default :     // Á¤»óÀÌ ¾Æ´Ñ °æ¿ì
+default :     // ì •ìƒì´ ì•„ë‹Œ ê²½ìš°
     include("./realcheck.error.skin.php");
     break;
 }

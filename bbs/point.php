@@ -2,9 +2,9 @@
 include_once("./_common.php");
 
 if (!$member[mb_id]) 
-    alert_close("È¸¿ø¸¸ Á¶È¸ÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
+    alert_close("íšŒì›ë§Œ ì¡°íšŒí•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
-$g4[title] = get_text(strip_tags($member[mb_nick])) . "´ÔÀÇ Æ÷ÀÎÆ® ³»¿ª";
+$g4[title] = get_text(strip_tags($member[mb_nick])) . "ë‹˜ì˜ í¬ì¸íŠ¸ ë‚´ì—­";
 include_once("$g4[path]/head.sub.php");
 
 $list = array();
@@ -29,9 +29,9 @@ $row = pdo_fetch_params($stmt, $params);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if (!$page) { $page = 1; } // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if (!$page) { $page = 1; } // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
 $sql = " select a.po_point, a.po_datetime, a.po_content, b.bo_table, b.wr_id
                 $sql_common
@@ -48,7 +48,7 @@ for ($i=0; $row=$stmt->fetch(PDO::FETCH_ASSOC); $i++) {
     $point_list[$i]['po_point'] = $row['po_point'];
     $point_list[$i]['po_datetime'] = $row['po_datetime'];
     $point_list[$i]['po_content'] = $row['po_content'];
-    // °Ô½Ã±ÛÀÇ °æ¿ì¿¡´Â url link¸¦ °É¾îÁØ´Ù
+    // ê²Œì‹œê¸€ì˜ ê²½ìš°ì—ëŠ” url linkë¥¼ ê±¸ì–´ì¤€ë‹¤
     if ($row['bo_table'] && $row['wr_id'])
         $point_list[$i]['po_url'] = $g4['bbs_path'] . "/board.php?bo_table=" . $row['bo_table'] . "&wr_id=" . $row['wr_id'];
     else

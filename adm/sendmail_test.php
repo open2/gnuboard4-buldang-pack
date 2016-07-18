@@ -5,26 +5,26 @@ include_once("./_common.php");
 auth_check($auth[$sub_menu], "r");
 
 if (!$config[cf_email_use])
-    alert("È¯°æ¼³Á¤¿¡¼­ \'¸ÞÀÏ¹ß¼Û »ç¿ë\'¿¡ Ã¼Å©ÇÏ¼Å¾ß ¸ÞÀÏÀ» ¹ß¼ÛÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+    alert("í™˜ê²½ì„¤ì •ì—ì„œ \'ë©”ì¼ë°œì†¡ ì‚¬ìš©\'ì— ì²´í¬í•˜ì…”ì•¼ ë©”ì¼ì„ ë°œì†¡í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.");
 
 include_once("$g4[path]/lib/mailer.lib.php");
 
-$g4[title] = "¸ÞÀÏ Å×½ºÆ®";
+$g4[title] = "ë©”ì¼ í…ŒìŠ¤íŠ¸";
 include_once("./admin.head.php");
 
 if ($mail) {
     check_token();
 
-    $from_name  = "$config[cf_title] - ¸ÞÀÏ°Ë»ç";
+    $from_name  = "$config[cf_title] - ë©”ì¼ê²€ì‚¬";
     $from_email = "$config[cf_admin_email]";
 
     $email = explode(",", $mail);
     for ($i=0; $i<count($email); $i++)
-        mailer($from_name, $from_email, trim($email[$i]), "[¸ÞÀÏ°Ë»ç] Á¦¸ñ", "<span style='font-size:9pt;'>[¸ÞÀÏ°Ë»ç] ³»¿ë<p>ÀÌ ³»¿ëÀÌ Á¦´ë·Î º¸ÀÎ´Ù¸é º¸³»´Â ¸ÞÀÏ ¼­¹ö¿¡´Â ÀÌ»óÀÌ ¾ø´Â°ÍÀÔ´Ï´Ù.<p>".date("Y-m-d H:i:s")."<p>ÀÌ ¸ÞÀÏ ÁÖ¼Ò·Î´Â È¸½ÅµÇÁö ¾Ê½À´Ï´Ù.</span>", 1);
+        mailer($from_name, $from_email, trim($email[$i]), "[ë©”ì¼ê²€ì‚¬] ì œëª©", "<span style='font-size:9pt;'>[ë©”ì¼ê²€ì‚¬] ë‚´ìš©<p>ì´ ë‚´ìš©ì´ ì œëŒ€ë¡œ ë³´ì¸ë‹¤ë©´ ë³´ë‚´ëŠ” ë©”ì¼ ì„œë²„ì—ëŠ” ì´ìƒì´ ì—†ëŠ”ê²ƒìž…ë‹ˆë‹¤.<p>".date("Y-m-d H:i:s")."<p>ì´ ë©”ì¼ ì£¼ì†Œë¡œëŠ” íšŒì‹ ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.</span>", 1);
 
     echo <<<HEREDOC
     <script type="text/javascript">
-        alert("{$mail} (À¸)·Î ¸ÞÀÏÀ» ¹ß¼Û ÇÏ¿´½À´Ï´Ù.\\n\\nÇØ´ç ÁÖ¼Ò·Î ¸ÞÀÏÀÌ ¿Ô´ÂÁö È®ÀÎÇÏ¿© ÁÖ½Ê½Ã¿À.\\n\\n¸ÞÀÏÀÌ ¿ÀÁö ¾Ê´Â´Ù¸é ÇÁ·Î±×·¥ÀÇ ¿À·ù°¡ ¾Æ´Ñ ¸ÞÀÏ ¼­¹ö(sendmail)ÀÇ ¿À·ùÀÏ °¡´É¼ºÀÌ ÀÖ½À´Ï´Ù.\\n\\nÀÌ·± °æ¿ì¿¡´Â À¥ ¼­¹ö°ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ¿© ÁÖ½Ê½Ã¿À.");
+        alert("{$mail} (ìœ¼)ë¡œ ë©”ì¼ì„ ë°œì†¡ í•˜ì˜€ìŠµë‹ˆë‹¤.\\n\\ní•´ë‹¹ ì£¼ì†Œë¡œ ë©”ì¼ì´ ì™”ëŠ”ì§€ í™•ì¸í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.\\n\\në©”ì¼ì´ ì˜¤ì§€ ì•ŠëŠ”ë‹¤ë©´ í”„ë¡œê·¸ëž¨ì˜ ì˜¤ë¥˜ê°€ ì•„ë‹Œ ë©”ì¼ ì„œë²„(sendmail)ì˜ ì˜¤ë¥˜ì¼ ê°€ëŠ¥ì„±ì´ ìžˆìŠµë‹ˆë‹¤.\\n\\nì´ëŸ° ê²½ìš°ì—ëŠ” ì›¹ ì„œë²„ê´€ë¦¬ìžì—ê²Œ ë¬¸ì˜í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
     </script>
 HEREDOC;
 }
@@ -38,14 +38,14 @@ $token = get_token();
 <div class="panel-body">
     <form name=fsendmailtest method=post>
     <input type=hidden name=token value='<?=$token?>'>
-    <p>°í°´´Ôµé²²¼­ ¸ÞÀÏÀÌ ¿ÀÁö ¾Ê´Â´Ù°í ÇÏ¸é »ç¿ëÇÏ´Â ¸Þ´ºÀÔ´Ï´Ù.
-    <p>ÀÔ·ÂÇÑ ¸ÞÀÏÁÖ¼Ò·Î Å×½ºÆ® ¸ÞÀÏÀ» ¹ß¼ÛÇÕ´Ï´Ù.
-    <p>¸¸¾à [¸ÞÀÏ°Ë»ç] ¶ó´Â ³»¿ëÀ¸·Î ¸ÞÀÏÀÌ µµÂøÇÏÁö ¾Ê´Â´Ù¸é º¸³»´Â ¸ÞÀÏ¼­¹ö¿Í ¹Þ´Â ¸ÞÀÏ ¼­¹öÁß ¹®Á¦°¡ ¹ß»ýÇßÀ» °¡´É¼ºÀÌ ÀÖ½À´Ï´Ù.
-    <p>¸ÞÀÏÀ» º¸³Â´Âµ¥µµ µµÂøÇÏÁö ¾Ê´Â´Ù¸é ´Ù¸¥ ¿©·¯°÷À¸·Îµµ ¸ÞÀÏÀ» ¹ß¼ÛÇÏ¿© ÁÖ½Ê½Ã¿À.
-    <p>¿©·¯°÷À¸·Î ¸ÞÀÏÀ» ¹ß¼ÛÇÏ½Ã·Á¸é , ·Î ¸ÞÀÏÀ» ±¸ºÐÇÏ½Ê½Ã¿À.
-    <p>¹Þ´Â ¸ÞÀÏÁÖ¼Ò : <input type=text class="form-control" name=mail size=40 required itemname="E-mail" value="<?=$config[cf_admin_email]?>">
+    <p>ê³ ê°ë‹˜ë“¤ê»˜ì„œ ë©”ì¼ì´ ì˜¤ì§€ ì•ŠëŠ”ë‹¤ê³  í•˜ë©´ ì‚¬ìš©í•˜ëŠ” ë©”ë‰´ìž…ë‹ˆë‹¤.
+    <p>ìž…ë ¥í•œ ë©”ì¼ì£¼ì†Œë¡œ í…ŒìŠ¤íŠ¸ ë©”ì¼ì„ ë°œì†¡í•©ë‹ˆë‹¤.
+    <p>ë§Œì•½ [ë©”ì¼ê²€ì‚¬] ë¼ëŠ” ë‚´ìš©ìœ¼ë¡œ ë©”ì¼ì´ ë„ì°©í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ ë³´ë‚´ëŠ” ë©”ì¼ì„œë²„ì™€ ë°›ëŠ” ë©”ì¼ ì„œë²„ì¤‘ ë¬¸ì œê°€ ë°œìƒí–ˆì„ ê°€ëŠ¥ì„±ì´ ìžˆìŠµë‹ˆë‹¤.
+    <p>ë©”ì¼ì„ ë³´ëƒˆëŠ”ë°ë„ ë„ì°©í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ ë‹¤ë¥¸ ì—¬ëŸ¬ê³³ìœ¼ë¡œë„ ë©”ì¼ì„ ë°œì†¡í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.
+    <p>ì—¬ëŸ¬ê³³ìœ¼ë¡œ ë©”ì¼ì„ ë°œì†¡í•˜ì‹œë ¤ë©´ , ë¡œ ë©”ì¼ì„ êµ¬ë¶„í•˜ì‹­ì‹œì˜¤.
+    <p>ë°›ëŠ” ë©”ì¼ì£¼ì†Œ : <input type=text class="form-control" name=mail size=40 required itemname="E-mail" value="<?=$config[cf_admin_email]?>">
     <p>
-    <input type=submit value="  ¹ß  ¼Û  " class="btn btn-default">
+    <input type=submit value="  ë°œ  ì†¡  " class="btn btn-default">
     </form>
 </div>
 </div>

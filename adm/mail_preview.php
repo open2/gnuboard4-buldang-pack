@@ -8,7 +8,7 @@ auth_check($auth[$sub_menu], "r");
 $se = sql_fetch("select ma_subject, ma_content from $g4[mail_table] where ma_id = '$ma_id' ");
 
 $subject = $se[ma_subject];
-$content = $se[ma_content] . "<hr size=0><p><span style='font-size:9pt; font-family:±¼¸²'>¢º ´õ ÀÌ»ó Á¤º¸ ¼ö½ÅÀ» ¿øÄ¡ ¾ÊÀ¸½Ã¸é [<a href='$g4[url]/$g4[bbs]/email_stop.php?mb_id=***&mb_md5=***' target='_blank'>¼ö½Å°ÅºÎ</a>] ÇØ ÁÖ½Ê½Ã¿À.</span></p>";
+$content = $se[ma_content] . "<hr size=0><p><span style='font-size:9pt; font-family:êµ´ë¦¼'>â–¶ ë” ì´ìƒ ì •ë³´ ìˆ˜ì‹ ì„ ì›ì¹˜ ì•Šìœ¼ì‹œë©´ [<a href='$g4[url]/$g4[bbs]/email_stop.php?mb_id=***&mb_md5=***' target='_blank'>ìˆ˜ì‹ ê±°ë¶€</a>] í•´ ì£¼ì‹­ì‹œì˜¤.</span></p>";
 
 echo "<span style='font-size:9pt;'>$subject</span>";
 echo "<hr size=0>";

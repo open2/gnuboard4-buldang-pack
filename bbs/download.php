@@ -8,56 +8,56 @@ $no = (int)$no;
 
 @include_once("$board_skin_path/download.head.skin.php");
 
-// ÄíÅ°¿¡ ÀúÀåµÈ ID°ª°ú ³Ñ¾î¿Â ID°ªÀ» ºñ±³ÇÏ¿© °°Áö ¾ÊÀ» °æ¿ì ¿À·ù ¹ß»ý
-// ´Ù¸¥°÷¿¡¼­ ¸µÅ© °Å´Â°ÍÀ» ¹æÁöÇÏ±â À§ÇÑ ÄÚµå
+// ì¿ í‚¤ì— ì €ìž¥ëœ IDê°’ê³¼ ë„˜ì–´ì˜¨ IDê°’ì„ ë¹„êµí•˜ì—¬ ê°™ì§€ ì•Šì„ ê²½ìš° ì˜¤ë¥˜ ë°œìƒ
+// ë‹¤ë¥¸ê³³ì—ì„œ ë§í¬ ê±°ëŠ”ê²ƒì„ ë°©ì§€í•˜ê¸° ìœ„í•œ ì½”ë“œ
 if (!get_session("ss_view_{$bo_table}_{$wr_id}")) 
-    alert("Àß¸øµÈ Á¢±ÙÀÔ´Ï´Ù.");  
+    alert("ìž˜ëª»ëœ ì ‘ê·¼ìž…ë‹ˆë‹¤.");  
 
 $sql = " select bf_source, bf_file, bf_datetime from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_no = '$no' ";
 $file = sql_fetch($sql);
 if (!$file[bf_file]) {
-    alert_close("ÆÄÀÏ Á¤º¸°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+    alert_close("íŒŒì¼ ì •ë³´ê°€ ì¡´ìž¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 }
 
 if ($member[mb_level] < $board[bo_download_level]) { 
-    $alert_msg = "´Ù¿î·Îµå ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.";
+    $alert_msg = "ë‹¤ìš´ë¡œë“œ ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.";
     if ($member[mb_id])
         alert($alert_msg);
     else
-        alert($alert_msg . "\\n\\nÈ¸¿øÀÌ½Ã¶ó¸é ·Î±×ÀÎ ÈÄ ÀÌ¿ëÇØ º¸½Ê½Ã¿À.", "./login.php?wr_id=$wr_id&$qstr&url=".urlencode("$g4[bbs_path]/board.php?bo_table=$bo_table&wr_id=$wr_id"));
+        alert($alert_msg . "\\n\\níšŒì›ì´ì‹œë¼ë©´ ë¡œê·¸ì¸ í›„ ì´ìš©í•´ ë³´ì‹­ì‹œì˜¤.", "./login.php?wr_id=$wr_id&$qstr&url=".urlencode("$g4[bbs_path]/board.php?bo_table=$bo_table&wr_id=$wr_id"));
 }
 
 $filepath = "$g4[path]/data/file/$bo_table/$file[bf_file]";
 $filepath = addslashes($filepath);
 if (!is_file($filepath) || !file_exists($filepath)) {
 
-    // ÆÄÀÏÁ¤º¸¸¦ »èÁ¦ ÇÕ´Ï´Ù.
+    // íŒŒì¼ì •ë³´ë¥¼ ì‚­ì œ í•©ë‹ˆë‹¤.
     //$sql = " delete from $g4[board_file_table] where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_no = '$no' ";
     //sql_query($sql);
 
     $tmp_write_table = $g4[write_prefix] . $bo_table;
     
-    // ÇØ´ç°Ô½Ã±ÛÀÇ ÆÄÀÏÁ¤º¸¸¦ °¨¼Ò½ÃÄÑÁÝ´Ï´Ù.
+    // í•´ë‹¹ê²Œì‹œê¸€ì˜ íŒŒì¼ì •ë³´ë¥¼ ê°ì†Œì‹œì¼œì¤ë‹ˆë‹¤.
     //$sql = " update $tmp_write_table set wr_file_count=wr_file_count-1 where wr_id = '$wr_id' ";
     //sql_query($sql);
 
-    // ±Û¾´ÀÌ¸¦ Ã£½À´Ï´Ù.
+    // ê¸€ì“´ì´ë¥¼ ì°¾ìŠµë‹ˆë‹¤.
     $sql = " select mb_id from $tmp_write_table where wr_id = '$wr_id' ";
     $tmp1 = sql_fetch($sql);
     if ($tmp1[mb_id])
         $mb = get_member($tmp1[mb_id]);
 
-    // ±Û¾´ÀÌ¿Í °ü¸®ÀÚ¿¡°Ô ÂÊÁö¸¦ º¸³À´Ï´Ù.
+    // ê¸€ì“´ì´ì™€ ê´€ë¦¬ìžì—ê²Œ ìª½ì§€ë¥¼ ë³´ëƒ…ë‹ˆë‹¤.
     include_once("$g4[path]/memo.config.php");
 
-    $me_subject = "[±ä±Þ] °Ô½Ã±ÛÀÇ Ã·ºÎÆÄÀÏ ¾ø¾îÁü¿¡ ´ëÇØ¼­";
-    $msg = "¿Ã·ÁÁÖ½Å °Ô½Ã±ÛÀÇ Ã·ºÎÆÄÀÏÀÌ ¾ø¾îÁ³½À´Ï´Ù.<br>
-            °Ô½Ã±ÛÀ» È®ÀÎÇØ ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.<br>
+    $me_subject = "[ê¸´ê¸‰] ê²Œì‹œê¸€ì˜ ì²¨ë¶€íŒŒì¼ ì—†ì–´ì§ì— ëŒ€í•´ì„œ";
+    $msg = "ì˜¬ë ¤ì£¼ì‹  ê²Œì‹œê¸€ì˜ ì²¨ë¶€íŒŒì¼ì´ ì—†ì–´ì¡ŒìŠµë‹ˆë‹¤.<br>
+            ê²Œì‹œê¸€ì„ í™•ì¸í•´ ì£¼ì‹œê¸° ë°”ëžë‹ˆë‹¤.<br>
             <br>
-            Ã·ºÎÆÄÀÏ ÀÌ  ¸§ - $file[bf_source]<br>
-            Ã·ºÎÆÄÀÏ µî·ÏÀÏ - $file[bf_datetime]<br>
+            ì²¨ë¶€íŒŒì¼ ì´  ë¦„ - $file[bf_source]<br>
+            ì²¨ë¶€íŒŒì¼ ë“±ë¡ì¼ - $file[bf_datetime]<br>
             <br>
-            <a href='$g4[url]/bbs/board.php?bo_table=$bo_table&wr_id=$wr_id' target=new>°Ô½Ã±Û¹Ù·Î°¡±â</a>";
+            <a href='$g4[url]/bbs/board.php?bo_table=$bo_table&wr_id=$wr_id' target=new>ê²Œì‹œê¸€ë°”ë¡œê°€ê¸°</a>";
     $msg = addslashes($msg);
     $me_recv_mb_id = $mb[mb_id];
     $me_send_mb_id = $config[cf_admin];
@@ -67,37 +67,37 @@ if (!is_file($filepath) || !file_exists($filepath)) {
     if ($me_recv_mb_id)
         memo4_send($me_recv_mb_id, $me_send_mb_id, $msg, $me_subject);
 
-    alert("ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+    alert("íŒŒì¼ì´ ì¡´ìž¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 }
 
-// »ç¿ëÀÚ ÄÚµå ½ÇÇà
+// ì‚¬ìš©ìž ì½”ë“œ ì‹¤í–‰
 @include_once("$board_skin_path/download.skin.php");
 
-// ÀÌ¹Ì ´Ù¿î·Îµå ¹ÞÀº ÆÄÀÏÀÎÁö¸¦ °Ë»çÇÑ ÈÄ °Ô½Ã¹°´ç ÇÑ¹ø¸¸ Æ÷ÀÎÆ®¸¦ Â÷°¨ÇÏµµ·Ï ¼öÁ¤
+// ì´ë¯¸ ë‹¤ìš´ë¡œë“œ ë°›ì€ íŒŒì¼ì¸ì§€ë¥¼ ê²€ì‚¬í•œ í›„ ê²Œì‹œë¬¼ë‹¹ í•œë²ˆë§Œ í¬ì¸íŠ¸ë¥¼ ì°¨ê°í•˜ë„ë¡ ìˆ˜ì •
 $ss_name = "ss_down_{$bo_table}_{$wr_id}_{$no}";
 
 if (!get_session($ss_name)) 
 {
-    // ÀÚ½ÅÀÇ ±ÛÀÌ¶ó¸é Åë°ú
-    // °ü¸®ÀÚÀÎ °æ¿ì Åë°ú
+    // ìžì‹ ì˜ ê¸€ì´ë¼ë©´ í†µê³¼
+    // ê´€ë¦¬ìžì¸ ê²½ìš° í†µê³¼
     if (($write[mb_id] && $write[mb_id] == $member[mb_id]) || $is_admin)
         ;
-    else if ($board[bo_download_level] > 1) // È¸¿øÀÌ»ó ´Ù¿î·Îµå°¡ °¡´ÉÇÏ´Ù¸é
+    else if ($board[bo_download_level] > 1) // íšŒì›ì´ìƒ ë‹¤ìš´ë¡œë“œê°€ ê°€ëŠ¥í•˜ë‹¤ë©´
     {
-        // ´Ù¿î·Îµå Æ÷ÀÎÆ®°¡ À½¼öÀÌ°í È¸¿øÀÇ Æ÷ÀÎÆ®°¡ 0 ÀÌ°Å³ª ÀÛ´Ù¸é
+        // ë‹¤ìš´ë¡œë“œ í¬ì¸íŠ¸ê°€ ìŒìˆ˜ì´ê³  íšŒì›ì˜ í¬ì¸íŠ¸ê°€ 0 ì´ê±°ë‚˜ ìž‘ë‹¤ë©´
         if ($member[mb_point] + $board[bo_download_point] < 0)
-            alert("º¸À¯ÇÏ½Å Æ÷ÀÎÆ®(".number_format($member[mb_point]).")°¡ ¾ø°Å³ª ¸ðÀÚ¶ó¼­ ´Ù¿î·Îµå(".number_format($board[bo_download_point]).")°¡ ºÒ°¡ÇÕ´Ï´Ù.\\n\\nÆ÷ÀÎÆ®¸¦ Àû¸³ÇÏ½Å ÈÄ ´Ù½Ã ´Ù¿î·Îµå ÇØ ÁÖ½Ê½Ã¿À.");
+            alert("ë³´ìœ í•˜ì‹  í¬ì¸íŠ¸(".number_format($member[mb_point]).")ê°€ ì—†ê±°ë‚˜ ëª¨ìžë¼ì„œ ë‹¤ìš´ë¡œë“œ(".number_format($board[bo_download_point]).")ê°€ ë¶ˆê°€í•©ë‹ˆë‹¤.\\n\\ní¬ì¸íŠ¸ë¥¼ ì ë¦½í•˜ì‹  í›„ ë‹¤ì‹œ ë‹¤ìš´ë¡œë“œ í•´ ì£¼ì‹­ì‹œì˜¤.");
 
-        // °Ô½Ã¹°ÀÇ Ã·ºÎ¹®¼­º°·Î ÇÑ¹ø¸¸ Â÷°¨ÇÏµµ·Ï ¼öÁ¤
-        //insert_point($member[mb_id], $board[bo_download_point], "$board[bo_subject] $wr_id ÆÄÀÏ ´Ù¿î·Îµå", $bo_table, $wr_id, "{$no}_´Ù¿î·Îµå");
-        // °Ô½Ã¹°´ç ÇÑ¹ø¸¸ Â÷°¨ÇÏµµ·Ï ¼öÁ¤
-        insert_point($member[mb_id], $board[bo_download_point], "$board[bo_subject] $wr_id ÆÄÀÏ ´Ù¿î·Îµå", $bo_table, $wr_id, "´Ù¿î·Îµå");
+        // ê²Œì‹œë¬¼ì˜ ì²¨ë¶€ë¬¸ì„œë³„ë¡œ í•œë²ˆë§Œ ì°¨ê°í•˜ë„ë¡ ìˆ˜ì •
+        //insert_point($member[mb_id], $board[bo_download_point], "$board[bo_subject] $wr_id íŒŒì¼ ë‹¤ìš´ë¡œë“œ", $bo_table, $wr_id, "{$no}_ë‹¤ìš´ë¡œë“œ");
+        // ê²Œì‹œë¬¼ë‹¹ í•œë²ˆë§Œ ì°¨ê°í•˜ë„ë¡ ìˆ˜ì •
+        insert_point($member[mb_id], $board[bo_download_point], "$board[bo_subject] $wr_id íŒŒì¼ ë‹¤ìš´ë¡œë“œ", $bo_table, $wr_id, "ë‹¤ìš´ë¡œë“œ");
     }
 
-    // ºÒ´çÆÑ - ´Ù¿î·Îµå ³»¿ª
+    // ë¶ˆë‹¹íŒ© - ë‹¤ìš´ë¡œë“œ ë‚´ì—­
     if ($member[mb_id]) {
 
-        // ºÒ´çÆÑ - db¿¡¼­ ´Ù¿î·Îµå ¿©ºÎ¸¦ È®ÀÎ
+        // ë¶ˆë‹¹íŒ© - dbì—ì„œ ë‹¤ìš´ë¡œë“œ ì—¬ë¶€ë¥¼ í™•ì¸
         $sql = " select count(*) as cnt from $g4[board_file_download_table] 
                   where bo_table = '$bo_table' and wr_id = '$wr_id' and mb_id = '$member[mb_id]' ";
         $result = sql_fetch($sql);
@@ -117,25 +117,25 @@ if (!get_session($ss_name))
                              ";
             sql_query($sql);
         } else {
-            // ºÒ´çÆÑ - ´Ù¿î·Îµå ³»¿ª (ÀÌ¹Ì ´Ù¿îÇÑ °æ¿ì¿¡´Â ÇØ´ç ´Ù¿î·ÎµåÀÇ ½ÇÁ¦ count¸¸ ÇÏ³ª¾¿ Áõ°¡)
+            // ë¶ˆë‹¹íŒ© - ë‹¤ìš´ë¡œë“œ ë‚´ì—­ (ì´ë¯¸ ë‹¤ìš´í•œ ê²½ìš°ì—ëŠ” í•´ë‹¹ ë‹¤ìš´ë¡œë“œì˜ ì‹¤ì œ countë§Œ í•˜ë‚˜ì”© ì¦ê°€)
             $sql = " update $g4[board_file_download_table] set dn_count = dn_count + 1 where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_no = '$no' ";
             sql_query($sql);
         }
 
     }
     
-    // ´Ù¿î·Îµå Ä«¿îÆ® Áõ°¡
+    // ë‹¤ìš´ë¡œë“œ ì¹´ìš´íŠ¸ ì¦ê°€
     $sql = " update $g4[board_file_table] set bf_download = bf_download + 1 where bo_table = '$bo_table' and wr_id = '$wr_id' and bf_no = '$no' ";
     sql_query($sql);
 
     set_session($ss_name, TRUE);
 }
 
-$g4[title] = "$group[gr_subject] > $board[bo_subject] > " . conv_subject($write[wr_subject], 255) . " > ´Ù¿î·Îµå";
+$g4[title] = "$group[gr_subject] > $board[bo_subject] > " . conv_subject($write[wr_subject], 255) . " > ë‹¤ìš´ë¡œë“œ";
 
 $filepath = "$g4[data_path]/file/$bo_table/$file[bf_file]";
 $filepath = addslashes($filepath);
-// utf-8 ÆÄÀÏ ÀÌ¸§ ±ú¾îÁö´Â ¿À·ù
+// utf-8 íŒŒì¼ ì´ë¦„ ê¹¨ì–´ì§€ëŠ” ì˜¤ë¥˜
 //if (preg_match("/^utf/i", $g4[charset]))
 //    $original = urlencode($file[bf_source]);
 //else
@@ -163,14 +163,14 @@ if (file_exists($filepath)) {
     if (is_file("$filepath")) {
         $fp = fopen("$filepath", "rb");
 
-        // 4.00 ´ëÃ¼
-        // ¼­¹öºÎÇÏ¸¦ ÁÙÀÌ·Á¸é print ³ª echo ¶Ç´Â while ¹®À» ÀÌ¿ëÇÑ ¹æ¹ýº¸´Ù´Â ÀÌ¹æ¹ýÀÌ...
+        // 4.00 ëŒ€ì²´
+        // ì„œë²„ë¶€í•˜ë¥¼ ì¤„ì´ë ¤ë©´ print ë‚˜ echo ë˜ëŠ” while ë¬¸ì„ ì´ìš©í•œ ë°©ë²•ë³´ë‹¤ëŠ” ì´ë°©ë²•ì´...
         //if (!fpassthru($fp)) {
         //    fclose($fp);
         //}
 
-        // 1ÃÊ Á¤µµ¸¸ ´Ù¿î·Îµå µÇ°í, ´Ù¿î·Îµå°¡ ¾ÈµÇ´Â °æ¿ì ¶Ç´Â ´Ù¿î·Îµå ¼ÓµµÀÇ Á¶Á¤ÀÌ ÇÊ¿äÇÑ °æ¿ì
-        // ´Ù¿î·Îµå rate = fread ¹®ÀåÀÇ 100*1024(100k) * 1ÃÊ sleep(1) = ÃÊ´ç 100k
+        // 1ì´ˆ ì •ë„ë§Œ ë‹¤ìš´ë¡œë“œ ë˜ê³ , ë‹¤ìš´ë¡œë“œê°€ ì•ˆë˜ëŠ” ê²½ìš° ë˜ëŠ” ë‹¤ìš´ë¡œë“œ ì†ë„ì˜ ì¡°ì •ì´ í•„ìš”í•œ ê²½ìš°
+        // ë‹¤ìš´ë¡œë“œ rate = fread ë¬¸ìž¥ì˜ 100*1024(100k) * 1ì´ˆ sleep(1) = ì´ˆë‹¹ 100k
         $download_rate = 100;
         $download_rate = round($download_rate * 1024);
         while(!feof($fp)) { 
@@ -181,10 +181,10 @@ if (file_exists($filepath)) {
         fclose ($fp); 
         flush();
     } else {
-        alert("ÇØ´ç ÆÄÀÏÀÌ³ª °æ·Î°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+        alert("í•´ë‹¹ íŒŒì¼ì´ë‚˜ ê²½ë¡œê°€ ì¡´ìž¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
     }
 
 } else {
-    alert("ÆÄÀÏÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+    alert("íŒŒì¼ì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 }
 ?>

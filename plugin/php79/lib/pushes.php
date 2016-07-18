@@ -4,9 +4,9 @@
  */
 
 /**
- * Çª½Ã Å¥ ÀúÀå
- *  - À¥ÆäÀÌÁö¿¡¼­ »ç¿ëÀÚ¿¡°Ô ºü¸¥ ÀÀ´äÀ» Á¦°øÇÏ±â À§ÇØ, À¥¿¡¼­´Â Å¥¿¡ ÀúÀå±îÁö¸¸ Ã³¸®µÊ.
- *  - ÀúÀåµÈ Å¥´Â ¹é±×¶ó¿îµå µ¥¸ó¿¡¼­ ÀÚµ¿ ¹ß¼ÛµÊ.
+ * í‘¸ì‹œ í ì €ì¥
+ *  - ì›¹í˜ì´ì§€ì—ì„œ ì‚¬ìš©ìì—ê²Œ ë¹ ë¥¸ ì‘ë‹µì„ ì œê³µí•˜ê¸° ìœ„í•´, ì›¹ì—ì„œëŠ” íì— ì €ì¥ê¹Œì§€ë§Œ ì²˜ë¦¬ë¨.
+ *  - ì €ì¥ëœ íëŠ” ë°±ê·¸ë¼ìš´ë“œ ë°ëª¬ì—ì„œ ìë™ ë°œì†¡ë¨.
  *
  * @param string $mb_id
  * @param int $wo_id
@@ -17,7 +17,7 @@ function push_queue($mb_id, $wo_id, $title)
     global $g4;
 
     if (empty($mb_id)) {
-        response_error("Çª½Ã¸¦ ¹ŞÀ» È¸¿øÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+        response_error("í‘¸ì‹œë¥¼ ë°›ì„ íšŒì›ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
     }
 
     $device_count = pdo(
@@ -45,8 +45,8 @@ function push_queue($mb_id, $wo_id, $title)
 }
 
 /**
- * ·¹µğ½º Å¥ ÀúÀå
- *   - linked list ¸¶Áö¸· ÀÎµ¦½º·Î Ãß°¡ÇØ¾ß ÇÔ.
+ * ë ˆë””ìŠ¤ í ì €ì¥
+ *   - linked list ë§ˆì§€ë§‰ ì¸ë±ìŠ¤ë¡œ ì¶”ê°€í•´ì•¼ í•¨.
  *
  * @link https://github.com/phpredis/phpredis#rpush
  *
@@ -64,7 +64,7 @@ function push_redis_save($value)
 }
 
 /**
- * Çª½Ã Å¬¸¯½Ã ÀÌµ¿ÇÒ ÁÖ¼Ò
+ * í‘¸ì‹œ í´ë¦­ì‹œ ì´ë™í•  ì£¼ì†Œ
  *
  * @param string $mb_id
  * @param int $wo_id
@@ -72,7 +72,7 @@ function push_redis_save($value)
 function push_url($mb_id, $wo_id)
 {
 
-    // TODO: Whats on click Âü°íÇÏ¿© Ã³¸®..
+    // TODO: Whats on click ì°¸ê³ í•˜ì—¬ ì²˜ë¦¬..
 
 
 }

@@ -1,11 +1,11 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-// °Ô½ÃÆÇ ¸ñ·Ïº°·Î Á¤·ÄÇÏ±â
+// ê²Œì‹œíŒ ëª©ë¡ë³„ë¡œ ì •ë ¬í•˜ê¸°
 $sql = " select distinct a.bo_table, b.bo_subject from $g4[scrap_table] a left join $g4[board_table] b on a.bo_table=b.bo_table where a.mb_id = '$member[mb_id]' ";
 $result = sql_query($sql);
 $str = "<select class='form-control' name='bo_table' onchange=\"location='$g4[bbs_path]/scrap.php?head_on=$head_on&mnb=$mnb&snb=$snb&sfl=bo_table&stx='+this.value;\">";
-$str .= "<option value='all'>ÀüÃ¼°Ô½ÃÆÇ</option>";
+$str .= "<option value='all'>ì „ì²´ê²Œì‹œíŒ</option>";
     for ($i=0; $row=sql_fetch_array($result); $i++)
     {
         $str .= "<option value='$row[bo_table]'";
@@ -14,11 +14,11 @@ $str .= "<option value='all'>ÀüÃ¼°Ô½ÃÆÇ</option>";
     }
     $str .= "</select>";
 
-// ½ºÅ©·¦ ¸Ş¸ğº°·Î Á¤·ÄÇÏ±â
+// ìŠ¤í¬ë© ë©”ëª¨ë³„ë¡œ ì •ë ¬í•˜ê¸°
 $sql = " select distinct ms_memo from $g4[scrap_table] where mb_id = '$member[mb_id]' and ms_memo != '' ";
 $result = sql_query($sql);
 $memo_str0 = "<select class='form-control' name='ms_memo' onchange=\"location='$g4[bbs_path]/scrap.php?head_on=$head_on&mnb=$mnb&snb=$snb&sfl=ms_memo&stx='+this.value;\">";
-$memo_str = "<option value='all'>ÀüÃ¼¸Ş¸ğ</option>";
+$memo_str = "<option value='all'>ì „ì²´ë©”ëª¨</option>";
     for ($i=0; $row=sql_fetch_array($result); $i++)
     {
         $memo_str .= "<option value='$row[ms_memo]'";
@@ -36,7 +36,7 @@ $memo_str_list = $memo_str0 . $memo_str;
 <input type=hidden name=mnb value="<?=$mnb?>">
 <input type=hidden name=snb value="<?=$snb?>">
 
-<a class="btn btn-default" href="<?=$g4[bbs_path]?>/scrap.php?head_on=<?=$head_on?>&mnb=<?=$mnb?>&snb=<?=$snb?>">Ã³À½</a>
+<a class="btn btn-default" href="<?=$g4[bbs_path]?>/scrap.php?head_on=<?=$head_on?>&mnb=<?=$mnb?>&snb=<?=$snb?>">ì²˜ìŒ</a>
 <div class="pull-right hidden-lg hidden-md hidden-sm">
     <a class="btn btn-default" data-toggle="collapse" data-target=".scrap-search-collapse"><i class='fa fa-search'></i></a>
 </div>
@@ -47,27 +47,27 @@ $memo_str_list = $memo_str0 . $memo_str;
 
 <div class="pull-right collapse navbar-collapse scrap-search-collapse">
     <select class='form-control' name=sfl class=cssfl>
-        <option value='wr_subject_memo' <? if ($sfl=='wr_subject_memo') echo "selected" ?> >Á¦¸ñ+¸Ş¸ğ</option>
-        <option value='wr_subject' <? if ($sfl=='wr_subject') echo "selected" ?> >Á¦¸ñ</option>
-        <option value='ms_memo' <? if ($sfl=='ms_memo') echo "selected" ?> >¸Ş¸ğ</option>
-        <option value='wr_mb_id' <? if ($sfl=='wr_mb_id') echo "selected" ?> >±Û¾´ÀÌ(¾ÆÀÌµğ+º°¸í)</option>
-        <option value='bo_table' <? if ($sfl=='bo_table') echo "selected" ?> >°Ô½ÃÆÇ</option>
+        <option value='wr_subject_memo' <? if ($sfl=='wr_subject_memo') echo "selected" ?> >ì œëª©+ë©”ëª¨</option>
+        <option value='wr_subject' <? if ($sfl=='wr_subject') echo "selected" ?> >ì œëª©</option>
+        <option value='ms_memo' <? if ($sfl=='ms_memo') echo "selected" ?> >ë©”ëª¨</option>
+        <option value='wr_mb_id' <? if ($sfl=='wr_mb_id') echo "selected" ?> >ê¸€ì“´ì´(ì•„ì´ë””+ë³„ëª…)</option>
+        <option value='bo_table' <? if ($sfl=='bo_table') echo "selected" ?> >ê²Œì‹œíŒ</option>
     </select>
     <div class="form-group">
-        <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<? echo $stx ?>'>
+        <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<? echo $stx ?>'>
     </div>
-    <input class="btn btn-default" type=submit value='°Ë»ö'>
+    <input class="btn btn-default" type=submit value='ê²€ìƒ‰'>
 </div>
 </form>
 
 <table width="100%" class="table table-hover table-condensed">
 <tr class="success"> 
-    <td class="col-sm-1 hidden-xs" align=center>¹øÈ£</td>
-    <td class="col-sm-2 hidden-xs">°Ô½ÃÆÇ</td>
-    <td>Á¦¸ñ</td>
-    <td class="col-sm-2 hidden-xs">±Û¾´ÀÌ</td>
-    <td class="col-sm-2 hidden-xs">¸Ş¸ğ</td>
-    <td class="col-sm-1 hidden-xs">³¯Â¥</td>
+    <td class="col-sm-1 hidden-xs" align=center>ë²ˆí˜¸</td>
+    <td class="col-sm-2 hidden-xs">ê²Œì‹œíŒ</td>
+    <td>ì œëª©</td>
+    <td class="col-sm-2 hidden-xs">ê¸€ì“´ì´</td>
+    <td class="col-sm-2 hidden-xs">ë©”ëª¨</td>
+    <td class="col-sm-1 hidden-xs">ë‚ ì§œ</td>
 </tr>
 <? for ($i=0; $i<count($list); $i++) { ?>
     <tr> 
@@ -80,7 +80,7 @@ $memo_str_list = $memo_str0 . $memo_str;
         <? } ?>
         <?=$list[$i][bo_subject]?></a>
         </td>
-        <? // ºñ¹Ğ±ÛÀÎ ½ºÅ©·¦ÀÇ °æ¿ì ºñ¹Ğ±Û ¾ÆÀÌÄÜÀ» ¾Õ¿¡ Ç¥½Ã
+        <? // ë¹„ë°€ê¸€ì¸ ìŠ¤í¬ë©ì˜ ê²½ìš° ë¹„ë°€ê¸€ ì•„ì´ì½˜ì„ ì•ì— í‘œì‹œ
         if ($list[$i][secret]) 
             $secret_icon = "<i class=\"fa fa-lock\"></i>&nbsp;";
         else
@@ -114,7 +114,7 @@ $memo_str_list = $memo_str0 . $memo_str;
 
         </td>
         <td class="hidden-xs"><?=get_date($list[$i][ms_datetime])?></td>
-        <!-- xs... ¸ğ¹ÙÀÏ »óÅÂ¿¡¼­ ³ª¿À´Â °Í. ¸Ş¸ğÆíÁıÀº µû·Î ÇØ¾ß ÇÏ±â¿¡ ÇÑ¹ø ´õ copy ÇÏ¸é¼­ ¼öÁ¤ -->
+        <!-- xs... ëª¨ë°”ì¼ ìƒíƒœì—ì„œ ë‚˜ì˜¤ëŠ” ê²ƒ. ë©”ëª¨í¸ì§‘ì€ ë”°ë¡œ í•´ì•¼ í•˜ê¸°ì— í•œë²ˆ ë” copy í•˜ë©´ì„œ ìˆ˜ì • -->
         <td class="visible-xs">
             <? if ($head_on) { ?>
                 <a href="<?=$list[$i][opener_href_wr_id]?>">
@@ -127,7 +127,7 @@ $memo_str_list = $memo_str0 . $memo_str;
             <div class="pull-left">
                 <?=$list[$i][bo_subject]?>&nbsp;&nbsp;<a class="btn btn-default btn-xs" href="javascript:memo_box('<?=$list[$i][ms_id]?>_1')"><i class="fa fa-pencil-square-o"></i></a> <?=$list[$i][ms_memo]?>
 
-                <!-- id°¡ °°À¸¸é Ãæµ¹ÇÏ±â ¶§¹®¿¡ _1À» µÚ¿¡ ºÙ¿©¼­ ±¸ºĞ ÇÕ´Ï´Ù -->
+                <!-- idê°€ ê°™ìœ¼ë©´ ì¶©ëŒí•˜ê¸° ë•Œë¬¸ì— _1ì„ ë’¤ì— ë¶™ì—¬ì„œ êµ¬ë¶„ í•©ë‹ˆë‹¤ -->
                 <span id='memo_<?=$list[$i][ms_id]?>_1' style='display:none;'>
                     <div class="input-group" style="margin:5px 0;">
                     <input type="type" class="form-control" placeholder="scrap memo" name="memo_edit_<?=$list[$i][ms_id]?>_1" id="memo_edit_<?=$list[$i][ms_id]?>_1" size="50" value="<?=preg_replace("/\"/", "&#034;", stripslashes(get_text($list[$i][ms_memo],0)))?>" />
@@ -149,28 +149,28 @@ $memo_str_list = $memo_str0 . $memo_str;
     </tr>
 <? } ?>
 
-    <? if ($i == 0) echo "<tr><td colspan=5 align=center height=100>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>"; ?>
+    <? if ($i == 0) echo "<tr><td colspan=5 align=center height=100>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>"; ?>
 </table>
 
 <? $write_pages = get_paging($config[cf_write_pages], $page, $total_page, "?$qstr&page=");?>
 <div class="center-block">
     <ul class="pagination">
-    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ÀÌÀü°Ë»ö</a></li>"; } ?>
+    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ì´ì „ê²€ìƒ‰</a></li>"; } ?>
     <?
-    // ±âº»À¸·Î ³Ñ¾î¿À´Â ÆäÀÌÁö¸¦ ¾Æ·¡¿Í °°ÀÌ º¯È¯ÇÏ¿© ´Ù¾çÇÏ°Ô Ãâ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.
-    $write_pages = str_replace("ÀÌÀü", "<i class='fa fa-angle-left'></i>", $write_pages);
-    $write_pages = str_replace("´ÙÀ½", "<i class='fa fa-angle-right'></i>", $write_pages);
-    $write_pages = str_replace("Ã³À½", "<i class='fa fa-angle-double-left'></i>", $write_pages);
-    $write_pages = str_replace("¸Ç³¡", "<i class='fa fa-angle-double-right'></i>", $write_pages);
+    // ê¸°ë³¸ìœ¼ë¡œ ë„˜ì–´ì˜¤ëŠ” í˜ì´ì§€ë¥¼ ì•„ë˜ì™€ ê°™ì´ ë³€í™˜í•˜ì—¬ ë‹¤ì–‘í•˜ê²Œ ì¶œë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+    $write_pages = str_replace("ì´ì „", "<i class='fa fa-angle-left'></i>", $write_pages);
+    $write_pages = str_replace("ë‹¤ìŒ", "<i class='fa fa-angle-right'></i>", $write_pages);
+    $write_pages = str_replace("ì²˜ìŒ", "<i class='fa fa-angle-double-left'></i>", $write_pages);
+    $write_pages = str_replace("ë§¨ë", "<i class='fa fa-angle-double-right'></i>", $write_pages);
     ?>
     <?=$write_pages?>
-    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ÀÌÈÄ°Ë»ö</a></li>"; } ?>
+    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ì´í›„ê²€ìƒ‰</a></li>"; } ?>
     </ul>
 </div>
 
 <? if (!$head_on) { ?>
 <div class="container"  style="display: inline-block;text-align: center;">
-    <a class="btn btn-default" href="javascript:window.close();" >´İ±â</a>
+    <a class="btn btn-default" href="javascript:window.close();" >ë‹«ê¸°</a>
 </div>
 <? } ?>
 
@@ -208,7 +208,7 @@ function memo_box(memo_id)
     
 }
 
-// ¼±ÅÃÇÑ ¸Ş¸ğ¸¦ ¾÷µ¥ÀÌÆ®
+// ì„ íƒí•œ ë©”ëª¨ë¥¼ ì—…ë°ì´íŠ¸
 function memo_update(ms_id) {
     var f = document.flist;
     var el_id;

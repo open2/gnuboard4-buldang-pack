@@ -5,9 +5,9 @@ include_once("./_common.php");
 check_demo();
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4[path]);
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4[path]);
 
-$g4[title] = "¾÷±×·¹ÀÌµå";
+$g4[title] = "ì—…ê·¸ë ˆì´ë“œ";
 if (!$g4[b4_upgrade]) include_once("./admin.head.php");
 
 $sql = " ALTER TABLE `$g4[scrap_table]` ADD `ms_memo` TEXT NOT NULL , ADD `wr_mb_id` VARCHAR( 255 ) NOT NULL , ADD `wr_subject` VARCHAR( 255 ) NOT NULL ";
@@ -18,10 +18,10 @@ $result = sql_query($sql);
 
 for ($i=0; $row=sql_fetch_array($result); $i++) {
 
-    // bo_table ÇÊµå¿¡ °ªÀÌ ¾øÀ¸¸é, ¾²·¹±â Á¤º¸? ¸ğµÎ »èÁ¦
+    // bo_table í•„ë“œì— ê°’ì´ ì—†ìœ¼ë©´, ì“°ë ˆê¸° ì •ë³´? ëª¨ë‘ ì‚­ì œ
     if ($row[bo_table] == "") {
         sql_query( " delete from $g4[scrap_table] where ms_id = '$row[ms_id]' ");
-        echo $row[ms_id] . "´Â bo_table °ªÀÌ ¾ø¾î¼­ ½ºÅ©·¦À» »èÁ¦ ÇÕ´Ï´Ù.<br>";
+        echo $row[ms_id] . "ëŠ” bo_table ê°’ì´ ì—†ì–´ì„œ ìŠ¤í¬ë©ì„ ì‚­ì œ í•©ë‹ˆë‹¤.<br>";
         continue;
     }
     $tmp_write_table = $g4[write_prefix] . $row[bo_table];
@@ -29,10 +29,10 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     $sql1 = " select wr_subject, mb_id from $tmp_write_table where wr_id = '$row[wr_id]' ";
     $result1 = sql_fetch($sql1);
 
-    // °Ô½Ã±ÛÀÌ Áö¿öÁø scrapµµ »èÁ¦
+    // ê²Œì‹œê¸€ì´ ì§€ì›Œì§„ scrapë„ ì‚­ì œ
     if ($result1[mb_id] == "" && $result1[wr_subject] == "") {
         sql_query( " delete from $g4[scrap_table] where ms_id = '$row[ms_id]' ");
-        echo $row[ms_id] . "´Â °Ô½ÃÆÇ ±ÛÀÌ »èÁ¦µÇ¾î¼­, ½ºÅ©·¦À» »èÁ¦ ÇÕ´Ï´Ù.<br>";
+        echo $row[ms_id] . "ëŠ” ê²Œì‹œíŒ ê¸€ì´ ì‚­ì œë˜ì–´ì„œ, ìŠ¤í¬ë©ì„ ì‚­ì œ í•©ë‹ˆë‹¤.<br>";
         continue;
     }
 
@@ -40,7 +40,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     sql_query($sql4);
 }
 
-echo "<br>scrap UPGRADE ¿Ï·á.";
+echo "<br>scrap UPGRADE ì™„ë£Œ.";
 
 if (!$g4[b4_upgrade]) include_once("./admin.tail.php");
 ?>

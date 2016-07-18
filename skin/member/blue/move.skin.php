@@ -1,12 +1,12 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 ?>
 
 <div class="container">
 <div class="panel panel-default">
     <div class="panel-heading">
-    <strong>°Ô½Ã¹°<?=$act?></strong>
-    <span class="pull-right"><?=$act?>ÇÒ °Ô½ÃÆÇÀ» ÇÑ°³ ÀÌ»ó ¼±ÅÃÇÏ¿© ÁÖ½Ê½Ã¿À.</span>
+    <strong>ê²Œì‹œë¬¼<?=$act?></strong>
+    <span class="pull-right"><?=$act?>í•  ê²Œì‹œíŒì„ í•œê°œ ì´ìƒ ì„ íƒí•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.</span>
     </div>
     <div class="panel-body">
         <form name="fboardmoveall" method="post" onsubmit="return fboardmoveall_submit(this);">
@@ -42,9 +42,9 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
         </table>
 
         <div class="container pull-right" style="display: inline-block;text-align: center;">
-            <button type="submit" class="btn btn-default">È®ÀÎ</button>
+            <button type="submit" class="btn btn-default">í™•ì¸</button>
             &nbsp;&nbsp;
-            <a class="btn btn-default" href="javascript:window.close();" >´Ý±â</a>
+            <a class="btn btn-default" href="javascript:window.close();" >ë‹«ê¸°</a>
         </div>
       
         </form>
@@ -74,7 +74,7 @@ function fboardmoveall_submit(f)
     }
 
     if (!check) {
-        alert('°Ô½Ã¹°À» '+f.act.value+'ÇÒ °Ô½ÃÆÇÀ» ÇÑ°³ ÀÌ»ó ¼±ÅÃÇØ ÁÖ½Ê½Ã¿À.');
+        alert('ê²Œì‹œë¬¼ì„ '+f.act.value+'í•  ê²Œì‹œíŒì„ í•œê°œ ì´ìƒ ì„ íƒí•´ ì£¼ì‹­ì‹œì˜¤.');
         return false;
     }
 

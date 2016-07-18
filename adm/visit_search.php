@@ -6,14 +6,14 @@ auth_check($auth[$sub_menu], "r");
 
 $search_sort = $_GET['search_sort'];
 
-$g4['title'] = "Á¢¼ÓÀÚ°Ë»ö";
+$g4['title'] = "ì ‘ì†ìê²€ìƒ‰";
 include_once("./admin.head.php");
 
 include_once("$g4[path]/lib/visit.lib.php");
 
-$qstr = "search_word=$search_word&search_sort=$search_sort"; //ÆäÀÌÂ¡ Ã³¸®°ü·Ã º¯¼ö
+$qstr = "search_word=$search_word&search_sort=$search_sort"; //í˜ì´ì§• ì²˜ë¦¬ê´€ë ¨ ë³€ìˆ˜
 
-$listall = "<a href='{$_SERVER['PHP_SELF']}' class=tt>Ã³À½</a>"; //ÆäÀÌÁö Ã³À½À¸·Î (ÃÊ±âÈ­¿ëµµ)
+$listall = "<a href='{$_SERVER['PHP_SELF']}' class=tt>ì²˜ìŒ</a>"; //í˜ì´ì§€ ì²˜ìŒìœ¼ë¡œ (ì´ˆê¸°í™”ìš©ë„)
 ?>
 
 <form name="fvisit" method=get role="form" class="form-inline">
@@ -23,27 +23,27 @@ $listall = "<a href='{$_SERVER['PHP_SELF']}' class=tt>Ã³À½</a>"; //ÆäÀÌÁö Ã³À½À¸
 <div class="pull-right">
     <select name="search_sort" id="sch_sort" class="form-control">
         <?php 
-        //echo '<option value="vi_ip" '.($search_sort=='vi_ip'?'selected="selected"':'').'>IP</option>'; //selected Ãß°¡
-        if($search_sort=='vi_ip'){ //select ¾ÈÀÇ ¿É¼Ê°ªÀÌ vi_ip¸é
-            echo '<option value="vi_ip" selected="selected">IP</option>'; //selected Ãß°¡
+        //echo '<option value="vi_ip" '.($search_sort=='vi_ip'?'selected="selected"':'').'>IP</option>'; //selected ì¶”ê°€
+        if($search_sort=='vi_ip'){ //select ì•ˆì˜ ì˜µì…¥ê°’ì´ vi_ipë©´
+            echo '<option value="vi_ip" selected="selected">IP</option>'; //selected ì¶”ê°€
         }else{
             echo '<option value="vi_ip">IP</option>';
         }
-        if($search_sort=='vi_referer'){ //select ¾ÈÀÇ ¿É¼Ê°ªÀÌ vi_referer¸é
-            echo '<option value="vi_referer" selected="selected">Á¢¼Ó°æ·Î</option>'; //selected Ãß°¡
+        if($search_sort=='vi_referer'){ //select ì•ˆì˜ ì˜µì…¥ê°’ì´ vi_refererë©´
+            echo '<option value="vi_referer" selected="selected">ì ‘ì†ê²½ë¡œ</option>'; //selected ì¶”ê°€
         }else{
-            echo '<option value="vi_referer">Á¢¼Ó°æ·Î</option>';
+            echo '<option value="vi_referer">ì ‘ì†ê²½ë¡œ</option>';
         }
-        if($search_sort=='vi_date'){ //select ¾ÈÀÇ ¿É¼Ê°ªÀÌ vi_date¸é
-            echo '<option value="vi_date" selected="selected">³¯Â¥</option>'; //selected Ãß°¡
+        if($search_sort=='vi_date'){ //select ì•ˆì˜ ì˜µì…¥ê°’ì´ vi_dateë©´
+            echo '<option value="vi_date" selected="selected">ë‚ ì§œ</option>'; //selected ì¶”ê°€
         }else{
-            echo '<option value="vi_date">³¯Â¥</option>';
+            echo '<option value="vi_date">ë‚ ì§œ</option>';
         }
         ?>
     </select>
-    <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<?=$stx?>'>
+    <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<?=$stx?>'>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 </form>
@@ -56,10 +56,10 @@ $listall = "<a href='{$_SERVER['PHP_SELF']}' class=tt>Ã³À½</a>"; //ÆäÀÌÁö Ã³À½À¸
 <colgroup width="">
 <tr class="success">
     <td>IP</td>
-    <td>ºê¶ó¿ìÀú</td>
+    <td>ë¸Œë¼ìš°ì €</td>
     <td>OS</td>
-    <td>ÀÏ½Ã</td>
-    <td>Á¢¼Ó °æ·Î</td>
+    <td>ì¼ì‹œ</td>
+    <td>ì ‘ì† ê²½ë¡œ</td>
 </tr>
 <?php 
 $sql_common = " from {$g4['visit_table']} ";
@@ -77,9 +77,9 @@ $row = sql_fetch($sql);
 $total_count = $row['cnt'];
 
 $rows = $config['cf_page_rows'];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if ($page == "") $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if ($page == "") $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
 $sql = " select * 
           $sql_common
@@ -119,10 +119,10 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     if ($is_admin == 'super')
         $ip = $row['vi_ip'];
     else
-        $ip = preg_replace("/([0-9]+).([0-9]+).([0-9]+).([0-9]+)/", "\\1.¢½.\\3.\\4", $row['vi_ip']);
+        $ip = preg_replace("/([0-9]+).([0-9]+).([0-9]+).([0-9]+)/", "\\1.â™¡.\\3.\\4", $row['vi_ip']);
 
-    if ($brow == '±âÅ¸') { $brow = "<span title='$row[vi_agent]'>$brow</span>"; }
-    if ($os == '±âÅ¸') { $os = "<span title='$row[vi_agent]'>$os</span>"; }
+    if ($brow == 'ê¸°íƒ€') { $brow = "<span title='$row[vi_agent]'>$brow</span>"; }
+    if ($os == 'ê¸°íƒ€') { $os = "<span title='$row[vi_agent]'>$os</span>"; }
 
     $vi_datetime = $row[vi_date] . " " . $row[vi_time];
 
@@ -137,12 +137,12 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='5' height=100 align=center>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>"; 
+    echo "<tr><td colspan='5' height=100 align=center>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>"; 
 
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
@@ -151,15 +151,15 @@ echo "</table>";
 
 <script type='text/javascript'>
 $(function(){
-    $("#sch_sort").change(function(){ // select #sch_sortÀÇ ¿É¼ÇÀÌ ¹Ù²ğ¶§
-        if($(this).val()=="vi_date"){ // ÇØ´ç value °ªÀÌ vi_dateÀÌ¸é
-            $("#sch_word").datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd", showButtonPanel: true, yearRange: "c-99:c+99", maxDate: "+0d" }); // datepicker ½ÇÇà
-        }else{ // ¾Æ´Ï¶ó¸é
-            $("#sch_word").datepicker("destroy"); // datepicker ¹Ì½ÇÇà
+    $("#sch_sort").change(function(){ // select #sch_sortì˜ ì˜µì…˜ì´ ë°”ë€”ë•Œ
+        if($(this).val()=="vi_date"){ // í•´ë‹¹ value ê°’ì´ vi_dateì´ë©´
+            $("#sch_word").datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd", showButtonPanel: true, yearRange: "c-99:c+99", maxDate: "+0d" }); // datepicker ì‹¤í–‰
+        }else{ // ì•„ë‹ˆë¼ë©´
+            $("#sch_word").datepicker("destroy"); // datepicker ë¯¸ì‹¤í–‰
         }
     });
-    if($("#sch_sort option:selected").val()=="vi_date"){ // select #sch_sort ÀÇ ¿É¼ÇÁß selected µÈ°ÍÀÇ °ªÀÌ vi_date¶ó¸é
-        $("#sch_word").datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd", showButtonPanel: true, yearRange: "c-99:c+99", maxDate: "+0d" }); // datepicker ½ÇÇà
+    if($("#sch_sort option:selected").val()=="vi_date"){ // select #sch_sort ì˜ ì˜µì…˜ì¤‘ selected ëœê²ƒì˜ ê°’ì´ vi_dateë¼ë©´
+        $("#sch_word").datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd", showButtonPanel: true, yearRange: "c-99:c+99", maxDate: "+0d" }); // datepicker ì‹¤í–‰
     }
 });
 

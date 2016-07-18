@@ -40,11 +40,11 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if (!$page) $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ íŽ˜ì´ì§€ ê³„ì‚°
+if (!$page) $page = 1; // íŽ˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« íŽ˜ì´ì§€ (1 íŽ˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œìž‘ ì—´ì„ êµ¬í•¨
 
-// »èÁ¦ °Ô½Ã±Û ¼ö
+// ì‚­ì œ ê²Œì‹œê¸€ ìˆ˜
 $sql = " select count(*) as cnt
          $sql_common
          $sql_search
@@ -53,9 +53,9 @@ $sql = " select count(*) as cnt
 $row = sql_fetch($sql);
 $delete_count = $row[cnt];
 
-$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>ì²˜ìŒ</a>";
 
-$g4[title] = "ÈÞÁöÅë°ü¸®";
+$g4[title] = "íœ´ì§€í†µê´€ë¦¬";
 include_once("./admin.head.php");
 
 $sql = " select *
@@ -78,9 +78,9 @@ function recycle_delete(ok)
     var msg;
 
     if (ok == 1)
-        msg = "<?=$config[cf_recycle_days]?>ÀÏÀÌ Áö³­ ÈÞÁö±ÛÀ» ¿ÏÀüÈ÷ »èÁ¦ÇÕ´Ï´Ù.\n\n\n±×·¡µµ ÁøÇàÇÏ½Ã°Ú½À´Ï±î?";
+        msg = "<?=$config[cf_recycle_days]?>ì¼ì´ ì§€ë‚œ íœ´ì§€ê¸€ì„ ì™„ì „ížˆ ì‚­ì œí•©ë‹ˆë‹¤.\n\n\nê·¸ëž˜ë„ ì§„í–‰í•˜ì‹œê² ìŠµë‹ˆê¹Œ?";
     else
-        msg = "<?=$config[cf_recycle_days]?>ÀÏÀÌ Áö³­ ÈÞÁö±ÛÀ» »èÁ¦ÇÕ´Ï´Ù.\n\n\n±×·¡µµ ÁøÇàÇÏ½Ã°Ú½À´Ï±î?";
+        msg = "<?=$config[cf_recycle_days]?>ì¼ì´ ì§€ë‚œ íœ´ì§€ê¸€ì„ ì‚­ì œí•©ë‹ˆë‹¤.\n\n\nê·¸ëž˜ë„ ì§„í–‰í•˜ì‹œê² ìŠµë‹ˆê¹Œ?";
 
     if (confirm(msg)) {
         document.location.href = "./recycle_delete.php?ok=" + ok;
@@ -91,18 +91,18 @@ function recycle_delete(ok)
 <form name=fsearch method=get role="form" class="form-inline">
 <div class="btn-group">
     <?=$listall?> 
-        (ÈÞÁö±Û¼ö : <?=number_format($total_count)?>, »èÁ¦±Û¼ö : <?=number_format($delete_count)?>)
-        &nbsp;&nbsp;<a href="javascript:recycle_delete();">ÈÞÁö±Û»èÁ¦</a>
-        &nbsp;&nbsp;<a href="javascript:recycle_delete(1);">ÈÞÁö±Û¿ÏÀü»èÁ¦</a>
+        (íœ´ì§€ê¸€ìˆ˜ : <?=number_format($total_count)?>, ì‚­ì œê¸€ìˆ˜ : <?=number_format($delete_count)?>)
+        &nbsp;&nbsp;<a href="javascript:recycle_delete();">íœ´ì§€ê¸€ì‚­ì œ</a>
+        &nbsp;&nbsp;<a href="javascript:recycle_delete(1);">íœ´ì§€ê¸€ì™„ì „ì‚­ì œ</a>
 </div>
 <div class="pull-right">
     <select name=sfl class="form-control">
-        <option value='mb_id'>È¸¿ø¾ÆÀÌµð</option>
-        <option value='bo_table'>°Ô½ÃÆÇ</option>
+        <option value='mb_id'>íšŒì›ì•„ì´ë””</option>
+        <option value='bo_table'>ê²Œì‹œíŒ</option>
     </select>
-    <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<?=$stx?>'>
+    <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<?=$stx?>'>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 </form>
@@ -126,12 +126,12 @@ function recycle_delete(ok)
 <colgroup width=80>
 <tr class='success'>
     <td><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
-    <td><?=subject_sort_link('mb_id')?>È¸¿ø¾ÆÀÌµð</a></td>
-    <td><?=subject_sort_link('bo_table')?>°Ô½ÃÆÇid</a></td>
-    <td>°Ô½Ã±Ûid</td>
-    <td>°Ô½Ã±ÛÁ¦¸ñ</td>
-    <td><?=subject_sort_link('rc_datetime', '', 'desc')?>»èÁ¦ÀÏ</a></td>
-  	<td>º¹±¸</td>
+    <td><?=subject_sort_link('mb_id')?>íšŒì›ì•„ì´ë””</a></td>
+    <td><?=subject_sort_link('bo_table')?>ê²Œì‹œíŒid</a></td>
+    <td>ê²Œì‹œê¸€id</td>
+    <td>ê²Œì‹œê¸€ì œëª©</td>
+    <td><?=subject_sort_link('rc_datetime', '', 'desc')?>ì‚­ì œì¼</a></td>
+  	<td>ë³µêµ¬</td>
 </tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) {
@@ -139,7 +139,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     $mb = get_member($row[mb_id]);
     $mb_nick = get_sideview($mb[mb_id], get_text($mb[mb_nick]), $mb[mb_email], $mb[mb_homepage]);    
 
-    // °Ô½Ã±Û Á¦¸ñ
+    // ê²Œì‹œê¸€ ì œëª©
     $tmp_write_table = $g4['write_prefix'] . $row[rc_bo_table];
     $sql2 = " select wr_subject, wr_content from $tmp_write_table where wr_id = '$row[rc_wr_id]' ";
     $write = sql_fetch($sql2);
@@ -147,7 +147,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     if ($row[rc_delete])
         $wr_subject = "<strike>" . $wr_subject . "</stricke>";
 
-    // ÄÚ¸àÆ®ÀÎÁö ¿©ºÎ
+    // ì½”ë©˜íŠ¸ì¸ì§€ ì—¬ë¶€
     $c_flag="";
     if ($row[wr_is_comment])
         $c_flag = " C";
@@ -158,18 +158,18 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     else
         $wr_id = "<a href='$g4[admin_path]/recycle_view.php?bo_table=$row[rc_bo_table]&wr_id=$row[rc_wr_id]&org_bo_table=$row[bo_table]' target=_blank>" . $row[wr_id] . "</a>";
 
-    // º¹±¸ ¹öÆ°À» Ãâ·Â
+    // ë³µêµ¬ ë²„íŠ¼ì„ ì¶œë ¥
     if ($row[rc_delete] == 0)
-        $s_recover = "<a href=\"javascript:post_recover('recycle_recover.php', '$row[rc_no]');\"><i class=\"fa fa-undo\" title='º¹±¸'></i></a>";
+        $s_recover = "<a href=\"javascript:post_recover('recycle_recover.php', '$row[rc_no]');\"><i class=\"fa fa-undo\" title='ë³µêµ¬'></i></a>";
     else
         $s_recover = "";
 
-    // ¿î¿µÀÚ°¡ »èÁ¦ÇÑ°Å (mb_id¿Í rc_mb_id°¡ ´Ù¸¥ °æ¿ì)¿¡´Â µÚ¿¡ mark
+    // ìš´ì˜ìžê°€ ì‚­ì œí•œê±° (mb_idì™€ rc_mb_idê°€ ë‹¤ë¥¸ ê²½ìš°)ì—ëŠ” ë’¤ì— mark
     $mb_remover="";
     if ($row[mb_id] !== $row[rc_mb_id])
-        $mb_remover="&nbsp;<i class='fa fa-gavel' title='°ü¸®ÀÚ°¡ Áö¿ö¹ö¸° ±Û'></i>";
+        $mb_remover="&nbsp;<i class='fa fa-gavel' title='ê´€ë¦¬ìžê°€ ì§€ì›Œë²„ë¦° ê¸€'></i>";
 
-    // °Ô½ÃÆÇ¾ÆÀÌµð. °Ô½ÃÆÇ Á¤·Ä
+    // ê²Œì‹œíŒì•„ì´ë””. ê²Œì‹œíŒ ì •ë ¬
     $bo_info = get_board($row[bo_table],"bo_subject");
     $bo_table1 = "<a href='$g4[admin_path]/recycle_list.php?sfl=bo_table&stx=$row[bo_table]' title='$bo_info[bo_subject]'>$row[bo_table]</a>";
 
@@ -188,12 +188,12 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='7' align=center height=100>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='7' align=center height=100>ìžë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- íŽ˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
@@ -202,7 +202,7 @@ echo "</table>";
 
 <div class="btn-group">
     <? if ($is_admin == "super") { ?>
-        <input type=button class='btn btn-default' value='¼±ÅÃ»èÁ¦' onclick="btn_check(this.form, 'delete')">
+        <input type=button class='btn btn-default' value='ì„ íƒì‚­ì œ' onclick="btn_check(this.form, 'delete')">
     <? } ?>
 </div>
 
@@ -212,17 +212,17 @@ if ($stx)
 ?>
 </form>
 
-* ÈÞÁö±Û »èÁ¦½Ã »èÁ¦ mark¸¸ ÇÏ°í ½ÇÁ¦·Î´Â »èÁ¦ÇÏÁö ¾Ê½À´Ï´Ù. ½ÇÁ¦ °Ô½Ã±Û »èÁ¦¸¦ ¿øÇÏ½Ã¸é ÈÞÁöÅë¿ÏÀü»èÁ¦ ¸Þ´º¸¦ »ç¿ëÇØÁÖ¼¼¿ä.<br>
-* È¸¿ø¾ÆÀÌµð ¿·¿¡ ¾ÆÀÌÄÜÀÌ ÀÖ´Â ±ÛÀº, »ç¿ëÀÚ°¡ »èÁ¦ÇÑ °ÍÀÌ ¾Æ´Ï¶ó °ü¸®ÀÚ°¡ »èÁ¦ÇÑ ±Û ÀÔ´Ï´Ù.<br>
-* °Ô½ÃÆÇid¸¦ Å¬¸¯ÇÏ¸é ÇØ´ç °Ô½ÃÆÇÀÇ »èÁ¦±ÛÀÌ Á¤·ÄµÇ¸ç, °Ô½Ã±Û id¸¦ Å¬¸¯ÇÏ¸é ÇØ´ç °Ô½Ã±ÛÀÇ »õÃ¢ÀÌ ¶å´Ï´Ù.
+* íœ´ì§€ê¸€ ì‚­ì œì‹œ ì‚­ì œ markë§Œ í•˜ê³  ì‹¤ì œë¡œëŠ” ì‚­ì œí•˜ì§€ ì•ŠìŠµë‹ˆë‹¤. ì‹¤ì œ ê²Œì‹œê¸€ ì‚­ì œë¥¼ ì›í•˜ì‹œë©´ íœ´ì§€í†µì™„ì „ì‚­ì œ ë©”ë‰´ë¥¼ ì‚¬ìš©í•´ì£¼ì„¸ìš”.<br>
+* íšŒì›ì•„ì´ë”” ì˜†ì— ì•„ì´ì½˜ì´ ìžˆëŠ” ê¸€ì€, ì‚¬ìš©ìžê°€ ì‚­ì œí•œ ê²ƒì´ ì•„ë‹ˆë¼ ê´€ë¦¬ìžê°€ ì‚­ì œí•œ ê¸€ ìž…ë‹ˆë‹¤.<br>
+* ê²Œì‹œíŒidë¥¼ í´ë¦­í•˜ë©´ í•´ë‹¹ ê²Œì‹œíŒì˜ ì‚­ì œê¸€ì´ ì •ë ¬ë˜ë©°, ê²Œì‹œê¸€ idë¥¼ í´ë¦­í•˜ë©´ í•´ë‹¹ ê²Œì‹œê¸€ì˜ ìƒˆì°½ì´ ëœ¹ë‹ˆë‹¤.
 
 <script type="text/javascript">
-// POST ¹æ½ÄÀ¸·Î »èÁ¦
+// POST ë°©ì‹ìœ¼ë¡œ ì‚­ì œ
 function post_recover(action_url, val)
 {
 	var f = document.fpost;
 
-	if(confirm("¼±ÅÃÇÑ ÀÚ·á¸¦ º¹±¸ ÇÕ´Ï´Ù.\n\nÁ¤¸» º¹±¸ÇÏ½Ã°Ú½À´Ï±î?")) {
+	if(confirm("ì„ íƒí•œ ìžë£Œë¥¼ ë³µêµ¬ í•©ë‹ˆë‹¤.\n\nì •ë§ ë³µêµ¬í•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
         f.rc_no.value = val;
 		f.action      = action_url;
 		f.submit();

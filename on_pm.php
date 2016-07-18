@@ -2,11 +2,11 @@
 <html lang="ko">
 <head>
 <?
-// ¼³Á¤ ÆÄÀÏ
+// ì„¤ì • íŒŒì¼
 include_once("$g4[path]/config.php");
 
-// ÀÌ°÷¿¡¼­ ¼³Á¤À» ÇÕ´Ï´Ù.
-$g4['title'] = "On PM - ½Ã½ºÅÛ Á¡°ËÁßÀÔ´Ï´Ù";
+// ì´ê³³ì—ì„œ ì„¤ì •ì„ í•©ë‹ˆë‹¤.
+$g4['title'] = "On PM - ì‹œìŠ¤í…œ ì ê²€ì¤‘ìž…ë‹ˆë‹¤";
 $g4['path'] = ".";
 ?>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,16 +33,16 @@ $g4['path'] = ".";
 
 <div class="panel panel-info">
     <div class="panel-heading">
-        <h1><span class="glyphicon glyphicon-info-sign"></span> Á¤±âÁ¡°ËÁßÀÔ´Ï´Ù :)</h1>
-        <p>¾ÈÁ¤ÀûÀÌ°í ´õ ³ªÀº ¼­ºñ½º¸¦ À§ÇÏ¿© Á¤±âÁ¡°ËÀ» ½Ç½ÃÇÕ´Ï´Ù.<br>
-        ºÒÆíÀ» µå·Á ÁË¼ÛÇÕ´Ï´Ù.
+        <h1><span class="glyphicon glyphicon-info-sign"></span> ì •ê¸°ì ê²€ì¤‘ìž…ë‹ˆë‹¤ :)</h1>
+        <p>ì•ˆì •ì ì´ê³  ë” ë‚˜ì€ ì„œë¹„ìŠ¤ë¥¼ ìœ„í•˜ì—¬ ì •ê¸°ì ê²€ì„ ì‹¤ì‹œí•©ë‹ˆë‹¤.<br>
+        ë¶ˆíŽ¸ì„ ë“œë ¤ ì£„ì†¡í•©ë‹ˆë‹¤.
         </p>
     </div>
     <div class="panel-body">
-        <div><h4><span class="glyphicon glyphicon-calendar"></span> <strong>Á¡°Ë ÀÏÁ¤</strong></h4>
-         2013/12¿ù1ÀÏ 01½Ã00ºÐ~2013/12¿ù 2ÀÏ 01½Ã00ºÐ
+        <div><h4><span class="glyphicon glyphicon-calendar"></span> <strong>ì ê²€ ì¼ì •</strong></h4>
+         2013/12ì›”1ì¼ 01ì‹œ00ë¶„~2013/12ì›” 2ì¼ 01ì‹œ00ë¶„
         </div>
-        <div><h4><span class="glyphicon glyphicon-phone-alt"></span> <strong>±ä±Þ ¿¬¶ô</strong></h4>
+        <div><h4><span class="glyphicon glyphicon-phone-alt"></span> <strong>ê¸´ê¸‰ ì—°ë½</strong></h4>
          opencode@opencode.co.kr
         </div>
     </div>

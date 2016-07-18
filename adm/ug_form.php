@@ -4,25 +4,25 @@ include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "w");
 
-if ($is_admin != "super" && $w == "") alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.");
+if ($is_admin != "super" && $w == "") alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
 $token = get_token();
 
-$html_title = "»ç¿ëÀÚ±×·ì";
+$html_title = "ì‚¬ìš©ìê·¸ë£¹";
 if ($w == "") 
 {
     $gr_id_attr = "required";
     $gr[gr_use_access] = 0;
-    $html_title .= " »ı¼º";
+    $html_title .= " ìƒì„±";
 } 
 else if ($w == "u") 
 {
     $gr_id_attr = "readonly style='background-color:#dddddd'";
     $gr = sql_fetch(" select * from $g4[user_group_table] where ug_id = '$gr_id' ");
-    $html_title .= " ¼öÁ¤";
+    $html_title .= " ìˆ˜ì •";
 } 
 else
-    alert("Á¦´ë·Î µÈ °ªÀÌ ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.");
+    alert("ì œëŒ€ë¡œ ëœ ê°’ì´ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
 $g4[title] = $html_title;
 include_once("./admin.head.php");
@@ -46,21 +46,21 @@ include_once("./admin.head.php");
     <td colspan=4><?=$html_title?></td>
 </tr>
 <tr>
-    <td>±×·ì ID</td>
-    <td colspan=3><input type='text' class=ed name=gr_id size=11 maxlength=10 <?=$gr_id_attr?> alphanumericunderline itemname='±×·ì ¾ÆÀÌµğ' value='<?=$gr[ug_id]?>'> ¿µ¹®ÀÚ, ¼ıÀÚ, _ ¸¸ °¡´É (°ø¹é¾øÀÌ)</td>
+    <td>ê·¸ë£¹ ID</td>
+    <td colspan=3><input type='text' class=ed name=gr_id size=11 maxlength=10 <?=$gr_id_attr?> alphanumericunderline itemname='ê·¸ë£¹ ì•„ì´ë””' value='<?=$gr[ug_id]?>'> ì˜ë¬¸ì, ìˆ«ì, _ ë§Œ ê°€ëŠ¥ (ê³µë°±ì—†ì´)</td>
 </tr>
 <tr>
-    <td>±×·ì Á¦¸ñ</td>
+    <td>ê·¸ë£¹ ì œëª©</td>
     <td colspan=3>
-        <input type='text' class=ed name=gr_subject size=40 required itemname='±×·ì Á¦¸ñ' value='<?=get_text($gr[ug_subject])?>'>
+        <input type='text' class=ed name=gr_subject size=40 required itemname='ê·¸ë£¹ ì œëª©' value='<?=get_text($gr[ug_subject])?>'>
         <? 
         if ($w == 'u')
-            echo "<input type=button class='btn1' value='±×·ìÈ¸¿ø¸ñ·Ï' onclick=\"location.href='./member_list.php?sfl=ug_id&stx=$gr[ug_id]';\">";
+            echo "<input type=button class='btn1' value='ê·¸ë£¹íšŒì›ëª©ë¡' onclick=\"location.href='./member_list.php?sfl=ug_id&stx=$gr[ug_id]';\">";
         ?>
     </td>
 </tr>
 <tr>
-    <td>±×·ì °ü¸®ÀÚ</td>
+    <td>ê·¸ë£¹ ê´€ë¦¬ì</td>
     <td colspan=3>
         <?
         if ($is_admin == "super")
@@ -73,18 +73,18 @@ include_once("./admin.head.php");
 
 <? for ($i=1; $i<=10; $i=$i+2) { $k=$i+1; ?>
 <tr>
-    <td><input type=text class=ed name='gr_<?=$i?>_subj' value='<?=get_text($gr["ug_{$i}_subj"])?>' title='¿©ºĞÇÊµå <?=$i?> Á¦¸ñ' style='text-align:right;font-weight:bold;' size=15></td>
-    <td><input type='text' class=ed style='width:99%;' name=gr_<?=$i?> value='<?=$gr["ug_$i"]?>' title='¿©ºĞÇÊµå <?=$i?> ¼³Á¤°ª'></td>
-    <td><input type=text class=ed name='gr_<?=$k?>_subj' value='<?=get_text($gr["ug_{$k}_subj"])?>' title='¿©ºĞÇÊµå <?=$k?> Á¦¸ñ' style='text-align:right;font-weight:bold;' size=15></td>
-    <td><input type='text' class=ed style='width:99%;' name=gr_<?=$k?> value='<?=$gr["ug_$k"]?>' title='¿©ºĞÇÊµå <?=$k?> ¼³Á¤°ª'></td>
+    <td><input type=text class=ed name='gr_<?=$i?>_subj' value='<?=get_text($gr["ug_{$i}_subj"])?>' title='ì—¬ë¶„í•„ë“œ <?=$i?> ì œëª©' style='text-align:right;font-weight:bold;' size=15></td>
+    <td><input type='text' class=ed style='width:99%;' name=gr_<?=$i?> value='<?=$gr["ug_$i"]?>' title='ì—¬ë¶„í•„ë“œ <?=$i?> ì„¤ì •ê°’'></td>
+    <td><input type=text class=ed name='gr_<?=$k?>_subj' value='<?=get_text($gr["ug_{$k}_subj"])?>' title='ì—¬ë¶„í•„ë“œ <?=$k?> ì œëª©' style='text-align:right;font-weight:bold;' size=15></td>
+    <td><input type='text' class=ed style='width:99%;' name=gr_<?=$k?> value='<?=$gr["ug_$k"]?>' title='ì—¬ë¶„í•„ë“œ <?=$k?> ì„¤ì •ê°’'></td>
 </tr>
 <? } ?>
 
 </table>
 
 <p align=center>
-    <input type=submit class="btn btn-default" accesskey='s' value='  È®  ÀÎ  '>&nbsp;
-    <input type=button class="btn btn-default" value='  ¸ñ  ·Ï  ' onclick="document.location.href='./ug_list.php?<?=$qstr?>';">
+    <input type=submit class="btn btn-default" accesskey='s' value='  í™•  ì¸  '>&nbsp;
+    <input type=button class="btn btn-default" value='  ëª©  ë¡  ' onclick="document.location.href='./ug_list.php?<?=$qstr?>';">
 </form>
 
 <script language='JavaScript'>

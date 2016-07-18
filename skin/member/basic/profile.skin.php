@@ -1,20 +1,20 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 <div class="container">
 <div class="panel panel-default">
-<div class="panel-heading">ÀÚ±â¼Ò°³
-    <? if ($is_admin) {?>(¾ÆÀÌµð: <?=$mb['mb_id']?>)<? }?>
+<div class="panel-heading">ìžê¸°ì†Œê°œ
+    <? if ($is_admin) {?>(ì•„ì´ë””: <?=$mb['mb_id']?>)<? }?>
     <div class="pull-right">
-        <a class="btn btn-default" style="display:inline;" href="javascript:window.close();">´Ý±â</a>
+        <a class="btn btn-default" style="display:inline;" href="javascript:window.close();">ë‹«ê¸°</a>
     </div>
 </div>
 <div class="panel-body">
     <div>
     <ul>
-        <li>´Ð³×ÀÓ : <?=$mb_nick?>
+        <li>ë‹‰ë„¤ìž„ : <?=$mb_nick?>
             <?
-            // History¸¦ º¸¿©ÁÝ´Ï´Ù
+            // Historyë¥¼ ë³´ì—¬ì¤ë‹ˆë‹¤
             $sql = "select * from $g4[mb_nick_table] where mb_id = '$mb[mb_id]' and end_datetime != '0000-00-00 00:00:00' order by nick_no desc limit 5 ";
             $result = sql_query($sql);
             for ($i=0; $row=sql_fetch_array($result); $i++) {
@@ -22,40 +22,40 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
             }
             ?>
         </li>
-        <li>È¸¿ø±ÇÇÑ : <?=$mb[mb_level]?></li>
-        <li>Æ÷ÀÎÆ® : <? if ($mb[mb_point]) { ?><?=number_format($mb[mb_point])?><? } ?></li>
+        <li>íšŒì›ê¶Œí•œ : <?=$mb[mb_level]?></li>
+        <li>í¬ì¸íŠ¸ : <? if ($mb[mb_point]) { ?><?=number_format($mb[mb_point])?><? } ?></li>
         <? if ($mb[mb_good]) { ?>
         <li>
-        Ãß  Ãµ : <a href="<?=$g4[bbs_path]?>/my_good_ed.php?head_on=1" target=new><?=number_format($mb[mb_good])?></a> È¸
+        ì¶”  ì²œ : <a href="<?=$g4[bbs_path]?>/my_good_ed.php?head_on=1" target=new><?=number_format($mb[mb_good])?></a> íšŒ
         </li>
         <? } ?>
         <? if ($mb[mb_nogood]) { ?>
         <li>
-        ºñÃßÃµ : <a href="<?=$g4[bbs_path]?>/my_good_ed.php?w=nogood&head_on=1" target=new><?=number_format($mb[mb_nogood])?></a> È¸
+        ë¹„ì¶”ì²œ : <a href="<?=$g4[bbs_path]?>/my_good_ed.php?w=nogood&head_on=1" target=new><?=number_format($mb[mb_nogood])?></a> íšŒ
         </li>
         <? } ?>
         <? if ($mb_homepage) { ?>
         <li>
-        È¨ÆäÀÌÁö : <a href="<?=$mb_homepage?>" target="<?=$config[cf_link_target]?>"><?=$mb_homepage?></a>
+        í™ˆíŽ˜ì´ì§€ : <a href="<?=$mb_homepage?>" target="<?=$config[cf_link_target]?>"><?=$mb_homepage?></a>
         </li>
         <? } ?>
-        <li>È¸¿ø°¡ÀÔÀÏ : <?=($member[mb_level] >= $mb[mb_level]) ?  substr($mb[mb_datetime],0,10) ." (".number_format($mb_reg_after)." ÀÏ)" : "¾Ë ¼ö ¾øÀ½"; ?></li>
-        <li>ÃÖÁ¾Á¢¼ÓÀÏ : <?=($member[mb_level] >= $mb[mb_level]) ? $mb[mb_today_login] : "¾Ë ¼ö ¾øÀ½";?></li>
+        <li>íšŒì›ê°€ìž…ì¼ : <?=($member[mb_level] >= $mb[mb_level]) ?  substr($mb[mb_datetime],0,10) ." (".number_format($mb_reg_after)." ì¼)" : "ì•Œ ìˆ˜ ì—†ìŒ"; ?></li>
+        <li>ìµœì¢…ì ‘ì†ì¼ : <?=($member[mb_level] >= $mb[mb_level]) ? $mb[mb_today_login] : "ì•Œ ìˆ˜ ì—†ìŒ";?></li>
         <?
-        // ºÒ´çÆÑ - ÃÖ°í °ü¸®ÀÚÀÇ °æ¿ì mb_memo¸¦ º¼ ¼ö ÀÖ°Ô
+        // ë¶ˆë‹¹íŒ© - ìµœê³  ê´€ë¦¬ìžì˜ ê²½ìš° mb_memoë¥¼ ë³¼ ìˆ˜ ìžˆê²Œ
         if ($is_admin == "super") { ?>
-            <li>°ü¸®ÀÚ¸Þ¸ð : <? echo nl2br($mb[mb_memo]) ?></li>
+            <li>ê´€ë¦¬ìžë©”ëª¨ : <? echo nl2br($mb[mb_memo]) ?></li>
         <? } ?>
 
         <?
-        // ÀÚ±â¼Ò°³¸¦ Ãâ·Â
+        // ìžê¸°ì†Œê°œë¥¼ ì¶œë ¥
         if ($mb[mb_profile]) {
             echo "<hr>" . $mb[mb_profile];
         }
         ?>
 
         <?
-        // ¼­¸íÀ» Ãâ·Â
+        // ì„œëª…ì„ ì¶œë ¥
         if ($mb[mb_signature]) {
             echo "<hr>" . $mb[mb_signature];
         }

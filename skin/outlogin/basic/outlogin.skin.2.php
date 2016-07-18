@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // ���� ������ ���� �Ұ� 
+if (!defined("_GNUBOARD_")) exit; // 개별 페이지 접근 불가 
 
 if ($member['mb_memo_unread'] > 0)
     $memo_status = "btn-info";
@@ -7,7 +7,7 @@ if ($g4['whatson_unread'] > 0)
     $myon_status = "btn-info";
 ?>
 
-<!-- �α��� �� �ܺηα��� ���� -->
+<!-- 로그인 후 외부로그인 시작 -->
 <div class="panel panel-default">
     <div class="panel-heading">
         <strong><a href="#" onClick="javascript:win_profile('<?=$member[mb_id]?>');"><?=$nick?></a></strong>
@@ -29,11 +29,11 @@ if ($g4['whatson_unread'] > 0)
 </div>
 
 <script type="text/javascript">
-// Ż���� ��� �Ʒ� �ڵ带 �����Ͻø� �˴ϴ�.
+// 탈퇴의 경우 아래 코드를 연동하시면 됩니다.
 function member_leave() 
 {
-    if (confirm("���� ȸ������ Ż�� �Ͻðڽ��ϱ�?")) 
+    if (confirm("정말 회원에서 탈퇴 하시겠습니까?")) 
             location.href = "<?=$g4['bbs_path']?>/member_confirm.php?url=member_leave.php";
 }
 </script>
-<!-- �α��� �� �ܺηα��� �� -->
+<!-- 로그인 후 외부로그인 끝 -->

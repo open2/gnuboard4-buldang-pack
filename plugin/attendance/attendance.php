@@ -1,23 +1,23 @@
 <?php
 include_once("./_common.php");
 
-//ÇöÀç ÆäÀÌÁö¿¡¼­ »ç¿ëµÉ ÇÃ·¯±×ÀÎ css °æ·Î ÀûÀ½
+//í˜„ìž¬ íŽ˜ì´ì§€ì—ì„œ ì‚¬ìš©ë  í”ŒëŸ¬ê·¸ì¸ css ê²½ë¡œ ì ìŒ
 $plugin_dirs = Array();
 $plugin_dirs[] = $g4[attendance_css_path];
 
-$g4[title] = "Ãâ¼®Ã¼Å©";
+$g4[title] = "ì¶œì„ì²´í¬";
 include_once("$g4[path]/_head.php");
 
 if (empty($s_date)) $s_date = date('Y-m-d');
 
-if ($go == 'prev') {//ÀÌÀü´Þ
+if ($go == 'prev') {//ì´ì „ë‹¬
 
-	// ¾î´À ³¯Â¥´ø 1ÀÏ·Î ¸¸µçÈÄ ÇÏ·ç¸¦ »«´Ù
+	// ì–´ëŠ ë‚ ì§œë˜ 1ì¼ë¡œ ë§Œë“ í›„ í•˜ë£¨ë¥¼ ëº€ë‹¤
     $s_date = date('Y-m-d', strtotime(substr($s_date, 0, 4) . '-' . substr($s_date, 5, 2) . '-01 -1 month'));
 }
-else if ($go == 'next') {//´ÙÀ½´Þ
+else if ($go == 'next') {//ë‹¤ìŒë‹¬
 
-	// ¾î´À ³¯Â¥´ø 1ÀÏ·Î ¸¸µçÈÄ ÇÏ·ç¸¦ ´õÇÑ´Ù
+	// ì–´ëŠ ë‚ ì§œë˜ 1ì¼ë¡œ ë§Œë“ í›„ í•˜ë£¨ë¥¼ ë”í•œë‹¤
     $s_date = date('Y-m-d', strtotime(substr($s_date, 0, 4) . '-' . substr($s_date, 5, 2) . '-01 +1 month'));
 }
 
@@ -71,9 +71,9 @@ $sql = " select mb_id,as_victory,as_successive
 $result_honor = sql_query($sql);
 
 $rows = $att['attendance_page_rows'];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if ($page == "") { $page = 1; } // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ íŽ˜ì´ì§€ ê³„ì‚°
+if ($page == "") { $page = 1; } // íŽ˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« íŽ˜ì´ì§€ (1 íŽ˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œìž‘ ì—´ì„ êµ¬í•¨
 
 $pages = get_paging($att['attendance_pages'], $page, $total_page, "?s_date=$s_date&amp;currentId=$currentId&amp;page=");
 
@@ -95,12 +95,12 @@ if($is_member){
 		$current_data[$temp_day] = 1;
 
 	}
-	// ¸Þ¸ð¸®ÇØÁ¦
+	// ë©”ëª¨ë¦¬í•´ì œ
 	@sql_free_result($result_current);
 }
 
 ?>
-<?php if($att['attendance_gnu']){ // ±×´©º¸µå ¼³Ä¡ÀÏ¶§¸¸ È£Ãâ?>
+<?php if($att['attendance_gnu']){ // ê·¸ëˆ„ë³´ë“œ ì„¤ì¹˜ì¼ë•Œë§Œ í˜¸ì¶œ?>
 <link type="text/css" rel="stylesheet" media="all" href="<?php echo $g4[attendance_css_path];?>/style.css" />
 <?php }?>
 <div class="row hidden-xs">
@@ -109,7 +109,7 @@ if($is_member){
  	  <div class="attendance-info calendar-wrap  well well-sm">
 
 	    <div class="attendance_title">
-			<h5><strong><i class="fa fa-calendar"></i> Ãâ¼®Ã¼Å© ÀÏÀÚ</strong></h5>
+			<h5><strong><i class="fa fa-calendar"></i> ì¶œì„ì²´í¬ ì¼ìž</strong></h5>
 			</div>
 
 			<form id='fattendancelist' name='fattendancelist' method="get" action="<?php echo $g4[attendance_path];?>/attendance.php">
@@ -117,37 +117,37 @@ if($is_member){
 				<input type="hidden" name="s_date" value="<?php echo $s_date?>" />
 				<input type="hidden" name="currentId" value="<?php echo $currentId?>" />
 				<div class="huddakP-calendar-month-select">
-					<a href='#' onclick='document.fattendancelist.go.value="prev"; document.fattendancelist.submit();' class="btn btn-default tooltip-top" title="ÀÌÀü´Þ"><i class="fa fa-chevron-left"></i></a>
+					<a href='#' onclick='document.fattendancelist.go.value="prev"; document.fattendancelist.submit();' class="btn btn-default tooltip-top" title="ì´ì „ë‹¬"><i class="fa fa-chevron-left"></i></a>
 					<strong><?php echo $year?> - <?php echo $month?></strong>
-					<a href='#' onclick='document.fattendancelist.go.value="next"; document.fattendancelist.submit();' class="btn btn-default tooltip-top" title="´ÙÀ½´Þ"><i class="fa fa-chevron-right"></i></a>
+					<a href='#' onclick='document.fattendancelist.go.value="next"; document.fattendancelist.submit();' class="btn btn-default tooltip-top" title="ë‹¤ìŒë‹¬"><i class="fa fa-chevron-right"></i></a>
 				</div>
 			</form>
 				
 			<table class="huddakP-attendance-calendar">
 				<thead>
 					<tr>
-						<th scope="col" class="sun">ÀÏ</th>
-						<th scope="col">¿ù</th>
-						<th scope="col">È­</th>
-						<th scope="col">¼ö</th>
-						<th scope="col">¸ñ</th>
-						<th scope="col">±Ý</th>
-						<th scope="col" class="sat">Åä</th>
+						<th scope="col" class="sun">ì¼</th>
+						<th scope="col">ì›”</th>
+						<th scope="col">í™”</th>
+						<th scope="col">ìˆ˜</th>
+						<th scope="col">ëª©</th>
+						<th scope="col">ê¸ˆ</th>
+						<th scope="col" class="sat">í† </th>
 					</tr>
 				</thead>
 				<tbody>
-					<? //´Þ·ÂÃâ·Â
+					<? //ë‹¬ë ¥ì¶œë ¥
 					
-					// ÀÌ´Þ¿¡ Ã¹ ¿äÀÏÀ» ±¸ÇÔ
+					// ì´ë‹¬ì— ì²« ìš”ì¼ì„ êµ¬í•¨
 					$fist_week = date('w', strtotime($year . '-' . $month . '-01'));
-					// ´ÙÀ½´Þ¿¡¼­ ÇÏ·ç¸¦ »©¼­ ¸¶Áö¸· µÎÀÚ¸®¼ö ÀÏÀ» ±¸ÇÑ´Ù
+					// ë‹¤ìŒë‹¬ì—ì„œ í•˜ë£¨ë¥¼ ë¹¼ì„œ ë§ˆì§€ë§‰ ë‘ìžë¦¬ìˆ˜ ì¼ì„ êµ¬í•œë‹¤
 					$last_day = date('d', strtotime($year . '-' . $month . '-01 + 1 month') - (3600 * 24));
-					// ÀÌ´ÞÀÇ ½ÃÀÛ ÁÖ¸¦ ±¸ÇÑ´Ù
+					// ì´ë‹¬ì˜ ì‹œìž‘ ì£¼ë¥¼ êµ¬í•œë‹¤
 					$loof = ceil(($last_day + $fist_week) / 7);
 
 					for($i = 0; $i < $loof * 7; $i++){
 
-						// ÇöÀç ÀÏ
+						// í˜„ìž¬ ì¼
 						$c_day = ($i - $fist_week) + 1;
 						if ($c_day < 1 || $c_day > $last_day) $c_day = '';
 
@@ -172,17 +172,17 @@ if($is_member){
 						else
 							$tmp_day = $c_day;
 
-						// ³â¿ùÀÏÀÌ °°À¸¸é
+						// ë…„ì›”ì¼ì´ ê°™ìœ¼ë©´
 						$todayclass = '';
 						if(date('Y-m-d') == "{$year}-{$month}-{$tmp_day}")
 							$todayclass = ' class="today"';
 
-						// ¼±ÅÃÇÑ ³¯Â¥ È°¼ºÈ­
+						// ì„ íƒí•œ ë‚ ì§œ í™œì„±í™”
 						if("{$year}-{$month}-{$tmp_day}" == "{$year}-{$month}-{$day}")
 							$emclass = ' class="current"';
 
 						if($current_data[$c_day])
-							$c_day = "¡î";
+							$c_day = "âˆš";
 
 						?>
 							<td<?=$todayclass?>><a href="?s_date=<? echo "{$year}-{$month}-{$tmp_day}";?>"<?=$emclass;?>><?=$c_day?></a></td>
@@ -198,8 +198,8 @@ if($is_member){
 				</tbody>
 			</table>
 			<div class="alert alert-info" role="alert">
-				<i class="fa fa-calendar"></i> ¿À´ÃÀÇ Ãâ¼® È¸¿ø <?php echo $total_count;?>¸í<br />
-				<i class="fa fa-thumbs-o-up"></i> ½Â <?php echo $total_win_count;?>¸í / ¹« <?php echo $total_tie_count;?>¸í / ÆÐ <?php echo $total_loss_count;?>¸í
+				<i class="fa fa-calendar"></i> ì˜¤ëŠ˜ì˜ ì¶œì„ íšŒì› <?php echo $total_count;?>ëª…<br />
+				<i class="fa fa-thumbs-o-up"></i> ìŠ¹ <?php echo $total_win_count;?>ëª… / ë¬´ <?php echo $total_tie_count;?>ëª… / íŒ¨ <?php echo $total_loss_count;?>ëª…
 			</div>
 		</div>
 	 </div>
@@ -207,28 +207,28 @@ if($is_member){
 	 <div class="attendance-info well well-sm">
 
 	        <div class="attendance_title">
-			<h5><strong><i class="fa fa-calendar-check-o"></i> Ãâ¼®Ã¼Å© ¹æ¹ý</strong></h5>
+			<h5><strong><i class="fa fa-calendar-check-o"></i> ì¶œì„ì²´í¬ ë°©ë²•</strong></h5>
 			</div>
 
 			<ul class="notice">
-				<li><i class="fa fa-check-square-o"></i> È¸¿øµî±Þ <span class="label label-info"><?php echo $att_levelname;?> ÀÌ»ó</span> °¡´É.</li>
-				<li><i class="fa fa-check-square-o"></i> ÇÑ ¾ÆÀÌµð·Î <span class="label label-warning">ÀÏ <?php echo $att['attendance_number'];?>È¸</span> °¡´É.</li>
-				<li><i class="fa fa-check-square-o"></i> ÇÑ ¾ÆÀÌÇÇ·Î <span class="label label-danger">ÀÏ <?php echo $att['attendance_number'];?>È¸</span> °¡´É.</li>
-				<li><i class="fa fa-check-square-o"></i> ¸ÅÀÏ Ãâ¼® ½Ã°£ <span class="label label-default"><?php echo $att['attendance_start_time'];?> ~ <?php echo $att['attendance_end_time'];?></span></li>
+				<li><i class="fa fa-check-square-o"></i> íšŒì›ë“±ê¸‰ <span class="label label-info"><?php echo $att_levelname;?> ì´ìƒ</span> ê°€ëŠ¥.</li>
+				<li><i class="fa fa-check-square-o"></i> í•œ ì•„ì´ë””ë¡œ <span class="label label-warning">ì¼ <?php echo $att['attendance_number'];?>íšŒ</span> ê°€ëŠ¥.</li>
+				<li><i class="fa fa-check-square-o"></i> í•œ ì•„ì´í”¼ë¡œ <span class="label label-danger">ì¼ <?php echo $att['attendance_number'];?>íšŒ</span> ê°€ëŠ¥.</li>
+				<li><i class="fa fa-check-square-o"></i> ë§¤ì¼ ì¶œì„ ì‹œê°„ <span class="label label-default"><?php echo $att['attendance_start_time'];?> ~ <?php echo $att['attendance_end_time'];?></span></li>
 				<li>
-					<span class="tit"><i class="fa fa-check-square-o"></i> È¹µæ Æ÷ÀÎÆ®</span>
+					<span class="tit"><i class="fa fa-check-square-o"></i> íšë“ í¬ì¸íŠ¸</span>
 					<ul>
-						<li>½Â¸® : <?php echo $att['attendance_win_start_point'];?> ~ <?php echo $att['attendance_win_end_point'];?> Á¡</li>
-						<li>¹«½ÂºÎ : <?php echo $att['attendance_tie_start_point'];?> ~ <?php echo $att['attendance_tie_end_point'];?> Á¡</li>
-						<li>ÆÐ¹è : <?php echo $att['attendance_loss_start_point'];?> ~ <?php echo $att['attendance_loss_end_point'];?> Á¡</li>
+						<li>ìŠ¹ë¦¬ : <?php echo $att['attendance_win_start_point'];?> ~ <?php echo $att['attendance_win_end_point'];?> ì </li>
+						<li>ë¬´ìŠ¹ë¶€ : <?php echo $att['attendance_tie_start_point'];?> ~ <?php echo $att['attendance_tie_end_point'];?> ì </li>
+						<li>íŒ¨ë°° : <?php echo $att['attendance_loss_start_point'];?> ~ <?php echo $att['attendance_loss_end_point'];?> ì </li>
 					</ul>
 				</li>
 				<li>
-					<span class="tit"><i class="fa fa-check-square-o"></i> ºÎ°¡ Æ÷ÀÎÆ®</span>
-					<?php echo $att['attendance_successive'];?> ¿¬½Â,¿¬ÆÐ,¿¬¹« <i class="fa fa-info-circle tooltip-top" title="È¹µæ Æ÷ÀÎÆ® * ¿¬¼ÓÈ½¼ö"></i>
+					<span class="tit"><i class="fa fa-check-square-o"></i> ë¶€ê°€ í¬ì¸íŠ¸</span>
+					<?php echo $att['attendance_successive'];?> ì—°ìŠ¹,ì—°íŒ¨,ì—°ë¬´ <i class="fa fa-info-circle tooltip-top" title="íšë“ í¬ì¸íŠ¸ * ì—°ì†íšŸìˆ˜"></i>
 				</li>
 				<li><div class="alert alert-success" role="alert">
-				<i class="fa fa-trophy"></i> ¸í¿¹ÀÇ Àü´çÀº ½Â¹«ÆÐ°¡ ¿¬¼ÓÀ¸·Î ¸¹À»°æ¿ì »óÀ§³ëÃâµË´Ï´Ù.</div>
+				<i class="fa fa-trophy"></i> ëª…ì˜ˆì˜ ì „ë‹¹ì€ ìŠ¹ë¬´íŒ¨ê°€ ì—°ì†ìœ¼ë¡œ ë§Žì„ê²½ìš° ìƒìœ„ë…¸ì¶œë©ë‹ˆë‹¤.</div>
 				</li>
 			</ul>
 		</div>
@@ -237,7 +237,7 @@ if($is_member){
 	 <div class="top-list well well-sm">
 
 	        <div class="attendance_title">
-			<h5><strong><i class="fa fa-trophy"></i> ¸í¿¹ÀÇ Àü´ç</strong></h5>
+			<h5><strong><i class="fa fa-trophy"></i> ëª…ì˜ˆì˜ ì „ë‹¹</strong></h5>
 			</div>
 
 			<ol>
@@ -245,11 +245,11 @@ if($is_member){
 				$honnor_cnt = 1;
 				while($row_honor = sql_fetch_array($result_honor)){
 					$mb = get_member($row_honor[mb_id]);
-					// ºÒ´çÆÑ ÈÞ¸éÈ¸¿øÀº???
+					// ë¶ˆë‹¹íŒ© íœ´ë©´íšŒì›ì€???
 					if ($mb[mb_nick] == "") {
 					    $mb = sql_fetch(" select * from $g4[unlogin_table] where mb_id = '$mb[mb_id]' ");
 					}
-					// »èÁ¦µÈ È¸¿øÀº???
+					// ì‚­ì œëœ íšŒì›ì€???
 					if ($mb[mb_nick] == "") {
 					    $mb['mb_nick'] = "undefined";
           }
@@ -258,8 +258,8 @@ if($is_member){
 				<li>
 					<span class="user"><?php echo $nick;?></span>
 					<span class="victory">
-					(<?php echo $row_honor[as_successive]; // ¿¬¼Ó °³¼ö?>¿¬
-					<img src="<?php echo $g4[attendance_path];?>/img/icon_top-victory<?php echo $row_honor[as_victory]; // ½ÂÆÐ 3½Â,2¹«,1ÆÐ?>.gif" alt="" />
+					(<?php echo $row_honor[as_successive]; // ì—°ì† ê°œìˆ˜?>ì—°
+					<img src="<?php echo $g4[attendance_path];?>/img/icon_top-victory<?php echo $row_honor[as_victory]; // ìŠ¹íŒ¨ 3ìŠ¹,2ë¬´,1íŒ¨?>.gif" alt="" />
 					)
 					</span>
 				</li>
@@ -278,8 +278,8 @@ if($is_member){
 <div class="row">
     <div class="col-md-4">
 	   
-	   <!--¸í¿¹ÀÇÀü´ç/Ãâ¼®Ã¼Å©¹æ¹ý ¸ð´ÞÃ¢¹öÆ° { -->
-	   <div class="pull-right clearfix visible-xs btn-group btn-group-lg" role="group" aria-label="¸í¿¹ÀÇÀü´ç/Ãâ¼®Ã¼Å©¹æ¹ý ¸ð´ÞÃ¢¹öÆ°" style="margin-bottom:15px;">
+	   <!--ëª…ì˜ˆì˜ì „ë‹¹/ì¶œì„ì²´í¬ë°©ë²• ëª¨ë‹¬ì°½ë²„íŠ¼ { -->
+	   <div class="pull-right clearfix visible-xs btn-group btn-group-lg" role="group" aria-label="ëª…ì˜ˆì˜ì „ë‹¹/ì¶œì„ì²´í¬ë°©ë²• ëª¨ë‹¬ì°½ë²„íŠ¼" style="margin-bottom:15px;">
 	      <a class="btn btn-default" data-toggle="modal" data-target="#att_calendar"><i class="fa fa-calendar"></i></a>
 	      <a class="btn btn-default" data-toggle="modal" data-target="#att_check"><i class="fa fa-calendar-check-o"></i></a>
 	      <a class="btn btn-default" data-toggle="modal" data-target="#att_trophy"><i class="fa fa-trophy"></i></a>
@@ -290,11 +290,11 @@ if($is_member){
 		<form id='fattendancewrite' name='fattendancewrite' method="post" action="<?php echo $g4[attendance_path];?>/attendance_update.php">
 			<input type="hidden" name="s_date" value="<?php echo $s_date?>" />
 			<input type="hidden" name="currentId" value="<?php echo $currentId?>" />
-			<input type="hidden" name="at_type" title="°¡À§¹ÙÀ§º¸" />
+			<input type="hidden" name="at_type" title="ê°€ìœ„ë°”ìœ„ë³´" />
 			<ul class="type-select">
-				<li><a href="1" title="¹¬ ¼±ÅÃ" class="n1 btn btn-info"><i class="fa fa-hand-rock-o fa-5x"></i></a></li>
-				<li><a href="2" title="Âî ¼±ÅÃ" class="n2 btn btn-success"><i class="fa fa-hand-peace-o fa-5x"></i></a></li>
-				<li><a href="3" title="ºü ¼±ÅÃ" class="n3 btn btn-danger"><i class="fa fa-hand-paper-o fa-5x"></i></a></li>
+				<li><a href="1" title="ë¬µ ì„ íƒ" class="n1 btn btn-info"><i class="fa fa-hand-rock-o fa-5x"></i></a></li>
+				<li><a href="2" title="ì°Œ ì„ íƒ" class="n2 btn btn-success"><i class="fa fa-hand-peace-o fa-5x"></i></a></li>
+				<li><a href="3" title="ë¹  ì„ íƒ" class="n3 btn btn-danger"><i class="fa fa-hand-paper-o fa-5x"></i></a></li>
 			</ul>
 	</div>
 	</div>
@@ -302,12 +302,12 @@ if($is_member){
 	<div class="input-group">
 
 	<span class="">
-	<?php if ($att['char_min'] || $att['char_max']) { ?><span id="char_count"></span>±ÛÀÚ (ÃÖ¼Ò : <?php echo $att['char_min'];?> , ÃÖ´ë : <?php echo $att['char_max'];?>)<?php } ?>
+	<?php if ($att['char_min'] || $att['char_max']) { ?><span id="char_count"></span>ê¸€ìž (ìµœì†Œ : <?php echo $att['char_min'];?> , ìµœëŒ€ : <?php echo $att['char_max'];?>)<?php } ?>
 	</span>
 
-      <textarea id="at_memo" name="at_memo" class="form-control" rows=3 placeholder="Ãâ¼®Ã¼Å©½Ã ÈûÀÌ ¼Ú¾Æ³ª´Â ´Ü¾î¸¦ Àû¾îÁÖ¼¼¿ä."><?php echo $att[attendance_memo][rand(0,count($att[attendance_memo])-1)];?></textarea>
+      <textarea id="at_memo" name="at_memo" class="form-control" rows=3 placeholder="ì¶œì„ì²´í¬ì‹œ íž˜ì´ ì†Ÿì•„ë‚˜ëŠ” ë‹¨ì–´ë¥¼ ì ì–´ì£¼ì„¸ìš”."><?php echo $att[attendance_memo][rand(0,count($att[attendance_memo])-1)];?></textarea>
       <span class="att_btn input-group-btn">
-        <button type="input" alt="ÃâÃ½!" class="tooltip-top btn btn-primary data-toggle="tooltip" data-placement="top" title="Ãâ¼®Ã¼Å©"/>Ãâ¼®Ã¼Å©</button>
+        <button type="input" alt="ì¶œì²µ!" class="tooltip-top btn btn-primary data-toggle="tooltip" data-placement="top" title="ì¶œì„ì²´í¬"/>ì¶œì„ì²´í¬</button>
       </span>
     </div><!-- /input-group -->
 	<br />
@@ -321,7 +321,7 @@ if($is_member){
       <!-- Default panel contents -->
       <div class="attendance-info panel-heading">
 	  <div class="attendance_title">
-			<h5><strong><i class="fa fa-list-alt"></i> Ãâ¼®Ã¼Å© ÇöÈ²ÆÇ</h5>
+			<h5><strong><i class="fa fa-list-alt"></i> ì¶œì„ì²´í¬ í˜„í™©íŒ</h5>
 	  </div>
 	  </div>
 
@@ -329,11 +329,11 @@ if($is_member){
       <table class="table" style="font-size:12px;">
         <thead>
           <tr>
-				<th scope="col" colspan="4" class="text-center hidden-xs col-lg-2 col-md-2 col-sm-2 ">½ÂÆÐ</th>
-				<th scope="col" class="text-center hidden-xs col-lg-1 col-md-1 col-sm-1">¿¬¼Ó</th>
-				<th scope="col" class="text-center hidden-xs col-lg-1 col-md-1 col-sm-1">Æ÷ÀÎÆ®</th>
-				<th scope="col" class="text-center hidden-xs col-lg-1 col-md-1 col-sm-1">Ãâ¼®ÀÚ</th>
-				<th scope="col" class="text-center hidden-xs">ÄÚ¸àÆ®</th>
+				<th scope="col" colspan="4" class="text-center hidden-xs col-lg-2 col-md-2 col-sm-2 ">ìŠ¹íŒ¨</th>
+				<th scope="col" class="text-center hidden-xs col-lg-1 col-md-1 col-sm-1">ì—°ì†</th>
+				<th scope="col" class="text-center hidden-xs col-lg-1 col-md-1 col-sm-1">í¬ì¸íŠ¸</th>
+				<th scope="col" class="text-center hidden-xs col-lg-1 col-md-1 col-sm-1">ì¶œì„ìž</th>
+				<th scope="col" class="text-center hidden-xs">ì½”ë©˜íŠ¸</th>
         </thead>
         <tbody>
           <?php
@@ -343,40 +343,40 @@ if($is_member){
 			?>
 			<tr>
 				<td class="hidden-xs">
-				    <? // ½ÂÆÐ 3½Â,2¹«,1ÆÐ
+				    <? // ìŠ¹íŒ¨ 3ìŠ¹,2ë¬´,1íŒ¨
 				    if ($row[at_victory] == 1)
-				        echo '<a href="#" title="½Â¸®" class="n2 btn btn-success disabled">½Â¸®</a>';
+				        echo '<a href="#" title="ìŠ¹ë¦¬" class="n2 btn btn-success disabled">ìŠ¹ë¦¬</a>';
 				    else if ($row[at_victory] == 2)
-				        echo '<a href="#" title="¹«½ÂºÎ" class="n1 btn btn-info disabled">¹«½ÂºÎ</a>';
+				        echo '<a href="#" title="ë¬´ìŠ¹ë¶€" class="n1 btn btn-info disabled">ë¬´ìŠ¹ë¶€</a>';
 				    else
-				        echo '<a href="#" title="ÆÐ¹è" class="n3 btn btn-danger disabled">ÆÐ¹è</a>';
+				        echo '<a href="#" title="íŒ¨ë°°" class="n3 btn btn-danger disabled">íŒ¨ë°°</a>';
             ?>
 				</td>
 				<td class="hidden-xs">
-				    <? // 1 ¹¬, 2 Âî, 3 ºü
+				    <? // 1 ë¬µ, 2 ì°Œ, 3 ë¹ 
 				    if ($row[at_default_type] == 1)
-				        echo '<a href="#" title="¹¬ ¼±ÅÃ" class="n1 btn btn-info"><i class="fa fa-hand-rock-o fa-2x btn-info"></i></a>';
+				        echo '<a href="#" title="ë¬µ ì„ íƒ" class="n1 btn btn-info"><i class="fa fa-hand-rock-o fa-2x btn-info"></i></a>';
 				    else if ($row[at_default_type] == 2)
-				        echo '<a href="#" title="Âî ¼±ÅÃ" class="n2 btn btn-success"><i class="fa fa-hand-peace-o fa-2x"></i></a>';
+				        echo '<a href="#" title="ì°Œ ì„ íƒ" class="n2 btn btn-success"><i class="fa fa-hand-peace-o fa-2x"></i></a>';
 				    else
-				        echo '<a href="#" title="ºü ¼±ÅÃ" class="n3 btn btn-danger"><i class="fa fa-hand-paper-o fa-2x"></i></a>';
+				        echo '<a href="#" title="ë¹  ì„ íƒ" class="n3 btn btn-danger"><i class="fa fa-hand-paper-o fa-2x"></i></a>';
             ?>
 				</td>
 				<td class="hidden-xs">
 					<img src="<?php echo $g4[attendance_path];?>/img/txt_vs.png" alt="VS" />
 				</td>
 				<td class="hidden-xs">
-				    <? // 1 ¹¬, 2 Âî, 3 ºü
+				    <? // 1 ë¬µ, 2 ì°Œ, 3 ë¹ 
 				    if ($row[at_type] == 1)
-				        echo '<a href="#" title="¹¬ ¼±ÅÃ" class="n1 btn btn-info"><i class="fa fa-hand-rock-o fa-2x"></i></a>';
+				        echo '<a href="#" title="ë¬µ ì„ íƒ" class="n1 btn btn-info"><i class="fa fa-hand-rock-o fa-2x"></i></a>';
 				    else if ($row[at_type] == 2)
-				        echo '<a href="#" title="Âî ¼±ÅÃ" class="n2 btn btn-success"><i class="fa fa-hand-peace-o fa-2x"></i></a>';
+				        echo '<a href="#" title="ì°Œ ì„ íƒ" class="n2 btn btn-success"><i class="fa fa-hand-peace-o fa-2x"></i></a>';
 				    else
-				        echo '<a href="#" title="ºü ¼±ÅÃ" class="n3 btn btn-danger"><i class="fa fa-hand-paper-o fa-2x"></i></a>';
+				        echo '<a href="#" title="ë¹  ì„ íƒ" class="n3 btn btn-danger"><i class="fa fa-hand-paper-o fa-2x"></i></a>';
             ?>
 				</td>
-				<td class="hidden-xs text-center"><?php echo $row[at_successive]; // ¿¬¼Ó °³¼ö?></td>
-				<td class="hidden-xs text-center"><?php echo $row[po_point]; // ´çÃ·Æ÷ÀÎÆ®?></td>
+				<td class="hidden-xs text-center"><?php echo $row[at_successive]; // ì—°ì† ê°œìˆ˜?></td>
+				<td class="hidden-xs text-center"><?php echo $row[po_point]; // ë‹¹ì²¨í¬ì¸íŠ¸?></td>
 				<td class="user hidden-xs text-center"><?php echo $nick;?></td>
 				<td class="comment hidden-xs text-left">
 					<?php echo $row[at_memo];?>
@@ -384,20 +384,20 @@ if($is_member){
 					<?php if($is_admin){?>&nbsp;<i class="fa fa-trash-o"></i></a>&nbsp;<?php }?>
 				</td>
 
-				<!--¸ð¹ÙÀÏ ÇöÈ²ÆÇ { -->
+				<!--ëª¨ë°”ì¼ í˜„í™©íŒ { -->
 				<td class="visible-xs">
-					<span class="label label-default pull-left tooltip-top" title="½Â¸®°á°ú">
-					<img src="<?php echo $g4[attendance_path];?>/img/victory_<?php echo $row[at_victory]; // ½ÂÆÐ 3½Â,2¹«,1ÆÐ?>.png" alt="" />
-					<img src="<?php echo $g4[attendance_path];?>/img/icon_<?php echo $row[at_default_type];// 1 ¹¬, 2 Âî, 3 ºü?>.png" alt="" />
+					<span class="label label-default pull-left tooltip-top" title="ìŠ¹ë¦¬ê²°ê³¼">
+					<img src="<?php echo $g4[attendance_path];?>/img/victory_<?php echo $row[at_victory]; // ìŠ¹íŒ¨ 3ìŠ¹,2ë¬´,1íŒ¨?>.png" alt="" />
+					<img src="<?php echo $g4[attendance_path];?>/img/icon_<?php echo $row[at_default_type];// 1 ë¬µ, 2 ì°Œ, 3 ë¹ ?>.png" alt="" />
 					<img src="<?php echo $g4[attendance_path];?>/img/txt_vs.png" alt="VS" />
-					<img src="<?php echo $g4[attendance_path];?>/img/icon_<?php echo $row[at_type];// 1 ¹¬, 2 Âî, 3 ºü?>.png" alt="" />
+					<img src="<?php echo $g4[attendance_path];?>/img/icon_<?php echo $row[at_type];// 1 ë¬µ, 2 ì°Œ, 3 ë¹ ?>.png" alt="" />
 					</span>
 					
-					<span class="label label-danger pull-right tooltip-top" title="¿¬¼Ó½Â¸®">
-					<h5><?php echo $row[at_successive]; // ¿¬¼Ó °³¼ö?></h5>
+					<span class="label label-danger pull-right tooltip-top" title="ì—°ì†ìŠ¹ë¦¬">
+					<h5><?php echo $row[at_successive]; // ì—°ì† ê°œìˆ˜?></h5>
 					</span>
-					<span class="label label-default pull-right tooltip-top" title="´çÃ·Æ÷ÀÎÆ®">
-					<h5><?php echo $row[po_point]; // ´çÃ·Æ÷ÀÎÆ®?></h5>
+					<span class="label label-default pull-right tooltip-top" title="ë‹¹ì²¨í¬ì¸íŠ¸">
+					<h5><?php echo $row[po_point]; // ë‹¹ì²¨í¬ì¸íŠ¸?></h5>
 					</span>
 
 					&nbsp;<?php echo $nick;?>
@@ -422,14 +422,14 @@ if($is_member){
 	</div>
 </div>
 
-<!--¸í¿¹ÀÇÀü´ç ¸ð´Þ { -->
+<!--ëª…ì˜ˆì˜ì „ë‹¹ ëª¨ë‹¬ { -->
 <div class="top-list modal fade" id="att_trophy" tabindex="-1" role="dialog" aria-labelledby="att_trophyLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <span class="modal-title" id="myModalLabel">
-			<h5><strong><i class="fa fa-trophy"></i> ¸í¿¹ÀÇ Àü´ç</strong></h5>
+			<h5><strong><i class="fa fa-trophy"></i> ëª…ì˜ˆì˜ ì „ë‹¹</strong></h5>
 		</span>
       </div>
       <div class="modal-body">
@@ -449,8 +449,8 @@ if($is_member){
 				<li>
 					<span class="user"><?php echo $nick;?></span>
 					<span class="victory">
-					(<?php echo $row_honor[as_successive]; // ¿¬¼Ó °³¼ö?>¿¬
-					<img src="<?php echo $g4[attendance_path];?>/img/icon_top-victory<?php echo $row_honor[as_victory]; // ½ÂÆÐ 3½Â,2¹«,1ÆÐ?>.gif" alt="" />
+					(<?php echo $row_honor[as_successive]; // ì—°ì† ê°œìˆ˜?>ì—°
+					<img src="<?php echo $g4[attendance_path];?>/img/icon_top-victory<?php echo $row_honor[as_victory]; // ìŠ¹íŒ¨ 3ìŠ¹,2ë¬´,1íŒ¨?>.gif" alt="" />
 					)
 					</span>
 				</li>
@@ -466,38 +466,38 @@ if($is_member){
     </div>
   </div>
 </div>
-<!--¸í¿¹ÀÇÀü´ç ¸ð´Þ } -->
+<!--ëª…ì˜ˆì˜ì „ë‹¹ ëª¨ë‹¬ } -->
 
-<!-- Ãâ¼®Ã¼Å©¹æ¹ý ¸ð´Þ { -->
+<!-- ì¶œì„ì²´í¬ë°©ë²• ëª¨ë‹¬ { -->
 <div class="top-list modal fade" id="att_check" tabindex="-1" role="dialog" aria-labelledby="att_checkLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <span class="modal-title" id="myModalLabel">
-			<h5><strong><i class="fa fa-calendar-check-o"></i> Ãâ¼®Ã¼Å© ¹æ¹ý</strong></h5>
+			<h5><strong><i class="fa fa-calendar-check-o"></i> ì¶œì„ì²´í¬ ë°©ë²•</strong></h5>
 		</span>
       </div>
       <div class="modal-body">
 	  <ul class="notice">
-				<li><i class="fa fa-check-square-o"></i> È¸¿øµî±Þ <span class="label label-info"><?php echo $att_levelname;?> ÀÌ»ó</span> °¡´É.</li>
-				<li><i class="fa fa-check-square-o"></i> ÇÑ ¾ÆÀÌµð·Î <span class="label label-warning">ÀÏ <?php echo $att['attendance_number'];?>È¸</span> °¡´É.</li>
-				<li><i class="fa fa-check-square-o"></i> ÇÑ ¾ÆÀÌÇÇ·Î <span class="label label-danger">ÀÏ <?php echo $att['attendance_number'];?>È¸</span> °¡´É.</li>
-				<li><i class="fa fa-check-square-o"></i> ¸ÅÀÏ Ãâ¼® ½Ã°£ <span class="label label-default"><?php echo $att['attendance_start_time'];?> ~ <?php echo $att['attendance_end_time'];?></span></li>
+				<li><i class="fa fa-check-square-o"></i> íšŒì›ë“±ê¸‰ <span class="label label-info"><?php echo $att_levelname;?> ì´ìƒ</span> ê°€ëŠ¥.</li>
+				<li><i class="fa fa-check-square-o"></i> í•œ ì•„ì´ë””ë¡œ <span class="label label-warning">ì¼ <?php echo $att['attendance_number'];?>íšŒ</span> ê°€ëŠ¥.</li>
+				<li><i class="fa fa-check-square-o"></i> í•œ ì•„ì´í”¼ë¡œ <span class="label label-danger">ì¼ <?php echo $att['attendance_number'];?>íšŒ</span> ê°€ëŠ¥.</li>
+				<li><i class="fa fa-check-square-o"></i> ë§¤ì¼ ì¶œì„ ì‹œê°„ <span class="label label-default"><?php echo $att['attendance_start_time'];?> ~ <?php echo $att['attendance_end_time'];?></span></li>
 				<li>
-					<span class="tit"><i class="fa fa-check-square-o"></i> È¹µæ Æ÷ÀÎÆ®</span>
+					<span class="tit"><i class="fa fa-check-square-o"></i> íšë“ í¬ì¸íŠ¸</span>
 					<ul>
-						<li>½Â¸® : <?php echo $att['attendance_win_start_point'];?> ~ <?php echo $att['attendance_win_end_point'];?> Á¡</li>
-						<li>¹«½ÂºÎ : <?php echo $att['attendance_tie_start_point'];?> ~ <?php echo $att['attendance_tie_end_point'];?> Á¡</li>
-						<li>ÆÐ¹è : <?php echo $att['attendance_loss_start_point'];?> ~ <?php echo $att['attendance_loss_end_point'];?> Á¡</li>
+						<li>ìŠ¹ë¦¬ : <?php echo $att['attendance_win_start_point'];?> ~ <?php echo $att['attendance_win_end_point'];?> ì </li>
+						<li>ë¬´ìŠ¹ë¶€ : <?php echo $att['attendance_tie_start_point'];?> ~ <?php echo $att['attendance_tie_end_point'];?> ì </li>
+						<li>íŒ¨ë°° : <?php echo $att['attendance_loss_start_point'];?> ~ <?php echo $att['attendance_loss_end_point'];?> ì </li>
 					</ul>
 				</li>
 				<li>
-					<span class="tit"><i class="fa fa-check-square-o"></i> ºÎ°¡ Æ÷ÀÎÆ®</span>
-					<?php echo $att['attendance_successive'];?> ¿¬½Â,¿¬ÆÐ,¿¬¹« <i class="fa fa-info-circle tooltip-top" title="È¹µæ Æ÷ÀÎÆ® * ¿¬¼ÓÈ½¼ö"></i>
+					<span class="tit"><i class="fa fa-check-square-o"></i> ë¶€ê°€ í¬ì¸íŠ¸</span>
+					<?php echo $att['attendance_successive'];?> ì—°ìŠ¹,ì—°íŒ¨,ì—°ë¬´ <i class="fa fa-info-circle tooltip-top" title="íšë“ í¬ì¸íŠ¸ * ì—°ì†íšŸìˆ˜"></i>
 				</li>
 				<li><div class="alert alert-success" role="alert">
-				<i class="fa fa-trophy"></i> ¸í¿¹ÀÇ Àü´çÀº ½Â¹«ÆÐ°¡ ¿¬¼ÓÀ¸·Î ¸¹À»°æ¿ì »óÀ§³ëÃâµË´Ï´Ù.</div>
+				<i class="fa fa-trophy"></i> ëª…ì˜ˆì˜ ì „ë‹¹ì€ ìŠ¹ë¬´íŒ¨ê°€ ì—°ì†ìœ¼ë¡œ ë§Žì„ê²½ìš° ìƒìœ„ë…¸ì¶œë©ë‹ˆë‹¤.</div>
 				</li>
 			</ul>
       </div>
@@ -507,50 +507,50 @@ if($is_member){
     </div>
   </div>
 </div>
-<!-- Ãâ¼®Ã¼Å©¹æ¹ý ¸ð´Þ } -->
+<!-- ì¶œì„ì²´í¬ë°©ë²• ëª¨ë‹¬ } -->
 
-<!--´Þ·Â ¸ð´Þ { -->
+<!--ë‹¬ë ¥ ëª¨ë‹¬ { -->
 <div class="top-list modal fade" id="att_calendar" tabindex="-1" role="dialog" aria-labelledby="att_calendarLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <span class="modal-title" id="myModalLabel">
-			<h5><strong><i class="fa fa-calendar"></i> Ãâ¼®Ã¼Å© ÀÏÀÚ</strong></h5>
+			<h5><strong><i class="fa fa-calendar"></i> ì¶œì„ì²´í¬ ì¼ìž</strong></h5>
 		</span>
       </div>
       <div class="modal-body">
 				<div class="huddakP-calendar-month-select">
-					<a href='#' onclick='document.fattendancelist.go.value="prev"; document.fattendancelist.submit();' class="btn btn-default tooltip-top" title="ÀÌÀü´Þ"><i class="fa fa-chevron-left"></i></a>
+					<a href='#' onclick='document.fattendancelist.go.value="prev"; document.fattendancelist.submit();' class="btn btn-default tooltip-top" title="ì´ì „ë‹¬"><i class="fa fa-chevron-left"></i></a>
 					<strong><?php echo $year?> - <?php echo $month?></strong>
-					<a href='#' onclick='document.fattendancelist.go.value="next"; document.fattendancelist.submit();' class="btn btn-default tooltip-top" title="´ÙÀ½´Þ"><i class="fa fa-chevron-right"></i></a>
+					<a href='#' onclick='document.fattendancelist.go.value="next"; document.fattendancelist.submit();' class="btn btn-default tooltip-top" title="ë‹¤ìŒë‹¬"><i class="fa fa-chevron-right"></i></a>
 				</div>
  
 			<table class="huddakP-attendance-calendar">
 				<thead>
 					<tr>
-						<th scope="col" class="sun">ÀÏ</th>
-						<th scope="col">¿ù</th>
-						<th scope="col">È­</th>
-						<th scope="col">¼ö</th>
-						<th scope="col">¸ñ</th>
-						<th scope="col">±Ý</th>
-						<th scope="col" class="sat">Åä</th>
+						<th scope="col" class="sun">ì¼</th>
+						<th scope="col">ì›”</th>
+						<th scope="col">í™”</th>
+						<th scope="col">ìˆ˜</th>
+						<th scope="col">ëª©</th>
+						<th scope="col">ê¸ˆ</th>
+						<th scope="col" class="sat">í† </th>
 					</tr>
 				</thead>
 				<tbody>
-					<? //´Þ·ÂÃâ·Â
+					<? //ë‹¬ë ¥ì¶œë ¥
 					
-					// ÀÌ´Þ¿¡ Ã¹ ¿äÀÏÀ» ±¸ÇÔ
+					// ì´ë‹¬ì— ì²« ìš”ì¼ì„ êµ¬í•¨
 					$fist_week = date('w', strtotime($year . '-' . $month . '-01'));
-					// ´ÙÀ½´Þ¿¡¼­ ÇÏ·ç¸¦ »©¼­ ¸¶Áö¸· µÎÀÚ¸®¼ö ÀÏÀ» ±¸ÇÑ´Ù
+					// ë‹¤ìŒë‹¬ì—ì„œ í•˜ë£¨ë¥¼ ë¹¼ì„œ ë§ˆì§€ë§‰ ë‘ìžë¦¬ìˆ˜ ì¼ì„ êµ¬í•œë‹¤
 					$last_day = date('d', strtotime($year . '-' . $month . '-01 + 1 month') - (3600 * 24));
-					// ÀÌ´ÞÀÇ ½ÃÀÛ ÁÖ¸¦ ±¸ÇÑ´Ù
+					// ì´ë‹¬ì˜ ì‹œìž‘ ì£¼ë¥¼ êµ¬í•œë‹¤
 					$loof = ceil(($last_day + $fist_week) / 7);
 
 					for($i = 0; $i < $loof * 7; $i++){
 
-						// ÇöÀç ÀÏ
+						// í˜„ìž¬ ì¼
 						$c_day = ($i - $fist_week) + 1;
 						if ($c_day < 1 || $c_day > $last_day) $c_day = '';
 
@@ -575,17 +575,17 @@ if($is_member){
 						else
 							$tmp_day = $c_day;
 
-						// ³â¿ùÀÏÀÌ °°À¸¸é
+						// ë…„ì›”ì¼ì´ ê°™ìœ¼ë©´
 						$todayclass = '';
 						if(date('Y-m-d') == "{$year}-{$month}-{$tmp_day}")
 							$todayclass = ' class="today"';
 
-						// ¼±ÅÃÇÑ ³¯Â¥ È°¼ºÈ­
+						// ì„ íƒí•œ ë‚ ì§œ í™œì„±í™”
 						if("{$year}-{$month}-{$tmp_day}" == "{$year}-{$month}-{$day}")
 							$emclass = ' class="current"';
 
 						if($current_data[$c_day])
-							$c_day = "¡î";
+							$c_day = "âˆš";
 
 						?>
 							<td<?=$todayclass?>><a href="?s_date=<? echo "{$year}-{$month}-{$tmp_day}";?>"<?=$emclass;?>><?=$c_day?></a></td>
@@ -601,8 +601,8 @@ if($is_member){
 				</tbody>
 			</table>
 			<div class="alert alert-info" role="alert">
-				<i class="fa fa-heartbeat"></i> ¿À´ÃÀÇ Ãâ¼® È¸¿ø <?php echo $total_count;?>¸í<br />
-				<i class="fa fa-thumbs-o-up"></i> ½Â <?php echo $total_win_count;?>¸í / ¹« <?php echo $total_tie_count;?>¸í / ÆÐ <?php echo $total_loss_count;?>¸í
+				<i class="fa fa-heartbeat"></i> ì˜¤ëŠ˜ì˜ ì¶œì„ íšŒì› <?php echo $total_count;?>ëª…<br />
+				<i class="fa fa-thumbs-o-up"></i> ìŠ¹ <?php echo $total_win_count;?>ëª… / ë¬´ <?php echo $total_tie_count;?>ëª… / íŒ¨ <?php echo $total_loss_count;?>ëª…
 			</div>
       </div>
       <div class="modal-footer">
@@ -611,7 +611,7 @@ if($is_member){
     </div>
   </div>
 </div>
-<!--´Þ·Â ¸ð´Þ } -->
+<!--ë‹¬ë ¥ ëª¨ë‹¬ } -->
 
 <script type="text/javascript">
 //<![CDATA[
@@ -647,7 +647,7 @@ $(function() {
 
 		if (!$('input[name=at_type]').val())
 		{
-			alert('¹¬/Âî/ºü¸¦ ¼±ÅÃÇØÁÖ¼¼¿ä.');
+			alert('ë¬µ/ì°Œ/ë¹ ë¥¼ ì„ íƒí•´ì£¼ì„¸ìš”.');
 			return false;
 		}
 
@@ -657,11 +657,11 @@ $(function() {
         if($("#char_count") && (<?php echo $att[char_min];?> > 0 || <?php echo $att[char_max];?> > 0)) {
             var cnt = parseInt($("#char_count").html());
             if (<?php echo $att['char_min'];?> > 0 && <?php echo $att['char_min'];?> > cnt) {
-                 alert("³»¿ëÀº " + <?php echo $att['char_min'];?> + "±ÛÀÚ ÀÌ»ó ¾²¼Å¾ß ÇÕ´Ï´Ù.");
+                 alert("ë‚´ìš©ì€ " + <?php echo $att['char_min'];?> + "ê¸€ìž ì´ìƒ ì“°ì…”ì•¼ í•©ë‹ˆë‹¤.");
                  return false;
             }
             else if (<?php echo $att['char_max'];?> > 0 && <?php echo $att['char_max'];?> < cnt) {
-                alert("³»¿ëÀº " + <?php echo $att['char_max'];?> + "±ÛÀÚ ÀÌÇÏ·Î ¾²¼Å¾ß ÇÕ´Ï´Ù.");
+                alert("ë‚´ìš©ì€ " + <?php echo $att['char_max'];?> + "ê¸€ìž ì´í•˜ë¡œ ì“°ì…”ì•¼ í•©ë‹ˆë‹¤.");
                 return false;
             }
         }

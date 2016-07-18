@@ -5,21 +5,21 @@ require_once(G4_PHP79_PATH . "/lib/devices.php");
 if ($member[mb_id]) {
     ;
 } else {
-    alert("¾Ë¸² ¼³Á¤Àº È¸¿øÀ» À§ÇÑ ¼­ºñ½º ÀÔ´Ï´Ù.\\n\\nÈ¸¿øÀÌ½Ã¶ó¸é ·Î±×ÀÎ ÈÄ ÀÌ¿ëÇØ º¸½Ê½Ã¿À.",
+    alert("ì•Œë¦¼ ì„¤ì •ì€ íšŒì›ì„ ìœ„í•œ ì„œë¹„ìŠ¤ ìž…ë‹ˆë‹¤.\\n\\níšŒì›ì´ì‹œë¼ë©´ ë¡œê·¸ì¸ í›„ ì´ìš©í•´ ë³´ì‹­ì‹œì˜¤.",
         "$g4[bbs_path]/login.php?url=" . urlencode($_SERVER['REQUEST_URI']));
 }
 
 if (empty($_COOKIE['device-uuid'])) {
-    alert("¾Ë¸² ¼³Á¤Àº ¾Û¿¡¼­¸¸ °¡´ÉÇÕ´Ï´Ù.");
+    alert("ì•Œë¦¼ ì„¤ì •ì€ ì•±ì—ì„œë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 }
 
 $device = device_info($_COOKIE['device-uuid'], $member);
 
 if (empty($device)) {
-    alert("µî·ÏµÇÁö ¾ÊÀº ±â±âÀÔ´Ï´Ù.  ¾ÛÀ» Á¾·áÈÄ ´Ù½Ã ½ÇÇàÇÏ¿© º¸½Ê½Ã¿À.");
+    alert("ë“±ë¡ë˜ì§€ ì•Šì€ ê¸°ê¸°ìž…ë‹ˆë‹¤.  ì•±ì„ ì¢…ë£Œí›„ ë‹¤ì‹œ ì‹¤í–‰í•˜ì—¬ ë³´ì‹­ì‹œì˜¤.");
 }
 
 device_push_update($_POST, $device);
 
-alert('Çª½Ã ¼³Á¤ÀÌ º¯°æµÇ¾ú½À´Ï´Ù', '/m/device.php');
+alert('í‘¸ì‹œ ì„¤ì •ì´ ë³€ê²½ë˜ì—ˆìŠµë‹ˆë‹¤', '/m/device.php');
 

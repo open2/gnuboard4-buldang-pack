@@ -30,14 +30,14 @@ $sql = " select count(*) as cnt
          $sql_order ";
 $row = sql_fetch($sql, false);
 if (!$row)
-    alert("unicro ¿¬µ¿ ¸ğµâÀÌ Á¤»ó ¼³Ä¡µÇÁö ¾Ê¾Ò½À´Ï´Ù. À¯´ÏÅ©·Î ¸ğµâÀ» ´Ù½Ã È®ÀÎÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.");
+    alert("unicro ì—°ë™ ëª¨ë“ˆì´ ì •ìƒ ì„¤ì¹˜ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. ìœ ë‹ˆí¬ë¡œ ëª¨ë“ˆì„ ë‹¤ì‹œ í™•ì¸í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.");
 else
     $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if ($page == "") $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if ($page == "") $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
 $sql = " select * 
           $sql_common
@@ -46,9 +46,9 @@ $sql = " select *
           limit $from_record, $rows ";
 $result = sql_query($sql);
 
-$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>ì²˜ìŒ</a>";
 
-$g4[title] = "À¯´ÏÅ©·Î ·Î±×";
+$g4[title] = "ìœ ë‹ˆí¬ë¡œ ë¡œê·¸";
 include_once("./admin.head.php");
 
 $colspan = 7;
@@ -59,15 +59,15 @@ $log_url = "$g4[admin_path]/unicro_log.php";
 <table width=100%>
 <form name=fsearch method=get>
 <tr>
-    <td width=50% align=left><?=$listall?> (·Î±×¼ö : <?=number_format($total_count)?>°³)</td>
+    <td width=50% align=left><?=$listall?> (ë¡œê·¸ìˆ˜ : <?=number_format($total_count)?>ê°œ)</td>
     <td width=50% align=right>
         <select name=sfl>
-            <option value='msg'>¸Ş½ÃÁö</option>
+            <option value='msg'>ë©”ì‹œì§€</option>
             <option value='mb_id'>mb_id</option>
             <option value='mode'>mode</option>
             <option value='item_no'>item no</option>
         </select>
-        <input type=text name=stx required itemname='°Ë»ö¾î' value='<?=$stx?>'>
+        <input type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<?=$stx?>'>
         <input type=image src='<?=$g4[admin_path]?>/img/btn_search.gif' align=absmiddle></td>
 </tr>
 </form>
@@ -83,19 +83,19 @@ $log_url = "$g4[admin_path]/unicro_log.php";
 <colgroup width=70>
 <tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
 <tr class='bgcol1 bold col1 ht center'>
-	<td>¹øÈ£</td>
-	<td>È¸¿ø¸í</td>
+	<td>ë²ˆí˜¸</td>
+	<td>íšŒì›ëª…</td>
 	<td>mode</td>
 	<td>item no</td>
-	<td>¸Ş½ÃÁö</td>
-	<td>¹Ù·Î°¡±â</td>
-	<td>³¯Â¥</td>
+	<td>ë©”ì‹œì§€</td>
+	<td>ë°”ë¡œê°€ê¸°</td>
+	<td>ë‚ ì§œ</td>
 </tr>
 <tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) {
 
-    // ´çÀÏÀÎ °æ¿ì ½Ã°£À¸·Î Ç¥½ÃÇÔ
+    // ë‹¹ì¼ì¸ ê²½ìš° ì‹œê°„ìœ¼ë¡œ í‘œì‹œí•¨
     $log_datetime = substr($row['log_datetime'],0,10);
     $log_datetime2 = $row['log_datetime'];
     if ($log_datetime == $g4['time_ymd'])
@@ -117,7 +117,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         $wr_id = $row['wr_id'];
     }
     
-    // º¹¼ö°³ÀÇ itemÀÌ Á¸ÀçÇÏ´Â °æ¿ì¸¦ À§ÇØ¼­  
+    // ë³µìˆ˜ê°œì˜ itemì´ ì¡´ì¬í•˜ëŠ” ê²½ìš°ë¥¼ ìœ„í•´ì„œ  
     $item_array = explode("|", trim($row[item_no]));
     $item_url = "";
     for ($k=0; $k<count($item_array); $k++) {
@@ -140,7 +140,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 }
 
 if ($i==0) 
-    echo "<tr><td colspan='$colspan' height=100 align=center bgcolor='#FFFFFF'>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='$colspan' height=100 align=center bgcolor='#FFFFFF'>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 
 echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
 echo "</table>";

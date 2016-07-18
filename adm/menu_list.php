@@ -3,39 +3,39 @@ $sub_menu = "300910";
 include_once('./_common.php');
 
 if ($is_admin != 'super')
-    alert('ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.');
+    alert('ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.');
 
 $token = get_token();
 
 $sql = " select * from {$g4['menu_table']} order by me_id ";
 $result = sql_query($sql);
 
-$g4['title'] = "¸Ş´º¼³Á¤";
+$g4['title'] = "ë©”ë‰´ì„¤ì •";
 include_once('./admin.head.php');
 
 $colspan = 5;
 ?>
 <div class="alert alert-warning">
-        <strong>ÁÖÀÇ!</strong> ¸Ş´º¼³Á¤ ÀÛ¾÷ ÈÄ ¹İµå½Ã <strong>È®ÀÎ</strong>À» ´©¸£¼Å¾ß ÀúÀåµË´Ï´Ù.
+        <strong>ì£¼ì˜!</strong> ë©”ë‰´ì„¤ì • ì‘ì—… í›„ ë°˜ë“œì‹œ <strong>í™•ì¸</strong>ì„ ëˆ„ë¥´ì…”ì•¼ ì €ì¥ë©ë‹ˆë‹¤.
       </div>
 
 <form name="fmenulist" id="fmenulist" method="post" action="./menu_list_update.php" onsubmit="return fmenulist_submit(this);">
 <input type="hidden" name="token" value="<?php echo $token ?>">
 
-<button type="button" class="btn btn-default pull-right" onclick="return add_menu();">¸Ş´ºÃß°¡<span class="sr-only"> »õÃ¢</span></button>
+<button type="button" class="btn btn-default pull-right" onclick="return add_menu();">ë©”ë‰´ì¶”ê°€<span class="sr-only"> ìƒˆì°½</span></button>
 
 <div class="clearfix"></div>
 <hr>
 
 <table class="table table-bordered text-center">
-    <p class="sr-only"><?php echo $g4['title']; ?> ¸ñ·Ï</p>
+    <p class="sr-only"><?php echo $g4['title']; ?> ëª©ë¡</p>
         <thead>
     <tr>
-        <th class="text-center">¸Ş´º</th>
-        <th class="text-center">¸µÅ©</th>
-        <th class="text-center">»õÃ¢</th>
-        <th class="text-center">¼ø¼­</th>
-        <th class="text-center">°ü¸®</th>
+        <th class="text-center">ë©”ë‰´</th>
+        <th class="text-center">ë§í¬</th>
+        <th class="text-center">ìƒˆì°½</th>
+        <th class="text-center">ìˆœì„œ</th>
+        <th class="text-center">ê´€ë¦¬</th>
     </tr>
         </thead>
         <tbody>
@@ -46,7 +46,7 @@ $colspan = 5;
         $sub_menu_class = '';
         if(strlen($row['me_code']) == 4) {
             $sub_menu_class = ' sub_menu_class';
-            $sub_menu_info = '<span class="sr-only">'.$row['me_name'].'ÀÇ ¼­ºê</span>';
+            $sub_menu_info = '<span class="sr-only">'.$row['me_name'].'ì˜ ì„œë¸Œ</span>';
             $sub_menu_ico = '<span class="sub_menu_ico"></span>';
         }
 
@@ -57,43 +57,43 @@ $colspan = 5;
     <tr class="<?php echo $bg; ?> menu_list menu_group_<?php echo substr($row['me_code'], 0, 2); ?>">
         <td class="td_category<?php echo $sub_menu_class; ?>">
             <input type="hidden" name="code[]" value="<?php echo substr($row['me_code'], 0, 2) ?>">
-            <label for="me_name_<?php echo $i; ?>" class="sr-only"><?php echo $sub_menu_info; ?>¸Ş´º</label>
+            <label for="me_name_<?php echo $i; ?>" class="sr-only"><?php echo $sub_menu_info; ?>ë©”ë‰´</label>
             <input type="text" name="me_name[]" value="<?php echo $row['me_name'] ?>" id="me_name_<?php echo $i; ?>" required class="required frm_input full_input">
         </td>
         <td>
-            <label for="me_link_<?php echo $i; ?>" class="sr-only">¸µÅ©</label>
+            <label for="me_link_<?php echo $i; ?>" class="sr-only">ë§í¬</label>
             <input type="text" name="me_link[]" value="<?php echo $row['me_link'] ?>" id="me_link_<?php echo $i; ?>" required class="required frm_input full_input">
         </td>
         <td>
-            <label for="me_target_<?php echo $i; ?>" class="sr-only">»õÃ¢</label>
+            <label for="me_target_<?php echo $i; ?>" class="sr-only">ìƒˆì°½</label>
             <select name="me_target[]" id="me_target_<?php echo $i; ?>">
-                <option value="self"<?php echo get_selected($row['me_target'], 'self', true); ?>>»ç¿ë¾ÈÇÔ</option>
-                <option value="blank"<?php echo get_selected($row['me_target'], 'blank', true); ?>>»ç¿ëÇÔ</option>
+                <option value="self"<?php echo get_selected($row['me_target'], 'self', true); ?>>ì‚¬ìš©ì•ˆí•¨</option>
+                <option value="blank"<?php echo get_selected($row['me_target'], 'blank', true); ?>>ì‚¬ìš©í•¨</option>
             </select>
         </td>
         <td>
-            <label for="me_order_<?php echo $i; ?>" class="sr-only">¼ø¼­</label>
+            <label for="me_order_<?php echo $i; ?>" class="sr-only">ìˆœì„œ</label>
             <input type="text" name="me_order[]" value="<?php echo $row['me_order'] ?>" id="me_order_<?php echo $i; ?>" class="frm_input">
         </td>
         <td>
             <?php if(strlen($row['me_code']) == 2) { ?>
-            <button type="button" class="btn_add_submenu">Ãß°¡</button>
+            <button type="button" class="btn_add_submenu">ì¶”ê°€</button>
             <?php } ?>
-            <button type="button" class="btn_del_menu">»èÁ¦</button>
+            <button type="button" class="btn_del_menu">ì‚­ì œ</button>
         </td>
     </tr>
     <?php
     }
 
     if ($i==0)
-        echo '<tr id="empty_menu_list"><td colspan="'.$colspan.'" class="empty_table">ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>';
+        echo '<tr id="empty_menu_list"><td colspan="'.$colspan.'" class="empty_table">ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>';
     ?>
     </tbody>
     </table>
 </div>
 
 <div class="text-center">
-<button type="button" name="act_button" class="btn btn-success">È®ÀÎ</button>
+<button type="button" name="act_button" class="btn btn-success">í™•ì¸</button>
 </div>
 
 </form>
@@ -106,7 +106,7 @@ $(function() {
     });
 
     $(".btn_del_menu").live("click", function() {
-        if(!confirm("¸Ş´º¸¦ »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?"))
+        if(!confirm("ë©”ë‰´ë¥¼ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?"))
             return false;
 
         var $tr = $(this).closest("tr");
@@ -118,7 +118,7 @@ $(function() {
         }
 
         if($("#menulist tr.menu_list").size() < 1) {
-            var list = "<tr id=\"empty_menu_list\"><td colspan=\"<?php echo $colspan; ?>\" class=\"empty_table\">ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>\n";
+            var list = "<tr id=\"empty_menu_list\"><td colspan=\"<?php echo $colspan; ?>\" class=\"empty_table\">ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>\n";
             $("#menulist table tbody").append(list);
         } else {
             $("#menulist tr.menu_list").each(function(index) {
@@ -153,7 +153,7 @@ function add_submenu(code)
 function base_convert(number, frombase, tobase) {
   //  discuss at: http://phpjs.org/functions/base_convert/
   // original by: Philippe Baumann
-  // improved by: Rafa©© Kukawski (http://blog.kukawski.pl)
+  // improved by: RafaÅ‚ Kukawski (http://blog.kukawski.pl)
   //   example 1: base_convert('A37334', 16, 2);
   //   returns 1: '101000110111001100110100'
 

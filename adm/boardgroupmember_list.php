@@ -6,14 +6,14 @@ auth_check($auth[$sub_menu], "r");
 
 $gr = get_group($gr_id);
 if (!$gr[gr_id]) {
-    alert("Á¸ÀçÇÏÁö ¾Ê´Â ±×·ìÀÔ´Ï´Ù."); 
+    alert("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ê·¸ë£¹ì…ë‹ˆë‹¤."); 
 }
 
 $sql_common = " from $g4[group_member_table] a 
                 left outer join $g4[member_table] b on (a.mb_id = b.mb_id) ";
 
 $sql_search = " where gr_id = '$gr_id' ";
-// È¸¿ø¾ÆÀÌµğ·Î °Ë»öµÇÁö ¾Ê´ø ¿À·ù¸¦ ¼öÁ¤
+// íšŒì›ì•„ì´ë””ë¡œ ê²€ìƒ‰ë˜ì§€ ì•Šë˜ ì˜¤ë¥˜ë¥¼ ìˆ˜ì •
 if ($stx) {
     $sql_search .= " and ( ";
     switch ($sfl) {
@@ -38,9 +38,9 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if ($page == "") $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if ($page == "") $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
 $sql = " select * 
           $sql_common
@@ -49,7 +49,7 @@ $sql = " select *
           limit $from_record, $rows ";
 $result = sql_query($sql);
 
-$g4[title] = "Á¢±Ù°¡´ÉÈ¸¿ø";
+$g4[title] = "ì ‘ê·¼ê°€ëŠ¥íšŒì›";
 include_once("./admin.head.php");
 
 $colspan = 7;
@@ -59,12 +59,12 @@ $colspan = 7;
 <form name=fsearch method=get>
 <input type=hidden name=gr_id value='<?=$gr_id?>'>
 <tr>
-    <td width=50% align=left>* <? echo "'<b>[$gr[gr_id]] $gr[gr_subject]</b>' ±×·ìÀÇ Á¢±Ù°¡´ÉÇÑ È¸¿ø ¸ñ·Ï"; ?></td>
+    <td width=50% align=left>* <? echo "'<b>[$gr[gr_id]] $gr[gr_subject]</b>' ê·¸ë£¹ì˜ ì ‘ê·¼ê°€ëŠ¥í•œ íšŒì› ëª©ë¡"; ?></td>
     <td width=50% align=right>
         <select name=sfl class=cssfl>
-            <option value='a.mb_id'>È¸¿ø¾ÆÀÌµğ</option>
+            <option value='a.mb_id'>íšŒì›ì•„ì´ë””</option>
         </select>
-        <input type=text name=stx required itemname='°Ë»ö¾î' value='<? echo $stx ?>'>
+        <input type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<? echo $stx ?>'>
         <input type=image src='<?=$g4[admin_path]?>/img/btn_search.gif' align=absmiddle></td>
 </tr>
 </form>
@@ -80,28 +80,28 @@ $colspan = 7;
 <colgroup width=40>
 <tr><td colspan='<?=$colspan?>' class='line1'></td></tr>
 <tr class='bgcol1 bold col1 ht center'>
-    <td><?=subject_sort_link('b.mb_id', "gr_id=$gr_id")?>È¸¿ø¾ÆÀÌµğ</a></td>
-    <td><?=subject_sort_link('b.mb_name', "gr_id=$gr_id")?>ÀÌ¸§</a></td>
-    <td><?=subject_sort_link('b.mb_nick', "gr_id=$gr_id")?>º°¸í</a></td>
-    <td><?=subject_sort_link('b.mb_today_login', "gr_id=$gr_id")?>ÃÖÁ¾Á¢¼Ó</a></td>
-    <td><?=subject_sort_link('a.gm_datetime', "gr_id=$gr_id")?>Ã³¸®ÀÏ½Ã</a></td>
-    <td title='Á¢±Ù°¡´ÉÇÑ ±×·ì¼ö'>±×·ì</td>
-    <td>»èÁ¦</td>
+    <td><?=subject_sort_link('b.mb_id', "gr_id=$gr_id")?>íšŒì›ì•„ì´ë””</a></td>
+    <td><?=subject_sort_link('b.mb_name', "gr_id=$gr_id")?>ì´ë¦„</a></td>
+    <td><?=subject_sort_link('b.mb_nick', "gr_id=$gr_id")?>ë³„ëª…</a></td>
+    <td><?=subject_sort_link('b.mb_today_login', "gr_id=$gr_id")?>ìµœì¢…ì ‘ì†</a></td>
+    <td><?=subject_sort_link('a.gm_datetime', "gr_id=$gr_id")?>ì²˜ë¦¬ì¼ì‹œ</a></td>
+    <td title='ì ‘ê·¼ê°€ëŠ¥í•œ ê·¸ë£¹ìˆ˜'>ê·¸ë£¹</td>
+    <td>ì‚­ì œ</td>
 </tr>
 <tr><td colspan='<?=$colspan?>' class='line2'></td></tr>
 
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) 
 {
-    // Á¢±Ù°¡´ÉÇÑ ±×·ì¼ö
+    // ì ‘ê·¼ê°€ëŠ¥í•œ ê·¸ë£¹ìˆ˜
     $sql2 = " select count(*) as cnt from $g4[group_member_table] where mb_id = '$row[mb_id]' ";
     $row2 = sql_fetch($sql2);
     $group = "";
     if ($row2[cnt])
         $group = "<a href='./boardgroupmember_form.php?mb_id=$row[mb_id]'>$row2[cnt]</a>";
 
-    //$s_del = "<a href=\"javascript:del('./boardgroupmember_update.php?w=listdelete&gm_id=$row[gm_id]');\"><img src='img/icon_delete.gif' border=0 title='»èÁ¦'></a>";
-    $s_del = "<a href=\"javascript:post_delete('boardgroupmember_update.php', '$row[gm_id]');\"><img src='img/icon_delete.gif' border=0 title='»èÁ¦'></a>";
+    //$s_del = "<a href=\"javascript:del('./boardgroupmember_update.php?w=listdelete&gm_id=$row[gm_id]');\"><img src='img/icon_delete.gif' border=0 title='ì‚­ì œ'></a>";
+    $s_del = "<a href=\"javascript:post_delete('boardgroupmember_update.php', '$row[gm_id]');\"><img src='img/icon_delete.gif' border=0 title='ì‚­ì œ'></a>";
 
     $mb_nick = get_sideview($row[mb_id], get_text($row[mb_nick]), $row[mb_email], $row[mb_homepage]);
 
@@ -120,7 +120,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 
 if ($i == 0)
 {
-    echo "<tr><td colspan='$colspan' align=center height=100 class='content contentbg'>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='$colspan' align=center height=100 class='content contentbg'>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 }
 
 echo "<tr><td colspan='$colspan' class='line2'></td></tr>";
@@ -135,12 +135,12 @@ if ($stx)
 ?>
 
 <script>
-// POST ¹æ½ÄÀ¸·Î »èÁ¦
+// POST ë°©ì‹ìœ¼ë¡œ ì‚­ì œ
 function post_delete(action_url, val)
 {
 	var f = document.fpost;
 
-	if(confirm("ÇÑ¹ø »èÁ¦ÇÑ ÀÚ·á´Â º¹±¸ÇÒ ¹æ¹ıÀÌ ¾ø½À´Ï´Ù.\n\nÁ¤¸» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?")) {
+	if(confirm("í•œë²ˆ ì‚­ì œí•œ ìë£ŒëŠ” ë³µêµ¬í•  ë°©ë²•ì´ ì—†ìŠµë‹ˆë‹¤.\n\nì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
         f.gm_id.value = val;
 		f.action      = action_url;
 		f.submit();

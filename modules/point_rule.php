@@ -1,12 +1,12 @@
 <? 
 $g4_path = ".."; 
 include_once("$g4_path/common.php"); 
-$g4[title] = "Æ÷ÀÎÆ®Á¤Ã¥"; 
+$g4[title] = "í¬ì¸íŠ¸ì •ì±…"; 
 include_once("$g4[path]/head.php"); 
 
-//$sql_common = " from $g4[board_table] a where (1) and bo_use_search = '1' "; //°Ô½ÃÆÇ°ü¸®ÀÚ¿¡¼­ °Ë»öÁ¦¿Ü »ç¿ë½Ã 
-//$sql_common = " from $g4[group_table] a left join $g4[board_table] b on a.gr_id = b.gr_id where (1)"; // ÀÏ¹ÝÀûÀÎ »ç¿ë½Ã
-$sql_common = " from $g4[group_table] a left join $g4[board_table] b on a.gr_id = b.gr_id where (b.bo_use_search = 1 and a.gr_use_access = 0) "; // ÀÏ¹ÝÀûÀÎ »ç¿ë½Ã
+//$sql_common = " from $g4[board_table] a where (1) and bo_use_search = '1' "; //ê²Œì‹œíŒê´€ë¦¬ìžì—ì„œ ê²€ìƒ‰ì œì™¸ ì‚¬ìš©ì‹œ 
+//$sql_common = " from $g4[group_table] a left join $g4[board_table] b on a.gr_id = b.gr_id where (1)"; // ì¼ë°˜ì ì¸ ì‚¬ìš©ì‹œ
+$sql_common = " from $g4[group_table] a left join $g4[board_table] b on a.gr_id = b.gr_id where (b.bo_use_search = 1 and a.gr_use_access = 0) "; // ì¼ë°˜ì ì¸ ì‚¬ìš©ì‹œ
 
 $sql = " select count(*) as cnt $sql_common"; 
 $row = sql_fetch($sql); 
@@ -19,7 +19,7 @@ if (!$sst) {
 $sst= "a.gr_id, a.bo_subject"; 
 $sod = "desc"; 
 } 
-//$sql_order = " order by gr_subject "; ¿øº»
+//$sql_order = " order by gr_subject "; ì›ë³¸
 $sql_order = " order by a.gr_id, b.bo_table ";
 
 $sql = " select count(*) as cnt 
@@ -31,11 +31,11 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt]; 
 
 //$rows = $config[cf_page_rows]; 
-$rows = 50; // ¼¼·Î·Î ¸î°³ÀÇ °Ô½ÃÆÇ º¸¿©ÁÙÁö?
+$rows = 50; // ì„¸ë¡œë¡œ ëª‡ê°œì˜ ê²Œì‹œíŒ ë³´ì—¬ì¤„ì§€?
 
-$total_page= ceil($total_count / $rows);// ÀüÃ¼ ÆäÀÌÁö °è»ê 
-if ($page == "") { $page = 1; } // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö) 
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ 
+$total_page= ceil($total_count / $rows);// ì „ì²´ íŽ˜ì´ì§€ ê³„ì‚° 
+if ($page == "") { $page = 1; } // íŽ˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« íŽ˜ì´ì§€ (1 íŽ˜ì´ì§€) 
+$from_record = ($page - 1) * $rows; // ì‹œìž‘ ì—´ì„ êµ¬í•¨ 
 
 $sql = " select * 
 $sql_common 
@@ -44,7 +44,7 @@ $sql_order
 limit $from_record, $rows "; 
 $result = sql_query($sql); 
 
-$listall = "<a href='$_SERVER[PHP_SELF]'>Ã³À½</a>"; 
+$listall = "<a href='$_SERVER[PHP_SELF]'>ì²˜ìŒ</a>"; 
 
 $colspan = 27; 
 ?> 
@@ -59,25 +59,25 @@ $colspan = 27;
 <table width="90%" align="center" border="0" cellpadding="5" cellspacing="0"> 
 <tr> 
 <td> 
-* È¸¿ø°¡ÀÔ½Ã : <?=$config[cf_register_point]?> Á¡<br /> 
-* È¸¿ø·Î±ä½Ã : <?=$config[cf_login_point]?> Á¡ (ÇÏ·ç ÇÑ¹ø¸¸ °¡´É)<br /><br />
-* ÂÊÁö º¸³¾½Ã : - <?=$config[cf_memo_send_point]?> Á¡<br />
-* È¸¿øÃßÃµ½Ã : <?=$config[cf_recommend_point]?> Á¡<br /><br /><br />
+* íšŒì›ê°€ìž…ì‹œ : <?=$config[cf_register_point]?> ì <br /> 
+* íšŒì›ë¡œê¸´ì‹œ : <?=$config[cf_login_point]?> ì  (í•˜ë£¨ í•œë²ˆë§Œ ê°€ëŠ¥)<br /><br />
+* ìª½ì§€ ë³´ë‚¼ì‹œ : - <?=$config[cf_memo_send_point]?> ì <br />
+* íšŒì›ì¶”ì²œì‹œ : <?=$config[cf_recommend_point]?> ì <br /><br /><br />
 
-°¢ °Ô½ÃÆÇº°·Î ±ÛÀÐ±â, ±Û¾²±â, ´äº¯/ÄÚ¸àÆ®¾²±â, ´Ù¿î·Îµå½Ã Æ÷ÀÎÆ®°¡ Æ²¸®¹Ç·Î ¾Æ·¡ Ç¥¸¦ Âü°íÇÏ¼¼¿ä. 
-[°Ô½ÃÆÇ¼ö : <?=number_format($total_count)?>°³] 
+ê° ê²Œì‹œíŒë³„ë¡œ ê¸€ì½ê¸°, ê¸€ì“°ê¸°, ë‹µë³€/ì½”ë©˜íŠ¸ì“°ê¸°, ë‹¤ìš´ë¡œë“œì‹œ í¬ì¸íŠ¸ê°€ í‹€ë¦¬ë¯€ë¡œ ì•„ëž˜ í‘œë¥¼ ì°¸ê³ í•˜ì„¸ìš”. 
+[ê²Œì‹œíŒìˆ˜ : <?=number_format($total_count)?>ê°œ] 
 </td> 
 </tr> 
 </table> 
 
 <table width="95%" align="center" border="0" cellpadding="5" cellspacing="0" class="tbline1"> 
 <tr align="center"> 
-    <td class="tbline2">±×·ì¸í</td> 
-<td class="tbline2">°Ô½ÃÆÇ¸í</td> 
-    <td class="tbline2">±ÛÀÐ±â</td> 
-    <td class="tbline2">±Û¾²±â</td> 
-    <td class="tbline2">ÄÚ¸àÆ®¾²±â</td> 
-    <td class="tbline2">´Ù¿î·Îµå</td> 
+    <td class="tbline2">ê·¸ë£¹ëª…</td> 
+<td class="tbline2">ê²Œì‹œíŒëª…</td> 
+    <td class="tbline2">ê¸€ì½ê¸°</td> 
+    <td class="tbline2">ê¸€ì“°ê¸°</td> 
+    <td class="tbline2">ì½”ë©˜íŠ¸ì“°ê¸°</td> 
+    <td class="tbline2">ë‹¤ìš´ë¡œë“œ</td> 
 </tr> 
 
 
@@ -85,9 +85,9 @@ $colspan = 27;
 for ($i=0; $row=sql_fetch_array($result); $i++) { 
 
 
-//$sql_search = " where gr_id not in ('Á¦¿Ü±×·ì1', 'Á¦¿Ü±×·ì2') "; //sir. °ü¸®ÀÚ°¡ ¾Ë·ÁÁÜ
-//Á¦¿Ü°Ô½ÃÆÇ ||(or) ·Î ±¸ºÐÇÕ´Ï´Ù.
-//¿¹) if($row[bo_table]==test||$row[bo_table]==aaa||$row[bo_table]==qna||$row[bo_table]==link){} 
+//$sql_search = " where gr_id not in ('ì œì™¸ê·¸ë£¹1', 'ì œì™¸ê·¸ë£¹2') "; //sir. ê´€ë¦¬ìžê°€ ì•Œë ¤ì¤Œ
+//ì œì™¸ê²Œì‹œíŒ ||(or) ë¡œ êµ¬ë¶„í•©ë‹ˆë‹¤.
+//ì˜ˆ) if($row[bo_table]==test||$row[bo_table]==aaa||$row[bo_table]==qna||$row[bo_table]==link){} 
 if($row[bo_table]==link){} 
 else{ ?> 
 
@@ -98,14 +98,14 @@ else{ ?>
 <td class="tbline2"> 
         <a href='<?=$g4[bbs_path]?>/board.php?bo_table=<?=$row[bo_table]?>'><b><?=$row[bo_subject]?></b></a> 
     </td> 
-    <td align="right" class="tbline2"><?=$row[bo_read_point]?> Á¡</td> 
-    <td align="right" class="tbline2"><?=$row[bo_write_point]?> Á¡</td> 
-    <td align="right" class="tbline2"><?=$row[bo_comment_point]?> Á¡</td> 
-    <td align="right" class="tbline2"><?=$row[bo_download_point]?> Á¡</td> 
+    <td align="right" class="tbline2"><?=$row[bo_read_point]?> ì </td> 
+    <td align="right" class="tbline2"><?=$row[bo_write_point]?> ì </td> 
+    <td align="right" class="tbline2"><?=$row[bo_comment_point]?> ì </td> 
+    <td align="right" class="tbline2"><?=$row[bo_download_point]?> ì </td> 
 </tr> 
 <? } ?> 
 
-<? }  if ($i == 0) echo "<tr><td colspan=6 align=center height=100>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>"; ?> 
+<? }  if ($i == 0) echo "<tr><td colspan=6 align=center height=100>ìžë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>"; ?> 
 </table> 
 
 <? 

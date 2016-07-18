@@ -1,10 +1,10 @@
 #!/usr/local/php/bin/php
 <?php
-// ÀÌ ÇÁ·Î±×·¥Àº cronÀ¸·Î Æ÷ÀÎÆ® Á¤¸®¸¦ ÇÏ±â À§ÇÑ »ùÇÃ ÇÁ·Î±×·¥ ÀÔ´Ï´Ù.
-// cronÀº ¼­¹ö °ü¸®ÀÚ ¶Ç´Â cron ÀÛ¾÷ÀÌ Çã¿ëµÈ »ç¿ëÀÚ¿¡°Ô¸¸ °¡´ÉÇÕ´Ï´Ù.
+// ì´ í”„ë¡œê·¸ë¨ì€ cronìœ¼ë¡œ í¬ì¸íŠ¸ ì •ë¦¬ë¥¼ í•˜ê¸° ìœ„í•œ ìƒ˜í”Œ í”„ë¡œê·¸ë¨ ì…ë‹ˆë‹¤.
+// cronì€ ì„œë²„ ê´€ë¦¬ì ë˜ëŠ” cron ì‘ì—…ì´ í—ˆìš©ëœ ì‚¬ìš©ìì—ê²Œë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.
 
-// cron¿¡¼­´Â »ç¿ëÀÚÀÇ ÇÁ·Î±×·¥ °æ·Î¸¦ ¾Ë ¼ö ¾ø±â ¶§¹®¿¡, $g4[path]¸¦ ¹İµå½Ã Àı´ë °æ·Î·Î ÁöÁ¤ÇØÁà¾ß ÇÕ´Ï´Ù.
-// ¾Æ·¡ÀÇ $g4[path]¸¦ ¹İµå½Ã ¼öÁ¤ÇØ¼­ »ç¿ëÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.
+// cronì—ì„œëŠ” ì‚¬ìš©ìì˜ í”„ë¡œê·¸ë¨ ê²½ë¡œë¥¼ ì•Œ ìˆ˜ ì—†ê¸° ë•Œë¬¸ì—, $g4[path]ë¥¼ ë°˜ë“œì‹œ ì ˆëŒ€ ê²½ë¡œë¡œ ì§€ì •í•´ì¤˜ì•¼ í•©ë‹ˆë‹¤.
+// ì•„ë˜ì˜ $g4[path]ë¥¼ ë°˜ë“œì‹œ ìˆ˜ì •í•´ì„œ ì‚¬ìš©í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.
 $g4[path] = "/home/opencode/public_html";
 
 include_once("$g4[path]/lib/constant.php");
@@ -16,22 +16,22 @@ include_once("$g4[path]/$dbconfig_file");
 $connect_db = sql_connect($mysql_host, $mysql_user, $mysql_password);
 $select_db = sql_select_db($mysql_db, $connect_db);
 if (!$select_db)
-    die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script language='JavaScript'> alert('DB Á¢¼Ó¿À·ù'); </script>");
+    die("<meta http-equiv='content-type' content='text/html; charset=$g4[charset]'><script language='JavaScript'> alert('DB ì ‘ì†ì˜¤ë¥˜'); </script>");
 
-// config ÆÄÀÏÀ» ÀĞ¾îÁà¾ß ÇÕ´Ï´Ù. common.php¸¦ ¼öÇà¾ÈÇÏ´Ï±î¿ä
+// config íŒŒì¼ì„ ì½ì–´ì¤˜ì•¼ í•©ë‹ˆë‹¤. common.phpë¥¼ ìˆ˜í–‰ì•ˆí•˜ë‹ˆê¹Œìš”
 $config = " select * from $g4[config_file] ";
 
-//-------------- ¾Æ·§ºÎºĞÀº point_clear.php¿¡¼­ º¹»çÇÑ °Í ÀÔ´Ï´Ù -----------------------
+//-------------- ì•„ë«ë¶€ë¶„ì€ point_clear.phpì—ì„œ ë³µì‚¬í•œ ê²ƒ ì…ë‹ˆë‹¤ -----------------------
 
-// Æ÷ÀÎÆ®°¡ n°³ ÀÌ»óÀÎ È¸¿ø¿¡ ´ëÇØ¼­¸¸ point¸¦ clear ÇÕ´Ï´Ù.
+// í¬ì¸íŠ¸ê°€ nê°œ ì´ìƒì¸ íšŒì›ì— ëŒ€í•´ì„œë§Œ pointë¥¼ clear í•©ë‹ˆë‹¤.
 $max_count = 8;
-// ÇöÀçºÎÅÍ mÀÏ ÀÌÀüÀÇ Æ÷ÀÎÆ®¿¡ ´ëÇØ¼­¸¸ point¸¦ clear ÇÕ´Ï´Ù.
+// í˜„ì¬ë¶€í„° mì¼ ì´ì „ì˜ í¬ì¸íŠ¸ì— ëŒ€í•´ì„œë§Œ pointë¥¼ clear í•©ë‹ˆë‹¤.
 $clear_days = 30;
 $clear_datetime = date("Y-m-d H:i:s", $g4[server_time] - (86400 * $clear_days));
-// ÇÑ¹ø¿¡ Á¤¸®ÇÒ È¸¿øÀÇ ¼ıÀÚ
+// í•œë²ˆì— ì •ë¦¬í•  íšŒì›ì˜ ìˆ«ì
 $max_mb_num = 1000;
 
-// Á¤¸®ÇÒ È¸¿ø¸ñ·ÏÀ» ¸¸µé°í (Á¤¸®ÇÒ ²«¼ö°¡ ¸¹Àº È¸¿øºÎÅÍ Á¤¸®¸¦ ÇÏµµ·Ï Á¤·Ä)
+// ì •ë¦¬í•  íšŒì›ëª©ë¡ì„ ë§Œë“¤ê³  (ì •ë¦¬í•  ê»€ìˆ˜ê°€ ë§ì€ íšŒì›ë¶€í„° ì •ë¦¬ë¥¼ í•˜ë„ë¡ ì •ë ¬)
 $sql = " SELECT mb_id, count(po_point) as cnt, sum(po_point) as po_sum
            FROM $g4[point_table] 
           WHERE po_datetime < '{$clear_datetime}'
@@ -42,16 +42,16 @@ $result = sql_query($sql);
 
 for ($i=0; $row=sql_fetch_array($result); $i++)
 {
-    // Ãµ¸íÀÌ µÇ¸é break;
+    // ì²œëª…ì´ ë˜ë©´ break;
     if ($i >= $max_mb_num) 
         break;
 
-    // Ã³¸®ÇÒ °Ç¼ö´Â ±âÁØÀÏÀÚ ÀÌÈÄÀÇ ¸ğµç °Ç¼ö¿¡¼­ $max-count¸¦ »« °Í
+    // ì²˜ë¦¬í•  ê±´ìˆ˜ëŠ” ê¸°ì¤€ì¼ì ì´í›„ì˜ ëª¨ë“  ê±´ìˆ˜ì—ì„œ $max-countë¥¼ ëº€ ê²ƒ
     $count = $row['cnt'] - $max_count;
 
-    // ÇÕ°è´Â ÀüÃ¼°Ç¼ö¿¡ ´ëÇÑ °ÍÀÌ¹Ç·Î $max_count¿¡ ´ëÇÑ ÇÕ°è´Â º°µµ·Î »©¾ß ÇÕ´Ï´Ù.
-    // select sum(po_point) ... limit 1, 30ÀÇ ÀÇ¹Ì´Â 
-    // select µÈ °á°ú °ªÀÇ returnÀÌÁö select ÀÚÃ¼ÀÇ limit°¡ ¾Æ´Ï±â ¶§¹®ÀÌÁÒ(¾î·Æ³ª¿ä? ¤»¤»)
+    // í•©ê³„ëŠ” ì „ì²´ê±´ìˆ˜ì— ëŒ€í•œ ê²ƒì´ë¯€ë¡œ $max_countì— ëŒ€í•œ í•©ê³„ëŠ” ë³„ë„ë¡œ ë¹¼ì•¼ í•©ë‹ˆë‹¤.
+    // select sum(po_point) ... limit 1, 30ì˜ ì˜ë¯¸ëŠ” 
+    // select ëœ ê²°ê³¼ ê°’ì˜ returnì´ì§€ select ìì²´ì˜ limitê°€ ì•„ë‹ˆê¸° ë•Œë¬¸ì´ì£ (ì–´ë µë‚˜ìš”? ã…‹ã…‹)
     $total = $row['po_sum'];
     $sql2 = " select po_id, po_point
                 from $g4[point_table] 
@@ -78,9 +78,9 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
                limit $count";
     $result4 = sql_query($sql4);
     
-    insert_point($row[mb_id], $total, "{$clear_datetime} ½ÃÁ¡±îÁöÀÇ Æ÷ÀÎÆ® {$count}°Ç Á¤¸®", "@clear", $row[mb_id], $g4[time_ymd]."-".uniqid(""));
+    insert_point($row[mb_id], $total, "{$clear_datetime} ì‹œì ê¹Œì§€ì˜ í¬ì¸íŠ¸ {$count}ê±´ ì •ë¦¬", "@clear", $row[mb_id], $g4[time_ymd]."-".uniqid(""));
 
-    $str = $row[mb_id]."´Ô Æ÷ÀÎÆ® ³»¿ª ".number_format($count)."°Ç ".number_format($total)."Á¡ Á¤¸®<br>";
+    $str = $row[mb_id]."ë‹˜ í¬ì¸íŠ¸ ë‚´ì—­ ".number_format($count)."ê±´ ".number_format($total)."ì  ì •ë¦¬<br>";
     //echo "<script>document.getElementById('ct').innerHTML += '$str';</script>\n";
     //flush();
     echo $str;

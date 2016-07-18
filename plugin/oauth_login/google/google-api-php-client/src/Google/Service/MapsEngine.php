@@ -3065,7 +3065,7 @@ class Google_Service_MapsEngine_TablesFeatures_Resource extends Google_Service_R
    *
    * A single batchInsert request can create:
    *
-   * - Up to 50 features. - A combined total of 10 000 vertices. Feature limits
+   * - Up to 50 features. - A combined total of 10??00 vertices. Feature limits
    * are documented in the Supported data formats and limits article of the Google
    * Maps Engine help center. Note that free and paid accounts have different
    * limits.
@@ -3089,7 +3089,7 @@ class Google_Service_MapsEngine_TablesFeatures_Resource extends Google_Service_R
    *
    * A single batchPatch request can update:
    *
-   * - Up to 50 features. - A combined total of 10 000 vertices. Feature limits
+   * - Up to 50 features. - A combined total of 10??00 vertices. Feature limits
    * are documented in the Supported data formats and limits article of the Google
    * Maps Engine help center. Note that free and paid accounts have different
    * limits.

@@ -6,7 +6,7 @@ include_once("$g4[path]/head.sub.php");
 if (!$member[mb_id]) 
 {
     $href = './login.php?'.$qstr.'&amp;url='.urlencode('./board.php?bo_table='.$bo_table.'&amp;wr_id='.$wr_id);
-    echo "<script type=\'text/javascript\'> alert(\'È¸¿ø¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.\'); top.location.href = \''.str_replace('&amp;', '&', $href).'\'; </script>";
+    echo "<script type=\'text/javascript\'> alert(\'íšŒì›ë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.\'); top.location.href = \''.str_replace('&amp;', '&', $href).'\'; </script>";
     exit;
 }
 
@@ -19,7 +19,7 @@ if ($row[cnt])
 {
     echo "
     <script type='text/javascript'>
-    if (confirm('ÀÌ¹Ì ½ºÅ©·¦ÇÏ½Å ±Û ÀÔ´Ï´Ù.\\n\\nÁö±İ ½ºÅ©·¦À» È®ÀÎÇÏ½Ã°Ú½À´Ï±î?'))
+    if (confirm('ì´ë¯¸ ìŠ¤í¬ë©í•˜ì‹  ê¸€ ì…ë‹ˆë‹¤.\\n\\nì§€ê¸ˆ ìŠ¤í¬ë©ì„ í™•ì¸í•˜ì‹œê² ìŠµë‹ˆê¹Œ?'))
         document.location.href = './scrap.php';
     else
         window.close();
@@ -41,12 +41,12 @@ $stmt->bindParam(":wr_content", $wr_content);
 $stmt->bindParam(":wr_subject", $wr_subject);
 $result = pdo_query($stmt, false);
 
-// ºÒ´çÆÑ - ½ºÅ©·¦¼ö¿¡ µû¶ó¼­ º£½ºÆ®±Û µî·Ï
+// ë¶ˆë‹¹íŒ© - ìŠ¤í¬ë©ìˆ˜ì— ë”°ë¼ì„œ ë² ìŠ¤íŠ¸ê¸€ ë“±ë¡
 if ($board['bo_list_scrap'] > 0) {
     $sql = " select count(*) as cnt from $g4[scrap_table] where bo_table='$bo_table' and wr_id='$wr_id' ";
     $scrap_good = sql_fetch($sql);
     if ($scrap_good['cnt'] >= $board['bo_list_scrap']) {
-        // UPDATE¸¦ ¸ÕÀúÇÏ°í ¿À·ù°¡ ¹ß»ı½Ã insert¸¦ ½ÇÇà
+        // UPDATEë¥¼ ë¨¼ì €í•˜ê³  ì˜¤ë¥˜ê°€ ë°œìƒì‹œ insertë¥¼ ì‹¤í–‰
         $sql = " update $g4[good_list_table] set good = good + 1 where bo_table='$bo_table' and wr_id='$wr_id' ";
         $result = sql_query($sql, FALSE);
         if ( mysql_affected_rows() == 0 ) {
@@ -58,7 +58,7 @@ if ($board['bo_list_scrap'] > 0) {
 
 echo <<<HEREDOC
 <script type='text/javascript'>
-    if (confirm("ÀÌ ±ÛÀ» ½ºÅ©·¦ ÇÏ¿´½À´Ï´Ù.\\n\\nÁö±İ ½ºÅ©·¦À» È®ÀÎÇÏ½Ã°Ú½À´Ï±î?")) 
+    if (confirm("ì´ ê¸€ì„ ìŠ¤í¬ë© í•˜ì˜€ìŠµë‹ˆë‹¤.\\n\\nì§€ê¸ˆ ìŠ¤í¬ë©ì„ í™•ì¸í•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) 
         document.location.href = "./scrap.php";
     else
         window.close();

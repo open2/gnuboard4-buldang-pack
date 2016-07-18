@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 
 <div class="panel panel-default">
@@ -35,7 +35,7 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
             <? } ?>
         </ul>
 
-        <? if (count($list) == 0) { ?><ul><li><strong>°Ô½Ã¹°ÀÌ ¾ø½À´Ï´Ù.</strong></li></ul><? } ?>
+        <? if (count($list) == 0) { ?><ul><li><strong>ê²Œì‹œë¬¼ì´ ì—†ìŠµë‹ˆë‹¤.</strong></li></ul><? } ?>
             
     </div>
 </div>

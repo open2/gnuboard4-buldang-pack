@@ -4,12 +4,12 @@ include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "r");
 
-$g4[title] = "°Ô½ÃÆÇ ½ºÅ² ¸ñ·Ï";
+$g4[title] = "ê²Œì‹œíŒ ìŠ¤í‚¨ ëª©ë¡";
 include_once("./admin.head.php");
 
 $colspan=3;
 
-// °Ô½ÃÆÇ ½ºÅ²¸ñ·Ï
+// ê²Œì‹œíŒ ìŠ¤í‚¨ëª©ë¡
 $arr = get_skin_dir("board");
 ?>
 <table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
@@ -17,9 +17,9 @@ $arr = get_skin_dir("board");
 <colgroup width=50>
 <colgroup width=>
 <tr class='success'>
-    <td>skin ÀÌ¸§</td>
-    <td>°¹¼ö</td>
-    <td>skin Àû¿ë °Ô½ÃÆÇ</td>
+    <td>skin ì´ë¦„</td>
+    <td>ê°¯ìˆ˜</td>
+    <td>skin ì ìš© ê²Œì‹œíŒ</td>
 </tr>
 <?
 $i=1;

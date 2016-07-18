@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 ?>
 
 <? if ($is_admin) { ?>
@@ -15,11 +15,11 @@ function all_checked(sw) {  //ssh
 
 function select_new_batch(sw){////ssh06-04-12
     var f = document.fboardlist;
-    str = "»èÁ¦";
+    str = "ì‚­ì œ";
     f.sw.value = sw;
     //f.target = "hiddenframe";
 
-    if (!confirm("¼±ÅÃÇÑ °Ô½Ã¹°À» Á¤¸» "+str+" ÇÏ½Ã°Ú½À´Ï±î?\n\nÇÑ¹ø "+str+"ÇÑ ÀÚ·á´Â º¹±¸ÇÒ ¼ö ¾ø½À´Ï´Ù"))
+    if (!confirm("ì„ íƒí•œ ê²Œì‹œë¬¼ì„ ì •ë§ "+str+" í•˜ì‹œê² ìŠµë‹ˆê¹Œ?\n\ní•œë²ˆ "+str+"í•œ ìë£ŒëŠ” ë³µêµ¬í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤"))
         return;
 
     f.action = "<?=$g4[admin_path]?>/ssh_delete_spam.php";
@@ -28,13 +28,13 @@ function select_new_batch(sw){////ssh06-04-12
 </script>
 <? } ?>
 
-<!-- ºĞ·ù ½ÃÀÛ -->
+<!-- ë¶„ë¥˜ ì‹œì‘ -->
 <form name=fnew method=get role="form" class="form-inline" style="margin-bottom:5px;">
-<a class="btn btn-default" href="<?=$g4[bbs_path]?>/new.php">Ã³À½À¸·Î&nbsp;(<?=number_format($total_count)?>)</a>
+<a class="btn btn-default" href="<?=$g4[bbs_path]?>/new.php">ì²˜ìŒìœ¼ë¡œ&nbsp;(<?=number_format($total_count)?>)</a>
 <div class="pull-right">
     <?
-    // bbs/new.php¿¡¼­ ÇÏ´ø $group_select¸¦ new.skin.php·Î ÀÌµ¿. select¿¡ styleÀ» ³Ö±â À§ÇØ¼­.
-    $group_select = "<select class='form-control' name=gr_id id=gr_id onchange='select_change();'><option value=''>ÀüÃ¼±×·ì";
+    // bbs/new.phpì—ì„œ í•˜ë˜ $group_selectë¥¼ new.skin.phpë¡œ ì´ë™. selectì— styleì„ ë„£ê¸° ìœ„í•´ì„œ.
+    $group_select = "<select class='form-control' name=gr_id id=gr_id onchange='select_change();'><option value=''>ì „ì²´ê·¸ë£¹";
     for ($i=0; $i < count($group_select_list); $i++) {
         $row = $group_select_list[$i];
         $group_select .= "<option value='$row[gr_id]'>$row[gr_subject]";
@@ -43,16 +43,16 @@ function select_new_batch(sw){////ssh06-04-12
     ?>
     <?=$group_select?>
     <select class="form-control" id=view_type name=view_type onchange="select_change()">
-        <option value=''>¿ø±Û¸¸
-        <option value='c'>ÄÚ¸àÆ®¸¸
-        <option value='a'>ÀüÃ¼°Ô½Ã¹°
+        <option value=''>ì›ê¸€ë§Œ
+        <option value='c'>ì½”ë©˜íŠ¸ë§Œ
+        <option value='a'>ì „ì²´ê²Œì‹œë¬¼
     </select>
 
     <? if ($member[mb_id]) { ?>
     <div class="form-group">
-        <input class="form-control" type="text" id="mb_id" name="mb_id" value="<?=$mb_id?>" placeholder="È¸¿ø ¾ÆÀÌµğ">
+        <input class="form-control" type="text" id="mb_id" name="mb_id" value="<?=$mb_id?>" placeholder="íšŒì› ì•„ì´ë””">
     </div>
-    <input class="btn btn-default" type=submit value='°Ë»ö'>
+    <input class="btn btn-default" type=submit value='ê²€ìƒ‰'>
     <? } ?>
 </div>
 
@@ -68,7 +68,7 @@ document.getElementById("gr_id").value = "<?=$gr_id?>";
 document.getElementById("view_type").value = "<?=$view_type?>";
 </script>
 </form>
-<!-- ºĞ·ù ³¡ -->
+<!-- ë¶„ë¥˜ ë -->
 
 <form name="fboardlist" method="post" role="form" class="form-inline"">
 <input type="hidden" name="sw"   value="">	
@@ -78,20 +78,20 @@ document.getElementById("view_type").value = "<?=$view_type?>";
 <input type="hidden" name="page"   value="<?=$page?>">
 <input type="hidden" name="view_type"   value="<?=$view_type?>">
 
-<!-- Á¦¸ñ ½ÃÀÛ -->
+<!-- ì œëª© ì‹œì‘ -->
 <table width="100%" class="table table-hover table-condensed">
 <tr class="success" align=center> 
-    <td class="col-sm-1 hidden-xs">±×·ì</td>
-    <td class="col-sm-2 hidden-xs">°Ô½ÃÆÇ</td>
+    <td class="col-sm-1 hidden-xs">ê·¸ë£¹</td>
+    <td class="col-sm-2 hidden-xs">ê²Œì‹œíŒ</td>
     <td align=left>
         <?  if ($is_admin == "super") { ?>
             <INPUT onclick="if (this.checked) all_checked(true); else all_checked(false);" type=checkbox>&nbsp;&nbsp;
         <? } ?>
-        Á¦¸ñ
+        ì œëª©
     </td>
-    <td class="col-sm-1 hidden-xs">±Û¾´ÀÌ</td>
-    <td class="col-sm-1 hidden-xs">³¯Â¥</td>
-    <td class="col-sm-1 hidden-xs">Á¶È¸</td>
+    <td class="col-sm-1 hidden-xs">ê¸€ì“´ì´</td>
+    <td class="col-sm-1 hidden-xs">ë‚ ì§œ</td>
+    <td class="col-sm-1 hidden-xs">ì¡°íšŒ</td>
 </tr>
 
 <?
@@ -114,7 +114,7 @@ for ($i=0; $i<count($list); $i++)
       echo "&nbsp;";
     }
 
-    // ÄÚ¸àÆ® °¹¼ö¸¦ Ãâ·Â
+    // ì½”ë©˜íŠ¸ ê°¯ìˆ˜ë¥¼ ì¶œë ¥
     $comment_cnt = "";
     if (!$list[$i][comment] && $list[$i][wr_comment] > 0)
         $comment_cnt = " <span style='font-family:Tahoma;font-size:10px;color:#EE5A00;'>({$list[$i][wr_comment]})</span>";
@@ -127,10 +127,10 @@ for ($i=0; $i<count($list); $i++)
     <td class="hidden-xs"><?=$list[$i][datetime2]?></td>
     <td class="hidden-xs"><?=$list[$i][wr_hit]?></td>
     <!-- 
-    xs »çÀÌÁî¿¡¼­ 40±ÛÀÚ ÀÌ»óÀÌ¸é table width¸¦ ³Ñ¾î¼­ ¼öÆò ½ºÅ©·ÑÀÌ »ı±é´Ï´Ù 
-    ±×·¡¼­, µû·Î Ãâ·ÂÇÏ´Â row¸¦ ¸¸µé¾î Áá½À´Ï´Ù.
-    xs »çÀÌÁî¿¡¼­´Â ¾Æ·¡Ã³·³ 1°³ÀÇ td¸¸ Ãâ·Â µË´Ï´Ù. ´Ù¸¥ °ÍÀº ¸ğµÎ hidden.
-    ´õ ÁÁÀº ¹æ¹ı¿¡ ´ëÇÑ Á¦¾ÈÀº ¾ğÁ¦µç È¯¿µ ÇÕ´Ï´Ù.
+    xs ì‚¬ì´ì¦ˆì—ì„œ 40ê¸€ì ì´ìƒì´ë©´ table widthë¥¼ ë„˜ì–´ì„œ ìˆ˜í‰ ìŠ¤í¬ë¡¤ì´ ìƒê¹ë‹ˆë‹¤ 
+    ê·¸ë˜ì„œ, ë”°ë¡œ ì¶œë ¥í•˜ëŠ” rowë¥¼ ë§Œë“¤ì–´ ì¤¬ìŠµë‹ˆë‹¤.
+    xs ì‚¬ì´ì¦ˆì—ì„œëŠ” ì•„ë˜ì²˜ëŸ¼ 1ê°œì˜ tdë§Œ ì¶œë ¥ ë©ë‹ˆë‹¤. ë‹¤ë¥¸ ê²ƒì€ ëª¨ë‘ hidden.
+    ë” ì¢‹ì€ ë°©ë²•ì— ëŒ€í•œ ì œì•ˆì€ ì–¸ì œë“  í™˜ì˜ í•©ë‹ˆë‹¤.
     -->
     <td class="visible-xs" align=left style='word-break:break-all;'>
         <div>
@@ -151,42 +151,42 @@ for ($i=0; $i<count($list); $i++)
 <? } ?>
 
 <? if ($i == 0) { ?>
-<tr><td colspan="5" height=50 align=center>°Ô½Ã¹°ÀÌ ¾ø½À´Ï´Ù.</td></tr>
+<tr><td colspan="5" height=50 align=center>ê²Œì‹œë¬¼ì´ ì—†ìŠµë‹ˆë‹¤.</td></tr>
 <? } ?>
 </table>
 
 <? if ($is_admin == "super") { ?>
-    <a class="btn btn-default pull-right" href="javascript:select_new_batch('d');">¼±ÅÃ»èÁ¦</a>
+    <a class="btn btn-default pull-right" href="javascript:select_new_batch('d');">ì„ íƒì‚­ì œ</a>
 <? } ?>
 
 </form>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
-    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ÀÌÀü°Ë»ö</a></li>"; } ?>
+    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ì´ì „ê²€ìƒ‰</a></li>"; } ?>
     <?
-    // ±âº»À¸·Î ³Ñ¾î¿À´Â ÆäÀÌÁö¸¦ ¾Æ·¡¿Í °°ÀÌ º¯È¯ÇÏ¿© ´Ù¾çÇÏ°Ô Ãâ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.
-    $write_pages = str_replace("ÀÌÀü", "<i class='fa fa-angle-left'></i>", $write_pages);
-    $write_pages = str_replace("´ÙÀ½", "<i class='fa fa-angle-right'></i>", $write_pages);
-    $write_pages = str_replace("Ã³À½", "<i class='fa fa-angle-double-left'></i>", $write_pages);
-    $write_pages = str_replace("¸Ç³¡", "<i class='fa fa-angle-double-right'></i>", $write_pages);
+    // ê¸°ë³¸ìœ¼ë¡œ ë„˜ì–´ì˜¤ëŠ” í˜ì´ì§€ë¥¼ ì•„ë˜ì™€ ê°™ì´ ë³€í™˜í•˜ì—¬ ë‹¤ì–‘í•˜ê²Œ ì¶œë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+    $write_pages = str_replace("ì´ì „", "<i class='fa fa-angle-left'></i>", $write_pages);
+    $write_pages = str_replace("ë‹¤ìŒ", "<i class='fa fa-angle-right'></i>", $write_pages);
+    $write_pages = str_replace("ì²˜ìŒ", "<i class='fa fa-angle-double-left'></i>", $write_pages);
+    $write_pages = str_replace("ë§¨ë", "<i class='fa fa-angle-double-right'></i>", $write_pages);
     ?>
     <?=$write_pages?>
-    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ÀÌÈÄ°Ë»ö</a></li>"; } ?>
+    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ì´í›„ê²€ìƒ‰</a></li>"; } ?>
     </ul>
 </div>
 <div class="center-block visible-xs">
     <ul class="pagination">
-    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ÀÌÀü°Ë»ö</a></li>"; } ?>
+    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ì´ì „ê²€ìƒ‰</a></li>"; } ?>
     <?
-    // ±âº»À¸·Î ³Ñ¾î¿À´Â ÆäÀÌÁö¸¦ ¾Æ·¡¿Í °°ÀÌ º¯È¯ÇÏ¿© ´Ù¾çÇÏ°Ô Ãâ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.
-    $write_pages_xs = str_replace("ÀÌÀü", "<i class='fa fa-angle-left'></i>", $write_pages_xs);
-    $write_pages_xs = str_replace("´ÙÀ½", "<i class='fa fa-angle-right'></i>", $write_pages_xs);
-    $write_pages_xs = str_replace("Ã³À½", "<i class='fa fa-angle-double-left'></i>", $write_pages_xs);
-    $write_pages_xs = str_replace("¸Ç³¡", "<i class='fa fa-angle-double-right'></i>", $write_pages_xs);
+    // ê¸°ë³¸ìœ¼ë¡œ ë„˜ì–´ì˜¤ëŠ” í˜ì´ì§€ë¥¼ ì•„ë˜ì™€ ê°™ì´ ë³€í™˜í•˜ì—¬ ë‹¤ì–‘í•˜ê²Œ ì¶œë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+    $write_pages_xs = str_replace("ì´ì „", "<i class='fa fa-angle-left'></i>", $write_pages_xs);
+    $write_pages_xs = str_replace("ë‹¤ìŒ", "<i class='fa fa-angle-right'></i>", $write_pages_xs);
+    $write_pages_xs = str_replace("ì²˜ìŒ", "<i class='fa fa-angle-double-left'></i>", $write_pages_xs);
+    $write_pages_xs = str_replace("ë§¨ë", "<i class='fa fa-angle-double-right'></i>", $write_pages_xs);
     ?>
     <?=$write_pages_xs?>
-    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ÀÌÈÄ°Ë»ö</a></li>"; } ?>
+    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ì´í›„ê²€ìƒ‰</a></li>"; } ?>
     </ul>
 </div>

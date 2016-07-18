@@ -1,9 +1,9 @@
 <?
 if (!defined('_GNUBOARD_')) exit;
-// ¾ÆÀÌÄÚµå¿¡¼­ Á¦°øÇÏ´Â ÇÔ¼ö
+// ì•„ì´ì½”ë“œì—ì„œ ì œê³µí•˜ëŠ” í•¨ìˆ˜
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-// ÀÌ ºÎºĞÀº °Çµå¸± ÇÊ¿ä°¡ ¾ø½À´Ï´Ù.
+// ì´ ë¶€ë¶„ì€ ê±´ë“œë¦´ í•„ìš”ê°€ ì—†ìŠµë‹ˆë‹¤.
 
 function spacing($text,$size) {
 	for ($i=0; $i<$size; $i++) $text.=" ";
@@ -13,9 +13,9 @@ function spacing($text,$size) {
 
 function cut_char($word, $cut) {
 //	$word=trim(stripslashes($word));
-	$word=substr($word,0,$cut);						// ÇÊ¿äÇÑ ±æÀÌ¸¸Å­ ÃëÇÔ.
+	$word=substr($word,0,$cut);						// í•„ìš”í•œ ê¸¸ì´ë§Œí¼ ì·¨í•¨.
 	for ($k=$cut-1; $k>1; $k--) {
-		if (ord(substr($word,$k,1))<128) break;		// ÇÑ±Û°ªÀº 160 ÀÌ»ó.
+		if (ord(substr($word,$k,1))<128) break;		// í•œê¸€ê°’ì€ 160 ì´ìƒ.
 	}
 	$word=substr($word,0,$cut-($cut-$k+1)%2);
 	return $word;
@@ -23,13 +23,13 @@ function cut_char($word, $cut) {
 
 function CheckCommonType($dest, $rsvTime) {
 	$dest=preg_replace("/[^0-9]/i","",$dest);
-	if (strlen($dest)<10 || strlen($dest)>11) return "ÈŞ´ëÆù ¹øÈ£°¡ Æ²·È½À´Ï´Ù";
+	if (strlen($dest)<10 || strlen($dest)>11) return "íœ´ëŒ€í° ë²ˆí˜¸ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤";
 	$CID=substr($dest,0,3);
-	if ( preg_match("/[^0-9]/i",$CID) || ($CID!='010' && $CID!='011' && $CID!='016' && $CID!='017' && $CID!='018' && $CID!='019') ) return "ÈŞ´ëÆù ¾ÕÀÚ¸® ¹øÈ£°¡ Àß¸øµÇ¾ú½À´Ï´Ù";
+	if ( preg_match("/[^0-9]/i",$CID) || ($CID!='010' && $CID!='011' && $CID!='016' && $CID!='017' && $CID!='018' && $CID!='019') ) return "íœ´ëŒ€í° ì•ìë¦¬ ë²ˆí˜¸ê°€ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤";
 	$rsvTime=preg_replace("/[^0-9]/i","",$rsvTime);
 	if ($rsvTime) {
-		if (!checkdate(substr($rsvTime,4,2),substr($rsvTime,6,2),substr($rsvTime,0,4))) return "¿¹¾à³¯Â¥°¡ Àß¸øµÇ¾ú½À´Ï´Ù";
-		if (substr($rsvTime,8,2)>23 || substr($rsvTime,10,2)>59) return "¿¹¾à½Ã°£ÀÌ Àß¸øµÇ¾ú½À´Ï´Ù";
+		if (!checkdate(substr($rsvTime,4,2),substr($rsvTime,6,2),substr($rsvTime,0,4))) return "ì˜ˆì•½ë‚ ì§œê°€ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤";
+		if (substr($rsvTime,8,2)>23 || substr($rsvTime,10,2)>59) return "ì˜ˆì•½ì‹œê°„ì´ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤";
 	}
 }
 
@@ -43,8 +43,8 @@ class SMS {
 	var $Result = array();
 
 	function SMS_con($sms_server,$sms_id,$sms_pw,$port) {
-		$this->ID=$sms_id;		// °è¾à ÈÄ ÁöÁ¤
-		$this->PWD=$sms_pw;		// °è¾à ÈÄ ÁöÁ¤
+		$this->ID=$sms_id;		// ê³„ì•½ í›„ ì§€ì •
+		$this->PWD=$sms_pw;		// ê³„ì•½ í›„ ì§€ì •
 		$this->SMS_Server=$sms_server;
 		$this->SMS_Port=$port;
 		$this->ID = spacing($this->ID,10);
@@ -57,13 +57,13 @@ class SMS {
 	}
 
 	function Add($dest, $callBack, $Caller, $msg, $rsvTime="") {
-		// ³»¿ë °Ë»ç 1
+		// ë‚´ìš© ê²€ì‚¬ 1
 		$Error = CheckCommonType($dest, $rsvTime);
 		if ($Error) return $Error;
-		// ³»¿ë °Ë»ç 2
-		if ( preg_match("/[^0-9]/i",$callBack) ) return "È¸½Å ÀüÈ­¹øÈ£°¡ Àß¸øµÇ¾ú½À´Ï´Ù";
-		$msg=cut_char($msg,80); // 80ÀÚ Á¦ÇÑ
-		// º¸³¾ ³»¿ëÀ» ¹è¿­¿¡ Áı¾î³Ö±â
+		// ë‚´ìš© ê²€ì‚¬ 2
+		if ( preg_match("/[^0-9]/i",$callBack) ) return "íšŒì‹  ì „í™”ë²ˆí˜¸ê°€ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤";
+		$msg=cut_char($msg,80); // 80ì ì œí•œ
+		// ë³´ë‚¼ ë‚´ìš©ì„ ë°°ì—´ì— ì§‘ì–´ë„£ê¸°
 		$dest = spacing($dest,11);
 		$callBack = spacing($callBack,11);
 		$Caller = spacing($Caller,10);
@@ -75,36 +75,36 @@ class SMS {
 	}
 
 	function AddURL($dest, $callBack, $URL, $msg, $rsvTime="") {
-		// ³»¿ë °Ë»ç 1
+		// ë‚´ìš© ê²€ì‚¬ 1
 		$Error = CheckCommonType($dest, $rsvTime);
 		if ($Error) return $Error;
-		// ³»¿ë °Ë»ç 2
+		// ë‚´ìš© ê²€ì‚¬ 2
 		//$URL=str_replace("http://","",$URL);
-		if (strlen($URL)>50) return "URLÀÌ 50ÀÚ°¡ ³Ñ¾ú½À´Ï´Ù";
+		if (strlen($URL)>50) return "URLì´ 50ìê°€ ë„˜ì—ˆìŠµë‹ˆë‹¤";
 		switch (substr($dest,0,3)) {
-			case '010': //20¹ÙÀÌÆ®
+			case '010': //20ë°”ì´íŠ¸
                 $msg=cut_char($msg,20);
 				break;
-			case '011': //80¹ÙÀÌÆ®
+			case '011': //80ë°”ì´íŠ¸
                 $msg=cut_char($msg,80);
 				break;
-			case '016': // 80¹ÙÀÌÆ®
+			case '016': // 80ë°”ì´íŠ¸
 				$msg=cut_char($msg,80);
 				break;
-			case '017': // URL Æ÷ÇÔ 80¹ÙÀÌÆ®
+			case '017': // URL í¬í•¨ 80ë°”ì´íŠ¸
 				$msg=cut_char($msg,80-strlen($URL));
 				break;
-			case '018': // 20¹ÙÀÌÆ®
+			case '018': // 20ë°”ì´íŠ¸
 				$msg=cut_char($msg,20);
 				break;
-			case '019': // 20¹ÙÀÌÆ®
+			case '019': // 20ë°”ì´íŠ¸
 				$msg=cut_char($msg,20);
 				break;
 			default:
-				return "¾ÆÁ÷ URL CallBackÀÌ Áö¿øµÇÁö ¾Ê´Â ¹øÈ£ÀÔ´Ï´Ù";
+				return "ì•„ì§ URL CallBackì´ ì§€ì›ë˜ì§€ ì•ŠëŠ” ë²ˆí˜¸ì…ë‹ˆë‹¤";
 				break;
 		}
-		// º¸³¾ ³»¿ëÀ» ¹è¿­¿¡ Áı¾î³Ö±â
+		// ë³´ë‚¼ ë‚´ìš©ì„ ë°°ì—´ì— ì§‘ì–´ë„£ê¸°
 		$dest = spacing($dest,11);
 		$URL = spacing($URL,50);
 		$callBack = spacing($callBack,11);
@@ -119,9 +119,9 @@ class SMS {
 		if (!$fp) return false;
 		set_time_limit(300);
 
-		## php4.3.10ÀÏ°æ¿ì
-        ## zend ÃÖ½Å¹öÀüÀ¸·Î ¾÷ÇØÁÖ¼¼¿ä..
-        ## ¶Ç´Â 122¹øÂ° ÁÙÀ» $this->Data as $tmp => $puts ·Î º¯°æÇØ ÁÖ¼¼¿ä.
+		## php4.3.10ì¼ê²½ìš°
+        ## zend ìµœì‹ ë²„ì „ìœ¼ë¡œ ì—…í•´ì£¼ì„¸ìš”..
+        ## ë˜ëŠ” 122ë²ˆì§¸ ì¤„ì„ $this->Data as $tmp => $puts ë¡œ ë³€ê²½í•´ ì£¼ì„¸ìš”.
 
 		foreach($this->Data as $puts) {
 			$dest = substr($puts,26,11);

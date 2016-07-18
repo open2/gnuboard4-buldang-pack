@@ -10,11 +10,11 @@ deny from all
 <IfModule mod_rewrite.c>
 RewriteEngine On
 
-# ¿¡±×´ç´ÔÀÇ °æ·ÎÁÙÀÌ±â ¼öÁ¤»çÇ× - http://sir.co.kr/bbs/board.php?bo_table=cm_free&wr_id=357156
+# ì—ê·¸ë‹¹ë‹˜ì˜ ê²½ë¡œì¤„ì´ê¸° ìˆ˜ì •ì‚¬í•­ - http://sir.co.kr/bbs/board.php?bo_table=cm_free&wr_id=357156
 RewriteCond %{REQUEST_URI}    !^/adm/?$ 
 RewriteCond %{REQUEST_URI}    !^/login/?$ 
 
-# °ö½½ÃÖ¾¾´ÔÀÇ °æ·ÎÁÙÀÌ±â - http://sir.co.kr/bbs/board.php?bo_table=g4_tiptech&wr_id=20648
+# ê³±ìŠ¬ìµœì”¨ë‹˜ì˜ ê²½ë¡œì¤„ì´ê¸° - http://sir.co.kr/bbs/board.php?bo_table=g4_tiptech&wr_id=20648
 RewriteRule ^([a-zA-Z0-9_]+)$                   ./bbs_shorten.php?bo_table=$1
 RewriteRule ^([a-zA-Z0-9_]+)/([0-9]+)$          ./bbs_shorten.php?bo_table=$1&wr_id=$2
 RewriteRule ^([a-zA-Z0-9_]+)/([0-9]+)/([0-9]+)$ ./bbs_shorten.php?bo_table=$1&wr_id=$2&c=$3

@@ -33,13 +33,13 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if (!$page) $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if (!$page) $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
-$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>ì²˜ìŒ</a>";
 
-$g4[title] = "ÀÓ½ÃÀúÀå±Û¸ñ·Ïº¸±â";
+$g4[title] = "ì„ì‹œì €ì¥ê¸€ëª©ë¡ë³´ê¸°";
 include_once("./admin.head.php");
 
 $sql = " select * 
@@ -56,17 +56,17 @@ var list_delete_php = "tempsave_list_delete.php";
 
 <form name=fsearch method=get role="form" class="form-inline">
 <div class="btn-group">
-    <?=$listall?> (ÀÓ½ÃÀúÀå±Û°¹¼ö : <?=number_format($total_count)?>)
+    <?=$listall?> (ì„ì‹œì €ì¥ê¸€ê°¯ìˆ˜ : <?=number_format($total_count)?>)
 </div>
 <div class="pull-right">
     <select name=sfl class="form-control">
-            <option value='mb_id'>È¸¿ø¾ÆÀÌµğ</option>
-            <option value='ip_addr'>Á¢¼ÓÇÑ IP</option>
-            <option value='bo_table'>°Ô½ÃÆÇ</option>
+            <option value='mb_id'>íšŒì›ì•„ì´ë””</option>
+            <option value='ip_addr'>ì ‘ì†í•œ IP</option>
+            <option value='bo_table'>ê²Œì‹œíŒ</option>
     </select>
-    <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<?=$stx?>'>
+    <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<?=$stx?>'>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 </form>
@@ -81,11 +81,11 @@ var list_delete_php = "tempsave_list_delete.php";
 <table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <tr class='success'>
     <td width=30><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
-    <td width=110><?=subject_sort_link('mb_id')?>È¸¿ø¾ÆÀÌµğ</a></td>
-    <td width=110>tempsave ÀÏ½Ã</td>
+    <td width=110><?=subject_sort_link('mb_id')?>íšŒì›ì•„ì´ë””</a></td>
+    <td width=110>tempsave ì¼ì‹œ</td>
     <td width=100><?=subject_sort_link('ip_addr')?>IP</a></td>
-	  <td width=60>IPÂ÷´Ü</td>
-    <td align='left'>Á¦¸ñ</td>
+	  <td width=60>IPì°¨ë‹¨</td>
+    <td align='left'>ì œëª©</td>
 </tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) {
@@ -93,7 +93,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         $mb = sql_fetch(" select mb_id, mb_nick, mb_email, mb_homepage, mb_intercept_date from $g4[member_table] where mb_id = '$row[mb_id]' ");
         $mb_nick = get_sideview($mb[mb_id], get_text($mb[mb_nick]), $mb[mb_email], $mb[mb_homepage]);
     } else 
-        $mb_nick = "<span style='color:#222222;'>ºñÈ¸¿ø</a>";
+        $mb_nick = "<span style='color:#222222;'>ë¹„íšŒì›</a>";
 
     $log_ip = $row['ip_addr'];
     $ip_intercept = preg_match("/[\n]?$log_ip/", $config['cf_intercept_ip']);
@@ -111,7 +111,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         <td>" . get_datetime($row[wr_datetime]) . "</td>
         <td><a href='?sfl=ip_addr&stx=" . $log_ip . "'>$log_ip</a> $log_ip_intercept</td>
         <td>
-        <a href=\"javascript:singo_intercept('$row[mb_id]', '$log_ip');\"><span style='color:#222222;'>Â÷´Ü</span></a>
+        <a href=\"javascript:singo_intercept('$row[mb_id]', '$log_ip');\"><span style='color:#222222;'>ì°¨ë‹¨</span></a>
         <td>$subject</td>
         </td>
     </tr>
@@ -119,12 +119,12 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='6' align=center height=100>³»¿ªÀÌ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='6' align=center height=100>ë‚´ì—­ì´ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
@@ -133,7 +133,7 @@ echo "</table>";
 
 <div class="btn-group">
     <? if ($is_admin == "super") { ?>
-        <input type=button class='btn btn-default' value='¼±ÅÃ»èÁ¦' onclick="btn_check(this.form, 'delete')">
+        <input type=button class='btn btn-default' value='ì„ íƒì‚­ì œ' onclick="btn_check(this.form, 'delete')">
     <? } ?>
 </div>
 
@@ -143,7 +143,7 @@ if ($stx)
 ?>
 </form>
 
-<div class="well" style="margin-top:20px;">* IP¸¦ Â÷´ÜÇÏ´Â °æ¿ì ±âº»È¯°æ¼³Á¤ÀÇ Á¢±ÙÂ÷´ÜIP¿¡ µî·ÏµË´Ï´Ù.</div>
+<div class="well" style="margin-top:20px;">* IPë¥¼ ì°¨ë‹¨í•˜ëŠ” ê²½ìš° ê¸°ë³¸í™˜ê²½ì„¤ì •ì˜ ì ‘ê·¼ì°¨ë‹¨IPì— ë“±ë¡ë©ë‹ˆë‹¤.</div>
 
 <form name="fsingo" method="post" action="" style="margin:0px;">
 <input type="hidden" name="mb_id">
@@ -155,8 +155,8 @@ if ($stx)
 function singo_intercept(mb_id, ip) 
 {
     var f = document.fsingo;
-    if (confirm(ip+" : IP¸¦ Á¤¸» Â÷´Ü ÇÏ½Ã°Ú½À´Ï±î?")) {
-        f.mb_id.value = ''; // ·Î±×ÀÎ ¿À·ùÀÇ °æ¿ì È¸¿øÁ¤º¸´Â Â÷´ÜÇÏÁö ¾Ê½À´Ï´Ù.
+    if (confirm(ip+" : IPë¥¼ ì •ë§ ì°¨ë‹¨ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
+        f.mb_id.value = ''; // ë¡œê·¸ì¸ ì˜¤ë¥˜ì˜ ê²½ìš° íšŒì›ì •ë³´ëŠ” ì°¨ë‹¨í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
         f.ip.value = ip;
         f.action = "singo_intercept.php";
         f.submit();

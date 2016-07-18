@@ -1,11 +1,11 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
 for ($i=0; $i<count($list); $i++) {
 
-    // cookie Á¤º¸¸¦ ÀÐ¾î¼­, doneÀÎ °æ¿ì¿¡´Â Ãâ·ÂÀ» ÇÏÁö ¾Ê°í Åë°úÇÕ´Ï´Ù. ºÒÇÊ¿äÇÑ Ã¢À» ¿©´Â °ÍÀº ³¶ºñÀÔ´Ï´Ù.
+    // cookie ì •ë³´ë¥¼ ì½ì–´ì„œ, doneì¸ ê²½ìš°ì—ëŠ” ì¶œë ¥ì„ í•˜ì§€ ì•Šê³  í†µê³¼í•©ë‹ˆë‹¤. ë¶ˆí•„ìš”í•œ ì°½ì„ ì—¬ëŠ” ê²ƒì€ ë‚­ë¹„ìž…ë‹ˆë‹¤.
     if (!$cate) 
-        $cate = "popup9125_"; // $cate°¡ ¾ø´Â °æ¿ì html ÆäÀÌÁöÀÇ ÀÌ¸§°ú °ãÄ¡´Â °æ¿ì°¡ ¹ß»ýÇØ¼­ ÀÓÀÇ·Î °ªÀ» ³Ö¾îÁÝ´Ï´Ù.
+        $cate = "popup9125_"; // $cateê°€ ì—†ëŠ” ê²½ìš° html íŽ˜ì´ì§€ì˜ ì´ë¦„ê³¼ ê²¹ì¹˜ëŠ” ê²½ìš°ê°€ ë°œìƒí•´ì„œ ìž„ì˜ë¡œ ê°’ì„ ë„£ì–´ì¤ë‹ˆë‹¤.
     $popup_id = $cate . $list[$i]['wr_id'];
     $cookie_name = "divpop_" . $popup_id;
     $chkbox_id = "chkbox_" . $popup_id;
@@ -17,7 +17,7 @@ for ($i=0; $i<count($list); $i++) {
 
     <div class="container" id="divpop_<?=$popup_id?>">
     <div class="alert alert-success inline" id="<?=$writeContents_id?>">
-        <!-- a link°¡ À§¿¡ ÀÖ¾î¾ß »ó´ÜºÎ¿¡ x°¡ ³ª¿É´Ï´Ù -->
+        <!-- a linkê°€ ìœ„ì— ìžˆì–´ì•¼ ìƒë‹¨ë¶€ì— xê°€ ë‚˜ì˜µë‹ˆë‹¤ -->
         <a id="checkbox_<?=$popup_id?>" class="close" data-dismiss="alert" href="#" aria-hidden="true" onclick="hideMe_x('<?=$popup_id?>', 7);"><i class="fa fa-times"></i></a>
         <p>
         <?

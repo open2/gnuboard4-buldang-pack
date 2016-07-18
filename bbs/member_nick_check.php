@@ -1,15 +1,15 @@
 <?
 include_once("./_common.php");
 
-$g4[title] = "º°¸í Áßº¹È®ÀÎ";
+$g4[title] = "ë³„ëª… ì¤‘ë³µí™•ì¸";
 include_once("$g4[path]/head.sub.php");
 
 $mb_nick = trim($mb_nick);
 
-// º°¸íÀº ÇÑ±Û, ¿µ¹®, ¼ıÀÚ¸¸ °¡´É
+// ë³„ëª…ì€ í•œê¸€, ì˜ë¬¸, ìˆ«ìë§Œ ê°€ëŠ¥
 if (!check_string($mb_nick, _G4_HANGUL_ + _G4_ALPHABETIC_ + _G4_NUMERIC_)) {
     echo "<script language='JavaScript'>";
-    echo "alert(\"º°¸íÀº °ø¹é¾øÀÌ ÇÑ±Û, ¿µ¹®, ¼ıÀÚ¸¸ ÀÔ·Â °¡´ÉÇÕ´Ï´Ù.\");";
+    echo "alert(\"ë³„ëª…ì€ ê³µë°±ì—†ì´ í•œê¸€, ì˜ë¬¸, ìˆ«ìë§Œ ì…ë ¥ ê°€ëŠ¥í•©ë‹ˆë‹¤.\");";
     echo "parent.document.getElementById('mb_nick_enabled').value = '';";
     echo "window.close();";
     echo "</script>";
@@ -20,20 +20,20 @@ if (!check_string($mb_nick, _G4_HANGUL_ + _G4_ALPHABETIC_ + _G4_NUMERIC_)) {
 $mb = sql_fetch(" select mb_nick from $g4[mb_nick_table] where mb_nick = '$mb_nick' and mb_id = '$member[mb_id]' ");
 if ($mb[mb_nick]) {
     echo "<script language='JavaScript'>";
-    echo "alert(\"'{$mb_nick}'Àº(´Â) ÀÌ¹Ì ´Ù¸¥ºĞ²²¼­ »ç¿ëÇÏ°í ÀÖ´Â º°¸íÀÌ¹Ç·Î »ç¿ëÇÏ½Ç ¼ö ¾ø½À´Ï´Ù.\");";
+    echo "alert(\"'{$mb_nick}'ì€(ëŠ”) ì´ë¯¸ ë‹¤ë¥¸ë¶„ê»˜ì„œ ì‚¬ìš©í•˜ê³  ìˆëŠ” ë³„ëª…ì´ë¯€ë¡œ ì‚¬ìš©í•˜ì‹¤ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\");";
     echo "parent.document.getElementById('mb_nick_enabled').value = -1;";
     echo "window.close();";
     echo "</script>";
 } else {
     if (preg_match("/[\,]?{$mb_nick}/i", $config[cf_prohibit_id])) {
         echo "<script language='JavaScript'>";
-        echo "alert(\"'{$mb_nick}'Àº(´Â) ¿¹¾à¾î·Î »ç¿ëÇÏ½Ç ¼ö ¾ø´Â º°¸íÀÔ´Ï´Ù.\");";
+        echo "alert(\"'{$mb_nick}'ì€(ëŠ”) ì˜ˆì•½ì–´ë¡œ ì‚¬ìš©í•˜ì‹¤ ìˆ˜ ì—†ëŠ” ë³„ëª…ì…ë‹ˆë‹¤.\");";
         echo "parent.document.getElementById('mb_nick_enabled').value = -2;";
         echo "window.close();";
         echo "</script>";
     } else {
         echo "<script language='JavaScript'>";
-        echo "alert(\"'{$mb_nick}'Àº(´Â) º°¸íÀ¸·Î »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.\");";
+        echo "alert(\"'{$mb_nick}'ì€(ëŠ”) ë³„ëª…ìœ¼ë¡œ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.\");";
         echo "parent.document.getElementById('mb_nick_enabled').value = 1;";
         echo "window.close();";
         echo "</script>";

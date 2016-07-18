@@ -4,7 +4,7 @@ include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "r");
 
-$g4[title] = "µµ¸ŞÀÎº° Á¢¼ÓÀÚÇöÈ²";
+$g4[title] = "ë„ë©”ì¸ë³„ ì ‘ì†ìí˜„í™©";
 include_once("./admin.head.php");
 include_once("./visit.sub.php");
 ?>
@@ -16,11 +16,11 @@ include_once("./visit.sub.php");
 <colgroup width=100>
 <colgroup width=''>
 <tr class="success">
-    <td>¼øÀ§</td>
-    <td>Á¢¼Ó µµ¸ŞÀÎ</td>
-    <td>¹æ¹®ÀÚ¼ö</td>
-    <td>ºñÀ²(%)</td>
-    <td>±×·¡ÇÁ</td>
+    <td>ìˆœìœ„</td>
+    <td>ì ‘ì† ë„ë©”ì¸</td>
+    <td>ë°©ë¬¸ììˆ˜</td>
+    <td>ë¹„ìœ¨(%)</td>
+    <td>ê·¸ë˜í”„</td>
 </tr> 
 <?
 $max = 0;
@@ -58,9 +58,9 @@ if (count($arr)) {
 
         if (!$key) {
             $link = "";
-            $key = "Á÷Á¢"; 
+            $key = "ì§ì ‘"; 
         } else {
-            $link = "<a href='./visit_list.php?$qstr&domain=$key' title='»ó¼¼º¸±â'>";
+            $link = "<a href='./visit_list.php?$qstr&domain=$key' title='ìƒì„¸ë³´ê¸°'>";
         }
 
         $rate = ($count / $sum_count * 100);
@@ -82,12 +82,12 @@ if (count($arr)) {
 
     echo "
     <tr class='bgcol2 bold col1 ht center'>
-        <td colspan=2>ÇÕ°è</td>
+        <td colspan=2>í•©ê³„</td>
         <td>$sum_count</td>
         <td colspan=2>&nbsp;</td>
     </tr>";
 } else {
-    echo "<tr><td colspan='5' height=100 align=center>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='5' height=100 align=center>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 }
 ?>
 </table>

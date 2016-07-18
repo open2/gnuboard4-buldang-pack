@@ -8,29 +8,29 @@ $mb_id          = mysql_real_escape_string(trim($_POST[mb_id]));
 $reg_mb_email   = mysql_real_escape_string(trim($_POST[mb_email]));
 
 if ($mb_id == "" || $reg_mb_email == "")
-    alert("E000 : ºÎÀûÀıÇÑ Á¢±Ù ÀÔ´Ï´Ù.");
+    alert("E000 : ë¶€ì ì ˆí•œ ì ‘ê·¼ ì…ë‹ˆë‹¤.");
 
-// Áßº¹µÈ ÀÌ¸ŞÀÏÀÎÁö Ã¼Å© ÇÕ´Ï´Ù.
+// ì¤‘ë³µëœ ì´ë©”ì¼ì¸ì§€ ì²´í¬ í•©ë‹ˆë‹¤.
 $sql = " select count(*) as cnt from $g4[member_table] where mb_email = '$reg_mb_email' and mb_id <> '$mb_id' ";
 $mb_check = sql_fetch($sql);
 if ($mb_check[cnt] > 0)
-    alert("E001 : ºÎÀûÀıÇÑ Á¢±Ù ÀÔ´Ï´Ù.");
+    alert("E001 : ë¶€ì ì ˆí•œ ì ‘ê·¼ ì…ë‹ˆë‹¤.");
 
-// È¸¿ø DB¸¦ ¾÷µ¥ÀÌÆ® ÇÕ´Ï´Ù.
+// íšŒì› DBë¥¼ ì—…ë°ì´íŠ¸ í•©ë‹ˆë‹¤.
 $sql = " update $g4[member_table] set mb_email='$reg_mb_email', mb_email_certify='0000-00-00 00:00:00' where mb_id = '$mb_id' ";
 sql_query($sql);
 
-// µ¥ÀÌÅÍ¸¦ ¸ÂÃçÁİ´Ï´Ù.
+// ë°ì´í„°ë¥¼ ë§ì¶°ì¤ë‹ˆë‹¤.
 $admin = get_admin('super');
 $mb = get_member($mb_id, "mb_email, mb_name, mb_datetime");
 $mb_email = $mb[mb_email];
 $mb_name = $mb[mb_name];
 $mb_datetime = $mb[mb_datetime];
 
-// ----------- bbs/register_form_update.php¿¡¼­ °¡Á®¿Â ÄÚµå ÀÔ´Ï´Ù.
+// ----------- bbs/register_form_update.phpì—ì„œ ê°€ì ¸ì˜¨ ì½”ë“œ ì…ë‹ˆë‹¤.
 
-// ÀÎÁõ¸ŞÀÏ ¹ß¼Û
-$subject = "$config[cf_title] - ÀÎÁõÈ®ÀÎ ¸ŞÀÏÀÔ´Ï´Ù.";
+// ì¸ì¦ë©”ì¼ ë°œì†¡
+$subject = "$config[cf_title] - ì¸ì¦í™•ì¸ ë©”ì¼ì…ë‹ˆë‹¤.";
 
 $mb_md5 = md5($mb_id.$mb_email.$mb_datetime);
 $certify_href = "$g4[url]/$g4[bbs]/email_certify.php?mb_id=$mb_id&mb_md5=$mb_md5";
@@ -42,5 +42,5 @@ ob_end_clean();
         
 mailer($config[cf_title], $config['cf_admin_email'], $mb_email, $subject, $content, 1);
 
-alert("ÀÎÁõ¸ŞÀÏÀ» ¹ß¼ÛÇß½À´Ï´Ù. È®ÀÎÇØ º¸½Ã±â ¹Ù¶ø´Ï´Ù.", $g4[path]);
+alert("ì¸ì¦ë©”ì¼ì„ ë°œì†¡í–ˆìŠµë‹ˆë‹¤. í™•ì¸í•´ ë³´ì‹œê¸° ë°”ëë‹ˆë‹¤.", $g4[path]);
 ?>

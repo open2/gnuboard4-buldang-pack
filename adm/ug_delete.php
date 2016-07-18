@@ -7,14 +7,14 @@ check_demo();
 auth_check($auth[$sub_menu], "d");
 
 if ($is_admin != "super")
-    alert("»ç¿ëÀÚ±×·ì »èÁ¦´Â ÃÖ°í°ü¸®ÀÚ¸¸ °¡´ÉÇÕ´Ï´Ù.");
+    alert("ì‚¬ìš©ìê·¸ë£¹ ì‚­ì œëŠ” ìµœê³ ê´€ë¦¬ìë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
     
 check_token();
 
-// »ç¿ëÀÚ ±×·ì »èÁ¦
+// ì‚¬ìš©ì ê·¸ë£¹ ì‚­ì œ
 sql_query(" delete from $g4[user_group_table] where ug_id = '$gr_id' ");
 
-// »ç¿ëÀÚ ±×·ì È¸¿ø Á¤º¸ ÃÊ±âÈ­ 
+// ì‚¬ìš©ì ê·¸ë£¹ íšŒì› ì •ë³´ ì´ˆê¸°í™” 
 sql_query(" update $g4[member_table] set ug_id = '' where ug_id = '$gr_id' ");
 
 goto_url("ug_list.php?$qstr");

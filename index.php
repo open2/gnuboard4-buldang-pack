@@ -5,7 +5,7 @@ $g4['title'] = "";
 include_once("./_head.php");
 
 switch ($mnb) {
-    case ''     : include_once("$g4[path]/index.main.php"); break;  // $mnb==""Àº ¸ŞÀÎÀÏ¶§¶ó´Â°ÅÁÒ.
+    case ''     : include_once("$g4[path]/index.main.php"); break;  // $mnb==""ì€ ë©”ì¸ì¼ë•Œë¼ëŠ”ê±°ì£ .
     default     : include_once("$g4[path]/index.mnb.php"); break;
 }
 

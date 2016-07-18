@@ -1,7 +1,7 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-// ½ºÅ²¿¡¼­ »ç¿ëÇÏ´Â lib ÀĞ¾îµéÀÌ±â
+// ìŠ¤í‚¨ì—ì„œ ì‚¬ìš©í•˜ëŠ” lib ì½ì–´ë“¤ì´ê¸°
 include_once("$g4[path]/lib/view.skin.lib.php");
 
 $time = date("Y-m-d H:i:s", $g4[server_time] - 86400 * 7);
@@ -12,16 +12,16 @@ $row = sql_fetch($sql);
 $cnt = $row[cnt];
 
 if ($board[bo_3] && $view[wr_nogood] >= $board[bo_3] && !$is_admin)
-    alert("ºñÃßÃµÀ» ¸¹ÀÌ ¹ŞÀº ±ÛÀº È®ÀÎÀÌ ºÒ°¡ÇÕ´Ï´Ù.");
+    alert("ë¹„ì¶”ì²œì„ ë§ì´ ë°›ì€ ê¸€ì€ í™•ì¸ì´ ë¶ˆê°€í•©ë‹ˆë‹¤.");
 
 if (function_exists('exif_read_data'))
     $exif = @exif_read_data("{$view[file][0][path]}/{$view[file][0][file]}");
 ?>
 
-<!-- °Ô½Ã±Û º¸±â ½ÃÀÛ -->
+<!-- ê²Œì‹œê¸€ ë³´ê¸° ì‹œì‘ -->
 <table width="<?=$width?>" align="center" cellpadding="0" cellspcing="0"><tr><td>
 
-<!-- ¸µÅ© ¹öÆ° -->
+<!-- ë§í¬ ë²„íŠ¼ -->
 <? 
 ob_start(); 
 ?>
@@ -66,36 +66,36 @@ ob_end_flush();
 <tr><td height=30 bgcolor=#F8F8F9 style="padding:5 0 5 0;">&nbsp;&nbsp;<strong><? if ($is_category) { echo ($category_name ? "[$view[ca_name]] " : ""); } ?><?=$view[subject]?></strong></td></tr>
 <tr><td height=30>
     <span style="float:left;">
-    &nbsp;&nbsp;±Û¾´ÀÌ : <?=$view[name]?><? if ($is_ip_view) { echo "&nbsp;($ip)"; } ?>&nbsp;&nbsp;&nbsp;&nbsp;
-    ³¯Â¥ : <?=substr($view[wr_datetime],2,14)?>&nbsp;&nbsp;&nbsp;&nbsp;
-    Á¶È¸ : <?=$view[wr_hit]?>&nbsp;&nbsp;&nbsp;&nbsp;
-    <? if ($is_good) { ?><font style="font:normal 11px µ¸¿ò; color:#BABABA;">ÃßÃµ</font> :<font style="font:normal 11px tahoma; color:#BABABA;"> <?=$view[wr_good]?>&nbsp;&nbsp;&nbsp;&nbsp;<?}?></font>
-    <? if ($is_nogood) { ?><font style="font:normal 11px µ¸¿ò; color:#BABABA;">ºñÃßÃµ</font> :<font style="font:normal 11px tahoma; color:#BABABA;"> <?=$view[wr_nogood]?>&nbsp;&nbsp;&nbsp;&nbsp;<?}?></font>
+    &nbsp;&nbsp;ê¸€ì“´ì´ : <?=$view[name]?><? if ($is_ip_view) { echo "&nbsp;($ip)"; } ?>&nbsp;&nbsp;&nbsp;&nbsp;
+    ë‚ ì§œ : <?=substr($view[wr_datetime],2,14)?>&nbsp;&nbsp;&nbsp;&nbsp;
+    ì¡°íšŒ : <?=$view[wr_hit]?>&nbsp;&nbsp;&nbsp;&nbsp;
+    <? if ($is_good) { ?><font style="font:normal 11px ë‹ì›€; color:#BABABA;">ì¶”ì²œ</font> :<font style="font:normal 11px tahoma; color:#BABABA;"> <?=$view[wr_good]?>&nbsp;&nbsp;&nbsp;&nbsp;<?}?></font>
+    <? if ($is_nogood) { ?><font style="font:normal 11px ë‹ì›€; color:#BABABA;">ë¹„ì¶”ì²œ</font> :<font style="font:normal 11px tahoma; color:#BABABA;"> <?=$view[wr_nogood]?>&nbsp;&nbsp;&nbsp;&nbsp;<?}?></font>
     </span>
     <?if ($singo_href) { ?><span style="float:right;padding-right:5px;"><a href="javascript:win_singo('<?=$singo_href?>');"><img src='<?=$board_skin_path?>/img/icon_singo.gif'></a></span><?}?>
     <?if ($unsingo_href) { ?><span style="float:right;padding-right:5px;"><a href="javascript:win_unsingo('<?=$unsingo_href?>');"><img src='<?=$board_skin_path?>/img/icon_unsingo.gif'></a></span><?}?>
 </td></tr>
 
-<!-- °Ô½Ã±Û ÁÖ¼Ò¸¦ º¹»çÇÏ±â ½±°Ô ÇÏ±â À§ÇØ¼­ ¾Æ·§ ºÎºĞÀ» »ğÀÔ -->
+<!-- ê²Œì‹œê¸€ ì£¼ì†Œë¥¼ ë³µì‚¬í•˜ê¸° ì‰½ê²Œ í•˜ê¸° ìœ„í•´ì„œ ì•„ë« ë¶€ë¶„ì„ ì‚½ì… -->
 <tr><td height=30>
-        <font style="font:normal 11px µ¸¿ò; color:#BABABA;">&nbsp;&nbsp;°Ô½Ã±Û ÁÖ¼Ò : <a href="javascript:clipboard_trackback('<?=$posting_url?>');" style="letter-spacing:0;" title='ÀÌ ±ÛÀ» ¼Ò°³ÇÒ ¶§´Â ÀÌ ÁÖ¼Ò¸¦ »ç¿ëÇÏ¼¼¿ä'><?=$posting_url;?></a></font>
+        <font style="font:normal 11px ë‹ì›€; color:#BABABA;">&nbsp;&nbsp;ê²Œì‹œê¸€ ì£¼ì†Œ : <a href="javascript:clipboard_trackback('<?=$posting_url?>');" style="letter-spacing:0;" title='ì´ ê¸€ì„ ì†Œê°œí•  ë•ŒëŠ” ì´ ì£¼ì†Œë¥¼ ì‚¬ìš©í•˜ì„¸ìš”'><?=$posting_url;?></a></font>
         <? 
         if ($is_member && $g4[use_gblog]) {
             $gb4_path="../blog";
             include_once("$gb4_path/common.php");
         ?>
         <script language=javascript>
-        // gblog¿¡¼­ ¾²´Â java script º¯¼öµéÀ» ¼³Á¤
+        // gblogì—ì„œ ì“°ëŠ” java script ë³€ìˆ˜ë“¤ì„ ì„¤ì •
         var gb4_blog        = "<?=$gb4['bbs_path']?>";
         </script>
         <script type="text/javascript"  src="<?="$gb4[path]/js/blog.js"?>"></script>
-        <a href="javascript:send_to_gblog('<?=$bo_table?>','<?=$wr_id?>')">ºí·Î±×·Î ±Ûº¸³»±â</a>
+        <a href="javascript:send_to_gblog('<?=$bo_table?>','<?=$wr_id?>')">ë¸”ë¡œê·¸ë¡œ ê¸€ë³´ë‚´ê¸°</a>
         <? } ?>
 </td></tr>
 <tr><td height=1 bgcolor=#E7E7E7></td></tr>
 
 <?
-// °¡º¯ ÆÄÀÏ
+// ê°€ë³€ íŒŒì¼
 $cnt = 0;
 for ($i=0; $i<count($view[file]); $i++) 
 {
@@ -106,13 +106,13 @@ for ($i=0; $i<count($view[file]); $i++)
         //echo "<tr><td height=22>&nbsp;&nbsp;<img src='{$board_skin_path}/img/icon_file.gif' align=absmiddle> <a href='{$view[file][$i][href]}' title='{$view[file][$i][content]}'><strong>{$view[file][$i][source]}</strong> ({$view[file][$i][size]}), Down : {$view[file][$i][download]}, {$view[file][$i][datetime]}</a></td></tr>";
         echo "<tr><td height=22 style='padding:3px 0 3px 0;' class=lh>&nbsp;&nbsp;";
         echo "<img src='{$board_skin_path}/img/icon_file.gif' align=absmiddle> ";
-        echo "<a href=\"javascript:file_download('{$view[file][$i][href]}', '{$view[file][$i][source]}');\" title='{$view[file][$i][content]}'><u><b>{$view[file][$i][source]}</b> ({$view[file][$i][size]})<!--, {$view[file][$i][datetime]}--> (¿øº»ÀÌ¹ÌÁö »çÀÌÁî <b>{$exif[COMPUTED][Width]} x {$exif[COMPUTED][Height]}</b>)</u></a><br>";
+        echo "<a href=\"javascript:file_download('{$view[file][$i][href]}', '{$view[file][$i][source]}');\" title='{$view[file][$i][content]}'><u><b>{$view[file][$i][source]}</b> ({$view[file][$i][size]})<!--, {$view[file][$i][datetime]}--> (ì›ë³¸ì´ë¯¸ì§€ ì‚¬ì´ì¦ˆ <b>{$exif[COMPUTED][Width]} x {$exif[COMPUTED][Height]}</b>)</u></a><br>";
         echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-        echo "<span style='color:blue;'>¡è ¿øº»ÀÌ¹ÌÁö ´Ù¿î·Îµå½Ã <b>".number_format(abs($board[bo_download_point]))." Æ÷ÀÎÆ®</b>¸¦ Â÷°¨ÇÕ´Ï´Ù.</span></td></tr>";
+        echo "<span style='color:blue;'>â†‘ ì›ë³¸ì´ë¯¸ì§€ ë‹¤ìš´ë¡œë“œì‹œ <b>".number_format(abs($board[bo_download_point]))." í¬ì¸íŠ¸</b>ë¥¼ ì°¨ê°í•©ë‹ˆë‹¤.</span></td></tr>";
     }
 }
 
-// ¸µÅ©
+// ë§í¬
 $cnt = 0;
 for ($i=1; $i<=$g4[link_count]; $i++) 
 {
@@ -130,11 +130,11 @@ for ($i=1; $i<=$g4[link_count]; $i++)
     <td height="150" style='word-break:break-all; padding:10px;' bgcolor=#F8F8F9>
     <div id="resContents" style="position-horizontal:absolute;">
 
-        <!-- <font color=#ff8800><b>¸ñ·Ï¿¡¼­ ÀÛÀº ÀÌ¹ÌÁö·Î È®ÀÎÇÏ½Å ÈÄ ¡è À§ÀÇ ÆÄÀÏÀ» ´Ù¿î·Îµå ¹Ş¾Æ¼­ »ç¿ëÇÏ¼¼¿ä.</b></font>
+        <!-- <font color=#ff8800><b>ëª©ë¡ì—ì„œ ì‘ì€ ì´ë¯¸ì§€ë¡œ í™•ì¸í•˜ì‹  í›„ â†‘ ìœ„ì˜ íŒŒì¼ì„ ë‹¤ìš´ë¡œë“œ ë°›ì•„ì„œ ì‚¬ìš©í•˜ì„¸ìš”.</b></font>
         <br><br> -->
         <? 
         $board[bo_image_width] = $board[bo_1];
-        // ÆÄÀÏ Ãâ·Â
+        // íŒŒì¼ ì¶œë ¥
         for ($i=0; $i<=count($view[file]); $i++) {
             if ($view[file][$i][view]) {
                 echo "<p><div style='width:{$board[bo_image_width]}px;border:1px solid #cccccc;background:#EEEEEE;padding:10px;'>" . resize_content($view[file][$i][view]) ."</div>";
@@ -143,19 +143,19 @@ for ($i=1; $i<=$g4[link_count]; $i++)
                 if ($good_href) { echo "<a href=\"$good_href\" target='hiddenframe'><img src='$board_skin_path/img/btn_good.gif' border='0' align='absmiddle'></a> "; }
                 if ($nogood_href) { echo "&nbsp; <a href=\"$nogood_href\" target='hiddenframe'><img src='$board_skin_path/img/btn_nogood.gif' border='0' align='absmiddle'></a> "; }
 
-                if (function_exists('exif_read_data') && $board[bo_4]) { // bo_4¿¡ °ªÀÌ ÀÖÀ» °æ¿ì¿¡ exit Á¤º¸¸¦ Ãâ·Â
-                echo "<p><b>>>> EXIF Á¤º¸ <<<</b><br>" ;
+                if (function_exists('exif_read_data') && $board[bo_4]) { // bo_4ì— ê°’ì´ ìˆì„ ê²½ìš°ì— exit ì •ë³´ë¥¼ ì¶œë ¥
+                echo "<p><b>>>> EXIF ì •ë³´ <<<</b><br>" ;
                 $exif = @exif_read_data("{$view[file][$i][path]}/{$view[file][$i][file]}");
-                if (isset($exif[Make]) || isset($exif[Model])) echo "Ä«¸Ş¶ó¸ğµ¨ : $exif[Make] - $exif[Model]<br>";
-                if (isset($exif[DateTimeOriginal])) echo "ÃÔ¿µÀÏ½Ã : $exif[DateTimeOriginal]<br>";
-                if (isset($exif[COMPUTED][Width]) || isset($exif[COMPUTED][Height])) echo "¿øº» ÀÌ¹ÌÁöÅ©±â : {$exif[COMPUTED][Width]} x {$exif[COMPUTED][Height]} ÇÈ¼¿<br>";
-                if (isset($exif[COMPUTED][ApertureFNumber])) echo "Á¶¸®°³ : {$exif[COMPUTED][ApertureFNumber]}<br>";
+                if (isset($exif[Make]) || isset($exif[Model])) echo "ì¹´ë©”ë¼ëª¨ë¸ : $exif[Make] - $exif[Model]<br>";
+                if (isset($exif[DateTimeOriginal])) echo "ì´¬ì˜ì¼ì‹œ : $exif[DateTimeOriginal]<br>";
+                if (isset($exif[COMPUTED][Width]) || isset($exif[COMPUTED][Height])) echo "ì›ë³¸ ì´ë¯¸ì§€í¬ê¸° : {$exif[COMPUTED][Width]} x {$exif[COMPUTED][Height]} í”½ì…€<br>";
+                if (isset($exif[COMPUTED][ApertureFNumber])) echo "ì¡°ë¦¬ê°œ : {$exif[COMPUTED][ApertureFNumber]}<br>";
                 if (isset($exif[ISOSpeedRatings])) echo "ISO : $exif[ISOSpeedRatings]<br>";
-                if (isset($exif[WhiteBalance])) echo "È­ÀÌÆ®¹ë·±½º : {$exif[WhiteBalance]}<br>";
-                if (isset($exif[ExposureTime])) echo "³ëÃâ½Ã°£ : $exif[ExposureTime] ÃÊ<br>";
-                if (isset($exif[ExposureBiasValue])) echo "³ëÃâº¸Á¤ : $exif[ExposureBiasValue]<br>";
+                if (isset($exif[WhiteBalance])) echo "í™”ì´íŠ¸ë°¸ëŸ°ìŠ¤ : {$exif[WhiteBalance]}<br>";
+                if (isset($exif[ExposureTime])) echo "ë…¸ì¶œì‹œê°„ : $exif[ExposureTime] ì´ˆ<br>";
+                if (isset($exif[ExposureBiasValue])) echo "ë…¸ì¶œë³´ì • : $exif[ExposureBiasValue]<br>";
                 if (isset($exif[COMPUTED][CCDWidth])) echo "CCD : {$exif[COMPUTED][CCDWidth]}<br>";
-                if (isset($exif[Flash])) echo "ÇÃ·¡½¬ : {$exif[Flash]}<br>";
+                if (isset($exif[Flash])) echo "í”Œë˜ì‰¬ : {$exif[Flash]}<br>";
                 echo "<p>" ;
                 }
             }
@@ -165,14 +165,14 @@ for ($i=1; $i<=$g4[link_count]; $i++)
         <BR>
 
         <span class="ct lh"><?=$view[content];?></span>
-        <?//echo $view[rich_content]; // {ÀÌ¹ÌÁö:0} °ú °°Àº ÄÚµå¸¦ »ç¿ëÇÒ °æ¿ì?>
-        <!-- Å×·¯ ÅÂ±× ¹æÁö¿ë --></xml></xmp><a href=""></a><a href=''></a>
+        <?//echo $view[rich_content]; // {ì´ë¯¸ì§€:0} ê³¼ ê°™ì€ ì½”ë“œë¥¼ ì‚¬ìš©í•  ê²½ìš°?>
+        <!-- í…ŒëŸ¬ íƒœê·¸ ë°©ì§€ìš© --></xml></xmp><a href=""></a><a href=''></a>
 
         <tr><td height="1" bgcolor="#E7E7E7"></td></tr>
-        <? if ($is_signature) { echo "<tr><td align='center' style='border-bottom:1px solid #E7E7E7; padding:5px 0;'>$signature</td></tr>"; } // ¼­¸í Ãâ·Â ?>
+        <? if ($is_signature) { echo "<tr><td align='center' style='border-bottom:1px solid #E7E7E7; padding:5px 0;'>$signature</td></tr>"; } // ì„œëª… ì¶œë ¥ ?>
 
         <?
-        // CCL Á¤º¸
+        // CCL ì •ë³´
         $view[wr_ccl] = $write[wr_ccl] = mw_get_ccl_info($write[wr_ccl]);
         ?>
 
@@ -191,7 +191,7 @@ for ($i=1; $i<=$g4[link_count]; $i++)
         <? if (count($rels)) {?>
         <tr>
             <td>
-            <b>°ü·Ã±Û</b> : <?=$view[wr_related]?>
+            <b>ê´€ë ¨ê¸€</b> : <?=$view[wr_related]?>
             </td>
         </tr>
         <tr>
@@ -207,7 +207,7 @@ for ($i=1; $i<=$g4[link_count]; $i++)
         <? } ?>
 
         <? 
-        // ÀÎ±â°Ë»ö¾î
+        // ì¸ê¸°ê²€ìƒ‰ì–´
         if ($board[bo_popular]) { 
         
         unset($plist);
@@ -217,7 +217,7 @@ for ($i=1; $i<=$g4[link_count]; $i++)
         ?>
         <tr>
             <td>
-                <b>ÀÎ±â°Ë»ö¾î</b> : 
+                <b>ì¸ê¸°ê²€ìƒ‰ì–´</b> : 
                 <? 
                 for ($i=0; $i<count($plist); $i++) {
                     if (trim($plist[$i][sfl]) == '' || strstr($plist[$i][sfl], '\%7C')) $plist[$i][sfl] = "wr_subject||wr_content";
@@ -235,7 +235,7 @@ for ($i=1; $i<=$g4[link_count]; $i++)
 </table><br>
 
 <?
-// ÄÚ¸àÆ® ÀÔÃâ·Â
+// ì½”ë©˜íŠ¸ ì…ì¶œë ¥
 if (!$board['bo_comment_read_level'])
   include_once("./view_comment.php");
 else if ($member['mb_level'] >= $board['bo_comment_read_level'])
@@ -254,7 +254,7 @@ else if ($member['mb_level'] >= $board['bo_comment_read_level'])
 function file_download(link, file) {
 <? 
 if ($board['bo_download_point'] < 0) { 
-    // °ü¸®ÀÚÀÌ°Å³ª ÀÚ½ÅÀÇ ±ÛÀÌ°Å³ª °è±ŞÀÌ ³ô°Å³ª °°À¸¸é, µî·Ï ÈÄ ÇÑ´ŞÀÌ Áö³µÀ¸¸é Åë°ú
+    // ê´€ë¦¬ìì´ê±°ë‚˜ ìì‹ ì˜ ê¸€ì´ê±°ë‚˜ ê³„ê¸‰ì´ ë†’ê±°ë‚˜ ê°™ìœ¼ë©´, ë“±ë¡ í›„ í•œë‹¬ì´ ì§€ë‚¬ìœ¼ë©´ í†µê³¼
     $mb = get_member("$view[mb_id]", "mb_level");
     if ($is_admin || 
         ($view[mb_id] == $member[mb_id] && $member[mb_id]) || 
@@ -267,11 +267,11 @@ if ($board['bo_download_point'] < 0) {
                   where mb_id = '$member[mb_id]'
                     and po_rel_table = '$bo_table'
                     and po_rel_id = '$wr_id'
-                    and po_rel_action = '´Ù¿î·Îµå' ";
+                    and po_rel_action = 'ë‹¤ìš´ë¡œë“œ' ";
         $row = sql_fetch($sql);
         if (!$row[cnt]) {
 ?>
-            if (confirm("'"+file+"' ÆÄÀÏÀ» ´Ù¿î·Îµå ÇÏ½Ã¸é Æ÷ÀÎÆ®°¡ <?=number_format($board['bo_download_point'])?> Á¡ Â÷°¨µË´Ï´Ù.\n\nÆ÷ÀÎÆ®´Â °Ô½Ã¹°´ç ÇÑ¹ø¸¸ Â÷°¨µÇ¸ç ´ÙÀ½¿¡ ´Ù½Ã ´Ù¿î·Îµå ÇÏ¼Åµµ Áßº¹ÇÏ¿© Â÷°¨ÇÏÁö ¾Ê½À´Ï´Ù.\n\n±×·¡µµ ´Ù¿î·Îµå ÇÏ½Ã°Ú½À´Ï±î?"))
+            if (confirm("'"+file+"' íŒŒì¼ì„ ë‹¤ìš´ë¡œë“œ í•˜ì‹œë©´ í¬ì¸íŠ¸ê°€ <?=number_format($board['bo_download_point'])?> ì  ì°¨ê°ë©ë‹ˆë‹¤.\n\ní¬ì¸íŠ¸ëŠ” ê²Œì‹œë¬¼ë‹¹ í•œë²ˆë§Œ ì°¨ê°ë˜ë©° ë‹¤ìŒì— ë‹¤ì‹œ ë‹¤ìš´ë¡œë“œ í•˜ì…”ë„ ì¤‘ë³µí•˜ì—¬ ì°¨ê°í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.\n\nê·¸ë˜ë„ ë‹¤ìš´ë¡œë“œ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?"))
 <?
         }
     }
@@ -289,4 +289,4 @@ window.onload=function() {
     OnclickCheck(document.getElementById("writeContents"), '<?=$config[cf_link_target]?>'); 
 }
 </script>
-<!-- °Ô½Ã±Û º¸±â ³¡ -->
+<!-- ê²Œì‹œê¸€ ë³´ê¸° ë -->

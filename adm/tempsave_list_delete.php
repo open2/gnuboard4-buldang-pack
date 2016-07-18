@@ -11,10 +11,10 @@ check_token();
 //print_r2($_POST);
 
 for ($i=0; $i<count($chk); $i++) {
-    // ½ÇÁ¦ ¹øÈ£¸¦ ³Ñ±è
+    // ì‹¤ì œ ë²ˆí˜¸ë¥¼ ë„˜ê¹€
     $k = $_POST[chk][$i];
 
-    // ÀÓ½ÃÀúÀå ÀÚ·á¸¦ »èÁ¦
+    // ìž„ì‹œì €ìž¥ ìžë£Œë¥¼ ì‚­ì œ
     $sql = " delete from $g4[tempsave_table] where tmp_id = '$tmp_id[$k]' ";
     sql_query($sql);
 

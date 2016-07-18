@@ -1,22 +1,22 @@
 <?
 include_once("./_common.php");
 
-$g4[title] = "´Ş·Â";
+$g4[title] = "ë‹¬ë ¥";
 include_once("$g4[path]/head.sub.php");
 
-// ±ÛÀÚ »ö»ó
-$weekday_color = "#000000"; // ÆòÀÏ
-$saturday_color = "#000000"; // Åä¿äÀÏ
-$sunday_color = "#FF3300"; // ÀÏ¿äÀÏ (°øÈŞÀÏ)
-// ¹è°æ »ö»ó
-$today_bgcolor = "yellow"; // ¿À´Ã 
-$select_bgcolor = "#BAFFF6"; // ¼±ÅÃÀÏ
+// ê¸€ì ìƒ‰ìƒ
+$weekday_color = "#000000"; // í‰ì¼
+$saturday_color = "#000000"; // í† ìš”ì¼
+$sunday_color = "#FF3300"; // ì¼ìš”ì¼ (ê³µíœ´ì¼)
+// ë°°ê²½ ìƒ‰ìƒ
+$today_bgcolor = "yellow"; // ì˜¤ëŠ˜ 
+$select_bgcolor = "#BAFFF6"; // ì„ íƒì¼
 
-// ¿äÀÏ
-$yoil = array ("ÀÏ", "¿ù", "È­", "¼ö", "¸ñ", "±İ", "Åä");
+// ìš”ì¼
+$yoil = array ("ì¼", "ì›”", "í™”", "ìˆ˜", "ëª©", "ê¸ˆ", "í† ");
 
-// mktime() ÇÔ¼ö´Â 1970 ~ 2038³â±îÁö¸¸ °è»êµÇ¹Ç·Î »ç¿ëÇÏÁö ¾ÊÀ½
-// Âü°í : http://phpschool.com/bbs2/inc_view.html?id=3924&code=tnt2&start=0&mode=search&s_que=mktime&field=title&operator=and&period=all
+// mktime() í•¨ìˆ˜ëŠ” 1970 ~ 2038ë…„ê¹Œì§€ë§Œ ê³„ì‚°ë˜ë¯€ë¡œ ì‚¬ìš©í•˜ì§€ ì•ŠìŒ
+// ì°¸ê³  : http://phpschool.com/bbs2/inc_view.html?id=3924&code=tnt2&start=0&mode=search&s_que=mktime&field=title&operator=and&period=all
 function spacer($year, $month)
 {
     $day = 1;
@@ -26,12 +26,12 @@ function spacer($year, $month)
     return $result;
 }
 
-// ¿À´Ã
+// ì˜¤ëŠ˜
 $today = getdate($g4[server_time]);
 $mon  = substr("0".$today[mon],-2);
 $mday = substr("0".$today[mday],-2);
 
-// delimiter ¸¦ ¾ø¾Ø´Ù
+// delimiter ë¥¼ ì—†ì•¤ë‹¤
 $cur_date = preg_replace("/([^0-9]*)/", "", $cur_date);
 
 if ($cur_date && !$yyyy)
@@ -59,17 +59,17 @@ if ($f) {
 $spacer = spacer($yyyy, $mm);
 
 $endday = array(1=>31, 28, 31, 30 , 31, 30, 31, 31, 30 ,31 ,30, 31);
-// À±³â °è»ê ºÎºĞÀÌ´Ù. 4³â¿¡ ÇÑ¹ø²Ã·Î 2¿ùÀÌ 28ÀÏÀÌ ¾Æ´Ñ 29ÀÏÀÌ ÀÖ´Ù.
+// ìœ¤ë…„ ê³„ì‚° ë¶€ë¶„ì´ë‹¤. 4ë…„ì— í•œë²ˆê¼´ë¡œ 2ì›”ì´ 28ì¼ì´ ì•„ë‹Œ 29ì¼ì´ ìˆë‹¤.
 if( $yyyy%4 == 0 && $yyyy%100 != 0 || $yyyy%400 == 0 )
-    $endday[2] = 29; // Á¶°Ç¿¡ ÀûÇÕÇÒ °æ¿ì 28À» 29·Î º¯°æ
+    $endday[2] = 29; // ì¡°ê±´ì— ì í•©í•  ê²½ìš° 28ì„ 29ë¡œ ë³€ê²½
 
-// ÇØ´ç¿ùÀÇ 1ÀÏ
+// í•´ë‹¹ì›”ì˜ 1ì¼
 $mktime = mktime(0,0,0,$mm,1,$yyyy);
 $dt = getdate(strtotime(date("Y-m-1", $mktime)));
 
 $dt[wday] = $spacer;
 
-// ÇØ´ç¿ùÀÇ ¸¶Áö¸· ³¯Â¥,
+// í•´ë‹¹ì›”ì˜ ë§ˆì§€ë§‰ ë‚ ì§œ,
 //$last_day = date("t", $mktime);
 $last_day = $endday[$mm];
 
@@ -103,7 +103,7 @@ for ($i=$fr_yyyy; $i<=$to_yyyy; $i++)
 {
     if ($i == $yyyy) $selected = " selected";
     else $selected = "";
-    $yyyy_select .= "<option value='{$i}'{$selected}>$i ³â</option>";
+    $yyyy_select .= "<option value='{$i}'{$selected}>$i ë…„</option>";
 }
 $yyyy_select .= "</select>";
 
@@ -112,7 +112,7 @@ for ($i=1; $i<=12; $i++)
 {
     if ($i == $mm) $selected = " selected";
     else $selected = "";
-    $mm_select .= "<option value='{$i}'{$selected}>$i ¿ù</option>";
+    $mm_select .= "<option value='{$i}'{$selected}>$i ì›”</option>";
 }
 $mm_select .= "</select>";
 
@@ -122,11 +122,11 @@ include_once("$member_skin_path/calendar.skin.php");
 
 <script type="text/javascript">
 //
-// year : 4ÀÚ¸®
-// month : 1~2ÀÚ¸®
-// day : 1~2ÀÚ¸®
-// wday : ¿äÀÏ ¼ıÀÚ (0:ÀÏ ~ 6:Åä)
-// handay : ¿äÀÏ ÇÑ±Û
+// year : 4ìë¦¬
+// month : 1~2ìë¦¬
+// day : 1~2ìë¦¬
+// wday : ìš”ì¼ ìˆ«ì (0:ì¼ ~ 6:í† )
+// handay : ìš”ì¼ í•œê¸€
 //
 function date_send(year, month, day, wday, handay)
 {

@@ -1,5 +1,5 @@
 <?
-$g4_path = "../.."; // common.php ÀÇ »ó´ë °æ·Î
+$g4_path = "../.."; // common.php ì˜ ìƒëŒ€ ê²½ë¡œ
 include_once("$g4_path/common.php");
 
 error_reporting(E_ALL ^ E_NOTICE); 

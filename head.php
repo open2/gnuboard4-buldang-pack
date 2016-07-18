@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
 if (is_mobile()) {
     include_once($g4['path'] . '/m/head.sub.php');
@@ -9,25 +9,25 @@ if (is_mobile()) {
 
 include_once("$g4[path]/head.sub.php");
 
-// ¹è³Ê°ü¸® lib
+// ë°°ë„ˆê´€ë¦¬ lib
 include_once("$g4[path]/lib/banner.lib.php");
 
-// »ç¿ëÀÚ È­¸é »ó´Ü°ú ÁÂÃøÀ» ´ã´çÇÏ´Â ÆäÀÌÁöÀÔ´Ï´Ù.
-// »ó´Ü, ÁÂÃø È­¸éÀ» ²Ù¹Ì·Á¸é ÀÌ ÆÄÀÏÀ» ¼öÁ¤ÇÕ´Ï´Ù.
+// ì‚¬ìš©ìž í™”ë©´ ìƒë‹¨ê³¼ ì¢Œì¸¡ì„ ë‹´ë‹¹í•˜ëŠ” íŽ˜ì´ì§€ìž…ë‹ˆë‹¤.
+// ìƒë‹¨, ì¢Œì¸¡ í™”ë©´ì„ ê¾¸ë¯¸ë ¤ë©´ ì´ íŒŒì¼ì„ ìˆ˜ì •í•©ë‹ˆë‹¤.
 ?>
 <?
-// »ó´ÜºÎ¿¡ alert ÆË¾÷À» Ãâ·Â ÇÕ´Ï´Ù.
+// ìƒë‹¨ë¶€ì— alert íŒì—…ì„ ì¶œë ¥ í•©ë‹ˆë‹¤.
 include_once("$g4[path]/lib/popup.lib.php");
 echo popup("alert", "popup_alert");
 
-// È¸¿øÀÎ °æ¿ì ¿Óœ¼~À» ÀÐ¾î¼­, ¾ÈÀÐÀº °¹¼ö¸¦ °è»êÇØ µÓ´Ï´Ù.
-// ¿Óœ¼À» ¾È¾²´Â °æ¿ì¿¡´Â ±×³É ±×·±°Å¶ó ¼±ÅÃ °¡´ÉÇÏ°Ô head.php¿¡ ³Ö½À´Ï´Ù.
+// íšŒì›ì¸ ê²½ìš° ì™“ì‘~ì„ ì½ì–´ì„œ, ì•ˆì½ì€ ê°¯ìˆ˜ë¥¼ ê³„ì‚°í•´ ë‘¡ë‹ˆë‹¤.
+// ì™“ì‘ì„ ì•ˆì“°ëŠ” ê²½ìš°ì—ëŠ” ê·¸ëƒ¥ ê·¸ëŸ°ê±°ë¼ ì„ íƒ ê°€ëŠ¥í•˜ê²Œ head.phpì— ë„£ìŠµë‹ˆë‹¤.
 if ($member[mb_id]) {
     include_once("$g4[path]/lib/whatson.lib.php");
     $g4['whatson_unread'] = whatson_count($member[mb_id]);
 }
 
-// ¹öÆ°¿¡ ¾Ë¶÷À»??? btn-info-navbar class´Â style.css¿¡ ÀÖ½À´Ï´Ù.
+// ë²„íŠ¼ì— ì•ŒëžŒì„??? btn-info-navbar classëŠ” style.cssì— ìžˆìŠµë‹ˆë‹¤.
 if ($member['mb_memo_unread'] > 0)
     $memo_btn = "btn-info btn-info-navbar";
 else
@@ -38,7 +38,7 @@ else
     $whatson_btn = "btn-default";
 ?>
 
-<header class="header-wrapper"><!-- »ó´Ü header ½ÃÀÛ -->
+<header class="header-wrapper"><!-- ìƒë‹¨ header ì‹œìž‘ -->
 <div class="container-fluid">
 
 <div class="row">
@@ -50,7 +50,7 @@ else
 </div>
 
 <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
-±¸±Û±¤°í...
+êµ¬ê¸€ê´‘ê³ ...
 </div>
 
 </div>
@@ -60,13 +60,13 @@ else
     <div class="navbar-header col-md-2 col-lg-2">
 
         <? if ($member['mb_id']) { ?>
-        <!-- collapse µÇ¾úÀ» ¶§, ¿ìÃø¿¡ ³ª¿À´Â °³ÀÎ¸Þ´º ¹öÆ° -->
+        <!-- collapse ë˜ì—ˆì„ ë•Œ, ìš°ì¸¡ì— ë‚˜ì˜¤ëŠ” ê°œì¸ë©”ë‰´ ë²„íŠ¼ -->
         <button type="button" class="btn btn-default navbar-toggle pull-right" data-toggle="collapse" data-target=".navbar-top-menu-collapse_my" style="border:none">
             <i class="glyphicon glyphicon-check"></i>
         </button>
         <? } ?>
 
-        <!-- collapse µÇ¾úÀ» ¶§, ¿ìÃø¿¡ ³ª¿À´Â ¸Þ´º ¹öÆ° -->
+        <!-- collapse ë˜ì—ˆì„ ë•Œ, ìš°ì¸¡ì— ë‚˜ì˜¤ëŠ” ë©”ë‰´ ë²„íŠ¼ -->
         <button type="button" class="btn btn-default navbar-toggle pull-right" data-toggle="collapse" data-target=".navbar-top-menu-collapse" style="border:none">
             <i class="glyphicon glyphicon-list"></i>
         </button>
@@ -87,16 +87,16 @@ else
             <i class="glyphicon glyphicon-envelope"><sup style="margin-left:3px;"><?=$member[mb_memo_unread]?></sup></i>
         </a>
         <? } ?>
-        <!-- sm, md, lg¿¡¼­ ³ª¿À´Â ·Î°í -->
+        <!-- sm, md, lgì—ì„œ ë‚˜ì˜¤ëŠ” ë¡œê³  -->
         <a class="navbar-brand hidden-xs hidden-sm" href="<?=$g4['path']?>/" style="border:none">
         <img src="<?=$g4[path]?>/images/opencode_aaa.png" align=absmiddle alt="brand logo" style="height:38px;border:none;margin-top:-10px;">
         </a>
-        <!-- collapse µÇ¾úÀ» ¶§ ³ª¿À´Â ·Î°í -->
+        <!-- collapse ë˜ì—ˆì„ ë•Œ ë‚˜ì˜¤ëŠ” ë¡œê³  -->
         <a class="navbar-brand navbar-toggle pull-left" href="<?=$g4['path']?>/" style="margin-bottom:0;border:none;">
         <img src="<?=$g4[path]?>/images/opencode_aaa.png" alt="brand logo" style="height:30px">
         </a>
 
-        <!-- navbar toggleÀÌ ¾Æ´Ï¹Ç·Î, 2¹ø ³Ö¾îÁà¾ß ÇÕ´Ï´Ù -->
+        <!-- navbar toggleì´ ì•„ë‹ˆë¯€ë¡œ, 2ë²ˆ ë„£ì–´ì¤˜ì•¼ í•©ë‹ˆë‹¤ -->
         <button type="button" class="btn btn-default navbar-toggle visible-sm visible-xs" data-toggle="collapse" data-target="#top_search" style="border:none;float:right">
             <i class="glyphicon glyphicon-search"></i>
         </button>
@@ -107,7 +107,7 @@ else
     $sql = "select m.bo_table, b.bo_subject, b.bo_modify_datetime from $g4[my_menu_table] as m left join $g4[board_table] as b on m.bo_table = b.bo_table where mb_id = '$member[mb_id]'";
     $qry = sql_query($sql);
     while ($row = sql_fetch_array($qry)) {
-        // ÃÖ±Ù 3ÀÏ ÀÌ³»¿¡ ±Û¾²ÀÓÀÌ ÀÖÀ¸¸é New ¹öÆ°À» Ãß°¡
+        // ìµœê·¼ 3ì¼ ì´ë‚´ì— ê¸€ì“°ìž„ì´ ìžˆìœ¼ë©´ New ë²„íŠ¼ì„ ì¶”ê°€
         if (days_diff($row['bo_modify_datetime']) > 3)
             $row['new'] = "";
         else
@@ -127,42 +127,42 @@ else
         <? for ($i=0; $i<count($my_menu); $i++) { ?>
             <li id="qna_my"><a href="<?=$g4[bbs_path]?>/<?=$my_menu[$i][bo_table]?>"><?=$my_menu[$i][bo_subject]?></a><? echo $my_menu[$i]['new']?></li>
         <? } ?>
-        <li id="qna_my"><a href="<?=$g4[bbs_path]?>/my_menu_edit.php">¹Ù·Î°¡±âÆíÁý</a></li>
+        <li id="qna_my"><a href="<?=$g4[bbs_path]?>/my_menu_edit.php">ë°”ë¡œê°€ê¸°íŽ¸ì§‘</a></li>
     </ul>
     </div>
 
     <div class="collapse navbar-collapse navbar-top-menu-collapse col-sm-9 col-md-7 col-lg-7">
     <ul class="nav navbar-nav" id="gnb">
-        <li id="qna"><a href="<?=$g4[path]?>/qna">ÀÚÀ¯°Ô½ÃÆÇ</a></li>
-        <li id="test"><a href="<?=$g4[path]?>/test">ÇÑÁÙÀÌ¾ß±â</a></li>
+        <li id="qna"><a href="<?=$g4[path]?>/qna">ìžìœ ê²Œì‹œíŒ</a></li>
+        <li id="test"><a href="<?=$g4[path]?>/test">í•œì¤„ì´ì•¼ê¸°</a></li>
         <li class="dropdown">
-            <a class="dropdown-toggle" href="#" data-toggle="dropdown">ÅäÅ© <b class="caret"></b></a>
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">í† í¬ <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li id="notice"><a href="<?=$g4[path]?>/notice">°øÁö</a></li>
+                <li id="notice"><a href="<?=$g4[path]?>/notice">ê³µì§€</a></li>
                 <li class="divider"></li>
-                <li id="g4_100"><a href="<?=$g4[path]?>/g4_100">±×´©º¸µå100ÀÏ¿Ï¼º</a></li>
-                <li id="g4_books"><a href="<?=$g4[path]?>/g4_books">±×´©º¸µåÂü°í¼­</a></li>
-                <li id="sitetips"><a href="<?=$g4[path]?>/sitetips">»çÀÌÆ®°³¹ß¿î¿µ</a></li>
-                <li id="biz"><a href="<?=$g4[path]?>/biz">ºñÁî´Ï½ºÂü°íÀÚ·á</a></li>
+                <li id="g4_100"><a href="<?=$g4[path]?>/g4_100">ê·¸ëˆ„ë³´ë“œ100ì¼ì™„ì„±</a></li>
+                <li id="g4_books"><a href="<?=$g4[path]?>/g4_books">ê·¸ëˆ„ë³´ë“œì°¸ê³ ì„œ</a></li>
+                <li id="sitetips"><a href="<?=$g4[path]?>/sitetips">ì‚¬ì´íŠ¸ê°œë°œìš´ì˜</a></li>
+                <li id="biz"><a href="<?=$g4[path]?>/biz">ë¹„ì¦ˆë‹ˆìŠ¤ì°¸ê³ ìžë£Œ</a></li>
                 <li class="divider"></li>
-                <li><a href="<?=$g4[bbs_path]?>/good_list.php">º£½ºÆ®±Û</a></li>
-                <li><a href="<?=$g4[bbs_path]?>/new.php">ÃÖ±Ù°Ô½Ã±Û</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/good_list.php">ë² ìŠ¤íŠ¸ê¸€</a></li>
+                <li><a href="<?=$g4[bbs_path]?>/new.php">ìµœê·¼ê²Œì‹œê¸€</a></li>
                 <li class="divider"></li>
-                <li id="test"><a href="<?=$g4[path]?>/test">Å×½ºÆ®</a></li>
-                <li id="test2"><a href="<?=$g4[path]?>/test2">Å×½ºÆ®2</a></li>
+                <li id="test"><a href="<?=$g4[path]?>/test">í…ŒìŠ¤íŠ¸</a></li>
+                <li id="test2"><a href="<?=$g4[path]?>/test2">í…ŒìŠ¤íŠ¸2</a></li>
             </ul>
         </li>
         <li class="dropdown">
-            <a class="dropdown-toggle" href="#" data-toggle="dropdown">°³¹ßÆÁ <b class="caret"></b></a>
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">ê°œë°œíŒ <b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li><a href="<?=$g4[path]?>/linux_tips">Linux</a></li>
-                <li><a href="<?=$g4[path]?>/virtual">°¡»óÈ­</a></li>
+                <li><a href="<?=$g4[path]?>/virtual">ê°€ìƒí™”</a></li>
                 <li><a href="<?=$g4[path]?>/apache_tips">Apache</a></li>
                 <li><a href="<?=$g4[path]?>/mysql_tips">MySQL</a></li>
                 <li><a href="<?=$g4[path]?>/mariadb_tips">Maria DB</a></li>
                 <li><a href="<?=$g4[path]?>/nosql">NoSQL</a></li>
                 <li class="divider"></li>
-                <li><a href="<?=$g4[path]?>/css">CSS/ºÎÆ®½ºÆ®·¦</a></li>
+                <li><a href="<?=$g4[path]?>/css">CSS/ë¶€íŠ¸ìŠ¤íŠ¸ëž©</a></li>
                 <li><a href="<?=$g4[path]?>/php_tips">PHP</a></li>
                 <li><a href="<?=$g4[path]?>/jquery_tips">jQuery</a></li>
                 <li><a href="<?=$g4[path]?>/javascript_tips">Java Script</a></li>
@@ -170,71 +170,71 @@ else
                 <li class="divider"></li>
                 <li><a href="<?=$g4[path]?>/html_tips">HTML</a></li>
                 <li><a href="<?=$g4[path]?>/html5_tips">HTML5</a></li>
-                <li><a href="<?=$g4[path]?>/other_tips">±âÅ¸ ÆÁµé</a></li>
-                <li><a href="<?=$g4[path]?>/cheditor">cheditor(»ó¿ë)</a></li>
+                <li><a href="<?=$g4[path]?>/other_tips">ê¸°íƒ€ íŒë“¤</a></li>
+                <li><a href="<?=$g4[path]?>/cheditor">cheditor(ìƒìš©)</a></li>
             </ul>
         </li>
         <li class="dropdown">
-            <a class="dropdown-toggle" href="#" data-toggle="dropdown">±×´©4 <b class="caret"></b></a>
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">ê·¸ëˆ„4 <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="<?=$g4[path]?>/gnu4_turning">±×´©º¸µå4 Æ©´×</a></li>
-                <li><a href="<?=$g4[path]?>/gnu4_turning2">±×´©º¸µå4 Æ©´×(ºñ°ø°³)</a></li>
+                <li><a href="<?=$g4[path]?>/gnu4_turning">ê·¸ëˆ„ë³´ë“œ4 íŠœë‹</a></li>
+                <li><a href="<?=$g4[path]?>/gnu4_turning2">ê·¸ëˆ„ë³´ë“œ4 íŠœë‹(ë¹„ê³µê°œ)</a></li>
                 <li class="divider"></li>
-                <li><a href="<?=$g4[path]?>/memo4">ÂÊÁö5</a></li>
-                <li><a href="<?=$g4[path]?>/thumb">ºÒ´ç½æ/Resize</a></li>
-                <li><a href="<?=$g4[path]?>/layout">ºÒ´çºô´õ(100%¼öµ¿ºô´õ)</a></li>
-                <li><a href="<?=$g4[path]?>/g4_recycle">ÈÞÁöÅë/Recycle</a></li>
-                <li><a href="<?=$g4[path]?>/gnu4_unicro">À¯´ÏÅ©·ÎÀåÅÍ/°Ô½ÃÆÇ</a></li>
+                <li><a href="<?=$g4[path]?>/memo4">ìª½ì§€5</a></li>
+                <li><a href="<?=$g4[path]?>/thumb">ë¶ˆë‹¹ì¸/Resize</a></li>
+                <li><a href="<?=$g4[path]?>/layout">ë¶ˆë‹¹ë¹Œë”(100%ìˆ˜ë™ë¹Œë”)</a></li>
+                <li><a href="<?=$g4[path]?>/g4_recycle">íœ´ì§€í†µ/Recycle</a></li>
+                <li><a href="<?=$g4[path]?>/gnu4_unicro">ìœ ë‹ˆí¬ë¡œìž¥í„°/ê²Œì‹œíŒ</a></li>
                 <li class="divider"></li>
-                <li><a href="<?=$g4[path]?>/gnu4_skin">±×´©º¸µå½ºÅ²</a></li>
-                <li><a href="<?=$g4[path]?>/gnu4_tips">±×´©º¸µåÆÁ</a></li>
-                <li><a href="<?=$g4[path]?>/gnu4_qna">±×´©º¸µå ¹¯°í ´äÇÏ±â</a></li>
+                <li><a href="<?=$g4[path]?>/gnu4_skin">ê·¸ëˆ„ë³´ë“œìŠ¤í‚¨</a></li>
+                <li><a href="<?=$g4[path]?>/gnu4_tips">ê·¸ëˆ„ë³´ë“œíŒ</a></li>
+                <li><a href="<?=$g4[path]?>/gnu4_qna">ê·¸ëˆ„ë³´ë“œ ë¬»ê³  ë‹µí•˜ê¸°</a></li>
             </ul>
         </li>
         <li class="dropdown">
             <a class="dropdown-toggle" href="#" data-toggle="dropdown">App <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="<?=$g4[path]?>/and_talk">¾Èµå·ÎÀÌµå °Ô½ÃÆÇ</a></li>
-                <li><a href="<?=$g4[path]?>/and_tip">¾Èµå·ÎÀÌµå ÆÁ</a></li>
-                <li><a href="<?=$g4[path]?>/and_pds">¾Èµå·ÎÀÌµå ÀÚ·á½Ç</a></li>
-                <li><a href="<?=$g4[path]?>/webapp">À¥¾Û</a></li>
+                <li><a href="<?=$g4[path]?>/and_talk">ì•ˆë“œë¡œì´ë“œ ê²Œì‹œíŒ</a></li>
+                <li><a href="<?=$g4[path]?>/and_tip">ì•ˆë“œë¡œì´ë“œ íŒ</a></li>
+                <li><a href="<?=$g4[path]?>/and_pds">ì•ˆë“œë¡œì´ë“œ ìžë£Œì‹¤</a></li>
+                <li><a href="<?=$g4[path]?>/webapp">ì›¹ì•±</a></li>
             </ul>
         </li>
 
         <li class="dropdown">
-            <a class="dropdown-toggle" href="#" data-toggle="dropdown">ºÒ´çÆÑ <b class="caret"></b></a>
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">ë¶ˆë‹¹íŒ© <b class="caret"></b></a>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="<?=$g4[path]?>/gnu4_pack">ºÒ´çÆÑ´Ù¿î·Îµå</a></li>
-                <li><a href="<?=$g4[path]?>/gnu4_pack_book">ºÒ´çÆÑ ¸Å´º¾ó</a></li>
-                <li><a href="<?=$g4[path]?>/gnu4_pack_skin">ºÒ´çÆÑ ½ºÅ²</a></li>
-                <li><a href="<?=$g4[path]?>/gnu4_pack_req">ºÒ´çÆÑ ¹ö±× ¹× °³¼±</a></li>
-                <li><a href="<?=$g4[path]?>/gnu4_pack_qna">ºÒ´çÆÑ ¹¯°í´äÇÏ±â</a></li>
+                <li><a href="<?=$g4[path]?>/gnu4_pack">ë¶ˆë‹¹íŒ©ë‹¤ìš´ë¡œë“œ</a></li>
+                <li><a href="<?=$g4[path]?>/gnu4_pack_book">ë¶ˆë‹¹íŒ© ë§¤ë‰´ì–¼</a></li>
+                <li><a href="<?=$g4[path]?>/gnu4_pack_skin">ë¶ˆë‹¹íŒ© ìŠ¤í‚¨</a></li>
+                <li><a href="<?=$g4[path]?>/gnu4_pack_req">ë¶ˆë‹¹íŒ© ë²„ê·¸ ë° ê°œì„ </a></li>
+                <li><a href="<?=$g4[path]?>/gnu4_pack_qna">ë¶ˆë‹¹íŒ© ë¬»ê³ ë‹µí•˜ê¸°</a></li>
                 <li class="divider"></li>
-                <li><a href="<?=$g4[path]?>/gblog">gblog ºÒ´ç¹öÁ¯</a></li>
-                <li><a href="<?=$g4[path]?>/blog/" target=_blank>gblog Å×½ºÆ®</a></li>
+                <li><a href="<?=$g4[path]?>/gblog">gblog ë¶ˆë‹¹ë²„ì ¼</a></li>
+                <li><a href="<?=$g4[path]?>/blog/" target=_blank>gblog í…ŒìŠ¤íŠ¸</a></li>
                 <li class="divider"></li>
-                <li><a href="<?=$g4[path]?>/club2">Å¬·´2</a></li>
-                <li><a href="$g4[path]?>/club/">Å¬·´2 Å×½ºÆ®</a></li>
+                <li><a href="<?=$g4[path]?>/club2">í´ëŸ½2</a></li>
+                <li><a href="$g4[path]?>/club/">í´ëŸ½2 í…ŒìŠ¤íŠ¸</a></li>
             </ul>
         </li>
         <li class="dropdown">
-            <a class="dropdown-toggle" href="#" data-toggle="dropdown">¿µÄ«Æ®5 <b class="caret"></b></a>
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">ì˜ì¹´íŠ¸5 <b class="caret"></b></a>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="<?=$g4[path]?>/yc4_pack_download">¿µÄ«Æ®5 ºÒ´çÆÑ</a></li>
-                <li><a href="<?=$g4[path]?>/yc4_tips">¿µÄ«Æ®5 ÆÁ</a></li>
-                <li><a href="<?=$g4[path]?>/yc4_pack_qna">¿µÄ«Æ®5 ¹¯°í´äÇÏ±â</a></li>
-                <li><a href="<?=$g4[path]?>/shop/index.php">¿µÄ«Æ®5 Å×½ºÆ®</a></li>
+                <li><a href="<?=$g4[path]?>/yc4_pack_download">ì˜ì¹´íŠ¸5 ë¶ˆë‹¹íŒ©</a></li>
+                <li><a href="<?=$g4[path]?>/yc4_tips">ì˜ì¹´íŠ¸5 íŒ</a></li>
+                <li><a href="<?=$g4[path]?>/yc4_pack_qna">ì˜ì¹´íŠ¸5 ë¬»ê³ ë‹µí•˜ê¸°</a></li>
+                <li><a href="<?=$g4[path]?>/shop/index.php">ì˜ì¹´íŠ¸5 í…ŒìŠ¤íŠ¸</a></li>
             </ul>
         </li>
-        <li><a href="<?=$g4[plugin_path]?>/attendance/attendance.php">Ãâ¼®</a></li>
+        <li><a href="<?=$g4[plugin_path]?>/attendance/attendance.php">ì¶œì„</a></li>
         <li class="dropdown">
-            <a class="dropdown-toggle hidden-xs hidden-sm" href="#" data-toggle="dropdown">¹Ù·Î°¡±â <b class="caret"></b></a>
+            <a class="dropdown-toggle hidden-xs hidden-sm" href="#" data-toggle="dropdown">ë°”ë¡œê°€ê¸° <b class="caret"></b></a>
             <ul class="dropdown-menu" role="menu">
                 <? for ($i=0; $i<count($my_menu); $i++) { ?>
                     <li id="my_$i_m"><a href="<?=$g4[path]?>/<?=$my_menu[$i][bo_table]?>"><?=$my_menu[$i][bo_subject]?><? echo $my_menu[$i]['new']?></a></li>
                 <? } ?>
                 <li class="divider"></li>
-                <li id="qna_my"><a href="<?=$g4[bbs_path]?>/my_menu_edit.php">¹Ù·Î°¡±âÆíÁý</a></li>
+                <li id="qna_my"><a href="<?=$g4[bbs_path]?>/my_menu_edit.php">ë°”ë¡œê°€ê¸°íŽ¸ì§‘</a></li>
             </ul>
         </li>
     </ul>
@@ -245,38 +245,38 @@ else
     <input type="hidden" name="sfl" value="wr_subject||wr_content">
     <input type="hidden" name="sop" value="and">
     <div class="input-group" id="search-bar">
-        <input type="text" class="form-control pull-right" placeholder="°Ë»ö¾î´Â 2´Ü¾î±îÁö" name="stx" id="stx" maxlength="20" value="<?=$stx;?>">
+        <input type="text" class="form-control pull-right" placeholder="ê²€ìƒ‰ì–´ëŠ” 2ë‹¨ì–´ê¹Œì§€" name="stx" id="stx" maxlength="20" value="<?=$stx;?>">
         <label for="stx" class="sr-only">search</label>
         <span class="input-group-btn">
-            <button class="btn btn-default" type="submit" >°Ë»ö <i class="glyphicon glyphicon-search"></i></button>
+            <button class="btn btn-default" type="submit" >ê²€ìƒ‰ <i class="glyphicon glyphicon-search"></i></button>
         </span>
     </div><!-- /input-group -->
     </form>
     </div>
 
-</div><!-- navbarÀÇ ³¡ -->
+</div><!-- navbarì˜ ë -->
 
 </div>
-</header><!-- »ó´Ü header ³¡ -->
+</header><!-- ìƒë‹¨ header ë -->
 
 
-<!-- Áß°£ÀÇ ¸ÞÀÎºÎ ½ÃÀÛ -->
+<!-- ì¤‘ê°„ì˜ ë©”ì¸ë¶€ ì‹œìž‘ -->
 <div role="main" class="container-fluid">
 <div class="row">
 
-<!-- ¿ÞÂÊ side ½ÃÀÛ -->
+<!-- ì™¼ìª½ side ì‹œìž‘ -->
 <div class="hidden-xs hidden-sm col-md-2 col-lg-2">
 <?
-// ¾Æ¿ô·Î±×ÀÎ
+// ì•„ì›ƒë¡œê·¸ì¸
 include_once("$g4[path]/lib/outlogin.lib.php");
 echo outlogin("basic");
 ?>
 
 <div style="overflow:hidden">
-±¸±Û±¤°í...
+êµ¬ê¸€ê´‘ê³ ...
 </div>
 
-<!-- ·Î±×ÀÎ¹Ú½º¿ÍÀÇ ¿©¹é -->
+<!-- ë¡œê·¸ì¸ë°•ìŠ¤ì™€ì˜ ì—¬ë°± -->
     <table><tr><td height="1px"></td></tr></table>
     <?
     if ($member[mb_id]) {
@@ -284,12 +284,12 @@ echo outlogin("basic");
     }
     ?>
     <?
-    // ÅõÇ¥
+    // íˆ¬í‘œ
     include_once("$g4[path]/lib/poll.lib.php");
     echo poll();
     ?>
     <?
-    // ¹æ¹®ÀÚ
+    // ë°©ë¬¸ìž
     include_once("$g4[path]/lib/visit.lib.php");
     echo visit();
     ?>
@@ -297,7 +297,7 @@ echo outlogin("basic");
     include_once("$g4[path]/lib/popular.lib.php");
     echo board_popular("board","", 14, 5);
     ?>
-    <? // ÇöÀçÁ¢¼ÓÀÚ
+    <? // í˜„ìž¬ì ‘ì†ìž
     include_once("$g4[path]/lib/connect.lib.php");
     echo connect();
     ?>
@@ -308,21 +308,21 @@ echo outlogin("basic");
     <a href="http://idc.kinx.net/" target=_blank><img src="<?=$g4[path]?>/img/banner/kinx.gif" alt=""></a>
     </center>
 
-</div><!-- ¿ÞÂÊ side ³¡ -->
+</div><!-- ì™¼ìª½ side ë -->
 
-<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10" id="main_content"><!-- ¸ÞÀÎ content ½ÃÀÛ -->
+<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10" id="main_content"><!-- ë©”ì¸ content ì‹œìž‘ -->
 
 <script type="text/javascript">
 function fsearchbox_submit(f)
 {
     if (f.stx.value.length < 2) {
-        alert("°Ë»ö¾î´Â µÎ±ÛÀÚ ÀÌ»ó ÀÔ·ÂÇÏ½Ê½Ã¿À.");
+        alert("ê²€ìƒ‰ì–´ëŠ” ë‘ê¸€ìž ì´ìƒ ìž…ë ¥í•˜ì‹­ì‹œì˜¤.");
         f.stx.select();
         f.stx.focus();
         return false;
     }
 
-    // °Ë»ö¿¡ ¸¹Àº ºÎÇÏ°¡ °É¸®´Â °æ¿ì ÀÌ ÁÖ¼®À» Á¦°ÅÇÏ¼¼¿ä.
+    // ê²€ìƒ‰ì— ë§Žì€ ë¶€í•˜ê°€ ê±¸ë¦¬ëŠ” ê²½ìš° ì´ ì£¼ì„ì„ ì œê±°í•˜ì„¸ìš”.
     var cnt = 0;
     for (var i=0; i<f.stx.value.length; i++) {
         if (f.stx.value.charAt(i) == ' ')
@@ -330,7 +330,7 @@ function fsearchbox_submit(f)
     }
 
     if (cnt > 1) {
-        alert("ºü¸¥ °Ë»öÀ» À§ÇÏ¿© °Ë»ö¾î¿¡ °ø¹éÀº ÇÑ°³¸¸ ÀÔ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+        alert("ë¹ ë¥¸ ê²€ìƒ‰ì„ ìœ„í•˜ì—¬ ê²€ìƒ‰ì–´ì— ê³µë°±ì€ í•œê°œë§Œ ìž…ë ¥í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.");
         f.stx.select();
         f.stx.focus();
         return false;
@@ -341,7 +341,7 @@ function fsearchbox_submit(f)
 }
 </script>
 
-<!-- °Ô½ÃÆÇ ¸Þ´º ¹ÝÀü ½ÃÅ°±â -->
+<!-- ê²Œì‹œíŒ ë©”ë‰´ ë°˜ì „ ì‹œí‚¤ê¸° -->
 <? if ($board['bo_table']) { ?>
 <script type="text/javascript">
 $('#gnb #<?=$board[bo_table]?>').addClass('active');

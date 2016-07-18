@@ -4,8 +4,8 @@
  */
 
 /**
- * ±â±â µî·Ï
- *  - Áßº¹ ÀúÀå »ı·«. UUID + serial
+ * ê¸°ê¸° ë“±ë¡
+ *  - ì¤‘ë³µ ì €ì¥ ìƒëµ. UUID + serial
  *
  * @param array $attributes
  * @param array $member
@@ -52,8 +52,8 @@ function device_save(array $attributes, $member)
 }
 
 /**
- * ±â±â¿¡ È¸¿ø ¿¬µ¿
- *   - ÀÌ¹Ì µî·ÏµÈ ¾ÆÀÌµğ¿Í ´Ù¸¥ ¾ÆÀÌµğ·Î ·Î±×ÀÎÇÒ ¼ö ÀÖÀ¸¹Ç·Î, ÇöÀç ·Î±×ÀÎµÈ »ç¿ëÀÚ¸¦ ±âÁØÀ¸·Î ±â±â ¼ÒÀ¯ÀÚ º¯°æ
+ * ê¸°ê¸°ì— íšŒì› ì—°ë™
+ *   - ì´ë¯¸ ë“±ë¡ëœ ì•„ì´ë””ì™€ ë‹¤ë¥¸ ì•„ì´ë””ë¡œ ë¡œê·¸ì¸í•  ìˆ˜ ìˆìœ¼ë¯€ë¡œ, í˜„ì¬ ë¡œê·¸ì¸ëœ ì‚¬ìš©ìë¥¼ ê¸°ì¤€ìœ¼ë¡œ ê¸°ê¸° ì†Œìœ ì ë³€ê²½
  *
  * @param array $attributes
  * @param array $member
@@ -86,7 +86,7 @@ function device_set_user(array $attributes, $member)
 }
 
 /**
- * ±â±â Á¤º¸
+ * ê¸°ê¸° ì •ë³´
  *
  * @param $uuid
  * @param $member
@@ -107,7 +107,7 @@ function device_info($uuid, $member)
 }
 
 /**
- * ±â±â ¾Ë¸² ¼³Á¤ º¯°æ
+ * ê¸°ê¸° ì•Œë¦¼ ì„¤ì • ë³€ê²½
  *
  * @param array $attributes
  * @param array $device

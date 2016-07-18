@@ -1,19 +1,19 @@
 <?
 include_once("./_common.php");
 
-// ·Î±×ÀÎÁßÀÎ °æ¿ì È¸¿ø°¡ÀÔ ÇÒ ¼ö ¾ø½À´Ï´Ù.
+// ë¡œê·¸ì¸ì¤‘ì¸ ê²½ìš° íšŒì›ê°€ìž… í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.
 if ($member[mb_id]) 
     goto_url($g4[path]);
 
-// ¼¼¼ÇÀ» Áö¿ó´Ï´Ù.
+// ì„¸ì…˜ì„ ì§€ì›ë‹ˆë‹¤.
 set_session("ss_mb_reg", "");
 
-// µî·Ï¿¡ °ü·ÃµÈ ¼³Á¤À» Ãß°¡·Î ÀÐ¾î µéÀÔ´Ï´Ù.
+// ë“±ë¡ì— ê´€ë ¨ëœ ì„¤ì •ì„ ì¶”ê°€ë¡œ ì½ì–´ ë“¤ìž…ë‹ˆë‹¤.
 $config = get_config("reg");
 
 $member_skin_path = "$g4[path]/skin/member/$config[cf_member_skin]";
 
-$g4[title] = "È¸¿ø°¡ÀÔ¾à°ü";
+$g4[title] = "íšŒì›ê°€ìž…ì•½ê´€";
 include_once("./_head.php");
 include_once("$member_skin_path/register.skin.php");
 include_once("./_tail.php");

@@ -1,12 +1,12 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 <div class="panel panel-default">
     <div class="panel-body">
     <ol class="list-unstyled">
     <?
     if (count($npop) == 0) {
-          echo "<li></span> ³»¿ë¾ø½¿</li>";
+          echo "<li></span> ë‚´ìš©ì—†ìŠ´</li>";
     } else {
         for ($i=0; $i<count($npop); $i++) { 
             $j = $i+1;

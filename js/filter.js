@@ -1,14 +1,14 @@
-if (typeof(FILTER_JS) == 'undefined') // ÇÑ¹ø¸¸ ½ÇÇà
+if (typeof(FILTER_JS) == 'undefined') // í•œë²ˆë§Œ ì‹¤í–‰
 {
     if (typeof g4_cf_filter == 'undefined')
-        alert('g4_cf_filter º¯¼ö°¡ ¼±¾ğµÇÁö ¾Ê¾Ò½À´Ï´Ù. js/filter.js');
+        alert('g4_cf_filter ë³€ìˆ˜ê°€ ì„ ì–¸ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. js/filter.js');
 
     var FILTER_JS = true;
 
-    // ±İÁö´Ü¾î ÇÊÅÍ¸µ
+    // ê¸ˆì§€ë‹¨ì–´ í•„í„°ë§
     function word_filter_check(v)
     {
-        var trim_pattern = /(^\s*)|(\s*$)/g; // \s °ø¹é ¹®ÀÚ // ¾çÂÊ °ø¹é ¾ø¾Ö±â trim()
+        var trim_pattern = /(^\s*)|(\s*$)/g; // \s ê³µë°± ë¬¸ì // ì–‘ìª½ ê³µë°± ì—†ì• ê¸° trim()
         var filter = g4_cf_filter;
         var s = filter.split(",");
 

@@ -10,17 +10,17 @@ document.write("</style>");
 document.write("<div id='msg'></div>");
 
 var req;
-var result_js_object; // ¼­¹ö¿¡¼­ ³Ñ¾î¿Â ÀÚ·á eval
-var save_js_object; // ½ÇÁ¦ Ãâ·ÂµÈ ÀÚ·á¸¸ º¸°üÇÏ´Â º¯¼ö
+var result_js_object; // ì„œë²„ì—ì„œ ë„˜ì–´ì˜¨ ìë£Œ eval
+var save_js_object; // ì‹¤ì œ ì¶œë ¥ëœ ìë£Œë§Œ ë³´ê´€í•˜ëŠ” ë³€ìˆ˜
 
 var textbox;
-var save_textbox; // È­»ìÇ¥°¡ ÀÌµ¿ÇÏ±âÀü¿¡ ÅØ½ºÆ®¹Ú½ºÀÇ ³»¿ëÀ» ÀúÀåÇÏ°í ´Ù½Ã È­»ìÇ¥°¡ µ¹¾Æ¿À¸é ¿ø·¡°ªÀ» º¹¿ø
-var before_textbox; // ¹Ù·ÎÀü ÅØ½ºÆ®¹Ú½º ³»¿ë
-var current_line = -1; // °á°ú¿¡¼­ ÇöÀç ¼±ÅÃµÈ ¶óÀÎ
+var save_textbox; // í™”ì‚´í‘œê°€ ì´ë™í•˜ê¸°ì „ì— í…ìŠ¤íŠ¸ë°•ìŠ¤ì˜ ë‚´ìš©ì„ ì €ì¥í•˜ê³  ë‹¤ì‹œ í™”ì‚´í‘œê°€ ëŒì•„ì˜¤ë©´ ì›ë˜ê°’ì„ ë³µì›
+var before_textbox; // ë°”ë¡œì „ í…ìŠ¤íŠ¸ë°•ìŠ¤ ë‚´ìš©
+var current_line = -1; // ê²°ê³¼ì—ì„œ í˜„ì¬ ì„ íƒëœ ë¼ì¸
 var count_for_id;
 
 var is_timer;
-var auto_request = false; // ÀÚµ¿ ¿äÃ» (ÇÑ±ÛÃ³¸®½Ã »ç¿ë)
+var auto_request = false; // ìë™ ìš”ì²­ (í•œê¸€ì²˜ë¦¬ì‹œ ì‚¬ìš©)
 
 var msg = document.getElementById('msg');
 
@@ -29,9 +29,9 @@ function sug_set_properties(xelement, xserver_url, xignore_case, xany_where, xre
         element: xelement,
         server_url: xserver_url,
         ignore_case: ((xignore_case) ? "i" : ""),
-        any_where: ((xany_where) ? "" : "^"), // Áß°£¿¡ ÀÖ´Â ±ÛÀÚ¸¦ °Ë»öµÇ°Ô ÇÒ°ÍÀÎÁö?
-        like: ((xany_where) ? 1 : 0), // SQL QUERY LIKE ¾Õ %
-        result_box_width: xresult_box_width // °á°ú ¹Ú½º¸¦ textbox ÀÇ Æø°ú °°°Ô ÇÒ°ÍÀÎÁö?
+        any_where: ((xany_where) ? "" : "^"), // ì¤‘ê°„ì— ìˆëŠ” ê¸€ìë¥¼ ê²€ìƒ‰ë˜ê²Œ í• ê²ƒì¸ì§€?
+        like: ((xany_where) ? 1 : 0), // SQL QUERY LIKE ì• %
+        result_box_width: xresult_box_width // ê²°ê³¼ ë°•ìŠ¤ë¥¼ textbox ì˜ í­ê³¼ ê°™ê²Œ í• ê²ƒì¸ì§€?
     };
     
     if (textbox == null)
@@ -60,16 +60,16 @@ function sug_textbox_keydown(e) {
 
     auto_request = false;
 
-    if (key == 13) { // ¿£ÅÍÅ°
+    if (key == 13) { // ì—”í„°í‚¤
         if (current_line >= 0)
             textbox.value = save_js_object[current_line];
         return;
-    } else if (key == 38) { // À§ È­»ìÇ¥
+    } else if (key == 38) { // ìœ„ í™”ì‚´í‘œ
         sug_move_key(-1);
         return;
-    } else if (key == 40) { // ¾Æ·¡ È­»ìÇ¥
+    } else if (key == 40) { // ì•„ë˜ í™”ì‚´í‘œ
         if (current_line < 0) {
-            // È­»ìÇ¥°¡ ¾Æ·¡·Î ÀÌµ¿ÇÏ±â Àü¿¡ ÅØ½ºÆ®¹Ú½ºÀÇ °ªÀ» ÀúÀå
+            // í™”ì‚´í‘œê°€ ì•„ë˜ë¡œ ì´ë™í•˜ê¸° ì „ì— í…ìŠ¤íŠ¸ë°•ìŠ¤ì˜ ê°’ì„ ì €ì¥
             save_textbox = textbox.value;
         }
         sug_move_key(1);
@@ -77,7 +77,7 @@ function sug_textbox_keydown(e) {
     } else if (key == 219 || key == 220 || key == 221 || key == 222) {
         cancel_event(_event);
         return;
-    } else if (key == 229) { //  ÇÑ±Û
+    } else if (key == 229) { //  í•œê¸€
         auto_request = true;
         is_timer = setTimeout("sug_request_han();", 100);
     }
@@ -150,7 +150,7 @@ function sug_set_text(xindex){
     self.textbox.form.submit();
 }
 
-// À§ ¾Æ·¡ È­»ìÇ¥ ÀÌµ¿
+// ìœ„ ì•„ë˜ í™”ì‚´í‘œ ì´ë™
 function sug_move_key(number) {
     current_line = parseInt(current_line);
     if (number < 0) {
@@ -166,7 +166,7 @@ function sug_move_key(number) {
     current_line = parseInt(current_line) + parseInt(number);
     if (current_line < 0) {
         document.getElementById('options_list_' + 0).className = 'span_normal';
-        // È­»ìÇ¥°¡ ÀÌµ¿ÇÏ±â Àü¿¡ ÀúÀåµÈ °ªÀ» ÅØ½ºÆ®¹Ú½º °ªÀ¸·Î ³Ñ±è
+        // í™”ì‚´í‘œê°€ ì´ë™í•˜ê¸° ì „ì— ì €ì¥ëœ ê°’ì„ í…ìŠ¤íŠ¸ë°•ìŠ¤ ê°’ìœ¼ë¡œ ë„˜ê¹€
         textbox.value = save_textbox;
     } else if (current_line < count_for_id) {
         sug_set_color(null);
@@ -174,7 +174,7 @@ function sug_move_key(number) {
     }
 }
 
-// request »ı¼º
+// request ìƒì„±
 function create_request() {
     var request = null;
     try {
@@ -196,7 +196,7 @@ function create_request() {
         return request;
 }
 
-// ¼­¹ö·Î º¸³½´Ù
+// ì„œë²„ë¡œ ë³´ë‚¸ë‹¤
 function sug_send_server(query_string) {
     req = create_request();
 
@@ -208,13 +208,13 @@ function sug_send_server(query_string) {
     req.send(link);
 }
 
-// ³Ñ¾î¿Â °á°ú°¡ Á¤»óÀÌ¶ó¸é Ãâ·ÂÇÑ´Ù
+// ë„˜ì–´ì˜¨ ê²°ê³¼ê°€ ì •ìƒì´ë¼ë©´ ì¶œë ¥í•œë‹¤
 function sug_result_server() {
     if (req.readyState == 4) {
         if (req.status == 200) {
             sug_result_box_position(textbox);
             
-            // »õ·Î¿î °á°ú°¡ ³ª¿À¸é ÇöÀç ¶óÀÎÀ» -1 ·Î ¼³Á¤
+            // ìƒˆë¡œìš´ ê²°ê³¼ê°€ ë‚˜ì˜¤ë©´ í˜„ì¬ ë¼ì¸ì„ -1 ë¡œ ì„¤ì •
             current_line = -1;
             count_for_id = -1;
             
@@ -223,12 +223,12 @@ function sug_result_server() {
             
             var str = "";
 
-            // ³Ñ¾î¿Â µ¥ÀÌÅ¸¸¦ ÀÚ¹Ù½ºÅ©¸³Æ® ¹è¿­·Î ¸¸µç´Ù
+            // ë„˜ì–´ì˜¨ ë°ì´íƒ€ë¥¼ ìë°”ìŠ¤í¬ë¦½íŠ¸ ë°°ì—´ë¡œ ë§Œë“ ë‹¤
             save_js_object = new Array();
             result_js_object = eval(req.responseText);
             
             if (result_js_object) {
-                // ¸ÅÄ¡µÈ °á°ú¿¡ ¾ğ´õ¶óÀÎÀ» Ãâ·Â
+                // ë§¤ì¹˜ëœ ê²°ê³¼ì— ì–¸ë”ë¼ì¸ì„ ì¶œë ¥
                 var result = sug_make_matches(textbox.value);
                 for(i=0;i<count_for_id;i++) {
                     str += "<div style='width:100%;padding:0px 0 0 0px;height:18px;cursor:pointer;' id='f"+i+"'>" + result[i] + "</div>";
@@ -243,7 +243,7 @@ function sug_result_server() {
     }
 }
 
-// °á°ú¹Ú½ºÀÇ Æ÷Áö¼Ç ¼³Á¤
+// ê²°ê³¼ë°•ìŠ¤ì˜ í¬ì§€ì…˜ ì„¤ì •
 function sug_result_box_position(xelement){
     var el_width = xelement.offsetWidth;
     var el_height = xelement.offsetHeight;
@@ -264,7 +264,7 @@ function sug_result_box_position(xelement){
     span_el.style.display = "block";
 }
 
-// ÇÑ±Û Å°º¸µå ÀÔ·Â Ã³¸®
+// í•œê¸€ í‚¤ë³´ë“œ ì…ë ¥ ì²˜ë¦¬
 function sug_request_han() {
     if (before_textbox != textbox.value && auto_request) {
         before_textbox = textbox.value;
@@ -281,9 +281,9 @@ function sug_request_han() {
         is_timer = setTimeout("sug_request_han();", 100);
 }
 
-// ¿µ¹®+±âÅ¸ Å°º¸µå ÀÔ·Â Ã³¸®
+// ì˜ë¬¸+ê¸°íƒ€ í‚¤ë³´ë“œ ì…ë ¥ ì²˜ë¦¬
 function sug_request_eng() {
-    // °Ë»ö¾î°¡ 20±ÛÀÚ ¹Ì¸¸ÀÌ¶ó¸é
+    // ê²€ìƒ‰ì–´ê°€ 20ê¸€ì ë¯¸ë§Œì´ë¼ë©´
     if(textbox.value.length < 20) {
         sug_send_server(textbox.value);
     }

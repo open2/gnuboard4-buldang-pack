@@ -1,59 +1,59 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
-<header class="header-wrapper"><!-- »ó´Ü header ½ÃÀÛ -->
+<header class="header-wrapper"><!-- ìƒë‹¨ header ì‹œìž‘ -->
 <div class="container">
 
 <div class="navbar navbar-default" role="navigation">
 <div class="navbar-header" style="margin-top:3px;margin-bottom:3px;">
     <div id="memo_bar" class="pull-left" style="margin-left:5px;">
-        <a onclick="javascript:window.close();" class="btn btn-success navbar-toggle" style="margin-left:10px;" id="memo_close">´Ý±â</a>
-        <a href="<?=$g4[memo_url]?>?kind=notice" class="btn btn-success navbar-toggle" id="notice">°øÁö</a>
-        <a href="<?=$g4[memo_url]?>?kind=save" class="btn btn-success navbar-toggle" id="save">º¸°ü</a>
-        <a href="<?=$g4[memo_url]?>?kind=send" class="btn btn-success navbar-toggle" id="send"><strong>¹ß½Å</strong></a>
-        <a href="<?=$g4[memo_url]?>?kind=recv" class="btn btn-success navbar-toggle" id="recv"><strong>¼ö½Å</strong></a>
+        <a onclick="javascript:window.close();" class="btn btn-success navbar-toggle" style="margin-left:10px;" id="memo_close">ë‹«ê¸°</a>
+        <a href="<?=$g4[memo_url]?>?kind=notice" class="btn btn-success navbar-toggle" id="notice">ê³µì§€</a>
+        <a href="<?=$g4[memo_url]?>?kind=save" class="btn btn-success navbar-toggle" id="save">ë³´ê´€</a>
+        <a href="<?=$g4[memo_url]?>?kind=send" class="btn btn-success navbar-toggle" id="send"><strong>ë°œì‹ </strong></a>
+        <a href="<?=$g4[memo_url]?>?kind=recv" class="btn btn-success navbar-toggle" id="recv"><strong>ìˆ˜ì‹ </strong></a>
     </div>
     <button type="button" class="btn btn-success navbar-toggle" data-toggle="collapse" data-target=".navbar-top-menu-collapse">
         <i class="glyphicon glyphicon-list"></i>
     </button>
-    <a href="<?=$g4[memo_url]?>?kind=write" class="btn btn-success navbar-toggle" id="write"><strong>¾²±â</strong></a>
+    <a href="<?=$g4[memo_url]?>?kind=write" class="btn btn-success navbar-toggle" id="write"><strong>ì“°ê¸°</strong></a>
 </div>
 
 <div class="collapse navbar-collapse navbar-top-menu-collapse">
     <ul class="nav navbar-nav hidden-xs">
-        <li><a href="<?=$g4[memo_url]?>?kind=recv" id="recv"><strong>¼ö½Å</strong></a></li>
-        <li><a href="<?=$g4[memo_url]?>?kind=send" id="send"><strong>¹ß½Å</strong></a></li>
-        <li><a href="<?=$g4[memo_url]?>?kind=write" id="write"><strong>¾²±â</strong></a></li>
-        <li><a href="<?=$g4[memo_url]?>?kind=save" id="save">º¸°ü</a></li>
-        <li><a href="<?=$g4[memo_url]?>?kind=notice" id="notice">°øÁö</a></li>
+        <li><a href="<?=$g4[memo_url]?>?kind=recv" id="recv"><strong>ìˆ˜ì‹ </strong></a></li>
+        <li><a href="<?=$g4[memo_url]?>?kind=send" id="send"><strong>ë°œì‹ </strong></a></li>
+        <li><a href="<?=$g4[memo_url]?>?kind=write" id="write"><strong>ì“°ê¸°</strong></a></li>
+        <li><a href="<?=$g4[memo_url]?>?kind=save" id="save">ë³´ê´€</a></li>
+        <li><a href="<?=$g4[memo_url]?>?kind=notice" id="notice">ê³µì§€</a></li>
     </ul>
 
     <ul class="nav navbar-nav pull-right">
-        <li><a href="<?=$g4[memo_url]?>?kind=trash" id="trash">»èÁ¦</a></li>
-        <li><a href="<?=$g4[memo_url]?>?kind=spam" id="spam">½ºÆÔ</a></li>
+        <li><a href="<?=$g4[memo_url]?>?kind=trash" id="trash">ì‚­ì œ</a></li>
+        <li><a href="<?=$g4[memo_url]?>?kind=spam" id="spam">ìŠ¤íŒ¸</a></li>
         <li class="divider"></li>
-        <li><a href="#">Ä£±¸</a></li>
-        <li><a href="#">±×·ì</a></li>
-        <li><a href="#">ÁÖ¼Ò·Ï</a></li>
-        <li><a href="<?=$g4[memo_url]?>?kind=memo_config">¼³Á¤</a></li>
+        <li><a href="#">ì¹œêµ¬</a></li>
+        <li><a href="#">ê·¸ë£¹</a></li>
+        <li><a href="#">ì£¼ì†Œë¡</a></li>
+        <li><a href="<?=$g4[memo_url]?>?kind=memo_config">ì„¤ì •</a></li>
   </ul>
 </div>
-</div><!-- navbar ³¡ -->
+</div><!-- navbar ë -->
 
 </div>
-</header><!-- »ó´Ü header ³¡ -->
+</header><!-- ìƒë‹¨ header ë -->
 
 <script type='text/javascript'>
-// ÇöÀç Å¬¸¯ÇÑ ¹öÆ°À» active·Î
+// í˜„ìž¬ í´ë¦­í•œ ë²„íŠ¼ì„ activeë¡œ
 $('#memo_bar #<?=$kind?>').addClass('active');
 </script>
 
-<!-- ¸Þ¸ð ¸Þ´º ¹ÝÀü ½ÃÅ°±â -->
+<!-- ë©”ëª¨ ë©”ë‰´ ë°˜ì „ ì‹œí‚¤ê¸° -->
 <? if ($kind) { ?>
 <script type="text/javascript">
 $('#gnb #<?=$kind?>').addClass('active');
 </script>
 <? } ?>
 
-<!-- Áß°£ÀÇ ¸ÞÀÎºÎ ½ÃÀÛ -->
+<!-- ì¤‘ê°„ì˜ ë©”ì¸ë¶€ ì‹œìž‘ -->
 <div role="main">

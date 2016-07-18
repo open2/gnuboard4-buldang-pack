@@ -1,18 +1,18 @@
-<!-- ∏ﬁ¿Œ»≠∏È √÷Ω≈±€ Ω√¿€ -->
+<!-- Î©îÏù∏ÌôîÎ©¥ ÏµúÏã†Í∏Ä ÏãúÏûë -->
 
 <?
-include_once("$g4[path]/lib/popular.lib.php");      // ¿Œ±‚±€
-include_once("$g4[path]/lib/latest.lib.php");       // √÷Ω≈±€
-include_once("$g4[path]/lib/latest.group.lib.php"); // ±◊∑Ï √÷Ω≈±€
-include_once("$g4[path]/lib/latest.my.lib.php"); // ±◊∑Ï √÷Ω≈±€
-include_once("$g4[path]/lib/latest.club.lib.php");  // ≈¨∑¥ √÷Ω≈±€
+include_once("$g4[path]/lib/popular.lib.php");      // Ïù∏Í∏∞Í∏Ä
+include_once("$g4[path]/lib/latest.lib.php");       // ÏµúÏã†Í∏Ä
+include_once("$g4[path]/lib/latest.group.lib.php"); // Í∑∏Î£π ÏµúÏã†Í∏Ä
+include_once("$g4[path]/lib/latest.my.lib.php"); // Í∑∏Î£π ÏµúÏã†Í∏Ä
+include_once("$g4[path]/lib/latest.club.lib.php");  // ÌÅ¥ÎüΩ ÏµúÏã†Í∏Ä
 ?>
 <div class="row-fluid row">
 <div class="col-sm-6">
 <?echo latest_scrap("scrap", "", "echo4me", 9, 40);?>
 </div>
 <div class="col-sm-6">
-<table width=100%><tr><td><!-- ø‰±‚∏∏ table∑Œ ∞®ΩŒ¡÷¥¬ ∞Õ¿∫ ±◊∑∏∞‘ «œ¡ˆ æ ¿∏∏È div, span ≈¬±◊∞° ¿ÃªÛ«œ∞‘ µø¿€«œ±‚ ∂ßπÆ¿Ã¥Ÿ -->
+<table width=100%><tr><td><!-- ÏöîÍ∏∞Îßå tableÎ°ú Í∞êÏã∏Ï£ºÎäî Í≤ÉÏùÄ Í∑∏Î†áÍ≤å ÌïòÏßÄ ÏïäÏúºÎ©¥ div, span ÌÉúÍ∑∏Í∞Ä Ïù¥ÏÉÅÌïòÍ≤å ÎèôÏûëÌïòÍ∏∞ ÎïåÎ¨∏Ïù¥Îã§ -->
 <?echo db_cache('main_notice2', 1, "latest_one('one', 'gnu4_pack, 1697, 0, 430)");?>
 </td></tr></table>
 </div>
@@ -20,12 +20,12 @@ include_once("$g4[path]/lib/latest.club.lib.php");  // ≈¨∑¥ √÷Ω≈±€
 
 <div class="row-fluid row">
 <div class="col-sm-6">
-<?echo db_cache('all_latest', 1, "latest_group(naver, , 12, 40, , ¿¸√º√÷±Ÿ±€, '$g4[bbs_path]/new.php')");?>
+<?echo db_cache('all_latest', 1, "latest_group(naver, , 12, 40, , Ï†ÑÏ≤¥ÏµúÍ∑ºÍ∏Ä, '$g4[bbs_path]/new.php')");?>
 </div>
 <div class="col-sm-6">
 <? 
 $db_key = $member[mb_id] . "_all_my_latest";
-echo db_cache("$db_key", 1, "latest_group(naver, , 12, 40, , ¿¸√º≥ª±€¿«π›¿¿, '$g4[bbs_path]/new.php','my_datetime')");
+echo db_cache("$db_key", 1, "latest_group(naver, , 12, 40, , Ï†ÑÏ≤¥ÎÇ¥Í∏ÄÏùòÎ∞òÏùë, '$g4[bbs_path]/new.php','my_datetime')");
 ?>
 </div>
 </div>
@@ -33,14 +33,14 @@ echo db_cache("$db_key", 1, "latest_group(naver, , 12, 40, , ¿¸√º≥ª±€¿«π›¿¿, '$g
 <div class="row-fluid row">
 <div class="col-sm-6">
 <?
-// ∫Ì∑Œ±◊ √÷Ω≈±€¿ª √‚∑¬
+// Î∏îÎ°úÍ∑∏ ÏµúÏã†Í∏ÄÏùÑ Ï∂úÎ†•
 include_once("$g4[path]/lib/latest.gblog.lib.php");
 echo latest_gblog('naver','',12,40);
 ?>
 </div>
 <div class="col-sm-6">
 <?
-// ≈¨∑¥ √÷Ω≈±€¿ª √‚∑¬
+// ÌÅ¥ÎüΩ ÏµúÏã†Í∏ÄÏùÑ Ï∂úÎ†•
 ?>
 </div>
 </div>
@@ -48,7 +48,7 @@ echo latest_gblog('naver','',12,40);
 <div class="row-fluid row">
 <div class="col-sm-6">
 <?
-// √÷±Ÿ±€ - ≥ª∞° ±◊≥… √‚∑¬«œ∞Ì ΩÕ¿∫∞≈ ¡ˆ¡§«“ ∂ß,
+// ÏµúÍ∑ºÍ∏Ä - ÎÇ¥Í∞Ä Í∑∏ÎÉ• Ï∂úÎ†•ÌïòÍ≥† Ïã∂ÏùÄÍ±∞ ÏßÄÏ†ïÌï† Îïå,
 echo db_cache('gr_trash', 1, "latest(naver, gnu4_pack)");
 ?>
 </div>
@@ -57,4 +57,4 @@ echo db_cache('gr_trash', 1, "latest(naver, gnu4_pack)");
 </div>
 </div>
 
-<!-- ∏ﬁ¿Œ»≠∏È √÷Ω≈±€ ≥° -->
+<!-- Î©îÏù∏ÌôîÎ©¥ ÏµúÏã†Í∏Ä ÎÅù -->

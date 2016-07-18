@@ -2,17 +2,17 @@
 include_once("./_common.php");
 
 if ($sw == "move")
-    $act = "ÀÌµ¿";
+    $act = "ì´ë™";
 else if ($sw == "copy")
-    $act = "º¹»ç";
+    $act = "ë³µì‚¬";
 else 
-    alert("sw °ªÀÌ Á¦´ë·Î ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.");
+    alert("sw ê°’ì´ ì œëŒ€ë¡œ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
-// °Ô½ÃÆÇ °ü¸®ÀÚ ÀÌ»ó º¹»ç, ÀÌµ¿ °¡´É
+// ê²Œì‹œíŒ ê´€ë¦¬ì ì´ìƒ ë³µì‚¬, ì´ë™ ê°€ëŠ¥
 if ($is_admin != "board" && $is_admin != "group" && $is_admin != "super") 
-    alert_close("°Ô½ÃÆÇ °ü¸®ÀÚ ÀÌ»ó Á¢±ÙÀÌ °¡´ÉÇÕ´Ï´Ù.");
+    alert_close("ê²Œì‹œíŒ ê´€ë¦¬ì ì´ìƒ ì ‘ê·¼ì´ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
-$g4[title] = "°Ô½Ã¹° " . $act;
+$g4[title] = "ê²Œì‹œë¬¼ " . $act;
 include_once("$g4[path]/head.sub.php");
 
 $wr_id_list = "";

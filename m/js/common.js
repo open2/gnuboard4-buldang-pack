@@ -2,12 +2,12 @@
  * Copyright 2016 Been Kyung-yoon.
  */
 /**
- * �״����� common.js ���� ����Ͽ� �Լ� �缱��
- *   - ����Ͽ��� ��â ��� ������ �̵����� ó��.
+ * 그누보드 common.js 에서 모바일용 함수 재선언
+ *   - 모바일에선 새창 대신 페이지 이동으로 처리.
  */
 
 /**
- * ���� â
+ * 쪽지 창
  *
  * @param url
  * @param mb_id
@@ -21,7 +21,7 @@ function win_memo(url, mb_id, domain) {
 }
 
 /**
- * ���� �ٿ�ε�
+ * 파일 다운로드
  *
  * @param link
  * @param file
@@ -29,7 +29,7 @@ function win_memo(url, mb_id, domain) {
  */
 function file_download(link, file) {
     if (typeof g4_bo_download_point === "undefined" && g4_bo_download_point > 0) {
-        if (!confirm("'" + file + "' ������ �ٿ�ε� �Ͻø� ����Ʈ�� ����(" + g4_bo_download_point + "��)�˴ϴ�.\n\n����Ʈ�� �Խù��� �ѹ��� �����Ǹ� ������ �ٽ� �ٿ�ε� �ϼŵ� �ߺ��Ͽ� �������� �ʽ��ϴ�.\n\n�׷��� �ٿ�ε� �Ͻðڽ��ϱ�?")) {
+        if (!confirm("'" + file + "' 파일을 다운로드 하시면 포인트가 차감(" + g4_bo_download_point + "점)됩니다.\n\n포인트는 게시물당 한번만 차감되며 다음에 다시 다운로드 하셔도 중복하여 차감하지 않습니다.\n\n그래도 다운로드 하시겠습니까?")) {
             return false;
         }
     }
@@ -40,7 +40,7 @@ function file_download(link, file) {
 }
 
 /**
- * �ڱ�Ұ� â
+ * 자기소개 창
  *
  * @param mb_id
  */
@@ -49,7 +49,7 @@ function win_profile(mb_id) {
 }
 
 /**
- * ����Ʈ â
+ * 포인트 창
  *
  * @param url
  */
@@ -58,7 +58,7 @@ function win_point(url) {
 }
 
 /**
- * ��ũ�� â
+ * 스크랩 창
  *
  * @param url
  */

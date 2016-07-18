@@ -1,13 +1,13 @@
 <?php 
 include_once("./_common.php"); 
 
-$html_title = "Naver Open API : Áö½ÄÀÎ °Ë»ö (search.naver.com)"; 
+$html_title = "Naver Open API : ì§€ì‹ì¸ ê²€ìƒ‰ (search.naver.com)"; 
 $g4[title] = "" . $html_title; 
 
-// Çì´õÈ­ÀÏ ºÒ·¯¿À±â(»ó´Ü¸Þ´º¿Í ¿ÞÂÊ¸Þ´º°¡ ÀÌ°÷¿¡¼­ ºÒ·¯¿À°ÚÁÒ) 
+// í—¤ë”í™”ì¼ ë¶ˆëŸ¬ì˜¤ê¸°(ìƒë‹¨ë©”ë‰´ì™€ ì™¼ìª½ë©”ë‰´ê°€ ì´ê³³ì—ì„œ ë¶ˆëŸ¬ì˜¤ê² ì£ ) 
 include_once("./_head.php"); 
 
-// rss library  (º°µµÀÇ ±×´©º¸µå lib µð·ºÅä¸® È­ÀÏ·Î »©µÎ¼Åµµ ÁÁ½À´Ï´Ù.) 
+// rss library  (ë³„ë„ì˜ ê·¸ëˆ„ë³´ë“œ lib ë””ë ‰í† ë¦¬ í™”ì¼ë¡œ ë¹¼ë‘ì…”ë„ ì¢‹ìŠµë‹ˆë‹¤.) 
 
     function rss_array($url){
        global $g_rss_array;
@@ -21,7 +21,7 @@ include_once("./_head.php");
             $request .= "Host: $host\r\n";
 			$request .= "Connection: close\r\n\r\n";
            // open the connection
-              // ¼ÒÄÏ ¿¬°á,  ÃÖ´ë¿¬°á½Ã°£ 10ÃÊ·Î¼³Á¤
+              // ì†Œì¼“ ì—°ê²°,  ìµœëŒ€ì—°ê²°ì‹œê°„ 10ì´ˆë¡œì„¤ì •
 			if($http = @fsockopen($host, 80, $errno, $errstr, 10)){     
           // make the request
                 fwrite($http, $request);
@@ -58,7 +58,7 @@ include_once("./_head.php");
        }
 
 		  else { 
-             echo "<B><font color=#FF5F00>ÇöÀç ¿¬°á ÇÒ ¼ö ¾ø½À´Ï´Ù.<br />RSSÁÖ¼Ò¶Ç´Â¼­¹ö¹®Á¦ Àá½Ã ÈÄ ´Ù½Ã ½ÃµµÇØ º¸¼¼¿ä.</font></B><br />"; 
+             echo "<B><font color=#FF5F00>í˜„ìž¬ ì—°ê²° í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.<br />RSSì£¼ì†Œë˜ëŠ”ì„œë²„ë¬¸ì œ ìž ì‹œ í›„ ë‹¤ì‹œ ì‹œë„í•´ ë³´ì„¸ìš”.</font></B><br />"; 
                }
         }
         // Feed url looks wrong
@@ -66,7 +66,7 @@ include_once("./_head.php");
             $g_rss_array[errors][] = "Invalid url: $url";
         }
 
-	 // unset º¯¼öµé
+	 // unset ë³€ìˆ˜ë“¤
         unset($g_rss_array[channel_title]);
         unset($g_rss_array[channel_description]);
         unset($g_rss_array[channel_lastBuildDate]);
@@ -186,22 +186,22 @@ include_once("./_head.php");
     }
 
 
-// È¸¿ø¿Ü Á¢±Ù±ÝÁö ±â´ÉÀ» »ç¿ëÇÏ½Ã·Á¸é ÁÖ¼®À» Á¦°ÅÇÏ¼¼¿ä. 
+// íšŒì›ì™¸ ì ‘ê·¼ê¸ˆì§€ ê¸°ëŠ¥ì„ ì‚¬ìš©í•˜ì‹œë ¤ë©´ ì£¼ì„ì„ ì œê±°í•˜ì„¸ìš”. 
 
 if (!$member[mb_id]) { 
 
-            alert("È¸¿øÀÌ½Ã¶ó¸é ·Î±×ÀÎ ÈÄ ÀÌ¿ëÇØ º¸½Ê½Ã¿À.", "$g4[bbs_path]/login.php"); 
+            alert("íšŒì›ì´ì‹œë¼ë©´ ë¡œê·¸ì¸ í›„ ì´ìš©í•´ ë³´ì‹­ì‹œì˜¤.", "$g4[bbs_path]/login.php"); 
 } 
 
-// Naver OpenAPI ¿äÃ» º¯¼ö (request parameter) ¼±ÅÃ
+// Naver OpenAPI ìš”ì²­ ë³€ìˆ˜ (request parameter) ì„ íƒ
 
-$s_requesturl = "http://openapi.naver.com/search?"; // OpenAPI ¿äÃ» url
-$map_key = "" ; // ÀÌ¿ë µî·ÏÀ» ÅëÇØ ¹ÞÀº key ½ºÆ®¸µ ÀÔ·Â
-$s_target = "kin"; // Å¸°ÙÁöÁ¤ (Áö½ÄÀÎ kin, ºí·Î±× blogµî)
-$s_display ="20";  // °Ë»ö°á°ú Ãâ·Â°Ç¼ö
-if($s_start == '')  { $s_start ="1"; } // °Ë»ö°á°úÀÇ ½ÃÀÛÀ§Ä¡
-$s_sort = "sim"; // Á¤·Ä¿É¼Ç ¼±ÅÃ(sim,date,count point);
-// ±âº» °Ë»ö¾î¸¦ ÁöÁ¤ÇÕ´Ï´Ù. (°¢ÀÚ »óÈ²¿¡ ¸Â°Ô) ±×´©º¸µå·Î Çß½À´Ï´Ù. º¯°æÇÏ½Ã¸é µË´Ï´Ù.
+$s_requesturl = "http://openapi.naver.com/search?"; // OpenAPI ìš”ì²­ url
+$map_key = "" ; // ì´ìš© ë“±ë¡ì„ í†µí•´ ë°›ì€ key ìŠ¤íŠ¸ë§ ìž…ë ¥
+$s_target = "kin"; // íƒ€ê²Ÿì§€ì • (ì§€ì‹ì¸ kin, ë¸”ë¡œê·¸ blogë“±)
+$s_display ="20";  // ê²€ìƒ‰ê²°ê³¼ ì¶œë ¥ê±´ìˆ˜
+if($s_start == '')  { $s_start ="1"; } // ê²€ìƒ‰ê²°ê³¼ì˜ ì‹œìž‘ìœ„ì¹˜
+$s_sort = "sim"; // ì •ë ¬ì˜µì…˜ ì„ íƒ(sim,date,count point);
+// ê¸°ë³¸ ê²€ìƒ‰ì–´ë¥¼ ì§€ì •í•©ë‹ˆë‹¤. (ê°ìž ìƒí™©ì— ë§žê²Œ) ê·¸ëˆ„ë³´ë“œë¡œ í–ˆìŠµë‹ˆë‹¤. ë³€ê²½í•˜ì‹œë©´ ë©ë‹ˆë‹¤.
 if($channel_query == '') { $channel_query =""; } 
 
 ?> 
@@ -212,39 +212,39 @@ if($channel_query == '') { $channel_query =""; }
     <td background='../img/top_box_tr.gif' width=5 height=5></td>
     </tr>
     </table>
-    <!-- °ø¹é --><table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td height="3"></td></tr></table> 
+    <!-- ê³µë°± --><table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td height="3"></td></tr></table> 
 
-    <!-- °Ë»ö ½ÃÀÛ --> 
+    <!-- ê²€ìƒ‰ ì‹œìž‘ --> 
     <form name=fnew method=get style="margin:0px;"> 
     <table width="100%" border="0" cellspacing="0" cellpadding="0"> 
     <tr> 
     <td height=30> 
-        &nbsp;<b> ³×ÀÌ¹ö(www.naver.com) Áö½ÄÀÎ °Ë»ö : </b> 
+        &nbsp;<b> ë„¤ì´ë²„(www.naver.com) ì§€ì‹ì¸ ê²€ìƒ‰ : </b> 
         <input type=text id='channel_query' name='channel_query' value=''> 
-        <input type=submit value='°Ë»ö'> 
+        <input type=submit value='ê²€ìƒ‰'> 
     </td> 
     </tr> 
     </table> 
     </form> 
-    <!-- °Ë»ö ³¡ --> 
+    <!-- ê²€ìƒ‰ ë --> 
 
 <? 
-    // url_fopen Çã¿ë 
+    // url_fopen í—ˆìš© 
      if (ini_get("allow_url_fopen") == 0) { @ini_set("allow_url_fopen", 1); 
         } 
-    // ³×ÀÌ¹ö Áö½ÄÀÎ OpenAPI ¿äÃ» urlÀÔ´Ï´Ù. 
+    // ë„¤ì´ë²„ ì§€ì‹ì¸ OpenAPI ìš”ì²­ urlìž…ë‹ˆë‹¤. 
     $channel_list = $s_requesturl."display=".$s_display."&start=".$s_start."&target=".$s_target."&sort=".$s_sort."&key=".$map_key."&query="; 
 
 
 $channel_query1 =iconv("euc-kr","utf-8",str_replace(" ","",$channel_query)); 
 
 
-    // ¼³Á¤ÇÑ Ã¤³Î¿¡¼­ °Ë»öµÈ ´º½º¸¦ ÀÐ¾î¿Â´Ù. 
+    // ì„¤ì •í•œ ì±„ë„ì—ì„œ ê²€ìƒ‰ëœ ë‰´ìŠ¤ë¥¼ ì½ì–´ì˜¨ë‹¤. 
 
     $rss_array = rss_array($channel_list.$channel_query1); 
 
-// ±Ü¾î¿Â RSSÀÇ Ã¤³Î ÅÂ±×ÀÇ Å¸ÀÌÆ²À» ³×ÀÌ¹ö(UTF-8»ç¿ë) euc-kr·Î º¯È¯ 
-// ¼­¹ö È¯°æÀÌ UTF-8ÀÏ°æ¿ì iconv¸¦ »ç¿ëÇÏÁö ¾ÊÀ¸¸é µË´Ï´Ù.
+// ê¸ì–´ì˜¨ RSSì˜ ì±„ë„ íƒœê·¸ì˜ íƒ€ì´í‹€ì„ ë„¤ì´ë²„(UTF-8ì‚¬ìš©) euc-krë¡œ ë³€í™˜ 
+// ì„œë²„ í™˜ê²½ì´ UTF-8ì¼ê²½ìš° iconvë¥¼ ì‚¬ìš©í•˜ì§€ ì•Šìœ¼ë©´ ë©ë‹ˆë‹¤.
 
 $channel = $rss_array['channel']['title']; 
 $s_total = $rss_array['channel']['total']; 
@@ -253,14 +253,14 @@ $s_lastBuildDate = $rss_array['channel']['lastBuildDate'];
 $mt_cha =iconv("utf-8","euc-kr","$channel");  
 
       $pubdate = date('Y-m-d H:i:s', strtotime($s_lastBuildDate));
-      $arr_date = substr($pubdate, 0,4)."³â".substr($pubdate, 5,2)."¿ù".substr($pubdate, 8,2)."ÀÏ  ".substr($pubdate, 11,8);
+      $arr_date = substr($pubdate, 0,4)."ë…„".substr($pubdate, 5,2)."ì›”".substr($pubdate, 8,2)."ì¼  ".substr($pubdate, 11,8);
 
 ?> 
 
 <table width="710" border="0" cellspacing="0" cellpadding="0"> 
 <tr><td colspan=3 height=2 bgcolor=#B0ADF5></td></tr> 
 <tr bgcolor=#F8F8F9 height=30 align=center> 
-    <td width=710><font color='red'>'<b><?=$channel_query?></b></font>'¿¡ ´ëÇÑ ³×ÀÌ¹ö Áö½ÄiN ¼­ºñ½º³» °Ë»ö°á°úÀÔ´Ï´Ù. :: °Ë»ö°Ç¼ö : <?=number_format($s_total)?>°Ç <?=$arr_date?></td>
+    <td width=710><font color='red'>'<b><?=$channel_query?></b></font>'ì— ëŒ€í•œ ë„¤ì´ë²„ ì§€ì‹iN ì„œë¹„ìŠ¤ë‚´ ê²€ìƒ‰ê²°ê³¼ìž…ë‹ˆë‹¤. :: ê²€ìƒ‰ê±´ìˆ˜ : <?=number_format($s_total)?>ê±´ <?=$arr_date?></td>
 
 </tr> 
 <tr><td colspan=3 height=1 bgcolor=#B0ADF5></td></tr> 
@@ -278,7 +278,7 @@ if(count($rss_array['items']) > 0 ) {
 
 } //foreach 
 
-// ÆäÀÌÁö Ç¥½Ã
+// íŽ˜ì´ì§€ í‘œì‹œ
 
 $total_page = ceil($s_total/$s_display);
 if (!$s_start) $s_start = 1;
@@ -291,11 +291,11 @@ $write_pages = get_paging($s_display-10, $s_start, $total_page, "?&channel_query
 echo("<tr><td align=center>".$write_pages."</td></tr>");
 
 
-echo("</table><p><div align=center>À§ ³»¿ëÀº <a href="."http://openapi.naver.com/index.nhn"."><img src='http://openapi.naver.com/logo/logo01_1.gif' border=0 align=absmiddle>"."</a> Áö½ÄIN °Ë»öÀ» ÅëÇØ Á¦°øÇÏ´Â ³»¿ëÀ¸·Î¸¸ ±¸¼ºµÇ¾î ÀÖ½À´Ï´Ù.</div><br></td></tr></table>"); 
-}  // °Ë»ö °¹¼ö IF 
+echo("</table><p><div align=center>ìœ„ ë‚´ìš©ì€ <a href="."http://openapi.naver.com/index.nhn"."><img src='http://openapi.naver.com/logo/logo01_1.gif' border=0 align=absmiddle>"."</a> ì§€ì‹IN ê²€ìƒ‰ì„ í†µí•´ ì œê³µí•˜ëŠ” ë‚´ìš©ìœ¼ë¡œë§Œ êµ¬ì„±ë˜ì–´ ìžˆìŠµë‹ˆë‹¤.</div><br></td></tr></table>"); 
+}  // ê²€ìƒ‰ ê°¯ìˆ˜ IF 
 
 else { 
-echo("<tr><td colspan='3' align=center height=100>°Ë»öµÈ ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr><tr><td colspan='3' height=1 bgcolor=#B0ADF5></td></tr></table><br></td></tr></table>"); 
+echo("<tr><td colspan='3' align=center height=100>ê²€ìƒ‰ëœ ìžë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr><tr><td colspan='3' height=1 bgcolor=#B0ADF5></td></tr></table><br></td></tr></table>"); 
 } 
 include_once("./_tail.php"); 
 ?>

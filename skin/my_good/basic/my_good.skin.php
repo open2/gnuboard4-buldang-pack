@@ -1,11 +1,11 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 
-// °Ô½ÃÆÇ ¸ñ·Ïº°·Î Á¤·ÄÇÏ±â
+// ê²Œì‹œíŒ ëª©ë¡ë³„ë¡œ ì •ë ¬í•˜ê¸°
 $sql = " select distinct a.bo_table, b.bo_subject from $g4[board_good_table] a left join $g4[board_table] b on a.bo_table=b.bo_table where a.mb_id = '$member[mb_id]' ";
 $result = sql_query($sql);
 $str = "<select class='form-control' name='bo_table' id='$bo_table' onchange=\"location='$g4[bbs_path]/my_good.php?head_on=$head_on&mnb=$mnb&snb=$snb&sfl=bo_table&stx='+this.value;\">";
-$str .= "<option value='all'>ÀüÃ¼¸ñ·Ïº¸±â</option>";
+$str .= "<option value='all'>ì „ì²´ëª©ë¡ë³´ê¸°</option>";
     for ($i=0; $row=sql_fetch_array($result); $i++)
     {
         $str .= "<option value='$row[bo_table]'";
@@ -19,17 +19,17 @@ $str .= "<option value='all'>ÀüÃ¼¸ñ·Ïº¸±â</option>";
 <input type=hidden name=head_on value="<?=$head_on?>">
 <input type=hidden name=mnb value="<?=$mnb?>">
 <input type=hidden name=snb value="<?=$snb?>">
-<a class="btn btn-default" href="<?=$g4[bbs_path]?>/my_good.php?head_on=<?=$head_on?>&mnb=<?=$mnb?>&snb=<?=$snb?>">Ã³À½</a>
+<a class="btn btn-default" href="<?=$g4[bbs_path]?>/my_good.php?head_on=<?=$head_on?>&mnb=<?=$mnb?>&snb=<?=$snb?>">ì²˜ìŒ</a>
 <span class="pull-right"><?=$str?></span>
 </form>
 
 <table width="100%" class="table table-hover">
 <tr class="success" align=center> 
-    <td class="col-sm-1">¹øÈ£</td>
-    <td class="col-sm-2">°Ô½ÃÆÇ</td>
-    <td>Á¦¸ñ</td>
-    <td class="col-sm-1 hidden-xs">±Û¾´ÀÌ</td>
-    <td class="col-sm-1 hidden-xs">ÃßÃµ³¯Â¥</td>
+    <td class="col-sm-1">ë²ˆí˜¸</td>
+    <td class="col-sm-2">ê²Œì‹œíŒ</td>
+    <td>ì œëª©</td>
+    <td class="col-sm-1 hidden-xs">ê¸€ì“´ì´</td>
+    <td class="col-sm-1 hidden-xs">ì¶”ì²œë‚ ì§œ</td>
 </tr>
 <? for ($i=0; $i<count($list); $i++) { ?>
     <tr align="center"> 
@@ -43,7 +43,7 @@ $str .= "<option value='all'>ÀüÃ¼¸ñ·Ïº¸±â</option>";
             <?=$list[$i][bo_subject]?></a>
         </td>
         <td align="left" style='word-break:break-all;'>
-            <? // ºñ¹Ğ±ÛÀÎ ½ºÅ©·¦ÀÇ °æ¿ì ºñ¹Ğ±Û ¾ÆÀÌÄÜÀ» ¾Õ¿¡ Ç¥½Ã
+            <? // ë¹„ë°€ê¸€ì¸ ìŠ¤í¬ë©ì˜ ê²½ìš° ë¹„ë°€ê¸€ ì•„ì´ì½˜ì„ ì•ì— í‘œì‹œ
             if ($list[$i][secret]) 
                 $secret_icon = "<i class=\"fa fa-lock\"></i>";
             else
@@ -68,21 +68,21 @@ $str .= "<option value='all'>ÀüÃ¼¸ñ·Ïº¸±â</option>";
     </tr>
 <? } ?>
 
-<? if ($i == 0) echo "<tr><td colspan=5 align=center height=100>ÀÚ·á°¡ ¾ø½À´Ï´Ù.</td></tr>"; ?>
+<? if ($i == 0) echo "<tr><td colspan=5 align=center height=100>ìë£Œê°€ ì—†ìŠµë‹ˆë‹¤.</td></tr>"; ?>
 </table>
 
 <div class="center-block">
     <ul class="pagination">
-    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ÀÌÀü°Ë»ö</a></li>"; } ?>
+    <? if ($prev_part_href) { echo "<li><a href='$prev_part_href'>ì´ì „ê²€ìƒ‰</a></li>"; } ?>
     <?
-    // ±âº»À¸·Î ³Ñ¾î¿À´Â ÆäÀÌÁö¸¦ ¾Æ·¡¿Í °°ÀÌ º¯È¯ÇÏ¿© ´Ù¾çÇÏ°Ô Ãâ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.
-    $write_pages = str_replace("ÀÌÀü", "<i class='fa fa-angle-left'></i>", $write_pages);
-    $write_pages = str_replace("´ÙÀ½", "<i class='fa fa-angle-right'></i>", $write_pages);
-    $write_pages = str_replace("Ã³À½", "<i class='fa fa-angle-double-left'></i>", $write_pages);
-    $write_pages = str_replace("¸Ç³¡", "<i class='fa fa-angle-double-right'></i>", $write_pages);
+    // ê¸°ë³¸ìœ¼ë¡œ ë„˜ì–´ì˜¤ëŠ” í˜ì´ì§€ë¥¼ ì•„ë˜ì™€ ê°™ì´ ë³€í™˜í•˜ì—¬ ë‹¤ì–‘í•˜ê²Œ ì¶œë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+    $write_pages = str_replace("ì´ì „", "<i class='fa fa-angle-left'></i>", $write_pages);
+    $write_pages = str_replace("ë‹¤ìŒ", "<i class='fa fa-angle-right'></i>", $write_pages);
+    $write_pages = str_replace("ì²˜ìŒ", "<i class='fa fa-angle-double-left'></i>", $write_pages);
+    $write_pages = str_replace("ë§¨ë", "<i class='fa fa-angle-double-right'></i>", $write_pages);
     ?>
     <?=$write_pages?>
-    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ÀÌÈÄ°Ë»ö</a></li>"; } ?>
+    <? if ($next_part_href) { echo "<li><a href='$next_part_href'>ì´í›„ê²€ìƒ‰</a></li>"; } ?>
     </ul>
 </div>
 

@@ -8,26 +8,26 @@ $token = get_token();
 
 if ($w == "") 
 {
-    $required_mb_id = "required minlength=3 alphanumericunderline itemname='È¸¿ø¾ÆÀÌµð'";
-    $required_mb_password = "required itemname='ÆÐ½º¿öµå'";
+    $required_mb_id = "required minlength=3 alphanumericunderline itemname='íšŒì›ì•„ì´ë””'";
+    $required_mb_password = "required itemname='íŒ¨ìŠ¤ì›Œë“œ'";
 
     $mb[mb_mailling] = 1;
     $mb[mb_open] = 1;
     $mb[mb_level] = $config[cf_register_level];
-    $html_title = "µî·Ï";
+    $html_title = "ë“±ë¡";
 }
 else if ($w == "u") 
 {
     $mb = get_member($mb_id);
     if (!$mb[mb_id])
-        alert("Á¸ÀçÇÏÁö ¾Ê´Â È¸¿øÀÚ·áÀÔ´Ï´Ù."); 
+        alert("ì¡´ìž¬í•˜ì§€ ì•ŠëŠ” íšŒì›ìžë£Œìž…ë‹ˆë‹¤."); 
 
     if ($is_admin != 'super' && $mb[mb_level] >= $member[mb_level])
-        alert("ÀÚ½Åº¸´Ù ±ÇÇÑÀÌ ³ô°Å³ª °°Àº È¸¿øÀº ¼öÁ¤ÇÒ ¼ö ¾ø½À´Ï´Ù.");
+        alert("ìžì‹ ë³´ë‹¤ ê¶Œí•œì´ ë†’ê±°ë‚˜ ê°™ì€ íšŒì›ì€ ìˆ˜ì •í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 
     $required_mb_id = "readonly style='background-color:#dddddd;'";
     $required_mb_password = "";
-    $html_title = "¼öÁ¤";
+    $html_title = "ìˆ˜ì •";
 
     $mb[mb_name]        = get_text($mb[mb_name]);
     $mb[mb_nick]        = get_text($mb[mb_nick]);
@@ -53,13 +53,13 @@ else if ($w == "u")
     $mb[mb_10]          = get_text($mb[mb_10]);
 } 
 else 
-    alert("Á¦´ë·Î µÈ °ªÀÌ ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.");
+    alert("ì œëŒ€ë¡œ ëœ ê°’ì´ ë„˜ì–´ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
-if ($mb[mb_mailling]) $mailling_checked = "checked"; // ¸ÞÀÏ ¼ö½Å
-if ($mb[mb_sms])      $sms_checked = "checked"; // SMS ¼ö½Å
-if ($mb[mb_open])     $open_checked = "checked"; // Á¤º¸ °ø°³
+if ($mb[mb_mailling]) $mailling_checked = "checked"; // ë©”ì¼ ìˆ˜ì‹ 
+if ($mb[mb_sms])      $sms_checked = "checked"; // SMS ìˆ˜ì‹ 
+if ($mb[mb_open])     $open_checked = "checked"; // ì •ë³´ ê³µê°œ
 
-$g4[title] = "È¸¿øÁ¤º¸ " . $html_title;
+$g4[title] = "íšŒì›ì •ë³´ " . $html_title;
 include_once("./admin.head.php");
 ?>
 
@@ -79,42 +79,42 @@ include_once("./admin.head.php");
     <td colspan=4 class="success"><?=$g4[title]?></td>
 </tr>
 <tr>
-    <td>¾ÆÀÌµð</td>
+    <td>ì•„ì´ë””</td>
     <td>
-        <input type=text class=ed name='mb_id' size=20 maxlength=20 minlength=2 <?=$required_mb_id?> itemname='¾ÆÀÌµð' value='<? echo $mb[mb_id] ?>'>
-        <?if ($w=="u"){?><a href='./boardgroupmember_form.php?mb_id=<?=$mb[mb_id]?>'>Á¢±Ù°¡´É±×·ìº¸±â</a><?}?>
+        <input type=text class=ed name='mb_id' size=20 maxlength=20 minlength=2 <?=$required_mb_id?> itemname='ì•„ì´ë””' value='<? echo $mb[mb_id] ?>'>
+        <?if ($w=="u"){?><a href='./boardgroupmember_form.php?mb_id=<?=$mb[mb_id]?>'>ì ‘ê·¼ê°€ëŠ¥ê·¸ë£¹ë³´ê¸°</a><?}?>
     </td>
 </tr>
 <tr>
-    <td>ÆÐ½º¿öµå</td>
-    <td><input type=password class=ed name='mb_password' size=20 maxlength=20 <?=$required_mb_password?> itemname='¾ÏÈ£'></td>
+    <td>íŒ¨ìŠ¤ì›Œë“œ</td>
+    <td><input type=password class=ed name='mb_password' size=20 maxlength=20 <?=$required_mb_password?> itemname='ì•”í˜¸'></td>
 </tr>
 <tr>
-    <td>ÀÌ¸§(½Ç¸í)</td>
-    <td><input type=text class=ed name='mb_name' maxlength=20 minlength=2 required itemname='ÀÌ¸§(½Ç¸í)' value='<? echo $mb[mb_name] ?>'></td>
+    <td>ì´ë¦„(ì‹¤ëª…)</td>
+    <td><input type=text class=ed name='mb_name' maxlength=20 minlength=2 required itemname='ì´ë¦„(ì‹¤ëª…)' value='<? echo $mb[mb_name] ?>'></td>
 </tr>
 <tr>
-    <td>º°¸í</td>
-    <td><input type=text class=ed name='mb_nick' maxlength=20 minlength=2 required itemname='º°¸í' value='<? echo $mb[mb_nick] ?>'> <? if ($mb['mb_nick_date'] && $mb['mb_nick_date']!="0000-00-00") { ?>(<?=$mb['mb_nick_date']?>)<? } ?></td>
+    <td>ë³„ëª…</td>
+    <td><input type=text class=ed name='mb_nick' maxlength=20 minlength=2 required itemname='ë³„ëª…' value='<? echo $mb[mb_nick] ?>'> <? if ($mb['mb_nick_date'] && $mb['mb_nick_date']!="0000-00-00") { ?>(<?=$mb['mb_nick_date']?>)<? } ?></td>
 </tr>
 <tr>
-    <td>È¸¿ø ±ÇÇÑ</td>
+    <td>íšŒì› ê¶Œí•œ</td>
     <td><?=get_member_level_select("mb_level", 1, $member[mb_level], $mb[mb_level])?></td>
 </tr>
 <tr>
-    <td>Æ÷ÀÎÆ®</td>
-    <td><a href='./point_list.php?sfl=mb_id&stx=<?=$mb[mb_id]?>' class='bold'><?=number_format($mb[mb_point])?></a> Á¡</td>
+    <td>í¬ì¸íŠ¸</td>
+    <td><a href='./point_list.php?sfl=mb_id&stx=<?=$mb[mb_id]?>' class='bold'><?=number_format($mb[mb_point])?></a> ì </td>
 </tr>
 <tr>
-    <td>»ç¿ëÀÚ±×·ì</td>
+    <td>ì‚¬ìš©ìžê·¸ë£¹</td>
     <td>
-    <input type=text class=ed name='ug_id' id='ug_id' size=20 maxlength=40 value='<? echo $mb[ug_id] ?>' itemname='»ç¿ëÀÚ±×·ì' readonly>
+    <input type=text class=ed name='ug_id' id='ug_id' size=20 maxlength=40 value='<? echo $mb[ug_id] ?>' itemname='ì‚¬ìš©ìžê·¸ë£¹' readonly>
     <? 
-    // »ç¿ëÀÚ±×·ì ¸ñ·Ï
+    // ì‚¬ìš©ìžê·¸ë£¹ ëª©ë¡
     $sql = " select * from $g4[user_group_table] ";
     $result = sql_query($sql);
     $ug_str = "<select name='ug_str' onchange=\"javascript:document.getElementById('ug_id').value=this.value;\">";
-    $ug_str .= "<option value=''>»ç¿ëÀÚ±×·ì ¼±ÅÃÇÏ±â</option>";
+    $ug_str .= "<option value=''>ì‚¬ìš©ìžê·¸ë£¹ ì„ íƒí•˜ê¸°</option>";
     for ($i=0; $row=sql_fetch_array($result); $i++)
     {
         $ug_str .= "<option value='$row[ug_id]'";
@@ -130,82 +130,82 @@ include_once("./admin.head.php");
     <td><input type=text class=ed name='mb_email' size=40 maxlength=100 required email itemname='e-mail' value='<? echo $mb[mb_email] ?>'></td>
 </tr>
 <tr>
-    <td>È¨ÆäÀÌÁö</td>
-    <td><input type=text class=ed name='mb_homepage' size=40 maxlength=255 itemname='È¨ÆäÀÌÁö' value='<? echo $mb[mb_homepage] ?>'></td>
+    <td>í™ˆíŽ˜ì´ì§€</td>
+    <td><input type=text class=ed name='mb_homepage' size=40 maxlength=255 itemname='í™ˆíŽ˜ì´ì§€' value='<? echo $mb[mb_homepage] ?>'></td>
 </tr>
 <tr>
-    <td>ÀüÈ­¹øÈ£</td>
-    <td><input type=text class=ed name='mb_tel' maxlength=20 itemname='ÀüÈ­¹øÈ£' value='<? echo $mb[mb_tel] ?>'></td>
+    <td>ì „í™”ë²ˆí˜¸</td>
+    <td><input type=text class=ed name='mb_tel' maxlength=20 itemname='ì „í™”ë²ˆí˜¸' value='<? echo $mb[mb_tel] ?>'></td>
 </tr>
 <tr>
-    <td>ÇÚµåÆù¹øÈ£</td>
-    <td><input type=text class=ed name='mb_hp' maxlength=20 itemname='ÇÚµåÆù¹øÈ£' value='<? echo $mb[mb_hp] ?>'></td>
+    <td>í•¸ë“œí°ë²ˆí˜¸</td>
+    <td><input type=text class=ed name='mb_hp' maxlength=20 itemname='í•¸ë“œí°ë²ˆí˜¸' value='<? echo $mb[mb_hp] ?>'></td>
 </tr>
 <tr>
-    <td>ÁÖ¼Ò</td>
+    <td>ì£¼ì†Œ</td>
     <td>
-        <input type=text class=ed name='mb_zip1' size=4 maxlength=3 readonly itemname='¿ìÆí¹øÈ£ ¾ÕÀÚ¸®' value='<? echo $mb[mb_zip1] ?>'> -
-        <input type=text class=ed name='mb_zip2' size=4 maxlength=3 readonly itemname='¿ìÆí¹øÈ£ µÞÀÚ¸®' value='<? echo $mb[mb_zip2] ?>'>
+        <input type=text class=ed name='mb_zip1' size=4 maxlength=3 readonly itemname='ìš°íŽ¸ë²ˆí˜¸ ì•žìžë¦¬' value='<? echo $mb[mb_zip1] ?>'> -
+        <input type=text class=ed name='mb_zip2' size=4 maxlength=3 readonly itemname='ìš°íŽ¸ë²ˆí˜¸ ë’·ìžë¦¬' value='<? echo $mb[mb_zip2] ?>'>
         <a href="javascript:;" onclick="win_zip('fmember', 'mb_zip1', 'mb_zip2', 'mb_addr1', 'mb_addr2');"><img src='<?=$g4[bbs_img_path]?>/btn_zip.gif' align=absmiddle border=0></a>
         <br><input type=text class=ed name='mb_addr1' size=40 readonly value='<? echo $mb[mb_addr1] ?>'>
-        <br><input type=text class=ed name='mb_addr2' size=25 itemname='»ó¼¼ÁÖ¼Ò' value='<? echo $mb[mb_addr2] ?>'> »ó¼¼ÁÖ¼Ò ÀÔ·Â</td>
+        <br><input type=text class=ed name='mb_addr2' size=25 itemname='ìƒì„¸ì£¼ì†Œ' value='<? echo $mb[mb_addr2] ?>'> ìƒì„¸ì£¼ì†Œ ìž…ë ¥</td>
 </tr>
 <tr>
-    <td>È¸¿ø¾ÆÀÌÄÜ</td>
+    <td>íšŒì›ì•„ì´ì½˜</td>
     <td colspan=3>
-        <input type=file name='mb_icon' class=ed><br>ÀÌ¹ÌÁö Å©±â´Â <?=$config[cf_member_icon_width]?>x<?=$config[cf_member_icon_height]?>À¸·Î ÇØÁÖ¼¼¿ä.
+        <input type=file name='mb_icon' class=ed><br>ì´ë¯¸ì§€ í¬ê¸°ëŠ” <?=$config[cf_member_icon_width]?>x<?=$config[cf_member_icon_height]?>ìœ¼ë¡œ í•´ì£¼ì„¸ìš”.
         <?
         $mb_dir = substr($mb[mb_id],0,2);
         $icon_file = "$g4[data_path]/member/$mb_dir/$mb[mb_id].gif";
         if (file_exists($icon_file)) {
             echo "<br><img src='$icon_file' align=absmiddle>";
-            echo " <input type=checkbox name='del_mb_icon' value='1' class='csscheck'>»èÁ¦";
+            echo " <input type=checkbox name='del_mb_icon' value='1' class='csscheck'>ì‚­ì œ";
         }   
         ?>
     </td>
 </tr>
 <tr>
-    <td>»ý³â¿ùÀÏ</td>
+    <td>ìƒë…„ì›”ì¼</td>
     <td><input type=text class=ed name=mb_birth size=9 maxlength=8 value='<? echo $mb[mb_birth] ?>'></td>
 </tr>
 <tr>
-    <td>³²³à</td>
+    <td>ë‚¨ë…€</td>
     <td>
-        <select name=mb_sex><option value=''>----<option value='F'>¿©ÀÚ<option value='M'>³²ÀÚ</select>
+        <select name=mb_sex><option value=''>----<option value='F'>ì—¬ìž<option value='M'>ë‚¨ìž</select>
         <script type="text/javascript"> document.fmember.mb_sex.value = "<?=$mb[mb_sex]?>"; </script></td>
 </tr>
 <tr>
-    <td>¸ÞÀÏ ¼ö½Å</td>
-    <td><input type=checkbox name=mb_mailling value='1' <?=$mailling_checked?>> Á¤º¸ ¸ÞÀÏÀ» ¹ÞÀ½</td>
+    <td>ë©”ì¼ ìˆ˜ì‹ </td>
+    <td><input type=checkbox name=mb_mailling value='1' <?=$mailling_checked?>> ì •ë³´ ë©”ì¼ì„ ë°›ìŒ</td>
 </tr>
 <tr>
-    <td>SMS ¼ö½Å</td>
-    <td><input type=checkbox name=mb_sms value='1' <?=$sms_checked?>> ¹®ÀÚ¸Þ¼¼Áö¸¦ ¹ÞÀ½</td>
+    <td>SMS ìˆ˜ì‹ </td>
+    <td><input type=checkbox name=mb_sms value='1' <?=$sms_checked?>> ë¬¸ìžë©”ì„¸ì§€ë¥¼ ë°›ìŒ</td>
 </tr>
 <tr>
-    <td>Á¤º¸ °ø°³</td>
-    <td><input type=checkbox name=mb_open value='1' <?=$open_checked?>> Å¸ÀÎ¿¡°Ô ÀÚ½ÅÀÇ Á¤º¸¸¦ °ø°³</td>
+    <td>ì •ë³´ ê³µê°œ</td>
+    <td><input type=checkbox name=mb_open value='1' <?=$open_checked?>> íƒ€ì¸ì—ê²Œ ìžì‹ ì˜ ì •ë³´ë¥¼ ê³µê°œ</td>
 </tr>
 <tr>
-    <td>¼­¸í</td>
+    <td>ì„œëª…</td>
     <td><textarea class=ed name=mb_signature rows=5 style='width:99%; word-break:break-all;'><? echo $mb[mb_signature] ?></textarea></td>
 </tr>
 <tr>
-    <td>ÀÚ±â ¼Ò°³</td>
+    <td>ìžê¸° ì†Œê°œ</td>
     <td><textarea class=ed name=mb_profile rows=5 style='width:99%; word-break:break-all;'><? echo $mb[mb_profile] ?></textarea></td>
 </tr>
 <tr>
-    <td>¸Þ¸ð</td>
+    <td>ë©”ëª¨</td>
     <td><textarea class=ed name=mb_memo rows=5 style='width:99%; word-break:break-all;'><? echo $mb[mb_memo] ?></textarea></td>
 </tr>
 
 <? if ($w == "u") { ?>
 <tr>
-    <td>È¸¿ø°¡ÀÔÀÏ</td>
+    <td>íšŒì›ê°€ìž…ì¼</td>
     <td><?=$mb[mb_datetime]?></td>
 </tr>
 <tr>
-    <td>ÃÖ±ÙÁ¢¼ÓÀÏ</td>
+    <td>ìµœê·¼ì ‘ì†ì¼</td>
     <td><?=$mb[mb_today_login]?></td>
 </tr>
 <tr>
@@ -213,59 +213,59 @@ include_once("./admin.head.php");
     <td><?=$mb[mb_ip]?></td>
 </tr>
 <tr>
-    <td>º»ÀÎÀÎÁõ</td>
+    <td>ë³¸ì¸ì¸ì¦</td>
     <td><?=$mb[mb_realcheck]?></td>
 </tr>
 <? if ($config[cf_use_email_certify] || $mb[mb_email_certify] !== "0000-00-00 00:00:00") { ?>
 <tr>
-    <td>ÀÌ¸ÞÀÏÀÎÁõ</td>
+    <td>ì´ë©”ì¼ì¸ì¦</td>
     <td><?=$mb[mb_email_certify]?> 
-        <? if ($mb[mb_email_certify] == "0000-00-00 00:00:00") { echo "<input type=checkbox name=passive_certify>¼öµ¿ÀÎÁõ"; } ?>
+        <? if ($mb[mb_email_certify] == "0000-00-00 00:00:00") { echo "<input type=checkbox name=passive_certify>ìˆ˜ë™ì¸ì¦"; } ?>
     </td>
 </tr>
 <? } ?>
 <? } ?>
 
-<? if ($config[cf_use_recommend]) { // ÃßÃµÀÎ »ç¿ë ?>
+<? if ($config[cf_use_recommend]) { // ì¶”ì²œì¸ ì‚¬ìš© ?>
 <tr>
-    <td>ÃßÃµÀÎ</td>
-    <td><?=($mb[mb_recommend] ? get_text($mb[mb_recommend]) : "¾øÀ½"); // 081022 : CSRF º¸¾È °áÇÔÀ¸·Î ÀÎÇÑ ÄÚµå ¼öÁ¤ ?></td>
+    <td>ì¶”ì²œì¸</td>
+    <td><?=($mb[mb_recommend] ? get_text($mb[mb_recommend]) : "ì—†ìŒ"); // 081022 : CSRF ë³´ì•ˆ ê²°í•¨ìœ¼ë¡œ ì¸í•œ ì½”ë“œ ìˆ˜ì • ?></td>
 </tr>
 <? } ?>
 
 <tr>
-    <td>Å»ÅðÀÏÀÚ</td>
+    <td>íƒˆí‡´ì¼ìž</td>
     <td><input type=text class=ed name=mb_leave_date size=9 maxlength=8 value='<? echo $mb[mb_leave_date] ?>'></td>
 </tr>
 <tr>
-    <td>Á¢±ÙÂ÷´ÜÀÏÀÚ</td>
-    <td><input type=text class=ed name=mb_intercept_date size=9 maxlength=8 value='<? echo $mb[mb_intercept_date] ?>'> <input type=checkbox value='<? echo date("Ymd"); ?>' onclick='if (this.form.mb_intercept_date.value==this.form.mb_intercept_date.defaultValue) { this.form.mb_intercept_date.value=this.value; } else { this.form.mb_intercept_date.value=this.form.mb_intercept_date.defaultValue; } '>¿À´Ã</td>
+    <td>ì ‘ê·¼ì°¨ë‹¨ì¼ìž</td>
+    <td><input type=text class=ed name=mb_intercept_date size=9 maxlength=8 value='<? echo $mb[mb_intercept_date] ?>'> <input type=checkbox value='<? echo date("Ymd"); ?>' onclick='if (this.form.mb_intercept_date.value==this.form.mb_intercept_date.defaultValue) { this.form.mb_intercept_date.value=this.value; } else { this.form.mb_intercept_date.value=this.form.mb_intercept_date.defaultValue; } '>ì˜¤ëŠ˜</td>
 </tr>
 
 <? for ($i=1; $i<=10; $i++) { ?>
 <tr>
-    <td>¿©ºÐ ÇÊµå <?=$i?></td>
+    <td>ì—¬ë¶„ í•„ë“œ <?=$i?></td>
     <td><input type=text class=ed style='width:99%;' name='mb_<?=$i?>' maxlength=255 value='<?=$mb["mb_$i"]?>'></td>
 </tr>
 <? } ?>
 
 <tr class="success">
     <td>
-        °ü¸®ÀÚ ÆÐ½º¿öµå
+        ê´€ë¦¬ìž íŒ¨ìŠ¤ì›Œë“œ
     </td>
     <td colspan=3>
-        <input class='ed' type='password' name='admin_password' itemname="°ü¸®ÀÚ ÆÐ½º¿öµå" required>
-        <?=help("°ü¸®ÀÚ ±ÇÇÑÀ» »©¾Ñ±æ °Í¿¡ ´ëºñÇÏ¿© ·Î±×ÀÎÇÑ °ü¸®ÀÚÀÇ ÆÐ½º¿öµå¸¦ ÇÑ¹ø ´õ ¹¯´Â°Í ÀÔ´Ï´Ù.");?>
+        <input class='ed' type='password' name='admin_password' itemname="ê´€ë¦¬ìž íŒ¨ìŠ¤ì›Œë“œ" required>
+        <?=help("ê´€ë¦¬ìž ê¶Œí•œì„ ë¹¼ì•—ê¸¸ ê²ƒì— ëŒ€ë¹„í•˜ì—¬ ë¡œê·¸ì¸í•œ ê´€ë¦¬ìžì˜ íŒ¨ìŠ¤ì›Œë“œë¥¼ í•œë²ˆ ë” ë¬»ëŠ”ê²ƒ ìž…ë‹ˆë‹¤.");?>
     </td>
 </tr>
 </table>
 
 <p align=center>
-    <input type=submit class="btn btn-default" accesskey='s' value='  È®    ÀÎ  '>&nbsp;
-    <input type=button class="btn btn-default" value='  ¸ñ  ·Ï  ' onclick="document.location.href='./member_list.php?<?=$qstr?>';">&nbsp;
+    <input type=submit class="btn btn-default" accesskey='s' value='  í™•    ì¸  '>&nbsp;
+    <input type=button class="btn btn-default" value='  ëª©  ë¡  ' onclick="document.location.href='./member_list.php?<?=$qstr?>';">&nbsp;
     
     <? if ($w != '') { ?>
-    <input type=button class="btn btn-default" value='  »è  Á¦  ' onclick="post_delete('./member_delete.php','<?=$mb[mb_id]?>');">&nbsp;
+    <input type=button class="btn btn-default" value='  ì‚­  ì œ  ' onclick="post_delete('./member_delete.php','<?=$mb[mb_id]?>');">&nbsp;
     <? } ?>
 </form>
 
@@ -281,7 +281,7 @@ if (typeof(document.fmember.mb_level) != "undefined")
 function fmember_submit(f)
 {
     if (!f.mb_icon.value.match(/\.(gif|jp[e]g|png)$/i) && f.mb_icon.value) {
-        alert('¾ÆÀÌÄÜÀÌ ÀÌ¹ÌÁö ÆÄÀÏÀÌ ¾Æ´Õ´Ï´Ù. (bmp Á¦¿Ü)');
+        alert('ì•„ì´ì½˜ì´ ì´ë¯¸ì§€ íŒŒì¼ì´ ì•„ë‹™ë‹ˆë‹¤. (bmp ì œì™¸)');
         return false;
     }
 
@@ -291,12 +291,12 @@ function fmember_submit(f)
 </script>
 
 <script type='text/javascript'>
-// POST ¹æ½ÄÀ¸·Î »èÁ¦
+// POST ë°©ì‹ìœ¼ë¡œ ì‚­ì œ
 function post_delete(action_url, val)
 {
 	var f = document.fpost;
 
-	if(confirm("ÇÑ¹ø »èÁ¦ÇÑ ÀÚ·á´Â º¹±¸ÇÒ ¹æ¹ýÀÌ ¾ø½À´Ï´Ù.\n\nÁ¤¸» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?")) {
+	if(confirm("í•œë²ˆ ì‚­ì œí•œ ìžë£ŒëŠ” ë³µêµ¬í•  ë°©ë²•ì´ ì—†ìŠµë‹ˆë‹¤.\n\nì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
     f.mb_id.value = val;
     f.admin_password.value = document.fmember.admin_password.value;
 		f.action         = action_url;

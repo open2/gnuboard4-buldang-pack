@@ -11,8 +11,8 @@ include_once("./admin.head.php");
 
 // http://sir.co.kr/bbs/board.php?bo_table=g4_tiptech&wr_id=656
 //
-// db¿ë·®¿¡ ´ëÇØ¼­ : http://appleis.tistory.com/507
-// safe_mode¿¡ ´ëÇØ¼­ : http://us2.php.net/features.safe-mode
+// dbìš©ëŸ‰ì— ëŒ€í•´ì„œ : http://appleis.tistory.com/507
+// safe_modeì— ëŒ€í•´ì„œ : http://us2.php.net/features.safe-mode
 
 function size($size) {
 	if(!$size) return "0 Byte";
@@ -27,40 +27,40 @@ function size($size) {
 	}
 }
 
-// safe ¸ðµåÀÎÁö È®ÀÎ. safe¸ðµå¿¡¼­´Â ¼öÇàÀÌ ¾ÈµÇ´Â ¸í·ÉÀÌ ÀÖ½¿
-// ini_get("safe_mode")ÀÇ °ªÀÌ Àß ¾È³ª¿Í¼­...
+// safe ëª¨ë“œì¸ì§€ í™•ì¸. safeëª¨ë“œì—ì„œëŠ” ìˆ˜í–‰ì´ ì•ˆë˜ëŠ” ëª…ë ¹ì´ ìžˆìŠ´
+// ini_get("safe_mode")ì˜ ê°’ì´ ìž˜ ì•ˆë‚˜ì™€ì„œ...
 $sm = @exec("hostname");
 if ($sm)
     $safe_mode = true;
 else
     $safe_mode = false;
 
-// ÇöÀçÀÇ °èÁ¤
+// í˜„ìž¬ì˜ ê³„ì •
 $user_id = get_current_user(); 
 
-// os Á¤º¸
+// os ì •ë³´
 $os_version = php_uname('r');
 
 if ($safe_mode) {
 
-// ¼­¹öÀÇ ip
+// ì„œë²„ì˜ ip
 $ip_addr = @gethostbyname(trim(@exec("hostname")));
 
-// °èÁ¤ÀÇ »ç¿ë·®À» ±¸ÇÔ 
+// ê³„ì •ì˜ ì‚¬ìš©ëŸ‰ì„ êµ¬í•¨ 
 $account_space = exec("du -sb $g4[path]"); 
 $account_space = substr($account_space,0,strlen($account_space)-3); 
 
-// DATA Æú´õÀÇ ¿ë·®À» ±¸ÇÔ 
+// DATA í´ë”ì˜ ìš©ëŸ‰ì„ êµ¬í•¨ 
 $data_space = exec("du -sb $g4[data_path]"); 
 $data_space = substr($data_space,0,strlen($data_space)-8); 
 
 } // end of safe_mode
 
-// Apache À¥¼­¹ö ¹öÁ¯
+// Apache ì›¹ì„œë²„ ë²„ì ¼
 if (function_exists("apache_get_version")) {
     $apache_version = apache_get_version();
 
-    // Apache ¸ðµâ ³»¿ª
+    // Apache ëª¨ë“ˆ ë‚´ì—­
     $apache_m = @apache_get_modules();
     $apache_modules = "";
     $i = 1;
@@ -74,31 +74,31 @@ if (function_exists("apache_get_version")) {
     }
 }
 
-// PHP ¹öÁ¯
+// PHP ë²„ì ¼
 $php_version = phpversion();
 
-// Zend ¹öÁ¯
+// Zend ë²„ì ¼
 $zend_version = zend_version();
 
-// GD ¹öÁ¯
+// GD ë²„ì ¼
 $gd_support = extension_loaded('gd');
 if ($gd_support) {
     $gd_info = gd_info();
     $gd_version = $gd_info['GD Version'];
 } else {
-    $gd_support = "GD°¡ ¼³Ä¡µÇÁö ¾ÊÀ½";
+    $gd_support = "GDê°€ ì„¤ì¹˜ë˜ì§€ ì•ŠìŒ";
 }
 
-// ¾÷·Îµå °¡´ÉÇÑ ÃÖ´ë ÆÄÀÏ»çÀÌÁî
+// ì—…ë¡œë“œ ê°€ëŠ¥í•œ ìµœëŒ€ íŒŒì¼ì‚¬ì´ì¦ˆ
 $max_filesize = get_cfg_var('upload_max_filesize');
 
-// MySQL ¹öÁ¯
+// MySQL ë²„ì ¼
 $m_version = sql_fetch(" select version() as ver");
 
 // MySQL Stat - http://kr2.php.net/manual/kr/function.mysql-stat.php
 $mysql_stat = explode('  ', mysql_stat());
 
-// MYSQL DBÀÇ »ç¿ë·®À» ±¸ÇÔ 
+// MYSQL DBì˜ ì‚¬ìš©ëŸ‰ì„ êµ¬í•¨ 
 $result = sql_query("SHOW TABLE STATUS"); 
 $db_using = 0;
 $db_count = 0;
@@ -109,29 +109,29 @@ while($dbData=mysql_fetch_array($result)) {
     $db_rows += $dbData[Rows];
 } 
 
-// ÀüÃ¼ °Ô½ÃÆÇ °¹¼ö
+// ì „ì²´ ê²Œì‹œíŒ ê°¯ìˆ˜
 $count_board = sql_fetch(" select count(*) as cnt from $g4[board_table] ");
 
-// ÀüÃ¼ °Ô½Ã±Û ¼ö
+// ì „ì²´ ê²Œì‹œê¸€ ìˆ˜
 $result = sql_query(" select bo_table from $g4[board_table] ");
 $count_board_article = 0;
 $count_board_comment = 0;
 for ($i=0; $row=sql_fetch_array($result); $i++) {
-    $tmp_write_table = $g4['write_prefix'] . $row[bo_table]; // °Ô½ÃÆÇ Å×ÀÌºí ÀüÃ¼ÀÌ¸§
+    $tmp_write_table = $g4['write_prefix'] . $row[bo_table]; // ê²Œì‹œíŒ í…Œì´ë¸” ì „ì²´ì´ë¦„
     $t_sum = sql_fetch(" select count(*) as cnt from $tmp_write_table ");
     $count_board_article += $t_sum[cnt];
     $t_sum = sql_fetch(" select count(*) as cnt from $tmp_write_table where wr_is_comment = 1 ");
     $count_board_comment += $t_sum[cnt];
 }
 
-// ¿À´Ã »õ·Î ´©ÀûµÈ Æ÷ÀÎÆ®¿Í ÃÑ ´©ÀûµÈ Æ÷ÀÎÆ®¸¦ ±¸ÇÔ 
+// ì˜¤ëŠ˜ ìƒˆë¡œ ëˆ„ì ëœ í¬ì¸íŠ¸ì™€ ì´ ëˆ„ì ëœ í¬ì¸íŠ¸ë¥¼ êµ¬í•¨ 
 $all_point = sql_fetch(" select sum(po_point) as sum from $g4[point_table] ");
 $new_point = sql_fetch(" select sum(po_point) as sum from $g4[point_table] WHERE date_format( po_datetime, '%Y-%m-%d' ) = '$g4[time_ymd]'");
 
-// ¸ðµç °Ô½ÃÆÇ¿¡ Ã·ºÎµÈ ÆÄÀÏÀÇ °¹¼ö¸¦ ±¸ÇÔ 
+// ëª¨ë“  ê²Œì‹œíŒì— ì²¨ë¶€ëœ íŒŒì¼ì˜ ê°¯ìˆ˜ë¥¼ êµ¬í•¨ 
 $count_data = sql_fetch("select count(*) as cnt from $g4[board_file_table]"); 
 
-// »õ È¸¿ø ¼ö¿Í ÃÑ È¸¿ø ¼ö¸¦ ±¸ÇÔ 
+// ìƒˆ íšŒì› ìˆ˜ì™€ ì´ íšŒì› ìˆ˜ë¥¼ êµ¬í•¨ 
 $count_member = sql_fetch(" select count(*) as cnt from $g4[member_table] where mb_leave_date = '' "); 
 $new_member = sql_fetch(" select count(*) as cnt from $g4[member_table] where mb_open_date = '$g4[time_ymd]' "); 
 ?>
@@ -141,25 +141,25 @@ $new_member = sql_fetch(" select count(*) as cnt from $g4[member_table] where mb
 <colgroup width=''>
 <tr class="success">
     <td align=left>
-    <strong>°èÁ¤ Á¤º¸</strong>
+    <strong>ê³„ì • ì •ë³´</strong>
     </td> 
     <td></td>
 </tr>
 <tr> 
-    <td>»ç¿ëÀÚ id</td>
+    <td>ì‚¬ìš©ìž id</td>
     <td><?=$user_id?></td>
 </tr>
 <tr>
-    <td>¼­¹ö ¿î¿µ½Ã½ºÅÛ</td>
+    <td>ì„œë²„ ìš´ì˜ì‹œìŠ¤í…œ</td>
     <td><?=PHP_OS?></td>
 </tr>
 <tr>
-    <td>¼­¹ö ¿î¿µ½Ã½ºÅÛ ¹öÁ¯</td>
+    <td>ì„œë²„ ìš´ì˜ì‹œìŠ¤í…œ ë²„ì ¼</td>
     <td><?=$os_version?></td>
 </tr>
 
 <tr> 
-    <td>¼­¹ö ½Ã°£</td>
+    <td>ì„œë²„ ì‹œê°„</td>
     <td><?=$g4['time_ymdhis']?></td>
 </tr>
 <? if (function_exists("date_default_timezone_get")) { ?>
@@ -175,57 +175,57 @@ $new_member = sql_fetch(" select count(*) as cnt from $g4[member_table] where mb
     <td><?=$sm;?></td>
 </tr>
 <tr> 
-    <td>ip ÁÖ¼Ò</td>
+    <td>ip ì£¼ì†Œ</td>
     <td><?=$ip_addr?></td>
 </tr>
 
 <tr> 
-    <td>°èÁ¤ DISK »ç¿ë·®(A)</td>
+    <td>ê³„ì • DISK ì‚¬ìš©ëŸ‰(A)</td>
     <td><?=size($account_space)?></td>
 </tr>
 <tr>
-    <td>µ¥ÀÌÅÍ µð·ºÅä¸® »ç¿ë·®(D)</td>
+    <td>ë°ì´í„° ë””ë ‰í† ë¦¬ ì‚¬ìš©ëŸ‰(D)</td>
     <td><?=size($data_space)?></td>
 </tr>
 <tr>
-    <td>ÇÁ·Î±×·¥ »ç¿ë·®(A-D)</td>
+    <td>í”„ë¡œê·¸ëž¨ ì‚¬ìš©ëŸ‰(A-D)</td>
     <td><?=size($account_space - $data_space)?></td>
 </tr>
 <? } ?>
 
 <? if ($apache_version) { ?>
 <tr>
-    <td>Apache ¹öÁ¯</td>
+    <td>Apache ë²„ì ¼</td>
     <td><?=$apache_version;?></td>
 </tr>
 <tr>
-    <td>Apache ¸ðµâ</td>
+    <td>Apache ëª¨ë“ˆ</td>
     <td><?=$apache_modules;?></td>
 </tr>
 <? } ?>
 
 <tr>
-    <td>PHP ¹öÁ¯</td>
+    <td>PHP ë²„ì ¼</td>
     <td><?=$php_version;?></td>
 </tr>
 <tr>
-    <td>Zend ¹öÁ¯</td>
+    <td>Zend ë²„ì ¼</td>
     <td><?=$zend_version;?></td>
 </tr>
 <tr>
-    <td>GD ¹öÁ¯</td>
+    <td>GD ë²„ì ¼</td>
     <td><?=$gd_version;?></td>
 </tr>
 <tr>
-    <td>ÃÖ´ë Upload ÆÄÀÏ»çÀÌÁî</td>
+    <td>ìµœëŒ€ Upload íŒŒì¼ì‚¬ì´ì¦ˆ</td>
     <td><?=$max_filesize;?></td>
 </tr>
 <tr>
-    <td>php¿¡ ÇÒ´çµÈ ¸Þ¸ð¸® »çÀÌÁî</td>
+    <td>phpì— í• ë‹¹ëœ ë©”ëª¨ë¦¬ ì‚¬ì´ì¦ˆ</td>
     <td><?=size(memory_get_usage());?></td>
 </tr>
 <tr>
-    <td>MYSQL ¹öÁ¯</td>
+    <td>MYSQL ë²„ì ¼</td>
     <td><?=$m_version[ver]?>
     </td> 
 </tr>
@@ -239,11 +239,11 @@ $new_member = sql_fetch(" select count(*) as cnt from $g4[member_table] where mb
     <td><? $a = explode(":", $mysql_stat[0]); echo $a[0] . ": ";?>
         <?
         $days = floor($a[1]/86400);
-        if ($days) echo $days . "ÀÏ ";
+        if ($days) echo $days . "ì¼ ";
         $hours = (floor($a[1]/3600)%24);
-        if ($hours) echo $hours . "½Ã°£ ";
+        if ($hours) echo $hours . "ì‹œê°„ ";
         $min = (floor($a[1]/60)%60);
-        if ($min) echo $min . "ºÐ";
+        if ($min) echo $min . "ë¶„";
         ?>
         <BR>
         <?=$mysql_stat[1]?><BR>
@@ -256,68 +256,68 @@ $new_member = sql_fetch(" select count(*) as cnt from $g4[member_table] where mb
     </td> 
 </tr>
 <tr>
-    <td>DB »ç¿ë·®</td>
+    <td>DB ì‚¬ìš©ëŸ‰</td>
     <td><?=size($db_using)?>
     </td> 
 </tr> 
 <tr>
-    <td>ÀüÃ¼ DB Å×ÀÌºí °¹¼ö</td>
+    <td>ì „ì²´ DB í…Œì´ë¸” ê°¯ìˆ˜</td>
     <td><?=number_format($db_count)?>
     </td> 
 </tr> 
 <tr>
-    <td>ÀüÃ¼ DB ROW °¹¼ö</td>
+    <td>ì „ì²´ DB ROW ê°¯ìˆ˜</td>
     <td><?=number_format($db_rows)?>
     </td> 
 </tr> 
 
 <tr> 
     <td class="success">
-    <b>±×´©º¸µå4 Á¤º¸</b>
+    <b>ê·¸ëˆ„ë³´ë“œ4 ì •ë³´</b>
     </td> 
 </tr>
 <tr>
-    <td>ÀüÃ¼ °Ô½ÃÆÇ °¹¼ö</td>
+    <td>ì „ì²´ ê²Œì‹œíŒ ê°¯ìˆ˜</td>
     <td><?=number_format($count_board[cnt])?>
     </td> 
 </tr>
 <tr>
-    <td>ÀüÃ¼ ±Û °¹¼ö(°Ô½Ã±Û+ÄÚ¸àÆ®)</td>
+    <td>ì „ì²´ ê¸€ ê°¯ìˆ˜(ê²Œì‹œê¸€+ì½”ë©˜íŠ¸)</td>
     <td><?=number_format($count_board_article)?>
     </td> 
 </tr>
 <tr>
-    <td>ÀüÃ¼ °Ô½Ã±Û °¹¼ö</td>
+    <td>ì „ì²´ ê²Œì‹œê¸€ ê°¯ìˆ˜</td>
     <td><?=number_format($count_board_article - $count_board_comment)?>
     </td> 
 </tr>
 <tr>
-    <td>ÀüÃ¼ ÄÚ¸àÆ® °¹¼ö</td>
+    <td>ì „ì²´ ì½”ë©˜íŠ¸ ê°¯ìˆ˜</td>
     <td><?=number_format($count_board_comment)?>
     </td> 
 </tr>
 <tr>
-    <td>ÀüÃ¼ °Ô½ÃÆÇÀÇ Ã·ºÎÆÄÀÏ¼ö</td>
+    <td>ì „ì²´ ê²Œì‹œíŒì˜ ì²¨ë¶€íŒŒì¼ìˆ˜</td>
     <td><?=number_format($count_data[cnt])?>
     </td> 
 </tr> 
 <tr>
-    <td>ÀüÃ¼ Æ÷ÀÎÆ® ÇÕ°è</td>
+    <td>ì „ì²´ í¬ì¸íŠ¸ í•©ê³„</td>
     <td><?=number_format($all_point[sum])?>
     </td> 
 </tr>
 <tr>
-    <td>¿À´Ã ¹ß»ýÇÑ Æ÷ÀÎÆ®</td>
+    <td>ì˜¤ëŠ˜ ë°œìƒí•œ í¬ì¸íŠ¸</td>
     <td><?=number_format($new_point[sum])?>
     </td> 
 </tr>
 <tr>
-    <td>ÀüÃ¼ È¸¿ø¼ö</td>
+    <td>ì „ì²´ íšŒì›ìˆ˜</td>
     <td><?=number_format($count_member[cnt])?>
     </td> 
 </tr> 
 <tr>
-    <td>¿À´Ã °¡ÀÔÇÑ È¸¿ø¼ö</td>
+    <td>ì˜¤ëŠ˜ ê°€ìž…í•œ íšŒì›ìˆ˜</td>
     <td><?=number_format($new_member[cnt])?></td> 
 </tr> 
 </table> 

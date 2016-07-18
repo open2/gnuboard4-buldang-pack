@@ -13,19 +13,19 @@ $result = sql_query($sql);
 
 $total_count = mysql_num_rows($result);
 
-$g4[title] = "È¸¿ø ÀÌ¸ÞÀÏ µµ¸ÞÀÎ ¸ñ·Ï";
+$g4[title] = "íšŒì› ì´ë©”ì¼ ë„ë©”ì¸ ëª©ë¡";
 include_once("./admin.head.php");
 ?>
 
 <div class="btn-group">
-    <?=$listall?> (µµ¸ÞÀÎ °¹¼ö : <?=number_format($total_count)?>)
+    <?=$listall?> (ë„ë©”ì¸ ê°¯ìˆ˜ : <?=number_format($total_count)?>)
 </div>
 
 <table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <tr class='success'>
     <td width=30></td>
-    <td width=110 align='left'>µµ¸ÞÀÎÀÌ¸§</td>
-    <td align='left'>µµ¸ÞÀÎ°¹¼ö</td>
+    <td width=110 align='left'>ë„ë©”ì¸ì´ë¦„</td>
+    <td align='left'>ë„ë©”ì¸ê°¯ìˆ˜</td>
 </tr>
 <?
 for ($i=0; $i < $total_count; $i++) {
@@ -41,7 +41,7 @@ for ($i=0; $i < $total_count; $i++) {
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='$colspan' align=center height=100>³»¿ªÀÌ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='$colspan' align=center height=100>ë‚´ì—­ì´ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 ?>
 </table>
 

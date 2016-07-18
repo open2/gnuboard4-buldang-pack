@@ -1,45 +1,45 @@
 <?
-// È¸¿ø°¡ÀÔ ÃßÃµ Å×ÀÌºí
+// íšŒì›ê°€ì… ì¶”ì²œ í…Œì´ë¸”
 $g4['member_suggest_table'] = $g4['table_prefix'] . "member_suggest";
 
-$g4['member_suggest_join_days']  = 30;      // ÃßÃµ+ÀÎÁõÀ¸·Î °¡ÀÔÇÒ ¶§, ÃßÃµ ÄÚµåÀÇ À¯È¿±â°£ (±âº» 30ÀÏ. ½Ã°£ÀÌ ¾Æ´Ï¶ó ³¯Â¥´Ù.)
+$g4['member_suggest_join_days']  = 30;      // ì¶”ì²œ+ì¸ì¦ìœ¼ë¡œ ê°€ì…í•  ë•Œ, ì¶”ì²œ ì½”ë“œì˜ ìœ íš¨ê¸°ê°„ (ê¸°ë³¸ 30ì¼. ì‹œê°„ì´ ì•„ë‹ˆë¼ ë‚ ì§œë‹¤.)
 
-$g4['member_suggest_days']   = 120;         // È¸¿ø°¡ÀÔ ÃßÃµ »çÀÌÅ¬ (¸çÄ¥ ´ÜÀ§·Î ÃßÃµ °¡´É)
-$g4['member_suggest_count']  = 2;           // È¸¿ø°¡ÀÔ ÃßÃµ°Ç¼ö
-$g4['member_suggest_level']  = 3;           // ÃßÃµ °¡´É ·¹º§
+$g4['member_suggest_days']   = 120;         // íšŒì›ê°€ì… ì¶”ì²œ ì‚¬ì´í´ (ë©°ì¹  ë‹¨ìœ„ë¡œ ì¶”ì²œ ê°€ëŠ¥)
+$g4['member_suggest_count']  = 2;           // íšŒì›ê°€ì… ì¶”ì²œê±´ìˆ˜
+$g4['member_suggest_level']  = 3;           // ì¶”ì²œ ê°€ëŠ¥ ë ˆë²¨
 
-$g4['member_suggest_phone']  = 1;           // ÇÚµåÆù ÃßÃµ°¡ÀÔ±â´É ¿©ºÎ
-$g4['member_suggest_email']  = 1;           // ÀÌ¸ŞÀÏ ÃßÃµ°¡ÀÔ±â´É ¿©ºÎ
+$g4['member_suggest_phone']  = 1;           // í•¸ë“œí° ì¶”ì²œê°€ì…ê¸°ëŠ¥ ì—¬ë¶€
+$g4['member_suggest_email']  = 1;           // ì´ë©”ì¼ ì¶”ì²œê°€ì…ê¸°ëŠ¥ ì—¬ë¶€
 
-$g4['member_suggest_singo']  = 1;           // ½Å°í°¡ ÀÖ´Â °æ¿ì °¡ÀÔÁ¦ÇÑ
+$g4['member_suggest_singo']  = 1;           // ì‹ ê³ ê°€ ìˆëŠ” ê²½ìš° ê°€ì…ì œí•œ
 
 $g4['member_suggest_msg1']  = "";
 if ($g4['member_suggest_phone'])
     $g4['member_suggest_msg1'] = "SMS";
 if ($g4['member_suggest_email'])
     if ($g4['member_suggest_msg1'])
-        $g4['member_suggest_msg1'] .= ",ÀÌ¸ŞÀÏ";
+        $g4['member_suggest_msg1'] .= ",ì´ë©”ì¼";
     else
-        $g4['member_suggest_msg1'] .= "ÀÌ¸ŞÀÏ";
+        $g4['member_suggest_msg1'] .= "ì´ë©”ì¼";
 
 
-// °¡ÀÔÃÊ±â È­¸é¿¡ Ãâ·Â µÇ´Â ³»¿ë
+// ê°€ì…ì´ˆê¸° í™”ë©´ì— ì¶œë ¥ ë˜ëŠ” ë‚´ìš©
 $g4['member_suggest_intro'] = "
-      $g4[member_suggest_msg1] ÀÎÁõÀ» ¹ŞÀº Level $g4[member_suggest_level] È¸¿øÀÇ °¡ÀÔÃßÃµÀ» ÅëÇØ¼­¸¸ È¸¿ø °¡ÀÔÀÌ °¡´É ÇÕ´Ï´Ù.<br>
-      $g4[member_suggest_msg1] ÀÎÁõÀ» ¹ŞÀº Level $g4[member_suggest_level] È¸¿øÀº ÃßÃµÀÏºÎÅÍ $g4[member_suggest_days]ÀÏ ÀÌ³»¿¡ $g4[member_suggest_count]¸íÀÇ È¸¿øÀ» °¡ÀÔÃßÃµÇÒ ¼ö ÀÖ½À´Ï´Ù.<br>
-      ÃßÃµ½Ã 30 Æ÷ÀÎÆ®¸¦ Â÷°¨ ÇÕ´Ï´Ù.<br>
-      ÃßÃµÄÚµå´Â ÃßÃµÀÏºÎÅÍ $g4[member_suggest_join_days]ÀÏ°£ À¯È¿ÇÏ¸ç, ±â°£³» °¡ÀÔÀ» ÇÏÁö ¸øÇÑ °æ¿ì <b>ÃßÃµÀÏ°»½Å</b> ¹öÆ°À» ´­·¯¼­ ÃßÃµÀÏÀ» ÇöÀç·Î ÇÒ ¼ö ÀÖ½À´Ï´Ù.
+      $g4[member_suggest_msg1] ì¸ì¦ì„ ë°›ì€ Level $g4[member_suggest_level] íšŒì›ì˜ ê°€ì…ì¶”ì²œì„ í†µí•´ì„œë§Œ íšŒì› ê°€ì…ì´ ê°€ëŠ¥ í•©ë‹ˆë‹¤.<br>
+      $g4[member_suggest_msg1] ì¸ì¦ì„ ë°›ì€ Level $g4[member_suggest_level] íšŒì›ì€ ì¶”ì²œì¼ë¶€í„° $g4[member_suggest_days]ì¼ ì´ë‚´ì— $g4[member_suggest_count]ëª…ì˜ íšŒì›ì„ ê°€ì…ì¶”ì²œí•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.<br>
+      ì¶”ì²œì‹œ 30 í¬ì¸íŠ¸ë¥¼ ì°¨ê° í•©ë‹ˆë‹¤.<br>
+      ì¶”ì²œì½”ë“œëŠ” ì¶”ì²œì¼ë¶€í„° $g4[member_suggest_join_days]ì¼ê°„ ìœ íš¨í•˜ë©°, ê¸°ê°„ë‚´ ê°€ì…ì„ í•˜ì§€ ëª»í•œ ê²½ìš° <b>ì¶”ì²œì¼ê°±ì‹ </b> ë²„íŠ¼ì„ ëˆŒëŸ¬ì„œ ì¶”ì²œì¼ì„ í˜„ì¬ë¡œ í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
       <ul>
-      <li>Level $g4[member_suggest_level] È¸¿øÀÌ °¡ÀÔÃßÃµ $g4[member_suggest_msg1]¸¦ ¹ß¼Û (1¹øÀÇ ¹ß¼Û = 1¹øÀÇ ÃßÃµ)</li>
-      <li>¼ö½ÅÇÑ $g4[member_suggest_level]ÀÇ ÃßÃµÀÎ id, ÀÎÁõÄÚµå¸¦ È¸¿ø°¡ÀÔ È­¸é¿¡¼­ ÀÔ·Â ÇÕ´Ï´Ù.</li>
-      <li>È¸¿ø°¡ÀÔ È­¸é¿¡¼­ È¸¿ø°¡ÀÔÀıÂ÷¸¦ ÁøÇà ÇÕ´Ï´Ù.</li>
+      <li>Level $g4[member_suggest_level] íšŒì›ì´ ê°€ì…ì¶”ì²œ $g4[member_suggest_msg1]ë¥¼ ë°œì†¡ (1ë²ˆì˜ ë°œì†¡ = 1ë²ˆì˜ ì¶”ì²œ)</li>
+      <li>ìˆ˜ì‹ í•œ $g4[member_suggest_level]ì˜ ì¶”ì²œì¸ id, ì¸ì¦ì½”ë“œë¥¼ íšŒì›ê°€ì… í™”ë©´ì—ì„œ ì…ë ¥ í•©ë‹ˆë‹¤.</li>
+      <li>íšŒì›ê°€ì… í™”ë©´ì—ì„œ íšŒì›ê°€ì…ì ˆì°¨ë¥¼ ì§„í–‰ í•©ë‹ˆë‹¤.</li>
       </ul>
       ";
 
-// ÀÎÁõ¹øÈ£ »ı¼º
+// ì¸ì¦ë²ˆí˜¸ ìƒì„±
 $certify_number = rand(100000, 999999); 
 
-// smsÀÎÁõ (icord)
+// smsì¸ì¦ (icord)
 $default['de_icode_server_ip'] = "211.172.232.124"; 
 $default['de_icode_id'] = ""; 
 $default['de_icode_pw'] = ""; 
@@ -47,12 +47,12 @@ $default['de_icode_server_port'] = "7295";
 $default['de_sms_hp'] = "$member[mb_hp]";
 
 $sms_contents = "$config[cf_title]\n\n"; 
-$sms_contents .= "ÃßÃµÀÎ¾ÆÀÌµğ.\n"; 
+$sms_contents .= "ì¶”ì²œì¸ì•„ì´ë””.\n"; 
 $sms_contents .= $member[mb_id]; 
-$sms_contents .= "\n°¡ÀÔÀÎÁõ¹øÈ£.\n"; 
+$sms_contents .= "\nê°€ì…ì¸ì¦ë²ˆí˜¸.\n"; 
 $sms_contents .= $certify_number; 
 
-// ÀÌ¸ŞÀÏ ÀÎÁõ
-$g4['member_suggest_email_subject'] = "È¸¿ø°¡ÀÔÀ» À§ÇÑ ÀÎÁõÄÚµå È®ÀÎ¸ŞÀÏÀÔ´Ï´Ù.";
+// ì´ë©”ì¼ ì¸ì¦
+$g4['member_suggest_email_subject'] = "íšŒì›ê°€ì…ì„ ìœ„í•œ ì¸ì¦ì½”ë“œ í™•ì¸ë©”ì¼ì…ë‹ˆë‹¤.";
 ?>
 <link rel="stylesheet" href="<?=$g4['path']?>/plugin/recommend/style.css" type="text/css">

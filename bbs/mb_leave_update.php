@@ -1,39 +1,39 @@
 <?
-$g4[title] = "È¸¿øÅ»Åð";
+$g4[title] = "íšŒì›íƒˆí‡´";
 include_once("./_common.php");
 
-// º¯¼öµéÀ» setting ÇÕ´Ï´Ù
+// ë³€ìˆ˜ë“¤ì„ setting í•©ë‹ˆë‹¤
 $mb_id        = strip_tags($_POST[mb_id]);
 $mb_password  = strip_tags($_POST[mb_password]);
 
 if (chk_recaptcha() == false)
-    alert ('½ºÆÔÂ÷´ÜÄÚµå°¡ Æ²·È½À´Ï´Ù.');
+    alert ('ìŠ¤íŒ¸ì°¨ë‹¨ì½”ë“œê°€ í‹€ë ¸ìŠµë‹ˆë‹¤.');
 
 if (!$member['mb_id'])
-    alert('È¸¿ø¸¸ Á¢±ÙÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.');
+    alert('íšŒì›ë§Œ ì ‘ê·¼í•˜ì‹¤ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.');
 
 if ($is_admin == 'super')
-    alert('ÃÖ°í °ü¸®ÀÚ´Â Å»ÅðÇÒ ¼ö ¾ø½À´Ï´Ù');
+    alert('ìµœê³  ê´€ë¦¬ìžëŠ” íƒˆí‡´í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤');
 
 if ($mb_id !== $member['mb_id'])
-    alert("Á¤»óÀûÀÎ Á¢±ÙÀÌ ¾Æ´Ñ°Í °°½À´Ï´Ù.");
+    alert("ì •ìƒì ì¸ ì ‘ê·¼ì´ ì•„ë‹Œê²ƒ ê°™ìŠµë‹ˆë‹¤.");
 
 if (!$mb_password)
-    alert("Á¤»óÀûÀÎ Á¢±ÙÀÌ ¾Æ´Ñ°Í °°½À´Ï´Ù (2).");
+    alert("ì •ìƒì ì¸ ì ‘ê·¼ì´ ì•„ë‹Œê²ƒ ê°™ìŠµë‹ˆë‹¤ (2).");
 
 if (sql_password($mb_password) !== $member['mb_password'])
-    alert("$mb_password ºñ¹Ð¹øÈ£°¡ Æ²¸®°Å³ª Á¤»óÀûÀÎ Á¢±ÙÀÌ ¾Æ´Ñ°Í °°½À´Ï´Ù.");
+    alert("$mb_password ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë¦¬ê±°ë‚˜ ì •ìƒì ì¸ ì ‘ê·¼ì´ ì•„ë‹Œê²ƒ ê°™ìŠµë‹ˆë‹¤.");
 
-// È¸¿øÅ»ÅðÀÏÀ» ÀúÀå
+// íšŒì›íƒˆí‡´ì¼ì„ ì €ìž¥
 $date = date("Ymd");
 $sql = " update $g4[member_table] set mb_leave_date = '$date' where mb_id = '$member[mb_id]'";
 sql_query($sql);
 
-// 3.09 ¼öÁ¤ (·Î±×¾Æ¿ô)
+// 3.09 ìˆ˜ì • (ë¡œê·¸ì•„ì›ƒ)
 unset($_SESSION['ss_mb_id']);
 
 if (!$url) 
     $url = $g4[path]; 
 
-alert("{$member[mb_nick]}´Ô²²¼­´Â " . date("Y³â m¿ù dÀÏ") . "¿¡ È¸¿ø¿¡¼­ Å»Åð ÇÏ¼Ì½À´Ï´Ù.", $url);
+alert("{$member[mb_nick]}ë‹˜ê»˜ì„œëŠ” " . date("Yë…„ mì›” dì¼") . "ì— íšŒì›ì—ì„œ íƒˆí‡´ í•˜ì…¨ìŠµë‹ˆë‹¤.", $url);
 ?>

@@ -10,26 +10,26 @@ if (!$ok)
     alert();
 
 if ($is_admin != "super")
-    alert("¾È¾²´Â ÀÌ¹ÌÁö Á¤¸®´Â ÃÖ°í°ü¸®ÀÚ¸¸ °¡´ÉÇÕ´Ï´Ù.");
+    alert("ì•ˆì“°ëŠ” ì´ë¯¸ì§€ ì •ë¦¬ëŠ” ìµœê³ ê´€ë¦¬ìë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
 
-$g4[title] = "¾È¾²´Â ÀÌ¹ÌÁö Á¤¸®";
+$g4[title] = "ì•ˆì“°ëŠ” ì´ë¯¸ì§€ ì •ë¦¬";
 include_once("./admin.head.php");
 
 echo "<span id='ct'></span>";
 include_once("./admin.tail.php");
 flush();
 
-echo "<script>document.getElementById('ct').innerHTML += '<p>¾È¾²´Â ÀÌ¹ÌÁö Á¤¸®Áß...';</script>\n";
+echo "<script>document.getElementById('ct').innerHTML += '<p>ì•ˆì“°ëŠ” ì´ë¯¸ì§€ ì •ë¦¬ì¤‘...';</script>\n";
 flush();
 
-// ÇöÀçºÎÅÍ 30ÀÏ ÀÌÀüÀÇ ÀÌ¹ÌÁö¿¡ ´ëÇØ¼­¸¸ clear ÇÕ´Ï´Ù.
+// í˜„ì¬ë¶€í„° 30ì¼ ì´ì „ì˜ ì´ë¯¸ì§€ì— ëŒ€í•´ì„œë§Œ clear í•©ë‹ˆë‹¤.
 $clear_days = 30;
 $clear_datetime = date("Y-m-d H:i:s", $g4[server_time] - (86400 * $clear_days));
 
-// ÇÑ¹ø¿¡ Á¤¸®ÇÒ ÀÌ¹ÌÁöÀÇ ¼ıÀÚ
+// í•œë²ˆì— ì •ë¦¬í•  ì´ë¯¸ì§€ì˜ ìˆ«ì
 $max_mb_num = 100;
 
-// Á¤¸®ÇÒ ÀÌ¹ÌÁö¸ñ·ÏÀ» ¸¸µé°í - ¸Õ°ÅºÎÅÍ
+// ì •ë¦¬í•  ì´ë¯¸ì§€ëª©ë¡ì„ ë§Œë“¤ê³  - ë¨¼ê±°ë¶€í„°
 $sql = " SELECT *
            FROM $g4[board_cheditor_table] 
           WHERE bc_datetime < '{$clear_datetime}' and ( wr_id is null or del = '1' )
@@ -38,18 +38,18 @@ $result = sql_query($sql);
 
 for ($i=0; $row=sql_fetch_array($result); $i++)
 {
-    // Á¤ÇØÁø ¼ıÀÚ°¡ µÇ¸é break;
+    // ì •í•´ì§„ ìˆ«ìê°€ ë˜ë©´ break;
     if ($i >= $max_mb_num) 
         break;
 
-    // $img[src] À¥ »óÀÇ Àı´ë°æ·Î ÀÌ¹Ç·Î ÀÌ¹ÌÁö ÆÄÀÏÀÇ »ó´ë°æ·Î¸¦ ±¸ÇÕ´Ï´Ù.
-    // ÀÌ·¸°Ô Àß¶óÁà¾ß Á¦´ë·Î µÈ °æ·Î°¡ ³ª¿Â´Ù.
+    // $img[src] ì›¹ ìƒì˜ ì ˆëŒ€ê²½ë¡œ ì´ë¯€ë¡œ ì´ë¯¸ì§€ íŒŒì¼ì˜ ìƒëŒ€ê²½ë¡œë¥¼ êµ¬í•©ë‹ˆë‹¤.
+    // ì´ë ‡ê²Œ ì˜ë¼ì¤˜ì•¼ ì œëŒ€ë¡œ ëœ ê²½ë¡œê°€ ë‚˜ì˜¨ë‹¤.
     $fl = explode("/$g4[data]/",$row[bc_dir]);
     $rel_path = "../" . $g4[data] . "/" . $fl[1];
 
     $img_link = $rel_path . "/" . $row[bc_file];
 
-    // ¹é¾÷À¸·Î ³Ö¾îµÑ µğ·ºÅä¸®. ³¡ÀÌ _delete·Î ³¡³­´Ù.
+    // ë°±ì—…ìœ¼ë¡œ ë„£ì–´ë‘˜ ë””ë ‰í† ë¦¬. ëì´ _deleteë¡œ ëë‚œë‹¤.
     $img_bkup = $rel_path . "_delete";
     if (!file_exists("$img_bkup")) {
         @mkdir($img_bkup, 0707);
@@ -57,18 +57,18 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     }
     $bkup_link = $img_bkup . "/" . $row[bc_file];
     
-    // ÀÌ¹ÌÁö¸¦ ¹é¾÷ ¹Ş´Â´Ù
+    // ì´ë¯¸ì§€ë¥¼ ë°±ì—… ë°›ëŠ”ë‹¤
     rename($img_link, $bkup_link);
 
-    // ÀÌ¹ÌÁö Á¤º¸¸¦ Áö¿î´Ù
+    // ì´ë¯¸ì§€ ì •ë³´ë¥¼ ì§€ìš´ë‹¤
     $sql = " delete from $g4[board_cheditor_table] where bc_id = '$row[bc_id]' ";
     sql_query($sql);
 
-    $str = $row[bo_table]." °Ô½ÃÆÇ¿¡¼­ ".$row[bc_source]." ÆÄÀÏÀÌ »èÁ¦ µÇ¾ú½À´Ï´Ù<br>";
+    $str = $row[bo_table]." ê²Œì‹œíŒì—ì„œ ".$row[bc_source]." íŒŒì¼ì´ ì‚­ì œ ë˜ì—ˆìŠµë‹ˆë‹¤<br>";
     echo "<script>document.getElementById('ct').innerHTML += '$str';</script>\n";
     flush();
 }
 
-echo "<script>document.getElementById('ct').innerHTML += '<p>ÃÑ ".$i."°ÇÀÇ ¾È¾²´Â ÀÌ¹ÌÁö°¡ Á¤¸® µÇ¾ú½À´Ï´Ù.';</script>\n";
-echo "<script>document.getElementById('ct').innerHTML += '<a href=\'" . $g4[admin_path] . "/chimage_unused_list.php\'>¾È¾²´ÂÀÌ¹ÌÁö°ü¸®·Î ÀÌµ¿ÇÏ±â</a>'</script>\n";
+echo "<script>document.getElementById('ct').innerHTML += '<p>ì´ ".$i."ê±´ì˜ ì•ˆì“°ëŠ” ì´ë¯¸ì§€ê°€ ì •ë¦¬ ë˜ì—ˆìŠµë‹ˆë‹¤.';</script>\n";
+echo "<script>document.getElementById('ct').innerHTML += '<a href=\'" . $g4[admin_path] . "/chimage_unused_list.php\'>ì•ˆì“°ëŠ”ì´ë¯¸ì§€ê´€ë¦¬ë¡œ ì´ë™í•˜ê¸°</a>'</script>\n";
 ?>

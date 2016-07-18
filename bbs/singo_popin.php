@@ -4,26 +4,26 @@ include_once("./_common.php");
 include_once("$g4[path]/head.sub.php");
 
 if (!$member['mb_id']) 
-    alert_close("È¸¿ø¸¸ ½Å°í ÇÒ ¼ö ÀÖ½À´Ï´Ù.", "login.php?url=".urlencode("$g4[bbs_path]/board.php?bo_table=$bo_table&wr_id=$wr_id"));
+    alert_close("íšŒì›ë§Œ ì‹ ê³  í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.", "login.php?url=".urlencode("$g4[bbs_path]/board.php?bo_table=$bo_table&wr_id=$wr_id"));
 
-// ½Å°íÇÒ ¼ö ÀÖ´Â È¸¿øÀÇ Æ÷ÀÎÆ® ¼³Á¤°ªÀÌ ¾ø´Ù¸é, È¸¿ø°¡ÀÔ½Ã Æ÷ÀÎÆ®ÀÇ 2¹è·Î ÇÑ´Ù.
+// ì‹ ê³ í•  ìˆ˜ ìˆëŠ” íšŒì›ì˜ í¬ì¸íŠ¸ ì„¤ì •ê°’ì´ ì—†ë‹¤ë©´, íšŒì›ê°€ì…ì‹œ í¬ì¸íŠ¸ì˜ 2ë°°ë¡œ í•œë‹¤.
 if (!isset($config['cf_singo_point']))
     $config['cf_singo_point'] = $config['cf_register_point'] * 2;
 
 if ($member['mb_point'] < $config['cf_singo_point'])
-    alert_close("È¸¿ø´ÔÀÇ Æ÷ÀÎÆ®°¡ ".number_format($config['cf_singo_point'])."Á¡ ÀÌ»óÀÌ¾î¾ß ½Å°íÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+    alert_close("íšŒì›ë‹˜ì˜ í¬ì¸íŠ¸ê°€ ".number_format($config['cf_singo_point'])."ì  ì´ìƒì´ì–´ì•¼ ì‹ ê³ í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
 if ($member['mb_id']==$write['mb_id'])
-    alert_close("ÀÚ½ÅÀÇ °Ô½Ã¹°Àº ½Å°íÇÒ ¼ö ¾ø½À´Ï´Ù.");
+    alert_close("ìì‹ ì˜ ê²Œì‹œë¬¼ì€ ì‹ ê³ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 
 if ($member['mb_level'] < $board['bo_comment_level'])
-    alert_close("ÄÚ¸àÆ® ¾²±â ±ÇÇÑÀÌ ÀÖ´Â È¸¿ø¸¸ °Ô½Ã±ÛÀ» ½Å°íÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+    alert_close("ì½”ë©˜íŠ¸ ì“°ê¸° ê¶Œí•œì´ ìˆëŠ” íšŒì›ë§Œ ê²Œì‹œê¸€ì„ ì‹ ê³ í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
 $mb = get_member($write['mb_id'], "mb_level");
 if ($mb['mb_level'] > $member['mb_level'])
-    alert_close("ÀÚ½Åº¸´Ù ±ÇÇÑÀÌ ³ôÀº È¸¿øÀÇ °Ô½Ã¹°Àº ½Å°íÇÒ ¼ö ¾ø½À´Ï´Ù.");
+    alert_close("ìì‹ ë³´ë‹¤ ê¶Œí•œì´ ë†’ì€ íšŒì›ì˜ ê²Œì‹œë¬¼ì€ ì‹ ê³ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 
-// ½Å°íÈ½¼ö Á¦ÇÑÀÌ °É·Á ÀÖÁö ¾ÊÀ¸¸é, 3È¸·Î ÃÊ±â¼³Á¤À» ÇØÁØ´Ù
+// ì‹ ê³ íšŸìˆ˜ ì œí•œì´ ê±¸ë ¤ ìˆì§€ ì•Šìœ¼ë©´, 3íšŒë¡œ ì´ˆê¸°ì„¤ì •ì„ í•´ì¤€ë‹¤
 if (!isset($config['cf_singo_today_count']))
     $config['cf_singo_today_count'] = 3;
 
@@ -31,9 +31,9 @@ $sql = " select count(*) as cnt from $g4[singo_table]
           where sg_mb_id = '$member[mb_id]' and left(sg_datetime,10)='$g4[time_ymd]' ";
 $row = sql_fetch($sql);
 if ($row['cnt'] >= $config['cf_singo_today_count'])
-    alert_close("½Å°í´Â ÇÏ·ç¿¡ {$config[cf_singo_today_count]}È¸ ÀÌ»ó ÇÏ½Ç ¼ö ¾ø½À´Ï´Ù.");
+    alert_close("ì‹ ê³ ëŠ” í•˜ë£¨ì— {$config[cf_singo_today_count]}íšŒ ì´ìƒ í•˜ì‹¤ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 
-// hidden_comment Å×ÀÌºíÀº ºñ¹Ğ±Û ¸ñÀûÀ¸·Î assign µÈ °Í ÀÔ´Ï´Ù. °Ô½ÃÆÇ ÀÌ¸§À¸·Î ¾²Áö¸¶¼¼¿ä
+// hidden_comment í…Œì´ë¸”ì€ ë¹„ë°€ê¸€ ëª©ì ìœ¼ë¡œ assign ëœ ê²ƒ ì…ë‹ˆë‹¤. ê²Œì‹œíŒ ì´ë¦„ìœ¼ë¡œ ì“°ì§€ë§ˆì„¸ìš”
 if ($bo_table == 'hidden_comment') {
 }
 else
@@ -42,7 +42,7 @@ $write_table = $g4['write_prefix'].$bo_table;
 $sql = " select wr_is_comment, wr_subject, mb_id from $write_table where wr_id = '$wr_id' and wr_parent = '$wr_parent' ";
 $row = sql_fetch($sql);
 if (!is_array($row))
-    alert_close("½Å°íÇÒ °Ô½Ã¹°ÀÌ ¾ø½À´Ï´Ù.");
+    alert_close("ì‹ ê³ í•  ê²Œì‹œë¬¼ì´ ì—†ìŠµë‹ˆë‹¤.");
 
 $write['wr_subject'] = $row['wr_subject'];
 
@@ -50,9 +50,9 @@ if ($row['wr_is_comment']) {
     $sql = " select wr_subject from $write_table where wr_id = '$wr_parent' ";
     $row = sql_fetch($sql);
     if (!$row)
-        alert_close("½Å°íÇÒ °Ô½Ã¹°ÀÌ ¾ø½À´Ï´Ù..");
+        alert_close("ì‹ ê³ í•  ê²Œì‹œë¬¼ì´ ì—†ìŠµë‹ˆë‹¤..");
 
-    $write['wr_subject'] = "[ÄÚ] ".$row['wr_subject'];
+    $write['wr_subject'] = "[ì½”] ".$row['wr_subject'];
 }
 } // end of if
 

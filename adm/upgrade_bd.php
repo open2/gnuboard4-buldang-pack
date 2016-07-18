@@ -5,31 +5,31 @@ include_once("./_common.php");
 check_demo();
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4[path]);
+    alert("ìµœê³ ê´€ë¦¬ìžë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4[path]);
 
-$g4[title] = "¾÷±×·¹ÀÌµå";
+$g4[title] = "ì—…ê·¸ë ˆì´ë“œ";
 include_once("./admin.head.php");
 
-// ÂÊÁö4 °ü·Ã ¼³Á¤ ÀÐ¾îµéÀÌ±â
+// ìª½ì§€4 ê´€ë ¨ ì„¤ì • ì½ì–´ë“¤ì´ê¸°
 include_once("../memo.config.php");
 
-// 1.0.45 - 1045 ÀÌÀü¿¡´Â db ¹öÁ¯ÀÌ ¾øÀ¸¹Ç·Î ÇÑ¹æ¿¡ °í~???
+// 1.0.45 - 1045 ì´ì „ì—ëŠ” db ë²„ì ¼ì´ ì—†ìœ¼ë¯€ë¡œ í•œë°©ì— ê³ ~???
 if (!$config[cf_db_version])
-    alert("db ¹öÁ¯Á¤º¸°¡ $g4[config_table] Å×ÀÌºí¿¡ ¾ø½À´Ï´Ù. ¼³Ä¡¹öÁ¯ Á¤º¸¸¦ 1092 (1.0.92)ÀÇ °æ¿ì¿Í °°ÀÌ, g4_config Å×ÀÌºíÀÇ cf_db_version ÇÊµå¿¡ ³Ö¾îÁÖ¼¼¿ä");
+    alert("db ë²„ì ¼ì •ë³´ê°€ $g4[config_table] í…Œì´ë¸”ì— ì—†ìŠµë‹ˆë‹¤. ì„¤ì¹˜ë²„ì ¼ ì •ë³´ë¥¼ 1092 (1.0.92)ì˜ ê²½ìš°ì™€ ê°™ì´, g4_config í…Œì´ë¸”ì˜ cf_db_version í•„ë“œì— ë„£ì–´ì£¼ì„¸ìš”");
 
 if ($config[cf_db_version] < 1045) {
 
 echo $config[cf_db_version];
-    // °Ô½ÃÆÇÁ¤º¸ ¾÷±×·¹ÀÌµå
+    // ê²Œì‹œíŒì •ë³´ ì—…ê·¸ë ˆì´ë“œ
     include_once("./b4_upgrade/upgrade_turning1.php");
     include_once("./b4_upgrade/upgrade_turning2.php");
     include_once("./b4_upgrade/upgrade_turning3.php");
     
-    // 1.0.1 - Áßº¹·Î±×ÀÎ ¹æÁö (ºÒ´çÆÁ)
+    // 1.0.1 - ì¤‘ë³µë¡œê·¸ì¸ ë°©ì§€ (ë¶ˆë‹¹íŒ)
     $sql = " ALTER TABLE `$g4[session_table]` ADD `ip_addr` VARCHAR( 255 ) NOT NULL ";
     sql_query($sql, false);
     
-    // 1.0.4 - Áßº¹·Î±×ÀÎ ¹æÁö (¹èÃßÆÁ)
+    // 1.0.4 - ì¤‘ë³µë¡œê·¸ì¸ ë°©ì§€ (ë°°ì¶”íŒ)
     $sql = " ALTER TABLE `$g4[session_table]` ADD `mb_id` VARCHAR( 20 ) NOT NULL AFTER `ss_data` ";
     sql_query($sql, false);
     $sql = " ALTER TABLE `$g4[session_table]` ADD INDEX `mb_id` ( `mb_id` , `ip_addr` ) ";
@@ -37,31 +37,31 @@ echo $config[cf_db_version];
     $sql = " ALTER TABLE `$g4[session_table]` CHANGE `ip_addr` `ip_addr` VARCHAR( 20 ) ";
     sql_query($sql, false);
     
-    // 1.0.4 - ÇÚµåÆù ÀÎÁõµÈ È¸¿ø¸¸ ±Û¾²±â
+    // 1.0.4 - í•¸ë“œí° ì¸ì¦ëœ íšŒì›ë§Œ ê¸€ì“°ê¸°
     $sql = " ALTER TABLE `$g4[board_table]` ADD `bo_hhp` TINYINT( 4 ) NOT NULL ";
     sql_query($sql, false);
     
-    // 1.0.4 - ÀÎ±â °Ô½Ã¹° ¸ñ·Ï (¹èÃß½ºÅ²)
+    // 1.0.4 - ì¸ê¸° ê²Œì‹œë¬¼ ëª©ë¡ (ë°°ì¶”ìŠ¤í‚¨)
     $sql = " ALTER TABLE `$g4[board_table]` ADD `bo_hot_list` TINYINT( 4 ) NOT NULL DEFAULT '0',
                                             ADD `bo_hot_list_basis` VARCHAR( 5 ) NOT NULL DEFAULT 'hit' ";
     sql_query($sql, false);
     
-    // 1.0.6 - ÂÊÁö4 Ãâ·Â¼³Á¤
+    // 1.0.6 - ìª½ì§€4 ì¶œë ¥ì„¤ì •
     $sql = " ALTER TABLE `$g4[memo_config_table]` ADD `cf_memo_print` TINYINT( 4 ) NOT NULL ";
     sql_query($sql, false);
     
-    // 1.0.8 - meta Á¤º¸
+    // 1.0.8 - meta ì •ë³´
     $sql = "
     ALTER TABLE `$g4[config_table]` ADD `cf_meta_author` VARCHAR( 255 ) NOT NULL ,
     ADD `cf_meta_keywords` VARCHAR( 255 ) NOT NULL ,
     ADD `cf_meta_description` VARCHAR( 255 ) NOT NULL ";
     sql_query($sql, false);
     
-    // 1.0.8 - g4_login index Ãß°¡
+    // 1.0.8 - g4_login index ì¶”ê°€
     $sql = " ALTER TABLE `$g4[login_table]` ADD INDEX `lo_datetime` ( `lo_datetime` ) ";
     sql_query($sql, false);
     
-    // 1.0.19 - ·¹º§¾÷/·¹º§´Ù¿î
+    // 1.0.19 - ë ˆë²¨ì—…/ë ˆë²¨ë‹¤ìš´
     $sql = " 
     CREATE TABLE `$g4[member_level_table]` (
       `member_level` tinyint(4) NOT NULL,
@@ -118,35 +118,35 @@ echo $config[cf_db_version];
     $sql = " ALTER TABLE `$g4[member_table]` ADD `mb_level_datetime` DATETIME NOT NULL ";
     sql_query($sql, false);
     
-    // 1.0.23 - ÂÊÁö4 trash Å×ÀÌºí ¼³Á¤ ¿À·ù
+    // 1.0.23 - ìª½ì§€4 trash í…Œì´ë¸” ì„¤ì • ì˜¤ë¥˜
     sql_query(" ALTER TABLE `$g4[memo_trash_table]` DROP `me_from_kind` ", FALSE);
     sql_query(" ALTER TABLE `$g4[memo_trash_table]` ADD `me_from_kind` VARCHAR( 255 ) NOT NULL ", FALSE);
     sql_query(" ALTER TABLE `$g4[memo_trash_table]` CHANGE `me_id` `me_id` INT( 11 ) NOT NULL ", FALSE);
     sql_query(" ALTER TABLE `$g4[memo_trash_table]` DROP PRIMARY KEY , ADD PRIMARY KEY ( `me_id` , `me_from_kind` ) ", FALSE);
     
-    // 1.0.23 - ÅõÇ¥°³¿ä ±â´É Ãß°¡
+    // 1.0.23 - íˆ¬í‘œê°œìš” ê¸°ëŠ¥ ì¶”ê°€
     sql_query(" ALTER TABLE `$g4[poll_table]` ADD `po_summary` TEXT NOT NULL ", FALSE);
     
-    // 1.0.23 - ÂÊÁö4 Ã·ºÎÆÄÀÏ »èÁ¦ ±â´É Ãß°¡
+    // 1.0.23 - ìª½ì§€4 ì²¨ë¶€íŒŒì¼ ì‚­ì œ ê¸°ëŠ¥ ì¶”ê°€
     sql_query(" ALTER TABLE `$g4[memo_config_table]` ADD `cf_memo_del_file` TINYINT( 4 ) NOT NULL ", FALSE);
     
-    // 1.0.25 - ½Ç¼ö·Î Àß¸ø µé¾î°£ ÇÊµå »èÁ¦ ¹× ÅõÇ¥ ÇÊµå Ãß°¡
+    // 1.0.25 - ì‹¤ìˆ˜ë¡œ ìž˜ëª» ë“¤ì–´ê°„ í•„ë“œ ì‚­ì œ ë° íˆ¬í‘œ í•„ë“œ ì¶”ê°€
     sql_query(" ALTER TABLE `$g4[poll_table]` DROP `pc_password` ", FALSE);
     sql_query(" ALTER TABLE `$g4[poll_etc_table]` ADD `pc_password` VARCHAR( 255 ) NOT NULL ", FALSE);
     
-    // 1.0.26 - ÂÊÁö4 ¼³Á¤Ãß°¡ (½Ç½Ã°£¸Þ¸ð)
+    // 1.0.26 - ìª½ì§€4 ì„¤ì •ì¶”ê°€ (ì‹¤ì‹œê°„ë©”ëª¨)
     sql_query(" ALTER TABLE `$g4[memo_config_table]` ADD `cf_memo_del_file` TINYINT( 4 ) NOT NULL ", FALSE);
     
-    // 1.0.26 - ÂÊÁö4 ¼³Á¤Ãß°¡ (½Ç¸í »ç¿ë)
+    // 1.0.26 - ìª½ì§€4 ì„¤ì •ì¶”ê°€ (ì‹¤ëª… ì‚¬ìš©)
     sql_query(" ALTER TABLE `$g4[memo_config_table]` ADD `cf_memo_mb_name` TINYINT( 4 ) NOT NULL ", FALSE);
     
-    // 1.0.31 - ÂÊÁö4 ¼³Á¤Ãß°¡ (¾÷·Îµå ÆÄÀÏ¿ë·®)
+    // 1.0.31 - ìª½ì§€4 ì„¤ì •ì¶”ê°€ (ì—…ë¡œë“œ íŒŒì¼ìš©ëŸ‰)
     sql_query(" ALTER TABLE `$g4[memo_config_table]` ADD `cf_memo_file_size` VARCHAR( 20 ) NOT NULL ", FALSE);
     
-    // 1.0.32 - ÂÊÁö4 save ¿À·ù ¼öÁ¤
+    // 1.0.32 - ìª½ì§€4 save ì˜¤ë¥˜ ìˆ˜ì •
     sql_query(" ALTER TABLE `$g4[memo_save_table]` DROP PRIMARY KEY , ADD PRIMARY KEY ( `me_id` , `memo_type` ) ", FALSE);
     
-    //1.0.36 - °¡ÀÔ°æ·Î ±â·ÏÇÏ±â
+    //1.0.36 - ê°€ìž…ê²½ë¡œ ê¸°ë¡í•˜ê¸°
     $sql = "
     CREATE TABLE `$g4[member_register_table]` ( 
       `mb_no` INT( 11 ) NOT NULL ,
@@ -159,62 +159,62 @@ echo $config[cf_db_version];
     ";
     sql_query($sql, false);
     
-    // 1.0.36 - ¼ºº° °Ô½ÃÆÇ
+    // 1.0.36 - ì„±ë³„ ê²Œì‹œíŒ
     sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_sex` CHAR( 1 ) NOT NULL ", FALSE);
     
-    // 1.0.37 - ÂÊÁö4
+    // 1.0.37 - ìª½ì§€4
     sql_query(" ALTER TABLE `$g4[memo_config_table]` CHANGE `cf_memo_file_size` `cf_memo_file_size` TINYINT( 4 ) NULL DEFAULT NULL ", FALSE);
     sql_query(" ALTER TABLE `$g4[memo_config_table]` ADD `cf_max_memo_file_size` INT( 11 ) NOT NULL ", FALSE);
     
-    // 1.0.38 - È¨ÆäÀÌÁö ÀÎÁõ
+    // 1.0.38 - í™ˆíŽ˜ì´ì§€ ì¸ì¦
     sql_query(" ALTER TABLE `$g4[member_table]` ADD `mb_homepage_certify` DATETIME NOT NULL AFTER `mb_email_certify` ", FALSE);
     
-    // 1.0.40 - ÀÏº° ±Û¾²±â Á¦ÇÑ
+    // 1.0.40 - ì¼ë³„ ê¸€ì“°ê¸° ì œí•œ
     sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_day_nowrite` VARCHAR( 255 ) NOT NULL ", FALSE);
     
-    // 1.0.41 - Æ÷ÀÎÆ® º¸±â index ¼öÁ¤
+    // 1.0.41 - í¬ì¸íŠ¸ ë³´ê¸° index ìˆ˜ì •
     sql_query(" ALTER TABLE `$g4[point_table]` ADD INDEX `mb_id` ( `mb_id` ) ", FALSE) ;
     sql_query(" ALTER TABLE `$g4[point_table]` ADD INDEX `po_rel_table` ( `po_rel_table` ) ", FALSE) ;
     sql_query(" ALTER TABLE `$g4[point_table]` ADD INDEX `po_rel` ( `po_rel_table` , `po_rel_id` ) ", FALSE) ;
     
-    // 1.0.41 - ÂÊÁö4 - 4.0.19
+    // 1.0.41 - ìª½ì§€4 - 4.0.19
     sql_query(" ALTER TABLE `$g4[member_table]` ADD `mb_memo_no_reply_datetime` DATETIME NOT NULL ", FALSE);
     
-    // 1.0.45 - µýÁö°É±â
+    // 1.0.45 - ë”´ì§€ê±¸ê¸°
     sql_query(" ALTER TABLE `$g4[hidden_comment_table]` ADD `co_mb_id` VARCHAR( 255 ) NOT NULL ", FALSE);
     
-    // 1.0.45 - °¡ÀÔÈ¯¿µ ÂÊÁö
+    // 1.0.45 - ê°€ìž…í™˜ì˜ ìª½ì§€
     sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_memo_mb_member` TINYINT( 4 ) NOT NULL ", FALSE);
     
-    // 1.0.45 - nÀÏÈÄ ±Û¾²±â Á¦ÇÑ
+    // 1.0.45 - nì¼í›„ ê¸€ì“°ê¸° ì œí•œ
     sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_comment_nowrite` TINYINT( 4 ) NOT NULL ", FALSE);
     
-    // 1.0.45 - ÇöÀçÁ¢¼ÓÀÚ¼ö Æ©´×
+    // 1.0.45 - í˜„ìž¬ì ‘ì†ìžìˆ˜ íŠœë‹
     sql_query(" ALTER TABLE `$g4[login_table]` ADD INDEX `mb_id` ( `mb_id` ) ", FALSE);
     
-    // 1.0.45 - °¶·¯¸® °Ô½ÃÆÇ ¼³Á¤ / Æ©´×
+    // 1.0.45 - ê°¤ëŸ¬ë¦¬ ê²Œì‹œíŒ ì„¤ì • / íŠœë‹
     sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_gallery` TINYINT( 4 ) NOT NULL ", FALSE);
     
-    // 1.0.45 - ÃßÃµÀÎ ÇÊ¼öÀÔ·Â
+    // 1.0.45 - ì¶”ì²œì¸ í•„ìˆ˜ìž…ë ¥
     sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_req_recommend` TINYINT( 4 ) NOT NULL AFTER `cf_use_recommend` ", FALSE);
 }
 
-// 1.0.45 ÀÌÈÄºÎÅÍ´Â ÇÊ¿äÇÑ °Í¸¸ °³º°ÀûÀ¸·Î ¾÷µ¥ÀÌÆ® ------------------------------------------------------------
+// 1.0.45 ì´í›„ë¶€í„°ëŠ” í•„ìš”í•œ ê²ƒë§Œ ê°œë³„ì ìœ¼ë¡œ ì—…ë°ì´íŠ¸ ------------------------------------------------------------
 
-// 1.0.52 - wr_hit, wr_datetime index Ãß°¡
+// 1.0.52 - wr_hit, wr_datetime index ì¶”ê°€
 if ($config[cf_db_version] < 1052) {
     include_once("$g4[admin_path]/b4_upgrade/upgrade_turning_wr_hit.php");
 }
 
-// 1.0.55 - °Ô½ÃÆÇ Å×ÀÌºíÀÇ ÃÖÁ¾ ¾÷µ¥ÀÌÆ®³¯Â¥ (°Ô½Ã±Û/ÄÚ¸àÆ®°¡ µî·ÏµÈ ³¯Â¥)
+// 1.0.55 - ê²Œì‹œíŒ í…Œì´ë¸”ì˜ ìµœì¢… ì—…ë°ì´íŠ¸ë‚ ì§œ (ê²Œì‹œê¸€/ì½”ë©˜íŠ¸ê°€ ë“±ë¡ëœ ë‚ ì§œ)
 if ($config[cf_db_version] < 1055) {
     sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_modify_datetime` DATETIME NOT NULL ", FALSE);
 
-    // 1.0.55 - db¾÷µ¥ÀÌÆ®°¡ ½±°Ô config Å×ÀÌºí¿¡ db ¹öÁ¯Á¤º¸¸¦ Ãß°¡ (ÄÚµå ¾÷±ÛÁ¤º¸´Â ¾Æ´Ï±¸¿ä)
+    // 1.0.55 - dbì—…ë°ì´íŠ¸ê°€ ì‰½ê²Œ config í…Œì´ë¸”ì— db ë²„ì ¼ì •ë³´ë¥¼ ì¶”ê°€ (ì½”ë“œ ì—…ê¸€ì •ë³´ëŠ” ì•„ë‹ˆêµ¬ìš”)
     sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_db_version` INT( 11 ) NOT NULL  ", FALSE);
 }
 
-// 1.0.56 - db Æ©´×
+// 1.0.56 - db íŠœë‹
 if ($config[cf_db_version] < 1056) {
     sql_query(" ALTER TABLE `$g4[board_table]` ADD INDEX `gr_id` ( `gr_id` ) ", FALSE);
     sql_query(" ALTER TABLE `$g4[board_table]` ADD INDEX `bo_use_search` ( `bo_use_search` ) ", FALSE);
@@ -228,7 +228,7 @@ if ($config[cf_db_version] < 1056) {
     sql_query(" ALTER TABLE `$g4[member_table]` ADD INDEX `mb_open` ( `mb_open` )  ", FALSE);
 }
 
-// 1.0.64 - ÈÞÁöÅë±â´É
+// 1.0.64 - íœ´ì§€í†µê¸°ëŠ¥
 if ($config[cf_db_version] < 1064) {
     $sql = " ALTER TABLE `$g4[config_table]` ADD `cf_use_recycle` TINYINT( 4 ) NOT NULL , ADD `cf_recycle_table` VARCHAR( 255 ) NOT NULL ";
     sql_query($sql, false);
@@ -267,12 +267,12 @@ if ($config[cf_db_version] < 1064) {
     sql_query($sql, false);
 }
 
-// 1.0.66 - ½Å°í±â´É ¼öÁ¤
+// 1.0.66 - ì‹ ê³ ê¸°ëŠ¥ ìˆ˜ì •
 if ($config[cf_db_version] < 1066) {
     sql_query(" ALTER TABLE `$g4[singo_table]` ADD `sg_notes` VARCHAR( 255 ) NOT NULL ", FALSE);
 }
 
-// 1.0.69 - µðºñ Æ©´×
+// 1.0.69 - ë””ë¹„ íŠœë‹
 if ($config[cf_db_version] < 1069) {
     sql_query(" ALTER TABLE `$g4[board_good_table]` ADD INDEX `bg_flag` ( `bg_flag` ) ", FALSE);
     sql_query(" ALTER TABLE `$g4[my_menu_table]` ADD INDEX `mb_id2` ( `mb_id` ) ", FALSE);
@@ -280,16 +280,16 @@ if ($config[cf_db_version] < 1069) {
     sql_query(" ALTER TABLE `$g4[singo_table]` ADD INDEX `mb_id` ( `mb_id` ) ", FALSE);
 }
 
-// 1.0.70 - ÂÊÁö4 4.0.26 ¾÷±Û
+// 1.0.70 - ìª½ì§€4 4.0.26 ì—…ê¸€
 if ($config[cf_db_version] < 1070) {
     sql_query(" ALTER TABLE `$g4[member_table]` ADD `mb_memo_unread` INT( 11 ) NOT NULL ", FALSE); 
 }
 
-// 1.0.73 - ÄÚ¸àÆ® dhtml ÆíÁý±â »ç¿ë
+// 1.0.73 - ì½”ë©˜íŠ¸ dhtml íŽ¸ì§‘ê¸° ì‚¬ìš©
 if ($config[cf_db_version] < 1073) {
     sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_use_dhtml_comment` TINYINT( 4 ) NOT NULL ", FALSE); 
     
-    // ´©¶ôµÈ ¾÷±Û script º¸¿Ï. ÀÌ°Ô ¿Ö ºüÁ³À»±î¿ä? ¤Ð..¤Ð...
+    // ëˆ„ë½ëœ ì—…ê¸€ script ë³´ì™„. ì´ê²Œ ì™œ ë¹ ì¡Œì„ê¹Œìš”? ã… ..ã… ...
     sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_singo_point_send` INT( 11 ) NOT NULL ", FALSE);
     sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_singo_point_recv` INT( 11 ) NOT NULL ", FALSE);
     sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_double_login` TINYINT( 4 ) NOT NULL ", FALSE);
@@ -298,10 +298,10 @@ if ($config[cf_db_version] < 1073) {
     sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_print_level` TINYINT( 4 ) NOT NULL ", FALSE);
 }
 
-// 1.0.76 - ÄÚ¸àÆ® dhtml ÆíÁý±â »ç¿ë
+// 1.0.76 - ì½”ë©˜íŠ¸ dhtml íŽ¸ì§‘ê¸° ì‚¬ìš©
 if ($config[cf_db_version] < 1076) {
 
-    // ´©¶ôµÈ ¾÷±Û script º¸¿Ï. ÀÌ°Ô ¿Ö ºüÁ³À»±î¿ä? ¤Ð..¤Ð...
+    // ëˆ„ë½ëœ ì—…ê¸€ script ë³´ì™„. ì´ê²Œ ì™œ ë¹ ì¡Œì„ê¹Œìš”? ã… ..ã… ...
     sql_query(" ALTER TABLE `$g4[member_table]` ADD `mb_hp_certify_datetime` DATETIME NOT NULL ", FALSE);
     //sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_sms4_member` TINYINT( 4 ) NOT NULL ", FALSE);
     //sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_sms4_level` TINYINT( 4 ) NOT NULL ", FALSE);
@@ -330,7 +330,7 @@ if ($config[cf_db_version] < 1076) {
 // 1.0.78
 if ($config[cf_db_version] < 1078) {
 
-    // ´©¶ôµÈ ¾÷±Û script º¸¿Ï. ÀÌ°Ô ¿Ö ºüÁ³À»±î¿ä? ¤Ð..¤Ð...
+    // ëˆ„ë½ëœ ì—…ê¸€ script ë³´ì™„. ì´ê²Œ ì™œ ë¹ ì¡Œì„ê¹Œìš”? ã… ..ã… ...
     $sql = " CREATE TABLE `$g4[user_group_table]` (
             `ug_id` varchar(10) NOT NULL default '',
             `ug_subject` varchar(255) NOT NULL default '',
@@ -356,17 +356,17 @@ if ($config[cf_db_version] < 1078) {
 
 // 1.0.79
 if ($config[cf_db_version] < 1079) {
-    // ÀÌ¹ÌÁö ¿ë·®Á¦ÇÑ
+    // ì´ë¯¸ì§€ ìš©ëŸ‰ì œí•œ
     sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_image_info` TINYINT( 4 ) NOT NULL ", FALSE);
     sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_image_max_size` INT( 11 ) NOT NULL ", FALSE);
 }
 
-// 1.0.82 (db index¸¦ ÀçÁ¶Á¤)
+// 1.0.82 (db indexë¥¼ ìž¬ì¡°ì •)
 if ($config[cf_db_version] < 1082) {
     include_once("./b4_upgrade/index_change.php");
 }
 
-// 1.0.84 - cheditor ÀÌ¹ÌÁö ÆÄÀÏ¸ñ·Ï
+// 1.0.84 - cheditor ì´ë¯¸ì§€ íŒŒì¼ëª©ë¡
 if ($config[cf_db_version] < 1084) {
 
     $sql = " 
@@ -388,7 +388,7 @@ if ($config[cf_db_version] < 1084) {
     sql_query($sql, FALSE);
 }
 
-// 1.0.88 - cheditor ÀÌ¹ÌÁö ÆÄÀÏ¸ñ·Ï Å×ÀÌºí ¾÷±×·¹ÀÌµå
+// 1.0.88 - cheditor ì´ë¯¸ì§€ íŒŒì¼ëª©ë¡ í…Œì´ë¸” ì—…ê·¸ë ˆì´ë“œ
 if ($config[cf_db_version] < 1088) {
     $sql = " 
         ALTER TABLE `$g4[board_cheditor_table]` ADD `bc_ip` VARCHAR( 255 ) NOT NULL ,
@@ -397,7 +397,7 @@ if ($config[cf_db_version] < 1088) {
     sql_query($sql, FALSE);
 }
 
-// 1.0.88 - ÀüÃ¼°øÁö
+// 1.0.88 - ì „ì²´ê³µì§€
 if ($config[cf_db_version] < 1088) {
     $sql = " 
         CREATE TABLE IF NOT EXISTS `$g4[notice_table]` (
@@ -411,7 +411,7 @@ if ($config[cf_db_version] < 1088) {
     sql_query($sql, FALSE);
 }
 
-// 1.0.89 - bo_dhtml_editor_level Ãß°¡
+// 1.0.89 - bo_dhtml_editor_level ì¶”ê°€
 if ($config[cf_db_version] < 1089) {
     $sql = " 
         ALTER TABLE `$g4[board_table]` 
@@ -421,7 +421,7 @@ if ($config[cf_db_version] < 1089) {
     sql_query($sql, FALSE);
 }
 
-// 1.0.89 - ¿Ô¼õ~
+// 1.0.89 - ì™”ìˆ‘~
 if ($config[cf_db_version] < 1089) {
     $sql = " 
         CREATE TABLE IF NOT EXISTS `$g4[whatson_table]` (
@@ -443,9 +443,9 @@ if ($config[cf_db_version] < 1089) {
     sql_query($sql, FALSE);
 }
 
-echo "1.0.89 ¾÷±Û ¿Ï·á";
+echo "1.0.89 ì—…ê¸€ ì™„ë£Œ";
 
-// 1.0.92 - ÀüÃ¼°øÁö °Ô½ÃÆÇ ¼³Á¤
+// 1.0.92 - ì „ì²´ê³µì§€ ê²Œì‹œíŒ ì„¤ì •
 if ($config[cf_db_version] < 1092) {
     $sql = "
         ALTER TABLE `$g4[board_table]` ADD `bo_naver_notice` TINYINT( 4 ) NOT NULL DEFAULT '1';
@@ -453,7 +453,7 @@ if ($config[cf_db_version] < 1092) {
     sql_query($sql, FALSE);
 }
 
-// 1.0.92 - ÂÊÁö 5 ¾÷±×·¹ÀÌµå
+// 1.0.92 - ìª½ì§€ 5 ì—…ê·¸ë ˆì´ë“œ
 if ($config[cf_db_version] < 1092) {
     $sql = "
         ALTER TABLE `$g4[member_table]` ADD `mb_memo_call_datetime` DATETIME NOT NULL AFTER `mb_memo_call` ;
@@ -477,9 +477,9 @@ if ($config[cf_db_version] < 1092) {
     sql_query($sql, FALSE);
 }
 
-echo "1.0.92 ¾÷±Û ¿Ï·á";
+echo "1.0.92 ì—…ê¸€ ì™„ë£Œ";
 
-// 1.0.93 - ¾ÆÀÌµð/ºñ¹ø Ã£±â
+// 1.0.93 - ì•„ì´ë””/ë¹„ë²ˆ ì°¾ê¸°
 if ($config[cf_db_version] < 1093) {
     $sql = " 
             ALTER TABLE `$g4[member_table]` ADD `mb_lost_certify` VARCHAR( 255 ) NOT NULL ;
@@ -487,7 +487,7 @@ if ($config[cf_db_version] < 1093) {
     sql_query($sql, FALSE);
 }
 
-// 1.0.93 - ÇÊÅÍ
+// 1.0.93 - í•„í„°
 if ($config[cf_db_version] < 1093) {
     $sql = " 
             CREATE TABLE IF NOT EXISTS `$g4[popular_sum_table]` (
@@ -520,7 +520,7 @@ if ($config[cf_db_version] < 1093) {
     sql_query($sql, FALSE);
 }
 
-// 1.0.94 - ½Å°íÇìÁ¦ Å×ÀÌºí
+// 1.0.94 - ì‹ ê³ í—¤ì œ í…Œì´ë¸”
 if ($config[cf_db_version] < 1094) {
     $sql = " 
             CREATE TABLE IF NOT EXISTS `$g4[unsingo_table]` (
@@ -543,7 +543,7 @@ if ($config[cf_db_version] < 1094) {
     sql_query($sql, FALSE);
 }
 
-// 1.0.94 - chimage ¿É¼ÇÈ­
+// 1.0.94 - chimage ì˜µì…˜í™”
 if ($config[cf_db_version] < 1094) {
     $sql = " 
             ALTER TABLE `$g4[board_table]` ADD `bo_chimage` TINYINT( 4 ) NOT NULL ;
@@ -551,7 +551,7 @@ if ($config[cf_db_version] < 1094) {
     sql_query($sql, FALSE);
 }
 
-// 1.0.94 - chimage Å×ÀÌºí ¼öÁ¤
+// 1.0.94 - chimage í…Œì´ë¸” ìˆ˜ì •
 if ($config[cf_db_version] < 1094) {
     sql_query(" ALTER TABLE `$g4[board_cheditor_table]` ADD INDEX `mb_id` (`mb_id`) ", FALSE);
     sql_query(" ALTER TABLE `$g4[board_cheditor_table]` ADD `del` TINYINT( 4 ) NOT NULL ", FALSE);
@@ -561,7 +561,7 @@ if ($config[cf_db_version] < 1094) {
     sql_query(" ALTER TABLE `$g4[board_cheditor_table]` ADD INDEX `bc_file` ( `bc_file` ) ", FALSE);
 }
 
-// 1.0.94 - ÀÓ½ÃÀúÀå Å×ÀÌºí
+// 1.0.94 - ìž„ì‹œì €ìž¥ í…Œì´ë¸”
 if ($config[cf_db_version] < 1094) {
     $sql = " 
             CREATE TABLE IF NOT EXISTS `$g4[tempsave_table]` (
@@ -583,17 +583,17 @@ if ($config[cf_db_version] < 1094) {
     sql_query($sql, FALSE);
 }
 
-// 1.0.95 - visit log Å×ÀÌºí ¾÷±Û
+// 1.0.95 - visit log í…Œì´ë¸” ì—…ê¸€
 if ($config[cf_db_version] < 1096) {
     sql_query(" ALTER TABLE `$g4[login_table]` ADD `lo_referer` TEXT NOT NULL , ADD `lo_agent` VARCHAR( 255 ) NOT NULL  ", FALSE);
 }
 
-// 1.0.95 - chimage È®Àå
+// 1.0.95 - chimage í™•ìž¥
 if ($config[cf_db_version] < 1096) {
     include_once("$g4[admin_path]/b4_upgrade/upgrade_wr_imagesize.php");
 }
 
-// 1.0.99 - º»ÀÎÀÎÁõ
+// 1.0.99 - ë³¸ì¸ì¸ì¦
 if ($config[cf_db_version] < 1099) {
     sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_realcheck` TINYINT( 4 ) NOT NULL  ", FALSE);
 
@@ -627,7 +627,7 @@ if ($config[cf_db_version] < 1099) {
     sql_query($sql, FALSE);
 }
 
-// 1.0.99 - º£½ºÆ®±Û
+// 1.0.99 - ë² ìŠ¤íŠ¸ê¸€
 if ($config[cf_db_version] < 1099) {
     sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_list_good` INT( 11 ) NOT NULL  ", FALSE);
     sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_list_nogood` INT( 11 ) NOT NULL  ", FALSE);
@@ -658,33 +658,33 @@ if ($config[cf_db_version] < 1099) {
     sql_query($sql, FALSE);
 }
 
-// 1.0.100 - ¸¶ÀÌ³Ê½º Æ÷ÀÎÆ® ±ÛÀÐ±â Á¦ÇÑ
+// 1.0.100 - ë§ˆì´ë„ˆìŠ¤ í¬ì¸íŠ¸ ê¸€ì½ê¸° ì œí•œ
 if ($config[cf_db_version] < 1100) {
     sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_read_point_lock` TINYINT( 4) NOT NULL ", FALSE);
 }
 
 
-// 1.1.01 - Áßº¹°øÁö ±ÝÁö
+// 1.1.01 - ì¤‘ë³µê³µì§€ ê¸ˆì§€
 if ($config[cf_db_version] < 1101) {
     sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_notice_joongbok` TINYINT( 4 ) NOT NULL ", FALSE);
 }
 
-// 1.1.02 - Æ©´×À» À§ÇÑ ÀÎµ¦½º Ãß°¡
+// 1.1.02 - íŠœë‹ì„ ìœ„í•œ ì¸ë±ìŠ¤ ì¶”ê°€
 if ($config[cf_db_version] < 1102) {
     sql_query(" ALTER TABLE `$g4[login_table]` ADD INDEX `lo_datetime` ( `lo_datetime` ) ", FALSE);
 }
 
-// 1.1.02 - º£½ºÆ®±Û¿¡ mb_id Á¤º¸ Ãß°¡
+// 1.1.02 - ë² ìŠ¤íŠ¸ê¸€ì— mb_id ì •ë³´ ì¶”ê°€
 if ($config[cf_db_version] < 1102) {
     sql_query(" ALTER TABLE `$g4[good_list_table]` ADD `mb_id` VARCHAR( 255 ) NOT NULL ", FALSE);
 }
 
-// 1.1.02 - º£½ºÆ®±Û¿¡ unique index Ãß°¡
+// 1.1.02 - ë² ìŠ¤íŠ¸ê¸€ì— unique index ì¶”ê°€
 if ($config[cf_db_version] < 1102) {
     sql_query(" ALTER TABLE `$g4[good_list_table]` ADD UNIQUE `unique` (`bo_table` ,`wr_id`) ", FALSE);
 }
 
-// 1.1.03 - ÀÎ±â±Û¿¡ °³ÀÎÁ¤º¸ À¯ÃâµÇÁö ¾Ê°Ô ÇÏ±â
+// 1.1.03 - ì¸ê¸°ê¸€ì— ê°œì¸ì •ë³´ ìœ ì¶œë˜ì§€ ì•Šê²Œ í•˜ê¸°
 if ($config[cf_db_version] < 1103) {
     sql_query(" ALTER TABLE `$g4[popular_sum_table]` ADD `mb_info` TINYINT( 4) NOT NULL ", FALSE);
     sql_query(" ALTER TABLE `$g4[popular_sum_table]` ADD INDEX `mb_info` (`mb_info`)  ", FALSE);
@@ -710,7 +710,7 @@ if ($config[cf_db_version] < 1105) {
     sql_query($sql, FALSE);
 }
 
-// 1.1.07 - ÃßÃµ, db ¼¼¼Ç, È¸¿ø°¡ÀÔÃßÃµ
+// 1.1.07 - ì¶”ì²œ, db ì„¸ì…˜, íšŒì›ê°€ìž…ì¶”ì²œ
 if ($config[cf_db_version] < 1107) {
 
     $sql = " ALTER TABLE `$g4[member_table]` ADD `mb_good` INT( 11 ) NOT NULL , ADD `mb_nogood` INT( 11 ) NOT NULL ";
@@ -729,7 +729,7 @@ if ($config[cf_db_version] < 1107) {
 
 if ($config[cf_db_version] < 1108) {
 
-    // 1.1.08 - ca_name¿¡ index °É¾îÁÖ±â
+    // 1.1.08 - ca_nameì— index ê±¸ì–´ì£¼ê¸°
     $sql = " select * from $g4[board_table] ";
     $result = sql_query($sql);
     for ($i=0; $row=sql_fetch_array($result); $i++) {
@@ -738,11 +738,11 @@ if ($config[cf_db_version] < 1108) {
         sql_query($sql1, FALSE);
     }
 
-    // wr_mb_id ÇÊµå Ãß°¡ - ÃßÃµµÈ ±ÛÀÇ ±Û¾´ÀÌ
+    // wr_mb_id í•„ë“œ ì¶”ê°€ - ì¶”ì²œëœ ê¸€ì˜ ê¸€ì“´ì´
     sql_query(" ALTER TABLE `$g4[board_good_table]` ADD `wr_mb_id` VARCHAR( 255 ) NOT NULL ", FALSE);
     sql_query(" ALTER TABLE `$g4[board_good_table]` ADD INDEX `wr_mb_id` ( `wr_mb_id` )", FALSE);
 
-    // »çÀÌÆ®¿¡ Á¢±ÙÇÏ´Â keywordÀÇ Á¾·ù ¹× Á¢±Ù °Ô½Ã±Û
+    // ì‚¬ì´íŠ¸ì— ì ‘ê·¼í•˜ëŠ” keywordì˜ ì¢…ë¥˜ ë° ì ‘ê·¼ ê²Œì‹œê¸€
     $sql = " CREATE TABLE IF NOT EXISTS `$g4[seo_tag_table]` (
             `tag_id` int(11) NOT NULL AUTO_INCREMENT,
             `tag_name` varchar(255) NOT NULL,
@@ -755,7 +755,7 @@ if ($config[cf_db_version] < 1108) {
           ) ";
     sql_query($sql, FALSE);
 
-    // »çÀÌÆ®¿¡ Á¢¼ÓÇÏ´Â agentÀÇ ºóµµ
+    // ì‚¬ì´íŠ¸ì— ì ‘ì†í•˜ëŠ” agentì˜ ë¹ˆë„
     $sql = " CREATE TABLE IF NOT EXISTS `$g4[seo_server_table]` (
             `server_id` int(11) NOT NULL AUTO_INCREMENT,
             `server_name` varchar(255) NOT NULL,
@@ -781,11 +781,11 @@ if ($config[cf_db_version] < 1108) {
           ) ";
     sql_query($sql, FALSE);
 
-    // °Ô½ÃÆÇº° ÃßÃµ, ºñÃßÃµ Æ÷ÀÎÆ®
+    // ê²Œì‹œíŒë³„ ì¶”ì²œ, ë¹„ì¶”ì²œ í¬ì¸íŠ¸
     sql_query(" ALTER TABLE  `g4_board` ADD  `bo_good_point` INT( 11 ) NOT NULL ", FALSE);
     sql_query(" ALTER TABLE  `g4_board` ADD  `bo_nogood_point` INT( 11 ) NOT NULL ", FALSE);
 
-    // °Ô½ÃÆÇº° ÃßÃµ, ºñÃßÃµ Æ÷ÀÎÆ® ¾÷µ¥ÀÌÆ®
+    // ê²Œì‹œíŒë³„ ì¶”ì²œ, ë¹„ì¶”ì²œ í¬ì¸íŠ¸ ì—…ë°ì´íŠ¸
     $sql = " select * from $g4[board_good_table] ";
     $result = sql_query($sql);
     for ($i=0; $row=sql_fetch_array($result); $i++) {
@@ -796,10 +796,10 @@ if ($config[cf_db_version] < 1108) {
         sql_query($sql3, FALSE);
     }
 
-    // °³ÀÎÁ¤º¸ Á¦3ÀÚ Á¦°ø Ç×¸ñ Ãß°¡
+    // ê°œì¸ì •ë³´ ì œ3ìž ì œê³µ í•­ëª© ì¶”ê°€
     sql_query(" ALTER TABLE `g4_config_reg` ADD `cf_privacy_5` TEXT NOT NULL ", FALSE);
 
-    // °³ÀÎÁ¤º¸ Á¦3ÀÚ Á¦°ø, Ãë±ÞÀ§Å¹ °ü·Ã µ¿ÀÇ ¹Þ±â
+    // ê°œì¸ì •ë³´ ì œ3ìž ì œê³µ, ì·¨ê¸‰ìœ„íƒ ê´€ë ¨ ë™ì˜ ë°›ê¸°
     sql_query(" ALTER TABLE ADD `mb_agree_3rd_pty` TINYINT( 4) NOT NULL ", FALSE);
 
 }
@@ -892,7 +892,7 @@ if ($config[cf_db_version] < 1111) {
 
 if ($config[cf_db_version] < 1205) {
 
-    // °ü¸®ÀÚ log¸¦ Ãß°¡
+    // ê´€ë¦¬ìž logë¥¼ ì¶”ê°€
     $sql = "
             CREATE TABLE IF NOT EXISTS `$g4[admin_log_table]` (
               `log_no` int(11) NOT NULL AUTO_INCREMENT,
@@ -903,12 +903,12 @@ if ($config[cf_db_version] < 1205) {
             ";
     sql_query($sql, FALSE);
 
-    // º£½ºÆ®±Û¿¡ scrap °¹¼ö¸¦ Ãß°¡
+    // ë² ìŠ¤íŠ¸ê¸€ì— scrap ê°¯ìˆ˜ë¥¼ ì¶”ê°€
     sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_list_scrap` INT( 11 ) NOT NULL AFTER `bo_list_view` ", FALSE);
 
     sql_query(" ALTER TABLE  `$g4[good_list_table]` ADD  `gl_flag` TINYINT( 4 ) NOT NULL AFTER  `gl_id` ", FALSE);
 
-    // mb¿¡ sns ¾ÆÀÌµð¸¦ Ãß°¡
+    // mbì— sns ì•„ì´ë””ë¥¼ ì¶”ê°€
     $sql = "
         ALTER TABLE `$g4[member_table]` ADD `mb_email_status` TINYINT( 4 ) NOT NULL ,
         ADD `mb_kakao_id` VARCHAR( 255 ) NOT NULL ,
@@ -916,18 +916,18 @@ if ($config[cf_db_version] < 1205) {
             ";
     sql_query($sql, FALSE);
 
-    // xs »óÅÂ¿¡¼­ÀÇ ÆäÀÌÂ¡ °¹¼ö Ãß°¡
+    // xs ìƒíƒœì—ì„œì˜ íŽ˜ì´ì§• ê°¯ìˆ˜ ì¶”ê°€
     sql_query(" ALTER TABLE `$g4[config_table]` ADD COLUMN `cf_write_pages_xs` INT(11) NULL ", FALSE);
     sql_query(" update `$g4[config_table]` set `cf_write_pages_xs` = 5", FALSE);
 }
 
 if ($config[cf_db_version] < 1207) {
-    // °ü¸®ÀÚ ¸ÞÀÏÁÖ¼Ò ±â´É Ãß°¡
+    // ê´€ë¦¬ìž ë©”ì¼ì£¼ì†Œ ê¸°ëŠ¥ ì¶”ê°€
     sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_admin_email` VARCHAR( 255 ) NOT NULL  ", FALSE);
 }
 
 if ($config[cf_db_version] < 1207) {
-    // ½Å°í±â´É ¾÷±×·¹ÀÌµå
+    // ì‹ ê³ ê¸°ëŠ¥ ì—…ê·¸ë ˆì´ë“œ
     $sql = "
         ALTER TABLE `$g4[singo_table]` ADD `wr_subject` VARCHAR( 255 ) NOT NULL AFTER `wr_parent` ,
         ADD `wr_content` TEXT NOT NULL AFTER `wr_subject` ,
@@ -938,7 +938,7 @@ if ($config[cf_db_version] < 1207) {
 }
 
 if ($config[cf_db_version] < 1211) {
-    // ½Å°í±â´É ¾÷±×·¹ÀÌµå - ÀÎµ¦½ºÃß°¡
+    // ì‹ ê³ ê¸°ëŠ¥ ì—…ê·¸ë ˆì´ë“œ - ì¸ë±ìŠ¤ì¶”ê°€
     sql_query(" ALTER TABLE `$g4[singo_table]` ADD INDEX `sg_datetime` ( `sg_datetime` ) ", FALSE);
     sql_query(" ALTER TABLE `$g4[member_table]` ADD `mb_singo_datetime` DATETIME NOT NULL ", FALSE);
     sql_query(" ALTER TABLE `$g4[member_table]` ADD `mb_singo` INT( 11 ) NOT NULL ", FALSE);
@@ -946,10 +946,10 @@ if ($config[cf_db_version] < 1211) {
 
 
 if ($config[cf_db_version] < 1216) {
-    // scrap index ¿À·ù ¼öÁ¤
+    // scrap index ì˜¤ë¥˜ ìˆ˜ì •
     sql_query(" ALTER TABLE `$g4[scrap_table]` CHANGE `wr_id` `wr_id` INT( 11 ) NOT NULL ", FALSE);
 
-    // ¸Þ´º°ü¸®
+    // ë©”ë‰´ê´€ë¦¬
 }
 
 if ($config[cf_db_version] < 1216) {
@@ -972,7 +972,7 @@ if ($config[cf_db_version] < 1216) {
 
 if ($config[cf_db_version] < 1310) {
 
-    // ÈÞ¸éÈ¸¿ø °ü¸®
+    // íœ´ë©´íšŒì› ê´€ë¦¬
     sql_query(" ALTER TABLE `$g4[member_table]` ADD `mb_unlogin` DATETIME NOT NULL ", FALSE);
     sql_query(" CREATE TABLE `$g4[unlogin_table]` like `$g4[member_table]` ", FALSE);
 }
@@ -1002,11 +1002,11 @@ if ($config[cf_db_version] < 2107) {
     sql_query(" ALTER TABLE `$g4[my_board_table]` ADD UNIQUE `bo` ( `mb_id` , `bo_table` ) ", FALSE);
 }
 
-// db ¹öÁ¯À» ¾÷µ¥ÀÌÆ® - major version + mid version - patch version
+// db ë²„ì ¼ì„ ì—…ë°ì´íŠ¸ - major version + mid version - patch version
 $max_version = "2107";
 sql_query(" update $g4[config_table] set cf_db_version = '$max_version' ");
 
-echo "ºÒ´çÆÑ $max_version - UPGRADE ¿Ï·á.";
+echo "ë¶ˆë‹¹íŒ© $max_version - UPGRADE ì™„ë£Œ.";
 
 include_once("./admin.tail.php");
 ?>

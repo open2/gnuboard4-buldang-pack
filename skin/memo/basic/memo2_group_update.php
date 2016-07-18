@@ -3,14 +3,14 @@ include_once("./_common.php");
 include_once("$g4[path]/memo.config.php");
 
 if (!$gr_name)
-  alert("±×·ì ÀÌ¸§ÀÌ ÀÔ·ÂµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+  alert("ê·¸ë£¹ ì´ë¦„ì´ ì…ë ¥ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
   
 $gr_name  = $_POST['gr_name'];
 
 $sql = " select count(*) as cnt from $g4[memo_group_table] where gr_name = '$gr_name' ";
 $result = sql_fetch($sql);
 if ($result['cnt'] > 0)
-  alert("$gr_nameÀº ÀÌ¹Ì µî·ÏµÈ ±×·ì ÀÔ´Ï´Ù. ´Ù¸¥ ÀÌ¸§À» ÀÔ·ÂÇØ ÁÖ¼¼¿ä");
+  alert("$gr_nameì€ ì´ë¯¸ ë“±ë¡ëœ ê·¸ë£¹ ì…ë‹ˆë‹¤. ë‹¤ë¥¸ ì´ë¦„ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”");
 
 $sql = " insert $g4[memo_group_table] set mb_id = '$member[mb_id]', gr_name = '$gr_name', gr_datetime = now() ";
 sql_query($sql, $error);

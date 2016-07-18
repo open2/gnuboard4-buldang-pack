@@ -3,21 +3,21 @@ $sub_menu = "200300";
 include_once("./_common.php");
 
 if (!$config[cf_email_use])
-    alert("È¯°æ¼³Á¤¿¡¼­ \'¸ŞÀÏ¹ß¼Û »ç¿ë\'¿¡ Ã¼Å©ÇÏ¼Å¾ß ¸ŞÀÏÀ» ¹ß¼ÛÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+    alert("í™˜ê²½ì„¤ì •ì—ì„œ \'ë©”ì¼ë°œì†¡ ì‚¬ìš©\'ì— ì²´í¬í•˜ì…”ì•¼ ë©”ì¼ì„ ë°œì†¡í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 
 auth_check($auth[$sub_menu], "r");
 
 $sql = "select * from $g4[mail_table] where ma_id = '$ma_id' ";
 $ma = sql_fetch($sql);
 if (!$ma[ma_id])
-    alert("º¸³»½Ç ³»¿ëÀ» ¼±ÅÃÇÏ¿© ÁÖ½Ê½Ã¿À.");
+    alert("ë³´ë‚´ì‹¤ ë‚´ìš©ì„ ì„ íƒí•˜ì—¬ ì£¼ì‹­ì‹œì˜¤.");
 
-// ÀüÃ¼È¸¿ø¼ö
+// ì „ì²´íšŒì›ìˆ˜
 $sql = "select COUNT(*) as cnt from $g4[member_table] ";
 $row = sql_fetch($sql);
 $tot_cnt = $row[cnt];
 
-// Å»Åğ´ë±âÈ¸¿ø¼ö
+// íƒˆí‡´ëŒ€ê¸°íšŒì›ìˆ˜
 $sql = "select COUNT(*) as cnt from $g4[member_table] where mb_leave_date <> '' ";
 $row = sql_fetch($sql);
 $finish_cnt = $row[cnt];
@@ -25,7 +25,7 @@ $finish_cnt = $row[cnt];
 $last_option = explode("||", $ma[ma_last_option]);
 for ($i=0; $i<count($last_option); $i++) {
     $option = explode("=", $last_option[$i]);
-    // µ¿Àûº¯¼ö
+    // ë™ì ë³€ìˆ˜
     $var = $option[0];
     $$var = $option[1];
 }
@@ -37,14 +37,14 @@ if (!isset($mb_mailling)) $mb_mailling = 1;
 if (!isset($mb_sex)) $mb_sex = 1;
 if (!isset($mb_area)) $mb_area = 1;
 
-$g4[title] = "È¸¿ø¸ŞÀÏ¹ß¼Û";
+$g4[title] = "íšŒì›ë©”ì¼ë°œì†¡";
 include_once("./admin.head.php");
 ?>
 
 
 <table width=700 align=center>
 <tr>
-    <td class='right'>ÀüÃ¼È¸¿ø¼ö : <?=number_format($tot_cnt)?> ¸í , Å»Åğ´ë±âÈ¸¿ø¼ö : <?=number_format($finish_cnt)?> ¸í , <b>Á¤»óÈ¸¿ø¼ö : <?=number_format($tot_cnt - $finish_cnt)?> ¸í</b></td>
+    <td class='right'>ì „ì²´íšŒì›ìˆ˜ : <?=number_format($tot_cnt)?> ëª… , íƒˆí‡´ëŒ€ê¸°íšŒì›ìˆ˜ : <?=number_format($finish_cnt)?> ëª… , <b>ì •ìƒíšŒì›ìˆ˜ : <?=number_format($tot_cnt - $finish_cnt)?> ëª…</b></td>
 </tr>
 <tr>
     <td>
@@ -59,13 +59,13 @@ include_once("./admin.head.php");
         </tr>
         <tr><td colspan='2' class='line1'></td></tr>
         <tr class='ht'>
-            <td>È¸¿ø ID</td>
+            <td>íšŒì› ID</td>
             <td>
-                <input type=radio name='mb_id1' value='1' onclick="mb_id1_click(1);" <?=$mb_id1?"checked":"";?>> ÀüÃ¼
-                <input type=radio name='mb_id1' value='0' onclick="mb_id1_click(0);" <?=!$mb_id1?"checked":"";?>> ±¸°£
+                <input type=radio name='mb_id1' value='1' onclick="mb_id1_click(1);" <?=$mb_id1?"checked":"";?>> ì „ì²´
+                <input type=radio name='mb_id1' value='0' onclick="mb_id1_click(0);" <?=!$mb_id1?"checked":"";?>> êµ¬ê°„
                 <br>
-                <input type=text class=ed id=mb_id1_from name=mb_id1_from value="<?=$mb_id1_from?>"> ¿¡¼­ 
-                <input type=text class=ed id=mb_id1_to name=mb_id1_to value="<?=$mb_id1_to?>"> ±îÁö
+                <input type=text class=ed id=mb_id1_from name=mb_id1_from value="<?=$mb_id1_from?>"> ì—ì„œ 
+                <input type=text class=ed id=mb_id1_to name=mb_id1_to value="<?=$mb_id1_to?>"> ê¹Œì§€
 
                 <script language="JavaScript">
                 function mb_id1_click(num)
@@ -87,83 +87,83 @@ include_once("./admin.head.php");
             </td>
         </tr>
         <tr class='ht'>
-            <td>»ıÀÏ</td>
+            <td>ìƒì¼</td>
             <td>
-                <input type=text name='mb_birth_from' size=4 maxlength=4 class=ed value="<?=$mb_birth_from?>"> ºÎÅÍ 
-                <input type=text name='mb_birth_to' size=4 maxlength=4 class=ed value="<?=$mb_birth_to?>"> ±îÁö (¿¹ : 5¿ù5ÀÏ ÀÎ °æ¿ì, 0505 ¿Í °°ÀÌ ÀÔ·Â , µÑ´Ù ÀÔ·ÂÇØ¾ßÇÔ)</td>
+                <input type=text name='mb_birth_from' size=4 maxlength=4 class=ed value="<?=$mb_birth_from?>"> ë¶€í„° 
+                <input type=text name='mb_birth_to' size=4 maxlength=4 class=ed value="<?=$mb_birth_to?>"> ê¹Œì§€ (ì˜ˆ : 5ì›”5ì¼ ì¸ ê²½ìš°, 0505 ì™€ ê°™ì´ ì…ë ¥ , ë‘˜ë‹¤ ì…ë ¥í•´ì•¼í•¨)</td>
         </tr>
         <tr class='ht'>
-            <td>E-mail¿¡</td>
-            <td><input type=text name='mb_email' class=ed value="<?=$mb_email?>"> ´Ü¾î Æ÷ÇÔ (¿¹ : @sir.co.kr)</td>
+            <td>E-mailì—</td>
+            <td><input type=text name='mb_email' class=ed value="<?=$mb_email?>"> ë‹¨ì–´ í¬í•¨ (ì˜ˆ : @sir.co.kr)</td>
         </tr>
         <tr class='ht'>
-            <td>¼ºº°</td>
+            <td>ì„±ë³„</td>
             <td>
                 <select id=mb_sex name=mb_sex>
-                    <option value=''>ÀüÃ¼
-                    <option value='F'>¿©ÀÚ
-                    <option value='M'>³²ÀÚ
+                    <option value=''>ì „ì²´
+                    <option value='F'>ì—¬ì
+                    <option value='M'>ë‚¨ì
                 </select>
                 <script language="JavaScript"> document.getElementById('mb_sex').value = "<?=$mb_sex?>"; </script>
             </td>
         </tr>
         <tr class='ht'>
-            <td>Áö¿ª</td>
+            <td>ì§€ì—­</td>
             <td>
                 <select id=mb_area name=mb_area>
-                    <option value=''>ÀüÃ¼
-                    <option value='¼­¿ï'>¼­¿ï
-                    <option value='ºÎ»ê'>ºÎ»ê
-                    <option value='´ë±¸'>´ë±¸
-                    <option value='ÀÎÃµ'>ÀÎÃµ
-                    <option value='±¤ÁÖ'>±¤ÁÖ
-                    <option value='´ëÀü'>´ëÀü
-                    <option value='¿ï»ê'>¿ï»ê
-                    <option value='°­¿ø'>°­¿ø
-                    <option value='°æ±â'>°æ±â
-                    <option value='°æ³²'>°æ³²
-                    <option value='°æºÏ'>°æºÏ
-                    <option value='Àü³²'>Àü³²
-                    <option value='ÀüºÏ'>ÀüºÏ
-                    <option value='Á¦ÁÖ'>Á¦ÁÖ
-                    <option value='Ãæ³²'>Ãæ³²
-                    <option value='ÃæºÏ'>ÃæºÏ
+                    <option value=''>ì „ì²´
+                    <option value='ì„œìš¸'>ì„œìš¸
+                    <option value='ë¶€ì‚°'>ë¶€ì‚°
+                    <option value='ëŒ€êµ¬'>ëŒ€êµ¬
+                    <option value='ì¸ì²œ'>ì¸ì²œ
+                    <option value='ê´‘ì£¼'>ê´‘ì£¼
+                    <option value='ëŒ€ì „'>ëŒ€ì „
+                    <option value='ìš¸ì‚°'>ìš¸ì‚°
+                    <option value='ê°•ì›'>ê°•ì›
+                    <option value='ê²½ê¸°'>ê²½ê¸°
+                    <option value='ê²½ë‚¨'>ê²½ë‚¨
+                    <option value='ê²½ë¶'>ê²½ë¶
+                    <option value='ì „ë‚¨'>ì „ë‚¨
+                    <option value='ì „ë¶'>ì „ë¶
+                    <option value='ì œì£¼'>ì œì£¼
+                    <option value='ì¶©ë‚¨'>ì¶©ë‚¨
+                    <option value='ì¶©ë¶'>ì¶©ë¶
                 </select>
                 <script language="JavaScript"> document.getElementById('mb_area').value = "<?=$mb_area?>"; </script>
             </td>
         </tr>
         <tr class='ht'>
-            <td>¸ŞÀÏ¸µ</td>
+            <td>ë©”ì¼ë§</td>
             <td>
                 <select id=mb_mailling name=mb_mailling>
-                    <option value='1'>¼ö½Åµ¿ÀÇÇÑ È¸¿ø¸¸
-                    <option value=''>ÀüÃ¼
+                    <option value='1'>ìˆ˜ì‹ ë™ì˜í•œ íšŒì›ë§Œ
+                    <option value=''>ì „ì²´
                 </select>
                 <script language="JavaScript"> document.getElementById('mb_mailling').value = "<?=$mb_mailling?>"; </script>
             </td>
         </tr>
         <tr class='ht'>
-            <td>±ÇÇÑ</td>
+            <td>ê¶Œí•œ</td>
             <td>
                 <select id=mb_level_from name=mb_level_from>
                 <? for ($i=1; $i<=10; $i++) { ?>
                     <option value='<? echo $i ?>'><? echo $i ?>
                 <? } ?>
-                </select> ¿¡¼­ 
+                </select> ì—ì„œ 
                 <select id=mb_level_to name=mb_level_to>
                 <? for ($i=1; $i<=10; $i++) { ?>
                     <option value='<? echo $i ?>'><? echo $i ?>
                 <? } ?>
-                </select> ±îÁö
+                </select> ê¹Œì§€
                 <script language="JavaScript"> document.getElementById('mb_level_from').value = "<?=$mb_level_from?>"; </script>
                 <script language="JavaScript"> document.getElementById('mb_level_to').value = "<?=$mb_level_to?>"; </script>
             </td>
         </tr>
         <tr class='ht'>
-            <td>°Ô½ÃÆÇ±×·ìÈ¸¿ø</td>
+            <td>ê²Œì‹œíŒê·¸ë£¹íšŒì›</td>
             <td>
                 <select id=gr_id name=gr_id>
-                <option value=''>ÀüÃ¼
+                <option value=''>ì „ì²´
                 <?
                 $sql = " select gr_id, gr_subject from $g4[group_table] order by gr_subject ";
                 $result = sql_query($sql);
@@ -180,8 +180,8 @@ include_once("./admin.head.php");
         </table>
 
         <p align=center>
-            <input type=submit class=btn1 value='  È®  ÀÎ  '>&nbsp;
-            <input type=button class=btn1 value='  ¸ñ  ·Ï  ' onclick="document.location.href='./mail_list.php';">
+            <input type=submit class=btn1 value='  í™•  ì¸  '>&nbsp;
+            <input type=button class=btn1 value='  ëª©  ë¡  ' onclick="document.location.href='./mail_list.php';">
         </form>
     </td>
 </tr></table>

@@ -11,17 +11,17 @@ check_token();
 
 for ($i=0; $i<count($chk); $i++) 
 {
-    // ½ÇÁ¦ ¹øÈ£¸¦ ³Ñ±è
+    // ì‹¤ì œ ë²ˆí˜¸ë¥¼ ë„˜ê¹€
     $k = $_POST['chk'][$i];
 
-    // °Ë»ö¾î Á¤º¸¸¦ °¡Á®¿Â´Ù
+    // ê²€ìƒ‰ì–´ ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤
     $pp = sql_fetch(" select * from $g4[popular_table] where pp_id = '{$_POST['pp_id'][$k]}' ");
 
-    // °Ë»ö¾î ³»¿ª Å×ÀÌºí¿¡¼­ »èÁ¦
+    // ê²€ìƒ‰ì–´ ë‚´ì—­ í…Œì´ë¸”ì—ì„œ ì‚­ì œ
     $sql = " delete from $g4[popular_table] where pp_id = '{$_POST['pp_id'][$k]}' ";
     sql_query($sql);
     
-    // °Ë»ö¾î sum Å×ÀÌºí¿¡¼­ »èÁ¦
+    // ê²€ìƒ‰ì–´ sum í…Œì´ë¸”ì—ì„œ ì‚­ì œ
     $sql = " select pp_id, pp_count from $g4[popular_sum_table] where pp_word='$pp[pp_word]' and pp_date='$pp[pp_date]' and bo_table='$pp[bo_table]' ";
     $pp_sum = sql_fetch($sql);
     if ($pp_sum[pp_count] == 1)

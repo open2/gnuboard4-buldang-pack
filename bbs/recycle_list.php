@@ -34,11 +34,11 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $g4[recycle_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if (!$page) $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if (!$page) $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
-// »èÁ¦ °Ô½Ã±Û ¼ö
+// ì‚­ì œ ê²Œì‹œê¸€ ìˆ˜
 $sql = " select count(*) as cnt
          $sql_common
          $sql_search
@@ -47,7 +47,7 @@ $sql = " select count(*) as cnt
 $row = sql_fetch($sql);
 $delete_count = $row[cnt];
 
-$g4[title] = "ÈŞÁöÅë°ü¸®";
+$g4[title] = "íœ´ì§€í†µê´€ë¦¬";
 include_once("./_head.php");
 
 $sql = " select *

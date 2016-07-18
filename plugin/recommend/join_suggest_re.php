@@ -1,14 +1,14 @@
 <?
 include_once("./_common.php");
 
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ íŽ˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
-$g4[title] = "È¸¿ø °¡ÀÔÃßÃµÇÏ±â";
+$g4[title] = "íšŒì› ê°€ìž…ì¶”ì²œí•˜ê¸°";
 include_once("$g4[path]/_head.php");
 
 $mb_id = $member[mb_id];
 if ($mb_id == "" or !$is_member)
-    die("ÇÁ·Î±×·¥ ¿À·ù : 101");
+    die("í”„ë¡œê·¸ëž¨ ì˜¤ë¥˜ : 101");
 
 $join_no = (int) $join_no;
 
@@ -21,7 +21,7 @@ switch($w) {
                 $sql = " update $g4[member_suggest_table] set suggest_datetime='$g4[time_ymdhis]' where mb_id='$mb_id' and join_no='$join_no' and join_datetime='0000-00-00 00:00:00' ";
                 sql_query($sql);
                 break;
-    default   : die("ÇÁ·Î±×·¥ ¿À·ù : 101");
+    default   : die("í”„ë¡œê·¸ëž¨ ì˜¤ë¥˜ : 101");
 }
 
 goto_url("./index.php");

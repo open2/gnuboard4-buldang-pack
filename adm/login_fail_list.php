@@ -4,7 +4,7 @@ include_once("./_common.php");
 
 auth_check($auth[$sub_menu], "r");
 
-// Á¢¼ÓÀÚ ·Î±×»èÁ¦ÀÏÀÌ Áö³­ login_fail_log¸¦ »èÁ¦
+// ì ‘ì†ì ë¡œê·¸ì‚­ì œì¼ì´ ì§€ë‚œ login_fail_logë¥¼ ì‚­ì œ
 if ($config['cf_visit_del'] > 0) {
     $sql = " delete from $g4[login_fail_log_table] where log_datetime < '" . date("Y-m-d H:i:s", $g4[server_time] - $config['cf_visit_del'] * 86400) ."' ";
     sql_query($sql);
@@ -42,13 +42,13 @@ $row = sql_fetch($sql);
 $total_count = $row[cnt];
 
 $rows = $config[cf_page_rows];
-$total_page  = ceil($total_count / $rows);  // ÀüÃ¼ ÆäÀÌÁö °è»ê
-if (!$page) $page = 1; // ÆäÀÌÁö°¡ ¾øÀ¸¸é Ã¹ ÆäÀÌÁö (1 ÆäÀÌÁö)
-$from_record = ($page - 1) * $rows; // ½ÃÀÛ ¿­À» ±¸ÇÔ
+$total_page  = ceil($total_count / $rows);  // ì „ì²´ í˜ì´ì§€ ê³„ì‚°
+if (!$page) $page = 1; // í˜ì´ì§€ê°€ ì—†ìœ¼ë©´ ì²« í˜ì´ì§€ (1 í˜ì´ì§€)
+$from_record = ($page - 1) * $rows; // ì‹œì‘ ì—´ì„ êµ¬í•¨
 
-$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>Ã³À½</a>";
+$listall = "<a href='$_SERVER[PHP_SELF]' class=tt>ì²˜ìŒ</a>";
 
-$g4[title] = "·Î±×ÀÎ¿À·ùº¸±â";
+$g4[title] = "ë¡œê·¸ì¸ì˜¤ë¥˜ë³´ê¸°";
 include_once("./admin.head.php");
 
 $sql = " select * 
@@ -60,17 +60,17 @@ $result = sql_query($sql);
 ?>
 <form name=fsearch method=get role="form" class="form-inline">
 <div class="btn-group">
-    (·Î±×ÀÎ¿À·ù È½¼ö : <?=number_format($total_count)?>)
+    (ë¡œê·¸ì¸ì˜¤ë¥˜ íšŸìˆ˜ : <?=number_format($total_count)?>)
 </div>
 <div class="pull-right">
     <select name=sfl class="form-control">
-        <option value='mb_id'>È¸¿ø¾ÆÀÌµğ</option>
-        <option value='ip_addr'>Á¢¼ÓÇÑ IP</option>
-        <option value='log_url'>Á¢¼ÓÇÑ °æ·Î</option>
+        <option value='mb_id'>íšŒì›ì•„ì´ë””</option>
+        <option value='ip_addr'>ì ‘ì†í•œ IP</option>
+        <option value='log_url'>ì ‘ì†í•œ ê²½ë¡œ</option>
     </select>
-    <input class="form-control" type=text name=stx required itemname='°Ë»ö¾î' value='<?=$stx?>'>
+    <input class="form-control" type=text name=stx required itemname='ê²€ìƒ‰ì–´' value='<?=$stx?>'>
     <div class="form-group">
-        <button class="btn btn-primary">°Ë»ö</button>
+        <button class="btn btn-primary">ê²€ìƒ‰</button>
     </div>
 </div>
 </form>
@@ -85,11 +85,11 @@ $result = sql_query($sql);
 <table width=100% class="table table-condensed table-hover table-responsive" style="word-wrap:break-word;">
 <tr class='success'>
     <td width=30><input type=checkbox name=chkall value='1' onclick='check_all(this.form)'></td>
-	  <td width=60>IPÂ÷´Ü</td>
-    <td width=110 align='left'><?=subject_sort_link('mb_id')?>´Ğ³×ÀÓ</a></td>
-    <td width=80>·Î±×ÀÎÀÏ½Ã</td>
-    <td width=100><?=subject_sort_link('ip_addr')?>·Î±×ÀÎ IP</a></td>
-    <td align='left'>·Î±×ÀÎ°æ·Î</td>
+	  <td width=60>IPì°¨ë‹¨</td>
+    <td width=110 align='left'><?=subject_sort_link('mb_id')?>ë‹‰ë„¤ì„</a></td>
+    <td width=80>ë¡œê·¸ì¸ì¼ì‹œ</td>
+    <td width=100><?=subject_sort_link('ip_addr')?>ë¡œê·¸ì¸ IP</a></td>
+    <td align='left'>ë¡œê·¸ì¸ê²½ë¡œ</td>
 </tr>
 <?
 for ($i=0; $row=sql_fetch_array($result); $i++) {
@@ -97,7 +97,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
         $mb = sql_fetch(" select mb_id, mb_nick, mb_email, mb_homepage, mb_intercept_date from $g4[member_table] where mb_id = '$row[mb_id]' ");
         $mb_nick = get_sideview($mb[mb_id], get_text($mb[mb_nick]), $mb[mb_email], $mb[mb_homepage]);
     } else 
-        $mb_nick = "<span style='color:#222222;'>ºñÈ¸¿ø</a>";
+        $mb_nick = "<span style='color:#222222;'>ë¹„íšŒì›</a>";
 
     $log_ip = $row['ip_addr'];
     $ip_intercept = preg_match("/[\n]?$log_ip/", $config['cf_intercept_ip']);
@@ -110,7 +110,7 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
     <tr>
         <td><input type=checkbox name=chk[] value='$i'></td>
         <td>
-        <a href=\"javascript:singo_intercept('$row[mb_id]', '$log_ip');\"><span style='color:#222222;'>Â÷´Ü</span></a>
+        <a href=\"javascript:singo_intercept('$row[mb_id]', '$log_ip');\"><span style='color:#222222;'>ì°¨ë‹¨</span></a>
         </td>
         <td title='$row[mb_id]'>$mb_nick</td>
         <td>" . get_datetime($row[log_datetime]) . "</td>
@@ -121,12 +121,12 @@ for ($i=0; $row=sql_fetch_array($result); $i++) {
 }
 
 if ($i == 0)
-    echo "<tr><td colspan='6' align=center height=100>³»¿ªÀÌ ¾ø½À´Ï´Ù.</td></tr>";
+    echo "<tr><td colspan='6' align=center height=100>ë‚´ì—­ì´ ì—†ìŠµë‹ˆë‹¤.</td></tr>";
 
 echo "</table>";
 ?>
 
-<!-- ÆäÀÌÁö -->
+<!-- í˜ì´ì§€ -->
 <div class="hidden-xs" style="text-align:center;">
     <ul class="pagination">
     <?=get_paging($config[cf_write_pages], $page, $total_page, "$_SERVER[PHP_SELF]?$qstr&page=");?>
@@ -139,7 +139,7 @@ if ($stx)
 ?>
 </form>
 
-<div class="well">* Â÷´ÜÇÏ´Â °æ¿ì ±âº»È¯°æ¼³Á¤ÀÇ Á¢±ÙÂ÷´ÜIP¿¡ µî·ÏµË´Ï´Ù.</div>
+<div class="well">* ì°¨ë‹¨í•˜ëŠ” ê²½ìš° ê¸°ë³¸í™˜ê²½ì„¤ì •ì˜ ì ‘ê·¼ì°¨ë‹¨IPì— ë“±ë¡ë©ë‹ˆë‹¤.</div>
 
 <?
 include_once ("./admin.tail.php");

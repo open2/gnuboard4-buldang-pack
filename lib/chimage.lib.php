@@ -1,16 +1,16 @@
 <?
 if (!defined('_GNUBOARD_')) exit;
 
-// cheditor·Î ¾÷·ÎµåÇÑ ÀÌ¹ÌÁö °¡Á®¿À±â
+// cheditorë¡œ ì—…ë¡œë“œí•œ ì´ë¯¸ì§€ ê°€ì ¸ì˜¤ê¸°
 function chimage($skin_dir="", $bo_table, $wr_id=0, $rows=10)
 {
     global $config, $g4;
 
     if ($wr_id == 0) {
-        // °Ô½ÃÆÇÀÇ chimage´Â $rows ¸¸Å­ º¸¿©ÁØ´Ù. ¿Ö? ³Ê¹« ¸¹À¸´Ï±î.
+        // ê²Œì‹œíŒì˜ chimageëŠ” $rows ë§Œí¼ ë³´ì—¬ì¤€ë‹¤. ì™œ? ë„ˆë¬´ ë§ìœ¼ë‹ˆê¹Œ.
         $sql = " select * from $g4[board_cheditor_table] where bo_table = '$bo_table' and and del = 0 and bc_type > 0 limit 0, $rows ";
     } else {
-        // °Ô½Ã±ÛÀÇ chimage´Â ´Ù º¸¿©ÁÖ´Â°Ô ¿øÄ¢. ³Ê¹« ¸¹À¸¸é °¡Á®°¡¼­ °í¹ÎÇÒ °Í.
+        // ê²Œì‹œê¸€ì˜ chimageëŠ” ë‹¤ ë³´ì—¬ì£¼ëŠ”ê²Œ ì›ì¹™. ë„ˆë¬´ ë§ìœ¼ë©´ ê°€ì ¸ê°€ì„œ ê³ ë¯¼í•  ê²ƒ.
         $sql = " select * from $g4[board_cheditor_table] where bo_table = '$bo_table' and wr_id='$wr_id' and del = 0 and bc_type > 0 ";
     }
 
@@ -23,8 +23,8 @@ function chimage($skin_dir="", $bo_table, $wr_id=0, $rows=10)
     for ($i=0; $row = sql_fetch_array($result); $i++) {
         $list[$i] = $row;
 
-        // $img[src] À¥ »óÀÇ Àı´ë°æ·Î ÀÌ¹Ç·Î ÀÌ¹ÌÁö ÆÄÀÏÀÇ »ó´ë°æ·Î¸¦ ±¸ÇÕ´Ï´Ù.
-        // ÀÌ·¸°Ô Àß¶óÁà¾ß Á¦´ë·Î µÈ °æ·Î°¡ ³ª¿Â´Ù.
+        // $img[src] ì›¹ ìƒì˜ ì ˆëŒ€ê²½ë¡œ ì´ë¯€ë¡œ ì´ë¯¸ì§€ íŒŒì¼ì˜ ìƒëŒ€ê²½ë¡œë¥¼ êµ¬í•©ë‹ˆë‹¤.
+        // ì´ë ‡ê²Œ ì˜ë¼ì¤˜ì•¼ ì œëŒ€ë¡œ ëœ ê²½ë¡œê°€ ë‚˜ì˜¨ë‹¤.
         $fl = explode("/$g4[data]/",$row[bc_dir]);
         $rel_path = "../" . $g4[data] . "/" . $fl[1];
 

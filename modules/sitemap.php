@@ -4,7 +4,7 @@ include_once("$g4[path]/lib/sitemap.lib.php");
 
 include_once("$g4[path]/_head.php");
 
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€
 
 echo sitemap();
 

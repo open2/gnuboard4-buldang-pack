@@ -1,5 +1,5 @@
 <?
-if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡ 
+if (!defined("_GNUBOARD_")) exit; // ê°œë³„ í˜ì´ì§€ ì ‘ê·¼ ë¶ˆê°€ 
 ?>
 <div class="container">
 <span>
@@ -23,35 +23,35 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
 </colgroup> 
 <thead>
 <tr>
-    <td align=center>Á¦&nbsp;&nbsp;¸ñ</td>
+    <td align=center>ì œ&nbsp;&nbsp;ëª©</td>
     <td align=left>&nbsp;<?=$view['me_subject']?></td>
 </tr>
 <tr>
-    <td align=center>¹ß&nbsp;&nbsp;½Å </td>
+    <td align=center>ë°œ&nbsp;&nbsp;ì‹  </td>
     <td>&nbsp;<?=$view['me_send_mb_id_nick']?> (<?=$view['me_send_datetime']?>)
     </td>
 </tr>
 <? if ($kind == 'notice') { ?>
     <? if ($is_admin=='super' || $member['mb_id']==$view['me_send_mb_id']) { ?>
     <tr>
-        <td align=center>¼ö½Å·¹º§</td>
+        <td align=center>ìˆ˜ì‹ ë ˆë²¨</td>
         <td align=left>&nbsp;<?=$view['me_recv_mb_id']?></td>
     </tr>
     <tr>
-        <td align=center>¾ÈÀĞÀº»ç¶÷</td>
+        <td align=center>ì•ˆì½ì€ì‚¬ëŒ</td>
         <td align=left>
         <?
         $sql = " select count(*) as cnt from $g4[memo_recv_table] where me_send_datetime = '$view[me_send_datetime]' and me_send_mb_id = '$member[mb_id]' and me_read_datetime = '0000-00-00 00:00:00' ";
         $result = sql_fetch($sql);
         $memo_notice_unread = $result['cnt'];
         ?>
-        &nbsp;<?=number_format($memo_notice_unread)?>¸í
+        &nbsp;<?=number_format($memo_notice_unread)?>ëª…
         </td>
     </tr>
     <? } ?>
 <?} else {?>
     <tr>
-        <td align=center>¼ö&nbsp;&nbsp;½Å</td>
+        <td align=center>ìˆ˜&nbsp;&nbsp;ì‹ </td>
         <td align=left>&nbsp;<?=$view['me_recv_mb_id_nick']?> (<?=$view['me_read_datetime']?>)
         </td>
     </tr>
@@ -59,13 +59,13 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
 
 <? if ($view[me_file_local] && !$view[imagesize]) { ?>
 <tr>
-    <td>Ã·ºÎÆÄÀÏ </td>
+    <td>ì²¨ë¶€íŒŒì¼ </td>
     <td align=left>
         <a href="javascript:file_download()" title="<?=$view[me_file_local]?>"><?=$view[me_file_local]?></a>
     </td>
 </tr>
 <? } ?>
-<!-- Ã·ºÎÆÄÀÏÀÇ ÀÌ¹ÌÁö¸¦ Ãâ·Â -->
+<!-- ì²¨ë¶€íŒŒì¼ì˜ ì´ë¯¸ì§€ë¥¼ ì¶œë ¥ -->
 <? if ($view[me_file_local] && $view[valid_image]) { ?>
 <tr>
     <td height="20" align="left" style="border:none;padding-bottom:10px; width:<?=$content_inner_width?>px" colspan=2>
@@ -88,7 +88,7 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
     else
         echo $view['memo'];
 
-    // ¼­¸íÀÌ ÀÖÀ¸¸é ¼­¸íÀ» Ãâ·Â
+    // ì„œëª…ì´ ìˆìœ¼ë©´ ì„œëª…ì„ ì¶œë ¥
     if ($mb_send['mb_signature'])
         echo "<div style='; padding:25px 0;text-align:center;'>$mb_send[mb_signature]</div>";
     ?>
@@ -119,7 +119,7 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
     <? if ($kind=="spam" && $view[spam_href]) { ?>
         <a class="btn btn-default" href='<?=$view[spam_href]?>'>Cencal</a>
     <? } ?>
-    <? if ($kind=="send" and $view[me_read_datetime] == "ÀĞÁö ¾ÊÀ½") { ?>
+    <? if ($kind=="send" and $view[me_read_datetime] == "ì½ì§€ ì•ŠìŒ") { ?>
         <a class="btn btn-default" href='<?=$view[cancel_href]?>'>Cancel</a>
     <? } ?>
     <? if ($kind=="recv" or $kind=="send") { ?>
@@ -128,7 +128,7 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
     <? if ($kind=="recv" or $kind=="send" or $kind=="save" or $kind=="spam") { ?>
         <a class="btn btn-default" href='javascript:del_memo();'>Delete</a>
     <? } ?>
-    <!-- °øÁöÂÊÁö »èÁ¦ = °øÁöÂÊÁö»èÁ¦ + ¹ß¼ÛµÈ °Í ¸ğµÎ È¸¼ö -->
+    <!-- ê³µì§€ìª½ì§€ ì‚­ì œ = ê³µì§€ìª½ì§€ì‚­ì œ + ë°œì†¡ëœ ê²ƒ ëª¨ë‘ íšŒìˆ˜ -->
     <? if ($kind=="notice" and ($is_admin == 'super' || $view[me_send_mb_id]==$member[mb_id])) { ?>
         <a href='javascript:withdraw_notice_memo();'>Delete</a>
     <? } ?>
@@ -141,7 +141,7 @@ if (!defined("_GNUBOARD_")) exit; // °³º° ÆäÀÌÁö Á¢±Ù ºÒ°¡
 </div>
 
 <?
-// ±¸±Û ±¤°í¸¦ include
+// êµ¬ê¸€ ê´‘ê³ ë¥¼ include
 $ad_file = $memo_skin_path . "/memo2_adsense.php";
 if (file_exists($ad_file)) {
     include_once($ad_file);
@@ -154,13 +154,13 @@ function file_download() {
     document.location.href=link;
 }
 
-// ½ºÆÔÀ» Ãë¼Ò
+// ìŠ¤íŒ¸ì„ ì·¨ì†Œ
 function all_cancel_spam() {
     var f = document.fboardlist;
 
-    str = "½ºÆÔÈ¸¼ö";
+    str = "ìŠ¤íŒ¸íšŒìˆ˜";
 
-    if (!confirm("¸ğµç ÂÊÁö¸¦ Á¤¸» "+str+" ÇÏ½Ã°Ú½À´Ï±î?\n\nÇÑ¹ø "+str+"ÇÑ ÀÚ·á´Â º¹±¸ÇÒ ¼ö ¾ø½À´Ï´Ù"))
+    if (!confirm("ëª¨ë“  ìª½ì§€ë¥¼ ì •ë§ "+str+" í•˜ì‹œê² ìŠµë‹ˆê¹Œ?\n\ní•œë²ˆ "+str+"í•œ ìë£ŒëŠ” ë³µêµ¬í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤"))
         return;
 
     f.action = "./memo2_form_spam_cancel.php";
@@ -169,13 +169,13 @@ function all_cancel_spam() {
 
 function del_memo() 
 { 
-   if (confirm("ÂÊÁö¸¦ »èÁ¦ ÇÏ½Ã°Ú½À´Ï±î?")) 
+   if (confirm("ìª½ì§€ë¥¼ ì‚­ì œ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) 
             location.href = "<?=$view[del_href]?>"; 
 }
 
 function withdraw_notice_memo() 
 { 
-   if (confirm("°øÁöÂÊÁö¸¦ »èÁ¦ÇÏ¸é, ¹ß¼ÛµÈ ÂÊÁö¸¦ ¸ğµÎ È¸¼ö(»èÁ¦) ÇÕ´Ï´Ù.\n\n°øÁöÂÊÁö »èÁ¦¸¦ ÁøÇà ÇÏ½Ã°Ú½À´Ï±î?")) 
+   if (confirm("ê³µì§€ìª½ì§€ë¥¼ ì‚­ì œí•˜ë©´, ë°œì†¡ëœ ìª½ì§€ë¥¼ ëª¨ë‘ íšŒìˆ˜(ì‚­ì œ) í•©ë‹ˆë‹¤.\n\nê³µì§€ìª½ì§€ ì‚­ì œë¥¼ ì§„í–‰ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) 
             location.href = "./memo2_withdraw_notice.php?kind=<?=$kind?>&me_id=<?=$me_id?>"; 
 }
 </script>

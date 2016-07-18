@@ -5,13 +5,13 @@ include_once("./_common.php");
 check_demo();
 
 if ($is_admin != "super")
-    alert("ÃÖ°í°ü¸®ÀÚ¸¸ Á¢±Ù °¡´ÉÇÕ´Ï´Ù.", $g4[path]);
+    alert("ìµœê³ ê´€ë¦¬ìë§Œ ì ‘ê·¼ ê°€ëŠ¥í•©ë‹ˆë‹¤.", $g4[path]);
 
-$g4[title] = "¾÷±×·¹ÀÌµå";
+$g4[title] = "ì—…ê·¸ë ˆì´ë“œ";
 include_once("./admin.head.php");
 
 // 4.20.00
-// 1:1 °Ô½ÃÆÇ Å×ÀÌºí »ı¼º
+// 1:1 ê²Œì‹œíŒ í…Œì´ë¸” ìƒì„±
 $sql = " CREATE TABLE `$g4[oneboard_table]` (
   `ob_table` varchar(20) NOT NULL,
   `ob_subject` varchar(255) NOT NULL,
@@ -56,13 +56,13 @@ $sql = " CREATE TABLE `$g4[oneboard_table]` (
 ) ";
 sql_query($sql, false);
 
-// È¸¿øÅ×ÀÌºíÀÇ ÁÖÅ°¸¦ mb_no ·Î ±³Ã¼
+// íšŒì›í…Œì´ë¸”ì˜ ì£¼í‚¤ë¥¼ mb_no ë¡œ êµì²´
 sql_query(" ALTER TABLE `$g4[member_table]` DROP PRIMARY KEY ", false);
 sql_query(" ALTER TABLE `$g4[member_table]` ADD `mb_no` INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST ", false);
 sql_query(" ALTER TABLE `$g4[member_table]` ADD UNIQUE `mb_id` ( `mb_id` ) ", false);
 
 // 4.09.00
-// ±âº»È¯°æ¼³Á¤ Å×ÀÌºí ÇÊµå Ãß°¡
+// ê¸°ë³¸í™˜ê²½ì„¤ì • í…Œì´ë¸” í•„ë“œ ì¶”ê°€
 sql_query(" ALTER TABLE `{$g4['config_table']}` ADD `cf_1_subj` VARCHAR( 255 ) NOT NULL AFTER `cf_open_modify` ", FALSE);
 sql_query(" ALTER TABLE `{$g4['config_table']}` ADD `cf_2_subj` VARCHAR( 255 ) NOT NULL AFTER `cf_1_subj` ", FALSE);
 sql_query(" ALTER TABLE `{$g4['config_table']}` ADD `cf_3_subj` VARCHAR( 255 ) NOT NULL AFTER `cf_2_subj` ", FALSE);
@@ -74,7 +74,7 @@ sql_query(" ALTER TABLE `{$g4['config_table']}` ADD `cf_8_subj` VARCHAR( 255 ) N
 sql_query(" ALTER TABLE `{$g4['config_table']}` ADD `cf_9_subj` VARCHAR( 255 ) NOT NULL AFTER `cf_8_subj` ", FALSE);
 sql_query(" ALTER TABLE `{$g4['config_table']}` ADD `cf_10_subj` VARCHAR( 255 ) NOT NULL AFTER `cf_9_subj` ", FALSE);
 
-// °Ô½ÃÆÇ ±×·ì Å×ÀÌºí ÇÊµå Ãß°¡
+// ê²Œì‹œíŒ ê·¸ë£¹ í…Œì´ë¸” í•„ë“œ ì¶”ê°€
 sql_query(" ALTER TABLE `{$g4['group_table']}` ADD `gr_1_subj` VARCHAR( 255 ) NOT NULL AFTER `gr_use_access` ", FALSE);
 sql_query(" ALTER TABLE `{$g4['group_table']}` ADD `gr_2_subj` VARCHAR( 255 ) NOT NULL AFTER `gr_1_subj` ", FALSE);
 sql_query(" ALTER TABLE `{$g4['group_table']}` ADD `gr_3_subj` VARCHAR( 255 ) NOT NULL AFTER `gr_2_subj` ", FALSE);
@@ -86,7 +86,7 @@ sql_query(" ALTER TABLE `{$g4['group_table']}` ADD `gr_8_subj` VARCHAR( 255 ) NO
 sql_query(" ALTER TABLE `{$g4['group_table']}` ADD `gr_9_subj` VARCHAR( 255 ) NOT NULL AFTER `gr_8_subj` ", FALSE);
 sql_query(" ALTER TABLE `{$g4['group_table']}` ADD `gr_10_subj` VARCHAR( 255 ) NOT NULL AFTER `gr_9_subj` ", FALSE);
 
-// °Ô½ÃÆÇ Å×ÀÌºí ÇÊµå Ãß°¡
+// ê²Œì‹œíŒ í…Œì´ë¸” í•„ë“œ ì¶”ê°€
 sql_query(" ALTER TABLE `{$g4['board_table']}` ADD `bo_sort_field` VARCHAR( 255 ) NOT NULL AFTER `bo_use_email` ", FALSE);
 sql_query(" ALTER TABLE `{$g4['board_table']}` ADD `bo_1_subj` VARCHAR( 255 ) NOT NULL AFTER `bo_sort_field` ", FALSE);
 sql_query(" ALTER TABLE `{$g4['board_table']}` ADD `bo_2_subj` VARCHAR( 255 ) NOT NULL AFTER `bo_1_subj` ", FALSE);
@@ -99,7 +99,7 @@ sql_query(" ALTER TABLE `{$g4['board_table']}` ADD `bo_8_subj` VARCHAR( 255 ) NO
 sql_query(" ALTER TABLE `{$g4['board_table']}` ADD `bo_9_subj` VARCHAR( 255 ) NOT NULL AFTER `bo_8_subj` ", FALSE);
 sql_query(" ALTER TABLE `{$g4['board_table']}` ADD `bo_10_subj` VARCHAR( 255 ) NOT NULL AFTER `bo_9_subj` ", FALSE);
 
-// °Ô½ÃÆÇ ¸®½ºÆ®¿¡¼­ ÄÚ¸àÆ®¸¦ Æ÷ÇÔÇÏ¿© ÃÖ±Ù¿¡ ¿Ã¶ó¿Â ±ÛÀ» È®ÀÎÇÏ´Â ½Ã°£ ÇÊµå »ı¼º
+// ê²Œì‹œíŒ ë¦¬ìŠ¤íŠ¸ì—ì„œ ì½”ë©˜íŠ¸ë¥¼ í¬í•¨í•˜ì—¬ ìµœê·¼ì— ì˜¬ë¼ì˜¨ ê¸€ì„ í™•ì¸í•˜ëŠ” ì‹œê°„ í•„ë“œ ìƒì„±
 $sql = " select bo_table from $g4[board_table] ";
 $res = sql_query($sql);
 for($i=0;$row=sql_fetch_array($res);$i++)
@@ -107,16 +107,16 @@ for($i=0;$row=sql_fetch_array($res);$i++)
     sql_query(" ALTER TABLE `{$g4['write_prefix']}{$row[bo_table]}` ADD `wr_last` VARCHAR( 19 ) NOT NULL AFTER `wr_datetime` ", FALSE);
     $sql2 = " select count(*) as cnt from `{$g4['write_prefix']}{$row[bo_table]}` where wr_last <> '' ";
     $row2 = sql_fetch_array($sql2);
-    if (!$row2[cnt]) // ¿ø±Û¿¡¸¸ ÃÖ±Ù½Ã°£À» ¹İ¿µÇÕ´Ï´Ù.
+    if (!$row2[cnt]) // ì›ê¸€ì—ë§Œ ìµœê·¼ì‹œê°„ì„ ë°˜ì˜í•©ë‹ˆë‹¤.
         sql_query(" UPDATE `{$g4['write_prefix']}{$row[bo_table]}` set wr_last = wr_datetime WHERE wr_is_comment = 0 ");
 }
 
 
 // 4.08.00
-// Á¤º¸°ø°³¸¦ ¹Ù²Ù¸é ÀÏÁ¤±â°£ µ¿¾È º¯°æÇÒ ¼ö ¾øÀ½
+// ì •ë³´ê³µê°œë¥¼ ë°”ê¾¸ë©´ ì¼ì •ê¸°ê°„ ë™ì•ˆ ë³€ê²½í•  ìˆ˜ ì—†ìŒ
 sql_query(" ALTER TABLE `{$g4[member_table]}` ADD `mb_open_date` DATE NOT NULL AFTER `mb_open` ", false);
 sql_query(" ALTER TABLE `{$g4[config_table]}` ADD `cf_open_modify` INT NOT NULL AFTER `cf_stipulation` ", false);
-// °Ô½Ã¹° ÃßÃµÅ×ÀÌºí »ı¼º
+// ê²Œì‹œë¬¼ ì¶”ì²œí…Œì´ë¸” ìƒì„±
 sql_query(" CREATE TABLE `{$g4[board_good_table]}` (
   `bg_id` int(11) NOT NULL auto_increment,
   `bo_table` varchar(20) NOT NULL default '',
@@ -130,7 +130,7 @@ sql_query(" CREATE TABLE `{$g4[board_good_table]}` (
 
 
 // 4.07.00
-// ÃÖ±Ù°Ô½Ã¹°¿¡ È¸¿ø¾ÆÀÌµğ ÇÊµå ¹× ÀÎµ¦½º Ãß°¡
+// ìµœê·¼ê²Œì‹œë¬¼ì— íšŒì›ì•„ì´ë”” í•„ë“œ ë° ì¸ë±ìŠ¤ ì¶”ê°€
 sql_query(" ALTER TABLE `{$g4['board_new_table']}` ADD `mb_id` VARCHAR( 20 ) NOT NULL ", false);
 sql_query(" ALTER TABLE `{$g4['board_new_table']}` ADD INDEX `mb_id` ( `mb_id` ) ", false);
 
@@ -147,24 +147,24 @@ for ($i=0; $row=sql_fetch_array($res); $i++)
 }
 
 /*
-// ±×·ìÁ¢±ÙÈ¸¿øÅ×ÀÌºí¿¡ auto_increment Ãß°¡
+// ê·¸ë£¹ì ‘ê·¼íšŒì›í…Œì´ë¸”ì— auto_increment ì¶”ê°€
 sql_query(" ALTER TABLE $g4[group_member_table] CHANGE `gm_id` `gm_id` INT( 11 ) DEFAULT '0' NOT NULL AUTO_INCREMENT ", false);
 
-// ·Î±×ÀÎÅ×ÀÌºí¿¡¼­ ÀÎµ¦½º »èÁ¦
+// ë¡œê·¸ì¸í…Œì´ë¸”ì—ì„œ ì¸ë±ìŠ¤ ì‚­ì œ
 sql_query(" ALTER TABLE `$g4[login_table]` DROP INDEX `lo_datetime` ", false);
 
-// È¸¿øÅ×ÀÌºíÀÇ È¸¿ø°¡ÀÔÀÏ½Ã¿¡ ÀÎµ¦½º Ãß°¡
+// íšŒì›í…Œì´ë¸”ì˜ íšŒì›ê°€ì…ì¼ì‹œì— ì¸ë±ìŠ¤ ì¶”ê°€
 sql_query(" ALTER TABLE `$g4[member_table]` ADD INDEX `mb_datetime` ( `mb_datetime` ) ", false);
 
-// °Ô½ÃÆÇ¼³Á¤ Å×ÀÌºí¿¡ ¾÷·Îµå °¹¼ö, ÀÌ¸ŞÀÏ »ç¿ë ÇÊµå Ãß°¡
+// ê²Œì‹œíŒì„¤ì • í…Œì´ë¸”ì— ì—…ë¡œë“œ ê°¯ìˆ˜, ì´ë©”ì¼ ì‚¬ìš© í•„ë“œ ì¶”ê°€
 sql_query(" ALTER TABLE `$g4[board_table]` 
     ADD `bo_upload_count` TINYINT NOT NULL AFTER `bo_notice` ,
     ADD `bo_use_email` TINYINT NOT NULL AFTER `bo_upload_count` ", FALSE);
 */
 
 /*
-// 050831 ¸·À½
-// È¯°æ¼³Á¤ Å×ÀÌºí¿¡ ¸ŞÀÏ¹ß¼Û ¼³Á¤ Ãß°¡
+// 050831 ë§‰ìŒ
+// í™˜ê²½ì„¤ì • í…Œì´ë¸”ì— ë©”ì¼ë°œì†¡ ì„¤ì • ì¶”ê°€
 sql_query(" ALTER TABLE `$g4[config_table]` 
     ADD `cf_email_use` TINYINT NOT NULL AFTER `cf_search_part` , 
     ADD `cf_email_wr_super_admin` TINYINT NOT NULL AFTER `cf_email_use` , 
@@ -179,10 +179,10 @@ sql_query(" ALTER TABLE `$g4[config_table]`
     ADD `cf_email_po_super_admin` TINYINT NOT NULL AFTER `cf_email_mb_member` ", FALSE);
 
 
-// È¸¿øÅ×ÀÌºí¿¡ SMS ¼ö½Å¿©ºÎ ÇÊµå Ãß°¡
+// íšŒì›í…Œì´ë¸”ì— SMS ìˆ˜ì‹ ì—¬ë¶€ í•„ë“œ ì¶”ê°€
 sql_query(" ALTER TABLE `$g4[member_table]` ADD `mb_sms` TINYINT NOT NULL AFTER `mb_mailling` ", FALSE);
 
-// °Ô½ÃÆÇ ÀÎµ¦½º º¯°æ
+// ê²Œì‹œíŒ ì¸ë±ìŠ¤ ë³€ê²½
 $sql = " select bo_table from $g4[board_table] ";
 $result = sql_query($sql);
 while($row=sql_fetch_array($result))
@@ -203,67 +203,67 @@ while($row=sql_fetch_array($result))
     }
 }
 
-// ÆÄÀÏÅ×ÀÌºí¿¡ ÀÌ¹ÌÁö Æø, ³ôÀÌ, Å¸ÀÔ, ÀÏ½Ã ³Ö±â
-// getimagesize() ÇÔ¼öº¸´Ù ¼Óµµ°¡ ºü¸§
+// íŒŒì¼í…Œì´ë¸”ì— ì´ë¯¸ì§€ í­, ë†’ì´, íƒ€ì…, ì¼ì‹œ ë„£ê¸°
+// getimagesize() í•¨ìˆ˜ë³´ë‹¤ ì†ë„ê°€ ë¹ ë¦„
 sql_query(" ALTER TABLE `$g4[board_file_table]` ADD `bf_filesize` INT NOT NULL , ADD `bf_width` INT NOT NULL , ADD `bf_height` SMALLINT NOT NULL , ADD `bf_type` TINYINT NOT NULL , ADD `bf_datetime` DATETIME NOT NULL ", FALSE);
 
-// ÀÌ¸ŞÀÏ ÀÎÁõ»ç¿ë
+// ì´ë©”ì¼ ì¸ì¦ì‚¬ìš©
 sql_query(" ALTER TABLE `$g4[member_table]` ADD `mb_email_certify` DATETIME NOT NULL AFTER `mb_intercept_date` ", FALSE);
 sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_use_email_certify` TINYINT NOT NULL AFTER `cf_use_copy_log` ", FALSE);
 
-// ÃÖ±Ù°Ô½Ã¹° ¶óÀÎ¼ö
+// ìµœê·¼ê²Œì‹œë¬¼ ë¼ì¸ìˆ˜
 sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_new_rows` INT NOT NULL AFTER `cf_login_skin` ", FALSE);
 
-// Æ÷ÀÎÆ® Å×ÀÌºí¿¡ ÇÊµå Ãß°¡
+// í¬ì¸íŠ¸ í…Œì´ë¸”ì— í•„ë“œ ì¶”ê°€
 sql_query(" ALTER TABLE `$g4[point_table]` ADD `po_rel_table` VARCHAR( 20 ) NOT NULL , ADD `po_rel_id` VARCHAR( 20 ) NOT NULL , ADD `po_rel_action` VARCHAR( 255 ) NOT NULL ", FALSE);
 
-// Æ÷ÀÎÆ® Å×ÀÌºíÀÇ È¸¿ø¾ÆÀÌµğ ±æÀÌ º¯°æ
+// í¬ì¸íŠ¸ í…Œì´ë¸”ì˜ íšŒì›ì•„ì´ë”” ê¸¸ì´ ë³€ê²½
 sql_query(" ALTER TABLE `$g4[point_table]` CHANGE `mb_id` `mb_id` VARCHAR( 20 ) NOT NULL ", FALSE);
 
-// Æ÷ÀÎÆ® Å×ÀÌºíÀÇ ÀÎµ¦½º º¯°æ
+// í¬ì¸íŠ¸ í…Œì´ë¸”ì˜ ì¸ë±ìŠ¤ ë³€ê²½
 sql_query(" ALTER TABLE `$g4[point_table]` DROP INDEX `index1` , ADD INDEX `index1` ( `mb_id` , `po_rel_table` , `po_rel_id` , `po_rel_action` ) ", FALSE);
 
-// ÅõÇ¥ Å×ÀÌºí¿¡ ÅõÇ¥ÇÑ È¸¿ø ÇÊµå Ãß°¡
+// íˆ¬í‘œ í…Œì´ë¸”ì— íˆ¬í‘œí•œ íšŒì› í•„ë“œ ì¶”ê°€
 sql_query(" ALTER TABLE `$g4[poll_table]` ADD `mb_ids` TEXT NOT NULL ", FALSE);
 
-// È¯°æ¼³Á¤ Å×ÀÌºí¿¡ ¿©ºĞÇÊµå Ãß°¡
+// í™˜ê²½ì„¤ì • í…Œì´ë¸”ì— ì—¬ë¶„í•„ë“œ ì¶”ê°€
 sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_1` VARCHAR( 255 ) NOT NULL , ADD `cf_2` VARCHAR( 255 ) NOT NULL , ADD `cf_3` VARCHAR( 255 ) NOT NULL , ADD `cf_4` VARCHAR( 255 ) NOT NULL , ADD `cf_5` VARCHAR( 255 ) NOT NULL , ADD `cf_6` VARCHAR( 255 ) NOT NULL , ADD `cf_7` VARCHAR( 255 ) NOT NULL , ADD `cf_8` VARCHAR( 255 ) NOT NULL , ADD `cf_9` VARCHAR( 255 ) NOT NULL , ADD `cf_10` VARCHAR( 255 ) NOT NULL ", FALSE);
 
-// ·Î±×ÀÎ½ºÅ² ÇÊµå »èÁ¦
+// ë¡œê·¸ì¸ìŠ¤í‚¨ í•„ë“œ ì‚­ì œ
 sql_query(" ALTER TABLE `$g4[config_table]` DROP `cf_login_skin` ", FALSE);
 
-// È¸¿ø°¡ÀÔ½ºÅ² ÇÊµå¸¦ È¸¿ø°ü·Ã½ºÅ² ÇÊµå·Î º¯°æ
+// íšŒì›ê°€ì…ìŠ¤í‚¨ í•„ë“œë¥¼ íšŒì›ê´€ë ¨ìŠ¤í‚¨ í•„ë“œë¡œ ë³€ê²½
 sql_query(" ALTER TABLE `$g4[config_table]` CHANGE `cf_register_skin` `cf_member_skin` VARCHAR( 255 ) NOT NULL ", FALSE);
 
-// ³»ºÎ·Î±×ÀÎ ÇÊµå Ãß°¡
+// ë‚´ë¶€ë¡œê·¸ì¸ í•„ë“œ ì¶”ê°€
 sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_login_skin` VARCHAR( 255 ) NOT NULL AFTER `cf_new_skin` ", FALSE);
 
-// Á¢¼ÓÀÚ ½ºÅ² ÇÊµå Ãß°¡
+// ì ‘ì†ì ìŠ¤í‚¨ í•„ë“œ ì¶”ê°€
 sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_connect_skin` VARCHAR( 255 ) NOT NULL AFTER `cf_search_skin` ", FALSE);
 
-// ÆÄÀÏ ¼³¸í »ç¿ë ÇÊµå Ãß°¡
+// íŒŒì¼ ì„¤ëª… ì‚¬ìš© í•„ë“œ ì¶”ê°€
 sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_use_file_content` TINYINT NOT NULL AFTER `bo_use_sideview` ", FALSE);
 
-// ÆÄÀÏ Å×ÀÌºí¿¡ ³»¿ë ÇÊµå Ãß°¡ (°¶·¯¸®ÀÇ °æ¿ì ÇØ´ç ÀÌ¹ÌÁö¿¡ ´ëÇÑ ³»¿ëÀ» ³ÖÀ½)
+// íŒŒì¼ í…Œì´ë¸”ì— ë‚´ìš© í•„ë“œ ì¶”ê°€ (ê°¤ëŸ¬ë¦¬ì˜ ê²½ìš° í•´ë‹¹ ì´ë¯¸ì§€ì— ëŒ€í•œ ë‚´ìš©ì„ ë„£ìŒ)
 sql_query(" ALTER TABLE `$g4[board_file_table]` ADD `bf_content` TEXT NOT NULL ", FALSE);
 
-// ¹æ¹®ÀÚ·Î±×»èÁ¦, ÀÎ±â°Ë»ö¾î»èÁ¦ ÇÊµå Ãß°¡
+// ë°©ë¬¸ìë¡œê·¸ì‚­ì œ, ì¸ê¸°ê²€ìƒ‰ì–´ì‚­ì œ í•„ë“œ ì¶”ê°€
 sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_visit_del` INT NOT NULL AFTER `cf_memo_del` , ADD `cf_popular_del` INT NOT NULL AFTER `cf_visit_del` ", FALSE);
 
-// °Ë»ö ½ºÅ² ÇÊµå Ãß°¡
+// ê²€ìƒ‰ ìŠ¤í‚¨ í•„ë“œ ì¶”ê°€
 sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_search_skin` VARCHAR( 255 ) NOT NULL AFTER `cf_new_skin` ", FALSE);
 
-// ÃÖ±Ù°Ô½Ã¹° ½ºÅ² ÇÊµå Ãß°¡
+// ìµœê·¼ê²Œì‹œë¬¼ ìŠ¤í‚¨ í•„ë“œ ì¶”ê°€
 sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_new_skin` VARCHAR( 255 ) NOT NULL AFTER `cf_nick_modify` ", FALSE);
 
-// ¾à°ü ÇÊµå¸í º¯°æ
+// ì•½ê´€ í•„ë“œëª… ë³€ê²½
 sql_query(" ALTER TABLE `$g4[config_table]` CHANGE `cf_provision` `cf_stipulation` TEXT NOT NULL ", FALSE);
 
-// °Ô½ÃÆÇ ±ÛÀÚ Á¦ÇÑ
+// ê²Œì‹œíŒ ê¸€ì ì œí•œ
 sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_write_min` INT NOT NULL AFTER `bo_count_comment` , ADD `bo_write_max` INT NOT NULL AFTER `bo_write_min` , ADD `bo_comment_min` INT NOT NULL AFTER `bo_write_max` , ADD `bo_comment_max` INT NOT NULL AFTER `bo_comment_min` ", FALSE);
 
 
-// ÀÎ±â°Ë»ö¾î Å×ÀÌºí »ı¼º
+// ì¸ê¸°ê²€ìƒ‰ì–´ í…Œì´ë¸” ìƒì„±
 $sql = " CREATE TABLE $g4[popular_table] (
   pp_id int(11) NOT NULL auto_increment,
   pp_word varchar(50) NOT NULL default '',
@@ -298,7 +298,7 @@ sql_query(" ALTER TABLE `$g4[config_table]` ADD `cf_register_skin` VARCHAR( 255 
 sql_query(" ALTER TABLE `$g4[board_table]` ADD `bo_use_sideview` TINYINT NOT NULL AFTER `bo_disable_tags` ", FALSE);
 
 
-// È¸¿ø¸ŞÀÏÅ×ÀÌºí »ı¼º
+// íšŒì›ë©”ì¼í…Œì´ë¸” ìƒì„±
 $sql = " CREATE TABLE $g4[mail_table] (
   ma_id int(11) NOT NULL auto_increment,
   ma_subject varchar(255) NOT NULL default '',
@@ -311,7 +311,7 @@ $sql = " CREATE TABLE $g4[mail_table] (
 sql_query($sql, FALSE);
 
 
-// auth table »ı¼º
+// auth table ìƒì„±
 $sql = " CREATE TABLE $g4[auth_table] (
   mb_id varchar(255) NOT NULL default '',
   au_menu varchar(20) NOT NULL default '',
@@ -322,7 +322,7 @@ sql_query($sql, FALSE);
 */
 
 
-echo "UPGRADE ¿Ï·á.";
+echo "UPGRADE ì™„ë£Œ.";
 
 include_once("./admin.tail.php");
 ?>
