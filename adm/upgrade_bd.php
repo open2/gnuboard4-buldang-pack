@@ -1002,8 +1002,13 @@ if ($config[cf_db_version] < 2107) {
     sql_query(" ALTER TABLE `$g4[my_board_table]` ADD UNIQUE `bo` ( `mb_id` , `bo_table` ) ", FALSE);
 }
 
+if ($config[cf_db_version] < 2109) {
+    sql_query(" ALTER TABLE `$g4[member_table]` CHANGE `mb_point` `mb_point` BIGINT(20) NOT NULL DEFAULT '0' ", FALSE);
+    sql_query(" ALTER TABLE `$g4[point_table]` CHANGE `mb_point` `po_point` BIGINT(20) NOT NULL DEFAULT '0' ", FALSE);
+}
+
 // db 버젼을 업데이트 - major version + mid version - patch version
-$max_version = "2107";
+$max_version = "2109";
 sql_query(" update $g4[config_table] set cf_db_version = '$max_version' ");
 
 echo "불당팩 $max_version - UPGRADE 완료.";
