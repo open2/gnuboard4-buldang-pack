@@ -210,5 +210,5 @@ sql_query($sql);
 if ($tmp_array_undeleted)
     alert("게시글 id {$tmp_array_undeleted}은/는 게시자의 레벨이 같거나 크기 때문에 삭제할 수 없습니다.", "./board.php?bo_table=$bo_table&page=$page" . $qstr);
 else
-    goto_url("./board.php?bo_table=$bo_table&page=$page" . $qstr);
+    goto_url("./board.php?bo_table=$bo_table&page=$page&sfl=$sfl&stx=$stx" . $qstr);
 ?>
