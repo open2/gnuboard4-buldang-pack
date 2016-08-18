@@ -173,7 +173,7 @@ CREATE TABLE `$g4[board_new_table]` (
   `wr_parent` int(11) NOT NULL default '0',
   `bn_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
   `mb_id` varchar(20) NOT NULL default '',
-  PRIMARY KEY  (`bn_id`),
+  PRIMARY KEY  (`bn_id`, `bn_datetime`),
   KEY `mb_id` (`mb_id`)
 );
 
@@ -476,7 +476,7 @@ CREATE TABLE `$g4[point_table]` (
   `po_rel_table` varchar(20) NOT NULL default '',
   `po_rel_id` varchar(20) NOT NULL default '',
   `po_rel_action` varchar(255) NOT NULL default '',
-  PRIMARY KEY  (`po_id`),
+  PRIMARY KEY  (`po_id`, `po_datetime`),
   KEY `index1` (`mb_id`,`po_rel_table`,`po_rel_id`,`po_rel_action`)
 );
 
@@ -571,7 +571,7 @@ CREATE TABLE `$g4[visit_table]` (
   `vi_time` time NOT NULL default '00:00:00',
   `vi_referer` text NOT NULL,
   `vi_agent` varchar(255) NOT NULL default '',
-  PRIMARY KEY  (`vi_id`),
+  PRIMARY KEY  (`vi_id`, `vi_date`),
   UNIQUE KEY `index1` (`vi_ip`,`vi_date`),
   KEY `index2` (`vi_date`)
 );
