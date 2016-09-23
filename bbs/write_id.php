@@ -24,13 +24,11 @@ if ($sname) {
     switch ($sfl) {
       case "mb_nick" : $search_sql = " mb_nick like '%$sname%' "; 
                        $order_sql = " order by mb_nick"; break;
-      case "mb_name" : $search_sql = " mb_name like '%$sname%' "; 
-                       $order_sql = " order by mb_name"; break;
       case "mb_id"   : $search_sql = " mb_id like '%$sname%' "; 
                        $order_sql = " order by mb_id"; break;
       case "mb_all"  : 
       default        :
-                       $search_sql = " mb_nick like '%$sname%' or mb_id like '%$sname%' or mb_name like '%$sname%' "; 
+                       $search_sql = " mb_nick like '%$sname%' or mb_id like '%$sname%' "; 
                        $order_sql = " order by mb_id"; break;
     }
 
@@ -54,7 +52,6 @@ if ($sname) {
     if ($search_count > 0) {
         for ($i=0; $row=mysql_fetch_array($result); $i++) {
             $list[$i]->id = "$row[mb_id]";
-            $list[$i]->name = $row['mb_name'];
             $list[$i]->nick = $row['mb_nick'];
             $list[$i]->mb_open = $row['mb_open'];
         }
@@ -108,7 +105,6 @@ include_once("$g4[path]/head.sub.php");
     <select name=sfl>
       <option value='mb_all'>닉+이름+아이디</option>
       <option value='mb_nick'>닉네임</option>
-      <option value='mb_name'>이름</option>
       <option value='mb_id'>아이디</option>
     </select>
     <input type=text name=sname value='<?=$sname?>' required <?=$min_length?> itemname='회원이름' size=14> <input type=image src='<?=$g4[bbs_img_path]?>/search.gif' border=0 align=absmiddle></td>
