@@ -103,7 +103,7 @@ include_once("$g4[path]/head.sub.php");
     <td width=1></td>
     <td>
     <select name=sfl>
-      <option value='mb_all'>닉+이름+아이디</option>
+      <option value='mb_all'>닉+아이디</option>
       <option value='mb_nick'>닉네임</option>
       <option value='mb_id'>아이디</option>
     </select>
