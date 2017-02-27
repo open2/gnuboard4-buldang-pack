@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.3.1 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.4.2 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2016 Froala Labs
+ * Copyright 2014-2017 Froala Labs
  */
 
 /**
@@ -144,8 +144,8 @@ $.FE.LANGUAGE['ro'] = {
     "Face with tears of joy": "Fa\u021b\u0103 cu lacrimi de bucurie",
     "Smiling face with open mouth": "Fa\u021b\u0103 z\u00e2mbitoare cu gura deschis\u0103",
     "Smiling face with open mouth and smiling eyes": "Fa\u021b\u0103 z\u00e2mbitoare cu gura deschis\u0103 \u0219i ochi z\u00e2mbitori",
-    "Smiling face with open mouth and cold sweat": "Fa\u021b\u0103 z\u00e2mbitoare cu gura deschis\u0103 힊i sudoare rece",
-    "Smiling face with open mouth and tightly-closed eyes": "Fa\u021b\u0103 z\u00e2mbitoare cu gura deschis\u0103 힊i ochii ferm \u00eenchi\u0219i",
+    "Smiling face with open mouth and cold sweat": "Fa\u021b\u0103 z\u00e2mbitoare cu gura deschis\u0103 şi sudoare rece",
+    "Smiling face with open mouth and tightly-closed eyes": "Fa\u021b\u0103 z\u00e2mbitoare cu gura deschis\u0103 şi ochii ferm \u00eenchi\u0219i",
     "Smiling face with halo": "Fa\u021b\u0103 z\u00e2mbitoare cu aur\u0103",
     "Smiling face with horns": "Fa\u021b\u0103 z\u00e2mbitoare cu coarne",
     "Winking face": "Fa\u021b\u0103 clipind",

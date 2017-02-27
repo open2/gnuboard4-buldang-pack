@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.3.1 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.4.2 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2016 Froala Labs
+ * Copyright 2014-2017 Froala Labs
  */
 
 /**
@@ -183,7 +183,7 @@ $.FE.LANGUAGE['da'] = {
     "Sleepy face": "S\u00f8vnig ansigt",
     "Tired face": "Tr\u00e6t ansigt",
     "Grimacing face": "Grimasser ansigt",
-    "Loudly crying face": "H\u00f8jlydt gr챈dende ansigt",
+    "Loudly crying face": "H\u00f8jlydt grædende ansigt",
     "Face with open mouth": "Ansigt med \u00e5ben mund",
     "Hushed face": "Tyst ansigt",
     "Face with open mouth and cold sweat": "Ansigt med \u00e5ben mund og koldsved",

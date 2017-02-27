@@ -57,6 +57,8 @@
       toolbarButtonsSM: ['fullscreen', 'bold', 'italic', 'underline', 'fontFamily', 'fontSize', 'color', 'emoticons', 'insertLink', 'insertImage', 'insertVideo', 'insertTable', 'clearFormatting', 'undo', 'redo'],
       toolbarButtonsXS: ['bold', 'italic', 'fontFamily', 'fontSize', 'insertLink', 'insertImage', 'insertVideo','clearFormatting', 'undo', 'redo'],
 
+      shortcutsEnabled: ['undo'],
+
       // Set the image upload parameter.
       imageUploadParam: 'file',
 
@@ -81,6 +83,18 @@
       // image width
       imageDefaultWidth: 0,
 
+      // Video align
+      videoDefaultAlign: 'left',
+
+      // does not set video default width
+      videoDefaultWidth: 0,
+
+      // disable file upload
+      videoInsertButtons: ['videoBack', '|', 'videoByURL', 'videoEmbed'],
+
+      // split line after video insert
+      videoSplitHTML: true,
+
       // Set the file upload URL.
       fileUploadURL: '<?=$g4[path]?>/froala/file_upload.php',
 
@@ -89,7 +103,6 @@
       fileMaxSize: 10* 1024 * 1024,
 
       fileUploadParams: {bo_table: '<?=$bo_table?>'}
-
     })
 
     .on('froalaEditor.image.error', function (e, editor, error, response) {

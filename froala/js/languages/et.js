@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.3.1 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.4.2 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2016 Froala Labs
+ * Copyright 2014-2017 Froala Labs
  */
 
 /**
@@ -173,7 +173,7 @@ $.FE.LANGUAGE['et'] = {
     "Angry face": "Vihane n\u00e4gu",
     "Pouting face": "Tursik n\u00e4gu",
     "Crying face": "Nutt n\u00e4gu",
-    "Persevering face": "P체siv n\u00e4gu",
+    "Persevering face": "Püsiv n\u00e4gu",
     "Face with look of triumph": "N\u00e4gu ilme triumf",
     "Disappointed but relieved face": "Pettunud kuid vabastati n\u00e4gu",
     "Frowning face with open mouth": "Kulmukortsutav n\u00e4gu avatud suuga",

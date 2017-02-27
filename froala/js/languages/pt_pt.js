@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.3.1 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.4.2 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2016 Froala Labs
+ * Copyright 2014-2017 Froala Labs
  */
 
 /**
@@ -89,8 +89,8 @@ $.FE.LANGUAGE['pt_pt'] = {
     "Tags": "Etiquetas",
     "Are you sure? Image will be deleted.": "Voc\u00ea tem certeza? Imagem ser\u00e1 apagada.",
     "Replace": "Substituir",
-    "Uploading": "Carregar imagem",
-    "Loading image": "Carregar imagem",
+    "Uploading": "Carregando imagem",
+    "Loading image": "Carregando imagem",
     "Display": "Exibir",
     "Inline": "Em linha",
     "Break Text": "Texto de quebra",
@@ -167,7 +167,7 @@ $.FE.LANGUAGE['pt_pt'] = {
     "Kissing face with closed eyes": "Beijando a cara com os olhos fechados",
     "Face with stuck out tongue": "Preso de cara com a l\u00edngua para fora",
     "Face with stuck out tongue and winking eye": "Rosto com estendeu a l\u00edngua e olho piscando",
-    "Face with stuck out tongue and tightly-closed eyes": "Rosto com estendeu a l챠ngua e os olhos bem fechados",
+    "Face with stuck out tongue and tightly-closed eyes": "Rosto com estendeu a língua e os olhos bem fechados",
     "Disappointed face": "Rosto decepcionado",
     "Worried face": "O rosto preocupado",
     "Angry face": "Rosto irritado",

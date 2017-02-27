@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.3.1 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.4.2 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2016 Froala Labs
+ * Copyright 2014-2017 Froala Labs
  */
 
 /**
@@ -186,7 +186,7 @@ $.FE.LANGUAGE['es'] = {
     "Loudly crying face": "Llorando en voz alta la cara",
     "Face with open mouth": "Cara con la boca abierta",
     "Hushed face": "Cara callada",
-    "Face with open mouth and cold sweat": "Cara con la boca abierta y el sudor fr챠o",
+    "Face with open mouth and cold sweat": "Cara con la boca abierta y el sudor frío",
     "Face screaming in fear": "Cara gritando de miedo",
     "Astonished face": "Cara asombrosa",
     "Flushed face": "Cara enrojecida",

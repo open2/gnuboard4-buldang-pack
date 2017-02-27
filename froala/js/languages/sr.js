@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.3.1 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.4.2 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2016 Froala Labs
+ * Copyright 2014-2017 Froala Labs
  */
 
 /**
@@ -176,7 +176,7 @@ $.FE.LANGUAGE['sr'] = {
     "Persevering face": "Istrajnog lice",
     "Face with look of triumph": "Suo\u010davaju sa izgledom trijumfa",
     "Disappointed but relieved face": "Razo\u010daran ali laknulo lice",
-    "Frowning face with open mouth": "Namr큄ten lice sa otvorenim ustima",
+    "Frowning face with open mouth": "Namršten lice sa otvorenim ustima",
     "Anguished face": "Enih lica",
     "Fearful face": "Strahu lice",
     "Weary face": "Umorna lica",

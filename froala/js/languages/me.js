@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.3.1 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.4.2 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2016 Froala Labs
+ * Copyright 2014-2017 Froala Labs
  */
 
 /**
@@ -149,7 +149,7 @@ $.FE.LANGUAGE['me'] = {
     "Smiling face with horns": "Nasmijana lica s rogovima",
     "Winking face": "Namigivanje lice",
     "Smiling face with smiling eyes": "Nasmijana lica sa nasmijana o\u010dima",
-    "Face savoring delicious food": "Suo\u010davaju u탑ivaju\u0107i ukusna hrana",
+    "Face savoring delicious food": "Suo\u010davaju uživaju\u0107i ukusna hrana",
     "Relieved face": "Laknulo lice",
     "Smiling face with heart-shaped eyes": "Nasmijana lica sa obliku srca o\u010di",
     "Smiling face with sunglasses": "Nasmijana lica sa sun\u010dane nao\u010dare",

@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.3.1 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.4.2 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2016 Froala Labs
+ * Copyright 2014-2017 Froala Labs
  */
 
 /**
@@ -155,7 +155,7 @@ $.FE.LANGUAGE['sv'] = {
     "Smiling face with sunglasses": "Leende ansikte med solglas\u00f6gon",
     "Smirking face": "Flinande ansikte",
     "Neutral face": "Neutral ansikte",
-    "Expressionless face": "Uttrycksl철st ansikte",
+    "Expressionless face": "Uttryckslöst ansikte",
     "Unamused face": "Inte roade ansikte",
     "Face with cold sweat": "Ansikte med kallsvett",
     "Pensive face": "Eftert\u00e4nksamt ansikte",
