@@ -388,7 +388,7 @@ function select_category() {
     // sca에 값을 넣어줘야죠.
     f.sca.value = str;
 
-    f.action = "./category_all.php";
+    f.action = "<?=$g4[bbs_path]?>/category_all.php";
     f.submit();
 }
 </script>
