@@ -152,8 +152,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     $list[$i][wr_subject] = $row2[wr_subject];
 }
 
-$write_pages = get_paging($config[cf_write_pages], $page, $total_page, "?gr_id=$gr_id&view_type=$view_type&mb_id=$mb_id&qstr=$qstr&page=");
-$write_pages_xs = get_paging($config[cf_write_pages_xs], $page, $total_page, "?gr_id=$gr_id&view_type=$view_type&mb_id=$mb_id&qstr=$qstr&page=");
+$write_pages = get_paging($config[cf_write_pages], $page, $total_page, "$g4[bbs_path]/new.php?gr_id=$gr_id&view_type=$view_type&mb_id=$mb_id&qstr=$qstr&page=");
+$write_pages_xs = get_paging($config[cf_write_pages_xs], $page, $total_page, "$g4[bbs_path]/new.php?gr_id=$gr_id&view_type=$view_type&mb_id=$mb_id&qstr=$qstr&page=");
 
 $new_skin_path = "$g4[path]/skin/new/$config[cf_new_skin]";
 
