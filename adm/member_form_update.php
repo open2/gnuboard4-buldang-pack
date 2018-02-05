@@ -65,6 +65,7 @@ $sql_common = " mb_name         = '$mb_name',
                 mb_open         = '$mb_open',
                 mb_profile      = '$mb_profile',
                 mb_level        = '$mb_level',
+                mb_
                 ug_id           = '$ug_id',
                 mb_1            = '$mb_1',
                 mb_2            = '$mb_2',
@@ -137,7 +138,7 @@ if ($w == "")
     $sql2 = " insert $g4[mb_nick_table] set  mb_id = '$mb_id', mb_nick = '$mb_nick', start_datetime = '$g4[time_ymdhis]' ";
     sql_query($sql2);
 
-    sql_query(" insert into $g4[member_table] set mb_id = '$mb_id', mb_password = '".sql_password($mb_password)."', mb_datetime = '$g4[time_ymdhis]', mb_ip = '$remote_addr', mb_email_certify = '$g4[time_ymdhis]', $sql_common  ");
+    sql_query(" insert into $g4[member_table] set mb_id = '$mb_id', mb_password = '".sql_password($mb_password)."', mb_datetime = '$g4[time_ymdhis]', mb_open_date = '$g4[time_ymd]', mb_ip = '$remote_addr', mb_email_certify = '$g4[time_ymdhis]', $sql_common  ");
 }
 else if ($w == "u")
 {
